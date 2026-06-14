@@ -160,6 +160,19 @@ career options, professional courses and future opportunities.
   <p>Click your stream below and we will guide you step-by-step like a roadmap.</p>
 </div>
 
+<div class="info-box" style="text-align:center;">
+
+<h3>🧠 Quick Career Quiz</h3>
+<p>Answer 1 question and get your best career suggestion.</p>
+
+<button onclick="showResult('math')" class="btn">I like Maths</button>
+<button onclick="showResult('bio')" class="btn">I like Biology</button>
+<button onclick="showResult('tech')" class="btn">I like Technology</button>
+
+<div id="resultBox" style="margin-top:20px; padding:15px; background:#fff; border-radius:10px; border-left:5px solid #0d47a1;"></div>
+
+</div>
+  
 <div class="grid">
 
 <div class="card">
@@ -173,8 +186,6 @@ career opportunities available through the Science stream.
 </p>
 
 <a href="science.html" class="btn">🚀 Start Science Path</a>
-Explore Science
-</a>
 
 </div>
 
@@ -188,8 +199,6 @@ Business Management, Investment and Entrepreneurship careers.
 </p>
 
 <a href="commerce.html" class="btn">💼 Start Commerce Path</a>
-Explore Commerce
-</a>
 
 </div>
 
@@ -203,8 +212,6 @@ Public Administration, Languages and Humanities careers.
 </p>
 
 <a href="arts.html" class="btn">🎨 Start Arts Path</a>
-Explore Arts
-</a>
 
 </div>
 
@@ -218,8 +225,6 @@ Computer Diploma and technical education opportunities.
 </p>
 
 <a href="diploma.html" class="btn">🔧 Start Diploma Path</a>
-Explore Diploma
-</a>
 
 </div>
 
@@ -233,8 +238,6 @@ COPA, Mechanic and many other vocational trades.
 </p>
 
 <a href="iti.html" class="btn">⚙️ Start ITI Path</a>
-Explore ITI
-</a>
 
 </div>
 
@@ -404,6 +407,24 @@ Explore the stream pages to learn about courses, degrees, professional qualifica
 </p>
 
 </footer>
+
+<script>
+function showResult(type){
+  let result = "";
+
+  if(type === "math"){
+    result = "👉 Best Career: Engineering / CSE / Data Science / AI";
+  }
+  else if(type === "bio"){
+    result = "👉 Best Career: MBBS / BAMS / BDS / Nursing / Biotechnology";
+  }
+  else if(type === "tech"){
+    result = "👉 Best Career: Software Developer / AI Engineer / Cyber Security";
+  }
+
+  document.getElementById("resultBox").innerHTML = result;
+}
+</script>
 
 </body>
 

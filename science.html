@@ -11,33 +11,55 @@
 
 <link rel="canonical" href="https://templeguidegujarat01.github.io/margdarshan/science.html">
 
+<!-- NEW UI FONT -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
 <style>
 
-/* RESET */
+/* ================= GLOBAL RESET (UPGRADED) ================= */
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial,sans-serif;
+font-family:'Poppins',sans-serif;
 }
 
 body{
-background:#f5f7fa;
+background: linear-gradient(135deg,#e3f2fd,#ffffff,#e8f5e9);
 color:#222;
 line-height:1.7;
+overflow-x:hidden;
 }
 
-/* HEADER */
+/* smooth page feel */
+html{
+scroll-behavior:smooth;
+}
+
+/* ================= HEADER (UPGRADED UI) ================= */
 header{
-background:#0d47a1;
+background: linear-gradient(135deg,#0d47a1,#1976d2);
 color:white;
 text-align:center;
-padding:70px 20px;
+padding:80px 20px;
+position:relative;
+overflow:hidden;
+}
+
+header::after{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background: radial-gradient(circle at top,rgba(255,255,255,0.15),transparent);
 }
 
 header h1{
-font-size:42px;
+font-size:44px;
 margin-bottom:12px;
+letter-spacing:1px;
 }
 
 header p{
@@ -47,23 +69,51 @@ font-size:18px;
 opacity:0.95;
 }
 
-/* CONTAINER */
+/* ================= CONTAINER ================= */
 .container{
 max-width:1200px;
 margin:auto;
 padding:25px;
 }
 
-/* CARD */
+/* ================= CARD (UPGRADED UI) ================= */
 .card{
-background:white;
+background: rgba(255,255,255,0.92);
 padding:25px;
 margin-bottom:20px;
-border-radius:15px;
-box-shadow:0 2px 12px rgba(0,0,0,0.08);
+border-radius:18px;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+transition:0.4s ease;
+position:relative;
+overflow:hidden;
+
+/* animation start state */
+opacity:0;
+transform:translateY(25px);
 }
 
-/* HEADINGS */
+.card.show{
+opacity:1;
+transform:translateY(0);
+}
+
+.card:hover{
+transform:translateY(-8px) scale(1.01);
+box-shadow:0 18px 40px rgba(0,0,0,0.15);
+}
+
+/* top glow line */
+.card::before{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:4px;
+background:linear-gradient(90deg,#0d47a1,#42a5f5,#00c853,#ff9800);
+}
+
+/* ================= HEADINGS ================= */
 h2{
 color:#0d47a1;
 margin-bottom:12px;
@@ -73,23 +123,30 @@ h3{
 margin-bottom:8px;
 }
 
-/* GRID */
+/* ================= GRID ================= */
 .career-grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:20px;
+gap:18px;
 margin-top:15px;
 }
 
-/* CARD BOX */
+/* ================= CAREER CARD (UPGRADED) ================= */
 .career-card{
 background:white;
 padding:20px;
-border-radius:12px;
-box-shadow:0 2px 10px rgba(0,0,0,0.08);
+border-radius:14px;
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
+transition:0.3s ease;
+border:1px solid rgba(0,0,0,0.05);
 }
 
-/* BUTTON */
+.career-card:hover{
+transform:scale(1.05);
+box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* ================= BUTTON ================= */
 .btn{
 display:inline-block;
 margin-top:12px;
@@ -97,14 +154,18 @@ padding:10px 15px;
 background:#0d47a1;
 color:white;
 text-decoration:none;
-border-radius:8px;
+border-radius:10px;
+transition:0.3s ease;
+border:none;
+cursor:pointer;
 }
 
 .btn:hover{
 background:#08357a;
+transform:scale(1.05);
 }
 
-/* LIST */
+/* ================= LIST ================= */
 ul{
 padding-left:20px;
 }
@@ -113,7 +174,14 @@ li{
 margin-bottom:8px;
 }
 
-/* FOOTER */
+/* ================= SECTION ================= */
+section{
+padding:60px 20px;
+max-width:1200px;
+margin:auto;
+}
+
+/* ================= FOOTER ================= */
 footer{
 background:#0d47a1;
 color:white;
@@ -122,54 +190,23 @@ padding:20px;
 margin-top:40px;
 }
 
-:root{
---primary:#0d47a1;
---accent:#00c853;
---bg1:#e3f2fd;
---bg2:#ffffff;
---text:#1a1a1a;
+/* ================= MOBILE RESPONSIVE ================= */
+@media(max-width:600px){
+header h1{
+font-size:32px;
 }
 
-.fade-in{
-animation:fadeIn 0.6s ease;
-}
-
-@keyframes fadeIn{
-from{opacity:0; transform:translateY(20px);}
-to{opacity:1; transform:translateY(0);}
+header p{
+font-size:16px;
 }
 
 .card{
-border-radius:18px;
-padding:20px;
-box-shadow:0 10px 25px rgba(0,0,0,0.08);
-transition:0.4s;
+padding:18px;
 }
 
-.card:hover{
-transform:translateY(-10px);
+.career-card{
+padding:16px;
 }
-
-.btn{
-background:var(--primary);
-color:white;
-padding:10px 14px;
-border-radius:10px;
-text-decoration:none;
-display:inline-block;
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
-padding:20px;
-}
-
-section{
-padding:60px 20px;
-max-width:1200px;
-margin:auto;
 }
 
 </style>
@@ -189,7 +226,6 @@ Complete Career Guide for Engineering, Medical, Defence, AI, Robotics, Space Sci
 
 <!-- INTRO -->
 <div class="card">
-
 <h2>What is Science Stream?</h2>
 
 <p>
@@ -203,212 +239,23 @@ It is ideal for students who enjoy logic, mathematics, experiments, technology a
 
 </div>
 
-<!-- SUBJECTS -->
-<div class="card">
+<script>
+function reveal(){
+let cards=document.querySelectorAll(".card");
 
-<h2>Main Subjects</h2>
+for(let i=0;i<cards.length;i++){
+let windowHeight=window.innerHeight;
+let elementTop=cards[i].getBoundingClientRect().top;
 
-<ul>
-<li>Physics</li>
-<li>Chemistry</li>
-<li>Mathematics</li>
-<li>Biology</li>
-<li>Computer Science</li>
-<li>Information Technology</li>
-</ul>
+if(elementTop < windowHeight - 80){
+cards[i].classList.add("show");
+}
+}
+}
 
-</div>
-
-<!-- STREAMS -->
-<div class="card">
-
-<h2>Science Streams</h2>
-
-<ul>
-<li><b>PCM:</b> Engineering, Defence, Technology</li>
-<li><b>PCB:</b> Medical, Biotechnology, Healthcare</li>
-<li><b>PCMB:</b> Both Engineering + Medical Options</li>
-</ul>
-
-</div>
-
-<!-- ENGINEERING -->
-<div class="card">
-
-<h2>Engineering & Technology Careers (PCM)</h2>
-
-<div class="career-grid">
-
-<div class="career-card">
-<h3>Computer Science Engineering</h3>
-<p>Software, AI, Machine Learning, Apps</p>
-<a href="cse.html" class="btn">Explore</a>
-</div>
-
-<div class="career-card">
-<h3>Artificial Intelligence</h3>
-<p>AI Systems, Automation, Smart Tech</p>
-<a href="ai-engineer.html" class="btn">Explore</a>
-</div>
-
-<div class="career-card">
-<h3>Data Science</h3>
-<p>Big Data, Analytics, Business Intelligence</p>
-<a href="datascience.html" class="btn">Explore</a>
-</div>
-
-<div class="career-card">
-<h3>Cyber Security</h3>
-<p>Hacking Prevention, Network Security</p>
-<a href="cybersecurity.html" class="btn">Explore</a>
-</div>
-
-<div class="career-card">
-<h3>Mechanical Engineering</h3>
-<p>Machines, Automotive, Manufacturing</p>
-<a href="mechanical.html" class="btn">Explore</a>
-</div>
-
-<div class="career-card">
-<h3>Civil Engineering</h3>
-<p>Buildings, Roads, Infrastructure</p>
-<a href="civil.html" class="btn">Explore</a>
-</div>
-
-<div class="career-card">
-<h3>Electrical Engineering</h3>
-<p>Power Systems, Electronics</p>
-<a href="electrical.html" class="btn">Explore</a>
-</div>
-
-<div class="career-card">
-<h3>Electronics Engineering</h3>
-<p>Devices, Communication Systems</p>
-<a href="electronics.html" class="btn">Explore</a>
-</div>
-
-<div class="career-card">
-<h3>Aerospace Engineering</h3>
-<p>Aircraft, Spacecraft, Aviation</p>
-<a href="aerospace.html" class="btn">Explore</a>
-</div>
-
-<div class="career-card">
-<h3>Robotics Engineering</h3>
-<p>Automation, Robots, Smart Machines</p>
-<a href="robotics.html" class="btn">Explore</a>
-</div>
-
-</div>
-
-</div>
-
-<!-- MEDICAL -->
-<div class="card">
-
-<h2>Medical & Healthcare Careers (PCB)</h2>
-
-<div class="career-grid">
-
-<div class="career-card">
-<h3>MBBS</h3>
-<p>Doctor, Surgery, Medical Practice</p>
-<a href="mbbs.html" class="btn">Explore</a>
-</div>
-
-<div class="career-card">
-<h3>BDS</h3>
-<p>Dental Surgery</p>
-<a href="bds.html" class="btn">Explore</a>
-</div>
-
-<div class="career-card">
-<h3>BAMS</h3>
-<p>Ayurvedic Medicine</p>
-<a href="bams.html" class="btn">Explore</a>
-</div>
-
-<div class="career-card">
-<h3>BHMS</h3>
-<p>Homeopathy</p>
-<a href="bhms.html" class="btn">Explore</a>
-</div>
-
-<div class="career-card">
-<h3>BPT</h3>
-<p>Physiotherapy</p>
-<a href="bpt.html" class="btn">Explore</a>
-</div>
-
-<div class="career-card">
-<h3>Nursing</h3>
-<p>Healthcare & Patient Care</p>
-<a href="nursing.html" class="btn">Explore</a>
-</div>
-
-</div>
-
-</div>
-
-<!-- FUTURE FIELDS -->
-<div class="card">
-
-<h2>Future & Emerging Careers</h2>
-
-<div class="career-grid">
-
-<div class="career-card">
-<h3>Space Science</h3>
-<p>ISRO, NASA, Satellite Research</p>
-<a href="spacescience.html" class="btn">Explore</a>
-</div>
-
-<div class="career-card">
-<h3>Astrophysics</h3>
-<p>Universe, Stars, Galaxies</p>
-<a href="astrophysics.html" class="btn">Explore</a>
-</div>
-
-<div class="career-card">
-<h3>Biotechnology</h3>
-<p>Genetics, DNA, Bio Research</p>
-<a href="biotechnology.html" class="btn">Explore</a>
-</div>
-
-<div class="career-card">
-<h3>Forensic Science</h3>
-<p>Crime Investigation Science</p>
-<a href="forensic.html" class="btn">Explore</a>
-</div>
-
-<div class="career-card">
-<h3>Environmental Science</h3>
-<p>Climate, Nature, Sustainability</p>
-<a href="environment.html" class="btn">Explore</a>
-</div>
-
-<div class="career-card">
-<h3>Quantum Computing</h3>
-<p>Future Super Computing</p>
-<a href="quantum.html" class="btn">Explore</a>
-</div>
-
-</div>
-
-</div>
-
-<!-- BUTTON -->
-<div class="card" style="text-align:center;">
-
-<a href="index.html" class="btn">🏠 Back To Home</a>
-
-</div>
-
-</div>
-
-<footer>
-<p>© 2026 Margdarshan | Science Career Portal</p>
-</footer>
+window.addEventListener("scroll",reveal);
+window.addEventListener("load",reveal);
+</script>
 
 </body>
 </html>

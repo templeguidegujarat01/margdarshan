@@ -1,239 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Margdarshan | Career Guidance</title>
+<title>Margdarshan | AI Career Guidance Platform</title>
 
-<meta name="description" content="Career guidance after 10th & 12th">
+<meta name="description" content="Career guidance after 10th & 12th with AI quiz, roadmap and career explorer.">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
 
-.card{
-opacity:0;
-transform:translateY(30px);
-transition:0.6s;
-}
-
-@media(max-width:600px){
-#chatBox{
-width:90%;
-right:5%;
-bottom:10px;
-}
-}
-
-@media(max-width:600px){
-.card{
-margin-bottom:15px;
-}
-
-nav{
-flex-wrap:wrap;
-}
-
-.btn{
-padding:8px 12px;
-font-size:14px;
-}
-}
-
-body.dark{
-background:#0f172a;
-color:white;
-}
-
-body.dark .card{
-background: rgba(255,255,255,0.05);
-color:white;
-}
-
-body.dark .info-box{
-background: rgba(255,255,255,0.08);
-color:white;
-}
-
-body.dark nav{
-background:#111827;
-}
-
-@media(max-width:600px){
-header h1{font-size:32px;}
-.card{padding:15px;}
-#chatBox{
-width:90%;
-right:5%;
-}
-}
-
-#qbox{
-transition: all 0.3s ease;
-}
-
-@keyframes fadeIn{
-from{opacity:0; transform:scale(0.9);}
-to{opacity:1; transform:scale(1);}
-}
-
-/* 🌈 BACKGROUND ANIMATION */
-body{
+/* ================= GLOBAL RESET ================= */
+*{
 margin:0;
-font-family:Arial;
-background: radial-gradient(circle at top,#e3f2fd,#ffffff,#e8f5e9);
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:linear-gradient(120deg,#e3f2fd,#ffffff,#e8f5e9);
+color:#1a1a1a;
 overflow-x:hidden;
-color:#222;
+animation:fadeInPage 0.8s ease;
 }
 
-@keyframes bg{
-0%{background-position:0% 50%;}
-50%{background-position:100% 50%;}
-100%{background-position:0% 50%;}
+@keyframes fadeInPage{
+from{opacity:0;}
+to{opacity:1;}
 }
 
-/* 🌐 NAVBAR */
+/* ================= NAVBAR ================= */
 nav{
+position:sticky;
+top:0;
+z-index:1000;
 display:flex;
 justify-content:center;
 flex-wrap:wrap;
 gap:10px;
-background:#0d47a1;
 padding:12px;
-position:sticky;
-top:0;
-z-index:1000;
+background:rgba(13,71,161,0.9);
+backdrop-filter:blur(10px);
 }
 
 nav a{
 color:white;
 text-decoration:none;
-padding:8px 12px;
-border-radius:8px;
+padding:10px 14px;
+border-radius:10px;
 transition:0.3s;
+font-weight:500;
 }
 
 nav a:hover{
 background:white;
 color:#0d47a1;
+transform:scale(1.05);
 }
 
-/* 🏠 HEADER */
+/* ================= HEADER HERO ================= */
 header{
 text-align:center;
-padding:70px 20px;
-color:#0d47a1;
+padding:90px 20px;
 }
 
 header h1{
-font-size:45px;
-margin-bottom:10px;
+font-size:52px;
+color:#0d47a1;
 }
 
 header p{
+font-size:18px;
 max-width:700px;
 margin:auto;
+margin-top:10px;
 color:#333;
 }
 
-/* 🧊 GLASS CARD */
+.hero-btn{
+margin-top:25px;
+display:inline-block;
+padding:12px 20px;
+background:#0d47a1;
+color:white;
+border-radius:12px;
+text-decoration:none;
+transition:0.3s;
+}
+
+.hero-btn:hover{
+transform:scale(1.08);
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* ================= GRID SYSTEM ================= */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+padding:30px;
+max-width:1200px;
+margin:auto;
+}
+
+/* ================= CARD ================= */
 .card{
-background: linear-gradient(145deg, #ffffff, #f1f5f9);
-border-radius:20px;
-padding:25px;
-transition: all 0.4s ease;
-box-shadow:0 8px 25px rgba(0,0,0,0.1);
+background:rgba(255,255,255,0.9);
+border-radius:18px;
+padding:22px;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+transition:0.4s;
 position:relative;
 overflow:hidden;
 }
 
 .card:hover{
-transform: translateY(-12px) scale(1.03);
-box-shadow:0 20px 40px rgba(0,0,0,0.2);
+transform:translateY(-10px);
+box-shadow:0 20px 40px rgba(0,0,0,0.15);
 }
 
-/* glowing border effect */
-.card::after{
+.card::before{
 content:"";
 position:absolute;
 top:0;
 left:0;
 width:100%;
-height:3px;
-background:linear-gradient(90deg,#0d47a1,#42a5f5,#00c853);
+height:4px;
+background:linear-gradient(90deg,#0d47a1,#42a5f5,#00c853,#ff9800);
 }
 
-/* GRID */
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
-padding:20px;
-max-width:1200px;
-margin:auto;
-}
-
-/* BUTTON */
+/* ================= BUTTON ================= */
 .btn{
 display:inline-block;
 padding:10px 14px;
 background:#0d47a1;
 color:white;
-border-radius:10px;
-text-decoration:none;
-transition:0.3s;
 border:none;
+border-radius:10px;
 cursor:pointer;
+transition:0.3s;
+text-decoration:none;
 }
 
 .btn:hover{
+transform:scale(1.07);
 background:#08357a;
-transform:scale(1.05);
 }
 
-/* QUIZ BOX */
-.quiz{
-max-width:700px;
-margin:auto;
-background:white;
-padding:20px;
-border-radius:15px;
-box-shadow:0 5px 20px rgba(0,0,0,0.1);
-text-align:center;
-}
-
-/* RESULT */
-#resultBox{
-margin-top:15px;
-padding:15px;
-border-radius:10px;
-background:#e3f2fd;
-font-weight:bold;
-}
-
-/* SECTION */
+/* ================= SECTION ================= */
 section{
-padding:50px 20px;
+padding:60px 20px;
 max-width:1200px;
 margin:auto;
 }
 
-/* FOOTER */
-footer{
+/* ================= QUIZ ================= */
+.quiz-box{
+background:white;
+padding:25px;
+border-radius:18px;
+box-shadow:0 10px 30px rgba(0,0,0,0.1);
 text-align:center;
-padding:20px;
-background:#0d47a1;
-color:white;
-margin-top:40px;
 }
 
-</style>
+#bar{
+height:10px;
+background:#0d47a1;
+border-radius:10px;
+transition:0.4s;
+}
 
-</head>
-
-<body>
-
-<div id="chatBox" style="
+/* ================= CHAT BOX ================= */
+#chatBox{
 position:fixed;
 bottom:20px;
 right:20px;
@@ -242,75 +183,89 @@ background:white;
 border-radius:15px;
 box-shadow:0 10px 30px rgba(0,0,0,0.2);
 overflow:hidden;
-font-family:Arial;
-">
+}
 
-<div style="background:#0d47a1;color:white;padding:10px;">
-🤖 Career Assistant
-</div>
+#chatHeader{
+background:#0d47a1;
+color:white;
+padding:10px;
+}
 
-<div id="chatLog" style="height:180px; overflow:auto; padding:10px; font-size:13px;">
-Hello! Ask me anything about career 😊
-</div>
+#chatLog{
+height:180px;
+overflow:auto;
+padding:10px;
+font-size:13px;
+}
 
-<input id="chatInput" placeholder="Ask career question..."
-style="width:100%;padding:10px;border:none;outline:none;">
+#chatInput{
+width:100%;
+padding:10px;
+border:none;
+outline:none;
+}
 
-</div>
+/* ================= FOOTER ================= */
+footer{
+text-align:center;
+padding:25px;
+background:#0d47a1;
+color:white;
+margin-top:40px;
+}
 
-<nav style="
-position:sticky;
-top:0;
-z-index:999;
-display:flex;
-justify-content:center;
-gap:15px;
-padding:12px;
-background:rgba(0,0,0,0.8);
-backdrop-filter: blur(10px);
-">
-  <a href="index.html" class="btn">Home</a>
-  <a href="science.html" class="btn">Science</a>
-  <a href="commerce.html" class="btn">Commerce</a>
-  <a href="arts.html" class="btn">Arts</a>
-  <a href="diploma.html" class="btn">Diploma</a>
-  <a href="iti.html" class="btn">ITI</a>
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav>
+<a href="index.html">Home</a>
+<a href="science.html">Science</a>
+<a href="commerce.html">Commerce</a>
+<a href="arts.html">Arts</a>
+<a href="diploma.html">Diploma</a>
+<a href="iti.html">ITI</a>
 </nav>
 
-<header style="text-align:center; padding:90px 20px;">
-  <h1 style="font-size:50px;">🎯 Margdarshan</h1>
-  <p style="font-size:20px; max-width:700px; margin:auto;">
-    AI Style Career Guidance Platform After 10th & 12th
-  </p>
+<!-- HERO -->
+<header>
+<h1>🎯 Margdarshan</h1>
+<p>AI Career Guidance Platform After 10th & 12th – Find your perfect career path with smart quiz & roadmap.</p>
 
-  <div style="margin-top:20px;">
-    <a href="#quiz" class="btn">Start Career Test</a>
-  </div>
+<a class="hero-btn" href="#quiz">Start Career Test</a>
 </header>
-  
-<!-- QUIZ -->
-<section>
-<div class="quiz">
 
-<h2>🧠 Career Personality Test</h2>
-<p>Answer 5 quick questions</p>
-
-<div style="width:100%; background:#ddd; border-radius:20px; margin-bottom:15px;">
-  <div id="bar" style="width:0%; height:10px; background:#0d47a1; border-radius:20px;"></div>
+<!-- CHATBOX -->
+<div id="chatBox">
+<div id="chatHeader">🤖 Career AI Assistant</div>
+<div id="chatLog">Ask anything about career 😊</div>
+<input id="chatInput" placeholder="Type your question...">
 </div>
 
-<div id="qbox"></div>
+<section id="quiz">
+<div class="quiz-box">
+
+<h2>🧠 Career Personality Test</h2>
+<p>Answer 5 questions</p>
+
+<div style="margin:15px 0;background:#eee;border-radius:10px;">
+<div id="bar" style="width:0%"></div>
+</div>
+
+<h3 id="qbox">Click start to begin</h3>
 
 <div id="options"></div>
 
-<div id="resultBox" style="margin-top:15px;">Start the quiz below 👇</div>
-
+<br>
 <button class="btn" onclick="startQuiz()">Start Quiz</button>
+
+<div id="resultBox" style="margin-top:15px;"></div>
 
 </div>
 </section>
 
-<!-- STREAMS -->
 <section class="grid">
 
 <div class="card">
@@ -333,33 +288,33 @@ backdrop-filter: blur(10px);
 
 <div class="card">
 <h3>Diploma ⚙️</h3>
-<p>Engineering + Technical Skills</p>
+<p>Technical Career Options</p>
 <a class="btn" href="diploma.html">Explore</a>
 </div>
 
 <div class="card">
 <h3>ITI 🔧</h3>
-<p>Job oriented technical trades</p>
+<p>Job-oriented Skills</p>
 <a class="btn" href="iti.html">Explore</a>
 </div>
 
 </section>
 
-<!-- INFO -->
 <section>
 <div class="card">
 <h2>Why Margdarshan?</h2>
-<ul>
-<li>Simple career guidance</li>
-<li>Step-by-step roadmap</li>
-<li>Clear future options</li>
-<li>Confusion → clarity system</li>
-</ul>
+<p>
+✔ Simple career guidance<br>
+✔ Step-by-step roadmap<br>
+✔ AI-based quiz system<br>
+✔ Clear career options<br>
+✔ Future planning support
+</p>
 </div>
 </section>
 
 <footer>
-© 2026 Margdarshan
+© 2026 Margdarshan | Build Your Future 🚀
 </footer>
 
 <script>
@@ -367,220 +322,113 @@ backdrop-filter: blur(10px);
 let qIndex = 0;
 
 let score = {
-  engineering: 0,
-  medical: 0,
-  commerce: 0,
-  creative: 0
+engineering:0,
+medical:0,
+commerce:0,
+creative:0
 };
 
 const questions = [
-{
-q:"What do you enjoy most?",
-options:[
-{t:"Solving Math Problems", s:"engineering"},
-{t:"Helping Sick People", s:"medical"},
-{t:"Money & Business", s:"commerce"},
-{t:"Drawing / Designing", s:"creative"}
-]
-},
-{
-q:"Your strength is?",
-options:[
-{t:"Logic", s:"engineering"},
-{t:"Care & Empathy", s:"medical"},
-{t:"Management", s:"commerce"},
-{t:"Imagination", s:"creative"}
-]
-},
-{
-q:"Favorite subject?",
-options:[
+{q:"What do you like?", options:[
 {t:"Math", s:"engineering"},
-{t:"Biology", s:"medical"},
-{t:"Accounts", s:"commerce"},
-{t:"Arts", s:"creative"}
-]
-},
-{
-q:"What job do you like?",
-options:[
+{t:"Helping People", s:"medical"},
+{t:"Business", s:"commerce"},
+{t:"Design", s:"creative"}
+]},
+{q:"Strength?", options:[
+{t:"Logic", s:"engineering"},
+{t:"Care", s:"medical"},
+{t:"Management", s:"commerce"},
+{t:"Creativity", s:"creative"}
+]},
+{q:"Dream Job?", options:[
 {t:"Engineer", s:"engineering"},
 {t:"Doctor", s:"medical"},
-{t:"CA / Business", s:"commerce"},
+{t:"CA", s:"commerce"},
 {t:"Designer", s:"creative"}
-]
-},
-{
-q:"Work style?",
-options:[
+]},
+{q:"Interest?", options:[
+{t:"Tech", s:"engineering"},
+{t:"Health", s:"medical"},
+{t:"Money", s:"commerce"},
+{t:"Art", s:"creative"}
+]},
+{q:"Work style?", options:[
 {t:"Technical", s:"engineering"},
 {t:"Helping", s:"medical"},
-{t:"Office / Business", s:"commerce"},
-{t:"Creative Work", s:"creative"}
-]
-}
+{t:"Office", s:"commerce"},
+{t:"Creative", s:"creative"}
+]}
 ];
 
 function startQuiz(){
-qIndex = 0;
-score = {engineering:0,medical:0,commerce:0,creative:0};
-showQuestion();
+qIndex=0;
+score={engineering:0,medical:0,commerce:0,creative:0};
+showQ();
 }
 
-function showQuestion(){
+function showQ(){
 
-let q = questions[qIndex];
+let q=questions[qIndex];
+document.getElementById("qbox").innerText="Q"+(qIndex+1)+" "+q.q;
 
-document.getElementById("qbox").innerHTML =
-"Q" + (qIndex+1) + ": " + q.q;
-
-/* smooth animation */
-document.getElementById("qbox").style.opacity = 0;
-setTimeout(()=>{
-document.getElementById("qbox").style.opacity = 1;
-},200);
-
-let html = "";
-
+let html="";
 q.options.forEach(o=>{
-html += `<button class="btn" onclick="answer('${o.s}')">${o.t}</button> `;
+html+=`<button class="btn" onclick="ans('${o.s}')">${o.t}</button> `;
 });
 
-document.getElementById("options").innerHTML = html;
+document.getElementById("options").innerHTML=html;
 
-/* PROGRESS BAR UPDATE */
-let progress = (qIndex / questions.length) * 100;
-document.getElementById("bar").style.width = progress + "%";
+document.getElementById("bar").style.width=(qIndex/questions.length)*100+"%";
 }
 
-function answer(type){
-score[type]++;
+function ans(t){
+score[t]++;
 qIndex++;
 
-/* update progress instantly */
-let progress = (qIndex / questions.length) * 100;
-document.getElementById("bar").style.width = progress + "%";
-
-if(qIndex < questions.length){
-showQuestion();
-}
-else{
-document.getElementById("bar").style.width = "100%";
+if(qIndex<questions.length){
+showQ();
+}else{
 showResult();
 }
 }
 
 function showResult(){
 
-let max = Object.keys(score).reduce((a,b)=>
-score[a] > score[b] ? a : b
-);
+let best=Object.keys(score).reduce((a,b)=>score[a]>score[b]?a:b);
 
-let resultText = "";
-let icon = "";
-let color = "";
+let msg="";
 
-if(max === "engineering"){
-icon="🚀";
-resultText="Engineering / AI / Data Science / IT";
-color="#e3f2fd";
-}
-else if(max === "medical"){
-icon="🩺";
-resultText="MBBS / BAMS / BDS / Nursing";
-color="#fce4ec";
-}
-else if(max === "commerce"){
-icon="💼";
-resultText="CA / CS / Banking / Business";
-color="#e8f5e9";
-}
-else{
-icon="🎨";
-resultText="Design / Architecture / Media / Creative Fields";
-color="#fff3e0";
+if(best=="engineering") msg="Engineering / AI / IT";
+else if(best=="medical") msg="Medical / Healthcare";
+else if(best=="commerce") msg="Business / Finance / CA";
+else msg="Design / Creative Fields";
+
+document.getElementById("resultBox").innerHTML=
+"⭐ Best Career Match: "+msg;
 }
 
-document.getElementById("resultBox").innerHTML = `
-<div style="
-padding:20px;
-border-radius:15px;
-background:${color};
-text-align:center;
-font-size:18px;
-animation: fadeIn 0.5s;
-">
-<h2>${icon} Your Career Match</h2>
-<p style="margin-top:10px;font-weight:bold;">${resultText}</p>
-</div>
-`;
+/* CHAT */
+function reply(msg){
 
-document.getElementById("qbox").innerHTML = "";
-document.getElementById("options").innerHTML = "";
+msg=msg.toLowerCase();
+
+if(msg.includes("science")) return "Science: Engineering, Medical, AI, Research";
+if(msg.includes("commerce")) return "Commerce: CA, CS, Banking";
+if(msg.includes("arts")) return "Arts: UPSC, Law, Psychology";
+
+return "Ask: science / commerce / arts / ITI";
 }
 
-function reveal(){
-let cards = document.querySelectorAll('.card');
+document.getElementById("chatInput").addEventListener("keypress",function(e){
+if(e.key==="Enter"){
+let m=this.value;
+this.value="";
 
-for(let i=0;i<cards.length;i++){
-let top = cards[i].getBoundingClientRect().top;
-
-if(top < window.innerHeight - 100){
-cards[i].style.opacity = 1;
-cards[i].style.transform = "translateY(0)";
-}
-}
-}
-
-window.addEventListener('scroll', reveal);
-
-document.getElementById("chatInput").addEventListener("keypress", function(e){
-if(e.key === "Enter"){
-let msg = this.value;
-this.value = "";
-
-document.getElementById("chatLog").innerHTML +=
-"<div><b>You:</b> " + msg + "</div>";
-
-let reply = getReply(msg.toLowerCase());
-
-document.getElementById("chatLog").innerHTML +=
-"<div style='color:#0d47a1'><b>AI:</b> " + reply + "</div>";
+document.getElementById("chatLog").innerHTML+="<div>You: "+m+"</div>";
+document.getElementById("chatLog").innerHTML+="<div>AI: "+reply(m)+"</div>";
 }
 });
-
-function getReply(msg){
-
-if(msg.includes("engineering")){
-return "Engineering = Maths + Physics + AI, IT, Robotics.";
-}
-else if(msg.includes("doctor")){
-return "Doctor = MBBS → long study but high respect & demand.";
-}
-else if(msg.includes("commerce")){
-return "Commerce = CA, CS, Banking, Business careers.";
-}
-else if(msg.includes("arts")){
-return "Arts = UPSC, Law, Psychology, Media careers.";
-}
-else{
-return "Tell me Science / Commerce / Arts / Medical / ITI 😊";
-}
-
-}
-
-window.onload = function(){
-let saved = localStorage.getItem("careerResult");
-
-if(saved){
-document.getElementById("resultBox").innerHTML =
-"⭐ Last Result: " + saved;
-}
-}
-
-function toggleMode(){
-document.body.classList.toggle("dark");
-}
 
 </script>
 

@@ -6,13 +6,12 @@
 
 <title>Margdarshan | AI Career Guidance Platform</title>
 
-<meta name="description" content="Career guidance after 10th & 12th with AI quiz, roadmap and career explorer.">
+<meta name="description" content="AI Career Guidance after 10th & 12th - Science, Commerce, Arts, ITI, Diploma with smart quiz and roadmap.">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
 
-/* ================= GLOBAL RESET ================= */
 *{
 margin:0;
 padding:0;
@@ -24,15 +23,14 @@ body{
 background:linear-gradient(120deg,#e3f2fd,#ffffff,#e8f5e9);
 color:#1a1a1a;
 overflow-x:hidden;
-animation:fadeInPage 0.8s ease;
 }
 
-@keyframes fadeInPage{
-from{opacity:0;}
-to{opacity:1;}
+/* smooth animation */
+html{
+scroll-behavior:smooth;
 }
 
-/* ================= NAVBAR ================= */
+/* NAV */
 nav{
 position:sticky;
 top:0;
@@ -42,7 +40,7 @@ justify-content:center;
 flex-wrap:wrap;
 gap:10px;
 padding:12px;
-background:rgba(13,71,161,0.9);
+background:rgba(13,71,161,0.95);
 backdrop-filter:blur(10px);
 }
 
@@ -61,7 +59,7 @@ color:#0d47a1;
 transform:scale(1.05);
 }
 
-/* ================= HEADER HERO ================= */
+/* HERO */
 header{
 text-align:center;
 padding:90px 20px;
@@ -96,7 +94,6 @@ transform:scale(1.08);
 box-shadow:0 10px 25px rgba(0,0,0,0.2);
 }
 
-/* ================= GRID SYSTEM ================= */
 .grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
@@ -106,9 +103,8 @@ max-width:1200px;
 margin:auto;
 }
 
-/* ================= CARD ================= */
 .card{
-background:rgba(255,255,255,0.9);
+background:rgba(255,255,255,0.95);
 border-radius:18px;
 padding:22px;
 box-shadow:0 10px 25px rgba(0,0,0,0.08);
@@ -129,10 +125,15 @@ top:0;
 left:0;
 width:100%;
 height:4px;
-background:linear-gradient(90deg,#0d47a1,#42a5f5,#00c853,#ff9800);
+background:linear-gradient(90deg,#0d47a1,#42a5f5,#00c853);
 }
 
-/* ================= BUTTON ================= */
+section{
+padding:60px 20px;
+max-width:1200px;
+margin:auto;
+}
+
 .btn{
 display:inline-block;
 padding:10px 14px;
@@ -150,14 +151,14 @@ transform:scale(1.07);
 background:#08357a;
 }
 
-/* ================= SECTION ================= */
-section{
-padding:60px 20px;
-max-width:1200px;
-margin:auto;
+footer{
+text-align:center;
+padding:25px;
+background:#0d47a1;
+color:white;
+margin-top:40px;
 }
 
-/* ================= QUIZ ================= */
 .quiz-box{
 background:white;
 padding:25px;
@@ -171,9 +172,26 @@ height:10px;
 background:#0d47a1;
 border-radius:10px;
 transition:0.4s;
+width:0%;
 }
 
-/* ================= CHAT BOX ================= */
+#qbox{
+margin:15px 0;
+font-size:18px;
+font-weight:600;
+}
+
+#options button{
+margin:6px;
+}
+
+#resultBox{
+margin-top:15px;
+font-weight:600;
+font-size:18px;
+color:#0d47a1;
+}
+
 #chatBox{
 position:fixed;
 bottom:20px;
@@ -189,6 +207,7 @@ overflow:hidden;
 background:#0d47a1;
 color:white;
 padding:10px;
+font-weight:600;
 }
 
 #chatLog{
@@ -205,13 +224,10 @@ border:none;
 outline:none;
 }
 
-/* ================= FOOTER ================= */
-footer{
-text-align:center;
-padding:25px;
-background:#0d47a1;
-color:white;
-margin-top:40px;
+.small-note{
+font-size:11px;
+color:gray;
+margin-top:5px;
 }
 
 </style>
@@ -232,198 +248,124 @@ margin-top:40px;
 <!-- HERO -->
 <header>
 <h1>🎯 Margdarshan</h1>
-<p>AI Career Guidance Platform After 10th & 12th – Find your perfect career path with smart quiz & roadmap.</p>
-
+<p>AI Career Guidance after 10th & 12th — Explore Science, Commerce, Arts, ITI & Diploma with smart quiz system.</p>
 <a class="hero-btn" href="#quiz">Start Career Test</a>
 </header>
 
 <!-- CHATBOX -->
 <div id="chatBox">
 <div id="chatHeader">🤖 Career AI Assistant</div>
-<div id="chatLog">Ask anything about career 😊</div>
-<input id="chatInput" placeholder="Type your question...">
+
+<div id="chatLog">Hello! Ask me anything about career 😊</div>
+
+<input id="chatInput" placeholder="Ask science / commerce / arts / ITI">
+<div class="small-note">Try: "best career in science"</div>
 </div>
 
+<!-- QUIZ -->
 <section id="quiz">
 <div class="quiz-box">
 
-<h2>🧠 Career Personality Test</h2>
-<p>Answer 5 questions</p>
+<h2>🧠 Career Test</h2>
 
-<div style="margin:15px 0;background:#eee;border-radius:10px;">
-<div id="bar" style="width:0%"></div>
+<div style="background:#eee;border-radius:10px;margin:10px 0;">
+<div id="bar"></div>
 </div>
 
-<h3 id="qbox">Click start to begin</h3>
-
+<div id="qbox">Click Start</div>
 <div id="options"></div>
 
-<br>
 <button class="btn" onclick="startQuiz()">Start Quiz</button>
 
-<div id="resultBox" style="margin-top:15px;"></div>
+<div id="resultBox"></div>
 
 </div>
 </section>
 
+<!-- STREAMS -->
 <section class="grid">
 
-<div class="card">
-<h3>Science 🔬</h3>
-<p>Engineering, AI, Medical, Research</p>
-<a class="btn" href="science.html">Explore</a>
-</div>
-
-<div class="card">
-<h3>Commerce 💼</h3>
-<p>CA, CS, Banking, Finance</p>
-<a class="btn" href="commerce.html">Explore</a>
-</div>
-
-<div class="card">
-<h3>Arts 🎨</h3>
-<p>UPSC, Law, Psychology</p>
-<a class="btn" href="arts.html">Explore</a>
-</div>
-
-<div class="card">
-<h3>Diploma ⚙️</h3>
-<p>Technical Career Options</p>
-<a class="btn" href="diploma.html">Explore</a>
-</div>
-
-<div class="card">
-<h3>ITI 🔧</h3>
-<p>Job-oriented Skills</p>
-<a class="btn" href="iti.html">Explore</a>
-</div>
+<div class="card"><h3>Science 🔬</h3><p>Engineering, AI, Medical</p><a class="btn" href="science.html">Explore</a></div>
+<div class="card"><h3>Commerce 💼</h3><p>CA, CS, Banking</p><a class="btn" href="commerce.html">Explore</a></div>
+<div class="card"><h3>Arts 🎨</h3><p>UPSC, Law, Psychology</p><a class="btn" href="arts.html">Explore</a></div>
+<div class="card"><h3>Diploma ⚙️</h3><p>Technical Skills</p><a class="btn" href="diploma.html">Explore</a></div>
+<div class="card"><h3>ITI 🔧</h3><p>Job Skills</p><a class="btn" href="iti.html">Explore</a></div>
 
 </section>
 
-<section>
-<div class="card">
-<h2>Why Margdarshan?</h2>
-<p>
-✔ Simple career guidance<br>
-✔ Step-by-step roadmap<br>
-✔ AI-based quiz system<br>
-✔ Clear career options<br>
-✔ Future planning support
-</p>
-</div>
-</section>
-
-<footer>
-© 2026 Margdarshan | Build Your Future 🚀
-</footer>
+<footer>© 2026 Margdarshan | Build Your Future 🚀</footer>
 
 <script>
 
-let qIndex = 0;
+let i=0;
 
-let score = {
-engineering:0,
-medical:0,
-commerce:0,
-creative:0
-};
+let score={engineering:0,medical:0,commerce:0,creative:0};
 
-const questions = [
-{q:"What do you like?", options:[
-{t:"Math", s:"engineering"},
-{t:"Helping People", s:"medical"},
-{t:"Business", s:"commerce"},
-{t:"Design", s:"creative"}
-]},
-{q:"Strength?", options:[
-{t:"Logic", s:"engineering"},
-{t:"Care", s:"medical"},
-{t:"Management", s:"commerce"},
-{t:"Creativity", s:"creative"}
-]},
-{q:"Dream Job?", options:[
-{t:"Engineer", s:"engineering"},
-{t:"Doctor", s:"medical"},
-{t:"CA", s:"commerce"},
-{t:"Designer", s:"creative"}
-]},
-{q:"Interest?", options:[
-{t:"Tech", s:"engineering"},
-{t:"Health", s:"medical"},
-{t:"Money", s:"commerce"},
-{t:"Art", s:"creative"}
-]},
-{q:"Work style?", options:[
-{t:"Technical", s:"engineering"},
-{t:"Helping", s:"medical"},
-{t:"Office", s:"commerce"},
-{t:"Creative", s:"creative"}
-]}
+const q=[
+{q:"What do you like?",o:[["Math","engineering"],["Helping","medical"],["Business","commerce"],["Design","creative"]]},
+{q:"Strength?",o:[["Logic","engineering"],["Care","medical"],["Management","commerce"],["Creativity","creative"]]},
+{q:"Dream job?",o:[["Engineer","engineering"],["Doctor","medical"],["CA","commerce"],["Designer","creative"]]},
+{q:"Interest?",o:[["Tech","engineering"],["Health","medical"],["Money","commerce"],["Art","creative"]]},
+{q:"Work style?",o:[["Technical","engineering"],["Helping","medical"],["Office","commerce"],["Creative","creative"]]}
 ];
 
 function startQuiz(){
-qIndex=0;
+i=0;
 score={engineering:0,medical:0,commerce:0,creative:0};
-showQ();
+show();
 }
 
-function showQ(){
+function show(){
+let x=q[i];
+document.getElementById("qbox").innerText="Q"+(i+1)+" "+x.q;
 
-let q=questions[qIndex];
-document.getElementById("qbox").innerText="Q"+(qIndex+1)+" "+q.q;
-
-let html="";
-q.options.forEach(o=>{
-html+=`<button class="btn" onclick="ans('${o.s}')">${o.t}</button> `;
+let h="";
+x.o.forEach(v=>{
+h+=`<button class="btn" onclick="ans('${v[1]}')">${v[0]}</button>`;
 });
 
-document.getElementById("options").innerHTML=html;
-
-document.getElementById("bar").style.width=(qIndex/questions.length)*100+"%";
+document.getElementById("options").innerHTML=h;
+document.getElementById("bar").style.width=(i/q.length)*100+"%";
 }
 
 function ans(t){
 score[t]++;
-qIndex++;
+i++;
 
-if(qIndex<questions.length){
-showQ();
-}else{
-showResult();
-}
+if(i<q.length) show();
+else result();
 }
 
-function showResult(){
+function result(){
 
 let best=Object.keys(score).reduce((a,b)=>score[a]>score[b]?a:b);
 
-let msg="";
+let msg={
+engineering:"Engineering / AI / IT",
+medical:"Medical / Healthcare",
+commerce:"Business / Finance / CA",
+creative:"Design / Creative Fields"
+};
 
-if(best=="engineering") msg="Engineering / AI / IT";
-else if(best=="medical") msg="Medical / Healthcare";
-else if(best=="commerce") msg="Business / Finance / CA";
-else msg="Design / Creative Fields";
-
-document.getElementById("resultBox").innerHTML=
-"⭐ Best Career Match: "+msg;
+document.getElementById("resultBox").innerText="⭐ "+msg[best];
 }
 
-/* CHAT */
-function reply(msg){
+/* CHAT FIXED */
+function reply(m){
+m=m.toLowerCase();
 
-msg=msg.toLowerCase();
-
-if(msg.includes("science")) return "Science: Engineering, Medical, AI, Research";
-if(msg.includes("commerce")) return "Commerce: CA, CS, Banking";
-if(msg.includes("arts")) return "Arts: UPSC, Law, Psychology";
+if(m.includes("science")) return "Science = Engineering + Medical + AI + Research";
+if(m.includes("best career")) return "Depends: Science, Commerce, Arts all have high scope";
+if(m.includes("commerce")) return "Commerce = CA, CS, Banking, Business";
+if(m.includes("arts")) return "Arts = UPSC, Law, Psychology";
 
 return "Ask: science / commerce / arts / ITI";
 }
 
-document.getElementById("chatInput").addEventListener("keypress",function(e){
+document.getElementById("chatInput").addEventListener("keypress",(e)=>{
 if(e.key==="Enter"){
-let m=this.value;
-this.value="";
+let m=e.target.value;
+e.target.value="";
 
 document.getElementById("chatLog").innerHTML+="<div>You: "+m+"</div>";
 document.getElementById("chatLog").innerHTML+="<div>AI: "+reply(m)+"</div>";

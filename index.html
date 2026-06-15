@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Margdarshan | Career Guidance After 10th & 12th</title>
+<title>Margdarshan | AI Career Guidance Platform</title>
 
-<meta name="description" content="Simple and powerful career guidance after 10th & 12th for Science, Commerce, Arts, ITI and Diploma students.">
+<meta name="description" content="Explore Science, Commerce, Arts, ITI and Diploma career paths after 10th & 12th. Simple, clear and structured guidance for students.">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
 
@@ -14,24 +17,25 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial;
+font-family:'Poppins',sans-serif;
 }
 
 body{
-background:#f4f7fb;
-color:#222;
+background:#f6f9ff;
+color:#1a1a1a;
 }
 
 /* NAV */
 nav{
+position:sticky;
+top:0;
+z-index:1000;
 display:flex;
 justify-content:center;
 flex-wrap:wrap;
 gap:10px;
-background:#0d47a1;
 padding:12px;
-position:sticky;
-top:0;
+background:#0d47a1;
 }
 
 nav a{
@@ -39,7 +43,7 @@ color:white;
 text-decoration:none;
 padding:10px 14px;
 border-radius:8px;
-background:rgba(255,255,255,0.1);
+transition:0.3s;
 }
 
 nav a:hover{
@@ -47,68 +51,92 @@ background:white;
 color:#0d47a1;
 }
 
-/* HEADER */
+/* HERO */
 header{
 text-align:center;
-padding:70px 20px;
+padding:90px 20px;
 background:linear-gradient(to right,#e3f2fd,#ffffff);
 }
 
 header h1{
-font-size:45px;
+font-size:52px;
 color:#0d47a1;
 }
 
 header p{
-margin-top:10px;
+max-width:750px;
+margin:auto;
+margin-top:15px;
 font-size:18px;
-max-width:700px;
-margin-left:auto;
-margin-right:auto;
+color:#444;
 }
 
+.hero-btn{
+margin-top:25px;
+display:inline-block;
+padding:12px 18px;
+background:#0d47a1;
+color:white;
+border-radius:10px;
+text-decoration:none;
+}
+
+.hero-btn:hover{
+transform:scale(1.05);
+}
+
+/* SECTION */
+section{
+padding:60px 20px;
+max-width:1200px;
+margin:auto;
+}
+
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+/* CARD */
+.card{
+background:white;
+padding:22px;
+border-radius:15px;
+box-shadow:0 8px 20px rgba(0,0,0,0.08);
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-8px);
+}
+
+/* BUTTON */
 .btn{
 display:inline-block;
+margin-top:10px;
 padding:10px 14px;
 background:#0d47a1;
 color:white;
-border:none;
 border-radius:8px;
 text-decoration:none;
-cursor:pointer;
 }
 
 .btn:hover{
 background:#08306b;
 }
 
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
-padding:30px;
-max-width:1100px;
-margin:auto;
-}
-
-.card{
+/* INFO SECTION */
+.info{
 background:white;
-padding:20px;
-border-radius:12px;
-box-shadow:0 3px 10px rgba(0,0,0,0.1);
-transition:0.3s;
+padding:25px;
+border-radius:15px;
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
+line-height:1.7;
 }
 
-.card:hover{
-transform:translateY(-5px);
-}
-
-section{
-padding:40px 20px;
-max-width:1100px;
-margin:auto;
-}
-
+/* FOOTER */
 footer{
 text-align:center;
 padding:20px;
@@ -118,10 +146,12 @@ margin-top:40px;
 }
 
 </style>
+
 </head>
 
 <body>
 
+<!-- NAV -->
 <nav>
 <a href="index.html">Home</a>
 <a href="science.html">Science</a>
@@ -131,155 +161,99 @@ margin-top:40px;
 <a href="iti.html">ITI</a>
 </nav>
 
+<!-- HERO -->
 <header>
 <h1>🎯 Margdarshan</h1>
-<p>Simple Career Guidance Platform After 10th & 12th — Find your future path easily</p>
 
-<a href="#quiz" class="btn">Start Career Test</a>
+<p>
+A simple and structured career guidance platform designed for students after 10th & 12th.
+Explore clear career paths in Science, Commerce, Arts, ITI and Diploma without confusion.
+</p>
+
+<a class="hero-btn" href="#streams">Explore Career Paths</a>
 </header>
 
-<section class="grid">
+<!-- INTRO INFO -->
+<section>
+<div class="info">
 
-<div class="card">
-<h3>Science 🔬</h3>
-<p>Engineering, Medical, AI, Research</p>
-<a class="btn" href="science.html">Explore</a>
-</div>
+<h2>📘 About Margdarshan</h2>
 
-<div class="card">
-<h3>Commerce 💼</h3>
-<p>CA, CS, Banking, Business</p>
-<a class="btn" href="commerce.html">Explore</a>
-</div>
-
-<div class="card">
-<h3>Arts 🎨</h3>
-<p>UPSC, Law, Psychology</p>
-<a class="btn" href="arts.html">Explore</a>
-</div>
-
-<div class="card">
-<h3>ITI 🔧</h3>
-<p>Job oriented technical skills</p>
-<a class="btn" href="iti.html">Explore</a>
-</div>
-
-</section>
-
-<section id="quiz">
-
-<h2 style="text-align:center;">🧠 Career Quiz</h2>
-
-<div style="text-align:center;margin-top:20px;">
-
-<h3 id="question">Click Start</h3>
-
-<div id="options"></div>
+<p>
+Choosing a career after school is one of the most important decisions in life.  
+Margdarshan helps students understand different fields in a simple way so they can choose the right direction without confusion.
+</p>
 
 <br>
 
-<button class="btn" onclick="startQuiz()">Start Quiz</button>
-
-<h3 id="result"></h3>
-
-</div>
-
-</section>
-
-<script>
-
-let i=0;
-
-let score={
-science:0,
-commerce:0,
-arts:0,
-iti:0
-};
-
-const q=[
-{
-q:"What do you like most?",
-o:[["Math","science"],["Business","commerce"],["Reading","arts"],["Machines","iti"]]
-},
-{
-q:"Your strength?",
-o:[["Logic","science"],["Money","commerce"],["Creativity","arts"],["Practical work","iti"]]
-},
-{
-q:"Dream job?",
-o:[["Engineer","science"],["CA","commerce"],["Artist","arts"],["Technician","iti"]]
-},
-{
-q:"Interest?",
-o:[["Tech","science"],["Finance","commerce"],["Design","arts"],["Tools","iti"]]
-}
-];
-
-function startQuiz(){
-i=0;
-score={science:0,commerce:0,arts:0,iti:0};
-show();
-}
-
-function show(){
-let x=q[i];
-
-document.getElementById("question").innerText="Q"+(i+1)+" "+x.q;
-
-let html="";
-
-x.o.forEach(v=>{
-html+=`<button class="btn" onclick="ans('${v[1]}')">${v[0]}</button> `;
-});
-
-document.getElementById("options").innerHTML=html;
-}
-
-function ans(t){
-score[t]++;
-i++;
-
-if(i<q.length){
-show();
-}else{
-result();
-}
-}
-
-function result(){
-
-let best=Object.keys(score).reduce((a,b)=>score[a]>score[b]?a:b);
-
-let msg={
-science:"Science Field 🔬",
-commerce:"Commerce Field 💼",
-arts:"Arts Field 🎨",
-iti:"ITI / Skill Field 🔧"
-};
-
-document.getElementById("result").innerText="⭐ Best Match: "+msg[best];
-document.getElementById("options").innerHTML="";
-document.getElementById("question").innerText="Quiz Completed";
-}
-
-</script>
-
-<section>
-<div class="card">
-<h2>Why Margdarshan?</h2>
 <p>
-✔ Simple career guidance after 10th & 12th<br>
-✔ No confusion — direct path selection<br>
-✔ Science, Commerce, Arts, ITI explained<br>
-✔ Fast decision making for students<br>
-✔ Mobile friendly platform
+We focus on clarity, not complexity. Each stream is explained with real career options, scope, and future opportunities.
 </p>
+
 </div>
 </section>
 
+<!-- STREAMS -->
+<section id="streams">
+
+<h2 style="text-align:center;margin-bottom:20px;">🎓 Explore Career Streams</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>🔬 Science</h3>
+<p>Engineering, Medical, AI, Research, Technology careers.</p>
+<a class="btn" href="science.html">Explore Science</a>
+</div>
+
+<div class="card">
+<h3>💼 Commerce</h3>
+<p>CA, CS, Banking, Finance, Business & Management careers.</p>
+<a class="btn" href="commerce.html">Explore Commerce</a>
+</div>
+
+<div class="card">
+<h3>🎨 Arts</h3>
+<p>UPSC, Law, Psychology, Media, Design & Creative fields.</p>
+<a class="btn" href="arts.html">Explore Arts</a>
+</div>
+
+<div class="card">
+<h3>⚙️ Diploma</h3>
+<p>Technical engineering diplomas and skill-based education.</p>
+<a class="btn" href="diploma.html">Explore Diploma</a>
+</div>
+
+<div class="card">
+<h3>🔧 ITI</h3>
+<p>Job-oriented technical training and industrial skills.</p>
+<a class="btn" href="iti.html">Explore ITI</a>
+</div>
+
+</div>
+
+</section>
+
+<!-- WHY SECTION -->
+<section>
+<div class="info">
+
+<h2>⭐ Why Choose Margdarshan?</h2>
+
+<p>
+✔ Simple language explanation for students<br>
+✔ Clear career roadmap after 10th & 12th<br>
+✔ No confusion, only structured guidance<br>
+✔ Covers all major career streams<br>
+✔ Mobile friendly & easy navigation
+</p>
+
+</div>
+</section>
+
+<!-- FOOTER -->
 <footer>
-© 2026 Margdarshan | Build Your Future 🚀
+© 2026 Margdarshan | Build Your Future with Clarity 🚀
 </footer>
 
 </body>

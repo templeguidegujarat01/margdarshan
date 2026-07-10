@@ -1,0 +1,52 @@
+<footer class="site-footer">
+  <div class="container footer-top">
+    <div class="footer-brand">
+      <a href="index.html" class="logo">
+        <svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#E8A33D"/><path d="M8 22 L16 8 L24 22" stroke="#0F2A3D" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="16" r="1.8" fill="#0F2A3D"/></svg>
+        Margdarshan
+      </a>
+      <p>A free career guidance platform helping Indian students choose the right stream and career after Class 10 and Class 12.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Streams</h4>
+      <ul>
+        <li><a href="science.html">Science</a></li>
+        <li><a href="commerce.html">Commerce</a></li>
+        <li><a href="arts.html">Arts</a></li>
+        <li><a href="diploma.html">Diploma</a></li>
+        <li><a href="iti.html">ITI</a></li>
+      </ul>
+    </div>
+    {% if include.col3_heading %}
+    <div class="footer-col">
+      <h4>{{ include.col3_heading }}</h4>
+      <ul>
+        {{ include.col3_content }}
+      </ul>
+    </div>
+    {% endif %}
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+        <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
+        <li><a href="disclaimer.html">Disclaimer</a></li>
+        <li><a href="cookie-policy.html">Cookie Policy</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Guidance</h4>
+      <ul>
+        <li><a href="after-10th.html">After Class 10</a></li>
+        <li><a href="{{ include.guidance_careers_href | default: "index.html#careers" }}">{{ include.guidance_careers_label | default: "All Careers" }}</a></li>
+        {% if include.guidance_faq_href %}<li><a href="{{ include.guidance_faq_href }}">FAQs</a></li>{% endif %}
+      </ul>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© 2026 Margdarshan. Built for students, not profit.</span>
+    <span>Made in India, for India.</span>
+  </div>
+</footer>

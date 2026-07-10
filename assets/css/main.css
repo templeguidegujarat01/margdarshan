@@ -45,6 +45,9 @@
   --plum:#C87DA4;
   --slate:#7FA0C9;
   --rust:#E8674C;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.35);
+  --shadow-md:0 10px 28px rgba(0,0,0,.4);
+  --shadow-lg:0 24px 56px rgba(0,0,0,.5);
 }
 *{box-sizing:border-box;}
 html{scroll-behavior:smooth;}
@@ -210,7 +213,8 @@ section{scroll-margin-top:var(--header-h);}
 /* ===================== FOOTER ===================== */
 .site-footer{background:var(--ink);color:var(--on-ink-muted);padding:4rem 0 2rem;}
 .footer-top{display:grid;gap:2.4rem;grid-template-columns:1fr;padding-bottom:2.5rem;border-bottom:1px solid rgba(255,255,255,.1);}
-@media (min-width:768px){.footer-top{grid-template-columns:1.3fr repeat(auto-fit,minmax(140px,1fr));}}
+@media (min-width:768px) and (max-width:1023px){.footer-top{grid-template-columns:1fr 1fr;}}
+@media (min-width:1024px){.footer-top{grid-template-columns:1.3fr repeat(4,1fr);}}
 .footer-brand .logo{margin-bottom:.9rem;}
 .footer-brand p{max-width:34ch;font-size:.9rem;line-height:1.7;}
 .footer-col h4{color:#fff;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;font-family:var(--font-body);margin-bottom:1rem;}
@@ -484,3 +488,11 @@ table{border-collapse:collapse;width:100%;}
   .hero-inner{grid-template-columns:1.1fr 1fr;align-items:center;}
   .hero .journey-list::before{content:"";position:absolute;left:19px;top:38px;bottom:38px;width:2px;background:repeating-linear-gradient(to bottom,rgba(232,163,61,.55) 0 6px,transparent 6px 12px);}
 }
+
+/* Dark-mode contrast boost for tinted info/warning/pros/cons boxes.
+   Their base rgba() tint is tuned for a light background; on dark surfaces
+   the same alpha reads a little muddy, so we lift it slightly here. */
+[data-theme="dark"] .note{background:rgba(63,167,141,.14);border-color:rgba(63,167,141,.35);}
+[data-theme="dark"] .warn{background:rgba(232,103,76,.14);border-color:rgba(232,103,76,.35);}
+[data-theme="dark"] .pc-card.pros{background:rgba(63,167,141,.12);}
+[data-theme="dark"] .pc-card.cons{background:rgba(232,103,76,.12);}

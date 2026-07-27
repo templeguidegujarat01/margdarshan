@@ -266,6 +266,47 @@ ul,ol{margin:0;padding:0;list-style:none;}
 .elig-card ul{display:grid;gap:.65rem;}
 .elig-card li{display:flex;gap:.6rem;font-size:.94rem;color:var(--text-muted);}
 .elig-card li svg{flex-shrink:0;margin-top:.2rem;color:var(--teal);}
+/* NEW GROUP HEADING */
+.career-group-heading{
+  font-size:.78rem;
+  font-family:var(--font-mono);
+  font-weight:700;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  color:var(--gold-strong);
+  margin:3rem 0 1.1rem;
+  padding-top:1.6rem;
+  border-top:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  gap:.55rem;
+}
+
+.career-group-heading::before{
+  content:"";
+  width:7px;
+  height:7px;
+  border-radius:999px;
+  background:var(--gold);
+  flex-shrink:0;
+}
+
+[data-theme="dark"] .career-group-heading{
+  color:var(--gold);
+}
+
+.career-group-heading:first-of-type{
+  margin-top:0;
+  padding-top:0;
+  border-top:none;
+}
+
+@media (min-width:768px){
+  .career-group-heading{
+    margin-top:3.6rem;
+    padding-top:2rem;
+  }
+}
 /* Career grid (reused pattern) */
 .career-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:.85rem;}
 .career-item a{display:flex;flex-direction:column;gap:.2rem;padding:1rem 1.1rem;border-radius:var(--radius-sm);border:1px solid var(--line);background:var(--paper);height:100%;transition:border-color .15s,transform .15s;}

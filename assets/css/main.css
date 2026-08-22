@@ -527,3 +527,17 @@ table{border-collapse:collapse;width:100%;}
 [data-theme="dark"] .warn{background:rgba(232,103,76,.14);border-color:rgba(232,103,76,.35);}
 [data-theme="dark"] .pc-card.pros{background:rgba(63,167,141,.12);}
 [data-theme="dark"] .pc-card.cons{background:rgba(232,103,76,.12);}
+
+/* ---------- Read More / Read Less for long plain-text prose blocks ----------
+   Applied automatically by JS (see scripts.html) to .prose blocks that
+   contain only <p> tags (no lists/tables), so no per-page HTML edits are
+   needed. Height is measured at runtime from actual line-height, so it
+   adapts to any font-size/viewport instead of using a fixed pixel cutoff. */
+.prose.js-readmore{overflow:hidden;position:relative;transition:max-height .35s var(--ease);}
+.prose.js-readmore.is-expanded{overflow:visible;}
+.readmore-btn{display:inline-flex;align-items:center;gap:.35rem;margin-top:.75rem;padding:.45rem .9rem;font-family:var(--font-body);font-size:.88rem;font-weight:600;color:var(--teal);background:transparent;border:1px solid var(--line);border-radius:var(--radius-sm);cursor:pointer;transition:background .2s var(--ease),border-color .2s var(--ease);}
+.readmore-btn:hover,.readmore-btn:focus-visible{background:rgba(31,111,92,.08);border-color:var(--teal);}
+.readmore-btn svg{transition:transform .25s var(--ease);}
+.readmore-btn[aria-expanded="true"] svg{transform:rotate(180deg);}
+[data-theme="dark"] .readmore-btn{color:#5FC9AE;border-color:var(--line);}
+[data-theme="dark"] .readmore-btn:hover,[data-theme="dark"] .readmore-btn:focus-visible{background:rgba(95,201,174,.12);}

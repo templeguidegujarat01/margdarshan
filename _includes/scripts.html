@@ -164,5 +164,60 @@
       revealEls.forEach(function(el){ observer.observe(el); });
     }
   }
+
+  /* ---------- Read More / Read Less for long plain-text prose blocks ----------
+     Auto-detects genuine long-form paragraph sections (e.g. "What is CA?")
+     without touching tables, lists, FAQs, myth/fact, pros/cons, cards or
+     roadmaps, since those never use a bare .prose block containing only
+     <p> tags. Height is measured from real line-height so it works at any
+     font-size/viewport instead of a fixed pixel cutoff. */
+  function initReadMore(){
+    var LINES_VISIBLE = 3;      // collapsed preview height
+    var LINE_THRESHOLD = 5;     // only collapse if longer than this
+    var blocks = document.querySelectorAll('.prose');
+    blocks.forEach(function(block){
+      // Only target plain paragraph content: skip anything with lists,
+      // tables, or other structured/nested content.
+      if(block.querySelector('ul,ol,table,div')) return;
+      var paras = block.querySelectorAll('p');
+      if(!paras.length) return;
+
+      var lineHeight = parseFloat(getComputedStyle(block).lineHeight);
+      if(!lineHeight || isNaN(lineHeight)){
+        lineHeight = parseFloat(getComputedStyle(block).fontSize) * 1.5;
+      }
+      var fullHeight = block.scrollHeight;
+      var thresholdHeight = lineHeight * LINE_THRESHOLD;
+      if(fullHeight <= thresholdHeight) return; // short block, leave untouched
+
+      var collapsedHeight = lineHeight * LINES_VISIBLE;
+      block.classList.add('js-readmore');
+      block.style.maxHeight = collapsedHeight + 'px';
+
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'readmore-btn';
+      btn.setAttribute('aria-expanded', 'false');
+      btn.innerHTML = '<span class="rm-label">Read more</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+      block.insertAdjacentElement('afterend', btn);
+
+      btn.addEventListener('click', function(){
+        var expanded = block.classList.toggle('is-expanded');
+        var label = btn.querySelector('.rm-label');
+        if(expanded){
+          block.style.maxHeight = fullHeight + 'px';
+          btn.setAttribute('aria-expanded', 'true');
+          if(label) label.textContent = 'Read less';
+        } else {
+          block.style.maxHeight = collapsedHeight + 'px';
+          btn.setAttribute('aria-expanded', 'false');
+          if(label) label.textContent = 'Read more';
+          block.scrollIntoView({behavior: reduceMotion ? 'auto' : 'smooth', block: 'nearest'});
+        }
+      });
+    });
+  }
+  if(document.readyState === 'complete'){ initReadMore(); }
+  else { window.addEventListener('load', initReadMore); }
 })();
 </script>

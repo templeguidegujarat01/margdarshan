@@ -65,16 +65,37 @@
     });
   }
 
-  /* ---------- Nav search shortcut (only present on index.html) ---------- */
-  var searchNavBtn = document.getElementById('searchNavBtn');
-  if(searchNavBtn){
-    searchNavBtn.addEventListener('click', function(){
-      var careersSection = document.getElementById('careers');
-      if(careersSection){ careersSection.scrollIntoView({behavior: reduceMotion ? 'auto' : 'smooth'}); }
-      var searchInput = document.getElementById('careerSearch');
-      if(searchInput){ setTimeout(function(){ searchInput.focus(); }, reduceMotion ? 0 : 400); }
-    });
+  /* ---------- Career search overlay (only present on index.html) ----------
+     Opened from the header search icon, or by navigating to #careers
+     (the header/footer "Explore Careers" links already use this hash). */
+  var searchOverlay = document.getElementById('careers');
+  var searchOverlayBackdrop = document.getElementById('searchOverlayBackdrop');
+  var searchOverlayClose = document.getElementById('searchOverlayClose');
+  var careerSearchInput = document.getElementById('careerSearch');
+
+  function openCareerSearch(){
+    if(!searchOverlay) return;
+    searchOverlay.setAttribute('data-open', 'true');
+    document.body.style.overflow = 'hidden';
+    if(careerSearchInput){ setTimeout(function(){ careerSearchInput.focus(); }, reduceMotion ? 0 : 300); }
   }
+  function closeCareerSearch(){
+    if(!searchOverlay) return;
+    searchOverlay.setAttribute('data-open', 'false');
+    document.body.style.overflow = '';
+  }
+
+  var searchNavBtn = document.getElementById('searchNavBtn');
+  if(searchNavBtn){ searchNavBtn.addEventListener('click', openCareerSearch); }
+  if(searchOverlayBackdrop){ searchOverlayBackdrop.addEventListener('click', closeCareerSearch); }
+  if(searchOverlayClose){ searchOverlayClose.addEventListener('click', closeCareerSearch); }
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && searchOverlay && searchOverlay.getAttribute('data-open') === 'true'){ closeCareerSearch(); }
+  });
+  if(searchOverlay && window.location.hash === '#careers'){ openCareerSearch(); }
+  window.addEventListener('hashchange', function(){
+    if(window.location.hash === '#careers'){ openCareerSearch(); }
+  });
 
   /* ---------- Career search + filter (only present on index.html) ----------
      Idle by default (no query, "All" filter) so the homepage doesn't dump

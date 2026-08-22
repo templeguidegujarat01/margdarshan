@@ -76,28 +76,34 @@
     });
   }
 
-  /* ---------- Career search + filter (only present on index.html) ---------- */
+  /* ---------- Career search + filter (only present on index.html) ----------
+     Idle by default (no query, "All" filter) so the homepage doesn't dump
+     50+ cards on load — results only render once the person searches or
+     picks a category. */
   var searchInput = document.getElementById('careerSearch');
   var tabs = document.querySelectorAll('.tab-btn');
   var items = document.querySelectorAll('.career-item');
   var noResults = document.getElementById('noResults');
   var countEl = document.getElementById('explorerCount');
+  var searchPrompt = document.getElementById('searchPrompt');
   var activeFilter = 'all';
 
   function refineCareers(){
     if(!items.length) return;
     var q = searchInput ? searchInput.value.trim().toLowerCase() : '';
+    var isIdle = (q === '' && activeFilter === 'all');
     var visible = 0;
     items.forEach(function(item){
       var text = item.textContent.toLowerCase();
       var matchesCategory = activeFilter === 'all' || item.dataset.category === activeFilter;
       var matchesQuery = q === '' || text.indexOf(q) !== -1;
-      var show = matchesCategory && matchesQuery;
+      var show = !isIdle && matchesCategory && matchesQuery;
       item.hidden = !show;
       if(show) visible++;
     });
-    if(noResults) noResults.hidden = visible !== 0;
-    if(countEl) countEl.textContent = visible + (visible === 1 ? ' career guide shown' : ' career guides shown');
+    if(searchPrompt) searchPrompt.hidden = !isIdle;
+    if(noResults) noResults.hidden = isIdle || visible !== 0;
+    if(countEl) countEl.textContent = isIdle ? '' : (visible + (visible === 1 ? ' career guide shown' : ' career guides shown'));
   }
 
   if(searchInput){ searchInput.addEventListener('input', refineCareers); }

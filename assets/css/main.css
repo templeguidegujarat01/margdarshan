@@ -33,7 +33,49 @@
   --ease:cubic-bezier(.22,.61,.36,1);
   --container:1180px;
   --header-h:72px;
+
+  /* ---------- Stream theme system ----------
+     Pages opt in via <body data-stream="commerce|science|arts|diploma|iti|govt-exams">.
+     Defaults below match the current site look (gold), so pages without
+     the attribute, or streams not yet themed, are visually unaffected.
+     Adding a new stream later = one small override block here, no page
+     HTML changes beyond the data-stream attribute. */
+  --stream-primary:var(--gold-strong);
+  --stream-accent:var(--gold);
+  --stream-soft:rgba(201,127,30,.10);
+  --stream-border:rgba(201,127,30,.30);
 }
+[data-stream="commerce"]{
+  --stream-primary:#1D3557;
+  --stream-accent:#3B6EA5;
+  --stream-soft:rgba(59,110,165,.10);
+  --stream-border:rgba(59,110,165,.32);
+}
+[data-stream="science"]{
+  --stream-primary:var(--teal);
+  --stream-accent:var(--teal);
+  --stream-soft:rgba(31,111,92,.10);
+  --stream-border:rgba(31,111,92,.30);
+}
+[data-stream="arts"]{
+  --stream-primary:var(--plum);
+  --stream-accent:var(--plum);
+  --stream-soft:rgba(139,75,107,.10);
+  --stream-border:rgba(139,75,107,.30);
+}
+[data-stream="diploma"]{
+  --stream-primary:var(--slate);
+  --stream-accent:var(--slate);
+  --stream-soft:rgba(61,90,128,.10);
+  --stream-border:rgba(61,90,128,.30);
+}
+[data-stream="iti"]{
+  --stream-primary:var(--rust);
+  --stream-accent:var(--rust);
+  --stream-soft:rgba(196,67,46,.10);
+  --stream-border:rgba(196,67,46,.30);
+}
+/* [data-stream="govt-exams"] reserved for a future stream palette. */
 [data-theme="dark"]{
   --paper:#0B1A22;
   --surface:#122633;
@@ -48,6 +90,18 @@
   --shadow-sm:0 1px 2px rgba(0,0,0,.35);
   --shadow-md:0 10px 28px rgba(0,0,0,.4);
   --shadow-lg:0 24px 56px rgba(0,0,0,.5);
+}
+/* Dark-mode stream accents: reuse each stream's dark-adjusted brand color
+   (already redefined above) so identity stays visible without hurting
+   contrast. Commerce now has its own navy/blue tokens (not tied to gold),
+   so it gets an explicit light-blue dark-mode set here; other streams'
+   --stream-primary already tracks --teal/--plum/--slate/--rust, which ARE
+   redefined for dark mode above. */
+[data-theme="dark"][data-stream="commerce"]{
+  --stream-primary:#9FC1EC;
+  --stream-accent:#5B8DEF;
+  --stream-soft:rgba(91,141,239,.14);
+  --stream-border:rgba(91,141,239,.35);
 }
 *{box-sizing:border-box;}
 html{scroll-behavior:smooth;}
@@ -69,19 +123,19 @@ section{scroll-margin-top:var(--header-h);}
 .skip-link:focus{left:0;}
 .container{max-width:var(--container);margin:0 auto;padding:0 1.25rem;}
 @media (min-width:768px){.container{padding:0 2rem;}}
-.eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--font-mono);font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:var(--gold-strong);font-weight:600;}
-[data-theme="dark"] .eyebrow{color:var(--gold);}
+.eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--font-mono);font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:var(--stream-primary);font-weight:600;}
+[data-theme="dark"] .eyebrow{color:var(--stream-accent);}
 .section-head{max-width:640px;margin-bottom:2.5rem;}
 .section-head h2{font-size:clamp(1.7rem,3.4vw,2.4rem);margin-top:.6rem;}
 .section-head p{color:var(--text-muted);margin-top:.8rem;font-size:1.05rem;}
 .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.85rem 1.5rem;border-radius:999px;font-weight:600;font-size:.98rem;border:1px solid transparent;cursor:pointer;transition:transform .18s var(--ease),box-shadow .18s var(--ease),background .18s var(--ease);}
 .btn:hover{transform:translateY(-2px);}
-.btn-primary{background:var(--gold);color:#241703;box-shadow:var(--shadow-sm);}
-.btn-primary:hover{background:var(--gold-strong);box-shadow:var(--shadow-md);}
+.btn-primary{background:var(--stream-accent);color:#241703;box-shadow:var(--shadow-sm);}
+.btn-primary:hover{background:var(--stream-primary);box-shadow:var(--shadow-md);}
 .btn-ghost{background:transparent;color:var(--on-ink);border-color:rgba(255,255,255,.35);}
 .btn-ghost:hover{background:rgba(255,255,255,.1);}
 /* ===================== PROGRESS BAR ===================== */
-.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--gold);width:0%;z-index:1100;transition:width .1s linear;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--stream-accent);width:0%;z-index:1100;transition:width .1s linear;}
 /* ===================== HEADER ===================== */
 .site-header{position:sticky;top:0;z-index:900;background:var(--ink);box-shadow:var(--shadow-sm);}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;height:var(--header-h);gap:1rem;}
@@ -260,8 +314,8 @@ ul,ol{margin:0;padding:0;list-style:none;}
 .eligibility-grid{display:grid;gap:1.4rem;grid-template-columns:1fr;}
 @media (min-width:768px){.eligibility-grid{grid-template-columns:1fr 1fr;}}
 .elig-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);padding:1.8rem;}
-.elig-card .e-icon{width:46px;height:46px;border-radius:var(--radius-sm);background:var(--paper);display:grid;place-items:center;color:var(--gold-strong);margin-bottom:1rem;}
-[data-theme="dark"] .elig-card .e-icon{color:var(--gold);}
+.elig-card .e-icon{width:46px;height:46px;border-radius:var(--radius-sm);background:var(--paper);display:grid;place-items:center;color:var(--stream-primary);margin-bottom:1rem;}
+[data-theme="dark"] .elig-card .e-icon{color:var(--stream-accent);}
 .elig-card h3{font-size:1.15rem;margin-bottom:.9rem;}
 .elig-card ul{display:grid;gap:.65rem;}
 .elig-card li{display:flex;gap:.6rem;font-size:.94rem;color:var(--text-muted);}
@@ -351,7 +405,7 @@ table{border-collapse:collapse;width:100%;}
 .section-head{max-width:680px;margin-bottom:2.3rem;}
 .section-head h2{font-size:clamp(1.6rem,3.2vw,2.2rem);margin-top:.6rem;}
 .section-head p{color:var(--text-muted);margin-top:.75rem;font-size:1.02rem;}
-.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--gold);width:0%;z-index:1100;transition:width .1s linear;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--stream-accent);width:0%;z-index:1100;transition:width .1s linear;}
 .site-header{position:sticky;top:0;z-index:900;background:var(--ink);box-shadow:var(--shadow-sm);}
 @media (min-width:1024px){.nav-links{display:flex;}.menu-toggle,.mobile-panel{display:none !important;}}
 .breadcrumb-bar{background:var(--ink);border-top:1px solid rgba(255,255,255,.08);}
@@ -541,3 +595,17 @@ table{border-collapse:collapse;width:100%;}
 .readmore-btn[aria-expanded="true"] svg{transform:rotate(180deg);}
 [data-theme="dark"] .readmore-btn{color:#5FC9AE;border-color:var(--line);}
 [data-theme="dark"] .readmore-btn:hover,[data-theme="dark"] .readmore-btn:focus-visible{background:rgba(95,201,174,.12);}
+
+/* ---------- Commerce stream visual identity ----------
+   Color-only overrides on existing box models (same border widths /
+   padding / structure) so nothing reflows. Scoped to [data-stream="commerce"]
+   only; other streams are untouched and unaffected. */
+[data-stream="commerce"] .btn-primary{color:#fff;}
+[data-theme="dark"][data-stream="commerce"] .btn-primary:hover{color:#0B1A22;}
+[data-stream="commerce"] .elig-card{border-color:var(--stream-border);}
+[data-stream="commerce"] .subject-chips span{border-color:var(--stream-border);color:var(--stream-primary);}
+[data-theme="dark"][data-stream="commerce"] .subject-chips span{color:var(--stream-accent);}
+[data-stream="commerce"] .table-simple th{background:var(--stream-soft);color:var(--stream-primary);}
+[data-theme="dark"][data-stream="commerce"] .table-simple th{color:var(--stream-accent);}
+[data-stream="commerce"] .prose a{color:var(--stream-primary);}
+[data-theme="dark"][data-stream="commerce"] .prose a{color:var(--stream-accent);}

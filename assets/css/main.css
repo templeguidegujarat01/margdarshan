@@ -58,10 +58,10 @@
   --stream-border:rgba(42,157,143,.32);
 }
 [data-stream="arts"]{
-  --stream-primary:var(--plum);
-  --stream-accent:var(--plum);
-  --stream-soft:rgba(139,75,107,.10);
-  --stream-border:rgba(139,75,107,.30);
+  --stream-primary:#5C2A52;
+  --stream-accent:#8E4585;
+  --stream-soft:rgba(142,69,133,.10);
+  --stream-border:rgba(142,69,133,.32);
 }
 [data-stream="diploma"]{
   --stream-primary:var(--slate);
@@ -108,6 +108,12 @@
   --stream-accent:#3FBFA8;
   --stream-soft:rgba(63,191,168,.14);
   --stream-border:rgba(63,191,168,.35);
+}
+[data-theme="dark"][data-stream="arts"]{
+  --stream-primary:#E3AEDA;
+  --stream-accent:#C87DC0;
+  --stream-soft:rgba(200,125,192,.14);
+  --stream-border:rgba(200,125,192,.35);
 }
 *{box-sizing:border-box;}
 html{scroll-behavior:smooth;}
@@ -627,3 +633,15 @@ table{border-collapse:collapse;width:100%;}
 [data-theme="dark"][data-stream="science"] .table-simple th{color:var(--stream-accent);}
 [data-stream="science"] .prose a{color:var(--stream-primary);}
 [data-theme="dark"][data-stream="science"] .prose a{color:var(--stream-accent);}
+/* ---------- Arts stream visual identity ----------
+   Same pattern as Commerce/Science: color-only overrides on existing box
+   models, scoped to [data-stream="arts"] only. Commerce/Science untouched. */
+[data-stream="arts"] .btn-primary{color:#fff;}
+[data-theme="dark"][data-stream="arts"] .btn-primary:hover{color:#2A1226;}
+[data-stream="arts"] .elig-card{border-color:var(--stream-border);}
+[data-stream="arts"] .subject-chips span{border-color:var(--stream-border);color:var(--stream-primary);}
+[data-theme="dark"][data-stream="arts"] .subject-chips span{color:var(--stream-accent);}
+[data-stream="arts"] .table-simple th{background:var(--stream-soft);color:var(--stream-primary);}
+[data-theme="dark"][data-stream="arts"] .table-simple th{color:var(--stream-accent);}
+[data-stream="arts"] .prose a{color:var(--stream-primary);}
+[data-theme="dark"][data-stream="arts"] .prose a{color:var(--stream-accent);}

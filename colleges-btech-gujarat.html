@@ -43,6 +43,11 @@
 .cx-college-card h3{margin:0 0 .3rem;font-size:1rem;}
 .cx-college-card .cx-tag{display:inline-block;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--stream-primary);background:var(--stream-soft);border:1px solid var(--stream-border);border-radius:999px;padding:.15rem .55rem;margin-bottom:.5rem;}
 .cx-college-card p{margin:.4rem 0 0;font-size:.88rem;color:var(--text-muted);}
+.cx-search{position:relative;margin-bottom:1.1rem;max-width:420px;}
+.cx-search input{width:100%;padding:.7rem 1rem;border:1px solid var(--line);border-radius:var(--radius-md);background:var(--surface);font-family:inherit;font-size:.92rem;color:var(--text);box-sizing:border-box;}
+.cx-search input:focus{outline:2px solid var(--stream-accent);outline-offset:1px;}
+.cx-empty{display:none;padding:.9rem 1rem;border:1px dashed var(--line);border-radius:var(--radius-md);background:var(--paper);font-size:.88rem;color:var(--text-muted);margin-bottom:1rem;}
+.cx-empty.is-visible{display:block;}
 </style>
 
 </head>
@@ -136,23 +141,28 @@
         <h2 id="cities-heading">Cities with verified B.Tech options</h2>
         <p>We only publish a city page once we've verified it has enough genuine, distinct colleges to be useful — not every city students search for is included yet.</p>
       </div>
-      <div class="cx-grid reveal">
-        <a class="cx-card" href="colleges-btech-gujarat-ahmedabad.html">
+      <div class="cx-search reveal">
+        <label for="citySearchInput" class="sr-only">Search for a city</label>
+        <input type="text" id="citySearchInput" placeholder="Search for a city…" autocomplete="off">
+      </div>
+      <p class="cx-empty" id="citiesEmpty">No colleges currently available for this city.</p>
+      <div class="cx-grid reveal" id="citiesGrid">
+        <a class="cx-card" href="colleges-btech-gujarat-ahmedabad.html" data-name="Ahmedabad">
           <h3>Ahmedabad</h3>
           <p>Gujarat's largest concentration of engineering colleges — government, deemed and private.</p>
           <span class="cx-cta">Explore Ahmedabad →</span>
         </a>
-        <a class="cx-card" href="colleges-btech-gujarat-surat.html">
+        <a class="cx-card" href="colleges-btech-gujarat-surat.html" data-name="Surat">
           <h3>Surat</h3>
           <p>Home to SVNIT, one of India's National Institutes of Technology.</p>
           <span class="cx-cta">Explore Surat →</span>
         </a>
-        <a class="cx-card" href="colleges-btech-gujarat-vadodara.html">
+        <a class="cx-card" href="colleges-btech-gujarat-vadodara.html" data-name="Vadodara">
           <h3>Vadodara</h3>
           <p>Home to the long-established Faculty of Technology &amp; Engineering, MSU Baroda.</p>
           <span class="cx-cta">Explore Vadodara →</span>
         </a>
-        <div class="cx-card is-soon">
+        <div class="cx-card is-soon" data-name="Rajkot Gandhinagar other cities">
           <span class="cx-soon-badge">Not yet verified</span>
           <h3>Other cities (e.g. Rajkot, Gandhinagar)</h3>
           <p>Real colleges exist in these cities too, but we haven't completed enough verified research to publish a useful page yet — rather than guess, we're holding off until it's properly researched.</p>
@@ -173,6 +183,26 @@
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </button>
 
+<script>
+(function(){
+  function wireSearch(inputId, gridId, emptyId){
+    var input=document.getElementById(inputId), grid=document.getElementById(gridId), empty=document.getElementById(emptyId);
+    if(!input||!grid) return;
+    var items=grid.querySelectorAll('[data-name]');
+    input.addEventListener('input', function(){
+      var q=input.value.trim().toLowerCase(), visible=0;
+      items.forEach(function(el){
+        var name=(el.getAttribute('data-name')||'').toLowerCase();
+        var match=!q||name.indexOf(q)!==-1;
+        el.style.display=match?'':'none';
+        if(match) visible++;
+      });
+      if(empty) empty.classList.toggle('is-visible', visible===0 && q!=='');
+    });
+  }
+  wireSearch('citySearchInput','citiesGrid','citiesEmpty');
+})();
+</script>
 {% include scripts.html %}
 </body>
 </html>

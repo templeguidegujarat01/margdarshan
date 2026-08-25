@@ -43,6 +43,11 @@
 .cx-college-card h3{margin:0 0 .3rem;font-size:1rem;}
 .cx-college-card .cx-tag{display:inline-block;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--stream-primary);background:var(--stream-soft);border:1px solid var(--stream-border);border-radius:999px;padding:.15rem .55rem;margin-bottom:.5rem;}
 .cx-college-card p{margin:.4rem 0 0;font-size:.88rem;color:var(--text-muted);}
+.cx-search{position:relative;margin-bottom:1.1rem;max-width:420px;}
+.cx-search input{width:100%;padding:.7rem 1rem;border:1px solid var(--line);border-radius:var(--radius-md);background:var(--surface);font-family:inherit;font-size:.92rem;color:var(--text);box-sizing:border-box;}
+.cx-search input:focus{outline:2px solid var(--stream-accent);outline-offset:1px;}
+.cx-empty{display:none;padding:.9rem 1rem;border:1px dashed var(--line);border-radius:var(--radius-md);background:var(--paper);font-size:.88rem;color:var(--text-muted);margin-bottom:1rem;}
+.cx-empty.is-visible{display:block;}
 </style>
 
 </head>
@@ -141,13 +146,18 @@
         <h2 id="states-heading">Choose a state</h2>
         <p>We're building this state by state, with each state's colleges verified before publishing rather than listed in bulk.</p>
       </div>
-      <div class="cx-grid reveal">
-        <a class="cx-card" href="colleges-btech-gujarat.html">
+      <div class="cx-search reveal">
+        <label for="stateSearchInput" class="sr-only">Search for a state</label>
+        <input type="text" id="stateSearchInput" placeholder="Search for a state…" autocomplete="off">
+      </div>
+      <p class="cx-empty" id="statesEmpty">No colleges currently available for this state.</p>
+      <div class="cx-grid reveal" id="statesGrid">
+        <a class="cx-card" href="colleges-btech-gujarat.html" data-name="Gujarat">
           <h3>Gujarat</h3>
           <p>Our first fully-researched pilot — verified colleges across select cities.</p>
           <span class="cx-cta">Explore Gujarat →</span>
         </a>
-        <div class="cx-card is-soon">
+        <div class="cx-card is-soon" data-name="More states">
           <span class="cx-soon-badge">Coming soon</span>
           <h3>More states</h3>
           <p>Additional states will be added once verified with the same standard of research.</p>
@@ -180,6 +190,26 @@
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </button>
 
+<script>
+(function(){
+  function wireSearch(inputId, gridId, emptyId){
+    var input=document.getElementById(inputId), grid=document.getElementById(gridId), empty=document.getElementById(emptyId);
+    if(!input||!grid) return;
+    var items=grid.querySelectorAll('[data-name]');
+    input.addEventListener('input', function(){
+      var q=input.value.trim().toLowerCase(), visible=0;
+      items.forEach(function(el){
+        var name=(el.getAttribute('data-name')||'').toLowerCase();
+        var match=!q||name.indexOf(q)!==-1;
+        el.style.display=match?'':'none';
+        if(match) visible++;
+      });
+      if(empty) empty.classList.toggle('is-visible', visible===0 && q!=='');
+    });
+  }
+  wireSearch('stateSearchInput','statesGrid','statesEmpty');
+})();
+</script>
 {% include scripts.html %}
 </body>
 </html>

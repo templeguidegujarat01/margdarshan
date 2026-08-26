@@ -26,29 +26,7 @@
 <link rel="stylesheet" href="assets/css/main.css">
 
 
-<style>
-.cx-grid{display:grid;gap:1.1rem;grid-template-columns:1fr;}
-@media (min-width:640px){.cx-grid{grid-template-columns:repeat(2,1fr);}}
-@media (min-width:1024px){.cx-grid{grid-template-columns:repeat(3,1fr);}}
-.cx-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);padding:1.2rem 1.3rem;display:flex;flex-direction:column;gap:.5rem;}
-.cx-card h3{margin:0;font-size:1rem;}
-.cx-card p{margin:0;font-size:.88rem;color:var(--text-muted);}
-.cx-card .cx-cta{font-size:.85rem;font-weight:700;color:var(--stream-primary);}
-.cx-card.is-soon{background:var(--paper);border-style:dashed;}
-.cx-soon-badge{display:inline-flex;align-self:flex-start;font-family:var(--font-mono);font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;font-weight:600;color:var(--text-muted);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:.2rem .55rem;}
-.cx-college-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);padding:1.2rem 1.3rem;}
-.cx-college-card h3{margin:0 0 .3rem;font-size:1rem;}
-.cx-college-card .cx-tag{display:inline-block;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--stream-primary);background:var(--stream-soft);border:1px solid var(--stream-border);border-radius:999px;padding:.15rem .55rem;margin-bottom:.5rem;}
-.cx-college-card p{margin:.4rem 0 0;font-size:.88rem;color:var(--text-muted);}
-.cx-city-heading{margin:2rem 0 1rem;font-size:1.15rem;}
-.cx-city-heading:first-child{margin-top:0;}
-.cx-search{position:relative;margin-bottom:1.1rem;max-width:420px;}
-.cx-search input{width:100%;padding:.7rem 1rem;border:1px solid var(--line);border-radius:var(--radius-md);background:var(--surface);font-family:inherit;font-size:.92rem;color:var(--text);box-sizing:border-box;}
-.cx-search input:focus{outline:2px solid var(--stream-accent);outline-offset:1px;}
-.cx-empty{display:none;padding:.9rem 1rem;border:1px dashed var(--line);border-radius:var(--radius-md);background:var(--paper);font-size:.88rem;color:var(--text-muted);margin-bottom:1rem;}
-.cx-empty.is-visible{display:block;}
-.cx-city-block[data-city-hidden="true"]{display:none;}
-</style>
+{% include discovery-styles.html %}
 
 </head>
 <body data-stream="science">
@@ -80,7 +58,6 @@
       <nav class="quicknav" aria-label="Section navigation">
         <a href="#what">What This Is</a>
         <a href="#states">States</a>
-        <a href="#cities">Cities &amp; Providers</a>
         <a href="#method">Our Method</a>
       </nav>
     </div>
@@ -112,10 +89,15 @@
       </div>
       <p class="cx-empty" id="statesEmpty">No coaching currently listed for this state.</p>
       <div class="cx-grid reveal" id="statesGrid">
-        <a class="cx-card" href="#cities" data-name="Gujarat">
+        <a class="cx-card" href="coaching-neet-gujarat.html" data-name="Gujarat">
           <h3>Gujarat</h3>
           <p>Our first fully-researched pilot — verified providers across Ahmedabad, Surat and Vadodara.</p>
           <span class="cx-cta">Explore Gujarat →</span>
+        </a>
+        <a class="cx-card" href="coaching-neet-maharashtra.html" data-name="Maharashtra">
+          <h3>Maharashtra</h3>
+          <p>Verified providers across Mumbai, Pune and Nagpur.</p>
+          <span class="cx-cta">Explore Maharashtra →</span>
         </a>
         <div class="cx-card is-soon" data-name="More states">
           <span class="cx-soon-badge">Coming soon</span>
@@ -126,94 +108,6 @@
     </div>
   </section>
 
-  <section class="block" id="cities" aria-labelledby="cities-heading">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">Gujarat pilot</span>
-        <h2 id="cities-heading">Selected NEET coaching providers, by city</h2>
-        <p>Selected for genuine, verifiable presence — an official website or official centre listing — and clear relevance to NEET preparation, not a ranking claim. Always confirm current fees, batch timings and seat availability directly with the provider.</p>
-      </div>
-      <div class="cx-search reveal">
-        <label for="citySearchInput" class="sr-only">Search for a city</label>
-        <input type="text" id="citySearchInput" placeholder="Search for a city…" autocomplete="off">
-      </div>
-      <p class="cx-empty" id="citiesEmpty">No coaching currently listed for this city.</p>
-      <div id="citiesList">
-        <div class="cx-city-block" data-name="Ahmedabad">
-          <h3 class="cx-city-heading">Ahmedabad</h3>
-          <div class="cx-grid reveal">
-            <div class="cx-college-card">
-              <span class="cx-tag">NEET-UG</span>
-              <h3>ALLEN Career Institute — Ahmedabad</h3>
-              <p>S.G. Highway campus, Bodakdev, Ahmedabad. Classroom, online and test-series programmes for NEET.</p>
-              <a class="source-link" href="https://www.allen.ac.in/ahmedabad/" target="_blank" rel="noopener noreferrer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-                Official website
-              </a>
-            </div>
-            <div class="cx-college-card">
-              <span class="cx-tag">NEET-UG</span>
-              <h3>Aakash Institute — Ahmedabad</h3>
-              <p>Multiple Ahmedabad centres, including Maninagar, Ambavadi, Thaltej, South Bopal and Chandkheda.</p>
-              <a class="source-link" href="https://centers.aakash.ac.in/location/gujarat/ahmedabad" target="_blank" rel="noopener noreferrer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-                Official centre listing
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="cx-city-block" data-name="Surat">
-          <h3 class="cx-city-heading">Surat</h3>
-          <div class="cx-grid reveal">
-            <div class="cx-college-card">
-              <span class="cx-tag">NEET-UG</span>
-              <h3>ALLEN Career Institute — Surat</h3>
-              <p>Vibrant Mall, Adajan, Surat. Classroom, online and test-series programmes for NEET.</p>
-              <a class="source-link" href="https://www.allen.ac.in/surat/" target="_blank" rel="noopener noreferrer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-                Official website
-              </a>
-            </div>
-            <div class="cx-college-card">
-              <span class="cx-tag">NEET-UG</span>
-              <h3>Aakash Institute — Surat</h3>
-              <p>Multiple Surat centres, including Adajan, Vesu, Majura Gate and Mota Varachha.</p>
-              <a class="source-link" href="https://centers.aakash.ac.in/location/gujarat/surat" target="_blank" rel="noopener noreferrer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-                Official centre listing
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="cx-city-block" data-name="Vadodara">
-          <h3 class="cx-city-heading">Vadodara</h3>
-          <div class="cx-grid reveal">
-            <div class="cx-college-card">
-              <span class="cx-tag">NEET-UG</span>
-              <h3>ALLEN Career Institute — Vadodara</h3>
-              <p>Akota, Vadodara. Classroom, online and test-series programmes for NEET.</p>
-              <a class="source-link" href="https://www.allen.ac.in/vadodara/" target="_blank" rel="noopener noreferrer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-                Official website
-              </a>
-            </div>
-            <div class="cx-college-card">
-              <span class="cx-tag">NEET-UG</span>
-              <h3>Aakash Institute — Vadodara</h3>
-              <p>Multiple Vadodara centres, including Manjalpur, Karelibaug and Nizampura.</p>
-              <a class="source-link" href="https://centers.aakash.ac.in/location/gujarat/vadodara" target="_blank" rel="noopener noreferrer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-                Official centre listing
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <p class="table-note" style="margin-top:1rem;">We haven't verified enough distinct providers in other Gujarat cities (e.g. Rajkot, Gandhinagar) to publish a useful page yet — rather than guess, we're holding off until it's properly researched.</p>
-    </div>
-  </section>
 
   <section class="block block-alt" id="method" aria-labelledby="method-heading">
     <div class="container">
@@ -239,41 +133,10 @@
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </button>
 
+{% include discovery-search.html %}
 <script>
 (function(){
-  function wireSearch(inputId, gridId, emptyId){
-    var input=document.getElementById(inputId), grid=document.getElementById(gridId), empty=document.getElementById(emptyId);
-    if(!input||!grid) return;
-    var items=grid.querySelectorAll('[data-name]');
-    input.addEventListener('input', function(){
-      var q=input.value.trim().toLowerCase(), visible=0;
-      items.forEach(function(el){
-        var name=(el.getAttribute('data-name')||'').toLowerCase();
-        var match=!q||name.indexOf(q)!==-1;
-        el.style.display=match?'':'none';
-        if(match) visible++;
-      });
-      if(empty) empty.classList.toggle('is-visible', visible===0 && q!=='');
-    });
-  }
-  wireSearch('stateSearchInput','statesGrid','statesEmpty');
-
-  var cityInput=document.getElementById('citySearchInput');
-  var cityList=document.getElementById('citiesList');
-  var cityEmpty=document.getElementById('citiesEmpty');
-  if(cityInput && cityList){
-    var blocks=cityList.querySelectorAll('.cx-city-block');
-    cityInput.addEventListener('input', function(){
-      var q=cityInput.value.trim().toLowerCase(), visible=0;
-      blocks.forEach(function(block){
-        var name=(block.getAttribute('data-name')||'').toLowerCase();
-        var match=!q||name.indexOf(q)!==-1;
-        block.setAttribute('data-city-hidden', match ? 'false' : 'true');
-        if(match) visible++;
-      });
-      if(cityEmpty) cityEmpty.classList.toggle('is-visible', visible===0 && q!=='');
-    });
-  }
+  cxWireSearch('stateSearchInput','statesGrid','statesEmpty');
 })();
 </script>
 {% include scripts.html %}

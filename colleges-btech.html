@@ -26,29 +26,7 @@
 <link rel="stylesheet" href="assets/css/main.css">
 
 
-<style>
-.cx-grid{display:grid;gap:1.1rem;grid-template-columns:1fr;}
-@media (min-width:640px){.cx-grid{grid-template-columns:repeat(2,1fr);}}
-@media (min-width:1024px){.cx-grid{grid-template-columns:repeat(3,1fr);}}
-.cx-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);padding:1.2rem 1.3rem;display:flex;flex-direction:column;gap:.5rem;}
-.cx-card h3{margin:0;font-size:1rem;}
-.cx-card p{margin:0;font-size:.88rem;color:var(--text-muted);}
-.cx-card .cx-cta{font-size:.85rem;font-weight:700;color:var(--stream-primary);}
-.cx-card.is-soon{background:var(--paper);border-style:dashed;}
-.cx-soon-badge{display:inline-flex;align-self:flex-start;font-family:var(--font-mono);font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;font-weight:600;color:var(--text-muted);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:.2rem .55rem;}
-.cx-stream-grid{display:grid;gap:1.2rem;grid-template-columns:1fr;}
-@media (min-width:640px){.cx-stream-grid{grid-template-columns:repeat(2,1fr);}}
-@media (min-width:1024px){.cx-stream-grid{grid-template-columns:repeat(5,1fr);}}
-.cx-college-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);padding:1.2rem 1.3rem;}
-.cx-college-card h3{margin:0 0 .3rem;font-size:1rem;}
-.cx-college-card .cx-tag{display:inline-block;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--stream-primary);background:var(--stream-soft);border:1px solid var(--stream-border);border-radius:999px;padding:.15rem .55rem;margin-bottom:.5rem;}
-.cx-college-card p{margin:.4rem 0 0;font-size:.88rem;color:var(--text-muted);}
-.cx-search{position:relative;margin-bottom:1.1rem;max-width:420px;}
-.cx-search input{width:100%;padding:.7rem 1rem;border:1px solid var(--line);border-radius:var(--radius-md);background:var(--surface);font-family:inherit;font-size:.92rem;color:var(--text);box-sizing:border-box;}
-.cx-search input:focus{outline:2px solid var(--stream-accent);outline-offset:1px;}
-.cx-empty{display:none;padding:.9rem 1rem;border:1px dashed var(--line);border-radius:var(--radius-md);background:var(--paper);font-size:.88rem;color:var(--text-muted);margin-bottom:1rem;}
-.cx-empty.is-visible{display:block;}
-</style>
+{% include discovery-styles.html %}
 
 </head>
 <body data-stream="science">
@@ -157,6 +135,11 @@
           <p>Our first fully-researched pilot — verified colleges across select cities.</p>
           <span class="cx-cta">Explore Gujarat →</span>
         </a>
+        <a class="cx-card" href="colleges-btech-maharashtra.html" data-name="Maharashtra">
+          <h3>Maharashtra</h3>
+          <p>Verified colleges across Mumbai, Pune and Nagpur.</p>
+          <span class="cx-cta">Explore Maharashtra →</span>
+        </a>
         <div class="cx-card is-soon" data-name="More states">
           <span class="cx-soon-badge">Coming soon</span>
           <h3>More states</h3>
@@ -190,24 +173,10 @@
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </button>
 
+{% include discovery-search.html %}
 <script>
 (function(){
-  function wireSearch(inputId, gridId, emptyId){
-    var input=document.getElementById(inputId), grid=document.getElementById(gridId), empty=document.getElementById(emptyId);
-    if(!input||!grid) return;
-    var items=grid.querySelectorAll('[data-name]');
-    input.addEventListener('input', function(){
-      var q=input.value.trim().toLowerCase(), visible=0;
-      items.forEach(function(el){
-        var name=(el.getAttribute('data-name')||'').toLowerCase();
-        var match=!q||name.indexOf(q)!==-1;
-        el.style.display=match?'':'none';
-        if(match) visible++;
-      });
-      if(empty) empty.classList.toggle('is-visible', visible===0 && q!=='');
-    });
-  }
-  wireSearch('stateSearchInput','statesGrid','statesEmpty');
+  cxWireSearch('stateSearchInput','statesGrid','statesEmpty');
 })();
 </script>
 {% include scripts.html %}

@@ -1,0 +1,36 @@
+<!-- Shared discovery-system search logic: used by every college/coaching finder
+     page. Defines two reusable global functions; each page wires them to its
+     own element IDs with a one-line call (see individual pages). -->
+<script>
+window.cxWireSearch = function(inputId, gridId, emptyId){
+  var input=document.getElementById(inputId), grid=document.getElementById(gridId), empty=document.getElementById(emptyId);
+  if(!input||!grid) return;
+  var items=grid.querySelectorAll('[data-name]');
+  input.addEventListener('input', function(){
+    var q=input.value.trim().toLowerCase(), visible=0;
+    items.forEach(function(el){
+      var name=(el.getAttribute('data-name')||'').toLowerCase();
+      var match=!q||name.indexOf(q)!==-1;
+      el.style.display=match?'':'none';
+      if(match) visible++;
+    });
+    if(empty) empty.classList.toggle('is-visible', visible===0 && q!=='');
+  });
+};
+
+window.cxWireCityBlockSearch = function(inputId, listId, emptyId){
+  var input=document.getElementById(inputId), list=document.getElementById(listId), empty=document.getElementById(emptyId);
+  if(!input||!list) return;
+  var blocks=list.querySelectorAll('.cx-city-block');
+  input.addEventListener('input', function(){
+    var q=input.value.trim().toLowerCase(), visible=0;
+    blocks.forEach(function(block){
+      var name=(block.getAttribute('data-name')||'').toLowerCase();
+      var match=!q||name.indexOf(q)!==-1;
+      block.setAttribute('data-city-hidden', match ? 'false' : 'true');
+      if(match) visible++;
+    });
+    if(empty) empty.classList.toggle('is-visible', visible===0 && q!=='');
+  });
+};
+</script>

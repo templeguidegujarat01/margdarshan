@@ -754,3 +754,52 @@ a.goal-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);}
 .cx-link:hover,.cx-link:focus-visible{color:var(--stream-accent);border-bottom-color:var(--stream-accent);}
 .page-hero .meta-row a{color:var(--gold);text-decoration:underline;font-weight:600;}
 .page-hero .meta-row a:hover,.page-hero .meta-row a:focus-visible{color:#fff;}
+
+/* ============================================================
+   CAREER PAGE TEXT-COLOR CONSISTENCY OVERRIDE
+   ------------------------------------------------------------
+   Purpose: make career-page TYPOGRAPHY read identically across every
+   stream (Commerce/Science/Arts/Diploma/ITI), matching the reference
+   screenshot: gold eyebrow labels, standard body/heading colors, and
+   one consistent link/accent color — instead of shifting per stream.
+
+   How: each rule below targets the exact same selector(s) already
+   defined above and, using the attribute-presence selector
+   `[data-stream]` (which matches any stream value and carries the
+   same CSS specificity as `[data-stream="commerce"]` etc.), overrides
+   only the `color` property. Being declared later in the cascade with
+   equal-or-matching specificity, these rules win over the per-stream
+   ones above for all five streams at once.
+
+   Nothing else is touched: --stream-primary/--stream-accent and all
+   [data-stream="X"] variable blocks in :root remain fully intact for
+   any non-text use (icons, borders, background tints, buttons,
+   progress bar, stream cards) — this block only overrides text color
+   on the specific selectors that were causing the inconsistency.
+   No HTML changes required. ============================================================ */
+
+/* Eyebrow / uppercase label text — was var(--stream-primary/accent) */
+.eyebrow{color:var(--gold-strong);}
+[data-theme="dark"] .eyebrow{color:var(--gold);}
+
+/* Subject chip text on career pages */
+[data-stream] .subject-chips span{color:var(--text);}
+[data-theme="dark"][data-stream] .subject-chips span{color:var(--text);}
+
+/* Table header text on career pages */
+[data-stream] .table-simple th{color:var(--text-muted);}
+[data-theme="dark"][data-stream] .table-simple th{color:var(--text-muted);}
+
+/* In-content links on career pages */
+[data-stream] .prose a{color:var(--gold-strong);}
+[data-theme="dark"][data-stream] .prose a{color:var(--gold);}
+
+/* Source-link hover/focus text */
+.source-link:hover,.source-link:focus-visible{color:var(--gold-strong);}
+[data-theme="dark"] .source-link:hover,[data-theme="dark"] .source-link:focus-visible{color:var(--gold);}
+
+/* Internal cross-links (exam/college links inside body content) */
+.cx-link{color:var(--gold-strong);}
+.cx-link:hover,.cx-link:focus-visible{color:var(--gold-strong);}
+[data-theme="dark"] .cx-link{color:var(--gold);}
+[data-theme="dark"] .cx-link:hover,[data-theme="dark"] .cx-link:focus-visible{color:var(--gold);}

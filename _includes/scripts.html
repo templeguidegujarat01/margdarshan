@@ -248,3 +248,169 @@
   else { window.addEventListener('load', initReadMore); }
 })();
 </script>
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- Collapsible career groups ----------
+     Auto-wraps every h3.career-group-heading + the ul.career-grid that
+     follows it into a toggleable group. Content is never removed from the
+     DOM (collapsed via max-height), so every career link stays crawlable. */
+  var groupHeadings = document.querySelectorAll('h3.career-group-heading');
+  groupHeadings.forEach(function(h, i){
+    var list = h.nextElementSibling;
+    if(!list || !list.classList.contains('career-grid')) return;
+
+    var wrapper = document.createElement('div');
+    wrapper.className = 'career-group';
+    h.parentNode.insertBefore(wrapper, h);
+
+    var headRow = document.createElement('div');
+    headRow.className = 'career-group-head';
+    wrapper.appendChild(headRow);
+    headRow.appendChild(h);
+
+    var panelId = 'career-group-panel-' + (i + 1);
+    if(!h.id) h.id = 'career-group-' + (i + 1);
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'open-list-btn';
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-controls', panelId);
+    btn.innerHTML = '<span class="open-list-btn-label">Open list</span>' +
+      '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+    headRow.appendChild(btn);
+
+    var panel = document.createElement('div');
+    panel.className = 'career-group-panel';
+    panel.id = panelId;
+    wrapper.appendChild(panel);
+    panel.appendChild(list);
+
+    btn.addEventListener('click', function(){
+      var open = panel.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      var label = btn.querySelector('.open-list-btn-label');
+      if(label) label.textContent = open ? 'Close list' : 'Open list';
+    });
+  });
+
+  /* Global: whenever ANY in-page anchor link is clicked anywhere on the
+     site (the existing .quicknav-bar links included), open the target's
+     career group first if it's currently collapsed, so a link like
+     "Trade Directory" never lands on an empty collapsed heading. Runs
+     ahead of the browser's native anchor jump; does not intercept or
+     change the click otherwise. */
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if(!a) return;
+    var id = a.getAttribute('href').slice(1);
+    if(!id) return;
+    var target = document.getElementById(id);
+    if(!target) return;
+    var groupWrap = target.closest('.career-group') || (function(){
+      var byId = document.getElementById(id);
+      return byId ? byId.closest('.career-group') : null;
+    })();
+    if(!groupWrap) return;
+    var groupPanel = groupWrap.querySelector('.career-group-panel');
+    if(groupPanel && !groupPanel.classList.contains('is-open')){
+      groupPanel.classList.add('is-open');
+      var groupBtn = groupWrap.querySelector('.open-list-btn');
+      if(groupBtn){
+        groupBtn.setAttribute('aria-expanded', 'true');
+        var label = groupBtn.querySelector('.open-list-btn-label');
+        if(label) label.textContent = 'Close list';
+      }
+    }
+  });
+
+  /* ---------- "On this page" navigation ----------
+     Auto-generated from the page's own h2[id] headings when there are
+     enough of them to be worth navigating. Skipped entirely on pages that
+     already have the site's existing .quicknav-bar anchor navigation, so
+     we never show two competing "on this page" systems on one page. */
+  var main = document.getElementById('main');
+  if(!main) return;
+  if(document.querySelector('.quicknav-bar')) return;
+
+  var headingEls = Array.prototype.filter.call(
+    main.querySelectorAll('h2[id], h3.career-group-heading[id]'),
+    function(h){ return h.textContent.trim().length > 0; }
+  );
+  if(headingEls.length < 4) return;
+
+  var items = headingEls.map(function(h){ return { id: h.id, text: h.textContent.trim() }; });
+  var reduceMotion = (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) || false;
+
+  function buildList(){
+    var ol = document.createElement('ol');
+    items.forEach(function(item){
+      var li = document.createElement('li');
+      var a = document.createElement('a');
+      a.href = '#' + item.id;
+      a.textContent = item.text;
+      li.appendChild(a);
+      ol.appendChild(li);
+    });
+    return ol;
+  }
+
+  // Desktop fixed panel
+  var nav = document.createElement('nav');
+  nav.className = 'page-nav';
+  nav.setAttribute('aria-label', 'On this page');
+  var navHeading = document.createElement('h2');
+  navHeading.textContent = 'On this page';
+  nav.appendChild(navHeading);
+  nav.appendChild(buildList());
+  document.body.appendChild(nav);
+
+  // Mobile compact toggle, inserted at the top of main content
+  var mWrap = document.createElement('div');
+  mWrap.className = 'page-nav-mobile';
+  mWrap.innerHTML = '<button type="button" class="page-nav-mobile-toggle" aria-expanded="false" aria-controls="pageNavMobilePanel">' +
+    '<span>On this page</span>' +
+    '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>' +
+    '</button><div class="page-nav-mobile-panel" id="pageNavMobilePanel"></div>';
+  main.insertBefore(mWrap, main.firstElementChild.nextElementSibling || null);
+  var mPanel = mWrap.querySelector('.page-nav-mobile-panel');
+  mPanel.appendChild(buildList());
+  var mBtn = mWrap.querySelector('.page-nav-mobile-toggle');
+  mBtn.addEventListener('click', function(){
+    var open = mPanel.classList.toggle('is-open');
+    mBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  function handleNavClick(e){
+    var a = e.target.closest('a[href^="#"]');
+    if(!a) return;
+    var id = a.getAttribute('href').slice(1);
+    var target = document.getElementById(id);
+    if(!target) return;
+    e.preventDefault();
+    window.requestAnimationFrame(function(){
+      target.scrollIntoView({behavior: reduceMotion ? 'auto' : 'smooth', block: 'start'});
+    });
+    mPanel.classList.remove('is-open');
+    mBtn.setAttribute('aria-expanded', 'false');
+  }
+  nav.addEventListener('click', handleNavClick);
+  mPanel.addEventListener('click', handleNavClick);
+
+  // Active-section highlight while scrolling (desktop panel only)
+  if('IntersectionObserver' in window){
+    var navLinks = {};
+    nav.querySelectorAll('a').forEach(function(a){ navLinks[a.getAttribute('href').slice(1)] = a; });
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        var link = navLinks[entry.target.id];
+        if(!link || !entry.isIntersecting) return;
+        nav.querySelectorAll('a.is-active').forEach(function(a){ a.classList.remove('is-active'); });
+        link.classList.add('is-active');
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    headingEls.forEach(function(h){ observer.observe(h); });
+  }
+})();
+</script>

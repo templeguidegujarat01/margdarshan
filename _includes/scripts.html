@@ -362,7 +362,26 @@
     return ol;
   }
 
-  // Desktop fixed panel
+  // Move everything after the page's hero (its first element) into a
+  // .page-nav-content wrapper, then rebuild that plus a .page-nav sidebar
+  // as a real two-column grid (.page-nav-layout). This keeps the nav a
+  // proper grid column — never a floating box that can drift over content
+  // — and lets the grid collapse to a single column below 1200px.
+  var heroEl = main.firstElementChild;
+  var contentWrap = document.createElement('div');
+  contentWrap.className = 'page-nav-content';
+  var node = heroEl ? heroEl.nextElementSibling : main.firstElementChild;
+  while(node){
+    var next = node.nextElementSibling;
+    contentWrap.appendChild(node);
+    node = next;
+  }
+
+  var layout = document.createElement('div');
+  layout.className = 'page-nav-layout';
+  layout.appendChild(contentWrap);
+
+  // Desktop / tablet sidebar (grid column, sticky within it)
   var nav = document.createElement('nav');
   nav.className = 'page-nav';
   nav.setAttribute('aria-label', hasQuicknav ? 'Categories' : 'On this page');
@@ -370,16 +389,19 @@
   navHeading.textContent = hasQuicknav ? 'Categories' : 'On this page';
   nav.appendChild(navHeading);
   nav.appendChild(buildList());
-  document.body.appendChild(nav);
+  layout.appendChild(nav);
 
-  // Mobile compact toggle, inserted at the top of main content
+  main.appendChild(layout);
+
+  // Mobile compact toggle, inserted at the top of the content column
+  // (i.e. right after the hero, same as before)
   var mWrap = document.createElement('div');
   mWrap.className = 'page-nav-mobile';
   mWrap.innerHTML = '<button type="button" class="page-nav-mobile-toggle" aria-expanded="false" aria-controls="pageNavMobilePanel">' +
     '<span>' + (hasQuicknav ? 'Categories' : 'On this page') + '</span>' +
     '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>' +
     '</button><div class="page-nav-mobile-panel" id="pageNavMobilePanel"></div>';
-  main.insertBefore(mWrap, main.firstElementChild.nextElementSibling || null);
+  contentWrap.insertBefore(mWrap, contentWrap.firstChild);
   var mPanel = mWrap.querySelector('.page-nav-mobile-panel');
   mPanel.appendChild(buildList());
   var mBtn = mWrap.querySelector('.page-nav-mobile-toggle');

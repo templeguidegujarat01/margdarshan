@@ -326,22 +326,17 @@
   });
 
   /* ---------- "On this page" navigation ----------
-     Auto-generated from the page's own headings when there's enough
-     content to be worth navigating. On pages that already have the site's
-     .quicknav-bar (anchor pills for the page's top-level sections), we
-     don't duplicate that — but if the page ALSO has collapsible career
-     groups (h3.career-group-heading), those aren't covered by the
-     quicknav-bar's section-level links, so we still show a panel listing
-     just those categories, so every category stays reachable and openable
-     from a proper "on this page" list, not just a single generic section
-     link. */
+     Auto-generated, site-wide, from the page's own headings whenever
+     there's enough content to be worth navigating — this is the ONLY
+     condition; the existing .quicknav-bar (where present) is left exactly
+     as it is and the two coexist. Any page with 4+ real h2[id] sections
+     (or h3.career-group-heading categories) gets the sidebar/mobile-toggle
+     automatically, including pages added in the future. */
   var main = document.getElementById('main');
   if(!main) return;
-  var hasQuicknav = !!document.querySelector('.quicknav-bar');
-  var headingSelector = hasQuicknav ? 'h3.career-group-heading[id]' : 'h2[id], h3.career-group-heading[id]';
 
   var headingEls = Array.prototype.filter.call(
-    main.querySelectorAll(headingSelector),
+    main.querySelectorAll('h2[id], h3.career-group-heading[id]'),
     function(h){ return h.textContent.trim().length > 0; }
   );
   if(headingEls.length < 4) return;
@@ -384,9 +379,9 @@
   // Desktop / tablet sidebar (grid column, sticky within it)
   var nav = document.createElement('nav');
   nav.className = 'page-nav';
-  nav.setAttribute('aria-label', hasQuicknav ? 'Categories' : 'On this page');
+  nav.setAttribute('aria-label', 'On this page');
   var navHeading = document.createElement('h2');
-  navHeading.textContent = hasQuicknav ? 'Categories' : 'On this page';
+  navHeading.textContent = 'On this page';
   nav.appendChild(navHeading);
   nav.appendChild(buildList());
   layout.appendChild(nav);
@@ -398,7 +393,7 @@
   var mWrap = document.createElement('div');
   mWrap.className = 'page-nav-mobile';
   mWrap.innerHTML = '<button type="button" class="page-nav-mobile-toggle" aria-expanded="false" aria-controls="pageNavMobilePanel">' +
-    '<span>' + (hasQuicknav ? 'Categories' : 'On this page') + '</span>' +
+    '<span>On this page</span>' +
     '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>' +
     '</button><div class="page-nav-mobile-panel" id="pageNavMobilePanel"></div>';
   contentWrap.insertBefore(mWrap, contentWrap.firstChild);

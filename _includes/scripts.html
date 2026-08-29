@@ -341,6 +341,13 @@
   );
   if(headingEls.length < 4) return;
 
+  // The sidebar is about to be built for this page. Mark any existing
+  // .quicknav-bar so CSS can hide it at the same breakpoint the sidebar
+  // shows at — the two must never both be visible at once. Pages with no
+  // sidebar (fewer than 4 headings) leave .quicknav-bar untouched.
+  var quicknavBar = document.querySelector('.quicknav-bar');
+  if(quicknavBar) quicknavBar.classList.add('has-sidebar-nav');
+
   var items = headingEls.map(function(h){ return { id: h.id, text: h.textContent.trim() }; });
   var reduceMotion = (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) || false;
 
@@ -388,22 +395,27 @@
 
   main.appendChild(layout);
 
-  // Mobile compact toggle, inserted at the top of the content column
-  // (i.e. right after the hero, same as before)
-  var mWrap = document.createElement('div');
-  mWrap.className = 'page-nav-mobile';
-  mWrap.innerHTML = '<button type="button" class="page-nav-mobile-toggle" aria-expanded="false" aria-controls="pageNavMobilePanel">' +
-    '<span>On this page</span>' +
-    '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>' +
-    '</button><div class="page-nav-mobile-panel" id="pageNavMobilePanel"></div>';
-  contentWrap.insertBefore(mWrap, contentWrap.firstChild);
-  var mPanel = mWrap.querySelector('.page-nav-mobile-panel');
-  mPanel.appendChild(buildList());
-  var mBtn = mWrap.querySelector('.page-nav-mobile-toggle');
-  mBtn.addEventListener('click', function(){
-    var open = mPanel.classList.toggle('is-open');
-    mBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
+  // Mobile compact toggle — only added when this page has no existing
+  // .quicknav-bar. Pages that already have one keep using it at every
+  // width below the sidebar breakpoint, so mobile never shows two nav
+  // systems at once; the sidebar (desktop-only) is the only new UI those
+  // pages gain.
+  if(!quicknavBar){
+    var mWrap = document.createElement('div');
+    mWrap.className = 'page-nav-mobile';
+    mWrap.innerHTML = '<button type="button" class="page-nav-mobile-toggle" aria-expanded="false" aria-controls="pageNavMobilePanel">' +
+      '<span>On this page</span>' +
+      '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>' +
+      '</button><div class="page-nav-mobile-panel" id="pageNavMobilePanel"></div>';
+    contentWrap.insertBefore(mWrap, contentWrap.firstChild);
+    var mPanel = mWrap.querySelector('.page-nav-mobile-panel');
+    mPanel.appendChild(buildList());
+    var mBtn = mWrap.querySelector('.page-nav-mobile-toggle');
+    mBtn.addEventListener('click', function(){
+      var open = mPanel.classList.toggle('is-open');
+      mBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  }
 
   function handleNavClick(e){
     var a = e.target.closest('a[href^="#"]');
@@ -415,11 +427,11 @@
     window.requestAnimationFrame(function(){
       target.scrollIntoView({behavior: reduceMotion ? 'auto' : 'smooth', block: 'start'});
     });
-    mPanel.classList.remove('is-open');
-    mBtn.setAttribute('aria-expanded', 'false');
+    if(mPanel) mPanel.classList.remove('is-open');
+    if(mBtn) mBtn.setAttribute('aria-expanded', 'false');
   }
   nav.addEventListener('click', handleNavClick);
-  mPanel.addEventListener('click', handleNavClick);
+  if(mPanel) mPanel.addEventListener('click', handleNavClick);
 
   // Active-section highlight while scrolling (desktop panel only)
   if('IntersectionObserver' in window){

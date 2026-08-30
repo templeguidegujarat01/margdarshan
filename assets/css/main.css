@@ -569,67 +569,24 @@ table{border-collapse:collapse;width:100%;}
 [data-theme="dark"] .readmore-btn{color:#5FC9AE;border-color:var(--line);}
 [data-theme="dark"] .readmore-btn:hover,[data-theme="dark"] .readmore-btn:focus-visible{background:rgba(95,201,174,.12);}
 
-/* ---------- Commerce stream visual identity ----------
-   Color-only overrides on existing box models (same border widths /
-   padding / structure) so nothing reflows. Scoped to [data-stream="commerce"]
-   only; other streams are untouched and unaffected. */
-[data-stream="commerce"] .btn-primary{color:#fff;}
-[data-theme="dark"][data-stream="commerce"] .btn-primary:hover{color:#0B1A22;}
-[data-stream="commerce"] .elig-card{border-color:var(--stream-border);}
-[data-stream="commerce"] .subject-chips span{border-color:var(--stream-border);color:var(--stream-primary);}
-[data-theme="dark"][data-stream="commerce"] .subject-chips span{color:var(--stream-accent);}
-[data-stream="commerce"] .table-simple th{background:var(--stream-soft);color:var(--stream-primary);}
-[data-theme="dark"][data-stream="commerce"] .table-simple th{color:var(--stream-accent);}
-[data-stream="commerce"] .prose a{color:var(--stream-primary);}
-[data-theme="dark"][data-stream="commerce"] .prose a{color:var(--stream-accent);}
-/* ---------- Science stream visual identity ----------
-   Same pattern as Commerce: color-only overrides on existing box models,
-   scoped to [data-stream="science"] only. Commerce is untouched. */
-[data-stream="science"] .btn-primary{color:#fff;}
-[data-theme="dark"][data-stream="science"] .btn-primary:hover{color:#0B1A22;}
-[data-stream="science"] .elig-card{border-color:var(--stream-border);}
-[data-stream="science"] .subject-chips span{border-color:var(--stream-border);color:var(--stream-primary);}
-[data-theme="dark"][data-stream="science"] .subject-chips span{color:var(--stream-accent);}
-[data-stream="science"] .table-simple th{background:var(--stream-soft);color:var(--stream-primary);}
-[data-theme="dark"][data-stream="science"] .table-simple th{color:var(--stream-accent);}
-[data-stream="science"] .prose a{color:var(--stream-primary);}
-[data-theme="dark"][data-stream="science"] .prose a{color:var(--stream-accent);}
-/* ---------- Arts stream visual identity ----------
-   Same pattern as Commerce/Science: color-only overrides on existing box
-   models, scoped to [data-stream="arts"] only. Commerce/Science untouched. */
-[data-stream="arts"] .btn-primary{color:#fff;}
-[data-theme="dark"][data-stream="arts"] .btn-primary:hover{color:#2A1226;}
-[data-stream="arts"] .elig-card{border-color:var(--stream-border);}
-[data-stream="arts"] .subject-chips span{border-color:var(--stream-border);color:var(--stream-primary);}
-[data-theme="dark"][data-stream="arts"] .subject-chips span{color:var(--stream-accent);}
-[data-stream="arts"] .table-simple th{background:var(--stream-soft);color:var(--stream-primary);}
-[data-theme="dark"][data-stream="arts"] .table-simple th{color:var(--stream-accent);}
-[data-stream="arts"] .prose a{color:var(--stream-primary);}
-[data-theme="dark"][data-stream="arts"] .prose a{color:var(--stream-accent);}
-/* ---------- Diploma stream visual identity ----------
-   Same pattern as Commerce/Science/Arts: color-only overrides on existing
-   box models, scoped to [data-stream="diploma"] only. Others untouched. */
-[data-stream="diploma"] .btn-primary{color:#fff;}
-[data-theme="dark"][data-stream="diploma"] .btn-primary:hover{color:#241703;}
-[data-stream="diploma"] .elig-card{border-color:var(--stream-border);}
-[data-stream="diploma"] .subject-chips span{border-color:var(--stream-border);color:var(--stream-primary);}
-[data-theme="dark"][data-stream="diploma"] .subject-chips span{color:var(--stream-accent);}
-[data-stream="diploma"] .table-simple th{background:var(--stream-soft);color:var(--stream-primary);}
-[data-theme="dark"][data-stream="diploma"] .table-simple th{color:var(--stream-accent);}
-[data-stream="diploma"] .prose a{color:var(--stream-primary);}
-[data-theme="dark"][data-stream="diploma"] .prose a{color:var(--stream-accent);}
-/* ---------- ITI stream visual identity ----------
-   Same pattern as Commerce/Science/Arts/Diploma: color-only overrides on
-   existing box models, scoped to [data-stream="iti"] only. Others untouched. */
-[data-stream="iti"] .btn-primary{color:#fff;}
-[data-theme="dark"][data-stream="iti"] .btn-primary:hover{color:#0B1A22;}
-[data-stream="iti"] .elig-card{border-color:var(--stream-border);}
-[data-stream="iti"] .subject-chips span{border-color:var(--stream-border);color:var(--stream-primary);}
-[data-theme="dark"][data-stream="iti"] .subject-chips span{color:var(--stream-accent);}
-[data-stream="iti"] .table-simple th{background:var(--stream-soft);color:var(--stream-primary);}
-[data-theme="dark"][data-stream="iti"] .table-simple th{color:var(--stream-accent);}
-[data-stream="iti"] .prose a{color:var(--stream-primary);}
-[data-theme="dark"][data-stream="iti"] .prose a{color:var(--stream-accent);}
+/* ---------- Career-page identity accents ----------
+   These box models (button, eligibility card, subject chips, simple
+   table header, prose links) previously had 5 near-duplicate per-stream
+   colour blocks. Since --stream-primary/--stream-accent/--stream-soft/
+   --stream-border now resolve to the same global gold token everywhere
+   (see the stream theme system note near :root), one shared block covers
+   every stream identically — this also fixes a leftover inconsistency
+   where each stream's dark-mode .btn-primary:hover text colour was still
+   hardcoded to that stream's old individual brand colour. */
+[data-stream] .btn-primary{color:#fff;}
+[data-theme="dark"][data-stream] .btn-primary:hover{color:#241703;}
+[data-stream] .elig-card{border-color:var(--stream-border);}
+[data-stream] .subject-chips span{border-color:var(--stream-border);color:var(--stream-primary);}
+[data-theme="dark"][data-stream] .subject-chips span{color:var(--stream-accent);}
+[data-stream] .table-simple th{background:var(--stream-soft);color:var(--stream-primary);}
+[data-theme="dark"][data-stream] .table-simple th{color:var(--stream-accent);}
+[data-stream] .prose a{color:var(--stream-primary);}
+[data-theme="dark"][data-stream] .prose a{color:var(--stream-accent);}
 
 /* ---------- Career search overlay (opened from header search icon) ----------
    Same #careers section/IDs/JS logic as before; now presented as an

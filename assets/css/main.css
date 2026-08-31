@@ -853,3 +853,24 @@ a[href="icar-aieea.html"]:not(.cx-link):not(.related-card):not(.source-link):hov
 }
 .career-group-panel.is-open{max-height:4000px;}
 .career-group-panel .career-grid{margin-top:1rem;}
+
+/* ==========================================================================
+   ENTRANCE EXAM CARD
+   Reusable component for career pages: highlights a specific relevant exam
+   with a short explanation and two clear actions (the exam guide, and
+   coaching for it where that destination exists). Distinct from the plain
+   .cx-link CTA (used for college-directory links) so a page can show both
+   without visual redundancy. Multiple exams on one career page = multiple
+   .exam-card items inside the same .exam-card-grid.
+   ========================================================================== */
+.exam-card-grid{display:grid;gap:1rem;grid-template-columns:1fr;margin:1.4rem 0;}
+@media (min-width:640px){.exam-card-grid{grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}}
+.exam-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);padding:1.3rem 1.4rem;display:flex;flex-direction:column;gap:.6rem;}
+.exam-card h3{margin:0;font-size:1.05rem;}
+.exam-card p{margin:0;font-size:.9rem;color:var(--text-muted);flex-grow:1;line-height:1.55;}
+.exam-card-actions{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:.3rem;}
+.btn-exam-primary,.btn-exam-secondary{display:inline-flex;align-items:center;gap:.4rem;border-radius:999px;padding:.5rem 1.1rem;font-size:.85rem;font-weight:700;text-decoration:none;white-space:nowrap;}
+.btn-exam-primary{background:var(--gold-strong);color:#fff;}
+.btn-exam-primary:hover,.btn-exam-primary:focus-visible{background:var(--gold);}
+.btn-exam-secondary{background:var(--stream-soft);color:var(--stream-primary);border:1px solid var(--stream-border);}
+.btn-exam-secondary:hover,.btn-exam-secondary:focus-visible{background:var(--stream-border);}

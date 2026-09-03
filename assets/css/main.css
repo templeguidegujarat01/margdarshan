@@ -874,3 +874,51 @@ a[href="icar-aieea.html"]:not(.cx-link):not(.related-card):not(.source-link):hov
 .btn-exam-primary:hover,.btn-exam-primary:focus-visible{background:var(--gold);}
 .btn-exam-secondary{background:var(--stream-soft);color:var(--stream-primary);border:1px solid var(--stream-border);}
 .btn-exam-secondary:hover,.btn-exam-secondary:focus-visible{background:var(--stream-border);}
+
+/* ==========================================================================
+   CAREER FIT QUIZ (career-fit.html)
+   Small reusable component set for a client-side, no-backend guidance
+   quiz: pill-style option chips (checkbox/radio, same visual language as
+   .tab-btn), a results grid, and a "why this matched" chip list. All
+   scoring runs in the browser from a small in-page data array — nothing
+   is submitted anywhere, and every result links to a real, already-
+   existing career page (never invented).
+   ========================================================================== */
+.fit-step{margin-bottom:2.2rem;}
+.fit-step:last-child{margin-bottom:0;}
+.fit-step-label{display:block;font-weight:700;font-size:1rem;margin-bottom:.3rem;}
+.fit-step-hint{font-size:.85rem;color:var(--text-muted);margin:0 0 .9rem;}
+.fit-options{display:flex;flex-wrap:wrap;gap:.6rem;}
+.fit-option{position:relative;}
+.fit-option input{position:absolute;opacity:0;width:1px;height:1px;}
+.fit-option label{
+  display:inline-flex;align-items:center;gap:.4rem;
+  padding:.6rem 1.1rem;border-radius:999px;border:1px solid var(--line);
+  background:var(--paper);color:var(--text-muted);font-weight:600;font-size:.88rem;
+  cursor:pointer;transition:all .15s;
+}
+.fit-option input:checked + label{background:var(--ink);color:#fff;border-color:var(--ink);}
+.fit-option input:focus-visible + label{outline:2px solid var(--gold);outline-offset:2px;}
+.fit-option label:hover{border-color:var(--gold-strong);}
+
+.fit-submit-row{display:flex;justify-content:center;margin-top:1.2rem;}
+.btn-fit-submit{
+  display:inline-flex;align-items:center;gap:.5rem;background:var(--gold-strong);color:#fff;
+  border:none;border-radius:999px;padding:.9rem 2rem;font-size:.98rem;font-weight:700;
+  cursor:pointer;font-family:inherit;
+}
+.btn-fit-submit:hover,.btn-fit-submit:focus-visible{background:var(--gold);}
+
+.fit-results{display:none;}
+.fit-results.is-visible{display:block;}
+.fit-results-empty{display:none;padding:1.2rem 1.4rem;border:1px dashed var(--line);border-radius:var(--radius-md);background:var(--paper);color:var(--text-muted);font-size:.92rem;}
+.fit-results-empty.is-visible{display:block;}
+.fit-result-grid{display:grid;gap:1.1rem;grid-template-columns:1fr;margin-top:1rem;}
+@media (min-width:720px){.fit-result-grid{grid-template-columns:repeat(2,1fr);}}
+.fit-result-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);padding:1.3rem 1.4rem;display:flex;flex-direction:column;gap:.6rem;}
+.fit-result-rank{display:inline-flex;align-self:flex-start;font-family:var(--font-mono);font-size:.68rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--text-muted);background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:.2rem .6rem;}
+.fit-result-card h3{margin:0;font-size:1.08rem;}
+.fit-result-card .fit-stream{font-size:.78rem;color:var(--text-muted);font-weight:600;}
+.fit-result-why{font-size:.86rem;color:var(--text-muted);line-height:1.5;margin:0;}
+.fit-result-why strong{color:var(--text);}
+.fit-result-card a.fit-explore{align-self:flex-start;margin-top:.2rem;font-size:.85rem;font-weight:700;color:var(--stream-primary);text-decoration:underline;}

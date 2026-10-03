@@ -452,11 +452,20 @@ table{border-collapse:collapse;width:100%;}
 .journey-item h3{font-size:.98rem;font-family:var(--font-body);font-weight:700;}
 .journey-item p{color:var(--text-muted);font-size:.88rem;}
 @media (min-width:1024px){.journey-list::before{content:"";position:absolute;left:0;right:0;top:18px;height:2px;background:repeating-linear-gradient(to right,var(--line) 0 8px,transparent 8px 16px);z-index:0;}}
-.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius-md);background:var(--surface);}
-.table-simple th,.table-simple td{text-align:left;padding:.85rem 1.1rem;font-size:.92rem;border-bottom:1px solid var(--line);white-space:nowrap;}
-.table-simple th{background:var(--paper);color:var(--text-muted);font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;}
+/* Tables — the single definition used by every page. Cells wrap (with a
+   minimum width) so long text stays readable; .table-wrap scrolls
+   sideways on narrow screens when a table is wider than the viewport. */
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius-md);background:var(--surface);margin-top:.5rem;}
+.table-simple{width:100%;border-collapse:collapse;}
+.table-simple th,.table-simple td{text-align:left;vertical-align:top;padding:.85rem 1.1rem;font-size:.9rem;border-bottom:1px solid var(--line);}
+.table-simple th{background:var(--paper);color:var(--text-muted);font-weight:700;font-size:.76rem;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap;}
+.table-simple td{min-width:7.5rem;line-height:1.5;}
 .table-simple tr:last-child td{border-bottom:none;}
-.table-note{font-size:.85rem;color:var(--text-muted);margin-top:.9rem;}
+.table-simple tbody tr{transition:background .15s var(--ease);}
+.table-simple tbody tr:hover{background:var(--stream-soft);}
+.table-simple td a{color:var(--link);font-weight:600;text-decoration:underline;text-underline-offset:2px;}
+.table-simple td a:hover,.table-simple td a:focus-visible{color:var(--link-hover);}
+.table-note{font-size:.85rem;color:var(--text-muted);margin-top:.9rem;max-width:780px;}
 .salary-cards{display:grid;gap:1.2rem;grid-template-columns:1fr;}
 @media (min-width:640px){.salary-cards{grid-template-columns:repeat(3,1fr);}}
 .salary-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);padding:1.6rem;text-align:center;}
@@ -465,7 +474,7 @@ table{border-collapse:collapse;width:100%;}
 [data-theme="dark"] .salary-card strong{color:var(--gold);}
 .salary-card p{font-size:.85rem;color:var(--text-muted);}
 .chip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:.8rem;}
-.chip-grid .item{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:.9rem 1rem;font-size:.9rem;color:var(--text-muted);}
+.chip-grid .item{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);padding:.9rem 1rem;font-size:.9rem;color:var(--text-muted);transition:border-color .18s var(--ease),box-shadow .18s var(--ease);}
 .chip-grid .item strong{display:block;color:var(--text);font-size:.95rem;margin-bottom:.15rem;}
 .proscons{display:grid;gap:1.4rem;grid-template-columns:1fr;}
 .pc-card h3{font-size:1.08rem;display:flex;align-items:center;gap:.5rem;}
@@ -495,9 +504,6 @@ table{border-collapse:collapse;width:100%;}
 .warn{display:flex;gap:.75rem;background:rgba(196,67,46,.07);border:1px solid rgba(196,67,46,.25);border-radius:var(--radius-md);padding:1.1rem 1.3rem;font-size:.92rem;color:var(--text-muted);max-width:780px;}
 .warn svg{flex-shrink:0;color:var(--rust);margin-top:.15rem;}
 .journey-list{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));position:relative;}
-.table-simple th,.table-simple td{text-align:left;padding:.85rem 1.1rem;font-size:.9rem;border-bottom:1px solid var(--line);}
-.table-simple th{background:var(--paper);color:var(--text-muted);font-weight:700;font-size:.76rem;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap;}
-.table-note{font-size:.85rem;color:var(--text-muted);margin-top:.9rem;max-width:780px;}
 .faq-list{display:grid;gap:.7rem;max-width:780px;}
 .page-hero{position:relative;background:var(--bg-hero);color:var(--on-ink);overflow:hidden;padding:3.4rem 0 3rem;}
 .page-hero h1{color:var(--on-ink-strong);font-size:clamp(2rem,4.4vw,2.9rem);margin-top:.8rem;}
@@ -546,9 +552,6 @@ table{border-collapse:collapse;width:100%;}
 [data-theme="dark"] .prose a{color:var(--gold);}
 .note{display:flex;gap:.75rem;background:rgba(31,111,92,.07);border:1px solid rgba(31,111,92,.25);border-radius:var(--radius-md);padding:1.1rem 1.3rem;font-size:.92rem;color:var(--text-muted);max-width:800px;}
 .warn{display:flex;gap:.75rem;background:rgba(196,67,46,.07);border:1px solid rgba(196,67,46,.25);border-radius:var(--radius-md);padding:1.1rem 1.3rem;font-size:.92rem;color:var(--text-muted);max-width:800px;}
-.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius-md);background:var(--surface);margin-top:.5rem;}
-.table-simple{width:100%;border-collapse:collapse;}
-.table-simple th{background:var(--paper);color:var(--text-muted);font-weight:700;font-size:.76rem;text-transform:uppercase;letter-spacing:.04em;}
 .cta-card{background:var(--bg-cta);border-radius:var(--radius-lg);padding:2.4rem 2rem;display:grid;gap:1.4rem;color:var(--on-ink);}
 .cta-card h2{color:var(--on-ink-strong);font-size:clamp(1.4rem,2.8vw,1.8rem);max-width:26ch;}
 .cta-card p{color:var(--on-ink-muted);margin-top:.6rem;max-width:52ch;}
@@ -965,11 +968,9 @@ a[href="icar-aieea.html"]:not(.cx-link):not(.related-card):not(.source-link):hov
 .block-subhead{margin:2.2rem 0 .8rem;font-size:1.1rem;}
 .section-head + .block-subhead{margin-top:.2rem;}
 .block-subhead + .table-wrap{margin-top:0;}
-.table-simple td a{color:var(--link);font-weight:600;text-decoration:underline;text-underline-offset:2px;}
-.table-simple td a:hover,.table-simple td a:focus-visible{color:var(--link-hover);}
 
 /* ==========================================================================
-   VISUAL CARD COMPONENTS (government exam guides + hub)
+   VISUAL CARD COMPONENTS — site-wide (exam guides, stream and goal hubs)
    .card-grid      responsive grid wrapper for any of the cards below
    .info-card      icon + title + short text (rules, roles, syllabus areas)
    .feature-card   larger card with a gold top accent; holds a numbered
@@ -986,7 +987,8 @@ a[href="icar-aieea.html"]:not(.cx-link):not(.related-card):not(.source-link):hov
 .card-grid + .card-grid,.card-grid + .table-note{margin-top:1rem;}
 
 .info-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);padding:1.1rem 1.2rem;display:flex;flex-direction:column;gap:.45rem;transition:border-color .18s var(--ease),box-shadow .18s var(--ease);}
-.info-card:hover{border-color:var(--stream-border);box-shadow:var(--shadow-sm);}
+/* Shared hover for every small content card, old (.chip-grid .item) and new (.info-card). */
+.info-card:hover,.chip-grid .item:hover{border-color:var(--stream-border);box-shadow:var(--shadow-sm);}
 .info-card-head{display:flex;align-items:center;gap:.65rem;}
 .info-card-icon{flex-shrink:0;width:34px;height:34px;border-radius:var(--radius-sm);display:grid;place-items:center;background:var(--stream-soft);border:1px solid var(--stream-border);color:var(--gold-strong);}
 .info-card h3,.info-card h4{margin:0;font-size:.98rem;line-height:1.3;}

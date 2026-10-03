@@ -156,6 +156,8 @@ section[id],h1[id],h2[id],h3[id],h4[id]{scroll-margin-top:var(--scroll-offset);}
 .dropdown-menu a{display:flex;align-items:center;justify-content:space-between;color:var(--text);font-weight:600;padding:.65rem .8rem;border-radius:var(--radius-sm);font-size:.93rem;}
 .dropdown-menu a:hover{background:var(--paper);}
 .dropdown-menu a span{color:var(--text-muted);font-weight:500;font-size:.8rem;}
+.dropdown-menu .menu-label{display:block;padding:.55rem .8rem .2rem;font-family:var(--font-mono);font-size:.66rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);}
+.dropdown-menu .menu-label:not(:first-child){margin-top:.35rem;border-top:1px solid var(--line);padding-top:.7rem;}
 .nav-actions{display:flex;align-items:center;gap:.4rem;}
 .icon-btn{width:42px;height:42px;border-radius:999px;border:none;background:transparent;color:var(--on-ink-muted);display:grid;place-items:center;cursor:pointer;transition:background .15s,color .15s;}
 .icon-btn:hover{background:rgba(var(--hl-rgb),.1);color:var(--on-ink-strong);}
@@ -174,6 +176,7 @@ section[id],h1[id],h2[id],h3[id],h4[id]{scroll-margin-top:var(--scroll-offset);}
 .mobile-sub{display:none;padding-left:1rem;border-left:1px solid rgba(var(--hl-rgb),.12);margin:.15rem 0 .4rem .9rem;}
 .mobile-sub.is-open{display:flex;flex-direction:column;gap:.1rem;}
 .mobile-sub a{font-size:.95rem;color:var(--on-ink-muted);}
+.mobile-sub .menu-label{font-family:var(--font-mono);font-size:.66rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--on-ink-muted);opacity:.8;margin-top:.5rem;}
 @media (min-width:1024px){
   .nav-links{display:flex;}
   .menu-toggle,.mobile-panel{display:none !important;}
@@ -1028,6 +1031,20 @@ a[href="icar-aieea.html"]:not(.cx-link):not(.related-card):not(.source-link):hov
 [data-theme="dark"] .stat-badge strong,
 [data-theme="dark"] .stat-badge.is-tag,
 [data-theme="dark"] .highlight-box h3 svg,[data-theme="dark"] .highlight-box h4 svg{color:var(--gold);}
+
+/* .chip-links — pill-shaped links (jump links, backup careers).
+   .fit-y / .fit-p / .fit-n — stream-fit status on a .stat-badge.is-tag. */
+.chip-links{display:flex;flex-wrap:wrap;gap:.45rem;}
+.chip-links a{display:inline-flex;align-items:center;padding:.35rem .8rem;border-radius:999px;border:1px solid var(--stream-border);background:var(--surface);font-size:.82rem;font-weight:600;color:var(--text);text-decoration:none;transition:border-color .15s var(--ease),background .15s var(--ease);}
+.chip-links a:hover,.chip-links a:focus-visible{border-color:var(--gold);background:var(--stream-soft);}
+.highlight-box .chip-links{margin-top:.3rem;}
+.block-subhead + .chip-links,.block-subhead + .highlight-box{margin-top:0;}
+.chip-links + .highlight-box,.stat-badges + .highlight-box{margin-top:1.4rem;}
+.stat-badge.fit-y{color:var(--teal);border-color:var(--teal);background:transparent;}
+.stat-badge.fit-p{color:var(--gold-strong);}
+.stat-badge.fit-n{color:var(--rust);border-color:var(--rust);background:transparent;}
+[data-theme="dark"] .stat-badge.fit-y{color:var(--teal);}
+[data-theme="dark"] .stat-badge.fit-n{color:var(--rust);}
 
 /* ==========================================================================
    CAREER FIT QUIZ (career-fit.html)

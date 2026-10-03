@@ -9,16 +9,21 @@
     <div class="nav-links">
       <div class="drop-wrap">
         <button class="drop-btn" id="streamsBtn" aria-haspopup="true" aria-expanded="false" aria-controls="streamsMenu">
-          Streams
+          Explore
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
         </button>
         <ul class="dropdown-menu" id="streamsMenu" hidden role="menu">
+          <li class="menu-label" role="presentation">By stream</li>
           <li><a href="science.html"{% if include.active_stream == "science" %} aria-current="page"{% endif %}>Science <span>PCM / PCB</span></a></li>
           <li><a href="commerce.html"{% if include.active_stream == "commerce" %} aria-current="page"{% endif %}>Commerce <span>Finance & business</span></a></li>
           <li><a href="arts.html"{% if include.active_stream == "arts" %} aria-current="page"{% endif %}>Arts <span>Humanities</span></a></li>
           <li><a href="diploma.html"{% if include.active_stream == "diploma" %} aria-current="page"{% endif %}>Diploma <span>Skill-first degree</span></a></li>
           <li><a href="iti.html"{% if include.active_stream == "iti" %} aria-current="page"{% endif %}>ITI <span>Trade training</span></a></li>
           <li><a href="govt-exams.html"{% if include.active_stream == "govt-exams" %} aria-current="page"{% endif %}>Govt Exams / Jobs <span>SSC, UPSC, Banking, Railways</span></a></li>
+          <li class="menu-label" role="presentation">By goal</li>
+          <li><a href="high-paying-careers.html"{% if include.active_stream == "goal-salary" %} aria-current="page"{% endif %}>High-Paying Careers <span>Ranked by salary</span></a></li>
+          <li><a href="fast-track-jobs.html"{% if include.active_stream == "goal-fast" %} aria-current="page"{% endif %}>Fast-Track Jobs <span>Earn after 10th / 12th</span></a></li>
+          <li><a href="professional-courses.html"{% if include.active_stream == "goal-professional" %} aria-current="page"{% endif %}>Professional Courses <span>CA, Law, Medicine</span></a></li>
         </ul>
       </div>
       <a href="after-10th.html">After 10th</a>
@@ -48,16 +53,21 @@
   <div class="mobile-panel" id="mobilePanel">
     <div class="container">
       <button class="drop-btn" id="mobileStreamsBtn" aria-expanded="false" aria-controls="mobileStreamsSub">
-        Streams
+        Explore
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="mobile-sub" id="mobileStreamsSub">
+        <span class="menu-label">By stream</span>
         <a href="science.html"{% if include.active_stream == "science" %} aria-current="page"{% endif %}>Science</a>
         <a href="commerce.html"{% if include.active_stream == "commerce" %} aria-current="page"{% endif %}>Commerce</a>
         <a href="arts.html"{% if include.active_stream == "arts" %} aria-current="page"{% endif %}>Arts</a>
         <a href="diploma.html"{% if include.active_stream == "diploma" %} aria-current="page"{% endif %}>Diploma</a>
         <a href="iti.html"{% if include.active_stream == "iti" %} aria-current="page"{% endif %}>ITI</a>
         <a href="govt-exams.html"{% if include.active_stream == "govt-exams" %} aria-current="page"{% endif %}>Govt Exams / Jobs</a>
+        <span class="menu-label">By goal</span>
+        <a href="high-paying-careers.html"{% if include.active_stream == "goal-salary" %} aria-current="page"{% endif %}>High-Paying Careers</a>
+        <a href="fast-track-jobs.html"{% if include.active_stream == "goal-fast" %} aria-current="page"{% endif %}>Fast-Track Jobs</a>
+        <a href="professional-courses.html"{% if include.active_stream == "goal-professional" %} aria-current="page"{% endif %}>Professional Courses</a>
       </div>
       <a href="after-10th.html">After 10th</a>
       <a href="career-fit.html">Find My Fit</a>

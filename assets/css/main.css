@@ -346,16 +346,9 @@ ul,ol{margin:0;padding:0;list-style:none;}
   border-top:none;
 }
 
-/* The collapsible-groups JS (scripts.html) wraps each career-group-heading
-   in its own .career-group container, which would otherwise make the
-   :first-of-type rule above match every group instead of just the first.
-   This keeps the "no border on the very first group" behaviour correct
-   after that wrapping happens. */
-.career-group:first-of-type .career-group-heading{
-  margin-top:0;
-  padding-top:0;
-  border-top:none;
-}
+/* Once scripts.html turns a heading into an accordion row, the rules in
+   "COLLAPSIBLE CAREER GROUPS" further down restyle it; the styles above
+   are only the no-JS fallback. */
 
 @media (min-width:768px){
   .career-group-heading{
@@ -845,68 +838,81 @@ a[href="icar-aieea.html"]:not(.cx-link):not(.related-card):not(.source-link):hov
 .page-nav-mobile-panel a::before{content:counter(pagenavm)".";font-weight:700;color:var(--gold-strong);flex-shrink:0;}
 
 /* ==========================================================================
-   COLLAPSIBLE CAREER GROUPS
-   Auto-applied by scripts.html to every h3.career-group-heading + the
-   ul.career-grid that follows it. Content stays in the HTML source at all
-   times (collapsed via max-height, not display:none/hidden) so every
-   career link remains crawlable and present in the page's real markup.
+   CAREER CATEGORY CARDS + COLLAPSIBLE CAREER GROUPS (stream hub pages)
+   Built by scripts.html from plain markup on the page:
+     <h3 class="career-group-heading" data-icon="finance">Title</h3>
+     <ul class="career-grid">…career-item links…</ul>
+   Each heading + list becomes an accordion row (.career-group), and a grid
+   of category cards (.career-cat-grid) is generated above the first row.
+   Collapsed lists stay in the DOM (grid-template-rows 0fr, not display:none)
+   so every career link remains crawlable; visibility:hidden keeps them out
+   of the keyboard tab order while closed.
    ========================================================================== */
-.career-group{margin-bottom:1.6rem;}
-.career-group-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:0;}
-.career-group-head .career-group-heading{margin:0;}
-.open-list-btn{
-  display:inline-flex;
-  align-items:center;
-  gap:.4rem;
-  background:var(--stream-soft);
-  color:var(--stream-primary);
-  border:1px solid var(--stream-border);
-  border-radius:999px;
-  padding:.45rem 1.1rem;
-  font-family:inherit;
-  font-size:.82rem;
-  font-weight:700;
-  letter-spacing:.02em;
-  cursor:pointer;
-  flex-shrink:0;
-  transition:background .15s ease,color .15s ease;
-}
-.open-list-btn:hover{background:var(--stream-border);}
-.open-list-btn:focus-visible{outline:2px solid var(--stream-accent);outline-offset:2px;}
-.open-list-btn svg{transition:transform .18s ease;flex-shrink:0;}
-.open-list-btn[aria-expanded="true"] svg{transform:rotate(180deg);}
-.career-group-panel{
-  max-height:0;
-  overflow:hidden;
-  transition:max-height .28s ease;
-}
-.career-group-panel.is-open{max-height:4000px;}
-.career-group-panel .career-grid{margin-top:1rem;}
 
-/* ==========================================================================
-   CAREER CATEGORY CARDS
-   Optional overview grid placed above a page's collapsible career groups.
-   Each card is a plain #anchor to an h3.career-group-heading id, so the
-   global anchor handler in scripts.html opens that group on click — no
-   extra JS needed. First used on commerce.html.
-   ========================================================================== */
-.career-cat-grid{display:grid;gap:1rem;grid-template-columns:1fr;margin-bottom:3rem;}
-@media (min-width:560px){.career-cat-grid{grid-template-columns:repeat(2,1fr);}}
-@media (min-width:1024px){.career-cat-grid{grid-template-columns:repeat(5,1fr);}}
-.career-cat-card{display:flex;flex-direction:column;gap:.45rem;padding:1.3rem 1.25rem;border-radius:var(--radius-md);border:1px solid var(--line);background:var(--surface);color:var(--text);text-decoration:none;box-shadow:var(--shadow-sm);transition:border-color .15s,transform .15s,box-shadow .15s;}
+/* ---------- Category cards ---------- */
+.career-cat-grid{display:grid;gap:.75rem;grid-template-columns:repeat(2,minmax(0,1fr));margin-bottom:2rem;}
+@media (min-width:640px){.career-cat-grid{grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:.9rem;}}
+.career-cat-card{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:.35rem;width:100%;padding:1rem;border-radius:var(--radius-md);border:1px solid var(--line);background:var(--surface);color:var(--text);font:inherit;text-align:left;cursor:pointer;box-shadow:var(--shadow-sm);transition:border-color .18s var(--ease),transform .18s var(--ease),box-shadow .18s var(--ease),background .18s var(--ease);}
+@media (min-width:640px){.career-cat-card{padding:1.15rem 1.15rem 1.05rem;}}
 .career-cat-card:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:var(--shadow-md);}
-.career-cat-card:focus-visible{outline:3px solid var(--gold);outline-offset:2px;}
-.career-cat-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:.35rem;}
-.career-cat-icon{width:44px;height:44px;border-radius:var(--radius-sm);background:var(--stream-soft);border:1px solid var(--stream-border);display:grid;place-items:center;color:var(--gold-strong);}
-[data-theme="dark"] .career-cat-icon{color:var(--gold);}
-.career-cat-num{font-family:var(--font-mono);font-size:.78rem;font-weight:700;letter-spacing:.09em;color:var(--text-muted);}
-.career-cat-card strong{font-size:1rem;font-weight:700;line-height:1.3;}
-.career-cat-desc{font-size:.84rem;color:var(--text-muted);line-height:1.5;flex-grow:1;}
-.career-cat-count{display:inline-flex;align-items:center;gap:.35rem;margin-top:.35rem;font-size:.8rem;font-weight:700;color:var(--gold-strong);}
-[data-theme="dark"] .career-cat-count{color:var(--gold);}
-.career-cat-count svg{transition:transform .15s;}
+.career-cat-card.is-active{border-color:var(--gold);background:var(--stream-soft);}
+.career-cat-top{display:flex;align-items:center;justify-content:space-between;width:100%;margin-bottom:.25rem;}
+.career-cat-icon{width:40px;height:40px;border-radius:var(--radius-sm);background:var(--stream-soft);border:1px solid var(--stream-border);display:grid;place-items:center;color:var(--gold-strong);flex-shrink:0;}
+.career-cat-num{font-family:var(--font-mono);font-size:.74rem;font-weight:700;letter-spacing:.09em;color:var(--text-muted);}
+.career-cat-title{font-size:.95rem;font-weight:700;line-height:1.3;}
+.career-cat-desc{display:none;font-size:.8rem;color:var(--text-muted);line-height:1.5;}
+@media (min-width:640px){.career-cat-desc{display:block;}}
+.career-cat-count{display:inline-flex;align-items:center;gap:.3rem;margin-top:auto;padding-top:.25rem;font-size:.78rem;font-weight:700;color:var(--gold-strong);}
+.career-cat-count svg{transition:transform .18s var(--ease);}
 .career-cat-card:hover .career-cat-count svg{transform:translateY(2px);}
-.career-compare-note{margin-top:2rem;font-size:.92rem;color:var(--text-muted);}
+
+/* ---------- Accordion rows ---------- */
+.career-groups{display:grid;gap:.6rem;}
+.career-group{border:1px solid var(--line);border-radius:var(--radius-md);background:var(--surface);overflow:hidden;transition:border-color .18s var(--ease),box-shadow .18s var(--ease);}
+.career-group.is-open{border-color:var(--stream-border);box-shadow:var(--shadow-sm);}
+.career-group-head{position:relative;display:flex;align-items:center;gap:.75rem;padding:.85rem 1rem;cursor:pointer;}
+@media (min-width:640px){.career-group-head{gap:.9rem;padding:1rem 1.25rem;}}
+.career-group-head:hover{background:var(--stream-soft);}
+.career-group-num{font-family:var(--font-mono);font-size:.74rem;font-weight:700;letter-spacing:.06em;color:var(--gold-strong);background:var(--stream-soft);border:1px solid var(--stream-border);border-radius:999px;min-width:2.2rem;padding:.2rem .45rem;text-align:center;flex-shrink:0;}
+.career-group-head .career-group-heading{flex:1;min-width:0;margin:0;padding:0;border:0;font-family:var(--font-display);font-size:1rem;font-weight:600;letter-spacing:0;text-transform:none;color:var(--text);scroll-margin-top:calc(var(--header-h) + 64px);}
+@media (min-width:640px){.career-group-head .career-group-heading{font-size:1.08rem;}}
+.career-group-head .career-group-heading::before{content:none;}
+.career-group-toggle{all:unset;cursor:pointer;display:block;line-height:1.3;}
+/* Stretch the real <button> over the whole row so any click on it toggles */
+.career-group-toggle::after{content:"";position:absolute;inset:0;}
+.career-group-toggle:focus-visible{outline:none;}
+.career-group-toggle:focus-visible::after{outline:3px solid var(--gold);outline-offset:-3px;border-radius:var(--radius-md);}
+.career-group-count{font-size:.78rem;font-weight:600;color:var(--text-muted);white-space:nowrap;flex-shrink:0;}
+.career-group-chevron{display:grid;place-items:center;width:28px;height:28px;border-radius:999px;color:var(--text-muted);flex-shrink:0;transition:transform .28s var(--ease),color .18s,background .18s;}
+.career-group.is-open .career-group-chevron{transform:rotate(180deg);color:var(--gold-strong);background:var(--stream-soft);}
+@media (max-width:379px){.career-group-count{display:none;}}
+
+.career-group-panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .32s var(--ease);}
+.career-group.is-open .career-group-panel{grid-template-rows:1fr;}
+.career-group-inner{min-height:0;overflow:hidden;visibility:hidden;transition:visibility 0s linear .32s;}
+.career-group.is-open .career-group-inner{visibility:visible;transition-delay:0s;}
+.career-group-inner > .career-grid{padding:.35rem 1rem 1.1rem;border-top:1px solid var(--line);padding-top:1rem;}
+@media (min-width:640px){.career-group-inner > .career-grid{padding:1.1rem 1.25rem 1.3rem;}}
+
+/* ---------- Career items inside a group ---------- */
+.career-group .career-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem;}
+@media (min-width:640px){.career-group .career-grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.75rem;}}
+.career-group .career-item a{gap:.2rem;padding:.8rem .85rem;}
+@media (min-width:640px){.career-group .career-item a{padding:.95rem 1.05rem;}}
+.career-group .career-item a:hover{border-color:var(--gold);box-shadow:var(--shadow-sm);}
+.career-group .career-item strong{font-size:.92rem;line-height:1.3;}
+.career-group .career-item span{font-size:.78rem;line-height:1.4;}
+.career-group .career-item .career-cta{display:inline-flex;align-items:center;gap:.3rem;margin-top:auto;padding-top:.55rem;font-size:.78rem;font-weight:700;color:var(--gold-strong);}
+.career-group .career-item .career-cta svg{transition:transform .15s var(--ease);}
+.career-group .career-item a:hover .career-cta svg{transform:translateX(3px);}
+.career-compare-note{margin-top:1.6rem;font-size:.92rem;color:var(--text-muted);}
+
+[data-theme="dark"] .career-cat-icon,
+[data-theme="dark"] .career-cat-count,
+[data-theme="dark"] .career-group-num,
+[data-theme="dark"] .career-group.is-open .career-group-chevron,
+[data-theme="dark"] .career-group .career-item .career-cta{color:var(--gold);}
+
 
 /* ==========================================================================
    ENTRANCE EXAM CARD

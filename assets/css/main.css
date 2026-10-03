@@ -969,6 +969,65 @@ a[href="icar-aieea.html"]:not(.cx-link):not(.related-card):not(.source-link):hov
 .table-simple td a:hover,.table-simple td a:focus-visible{color:var(--link-hover);}
 
 /* ==========================================================================
+   VISUAL CARD COMPONENTS (government exam guides + hub)
+   .card-grid      responsive grid wrapper for any of the cards below
+   .info-card      icon + title + short text (rules, roles, syllabus areas)
+   .feature-card   larger card with a gold top accent; holds a numbered
+                   kicker, title, stat badges, step lists or a table.
+                   Scoped to .card-grid so the older homepage/about
+                   .feature-card (inside .feature-grid) is untouched.
+   .stat-badge     compact label/value pill (questions, marks, time…)
+   .highlight-box  tinted callout with a left accent bar (quick answers)
+   All colours come from the shared tokens, so light/dark both work.
+   ========================================================================== */
+.card-grid{display:grid;gap:1rem;grid-template-columns:1fr;}
+@media (min-width:640px){.card-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media (min-width:1000px){.card-grid.cols-3{grid-template-columns:repeat(3,minmax(0,1fr));}.card-grid.cols-4{grid-template-columns:repeat(4,minmax(0,1fr));}}
+.card-grid + .card-grid,.card-grid + .table-note{margin-top:1rem;}
+
+.info-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);padding:1.1rem 1.2rem;display:flex;flex-direction:column;gap:.45rem;transition:border-color .18s var(--ease),box-shadow .18s var(--ease);}
+.info-card:hover{border-color:var(--stream-border);box-shadow:var(--shadow-sm);}
+.info-card-head{display:flex;align-items:center;gap:.65rem;}
+.info-card-icon{flex-shrink:0;width:34px;height:34px;border-radius:var(--radius-sm);display:grid;place-items:center;background:var(--stream-soft);border:1px solid var(--stream-border);color:var(--gold-strong);}
+.info-card h3,.info-card h4{margin:0;font-size:.98rem;line-height:1.3;}
+.info-card p{margin:0;font-size:.9rem;line-height:1.55;color:var(--text-muted);}
+.info-card .subject-chips{margin:.2rem 0 0;gap:.35rem;}
+.info-card .subject-chips span{font-size:.76rem;padding:.25rem .6rem;}
+
+.card-grid .feature-card{position:relative;background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:var(--radius-md);padding:1.2rem 1.3rem 1.3rem;display:flex;flex-direction:column;gap:.6rem;min-width:0;}
+.card-grid .feature-card-kicker{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--font-mono);font-size:.7rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--gold-strong);}
+.card-grid .feature-card-num{display:inline-grid;place-items:center;min-width:1.7rem;height:1.7rem;padding:0 .35rem;border-radius:999px;background:var(--stream-soft);border:1px solid var(--stream-border);font-size:.72rem;}
+.card-grid .feature-card h3,.card-grid .feature-card h4{margin:0;font-size:1.05rem;line-height:1.3;}
+.card-grid .feature-card p{margin:0;font-size:.9rem;line-height:1.55;color:var(--text-muted);}
+.card-grid .feature-card .table-wrap{margin-top:.2rem;}
+.card-grid .feature-card .table-note{margin:.2rem 0 0;}
+.card-grid .feature-steps{margin:0;padding:0;list-style:none;display:grid;gap:.55rem;counter-reset:fstep;}
+.card-grid .feature-steps li{position:relative;padding-left:2rem;font-size:.9rem;line-height:1.5;color:var(--text);counter-increment:fstep;}
+.card-grid .feature-steps li::before{content:counter(fstep);position:absolute;left:0;top:.05rem;width:1.4rem;height:1.4rem;border-radius:999px;display:grid;place-items:center;font-family:var(--font-mono);font-size:.7rem;font-weight:700;background:var(--stream-soft);border:1px solid var(--stream-border);color:var(--gold-strong);}
+.card-grid .feature-card.span-all{grid-column:1 / -1;}
+
+.stat-badges{display:flex;flex-wrap:wrap;gap:.5rem;}
+.section-head + .stat-badges{margin:0 0 1.4rem;}
+.stat-badge{display:inline-flex;flex-direction:column;gap:.1rem;padding:.45rem .75rem;border-radius:var(--radius-sm);background:var(--stream-soft);border:1px solid var(--stream-border);min-width:5.5rem;}
+.stat-badge span{font-size:.66rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);}
+.stat-badge strong{font-family:var(--font-mono);font-size:.92rem;line-height:1.25;color:var(--gold-strong);}
+.stat-badge.is-tag{flex-direction:row;align-items:center;min-width:0;padding:.25rem .65rem;border-radius:999px;font-size:.72rem;font-weight:700;color:var(--gold-strong);}
+
+.highlight-box{background:var(--stream-soft);border:1px solid var(--stream-border);border-left:4px solid var(--gold);border-radius:var(--radius-md);padding:1.1rem 1.2rem;display:flex;flex-direction:column;gap:.4rem;}
+.highlight-box h3,.highlight-box h4{display:flex;align-items:center;gap:.5rem;margin:0;font-size:1rem;line-height:1.3;}
+.highlight-box h3 svg,.highlight-box h4 svg{flex-shrink:0;color:var(--gold-strong);}
+.highlight-box p{margin:0;font-size:.92rem;line-height:1.55;color:var(--text);}
+.highlight-box ul{margin:0;padding-left:1.15rem;display:grid;gap:.35rem;font-size:.92rem;line-height:1.5;color:var(--text);}
+.highlight-box ul li{list-style:disc;}
+
+[data-theme="dark"] .info-card-icon,
+[data-theme="dark"] .card-grid .feature-card-kicker,
+[data-theme="dark"] .card-grid .feature-steps li::before,
+[data-theme="dark"] .stat-badge strong,
+[data-theme="dark"] .stat-badge.is-tag,
+[data-theme="dark"] .highlight-box h3 svg,[data-theme="dark"] .highlight-box h4 svg{color:var(--gold);}
+
+/* ==========================================================================
    CAREER FIT QUIZ (career-fit.html)
    Small reusable component set for a client-side, no-backend guidance
    quiz: pill-style option chips (checkbox/radio, same visual language as

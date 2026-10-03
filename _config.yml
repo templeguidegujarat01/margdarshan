@@ -1,6 +1,12 @@
 title: Margdarshan
 description: "Free career guidance platform for Indian students after Class 10 and Class 12"
 lang: en
+locale: en_IN
+
+# Absolute URLs (canonical, og:url, JSON-LD) are built from these two values.
+# If the site moves to a custom domain, change them here and nothing else.
+url: "https://templeguidegujarat01.github.io"
+baseurl: "/margdarshan"
 
 # GitHub Pages runs Jekyll automatically for this repo — no extra setup needed.
 # This file just keeps the build predictable and avoids Jekyll doing anything
@@ -10,7 +16,12 @@ exclude:
   - README.md
   - LICENSE
 
-# Every .html file in the repo root already has its own explicit <head>, meta
-# tags, JSON-LD schema, breadcrumb and content — none of them use a Jekyll
-# "layout", they just pull in the shared header/footer/breadcrumb/scripts via
-# {% include %}. So no `layouts:` / `defaults:` section is needed here.
+# Every page uses _layouts/default.html, which owns the shared <head>, header,
+# breadcrumb, footer and scripts. A page only supplies front matter (title,
+# description, stream, breadcrumb, footer links …) plus its own <main> content.
+# See the comment at the top of _layouts/default.html for every supported key.
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default

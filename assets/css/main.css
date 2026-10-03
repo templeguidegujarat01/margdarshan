@@ -1014,3 +1014,88 @@ a.btn-exam-secondary,a.btn-exam-secondary:visited{color:var(--link) !important;t
 /* Long unbroken strings (emails, "B.A/B.Sc") must wrap instead of widening grid tracks on phones */
 main li,main p,main h2,main h3,.email-pill,.elig-card,.contact-card{overflow-wrap:anywhere;}
 [class*="grid"]>*,.container>*{min-width:0;}
+
+/* ==========================================================================
+   PAGE COMPONENTS
+   Formerly per-page <style> blocks and _includes/discovery-styles.html:
+     .cx-*                        college / coaching finder pages
+     .examx-*                     exam pages (JEE, NEET, CUET) + colleges-btech
+     .goalx-*, .pathflow, .decision-*   after-12th.html
+     .self-*                      after-10th.html
+   Kept at the end of this file so they cascade exactly as they did when they
+   were inlined after this stylesheet.
+   ========================================================================== */
+
+/* Shared surface card: every card-like component starts from this */
+.cx-card,.cx-college-card,.examx-card,.examx-qf,.goalx-card,.decision-card,.self-item,.pathflow-step{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);}
+
+/* Shared responsive grids */
+.cx-grid,.goalx-grid{display:grid;gap:1.1rem;grid-template-columns:1fr;}
+@media (min-width:640px){.cx-grid,.goalx-grid{grid-template-columns:repeat(2,1fr);}}
+@media (min-width:1024px){.cx-grid,.goalx-grid{grid-template-columns:repeat(3,1fr);}}
+.examx-grid,.decision-grid{display:grid;gap:1rem;grid-template-columns:1fr;}
+@media (min-width:640px){.examx-grid,.decision-grid{grid-template-columns:repeat(2,1fr);}}
+.self-grid{display:grid;gap:.9rem;grid-template-columns:1fr;}
+@media (min-width:640px){.self-grid{grid-template-columns:repeat(2,1fr);}}
+
+/* Shared pill-link row */
+.examx-links,.goalx-links{display:flex;flex-wrap:wrap;gap:.5rem;}
+.examx-links{margin-top:1rem;}
+.examx-links a,.goalx-links a{font-size:.85rem;font-weight:600;color:var(--stream-primary);background:var(--stream-soft);border:1px solid var(--stream-border);border-radius:999px;padding:.35rem .8rem;text-decoration:none;}
+.examx-links a:hover,.examx-links a:focus-visible,.goalx-links a:hover,.goalx-links a:focus-visible{background:var(--stream-border);}
+
+/* Finder pages (colleges-*, coaching-*) */
+.cx-stream-grid{display:grid;gap:1.2rem;grid-template-columns:1fr;}
+@media (min-width:640px){.cx-stream-grid{grid-template-columns:repeat(2,1fr);}}
+@media (min-width:1024px){.cx-stream-grid{grid-template-columns:repeat(5,1fr);}}
+.cx-card{padding:1.2rem 1.3rem;display:flex;flex-direction:column;gap:.5rem;}
+.cx-card h3{margin:0;font-size:1rem;}
+.cx-card p{margin:0;font-size:.88rem;color:var(--text-muted);}
+.cx-card .cx-cta{font-size:.85rem;font-weight:700;color:var(--stream-primary);}
+.cx-card.is-soon{background:var(--paper);border-style:dashed;}
+.cx-soon-badge{display:inline-flex;align-self:flex-start;font-family:var(--font-mono);font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;font-weight:600;color:var(--text-muted);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:.2rem .55rem;}
+.cx-college-card{padding:1.2rem 1.3rem;}
+.cx-college-card h3{margin:0 0 .3rem;font-size:1rem;}
+.cx-college-card .cx-tag{display:inline-block;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--stream-primary);background:var(--stream-soft);border:1px solid var(--stream-border);border-radius:999px;padding:.15rem .55rem;margin-bottom:.5rem;}
+.cx-college-card p{margin:.4rem 0 0;font-size:.88rem;color:var(--text-muted);}
+.cx-city-heading{margin:2rem 0 1rem;font-size:1.15rem;}
+.cx-city-heading:first-child{margin-top:0;}
+.cx-search{position:relative;margin-bottom:1.1rem;max-width:420px;}
+.cx-search input{width:100%;padding:.7rem 1rem;border:1px solid var(--line);border-radius:var(--radius-md);background:var(--surface);font-family:inherit;font-size:.92rem;color:var(--text);box-sizing:border-box;}
+.cx-search input:focus{outline:2px solid var(--stream-accent);outline-offset:1px;}
+.cx-empty{display:none;padding:.9rem 1rem;border:1px dashed var(--line);border-radius:var(--radius-md);background:var(--paper);font-size:.88rem;color:var(--text-muted);margin-bottom:1rem;}
+.cx-empty.is-visible{display:block;}
+.cx-city-block[data-city-hidden="true"]{display:none;}
+
+/* Exam pages */
+.examx-card{padding:1.1rem 1.3rem;}
+.examx-card h3{margin:0 0 .4rem;font-size:1rem;}
+.examx-card p{margin:0;font-size:.9rem;color:var(--text-muted);}
+.examx-quickfacts{display:grid;gap:.9rem;grid-template-columns:repeat(2,1fr);margin-top:1.4rem;}
+@media (min-width:640px){.examx-quickfacts{grid-template-columns:repeat(4,1fr);}}
+.examx-qf{padding:.9rem 1rem;text-align:center;}
+.examx-qf span{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted);margin-bottom:.3rem;}
+.examx-qf strong{font-size:.92rem;}
+
+/* After 12th: goals, path flow, decision cards */
+.goalx-card{padding:1.3rem 1.4rem;}
+.goalx-card h3{margin:0 0 .4rem;font-size:1.05rem;}
+.goalx-card p{margin:0 0 .8rem;font-size:.9rem;color:var(--text-muted);}
+.pathflow{display:flex;flex-direction:column;gap:0;max-width:480px;margin:0 auto;}
+.pathflow-step{padding:.9rem 1.2rem;text-align:center;font-weight:600;font-size:.94rem;}
+.pathflow-arrow{text-align:center;color:var(--text-muted);font-size:1.1rem;padding:.15rem 0;}
+.decision-card{padding:1.2rem 1.3rem;}
+.decision-card p{margin:0 0 .7rem;font-size:.92rem;color:var(--text-muted);}
+.decision-card a{font-weight:700;font-size:.9rem;color:var(--stream-primary);}
+
+/* After 10th: self-check list */
+.self-item{padding:1.1rem 1.3rem;display:flex;gap:.8rem;align-items:flex-start;}
+.self-item svg{flex-shrink:0;color:var(--gold-strong);margin-top:.15rem;}
+[data-theme="dark"] .self-item svg{color:var(--gold);}
+.self-item p{font-size:.94rem;color:var(--text-muted);}
+.self-item strong{color:var(--text);}
+
+/* Spacing utilities for one-off gaps (replaces inline style="margin-top:…").
+   !important keeps the precedence the inline style had. */
+.mt-md{margin-top:1rem !important;}
+.mt-lg{margin-top:1.5rem !important;}

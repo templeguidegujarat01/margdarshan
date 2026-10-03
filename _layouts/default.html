@@ -1,0 +1,81 @@
+{%- comment -%}
+  Site-wide page shell. Every page gets this layout via `defaults` in _config.yml.
+  A page provides only front matter + its own content (optional JSON-LD, then <main>…</main>).
+
+  Front matter keys (all optional unless marked):
+    title, description          required — <title> and meta description
+    og_title, og_description    social preview text; default to title / description
+    twitter_title, twitter_description   default to the og_* values
+    no_twitter: true            omit the twitter:* tags
+    og_type                     default "article" (hub pages use "website")
+    robots                      default "index, follow"
+    stream                      body data-stream palette: science | commerce | arts | diploma | iti
+    header:                     passed to _includes/header.html
+      careers_href, careers_label, faq_href, faq_label, active_stream, current, show_search_btn
+    breadcrumb:                 passed to _includes/breadcrumb.html (omit for no breadcrumb)
+      parent_href, parent_label, current
+    footer:                     passed to _includes/footer.html
+      col3_heading              heading of the optional third column
+      col3_links                list of { href, label } for that column
+      careers_href, careers_label, faq_href   "Guidance" column links
+    progress_full: true         render the scroll progress bar pre-filled (404)
+    back_to_top: false          omit the back-to-top button
+{%- endcomment -%}
+{%- assign og_title = page.og_title | default: page.title -%}
+{%- assign og_description = page.og_description | default: page.description -%}
+{%- assign page_url = page.url | absolute_url -%}
+<!DOCTYPE html>
+<html lang="{{ site.lang }}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ page.title }}</title>
+<meta name="description" content="{{ page.description }}">
+<link rel="canonical" href="{{ page_url }}">
+<meta name="robots" content="{{ page.robots | default: "index, follow" }}">
+<meta name="theme-color" content="#0F2A3D">
+{% include favicon.html %}
+
+<meta property="og:type" content="{{ page.og_type | default: "article" }}">
+<meta property="og:site_name" content="{{ site.title }}">
+<meta property="og:title" content="{{ og_title }}">
+<meta property="og:description" content="{{ og_description }}">
+<meta property="og:url" content="{{ page_url }}">
+<meta property="og:locale" content="{{ site.locale }}">
+{%- unless page.no_twitter %}
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="{{ page.twitter_title | default: og_title }}">
+<meta name="twitter:description" content="{{ page.twitter_description | default: og_description }}">
+{%- endunless %}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Hind:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body{% if page.stream %} data-stream="{{ page.stream }}"{% endif %}>
+<a href="#main" class="skip-link">Skip to main content</a>
+<div class="progress-bar" id="progressBar"{% if page.progress_full %} style="width:100%;"{% endif %}></div>
+
+{% include header.html careers_href=page.header.careers_href careers_label=page.header.careers_label faq_href=page.header.faq_href faq_label=page.header.faq_label active_stream=page.header.active_stream current=page.header.current show_search_btn=page.header.show_search_btn %}
+
+{% if page.breadcrumb -%}
+{% include breadcrumb.html parent_href=page.breadcrumb.parent_href parent_label=page.breadcrumb.parent_label current=page.breadcrumb.current %}
+{%- endif %}
+
+{{ content }}
+
+{% capture col3_content %}{% for link in page.footer.col3_links %}
+<li><a href="{{ link.href }}">{{ link.label }}</a></li>{% endfor %}
+{% endcapture -%}
+{% include footer.html col3_heading=page.footer.col3_heading col3_content=col3_content guidance_careers_href=page.footer.careers_href guidance_careers_label=page.footer.careers_label guidance_faq_href=page.footer.faq_href %}
+
+{% unless page.back_to_top == false -%}
+<button class="back-to-top" id="backToTop" aria-label="Back to top">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+{%- endunless %}
+
+{% include scripts.html %}
+</body>
+</html>

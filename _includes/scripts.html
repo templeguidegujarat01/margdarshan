@@ -252,16 +252,16 @@
 (function(){
   "use strict";
 
-  /* ---------- Career category cards + collapsible career groups ----------
+  /* ---------- Collapsible career groups (accordion bars) ----------
      Stream hub pages (science, commerce, arts, diploma, iti) only write
      plain markup:  <h3 class="career-group-heading" data-icon="…">Title</h3>
      followed by    <ul class="career-grid">…career-item links…</ul>
-     This turns every such pair into an accordion row and builds a grid of
-     category cards above the first row. Collapsed lists stay in the DOM
+     This turns every such pair into a full-width accordion bar (number
+     badge, icon, title, count, chevron); clicking the bar slides its list
+     open, clicking again slides it closed. Collapsed lists stay in the DOM
      (CSS grid-row collapse, not display:none), so every career link stays
      crawlable. Optional: data-unit="trades" on the section changes the
      "N careers" label. */
-  var cgReduceMotion = (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) || false;
   var cgIcons = {
     finance:'<rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h4"/>',
     business:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"/>',
@@ -309,24 +309,11 @@
   function cgSetOpen(g, open){
     g.wrap.classList.toggle('is-open', open);
     g.toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-    if(g.card){
-      g.card.classList.toggle('is-active', open);
-      g.card.setAttribute('aria-expanded', open ? 'true' : 'false');
-    }
   }
   function cgFind(el){
     var wrap = el && el.closest('.career-group');
     for(var i = 0; i < cgGroups.length; i++){ if(cgGroups[i].wrap === wrap) return cgGroups[i]; }
     return null;
-  }
-  // Height of the sticky header + section bar, so a scrolled-to row isn't hidden under them.
-  function cgStickyOffset(){
-    var off = 12;
-    var header = document.querySelector('.site-header');
-    if(header) off += header.offsetHeight;
-    var qn = document.querySelector('.quicknav-bar');
-    if(qn && qn.offsetParent !== null && getComputedStyle(qn).position === 'sticky') off += qn.offsetHeight;
-    return off;
   }
 
   document.querySelectorAll('h3.career-group-heading').forEach(function(h, i){
@@ -353,6 +340,11 @@
     num.className = 'career-group-num';
     num.setAttribute('aria-hidden', 'true');
     head.appendChild(num);
+
+    var icon = document.createElement('span');
+    icon.className = 'career-group-icon';
+    icon.innerHTML = cgSvg(cgIcons[h.getAttribute('data-icon')] || cgIcons.business, 18, 2);
+    head.appendChild(icon);
 
     // Heading text moves into a real <button> inside the <h3> (accessible
     // accordion pattern); h3.textContent stays the plain title for the
@@ -399,19 +391,13 @@
       a.appendChild(cta);
     });
 
-    var g = {
-      wrap: wrap, toggle: toggle, num: num, title: title, countLabel: countLabel,
-      icon: h.getAttribute('data-icon'), total: count, card: null,
-      preview: Array.prototype.slice.call(itemEls, 0, 3).map(function(it){
-        var s = it.querySelector('strong'); return s ? s.textContent.trim() : '';
-      }).filter(Boolean)
-    };
+    var g = { wrap: wrap, toggle: toggle, num: num };
     cgGroups.push(g);
     toggle.addEventListener('click', function(){ cgSetOpen(g, !wrap.classList.contains('is-open')); });
   });
 
-  // Rows that sit together in one parent form a block: wrap them in
-  // .career-groups, number them, and build the category cards above.
+  // Bars that sit together in one parent form a block: wrap them in
+  // .career-groups and number them 01, 02… within that block.
   var cgBlocks = [];
   cgGroups.forEach(function(g){
     var last = cgBlocks[cgBlocks.length - 1];
@@ -426,47 +412,6 @@
       g.num.textContent = cgPad(idx + 1);
       stack.appendChild(g.wrap);
     });
-    if(block.groups.length < 2) return;
-
-    var grid = document.createElement('div');
-    grid.className = 'career-cat-grid';
-    grid.setAttribute('role', 'group');
-    grid.setAttribute('aria-label', 'Career categories');
-    block.groups.forEach(function(g, idx){
-      var card = document.createElement('button');
-      card.type = 'button';
-      card.className = 'career-cat-card';
-      card.setAttribute('aria-controls', g.toggle.getAttribute('aria-controls'));
-      card.setAttribute('aria-expanded', 'false');
-      var more = g.total - g.preview.length;
-      card.innerHTML =
-        '<span class="career-cat-top"><span class="career-cat-icon">' + cgSvg(cgIcons[g.icon] || cgIcons.business, 20, 2) + '</span>' +
-        '<span class="career-cat-num" aria-hidden="true">' + cgPad(idx + 1) + '</span></span>' +
-        '<span class="career-cat-title"></span><span class="career-cat-desc"></span>' +
-        '<span class="career-cat-count">' + g.countLabel + cgChevron + '</span>';
-      card.querySelector('.career-cat-title').textContent = g.title;
-      card.querySelector('.career-cat-desc').textContent = g.preview.join(', ') + (more > 0 ? ' +' + more + ' more' : '');
-      g.card = card;
-      grid.appendChild(card);
-
-      // Card click focuses on one category: open it, close the others in
-      // this block, and scroll to it. The scroll target subtracts rows above
-      // it that are about to collapse, so it lands in the right place.
-      card.addEventListener('click', function(){
-        var shrinkAbove = 0;
-        block.groups.forEach(function(o){
-          if(o === g || !o.wrap.classList.contains('is-open')) return;
-          if(o.wrap.compareDocumentPosition(g.wrap) & Node.DOCUMENT_POSITION_FOLLOWING){
-            shrinkAbove += o.wrap.querySelector('.career-group-panel').offsetHeight;
-          }
-          cgSetOpen(o, false);
-        });
-        cgSetOpen(g, true);
-        var top = g.wrap.getBoundingClientRect().top + window.pageYOffset - shrinkAbove - cgStickyOffset();
-        window.scrollTo({ top: Math.max(0, top), behavior: cgReduceMotion ? 'auto' : 'smooth' });
-      });
-    });
-    block.parent.insertBefore(grid, stack);
   });
 
   // Any in-page #anchor (quicknav, "On this page" sidebar, a link in copy)

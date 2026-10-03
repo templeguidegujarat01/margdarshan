@@ -884,6 +884,31 @@ a[href="icar-aieea.html"]:not(.cx-link):not(.related-card):not(.source-link):hov
 .career-group-panel .career-grid{margin-top:1rem;}
 
 /* ==========================================================================
+   CAREER CATEGORY CARDS
+   Optional overview grid placed above a page's collapsible career groups.
+   Each card is a plain #anchor to an h3.career-group-heading id, so the
+   global anchor handler in scripts.html opens that group on click — no
+   extra JS needed. First used on commerce.html.
+   ========================================================================== */
+.career-cat-grid{display:grid;gap:1rem;grid-template-columns:1fr;margin-bottom:3rem;}
+@media (min-width:560px){.career-cat-grid{grid-template-columns:repeat(2,1fr);}}
+@media (min-width:1024px){.career-cat-grid{grid-template-columns:repeat(5,1fr);}}
+.career-cat-card{display:flex;flex-direction:column;gap:.45rem;padding:1.3rem 1.25rem;border-radius:var(--radius-md);border:1px solid var(--line);background:var(--surface);color:var(--text);text-decoration:none;box-shadow:var(--shadow-sm);transition:border-color .15s,transform .15s,box-shadow .15s;}
+.career-cat-card:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:var(--shadow-md);}
+.career-cat-card:focus-visible{outline:3px solid var(--gold);outline-offset:2px;}
+.career-cat-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:.35rem;}
+.career-cat-icon{width:44px;height:44px;border-radius:var(--radius-sm);background:var(--stream-soft);border:1px solid var(--stream-border);display:grid;place-items:center;color:var(--gold-strong);}
+[data-theme="dark"] .career-cat-icon{color:var(--gold);}
+.career-cat-num{font-family:var(--font-mono);font-size:.78rem;font-weight:700;letter-spacing:.09em;color:var(--text-muted);}
+.career-cat-card strong{font-size:1rem;font-weight:700;line-height:1.3;}
+.career-cat-desc{font-size:.84rem;color:var(--text-muted);line-height:1.5;flex-grow:1;}
+.career-cat-count{display:inline-flex;align-items:center;gap:.35rem;margin-top:.35rem;font-size:.8rem;font-weight:700;color:var(--gold-strong);}
+[data-theme="dark"] .career-cat-count{color:var(--gold);}
+.career-cat-count svg{transition:transform .15s;}
+.career-cat-card:hover .career-cat-count svg{transform:translateY(2px);}
+.career-compare-note{margin-top:2rem;font-size:.92rem;color:var(--text-muted);}
+
+/* ==========================================================================
    ENTRANCE EXAM CARD
    Reusable component for career pages: highlights a specific relevant exam
    with a short explanation and two clear actions (the exam guide, and

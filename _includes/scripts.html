@@ -414,18 +414,116 @@
     });
   });
 
-  // Any in-page #anchor (quicknav, "On this page" sidebar, a link in copy)
-  // that points into a collapsed group opens that group first.
+  /* ---------- In-page anchor scrolling ----------
+     Every #anchor jump (sidebar, mobile panel, quicknav, links in copy,
+     an incoming URL hash) goes through scrollToTarget(): first open any
+     collapsed container around the target, then smooth-scroll it to sit
+     just below the sticky header. The stop position comes from CSS
+     scroll-margin-top (--scroll-offset in main.css), so JS never
+     hardcodes header heights. */
+  var reduceMotion = (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) || false;
+  var rootEl = document.documentElement;
+
+  // Sticky .quicknav-bar sits under the header below 1200px; publish its
+  // real height so --scroll-offset clears it exactly.
+  var quicknavBar = document.querySelector('.quicknav-bar');
+  function measureQuicknav(){
+    if(quicknavBar && quicknavBar.offsetHeight) rootEl.style.setProperty('--quicknav-h', quicknavBar.offsetHeight + 'px');
+  }
+  measureQuicknav();
+  window.addEventListener('resize', measureQuicknav, {passive:true});
+
+  // Open whatever is hiding the target: career-group bar, <details>,
+  // FAQ answer, or a "Read more" prose block.
+  function revealTarget(el){
+    var g = cgFind(el);
+    if(g && !g.wrap.classList.contains('is-open')) cgSetOpen(g, true);
+    for(var d = el.closest('details'); d; d = d.parentElement && d.parentElement.closest('details')){ d.open = true; }
+    var faq = el.closest('.faq-item');
+    if(faq && faq.getAttribute('data-open') !== 'true' && el.closest('.faq-a')){
+      var q = faq.querySelector('.faq-q');
+      if(q) q.click();
+    }
+    var rm = el.closest('.prose.js-readmore');
+    if(rm && !rm.classList.contains('is-expanded')){
+      var rmBtn = rm.nextElementSibling;
+      if(rmBtn && rmBtn.classList.contains('readmore-btn')) rmBtn.click();
+    }
+    // A not-yet-revealed .reveal ancestor is still translated 14px down;
+    // settle it instantly so the scroll lands on its final position.
+    var rv = el.closest('.reveal');
+    if(rv && !rv.classList.contains('is-visible')){
+      rv.style.transition = 'none';
+      rv.classList.add('is-visible');
+      void rv.offsetHeight;
+      rv.style.transition = '';
+    }
+  }
+
+  var scrollLockUntil = 0;   // while > now, scroll-spy keeps the clicked link active
+  var scrollToken = 0;       // a newer jump cancels the previous one's settle step
+  function scrollToTarget(el, smooth){
+    var token = ++scrollToken;
+    revealTarget(el);
+    var behavior = (smooth && !reduceMotion) ? 'smooth' : 'instant';
+    scrollLockUntil = Date.now() + (behavior === 'smooth' ? 1200 : 150);
+    // One frame so opened containers / a just-closed mobile panel lay out first.
+    window.requestAnimationFrame(function(){
+      el.scrollIntoView({behavior: behavior, block: 'start'});
+      // Fonts, images or a late layout shift can nudge the target while
+      // the smooth scroll runs; snap the last few px once it settles.
+      var settled = false;
+      function settle(){
+        if(settled) return;
+        settled = true;
+        window.removeEventListener('scrollend', settle);
+        if(token !== scrollToken) return;
+        var want = parseFloat(getComputedStyle(el).scrollMarginTop) || 0;
+        var drift = el.getBoundingClientRect().top - want;
+        var atBottom = window.innerHeight + window.scrollY >= rootEl.scrollHeight - 2;
+        if(Math.abs(drift) > 3 && Math.abs(drift) < 80 && !(drift > 0 && atBottom)){
+          window.scrollBy({top: drift, behavior: 'instant'});
+        }
+        scrollLockUntil = 0;
+        if(typeof updateActive === 'function') updateActive();
+      }
+      if('onscrollend' in window) window.addEventListener('scrollend', settle);
+      setTimeout(settle, behavior === 'smooth' ? 1100 : 60);
+    });
+  }
+
+  // #main (skip link) and #careers (search overlay) keep their own behaviour.
+  function targetFromHash(hash){
+    if(!hash || hash.length < 2 || hash === '#main' || hash === '#careers') return null;
+    try { return document.getElementById(decodeURIComponent(hash.slice(1))); } catch(e){ return null; }
+  }
+
+  // Generic in-page links (quicknav, links in copy). Sidebar / mobile
+  // panel links are handled by handleNavClick below, which runs first.
   document.addEventListener('click', function(e){
+    if(e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     var a = e.target.closest('a[href^="#"]');
     if(!a) return;
-    var id = a.getAttribute('href').slice(1);
-    var g = id ? cgFind(document.getElementById(id)) : null;
-    if(g) cgSetOpen(g, true);
+    var target = targetFromHash(a.getAttribute('href'));
+    if(!target) return;
+    e.preventDefault();
+    if(history.pushState) history.pushState(null, '', a.getAttribute('href'));
+    scrollToTarget(target, true);
   });
+
+  var updateActive = null;   // assigned once the "On this page" nav exists
+
+  // Arriving with #hash in the URL: the browser jumps before this script
+  // has opened groups / rebuilt the layout, so redo the jump once loaded.
+  function scrollToInitialHash(){
+    var target = targetFromHash(window.location.hash);
+    if(target) scrollToTarget(target, false);
+  }
   if(window.location.hash){
-    var cgInitial = cgFind(document.getElementById(window.location.hash.slice(1)));
-    if(cgInitial) cgSetOpen(cgInitial, true);
+    var initialTarget = targetFromHash(window.location.hash);
+    if(initialTarget) revealTarget(initialTarget);
+    if(document.readyState === 'complete') window.requestAnimationFrame(scrollToInitialHash);
+    else window.addEventListener('load', scrollToInitialHash);
   }
 
   /* ---------- "On this page" navigation ----------
@@ -448,11 +546,9 @@
   // .quicknav-bar so CSS can hide it at the same breakpoint the sidebar
   // shows at — the two must never both be visible at once. Pages with no
   // sidebar (fewer than 4 headings) leave .quicknav-bar untouched.
-  var quicknavBar = document.querySelector('.quicknav-bar');
   if(quicknavBar) quicknavBar.classList.add('has-sidebar-nav');
 
   var items = headingEls.map(function(h){ return { id: h.id, text: h.textContent.trim() }; });
-  var reduceMotion = (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) || false;
 
   function buildList(){
     var ol = document.createElement('ol');
@@ -523,32 +619,115 @@
   function handleNavClick(e){
     var a = e.target.closest('a[href^="#"]');
     if(!a) return;
-    var id = a.getAttribute('href').slice(1);
-    var target = document.getElementById(id);
+    var target = targetFromHash(a.getAttribute('href'));
     if(!target) return;
     e.preventDefault();
-    window.requestAnimationFrame(function(){
-      target.scrollIntoView({behavior: reduceMotion ? 'auto' : 'smooth', block: 'start'});
-    });
+    // Close the mobile panel first: it sits above the content, so the
+    // target's position is only final once the panel has collapsed.
     if(mPanel) mPanel.classList.remove('is-open');
     if(mBtn) mBtn.setAttribute('aria-expanded', 'false');
+    if(history.pushState) history.pushState(null, '', a.getAttribute('href'));
+    setActive(target.id);
+    scrollToTarget(target, true);
   }
   nav.addEventListener('click', handleNavClick);
   if(mPanel) mPanel.addEventListener('click', handleNavClick);
 
-  // Active-section highlight while scrolling (desktop panel only)
-  if('IntersectionObserver' in window){
-    var navLinks = {};
-    nav.querySelectorAll('a').forEach(function(a){ navLinks[a.getAttribute('href').slice(1)] = a; });
-    var observer = new IntersectionObserver(function(entries){
-      entries.forEach(function(entry){
-        var link = navLinks[entry.target.id];
-        if(!link || !entry.isIntersecting) return;
-        nav.querySelectorAll('a.is-active').forEach(function(a){ a.classList.remove('is-active'); });
-        link.classList.add('is-active');
-      });
-    }, { rootMargin: '-20% 0px -70% 0px' });
-    headingEls.forEach(function(h){ observer.observe(h); });
+  /* Active-section highlight (scroll-spy) — sidebar, mobile panel and,
+     below 1200px, the quicknav chips. The active section is the last
+     heading whose top has passed the sticky-header line; at the very
+     bottom of the page the last visible heading wins, so short final
+     sections still light up. */
+  var spyLinks = [];   // { a, id } for sidebar + mobile panel
+  nav.querySelectorAll('a').forEach(function(a){ spyLinks.push({ a: a, id: a.getAttribute('href').slice(1) }); });
+  if(mPanel) mPanel.querySelectorAll('a').forEach(function(a){ spyLinks.push({ a: a, id: a.getAttribute('href').slice(1) }); });
+  // Quicknav chips usually point at the <section>, not the heading.
+  var chipLinks = [];
+  if(quicknavBar){
+    quicknavBar.querySelectorAll('a[href^="#"]').forEach(function(a){
+      var t = targetFromHash(a.getAttribute('href'));
+      if(t) chipLinks.push({ a: a, target: t });
+    });
   }
+  var activeId = null;
+
+  function keepVisible(container, link, horizontal){
+    if(!container || !link.offsetParent) return;
+    var c = container.getBoundingClientRect(), l = link.getBoundingClientRect(), pad = 24;
+    if(horizontal){
+      if(container.scrollWidth <= container.clientWidth) return;
+      if(l.left < c.left + pad) container.scrollLeft -= (c.left + pad - l.left);
+      else if(l.right > c.right - pad) container.scrollLeft += (l.right - (c.right - pad));
+    } else {
+      if(container.scrollHeight <= container.clientHeight) return;
+      if(l.top < c.top + pad) container.scrollTop -= (c.top + pad - l.top);
+      else if(l.bottom > c.bottom - pad) container.scrollTop += (l.bottom - (c.bottom - pad));
+    }
+  }
+
+  function setActive(id){
+    if(id === activeId) return;
+    activeId = id;
+    var heading = id ? document.getElementById(id) : null;
+    spyLinks.forEach(function(s){
+      var on = s.id === id;
+      s.a.classList.toggle('is-active', on);
+      if(on){ s.a.setAttribute('aria-current', 'location'); if(nav.contains(s.a)) keepVisible(nav, s.a, false); }
+      else s.a.removeAttribute('aria-current');
+    });
+    // Chip for the active section, or the nearest one before it when that
+    // section has no chip of its own (e.g. Myths, category bars).
+    var chipOn = null;
+    if(heading){
+      chipLinks.forEach(function(c){
+        if(c.target === heading || c.target.contains(heading) ||
+           (c.target.compareDocumentPosition(heading) & Node.DOCUMENT_POSITION_FOLLOWING)) chipOn = c;
+      });
+    }
+    chipLinks.forEach(function(c){
+      var on = c === chipOn;
+      c.a.classList.toggle('is-active', on);
+      if(on) c.a.setAttribute('aria-current', 'location'); else c.a.removeAttribute('aria-current');
+    });
+    if(chipOn) keepVisible(chipOn.a.closest('.quicknav') || chipOn.a.parentElement, chipOn.a, true);
+  }
+
+  // Where each section "starts" for the spy: an h2 that opens a
+  // <section id> is measured from that section's top (quicknav chips jump
+  // there, above the heading's padding); anything else from itself.
+  var spyPoints = headingEls.map(function(h){
+    var sec = h.tagName === 'H2' ? h.closest('section[id]') : null;
+    return (sec && sec.querySelector('h2[id]') === h) ? sec : h;
+  });
+  // Each point's own scroll-margin (career-group bars sit 1rem lower),
+  // re-read on resize since --scroll-offset changes at 1200px.
+  var spyMargins = [];
+  function readSpyMargins(){
+    spyMargins = spyPoints.map(function(p){ return parseFloat(getComputedStyle(p).scrollMarginTop) || 0; });
+  }
+  readSpyMargins();
+  window.addEventListener('resize', readSpyMargins, {passive:true});
+
+  updateActive = function(){
+    if(Date.now() < scrollLockUntil) return;
+    var current = null, lastVisible = null;
+    headingEls.forEach(function(h, i){
+      if(!h.getClientRects().length) return;   // hidden heading
+      if(spyPoints[i].getBoundingClientRect().top <= spyMargins[i] + 12) current = h;
+      if(h.getBoundingClientRect().top < window.innerHeight) lastVisible = h;
+    });
+    if(window.innerHeight + window.scrollY >= rootEl.scrollHeight - 2 && lastVisible) current = lastVisible;
+    setActive(current ? current.id : null);
+  };
+
+  var spyQueued = false;
+  function queueSpy(){
+    if(spyQueued) return;
+    spyQueued = true;
+    window.requestAnimationFrame(function(){ spyQueued = false; updateActive(); });
+  }
+  window.addEventListener('scroll', queueSpy, {passive:true});
+  window.addEventListener('resize', queueSpy, {passive:true});
+  updateActive();
 })();
 </script>

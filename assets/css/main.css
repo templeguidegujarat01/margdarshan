@@ -70,7 +70,8 @@
   --stream-soft:rgba(201,127,30,.10);
   --stream-border:rgba(201,127,30,.30);
 }
-/* [data-stream="govt-exams"] reserved for a future stream palette. */
+/* data-stream="govt-exams" (govt-exams.html) intentionally has no override:
+   like every other stream it uses the shared gold tokens above, light and dark. */
 [data-theme="dark"]{
   --stream-primary:#F0B65A;
   --bg-header:#0F2A3D;
@@ -957,6 +958,19 @@ a[href="icar-aieea.html"]:not(.cx-link):not(.related-card):not(.source-link):hov
 .btn-exam-primary:hover,.btn-exam-primary:focus-visible{background:var(--gold);}
 .btn-exam-secondary{background:var(--stream-soft);color:var(--stream-primary);border:1px solid var(--stream-border);}
 .btn-exam-secondary:hover,.btn-exam-secondary:focus-visible{background:var(--stream-border);}
+
+/* Exam profile variant (govt-exams.html): an .exam-card with an id is a
+   deep-link target from the accordion directory and holds a <dl> of key
+   facts (conducted by, eligibility, age limit, selection, career path). */
+.profile-group-title{margin:2.4rem 0 0;font-size:1.15rem;}
+.section-head + .profile-group-title{margin-top:.4rem;}
+.exam-card[id]{scroll-margin-top:var(--scroll-offset);}
+.exam-card h4{margin:0;font-size:1.05rem;}
+.exam-card:target{border-color:var(--stream-border);box-shadow:var(--shadow-sm);}
+.exam-facts{margin:0;display:grid;gap:.55rem;flex-grow:1;}
+.exam-facts div{display:grid;gap:.1rem;}
+.exam-facts dt{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;font-weight:600;color:var(--text-muted);}
+.exam-facts dd{margin:0;font-size:.9rem;line-height:1.5;color:var(--text);}
 
 /* ==========================================================================
    CAREER FIT QUIZ (career-fit.html)

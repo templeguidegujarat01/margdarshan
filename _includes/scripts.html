@@ -37,24 +37,43 @@
     });
   }
   document.addEventListener('keydown', function(e){
-    if(e.key === 'Escape'){ closeDropdown(); closeMobilePanel(); }
+    if(e.key === 'Escape'){
+      if(streamsMenu && !streamsMenu.hidden && streamsBtn){ closeDropdown(); streamsBtn.focus(); }
+      if(mobilePanel && mobilePanel.classList.contains('is-open')){ closeMobilePanel(); menuToggle.focus(); }
+    }
   });
 
-  /* ---------- Mobile panel ---------- */
+  /* ---------- Mobile panel ----------
+     Full-height drawer under the header that scrolls on its own; while it
+     is open the page behind is scroll-locked (html.nav-locked). Closes on
+     Escape, on any link tap inside it, and when the viewport grows to the
+     desktop layout (>= 1024px), so the lock can never get stuck. */
   var menuToggle = document.getElementById('menuToggle');
   var mobilePanel = document.getElementById('mobilePanel');
-  function closeMobilePanel(){
+  function setMobilePanel(open){
     if(!mobilePanel || !menuToggle) return;
-    mobilePanel.classList.remove('is-open');
-    menuToggle.setAttribute('aria-expanded','false');
-    menuToggle.setAttribute('aria-label','Open menu');
+    mobilePanel.hidden = !open;
+    mobilePanel.classList.toggle('is-open', open);
+    root.classList.toggle('nav-locked', open);
+    menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    menuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    if(open) mobilePanel.scrollTop = 0;
+  }
+  function closeMobilePanel(){
+    if(mobilePanel && mobilePanel.classList.contains('is-open')) setMobilePanel(false);
   }
   if(menuToggle && mobilePanel){
     menuToggle.addEventListener('click', function(){
-      var open = mobilePanel.classList.toggle('is-open');
-      menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-      menuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      setMobilePanel(!mobilePanel.classList.contains('is-open'));
     });
+    mobilePanel.addEventListener('click', function(e){
+      if(e.target.closest('a[href]')) closeMobilePanel();
+    });
+    var desktopMq = window.matchMedia('(min-width: 1024px)');
+    var onMq = function(){ if(desktopMq.matches) closeMobilePanel(); };
+    if(desktopMq.addEventListener) desktopMq.addEventListener('change', onMq); else desktopMq.addListener(onMq);
+    // Back/forward cache can restore a page with the drawer open.
+    window.addEventListener('pageshow', function(){ setMobilePanel(false); });
   }
   var mobileStreamsBtn = document.getElementById('mobileStreamsBtn');
   var mobileStreamsSub = document.getElementById('mobileStreamsSub');
@@ -62,6 +81,14 @@
     mobileStreamsBtn.addEventListener('click', function(){
       var open = mobileStreamsSub.classList.toggle('is-open');
       mobileStreamsBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      // Bring the opened list into view inside the drawer, not the page.
+      if(open && mobilePanel){
+        window.setTimeout(function(){
+          var top = mobileStreamsBtn.offsetTop - 8;
+          if(mobilePanel.scrollTo) mobilePanel.scrollTo({top: top, behavior: reduceMotion ? 'auto' : 'smooth'});
+          else mobilePanel.scrollTop = top;
+        }, reduceMotion ? 0 : 120);
+      }
     });
   }
 

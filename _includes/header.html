@@ -8,23 +8,36 @@
 
     <div class="nav-links">
       <div class="drop-wrap">
-        <button class="drop-btn" id="streamsBtn" aria-haspopup="true" aria-expanded="false" aria-controls="streamsMenu">
+        <button class="drop-btn" id="streamsBtn" type="button" aria-expanded="false" aria-controls="streamsMenu">
           Explore
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
         </button>
-        <ul class="dropdown-menu" id="streamsMenu" hidden role="menu">
-          <li class="menu-label" role="presentation">By stream</li>
-          <li><a href="science.html"{% if include.active_stream == "science" %} aria-current="page"{% endif %}>Science <span>PCM / PCB</span></a></li>
-          <li><a href="commerce.html"{% if include.active_stream == "commerce" %} aria-current="page"{% endif %}>Commerce <span>Finance & business</span></a></li>
-          <li><a href="arts.html"{% if include.active_stream == "arts" %} aria-current="page"{% endif %}>Arts <span>Humanities</span></a></li>
-          <li><a href="diploma.html"{% if include.active_stream == "diploma" %} aria-current="page"{% endif %}>Diploma <span>Skill-first degree</span></a></li>
-          <li><a href="iti.html"{% if include.active_stream == "iti" %} aria-current="page"{% endif %}>ITI <span>Trade training</span></a></li>
-          <li><a href="govt-exams.html"{% if include.active_stream == "govt-exams" %} aria-current="page"{% endif %}>Govt Exams / Jobs <span>SSC, UPSC, Banking, Railways</span></a></li>
-          <li class="menu-label" role="presentation">By goal</li>
-          <li><a href="high-paying-careers.html"{% if include.active_stream == "goal-salary" %} aria-current="page"{% endif %}>High-Paying Careers <span>Ranked by salary</span></a></li>
-          <li><a href="fast-track-jobs.html"{% if include.active_stream == "goal-fast" %} aria-current="page"{% endif %}>Fast-Track Jobs <span>Earn after 10th / 12th</span></a></li>
-          <li><a href="professional-courses.html"{% if include.active_stream == "goal-professional" %} aria-current="page"{% endif %}>Professional Courses <span>CA, Law, Medicine</span></a></li>
-        </ul>
+        <div class="dropdown-menu mega-menu" id="streamsMenu" hidden>
+          <div class="mega-cols">
+            <div class="mega-col">
+              <p class="menu-label" id="megaStreams">By stream</p>
+              <ul aria-labelledby="megaStreams">{% assign list = site.data.nav.streams %}{% for item in list %}
+              <li><a class="mega-item" href="{{ item.href }}"{% if include.active_stream == item.key %} aria-current="page"{% endif %}>
+                <span class="mega-item-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{{ item.icon }}</svg></span>
+                <span class="mega-item-text"><strong>{{ item.label }}</strong><small>{{ item.desc }}</small></span>
+              </a></li>{% endfor %}
+              </ul>
+            </div>
+            <div class="mega-col">
+              <p class="menu-label" id="megaGoals">By goal</p>
+              <ul aria-labelledby="megaGoals">{% assign list = site.data.nav.goals %}{% for item in list %}
+              <li><a class="mega-item" href="{{ item.href }}"{% if include.active_stream == item.key %} aria-current="page"{% endif %}>
+                <span class="mega-item-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{{ item.icon }}</svg></span>
+                <span class="mega-item-text"><strong>{{ item.label }}</strong><small>{{ item.desc }}</small></span>
+              </a></li>{% endfor %}
+              </ul>
+              <a class="mega-fit" href="career-fit.html">
+                <strong>Not sure yet?</strong>
+                <span>Take the Find My Fit quiz &rarr;</span>
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
       <a href="after-10th.html">After 10th</a>
       <a href="career-fit.html">Find My Fit</a>
@@ -39,39 +52,44 @@
         <span class="search-trigger-text">Search</span>
         <kbd class="search-trigger-kbd" aria-hidden="true">/</kbd>
       </button>
-      <button class="icon-btn" id="themeToggle" aria-label="Toggle dark mode" aria-pressed="false">
+      <button type="button" class="icon-btn" id="themeToggle" aria-label="Toggle dark mode" aria-pressed="false">
         <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
         <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
       </button>
-      <button class="icon-btn menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobilePanel">
+      <button type="button" class="icon-btn menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobilePanel">
         <svg class="icon-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
         <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
       </button>
     </div>
   </nav>
 
-  <div class="mobile-panel" id="mobilePanel">
+  <div class="mobile-panel" id="mobilePanel" hidden>
     <div class="container">
       <button type="button" class="mobile-search" data-search-open aria-haspopup="dialog" aria-controls="site-search">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
         Search careers, exams, colleges…
       </button>
-      <button class="drop-btn" id="mobileStreamsBtn" aria-expanded="false" aria-controls="mobileStreamsSub">
-        Explore
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      <button type="button" class="drop-btn mobile-explore" id="mobileStreamsBtn" aria-expanded="false" aria-controls="mobileStreamsSub">
+        Explore streams &amp; goals
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="mobile-sub" id="mobileStreamsSub">
-        <span class="menu-label">By stream</span>
-        <a href="science.html"{% if include.active_stream == "science" %} aria-current="page"{% endif %}>Science</a>
-        <a href="commerce.html"{% if include.active_stream == "commerce" %} aria-current="page"{% endif %}>Commerce</a>
-        <a href="arts.html"{% if include.active_stream == "arts" %} aria-current="page"{% endif %}>Arts</a>
-        <a href="diploma.html"{% if include.active_stream == "diploma" %} aria-current="page"{% endif %}>Diploma</a>
-        <a href="iti.html"{% if include.active_stream == "iti" %} aria-current="page"{% endif %}>ITI</a>
-        <a href="govt-exams.html"{% if include.active_stream == "govt-exams" %} aria-current="page"{% endif %}>Govt Exams / Jobs</a>
-        <span class="menu-label">By goal</span>
-        <a href="high-paying-careers.html"{% if include.active_stream == "goal-salary" %} aria-current="page"{% endif %}>High-Paying Careers</a>
-        <a href="fast-track-jobs.html"{% if include.active_stream == "goal-fast" %} aria-current="page"{% endif %}>Fast-Track Jobs</a>
-        <a href="professional-courses.html"{% if include.active_stream == "goal-professional" %} aria-current="page"{% endif %}>Professional Courses</a>
+        <div class="mobile-sub-inner">
+          <p class="menu-label">By stream</p>
+          <ul class="msub-grid">{% assign list = site.data.nav.streams %}{% for item in list %}
+            <li><a class="msub-item" href="{{ item.href }}"{% if include.active_stream == item.key %} aria-current="page"{% endif %}>
+              <span class="msub-item-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{{ item.icon }}</svg></span>
+              <span class="msub-item-text"><strong>{{ item.label }}</strong><small>{{ item.desc }}</small></span>
+            </a></li>{% endfor %}
+          </ul>
+          <p class="menu-label">By goal</p>
+          <ul class="msub-list">{% assign list = site.data.nav.goals %}{% for item in list %}
+            <li><a class="msub-item" href="{{ item.href }}"{% if include.active_stream == item.key %} aria-current="page"{% endif %}>
+              <span class="msub-item-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{{ item.icon }}</svg></span>
+              <span class="msub-item-text"><strong>{{ item.label }}</strong><small>{{ item.desc }}</small></span>
+            </a></li>{% endfor %}
+          </ul>
+        </div>
       </div>
       <a href="after-10th.html">After 10th</a>
       <a href="career-fit.html">Find My Fit</a>

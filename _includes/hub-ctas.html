@@ -7,8 +7,10 @@
     route                       shown instead when there is no entrance exam
     exam_href, exam_label       "[exam_label] details" card (exam page or an on-page #section)
     coaching_href, coaching_label        "Find [label] coaching" card (finder hub)
-    coaching_text               overrides the coaching card title
+    coaching_text, coaching_sub overrides for the coaching card title / subtitle
     colleges_href, colleges_label        "Explore [label] colleges" card (finder hub)
+    colleges_text, colleges_sub overrides for the college card title / subtitle
+                                (e.g. "Find ITI institutes" for the ITI finder)
     colleges2_href, colleges2_label      optional second college finder
     exam_sub                    overrides the exam card subtitle
     link_href, link_title, link_sub, link_icon       generic card (on-page
@@ -44,7 +46,7 @@
       <span class="hub-cta-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/></svg></span>
       <span class="hub-cta-text">
         <strong>{% if include.coaching_text %}{{ include.coaching_text }}{% else %}Find {{ include.coaching_label }} coaching{% endif %}</strong>
-        <span>Verified centres by state and city</span>
+        <span>{{ include.coaching_sub | default: "Verified centres by state and city" }}</span>
       </span>
       {{ hc_arrow }}
     </a>
@@ -53,8 +55,8 @@
     <a class="hub-cta" href="{{ include.colleges_href }}{% unless include.colleges_href contains "#" %}#finder{% endunless %}">
       <span class="hub-cta-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M4 10h16M12 3l9 5H3z"/><path d="M6 10v8M10 10v8M14 10v8M18 10v8"/></svg></span>
       <span class="hub-cta-text">
-        <strong>Explore {{ include.colleges_label }} colleges</strong>
-        <span>Government, private &amp; deemed — by state and city</span>
+        <strong>{% if include.colleges_text %}{{ include.colleges_text }}{% else %}Explore {{ include.colleges_label }} colleges{% endif %}</strong>
+        <span>{{ include.colleges_sub | default: "Government, private &amp; deemed — by state and city" }}</span>
       </span>
       {{ hc_arrow }}
     </a>

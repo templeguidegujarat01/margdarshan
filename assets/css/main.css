@@ -291,6 +291,7 @@ html.nav-locked{overflow:hidden;}
 .feature-card h3{font-size:1.05rem;}
 .feature-card p{color:var(--text-muted);font-size:.92rem;margin-top:.5rem;}
 /* ===================== AFTER 10 BANNER ===================== */
+.goals{padding:0 0 5rem;}
 .after10{padding:0 0 5rem;}
 .after10-card{background:var(--bg-cta);border-radius:var(--radius-lg);padding:2.6rem 2rem;display:grid;gap:1.5rem;color:var(--on-ink);position:relative;overflow:hidden;}
 .after10-card h2{color:var(--on-ink-strong);font-size:clamp(1.5rem,3vw,2rem);max-width:26ch;}
@@ -674,7 +675,12 @@ table{border-collapse:collapse;width:100%;}
 .search-panel{position:relative;display:flex;flex-direction:column;width:100%;max-width:720px;max-height:min(84vh,760px);background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);box-shadow:var(--shadow-lg);overflow:hidden;transform:translateY(-10px) scale(.985);opacity:0;transition:transform .2s var(--ease),opacity .2s var(--ease);}
 .search-overlay[data-open="true"] .search-panel{transform:none;opacity:1;}
 
-.search-head{display:flex;align-items:center;gap:.7rem;padding:.9rem 1rem .9rem 1.2rem;border-bottom:1px solid var(--line);}
+/* Header rows sit above the scrolling results: solid surface, own stacking
+   layer, never shrink. The results list (.search-body) is the only scroller
+   and paints inside its own box (contain:paint), so rows can't bleed up
+   under the input or chips — including in Safari, which can paint
+   composited scroll content outside a clipped, rounded parent. */
+.search-head{position:relative;z-index:2;flex-shrink:0;display:flex;align-items:center;gap:.7rem;padding:.9rem 1rem .9rem 1.2rem;background:var(--surface);border-bottom:1px solid var(--line);}
 .search-head-icon{flex-shrink:0;color:var(--gold-strong);}
 [data-theme="dark"] .search-head-icon{color:var(--gold);}
 .search-head input{flex:1;min-width:0;border:none;background:transparent;color:var(--text);font:inherit;font-size:1.08rem;padding:.45rem 0;}
@@ -686,14 +692,14 @@ table{border-collapse:collapse;width:100%;}
 @media (min-width:640px){.search-close{display:none;}}
 @media (max-width:639px){.search-kbd{display:none;}}
 
-.search-cats{display:flex;gap:.45rem;padding:.75rem 3rem .75rem 1.2rem;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line);-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 3rem),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 3rem),transparent);}
+.search-cats{position:relative;z-index:2;flex-shrink:0;display:flex;gap:.45rem;padding:.75rem 3rem .75rem 1.2rem;background:var(--surface);box-shadow:0 6px 10px -8px rgba(11,26,34,.35);overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line);-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 3rem),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 3rem),transparent);}
 .search-cats::-webkit-scrollbar{display:none;}
 .search-cat{flex-shrink:0;padding:.38rem .85rem;border-radius:999px;border:1px solid var(--line);background:var(--paper);color:var(--text-muted);font:inherit;font-size:.82rem;font-weight:600;cursor:pointer;transition:background .15s,color .15s,border-color .15s;}
 .search-cat:hover{color:var(--text);border-color:var(--text-muted);}
 .search-cat[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff;}
 [data-theme="dark"] .search-cat[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:#241703;}
 
-.search-body{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:.6rem .6rem .8rem;}
+.search-body{position:relative;z-index:1;flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;contain:paint;isolation:isolate;padding:.75rem .6rem .8rem;}
 .search-label{margin:.7rem .6rem .5rem;font-family:var(--font-mono);font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);}
 .search-chips{display:flex;flex-wrap:wrap;gap:.45rem;padding:0 .6rem .4rem;}
 .search-chip{padding:.42rem .8rem;border-radius:var(--radius-sm);border:1px dashed var(--line);background:transparent;color:var(--text);font:inherit;font-size:.86rem;cursor:pointer;}
@@ -743,7 +749,7 @@ table{border-collapse:collapse;width:100%;}
 .search-empty p{margin:0 0 .4rem;}
 .search-empty strong{color:var(--text);}
 
-.search-foot{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.6rem 1.2rem;border-top:1px solid var(--line);background:var(--paper);font-size:.78rem;color:var(--text-muted);}
+.search-foot{position:relative;z-index:2;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.6rem 1.2rem;border-top:1px solid var(--line);background:var(--paper);font-size:.78rem;color:var(--text-muted);}
 .search-count{font-family:var(--font-mono);}
 .search-hints{display:inline-flex;align-items:center;gap:.3rem;}
 .search-hints kbd{padding:.18rem .36rem;}

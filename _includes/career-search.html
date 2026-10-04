@@ -1,0 +1,59 @@
+{%- comment -%}
+  Site-wide search overlay, opened from the header search icon, the
+  "Explore Careers" links (#careers), or the "/" and Ctrl/Cmd+K shortcuts.
+  Lives outside <main> so it never shows up in the "On this page" nav.
+  Results come from assets/search.json (built from _data/search.yml) and are
+  rendered by the search block in _includes/scripts.html. To make a new page
+  searchable, add one line to _data/search.yml.
+{%- endcomment -%}
+<div class="search-overlay" id="careers" data-open="false" role="dialog" aria-modal="true" aria-labelledby="searchTitle">
+  <div class="search-overlay-backdrop" data-search-close></div>
+  <div class="search-panel">
+    <h2 id="searchTitle" class="sr-only">Search careers, exams & colleges</h2>
+    <div class="search-head">
+      <svg class="search-head-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <label for="careerSearch" class="sr-only">Search careers, exams, colleges and coaching</label>
+      <input type="search" id="careerSearch" placeholder="Search careers, exams, colleges… e.g. MBBS, JEE, CA" autocomplete="off" spellcheck="false"
+             role="combobox" aria-expanded="false" aria-controls="searchResults" aria-autocomplete="list">
+      <kbd class="search-kbd" aria-hidden="true">Esc</kbd>
+      <button type="button" class="search-close" data-search-close aria-label="Close search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+
+    <div class="search-cats" role="group" aria-label="Filter by category">
+      <button type="button" class="search-cat" data-cat="all" aria-pressed="true">All</button>
+      {%- for cat in site.data.search.categories %}
+      <button type="button" class="search-cat" data-cat="{{ cat.id }}" aria-pressed="false">{{ cat.label }}</button>
+      {%- endfor %}
+    </div>
+
+    <div class="search-body">
+      <div class="search-idle" id="searchIdle">
+        <p class="search-label">Popular searches</p>
+        <div class="search-chips">
+          {%- assign popular = "MBBS,CA,JEE Main,NEET,B.Tech Colleges,Data Science,SSC CGL,NDA,BBA,Nursing,Bank PO,ITI Electrician" | split: "," %}
+          {%- for p in popular %}
+          <button type="button" class="search-chip" data-q="{{ p }}">{{ p }}</button>
+          {%- endfor %}
+        </div>
+        <p class="search-label">Not sure where to begin?</p>
+        <div class="search-start">
+          <a href="after-10th.html"><strong>After 10th</strong><span>Pick the right stream</span></a>
+          <a href="after-12th.html"><strong>After 12th</strong><span>Courses & careers</span></a>
+          <a href="career-fit.html"><strong>Find My Fit</strong><span>Take the quick quiz</span></a>
+        </div>
+      </div>
+      <ul class="search-results" id="searchResults" role="listbox" aria-label="Search results" hidden></ul>
+      <div class="search-empty" id="searchEmpty" hidden>
+        <p><strong>No match for “<span id="searchEmptyQ"></span>”.</strong></p>
+        <p>Try a shorter word, a course name (BCA, B.Com), an exam (NEET, SSC) or a job (doctor, engineer, teacher).</p>
+      </div>
+    </div>
+
+    <div class="search-foot">
+      <span class="search-count" id="searchCount" aria-live="polite"></span>
+      <span class="search-hints" aria-hidden="true"><kbd>↑</kbd><kbd>↓</kbd> move <kbd>Enter</kbd> open <kbd>Esc</kbd> close</span>
+    </div>
+  </div>
+</div>

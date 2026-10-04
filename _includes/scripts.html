@@ -65,80 +65,196 @@
     });
   }
 
-  /* ---------- Career search overlay (only present on index.html) ----------
-     Opened from the header search icon, or by navigating to #careers
-     (the header/footer "Explore Careers" links already use this hash). */
+  /* ---------- Site search overlay (_includes/career-search.html) ----------
+     On every page. Opened from the header search button, any link to
+     #careers ("Explore Careers"), or the "/" and Ctrl/Cmd+K shortcuts.
+     The index (assets/search.json, built from _data/search.yml) is fetched
+     the first time the overlay opens. Idle state shows popular searches;
+     a query and/or category chip lists ranked matches. */
   var searchOverlay = document.getElementById('careers');
-  var searchOverlayBackdrop = document.getElementById('searchOverlayBackdrop');
-  var searchOverlayClose = document.getElementById('searchOverlayClose');
-  var careerSearchInput = document.getElementById('careerSearch');
+  if(searchOverlay){
+    var sInput = document.getElementById('careerSearch');
+    var sResults = document.getElementById('searchResults');
+    var sIdle = document.getElementById('searchIdle');
+    var sEmpty = document.getElementById('searchEmpty');
+    var sEmptyQ = document.getElementById('searchEmptyQ');
+    var sCount = document.getElementById('searchCount');
+    var sCats = searchOverlay.querySelectorAll('.search-cat');
+    var catLabels = {};
+    sCats.forEach(function(b){ catLabels[b.getAttribute('data-cat')] = b.textContent.trim(); });
+    var sIndex = null, sLoading = false, sFailed = false;
+    var sCat = 'all', sActive = -1, sLastFocus = null;
 
-  function openCareerSearch(){
-    if(!searchOverlay) return;
-    searchOverlay.setAttribute('data-open', 'true');
-    document.body.style.overflow = 'hidden';
-    if(careerSearchInput){ setTimeout(function(){ careerSearchInput.focus(); }, reduceMotion ? 0 : 300); }
-  }
-  function closeCareerSearch(){
-    if(!searchOverlay) return;
-    searchOverlay.setAttribute('data-open', 'false');
-    document.body.style.overflow = '';
-  }
+    // "B.Com (Hons)" -> "b com hons"; dots dropped so "bcom" also matches.
+    function norm(s){ return (s || '').toLowerCase().replace(/&/g, ' and ').replace(/\./g, '').replace(/[^a-z0-9+]+/g, ' ').trim(); }
 
-  var searchNavBtn = document.getElementById('searchNavBtn');
-  if(searchNavBtn){ searchNavBtn.addEventListener('click', openCareerSearch); }
-  if(searchOverlayBackdrop){ searchOverlayBackdrop.addEventListener('click', closeCareerSearch); }
-  if(searchOverlayClose){ searchOverlayClose.addEventListener('click', closeCareerSearch); }
-  document.addEventListener('keydown', function(e){
-    if(e.key === 'Escape' && searchOverlay && searchOverlay.getAttribute('data-open') === 'true'){ closeCareerSearch(); }
-  });
-  if(searchOverlay && window.location.hash === '#careers'){ openCareerSearch(); }
-  window.addEventListener('hashchange', function(){
-    if(window.location.hash === '#careers'){ openCareerSearch(); }
-  });
+    function loadIndex(){
+      if(sIndex || sLoading) return;
+      sLoading = true;
+      fetch('assets/search.json').then(function(r){ if(!r.ok) throw r; return r.json(); }).then(function(data){
+        sIndex = data.map(function(d){
+          return { d: d, t: norm(d.t), s: norm(d.s), k: norm(d.k) + ' ' + norm(catLabels[d.c]) };
+        });
+        sLoading = false;
+        renderSearch();
+      }).catch(function(){ sLoading = false; sFailed = true; renderSearch(); });
+    }
 
-  /* ---------- Career search + filter (only present on index.html) ----------
-     Idle by default (no query, "All" filter) so the homepage doesn't dump
-     120+ cards on load — results only render once the person searches or
-     picks a category. */
-  var searchInput = document.getElementById('careerSearch');
-  var tabs = document.querySelectorAll('.tab-btn');
-  var items = document.querySelectorAll('.career-item');
-  var noResults = document.getElementById('noResults');
-  var countEl = document.getElementById('explorerCount');
-  var searchPrompt = document.getElementById('searchPrompt');
-  var activeFilter = 'all';
+    function score(e, q, words){
+      var total = 0;
+      for(var i = 0; i < words.length; i++){
+        var w = words[i], best = 0;
+        if((' ' + e.t).indexOf(' ' + w) !== -1) best = 30;
+        else if(w.length > 2 && e.t.indexOf(w) !== -1) best = 18;
+        else if((' ' + e.k).indexOf(' ' + w) !== -1) best = e.k.indexOf(w) === 0 ? 18 : 14;
+        else if((' ' + e.s).indexOf(' ' + w) !== -1) best = 8;
+        else if(w.length > 2 && (e.k + ' ' + e.s).indexOf(w) !== -1) best = 4;
+        if(!best) return 0;          // every word has to match somewhere
+        total += best;
+      }
+      if(e.t === q) total += 100;
+      else if(e.t.indexOf(q) === 0) total += 50;
+      else if(e.t.replace(/ /g, '').indexOf(q.replace(/ /g, '')) === 0) total += 40;
+      return total;
+    }
 
-  function refineCareers(){
-    if(!items.length) return;
-    var q = searchInput ? searchInput.value.trim().toLowerCase() : '';
-    var isIdle = (q === '' && activeFilter === 'all');
-    var visible = 0;
-    items.forEach(function(item){
-      var text = item.textContent.toLowerCase();
-      var matchesCategory = activeFilter === 'all' || item.dataset.category === activeFilter;
-      var matchesQuery = q === '' || text.indexOf(q) !== -1;
-      var show = !isIdle && matchesCategory && matchesQuery;
-      item.hidden = !show;
-      if(show) visible++;
+    function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+    function mark(text, words){
+      var out = esc(text);
+      words.forEach(function(w){
+        if(w.length < 2) return;
+        out = out.replace(new RegExp('(^|[^a-z0-9])(' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'ig'), '$1<mark>$2</mark>');
+      });
+      return out;
+    }
+
+    var arrowSvg = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+
+    function sSetActive(i){
+      var opts = sResults.querySelectorAll('[role="option"]');
+      if(!opts.length){ sActive = -1; sInput.removeAttribute('aria-activedescendant'); return; }
+      sActive = (i + opts.length) % opts.length;
+      opts.forEach(function(o, j){ o.setAttribute('aria-selected', j === sActive ? 'true' : 'false'); });
+      sInput.setAttribute('aria-activedescendant', opts[sActive].id);
+      var el = opts[sActive], box = sResults.parentElement;
+      var r = el.getBoundingClientRect(), b = box.getBoundingClientRect();
+      if(r.top < b.top) box.scrollTop -= (b.top - r.top) + 8;
+      else if(r.bottom > b.bottom) box.scrollTop += (r.bottom - b.bottom) + 8;
+    }
+
+    function renderSearch(){
+      var q = norm(sInput.value);
+      var idle = q === '' && sCat === 'all';
+      sIdle.hidden = !idle;
+      sEmpty.hidden = true;
+      sResults.hidden = idle;
+      sInput.setAttribute('aria-expanded', idle ? 'false' : 'true');
+      if(idle){ sResults.innerHTML = ''; sCount.textContent = sIndex ? sIndex.length + ' guides, exams & finders' : ''; sSetActive(-1); return; }
+      if(!sIndex){
+        sResults.innerHTML = '<li class="search-status">' + (sFailed ? 'Search could not load. Please check your connection and try again.' : 'Loading…') + '</li>';
+        sCount.textContent = '';
+        if(!sFailed) loadIndex();
+        return;
+      }
+      var words = q ? q.split(' ') : [];
+      var hits = [];
+      sIndex.forEach(function(e, i){
+        if(sCat !== 'all' && e.d.c !== sCat) return;
+        var sc = words.length ? score(e, q, words) : 1;
+        if(sc) hits.push({ e: e, sc: sc, i: i });
+      });
+      hits.sort(function(a, b){ return b.sc - a.sc || a.i - b.i; });
+      sResults.innerHTML = hits.map(function(h, j){
+        var d = h.e.d;
+        return '<li><a role="option" id="sr-' + j + '" aria-selected="false" class="search-result" href="' + esc(d.u) + '">' +
+          '<span class="search-result-cat" data-c="' + esc(d.c) + '">' + esc(catLabels[d.c] || '') + '</span>' +
+          '<span class="search-result-main"><strong>' + mark(d.t, words) + '</strong><span>' + mark(d.s, words) + '</span></span>' +
+          arrowSvg + '</a></li>';
+      }).join('');
+      sEmpty.hidden = hits.length !== 0;
+      if(!hits.length) sEmptyQ.textContent = sInput.value.trim();
+      sCount.textContent = hits.length ? hits.length + (hits.length === 1 ? ' result' : ' results') : '';
+      sResults.parentElement.scrollTop = 0;
+      sSetActive(words.length && hits.length ? 0 : -1);
+    }
+
+    function openSearch(){
+      if(searchOverlay.getAttribute('data-open') === 'true') return;
+      sLastFocus = document.activeElement;
+      closeDropdown(); closeMobilePanel();
+      searchOverlay.setAttribute('data-open', 'true');
+      document.body.style.overflow = 'hidden';
+      loadIndex();
+      renderSearch();
+      setTimeout(function(){ sInput.focus(); sInput.select(); }, reduceMotion ? 0 : 60);
+    }
+    function closeSearch(){
+      if(searchOverlay.getAttribute('data-open') !== 'true') return;
+      searchOverlay.setAttribute('data-open', 'false');
+      document.body.style.overflow = '';
+      if(window.location.hash === '#careers' && history.replaceState){
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
+      if(sLastFocus && sLastFocus.focus) sLastFocus.focus();
+    }
+
+    var searchNavBtn = document.getElementById('searchNavBtn');
+    if(searchNavBtn) searchNavBtn.addEventListener('click', openSearch);
+    searchOverlay.querySelectorAll('[data-search-close]').forEach(function(el){ el.addEventListener('click', closeSearch); });
+
+    // Links to #careers (or index.html#careers) open the overlay in place.
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a[href="#careers"], a[href="index.html#careers"]');
+      if(!a || e.metaKey || e.ctrlKey || e.shiftKey) return;
+      e.preventDefault();
+      openSearch();
     });
-    if(searchPrompt) searchPrompt.hidden = !isIdle;
-    if(noResults) noResults.hidden = isIdle || visible !== 0;
-    if(countEl) countEl.textContent = isIdle ? '' : (visible + (visible === 1 ? ' career guide shown' : ' career guides shown'));
-  }
+    if(window.location.hash === '#careers') openSearch();
+    window.addEventListener('hashchange', function(){ if(window.location.hash === '#careers') openSearch(); });
 
-  if(searchInput){ searchInput.addEventListener('input', refineCareers); }
-  if(tabs.length){
-    tabs.forEach(function(tab){
-      tab.addEventListener('click', function(){
-        tabs.forEach(function(t){ t.setAttribute('aria-selected','false'); });
-        tab.setAttribute('aria-selected','true');
-        activeFilter = tab.dataset.filter;
-        refineCareers();
+    sInput.addEventListener('input', renderSearch);
+    sCats.forEach(function(b){
+      b.addEventListener('click', function(){
+        sCats.forEach(function(x){ x.setAttribute('aria-pressed', 'false'); });
+        b.setAttribute('aria-pressed', 'true');
+        sCat = b.getAttribute('data-cat');
+        renderSearch();
+        sInput.focus();
       });
     });
+    searchOverlay.querySelectorAll('.search-chip').forEach(function(c){
+      c.addEventListener('click', function(){ sInput.value = c.getAttribute('data-q'); renderSearch(); sInput.focus(); });
+    });
+
+    document.addEventListener('keydown', function(e){
+      var open = searchOverlay.getAttribute('data-open') === 'true';
+      if(!open){
+        var t = e.target, typing = t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName));
+        if((e.key === '/' && !typing && !e.ctrlKey && !e.metaKey && !e.altKey) || (e.key.toLowerCase() === 'k' && (e.ctrlKey || e.metaKey))){
+          e.preventDefault();
+          openSearch();
+        }
+        return;
+      }
+      if(e.key === 'Escape'){ e.preventDefault(); closeSearch(); return; }
+      if(e.target !== sInput) {
+        if(e.key === 'Tab'){
+          // Keep focus inside the dialog.
+          var f = searchOverlay.querySelectorAll('input, button, a[href]');
+          var first = f[0], last = f[f.length - 1];
+          if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+          else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+        }
+        return;
+      }
+      if(e.key === 'ArrowDown'){ e.preventDefault(); sSetActive(sActive + 1); }
+      else if(e.key === 'ArrowUp'){ e.preventDefault(); sSetActive(sActive - 1); }
+      else if(e.key === 'Enter'){
+        var opts = sResults.querySelectorAll('[role="option"]');
+        if(sActive >= 0 && opts[sActive]){ e.preventDefault(); window.location.href = opts[sActive].href; }
+      }
+    });
   }
-  if(items.length && (searchInput || tabs.length)){ refineCareers(); }
 
   /* ---------- FAQ accordion ---------- */
   document.querySelectorAll('.faq-item').forEach(function(faqItem){

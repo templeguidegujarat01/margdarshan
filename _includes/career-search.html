@@ -1,12 +1,14 @@
 {%- comment -%}
-  Site-wide search overlay, opened from the header search icon, the
-  "Explore Careers" links (#careers), or the "/" and Ctrl/Cmd+K shortcuts.
+  Site-wide search overlay, on every page. Opened from any [data-search-open]
+  button (header, mobile menu), the "/" and Ctrl/Cmd+K shortcuts, #search,
+  and the homepage's "Explore Careers" (#careers) links. Its id is
+  "site-search", not "careers": hub pages have their own <section id="careers">.
   Lives outside <main> so it never shows up in the "On this page" nav.
   Results come from assets/search.json (built from _data/search.yml) and are
   rendered by the search block in _includes/scripts.html. To make a new page
   searchable, add one line to _data/search.yml.
 {%- endcomment -%}
-<div class="search-overlay" id="careers" data-open="false" role="dialog" aria-modal="true" aria-labelledby="searchTitle">
+<div class="search-overlay" id="site-search" data-open="false" role="dialog" aria-modal="true" aria-labelledby="searchTitle">
   <div class="search-overlay-backdrop" data-search-close></div>
   <div class="search-panel">
     <h2 id="searchTitle" class="sr-only">Search careers, exams & colleges</h2>
@@ -30,6 +32,13 @@
 
     <div class="search-body">
       <div class="search-idle" id="searchIdle">
+        <div class="search-recent" id="searchRecent" hidden>
+          <div class="search-label-row">
+            <p class="search-label">Recently viewed</p>
+            <button type="button" class="search-recent-clear" id="searchRecentClear">Clear</button>
+          </div>
+          <div class="search-recent-list" id="searchRecentList"></div>
+        </div>
         <p class="search-label">Popular searches</p>
         <div class="search-chips">
           {%- assign popular = "MBBS,CA,JEE Main,NEET,B.Tech Colleges,Data Science,SSC CGL,NDA,BBA,Nursing,Bank PO,ITI Electrician" | split: "," %}

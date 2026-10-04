@@ -65,52 +65,8 @@ footer:
         <h2 id="cities-heading">Selected MBBS colleges, by city</h2>
         <p>Selected based on genuine course availability, recognised institutional status and a working official website — not a ranking claim. Always confirm current admission details, fees and seat availability directly on each college's official website.</p>
       </div>
-      <div class="cx-search reveal">
-        <label for="citySearchInput" class="sr-only">Search for a city</label>
-        <input type="text" id="citySearchInput" placeholder="Search for a city…" autocomplete="off">
-      </div>
-      <p class="cx-empty" id="citiesEmpty">No colleges currently available for this city.</p>
-      <div id="citiesList">
-        <div class="cx-city-block" data-name="Mumbai">
-          <h3 class="cx-city-heading">Mumbai</h3>
-          <div class="cx-grid reveal">
-            <div class="cx-college-card">
-              <span class="cx-tag">Government (Municipal)</span>
-              <h3>Seth G. S. Medical College &amp; KEM Hospital</h3>
-              <p>Run by the Municipal Corporation of Greater Mumbai, founded 1926, one of India's most established government medical colleges. Admission via National Eligibility cum Entrance Test – Undergraduate (NEET-UG).</p>
-              <a class="source-link" href="https://www.kem.edu/" target="_blank" rel="noopener noreferrer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-                Official website
-              </a>
-            </div>
-            <div class="cx-college-card">
-              <span class="cx-tag">Government</span>
-              <h3>Grant Medical College &amp; Sir J. J. Group of Hospitals</h3>
-              <p>One of India's oldest medical colleges, administered by the Government of Maharashtra. Admission via NEET-UG.</p>
-              <a class="source-link" href="https://gmcjjh.edu.in/" target="_blank" rel="noopener noreferrer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-                Official website
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="cx-city-block" data-name="Pune">
-          <h3 class="cx-city-heading">Pune</h3>
-          <div class="cx-grid reveal">
-            <div class="cx-college-card">
-              <span class="cx-tag">Government</span>
-              <h3>B. J. Government Medical College &amp; Sassoon General Hospitals</h3>
-              <p>Founded 1946, administered by the Government of Maharashtra, affiliated to Maharashtra University of Health Sciences. Admission via NEET-UG.</p>
-              <a class="source-link" href="https://bjgmcpune.com/" target="_blank" rel="noopener noreferrer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-                Official website
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <p class="table-note mt-md">Maharashtra has over 40 government MBBS colleges (including All India Institute of Medical Sciences (AIIMS) Nagpur, AFMC Pune and several GMERS/MUHS-affiliated colleges) beyond what's listed here — we're publishing cities one at a time as we complete verified research.</p>
+      {% include finder.html type="colleges" key="mbbs" state="maharashtra" %}
+      <p class="table-note mt-md">Maharashtra has over 40 government MBBS colleges (including many MUHS-affiliated government and private colleges) beyond what's listed here — we're publishing cities one at a time as we complete verified research.</p>
     </div>
   </section>
 
@@ -128,8 +84,3 @@ footer:
 </main>
 
 {% include discovery-search.html %}
-<script>
-(function(){
-  cxWireCityBlockSearch('citySearchInput','citiesList','citiesEmpty');
-})();
-</script>

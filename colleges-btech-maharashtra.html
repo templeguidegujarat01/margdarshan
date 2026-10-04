@@ -76,67 +76,8 @@ footer:
         <h2 id="cities-heading">Selected B.Tech colleges, by city</h2>
         <p>Selected based on genuine course availability, recognised institutional status and a working official website — not a ranking claim.</p>
       </div>
-      <div class="cx-search reveal">
-        <label for="citySearchInput" class="sr-only">Search for a city</label>
-        <input type="text" id="citySearchInput" placeholder="Search for a city…" autocomplete="off">
-      </div>
-      <p class="cx-empty" id="citiesEmpty">No colleges currently available for this city.</p>
-      <div id="citiesList">
-        <div class="cx-city-block" data-name="Mumbai">
-          <h3 class="cx-city-heading">Mumbai</h3>
-          <div class="cx-grid reveal">
-            <div class="cx-college-card">
-              <span class="cx-tag">Government (State)</span>
-              <h3>Veermata Jijabai Technological Institute (VJTI)</h3>
-              <p>Autonomous institute owned by the Government of Maharashtra. Admission mainly via MHT-CET, through the state CAP process.</p>
-              <a class="source-link" href="https://vjti.ac.in/" target="_blank" rel="noopener noreferrer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-                Official website
-              </a>
-            </div>
-            <div class="cx-college-card">
-              <span class="cx-tag">Government</span>
-              <h3>Institute of Chemical Technology (ICT) Mumbai</h3>
-              <p>Government-funded, deemed-to-be university, especially known for Chemical Engineering, Pharmacy and allied fields. Admission via MHT-CET/JEE Main, per programme.</p>
-              <a class="source-link" href="https://www.ictmumbai.edu.in/" target="_blank" rel="noopener noreferrer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-                Official website
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="cx-city-block" data-name="Pune">
-          <h3 class="cx-city-heading">Pune</h3>
-          <div class="cx-grid reveal">
-            <div class="cx-college-card">
-              <span class="cx-tag">Government (Unitary University)</span>
-              <h3>COEP Technological University</h3>
-              <p>Founded 1854, established as a unitary public university by the Government of Maharashtra. Admission mainly via MHT-CET, through the state CAP process.</p>
-              <a class="source-link" href="https://www.coeptech.ac.in/" target="_blank" rel="noopener noreferrer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-                Official website
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="cx-city-block" data-name="Nagpur">
-          <h3 class="cx-city-heading">Nagpur</h3>
-          <div class="cx-grid reveal">
-            <div class="cx-college-card">
-              <span class="cx-tag">Government (NIT)</span>
-              <h3>Visvesvaraya National Institute of Technology (VNIT)</h3>
-              <p>Maharashtra's only National Institute of Technology (NIT), an Institute of National Importance. Admission via JEE Main, through central JoSAA/CSAB counselling.</p>
-              <a class="source-link" href="https://vnit.ac.in/" target="_blank" rel="noopener noreferrer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-                Official website
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <p class="table-note mt-md">Maharashtra has many more engineering colleges (including IIT Bombay and dozens of private, GTU-style affiliated colleges) beyond what's listed here — we're publishing cities one at a time as we complete verified research.</p>
+      {% include finder.html type="colleges" key="btech" state="maharashtra" %}
+      <p class="table-note mt-md">Maharashtra has many more engineering colleges (including dozens of private and university-affiliated colleges) beyond what's listed here — we're publishing cities one at a time as we complete verified research.</p>
     </div>
   </section>
 
@@ -154,8 +95,3 @@ footer:
 </main>
 
 {% include discovery-search.html %}
-<script>
-(function(){
-  cxWireCityBlockSearch('citySearchInput','citiesList','citiesEmpty');
-})();
-</script>

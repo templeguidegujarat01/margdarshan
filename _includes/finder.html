@@ -1,0 +1,177 @@
+{%- comment -%}
+  Coaching & College Finder: State -> City -> cards.
+  Data: _data/finder_states.yml + _data/coaching.yml or _data/colleges.yml.
+  Behaviour: window.fxInit in _includes/discovery-search.html.
+
+    {% include finder.html type="coaching" key="neet" default="rajasthan" %}  hub page: state dropdown + city pills
+    {% include finder.html type="colleges" key="mbbs" state="gujarat" %}      state page: city pills only
+
+  `default` picks the state shown first on a hub (falls back to the first
+  state with listings); `state` locks the finder to one state.
+
+  Every card is rendered server-side (crawlable, no layout shift); cards and
+  city pills outside the default state carry `hidden` until JS shows them.
+{%- endcomment -%}
+{%- assign fx_key = include.key -%}
+{%- if include.type == "coaching" -%}
+  {%- assign fx_meta = site.data.coaching.exams[fx_key] -%}
+  {%- assign fx_all = site.data.coaching.centres | where_exp: "c", "c.exams contains fx_key" -%}
+  {%- assign fx_one = "coaching centre" -%}{%- assign fx_many = "coaching centres" -%}
+  {%- assign fx_org = "EducationalOrganization" -%}
+{%- else -%}
+  {%- assign fx_meta = site.data.colleges.courses[fx_key] -%}
+  {%- assign fx_all = site.data.colleges.colleges | where: "course", fx_key -%}
+  {%- assign fx_one = "college" -%}{%- assign fx_many = "colleges" -%}
+  {%- assign fx_org = "CollegeOrUniversity" -%}
+{%- endif -%}
+{%- assign fx_feat = fx_all | where: "featured", true -%}
+{%- assign fx_rest = fx_all | where_exp: "c", "c.featured != true" -%}
+{%- assign fx_sorted = fx_feat | concat: fx_rest -%}
+{%- assign fx_default = include.state | default: include.default -%}
+{%- assign fx_default_n = fx_sorted | where: "state", fx_default | size -%}
+{%- if fx_default_n == 0 -%}
+  {%- for s in site.data.finder_states -%}
+    {%- assign s_n = fx_sorted | where: "state", s.id | size -%}
+    {%- if s_n > 0 -%}{%- assign fx_default = s.id -%}{%- break -%}{%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+{%- assign fx_soon = 0 -%}
+{%- for s in site.data.finder_states -%}
+  {%- assign s_n = fx_sorted | where: "state", s.id | size -%}
+  {%- if s_n == 0 -%}{%- assign fx_soon = fx_soon | plus: 1 -%}{%- endif -%}
+{%- endfor -%}
+{%- assign fx_default_items = fx_sorted | where: "state", fx_default -%}
+{%- assign fx_default_state = site.data.finder_states | where: "id", fx_default | first -%}
+{%- assign fx_id = "fx-" | append: include.type | append: "-" | append: fx_key -%}
+{%- capture fx_pin -%}<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>{%- endcapture -%}
+{%- capture fx_ext -%}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>{%- endcapture -%}
+<div class="fx" id="{{ fx_id }}" data-fx data-fx-one="{{ fx_one }}" data-fx-many="{{ fx_many }}"{% if include.state %} data-fx-locked="{{ include.state }}" data-fx-locked-label="{{ fx_default_state.name }}"{% endif %}>
+  <div class="fx-controls reveal">
+    {%- unless include.state %}
+    <div class="fx-step">
+      <label class="fx-label" for="{{ fx_id }}-state"><span class="fx-num" aria-hidden="true">1</span>Choose your state</label>
+      <select class="fx-select" id="{{ fx_id }}-state" data-fx-state-select>
+        {%- for s in site.data.finder_states %}
+        {%- assign s_n = fx_sorted | where: "state", s.id | size %}
+        {%- if s_n > 0 %}
+        <option value="{{ s.id }}" data-fx-label="{{ s.name }}"{% if s.id == fx_default %} selected{% endif %}>{{ s.name }} ({{ s_n }})</option>
+        {%- endif %}
+        {%- endfor %}
+        {%- if fx_soon > 0 %}
+        <optgroup label="Coming soon">
+        {%- for s in site.data.finder_states %}
+        {%- assign s_n = fx_sorted | where: "state", s.id | size %}
+        {%- if s_n == 0 %}
+          <option disabled>{{ s.name }}</option>
+        {%- endif %}
+        {%- endfor %}
+        </optgroup>
+        {%- endif %}
+      </select>
+    </div>
+    {%- endunless %}
+    <div class="fx-step">
+      <p class="fx-label" id="{{ fx_id }}-city-label"><span class="fx-num" aria-hidden="true">{% if include.state %}1{% else %}2{% endif %}</span>Pick a city</p>
+      <div class="fx-pills" role="group" aria-labelledby="{{ fx_id }}-city-label">
+        <button type="button" class="fx-pill" data-fx-pill data-fx-city="all" aria-pressed="true">All cities <span class="fx-pill-count" data-fx-all-count>{{ fx_default_items | size }}</span></button>
+        {%- for s in site.data.finder_states %}
+        {%- if include.state and s.id != include.state %}{% continue %}{% endif %}
+        {%- assign st_items = fx_sorted | where: "state", s.id %}
+        {%- if st_items.size > 0 %}
+        {%- assign st_cities = st_items | map: "city" | uniq %}
+        {%- for city in st_cities %}
+        {%- assign city_n = st_items | where: "city", city | size %}
+        <button type="button" class="fx-pill" data-fx-pill data-fx-state="{{ s.id }}" data-fx-city="{{ city | slugify }}" data-fx-label="{{ city }}" aria-pressed="false"{% unless s.id == fx_default %} hidden{% endunless %}>{{ city }} <span class="fx-pill-count">{{ city_n }}</span></button>
+        {%- endfor %}
+        {%- endif %}
+        {%- endfor %}
+      </div>
+    </div>
+  </div>
+
+  <p class="fx-count" data-fx-count aria-live="polite">Showing {{ fx_default_items | size }} {% if fx_default_items.size == 1 %}{{ fx_one }}{% else %}{{ fx_many }}{% endif %} in {{ fx_default_state.name }}</p>
+
+  <div class="cx-grid fx-results">
+    {%- for s in site.data.finder_states %}
+    {%- if include.state and s.id != include.state %}{% continue %}{% endif %}
+    {%- assign st_items = fx_sorted | where: "state", s.id %}
+    {%- for c in st_items %}
+    <article class="cx-college-card fx-card{% if c.featured %} is-featured{% endif %}" data-fx-card data-fx-state="{{ s.id }}" data-fx-city="{{ c.city | slugify }}"{% unless s.id == fx_default %} hidden{% endunless %}>
+      <div class="fx-card-top">
+        {%- if include.type == "coaching" %}
+        <span class="cx-tag">{{ fx_meta.tag | escape }}</span>
+        {%- else %}
+        <span class="cx-tag fx-own fx-own-{{ c.ownership | downcase }}">{{ c.ownership }}</span>
+        {%- if c.type_detail %}<span class="fx-subtag">{{ c.type_detail | escape }}</span>{% endif %}
+        {%- endif %}
+        {%- if c.featured %}<span class="fx-featured">{% if c.sponsored %}Sponsored{% else %}Featured{% endif %}</span>{% endif %}
+        <span class="fx-loc">{{ fx_pin }}{{ c.city }}, {{ s.name }}</span>
+      </div>
+      <h3>{{ c.name | escape }}</h3>
+      {%- if include.type == "coaching" %}
+      {%- assign brand = site.data.coaching.brands[c.brand] %}
+      <p>{{ c.area | escape }}{% if c.extra[fx_key] %} {{ c.extra[fx_key] | escape }}{% endif %}</p>
+      {%- if brand.batches or brand.formats %}
+      <dl class="fx-facts">
+        {%- if brand.batches %}<div><dt>Batches</dt><dd><ul class="fx-chips">{% for b in brand.batches %}<li>{{ b }}</li>{% endfor %}</ul></dd></div>{% endif %}
+        {%- if brand.formats %}<div><dt>Offers</dt><dd><ul class="fx-chips">{% for f in brand.formats %}<li>{{ f }}</li>{% endfor %}</ul></dd></div>{% endif %}
+      </dl>
+      {%- endif %}
+      <div class="fx-actions">
+        <a class="btn-exam-primary" href="{{ c.url }}" target="_blank" rel="noopener noreferrer">Visit {{ c.url_label | downcase }} {{ fx_ext }}<span class="sr-only"> (opens in a new tab)</span></a>
+        <details class="fx-more">
+          <summary class="btn-exam-secondary">Enquire / view details</summary>
+          <div class="fx-more-body">
+            <p>Enquire using the phone number or form on the provider's official site — Margdarshan doesn't collect or forward your details. Before you pay, ask for:</p>
+            <ul>
+              <li>Current batch start dates, timings and the nearest centre</li>
+              <li>Total fee including GST, instalments and the refund policy in writing</li>
+              <li>Batch size and which faculty will teach your batch</li>
+              <li>A free demo class or scholarship / admission test</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+      {%- else %}
+      {%- assign course = site.data.colleges.courses[c.course] %}
+      <p>{{ c.desc | escape }}</p>
+      <dl class="fx-facts">
+        <div><dt>Entrance</dt><dd>{{ c.entrance | default: course.entrance | escape }}</dd></div>
+        <div><dt>Admission</dt><dd>{{ c.counselling | escape }}</dd></div>
+        {%- if c.fees %}<div><dt>Annual fees</dt><dd>{{ c.fees | escape }}{% if c.as_of %} ({{ c.as_of }}){% endif %}</dd></div>{% endif %}
+        {%- if c.seats %}<div><dt>{{ course.label }} seats</dt><dd>{{ c.seats }}{% if c.as_of %} ({{ c.as_of }}){% endif %}</dd></div>{% endif %}
+        {%- if c.cutoff %}<div><dt>Closing rank</dt><dd>{{ c.cutoff | escape }}{% if c.as_of %} ({{ c.as_of }}){% endif %}</dd></div>{% endif %}
+        {%- unless c.fees and c.seats %}<div><dt>Fees, seats &amp; cutoff</dt><dd>Change every year — published in the counselling authority's fee notice and seat matrix.</dd></div>{% endunless %}
+      </dl>
+      <div class="fx-actions">
+        <a class="btn-exam-primary" href="{{ c.url }}" target="_blank" rel="noopener noreferrer">{{ c.url_label | default: "Official website" }} {{ fx_ext }}<span class="sr-only"> (opens in a new tab)</span></a>
+        {%- assign body = site.data.counselling[c.body] %}
+        {%- if body and body.url != c.url %}
+        <a class="btn-exam-secondary" href="{{ body.url }}" target="_blank" rel="noopener noreferrer">Counselling &amp; fees info {{ fx_ext }}<span class="sr-only"> ({{ body.name }}, opens in a new tab)</span></a>
+        {%- endif %}
+      </div>
+      {%- endif %}
+    </article>
+    {%- endfor %}
+    {%- endfor %}
+  </div>
+</div>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": {% if include.type == "coaching" %}{{ fx_meta.label | append: " coaching centres" | jsonify }}{% else %}{{ fx_meta.label | append: " colleges" | jsonify }}{% endif %},
+  "itemListElement": [
+    {%- assign fx_pos = 0 %}
+    {%- for s in site.data.finder_states %}
+    {%- if include.state and s.id != include.state %}{% continue %}{% endif %}
+    {%- assign st_items = fx_sorted | where: "state", s.id %}
+    {%- for c in st_items %}
+    {%- assign fx_pos = fx_pos | plus: 1 %}
+    {%- unless fx_pos == 1 %},{% endunless %}
+    { "@type": "ListItem", "position": {{ fx_pos }}, "item": { "@type": "{{ fx_org }}", "name": {{ c.name | jsonify }}, "url": {{ c.url | jsonify }}, "address": { "@type": "PostalAddress", "addressLocality": {{ c.city | jsonify }}, "addressRegion": {{ c.region | default: s.region | default: s.name | jsonify }}, "addressCountry": "IN" } } }
+    {%- endfor %}
+    {%- endfor %}
+  ]
+}
+</script>

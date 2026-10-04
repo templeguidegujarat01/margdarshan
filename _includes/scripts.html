@@ -733,3 +733,30 @@
   updateActive();
 })();
 </script>
+<script>
+(function(){
+  "use strict";
+  /* ---------- Salary ranking: show top rows, expand on demand ----------
+     Stream hubs mark the ranking table with .rank-collapse; CSS hides rows
+     after the first 5 until the wrapper gets .is-expanded, so the collapsed
+     state is painted on first render (no layout shift). The toggle button
+     sits right after the wrapper in the markup. */
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('[data-rank-toggle]').forEach(function(btn){
+    var wrap = document.getElementById(btn.getAttribute('aria-controls'));
+    if(!wrap) return;
+    var label = btn.querySelector('[data-rank-label]');
+    var rows = wrap.querySelectorAll('tbody tr').length;
+    var unit = wrap.getAttribute('data-rank-unit') || 'careers';
+    var moreText = 'Show all ' + rows + ' ' + unit + ' — full salary ranking';
+    btn.addEventListener('click', function(){
+      var open = wrap.classList.toggle('is-expanded');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if(label) label.textContent = open ? 'Show less — top 5 only' : moreText;
+      if(!open && wrap.getBoundingClientRect().top < 0){
+        wrap.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block: 'start'});
+      }
+    });
+  });
+})();
+</script>

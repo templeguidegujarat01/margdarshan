@@ -66,60 +66,7 @@ footer:
         <h2 id="cities-heading">Selected NEET coaching providers, by city</h2>
         <p>Selected for genuine, verifiable presence — an official website or official centre listing — and clear relevance to NEET preparation, not a ranking claim. Always confirm current fees, batch timings and seat availability directly with the provider.</p>
       </div>
-      <div class="cx-search reveal">
-        <label for="citySearchInput" class="sr-only">Search for a city</label>
-        <input type="text" id="citySearchInput" placeholder="Search for a city…" autocomplete="off">
-      </div>
-      <p class="cx-empty" id="citiesEmpty">No coaching currently listed for this city.</p>
-      <div id="citiesList">
-        <div class="cx-city-block" data-name="Chennai">
-          <h3 class="cx-city-heading">Chennai</h3>
-          <div class="cx-grid reveal">
-            <div class="cx-college-card">
-              <span class="cx-tag">NEET-UG</span>
-              <h3>ALLEN Career Institute — Chennai</h3>
-              <p>Classroom, online and test-series programmes for NEET.</p>
-              <a class="source-link" href="https://www.allen.ac.in/chennai/" target="_blank" rel="noopener noreferrer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-                Official website
-              </a>
-            </div>
-            <div class="cx-college-card">
-              <span class="cx-tag">NEET-UG</span>
-              <h3>Aakash Institute — Chennai</h3>
-              <p>Multiple Chennai centres across the city.</p>
-              <a class="source-link" href="https://centers.aakash.ac.in/location/tamil-nadu/chennai" target="_blank" rel="noopener noreferrer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-                Official centre listing
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="cx-city-block" data-name="Coimbatore">
-          <h3 class="cx-city-heading">Coimbatore</h3>
-          <div class="cx-grid reveal">
-            <div class="cx-college-card">
-              <span class="cx-tag">NEET-UG</span>
-              <h3>ALLEN Career Institute — Coimbatore</h3>
-              <p>Classroom, online and test-series programmes for NEET.</p>
-              <a class="source-link" href="https://www.allen.ac.in/coimbatore/" target="_blank" rel="noopener noreferrer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-                Official website
-              </a>
-            </div>
-            <div class="cx-college-card">
-              <span class="cx-tag">NEET-UG</span>
-              <h3>Aakash Institute — Coimbatore</h3>
-              <p>Multiple Coimbatore centres across the city.</p>
-              <a class="source-link" href="https://centers.aakash.ac.in/location/tamil-nadu/coimbatore" target="_blank" rel="noopener noreferrer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-                Official centre listing
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+      {% include finder.html type="coaching" key="neet" state="tamil-nadu" %}
       <p class="table-note mt-md">We haven't verified enough distinct providers in other Tamil Nadu cities to publish a useful page yet — rather than guess, we're holding off until it's properly researched.</p>
     </div>
   </section>
@@ -138,8 +85,3 @@ footer:
 </main>
 
 {% include discovery-search.html %}
-<script>
-(function(){
-  cxWireCityBlockSearch('citySearchInput','citiesList','citiesEmpty');
-})();
-</script>

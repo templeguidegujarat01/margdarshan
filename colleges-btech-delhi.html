@@ -76,46 +76,8 @@ footer:
         <h2 id="cities-heading">Selected B.Tech colleges in Delhi</h2>
         <p>Selected based on genuine course availability, recognised institutional status and a working official website — not a ranking claim.</p>
       </div>
-      <div class="cx-search reveal">
-        <label for="citySearchInput" class="sr-only">Search for a city</label>
-        <input type="text" id="citySearchInput" placeholder="Search for a city…" autocomplete="off">
-      </div>
-      <p class="cx-empty" id="citiesEmpty">No colleges currently available for this city.</p>
-      <div id="citiesList">
-        <div class="cx-city-block" data-name="New Delhi Delhi">
-          <h3 class="cx-city-heading">New Delhi</h3>
-          <div class="cx-grid reveal">
-            <div class="cx-college-card">
-              <span class="cx-tag">Government (IIT)</span>
-              <h3>Indian Institute of Technology Delhi (IIT Delhi)</h3>
-              <p>An Institute of National Importance, established 1961, in Hauz Khas, New Delhi. Admission via Joint Entrance Examination Advanced (JEE Advanced), through central JoSAA/CSAB counselling.</p>
-              <a class="source-link" href="https://home.iitd.ac.in/" target="_blank" rel="noopener noreferrer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-                Official website
-              </a>
-            </div>
-            <div class="cx-college-card">
-              <span class="cx-tag">Government (State University)</span>
-              <h3>Delhi Technological University (DTU)</h3>
-              <p>Formerly Delhi College of Engineering, established 1941, a state government university in Rohini, Delhi. Admission via JEE Main, through JAC Delhi counselling.</p>
-              <a class="source-link" href="https://www.dtu.ac.in/" target="_blank" rel="noopener noreferrer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-                Official website
-              </a>
-            </div>
-            <div class="cx-college-card">
-              <span class="cx-tag">Government (State University)</span>
-              <h3>Netaji Subhas University of Technology (NSUT)</h3>
-              <p>Formerly Netaji Subhas Institute of Technology, established 1983, a state government university in Dwarka, Delhi. Admission via JEE Main, through JAC Delhi counselling.</p>
-              <a class="source-link" href="https://www.nsut.ac.in/" target="_blank" rel="noopener noreferrer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-                Official website
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <p class="table-note mt-md">Delhi/NCR has many more engineering colleges (including IIIT-Delhi and institutes in Noida/Gurugram under UP and Haryana respectively) beyond what's listed here — we're publishing verified colleges one batch at a time.</p>
+      {% include finder.html type="colleges" key="btech" state="delhi" %}
+      <p class="table-note mt-md">Delhi/NCR has many more engineering colleges (including institutes in Noida/Gurugram under UP and Haryana respectively) beyond what's listed here — we're publishing verified colleges one batch at a time.</p>
     </div>
   </section>
 
@@ -133,8 +95,3 @@ footer:
 </main>
 
 {% include discovery-search.html %}
-<script>
-(function(){
-  cxWireCityBlockSearch('citySearchInput','citiesList','citiesEmpty');
-})();
-</script>

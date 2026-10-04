@@ -1236,3 +1236,84 @@ main li,main p,main h2,main h3,.email-pill,.elig-card,.contact-card{overflow-wra
 /* Compact section heading used inside a card/column (contact page). */
 .section-head.compact{margin-bottom:1.2rem;}
 .section-head.compact h2{font-size:1.3rem;margin-top:.5rem;}
+
+/* ==========================================================================
+   SALARY RANKING COLLAPSE (stream hubs: #ranking)
+   Top 5 rows visible by default; .rank-toggle (JS in _includes/scripts.html)
+   adds .is-expanded to reveal the rest with a short fade-in.
+   ========================================================================== */
+.rank-collapse:not(.is-expanded) tbody tr:nth-child(n+6){display:none;}
+.rank-collapse.is-expanded tbody tr:nth-child(n+6){animation:fxIn .35s var(--ease) both;}
+@keyframes fxIn{from{opacity:0;transform:translateY(-4px);}to{opacity:1;transform:none;}}
+.rank-toggle{display:flex;align-items:center;justify-content:center;gap:.5rem;width:100%;min-height:44px;margin-top:.75rem;padding:.7rem 1.2rem;border:1px dashed var(--stream-border);border-radius:var(--radius-md);background:var(--stream-soft);color:var(--link);font:inherit;font-weight:700;font-size:.92rem;cursor:pointer;transition:background .18s var(--ease),border-color .18s var(--ease);}
+.rank-toggle:hover,.rank-toggle:focus-visible{background:var(--surface);border-style:solid;border-color:var(--accent-on-surface);}
+.rank-toggle svg{transition:transform .25s var(--ease);flex-shrink:0;}
+.rank-toggle[aria-expanded="true"] svg{transform:rotate(180deg);}
+@media (prefers-reduced-motion:reduce){.rank-collapse.is-expanded tbody tr{animation:none;}.rank-toggle svg{transition:none;}}
+
+/* ==========================================================================
+   HUB CTAs (career-page hero, _includes/hub-ctas.html)
+   Required entrance exam + "Find coaching" / "Explore colleges" cards.
+   ========================================================================== */
+.hub-ctas{margin-top:1.4rem;}
+.hub-ctas-exam{margin:0 0 .8rem;font-size:.95rem;color:var(--on-ink);display:flex;flex-wrap:wrap;align-items:center;gap:.4rem;}
+.hub-ctas-exam>span:first-child{font-family:var(--font-mono);font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--on-ink-muted);background:rgba(var(--hl-rgb),.07);border:1px solid var(--border-surface);border-radius:999px;padding:.2rem .6rem;}
+.hub-ctas-exam a{font-weight:700;color:var(--link);}
+.hub-ctas-exam em{font-style:normal;color:var(--on-ink-muted);font-size:.88rem;}
+.hub-cta-grid{display:grid;gap:.8rem;grid-template-columns:1fr;}
+@media (min-width:640px){.hub-cta-grid{grid-template-columns:repeat(2,1fr);}}
+a.hub-cta,a.hub-cta:visited{display:flex;align-items:center;gap:.9rem;padding:1rem 1.1rem;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--stream-accent);border-radius:var(--radius-md);box-shadow:var(--shadow-sm);color:var(--text);text-decoration:none;transition:transform .18s var(--ease),box-shadow .18s var(--ease),border-color .18s var(--ease);}
+a.hub-cta:hover,a.hub-cta:focus-visible{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:var(--accent-on-surface);}
+.hub-cta-icon{flex-shrink:0;display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:var(--stream-soft);color:var(--stream-primary);}
+.hub-cta-text{display:flex;flex-direction:column;gap:.15rem;min-width:0;flex:1;}
+.hub-cta-text strong{font-size:1rem;line-height:1.3;}
+.hub-cta-text span{font-size:.84rem;color:var(--text-muted);}
+.hub-cta-arrow{flex-shrink:0;color:var(--stream-primary);transition:transform .18s var(--ease);}
+a.hub-cta:hover .hub-cta-arrow{transform:translateX(3px);}
+@media (prefers-reduced-motion:reduce){a.hub-cta:hover,a.hub-cta:hover .hub-cta-arrow{transform:none;}}
+
+/* ==========================================================================
+   COACHING & COLLEGE FINDER (_includes/finder.html, JS in discovery-search)
+   ========================================================================== */
+.fx-controls{display:grid;gap:1.1rem;grid-template-columns:1fr;padding:1.2rem 1.3rem;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);margin-bottom:1rem;}
+@media (min-width:768px){.fx-controls{grid-template-columns:minmax(220px,300px) 1fr;align-items:start;}.fx-controls .fx-step:only-child{grid-column:1/-1;}}
+.fx-label{display:flex;align-items:center;gap:.5rem;margin:0 0 .55rem;font-weight:700;font-size:.92rem;color:var(--text);}
+.fx-num{display:inline-grid;place-items:center;width:1.5rem;height:1.5rem;border-radius:50%;background:var(--stream-accent);color:#241703;font-family:var(--font-mono);font-size:.75rem;font-weight:600;}
+.fx-select{width:100%;min-height:44px;padding:.6rem 2.4rem .6rem .9rem;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--paper) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394ACA7' stroke-width='2.4'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right .8rem center;color:var(--text);font:inherit;font-size:.95rem;font-weight:600;appearance:none;-webkit-appearance:none;cursor:pointer;}
+.fx-pills{display:flex;flex-wrap:wrap;gap:.5rem;}
+.fx-pill{display:inline-flex;align-items:center;gap:.45rem;min-height:44px;padding:.4rem .95rem;border:1px solid var(--line);border-radius:999px;background:var(--paper);color:var(--text);font:inherit;font-size:.88rem;font-weight:600;cursor:pointer;transition:background .15s var(--ease),border-color .15s var(--ease);}
+.fx-pill:hover{border-color:var(--stream-border);background:var(--stream-soft);}
+.fx-pill[aria-pressed="true"]{background:var(--stream-accent);border-color:var(--stream-accent);color:#241703;}
+.fx-pill[hidden]{display:none;}
+.fx-pill-count{font-family:var(--font-mono);font-size:.72rem;padding:.05rem .4rem;border-radius:999px;background:rgba(var(--hl-rgb),.08);}
+.fx-pill[aria-pressed="true"] .fx-pill-count{background:rgba(255,255,255,.45);}
+.fx-count{margin:0 0 1rem;font-size:.88rem;font-weight:600;color:var(--text-muted);}
+.fx-card{display:flex;flex-direction:column;gap:.55rem;box-shadow:var(--shadow-sm);transition:box-shadow .18s var(--ease);}
+.fx-card:hover{box-shadow:var(--shadow-md);}
+.fx-card[hidden]{display:none;}
+.fx-card.fx-in{animation:fxIn .3s var(--ease) both;}
+.fx-card.is-featured{border:2px solid var(--stream-accent);}
+.cx-college-card.fx-card h3{margin:0;font-size:1.02rem;line-height:1.35;}
+.cx-college-card.fx-card p{margin:0;}
+.fx-card-top{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem;}
+.cx-college-card .fx-card-top .cx-tag{margin-bottom:0;}
+.cx-college-card .fx-own-private{color:var(--slate);background:rgba(61,90,128,.10);border-color:rgba(61,90,128,.30);}
+.cx-college-card .fx-own-deemed{color:var(--plum);background:rgba(139,75,107,.10);border-color:rgba(139,75,107,.30);}
+.fx-subtag{font-size:.72rem;font-weight:600;color:var(--text-muted);border:1px solid var(--line);border-radius:999px;padding:.12rem .5rem;}
+.fx-featured{font-family:var(--font-mono);font-size:.66rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#241703;background:var(--gold);border-radius:999px;padding:.18rem .55rem;}
+.fx-loc{display:inline-flex;align-items:center;gap:.25rem;margin-left:auto;font-size:.78rem;font-weight:600;color:var(--text-muted);}
+.fx-facts{margin:.2rem 0 0;display:grid;gap:.55rem;}
+.fx-facts>div{display:grid;gap:.25rem;}
+.fx-facts dt{font-family:var(--font-mono);font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);}
+.fx-facts dd{margin:0;font-size:.88rem;color:var(--text);line-height:1.5;}
+.fx-chips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.35rem;}
+.fx-chips li{font-size:.78rem;font-weight:600;padding:.15rem .55rem;border-radius:999px;background:var(--paper);border:1px solid var(--line);}
+.fx-actions{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:auto;padding-top:.6rem;}
+.fx-actions .btn-exam-primary,.fx-actions .btn-exam-secondary{min-height:44px;white-space:normal;}
+.fx-more[open]{flex-basis:100%;}
+.fx-more summary{list-style:none;cursor:pointer;display:inline-flex;}
+.fx-more summary::-webkit-details-marker{display:none;}
+.fx-more-body{margin-top:.6rem;padding:.8rem .9rem;border-radius:var(--radius-sm);background:var(--paper);border:1px solid var(--line);font-size:.85rem;color:var(--text-muted);}
+.fx-more-body p{margin:0 0 .4rem;font-size:.85rem;}
+.fx-more-body ul{margin:0;padding-left:1.1rem;display:grid;gap:.2rem;}
+@media (prefers-reduced-motion:reduce){.fx-card.fx-in{animation:none;}}

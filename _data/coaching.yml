@@ -1,0 +1,558 @@
+# Coaching Finder data — single source for coaching-neet*.html and
+# coaching-jee*.html (rendered by _includes/finder.html).
+#
+# Editorial rule (see "A note on rankings" on every finder page): only list a
+# centre with a genuine, verifiable official website or official centre
+# listing. Every URL below was checked to load the provider's own page for
+# that city. No star ratings, success rates, AIR counts or student numbers
+# unless they come from a disclosed, verifiable source.
+#
+# exams:   which exam finders the centre appears in (neet, jee)
+# brand:   key into `brands` below for batch/format info shared by every branch
+# area:    localities from the official site
+# region:  JSON-LD addressRegion when the city sits outside the finder state
+#          (Noida, Gurugram under Delhi NCR)
+# extra:   optional per-exam note, e.g. extra.jee
+# featured / sponsored:  monetisation slots. `featured: true` shows a
+#          "Featured" badge and sorts the card first; add `sponsored: true`
+#          as well for paid placements so the badge reads "Sponsored".
+#          Never set these without a real agreement with the provider.
+
+exams:
+  neet:
+    tag: "NEET-UG"
+    label: "NEET-UG"
+    subject: "NEET"
+    page: "coaching-neet"
+  jee:
+    tag: "JEE Main & Advanced"
+    label: "JEE Main & Advanced"
+    subject: "JEE"
+    page: "coaching-jee"
+
+# batches/formats are optional — a card shows only what is listed here.
+brands:
+  allen:
+    batches: ["Class 11 (2-year)", "Class 12 (1-year)", "Class 12 pass / dropper"]
+    formats: ["Classroom", "Online", "Test series", "Printed study material"]
+  aakash:
+    batches: ["Class 11 (2-year)", "Class 12 (1-year)", "Class 12 pass / repeater"]
+    formats: ["Classroom", "Online", "Test series", "Printed study material"]
+  resonance:
+    batches: ["Class 11", "Class 12", "Class 12 pass"]
+    formats: ["Classroom", "Test series"]
+  motion:
+    batches: ["Class 11", "Class 12", "Class 12 pass"]
+    formats: ["Classroom", "Test series"]
+  vibrant:
+    batches: ["Class 11", "Class 12", "Dropper"]
+    formats: ["Classroom", "Test series"]
+
+centres:
+
+  # ---------- andhra-pradesh ----------
+  - name: "Aakash Institute — Visakhapatnam"
+    brand: aakash
+    state: andhra-pradesh
+    city: "Visakhapatnam"
+    area: "Visakhapatnam centres — see the official centre listing for addresses."
+    url: "https://centers.aakash.ac.in/location/andhra-pradesh/ind-ap-visakhapatnam"
+    url_label: "Official centre listing"
+    exams: [neet, jee]
+  - name: "ALLEN Career Institute — Vijayawada"
+    brand: allen
+    state: andhra-pradesh
+    city: "Vijayawada"
+    area: "Vijayawada centre — see the official website for the current address."
+    url: "https://www.allen.ac.in/vijayawada/"
+    url_label: "Official website"
+    exams: [neet, jee]
+  - name: "Aakash Institute — Vijayawada"
+    brand: aakash
+    state: andhra-pradesh
+    city: "Vijayawada"
+    area: "Vijayawada centres — see the official centre listing for addresses."
+    url: "https://centers.aakash.ac.in/location/andhra-pradesh/ind-ap-vijayawada"
+    url_label: "Official centre listing"
+    exams: [neet, jee]
+
+  # ---------- bihar ----------
+  - name: "ALLEN Career Institute — Patna"
+    brand: allen
+    state: bihar
+    city: "Patna"
+    area: "Patna centre — see the official website for the current address."
+    url: "https://www.allen.ac.in/patna/"
+    url_label: "Official website"
+    exams: [neet, jee]
+  - name: "Aakash Institute — Patna"
+    brand: aakash
+    state: bihar
+    city: "Patna"
+    area: "Patna centres — see the official centre listing for addresses."
+    url: "https://centers.aakash.ac.in/location/bihar/ind-br-patna"
+    url_label: "Official centre listing"
+    exams: [neet, jee]
+
+  # ---------- delhi ----------
+  - name: "ALLEN Career Institute — New Delhi"
+    brand: allen
+    state: delhi
+    city: "New Delhi"
+    area: "Multiple Delhi-NCR centres, including Dwarka, Punjabi Bagh, Lajpat Nagar, Janakpuri, Preet Vihar and Netaji Subhash Place."
+    url: "https://www.allen.ac.in/delhi/"
+    url_label: "Official website"
+    exams: [neet, jee]
+  - name: "Aakash Institute — New Delhi"
+    brand: aakash
+    state: delhi
+    city: "New Delhi"
+    area: "Multiple Delhi centres, including Patel Nagar, Model Town, Lajpat Nagar, Jasola Vihar, Punjabi Bagh, Pitampura and Rohini."
+    url: "https://centers.aakash.ac.in/location/delhi/ind-dl-new-delhi"
+    url_label: "Official centre listing"
+    exams: [neet, jee]
+  - name: "Aakash Institute — Noida"
+    brand: aakash
+    state: delhi
+    city: "Noida"
+    region: "Uttar Pradesh"
+    area: "Noida centres — see the official centre listing for addresses."
+    url: "https://centers.aakash.ac.in/location/uttar-pradesh/ind-up-noida"
+    url_label: "Official centre listing"
+    exams: [neet, jee]
+  - name: "Aakash Institute — Gurugram"
+    brand: aakash
+    state: delhi
+    city: "Gurugram"
+    region: "Haryana"
+    area: "Gurugram centres — see the official centre listing for addresses."
+    url: "https://centers.aakash.ac.in/location/haryana/ind-hr-gurugram"
+    url_label: "Official centre listing"
+    exams: [neet, jee]
+
+  # ---------- gujarat ----------
+  - name: "ALLEN Career Institute — Ahmedabad"
+    brand: allen
+    state: gujarat
+    city: "Ahmedabad"
+    area: "S.G. Highway campus, Bodakdev, Ahmedabad."
+    url: "https://www.allen.ac.in/ahmedabad/"
+    url_label: "Official website"
+    exams: [neet, jee]
+  - name: "Aakash Institute — Ahmedabad"
+    brand: aakash
+    state: gujarat
+    city: "Ahmedabad"
+    area: "Multiple Ahmedabad centres, including Maninagar, Ambavadi, Thaltej, South Bopal and Chandkheda."
+    url: "https://centers.aakash.ac.in/location/gujarat/ind-gj-ahmedabad"
+    url_label: "Official centre listing"
+    exams: [neet, jee]
+  - name: "ALLEN Career Institute — Surat"
+    brand: allen
+    state: gujarat
+    city: "Surat"
+    area: "Vibrant Mall, Adajan, Surat."
+    url: "https://www.allen.ac.in/surat/"
+    url_label: "Official website"
+    exams: [neet, jee]
+  - name: "Aakash Institute — Surat"
+    brand: aakash
+    state: gujarat
+    city: "Surat"
+    area: "Multiple Surat centres, including Adajan, Vesu, Majura Gate and Mota Varachha."
+    url: "https://centers.aakash.ac.in/location/gujarat/ind-gj-surat"
+    url_label: "Official centre listing"
+    exams: [neet, jee]
+  - name: "ALLEN Career Institute — Vadodara"
+    brand: allen
+    state: gujarat
+    city: "Vadodara"
+    area: "Akota, Vadodara."
+    url: "https://www.allen.ac.in/vadodara/"
+    url_label: "Official website"
+    exams: [neet, jee]
+  - name: "Aakash Institute — Vadodara"
+    brand: aakash
+    state: gujarat
+    city: "Vadodara"
+    area: "Multiple Vadodara centres, including Manjalpur, Karelibaug and Nizampura."
+    url: "https://centers.aakash.ac.in/location/gujarat/ind-gj-vadodara"
+    url_label: "Official centre listing"
+    exams: [neet, jee]
+  - name: "ALLEN Career Institute — Rajkot"
+    brand: allen
+    state: gujarat
+    city: "Rajkot"
+    area: "Rajkot centre — see the official website for the current address."
+    url: "https://www.allen.ac.in/rajkot/"
+    url_label: "Official website"
+    exams: [neet, jee]
+  - name: "Aakash Institute — Rajkot"
+    brand: aakash
+    state: gujarat
+    city: "Rajkot"
+    area: "Rajkot centres — see the official centre listing for addresses."
+    url: "https://centers.aakash.ac.in/location/gujarat/ind-gj-rajkot"
+    url_label: "Official centre listing"
+    exams: [neet, jee]
+  - name: "Aakash Institute — Gandhinagar"
+    brand: aakash
+    state: gujarat
+    city: "Gandhinagar"
+    area: "Gandhinagar centres — see the official centre listing for addresses."
+    url: "https://centers.aakash.ac.in/location/gujarat/ind-gj-gandhinagar"
+    url_label: "Official centre listing"
+    exams: [neet, jee]
+  - name: "Aakash Institute — Anand"
+    brand: aakash
+    state: gujarat
+    city: "Anand"
+    area: "Anand centres — see the official centre listing for addresses."
+    url: "https://centers.aakash.ac.in/location/gujarat/ind-gj-anand"
+    url_label: "Official centre listing"
+    exams: [neet, jee]
+  - name: "Aakash Institute — Jamnagar"
+    brand: aakash
+    state: gujarat
+    city: "Jamnagar"
+    area: "Jamnagar centres — see the official centre listing for addresses."
+    url: "https://centers.aakash.ac.in/location/gujarat/ind-gj-jamnagar"
+    url_label: "Official centre listing"
+    exams: [neet, jee]
+  - name: "Aakash Institute — Bhavnagar"
+    brand: aakash
+    state: gujarat
+    city: "Bhavnagar"
+    area: "Bhavnagar centres — see the official centre listing for addresses."
+    url: "https://centers.aakash.ac.in/location/gujarat/ind-gj-bhavnagar"
+    url_label: "Official centre listing"
+    exams: [neet, jee]
+
+  # ---------- karnataka ----------
+  - name: "ALLEN Career Institute — Bengaluru"
+    brand: allen
+    state: karnataka
+    city: "Bengaluru"
+    area: "Multiple Bengaluru centres, including Jalahalli, Jayanagar, Electronics City and RR Nagar."
+    extra: { jee: "Also runs a specific KCET workshop track." }
+    url: "https://www.allen.ac.in/bengaluru/"
+    url_label: "Official website"
+    exams: [neet, jee]
+  - name: "Aakash Institute — Bengaluru"
+    brand: aakash
+    state: karnataka
+    city: "Bengaluru"
+    area: "Multiple Bengaluru centres across the city."
+    url: "https://centers.aakash.ac.in/location/karnataka/ind-ka-bengaluru"
+    url_label: "Official centre listing"
+    exams: [neet, jee]
+  - name: "ALLEN Career Institute — Mysuru"
+    brand: allen
+    state: karnataka
+    city: "Mysuru"
+    area: "Mysuru centre — see the official website for the current address."
+    url: "https://www.allen.ac.in/mysuru/"
+    url_label: "Official website"
+    exams: [neet, jee]
+  - name: "Aakash Institute — Mysuru"
+    brand: aakash
+    state: karnataka
+    city: "Mysuru"
+    area: "Centres including Kuvempunagar and a Residency Road (suburban) branch."
+    url: "https://centers.aakash.ac.in/location/karnataka/ind-ka-mysore"
+    url_label: "Official centre listing"
+    exams: [neet, jee]
+
+  # ---------- madhya-pradesh ----------
+  - name: "ALLEN Career Institute — Indore"
+    brand: allen
+    state: madhya-pradesh
+    city: "Indore"
+    area: "Indore centre — see the official website for the current address."
+    url: "https://www.allen.ac.in/indore/"
+    url_label: "Official website"
+    exams: [neet, jee]
+  - name: "Aakash Institute — Indore"
+    brand: aakash
+    state: madhya-pradesh
+    city: "Indore"
+    area: "Indore centres — see the official centre listing for addresses."
+    url: "https://centers.aakash.ac.in/location/madhya-pradesh/ind-mp-indore"
+    url_label: "Official centre listing"
+    exams: [neet, jee]
+  - name: "ALLEN Career Institute — Bhopal"
+    brand: allen
+    state: madhya-pradesh
+    city: "Bhopal"
+    area: "Bhopal centre — see the official website for the current address."
+    url: "https://www.allen.ac.in/bhopal/"
+    url_label: "Official website"
+    exams: [neet, jee]
+  - name: "Aakash Institute — Bhopal"
+    brand: aakash
+    state: madhya-pradesh
+    city: "Bhopal"
+    area: "Bhopal centres — see the official centre listing for addresses."
+    url: "https://centers.aakash.ac.in/location/madhya-pradesh/ind-mp-bhopal"
+    url_label: "Official centre listing"
+    exams: [neet, jee]
+
+  # ---------- maharashtra ----------
+  - name: "ALLEN Career Institute — Mumbai"
+    brand: allen
+    state: maharashtra
+    city: "Mumbai"
+    area: "Multiple Mumbai centres, including Ghatkopar, Mulund, Thane and Navi Mumbai."
+    url: "https://www.allen.ac.in/mumbai/"
+    url_label: "Official website"
+    exams: [neet, jee]
+  - name: "Aakash Institute — Mumbai"
+    brand: aakash
+    state: maharashtra
+    city: "Mumbai"
+    area: "Multiple Mumbai-region centres, including Panvel and Kharghar (Navi Mumbai)."
+    url: "https://centers.aakash.ac.in/location/maharashtra/ind-mh-mumbai"
+    url_label: "Official centre listing"
+    exams: [neet, jee]
+  - name: "ALLEN Career Institute — Pune"
+    brand: allen
+    state: maharashtra
+    city: "Pune"
+    area: "Multiple Pune centres, including Shankar Sheth Road, Baner, Hadapsar, Viman Nagar and Chinchwad."
+    url: "https://www.allen.ac.in/pune/"
+    url_label: "Official website"
+    exams: [neet, jee]
+  - name: "Aakash Institute — Pune"
+    brand: aakash
+    state: maharashtra
+    city: "Pune"
+    area: "Multiple Pune centres, including Kothrud, Hadapsar, Viman Nagar and PCMC."
+    url: "https://centers.aakash.ac.in/location/maharashtra/ind-mh-pune"
+    url_label: "Official centre listing"
+    exams: [neet, jee]
+  - name: "ALLEN Career Institute — Nagpur"
+    brand: allen
+    state: maharashtra
+    city: "Nagpur"
+    area: "Nagpur centre — see the official website for the current address."
+    url: "https://www.allen.ac.in/nagpur/"
+    url_label: "Official website"
+    exams: [neet, jee]
+  - name: "Aakash Institute — Nagpur"
+    brand: aakash
+    state: maharashtra
+    city: "Nagpur"
+    area: "Multiple Nagpur centres, including Sadar and Gorepeth (Law College Square)."
+    url: "https://centers.aakash.ac.in/location/maharashtra/ind-mh-nagpur"
+    url_label: "Official centre listing"
+    exams: [neet, jee]
+
+  # ---------- rajasthan ----------
+  - name: "ALLEN Career Institute — Kota"
+    brand: allen
+    state: rajasthan
+    city: "Kota"
+    area: "Head office and main campuses are in Kota — see the official website for current campus addresses."
+    url: "https://www.allen.ac.in/"
+    url_label: "Official website"
+    exams: [neet, jee]
+  - name: "Aakash Institute — Kota"
+    brand: aakash
+    state: rajasthan
+    city: "Kota"
+    area: "Kota centres — see the official centre listing for addresses."
+    url: "https://centers.aakash.ac.in/location/rajasthan/ind-rj-kota"
+    url_label: "Official centre listing"
+    exams: [neet, jee]
+  - name: "Resonance Eduventures — Kota"
+    brand: resonance
+    state: rajasthan
+    city: "Kota"
+    area: "Head office and main study centres in Kota — see the official website for campus addresses."
+    url: "https://www.resonance.ac.in/"
+    url_label: "Official website"
+    exams: [neet, jee]
+  - name: "Motion Education — Kota"
+    brand: motion
+    state: rajasthan
+    city: "Kota"
+    area: "Main campus in Kota — see the official website for current addresses."
+    url: "https://www.motion.ac.in/"
+    url_label: "Official website"
+    exams: [neet, jee]
+  - name: "Vibrant Academy — Kota"
+    brand: vibrant
+    state: rajasthan
+    city: "Kota"
+    area: "JEE-focused institute based in Kota — see the official website for campus details."
+    url: "https://www.vibrantacademy.com/"
+    url_label: "Official website"
+    exams: [jee]
+  - name: "ALLEN Career Institute — Jaipur"
+    brand: allen
+    state: rajasthan
+    city: "Jaipur"
+    area: "Jaipur centre — see the official website for the current address."
+    url: "https://www.allen.ac.in/jaipur/"
+    url_label: "Official website"
+    exams: [neet, jee]
+  - name: "Aakash Institute — Jaipur"
+    brand: aakash
+    state: rajasthan
+    city: "Jaipur"
+    area: "Jaipur centres — see the official centre listing for addresses."
+    url: "https://centers.aakash.ac.in/location/rajasthan/ind-rj-jaipur"
+    url_label: "Official centre listing"
+    exams: [neet, jee]
+  - name: "ALLEN Career Institute — Jodhpur"
+    brand: allen
+    state: rajasthan
+    city: "Jodhpur"
+    area: "Jodhpur centre — see the official website for the current address."
+    url: "https://www.allen.ac.in/jodhpur/"
+    url_label: "Official website"
+    exams: [neet, jee]
+  - name: "Aakash Institute — Jodhpur"
+    brand: aakash
+    state: rajasthan
+    city: "Jodhpur"
+    area: "Jodhpur centres — see the official centre listing for addresses."
+    url: "https://centers.aakash.ac.in/location/rajasthan/ind-rj-jodhpur"
+    url_label: "Official centre listing"
+    exams: [neet, jee]
+
+  # ---------- tamil-nadu ----------
+  - name: "ALLEN Career Institute — Chennai"
+    brand: allen
+    state: tamil-nadu
+    city: "Chennai"
+    area: "Chennai centre — see the official website for the current address."
+    url: "https://www.allen.ac.in/chennai/"
+    url_label: "Official website"
+    exams: [neet, jee]
+  - name: "Aakash Institute — Chennai"
+    brand: aakash
+    state: tamil-nadu
+    city: "Chennai"
+    area: "Chennai centres — see the official centre listing for addresses."
+    url: "https://centers.aakash.ac.in/location/tamil-nadu/ind-tn-chennai"
+    url_label: "Official centre listing"
+    exams: [neet, jee]
+  - name: "ALLEN Career Institute — Coimbatore"
+    brand: allen
+    state: tamil-nadu
+    city: "Coimbatore"
+    area: "Coimbatore centre — see the official website for the current address."
+    url: "https://www.allen.ac.in/coimbatore/"
+    url_label: "Official website"
+    exams: [neet, jee]
+  - name: "Aakash Institute — Coimbatore"
+    brand: aakash
+    state: tamil-nadu
+    city: "Coimbatore"
+    area: "Coimbatore centres — see the official centre listing for addresses."
+    url: "https://centers.aakash.ac.in/location/tamil-nadu/ind-tn-coimbatore"
+    url_label: "Official centre listing"
+    exams: [neet, jee]
+
+  # ---------- telangana ----------
+  - name: "ALLEN Career Institute — Hyderabad"
+    brand: allen
+    state: telangana
+    city: "Hyderabad"
+    area: "Hyderabad centre — see the official website for the current address."
+    url: "https://www.allen.ac.in/hyderabad/"
+    url_label: "Official website"
+    exams: [neet, jee]
+  - name: "Aakash Institute — Hyderabad"
+    brand: aakash
+    state: telangana
+    city: "Hyderabad"
+    area: "Hyderabad centres — see the official centre listing for addresses."
+    url: "https://centers.aakash.ac.in/location/telangana/ind-tg-hyderabad"
+    url_label: "Official centre listing"
+    exams: [neet, jee]
+
+  # ---------- uttar-pradesh ----------
+  - name: "ALLEN Career Institute — Lucknow"
+    brand: allen
+    state: uttar-pradesh
+    city: "Lucknow"
+    area: "Lucknow centre — see the official website for the current address."
+    url: "https://www.allen.ac.in/lucknow/"
+    url_label: "Official website"
+    exams: [neet, jee]
+  - name: "Aakash Institute — Lucknow"
+    brand: aakash
+    state: uttar-pradesh
+    city: "Lucknow"
+    area: "Lucknow centres — see the official centre listing for addresses."
+    url: "https://centers.aakash.ac.in/location/uttar-pradesh/ind-up-lucknow"
+    url_label: "Official centre listing"
+    exams: [neet, jee]
+  - name: "ALLEN Career Institute — Kanpur"
+    brand: allen
+    state: uttar-pradesh
+    city: "Kanpur"
+    area: "Kanpur centre — see the official website for the current address."
+    url: "https://www.allen.ac.in/kanpur/"
+    url_label: "Official website"
+    exams: [neet, jee]
+  - name: "Aakash Institute — Kanpur"
+    brand: aakash
+    state: uttar-pradesh
+    city: "Kanpur"
+    area: "Kanpur centres — see the official centre listing for addresses."
+    url: "https://centers.aakash.ac.in/location/uttar-pradesh/ind-up-kanpur"
+    url_label: "Official centre listing"
+    exams: [neet, jee]
+  - name: "ALLEN Career Institute — Prayagraj"
+    brand: allen
+    state: uttar-pradesh
+    city: "Prayagraj"
+    area: "Prayagraj centre — see the official website for the current address."
+    url: "https://www.allen.ac.in/prayagraj/"
+    url_label: "Official website"
+    exams: [neet, jee]
+  - name: "Aakash Institute — Prayagraj"
+    brand: aakash
+    state: uttar-pradesh
+    city: "Prayagraj"
+    area: "Prayagraj centres — see the official centre listing for addresses."
+    url: "https://centers.aakash.ac.in/location/uttar-pradesh/ind-up-prayagraj"
+    url_label: "Official centre listing"
+    exams: [neet, jee]
+  - name: "ALLEN Career Institute — Varanasi"
+    brand: allen
+    state: uttar-pradesh
+    city: "Varanasi"
+    area: "Varanasi centre — see the official website for the current address."
+    url: "https://www.allen.ac.in/varanasi/"
+    url_label: "Official website"
+    exams: [neet, jee]
+  - name: "Aakash Institute — Varanasi"
+    brand: aakash
+    state: uttar-pradesh
+    city: "Varanasi"
+    area: "Varanasi centres — see the official centre listing for addresses."
+    url: "https://centers.aakash.ac.in/location/uttar-pradesh/ind-up-varanasi"
+    url_label: "Official centre listing"
+    exams: [neet, jee]
+
+  # ---------- west-bengal ----------
+  - name: "ALLEN Career Institute — Kolkata"
+    brand: allen
+    state: west-bengal
+    city: "Kolkata"
+    area: "Kolkata centre — see the official website for the current address."
+    url: "https://www.allen.ac.in/kolkata/"
+    url_label: "Official website"
+    exams: [neet, jee]
+  - name: "Aakash Institute — Kolkata"
+    brand: aakash
+    state: west-bengal
+    city: "Kolkata"
+    area: "Kolkata centres — see the official centre listing for addresses."
+    url: "https://centers.aakash.ac.in/location/west-bengal/ind-wb-kolkata"
+    url_label: "Official centre listing"
+    exams: [neet, jee]

@@ -65,37 +65,8 @@ footer:
         <h2 id="cities-heading">Selected MBBS colleges in Delhi</h2>
         <p>Selected based on genuine course availability, recognised institutional status and a working official website — not a ranking claim. Always confirm current admission details, fees and seat availability directly on each college's official website.</p>
       </div>
-      <div class="cx-search reveal">
-        <label for="citySearchInput" class="sr-only">Search for a city</label>
-        <input type="text" id="citySearchInput" placeholder="Search for a city…" autocomplete="off">
-      </div>
-      <p class="cx-empty" id="citiesEmpty">No colleges currently available for this city.</p>
-      <div id="citiesList">
-        <div class="cx-city-block" data-name="New Delhi Delhi">
-          <h3 class="cx-city-heading">New Delhi</h3>
-          <div class="cx-grid reveal">
-            <div class="cx-college-card">
-              <span class="cx-tag">Government (Institute of National Importance)</span>
-              <h3>All India Institute of Medical Sciences, New Delhi (AIIMS Delhi)</h3>
-              <p>Established 1956, an autonomous institute under the Ministry of Health &amp; Family Welfare, in Ansari Nagar, New Delhi. Admission via National Eligibility cum Entrance Test – Undergraduate (NEET-UG), through the Medical Counselling Committee (MCC).</p>
-              <a class="source-link" href="https://www.aiims.edu/" target="_blank" rel="noopener noreferrer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-                Official website
-              </a>
-            </div>
-            <div class="cx-college-card">
-              <span class="cx-tag">Government</span>
-              <h3>Maulana Azad Medical College (MAMC)</h3>
-              <p>Established 1958, a government medical college affiliated to the University of Delhi, near Delhi Gate. Admission via NEET-UG.</p>
-              <a class="source-link" href="https://mamc.delhi.gov.in/" target="_blank" rel="noopener noreferrer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-                Official website
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <p class="table-note mt-md">Delhi has several more government medical colleges (including Lady Hardinge Medical College, UCMS &amp; GTB Hospital, and VMMC &amp; Safdarjung Hospital) beyond what's listed here — we're publishing verified colleges one batch at a time.</p>
+      {% include finder.html type="colleges" key="mbbs" state="delhi" %}
+      <p class="table-note mt-md">Delhi has several more government medical colleges (including VMMC &amp; Safdarjung Hospital) beyond what's listed here — we're publishing verified colleges one batch at a time.</p>
     </div>
   </section>
 
@@ -113,8 +84,3 @@ footer:
 </main>
 
 {% include discovery-search.html %}
-<script>
-(function(){
-  cxWireCityBlockSearch('citySearchInput','citiesList','citiesEmpty');
-})();
-</script>

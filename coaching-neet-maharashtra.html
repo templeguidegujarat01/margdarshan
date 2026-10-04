@@ -66,75 +66,7 @@ footer:
         <h2 id="cities-heading">Selected NEET coaching providers, by city</h2>
         <p>Selected for genuine, verifiable presence — an official website or official centre listing — and clear relevance to NEET preparation, not a ranking claim. Always confirm current fees, batch timings and seat availability directly with the provider.</p>
       </div>
-      <div class="cx-search reveal">
-        <label for="citySearchInput" class="sr-only">Search for a city</label>
-        <input type="text" id="citySearchInput" placeholder="Search for a city…" autocomplete="off">
-      </div>
-      <p class="cx-empty" id="citiesEmpty">No coaching currently listed for this city.</p>
-      <div id="citiesList">
-        <div class="cx-city-block" data-name="Mumbai">
-          <h3 class="cx-city-heading">Mumbai</h3>
-          <div class="cx-grid reveal">
-            <div class="cx-college-card">
-              <span class="cx-tag">NEET-UG</span>
-              <h3>ALLEN Career Institute — Mumbai</h3>
-              <p>Multiple Mumbai centres, including Ghatkopar, Mulund, Thane and Navi Mumbai. Classroom, online and test-series programmes for NEET.</p>
-              <a class="source-link" href="https://www.allen.ac.in/mumbai/" target="_blank" rel="noopener noreferrer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-                Official website
-              </a>
-            </div>
-            <div class="cx-college-card">
-              <span class="cx-tag">NEET-UG</span>
-              <h3>Aakash Institute — Mumbai</h3>
-              <p>Multiple Mumbai-region centres, including Panvel and Kharghar (Navi Mumbai).</p>
-              <a class="source-link" href="https://centers.aakash.ac.in/location/maharashtra/mumbai" target="_blank" rel="noopener noreferrer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-                Official centre listing
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="cx-city-block" data-name="Pune">
-          <h3 class="cx-city-heading">Pune</h3>
-          <div class="cx-grid reveal">
-            <div class="cx-college-card">
-              <span class="cx-tag">NEET-UG</span>
-              <h3>ALLEN Career Institute — Pune</h3>
-              <p>Multiple Pune centres, including Shankar Sheth Road, Baner, Hadapsar, Viman Nagar and Chinchwad. Classroom, online and test-series programmes for NEET.</p>
-              <a class="source-link" href="https://www.allen.ac.in/pune/" target="_blank" rel="noopener noreferrer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-                Official website
-              </a>
-            </div>
-            <div class="cx-college-card">
-              <span class="cx-tag">NEET-UG</span>
-              <h3>Aakash Institute — Pune</h3>
-              <p>Multiple Pune centres, including Kothrud, Hadapsar, Viman Nagar and PCMC.</p>
-              <a class="source-link" href="https://centers.aakash.ac.in/location/maharashtra/pune" target="_blank" rel="noopener noreferrer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-                Official centre listing
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="cx-city-block" data-name="Nagpur">
-          <h3 class="cx-city-heading">Nagpur</h3>
-          <div class="cx-grid reveal">
-            <div class="cx-college-card">
-              <span class="cx-tag">NEET-UG</span>
-              <h3>Aakash Institute — Nagpur</h3>
-              <p>Multiple Nagpur centres, including Sadar and Gorepeth (Law College Square).</p>
-              <a class="source-link" href="https://centers.aakash.ac.in/location/maharashtra/nagpur" target="_blank" rel="noopener noreferrer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-                Official centre listing
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+      {% include finder.html type="coaching" key="neet" state="maharashtra" %}
       <p class="table-note mt-md">We haven't verified enough distinct providers in other Maharashtra cities to publish a useful page yet — rather than guess, we're holding off until it's properly researched.</p>
     </div>
   </section>
@@ -153,8 +85,3 @@ footer:
 </main>
 
 {% include discovery-search.html %}
-<script>
-(function(){
-  cxWireCityBlockSearch('citySearchInput','citiesList','citiesEmpty');
-})();
-</script>

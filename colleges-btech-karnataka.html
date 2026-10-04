@@ -76,51 +76,7 @@ footer:
         <h2 id="cities-heading">Selected B.Tech colleges, by city</h2>
         <p>Selected based on genuine course availability, recognised institutional status and a working official website — not a ranking claim.</p>
       </div>
-      <div class="cx-search reveal">
-        <label for="citySearchInput" class="sr-only">Search for a city</label>
-        <input type="text" id="citySearchInput" placeholder="Search for a city…" autocomplete="off">
-      </div>
-      <p class="cx-empty" id="citiesEmpty">No colleges currently available for this city.</p>
-      <div id="citiesList">
-        <div class="cx-city-block" data-name="Bengaluru Bangalore">
-          <h3 class="cx-city-heading">Bengaluru</h3>
-          <div class="cx-grid reveal">
-            <div class="cx-college-card">
-              <span class="cx-tag">Private (Aided, Autonomous)</span>
-              <h3>R. V. College of Engineering (RVCE)</h3>
-              <p>Established 1963, affiliated to Visvesvaraya Technological University (VTU). Admission via KCET or COMEDK UGET — RVCE does not accept JEE Main scores.</p>
-              <a class="source-link" href="https://rvce.edu.in/" target="_blank" rel="noopener noreferrer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-                Official website
-              </a>
-            </div>
-            <div class="cx-college-card">
-              <span class="cx-tag">Private (Aided, Autonomous)</span>
-              <h3>B.M.S. College of Engineering (BMSCE)</h3>
-              <p>Established 1946, India's first private engineering college, affiliated to VTU. Roughly 70% of seats go through KCET (government-aided quota), 25% through COMEDK/JEE Main (private-unaided), and a small management quota.</p>
-              <a class="source-link" href="https://bmsce.ac.in/" target="_blank" rel="noopener noreferrer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-                Official website
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="cx-city-block" data-name="Mangaluru Surathkal Mangalore">
-          <h3 class="cx-city-heading">Mangaluru (Surathkal)</h3>
-          <div class="cx-grid reveal">
-            <div class="cx-college-card">
-              <span class="cx-tag">Government (NIT)</span>
-              <h3>National Institute of Technology Karnataka (NITK), Surathkal</h3>
-              <p>An Institute of National Importance. Admission via JEE Main, through central JoSAA/CSAB counselling.</p>
-              <a class="source-link" href="https://www.nitk.ac.in/" target="_blank" rel="noopener noreferrer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-                Official website
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+      {% include finder.html type="colleges" key="btech" state="karnataka" %}
       <p class="table-note mt-md">Karnataka has many more engineering colleges beyond what's listed here — we're publishing cities one at a time as we complete verified research.</p>
     </div>
   </section>
@@ -139,8 +95,3 @@ footer:
 </main>
 
 {% include discovery-search.html %}
-<script>
-(function(){
-  cxWireCityBlockSearch('citySearchInput','citiesList','citiesEmpty');
-})();
-</script>

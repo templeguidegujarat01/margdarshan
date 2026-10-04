@@ -1,0 +1,29 @@
+{%- comment -%}
+  Career-page hero: required entrance exam + the two finder hubs.
+  Place inside .page-hero-inner, after .quickfacts.
+
+    {% include hub-ctas.html exam="NEET-UG" exam_href="neet-ug.html"
+         coaching_href="coaching-neet.html" coaching_label="NEET-UG"
+         colleges_href="colleges-mbbs.html" colleges_label="MBBS" %}
+{%- endcomment -%}
+<div class="hub-ctas">
+  <p class="hub-ctas-exam"><span>Required entrance exam</span> <a href="{{ include.exam_href }}">{{ include.exam }}</a>{% if include.exam2 %} <span aria-hidden="true">·</span> <a href="{{ include.exam2_href }}">{{ include.exam2 }}</a>{% endif %}{% if include.exam_note %} <em>{{ include.exam_note }}</em>{% endif %}</p>
+  <div class="hub-cta-grid">
+    <a class="hub-cta" href="{{ include.coaching_href }}#finder">
+      <span class="hub-cta-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/></svg></span>
+      <span class="hub-cta-text">
+        <strong>Find {{ include.coaching_label }} coaching near you</strong>
+        <span>Pick your state and city, compare verified centres</span>
+      </span>
+      <svg class="hub-cta-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+    <a class="hub-cta" href="{{ include.colleges_href }}#finder">
+      <span class="hub-cta-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M4 10h16M12 3l9 5H3z"/><path d="M6 10v8M10 10v8M14 10v8M18 10v8"/></svg></span>
+      <span class="hub-cta-text">
+        <strong>Explore {{ include.colleges_label }} colleges</strong>
+        <span>Government, private &amp; deemed — by state and city</span>
+      </span>
+      <svg class="hub-cta-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+</div>

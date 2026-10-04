@@ -65,42 +65,7 @@ footer:
         <h2 id="cities-heading">Selected MBBS colleges, by city</h2>
         <p>Selected based on genuine course availability, recognised institutional status and a working official website — not a ranking claim. Always confirm current admission details, fees and seat availability directly on each college's official website.</p>
       </div>
-      <div class="cx-search reveal">
-        <label for="citySearchInput" class="sr-only">Search for a city</label>
-        <input type="text" id="citySearchInput" placeholder="Search for a city…" autocomplete="off">
-      </div>
-      <p class="cx-empty" id="citiesEmpty">No colleges currently available for this city.</p>
-      <div id="citiesList">
-        <div class="cx-city-block" data-name="Chennai">
-          <h3 class="cx-city-heading">Chennai</h3>
-          <div class="cx-grid reveal">
-            <div class="cx-college-card">
-              <span class="cx-tag">Government</span>
-              <h3>Madras Medical College &amp; Rajiv Gandhi Government General Hospital</h3>
-              <p>Established 1835, one of the oldest medical colleges in Asia, run by the Government of Tamil Nadu, affiliated to The Tamil Nadu Dr. M.G.R. Medical University. Admission via National Eligibility cum Entrance Test – Undergraduate (NEET-UG).</p>
-              <a class="source-link" href="https://www.mmcrgggh.tn.gov.in/" target="_blank" rel="noopener noreferrer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-                Official website
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="cx-city-block" data-name="Coimbatore">
-          <h3 class="cx-city-heading">Coimbatore</h3>
-          <div class="cx-grid reveal">
-            <div class="cx-college-card">
-              <span class="cx-tag">Government</span>
-              <h3>Coimbatore Medical College</h3>
-              <p>Established 1966, run by the Government of Tamil Nadu, affiliated to The Tamil Nadu Dr. M.G.R. Medical University. Admission via NEET-UG.</p>
-              <a class="source-link" href="https://www.cmccbe.tn.gov.in/?page_id=29" target="_blank" rel="noopener noreferrer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-                Official website
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+      {% include finder.html type="colleges" key="mbbs" state="tamil-nadu" %}
       <p class="table-note mt-md">Tamil Nadu has many more government and self-financing medical colleges beyond what's listed here — we're publishing cities one at a time as we complete verified research.</p>
     </div>
   </section>
@@ -119,8 +84,3 @@ footer:
 </main>
 
 {% include discovery-search.html %}
-<script>
-(function(){
-  cxWireCityBlockSearch('citySearchInput','citiesList','citiesEmpty');
-})();
-</script>

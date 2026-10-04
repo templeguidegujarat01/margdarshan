@@ -76,58 +76,8 @@ footer:
         <h2 id="cities-heading">Selected B.Tech colleges, by city</h2>
         <p>Selected based on genuine course availability, recognised institutional status and a working official website — not a ranking claim.</p>
       </div>
-      <div class="cx-search reveal">
-        <label for="citySearchInput" class="sr-only">Search for a city</label>
-        <input type="text" id="citySearchInput" placeholder="Search for a city…" autocomplete="off">
-      </div>
-      <p class="cx-empty" id="citiesEmpty">No colleges currently available for this city.</p>
-      <div id="citiesList">
-        <div class="cx-city-block" data-name="Chennai">
-          <h3 class="cx-city-heading">Chennai</h3>
-          <div class="cx-grid reveal">
-            <div class="cx-college-card">
-              <span class="cx-tag">Government (Anna University)</span>
-              <h3>College of Engineering, Guindy (CEG)</h3>
-              <p>Asia's oldest technical institution, founded 1794, the principal constituent college of Anna University. Admission via TNEA (Class 12 marks-based state counselling) — CEG does not accept JEE Main scores.</p>
-              <a class="source-link" href="https://ceg.annauniv.edu/" target="_blank" rel="noopener noreferrer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-                Official website
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="cx-city-block" data-name="Tiruchirappalli Trichy">
-          <h3 class="cx-city-heading">Tiruchirappalli (Trichy)</h3>
-          <div class="cx-grid reveal">
-            <div class="cx-college-card">
-              <span class="cx-tag">Government (NIT)</span>
-              <h3>National Institute of Technology (NIT), Tiruchirappalli</h3>
-              <p>An Institute of National Importance, established 1964. Admission via JEE Main, through central JoSAA/CSAB counselling.</p>
-              <a class="source-link" href="https://www.nitt.edu/" target="_blank" rel="noopener noreferrer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-                Official website
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="cx-city-block" data-name="Coimbatore">
-          <h3 class="cx-city-heading">Coimbatore</h3>
-          <div class="cx-grid reveal">
-            <div class="cx-college-card">
-              <span class="cx-tag">Government-Aided, Autonomous</span>
-              <h3>PSG College of Technology</h3>
-              <p>Established 1951, government-aided and autonomous, affiliated to Anna University. Admission mainly via TNEA (Class 12 marks-based state counselling).</p>
-              <a class="source-link" href="https://www.psgtech.edu/" target="_blank" rel="noopener noreferrer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-                Official website
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <p class="table-note mt-md">Tamil Nadu has many more engineering colleges (including IIT Madras) beyond what's listed here — we're publishing cities one at a time as we complete verified research.</p>
+      {% include finder.html type="colleges" key="btech" state="tamil-nadu" %}
+      <p class="table-note mt-md">Tamil Nadu has many more engineering colleges beyond what's listed here — we're publishing cities one at a time as we complete verified research.</p>
     </div>
   </section>
 
@@ -145,8 +95,3 @@ footer:
 </main>
 
 {% include discovery-search.html %}
-<script>
-(function(){
-  cxWireCityBlockSearch('citySearchInput','citiesList','citiesEmpty');
-})();
-</script>

@@ -1,0 +1,1046 @@
+# College Finder data — single source for the colleges-<course>*.html finders
+# (rendered by _includes/finder.html).
+#
+# Editorial rule (see "A note on rankings" on every finder page): list a
+# college only with genuine course availability, recognised institutional
+# status and an official website that was checked to load. Fees, seats and
+# cutoffs change every year, so they are NOT stored here — each card links
+# to the official counselling authority (`body`, a key in
+# _data/counselling.yml) instead. If you ever add `fees`, `seats` or `cutoff`
+# fields, add an `as_of` year with them; the card renders them only when present.
+#
+# course:      key in `courses` below
+# ownership:   Government | Private | Deemed  (shown as the badge)
+# type_detail: finer label next to the badge, e.g. "IIT", "Municipal"
+# entrance:    overrides the course's default entrance exam
+# counselling: how seats are filled — shown on the card
+# body:        counselling authority key for the "Counselling & fees" button
+# region:      JSON-LD addressRegion when the city sits outside the finder state
+
+courses:
+  mbbs:    { label: "MBBS",         entrance: "NEET-UG", page: "colleges-mbbs" }
+  bds:     { label: "BDS",          entrance: "NEET-UG", page: "colleges-bds" }
+  bams:    { label: "BAMS",         entrance: "NEET-UG", page: "colleges-bams" }
+  bhms:    { label: "BHMS",         entrance: "NEET-UG", page: "colleges-bhms" }
+  nursing: { label: "B.Sc Nursing", entrance: "NEET-UG or state / institute entrance", page: "colleges-nursing" }
+  btech:   { label: "B.Tech",       entrance: "JEE Main", page: "colleges-btech" }
+
+colleges:
+  # =====================================================================
+  # MBBS
+  # =====================================================================
+  # ---------- Andhra Pradesh ----------
+  - name: "Andhra Medical College"
+    course: mbbs
+    state: andhra-pradesh
+    city: Visakhapatnam
+    ownership: Government
+    desc: "Founded 1923, one of India's oldest medical colleges, attached to King George Hospital, Visakhapatnam."
+    counselling: "15% All India Quota via MCC; state quota via Dr. NTR University of Health Sciences."
+    body: ntruhs
+    url: "https://www.amc.edu.in/"
+  - name: "All India Institute of Medical Sciences, Mangalagiri (AIIMS Mangalagiri)"
+    course: mbbs
+    state: andhra-pradesh
+    city: Mangalagiri
+    ownership: Government
+    type_detail: "AIIMS"
+    desc: "A central government AIIMS in Mangalagiri, near Vijayawada and Guntur."
+    counselling: "All seats via the Medical Counselling Committee (MCC)."
+    body: mcc
+    url: "https://www.aiimsmangalagiri.edu.in/"
+
+  # ---------- Bihar ----------
+  - name: "All India Institute of Medical Sciences, Patna (AIIMS Patna)"
+    course: mbbs
+    state: bihar
+    city: Patna
+    ownership: Government
+    type_detail: "AIIMS"
+    desc: "A central government AIIMS in Phulwari Sharif, Patna."
+    counselling: "All seats via the Medical Counselling Committee (MCC)."
+    body: mcc
+    url: "https://www.aiimspatna.org/"
+  - name: "Indira Gandhi Institute of Medical Sciences (IGIMS)"
+    course: mbbs
+    state: bihar
+    city: Patna
+    ownership: Government
+    type_detail: "Autonomous (State)"
+    desc: "An autonomous institute under the Government of Bihar, in Sheikhpura, Patna."
+    counselling: "15% All India Quota via MCC; state quota via BCECEB."
+    body: bceceb
+    url: "https://www.igims.org/"
+
+  # ---------- Delhi NCR ----------
+  - name: "All India Institute of Medical Sciences, New Delhi (AIIMS Delhi)"
+    course: mbbs
+    state: delhi
+    city: New Delhi
+    ownership: Government
+    type_detail: "Institute of National Importance"
+    desc: "Established 1956, an autonomous institute under the Ministry of Health & Family Welfare, in Ansari Nagar, New Delhi."
+    counselling: "All seats via the Medical Counselling Committee (MCC)."
+    body: mcc
+    url: "https://www.aiims.edu/"
+  - name: "Maulana Azad Medical College (MAMC)"
+    course: mbbs
+    state: delhi
+    city: New Delhi
+    ownership: Government
+    desc: "Established 1958, a government medical college affiliated to the University of Delhi, near Delhi Gate."
+    counselling: "Seats filled through the Medical Counselling Committee (MCC), including the Delhi University state quota."
+    body: mcc
+    url: "https://mamc.delhi.gov.in/"
+  - name: "Lady Hardinge Medical College (LHMC)"
+    course: mbbs
+    state: delhi
+    city: New Delhi
+    ownership: Government
+    type_detail: "Women only"
+    desc: "A central government medical college for women, affiliated to the University of Delhi, near Connaught Place."
+    counselling: "Seats filled through the Medical Counselling Committee (MCC), including the Delhi University state quota."
+    body: mcc
+    url: "https://lhmc-hosp.gov.in/"
+  - name: "University College of Medical Sciences (UCMS) & GTB Hospital"
+    course: mbbs
+    state: delhi
+    city: New Delhi
+    ownership: Government
+    desc: "A medical college of the University of Delhi, attached to Guru Teg Bahadur Hospital in Dilshad Garden."
+    counselling: "Seats filled through the Medical Counselling Committee (MCC), including the Delhi University state quota."
+    body: mcc
+    url: "https://www.ucms.ac.in/"
+
+  # ---------- Gujarat ----------
+  - name: "B. J. Medical College"
+    course: mbbs
+    state: gujarat
+    city: Ahmedabad
+    ownership: Government
+    desc: "One of Gujarat's oldest government medical colleges, attached to Ahmedabad Civil Hospital."
+    counselling: "15% All India Quota via MCC; state quota via ACPUGMEC."
+    body: acpugmec
+    url: "https://bjmcabd.edu.in/"
+  - name: "Surat Municipal Institute of Medical Education & Research (SMIMER)"
+    course: mbbs
+    state: gujarat
+    city: Surat
+    ownership: Government
+    type_detail: "Municipal"
+    desc: "Run by Surat Municipal Corporation, affiliated to Veer Narmad South Gujarat University."
+    counselling: "15% All India Quota via MCC; state quota via ACPUGMEC."
+    body: acpugmec
+    url: "https://smimer.suratmunicipal.gov.in/"
+  - name: "Medical College, Baroda"
+    course: mbbs
+    state: gujarat
+    city: Vadodara
+    ownership: Government
+    desc: "Under the Gujarat Department of Health & Family Welfare, affiliated to Maharaja Sayajirao University of Baroda."
+    counselling: "15% All India Quota via MCC; state quota via ACPUGMEC."
+    body: acpugmec
+    url: "https://www.medicalcollegebaroda.edu.in/"
+  - name: "All India Institute of Medical Sciences, Rajkot (AIIMS Rajkot)"
+    course: mbbs
+    state: gujarat
+    city: Rajkot
+    ownership: Government
+    type_detail: "AIIMS"
+    desc: "A central government AIIMS serving Saurashtra, in Rajkot district."
+    counselling: "All seats via the Medical Counselling Committee (MCC)."
+    body: mcc
+    url: "https://aiimsrajkot.edu.in/"
+  - name: "P.D.U. Government Medical College, Rajkot"
+    course: mbbs
+    state: gujarat
+    city: Rajkot
+    ownership: Government
+    desc: "Pandit Deendayal Upadhyay Government Medical College, attached to the Rajkot civil hospital."
+    counselling: "15% All India Quota via MCC; state quota via ACPUGMEC."
+    body: acpugmec
+    url: "https://www.pdumcrajkot.org/"
+  - name: "Pramukhswami Medical College, Karamsad"
+    course: mbbs
+    state: gujarat
+    city: Anand
+    ownership: Private
+    desc: "A private medical college run by Charutar Arogya Mandal at Karamsad, Anand district."
+    counselling: "Gujarat state counselling via ACPUGMEC, which also fills private-college seats."
+    body: acpugmec
+    url: "https://www.charutarhealth.org/"
+
+  # ---------- Karnataka ----------
+  - name: "Bengaluru Medical College & Research Institute (BMCRI)"
+    course: mbbs
+    state: karnataka
+    city: Bengaluru
+    ownership: Government
+    desc: "Established 1955, run by the Government of Karnataka, affiliated to Rajiv Gandhi University of Health Sciences."
+    counselling: "15% All India Quota via MCC; state quota via KEA."
+    body: kea
+    url: "https://www.bmcri.org/"
+  - name: "Mysore Medical College & Research Institute (MMCRI)"
+    course: mbbs
+    state: karnataka
+    city: Mysuru
+    ownership: Government
+    desc: "Established 1924, one of India's oldest medical colleges, run by the Government of Karnataka, affiliated to Rajiv Gandhi University of Health Sciences."
+    counselling: "15% All India Quota via MCC; state quota via KEA."
+    body: kea
+    url: "https://mmcri.karnataka.gov.in/english"
+
+  # ---------- Madhya Pradesh ----------
+  - name: "All India Institute of Medical Sciences, Bhopal (AIIMS Bhopal)"
+    course: mbbs
+    state: madhya-pradesh
+    city: Bhopal
+    ownership: Government
+    type_detail: "AIIMS"
+    desc: "A central government AIIMS in Saket Nagar, Bhopal."
+    counselling: "All seats via the Medical Counselling Committee (MCC)."
+    body: mcc
+    url: "https://www.aiimsbhopal.edu.in/"
+  - name: "Gandhi Medical College, Bhopal"
+    course: mbbs
+    state: madhya-pradesh
+    city: Bhopal
+    ownership: Government
+    desc: "A Government of Madhya Pradesh medical college attached to Hamidia Hospital, Bhopal."
+    counselling: "15% All India Quota via MCC; state quota via DME Madhya Pradesh."
+    body: mp_dme
+    url: "https://www.gmcbhopal.net/"
+  - name: "Mahatma Gandhi Memorial Medical College (MGMMC), Indore"
+    course: mbbs
+    state: madhya-pradesh
+    city: Indore
+    ownership: Government
+    desc: "A Government of Madhya Pradesh medical college attached to Maharaja Yeshwantrao Hospital, Indore."
+    counselling: "15% All India Quota via MCC; state quota via DME Madhya Pradesh."
+    body: mp_dme
+    url: "https://www.mgmmcindore.in/"
+
+  # ---------- Maharashtra ----------
+  - name: "Seth G. S. Medical College & KEM Hospital"
+    course: mbbs
+    state: maharashtra
+    city: Mumbai
+    ownership: Government
+    type_detail: "Municipal"
+    desc: "Run by the Municipal Corporation of Greater Mumbai, founded 1926, one of India's most established government medical colleges."
+    counselling: "15% All India Quota via MCC; state quota via State CET Cell."
+    body: cetcell
+    url: "https://www.kem.edu/"
+  - name: "Grant Medical College & Sir J. J. Group of Hospitals"
+    course: mbbs
+    state: maharashtra
+    city: Mumbai
+    ownership: Government
+    desc: "One of India's oldest medical colleges, administered by the Government of Maharashtra."
+    counselling: "15% All India Quota via MCC; state quota via State CET Cell."
+    body: cetcell
+    url: "https://gmcjjh.edu.in/"
+  - name: "B. J. Government Medical College & Sassoon General Hospitals"
+    course: mbbs
+    state: maharashtra
+    city: Pune
+    ownership: Government
+    desc: "Founded 1946, administered by the Government of Maharashtra, affiliated to Maharashtra University of Health Sciences."
+    counselling: "15% All India Quota via MCC; state quota via State CET Cell."
+    body: cetcell
+    url: "https://bjgmcpune.com/"
+  - name: "Armed Forces Medical College (AFMC)"
+    course: mbbs
+    state: maharashtra
+    city: Pune
+    ownership: Government
+    type_detail: "Armed Forces"
+    desc: "Run by the Armed Forces Medical Services. NEET-UG qualified candidates register through MCC and then go through AFMC's own screening; graduates serve as commissioned officers."
+    counselling: "Register via MCC, then AFMC's own screening and interview."
+    body: mcc
+    url: "https://afmc.nic.in/"
+  - name: "All India Institute of Medical Sciences, Nagpur (AIIMS Nagpur)"
+    course: mbbs
+    state: maharashtra
+    city: Nagpur
+    ownership: Government
+    type_detail: "AIIMS"
+    desc: "A central government AIIMS in Mihan, Nagpur."
+    counselling: "All seats via the Medical Counselling Committee (MCC)."
+    body: mcc
+    url: "https://aiimsnagpur.edu.in/"
+  - name: "Government Medical College, Nagpur"
+    course: mbbs
+    state: maharashtra
+    city: Nagpur
+    ownership: Government
+    desc: "A Government of Maharashtra medical college, affiliated to Maharashtra University of Health Sciences."
+    counselling: "15% All India Quota via MCC; state quota via State CET Cell."
+    body: cetcell
+    url: "https://www.gmcnagpur.org/"
+
+  # ---------- Rajasthan ----------
+  - name: "All India Institute of Medical Sciences, Jodhpur (AIIMS Jodhpur)"
+    course: mbbs
+    state: rajasthan
+    city: Jodhpur
+    ownership: Government
+    type_detail: "AIIMS"
+    desc: "A central government AIIMS in Basni, Jodhpur."
+    counselling: "All seats via the Medical Counselling Committee (MCC)."
+    body: mcc
+    url: "https://aiimsjodhpur.edu.in/"
+
+  # ---------- Tamil Nadu ----------
+  - name: "Madras Medical College & Rajiv Gandhi Government General Hospital"
+    course: mbbs
+    state: tamil-nadu
+    city: Chennai
+    ownership: Government
+    desc: "Established 1835, one of the oldest medical colleges in Asia, run by the Government of Tamil Nadu, affiliated to The Tamil Nadu Dr. M.G.R. Medical University."
+    counselling: "15% All India Quota via MCC; state quota via the Tamil Nadu Selection Committee."
+    body: tn_med
+    url: "https://www.mmcrgggh.tn.gov.in/"
+  - name: "Coimbatore Medical College"
+    course: mbbs
+    state: tamil-nadu
+    city: Coimbatore
+    ownership: Government
+    desc: "Established 1966, run by the Government of Tamil Nadu, affiliated to The Tamil Nadu Dr. M.G.R. Medical University."
+    counselling: "15% All India Quota via MCC; state quota via the Tamil Nadu Selection Committee."
+    body: tn_med
+    url: "https://www.cmccbe.tn.gov.in/?page_id=29"
+
+  # ---------- Telangana ----------
+  - name: "All India Institute of Medical Sciences, Bibinagar (AIIMS Bibinagar)"
+    course: mbbs
+    state: telangana
+    city: Bibinagar
+    ownership: Government
+    type_detail: "AIIMS"
+    desc: "A central government AIIMS at Bibinagar, on the eastern edge of the Hyderabad region."
+    counselling: "All seats via the Medical Counselling Committee (MCC)."
+    body: mcc
+    url: "https://aiimsbibinagar.edu.in/"
+
+  # ---------- Uttar Pradesh ----------
+  - name: "King George's Medical University (KGMU)"
+    course: mbbs
+    state: uttar-pradesh
+    city: Lucknow
+    ownership: Government
+    type_detail: "State University"
+    desc: "A state medical university in Lucknow, with roots going back to 1911."
+    counselling: "15% All India Quota via MCC; state quota via UP NEET counselling (DGME)."
+    body: up_neet
+    url: "https://www.kgmu.org/"
+  - name: "GSVM Medical College, Kanpur"
+    course: mbbs
+    state: uttar-pradesh
+    city: Kanpur
+    ownership: Government
+    desc: "Ganesh Shankar Vidyarthi Memorial Medical College, a Government of Uttar Pradesh medical college in Kanpur."
+    counselling: "15% All India Quota via MCC; state quota via UP NEET counselling (DGME)."
+    body: up_neet
+    url: "https://www.gsvmmedicalcollege.com/"
+  - name: "Institute of Medical Sciences, Banaras Hindu University (IMS-BHU)"
+    course: mbbs
+    state: uttar-pradesh
+    city: Varanasi
+    ownership: Government
+    type_detail: "Central University"
+    desc: "The medical institute of Banaras Hindu University, a central university, attached to Sir Sunderlal Hospital."
+    counselling: "Seats filled through the Medical Counselling Committee (MCC)."
+    body: mcc
+    url: "https://www.bhu.ac.in/Site/Page/1_2_ims"
+
+  # ---------- West Bengal ----------
+  - name: "Medical College and Hospital, Kolkata"
+    course: mbbs
+    state: west-bengal
+    city: Kolkata
+    ownership: Government
+    desc: "Established 1835, among the oldest medical colleges in Asia, run by the Government of West Bengal."
+    counselling: "15% All India Quota via MCC; state quota via WBMCC."
+    body: wbmcc
+    url: "https://www.medicalcollegekolkata.in/"
+  - name: "IPGME&R and SSKM Hospital"
+    course: mbbs
+    state: west-bengal
+    city: Kolkata
+    ownership: Government
+    desc: "Institute of Post Graduate Medical Education & Research, a Government of West Bengal institute attached to SSKM Hospital."
+    counselling: "15% All India Quota via MCC; state quota via WBMCC."
+    body: wbmcc
+    url: "https://www.ipgmer.gov.in/"
+  - name: "All India Institute of Medical Sciences, Kalyani (AIIMS Kalyani)"
+    course: mbbs
+    state: west-bengal
+    city: Kalyani
+    ownership: Government
+    type_detail: "AIIMS"
+    desc: "A central government AIIMS at Kalyani, Nadia district, north of Kolkata."
+    counselling: "All seats via the Medical Counselling Committee (MCC)."
+    body: mcc
+    url: "https://aiimskalyani.edu.in/"
+
+  # =====================================================================
+  # BDS
+  # =====================================================================
+  - name: "Maulana Azad Institute of Dental Sciences (MAIDS)"
+    course: bds
+    state: delhi
+    city: New Delhi
+    ownership: Government
+    desc: "A Delhi government dental college affiliated to the University of Delhi, on the MAMC campus."
+    counselling: "Seats filled through the Medical Counselling Committee (MCC), including the Delhi University state quota."
+    body: mcc
+    url: "https://maids.delhi.gov.in/"
+  - name: "Government Dental College & Hospital, Ahmedabad"
+    course: bds
+    state: gujarat
+    city: Ahmedabad
+    ownership: Government
+    desc: "One of the oldest dental institutes in Gujarat, established 1963, affiliated to Gujarat University."
+    counselling: "15% All India Quota via MCC; state quota via ACPUGMEC."
+    body: acpugmec
+    url: "https://www.bjmcabd.edu.in/AfiliatedInstitute?AFid=2"
+  - name: "Government Dental College & Hospital, Mumbai"
+    course: bds
+    state: maharashtra
+    city: Mumbai
+    ownership: Government
+    desc: "A Government of Maharashtra dental college on the St. George's Hospital campus, Mumbai."
+    counselling: "15% All India Quota via MCC; state quota via State CET Cell."
+    body: cetcell
+    url: "https://gdcmumbai.edu.in/"
+
+  # =====================================================================
+  # BAMS
+  # =====================================================================
+  - name: "Gujarat Ayurved University, Jamnagar"
+    course: bams
+    state: gujarat
+    city: Jamnagar
+    ownership: Government
+    type_detail: "Statutory University"
+    desc: "India's first statutory university exclusively for Ayurveda, established 1967 by the Gujarat State Legislature."
+    counselling: "All India Quota via AACCC; state quota via ACPUGMEC."
+    body: acpugmec
+    url: "https://ayurveduniversity.edu.in/"
+  - name: "National Institute of Ayurveda (NIA)"
+    course: bams
+    state: rajasthan
+    city: Jaipur
+    ownership: Deemed
+    type_detail: "Central (Ministry of AYUSH)"
+    desc: "A deemed-to-be university under the Ministry of AYUSH, in Jaipur."
+    counselling: "Seats filled through the AYUSH Admissions Central Counselling Committee (AACCC)."
+    body: aaccc
+    url: "https://www.nia.nic.in/"
+
+  # =====================================================================
+  # BHMS
+  # =====================================================================
+  - name: "Nehru Homoeopathic Medical College & Hospital"
+    course: bhms
+    state: delhi
+    city: New Delhi
+    ownership: Government
+    desc: "A Delhi government homoeopathic college affiliated to the University of Delhi, in Defence Colony."
+    counselling: "Admission via NEET-UG through AYUSH counselling — confirm the current quota split on the college site."
+    body: aaccc
+    url: "https://nhmc.delhi.gov.in/"
+  - name: "Gandhinagar Homoeopathic Medical College"
+    course: bhms
+    state: gujarat
+    city: Gandhinagar
+    ownership: Government
+    type_detail: "Government-affiliated"
+    desc: "Originally established as an autonomous organisation under the Ministry of Health & Family Welfare (now under AYUSH), affiliated to Gujarat University."
+    counselling: "Gujarat state AYUSH counselling via ACPUGMEC."
+    body: acpugmec
+    url: "https://www.ghmc.co.in/"
+  - name: "Anand Homoeopathic Medical College & Research Institute"
+    course: bhms
+    state: gujarat
+    city: Anand
+    ownership: Private
+    desc: "Established 1980, one of the longer-established private homeopathic colleges in Gujarat."
+    counselling: "Gujarat state AYUSH counselling via ACPUGMEC."
+    body: acpugmec
+    url: "https://ahmcsrksm.in/"
+
+  # =====================================================================
+  # B.Sc Nursing
+  # =====================================================================
+  - name: "College of Nursing, AIIMS New Delhi"
+    course: nursing
+    state: delhi
+    city: New Delhi
+    ownership: Government
+    type_detail: "AIIMS"
+    entrance: "AIIMS B.Sc (Hons) Nursing entrance"
+    desc: "The nursing college of AIIMS New Delhi, offering B.Sc (Hons) Nursing."
+    counselling: "Admission through AIIMS's own B.Sc Nursing entrance and counselling."
+    url: "https://www.aiims.edu/"
+  - name: "Government College of Nursing, Vadodara"
+    course: nursing
+    state: gujarat
+    city: Vadodara
+    ownership: Government
+    entrance: "Gujarat state admission (GCAS)"
+    desc: "On the S.S.G. Hospital campus, affiliated to Maharaja Sayajirao University of Baroda; recognised by the Gujarat Nursing Council and Indian Nursing Council."
+    counselling: "Admissions run through the Gujarat government's common admission portal (GCAS)."
+    body: gcas
+    url: "https://gcas.gujgov.edu.in/"
+    url_label: "Official admission portal"
+
+  # =====================================================================
+  # B.Tech
+  # =====================================================================
+  # ---------- Andhra Pradesh ----------
+  - name: "Andhra University College of Engineering"
+    course: btech
+    state: andhra-pradesh
+    city: Visakhapatnam
+    ownership: Government
+    type_detail: "State University"
+    entrance: "AP EAPCET"
+    desc: "The engineering college of Andhra University, a state university founded in 1926."
+    counselling: "AP EAPCET counselling (APSCHE)."
+    body: apsche
+    url: "https://www.andhrauniversity.edu.in/"
+
+  # ---------- Bihar ----------
+  - name: "Indian Institute of Technology Patna (IIT Patna)"
+    course: btech
+    state: bihar
+    city: Patna
+    ownership: Government
+    type_detail: "IIT"
+    entrance: "JEE Advanced"
+    desc: "An Institute of National Importance, with its campus at Bihta, near Patna."
+    counselling: "JoSAA counselling."
+    body: josaa
+    url: "https://www.iitp.ac.in/"
+  - name: "National Institute of Technology Patna (NIT Patna)"
+    course: btech
+    state: bihar
+    city: Patna
+    ownership: Government
+    type_detail: "NIT"
+    desc: "An Institute of National Importance on the banks of the Ganga, Patna."
+    counselling: "JoSAA / CSAB counselling."
+    body: josaa
+    url: "https://www.nitp.ac.in/"
+
+  # ---------- Delhi NCR ----------
+  - name: "Indian Institute of Technology Delhi (IIT Delhi)"
+    course: btech
+    state: delhi
+    city: New Delhi
+    ownership: Government
+    type_detail: "IIT"
+    entrance: "JEE Advanced"
+    desc: "An Institute of National Importance, established 1961, in Hauz Khas, New Delhi."
+    counselling: "JoSAA / CSAB counselling."
+    body: josaa
+    url: "https://home.iitd.ac.in/"
+  - name: "Delhi Technological University (DTU)"
+    course: btech
+    state: delhi
+    city: New Delhi
+    ownership: Government
+    type_detail: "State University"
+    desc: "Formerly Delhi College of Engineering, established 1941, a state government university in Rohini, Delhi."
+    counselling: "JAC Delhi counselling."
+    body: jac_delhi
+    url: "https://www.dtu.ac.in/"
+  - name: "Netaji Subhas University of Technology (NSUT)"
+    course: btech
+    state: delhi
+    city: New Delhi
+    ownership: Government
+    type_detail: "State University"
+    desc: "Formerly Netaji Subhas Institute of Technology, established 1983, a state government university in Dwarka, Delhi."
+    counselling: "JAC Delhi counselling."
+    body: jac_delhi
+    url: "https://www.nsut.ac.in/"
+  - name: "Indraprastha Institute of Information Technology Delhi (IIIT-Delhi)"
+    course: btech
+    state: delhi
+    city: New Delhi
+    ownership: Government
+    type_detail: "State University"
+    desc: "A Delhi government research university in Okhla, focused on computing and allied fields."
+    counselling: "JAC Delhi counselling."
+    body: jac_delhi
+    url: "https://www.iiitd.ac.in/"
+
+  # ---------- Gujarat ----------
+  - name: "L.D. College of Engineering"
+    course: btech
+    state: gujarat
+    city: Ahmedabad
+    ownership: Government
+    entrance: "GUJCET / JEE Main"
+    desc: "One of Gujarat's oldest and most established government engineering colleges, GTU-affiliated."
+    counselling: "ACPC Gujarat counselling."
+    body: acpc
+    url: "https://ldce.ac.in/"
+  - name: "Vishwakarma Government Engineering College (VGEC)"
+    course: btech
+    state: gujarat
+    city: Ahmedabad
+    ownership: Government
+    entrance: "GUJCET / JEE Main"
+    desc: "A government engineering college in Chandkheda, Ahmedabad, GTU-affiliated."
+    counselling: "ACPC Gujarat counselling."
+    body: acpc
+    url: "https://www.vgecg.ac.in/"
+  - name: "Nirma University, Institute of Technology"
+    course: btech
+    state: gujarat
+    city: Ahmedabad
+    ownership: Private
+    entrance: "JEE Main / GUJCET"
+    desc: "A well-established private university offering B.Tech across multiple branches."
+    counselling: "ACPC Gujarat for state seats; check the official site for the all-India route."
+    body: acpc
+    url: "https://www.nirmauni.ac.in/"
+  - name: "Indian Institute of Technology Gandhinagar (IIT Gandhinagar)"
+    course: btech
+    state: gujarat
+    city: Gandhinagar
+    ownership: Government
+    type_detail: "IIT"
+    entrance: "JEE Advanced"
+    desc: "An Institute of National Importance on the Sabarmati riverbank at Palaj, Gandhinagar."
+    counselling: "JoSAA counselling."
+    body: josaa
+    url: "https://iitgn.ac.in/"
+  - name: "Dhirubhai Ambani University (formerly DA-IICT)"
+    course: btech
+    state: gujarat
+    city: Gandhinagar
+    ownership: Private
+    entrance: "JEE Main / GUJCET"
+    desc: "A private university in Gandhinagar known for ICT and computer engineering programmes."
+    counselling: "ACPC Gujarat for state seats; check the official site for the all-India route."
+    body: acpc
+    url: "https://www.daiict.ac.in/"
+  - name: "Sardar Vallabhbhai National Institute of Technology (SVNIT)"
+    course: btech
+    state: gujarat
+    city: Surat
+    ownership: Government
+    type_detail: "NIT"
+    desc: "A central government-funded Institute of National Importance in Surat."
+    counselling: "JoSAA / CSAB counselling."
+    body: josaa
+    url: "https://www.svnit.ac.in/"
+  - name: "Faculty of Technology & Engineering, MSU Baroda"
+    course: btech
+    state: gujarat
+    city: Vadodara
+    ownership: Government
+    type_detail: "State University"
+    entrance: "GUJCET / JEE Main"
+    desc: "A long-established state university engineering faculty, part of The Maharaja Sayajirao University of Baroda."
+    counselling: "ACPC Gujarat counselling."
+    body: acpc
+    url: "https://www.msubaroda.ac.in/"
+  - name: "Parul University"
+    course: btech
+    state: gujarat
+    city: Vadodara
+    ownership: Private
+    entrance: "GUJCET / JEE Main"
+    desc: "A large private university near Vadodara offering B.Tech across multiple branches; check the official site for current admission routes."
+    counselling: "ACPC Gujarat for state seats; the university also runs its own admissions."
+    body: acpc
+    url: "https://paruluniversity.ac.in/"
+  - name: "Government Engineering College, Rajkot"
+    course: btech
+    state: gujarat
+    city: Rajkot
+    ownership: Government
+    entrance: "GUJCET / JEE Main"
+    desc: "A GTU-affiliated government engineering college serving Saurashtra."
+    counselling: "ACPC Gujarat counselling."
+    body: acpc
+    url: "https://www.gecrajkot.ac.in/"
+  - name: "Birla Vishvakarma Mahavidyalaya (BVM)"
+    course: btech
+    state: gujarat
+    city: Anand
+    ownership: Private
+    type_detail: "Government-aided"
+    entrance: "GUJCET / JEE Main"
+    desc: "A grant-in-aid engineering college at Vallabh Vidyanagar, Anand district, founded in 1948."
+    counselling: "ACPC Gujarat counselling."
+    body: acpc
+    url: "https://www.bvmengineering.ac.in/"
+  - name: "A. D. Patel Institute of Technology (ADIT)"
+    course: btech
+    state: gujarat
+    city: Anand
+    ownership: Private
+    entrance: "GUJCET / JEE Main"
+    desc: "A self-financed engineering institute at New Vallabh Vidyanagar, Anand district."
+    counselling: "ACPC Gujarat counselling."
+    body: acpc
+    url: "https://www.adit.ac.in/"
+
+  # ---------- Karnataka ----------
+  - name: "R. V. College of Engineering (RVCE)"
+    course: btech
+    state: karnataka
+    city: Bengaluru
+    ownership: Private
+    type_detail: "Aided, Autonomous"
+    entrance: "KCET / COMEDK UGET"
+    desc: "Established 1963, affiliated to Visvesvaraya Technological University (VTU). RVCE does not accept JEE Main scores."
+    counselling: "KEA (KCET) and COMEDK counselling."
+    body: kea
+    url: "https://rvce.edu.in/"
+  - name: "B.M.S. College of Engineering (BMSCE)"
+    course: btech
+    state: karnataka
+    city: Bengaluru
+    ownership: Private
+    type_detail: "Aided, Autonomous"
+    entrance: "KCET / COMEDK UGET / JEE Main"
+    desc: "Established 1946, India's first private engineering college, affiliated to VTU. Roughly 70% of seats go through KCET, 25% through COMEDK/JEE Main, and a small management quota."
+    counselling: "KEA (KCET) and COMEDK counselling."
+    body: comedk
+    url: "https://bmsce.ac.in/"
+  - name: "National Institute of Technology Karnataka (NITK), Surathkal"
+    course: btech
+    state: karnataka
+    city: Mangaluru
+    ownership: Government
+    type_detail: "NIT"
+    desc: "An Institute of National Importance at Surathkal, Mangaluru."
+    counselling: "JoSAA / CSAB counselling."
+    body: josaa
+    url: "https://www.nitk.ac.in/"
+
+  # ---------- Madhya Pradesh ----------
+  - name: "Indian Institute of Technology Indore (IIT Indore)"
+    course: btech
+    state: madhya-pradesh
+    city: Indore
+    ownership: Government
+    type_detail: "IIT"
+    entrance: "JEE Advanced"
+    desc: "An Institute of National Importance at Simrol, Indore."
+    counselling: "JoSAA counselling."
+    body: josaa
+    url: "https://www.iiti.ac.in/"
+  - name: "Shri G. S. Institute of Technology & Science (SGSITS)"
+    course: btech
+    state: madhya-pradesh
+    city: Indore
+    ownership: Government
+    type_detail: "Government-aided, Autonomous"
+    desc: "A government-aided autonomous engineering institute in Indore, founded in 1952."
+    counselling: "DTE Madhya Pradesh counselling."
+    body: mp_dte
+    url: "https://www.sgsits.ac.in/"
+  - name: "Maulana Azad National Institute of Technology (MANIT)"
+    course: btech
+    state: madhya-pradesh
+    city: Bhopal
+    ownership: Government
+    type_detail: "NIT"
+    desc: "An Institute of National Importance in Bhopal."
+    counselling: "JoSAA / CSAB counselling."
+    body: josaa
+    url: "https://www.manit.ac.in/"
+
+  # ---------- Maharashtra ----------
+  - name: "Indian Institute of Technology Bombay (IIT Bombay)"
+    course: btech
+    state: maharashtra
+    city: Mumbai
+    ownership: Government
+    type_detail: "IIT"
+    entrance: "JEE Advanced"
+    desc: "An Institute of National Importance, established 1958, in Powai, Mumbai."
+    counselling: "JoSAA counselling."
+    body: josaa
+    url: "https://www.iitb.ac.in/"
+  - name: "Veermata Jijabai Technological Institute (VJTI)"
+    course: btech
+    state: maharashtra
+    city: Mumbai
+    ownership: Government
+    entrance: "MHT-CET / JEE Main"
+    desc: "Autonomous institute owned by the Government of Maharashtra."
+    counselling: "Mainly the state CAP process (State CET Cell)."
+    body: cetcell
+    url: "https://vjti.ac.in/"
+  - name: "Institute of Chemical Technology (ICT) Mumbai"
+    course: btech
+    state: maharashtra
+    city: Mumbai
+    ownership: Deemed
+    type_detail: "Government-funded"
+    entrance: "MHT-CET / JEE Main"
+    desc: "Government-funded, deemed-to-be university, especially known for Chemical Engineering, Pharmacy and allied fields."
+    counselling: "State CAP process (State CET Cell), per programme."
+    body: cetcell
+    url: "https://www.ictmumbai.edu.in/"
+  - name: "COEP Technological University"
+    course: btech
+    state: maharashtra
+    city: Pune
+    ownership: Government
+    type_detail: "Unitary University"
+    entrance: "MHT-CET / JEE Main"
+    desc: "Founded 1854, established as a unitary public university by the Government of Maharashtra."
+    counselling: "Mainly the state CAP process (State CET Cell)."
+    body: cetcell
+    url: "https://www.coeptech.ac.in/"
+  - name: "Visvesvaraya National Institute of Technology (VNIT)"
+    course: btech
+    state: maharashtra
+    city: Nagpur
+    ownership: Government
+    type_detail: "NIT"
+    desc: "Maharashtra's only National Institute of Technology (NIT), an Institute of National Importance."
+    counselling: "JoSAA / CSAB counselling."
+    body: josaa
+    url: "https://vnit.ac.in/"
+
+  # ---------- Rajasthan ----------
+  - name: "Malaviya National Institute of Technology (MNIT) Jaipur"
+    course: btech
+    state: rajasthan
+    city: Jaipur
+    ownership: Government
+    type_detail: "NIT"
+    desc: "An Institute of National Importance in Jaipur."
+    counselling: "JoSAA / CSAB counselling."
+    body: josaa
+    url: "https://www.mnit.ac.in/"
+  - name: "Indian Institute of Technology Jodhpur (IIT Jodhpur)"
+    course: btech
+    state: rajasthan
+    city: Jodhpur
+    ownership: Government
+    type_detail: "IIT"
+    entrance: "JEE Advanced"
+    desc: "An Institute of National Importance at Karwar, Jodhpur."
+    counselling: "JoSAA counselling."
+    body: josaa
+    url: "https://www.iitj.ac.in/"
+  - name: "Birla Institute of Technology and Science (BITS) Pilani"
+    course: btech
+    state: rajasthan
+    city: Pilani
+    ownership: Deemed
+    entrance: "BITSAT"
+    desc: "A deemed-to-be university founded in 1964, with its main campus at Pilani, Jhunjhunu district. Admission is through its own BITSAT exam, not JEE."
+    counselling: "BITS's own admission process."
+    body: bits
+    url: "https://www.bits-pilani.ac.in/"
+
+  # ---------- Tamil Nadu ----------
+  - name: "Indian Institute of Technology Madras (IIT Madras)"
+    course: btech
+    state: tamil-nadu
+    city: Chennai
+    ownership: Government
+    type_detail: "IIT"
+    entrance: "JEE Advanced"
+    desc: "An Institute of National Importance, established 1959, in Guindy, Chennai."
+    counselling: "JoSAA counselling."
+    body: josaa
+    url: "https://www.iitm.ac.in/"
+  - name: "College of Engineering, Guindy (CEG)"
+    course: btech
+    state: tamil-nadu
+    city: Chennai
+    ownership: Government
+    type_detail: "Anna University"
+    entrance: "TNEA (Class 12 marks)"
+    desc: "Asia's oldest technical institution, founded 1794, the principal constituent college of Anna University. CEG does not accept JEE Main scores."
+    counselling: "TNEA counselling."
+    body: tnea
+    url: "https://ceg.annauniv.edu/"
+  - name: "National Institute of Technology (NIT), Tiruchirappalli"
+    course: btech
+    state: tamil-nadu
+    city: Tiruchirappalli
+    ownership: Government
+    type_detail: "NIT"
+    desc: "An Institute of National Importance, established 1964."
+    counselling: "JoSAA / CSAB counselling."
+    body: josaa
+    url: "https://www.nitt.edu/"
+  - name: "PSG College of Technology"
+    course: btech
+    state: tamil-nadu
+    city: Coimbatore
+    ownership: Private
+    type_detail: "Government-aided, Autonomous"
+    entrance: "TNEA (Class 12 marks)"
+    desc: "Established 1951, government-aided and autonomous, affiliated to Anna University."
+    counselling: "TNEA counselling."
+    body: tnea
+    url: "https://www.psgtech.edu/"
+
+  # ---------- Telangana ----------
+  - name: "Indian Institute of Technology Hyderabad (IIT Hyderabad)"
+    course: btech
+    state: telangana
+    city: Hyderabad
+    ownership: Government
+    type_detail: "IIT"
+    entrance: "JEE Advanced"
+    desc: "An Institute of National Importance at Kandi, Sangareddy, on the outskirts of Hyderabad."
+    counselling: "JoSAA counselling."
+    body: josaa
+    url: "https://www.iith.ac.in/"
+  - name: "International Institute of Information Technology, Hyderabad (IIIT Hyderabad)"
+    course: btech
+    state: telangana
+    city: Hyderabad
+    ownership: Deemed
+    type_detail: "Not-for-profit"
+    entrance: "JEE Main / institute's own routes"
+    desc: "A not-for-profit deemed university in Gachibowli, known for computer science research. It runs its own admission process — it is not part of JoSAA."
+    counselling: "IIIT Hyderabad's own admission process."
+    url: "https://www.iiit.ac.in/"
+  - name: "JNTUH University College of Engineering"
+    course: btech
+    state: telangana
+    city: Hyderabad
+    ownership: Government
+    type_detail: "State University"
+    entrance: "TG EAPCET"
+    desc: "The constituent engineering college of Jawaharlal Nehru Technological University Hyderabad, at Kukatpally."
+    counselling: "TG EAPCET counselling."
+    body: tg_eapcet
+    url: "https://jntuh.ac.in/"
+  - name: "University College of Engineering, Osmania University"
+    course: btech
+    state: telangana
+    city: Hyderabad
+    ownership: Government
+    type_detail: "State University"
+    entrance: "TG EAPCET"
+    desc: "The engineering college of Osmania University, founded in 1929."
+    counselling: "TG EAPCET counselling."
+    body: tg_eapcet
+    url: "https://www.uceou.edu/"
+  - name: "National Institute of Technology Warangal (NIT Warangal)"
+    course: btech
+    state: telangana
+    city: Warangal
+    ownership: Government
+    type_detail: "NIT"
+    desc: "The first of the Regional Engineering Colleges (now NITs), established 1959."
+    counselling: "JoSAA / CSAB counselling."
+    body: josaa
+    url: "https://www.nitw.ac.in/"
+
+  # ---------- Uttar Pradesh ----------
+  - name: "Indian Institute of Technology Kanpur (IIT Kanpur)"
+    course: btech
+    state: uttar-pradesh
+    city: Kanpur
+    ownership: Government
+    type_detail: "IIT"
+    entrance: "JEE Advanced"
+    desc: "An Institute of National Importance, established 1959, in Kalyanpur, Kanpur."
+    counselling: "JoSAA counselling."
+    body: josaa
+    url: "https://www.iitk.ac.in/"
+  - name: "Harcourt Butler Technical University (HBTU)"
+    course: btech
+    state: uttar-pradesh
+    city: Kanpur
+    ownership: Government
+    type_detail: "State University"
+    desc: "A Government of Uttar Pradesh technical university in Kanpur, founded in 1921."
+    counselling: "UPTAC counselling."
+    body: uptac
+    url: "https://hbtu.ac.in/"
+  - name: "Institute of Engineering and Technology (IET) Lucknow"
+    course: btech
+    state: uttar-pradesh
+    city: Lucknow
+    ownership: Government
+    desc: "A Government of Uttar Pradesh engineering institute, a constituent college of AKTU."
+    counselling: "UPTAC counselling."
+    body: uptac
+    url: "https://ietlucknow.ac.in/"
+  - name: "Motilal Nehru National Institute of Technology (MNNIT) Allahabad"
+    course: btech
+    state: uttar-pradesh
+    city: Prayagraj
+    ownership: Government
+    type_detail: "NIT"
+    desc: "An Institute of National Importance in Prayagraj."
+    counselling: "JoSAA / CSAB counselling."
+    body: josaa
+    url: "https://www.mnnit.ac.in/"
+  - name: "Indian Institute of Information Technology Allahabad (IIIT-A)"
+    course: btech
+    state: uttar-pradesh
+    city: Prayagraj
+    ownership: Government
+    type_detail: "IIIT"
+    desc: "An Institute of National Importance at Jhalwa, Prayagraj."
+    counselling: "JoSAA / CSAB counselling."
+    body: josaa
+    url: "https://www.iiita.ac.in/"
+  - name: "Indian Institute of Technology (BHU) Varanasi"
+    course: btech
+    state: uttar-pradesh
+    city: Varanasi
+    ownership: Government
+    type_detail: "IIT"
+    entrance: "JEE Advanced"
+    desc: "An Institute of National Importance on the Banaras Hindu University campus."
+    counselling: "JoSAA counselling."
+    body: josaa
+    url: "https://iitbhu.ac.in/"
+
+  # ---------- West Bengal ----------
+  - name: "Jadavpur University, Faculty of Engineering & Technology"
+    course: btech
+    state: west-bengal
+    city: Kolkata
+    ownership: Government
+    type_detail: "State University"
+    entrance: "WBJEE"
+    desc: "A state university in Kolkata, with engineering roots going back to 1906."
+    counselling: "WBJEE counselling."
+    body: wbjeeb
+    url: "https://jadavpuruniversity.in/"
+  - name: "Indian Institute of Engineering Science and Technology (IIEST) Shibpur"
+    course: btech
+    state: west-bengal
+    city: Howrah
+    ownership: Government
+    type_detail: "Institute of National Importance"
+    desc: "Founded 1856 as Bengal Engineering College, at Shibpur, Howrah."
+    counselling: "JoSAA / CSAB counselling."
+    body: josaa
+    url: "https://www.iiests.ac.in/"
+  - name: "Indian Institute of Technology Kharagpur (IIT Kharagpur)"
+    course: btech
+    state: west-bengal
+    city: Kharagpur
+    ownership: Government
+    type_detail: "IIT"
+    entrance: "JEE Advanced"
+    desc: "The first IIT, established 1951, at Kharagpur, Paschim Medinipur."
+    counselling: "JoSAA counselling."
+    body: josaa
+    url: "https://www.iitkgp.ac.in/"

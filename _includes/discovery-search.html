@@ -33,4 +33,71 @@ window.cxWireCityBlockSearch = function(inputId, listId, emptyId){
     if(empty) empty.classList.toggle('is-visible', visible===0 && q!=='');
   });
 };
+
+/* Coaching & College Finder (_includes/finder.html): state dropdown -> city
+   pills -> cards. All cards are already in the HTML; this only toggles
+   `hidden`, keeps pill/aria state and the live count in sync, and mirrors the
+   choice into ?state=&city= so a filtered view can be shared or bookmarked. */
+window.fxInit = function(root){
+  var select=root.querySelector('[data-fx-state-select]');
+  var pills=root.querySelectorAll('[data-fx-pill]');
+  var cards=root.querySelectorAll('[data-fx-card]');
+  var countEl=root.querySelector('[data-fx-count]');
+  var allCount=root.querySelector('[data-fx-all-count]');
+  var one=root.getAttribute('data-fx-one'), many=root.getAttribute('data-fx-many');
+  var locked=root.getAttribute('data-fx-locked');
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var state=locked||(select?select.value:''), city='all';
+
+  function stateLabel(id){
+    if(!select) return root.getAttribute('data-fx-locked-label')||'';
+    for(var i=0;i<select.options.length;i++){ if(select.options[i].value===id) return select.options[i].getAttribute('data-fx-label'); }
+    return '';
+  }
+  function cityPill(id){
+    for(var i=0;i<pills.length;i++){ var p=pills[i]; if(p.getAttribute('data-fx-city')===id && (id==='all'||p.getAttribute('data-fx-state')===state)) return p; }
+    return null;
+  }
+  function render(updateUrl){
+    var shown=0, inState=0;
+    cards.forEach(function(c){
+      var st=c.getAttribute('data-fx-state')===state;
+      var show=st && (city==='all'||c.getAttribute('data-fx-city')===city);
+      if(st) inState++;
+      if(show){
+        shown++;
+        if(c.hidden && !reduce){ c.classList.remove('fx-in'); void c.offsetWidth; c.classList.add('fx-in'); }
+      }
+      c.hidden=!show;
+    });
+    pills.forEach(function(p){
+      var pc=p.getAttribute('data-fx-city'), ps=p.getAttribute('data-fx-state');
+      if(ps) p.hidden=ps!==state;
+      p.setAttribute('aria-pressed', (pc===city && (pc==='all'||ps===state)) ? 'true' : 'false');
+    });
+    if(allCount) allCount.textContent=inState;
+    var pill=city==='all'?null:cityPill(city);
+    var place=pill?pill.getAttribute('data-fx-label'):(stateLabel(state)||'this state');
+    if(countEl) countEl.textContent='Showing '+shown+' '+(shown===1?one:many)+' in '+place;
+    if(updateUrl && window.history && history.replaceState){
+      var params=new URLSearchParams(window.location.search);
+      if(locked) params.delete('state'); else params.set('state',state);
+      if(city==='all') params.delete('city'); else params.set('city',city);
+      var qs=params.toString();
+      history.replaceState(null,'',window.location.pathname+(qs?'?'+qs:'')+window.location.hash);
+    }
+  }
+
+  var params=new URLSearchParams(window.location.search);
+  var qState=params.get('state'), qCity=params.get('city');
+  if(select && qState && stateLabel(qState)){ select.value=qState; state=qState; }
+  if(qCity && cityPill(qCity)) city=qCity;
+
+  if(select){ select.addEventListener('change', function(){ state=select.value; city='all'; render(true); }); }
+  pills.forEach(function(p){
+    p.addEventListener('click', function(){ city=p.getAttribute('data-fx-city'); render(true); });
+  });
+  render(false);
+};
+document.querySelectorAll('[data-fx]').forEach(function(root){ window.fxInit(root); });
 </script>

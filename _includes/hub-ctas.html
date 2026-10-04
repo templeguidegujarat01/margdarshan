@@ -10,6 +10,12 @@
     coaching_text               overrides the coaching card title
     colleges_href, colleges_label        "Explore [label] colleges" card (finder hub)
     colleges2_href, colleges2_label      optional second college finder
+    exam_sub                    overrides the exam card subtitle
+    link_href, link_title, link_sub, link_icon       generic card (on-page
+    link2_*, link3_*                                 section or another page)
+      link_icon: doc | check | route | compare | rupee | book (default route)
+
+  Finder hrefs get "#finder" appended unless they already carry a #hash.
 
     {% include hub-ctas.html exam="NEET-UG" exam_href="neet-ug.html"
          coaching_href="coaching-neet.html" coaching_label="NEET-UG"
@@ -28,13 +34,13 @@
       <span class="hub-cta-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg></span>
       <span class="hub-cta-text">
         <strong>{{ include.exam_label | default: include.exam }} details</strong>
-        <span>Eligibility, pattern, syllabus &amp; dates</span>
+        <span>{{ include.exam_sub | default: "Eligibility, pattern, syllabus &amp; dates" }}</span>
       </span>
       {{ hc_arrow }}
     </a>
     {%- endif %}
     {%- if include.coaching_href %}
-    <a class="hub-cta" href="{{ include.coaching_href }}#finder">
+    <a class="hub-cta" href="{{ include.coaching_href }}{% unless include.coaching_href contains "#" %}#finder{% endunless %}">
       <span class="hub-cta-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/></svg></span>
       <span class="hub-cta-text">
         <strong>{% if include.coaching_text %}{{ include.coaching_text }}{% else %}Find {{ include.coaching_label }} coaching{% endif %}</strong>
@@ -44,7 +50,7 @@
     </a>
     {%- endif %}
     {%- if include.colleges_href %}
-    <a class="hub-cta" href="{{ include.colleges_href }}#finder">
+    <a class="hub-cta" href="{{ include.colleges_href }}{% unless include.colleges_href contains "#" %}#finder{% endunless %}">
       <span class="hub-cta-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M4 10h16M12 3l9 5H3z"/><path d="M6 10v8M10 10v8M14 10v8M18 10v8"/></svg></span>
       <span class="hub-cta-text">
         <strong>Explore {{ include.colleges_label }} colleges</strong>
@@ -54,11 +60,71 @@
     </a>
     {%- endif %}
     {%- if include.colleges2_href %}
-    <a class="hub-cta" href="{{ include.colleges2_href }}#finder">
+    <a class="hub-cta" href="{{ include.colleges2_href }}{% unless include.colleges2_href contains "#" %}#finder{% endunless %}">
       <span class="hub-cta-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M4 10h16M12 3l9 5H3z"/><path d="M6 10v8M10 10v8M14 10v8M18 10v8"/></svg></span>
       <span class="hub-cta-text">
         <strong>Explore {{ include.colleges2_label }} colleges</strong>
         <span>Government, private &amp; deemed — by state and city</span>
+      </span>
+      {{ hc_arrow }}
+    </a>
+    {%- endif %}
+    {%- if include.link_href %}
+    {%- assign hc_icon = include.link_icon | default: "route" %}
+    <a class="hub-cta" href="{{ include.link_href }}">
+      <span class="hub-cta-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{%- case hc_icon -%}
+{%- when "doc" -%}<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/>
+{%- when "check" -%}<path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/>
+{%- when "compare" -%}<path d="M3 3v18h18"/><path d="M8 17V10M13 17V6M18 17v-4"/>
+{%- when "rupee" -%}<path d="M6 4h12M6 9h12M14.5 20 7 13h2.5a4.5 4.5 0 0 0 0-9"/>
+{%- when "book" -%}<path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/>
+{%- else -%}<circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/><path d="M8 19h8.5a3.5 3.5 0 0 0 0-7h-9a3.5 3.5 0 0 1 0-7H16"/>
+{%- endcase -%}</svg></span>
+      <span class="hub-cta-text">
+        <strong>{{ include.link_title }}</strong>
+        {%- if include.link_sub %}
+        <span>{{ include.link_sub }}</span>
+        {%- endif %}
+      </span>
+      {{ hc_arrow }}
+    </a>
+    {%- endif %}
+    {%- if include.link2_href %}
+    {%- assign hc_icon = include.link2_icon | default: "route" %}
+    <a class="hub-cta" href="{{ include.link2_href }}">
+      <span class="hub-cta-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{%- case hc_icon -%}
+{%- when "doc" -%}<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/>
+{%- when "check" -%}<path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/>
+{%- when "compare" -%}<path d="M3 3v18h18"/><path d="M8 17V10M13 17V6M18 17v-4"/>
+{%- when "rupee" -%}<path d="M6 4h12M6 9h12M14.5 20 7 13h2.5a4.5 4.5 0 0 0 0-9"/>
+{%- when "book" -%}<path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/>
+{%- else -%}<circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/><path d="M8 19h8.5a3.5 3.5 0 0 0 0-7h-9a3.5 3.5 0 0 1 0-7H16"/>
+{%- endcase -%}</svg></span>
+      <span class="hub-cta-text">
+        <strong>{{ include.link2_title }}</strong>
+        {%- if include.link2_sub %}
+        <span>{{ include.link2_sub }}</span>
+        {%- endif %}
+      </span>
+      {{ hc_arrow }}
+    </a>
+    {%- endif %}
+    {%- if include.link3_href %}
+    {%- assign hc_icon = include.link3_icon | default: "route" %}
+    <a class="hub-cta" href="{{ include.link3_href }}">
+      <span class="hub-cta-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{%- case hc_icon -%}
+{%- when "doc" -%}<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/>
+{%- when "check" -%}<path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/>
+{%- when "compare" -%}<path d="M3 3v18h18"/><path d="M8 17V10M13 17V6M18 17v-4"/>
+{%- when "rupee" -%}<path d="M6 4h12M6 9h12M14.5 20 7 13h2.5a4.5 4.5 0 0 0 0-9"/>
+{%- when "book" -%}<path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/>
+{%- else -%}<circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/><path d="M8 19h8.5a3.5 3.5 0 0 0 0-7h-9a3.5 3.5 0 0 1 0-7H16"/>
+{%- endcase -%}</svg></span>
+      <span class="hub-cta-text">
+        <strong>{{ include.link3_title }}</strong>
+        {%- if include.link3_sub %}
+        <span>{{ include.link3_sub }}</span>
+        {%- endif %}
       </span>
       {{ hc_arrow }}
     </a>

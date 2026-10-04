@@ -699,11 +699,11 @@ a.goal-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);}
    (.cx-link, .related-card, .source-link, header/footer/breadcrumb nav).
    New exam pages just need to be added to this selector list once.
    ========================================================================== */
-a[href="jee-main.html"]:not(.cx-link):not(.related-card):not(.source-link),
-a[href="jee-advanced.html"]:not(.cx-link):not(.related-card):not(.source-link),
-a[href="neet-ug.html"]:not(.cx-link):not(.related-card):not(.source-link),
-a[href="cuet-ug.html"]:not(.cx-link):not(.related-card):not(.source-link),
-a[href="icar-aieea.html"]:not(.cx-link):not(.related-card):not(.source-link){
+a[href="jee-main.html"]:not(.cx-link):not(.related-card):not(.source-link):not(.hub-cta),
+a[href="jee-advanced.html"]:not(.cx-link):not(.related-card):not(.source-link):not(.hub-cta),
+a[href="neet-ug.html"]:not(.cx-link):not(.related-card):not(.source-link):not(.hub-cta),
+a[href="cuet-ug.html"]:not(.cx-link):not(.related-card):not(.source-link):not(.hub-cta),
+a[href="icar-aieea.html"]:not(.cx-link):not(.related-card):not(.source-link):not(.hub-cta){
   color:var(--text);
   font-weight:700;
   text-decoration:underline;
@@ -711,11 +711,11 @@ a[href="icar-aieea.html"]:not(.cx-link):not(.related-card):not(.source-link){
   text-decoration-thickness:1.5px;
   text-underline-offset:2px;
 }
-a[href="jee-main.html"]:not(.cx-link):not(.related-card):not(.source-link):hover,
-a[href="jee-advanced.html"]:not(.cx-link):not(.related-card):not(.source-link):hover,
-a[href="neet-ug.html"]:not(.cx-link):not(.related-card):not(.source-link):hover,
-a[href="cuet-ug.html"]:not(.cx-link):not(.related-card):not(.source-link):hover,
-a[href="icar-aieea.html"]:not(.cx-link):not(.related-card):not(.source-link):hover{
+a[href="jee-main.html"]:not(.cx-link):not(.related-card):not(.source-link):not(.hub-cta):hover,
+a[href="jee-advanced.html"]:not(.cx-link):not(.related-card):not(.source-link):not(.hub-cta):hover,
+a[href="neet-ug.html"]:not(.cx-link):not(.related-card):not(.source-link):not(.hub-cta):hover,
+a[href="cuet-ug.html"]:not(.cx-link):not(.related-card):not(.source-link):not(.hub-cta):hover,
+a[href="icar-aieea.html"]:not(.cx-link):not(.related-card):not(.source-link):not(.hub-cta):hover{
   color:var(--stream-primary);
   text-decoration-color:var(--stream-accent);
 }
@@ -1258,10 +1258,9 @@ main li,main p,main h2,main h3,.email-pill,.elig-card,.contact-card{overflow-wra
 .hub-ctas{margin-top:1.4rem;}
 .hub-ctas-exam{margin:0 0 .8rem;font-size:.95rem;color:var(--on-ink);display:flex;flex-wrap:wrap;align-items:center;gap:.4rem;}
 .hub-ctas-exam>span:first-child{font-family:var(--font-mono);font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--on-ink-muted);background:rgba(var(--hl-rgb),.07);border:1px solid var(--border-surface);border-radius:999px;padding:.2rem .6rem;}
-.hub-ctas-exam a{font-weight:700;color:var(--link);}
+.hub-ctas-exam strong{font-weight:700;}
 .hub-ctas-exam em{font-style:normal;color:var(--on-ink-muted);font-size:.88rem;}
-.hub-cta-grid{display:grid;gap:.8rem;grid-template-columns:1fr;}
-@media (min-width:640px){.hub-cta-grid{grid-template-columns:repeat(2,1fr);}}
+.hub-cta-grid{display:grid;gap:.8rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));}
 a.hub-cta,a.hub-cta:visited{display:flex;align-items:center;gap:.9rem;padding:1rem 1.1rem;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--stream-accent);border-radius:var(--radius-md);box-shadow:var(--shadow-sm);color:var(--text);text-decoration:none;transition:transform .18s var(--ease),box-shadow .18s var(--ease),border-color .18s var(--ease);}
 a.hub-cta:hover,a.hub-cta:focus-visible{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:var(--accent-on-surface);}
 .hub-cta-icon{flex-shrink:0;display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:var(--stream-soft);color:var(--stream-primary);}

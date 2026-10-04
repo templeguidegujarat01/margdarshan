@@ -20,7 +20,7 @@
   {%- assign fx_org = "EducationalOrganization" -%}
 {%- else -%}
   {%- assign fx_meta = site.data.colleges.courses[fx_key] -%}
-  {%- assign fx_all = site.data.colleges.colleges | where: "course", fx_key -%}
+  {%- assign fx_all = site.data.colleges.colleges | where_exp: "c", "c.courses contains fx_key" -%}
   {%- assign fx_one = "college" -%}{%- assign fx_many = "colleges" -%}
   {%- assign fx_org = "CollegeOrUniversity" -%}
 {%- endif -%}
@@ -133,10 +133,11 @@
         </details>
       </div>
       {%- else %}
-      {%- assign course = site.data.colleges.courses[c.course] %}
+      {%- assign course = fx_meta %}
       <p>{{ c.desc | escape }}</p>
       <dl class="fx-facts">
-        <div><dt>Entrance</dt><dd>{{ c.entrance | default: course.entrance | escape }}</dd></div>
+        {%- if c.prog[fx_key] %}<div><dt>Programme</dt><dd>{{ c.prog[fx_key] | escape }}</dd></div>{% endif %}
+        <div><dt>Entrance</dt><dd>{% if c.entrance_by[fx_key] %}{{ c.entrance_by[fx_key] | escape }}{% else %}{{ c.entrance | default: course.entrance | escape }}{% endif %}</dd></div>
         <div><dt>Admission</dt><dd>{{ c.counselling | escape }}</dd></div>
         {%- if c.fees %}<div><dt>Annual fees</dt><dd>{{ c.fees | escape }}{% if c.as_of %} ({{ c.as_of }}){% endif %}</dd></div>{% endif %}
         {%- if c.seats %}<div><dt>{{ course.label }} seats</dt><dd>{{ c.seats }}{% if c.as_of %} ({{ c.as_of }}){% endif %}</dd></div>{% endif %}

@@ -9,7 +9,10 @@
 # _data/counselling.yml) instead. If you ever add `fees`, `seats` or `cutoff`
 # fields, add an `as_of` year with them; the card renders them only when present.
 #
-# course:      key in `courses` below
+# courses:     list of keys in `courses` below; one entry can appear in
+#              several finders (e.g. a health-sciences college with BPT and BOT)
+# prog:        optional map course key -> exact programme name shown on the card
+# entrance_by: optional map course key -> entrance, when it differs per course
 # ownership:   Government | Private | Deemed  (shown as the badge)
 # type_detail: finer label next to the badge, e.g. "IIT", "Municipal"
 # entrance:    overrides the course's default entrance exam
@@ -24,6 +27,22 @@ courses:
   bhms:    { label: "BHMS",         entrance: "NEET-UG", page: "colleges-bhms" }
   nursing: { label: "B.Sc Nursing", entrance: "NEET-UG or state / institute entrance", page: "colleges-nursing" }
   btech:   { label: "B.Tech",       entrance: "JEE Main", page: "colleges-btech" }
+  bca:          { label: "BCA",              entrance: "Class 12 merit / CUET-UG / university test", page: "colleges-bca" }
+  bdes:         { label: "B.Des",            entrance: "UCEED / NID DAT / NIFT entrance", page: "colleges-design" }
+  bpharm:       { label: "B.Pharm",          entrance: "State CET / university test / Class 12 merit", page: "colleges-bpharm" }
+  bpt:          { label: "BPT",              entrance: "State / institute entrance or Class 12 merit", page: "colleges-bpt" }
+  ot:           { label: "BOT",              entrance: "State / institute entrance or Class 12 merit", page: "colleges-ot" }
+  optometry:    { label: "B.Optom",          entrance: "State / institute entrance or Class 12 merit", page: "colleges-optometry" }
+  mlt:          { label: "B.Sc MLT",         entrance: "State / institute entrance or Class 12 merit", page: "colleges-mlt" }
+  radiology:    { label: "B.Sc Radiology & Imaging", entrance: "State / institute entrance or Class 12 merit", page: "colleges-radiology" }
+  aslp:         { label: "BASLP",            entrance: "Institute entrance or Class 12 merit", page: "colleges-aslp" }
+  nutrition:    { label: "Nutrition & Dietetics", entrance: "CUET-UG / university test / Class 12 merit", page: "colleges-nutrition" }
+  biotech:      { label: "Biotechnology",    entrance: "JEE Main (B.Tech) / CUET-UG (B.Sc) / Class 12 merit", page: "colleges-biotech" }
+  genetics:     { label: "Genetics",         entrance: "IISER IAT / CUET-UG / Class 12 merit", page: "colleges-genetics" }
+  microbiology: { label: "Microbiology",     entrance: "CUET-UG / Class 12 merit", page: "colleges-microbiology" }
+  envsci:       { label: "Environmental Science", entrance: "University test / CUET-UG / Class 12 merit", page: "colleges-environmental-science" }
+  forensic:     { label: "Forensic Science", entrance: "CUET-UG", page: "colleges-forensic" }
+  agri:         { label: "B.Sc (Hons) Agriculture", entrance: "CUET-UG (ICAR seats) / state CET / Class 12 merit", page: "colleges-agriculture" }
 
 colleges:
   # =====================================================================
@@ -31,7 +50,7 @@ colleges:
   # =====================================================================
   # ---------- Andhra Pradesh ----------
   - name: "Andhra Medical College"
-    course: mbbs
+    courses: [mbbs]
     state: andhra-pradesh
     city: Visakhapatnam
     ownership: Government
@@ -40,7 +59,7 @@ colleges:
     body: ntruhs
     url: "https://www.amc.edu.in/"
   - name: "All India Institute of Medical Sciences, Mangalagiri (AIIMS Mangalagiri)"
-    course: mbbs
+    courses: [mbbs]
     state: andhra-pradesh
     city: Mangalagiri
     ownership: Government
@@ -52,7 +71,7 @@ colleges:
 
   # ---------- Bihar ----------
   - name: "All India Institute of Medical Sciences, Patna (AIIMS Patna)"
-    course: mbbs
+    courses: [mbbs]
     state: bihar
     city: Patna
     ownership: Government
@@ -62,7 +81,7 @@ colleges:
     body: mcc
     url: "https://www.aiimspatna.org/"
   - name: "Indira Gandhi Institute of Medical Sciences (IGIMS)"
-    course: mbbs
+    courses: [mbbs]
     state: bihar
     city: Patna
     ownership: Government
@@ -74,7 +93,7 @@ colleges:
 
   # ---------- Delhi NCR ----------
   - name: "All India Institute of Medical Sciences, New Delhi (AIIMS Delhi)"
-    course: mbbs
+    courses: [mbbs]
     state: delhi
     city: New Delhi
     ownership: Government
@@ -84,7 +103,7 @@ colleges:
     body: mcc
     url: "https://www.aiims.edu/"
   - name: "Maulana Azad Medical College (MAMC)"
-    course: mbbs
+    courses: [mbbs]
     state: delhi
     city: New Delhi
     ownership: Government
@@ -93,7 +112,7 @@ colleges:
     body: mcc
     url: "https://mamc.delhi.gov.in/"
   - name: "Lady Hardinge Medical College (LHMC)"
-    course: mbbs
+    courses: [mbbs]
     state: delhi
     city: New Delhi
     ownership: Government
@@ -103,7 +122,7 @@ colleges:
     body: mcc
     url: "https://lhmc-hosp.gov.in/"
   - name: "University College of Medical Sciences (UCMS) & GTB Hospital"
-    course: mbbs
+    courses: [mbbs]
     state: delhi
     city: New Delhi
     ownership: Government
@@ -114,7 +133,7 @@ colleges:
 
   # ---------- Gujarat ----------
   - name: "B. J. Medical College"
-    course: mbbs
+    courses: [mbbs]
     state: gujarat
     city: Ahmedabad
     ownership: Government
@@ -123,7 +142,7 @@ colleges:
     body: acpugmec
     url: "https://bjmcabd.edu.in/"
   - name: "Surat Municipal Institute of Medical Education & Research (SMIMER)"
-    course: mbbs
+    courses: [mbbs]
     state: gujarat
     city: Surat
     ownership: Government
@@ -133,7 +152,7 @@ colleges:
     body: acpugmec
     url: "https://smimer.suratmunicipal.gov.in/"
   - name: "Medical College, Baroda"
-    course: mbbs
+    courses: [mbbs]
     state: gujarat
     city: Vadodara
     ownership: Government
@@ -142,7 +161,7 @@ colleges:
     body: acpugmec
     url: "https://www.medicalcollegebaroda.edu.in/"
   - name: "All India Institute of Medical Sciences, Rajkot (AIIMS Rajkot)"
-    course: mbbs
+    courses: [mbbs]
     state: gujarat
     city: Rajkot
     ownership: Government
@@ -152,7 +171,7 @@ colleges:
     body: mcc
     url: "https://aiimsrajkot.edu.in/"
   - name: "P.D.U. Government Medical College, Rajkot"
-    course: mbbs
+    courses: [mbbs]
     state: gujarat
     city: Rajkot
     ownership: Government
@@ -161,7 +180,7 @@ colleges:
     body: acpugmec
     url: "https://www.pdumcrajkot.org/"
   - name: "Pramukhswami Medical College, Karamsad"
-    course: mbbs
+    courses: [mbbs]
     state: gujarat
     city: Anand
     ownership: Private
@@ -172,7 +191,7 @@ colleges:
 
   # ---------- Karnataka ----------
   - name: "Bengaluru Medical College & Research Institute (BMCRI)"
-    course: mbbs
+    courses: [mbbs]
     state: karnataka
     city: Bengaluru
     ownership: Government
@@ -181,7 +200,7 @@ colleges:
     body: kea
     url: "https://www.bmcri.org/"
   - name: "Mysore Medical College & Research Institute (MMCRI)"
-    course: mbbs
+    courses: [mbbs]
     state: karnataka
     city: Mysuru
     ownership: Government
@@ -192,7 +211,7 @@ colleges:
 
   # ---------- Madhya Pradesh ----------
   - name: "All India Institute of Medical Sciences, Bhopal (AIIMS Bhopal)"
-    course: mbbs
+    courses: [mbbs]
     state: madhya-pradesh
     city: Bhopal
     ownership: Government
@@ -202,7 +221,7 @@ colleges:
     body: mcc
     url: "https://www.aiimsbhopal.edu.in/"
   - name: "Gandhi Medical College, Bhopal"
-    course: mbbs
+    courses: [mbbs]
     state: madhya-pradesh
     city: Bhopal
     ownership: Government
@@ -211,7 +230,7 @@ colleges:
     body: mp_dme
     url: "https://www.gmcbhopal.net/"
   - name: "Mahatma Gandhi Memorial Medical College (MGMMC), Indore"
-    course: mbbs
+    courses: [mbbs]
     state: madhya-pradesh
     city: Indore
     ownership: Government
@@ -222,7 +241,7 @@ colleges:
 
   # ---------- Maharashtra ----------
   - name: "Seth G. S. Medical College & KEM Hospital"
-    course: mbbs
+    courses: [mbbs]
     state: maharashtra
     city: Mumbai
     ownership: Government
@@ -232,7 +251,7 @@ colleges:
     body: cetcell
     url: "https://www.kem.edu/"
   - name: "Grant Medical College & Sir J. J. Group of Hospitals"
-    course: mbbs
+    courses: [mbbs]
     state: maharashtra
     city: Mumbai
     ownership: Government
@@ -241,7 +260,7 @@ colleges:
     body: cetcell
     url: "https://gmcjjh.edu.in/"
   - name: "B. J. Government Medical College & Sassoon General Hospitals"
-    course: mbbs
+    courses: [mbbs]
     state: maharashtra
     city: Pune
     ownership: Government
@@ -250,7 +269,7 @@ colleges:
     body: cetcell
     url: "https://bjgmcpune.com/"
   - name: "Armed Forces Medical College (AFMC)"
-    course: mbbs
+    courses: [mbbs]
     state: maharashtra
     city: Pune
     ownership: Government
@@ -260,7 +279,7 @@ colleges:
     body: mcc
     url: "https://afmc.nic.in/"
   - name: "All India Institute of Medical Sciences, Nagpur (AIIMS Nagpur)"
-    course: mbbs
+    courses: [mbbs]
     state: maharashtra
     city: Nagpur
     ownership: Government
@@ -270,7 +289,7 @@ colleges:
     body: mcc
     url: "https://aiimsnagpur.edu.in/"
   - name: "Government Medical College, Nagpur"
-    course: mbbs
+    courses: [mbbs]
     state: maharashtra
     city: Nagpur
     ownership: Government
@@ -281,7 +300,7 @@ colleges:
 
   # ---------- Rajasthan ----------
   - name: "All India Institute of Medical Sciences, Jodhpur (AIIMS Jodhpur)"
-    course: mbbs
+    courses: [mbbs]
     state: rajasthan
     city: Jodhpur
     ownership: Government
@@ -293,7 +312,7 @@ colleges:
 
   # ---------- Tamil Nadu ----------
   - name: "Madras Medical College & Rajiv Gandhi Government General Hospital"
-    course: mbbs
+    courses: [mbbs]
     state: tamil-nadu
     city: Chennai
     ownership: Government
@@ -302,7 +321,7 @@ colleges:
     body: tn_med
     url: "https://www.mmcrgggh.tn.gov.in/"
   - name: "Coimbatore Medical College"
-    course: mbbs
+    courses: [mbbs]
     state: tamil-nadu
     city: Coimbatore
     ownership: Government
@@ -313,7 +332,7 @@ colleges:
 
   # ---------- Telangana ----------
   - name: "All India Institute of Medical Sciences, Bibinagar (AIIMS Bibinagar)"
-    course: mbbs
+    courses: [mbbs]
     state: telangana
     city: Bibinagar
     ownership: Government
@@ -325,7 +344,7 @@ colleges:
 
   # ---------- Uttar Pradesh ----------
   - name: "King George's Medical University (KGMU)"
-    course: mbbs
+    courses: [mbbs]
     state: uttar-pradesh
     city: Lucknow
     ownership: Government
@@ -335,7 +354,7 @@ colleges:
     body: up_neet
     url: "https://www.kgmu.org/"
   - name: "GSVM Medical College, Kanpur"
-    course: mbbs
+    courses: [mbbs]
     state: uttar-pradesh
     city: Kanpur
     ownership: Government
@@ -344,7 +363,7 @@ colleges:
     body: up_neet
     url: "https://www.gsvmmedicalcollege.com/"
   - name: "Institute of Medical Sciences, Banaras Hindu University (IMS-BHU)"
-    course: mbbs
+    courses: [mbbs]
     state: uttar-pradesh
     city: Varanasi
     ownership: Government
@@ -356,7 +375,7 @@ colleges:
 
   # ---------- West Bengal ----------
   - name: "Medical College and Hospital, Kolkata"
-    course: mbbs
+    courses: [mbbs]
     state: west-bengal
     city: Kolkata
     ownership: Government
@@ -365,7 +384,7 @@ colleges:
     body: wbmcc
     url: "https://www.medicalcollegekolkata.in/"
   - name: "IPGME&R and SSKM Hospital"
-    course: mbbs
+    courses: [mbbs]
     state: west-bengal
     city: Kolkata
     ownership: Government
@@ -374,7 +393,7 @@ colleges:
     body: wbmcc
     url: "https://www.ipgmer.gov.in/"
   - name: "All India Institute of Medical Sciences, Kalyani (AIIMS Kalyani)"
-    course: mbbs
+    courses: [mbbs]
     state: west-bengal
     city: Kalyani
     ownership: Government
@@ -388,7 +407,7 @@ colleges:
   # BDS
   # =====================================================================
   - name: "Maulana Azad Institute of Dental Sciences (MAIDS)"
-    course: bds
+    courses: [bds]
     state: delhi
     city: New Delhi
     ownership: Government
@@ -397,7 +416,7 @@ colleges:
     body: mcc
     url: "https://maids.delhi.gov.in/"
   - name: "Government Dental College & Hospital, Ahmedabad"
-    course: bds
+    courses: [bds]
     state: gujarat
     city: Ahmedabad
     ownership: Government
@@ -406,7 +425,7 @@ colleges:
     body: acpugmec
     url: "https://www.bjmcabd.edu.in/AfiliatedInstitute?AFid=2"
   - name: "Government Dental College & Hospital, Mumbai"
-    course: bds
+    courses: [bds]
     state: maharashtra
     city: Mumbai
     ownership: Government
@@ -419,7 +438,7 @@ colleges:
   # BAMS
   # =====================================================================
   - name: "Gujarat Ayurved University, Jamnagar"
-    course: bams
+    courses: [bams]
     state: gujarat
     city: Jamnagar
     ownership: Government
@@ -429,7 +448,7 @@ colleges:
     body: acpugmec
     url: "https://ayurveduniversity.edu.in/"
   - name: "National Institute of Ayurveda (NIA)"
-    course: bams
+    courses: [bams]
     state: rajasthan
     city: Jaipur
     ownership: Deemed
@@ -443,7 +462,7 @@ colleges:
   # BHMS
   # =====================================================================
   - name: "Nehru Homoeopathic Medical College & Hospital"
-    course: bhms
+    courses: [bhms]
     state: delhi
     city: New Delhi
     ownership: Government
@@ -452,7 +471,7 @@ colleges:
     body: aaccc
     url: "https://nhmc.delhi.gov.in/"
   - name: "Gandhinagar Homoeopathic Medical College"
-    course: bhms
+    courses: [bhms]
     state: gujarat
     city: Gandhinagar
     ownership: Government
@@ -462,7 +481,7 @@ colleges:
     body: acpugmec
     url: "https://www.ghmc.co.in/"
   - name: "Anand Homoeopathic Medical College & Research Institute"
-    course: bhms
+    courses: [bhms]
     state: gujarat
     city: Anand
     ownership: Private
@@ -475,7 +494,7 @@ colleges:
   # B.Sc Nursing
   # =====================================================================
   - name: "College of Nursing, AIIMS New Delhi"
-    course: nursing
+    courses: [nursing]
     state: delhi
     city: New Delhi
     ownership: Government
@@ -485,7 +504,7 @@ colleges:
     counselling: "Admission through AIIMS's own B.Sc Nursing entrance and counselling."
     url: "https://www.aiims.edu/"
   - name: "Government College of Nursing, Vadodara"
-    course: nursing
+    courses: [nursing]
     state: gujarat
     city: Vadodara
     ownership: Government
@@ -501,7 +520,7 @@ colleges:
   # =====================================================================
   # ---------- Andhra Pradesh ----------
   - name: "Andhra University College of Engineering"
-    course: btech
+    courses: [btech]
     state: andhra-pradesh
     city: Visakhapatnam
     ownership: Government
@@ -514,7 +533,7 @@ colleges:
 
   # ---------- Bihar ----------
   - name: "Indian Institute of Technology Patna (IIT Patna)"
-    course: btech
+    courses: [btech]
     state: bihar
     city: Patna
     ownership: Government
@@ -525,7 +544,7 @@ colleges:
     body: josaa
     url: "https://www.iitp.ac.in/"
   - name: "National Institute of Technology Patna (NIT Patna)"
-    course: btech
+    courses: [btech]
     state: bihar
     city: Patna
     ownership: Government
@@ -537,7 +556,7 @@ colleges:
 
   # ---------- Delhi NCR ----------
   - name: "Indian Institute of Technology Delhi (IIT Delhi)"
-    course: btech
+    courses: [btech]
     state: delhi
     city: New Delhi
     ownership: Government
@@ -548,7 +567,7 @@ colleges:
     body: josaa
     url: "https://home.iitd.ac.in/"
   - name: "Delhi Technological University (DTU)"
-    course: btech
+    courses: [btech]
     state: delhi
     city: New Delhi
     ownership: Government
@@ -558,7 +577,7 @@ colleges:
     body: jac_delhi
     url: "https://www.dtu.ac.in/"
   - name: "Netaji Subhas University of Technology (NSUT)"
-    course: btech
+    courses: [btech]
     state: delhi
     city: New Delhi
     ownership: Government
@@ -568,7 +587,7 @@ colleges:
     body: jac_delhi
     url: "https://www.nsut.ac.in/"
   - name: "Indraprastha Institute of Information Technology Delhi (IIIT-Delhi)"
-    course: btech
+    courses: [btech]
     state: delhi
     city: New Delhi
     ownership: Government
@@ -580,7 +599,7 @@ colleges:
 
   # ---------- Gujarat ----------
   - name: "L.D. College of Engineering"
-    course: btech
+    courses: [btech]
     state: gujarat
     city: Ahmedabad
     ownership: Government
@@ -590,7 +609,7 @@ colleges:
     body: acpc
     url: "https://ldce.ac.in/"
   - name: "Vishwakarma Government Engineering College (VGEC)"
-    course: btech
+    courses: [btech]
     state: gujarat
     city: Ahmedabad
     ownership: Government
@@ -600,7 +619,7 @@ colleges:
     body: acpc
     url: "https://www.vgecg.ac.in/"
   - name: "Nirma University, Institute of Technology"
-    course: btech
+    courses: [btech]
     state: gujarat
     city: Ahmedabad
     ownership: Private
@@ -610,7 +629,7 @@ colleges:
     body: acpc
     url: "https://www.nirmauni.ac.in/"
   - name: "Indian Institute of Technology Gandhinagar (IIT Gandhinagar)"
-    course: btech
+    courses: [btech]
     state: gujarat
     city: Gandhinagar
     ownership: Government
@@ -621,7 +640,7 @@ colleges:
     body: josaa
     url: "https://iitgn.ac.in/"
   - name: "Dhirubhai Ambani University (formerly DA-IICT)"
-    course: btech
+    courses: [btech]
     state: gujarat
     city: Gandhinagar
     ownership: Private
@@ -631,7 +650,7 @@ colleges:
     body: acpc
     url: "https://www.daiict.ac.in/"
   - name: "Sardar Vallabhbhai National Institute of Technology (SVNIT)"
-    course: btech
+    courses: [btech]
     state: gujarat
     city: Surat
     ownership: Government
@@ -641,7 +660,7 @@ colleges:
     body: josaa
     url: "https://www.svnit.ac.in/"
   - name: "Faculty of Technology & Engineering, MSU Baroda"
-    course: btech
+    courses: [btech]
     state: gujarat
     city: Vadodara
     ownership: Government
@@ -652,7 +671,7 @@ colleges:
     body: acpc
     url: "https://www.msubaroda.ac.in/"
   - name: "Parul University"
-    course: btech
+    courses: [btech]
     state: gujarat
     city: Vadodara
     ownership: Private
@@ -662,7 +681,7 @@ colleges:
     body: acpc
     url: "https://paruluniversity.ac.in/"
   - name: "Government Engineering College, Rajkot"
-    course: btech
+    courses: [btech]
     state: gujarat
     city: Rajkot
     ownership: Government
@@ -672,7 +691,7 @@ colleges:
     body: acpc
     url: "https://www.gecrajkot.ac.in/"
   - name: "Birla Vishvakarma Mahavidyalaya (BVM)"
-    course: btech
+    courses: [btech]
     state: gujarat
     city: Anand
     ownership: Private
@@ -683,7 +702,7 @@ colleges:
     body: acpc
     url: "https://www.bvmengineering.ac.in/"
   - name: "A. D. Patel Institute of Technology (ADIT)"
-    course: btech
+    courses: [btech]
     state: gujarat
     city: Anand
     ownership: Private
@@ -695,7 +714,7 @@ colleges:
 
   # ---------- Karnataka ----------
   - name: "R. V. College of Engineering (RVCE)"
-    course: btech
+    courses: [btech]
     state: karnataka
     city: Bengaluru
     ownership: Private
@@ -706,7 +725,7 @@ colleges:
     body: kea
     url: "https://rvce.edu.in/"
   - name: "B.M.S. College of Engineering (BMSCE)"
-    course: btech
+    courses: [btech]
     state: karnataka
     city: Bengaluru
     ownership: Private
@@ -717,7 +736,7 @@ colleges:
     body: comedk
     url: "https://bmsce.ac.in/"
   - name: "National Institute of Technology Karnataka (NITK), Surathkal"
-    course: btech
+    courses: [btech]
     state: karnataka
     city: Mangaluru
     ownership: Government
@@ -729,7 +748,7 @@ colleges:
 
   # ---------- Madhya Pradesh ----------
   - name: "Indian Institute of Technology Indore (IIT Indore)"
-    course: btech
+    courses: [btech]
     state: madhya-pradesh
     city: Indore
     ownership: Government
@@ -740,7 +759,7 @@ colleges:
     body: josaa
     url: "https://www.iiti.ac.in/"
   - name: "Shri G. S. Institute of Technology & Science (SGSITS)"
-    course: btech
+    courses: [btech]
     state: madhya-pradesh
     city: Indore
     ownership: Government
@@ -750,7 +769,7 @@ colleges:
     body: mp_dte
     url: "https://www.sgsits.ac.in/"
   - name: "Maulana Azad National Institute of Technology (MANIT)"
-    course: btech
+    courses: [btech]
     state: madhya-pradesh
     city: Bhopal
     ownership: Government
@@ -762,7 +781,7 @@ colleges:
 
   # ---------- Maharashtra ----------
   - name: "Indian Institute of Technology Bombay (IIT Bombay)"
-    course: btech
+    courses: [btech]
     state: maharashtra
     city: Mumbai
     ownership: Government
@@ -773,7 +792,7 @@ colleges:
     body: josaa
     url: "https://www.iitb.ac.in/"
   - name: "Veermata Jijabai Technological Institute (VJTI)"
-    course: btech
+    courses: [btech]
     state: maharashtra
     city: Mumbai
     ownership: Government
@@ -783,7 +802,7 @@ colleges:
     body: cetcell
     url: "https://vjti.ac.in/"
   - name: "Institute of Chemical Technology (ICT) Mumbai"
-    course: btech
+    courses: [btech]
     state: maharashtra
     city: Mumbai
     ownership: Deemed
@@ -794,7 +813,7 @@ colleges:
     body: cetcell
     url: "https://www.ictmumbai.edu.in/"
   - name: "COEP Technological University"
-    course: btech
+    courses: [btech]
     state: maharashtra
     city: Pune
     ownership: Government
@@ -805,7 +824,7 @@ colleges:
     body: cetcell
     url: "https://www.coeptech.ac.in/"
   - name: "Visvesvaraya National Institute of Technology (VNIT)"
-    course: btech
+    courses: [btech]
     state: maharashtra
     city: Nagpur
     ownership: Government
@@ -817,7 +836,7 @@ colleges:
 
   # ---------- Rajasthan ----------
   - name: "Malaviya National Institute of Technology (MNIT) Jaipur"
-    course: btech
+    courses: [btech]
     state: rajasthan
     city: Jaipur
     ownership: Government
@@ -827,7 +846,7 @@ colleges:
     body: josaa
     url: "https://www.mnit.ac.in/"
   - name: "Indian Institute of Technology Jodhpur (IIT Jodhpur)"
-    course: btech
+    courses: [btech]
     state: rajasthan
     city: Jodhpur
     ownership: Government
@@ -838,7 +857,7 @@ colleges:
     body: josaa
     url: "https://www.iitj.ac.in/"
   - name: "Birla Institute of Technology and Science (BITS) Pilani"
-    course: btech
+    courses: [btech]
     state: rajasthan
     city: Pilani
     ownership: Deemed
@@ -850,7 +869,7 @@ colleges:
 
   # ---------- Tamil Nadu ----------
   - name: "Indian Institute of Technology Madras (IIT Madras)"
-    course: btech
+    courses: [btech]
     state: tamil-nadu
     city: Chennai
     ownership: Government
@@ -861,7 +880,7 @@ colleges:
     body: josaa
     url: "https://www.iitm.ac.in/"
   - name: "College of Engineering, Guindy (CEG)"
-    course: btech
+    courses: [btech]
     state: tamil-nadu
     city: Chennai
     ownership: Government
@@ -872,7 +891,7 @@ colleges:
     body: tnea
     url: "https://ceg.annauniv.edu/"
   - name: "National Institute of Technology (NIT), Tiruchirappalli"
-    course: btech
+    courses: [btech]
     state: tamil-nadu
     city: Tiruchirappalli
     ownership: Government
@@ -882,7 +901,7 @@ colleges:
     body: josaa
     url: "https://www.nitt.edu/"
   - name: "PSG College of Technology"
-    course: btech
+    courses: [btech]
     state: tamil-nadu
     city: Coimbatore
     ownership: Private
@@ -895,7 +914,7 @@ colleges:
 
   # ---------- Telangana ----------
   - name: "Indian Institute of Technology Hyderabad (IIT Hyderabad)"
-    course: btech
+    courses: [btech]
     state: telangana
     city: Hyderabad
     ownership: Government
@@ -906,7 +925,7 @@ colleges:
     body: josaa
     url: "https://www.iith.ac.in/"
   - name: "International Institute of Information Technology, Hyderabad (IIIT Hyderabad)"
-    course: btech
+    courses: [btech]
     state: telangana
     city: Hyderabad
     ownership: Deemed
@@ -916,7 +935,7 @@ colleges:
     counselling: "IIIT Hyderabad's own admission process."
     url: "https://www.iiit.ac.in/"
   - name: "JNTUH University College of Engineering"
-    course: btech
+    courses: [btech]
     state: telangana
     city: Hyderabad
     ownership: Government
@@ -927,7 +946,7 @@ colleges:
     body: tg_eapcet
     url: "https://jntuh.ac.in/"
   - name: "University College of Engineering, Osmania University"
-    course: btech
+    courses: [btech]
     state: telangana
     city: Hyderabad
     ownership: Government
@@ -938,7 +957,7 @@ colleges:
     body: tg_eapcet
     url: "https://www.uceou.edu/"
   - name: "National Institute of Technology Warangal (NIT Warangal)"
-    course: btech
+    courses: [btech]
     state: telangana
     city: Warangal
     ownership: Government
@@ -950,7 +969,7 @@ colleges:
 
   # ---------- Uttar Pradesh ----------
   - name: "Indian Institute of Technology Kanpur (IIT Kanpur)"
-    course: btech
+    courses: [btech]
     state: uttar-pradesh
     city: Kanpur
     ownership: Government
@@ -961,7 +980,7 @@ colleges:
     body: josaa
     url: "https://www.iitk.ac.in/"
   - name: "Harcourt Butler Technical University (HBTU)"
-    course: btech
+    courses: [btech]
     state: uttar-pradesh
     city: Kanpur
     ownership: Government
@@ -971,7 +990,7 @@ colleges:
     body: uptac
     url: "https://hbtu.ac.in/"
   - name: "Institute of Engineering and Technology (IET) Lucknow"
-    course: btech
+    courses: [btech]
     state: uttar-pradesh
     city: Lucknow
     ownership: Government
@@ -980,7 +999,7 @@ colleges:
     body: uptac
     url: "https://ietlucknow.ac.in/"
   - name: "Motilal Nehru National Institute of Technology (MNNIT) Allahabad"
-    course: btech
+    courses: [btech]
     state: uttar-pradesh
     city: Prayagraj
     ownership: Government
@@ -990,7 +1009,7 @@ colleges:
     body: josaa
     url: "https://www.mnnit.ac.in/"
   - name: "Indian Institute of Information Technology Allahabad (IIIT-A)"
-    course: btech
+    courses: [btech]
     state: uttar-pradesh
     city: Prayagraj
     ownership: Government
@@ -1000,7 +1019,7 @@ colleges:
     body: josaa
     url: "https://www.iiita.ac.in/"
   - name: "Indian Institute of Technology (BHU) Varanasi"
-    course: btech
+    courses: [btech]
     state: uttar-pradesh
     city: Varanasi
     ownership: Government
@@ -1013,7 +1032,7 @@ colleges:
 
   # ---------- West Bengal ----------
   - name: "Jadavpur University, Faculty of Engineering & Technology"
-    course: btech
+    courses: [btech]
     state: west-bengal
     city: Kolkata
     ownership: Government
@@ -1024,7 +1043,7 @@ colleges:
     body: wbjeeb
     url: "https://jadavpuruniversity.in/"
   - name: "Indian Institute of Engineering Science and Technology (IIEST) Shibpur"
-    course: btech
+    courses: [btech]
     state: west-bengal
     city: Howrah
     ownership: Government
@@ -1034,7 +1053,7 @@ colleges:
     body: josaa
     url: "https://www.iiests.ac.in/"
   - name: "Indian Institute of Technology Kharagpur (IIT Kharagpur)"
-    course: btech
+    courses: [btech]
     state: west-bengal
     city: Kharagpur
     ownership: Government
@@ -1044,3 +1063,1099 @@ colleges:
     counselling: "JoSAA counselling."
     body: josaa
     url: "https://www.iitkgp.ac.in/"
+
+  # =====================================================================
+  # Science careers beyond MBBS / B.Tech — one entry may serve several
+  # finders through `courses`; `prog` names the exact programme per course.
+  # =====================================================================
+
+  # ---------- Allied health: physiotherapy, OT, optometry, MLT, imaging, audiology ----------
+  - name: "All India Institute of Medical Sciences, New Delhi (AIIMS New Delhi)"
+    courses: [optometry, radiology]
+    state: delhi
+    city: New Delhi
+    ownership: Government
+    type_detail: "AIIMS"
+    prog: { optometry: "B.Sc (Hons) Ophthalmic Techniques", radiology: "B.Sc (Hons) Medical Technology in Radiography" }
+    entrance: "AIIMS B.Sc (Hons) Paramedical entrance"
+    desc: "India's premier central government medical institute; paramedical degrees are taught alongside its hospital departments."
+    counselling: "AIIMS's own entrance exam and counselling."
+    body: aiims_exams
+    url: "https://www.aiims.edu/"
+  - name: "Pt. Deendayal Upadhyaya National Institute for Persons with Physical Disabilities (PDUNIPPD)"
+    courses: [bpt, ot]
+    state: delhi
+    city: New Delhi
+    ownership: Government
+    type_detail: "National Institute"
+    prog: { bpt: "Bachelor of Physiotherapy (BPT)", ot: "Bachelor of Occupational Therapy (BOT)" }
+    desc: "A national rehabilitation institute under the Ministry of Social Justice & Empowerment."
+    counselling: "Admission as notified by the institute each year."
+    url: "https://pdunippd.nic.in/"
+  - name: "Jamia Hamdard"
+    courses: [bpt, bpharm]
+    state: delhi
+    city: New Delhi
+    ownership: Deemed
+    prog: { bpt: "Bachelor of Physiotherapy (BPT)", bpharm: "B.Pharm" }
+    desc: "A deemed university in Hamdard Nagar, New Delhi, with a long-established School of Pharmaceutical Education & Research."
+    counselling: "University's own admission process."
+    url: "https://jamiahamdard.ac.in/"
+  - name: "Manipal College of Health Professions (MCHP), MAHE"
+    courses: [bpt, ot, optometry, mlt, radiology, aslp]
+    state: karnataka
+    city: Manipal
+    ownership: Deemed
+    type_detail: "MAHE"
+    prog: { bpt: "Bachelor of Physiotherapy (BPT)", ot: "Bachelor of Occupational Therapy (BOT)", optometry: "Bachelor of Optometry (B.Optom)", mlt: "B.Sc Medical Laboratory Technology", radiology: "B.Sc Medical Imaging Technology", aslp: "BASLP" }
+    desc: "One of India's largest allied-health colleges, part of Manipal Academy of Higher Education."
+    counselling: "MAHE's own online admission process."
+    url: "https://www.manipal.edu/soahs-manipal/program-list.html"
+    url_label: "Official programme list"
+  - name: "All India Institute of Speech and Hearing (AIISH), Mysuru"
+    courses: [aslp]
+    state: karnataka
+    city: Mysuru
+    ownership: Government
+    type_detail: "Central institute"
+    prog: { aslp: "BASLP" }
+    entrance: "AIISH entrance test"
+    desc: "An autonomous institute under the Ministry of Health & Family Welfare, focused on speech and hearing."
+    counselling: "AIISH's own entrance and counselling."
+    url: "https://aiishmysore.in/"
+  - name: "Ali Yavar Jung National Institute of Speech and Hearing Disabilities (AYJNISHD), Mumbai"
+    courses: [aslp]
+    state: maharashtra
+    city: Mumbai
+    ownership: Government
+    type_detail: "National Institute"
+    prog: { aslp: "BASLP" }
+    desc: "A national institute under the Ministry of Social Justice & Empowerment, at Bandra (West), Mumbai."
+    counselling: "Admission as notified by the institute each year."
+    url: "https://ayjnishd.nic.in/"
+  - name: "National Institute for Locomotor Disabilities (NILD), Kolkata"
+    courses: [bpt, ot]
+    state: west-bengal
+    city: Kolkata
+    ownership: Government
+    type_detail: "National Institute"
+    prog: { bpt: "Bachelor of Physiotherapy (BPT)", ot: "Bachelor of Occupational Therapy (BOT)" }
+    desc: "A national rehabilitation institute under the Ministry of Social Justice & Empowerment."
+    counselling: "Admission as notified by the institute each year."
+    url: "https://nild.nic.in/"
+  - name: "Christian Medical College (CMC), Vellore"
+    courses: [bpt, ot, optometry, mlt, radiology]
+    state: tamil-nadu
+    city: Vellore
+    ownership: Private
+    type_detail: "Minority, not-for-profit"
+    entrance: "CMC Vellore's own entrance / selection"
+    desc: "A large teaching hospital with a wide range of allied-health degree programmes."
+    counselling: "CMC's own admission process."
+    url: "https://www.cmch-vellore.edu/"
+  - name: "Elite School of Optometry (Sankara Nethralaya), Chennai"
+    courses: [optometry]
+    state: tamil-nadu
+    city: Chennai
+    ownership: Private
+    type_detail: "Eye hospital"
+    prog: { optometry: "B.S. Optometry" }
+    desc: "Optometry school run by the Sankara Nethralaya eye hospital group."
+    counselling: "Institute's own admission process."
+    url: "https://www.sankaranethralaya.org/"
+  - name: "L V Prasad Eye Institute — Bausch & Lomb School of Optometry, Hyderabad"
+    courses: [optometry]
+    state: telangana
+    city: Hyderabad
+    ownership: Private
+    type_detail: "Not-for-profit eye hospital"
+    prog: { optometry: "Bachelor of Optometry (B.Optom)" }
+    desc: "Optometry training attached to L V Prasad Eye Institute's Banjara Hills campus."
+    counselling: "Institute's own admission process."
+    url: "https://www.lvpei.org/"
+
+  # ---------- B.Pharm ----------
+  - name: "Delhi Pharmaceutical Sciences and Research University (DPSRU)"
+    courses: [bpharm]
+    state: delhi
+    city: New Delhi
+    ownership: Government
+    type_detail: "State university"
+    desc: "A Delhi Government university dedicated to pharmacy, at Pushp Vihar."
+    counselling: "University's own admission process."
+    url: "https://dpsru.edu.in/"
+  - name: "Institute of Chemical Technology (ICT), Mumbai"
+    courses: [bpharm]
+    state: maharashtra
+    city: Mumbai
+    ownership: Government
+    type_detail: "Deemed (state)"
+    entrance: "MHT-CET"
+    desc: "A state-funded deemed university at Matunga, Mumbai, known for chemical and pharmaceutical sciences."
+    counselling: "Maharashtra State CET Cell CAP rounds."
+    body: cetcell
+    url: "https://www.ictmumbai.edu.in/"
+  - name: "Bombay College of Pharmacy"
+    courses: [bpharm]
+    state: maharashtra
+    city: Mumbai
+    ownership: Private
+    type_detail: "Aided"
+    entrance: "MHT-CET"
+    desc: "An aided pharmacy college at Kalina, Santacruz (East), affiliated to the University of Mumbai."
+    counselling: "Maharashtra State CET Cell CAP rounds."
+    body: cetcell
+    url: "https://www.bcp.edu.in/"
+  - name: "Manipal College of Pharmaceutical Sciences (MCOPS), MAHE"
+    courses: [bpharm]
+    state: karnataka
+    city: Manipal
+    ownership: Deemed
+    type_detail: "MAHE"
+    desc: "Pharmacy college of Manipal Academy of Higher Education."
+    counselling: "MAHE's own online admission process."
+    url: "https://www.manipal.edu/mcops-manipal.html"
+  - name: "L. M. College of Pharmacy"
+    courses: [bpharm]
+    state: gujarat
+    city: Ahmedabad
+    ownership: Government
+    type_detail: "Grant-in-aid"
+    entrance: "GUJCET"
+    desc: "A grant-in-aid pharmacy college in Navrangpura, Ahmedabad."
+    counselling: "Admission Committee for Professional Courses (ACPC), Gujarat."
+    body: acpc
+    url: "https://lmcp.ac.in/"
+  - name: "Institute of Pharmacy, Nirma University"
+    courses: [bpharm]
+    state: gujarat
+    city: Ahmedabad
+    ownership: Private
+    desc: "Pharmacy institute of Nirma University on S.G. Highway, Ahmedabad."
+    counselling: "ACPC, Gujarat (state quota) and university admission."
+    body: acpc
+    url: "https://pharmacy.nirmauni.ac.in/"
+  - name: "Birla Institute of Technology and Science (BITS), Pilani"
+    courses: [bpharm]
+    state: rajasthan
+    city: Pilani
+    ownership: Deemed
+    entrance: "BITSAT"
+    desc: "Deemed university whose B.Pharm is taught at the Pilani campus."
+    counselling: "BITS's own BITSAT-based admission."
+    body: bits
+    url: "https://www.bits-pilani.ac.in/"
+  - name: "Department of Pharmaceutical Technology, Jadavpur University"
+    courses: [bpharm]
+    state: west-bengal
+    city: Kolkata
+    ownership: Government
+    type_detail: "State university"
+    entrance: "WBJEE"
+    desc: "B.Pharm at Jadavpur University, a state university in south Kolkata."
+    counselling: "WBJEE Board counselling."
+    body: wbjeeb
+    url: "https://jadavpuruniversity.in/"
+  - name: "University College of Pharmaceutical Sciences, Kakatiya University"
+    courses: [bpharm]
+    state: telangana
+    city: Warangal
+    ownership: Government
+    type_detail: "State university"
+    entrance: "TG EAPCET"
+    desc: "Pharmacy college of Kakatiya University, Warangal."
+    counselling: "TG EAPCET counselling."
+    body: tg_eapcet
+    url: "https://kakatiya.ac.in/"
+  - name: "A.U. College of Pharmaceutical Sciences, Andhra University"
+    courses: [bpharm]
+    state: andhra-pradesh
+    city: Visakhapatnam
+    ownership: Government
+    type_detail: "State university"
+    entrance: "AP EAPCET"
+    desc: "Pharmacy college of Andhra University, Visakhapatnam."
+    counselling: "AP EAPCET counselling (APSCHE)."
+    body: apsche
+    url: "https://www.andhrauniversity.edu.in/"
+  - name: "Shri G. S. Institute of Technology & Science (SGSITS)"
+    courses: [bpharm]
+    state: madhya-pradesh
+    city: Indore
+    ownership: Government
+    type_detail: "Autonomous, aided"
+    desc: "A government-aided autonomous institute in Indore with a Department of Pharmacy."
+    counselling: "MP DTE online counselling."
+    body: mp_dte
+    url: "https://www.sgsits.ac.in/"
+  - name: "Dr. Harisingh Gour Vishwavidyalaya"
+    courses: [bpharm]
+    state: madhya-pradesh
+    city: Sagar
+    ownership: Government
+    type_detail: "Central university"
+    entrance: "CUET-UG"
+    desc: "A central university in Sagar with a Department of Pharmaceutical Sciences."
+    counselling: "University admission on CUET-UG scores."
+    body: nta_cuet
+    url: "https://www.dhsgsu.edu.in/"
+
+  # ---------- BCA ----------
+  - name: "Indira Gandhi National Open University (IGNOU)"
+    courses: [bca]
+    state: delhi
+    city: New Delhi
+    ownership: Government
+    type_detail: "Central open university"
+    entrance: "No entrance — open admission"
+    desc: "Central open university offering BCA through distance / online mode, with study centres nationwide."
+    counselling: "Direct online admission on the IGNOU portal."
+    url: "https://www.ignou.ac.in/"
+  - name: "Guru Gobind Singh Indraprastha University (GGSIPU) — affiliated institutes"
+    courses: [bca]
+    state: delhi
+    city: New Delhi
+    ownership: Government
+    type_detail: "State university"
+    desc: "Delhi state university whose affiliated institutes run BCA programmes."
+    counselling: "GGSIPU's centralised counselling."
+    url: "https://www.ipu.ac.in/"
+  - name: "Amity University, Noida"
+    courses: [bca, biotech, microbiology, forensic]
+    state: delhi
+    region: "Uttar Pradesh"
+    city: Noida
+    ownership: Private
+    type_detail: "Private university"
+    prog: { bca: "BCA", biotech: "B.Tech / B.Sc Biotechnology", microbiology: "B.Sc (Hons) Microbiology", forensic: "B.Sc (Hons) Forensic Science" }
+    entrance: "University's own process (Class 12 merit / test)"
+    desc: "Private university in Sector 125, Noida, with dedicated institutes for biotechnology, microbial technology and forensic sciences."
+    counselling: "University's own admission process."
+    url: "https://www.amity.edu/"
+  - name: "CHRIST (Deemed to be University), Bengaluru"
+    courses: [bca]
+    state: karnataka
+    city: Bengaluru
+    ownership: Deemed
+    entrance: "CHRIST entrance test + interview"
+    desc: "Deemed university at Hosur Road, Bengaluru."
+    counselling: "University's own admission process."
+    url: "https://christuniversity.in/"
+  - name: "St. Joseph's University, Bengaluru"
+    courses: [bca]
+    state: karnataka
+    city: Bengaluru
+    ownership: Private
+    desc: "A Jesuit university on Lalbagh Road, Bengaluru."
+    counselling: "University's own admission process."
+    url: "https://www.sjc.ac.in/"
+  - name: "SRM Institute of Science and Technology"
+    courses: [bca]
+    state: tamil-nadu
+    city: Chennai
+    ownership: Deemed
+    desc: "Deemed university at Kattankulathur, Chennai."
+    counselling: "University's own admission process."
+    url: "https://www.srmist.edu.in/"
+  - name: "Symbiosis Institute of Computer Studies and Research (SICSR)"
+    courses: [bca]
+    state: maharashtra
+    city: Pune
+    ownership: Deemed
+    type_detail: "Symbiosis International"
+    entrance: "Symbiosis Entrance Test (SET)"
+    desc: "Computer studies institute of Symbiosis International (Deemed University) in Model Colony, Pune."
+    counselling: "Symbiosis's own SET-based admission."
+    url: "https://www.sicsr.ac.in/"
+  - name: "Charotar University of Science and Technology (CHARUSAT)"
+    courses: [bca]
+    state: gujarat
+    city: Anand
+    ownership: Private
+    desc: "Private university at Changa, near Anand."
+    counselling: "University's own admission process."
+    url: "https://www.charusat.ac.in/"
+  - name: "Gujarat University — affiliated colleges"
+    courses: [bca]
+    state: gujarat
+    city: Ahmedabad
+    ownership: Government
+    type_detail: "State university"
+    desc: "State university whose affiliated colleges across Ahmedabad run BCA programmes."
+    counselling: "Gujarat Common Admission Services (GCAS)."
+    body: gcas
+    url: "https://www.gujaratuniversity.ac.in/"
+  - name: "Maulana Abul Kalam Azad University of Technology (MAKAUT) — affiliated colleges"
+    courses: [bca]
+    state: west-bengal
+    city: Kolkata
+    ownership: Government
+    type_detail: "State university"
+    desc: "West Bengal's state technical university; BCA is run at its affiliated colleges."
+    counselling: "University / college admission process."
+    url: "https://makautwb.ac.in/"
+  - name: "Manipal University Jaipur"
+    courses: [bca]
+    state: rajasthan
+    city: Jaipur
+    ownership: Private
+    desc: "Private university on the Jaipur–Ajmer Expressway."
+    counselling: "University's own admission process."
+    url: "https://jaipur.manipal.edu/"
+  - name: "Patna Women's College"
+    courses: [bca]
+    state: bihar
+    city: Patna
+    ownership: Private
+    type_detail: "Autonomous, women"
+    desc: "Autonomous women's college on Bailey Road, Patna."
+    counselling: "College's own admission process."
+    url: "https://patnawomenscollege.in/"
+  - name: "University of Lucknow"
+    courses: [bca]
+    state: uttar-pradesh
+    city: Lucknow
+    ownership: Government
+    type_detail: "State university"
+    desc: "State university in Lucknow running BCA on its campus and at affiliated colleges."
+    counselling: "University's own admission process."
+    url: "https://www.lkouniv.ac.in/"
+  - name: "Devi Ahilya Vishwavidyalaya (DAVV)"
+    courses: [bca]
+    state: madhya-pradesh
+    city: Indore
+    ownership: Government
+    type_detail: "State university"
+    desc: "State university in Indore; BCA is offered at its affiliated colleges."
+    counselling: "University / MP higher-education admission process."
+    url: "https://www.dauniv.ac.in/"
+
+  # ---------- B.Des (UI/UX & design) ----------
+  - name: "IDC School of Design, IIT Bombay"
+    courses: [bdes]
+    state: maharashtra
+    city: Mumbai
+    ownership: Government
+    type_detail: "IIT"
+    entrance: "UCEED"
+    desc: "Design school of IIT Bombay at Powai, with interaction design among its strengths."
+    counselling: "UCEED-based seat allocation."
+    body: uceed
+    url: "https://www.idc.iitb.ac.in/"
+  - name: "Department of Design, IIT Hyderabad"
+    courses: [bdes]
+    state: telangana
+    city: Sangareddy
+    ownership: Government
+    type_detail: "IIT"
+    entrance: "UCEED"
+    desc: "B.Des at IIT Hyderabad's Kandi campus, near Hyderabad."
+    counselling: "UCEED-based seat allocation."
+    body: uceed
+    url: "https://design.iith.ac.in/"
+  - name: "National Institute of Design (NID), Ahmedabad"
+    courses: [bdes]
+    state: gujarat
+    city: Ahmedabad
+    ownership: Government
+    type_detail: "Institute of National Importance"
+    entrance: "NID DAT"
+    desc: "India's oldest national design institute, at Paldi, Ahmedabad."
+    counselling: "NID's own DAT-based admission."
+    url: "https://www.nid.edu/"
+  - name: "National Institute of Design, Andhra Pradesh"
+    courses: [bdes]
+    state: andhra-pradesh
+    city: Amaravati
+    ownership: Government
+    type_detail: "Institute of National Importance"
+    entrance: "NID DAT"
+    desc: "A newer NID campus in Andhra Pradesh's capital region."
+    counselling: "NID DAT-based admission."
+    url: "https://nid.ac.in/"
+  - name: "National Institute of Design, Madhya Pradesh"
+    courses: [bdes]
+    state: madhya-pradesh
+    city: Bhopal
+    ownership: Government
+    type_detail: "Institute of National Importance"
+    entrance: "NID DAT"
+    desc: "A newer NID campus in Bhopal."
+    counselling: "NID DAT-based admission."
+    url: "https://nidmp.ac.in/"
+  - name: "NIFT New Delhi"
+    courses: [bdes]
+    state: delhi
+    city: New Delhi
+    ownership: Government
+    type_detail: "NIFT"
+    entrance: "NIFT entrance exam"
+    desc: "NIFT's Hauz Khas campus; B.Des includes Fashion Communication (visual and digital design)."
+    counselling: "NIFT's own counselling."
+    url: "https://www.nift.ac.in/new-delhi/"
+  - name: "NIFT Mumbai"
+    courses: [bdes]
+    state: maharashtra
+    city: Mumbai
+    ownership: Government
+    type_detail: "NIFT"
+    entrance: "NIFT entrance exam"
+    desc: "NIFT campus at Kharghar, Navi Mumbai."
+    counselling: "NIFT's own counselling."
+    url: "https://www.nift.ac.in/mumbai/"
+  - name: "NIFT Bengaluru"
+    courses: [bdes]
+    state: karnataka
+    city: Bengaluru
+    ownership: Government
+    type_detail: "NIFT"
+    entrance: "NIFT entrance exam"
+    desc: "NIFT campus at HSR Layout, Bengaluru."
+    counselling: "NIFT's own counselling."
+    url: "https://www.nift.ac.in/bengaluru/"
+  - name: "NIFT Chennai"
+    courses: [bdes]
+    state: tamil-nadu
+    city: Chennai
+    ownership: Government
+    type_detail: "NIFT"
+    entrance: "NIFT entrance exam"
+    desc: "NIFT campus at Taramani, Chennai."
+    counselling: "NIFT's own counselling."
+    url: "https://www.nift.ac.in/chennai/"
+  - name: "NIFT Hyderabad"
+    courses: [bdes]
+    state: telangana
+    city: Hyderabad
+    ownership: Government
+    type_detail: "NIFT"
+    entrance: "NIFT entrance exam"
+    desc: "NIFT campus at Madhapur, Hyderabad."
+    counselling: "NIFT's own counselling."
+    url: "https://www.nift.ac.in/hyderabad/"
+  - name: "NIFT Kolkata"
+    courses: [bdes]
+    state: west-bengal
+    city: Kolkata
+    ownership: Government
+    type_detail: "NIFT"
+    entrance: "NIFT entrance exam"
+    desc: "NIFT campus at Salt Lake, Kolkata."
+    counselling: "NIFT's own counselling."
+    url: "https://www.nift.ac.in/kolkata/"
+  - name: "NIFT Gandhinagar"
+    courses: [bdes]
+    state: gujarat
+    city: Gandhinagar
+    ownership: Government
+    type_detail: "NIFT"
+    entrance: "NIFT entrance exam"
+    desc: "NIFT campus in Gandhinagar."
+    counselling: "NIFT's own counselling."
+    url: "https://www.nift.ac.in/gandhinagar/"
+  - name: "NIFT Patna"
+    courses: [bdes]
+    state: bihar
+    city: Patna
+    ownership: Government
+    type_detail: "NIFT"
+    entrance: "NIFT entrance exam"
+    desc: "NIFT campus in Patna."
+    counselling: "NIFT's own counselling."
+    url: "https://www.nift.ac.in/patna/"
+  - name: "NIFT Bhopal"
+    courses: [bdes]
+    state: madhya-pradesh
+    city: Bhopal
+    ownership: Government
+    type_detail: "NIFT"
+    entrance: "NIFT entrance exam"
+    desc: "NIFT campus in Bhopal."
+    counselling: "NIFT's own counselling."
+    url: "https://www.nift.ac.in/bhopal/"
+  - name: "NIFT Jodhpur"
+    courses: [bdes]
+    state: rajasthan
+    city: Jodhpur
+    ownership: Government
+    type_detail: "NIFT"
+    entrance: "NIFT entrance exam"
+    desc: "NIFT campus in Jodhpur."
+    counselling: "NIFT's own counselling."
+    url: "https://www.nift.ac.in/jodhpur/"
+  - name: "NIFT Raebareli"
+    courses: [bdes]
+    state: uttar-pradesh
+    city: Raebareli
+    ownership: Government
+    type_detail: "NIFT"
+    entrance: "NIFT entrance exam"
+    desc: "NIFT campus in Raebareli."
+    counselling: "NIFT's own counselling."
+    url: "https://www.nift.ac.in/raebareli/"
+
+  # ---------- Nutrition & Dietetics ----------
+  - name: "Lady Irwin College, University of Delhi"
+    courses: [nutrition]
+    state: delhi
+    city: New Delhi
+    ownership: Government
+    type_detail: "DU college, women"
+    prog: { nutrition: "B.Sc (Hons) Home Science / Food Technology" }
+    entrance: "CUET-UG"
+    desc: "A University of Delhi women's college on Sikandra Road, known for home science and nutrition."
+    counselling: "University of Delhi CSAS (UG) on CUET-UG scores."
+    body: du_csas
+    url: "https://ladyirwin.edu.in/"
+  - name: "Faculty of Family & Community Sciences, The Maharaja Sayajirao University of Baroda"
+    courses: [nutrition]
+    state: gujarat
+    city: Vadodara
+    ownership: Government
+    type_detail: "State university"
+    desc: "MSU Baroda's faculty for foods, nutrition and family sciences."
+    counselling: "University's own admission process."
+    url: "https://www.msubaroda.ac.in/"
+  - name: "SNDT Women's University"
+    courses: [nutrition]
+    state: maharashtra
+    city: Mumbai
+    ownership: Government
+    type_detail: "State university, women"
+    desc: "Maharashtra state women's university with food science and nutrition programmes."
+    counselling: "University's own admission process."
+    url: "https://sndt.ac.in/"
+  - name: "Mount Carmel College, Bengaluru"
+    courses: [nutrition]
+    state: karnataka
+    city: Bengaluru
+    ownership: Deemed
+    desc: "Deemed university for women on Palace Road, Bengaluru, with nutrition and dietetics programmes."
+    counselling: "University's own admission process."
+    url: "https://mccblr.edu.in/"
+  - name: "Avinashilingam Institute for Home Science and Higher Education for Women"
+    courses: [nutrition]
+    state: tamil-nadu
+    city: Coimbatore
+    ownership: Deemed
+    type_detail: "Women"
+    desc: "Deemed university in Coimbatore founded around home science, including food science and nutrition."
+    counselling: "Institute's own admission process."
+    url: "https://avinuty.ac.in/"
+  - name: "J.D. Birla Institute"
+    courses: [nutrition]
+    state: west-bengal
+    city: Kolkata
+    ownership: Private
+    type_detail: "Women"
+    desc: "A women's college in Kolkata affiliated to Jadavpur University, with food and nutrition programmes."
+    counselling: "College's own admission process."
+    url: "https://www.jdbikolkata.ac.in/"
+
+  # ---------- Biotechnology ----------
+  - name: "Delhi Technological University (DTU)"
+    courses: [biotech]
+    state: delhi
+    city: New Delhi
+    ownership: Government
+    type_detail: "State university"
+    prog: { biotech: "B.Tech Biotechnology" }
+    entrance: "JEE Main"
+    desc: "Delhi Government technical university at Bawana Road; offers B.Tech Biotechnology."
+    counselling: "Joint Admission Committee (JAC) Delhi."
+    body: jac_delhi
+    url: "https://dtu.ac.in/"
+  - name: "Jaypee Institute of Information Technology (JIIT), Noida"
+    courses: [biotech]
+    state: delhi
+    region: "Uttar Pradesh"
+    city: Noida
+    ownership: Deemed
+    prog: { biotech: "B.Tech Biotechnology" }
+    entrance: "JEE Main / Class 12 merit"
+    desc: "Deemed university in Sector 62, Noida, with a Department of Biotechnology."
+    counselling: "JIIT's own counselling."
+    url: "https://www.jiit.ac.in/"
+  - name: "Motilal Nehru National Institute of Technology (MNNIT) Allahabad"
+    courses: [biotech]
+    state: uttar-pradesh
+    city: Prayagraj
+    ownership: Government
+    type_detail: "NIT"
+    prog: { biotech: "B.Tech Biotechnology" }
+    entrance: "JEE Main"
+    desc: "NIT at Teliyarganj, Prayagraj, with a Department of Biotechnology."
+    counselling: "JoSAA / CSAB counselling."
+    body: josaa
+    url: "https://www.mnnit.ac.in/"
+  - name: "National Institute of Technology (NIT) Warangal"
+    courses: [biotech]
+    state: telangana
+    city: Warangal
+    ownership: Government
+    type_detail: "NIT"
+    prog: { biotech: "B.Tech Biotechnology" }
+    entrance: "JEE Main"
+    desc: "One of the oldest NITs, with a Department of Biotechnology."
+    counselling: "JoSAA / CSAB counselling."
+    body: josaa
+    url: "https://www.nitw.ac.in/"
+  - name: "National Institute of Technology (NIT) Durgapur"
+    courses: [biotech]
+    state: west-bengal
+    city: Durgapur
+    ownership: Government
+    type_detail: "NIT"
+    prog: { biotech: "B.Tech Biotechnology" }
+    entrance: "JEE Main"
+    desc: "NIT in Durgapur, West Bengal, with a Department of Biotechnology."
+    counselling: "JoSAA / CSAB counselling."
+    body: josaa
+    url: "https://nitdgp.ac.in/"
+  - name: "Department of Biotechnology, IIT Madras"
+    courses: [biotech]
+    state: tamil-nadu
+    city: Chennai
+    ownership: Government
+    type_detail: "IIT"
+    prog: { biotech: "B.Tech / Dual Degree, Biological Engineering" }
+    entrance: "JEE Advanced"
+    desc: "IIT Madras's Bhupat and Jyoti Mehta School of Biosciences."
+    counselling: "JoSAA counselling."
+    body: josaa
+    url: "https://biotech.iitm.ac.in/"
+  - name: "Alagappa College of Technology, Anna University"
+    courses: [biotech]
+    state: tamil-nadu
+    city: Chennai
+    ownership: Government
+    type_detail: "State university"
+    prog: { biotech: "B.Tech Industrial Biotechnology" }
+    entrance: "TNEA (Class 12 marks)"
+    desc: "Anna University's Guindy-area technology college."
+    counselling: "Tamil Nadu Engineering Admissions (TNEA)."
+    body: tnea
+    url: "https://www.annauniv.edu/"
+  - name: "Vellore Institute of Technology (VIT)"
+    courses: [biotech]
+    state: tamil-nadu
+    city: Vellore
+    ownership: Deemed
+    prog: { biotech: "B.Tech Biotechnology" }
+    entrance: "VITEEE"
+    desc: "Deemed university in Vellore with a School of Bio Sciences and Technology."
+    counselling: "VIT's own VITEEE counselling."
+    url: "https://vit.ac.in/"
+  - name: "St. Xavier's College (Autonomous), Mumbai"
+    courses: [biotech, microbiology]
+    state: maharashtra
+    city: Mumbai
+    ownership: Private
+    type_detail: "Aided, autonomous"
+    prog: { biotech: "B.Sc Biotechnology", microbiology: "B.Sc Microbiology" }
+    desc: "An autonomous Jesuit college near CST, Mumbai."
+    counselling: "College's own merit-based admission."
+    url: "https://xaviers.edu/"
+
+  # ---------- Research track (IISER BS-MS) — genetics, microbiology, biotech ----------
+  - name: "Indian Institute of Science Education and Research (IISER) Pune"
+    courses: [genetics, microbiology, biotech]
+    state: maharashtra
+    city: Pune
+    ownership: Government
+    type_detail: "IISER"
+    prog: { genetics: "BS-MS (major in Biology)", microbiology: "BS-MS (major in Biology)", biotech: "BS-MS (major in Biology)" }
+    entrance: "IISER Aptitude Test (IAT)"
+    desc: "A central research-led institute; the 5-year BS-MS lets you major in biology and specialise in genetics, microbiology or molecular biology."
+    counselling: "Joint IISER admission on IAT scores."
+    body: iiser_iat
+    url: "https://www.iiserpune.ac.in/"
+  - name: "Indian Institute of Science Education and Research (IISER) Bhopal"
+    courses: [genetics, microbiology, biotech]
+    state: madhya-pradesh
+    city: Bhopal
+    ownership: Government
+    type_detail: "IISER"
+    prog: { genetics: "BS-MS (major in Biology)", microbiology: "BS-MS (major in Biology)", biotech: "BS-MS (major in Biology)" }
+    entrance: "IISER Aptitude Test (IAT)"
+    desc: "A central research-led institute on Bhauri, Bhopal; 5-year BS-MS with a biology major."
+    counselling: "Joint IISER admission on IAT scores."
+    body: iiser_iat
+    url: "https://www.iiserb.ac.in/"
+  - name: "Indian Institute of Science Education and Research (IISER) Kolkata"
+    courses: [genetics, microbiology, biotech]
+    state: west-bengal
+    city: Mohanpur
+    ownership: Government
+    type_detail: "IISER"
+    prog: { genetics: "BS-MS (major in Biology)", microbiology: "BS-MS (major in Biology)", biotech: "BS-MS (major in Biology)" }
+    entrance: "IISER Aptitude Test (IAT)"
+    desc: "A central research-led institute at Mohanpur, Nadia district; 5-year BS-MS with a biology major."
+    counselling: "Joint IISER admission on IAT scores."
+    body: iiser_iat
+    url: "https://www.iiserkol.ac.in/web/"
+  - name: "Osmania University — affiliated colleges"
+    courses: [genetics, microbiology]
+    state: telangana
+    city: Hyderabad
+    ownership: Government
+    type_detail: "State university"
+    prog: { genetics: "B.Sc with Genetics (combination)", microbiology: "B.Sc with Microbiology (combination)" }
+    entrance: "Class 12 merit (DOST, Telangana)"
+    desc: "Hyderabad's state university; many of its affiliated degree colleges offer genetics and microbiology combinations."
+    counselling: "Degree Online Services, Telangana (DOST)."
+    url: "https://www.osmania.ac.in/"
+
+  # ---------- Microbiology ----------
+  - name: "University of Delhi — colleges offering B.Sc (Hons) Microbiology"
+    courses: [microbiology]
+    state: delhi
+    city: New Delhi
+    ownership: Government
+    type_detail: "Central university"
+    entrance: "CUET-UG"
+    desc: "Several DU colleges run B.Sc (Hons) Microbiology; the college-wise list is in the CSAS (UG) bulletin."
+    counselling: "University of Delhi CSAS (UG) on CUET-UG scores."
+    body: du_csas
+    url: "https://www.du.ac.in/"
+  - name: "St. Xavier's College (Autonomous), Kolkata"
+    courses: [microbiology]
+    state: west-bengal
+    city: Kolkata
+    ownership: Private
+    type_detail: "Aided, autonomous"
+    desc: "An autonomous Jesuit college on Park Street, Kolkata."
+    counselling: "College's own admission process."
+    url: "https://www.sxccal.edu/"
+  - name: "St. Xavier's College, Ahmedabad"
+    courses: [microbiology]
+    state: gujarat
+    city: Ahmedabad
+    ownership: Private
+    type_detail: "Aided, autonomous"
+    desc: "A Jesuit college in Navrangpura, Ahmedabad."
+    counselling: "College / GCAS admission process."
+    body: gcas
+    url: "https://sxca.edu.in/"
+  - name: "Madras Christian College"
+    courses: [microbiology]
+    state: tamil-nadu
+    city: Chennai
+    ownership: Private
+    type_detail: "Aided, autonomous"
+    desc: "An autonomous college at Tambaram, Chennai."
+    counselling: "College's own admission process."
+    url: "https://mcc.edu.in/"
+
+  # ---------- Environmental science ----------
+  - name: "TERI School of Advanced Studies"
+    courses: [envsci]
+    state: delhi
+    city: New Delhi
+    ownership: Deemed
+    prog: { envsci: "Four-year UG programme in Environmental Studies" }
+    desc: "Deemed university at Vasant Kunj, set up by The Energy and Resources Institute (TERI)."
+    counselling: "Institute's own admission process."
+    url: "https://www.terisas.ac.in/environmental-studies-ug.php"
+    url_label: "Official programme page"
+  - name: "Jindal School of Environment & Sustainability, O.P. Jindal Global University"
+    courses: [envsci]
+    state: delhi
+    region: "Haryana"
+    city: Sonipat
+    ownership: Private
+    prog: { envsci: "B.Sc (Hons) Environment & Sustainable Development" }
+    entrance: "JSAT / SAT / ACT + interview"
+    desc: "Private university at Sonipat, in the Delhi NCR."
+    counselling: "University's own admission process."
+    url: "https://jgu.edu.in/jses/admissions/bsc-hons-environment-sustainable-development"
+    url_label: "Official programme page"
+  - name: "Sharda University"
+    courses: [envsci]
+    state: delhi
+    region: "Uttar Pradesh"
+    city: Greater Noida
+    ownership: Private
+    prog: { envsci: "B.Sc Environmental Science" }
+    desc: "Private university in Knowledge Park, Greater Noida."
+    counselling: "University's own admission process."
+    url: "https://www.sharda.ac.in/programmes/bsc-environmental-science/"
+    url_label: "Official programme page"
+
+  # ---------- Forensic science ----------
+  - name: "National Forensic Sciences University (NFSU), Gandhinagar"
+    courses: [forensic]
+    state: gujarat
+    city: Gandhinagar
+    ownership: Government
+    type_detail: "Institution of National Importance"
+    prog: { forensic: "B.Sc.–M.Sc. Forensic Science (5-year integrated)" }
+    desc: "NFSU's main campus in Sector 9, Gandhinagar."
+    counselling: "NFSU counselling on CUET-UG scores."
+    body: nta_cuet
+    url: "https://www.nfsu.ac.in/"
+  - name: "NFSU Delhi Campus"
+    courses: [forensic]
+    state: delhi
+    city: New Delhi
+    ownership: Government
+    type_detail: "Institution of National Importance"
+    prog: { forensic: "B.Sc.–M.Sc. Forensic Science (5-year integrated)" }
+    desc: "NFSU's Delhi campus (formerly LNJN National Institute of Criminology & Forensic Science), Rohini."
+    counselling: "NFSU counselling on CUET-UG scores."
+    body: nta_cuet
+    url: "https://delhi.nfsu.ac.in/"
+  - name: "NFSU Bhopal Campus"
+    courses: [forensic]
+    state: madhya-pradesh
+    city: Bhopal
+    ownership: Government
+    type_detail: "Institution of National Importance"
+    prog: { forensic: "B.Sc.–M.Sc. Forensic Science (5-year integrated)" }
+    desc: "NFSU's Bhopal campus."
+    counselling: "NFSU counselling on CUET-UG scores."
+    body: nta_cuet
+    url: "https://bhopal.nfsu.ac.in/"
+  - name: "NFSU Dharwad Campus"
+    courses: [forensic]
+    state: karnataka
+    city: Dharwad
+    ownership: Government
+    type_detail: "Institution of National Importance"
+    prog: { forensic: "B.Sc.–M.Sc. Forensic Science (5-year integrated)" }
+    desc: "NFSU's Dharwad campus."
+    counselling: "NFSU counselling on CUET-UG scores."
+    body: nta_cuet
+    url: "https://dharwad.nfsu.ac.in/"
+  - name: "NFSU Varanasi Campus"
+    courses: [forensic]
+    state: uttar-pradesh
+    city: Varanasi
+    ownership: Government
+    type_detail: "Institution of National Importance"
+    prog: { forensic: "B.Sc.–M.Sc. Forensic Science (5-year integrated)" }
+    desc: "NFSU's Varanasi campus."
+    counselling: "NFSU counselling on CUET-UG scores."
+    body: nta_cuet
+    url: "https://varanasi.nfsu.ac.in/"
+  - name: "Uttar Pradesh State Institute of Forensic Science (UPSIFS)"
+    courses: [forensic]
+    state: uttar-pradesh
+    city: Lucknow
+    ownership: Government
+    type_detail: "State institute"
+    entrance: "As notified by UPSIFS"
+    desc: "UP Government forensic science institute in Lucknow."
+    counselling: "Institute's own admission process."
+    url: "https://upsifs.ac.in/"
+
+  # ---------- Agriculture ----------
+  - name: "Institute of Agricultural Sciences, Banaras Hindu University"
+    courses: [agri]
+    state: uttar-pradesh
+    city: Varanasi
+    ownership: Government
+    type_detail: "Central university"
+    entrance: "CUET-UG"
+    desc: "BHU's agriculture institute on its main Varanasi campus."
+    counselling: "BHU admission on CUET-UG scores."
+    body: nta_cuet
+    url: "https://www.bhu.ac.in/"
+  - name: "Chandra Shekhar Azad University of Agriculture & Technology (CSAUAT)"
+    courses: [agri]
+    state: uttar-pradesh
+    city: Kanpur
+    ownership: Government
+    type_detail: "State agricultural university"
+    desc: "UP state agricultural university in Kanpur."
+    counselling: "University / UP state admission process."
+    url: "https://csauk.ac.in/"
+  - name: "Acharya Narendra Deva University of Agriculture & Technology (NDUAT)"
+    courses: [agri]
+    state: uttar-pradesh
+    city: Ayodhya
+    ownership: Government
+    type_detail: "State agricultural university"
+    desc: "UP state agricultural university at Kumarganj, Ayodhya."
+    counselling: "University / UP state admission process."
+    url: "https://nduat.org/"
+  - name: "Sardar Vallabhbhai Patel University of Agriculture & Technology (SVPUAT)"
+    courses: [agri]
+    state: uttar-pradesh
+    city: Meerut
+    ownership: Government
+    type_detail: "State agricultural university"
+    desc: "UP state agricultural university in Meerut."
+    counselling: "University / UP state admission process."
+    url: "https://svpuat.edu.in/"
+  - name: "Dr. Rajendra Prasad Central Agricultural University (RPCAU)"
+    courses: [agri]
+    state: bihar
+    city: Pusa
+    ownership: Government
+    type_detail: "Central agricultural university"
+    entrance: "CUET-UG"
+    desc: "Central agricultural university at Pusa, Samastipur district."
+    counselling: "University admission on CUET-UG scores."
+    body: nta_cuet
+    url: "https://rpcau.ac.in/"
+  - name: "Bihar Agricultural University (BAU)"
+    courses: [agri]
+    state: bihar
+    city: Sabour
+    ownership: Government
+    type_detail: "State agricultural university"
+    desc: "Bihar's state agricultural university at Sabour, Bhagalpur."
+    counselling: "University / Bihar state admission process."
+    url: "https://www.bausabour.ac.in/"
+  - name: "Tamil Nadu Agricultural University (TNAU)"
+    courses: [agri]
+    state: tamil-nadu
+    city: Coimbatore
+    ownership: Government
+    type_detail: "State agricultural university"
+    entrance: "Class 12 marks (TNAU counselling)"
+    desc: "Tamil Nadu's state agricultural university, with its main campus in Coimbatore."
+    counselling: "TNAU's own online counselling."
+    url: "https://tnau.ac.in/"
+  - name: "University of Agricultural Sciences, Bangalore (UAS Bangalore)"
+    courses: [agri]
+    state: karnataka
+    city: Bengaluru
+    ownership: Government
+    type_detail: "State agricultural university"
+    entrance: "KCET"
+    desc: "State agricultural university at GKVK, Bengaluru."
+    counselling: "Karnataka Examinations Authority (KEA)."
+    body: kea
+    url: "https://www.uasbangalore.edu.in/"
+  - name: "University of Agricultural Sciences, Dharwad (UAS Dharwad)"
+    courses: [agri]
+    state: karnataka
+    city: Dharwad
+    ownership: Government
+    type_detail: "State agricultural university"
+    entrance: "KCET"
+    desc: "State agricultural university in Dharwad."
+    counselling: "Karnataka Examinations Authority (KEA)."
+    body: kea
+    url: "https://uasd.edu/"
+  - name: "Mahatma Phule Krishi Vidyapeeth (MPKV)"
+    courses: [agri]
+    state: maharashtra
+    city: Rahuri
+    ownership: Government
+    type_detail: "State agricultural university"
+    entrance: "MHT-CET"
+    desc: "Maharashtra state agricultural university at Rahuri, Ahilyanagar district."
+    counselling: "Maharashtra State CET Cell."
+    body: cetcell
+    url: "https://mpkv.ac.in/"
+  - name: "Dr. Panjabrao Deshmukh Krishi Vidyapeeth (PDKV)"
+    courses: [agri]
+    state: maharashtra
+    city: Akola
+    ownership: Government
+    type_detail: "State agricultural university"
+    entrance: "MHT-CET"
+    desc: "Maharashtra state agricultural university in Akola, Vidarbha."
+    counselling: "Maharashtra State CET Cell."
+    body: cetcell
+    url: "https://www.pdkv.ac.in/"
+  - name: "Professor Jayashankar Telangana Agricultural University (PJTAU)"
+    courses: [agri]
+    state: telangana
+    city: Hyderabad
+    ownership: Government
+    type_detail: "State agricultural university"
+    entrance: "TG EAPCET (Agriculture & Pharmacy)"
+    desc: "Telangana's state agricultural university at Rajendranagar, Hyderabad."
+    counselling: "University counselling on TG EAPCET ranks."
+    body: tg_eapcet
+    url: "https://pjtau.edu.in/"
+  - name: "Acharya N. G. Ranga Agricultural University (ANGRAU)"
+    courses: [agri]
+    state: andhra-pradesh
+    city: Guntur
+    ownership: Government
+    type_detail: "State agricultural university"
+    entrance: "AP EAPCET (Agriculture & Pharmacy)"
+    desc: "Andhra Pradesh's state agricultural university, headquartered at Lam, Guntur."
+    counselling: "University counselling on AP EAPCET ranks."
+    body: apsche
+    url: "https://angrau.ac.in/"
+  - name: "Bidhan Chandra Krishi Viswavidyalaya (BCKV)"
+    courses: [agri]
+    state: west-bengal
+    city: Mohanpur
+    ownership: Government
+    type_detail: "State agricultural university"
+    desc: "West Bengal's state agricultural university at Mohanpur, Nadia district."
+    counselling: "University's own admission process."
+    url: "https://bckv.edu.in/"
+  - name: "Anand Agricultural University (AAU)"
+    courses: [agri]
+    state: gujarat
+    city: Anand
+    ownership: Government
+    type_detail: "State agricultural university"
+    entrance: "GUJCET"
+    desc: "Gujarat state agricultural university in Anand."
+    counselling: "Gujarat agricultural universities' common admission."
+    url: "https://aau.in/"
+  - name: "Junagadh Agricultural University (JAU)"
+    courses: [agri]
+    state: gujarat
+    city: Junagadh
+    ownership: Government
+    type_detail: "State agricultural university"
+    entrance: "GUJCET"
+    desc: "Gujarat state agricultural university in Junagadh, Saurashtra."
+    counselling: "Gujarat agricultural universities' common admission."
+    url: "https://www.jau.in/"
+  - name: "Navsari Agricultural University (NAU)"
+    courses: [agri]
+    state: gujarat
+    city: Navsari
+    ownership: Government
+    type_detail: "State agricultural university"
+    entrance: "GUJCET"
+    desc: "Gujarat state agricultural university in Navsari, south Gujarat."
+    counselling: "Gujarat agricultural universities' common admission."
+    url: "https://nau.in/"
+  - name: "Swami Keshwanand Rajasthan Agricultural University (SKRAU)"
+    courses: [agri]
+    state: rajasthan
+    city: Bikaner
+    ownership: Government
+    type_detail: "State agricultural university"
+    desc: "Rajasthan state agricultural university in Bikaner."
+    counselling: "Rajasthan state agriculture admission process."
+    url: "https://raubikaner.org/"
+  - name: "Maharana Pratap University of Agriculture & Technology (MPUAT)"
+    courses: [agri]
+    state: rajasthan
+    city: Udaipur
+    ownership: Government
+    type_detail: "State agricultural university"
+    desc: "Rajasthan state agricultural university in Udaipur."
+    counselling: "Rajasthan state agriculture admission process."
+    url: "https://www.mpuat.ac.in/"
+  - name: "Jawaharlal Nehru Krishi Vishwa Vidyalaya (JNKVV)"
+    courses: [agri]
+    state: madhya-pradesh
+    city: Jabalpur
+    ownership: Government
+    type_detail: "State agricultural university"
+    desc: "Madhya Pradesh state agricultural university in Jabalpur."
+    counselling: "MP state agriculture admission process."
+    url: "https://www.jnkvv.org/"
+  - name: "Rajmata Vijayaraje Scindia Krishi Vishwa Vidyalaya (RVSKVV)"
+    courses: [agri]
+    state: madhya-pradesh
+    city: Gwalior
+    ownership: Government
+    type_detail: "State agricultural university"
+    desc: "Madhya Pradesh state agricultural university in Gwalior."
+    counselling: "MP state agriculture admission process."
+    url: "https://www.rvskvv.net/"

@@ -1,0 +1,283 @@
+{%- comment -%}
+  Interactive finder hub: stream -> career / exam -> state & city -> cards.
+  Used by colleges.html and coaching.html.
+
+    {% include explorer.html type="colleges" %}
+    {% include explorer.html type="coaching" %}
+
+  Config:  _data/explorer.yml   (streams, which courses / exams sit under each, deep-link aliases)
+  Data:    assets/explorer-colleges.json | assets/explorer-coaching.json  (built from _data/*.yml, fetched on load)
+  Deep links:  ?career=<key or alias>[&stream=][&state=][&city=]  — e.g. colleges.html?career=computer-science
+  The page URL is kept in sync (history.replaceState) so a filtered view can be shared.
+  Per-course pages (colleges-<course>.html, coaching-<exam>.html) stay as the crawlable, server-rendered finders.
+{%- endcomment -%}
+{%- assign ex_type = include.type -%}
+<div class="ex" id="explorer" data-ex data-ex-type="{{ ex_type }}" data-ex-src="assets/explorer-{{ ex_type }}.json">
+  <div class="ex-controls">
+    <div class="ex-step">
+      <p class="fx-label" id="ex-stream-label"><span class="fx-num" aria-hidden="true">1</span>Select your stream</p>
+      <div class="fx-pills" role="group" aria-labelledby="ex-stream-label" data-ex-streams></div>
+    </div>
+    <div class="ex-step">
+      <label class="fx-label" for="ex-career"><span class="fx-num" aria-hidden="true">2</span>{% if ex_type == "colleges" %}Select a course{% else %}Select an exam{% endif %}</label>
+      <select class="fx-select" id="ex-career" data-ex-career disabled>
+        <option value="">{% if ex_type == "colleges" %}Choose a course{% else %}Choose an entrance exam{% endif %}</option>
+      </select>
+    </div>
+    <div class="ex-step">
+      <label class="fx-label" for="ex-state"><span class="fx-num" aria-hidden="true">3</span>Select a state</label>
+      <select class="fx-select" id="ex-state" data-ex-state disabled>
+        <option value="">Choose a state</option>
+      </select>
+    </div>
+    <div class="ex-step" data-ex-city-step hidden>
+      <p class="fx-label" id="ex-city-label"><span class="fx-num" aria-hidden="true">4</span>Pick a city</p>
+      <div class="fx-pills" role="group" aria-labelledby="ex-city-label" data-ex-cities></div>
+    </div>
+  </div>
+
+  <p class="fx-count" id="finder" data-ex-count aria-live="polite">Start by selecting your stream.</p>
+  <div class="cx-grid fx-results" data-ex-results></div>
+  <noscript><p class="fx-count">This finder needs JavaScript. You can also browse the course and exam pages listed below.</p></noscript>
+</div>
+
+<script type="application/json" id="ex-config">{ "streams": {{ site.data.explorer.streams | jsonify }}, "aliases": {{ site.data.explorer.aliases[ex_type] | jsonify }} }</script>
+<script>
+/* Interactive finder (see the comment at the top of _includes/explorer.html).
+   Everything is derived from the JSON feed; the page only keeps four values
+   (stream, career, state, city) and re-renders the grid from them. */
+(function(){
+  var root = document.querySelector('[data-ex]');
+  if(!root) return;
+  var type = root.getAttribute('data-ex-type');
+  var cfg = JSON.parse(document.getElementById('ex-config').textContent);
+  var streamsEl = root.querySelector('[data-ex-streams]');
+  var careerSel = root.querySelector('[data-ex-career]');
+  var stateSel = root.querySelector('[data-ex-state]');
+  var cityStep = root.querySelector('[data-ex-city-step]');
+  var citiesEl = root.querySelector('[data-ex-cities]');
+  var countEl = root.querySelector('[data-ex-count]');
+  var resultsEl = root.querySelector('[data-ex-results]');
+  var one = type === 'colleges' ? 'college' : 'coaching centre';
+  var many = type === 'colleges' ? 'colleges' : 'coaching centres';
+  var data = null;
+  var sel = { stream: '', career: '', state: '', city: 'all' };
+  var PIN = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>';
+  var EXT = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>';
+
+  function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function slug(s){ return String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,''); }
+  function streamsForHub(){ return cfg.streams.filter(function(s){ return s[type] && s[type].length; }); }
+  function streamById(id){ var l = streamsForHub(); for(var i = 0; i < l.length; i++){ if(l[i].id === id) return l[i]; } return null; }
+  function careerLabel(k){ return data.meta[k] ? data.meta[k].label : k; }
+  function stateName(id){ for(var i = 0; i < data.states.length; i++){ if(data.states[i].id === id) return data.states[i].name; } return id; }
+
+  function itemsFor(career){
+    var field = type === 'colleges' ? 'courses' : 'exams';
+    var all = data.items.filter(function(c){ return c[field] && c[field].indexOf(career) > -1; });
+    var feat = all.filter(function(c){ return c.featured === true; });
+    var rest = all.filter(function(c){ return c.featured !== true; });
+    return feat.concat(rest);
+  }
+
+  /* A career page can link with its own slug (cse, mbbs, ssc-cgl ...); map it to the course / exam key. */
+  function resolveCareer(param){
+    if(!param) return '';
+    param = param.toLowerCase();
+    if(data.meta[param]) return param;
+    for(var k in cfg.aliases){
+      if(cfg.aliases.hasOwnProperty(k) && cfg.aliases[k].indexOf(param) > -1) return k;
+    }
+    return '';
+  }
+  function streamForCareer(career, preferred){
+    var list = streamsForHub();
+    var pref = streamById(preferred);
+    if(pref && pref[type].indexOf(career) > -1) return pref.id;
+    for(var i = 0; i < list.length; i++){ if(list[i][type].indexOf(career) > -1) return list[i].id; }
+    return '';
+  }
+
+  function drawStreams(){
+    streamsEl.innerHTML = streamsForHub().map(function(s){
+      return '<button type="button" class="fx-pill" data-stream="' + esc(s.id) + '" aria-pressed="' + (sel.stream === s.id) + '">' + esc(s.label) + '</button>';
+    }).join('');
+  }
+  function drawCareers(){
+    var st = streamById(sel.stream);
+    var ph = type === 'colleges' ? 'Choose a course' : 'Choose an entrance exam';
+    var html = '<option value="">' + ph + '</option>';
+    if(st){
+      html += st[type].map(function(k){
+        var n = itemsFor(k).length;
+        return '<option value="' + esc(k) + '"' + (k === sel.career ? ' selected' : '') + '>' + esc(careerLabel(k)) + ' (' + n + ')</option>';
+      }).join('');
+    }
+    careerSel.innerHTML = html;
+    careerSel.disabled = !st;
+  }
+  function drawStates(){
+    var items = sel.career ? itemsFor(sel.career) : [];
+    var html = '<option value="">Choose a state</option>', soon = '';
+    data.states.forEach(function(s){
+      var n = items.filter(function(c){ return c.state === s.id; }).length;
+      if(n > 0) html += '<option value="' + esc(s.id) + '"' + (s.id === sel.state ? ' selected' : '') + '>' + esc(s.name) + ' (' + n + ')</option>';
+      else if(sel.career) soon += '<option disabled>' + esc(s.name) + '</option>';
+    });
+    if(soon) html += '<optgroup label="Coming soon">' + soon + '</optgroup>';
+    stateSel.innerHTML = html;
+    stateSel.disabled = !sel.career;
+  }
+  function drawCities(){
+    var items = sel.career && sel.state ? itemsFor(sel.career).filter(function(c){ return c.state === sel.state; }) : [];
+    cityStep.hidden = items.length === 0;
+    if(!items.length){ citiesEl.innerHTML = ''; return; }
+    var seen = [], counts = {};
+    items.forEach(function(c){ if(!counts[c.city]){ counts[c.city] = 0; seen.push(c.city); } counts[c.city]++; });
+    var html = '<button type="button" class="fx-pill" data-city="all" aria-pressed="' + (sel.city === 'all') + '">All cities <span class="fx-pill-count">' + items.length + '</span></button>';
+    seen.forEach(function(city){
+      html += '<button type="button" class="fx-pill" data-city="' + esc(slug(city)) + '" aria-pressed="' + (sel.city === slug(city)) + '">' + esc(city) + ' <span class="fx-pill-count">' + counts[city] + '</span></button>';
+    });
+    citiesEl.innerHTML = html;
+  }
+
+  function facts(rows){
+    var h = rows.filter(function(r){ return r[1]; }).map(function(r){ return '<div><dt>' + esc(r[0]) + '</dt><dd>' + r[1] + '</dd></div>'; }).join('');
+    return h ? '<dl class="fx-facts">' + h + '</dl>' : '';
+  }
+  function chips(list){ return '<ul class="fx-chips">' + list.map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>'; }
+  function cardTop(c, tagHtml){
+    return '<div class="fx-card-top">' + tagHtml
+      + (c.featured ? '<span class="fx-featured">' + (c.sponsored ? 'Sponsored' : 'Featured') + '</span>' : '')
+      + '<span class="fx-loc">' + PIN + esc(c.city) + ', ' + esc(stateName(c.state)) + '</span></div>';
+  }
+  function extLink(cls, href, label, sr){
+    return '<a class="' + cls + '" href="' + esc(href) + '" target="_blank" rel="noopener noreferrer">' + esc(label) + ' ' + EXT + '<span class="sr-only"> (' + esc(sr) + ', opens in a new tab)</span></a>';
+  }
+
+  function collegeCard(c){
+    var meta = data.meta[sel.career] || {};
+    var own = String(c.ownership || '');
+    var entrance = (c.entrance_by && c.entrance_by[sel.career]) || c.entrance || meta.entrance;
+    var fees = c.fees ? esc(c.fees) + (c.as_of ? ' (' + esc(c.as_of) + ')' : '') : "Changes every year — see the counselling authority's fee notice";
+    var body = data.bodies[c.body];
+    var tag = '<span class="cx-tag fx-own fx-own-' + esc(own.toLowerCase()) + '">' + esc(own) + '</span>' + (c.type_detail ? '<span class="fx-subtag">' + esc(c.type_detail) + '</span>' : '');
+    var actions = extLink('btn-exam-primary', c.url, c.url_label || 'Official website', c.name);
+    if(body && body.url !== c.url) actions += extLink('btn-exam-secondary', body.url, 'Counselling & fees info', body.name);
+    return '<article class="cx-college-card fx-card' + (c.featured ? ' is-featured' : '') + '">' + cardTop(c, tag)
+      + '<h3>' + esc(c.name) + '</h3><p>' + esc(c.desc) + '</p>'
+      + facts([
+          ['Programme', c.prog && c.prog[sel.career] ? esc(c.prog[sel.career]) : ''],
+          ['Entrance', esc(entrance)],
+          ['Admission', esc(c.counselling)],
+          ['Annual fees', fees],
+          ['Seats', c.seats ? esc(c.seats) + (c.as_of ? ' (' + esc(c.as_of) + ')' : '') : ''],
+          ['Closing rank', c.cutoff ? esc(c.cutoff) + (c.as_of ? ' (' + esc(c.as_of) + ')' : '') : '']
+        ])
+      + '<div class="fx-actions">' + actions + '</div></article>';
+  }
+  function coachingCard(c){
+    var meta = data.meta[sel.career] || {};
+    var brand = data.brands[c.brand] || {};
+    var tag = '<span class="cx-tag">' + esc(meta.tag) + '</span>';
+    var area = esc(c.area) + (c.extra && c.extra[sel.career] ? ' ' + esc(c.extra[sel.career]) : '');
+    var more = '<details class="fx-more"><summary class="btn-exam-secondary">Fees &amp; enquiry</summary><div class="fx-more-body">'
+      + '<p>Fees differ by batch and centre, so Margdarshan doesn\'t quote them. Enquire using the number or form on the official site — we don\'t collect or forward your details. Before you pay, ask for:</p>'
+      + '<ul><li>Total fee including GST, instalments and the refund policy in writing</li><li>Current batch start dates, timings and the nearest centre</li><li>Batch size and which faculty will teach your batch</li><li>A free demo class or scholarship / admission test</li></ul></div></details>';
+    return '<article class="cx-college-card fx-card' + (c.featured ? ' is-featured' : '') + '">' + cardTop(c, tag)
+      + '<h3>' + esc(c.name) + '</h3><p>' + area + '</p>'
+      + facts([
+          ['Batches', brand.batches ? chips(brand.batches) : ''],
+          ['Offers', brand.formats ? chips(brand.formats) : ''],
+          ['Fees', 'Confirm with the centre — varies by batch']
+        ])
+      + '<div class="fx-actions">' + extLink('btn-exam-primary', c.url, 'Visit ' + String(c.url_label || 'official website').toLowerCase(), c.name) + more + '</div></article>';
+  }
+
+  function drawResults(){
+    if(!sel.career){
+      resultsEl.innerHTML = '';
+      countEl.textContent = !sel.stream ? 'Start by selecting your stream.' : (type === 'colleges' ? 'Now choose a course.' : 'Now choose an entrance exam.');
+      return;
+    }
+    if(!sel.state){
+      resultsEl.innerHTML = '';
+      var any = itemsFor(sel.career).length;
+      countEl.textContent = any ? 'Now choose a state — ' + any + ' ' + (any === 1 ? one : many) + ' listed for ' + careerLabel(sel.career) + '.'
+        : 'No verified ' + many + ' listed yet for ' + careerLabel(sel.career) + '.';
+      return;
+    }
+    var items = itemsFor(sel.career).filter(function(c){
+      return c.state === sel.state && (sel.city === 'all' || slug(c.city) === sel.city);
+    });
+    var place = sel.city === 'all' ? stateName(sel.state) : (items[0] ? items[0].city : stateName(sel.state));
+    resultsEl.innerHTML = items.map(type === 'colleges' ? collegeCard : coachingCard).join('');
+    var page = data.meta[sel.career] && data.meta[sel.career].page;
+    countEl.innerHTML = 'Showing ' + items.length + ' ' + (items.length === 1 ? one : many) + ' for ' + esc(careerLabel(sel.career)) + ' in ' + esc(place)
+      + (page ? ' · <a href="' + esc(page) + '.html#finder">Open the dedicated ' + esc(careerLabel(sel.career)) + ' page</a>' : '');
+  }
+
+  function syncUrl(){
+    if(!(window.history && history.replaceState)) return;
+    var p = new URLSearchParams();
+    if(sel.stream) p.set('stream', sel.stream);
+    if(sel.career) p.set('career', sel.career);
+    if(sel.state) p.set('state', sel.state);
+    if(sel.city !== 'all') p.set('city', sel.city);
+    var qs = p.toString();
+    history.replaceState(null, '', window.location.pathname + (qs ? '?' + qs : '') + window.location.hash);
+  }
+  function firstStateWithItems(career){
+    /* the state with the most listings (first in the dropdown order on a tie) */
+    var items = itemsFor(career), best = '', bestN = 0;
+    data.states.forEach(function(s){
+      var n = items.filter(function(c){ return c.state === s.id; }).length;
+      if(n > bestN){ best = s.id; bestN = n; }
+    });
+    return best;
+  }
+  function redraw(){ drawStreams(); drawCareers(); drawStates(); drawCities(); drawResults(); syncUrl(); }
+
+  streamsEl.addEventListener('click', function(e){
+    var b = e.target.closest('[data-stream]'); if(!b || !data) return;
+    sel.stream = b.getAttribute('data-stream'); sel.career = ''; sel.state = ''; sel.city = 'all';
+    redraw();
+  });
+  careerSel.addEventListener('change', function(){
+    sel.career = careerSel.value; sel.city = 'all';
+    sel.state = sel.career ? firstStateWithItems(sel.career) : '';
+    redraw();
+  });
+  stateSel.addEventListener('change', function(){ sel.state = stateSel.value; sel.city = 'all'; redraw(); });
+  citiesEl.addEventListener('click', function(e){
+    var b = e.target.closest('[data-city]'); if(!b) return;
+    sel.city = b.getAttribute('data-city'); drawCities(); drawResults(); syncUrl();
+  });
+
+  function start(){
+    var q = new URLSearchParams(window.location.search);
+    var career = resolveCareer(q.get('career'));
+    if(career){
+      sel.career = career;
+      sel.stream = streamForCareer(career, q.get('stream'));
+      var items = itemsFor(career);
+      var qs = q.get('state');
+      var has = function(id){ return items.some(function(c){ return c.state === id; }); };
+      sel.state = qs && has(qs) ? qs : firstStateWithItems(career);
+      var qc = q.get('city');
+      if(qc && items.some(function(c){ return c.state === sel.state && slug(c.city) === qc; })) sel.city = qc;
+    } else if(streamById(q.get('stream'))){
+      sel.stream = q.get('stream');
+    }
+    redraw();
+  }
+
+  /* Stream chips are usable at once; the rest waits for the feed. */
+  streamsEl.innerHTML = streamsForHub().map(function(s){ return '<button type="button" class="fx-pill" disabled>' + esc(s.label) + '</button>'; }).join('');
+  countEl.textContent = 'Loading…';
+  fetch(root.getAttribute('data-ex-src'), { credentials: 'same-origin' })
+    .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function(d){ data = d; start(); })
+    .catch(function(){ countEl.textContent = 'Could not load the listings. Please refresh, or browse the pages listed below.'; });
+})();
+</script>

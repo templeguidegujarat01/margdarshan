@@ -1,0 +1,80 @@
+# Config for the interactive hubs: colleges.html and coaching.html
+# (rendered by _includes/explorer.html, behaviour in the same file).
+#
+# Flow: stream -> career / exam -> state & city -> cards.
+# `colleges` / `coaching` list the course keys (_data/colleges.yml `courses`)
+# and exam keys (_data/coaching.yml `exams`) that appear under each stream.
+# A stream with an empty list for a hub is simply not shown on that hub.
+#
+# `aliases` let a career page deep-link with its own slug, e.g.
+#   colleges.html?career=computer-science   or   coaching.html?career=cse
+# Any listed alias resolves to the course / exam key it sits under. The real
+# course / exam key always works as well (?career=btech, ?career=neet).
+
+streams:
+  - id: science
+    label: Science
+    colleges: [btech, mbbs, bds, bams, bhms, nursing, bpharm, bpt, ot, optometry, mlt, radiology, aslp, nutrition, bca, biotech, genetics, microbiology, envsci, forensic, agri]
+    coaching: [jee, neet, cuet]
+  - id: commerce
+    label: Commerce
+    colleges: [bcom, bba]
+    coaching: [ca, cs, cma, cuet]
+  - id: arts
+    label: Arts
+    colleges: [ba, bjmc, law, barch, bdes]
+    coaching: [clat, design, nata, cuet]
+  - id: diploma-iti
+    label: Diploma / ITI
+    colleges: [diploma, iti]
+    coaching: []
+  - id: govt
+    label: Govt Exams
+    colleges: []
+    coaching: [ssc, banking, upsc]
+
+aliases:
+  colleges:
+    btech: [computer-science, cse, civil, mechanical, electrical, electronics, aerospace, robotics, cybersecurity, datascience, data-science, ai-engineer, ml, software-engineer, cloud-engineer, devops-engineer, it-consultant, engineering]
+    mbbs: [medicine, doctor]
+    bds: [dentistry]
+    bams: [ayurveda]
+    bhms: [homeopathy]
+    nursing: [bsc-nursing]
+    bpharm: [pharmacy]
+    bpt: [physiotherapy]
+    ot: [occupational-therapy]
+    optometry: []
+    mlt: [medical-laboratory-technology]
+    radiology: [radiology-imaging-technology]
+    aslp: [audiology-speech-therapy]
+    nutrition: [nutrition-dietetics]
+    bca: [app-developer, web-developer, blockchain-developer]
+    biotech: [biotechnology]
+    genetics: []
+    microbiology: []
+    envsci: [environmental-science]
+    forensic: [forensic-science]
+    agri: [agriculture-science, agriculture]
+    bcom: [bcom-hons, bachelor-of-accounting, bachelor-of-finance]
+    bba: [bbm, bms, integrated-mba]
+    ba: [ba-economics, ba-english, ba-geography, ba-history, ba-philosophy, ba-political-science, ba-psychology, ba-sociology, bsw]
+    bjmc: [journalism]
+    law: [llb]
+    barch: [architecture]
+    bdes: [fashion-design, interior-design, graphic-design, design]
+    diploma: [diploma-agriculture, diploma-animation-multimedia, diploma-architecture, diploma-automobile-engineering, diploma-business-management, diploma-chemical-engineering, diploma-civil-engineering, diploma-computer-engineering, diploma-ece, diploma-electrical-engineering, diploma-fashion-design, diploma-food-technology, diploma-hotel-management, diploma-interior-design, diploma-it, diploma-mechanical-engineering, diploma-pharmacy, diploma-production-engineering, diploma-radiography, dmlt]
+    iti: [iti-beauty-culture, iti-copa, iti-draughtsman-civil, iti-electrician, iti-electronics-mechanic, iti-fitter, iti-instrument-mechanic, iti-machinist, iti-mechanic-diesel, iti-mechanic-motor-vehicle, iti-plumber, iti-refrigeration-ac, iti-sewing-technology, iti-surveyor, iti-turner, iti-welder, iti-wireman]
+  coaching:
+    jee: [jee-main, jee-advanced, computer-science, cse, civil, mechanical, electrical, electronics, aerospace, robotics, cybersecurity, datascience, data-science, ai-engineer, ml, software-engineer, engineering, btech]
+    neet: [neet-ug, mbbs, bds, bams, bhms, nursing, medicine, doctor]
+    cuet: [cuet-ug, bcom, bba, ba, bjmc]
+    ca: [chartered-accountant]
+    cs: [company-secretary]
+    cma: []
+    clat: [llb, law, clat-ug, ailet]
+    design: [nift, nid, uceed, fashion-design, interior-design, graphic-design, bdes]
+    nata: [barch, architecture, b-arch]
+    ssc: [ssc-cgl, ssc-chsl, ssc-cpo, ssc-gd-constable, ssc-mts, delhi-police-constable]
+    banking: [ibps-po, ibps-clerk, sbi-po, sbi-clerk, rbi-assistant, rbi-grade-b, lic-aao]
+    upsc: [upsc-civil-services, upsc-capf-ac, state-psc]

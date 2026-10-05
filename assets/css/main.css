@@ -1537,3 +1537,39 @@ main :is(.prose, .page-hero-inner > p, .note, .table-note, .career-compare-note,
 /* Validation utility: confirms main.css edits are picked up by the build.
    Not used by any page yet; safe to remove. */
 .test-dashboard-ready{outline:1px dashed var(--stream-soft);}
+
+/* ---------- Interactive finder hub (_includes/explorer.html) ----------
+   Reuses the .fx-* controls and cards of the per-course finders. */
+.ex-controls{display:grid;gap:1.1rem;grid-template-columns:1fr;padding:1.2rem 1.3rem;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);margin-bottom:1rem;}
+@media (min-width:768px){.ex-controls{grid-template-columns:repeat(2,minmax(0,1fr));}.ex-step:first-child,.ex-step[data-ex-city-step]{grid-column:1/-1;}}
+.ex-step[hidden]{display:none;}
+.fx-select:disabled,.fx-pill:disabled{opacity:.55;cursor:not-allowed;}
+.fx-count a{color:var(--link);text-decoration:underline;}
+
+/* ---------- Career comparison tool (career-comparison.html) ---------- */
+.cmp-title{font-size:clamp(1.6rem,3.6vw,2.2rem);margin:0 0 1.2rem;}
+.cmp-picker{display:grid;gap:.8rem;padding:1.1rem 1.2rem;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);}
+.cmp-picker-row{display:flex;flex-wrap:wrap;gap:.8rem;align-items:center;}
+.cmp-picker-row .fx-select{flex:1 1 280px;max-width:520px;}
+.cmp-count{font-family:var(--font-mono);font-size:.78rem;font-weight:600;color:var(--text-muted);}
+.cmp-clear{min-height:44px;padding:.4rem .9rem;border:1px solid var(--line);border-radius:999px;background:var(--paper);color:var(--text);font:inherit;font-size:.86rem;font-weight:600;cursor:pointer;}
+.cmp-clear:hover{border-color:var(--stream-border,var(--line));background:var(--stream-soft);}
+.cmp-clear[hidden]{display:none;}
+.cmp-chips{display:flex;flex-wrap:wrap;gap:.5rem;margin:0;padding:0;list-style:none;}
+.cmp-chips:empty{display:none;}
+.cmp-chip{display:inline-flex;align-items:center;gap:.35rem;min-height:40px;padding:.2rem .3rem .2rem .95rem;border-radius:999px;background:var(--stream-accent);color:#241703;font-size:.9rem;font-weight:700;}
+.cmp-chip button{display:inline-grid;place-items:center;width:32px;height:32px;border:0;border-radius:50%;background:rgba(255,255,255,.4);color:inherit;font:inherit;font-size:1.1rem;line-height:1;cursor:pointer;}
+.cmp-chip button:hover,.cmp-chip button:focus-visible{background:rgba(255,255,255,.75);}
+.cmp-out{margin-top:1.1rem;}
+.cmp-hint{margin:0;padding:1.4rem 1.2rem;border:1px dashed var(--line);border-radius:var(--radius-md);text-align:center;color:var(--text-muted);font-weight:600;}
+.cmp-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius-md);background:var(--surface);}
+.cmp-table{border-collapse:separate;border-spacing:0;width:100%;min-width:620px;table-layout:fixed;}
+.cmp-table th,.cmp-table td{padding:.85rem 1rem;text-align:left;vertical-align:top;border-bottom:1px solid var(--line);font-size:.92rem;line-height:1.5;overflow-wrap:anywhere;}
+.cmp-table tr:last-child>*{border-bottom:0;}
+.cmp-table thead th{background:var(--paper);font-family:var(--font-display);font-size:1.02rem;font-weight:600;}
+.cmp-table thead th a{color:var(--text);text-decoration:underline;text-decoration-color:var(--stream-accent);text-underline-offset:3px;}
+.cmp-table thead th small{display:block;margin-top:.15rem;font-family:var(--font-mono);font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);}
+.cmp-table tbody th{position:sticky;left:0;z-index:1;width:8.5rem;background:var(--paper);font-family:var(--font-mono);font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);}
+.cmp-table thead th:first-child{position:sticky;left:0;z-index:2;width:8.5rem;}
+.cmp-table tbody tr:nth-child(even) td{background:color-mix(in srgb,var(--paper) 60%,transparent);}
+@media (max-width:600px){.cmp-table tbody th,.cmp-table thead th:first-child{width:6.5rem;}.cmp-table th,.cmp-table td{padding:.7rem .75rem;}}

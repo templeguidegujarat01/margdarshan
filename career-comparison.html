@@ -1,0 +1,134 @@
+---
+title: "Career Comparison Tool — Compare Courses & Careers Side by Side | Margdarshan"
+description: "Pick 2 to 4 careers from any stream — CA, MBBS, CSE, Data Science, B.Com, ITI and more — and compare duration, eligibility, key exams, starting salary and work domain side by side."
+og_type: "website"
+og_title: "Career Comparison Tool — Compare Courses & Careers Side by Side"
+og_description: "Pick 2 to 4 careers from any stream and compare duration, eligibility, key exams, starting salary and work domain side by side."
+twitter_description: "Compare 2 to 4 careers from any stream side by side."
+breadcrumb:
+  current: "Career Comparison"
+footer:
+  col3_heading: "Explore More"
+  col3_links:
+    - { href: "career-fit.html", label: "Find My Fit" }
+    - { href: "high-paying-careers.html", label: "High-Paying Careers" }
+    - { href: "after-12th.html", label: "After 12th" }
+---
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site.url }}{{ site.baseurl }}/" },
+    { "@type": "ListItem", "position": 2, "name": "Career Comparison", "item": "{{ site.url }}{{ site.baseurl }}/career-comparison.html" }
+  ]
+}
+</script>
+
+{%- assign cmp_ids = "science|commerce|arts|diploma|iti|govt" | split: "|" -%}
+{%- assign cmp_labels = "Science & Technology|Commerce & Finance|Arts, Law & Design|Diploma|ITI Trades|Govt Exams & Jobs" | split: "|" -%}
+
+<main id="main">
+  <section class="block cmp" aria-labelledby="cmp-heading">
+    <div class="container">
+      <h1 id="cmp-heading" class="cmp-title">Career comparison</h1>
+
+      <div class="cmp-picker">
+        <div class="cmp-picker-row">
+          <label class="sr-only" for="cmpAdd">Add a career to compare</label>
+          <select class="fx-select" id="cmpAdd">
+            <option value="">Add a career (select 2 to 4)</option>
+            {%- for sid in cmp_ids %}
+            {%- assign grp = site.data.careers | where: "stream", sid %}
+            <optgroup label="{{ cmp_labels[forloop.index0] | escape }}">
+              {%- for c in grp %}
+              <option value="{{ c.key }}">{{ c.label | escape }}</option>
+              {%- endfor %}
+            </optgroup>
+            {%- endfor %}
+          </select>
+          <span class="cmp-count" id="cmpCount" aria-live="polite">0 of 4 selected</span>
+          <button type="button" class="cmp-clear" id="cmpClear" hidden>Clear all</button>
+        </div>
+        <ul class="cmp-chips" id="cmpChips" aria-label="Selected careers"></ul>
+      </div>
+
+      <div class="cmp-out" id="cmpOut" aria-live="polite"></div>
+    </div>
+  </section>
+</main>
+
+<script type="application/json" id="cmpData">{{ site.data.careers | jsonify }}</script>
+<script>
+/* Career comparison: pick 2-4 careers (_data/careers.json), render a side-by-side table.
+   Selection lives in ?c=ca,cma,cs so a comparison can be shared or linked from a career page. */
+(function(){
+  var MIN = 2, MAX = 4;
+  var careers = JSON.parse(document.getElementById('cmpData').textContent);
+  var byKey = {}; careers.forEach(function(c){ byKey[c.key] = c; });
+  var STREAM = { science: 'Science', commerce: 'Commerce', arts: 'Arts', diploma: 'Diploma', iti: 'ITI', govt: 'Govt exam' };
+  var ROWS = [
+    ['Duration', 'duration'],
+    ['Eligibility', 'eligibility'],
+    ['Key exams', 'exams'],
+    ['Avg. starting salary', 'salary'],
+    ['Work domain', 'domain']
+  ];
+  var addEl = document.getElementById('cmpAdd');
+  var chipsEl = document.getElementById('cmpChips');
+  var outEl = document.getElementById('cmpOut');
+  var countEl = document.getElementById('cmpCount');
+  var clearEl = document.getElementById('cmpClear');
+  var picked = [];
+
+  function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  function syncUrl(){
+    if(!(window.history && history.replaceState)) return;
+    history.replaceState(null, '', window.location.pathname + (picked.length ? '?c=' + picked.join(',') : '') + window.location.hash);
+  }
+  function render(){
+    countEl.textContent = picked.length + ' of ' + MAX + ' selected';
+    clearEl.hidden = picked.length === 0;
+    chipsEl.innerHTML = picked.map(function(k){
+      return '<li class="cmp-chip">' + esc(byKey[k].label) + '<button type="button" data-remove="' + esc(k) + '" aria-label="Remove ' + esc(byKey[k].label) + '">&times;</button></li>';
+    }).join('');
+    Array.prototype.forEach.call(addEl.options, function(o){ if(o.value) o.disabled = picked.indexOf(o.value) > -1; });
+    addEl.disabled = picked.length >= MAX;
+    addEl.options[0].textContent = picked.length >= MAX ? 'Maximum of 4 reached — remove one to add another' : 'Add a career (select ' + MIN + ' to ' + MAX + ')';
+    addEl.value = '';
+
+    if(picked.length < MIN){
+      outEl.innerHTML = '<p class="cmp-hint">' + (picked.length === 0 ? 'Select at least 2 careers to compare.' : 'Add 1 more career to compare.') + '</p>';
+    } else {
+      var head = '<tr><th scope="col"><span class="sr-only">Detail</span></th>' + picked.map(function(k){
+        var c = byKey[k];
+        return '<th scope="col"><a href="' + esc(c.key) + '.html">' + esc(c.label) + '</a><small>' + esc(STREAM[c.stream] || c.stream) + '</small></th>';
+      }).join('') + '</tr>';
+      var body = ROWS.map(function(r){
+        return '<tr><th scope="row">' + r[0] + '</th>' + picked.map(function(k){ return '<td>' + esc(byKey[k][r[1]] || '—') + '</td>'; }).join('') + '</tr>';
+      }).join('');
+      outEl.innerHTML = '<div class="cmp-wrap" tabindex="0" role="region" aria-label="Career comparison table"><table class="cmp-table"><caption class="sr-only">Comparison of ' + esc(picked.map(function(k){ return byKey[k].label; }).join(', ')) + '</caption><thead>' + head + '</thead><tbody>' + body + '</tbody></table></div>';
+    }
+    syncUrl();
+  }
+
+  addEl.addEventListener('change', function(){
+    var k = addEl.value;
+    if(k && byKey[k] && picked.indexOf(k) < 0 && picked.length < MAX){ picked.push(k); }
+    render();
+  });
+  chipsEl.addEventListener('click', function(e){
+    var b = e.target.closest('[data-remove]'); if(!b) return;
+    picked = picked.filter(function(k){ return k !== b.getAttribute('data-remove'); });
+    render();
+  });
+  clearEl.addEventListener('click', function(){ picked = []; render(); });
+
+  var q = new URLSearchParams(window.location.search).get('c');
+  if(q){
+    q.split(',').forEach(function(k){ k = k.trim().toLowerCase(); if(byKey[k] && picked.indexOf(k) < 0 && picked.length < MAX) picked.push(k); });
+  }
+  render();
+})();
+</script>

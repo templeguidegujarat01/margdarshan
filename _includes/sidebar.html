@@ -1,6 +1,6 @@
 {%- comment -%}
-  App sidebar: brand + collapse toggle, four collapsible groups, footer links.
-  Menu content lives in _data/nav.yml (`sidebar`, `sidebar_footer`).
+  App sidebar: brand + collapse toggle, four collapsible groups.
+  Menu content lives in _data/nav.yml (`sidebar`).
   Desktop (>=1024px): fixed left rail, collapses to icons. Below: slide-over
   drawer opened from the topbar menu button. Behaviour is in scripts.html.
 
@@ -88,13 +88,5 @@
     </section>
     {%- endif %}
   </nav>
-
-  <div class="sb-foot">
-    <ul>
-      {%- for link in site.data.nav.sidebar_footer %}
-      <li><a href="{{ link.href }}"{% if link.href == cur %} aria-current="page"{% endif %}>{{ link.label }}</a></li>
-      {%- endfor %}
-    </ul>
-  </div>
 </aside>
 <div class="sb-scrim" id="sidebarScrim" hidden></div>

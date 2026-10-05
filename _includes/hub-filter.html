@@ -1,0 +1,38 @@
+{%- comment -%}
+  Filter tabs for the global & regional hubs. Markup contract:
+    [data-hub-filter="<group>"]   container of <button data-filter="<value>"> (value "all" shows everything)
+    [data-hub-group="<group>"]    container of items
+    item[data-cat="a b c"]        space-separated categories; hidden when no match
+    [data-hub-count]              optional live count text, [data-hub-empty] optional empty message
+  Works without JS: every item stays visible.
+{%- endcomment -%}
+<script>
+(function(){
+  document.querySelectorAll('[data-hub-filter]').forEach(function(bar){
+    var group = bar.getAttribute('data-hub-filter');
+    var wrap = document.querySelector('[data-hub-group="' + group + '"]');
+    if(!wrap) return;
+    var items = Array.prototype.slice.call(wrap.querySelectorAll('[data-cat]'));
+    var count = document.querySelector('[data-hub-count="' + group + '"]');
+    var empty = document.querySelector('[data-hub-empty="' + group + '"]');
+    function apply(value){
+      var shown = 0;
+      items.forEach(function(el){
+        var ok = value === 'all' || (' ' + el.getAttribute('data-cat') + ' ').indexOf(' ' + value + ' ') > -1;
+        el.hidden = !ok;
+        if(ok) shown++;
+      });
+      bar.querySelectorAll('[data-filter]').forEach(function(b){
+        b.setAttribute('aria-pressed', b.getAttribute('data-filter') === value ? 'true' : 'false');
+      });
+      if(count) count.textContent = 'Showing ' + shown + ' of ' + items.length;
+      if(empty) empty.hidden = shown !== 0;
+    }
+    bar.addEventListener('click', function(e){
+      var b = e.target.closest('[data-filter]');
+      if(b) apply(b.getAttribute('data-filter'));
+    });
+    apply('all');
+  });
+})();
+</script>

@@ -1,0 +1,31 @@
+{%- comment -%}
+  Instant switchers for global-regional-hub.html. Markup contract:
+    [data-switch="<name>"]             a tab bar of <button data-target="<panel id>"> and/or a <select> whose option values are panel ids
+    [data-switch-panel="<name>"]       each panel, with a unique id
+  Without JS every panel stays visible (one long page); with JS only the chosen panel shows.
+{%- endcomment -%}
+<script>
+(function(){
+  document.querySelectorAll('[data-switch]').forEach(function(ctrl){
+    var name = ctrl.getAttribute('data-switch');
+    var panels = Array.prototype.slice.call(document.querySelectorAll('[data-switch-panel="' + name + '"]'));
+    if(!panels.length) return;
+    var select = ctrl.querySelector('select');
+    function show(id){
+      panels.forEach(function(p){ p.hidden = p.id !== id; });
+      ctrl.querySelectorAll('button[data-target]').forEach(function(b){
+        b.setAttribute('aria-pressed', b.getAttribute('data-target') === id ? 'true' : 'false');
+      });
+      if(select) select.value = id;
+    }
+    ctrl.addEventListener('click', function(e){
+      var b = e.target.closest('button[data-target]');
+      if(b) show(b.getAttribute('data-target'));
+    });
+    if(select) select.addEventListener('change', function(){ show(select.value); });
+    var want = location.hash.slice(1), start = panels[0].id;
+    panels.forEach(function(p){ if(p.id === want) start = want; });
+    show(start);
+  });
+})();
+</script>

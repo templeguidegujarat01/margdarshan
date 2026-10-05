@@ -110,16 +110,41 @@ footer:
         {%- if c.id == "germany" %}<span class="hub-card-tag">Tuition-free public universities</span>{% endif %}
         <h3>{{ c.name }}</h3>
         <p>{{ c.summary }}</p>
+        <div class="stat-badges">
+          <span class="stat-badge"><span>Tuition</span><strong>{{ c.badges.tuition }}</strong></span>
+          <span class="stat-badge"><span>Work after study</span><strong>{{ c.badges.psw }}</strong></span>
+          <span class="stat-badge"><span>IELTS</span><strong>{{ c.badges.ielts }}</strong></span>
+        </div>
         <h4>Intakes</h4><p>{{ c.intakes }}</p>
         <h4>Tests</h4><p>{{ c.tests }}</p>
-        <h4>Indicative cost</h4><p>{{ c.cost }}</p>
+        <h4>Tuition &amp; living estimate</h4>
+        <ul>
+          <li><strong>Undergraduate:</strong> <span>{{ c.tuition.ug }}</span></li>
+          <li><strong>Postgraduate:</strong> <span>{{ c.tuition.pg }}</span></li>
+          <li><strong>Living:</strong> <span>{{ c.tuition.living }}</span></li>
+        </ul>
+        <h4>English proficiency cut-offs</h4>
+        <div class="table-wrap"><table class="table-simple"><thead><tr><th>IELTS</th><th>TOEFL</th><th>Duolingo</th></tr></thead>
+          <tbody><tr><td>{{ c.english.ielts }}</td><td>{{ c.english.toefl }}</td><td>{{ c.english.duolingo }}</td></tr></tbody></table></div>
+        <p>{{ c.english.note }}</p>
+        <h4>Visa: {{ c.visa.name }}</h4>
+        <p><strong>Authority:</strong> {{ c.visa.authority }}</p>
+        <ul>
+          {%- for st in c.visa.steps %}<li>{{ st }}</li>{%- endfor %}
+        </ul>
+        <p><strong>Documents:</strong> {{ c.visa.documents | join: ", " }}.</p>
+        <p><strong>Proof of funds:</strong> {{ c.visa.funds }}</p>
         <h4>Post-study work: {{ c.work.name }}</h4><p>{{ c.work.detail }}</p>
-        <h4>Scholarships</h4><p>{{ c.scholarships }}</p>
+        <h4>Top scholarships</h4>
+        <ul>
+          {%- for sch in c.top_scholarships %}<li>{{ sch }}</li>{%- endfor %}
+        </ul>
         <h4>Tip</h4><p>{{ c.tip }}</p>
       </article>
       {%- endfor %}
     </div>
     <p class="hub-empty" data-hub-empty="countries" hidden>No destinations match this filter.</p>
+    <p class="table-note">{{ site.data.study_abroad.english_note }}</p>
     <p class="table-note">{{ site.data.study_abroad.disclaimer }}</p>
   </div></section>
 

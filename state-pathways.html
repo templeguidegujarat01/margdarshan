@@ -86,7 +86,7 @@ footer:
   </section>
 
   <div class="quicknav-bar"><div class="container"><nav class="quicknav" aria-label="Section navigation">
-    <a href="#how">How It Works</a><a href="#states">State Directory</a><a href="#compare">Compare</a>
+    <a href="#how">How It Works</a><a href="#states">State Directory</a><a href="#rural">Rural Schemes</a><a href="#compare">Compare</a>
     <a href="#tips">Application Tips</a><a href="#faq">FAQs</a>
   </nav></div></div>
 
@@ -135,11 +135,25 @@ footer:
           {%- for q in s.quota %}<li>{{ q }}</li>{%- endfor %}
         </ul>
 
+        <h4>Reservation breakdown</h4>
+        <p>{{ s.reservation }}</p>
+
+        <h4>Domicile rule</h4>
+        <p>{{ s.domicile }}</p>
+
+        <h4>Counselling authority</h4>
+        <p>{{ s.counselling }}</p>
+
         <h4>Medical route</h4>
         <p>{{ s.medical }}</p>
 
         <h4>Polytechnic / diploma</h4>
         <p><strong>{{ s.polytechnic.name }}</strong> — {{ s.polytechnic.exam }}. {{ s.polytechnic.body }}.{% if s.polytechnic.url %} <a href="{{ s.polytechnic.url }}" rel="noopener" target="_blank">Official site</a>{% endif %}</p>
+
+        <h4>Rural &amp; regional schemes</h4>
+        <ul>
+          {%- for r in s.rural_schemes %}<li><strong>{{ r.name }}</strong> <span>— {{ r.note }}</span></li>{%- endfor %}
+        </ul>
 
         <h4>Scholarship portals</h4>
         <ul>
@@ -159,7 +173,17 @@ footer:
     <p class="hub-empty" data-hub-empty="states" hidden>No states match this filter.</p>
   </div></section>
 
-  <section class="block" id="compare" aria-labelledby="compare-heading"><div class="container">
+  <section class="block" id="rural" aria-labelledby="rural-heading"><div class="container">
+    <div class="section-head reveal"><span class="eyebrow">Rural &amp; first-generation learners</span><h2 id="rural-heading">National schemes that work in every state</h2>
+      <p>Central programmes open to students from villages and small towns, in addition to your state's own schemes above.</p></div>
+    <div class="card-grid cols-3 reveal">
+      {%- for n in site.data.state_exams.national_rural %}
+      <div class="info-card"><div class="info-card-head"><span class="info-card-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l10 5-10 5L2 8z"/><path d="M6 10.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-5.5"/></svg></span><h3>{{ n.name }}</h3></div><p>{{ n.note }}</p>{% if n.url %}<div class="chip-links"><a href="{{ n.url }}" rel="noopener" target="_blank">Official portal</a></div>{% endif %}</div>
+      {%- endfor %}
+    </div>
+  </div></section>
+
+  <section class="block block-alt" id="compare" aria-labelledby="compare-heading"><div class="container">
     <div class="section-head reveal"><span class="eyebrow">At a glance</span><h2 id="compare-heading">State comparison table</h2>
       <p>The main engineering test, the medical route and the diploma entry point for each state.</p></div>
     <div class="table-wrap reveal"><table class="table-simple">

@@ -115,7 +115,25 @@ footer:
         <ul>
           {%- for step in item.route %}<li>{{ step }}</li>{%- endfor %}
         </ul>
-        <h4>Key bodies &amp; institutes</h4><p>{{ item.bodies }}</p>
+        {%- if item.pathway %}
+        <h4>Licence / career pathway</h4>
+        <ul>
+          {%- for st in item.pathway %}<li>{{ st }}</li>{%- endfor %}
+        </ul>
+        {%- endif %}
+        <h4>Key bodies</h4><p>{{ item.bodies }}</p>
+        {%- if item.institutes %}
+        <h4>Institutes &amp; academies</h4>
+        <ul>
+          {%- for ins in item.institutes %}<li>{{ ins }}</li>{%- endfor %}
+        </ul>
+        {%- endif %}
+        {%- if item.opportunities %}
+        <h4>What you can get</h4>
+        <ul>
+          {%- for op in item.opportunities %}<li>{{ op }}</li>{%- endfor %}
+        </ul>
+        {%- endif %}
         {%- if item.links.size > 0 %}
         <div class="chip-links" aria-label="Related guides for {{ item.title }}">
           {%- for l in item.links %}<a href="{{ l.href }}">{{ l.label }}</a>{%- endfor %}

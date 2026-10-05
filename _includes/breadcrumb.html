@@ -1,11 +1,18 @@
-<div class="breadcrumb-bar">
-  <div class="container">
-    <nav class="breadcrumb" aria-label="Breadcrumb">
-      <a href="index.html">Home</a>
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
-      {% if include.parent_href and include.parent_href != "" %}<a href="{{ include.parent_href }}">{{ include.parent_label }}</a>
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
-      {% endif %}<span aria-current="page">{{ include.current }}</span>
-    </nav>
-  </div>
-</div>
+{%- comment -%}
+  Breadcrumb trail rendered inside the topbar (_includes/header.html):
+  Home > [parent] > current. `current` empty (homepage) renders just "Home".
+  Params: parent_href, parent_label, current
+{%- endcomment -%}
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol>
+    {%- if include.current %}
+    <li><a href="index.html">Home</a></li>
+    {%- if include.parent_href and include.parent_href != "" %}
+    <li><a href="{{ include.parent_href }}">{{ include.parent_label }}</a></li>
+    {%- endif %}
+    <li><span aria-current="page">{{ include.current }}</span></li>
+    {%- else %}
+    <li><span aria-current="page">Home</span></li>
+    {%- endif %}
+  </ol>
+</nav>

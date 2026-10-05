@@ -1,100 +1,23 @@
-<header class="site-header">
-  <nav class="container nav-inner" aria-label="Primary">
-    <a href="index.html" class="logo">
-      <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#E8A33D"/><path d="M8 22 L16 8 L24 22" stroke="#0F2A3D" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="16" r="1.8" fill="#0F2A3D"/></svg>
-      Margdarshan
-    </a>
-
-    <div class="nav-links">
-      <div class="drop-wrap">
-        <button class="drop-btn" id="streamsBtn" type="button" aria-expanded="false" aria-controls="streamsMenu">
-          Explore
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="dropdown-menu mega-menu" id="streamsMenu" hidden>
-          <div class="mega-cols">
-            <div class="mega-col">
-              <p class="menu-label" id="megaStreams">By stream</p>
-              <ul aria-labelledby="megaStreams">{% assign list = site.data.nav.streams %}{% for item in list %}
-              <li><a class="mega-item" href="{{ item.href }}"{% if include.active_stream == item.key %} aria-current="page"{% endif %}>
-                <span class="mega-item-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{{ item.icon }}</svg></span>
-                <span class="mega-item-text"><strong>{{ item.label }}</strong><small>{{ item.desc }}</small></span>
-              </a></li>{% endfor %}
-              </ul>
-            </div>
-            <div class="mega-col">
-              <p class="menu-label" id="megaGoals">By goal</p>
-              <ul aria-labelledby="megaGoals">{% assign list = site.data.nav.goals %}{% for item in list %}
-              <li><a class="mega-item" href="{{ item.href }}"{% if include.active_stream == item.key %} aria-current="page"{% endif %}>
-                <span class="mega-item-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{{ item.icon }}</svg></span>
-                <span class="mega-item-text"><strong>{{ item.label }}</strong><small>{{ item.desc }}</small></span>
-              </a></li>{% endfor %}
-              </ul>
-              <a class="mega-fit" href="career-fit.html">
-                <strong>Not sure yet?</strong>
-                <span>Take the Find My Fit quiz &rarr;</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <a href="after-10th.html">After 10th</a>
-      <a href="career-fit.html">Find My Fit</a>
-      <a href="{{ include.careers_href | default: "index.html#careers" }}">{{ include.careers_label | default: "Explore Careers" }}</a>
-      {% if include.faq_href %}<a href="{{ include.faq_href }}">{{ include.faq_label | default: "FAQs" }}</a>{% endif %}
-      <a href="about.html"{% if include.current == "about" %} aria-current="page"{% endif %}>About</a>
-    </div>
-
-    <div class="nav-actions">
-      <button type="button" class="search-trigger" id="searchNavBtn" data-search-open aria-label="Search careers, exams and colleges" aria-haspopup="dialog" aria-controls="site-search">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-        <span class="search-trigger-text">Search</span>
-        <kbd class="search-trigger-kbd" aria-hidden="true">/</kbd>
-      </button>
-      <button type="button" class="icon-btn" id="themeToggle" aria-label="Toggle dark mode" aria-pressed="false">
-        <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
-        <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
-      </button>
-      <button type="button" class="icon-btn menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobilePanel">
-        <svg class="icon-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-        <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
-      </button>
-    </div>
-  </nav>
-
-  <div class="mobile-panel" id="mobilePanel" hidden>
-    <div class="container">
-      <button type="button" class="mobile-search" data-search-open aria-haspopup="dialog" aria-controls="site-search">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-        Search careers, exams, colleges…
-      </button>
-      <button type="button" class="drop-btn mobile-explore" id="mobileStreamsBtn" aria-expanded="false" aria-controls="mobileStreamsSub">
-        Explore streams &amp; goals
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-      </button>
-      <div class="mobile-sub" id="mobileStreamsSub">
-        <div class="mobile-sub-inner">
-          <p class="menu-label">By stream</p>
-          <ul class="msub-grid">{% assign list = site.data.nav.streams %}{% for item in list %}
-            <li><a class="msub-item" href="{{ item.href }}"{% if include.active_stream == item.key %} aria-current="page"{% endif %}>
-              <span class="msub-item-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{{ item.icon }}</svg></span>
-              <span class="msub-item-text"><strong>{{ item.label }}</strong><small>{{ item.desc }}</small></span>
-            </a></li>{% endfor %}
-          </ul>
-          <p class="menu-label">By goal</p>
-          <ul class="msub-list">{% assign list = site.data.nav.goals %}{% for item in list %}
-            <li><a class="msub-item" href="{{ item.href }}"{% if include.active_stream == item.key %} aria-current="page"{% endif %}>
-              <span class="msub-item-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{{ item.icon }}</svg></span>
-              <span class="msub-item-text"><strong>{{ item.label }}</strong><small>{{ item.desc }}</small></span>
-            </a></li>{% endfor %}
-          </ul>
-        </div>
-      </div>
-      <a href="after-10th.html">After 10th</a>
-      <a href="career-fit.html">Find My Fit</a>
-      <a href="{{ include.careers_href | default: "index.html#careers" }}">{{ include.careers_label | default: "Explore Careers" }}</a>
-      {% if include.faq_href %}<a href="{{ include.faq_href }}">{{ include.faq_label | default: "FAQs" }}</a>{% endif %}
-      <a href="about.html"{% if include.current == "about" %} aria-current="page"{% endif %}>About</a>
-    </div>
+{%- comment -%}
+  Sticky top bar of the app shell: sidebar toggle (mobile), breadcrumb,
+  global search (opens the overlay in career-search.html; "/" focuses it),
+  theme switch. The site navigation itself is _includes/sidebar.html.
+  Params: breadcrumb_parent_href, breadcrumb_parent_label, breadcrumb_current
+{%- endcomment -%}
+<header class="topbar">
+  <button type="button" class="icon-btn sb-open" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="sidebar">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+  </button>
+  {% include breadcrumb.html parent_href=include.breadcrumb_parent_href parent_label=include.breadcrumb_parent_label current=include.breadcrumb_current %}
+  <div class="topbar-actions">
+    <button type="button" class="search-trigger" id="searchNavBtn" data-search-open aria-label="Search careers, exams and colleges" aria-haspopup="dialog" aria-controls="site-search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <span class="search-trigger-text">Search careers, exams, colleges…</span>
+      <kbd class="search-trigger-kbd" aria-hidden="true">/</kbd>
+    </button>
+    <button type="button" class="icon-btn" id="themeToggle" aria-label="Toggle dark mode" aria-pressed="false">
+      <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+      <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+    </button>
   </div>
 </header>

@@ -23,73 +23,103 @@
     });
   }
 
-  /* ---------- Streams dropdown (desktop) ---------- */
-  var streamsBtn = document.getElementById('streamsBtn');
-  var streamsMenu = document.getElementById('streamsMenu');
-  function closeDropdown(){ if(streamsMenu && streamsBtn){ streamsMenu.hidden = true; streamsBtn.setAttribute('aria-expanded','false'); } }
-  if(streamsBtn && streamsMenu){
-    streamsBtn.addEventListener('click', function(){
-      var open = streamsBtn.getAttribute('aria-expanded') === 'true';
-      if(open){ closeDropdown(); } else { streamsMenu.hidden = false; streamsBtn.setAttribute('aria-expanded','true'); }
-    });
-    document.addEventListener('click', function(e){
-      if(!streamsBtn.contains(e.target) && !streamsMenu.contains(e.target)){ closeDropdown(); }
-    });
-  }
-  document.addEventListener('keydown', function(e){
-    if(e.key === 'Escape'){
-      if(streamsMenu && !streamsMenu.hidden && streamsBtn){ closeDropdown(); streamsBtn.focus(); }
-      if(mobilePanel && mobilePanel.classList.contains('is-open')){ closeMobilePanel(); menuToggle.focus(); }
-    }
-  });
-
-  /* ---------- Mobile panel ----------
-     Full-height drawer under the header that scrolls on its own; while it
-     is open the page behind is scroll-locked (html.nav-locked). Closes on
-     Escape, on any link tap inside it, and when the viewport grows to the
-     desktop layout (>= 1024px), so the lock can never get stuck. */
+  /* ---------- App sidebar ----------
+     Desktop (>= 1024px): fixed rail; the ☰ button collapses it to an icon
+     rail (html[data-sidebar="collapsed"], remembered, set pre-paint in the
+     layout <head>). Below 1024px it is a slide-over drawer opened from the
+     topbar button: the page behind is scroll-locked (html.nav-locked) and the
+     drawer closes on Escape, scrim tap, any link tap, or growing to desktop
+     width, so the lock can never get stuck. Group headers and items with
+     sub-pages collapse independently; closed groups are remembered. */
+  var sidebar = document.getElementById('sidebar');
+  var sbScrim = document.getElementById('sidebarScrim');
   var menuToggle = document.getElementById('menuToggle');
-  var mobilePanel = document.getElementById('mobilePanel');
-  function setMobilePanel(open){
-    if(!mobilePanel || !menuToggle) return;
-    mobilePanel.hidden = !open;
-    mobilePanel.classList.toggle('is-open', open);
+  var sbCollapse = document.getElementById('sidebarCollapse');
+  var desktopMq = window.matchMedia('(min-width: 1024px)');
+  function store(k, v){ try { if(v === null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch(e){} }
+  function sbDrawerOpen(){ return sidebar && sidebar.classList.contains('is-open'); }
+  function setDrawer(open){
+    if(!sidebar) return;
+    sidebar.classList.toggle('is-open', open);
     root.classList.toggle('nav-locked', open);
-    menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-    menuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-    if(open) mobilePanel.scrollTop = 0;
+    if(sbScrim){ sbScrim.hidden = !open; sbScrim.classList.toggle('is-open', open); }
+    if(menuToggle){
+      menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      menuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    }
+    // Drawer is a dialog-like layer on small screens only.
+    if(!desktopMq.matches){ if(open) sidebar.removeAttribute('inert'); else sidebar.setAttribute('inert',''); }
   }
-  function closeMobilePanel(){
-    if(mobilePanel && mobilePanel.classList.contains('is-open')) setMobilePanel(false);
+  function syncSidebarMode(){
+    if(!sidebar) return;
+    if(desktopMq.matches){ setDrawer(false); sidebar.removeAttribute('inert'); }
+    else { root.removeAttribute('data-sidebar'); if(!sbDrawerOpen()) sidebar.setAttribute('inert',''); }
+    syncCollapseBtn();
   }
-  if(menuToggle && mobilePanel){
-    menuToggle.addEventListener('click', function(){
-      setMobilePanel(!mobilePanel.classList.contains('is-open'));
+  function syncCollapseBtn(){
+    if(!sbCollapse) return;
+    var rail = root.getAttribute('data-sidebar') === 'collapsed';
+    sbCollapse.setAttribute('aria-expanded', rail ? 'false' : 'true');
+    sbCollapse.setAttribute('aria-label', desktopMq.matches ? (rail ? 'Expand sidebar' : 'Collapse sidebar') : 'Close menu');
+  }
+  if(sidebar){
+    if(menuToggle) menuToggle.addEventListener('click', function(){ setDrawer(!sbDrawerOpen()); if(sbDrawerOpen()){ var f = sidebar.querySelector('a[href]'); if(f) f.focus(); } });
+    if(sbScrim) sbScrim.addEventListener('click', function(){ setDrawer(false); });
+    if(sbCollapse) sbCollapse.addEventListener('click', function(){
+      if(!desktopMq.matches){ setDrawer(false); if(menuToggle) menuToggle.focus(); return; }
+      var rail = root.getAttribute('data-sidebar') !== 'collapsed';
+      if(rail) root.setAttribute('data-sidebar','collapsed'); else root.removeAttribute('data-sidebar');
+      store('md-sidebar', rail ? 'collapsed' : null);
+      syncCollapseBtn();
     });
-    mobilePanel.addEventListener('click', function(e){
-      if(e.target.closest('a[href]')) closeMobilePanel();
+    sidebar.addEventListener('click', function(e){
+      if(!desktopMq.matches && e.target.closest('a[href]')) setDrawer(false);
     });
-    var desktopMq = window.matchMedia('(min-width: 1024px)');
-    var onMq = function(){ if(desktopMq.matches) closeMobilePanel(); };
-    if(desktopMq.addEventListener) desktopMq.addEventListener('change', onMq); else desktopMq.addListener(onMq);
+    if(desktopMq.addEventListener) desktopMq.addEventListener('change', syncSidebarMode); else desktopMq.addListener(syncSidebarMode);
     // Back/forward cache can restore a page with the drawer open.
-    window.addEventListener('pageshow', function(){ setMobilePanel(false); });
-  }
-  var mobileStreamsBtn = document.getElementById('mobileStreamsBtn');
-  var mobileStreamsSub = document.getElementById('mobileStreamsSub');
-  if(mobileStreamsBtn && mobileStreamsSub){
-    mobileStreamsBtn.addEventListener('click', function(){
-      var open = mobileStreamsSub.classList.toggle('is-open');
-      mobileStreamsBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
-      // Bring the opened list into view inside the drawer, not the page.
-      if(open && mobilePanel){
-        window.setTimeout(function(){
-          var top = mobileStreamsBtn.offsetTop - 8;
-          if(mobilePanel.scrollTo) mobilePanel.scrollTo({top: top, behavior: reduceMotion ? 'auto' : 'smooth'});
-          else mobilePanel.scrollTop = top;
-        }, reduceMotion ? 0 : 120);
-      }
+    window.addEventListener('pageshow', function(){ setDrawer(false); syncSidebarMode(); });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && sbDrawerOpen() && !desktopMq.matches){ setDrawer(false); if(menuToggle) menuToggle.focus(); }
     });
+    syncSidebarMode();
+
+    // Collapsible groups (remembered) and expandable items.
+    var closedGroups = [];
+    try { closedGroups = JSON.parse(localStorage.getItem('md-sb-closed') || '[]'); } catch(e){}
+    if(!Array.isArray(closedGroups)) closedGroups = [];
+    function setGroup(g, open){
+      g.classList.toggle('is-open', open);
+      var b = g.querySelector('.sb-group-btn');
+      if(b) b.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    sidebar.querySelectorAll('.sb-group').forEach(function(g){
+      var id = g.getAttribute('data-group');
+      // A group holding the current page always starts open.
+      if(closedGroups.indexOf(id) !== -1 && !g.querySelector('[aria-current], .is-trail')) setGroup(g, false);
+      g.querySelector('.sb-group-btn').addEventListener('click', function(){
+        var open = !g.classList.contains('is-open');
+        setGroup(g, open);
+        var i = closedGroups.indexOf(id);
+        if(open && i !== -1) closedGroups.splice(i, 1);
+        if(!open && i === -1) closedGroups.push(id);
+        store('md-sb-closed', JSON.stringify(closedGroups));
+      });
+    });
+    sidebar.querySelectorAll('.sb-expand').forEach(function(b){
+      b.addEventListener('click', function(){
+        var item = b.closest('.sb-item');
+        var open = !item.classList.contains('is-open');
+        item.classList.toggle('is-open', open);
+        b.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    });
+    // Keep the current page in view inside the scrolling nav.
+    var curLink = sidebar.querySelector('[aria-current="page"]');
+    var sbScroll = sidebar.querySelector('.sb-scroll');
+    if(curLink && sbScroll){
+      var cr = curLink.getBoundingClientRect(), sr = sbScroll.getBoundingClientRect();
+      if(cr.bottom > sr.bottom || cr.top < sr.top) sbScroll.scrollTop += cr.top - sr.top - sr.height / 3;
+    }
   }
 
   /* ---------- Site search overlay (_includes/career-search.html) ----------
@@ -214,7 +244,7 @@
     function openSearch(){
       if(searchOverlay.getAttribute('data-open') === 'true') return;
       sLastFocus = document.activeElement;
-      closeDropdown(); closeMobilePanel();
+      if(typeof setDrawer === "function") setDrawer(false);
       searchOverlay.setAttribute('data-open', 'true');
       document.body.style.overflow = 'hidden';
       loadIndex();

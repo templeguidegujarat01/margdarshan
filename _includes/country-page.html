@@ -6,6 +6,7 @@
 {%- assign c = site.data.study_abroad.countries | where: "id", include.id | first -%}
 {%- assign cp = site.data.country_pages.countries[include.id] -%}
 {%- assign pt = site.data.country_portals.countries[include.id] -%}
+{%- assign cc = site.data.country_careers.countries[include.id] -%}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -39,6 +40,31 @@
 }
 </script>
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Universities in {{ c.name }} for Indian students",
+  "itemListElement": [
+    {%- for u in cc.finder %}
+    {"@type":"ListItem","position":{{ forloop.index }},"item":{"@type":"CollegeOrUniversity","name":{{ u.name | jsonify }},"url":{{ u.url | jsonify }},"address":{"@type":"PostalAddress","addressLocality":{{ u.city | jsonify }}}}}{% unless forloop.last %},{% endunless %}
+    {%- endfor %}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Career guides in {{ c.name }}",
+  "itemListElement": [
+    {%- for g in cc.careers %}
+    {"@type":"ListItem","position":{{ forloop.index }},"item":{"@type":"HowTo","name":{{ g.title | jsonify }},"description":{{ g.summary | jsonify }},"step":[{%- for st in g.steps %}{"@type":"HowToStep","name":{{ st.stage | jsonify }},"text":{{ st.detail | jsonify }}}{% unless forloop.last %},{% endunless %}{%- endfor %}]}}{% unless forloop.last %},{% endunless %}
+    {%- endfor %}
+  ]
+}
+</script>
+
 <main id="main">
 
   <section class="page-hero" aria-labelledby="hero-heading">
@@ -49,7 +75,7 @@
       <span class="eyebrow">{{ pt.brand }} · Country Edition</span>
       <h1 id="hero-heading">Study in {{ c.name }}{% if c.id == "germany" %}: Tuition-Free Public Universities{% endif %}</h1>
       <div class="meta-row">
-        <span>Careers</span><span>·</span><span>Universities</span><span>·</span><span>Visa &amp; PR</span><span>·</span><span>Scholarships</span><span>·</span><span>Costs</span>
+        <span>Streams</span><span>·</span><span>Career guides</span><span>·</span><span>Exams</span><span>·</span><span>Universities</span><span>·</span><span>Visa &amp; PR</span><span>·</span><span>Scholarships</span><span>·</span><span>Costs</span>
       </div>
       <p>{{ c.summary }}</p>
       <div class="page-hero-ctas">
@@ -70,9 +96,74 @@
   </section>
 
   <div class="quicknav-bar"><div class="container"><nav class="quicknav" aria-label="Section navigation">
-    <a href="#careers">Careers</a><a href="#universities">Universities</a><a href="#visa-pr">Visa &amp; PR</a><a href="#scholarships">Scholarships</a>
+    <a href="#routes">Degree routes</a><a href="#career-guides">Career guides</a><a href="#exams">Exams</a><a href="#finder">University finder</a><a href="#careers">Job market</a><a href="#universities">Rankings table</a><a href="#visa-pr">Visa &amp; PR</a><a href="#scholarships">Scholarships</a>
     <a href="#timeline">Timeline</a><a href="#english">English Tests</a><a href="#costs">Costs</a><a href="#compliance">Verify</a><a href="#faq">FAQs</a>
   </nav></div></div>
+
+
+  <section class="block" id="routes" aria-labelledby="routes-heading"><div class="container">
+    <div class="section-head reveal"><span class="eyebrow">Stream &amp; major routes</span><h2 id="routes-heading">{{ cc.routes.system }}</h2>
+      <p>{{ cc.routes.intro }}</p></div>
+    <div class="card-grid cols-3 reveal">
+      {%- for r in cc.routes.items %}
+      <div class="feature-card"><span class="feature-card-kicker"><span class="feature-card-num">{{ forloop.index }}</span>Pathway</span><h3>{{ r.name }}</h3><p>{{ r.detail }}</p></div>
+      {%- endfor %}
+    </div>
+  </div></section>
+
+  <section class="block block-alt" id="career-guides" aria-labelledby="guides-heading"><div class="container">
+    <div class="section-head reveal"><span class="eyebrow">In-country career guides</span><h2 id="guides-heading">Career tracks and licensing in {{ c.name }}</h2>
+      <p>Each track shows the full chain: degree, entrance or licensing exam, regulator and work route.</p></div>
+    <div class="chip-links reveal">{%- for g in cc.careers %}<a href="#{{ g.id }}">{{ g.title | split: ' (' | first }}</a>{%- endfor %}</div>
+    {%- for g in cc.careers %}
+    <article class="highlight-box reveal mt-lg" id="{{ g.id }}">
+      <h3>{{ g.title }}</h3>
+      <p><strong>Regulator:</strong> {{ g.regulator }}</p>
+      <p>{{ g.summary }}</p>
+      <div class="table-wrap"><table class="table-simple">
+        <thead><tr><th>Stage</th><th>What happens</th></tr></thead>
+        <tbody>
+          {%- for st in g.steps %}
+          <tr><td><strong>{{ st.stage }}</strong></td><td>{{ st.detail }}</td></tr>
+          {%- endfor %}
+        </tbody>
+      </table></div>
+      <p class="table-note">Official source: <a href="{{ g.link.url }}" target="_blank" rel="noopener noreferrer">{{ g.link.label }}</a></p>
+    </article>
+    {%- endfor %}
+    <p class="table-note">{{ site.data.country_careers.disclaimer }}</p>
+  </div></section>
+
+  <section class="block" id="exams" aria-labelledby="exams-heading"><div class="container">
+    <div class="section-head reveal"><span class="eyebrow">Admissions &amp; licensing exams</span><h2 id="exams-heading">Entrance and licensing exams for {{ c.name }}</h2></div>
+    <div class="table-wrap reveal"><table class="table-simple">
+      <thead><tr><th>Exam</th><th>Used for</th><th>Format</th><th>Score</th><th>Conducted by</th></tr></thead>
+      <tbody>
+        {%- for e in cc.exams %}
+        <tr><td><strong><a href="{{ e.url }}" target="_blank" rel="noopener noreferrer">{{ e.name }}</a></strong></td><td>{{ e.level }}</td><td>{{ e.format }}</td><td>{{ e.score }}</td><td>{{ e.body }}</td></tr>
+        {%- endfor %}
+      </tbody>
+    </table></div>
+  </div></section>
+
+  <section class="block block-alt" id="finder" aria-labelledby="finder-heading"><div class="container">
+    <div class="section-head reveal"><span class="eyebrow">University &amp; college finder</span><h2 id="finder-heading">Featured universities in {{ c.name }}</h2>
+      <p>Tuition is indicative per year for international students. Use the official admissions link for current figures and deadlines.</p></div>
+    <div class="hub-grid reveal">
+      {%- for u in cc.finder %}
+      <article class="hub-card"><span class="hub-card-tag">{{ u.type }}</span><h3>{{ u.name }}</h3>
+        <ul class="feature-steps">
+          <li><strong>City:</strong> {{ u.city }}</li>
+          <li><strong>Acceptance:</strong> {{ u.acceptance }}</li>
+          <li><strong>Tuition:</strong> {{ u.tuition }}</li>
+          <li><strong>Admission cycle:</strong> {{ u.cycle }}</li>
+          <li><strong>Known for:</strong> {{ u.strengths }}</li>
+          <li><a href="{{ u.url }}" target="_blank" rel="noopener noreferrer">Official admissions page</a></li>
+        </ul></article>
+      {%- endfor %}
+    </div>
+    <div class="chip-links mt-lg"><span class="portal-exams-label">Official boards:</span>{%- for b in cc.official_boards %}<a href="{{ b.url }}" target="_blank" rel="noopener noreferrer">{{ b.label }}</a>{%- endfor %}</div>
+  </div></section>
 
   <section class="block" id="careers" aria-labelledby="careers-heading"><div class="container">
     <div class="section-head reveal"><span class="eyebrow">Career &amp; industry directory</span><h2 id="careers-heading">High-demand sectors in {{ c.name }}</h2>

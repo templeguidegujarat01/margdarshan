@@ -2,6 +2,7 @@
 (function(){
   "use strict";
   var root = document.documentElement;
+  var MD_ROOT = '{{ root }}'; /* "" on top-level pages, "../" on pages one folder deep */
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ---------- Theme ---------- */
@@ -154,7 +155,7 @@
     function loadIndex(){
       if(sIndex || sLoading) return;
       sLoading = true;
-      fetch('assets/search.json').then(function(r){ if(!r.ok) throw r; return r.json(); }).then(function(data){
+      fetch(MD_ROOT + 'assets/search.json').then(function(r){ if(!r.ok) throw r; return r.json(); }).then(function(data){
         sIndex = data.map(function(d){
           return { d: d, t: norm(d.t), s: norm(d.s), k: norm(d.k) + ' ' + norm(catLabels[d.c]) };
         });
@@ -229,7 +230,7 @@
       hits.sort(function(a, b){ return b.sc - a.sc || a.i - b.i; });
       sResults.innerHTML = hits.map(function(h, j){
         var d = h.e.d;
-        return '<li><a role="option" id="sr-' + j + '" aria-selected="false" class="search-result" href="' + esc(d.u) + '" data-t="' + esc(d.t) + '" data-c="' + esc(d.c) + '">' +
+        return '<li><a role="option" id="sr-' + j + '" aria-selected="false" class="search-result" href="' + esc(MD_ROOT + d.u) + '" data-t="' + esc(d.t) + '" data-c="' + esc(d.c) + '">' +
           '<span class="search-result-cat" data-c="' + esc(d.c) + '">' + esc(catLabels[d.c] || '') + '</span>' +
           '<span class="search-result-main"><strong>' + mark(d.t, words) + '</strong><span>' + mark(d.s, words) + '</span></span>' +
           arrowSvg + '</a></li>';
@@ -280,7 +281,7 @@
     var RECENT_KEY = 'md-recent-search';
     function getRecent(){ try { return JSON.parse(localStorage.getItem(RECENT_KEY)) || []; } catch(err){ return []; } }
     function rememberResult(a){
-      var item = { t: a.getAttribute('data-t'), u: a.getAttribute('href'), c: a.getAttribute('data-c') };
+      var item = { t: a.getAttribute('data-t'), u: (a.getAttribute('href') || '').replace(MD_ROOT, ''), c: a.getAttribute('data-c') };
       if(!item.t) return;
       var list = getRecent().filter(function(r){ return r.u !== item.u; });
       list.unshift(item);
@@ -290,7 +291,7 @@
       var list = getRecent();
       sRecentWrap.hidden = !list.length;
       sRecentList.innerHTML = list.map(function(r){
-        return '<a class="search-recent-item" href="' + esc(r.u) + '"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>' + esc(r.t) + '</a>';
+        return '<a class="search-recent-item" href="' + esc(MD_ROOT + r.u) + '"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>' + esc(r.t) + '</a>';
       }).join('');
     }
     var sRecentWrap = document.getElementById('searchRecent');

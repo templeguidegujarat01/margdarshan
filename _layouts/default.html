@@ -27,6 +27,13 @@
 {%- assign og_title = page.og_title | default: page.title -%}
 {%- assign og_description = page.og_description | default: page.description -%}
 {%- assign page_url = page.url | absolute_url -%}
+{%- comment -%}
+  Folder depth: pages one folder deep (e.g. /study-abroad/usa.html) get root = "../" so the
+  shell's relative links, CSS and scripts resolve. Top-level pages keep root = "" and are untouched.
+{%- endcomment -%}
+{%- assign root = "" -%}
+{%- assign depth = page.url | split: "/" | size | minus: 2 -%}
+{%- if depth > 0 %}{%- assign root = "../" -%}{%- endif -%}
 <!DOCTYPE html>
 <html lang="{{ site.lang }}">
 <head>
@@ -55,7 +62,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Hind:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="{{ root }}assets/css/main.css">
 <script>
 /* Apply saved theme and sidebar state before first paint (no flash, no layout shift). */
 (function(){
@@ -72,6 +79,7 @@
 <a href="#main" class="skip-link">Skip to main content</a>
 <div class="progress-bar" id="progressBar"{% if page.progress_full %} style="width:100%;"{% endif %}></div>
 
+{%- capture shell -%}
 {% include sidebar.html careers_href=page.header.careers_href careers_label=page.header.careers_label faq_href=page.header.faq_href faq_label=page.header.faq_label active_stream=page.header.active_stream %}
 
 {% include career-search.html %}
@@ -86,6 +94,20 @@
 {% endcapture -%}
 {% include footer.html col3_heading=page.footer.col3_heading col3_content=col3_content guidance_careers_href=page.footer.careers_href guidance_careers_label=page.footer.careers_label guidance_faq_href=page.footer.faq_href %}
 </div>
+{%- endcapture -%}
+{%- if depth > 0 -%}
+  {%- comment -%} Prefix every relative href/src with root, then undo it for #anchors, absolute and mailto/tel links. {%- endcomment -%}
+  {%- assign hr = 'href="' | append: root -%}
+  {%- assign sr = 'src="' | append: root -%}
+  {%- assign shell = shell | replace: 'href="', hr | replace: 'src="', sr -%}
+  {%- assign keeps = "#,http,mailto:,tel:,/" | split: "," -%}
+  {%- for keep in keeps -%}
+    {%- assign bad_h = hr | append: keep -%}{%- assign good_h = 'href="' | append: keep -%}
+    {%- assign bad_s = sr | append: keep -%}{%- assign good_s = 'src="' | append: keep -%}
+    {%- assign shell = shell | replace: bad_h, good_h | replace: bad_s, good_s -%}
+  {%- endfor -%}
+{%- endif -%}
+{{ shell }}
 
 {% unless page.back_to_top == false -%}
 <button type="button" class="back-to-top" id="backToTop" aria-label="Back to top">

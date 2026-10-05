@@ -86,10 +86,20 @@ footer:
   </section>
 
   <div class="quicknav-bar"><div class="container"><nav class="quicknav" aria-label="Section navigation">
-    <a href="#careers">Career Directory</a><a href="#reality">Reality Check</a><a href="#faq">FAQs</a>
+    <a href="#sectors">Sector Guides</a><a href="#careers">Career Directory</a><a href="#reality">Reality Check</a><a href="#faq">FAQs</a>
   </nav></div></div>
 
-  <section class="block" id="careers" aria-labelledby="careers-heading"><div class="container">
+  <section class="block" id="sectors" aria-labelledby="sectors-heading"><div class="container">
+    <div class="section-head reveal"><span class="eyebrow">Deep dives</span><h2 id="sectors-heading">Dedicated sector guides</h2>
+      <p>Each sector has its own page with a step-by-step roadmap, eligibility, institutes and FAQs.</p></div>
+    <div class="card-grid cols-4 reveal">
+      {%- for sec in site.data.niche_careers.sectors %}
+      <a class="feature-card" href="niche-careers/{{ sec.id }}.html"><span class="feature-card-kicker"><span class="feature-card-num">{{ forloop.index }}</span>Guide</span><h3>{{ sec.label | replace: "&", "&amp;" }}</h3><p>{{ sec.text }}</p></a>
+      {%- endfor %}
+    </div>
+  </div></section>
+
+  <section class="block block-alt" id="careers" aria-labelledby="careers-heading"><div class="container">
     <div class="section-head reveal"><span class="eyebrow">Choose your path</span><h2 id="careers-heading">Niche career directory</h2>
       <p>Filter by cluster, then read the entry route and eligibility for each career.</p></div>
 
@@ -134,6 +144,7 @@ footer:
           {%- for op in item.opportunities %}<li>{{ op }}</li>{%- endfor %}
         </ul>
         {%- endif %}
+        <div class="chip-links"><a href="niche-careers/{{ item.sector }}.html">Full sector guide</a></div>
         {%- if item.links.size > 0 %}
         <div class="chip-links" aria-label="Related guides for {{ item.title }}">
           {%- for l in item.links %}<a href="{{ l.href }}">{{ l.label }}</a>{%- endfor %}
@@ -146,7 +157,7 @@ footer:
     <p class="table-note">{{ site.data.niche_careers.disclaimer }}</p>
   </div></section>
 
-  <section class="block block-alt" id="reality" aria-labelledby="reality-heading"><div class="container">
+  <section class="block" id="reality" aria-labelledby="reality-heading"><div class="container">
     <div class="section-head reveal"><span class="eyebrow">Honest take</span><h2 id="reality-heading">Before you choose a niche career</h2></div>
     <div class="card-grid cols-3 reveal">
       <div class="feature-card"><span class="feature-card-kicker"><span class="feature-card-num">1</span>Fit</span><h3>Check medical and physical standards</h3><p>Pilot, maritime and sports careers have strict fitness and vision rules; check them before investing in training.</p></div>
@@ -159,7 +170,7 @@ footer:
     <div class="highlight-box reveal mt-lg"><h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg>Not sure which path suits you?</h3><p>Take the Find My Fit quiz, or compare careers side by side.</p><div class="chip-links"><a href="career-fit.html">Find My Fit quiz</a><a href="career-comparison.html">Career Comparison</a><a href="arts.html">Arts stream</a><a href="govt-exams.html">Government Exams</a></div></div>
   </div></section>
 
-  <section class="block" id="faq" aria-labelledby="faq-heading"><div class="container">
+  <section class="block block-alt" id="faq" aria-labelledby="faq-heading"><div class="container">
     <div class="section-head reveal"><span class="eyebrow">Good to know</span><h2 id="faq-heading">Frequently asked questions</h2></div>
     <div class="faq-list reveal">
       <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">Can I build a career in sports without becoming a professional athlete?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>

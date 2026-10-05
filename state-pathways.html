@@ -162,6 +162,7 @@ footer:
           {%- endfor %}
         </ul>
 
+        {%- if has_page %}<div class="chip-links"><a href="state-pathways/{{ s.id }}.html">Full {{ s.name }} guide: exams, quotas, counselling, scholarships</a></div>{% endif %}
         {%- if s.official.size > 0 %}
         <div class="chip-links" aria-label="Official links for {{ s.name }}">
           {%- for o in s.official %}<a href="{{ o.url }}" rel="noopener" target="_blank">{{ o.label }}</a>{%- endfor %}
@@ -190,7 +191,7 @@ footer:
       <thead><tr><th>State</th><th>Engineering / main exam</th><th>Medical</th><th>Diploma</th></tr></thead>
       <tbody>
         {%- for s in site.data.state_exams.states %}
-        <tr><td><a href="#{{ s.id }}">{{ s.name }}</a></td><td>{{ s.exams[0].name }}</td><td>NEET-UG &rarr; state counselling</td><td>{{ s.polytechnic.exam }}</td></tr>
+        {%- assign hp = site.data.state_pages.states[s.id] %}<tr><td><a href="{% if hp %}state-pathways/{{ s.id }}.html{% else %}#{{ s.id }}{% endif %}">{{ s.name }}</a></td><td>{{ s.exams[0].name }}</td><td>NEET-UG &rarr; state counselling</td><td>{{ s.polytechnic.exam }}</td></tr>
         {%- endfor %}
       </tbody>
     </table></div>

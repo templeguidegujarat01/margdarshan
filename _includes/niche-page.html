@@ -1,0 +1,114 @@
+{%- comment -%}
+  Dedicated niche-sector page body. Usage: {% include niche-page.html id="sports" %}
+  Data: _data/niche_pages.json (sections, steps, tables, institutes, FAQs) and _data/niche_careers.json (disclaimer).
+{%- endcomment -%}
+{%- assign n = site.data.niche_pages.sectors[include.id] -%}
+{%- assign parity = n.sections.size | modulo: 2 -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site.url }}{{ site.baseurl }}/" },
+    { "@type": "ListItem", "position": 2, "name": "Niche & Sports Careers", "item": "{{ site.url }}{{ site.baseurl }}/niche-careers.html" },
+    { "@type": "ListItem", "position": 3, "name": {{ n.eyebrow | jsonify }}, "item": "{{ site.url }}{{ site.baseurl }}{{ page.url }}" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": {{ page.og_title | default: page.title | jsonify }},
+  "url": "{{ site.url }}{{ site.baseurl }}{{ page.url }}",
+  "isPartOf": { "@type": "WebSite", "name": "Margdarshan", "url": "{{ site.url }}{{ site.baseurl }}/" },
+  "description": {{ page.description | jsonify }}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {%- for f in n.faqs %}
+    {"@type":"Question","name":{{ f.q | jsonify }},"acceptedAnswer":{"@type":"Answer","text":{{ f.a | jsonify }}}}{% unless forloop.last %},{% endunless %}
+    {%- endfor %}
+  ]
+}
+</script>
+
+<main id="main">
+
+  <section class="page-hero" aria-labelledby="hero-heading">
+    <svg class="page-hero-bg" viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M-50 340 C 220 300, 320 380, 500 300 S 780 200, 980 260 1150 160 1300 200" stroke="#E8A33D" stroke-width="1.4" fill="none" opacity=".3"/>
+    </svg>
+    <div class="container page-hero-inner">
+      <span class="eyebrow">Niche Careers · {{ n.eyebrow | replace: "&", "&amp;" }}</span>
+      <h1 id="hero-heading">{{ page.h1 }}</h1>
+      <p>{{ n.intro }}</p>
+      <div class="page-hero-ctas">
+        <a href="#{{ n.sections[0].id }}" class="btn btn-primary">Start reading<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="niche-careers.html" class="btn btn-ghost">All niche careers</a>
+      </div>
+      <div class="quickfacts">
+        {%- for f in n.facts %}
+        <div class="qf-card"><span>{{ f[0] }}</span><strong>{{ f[1] }}</strong></div>
+        {%- endfor %}
+      </div>
+    </div>
+  </section>
+
+  <div class="quicknav-bar"><div class="container"><nav class="quicknav" aria-label="Section navigation">
+    {%- for sec in n.sections %}<a href="#{{ sec.id }}">{{ sec.title | split: ":" | first | truncate: 26 }}</a>{%- endfor %}
+    <a href="#glance">At a Glance</a><a href="#institutes">Institutes</a><a href="#faq">FAQs</a>
+  </nav></div></div>
+
+  {%- for sec in n.sections %}
+  {%- assign odd = forloop.index0 | modulo: 2 -%}
+  <section class="block{% if odd == 1 %} block-alt{% endif %}" id="{{ sec.id }}" aria-labelledby="{{ sec.id }}-heading"><div class="container">
+    <div class="section-head reveal"><span class="eyebrow">Part {{ forloop.index }}</span><h2 id="{{ sec.id }}-heading">{{ sec.title | replace: "&", "&amp;" }}</h2></div>
+    <div class="prose reveal">{%- for p in sec.paragraphs %}<p>{{ p }}</p>{%- endfor %}</div>
+    {%- if sec.steps %}
+    <div class="card-grid cols-3 reveal mt-lg">
+      {%- for st in sec.steps %}<div class="feature-card"><span class="feature-card-kicker"><span class="feature-card-num">{{ forloop.index }}</span>Step</span><p>{{ st }}</p></div>{%- endfor %}
+    </div>
+    {%- endif %}
+    {%- if sec.bullets %}
+    <div class="highlight-box reveal mt-lg"><h3>Key points</h3><ul>{%- for b in sec.bullets %}<li>{{ b }}</li>{%- endfor %}</ul></div>
+    {%- endif %}
+  </div></section>
+  {%- endfor %}
+
+  <section class="block{% if parity == 1 %} block-alt{% endif %}" id="glance" aria-labelledby="glance-heading"><div class="container">
+    <div class="section-head reveal"><span class="eyebrow">Summary</span><h2 id="glance-heading">{{ n.table.title }}</h2></div>
+    <div class="table-wrap reveal"><table class="table-simple">
+      <thead><tr>{%- for h in n.table.head %}<th>{{ h }}</th>{%- endfor %}</tr></thead>
+      <tbody>
+        {%- for row in n.table.rows %}<tr>{%- for cell in row %}<td>{{ cell }}</td>{%- endfor %}</tr>{%- endfor %}
+      </tbody>
+    </table></div>
+    <p class="table-note">{{ site.data.niche_careers.disclaimer }}</p>
+  </div></section>
+
+  <section class="block{% if parity == 0 %} block-alt{% endif %}" id="institutes" aria-labelledby="inst-heading"><div class="container">
+    <div class="section-head reveal"><span class="eyebrow">Where to study or train</span><h2 id="inst-heading">Institutes, academies and bodies</h2>
+      <p>Always confirm that an institute is approved by the relevant regulator before you pay.</p></div>
+    <div class="highlight-box reveal"><ul>{%- for i in n.institutes %}<li>{{ i }}</li>{%- endfor %}</ul></div>
+    <div class="chip-links mt-lg">{%- for l in n.links %}<a href="{{ l.href }}">{{ l.label }}</a>{%- endfor %}</div>
+  </div></section>
+
+  <section class="block{% if parity == 1 %} block-alt{% endif %}" id="faq" aria-labelledby="faq-heading"><div class="container">
+    <div class="section-head reveal"><span class="eyebrow">Good to know</span><h2 id="faq-heading">Frequently asked questions</h2></div>
+    <div class="faq-list reveal">
+      {%- for f in n.faqs %}
+      <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">{{ f.q }}<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="faq-a">{{ f.a }}</div></div>
+      {%- endfor %}
+    </div>
+    <div class="highlight-box reveal mt-lg"><h3>Other niche sectors</h3><div class="chip-links">
+      <a href="niche-careers/sports.html">Sports &amp; SAI/NIS</a><a href="niche-careers/aviation.html">Aviation (Pilot CPL)</a><a href="niche-careers/maritime.html">Merchant Navy</a><a href="niche-careers/creative-arts.html">Design &amp; Creative Arts</a><a href="niche-careers.html">All niche careers</a><a href="global-regional-hub.html">Global &amp; State Edition</a></div></div>
+    <p class="table-note mt-lg">*Eligibility, age limits, medical standards and fees are set by regulators and institutes and change between cycles. Confirm every detail with the official body.</p>
+  </div></section>
+
+</main>

@@ -71,17 +71,6 @@
     </section>
     {%- endfor %}
 
-    {%- comment -%} Portal switcher: sticks to the bottom of the scroll area so it is always reachable. {%- endcomment %}
-    {%- assign on_global = false -%}
-    {%- for gp in site.data.nav.editions.global_pages %}{%- if gp == cur %}{%- assign on_global = true -%}{%- endif %}{%- endfor %}
-    {%- if on_global %}{%- assign ed = site.data.nav.editions.to_national -%}{%- else %}{%- assign ed = site.data.nav.editions.to_global -%}{%- endif %}
-    <div class="sb-switch">
-      <a class="sb-switch-btn" href="{{ ed.href }}" title="{{ ed.label }}" data-edition="{% if on_global %}global{% else %}national{% endif %}">
-        <span class="sb-switch-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{{ ed.icon }}</svg></span>
-        <span class="sb-switch-text"><small>{{ ed.kicker }}</small><strong>{{ ed.label | replace: "&", "&amp;" }}</strong></span>
-      </a>
-    </div>
-
     {%- if include.careers_href or include.faq_href %}
     <section class="sb-group is-open" data-group="page">
       <button type="button" class="sb-group-btn" aria-expanded="true" aria-controls="sbg-page">
@@ -99,5 +88,16 @@
     </section>
     {%- endif %}
   </nav>
+
+  {%- comment -%} Portal switcher: last child of the sidebar, pinned below all navigation groups and the scroll area. {%- endcomment %}
+  {%- assign on_global = false -%}
+  {%- for gp in site.data.nav.editions.global_pages %}{%- if cur contains gp %}{%- assign on_global = true -%}{%- endif %}{%- endfor %}
+  {%- if on_global %}{%- assign ed = site.data.nav.editions.to_national -%}{%- else %}{%- assign ed = site.data.nav.editions.to_global -%}{%- endif %}
+  <div class="sb-switch">
+    <a class="sb-switch-btn" href="{{ ed.href }}" title="{{ ed.label }}" data-edition="{% if on_global %}global{% else %}national{% endif %}">
+      <span class="sb-switch-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{{ ed.icon }}</svg></span>
+      <span class="sb-switch-text"><small>{{ ed.kicker }}</small><strong>{{ ed.label | replace: "&", "&amp;" }}</strong></span>
+    </a>
+  </div>
 </aside>
 <div class="sb-scrim" id="sidebarScrim" hidden></div>

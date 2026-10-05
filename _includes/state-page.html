@@ -1,0 +1,152 @@
+{%- comment -%}
+  Dedicated state page body. Usage: {% include state-page.html id="gujarat" %}
+  Data: _data/state_exams.json (summary, reservation, domicile, counselling, rural schemes, portals) + _data/state_pages.json (deep dive).
+{%- endcomment -%}
+{%- assign s = site.data.state_exams.states | where: "id", include.id | first -%}
+{%- assign sp = site.data.state_pages.states[include.id] -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site.url }}{{ site.baseurl }}/" },
+    { "@type": "ListItem", "position": 2, "name": "State-Level Pathways", "item": "{{ site.url }}{{ site.baseurl }}/state-pathways.html" },
+    { "@type": "ListItem", "position": 3, "name": {{ s.name | jsonify }}, "item": "{{ site.url }}{{ site.baseurl }}{{ page.url }}" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": {{ page.og_title | default: page.title | jsonify }},
+  "url": "{{ site.url }}{{ site.baseurl }}{{ page.url }}",
+  "isPartOf": { "@type": "WebSite", "name": "Margdarshan", "url": "{{ site.url }}{{ site.baseurl }}/" },
+  "description": {{ page.description | jsonify }}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {%- for f in sp.faqs %}
+    {"@type":"Question","name":{{ f.q | jsonify }},"acceptedAnswer":{"@type":"Answer","text":{{ f.a | jsonify }}}}{% unless forloop.last %},{% endunless %}
+    {%- endfor %}
+  ]
+}
+</script>
+
+<main id="main">
+
+  <section class="page-hero" aria-labelledby="hero-heading">
+    <svg class="page-hero-bg" viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M-50 340 C 220 300, 320 380, 500 300 S 780 200, 980 260 1150 160 1300 200" stroke="#E8A33D" stroke-width="1.4" fill="none" opacity=".3"/>
+    </svg>
+    <div class="container page-hero-inner">
+      <span class="eyebrow">State-Level Pathways · {{ s.region | replace: "&", "&amp;" }}</span>
+      <h1 id="hero-heading">{{ s.name }}: Entrance Exams, Quotas &amp; Scholarships</h1>
+      <div class="meta-row">
+        <span>Entrance exams</span><span>·</span><span>Reservation &amp; domicile</span><span>·</span><span>Counselling</span><span>·</span><span>Polytechnic</span><span>·</span><span>Rural schemes</span>
+      </div>
+      <p>{{ sp.intro }}</p>
+      <div class="page-hero-ctas">
+        <a href="#exams" class="btn btn-primary">See the entrance exams<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="state-pathways.html" class="btn btn-ghost">All states</a>
+      </div>
+      <div class="quickfacts">
+        <div class="qf-card"><span>Main exam</span><strong>{{ s.exams[0].name }}</strong></div>
+        <div class="qf-card"><span>Medical</span><strong>NEET-UG</strong></div>
+        <div class="qf-card"><span>Diploma</span><strong>{{ s.polytechnic.exam }}</strong></div>
+        <div class="qf-card"><span>Counselling</span><strong>{{ s.counselling | split: "(" | first | truncate: 28 }}</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="quicknav-bar"><div class="container"><nav class="quicknav" aria-label="Section navigation">
+    <a href="#exams">Entrance Exams</a><a href="#quota">Quota &amp; Domicile</a><a href="#counselling">Counselling</a>
+    <a href="#polytechnic">Polytechnic</a><a href="#rural">Rural Scholarships</a><a href="#faq">FAQs</a>
+  </nav></div></div>
+
+  <section class="block" id="exams" aria-labelledby="exams-heading"><div class="container">
+    <div class="section-head reveal"><span class="eyebrow">Entrance exams</span><h2 id="exams-heading">{{ s.name }} entrance exams, explained</h2>
+      <p>What each exam is for, who can take it, how it works and how you get selected.</p></div>
+    <div class="hub-grid reveal">
+      {%- for e in sp.exam_details %}
+      <article class="hub-card">
+        <h3>{{ e.name }}</h3>
+        <h4>Who can apply</h4><p>{{ e.eligibility }}</p>
+        <h4>Pattern</h4><p>{{ e.pattern }}</p>
+        <h4>How selection works</h4><p>{{ e.selection }}</p>
+        <h4>Tip</h4><p>{{ e.tip }}</p>
+      </article>
+      {%- endfor %}
+    </div>
+    <div class="chip-links mt-lg">
+      {%- for o in s.official %}<a href="{{ o.url }}" rel="noopener" target="_blank">{{ o.label }} (official)</a>{%- endfor %}
+      <a href="jee-main.html">JEE Main</a><a href="neet-ug.html">NEET-UG</a>
+    </div>
+  </div></section>
+
+  <section class="block block-alt" id="quota" aria-labelledby="quota-heading"><div class="container">
+    <div class="section-head reveal"><span class="eyebrow">Seats</span><h2 id="quota-heading">Domicile rules and reservation quotas</h2>
+      <p>{{ s.domicile }}</p></div>
+    <div class="table-wrap reveal"><table class="table-simple">
+      <thead><tr><th>Category</th><th>Share</th><th>Note</th></tr></thead>
+      <tbody>
+        {%- for r in sp.reservation_rows %}
+        <tr><td>{{ r.category }}</td><td>{{ r.share }}</td><td>{{ r.note }}</td></tr>
+        {%- endfor %}
+      </tbody>
+    </table></div>
+    <p class="table-note">{{ s.reservation }}</p>
+    <div class="highlight-box reveal mt-lg"><h3>State quota highlights</h3><ul>{%- for q in s.quota %}<li>{{ q }}</li>{%- endfor %}</ul></div>
+  </div></section>
+
+  <section class="block" id="counselling" aria-labelledby="counselling-heading"><div class="container">
+    <div class="section-head reveal"><span class="eyebrow">Admission process</span><h2 id="counselling-heading">State counselling portal: step by step</h2>
+      <p><strong>Authority:</strong> {{ s.counselling }}. {{ sp.portal_note }}</p></div>
+    <div class="card-grid cols-3 reveal">
+      {%- for st in site.data.state_pages.counselling_steps %}
+      <div class="feature-card"><span class="feature-card-kicker"><span class="feature-card-num">{{ forloop.index }}</span>Step</span><p>{{ st }}</p></div>
+      {%- endfor %}
+    </div>
+    <p class="table-note"><strong>Medical route:</strong> {{ s.medical }}</p>
+  </div></section>
+
+  <section class="block block-alt" id="polytechnic" aria-labelledby="poly-heading"><div class="container">
+    <div class="section-head reveal"><span class="eyebrow">Diploma</span><h2 id="poly-heading">Polytechnic and diploma options</h2></div>
+    <div class="prose reveal"><p>{{ sp.polytechnic }}</p></div>
+    <div class="highlight-box reveal mt-lg"><h3>Official board</h3><p><strong>{{ s.polytechnic.name }}</strong>: {{ s.polytechnic.exam }}. {{ s.polytechnic.body }}.{% if s.polytechnic.url %} <a href="{{ s.polytechnic.url }}" rel="noopener" target="_blank">Official site</a>{% endif %}</p></div>
+  </div></section>
+
+  <section class="block" id="rural" aria-labelledby="rural-heading"><div class="container">
+    <div class="section-head reveal"><span class="eyebrow">Support for rural and first-generation learners</span><h2 id="rural-heading">State government and rural scholarships</h2>
+      <p>These schemes help students from villages, small towns and lower-income families. Names and amounts change, so verify on the official portal.</p></div>
+    <div class="hub-grid reveal">
+      {%- for r in s.rural_schemes %}
+      <article class="hub-card"><span class="hub-card-tag">State scheme</span><h3>{{ r.name }}</h3><p>{{ r.note }}</p></article>
+      {%- endfor %}
+      {%- for sc in s.scholarships %}
+      <article class="hub-card"><span class="hub-card-tag">Scholarship portal</span><h3>{{ sc.name }}</h3>{% if sc.url %}<div class="chip-links"><a href="{{ sc.url }}" rel="noopener" target="_blank">Official portal</a></div>{% endif %}</article>
+      {%- endfor %}
+    </div>
+    <div class="highlight-box reveal mt-lg"><h3>How to apply for a scholarship</h3><p>{{ site.data.state_pages.rural_how }}</p>
+      <div class="chip-links"><a href="state-pathways.html#rural">National rural schemes</a><a href="https://scholarships.gov.in" rel="noopener" target="_blank">National Scholarship Portal</a></div></div>
+  </div></section>
+
+  <section class="block block-alt" id="faq" aria-labelledby="faq-heading"><div class="container">
+    <div class="section-head reveal"><span class="eyebrow">Good to know</span><h2 id="faq-heading">Frequently asked questions</h2></div>
+    <div class="faq-list reveal">
+      {%- for f in sp.faqs %}
+      <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">{{ f.q }}<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="faq-a">{{ f.a }}</div></div>
+      {%- endfor %}
+    </div>
+    <div class="highlight-box reveal mt-lg"><h3>Related guides</h3><div class="chip-links">
+      {%- for l in sp.extra_links %}<a href="{{ l.href }}">{{ l.label }}</a>{%- endfor %}
+      <a href="state-pathways.html">All states</a><a href="global-regional-hub.html">Global &amp; State Edition</a></div></div>
+    <p class="table-note mt-lg">*Exam names, bodies, quota percentages and portals change between admission cycles. Always confirm on the official state portal and in the current information brochure.</p>
+  </div></section>
+
+</main>

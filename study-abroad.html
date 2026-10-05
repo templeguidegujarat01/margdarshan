@@ -140,6 +140,7 @@ footer:
           {%- for sch in c.top_scholarships %}<li>{{ sch }}</li>{%- endfor %}
         </ul>
         <h4>Tip</h4><p>{{ c.tip }}</p>
+        <div class="chip-links"><a href="study-abroad/{{ c.id }}.html">Full {{ c.name }} guide: timeline, universities, scholarships</a></div>
       </article>
       {%- endfor %}
     </div>
@@ -197,7 +198,7 @@ footer:
       <thead><tr><th>Country</th><th>Post-study work route</th><th>What to know</th></tr></thead>
       <tbody>
         {%- for c in site.data.study_abroad.countries %}
-        <tr><td><a href="#{{ c.id }}">{{ c.name }}</a></td><td>{{ c.work.name }}</td><td>{{ c.work.detail }}</td></tr>
+        <tr><td><a href="study-abroad/{{ c.id }}.html">{{ c.name }}</a></td><td>{{ c.work.name }}</td><td>{{ c.work.detail }}</td></tr>
         {%- endfor %}
       </tbody>
     </table></div>

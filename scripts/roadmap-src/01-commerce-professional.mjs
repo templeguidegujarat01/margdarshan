@@ -1,0 +1,73 @@
+// Deep roadmap sources: Commerce professional courses. Schema is documented in _includes/roadmap-page.html.
+export default [
+{
+  slug: 'ca', name: 'CA', title: 'Chartered Accountant (CA)',
+  intro: 'The complete ICAI journey from Class 10 to the CA designation: registration, three exam levels, mandatory ICITSS training, two years of practical articleship, self-paced online modules and membership. Follow it in order.',
+  glance: [['Total time', '~4.5–5 years'], ['Regulator', 'ICAI'], ['Exam cycles', 'Foundation & Inter: Jan / May / Sept · Final: May / Nov'], ['Passing rule', '40% per paper, 50% aggregate']],
+  phases: [
+    { title: 'Class 10 entry & subject selection', when: 'After Class 10', summary: 'Choose a stream that makes CA easier and register provisionally with ICAI.',
+      points: [
+        'CA is open to every stream. Commerce with Accountancy, Business Studies, Economics and Maths gives the smoothest start; Science and Arts students also qualify.',
+        'Maths is not compulsory, but CA Foundation has a Business Mathematics, Logical Reasoning and Statistics paper, so basic Class 10 Maths should be solid.',
+        'After passing Class 10 you can register for the CA Foundation course on the ICAI Students Services Portal (SSP); the exam itself can only be taken once you are in or past Class 12.',
+        'Registration is done online at eservices.icai.org with your Class 10 marksheet, photo, signature and ID proof, and the fee is paid online.',
+        'Keep the registration number safe; every later form (exam, articleship, Final) is linked to it.'],
+      facts: [['Minimum marks', 'No minimum percentage'], ['Registration', 'Online, ICAI SSP portal'], ['Maths needed?', 'Basic level only']],
+      tip: 'Use Class 11-12 to build accounting and reasoning habits. Students who register early and study during Class 12 often clear Foundation in their first attempt after the board exams.' },
+    { title: 'CA Foundation level', when: 'Class 12 year', summary: 'Four-paper entry exam covering accounting, law, quantitative aptitude and economics.',
+      points: [
+        'Eligibility to appear: Class 12 appearing or passed, with a minimum study period between registration and the exam (currently about 4 months). Confirm the cut-off date for your attempt on icai.org.',
+        'Exam cycles: ICAI now holds the Foundation exam three times a year, in January, May and September.',
+        'Paper 1: Accounting (100). Paper 2: Business Laws (60) plus Business Correspondence and Reporting (40). Paper 3: Business Mathematics (40), Logical Reasoning (20) and Statistics (40). Paper 4: Business Economics (60) plus Business and Commercial Knowledge (40).',
+        'Pattern: Papers 1 and 2 are descriptive; Papers 3 and 4 are objective (MCQ) with 0.25-mark negative marking per wrong answer. ICAI keeps revising the MCQ share, so read the latest exam notification before you start.',
+        'Passing rule: at least 40% in every paper and 50% in aggregate across all four papers, in the same sitting.',
+        'Result waiting strategy: results arrive about 5–6 weeks after the exam. Do not sit idle: begin Intermediate Group 1 subjects (Advanced Accounting, Law) while waiting, and keep your Intermediate registration window in mind.',
+        'Graduates can skip Foundation through Direct Entry: Commerce graduates with 55% and other graduates with 60% register straight for Intermediate.'],
+      facts: [['Papers', '4 (400 marks)'], ['Attempts a year', '3 (Jan / May / Sept)'], ['Pass mark', '40% each paper, 50% overall'], ['Negative marking', '0.25 in MCQ papers']],
+      tip: 'Treat Paper 3 and 4 MCQ accuracy as a skill: practise timed sets, because wrong answers cost marks.' },
+    { title: 'CA Intermediate level', when: 'After Foundation (about year 2)', summary: 'Six papers in two groups with a 30% MCQ and 70% descriptive pattern.',
+      points: [
+        'Register for Intermediate after clearing Foundation (or via Direct Entry) and complete the minimum study period before the exam; check the exact gap on the ICAI portal.',
+        'Group 1: Paper 1 Advanced Accounting, Paper 2 Corporate and Other Laws, Paper 3 Taxation (Income-tax and GST).',
+        'Group 2: Paper 4 Cost and Management Accounting, Paper 5 Auditing and Ethics, Paper 6 Financial Management and Strategic Management.',
+        'Each paper is 100 marks, with about 30 marks of MCQs and 70 marks of descriptive questions.',
+        'Exam cycles: January, May and September. You may attempt one group or both groups together.',
+        'Passing rule: 40% in each paper and 50% aggregate in the group. Scoring 60% or more in a paper can earn an exemption for a limited number of later attempts, as per current ICAI rules.',
+        'Most students begin articleship while preparing for Intermediate or soon after clearing it; plan study hours around office time.'],
+      facts: [['Papers', '6 (2 groups of 3)'], ['Marks', '100 per paper'], ['Pattern', '30% MCQ / 70% descriptive'], ['Attempts a year', '3']],
+      tip: 'Clearing both groups together saves a year, but clearing one group first is a sensible plan if your articleship is heavy.' },
+    { title: 'ICITSS and the 2-year articleship', when: 'Around Intermediate', summary: 'Mandatory ICITSS training followed by two years of supervised practical training.',
+      points: [
+        'ICITSS (Integrated Course on Information Technology and Soft Skills) has two compulsory parts: the Orientation Course and the Information Technology Training. Both must be completed before articleship begins.',
+        'Orientation Course: a short introduction to the profession, ethics and office practice. Information Technology Training: hands-on computer, spreadsheet and accounting-software training (about 100 hours). Check current hours on icai.org.',
+        'Articleship (practical training): 2 years under a practising Chartered Accountant who holds a Certificate of Practice. You register the training contract with ICAI through the SSP portal.',
+        'You work on audits, taxation, GST and income-tax filings, accounts and compliance for real clients, and you receive a monthly stipend fixed by ICAI as a minimum.',
+        'Articleship must be continuous; unauthorised gaps, transfers and leave beyond permitted limits extend the training period. Keep your attendance records.',
+        'During articleship you also study for Final, so choose a principal and firm whose workload and leave policy suit your exam plans.',
+        'A part of the Advanced ICITSS (Advanced IT Training and Management and Communication Skills) is completed later, during the training period, before you become eligible for Final.'],
+      facts: [['Duration', '2 years'], ['Starts after', 'CA Intermediate, plus ICITSS'], ['Stipend', 'ICAI-prescribed minimum'], ['Where', 'CA firm under a practising CA']],
+      tip: 'A mid-sized firm that rotates you across audit, tax and compliance builds the widest skill set.' },
+    { title: 'Self-paced online learning modules', when: 'During articleship', summary: 'ICAI online learning modules (Set A, B, C, D) that build professional skills alongside training.',
+      points: [
+        'ICAI requires students to complete self-paced online learning modules during the training period. They are organised in four sets, referred to as Set A, Set B, Set C and Set D.',
+        'The modules are delivered on the ICAI learning portal, can be studied at your own pace, and carry an online assessment on completion.',
+        'They focus on professional and practical skills such as communication, technology and office practice that complement articleship work.',
+        'Completion certificates matter: they are needed when you apply to appear for Final, so do not leave all four sets to the end.',
+        'Exact module titles, timelines and eligibility conditions are notified by ICAI and can change, so check the Students section on icai.org each year.'],
+      facts: [['Format', 'Online, self-paced'], ['Sets', 'A, B, C and D'], ['Mode', 'ICAI learning portal'], ['Timing', 'During articleship']],
+      tip: 'Finish one set every few months so nothing is pending when your Final form is due.' },
+    { title: 'CA Final level & ICAI membership', when: 'Final stage (about year 4–5)', summary: 'Six advanced papers, then membership with ICAI and the CA designation.',
+      points: [
+        'Eligibility: Intermediate passed, articleship completed (ICAI lets you apply while the last stretch of training is running; confirm the cut-off on icai.org), and required training and modules done.',
+        'Group 1: Financial Reporting, Advanced Financial Management, Advanced Auditing, Assurance and Professional Ethics.',
+        'Group 2: Direct Tax Laws and International Taxation, Indirect Tax Laws, and Integrated Business Solutions (a multidisciplinary case-study paper).',
+        'Pattern: about 30% MCQ and 70% descriptive in the standard papers; the case-study paper is assessed differently. Passing rule is 40% per paper and 50% in each group.',
+        'Exam cycles: Final is held twice a year, in May and November.',
+        'After passing, apply to ICAI for membership. You are admitted as an Associate Chartered Accountant (ACA) and may use the designation "CA".',
+        'To practise independently you apply for a Certificate of Practice (COP). After five years of membership you can be conferred the Fellow status (FCA).'],
+      facts: [['Papers', '6 (2 groups of 3)'], ['Attempts a year', '2 (May / Nov)'], ['Designation', 'ACA, later FCA'], ['Practice licence', 'Certificate of Practice']],
+      tip: 'Start Final preparation in the last year of articleship, and write mock papers under exam timing.' }
+  ],
+  sources: [['ICAI official website', 'https://www.icai.org/'], ['ICAI Students Services Portal', 'https://eservices.icai.org/']]
+}
+];

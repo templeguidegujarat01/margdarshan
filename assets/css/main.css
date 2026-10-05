@@ -1718,3 +1718,44 @@ a.feature-card:hover,a.feature-card:focus-visible{border-color:var(--gold);box-s
 .table-wrap-full .table-simple thead th{position:sticky;top:0;z-index:1;}
 .table-wrap-full .table-simple td,.table-wrap-full .table-simple th{font-size:.92rem;}
 .table-empty{margin-top:1rem;color:var(--text-muted);}
+
+/* ==========================================================================
+   DEEP ROADMAP PAGES (roadmaps/<slug>.html, _includes/roadmap-page.html)
+   and the "See The Journey" hero button on career pages.
+   ========================================================================== */
+.btn-journey{background:var(--ink);color:#fff;border-color:var(--ink);box-shadow:var(--shadow-md);}
+.btn-journey:hover,.btn-journey:focus-visible{background:var(--gold-strong);color:#fff;border-color:var(--gold-strong);}
+[data-theme="dark"] .btn-journey{background:var(--gold);color:#241703;border-color:var(--gold);}
+[data-theme="dark"] .btn-journey:hover,[data-theme="dark"] .btn-journey:focus-visible{background:#F0B65A;color:#241703;}
+.rm-link-card{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;margin-top:1.5rem;padding:1.1rem 1.3rem;border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:var(--radius-md);background:var(--surface);}
+.rm-link-card p{margin:0;max-width:60ch;color:var(--text-muted);}
+.rm-link-card strong{display:block;color:var(--text);font-size:1.05rem;margin-bottom:.15rem;}
+.rm-chips{display:flex;flex-wrap:wrap;gap:.5rem;margin:0 0 1rem;}
+.rm-chips a{display:inline-flex;align-items:center;gap:.5rem;min-height:44px;padding:.35rem .9rem .35rem .4rem;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--text);font-size:.88rem;font-weight:600;text-decoration:none;}
+.rm-chips a:hover{border-color:var(--gold);}
+.rm-chips b{display:grid;place-items:center;width:26px;height:26px;border-radius:999px;background:var(--gold);color:#241703;font-family:var(--font-mono);font-size:.8rem;}
+.rm-tools{display:flex;gap:.6rem;margin:0 0 1.5rem;}
+.rm-timeline{list-style:none;margin:0;padding:0;position:relative;display:grid;gap:1rem;}
+.rm-timeline::before{content:"";position:absolute;left:19px;top:20px;bottom:20px;width:2px;background:repeating-linear-gradient(to bottom,rgba(232,163,61,.6) 0 6px,transparent 6px 12px);}
+.rm-phase{position:relative;padding-left:3.6rem;scroll-margin-top:var(--scroll-offset);}
+.rm-node{position:absolute;left:0;top:.9rem;width:40px;height:40px;border-radius:999px;background:var(--gold);color:#241703;display:grid;place-items:center;font-family:var(--font-mono);font-weight:700;z-index:1;}
+.rm-phase.is-goal .rm-node{background:var(--ink);color:#fff;}
+[data-theme="dark"] .rm-phase.is-goal .rm-node{background:#F0B65A;color:#241703;}
+.rm-card{border:1px solid var(--line);border-radius:var(--radius-md);background:var(--surface);box-shadow:var(--shadow-sm);}
+.rm-card[open]{border-color:var(--gold);}
+.rm-card summary{list-style:none;cursor:pointer;display:grid;gap:.25rem;padding:1rem 3rem 1rem 1.2rem;position:relative;min-height:44px;}
+.rm-card summary::-webkit-details-marker{display:none;}
+.rm-tag{font-family:var(--font-mono);font-size:.76rem;letter-spacing:.04em;text-transform:uppercase;color:var(--gold-strong);}
+[data-theme="dark"] .rm-tag{color:var(--gold);}
+.rm-title{font-family:var(--font-display);font-size:1.2rem;font-weight:700;color:var(--text);}
+.rm-sum{color:var(--text-muted);font-size:.95rem;}
+.rm-chev{position:absolute;right:1.1rem;top:1.2rem;transition:transform .2s var(--ease);color:var(--text-muted);}
+.rm-card[open] .rm-chev{transform:rotate(180deg);}
+.rm-body{padding:0 1.2rem 1.2rem;border-top:1px solid var(--line);}
+.rm-points{margin:1rem 0 0;padding-left:1.2rem;display:grid;gap:.55rem;}
+.rm-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.7rem;margin:1.1rem 0 0;}
+.rm-facts div{padding:.7rem .9rem;border-radius:var(--radius-sm);background:var(--paper);}
+.rm-facts dt{font-size:.74rem;text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted);}
+.rm-facts dd{margin:.15rem 0 0;font-weight:600;color:var(--text);}
+.rm-tip{margin:1rem 0 0;padding:.7rem .9rem;border-left:3px solid var(--gold);background:var(--stream-soft);border-radius:0 var(--radius-sm) var(--radius-sm) 0;}
+@media (max-width:560px){.rm-phase{padding-left:3rem;}.rm-node{width:34px;height:34px;}.rm-timeline::before{left:16px;}}

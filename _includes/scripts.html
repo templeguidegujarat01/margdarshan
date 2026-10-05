@@ -86,7 +86,8 @@
 
     // Collapsible groups (remembered) and expandable items.
     var closedGroups = [];
-    try { closedGroups = JSON.parse(localStorage.getItem('md-sb-closed') || '[]'); } catch(e){}
+    var hasSavedGroups = false;
+    try { var savedGroups = localStorage.getItem('md-sb-closed'); hasSavedGroups = savedGroups !== null; closedGroups = JSON.parse(savedGroups || '[]'); } catch(e){}
     if(!Array.isArray(closedGroups)) closedGroups = [];
     function setGroup(g, open){
       g.classList.toggle('is-open', open);
@@ -95,9 +96,13 @@
     }
     sidebar.querySelectorAll('.sb-group').forEach(function(g){
       var id = g.getAttribute('data-group');
-      // A group holding the current page always starts open.
-      if(closedGroups.indexOf(id) !== -1 && !g.querySelector('[aria-current], .is-trail')) setGroup(g, false);
-      g.querySelector('.sb-group-btn').addEventListener('click', function(){
+      var gBtn = g.querySelector('.sb-group-btn');
+      if(!gBtn) return; // e.g. the edition switch is a plain list with no toggle
+      var holdsCurrent = !!g.querySelector('[aria-current], .is-trail');
+      // A group holding the current page always starts open. On phones, first-time
+      // visitors get every other group collapsed so the drawer isn't one long scroll.
+      if(!holdsCurrent && (closedGroups.indexOf(id) !== -1 || (!hasSavedGroups && !desktopMq.matches))) setGroup(g, false);
+      gBtn.addEventListener('click', function(){
         var open = !g.classList.contains('is-open');
         setGroup(g, open);
         var i = closedGroups.indexOf(id);

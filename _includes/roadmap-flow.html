@@ -1,0 +1,24 @@
+{%- comment -%}
+  Visual step-by-step roadmap flowchart. Pure CSS (see .rflow in assets/css/main.css).
+  Params: eyebrow, heading, intro (optional), note (optional footnote), bg ("alt" for block-alt),
+          id (optional section id), and s1..s5 as "Tag|Title|Description" (s4/s5 optional).
+  A step whose tag is "Goal" is highlighted as the destination.
+{%- endcomment -%}
+{%- assign steps = include.s1 | append: "~~" | append: include.s2 | append: "~~" | append: include.s3 | append: "~~" | append: include.s4 | append: "~~" | append: include.s5 | split: "~~" -%}
+{%- assign n = 0 -%}
+{%- for s in steps %}{% if s contains "|" %}{% assign n = n | plus: 1 %}{% endif %}{% endfor -%}
+<section class="block{% if include.bg == 'alt' %} block-alt{% endif %}"{% if include.id %} id="{{ include.id }}"{% endif %} aria-labelledby="{{ include.id | default: 'rflow' }}-heading">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">{{ include.eyebrow | default: "Visual roadmap" }}</span>
+      <h2 id="{{ include.id | default: 'rflow' }}-heading">{{ include.heading }}</h2>
+      {%- if include.intro %}<p>{{ include.intro }}</p>{% endif %}
+    </div>
+    <ol class="rflow reveal" style="--rflow-n:{{ n }}">
+      {%- for s in steps %}{% if s contains "|" %}{% assign p = s | split: "|" %}
+      <li class="rflow-step{% if p[0] == 'Goal' %} is-goal{% endif %}"><span class="rflow-tag">{% if p[0] == 'Goal' %}Goal{% else %}Step {{ forloop.index }}{% endif %}</span><h3>{{ p[1] }}</h3><p>{{ p[2] }}</p></li>
+      {%- endif %}{% endfor %}
+    </ol>
+    {%- if include.note %}<p class="table-note text-center">{{ include.note }}</p>{% endif %}
+  </div>
+</section>

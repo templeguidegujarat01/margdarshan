@@ -1637,3 +1637,40 @@ a.feature-card:hover,a.feature-card:focus-visible{border-color:var(--gold);box-s
 .portal-more summary{cursor:pointer;font-weight:700;font-size:.9rem;padding:.5rem 0;color:var(--link);}
 /* Sidebar: breathing room so the last group never sits flush against the pinned portal switcher. */
 .sb-scroll{padding-bottom:1.75rem;scroll-padding-bottom:1.75rem;}
+
+/* ===================== Visual roadmap flowchart (_includes/roadmap-flow.html) =====================
+   Mobile: vertical stack with a connector line down the left. >=900px: horizontal row of nodes with arrows. */
+.rflow{list-style:none;margin:0;padding:0;display:grid;gap:1.1rem;grid-template-columns:minmax(0,1fr);position:relative;counter-reset:rflow;}
+.rflow-step{position:relative;background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:var(--radius-md);padding:1rem 1.1rem 1.1rem;display:flex;flex-direction:column;gap:.35rem;min-width:0;}
+.rflow-step::after{content:"";position:absolute;left:1.6rem;bottom:-1.1rem;width:2px;height:1.1rem;background:var(--gold);opacity:.55;}
+.rflow-step:last-child::after{display:none;}
+.rflow-tag{align-self:flex-start;font-family:var(--font-mono);font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-strong);background:var(--stream-soft);border:1px solid var(--stream-border,var(--line));border-radius:999px;padding:.15rem .6rem;}
+.rflow-step h3{margin:.15rem 0 0;font-family:var(--font-body);font-size:1rem;font-weight:700;line-height:1.3;}
+.rflow-step p{margin:0;font-size:.88rem;line-height:1.5;color:var(--text-muted);}
+.rflow-step.is-goal{border-top-color:var(--teal);background:var(--stream-soft);}
+.rflow-step.is-goal .rflow-tag{color:var(--teal);}
+@media (min-width:900px){
+  .rflow{grid-template-columns:repeat(var(--rflow-n,5),minmax(0,1fr));gap:1.6rem;}
+  .rflow-step::after{left:auto;right:-1.45rem;top:2.1rem;bottom:auto;width:1.3rem;height:2px;}
+}
+
+/* ===================== Homepage trending careers grid (#careers) ===================== */
+.trend-grid{list-style:none;margin:0;padding:0;display:grid;gap:1.1rem;grid-template-columns:minmax(0,1fr);}
+@media (min-width:600px){.trend-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media (min-width:1000px){.trend-grid{grid-template-columns:repeat(3,minmax(0,1fr));}}
+@media (min-width:1360px){.trend-grid{grid-template-columns:repeat(4,minmax(0,1fr));}}
+.trend-card{display:flex;flex-direction:column;gap:.7rem;height:100%;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);padding:1.2rem 1.25rem;color:inherit;text-decoration:none;transition:transform .2s var(--ease),box-shadow .2s var(--ease),border-color .2s var(--ease);}
+.trend-card:hover,.trend-card:focus-visible{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--gold);}
+.trend-badge{align-self:flex-start;font-family:var(--font-mono);font-size:.68rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:.2rem .65rem;border-radius:999px;color:#fff;background:var(--slate);}
+.trend-badge.t-science{background:var(--teal);}
+.trend-badge.t-commerce{background:var(--gold-strong);}
+.trend-badge.t-arts{background:var(--plum);}
+.trend-badge.t-diploma{background:var(--slate);}
+.trend-badge.t-govt{background:var(--rust);}
+.trend-card h3{margin:0;font-size:1.12rem;line-height:1.3;}
+.trend-meta{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin:0;padding-top:.7rem;border-top:1px solid var(--line);}
+.trend-meta div{min-width:0;}
+.trend-meta dt{font-size:.68rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--text-muted);}
+.trend-meta dd{margin:.15rem 0 0;font-family:var(--font-mono);font-size:.85rem;font-weight:600;color:var(--text);}
+.trend-go{margin-top:auto;font-weight:700;font-size:.88rem;color:var(--link);}
+.trend-more{margin-top:1.6rem;display:flex;flex-wrap:wrap;gap:.7rem;}

@@ -1,6 +1,6 @@
 ---
 title: "Diploma careers ranked by starting salary | Margdarshan"
-description: "Complete 21-row table: careers ranked by typical starting salary. Searchable, sortable and free."
+description: "Diploma careers ranked by starting salary for Diploma: complete 21-row, 5-column table."
 stream: "diploma"
 header:
   careers_href: "diploma.html#ranking"
@@ -28,7 +28,8 @@ breadcrumb:
     <h1 class="table-page-title">Diploma careers ranked by starting salary</h1>
     <div class="table-tools">
       <label class="sr-only" for="tblFilter">Filter table</label>
-      <input type="search" id="tblFilter" class="table-filter" placeholder="Filter careers…" autocomplete="off">
+      <input type="search" id="tblFilter" class="table-filter" placeholder="Filter rows…" autocomplete="off">
+      <button type="button" class="table-reset" id="tblReset">Reset table view</button>
       <span class="table-count" id="tblCount" aria-live="polite">21 of 21</span>
     </div>
     <div class="table-wrap table-wrap-full" id="fullTable"><table class="table-simple"><caption class="sr-only">Careers ranked by typical starting salary</caption>
@@ -62,19 +63,10 @@ breadcrumb:
 </main>
 <script>
 (function(){
-  var wrap=document.getElementById('fullTable'),t=wrap.querySelector('table'),tb=t.tBodies[0];
-  var rows=Array.prototype.slice.call(tb.rows),f=document.getElementById('tblFilter'),c=document.getElementById('tblCount'),e=document.getElementById('tblEmpty');
-  function filt(){var q=f.value.toLowerCase().trim(),n=0;rows.forEach(function(r){var m=!q||r.textContent.toLowerCase().indexOf(q)>-1;r.hidden=!m;if(m)n++;});c.textContent=n+' of '+rows.length;e.hidden=n>0;}
+  var rows=Array.prototype.slice.call(document.querySelectorAll('#fullTable tbody tr')),f=document.getElementById('tblFilter'),
+      c=document.getElementById('tblCount'),e=document.getElementById('tblEmpty'),r=document.getElementById('tblReset');
+  function filt(){var q=f.value.toLowerCase().trim(),n=0;rows.forEach(function(x){var m=!q||x.textContent.toLowerCase().indexOf(q)>-1;x.hidden=!m;if(m)n++;});c.textContent=n+' of '+rows.length;e.hidden=n>0;}
   f.addEventListener('input',filt);
-  Array.prototype.forEach.call(t.tHead.rows[0].cells,function(th,i){
-    var b=document.createElement('button');b.type='button';b.className='sort-btn';b.innerHTML=th.innerHTML+'<span class="sort-ind" aria-hidden="true"></span>';th.textContent='';th.appendChild(b);th.setAttribute('aria-sort','none');
-    b.addEventListener('click',function(){
-      var asc=th.getAttribute('aria-sort')!=='ascending';
-      Array.prototype.forEach.call(t.tHead.rows[0].cells,function(x){x.setAttribute('aria-sort','none');});
-      th.setAttribute('aria-sort',asc?'ascending':'descending');
-      rows.sort(function(a,b2){var r=a.cells[i].textContent.trim().localeCompare(b2.cells[i].textContent.trim(),'en',{numeric:true});return asc?r:-r;});
-      rows.forEach(function(r){tb.appendChild(r);});
-    });
-  });
+  r.addEventListener('click',function(){f.value='';filt();f.focus();});
 })();
 </script>

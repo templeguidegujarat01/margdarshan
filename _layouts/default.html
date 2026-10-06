@@ -13,7 +13,7 @@
     header:                     passed to _includes/sidebar.html
       careers_href, careers_label, faq_href, faq_label   "This page" links
       active_stream             highlights the sidebar item whose `key` matches
-    breadcrumb:                 shown in the top bar (omit on the homepage -> "Home")
+    breadcrumb:                 shown below the top bar, above the page content (omit on the homepage -> "Home")
       parent_href, parent_label, current
     footer:                     passed to _includes/footer.html
       col3_heading              heading of the optional third column
@@ -86,7 +86,9 @@
 {% include career-search.html %}
 
 <div class="app-main">
-{% include header.html breadcrumb_parent_href=page.breadcrumb.parent_href breadcrumb_parent_label=page.breadcrumb.parent_label breadcrumb_current=page.breadcrumb.current %}
+{% include header.html %}
+
+<div class="crumb-bar"><div class="container">{% include breadcrumb.html parent_href=page.breadcrumb.parent_href parent_label=page.breadcrumb.parent_label current=page.breadcrumb.current %}</div></div>
 
 {{ content }}
 

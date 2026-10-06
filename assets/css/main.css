@@ -1914,3 +1914,18 @@ a.hub-cta.hub-cta-jump:hover .hub-cta-arrow,a.hub-cta.hub-cta-jump:focus-visible
 .prose ul:not(.eligibility-list) > li:has(> svg:first-child) > strong:first-of-type{color:var(--text);font-weight:700;}
 .warn{flex-wrap:nowrap;align-items:flex-start;padding:1.1rem 1.3rem;line-height:1.65;white-space:normal;word-break:keep-all;overflow-wrap:break-word;}
 .warn > span{min-width:0;}
+/* ===================== COMPACT STREAM CARDS ===================== */
+.stream-card{display:grid;grid-template-columns:40px 1fr;column-gap:.75rem;row-gap:.5rem;align-content:start;padding:1rem 1.15rem;}
+.stream-card>*{grid-column:1/-1;}
+.stream-card>.stream-icon{grid-column:1;grid-row:1;width:40px;height:40px;}
+.stream-card>.stream-icon svg{width:20px;height:20px;}
+.stream-card>h3{grid-column:2;grid-row:1;align-self:center;font-size:1.05rem;margin:0;}
+.stream-card p{font-size:.88rem;line-height:1.5;margin:0;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden;}
+.stream-chips span:nth-child(n+4){display:none;}
+.stream-chips span{padding:.2rem .55rem;}
+.stream-link{margin-top:auto;}
+.stream-grid .stream-card{min-height:0;}
+.stream-grid .stream-card:hover{transform:translateY(-2px);}
+.stream-path-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:20px;align-items:stretch;}
+.stream-path-grid .stream-card{padding:16px 20px;}
+.stream-path-grid .stream-card p{-webkit-line-clamp:3;line-clamp:3;}

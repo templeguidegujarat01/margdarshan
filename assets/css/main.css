@@ -103,7 +103,7 @@
   --shadow-lg:0 24px 56px rgba(0,0,0,.5);
 }
 *{box-sizing:border-box;}
-html{scroll-behavior:smooth;}
+html{scroll-behavior:smooth;scroll-padding-top:var(--scroll-offset);max-width:100%;overflow-x:clip;}
 body{overflow-x:clip;margin:0;font-family:var(--font-body);color:var(--text);background:var(--paper);line-height:1.6;-webkit-font-smoothing:antialiased;transition:background .25s var(--ease),color .25s var(--ease);}
 img,svg{display:block;max-width:100%;}
 a{color:inherit;text-decoration:none;}
@@ -167,6 +167,7 @@ html.nav-locked{overflow:hidden;}
 .sidebar{position:fixed;top:var(--header-h);bottom:0;left:0;z-index:940;width:var(--sidebar-w);display:flex;flex-direction:column;background:var(--bg-header);transition:width .22s var(--ease),transform .25s var(--ease),box-shadow .25s var(--ease);}
 .sb-brand-name{white-space:nowrap;}
 .sb-drawer-head{display:none;}
+.sb-drawer-head .sb-close{margin-left:auto;}
 .sb-scroll{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:transparent transparent;padding:.5rem .75rem 1rem;}
 /* Overlay-style scrollbar: invisible until the pointer is over the sidebar. */
 .sidebar:hover .sb-scroll,.sb-scroll:focus-within{scrollbar-color:rgba(var(--hl-rgb),.28) transparent;}
@@ -270,16 +271,28 @@ html.nav-locked{overflow:hidden;}
   :root{--sidebar-w:0px;}
   .topbar-brand .sb-brand-name{display:none;}
   .sidebar{top:0;}
-  .sb-drawer-head{display:flex;align-items:center;flex-shrink:0;height:var(--header-h);padding:0 1rem;}
+  .sb-drawer-head{display:flex;align-items:center;justify-content:space-between;gap:.5rem;flex-shrink:0;height:var(--header-h);padding:0 .6rem 0 1rem;}
+  .sb-drawer-head .sb-brand-name{display:inline;}
+  /* Drawer + scrim sit above the topbar so the drawer's own brand header is visible. */
+  .sidebar{z-index:970;}
   .sb-drawer-head .logo{font-size:1.2rem;}
   .app-main{margin-left:0;}
   .sb-open{display:grid;}
   .sb-collapse{display:none;}
   .sidebar{width:min(86vw,320px);transform:translateX(-102%);}
   .sidebar.is-open{transform:none;box-shadow:var(--shadow-lg);}
-  .sb-scrim{position:fixed;inset:0;z-index:930;background:rgba(11,26,34,.55);opacity:0;transition:opacity .25s var(--ease);}
+  .sb-scrim{position:fixed;inset:0;z-index:960;background:rgba(11,26,34,.55);opacity:0;transition:opacity .25s var(--ease);}
   .sb-scrim[hidden]{display:none;}
   .sb-scrim.is-open{opacity:1;}
+}
+/* Phones: bar = hamburger on the left, search + theme on the right; the brand
+   moves into the drawer header. */
+@media (max-width:767.98px){
+  .topbar{gap:.25rem;padding:0 .6rem;}
+  .topbar-brand{display:none;}
+  .topbar-left{flex:1 1 auto;}
+  .topbar-center{flex:0 0 auto;margin:0;}
+  .topbar-actions{flex:0 0 auto;}
 }
 @media (min-width:1024px){.sb-scrim{display:none;}}
 @media print{.sidebar,.sb-scrim,.topbar{display:none !important;}.app-main{margin-left:0;}}
@@ -288,6 +301,7 @@ html.nav-locked{overflow:hidden;}
 .hero{position:relative;background:var(--bg-hero);color:var(--on-ink);overflow:hidden;padding:4.5rem 0 3.5rem;}
 .hero-bg{position:absolute;inset:0;opacity:.5;pointer-events:none;}
 .hero-inner{position:relative;display:grid;gap:2.5rem;}
+.hero-inner > *{min-width:0;}
 .hero h1{color:var(--on-ink-strong);font-size:clamp(2.1rem,5.4vw,3.4rem);margin-top:.9rem;max-width:16ch;}
 .hero-sub{margin-top:1.15rem;color:var(--on-ink-muted);font-size:1.1rem;max-width:46ch;line-height:1.65;}
 .hero-ctas{display:flex;flex-wrap:wrap;gap:.9rem;margin-top:1.8rem;}
@@ -1867,8 +1881,8 @@ a.hub-cta.hub-cta-jump:hover .hub-cta-arrow,a.hub-cta.hub-cta-jump:focus-visible
 .rm-link-card .btn-journey{padding:8px 18px;font-size:.9rem;box-shadow:none;}
 
 /* Related careers: max 4 cards, each with a page-link button; comparison jump card */
-.related-grid-4{grid-template-columns:repeat(2,1fr);}
-@media (min-width:768px){.related-grid-4{grid-template-columns:repeat(4,1fr);}}
+.related-grid-4{grid-template-columns:repeat(2,minmax(0,1fr));}
+@media (min-width:768px){.related-grid-4{grid-template-columns:repeat(4,minmax(0,1fr));}}
 .related-grid-4 .related-card{display:flex;flex-direction:column;align-items:center;gap:.25rem;}
 .related-grid-4 .related-card span{flex:1;}
 .related-grid-4 .related-card .btn{margin-top:.8rem;padding:.55rem 1.1rem;font-size:.86rem;}

@@ -66,6 +66,8 @@
   if(sidebar){
     if(menuToggle) menuToggle.addEventListener('click', function(){ setDrawer(!sbDrawerOpen()); if(sbDrawerOpen()){ var f = sidebar.querySelector('a[href]'); if(f) f.focus(); } });
     if(sbScrim) sbScrim.addEventListener('click', function(){ setDrawer(false); });
+    var sbClose = sidebar.querySelector('.sb-close');
+    if(sbClose) sbClose.addEventListener('click', function(){ setDrawer(false); if(menuToggle) menuToggle.focus(); });
     if(sbCollapse) sbCollapse.addEventListener('click', function(){
       if(!desktopMq.matches){ setDrawer(false); if(menuToggle) menuToggle.focus(); return; }
       var rail = root.getAttribute('data-sidebar') !== 'collapsed';

@@ -583,11 +583,23 @@ table{border-collapse:collapse;width:100%;}
 .pc-card h3{font-size:1.08rem;display:flex;align-items:center;gap:.5rem;}
 .pc-card li{display:flex;gap:.6rem;font-size:.93rem;color:var(--text-muted);}
 .myth-grid{display:grid;gap:1rem;}
-.myth-item{display:grid;gap:.3rem;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);padding:1.2rem 1.4rem;}
-.myth-item .myth{font-weight:700;color:var(--rust);font-size:.92rem;display:flex;gap:.5rem;}
-.myth-item .fact{color:var(--text-muted);font-size:.92rem;display:flex;gap:.5rem;}
-.myth-item .fact strong{color:var(--teal);flex-shrink:0;}
-.myth-item .myth strong{flex-shrink:0;}
+.myth-accordion{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);margin-bottom:12px;overflow:hidden;}
+.myth-accordion[open]{border-color:var(--teal);}
+.myth-summary{cursor:pointer;display:flex;align-items:center;gap:.75rem;padding:1rem 1.2rem;list-style:none;font-weight:600;font-size:.95rem;transition:background .2s;}
+.myth-summary::-webkit-details-marker{display:none;}
+.myth-summary::marker{content:"";}
+.myth-summary:hover{background:color-mix(in srgb,var(--rust) 6%,transparent);}
+.myth-summary:focus-visible{outline:2px solid var(--teal);outline-offset:-2px;}
+.myth-badge,.fact-badge{flex-shrink:0;font-size:.7rem;font-weight:800;letter-spacing:.06em;padding:.15rem .5rem;border-radius:999px;}
+.myth-badge{color:var(--rust);background:color-mix(in srgb,var(--rust) 12%,transparent);}
+.fact-badge{color:var(--teal);background:color-mix(in srgb,var(--teal) 14%,transparent);align-self:flex-start;}
+.myth-title{flex:1;color:var(--rust);}
+.myth-icon{flex-shrink:0;transition:transform .25s;color:var(--text-muted);}
+.myth-accordion[open] .myth-icon{transform:rotate(180deg);}
+.fact-content{display:flex;gap:.75rem;padding:1rem 1.2rem;background:color-mix(in srgb,var(--teal) 7%,transparent);border-top:1px solid var(--line);animation:factIn .25s ease;}
+.fact-content p{margin:0;color:var(--text-muted);font-size:.92rem;}
+@keyframes factIn{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:none;}}
+@media (prefers-reduced-motion:reduce){.fact-content{animation:none;}.myth-icon{transition:none;}}
 .related-grid{display:grid;gap:1rem;grid-template-columns:repeat(2,1fr);}
 @media (min-width:768px){.related-grid{grid-template-columns:repeat(5,1fr);}}
 .related-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);padding:1.2rem;text-align:center;transition:transform .15s,box-shadow .15s;}

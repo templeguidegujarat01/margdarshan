@@ -103,7 +103,7 @@
   --shadow-lg:0 24px 56px rgba(0,0,0,.5);
 }
 *{box-sizing:border-box;}
-html{scroll-behavior:smooth;scroll-padding-top:var(--scroll-offset);max-width:100%;overflow-x:clip;}
+html{scroll-behavior:smooth;max-width:100%;overflow-x:clip;}
 body{overflow-x:clip;margin:0;font-family:var(--font-body);color:var(--text);background:var(--paper);line-height:1.6;-webkit-font-smoothing:antialiased;transition:background .25s var(--ease),color .25s var(--ease);}
 img,svg{display:block;max-width:100%;}
 a{color:inherit;text-decoration:none;}
@@ -116,7 +116,8 @@ button{font-family:inherit;}
    A visible sticky .quicknav-bar stacks under the header, so its height
    is added too. It's hidden from 1440px up only when the sidebar replaced
    it (.has-sidebar-nav). */
-section[id],h1[id],h2[id],h3[id],h4[id]{scroll-margin-top:var(--scroll-offset);}
+/* Offset lives ONLY here (scroll-padding on html would stack with it and land every jump too low). */
+main [id],section[id],h1[id],h2[id],h3[id],h4[id]{scroll-margin-top:var(--scroll-offset);}
 :root:has(.quicknav-bar:not(.has-sidebar-nav)){--scroll-offset:calc(var(--header-h) + var(--crumb-h) + var(--quicknav-h) + 1.25rem);}
 @media (max-width:1439.98px){
   :root:has(.quicknav-bar){--scroll-offset:calc(var(--header-h) + var(--crumb-h) + var(--quicknav-h) + 1.25rem);}
@@ -1029,8 +1030,11 @@ a[href="icar-aieea.html"]:not(.cx-link):not(.related-card):not(.source-link):not
   flex-shrink:0;
 }
 .page-nav a:hover,.page-nav a:focus-visible{color:var(--text);border-left-color:var(--stream-border);}
-.page-nav a.is-active{color:var(--text);font-weight:700;border-left-color:var(--gold);background:var(--stream-soft);}
+.page-nav a.is-active{color:var(--text);font-weight:700;border-left-color:var(--gold);background:var(--stream-soft);box-shadow:inset 3px 0 0 var(--gold);}
 .page-nav a.is-active::before{color:var(--link);opacity:1;}
+.page-nav-mobile-panel a.is-active{color:var(--text);font-weight:700;}
+.page-nav-mobile-panel a.is-active::before{color:var(--link);}
+.page-nav-mobile-panel a::before{content:counter(pagenavm,decimal-leading-zero);font-family:var(--font-mono);font-size:.68rem;font-weight:600;opacity:.75;flex-shrink:0;padding-top:.15rem;}
 
 .page-nav-mobile{display:none;}
 @media (max-width:1439.98px){

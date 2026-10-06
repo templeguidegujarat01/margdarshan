@@ -847,8 +847,12 @@
     if(mPanel) mPanel.classList.remove('is-open');
     if(mBtn) mBtn.setAttribute('aria-expanded', 'false');
     if(history.pushState) history.pushState(null, '', a.getAttribute('href'));
+    // Land on the START of the section (its top edge), not mid-way at the heading.
+    var pi = headingEls.indexOf(target);
+    var dest = pi > -1 ? spyPoints[pi] : target;
+    forcedId = target.id;
     setActive(target.id);
-    scrollToTarget(target, true);
+    scrollToTarget(dest, true);
   }
   nav.addEventListener('click', handleNavClick);
   if(mPanel) mPanel.addEventListener('click', handleNavClick);
@@ -870,6 +874,8 @@
     });
   }
   var activeId = null;
+  var forcedId = null;   // clicked item stays lit (even if the last sections cannot reach the top) until the reader scrolls themselves
+  ["wheel","touchmove","keydown"].forEach(function(ev){ window.addEventListener(ev, function(){ forcedId = null; }, {passive:true}); });
 
   function keepVisible(container, link, horizontal){
     if(!container || !link.offsetParent) return;
@@ -930,6 +936,7 @@
 
   updateActive = function(){
     if(Date.now() < scrollLockUntil) return;
+    if(forcedId){ setActive(forcedId); return; }
     var current = null, lastVisible = null;
     headingEls.forEach(function(h, i){
       if(!h.getClientRects().length) return;   // hidden heading

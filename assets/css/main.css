@@ -1843,7 +1843,9 @@ a.hub-cta.hub-cta-jump:hover .hub-cta-arrow,a.hub-cta.hub-cta-jump:focus-visible
 .overview-more .toggle-icon{display:inline-block;transition:transform .25s;}
 .overview-more[open] .toggle-icon{transform:rotate(180deg);}
 .overview-more > .overview-bullet-list{margin:.75rem 0 .75rem;}
-.overview-more[open] > summary{margin-bottom:0;}
+.overview-more[open]{display:flex;flex-direction:column;}
+.overview-more[open] > .overview-bullet-list,.overview-more[open] > .overview-extra-content{order:1;}
+.overview-more[open] > summary{order:2;margin-top:12px;align-self:flex-start;}
 .overview-more > summary:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
 
 /* ---- Step-by-step path: compact horizontal flow ---- */

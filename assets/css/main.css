@@ -146,7 +146,7 @@ section[id],h1[id],h2[id],h3[id],h4[id]{scroll-margin-top:var(--scroll-offset);}
    footer). --sidebar-w is the only thing that changes when the sidebar
    collapses to an icon rail, so content never jumps — it just re-flows once.
    All colours come from the theme tokens, so dark/light never shifts layout. */
-:root{--sidebar-w:272px;}
+:root{--sidebar-w:272px;--brand-w:272px;}
 html[data-sidebar="collapsed"]{--sidebar-w:72px;}
 html.nav-locked{overflow:hidden;}
 .logo{display:flex;align-items:center;gap:.55rem;font-family:var(--font-display);font-weight:700;font-size:1.3rem;color:var(--on-ink-strong);}
@@ -160,10 +160,11 @@ html.nav-locked{overflow:hidden;}
 .app-main{margin-left:var(--sidebar-w);min-width:0;transition:margin-left .22s var(--ease);}
 
 /* ---- Sidebar ---- */
-.sidebar{position:fixed;top:0;bottom:0;left:0;z-index:940;width:var(--sidebar-w);display:flex;flex-direction:column;background:var(--bg-header);border-right:1px solid var(--line);transition:width .22s var(--ease),transform .25s var(--ease),box-shadow .25s var(--ease);}
-.sb-brand{position:sticky;top:0;z-index:100;background:var(--bg-header);display:flex;align-items:center;justify-content:space-between;gap:.5rem;height:var(--header-h);padding:0 .75rem 0 1.1rem;flex-shrink:0;border-bottom:1px solid var(--line);}
+.sidebar{position:fixed;top:var(--header-h);bottom:0;left:0;z-index:940;width:var(--sidebar-w);display:flex;flex-direction:column;background:var(--bg-header);border-right:1px solid var(--line);transition:width .22s var(--ease),transform .25s var(--ease),box-shadow .25s var(--ease);}
+/* Brand: detached from the sidebar, fixed top-left on every page and state. */
+.sb-brand{position:fixed;top:0;left:0;z-index:1000;width:var(--brand-w);height:var(--header-h);display:flex;align-items:center;padding:0 16px;background:var(--bg-header);border-bottom:1px solid var(--line);border-right:1px solid var(--line);}
 .sb-brand .logo{min-width:0;}
-.sb-brand-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sb-brand-name{white-space:nowrap;}
 .sb-scroll{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;padding:.5rem .75rem 1rem;}
 .sb-group + .sb-group{margin-top:.6rem;padding-top:.6rem;border-top:1px solid rgba(255,255,255,.08);}
 :root:not([data-theme="dark"]) .sb-group + .sb-group{border-top-color:var(--line);}
@@ -206,8 +207,6 @@ html.nav-locked{overflow:hidden;}
 
 /* Desktop icon rail (html[data-sidebar="collapsed"]) */
 @media (min-width:1024px){
-  html[data-sidebar="collapsed"] .sb-brand{flex-direction:column;justify-content:center;height:auto;padding:.7rem 0;gap:.2rem;}
-  html[data-sidebar="collapsed"] .sb-brand-name,
   html[data-sidebar="collapsed"] .sb-label,
   html[data-sidebar="collapsed"] .sb-expand,
   html[data-sidebar="collapsed"] .sb-sub,
@@ -221,11 +220,11 @@ html.nav-locked{overflow:hidden;}
 }
 
 /* ---- Top bar ---- */
-.topbar{position:sticky;top:0;z-index:900;display:flex;align-items:center;gap:.75rem;height:var(--header-h);padding:0 1rem;background:var(--bg-header);border-bottom:1px solid var(--line);}
-@media (min-width:768px){.topbar{padding:0 1.5rem;}}
+/* The fixed .sb-brand covers the top-left --brand-w; the bar clears it. On desktop the
+   bar starts at --sidebar-w, so when the rail collapses it gains the difference. */
+.topbar{position:sticky;top:0;z-index:900;display:flex;align-items:center;gap:.75rem;height:var(--header-h);padding:0 1rem 0 calc(var(--brand-w) - var(--sidebar-w) + 1rem);background:var(--bg-header);border-bottom:1px solid var(--line);transition:padding-left .22s var(--ease);}
+@media (min-width:768px){.topbar{padding-right:1.5rem;padding-left:calc(var(--brand-w) - var(--sidebar-w) + 1.5rem);}}
 .sb-open{display:none;}
-.tb-brand{display:none;align-items:center;gap:.5rem;min-width:0;font-family:var(--font-display);font-weight:700;font-size:1.05rem;color:var(--on-ink-strong);}
-.tb-brand svg{flex-shrink:0;}
 .topbar-actions{display:flex;align-items:center;gap:.4rem;margin-left:auto;flex-shrink:1;min-width:0;}
 .topbar .search-trigger{width:42px;padding:0;justify-content:center;border-color:transparent;background:transparent;}
 .topbar .search-trigger-text,.topbar .search-trigger-kbd{display:none;}
@@ -235,7 +234,7 @@ html.nav-locked{overflow:hidden;}
   .topbar .search-trigger-kbd{display:inline-block;}
 }
 
-@media (max-width:599px){.topbar .breadcrumb{display:none;}.tb-brand{flex:1;}}
+@media (max-width:599px){.topbar .breadcrumb{display:none;}}
 /* Breadcrumb (lives in the top bar) */
 .breadcrumb{flex:1 1 auto;min-width:0;font-size:.88rem;}
 .breadcrumb ol{display:flex;align-items:center;flex-wrap:nowrap;min-width:0;}
@@ -252,20 +251,16 @@ html.nav-locked{overflow:hidden;}
 
 /* ---- Mobile / tablet: sidebar becomes a slide-over drawer ---- */
 @media (max-width:1023.98px){
+  :root{--brand-w:190px;--sidebar-w:0px;}
+  .sb-brand .logo{font-size:1.15rem;gap:.45rem;}
   .app-main{margin-left:0;}
   .sb-open{display:grid;}
-  .tb-brand{display:flex;}
+  .sb-collapse{display:none;}
   .sidebar{width:min(86vw,320px);transform:translateX(-102%);}
   .sidebar.is-open{transform:none;box-shadow:var(--shadow-lg);}
   .sb-scrim{position:fixed;inset:0;z-index:930;background:rgba(11,26,34,.55);opacity:0;transition:opacity .25s var(--ease);}
   .sb-scrim[hidden]{display:none;}
   .sb-scrim.is-open{opacity:1;}
-  /* The ☰ in the drawer header turns into a close ✕. */
-  .sb-collapse{position:relative;}
-  .sb-collapse svg{display:none;}
-  .sb-collapse::before,.sb-collapse::after{content:"";position:absolute;width:18px;height:2px;background:currentColor;border-radius:2px;}
-  .sb-collapse::before{transform:rotate(45deg);}
-  .sb-collapse::after{transform:rotate(-45deg);}
 }
 @media (min-width:1024px){.sb-scrim{display:none;}}
 @media print{.sidebar,.sb-scrim,.topbar{display:none !important;}.app-main{margin-left:0;}}

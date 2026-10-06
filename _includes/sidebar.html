@@ -1,5 +1,6 @@
 {%- comment -%}
-  App sidebar: brand + collapse toggle, four collapsible groups.
+  App sidebar: collapsible groups. The brand lives in brand.html and the
+  collapse toggle in header.html, so neither moves with the sidebar.
   Menu content lives in _data/nav.yml (`sidebar`).
   Desktop (>=1024px): fixed left rail, collapses to icons. Below: slide-over
   drawer opened from the topbar menu button. Behaviour is in scripts.html.
@@ -13,16 +14,6 @@
 {%- if cur == "" -%}{%- assign cur = "index.html" -%}{%- endif -%}
 {%- assign parent = page.breadcrumb.parent_href -%}
 <aside class="sidebar" id="sidebar" aria-label="Site navigation">
-  <div class="sb-brand">
-    <a href="index.html" class="logo" title="Margdarshan home">
-      <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#E8A33D"/><path d="M8 22 L16 8 L24 22" stroke="#0F2A3D" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="16" r="1.8" fill="#0F2A3D"/></svg>
-      <span class="sb-brand-name">Margdarshan</span>
-    </a>
-    <button type="button" class="icon-btn sb-collapse" id="sidebarCollapse" aria-label="Collapse sidebar" aria-controls="sidebar" aria-expanded="true">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-    </button>
-  </div>
-
   <nav class="sb-scroll" aria-label="Primary">
     {%- for group in site.data.nav.sidebar %}
     {%- comment -%} A group opens by default; scripts.html restores the visitor's closed groups. {%- endcomment %}

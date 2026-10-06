@@ -1814,3 +1814,11 @@ a.feature-card:hover,a.feature-card:focus-visible{border-color:var(--gold);box-s
 .btn-page-link.btn-primary:hover,.btn-page-link.btn-primary:focus-visible,.btn-page-link.btn-ghost:hover,.btn-page-link.btn-ghost:focus-visible,[data-stream] .btn-page-link.btn-primary:hover{background:var(--stream-primary);color:#fff;box-shadow:var(--shadow-md);}
 .btn-inpage-jump.btn-primary,.btn-inpage-jump.btn-ghost{background:transparent;color:var(--on-ink);border:1.5px solid rgba(var(--hl-rgb),.55);box-shadow:none;}
 .btn-inpage-jump.btn-primary:hover,.btn-inpage-jump.btn-primary:focus-visible,.btn-inpage-jump.btn-ghost:hover,.btn-inpage-jump.btn-ghost:focus-visible{background:rgba(var(--hl-rgb),.12);color:var(--on-ink-strong);border-color:var(--accent-on-surface);box-shadow:none;}
+
+/* Eligibility list: tick + body cards, full width, wraps cleanly at any width */
+.prose:has(>.eligibility-list){max-width:none;}
+.prose .eligibility-list{display:grid;gap:.75rem;margin:0;padding:0;list-style:none;grid-template-columns:1fr;}
+.prose .eligibility-list li{display:flex;align-items:flex-start;gap:.9rem;background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--teal);border-radius:var(--radius-md);padding:1rem 1.2rem;font-size:.96rem;line-height:1.65;color:var(--text-muted);}
+.elig-tick{flex:none;display:grid;place-items:center;width:1.6rem;height:1.6rem;border-radius:999px;background:color-mix(in srgb,var(--teal) 14%,transparent);color:var(--teal);font-weight:800;font-size:.85rem;line-height:1;margin-top:.1rem;}
+.elig-body{flex:1;min-width:0;overflow-wrap:anywhere;font-weight:400;}
+.elig-body strong{color:var(--text);font-weight:700;}

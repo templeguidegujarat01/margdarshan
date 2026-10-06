@@ -1876,3 +1876,14 @@ a.hub-cta.hub-cta-jump:hover .hub-cta-arrow,a.hub-cta.hub-cta-jump:focus-visible
 .compare-cta h3{margin:0 0 .3rem;font-size:1.1rem;}
 .compare-cta p{margin:0;color:var(--text-muted);max-width:60ch;}
 .compare-cta .btn{flex:none;}
+
+/* Compact stage-based eligibility cards: icon + title share one row, tight padding,
+   auto-fit grid (2 columns when space allows, 1 on narrow screens). */
+.eligibility-grid{grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:16px;}
+@media (min-width:768px){.eligibility-grid{grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));}}
+.elig-card{display:grid;grid-template-columns:auto 1fr;align-items:center;column-gap:10px;padding:16px 20px;align-content:start;}
+.elig-card .e-icon{width:34px;height:34px;margin-bottom:0;}
+.elig-card .e-icon svg{width:18px;height:18px;}
+.elig-card h3{margin:0;font-size:1.05rem;}
+.elig-card ul{grid-column:1 / -1;gap:6px;margin-top:12px;}
+.elig-card li{font-size:.92rem;line-height:1.5;}

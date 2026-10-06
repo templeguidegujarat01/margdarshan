@@ -1827,3 +1827,35 @@ a.feature-card:hover,a.feature-card:focus-visible{border-color:var(--gold);box-s
 a.hub-cta.hub-cta-jump,a.hub-cta.hub-cta-jump:visited{background:transparent;border-style:dashed;border-left-style:solid;box-shadow:none;}
 a.hub-cta.hub-cta-jump:hover .hub-cta-arrow,a.hub-cta.hub-cta-jump:focus-visible .hub-cta-arrow{transform:translateY(3px);}
 @media (prefers-reduced-motion:reduce){a.hub-cta.hub-cta-jump:hover .hub-cta-arrow{transform:none;}}
+
+/* ---- Overview bullets (replaces prose + yellow subject chips) ---- */
+.overview-body{max-width:820px;}
+.overview-bullet-list{list-style:none;margin:0;padding:0;display:grid;gap:.6rem;}
+.overview-bullet-list li{position:relative;padding-left:1.4rem;color:var(--text);line-height:1.6;}
+.overview-bullet-list li::before{content:"";position:absolute;left:.15rem;top:.62em;width:.5rem;height:.5rem;border-radius:999px;background:var(--gold);}
+.overview-bullet-list a:not([class]){text-decoration:underline;text-underline-offset:2px;}
+.overview-more{margin-top:.6rem;}
+.overview-more > summary{display:inline-flex;align-items:center;gap:.35rem;cursor:pointer;list-style:none;font-weight:600;font-size:.9rem;color:var(--text-muted);padding:.2rem 0;}
+.overview-more > summary::-webkit-details-marker{display:none;}
+.overview-more > summary::after{content:"\25BE";font-size:.8rem;transition:transform .2s;}
+.overview-more[open] > summary{display:none;}
+.overview-more > .overview-bullet-list{margin-top:.1rem;}
+.overview-more > summary:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px;}
+
+/* ---- Step-by-step path: compact horizontal flow ---- */
+.journey-list.step-path-flow{display:grid;gap:.6rem;grid-template-columns:1fr;position:relative;}
+.step-path-flow::before{display:none !important;}
+.step-path-flow .journey-item{display:grid;grid-template-columns:auto 1fr;column-gap:.7rem;row-gap:.15rem;align-items:center;padding:.8rem .95rem;border-radius:var(--radius-md);}
+.step-path-flow .journey-node{width:28px;height:28px;font-size:.8rem;grid-row:1;grid-column:1;}
+.step-path-flow .journey-item h3{font-size:.95rem;grid-row:1;grid-column:2;margin:0;}
+.step-path-flow .journey-item p{font-size:.84rem;line-height:1.45;margin:0;grid-column:1 / -1;}
+@media (min-width:768px){
+  .journey-list.step-path-flow{grid-template-columns:repeat(4,minmax(0,1fr));gap:.75rem;}
+  .step-path-flow .journey-item:not(:last-child)::after{content:"";position:absolute;top:1.55rem;right:-.75rem;width:.75rem;height:2px;background:var(--gold);opacity:.6;z-index:0;}
+}
+
+/* ---- Roadmap CTA: compact ---- */
+.rm-link-card{padding:.85rem 1.1rem;margin-top:1.1rem;gap:.75rem;}
+.rm-link-card strong{font-size:.98rem;}
+.rm-link-card p{font-size:.88rem;}
+.rm-link-card .btn-journey{padding:8px 18px;font-size:.9rem;box-shadow:none;}

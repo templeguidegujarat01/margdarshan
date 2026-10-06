@@ -125,7 +125,9 @@ footer:
   });
   clearEl.addEventListener('click', function(){ picked = []; render(); });
 
-  var q = new URLSearchParams(window.location.search).get('c');
+  // ?c=ca,cma,cs (canonical) or ?c1=ca&c2=cma&c3=cs
+  var sp = new URLSearchParams(window.location.search);
+  var q = sp.get('c') || [1,2,3,4].map(function(i){ return sp.get('c' + i); }).filter(Boolean).join(',');
   if(q){
     q.split(',').forEach(function(k){ k = k.trim().toLowerCase(); if(byKey[k] && picked.indexOf(k) < 0 && picked.length < MAX) picked.push(k); });
   }

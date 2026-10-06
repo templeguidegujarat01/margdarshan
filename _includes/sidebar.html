@@ -14,6 +14,7 @@
 {%- if cur == "" -%}{%- assign cur = "index.html" -%}{%- endif -%}
 {%- assign parent = page.breadcrumb.parent_href -%}
 <aside class="sidebar" id="sidebar" aria-label="Site navigation">
+  <div class="sb-drawer-head">{% include brand.html %}</div>
   <nav class="sb-scroll" aria-label="Primary">
     {%- for group in site.data.nav.sidebar %}
     {%- comment -%} A group opens by default; scripts.html restores the visitor's closed groups. {%- endcomment %}

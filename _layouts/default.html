@@ -21,9 +21,9 @@
       careers_href, careers_label, faq_href   "Guidance" column links
     progress_full: true         render the scroll progress bar pre-filled (404)
     back_to_top: false          omit the back-to-top button
-  App shell: .sb-brand (fixed top-left logo + name, never collapses) + .sidebar
-  (fixed left rail / mobile drawer, starts below the brand) + .app-main, which holds
-  the sticky .topbar (breadcrumb, search, theme), the page content and the footer.
+  App shell: a full-width fixed .topbar (toggle, logo + name, breadcrumb, search, theme)
+  + .sidebar (fixed left rail / mobile drawer, starts below the bar) + .app-main with
+  the page content and the footer.
 {%- endcomment -%}
 {%- assign og_title = page.og_title | default: page.title -%}
 {%- assign og_description = page.og_description | default: page.description -%}
@@ -81,8 +81,6 @@
 <div class="progress-bar" id="progressBar"{% if page.progress_full %} style="width:100%;"{% endif %}></div>
 
 {%- capture shell -%}
-{% include brand.html %}
-
 {% include sidebar.html careers_href=page.header.careers_href careers_label=page.header.careers_label faq_href=page.header.faq_href faq_label=page.header.faq_label active_stream=page.header.active_stream %}
 
 {% include career-search.html %}

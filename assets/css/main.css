@@ -419,6 +419,23 @@ ul,ol{margin:0;padding:0;list-style:none;}
 .elig-card ul{display:grid;gap:.65rem;}
 .elig-card li{display:flex;gap:.6rem;font-size:.94rem;color:var(--text-muted);}
 .elig-card li svg{flex-shrink:0;margin-top:.2rem;color:var(--teal);}
+
+/* Fit check ("Who should choose") — compact 2-column match / mismatch cards.
+   Stacks below 768px, side-by-side from 768px up. */
+.fit-check-container{width:100%;}
+.fit-card-grid{display:grid;grid-template-columns:1fr;gap:12px;}
+@media (min-width:768px){.fit-card-grid{grid-template-columns:1fr 1fr;}}
+.fit-card{background:var(--surface);border:1px solid var(--line);border-top-width:3px;border-radius:var(--radius-md);padding:16px;}
+.fit-card--match{border-top-color:var(--teal);}
+.fit-card--mismatch{border-top-color:var(--rust);}
+.fit-card-title{font-size:1.02rem;margin:0 0 12px;}
+.fit-card--match .fit-card-title{color:var(--teal);}
+.fit-card--mismatch .fit-card-title{color:var(--rust);}
+.fit-point-list{list-style:none;margin:0;padding:0;display:grid;gap:12px;}
+.fit-point-list li{position:relative;padding-left:1.4rem;font-size:.92rem;line-height:1.45;color:var(--text-muted);}
+.fit-point-list li::before{position:absolute;left:0;top:0;font-weight:700;}
+.fit-card--match .fit-point-list li::before{content:"\2714";color:var(--teal);}
+.fit-card--mismatch .fit-point-list li::before{content:"\2716";color:var(--rust);}
 /* NEW GROUP HEADING */
 .career-group-heading{
   font-size:.78rem;

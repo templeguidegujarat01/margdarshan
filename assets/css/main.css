@@ -48,12 +48,13 @@
   --ease:cubic-bezier(.22,.61,.36,1);
   --container:1180px;
   --header-h:64px;
+  --crumb-h:2.75rem;
   /* Height of the sticky .quicknav-bar (set exactly by scripts.html on
      load/resize; this is the fallback). Only counted while it's visible. */
   --quicknav-h:4.25rem;
   /* Distance every in-page anchor target stops below the top of the
      viewport, so headings never hide behind the sticky header. */
-  --scroll-offset:calc(var(--header-h) + 1.5rem);
+  --scroll-offset:calc(var(--header-h) + var(--crumb-h) + 1.25rem);
 
   /* ---------- Stream theme system — DISABLED ----------
      Previously, pages opted into a per-stream accent colour via
@@ -116,9 +117,9 @@ button{font-family:inherit;}
    is added too. It's hidden from 1440px up only when the sidebar replaced
    it (.has-sidebar-nav). */
 section[id],h1[id],h2[id],h3[id],h4[id]{scroll-margin-top:var(--scroll-offset);}
-:root:has(.quicknav-bar:not(.has-sidebar-nav)){--scroll-offset:calc(var(--header-h) + var(--quicknav-h) + 1.25rem);}
+:root:has(.quicknav-bar:not(.has-sidebar-nav)){--scroll-offset:calc(var(--header-h) + var(--crumb-h) + var(--quicknav-h) + 1.25rem);}
 @media (max-width:1439.98px){
-  :root:has(.quicknav-bar){--scroll-offset:calc(var(--header-h) + var(--quicknav-h) + 1.25rem);}
+  :root:has(.quicknav-bar){--scroll-offset:calc(var(--header-h) + var(--crumb-h) + var(--quicknav-h) + 1.25rem);}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto;}
@@ -245,7 +246,8 @@ html.nav-locked{overflow:hidden;}
 }
 
 /* Breadcrumb: first thing in the page area, directly under the fixed top bar */
-.crumb-bar{padding:.9rem 0 .2rem;}
+.crumb-bar{position:sticky;top:var(--header-h);z-index:90;display:flex;align-items:center;height:var(--crumb-h);background:var(--surface);background:color-mix(in srgb,var(--surface) 92%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
+.crumb-bar .container{width:100%;}
 .breadcrumb{min-width:0;font-size:.88rem;}
 .breadcrumb ol{display:flex;align-items:center;flex-wrap:nowrap;min-width:0;}
 .breadcrumb li{display:flex;align-items:center;min-width:0;flex-shrink:0;}
@@ -578,7 +580,7 @@ table{border-collapse:collapse;width:100%;}
 .page-hero{position:relative;background:var(--bg-hero);color:var(--on-ink);overflow:hidden;padding:3rem 0 2.6rem;}
 .page-hero-inner{position:relative;max-width:800px;}
 .page-hero p{margin-top:1rem;color:var(--on-ink-muted);font-size:1.06rem;max-width:60ch;line-height:1.65;}
-.quicknav-bar{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:var(--header-h);z-index:80;}
+.quicknav-bar{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:calc(var(--header-h) + var(--crumb-h));z-index:80;}
 .prose{max-width:780px;color:var(--text-muted);font-size:1.02rem;line-height:1.75;display:grid;gap:1.05rem;}
 .note{display:flex;gap:.75rem;background:rgba(31,111,92,.07);border:1px solid rgba(31,111,92,.25);border-radius:var(--radius-md);padding:1.1rem 1.3rem;font-size:.92rem;color:var(--text-muted);max-width:780px;}
 .note svg{flex-shrink:0;color:var(--teal);margin-top:.15rem;}

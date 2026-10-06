@@ -1,0 +1,6 @@
+---
+layout: null
+sitemap: false
+---
+{%- comment -%} slug -> breadcrumb label for every top-level page (x:1 = entrance-exam page). Fetched lazily by _includes/scripts.html only when a page is opened with ?from= / ?via= / ?exam= trail params. {%- endcomment -%}
+{ {%- for p in site.pages -%}{%- if p.breadcrumb.current and p.dir == "/" -%}{%- assign cm_slug = p.name | remove: ".html" -%}"{{ cm_slug }}":{"l":{{ p.breadcrumb.current | jsonify }}{% if site.data.explorer.exam_pages contains cm_slug %},"x":1{% endif %}},{%- endif -%}{%- endfor -%}"_":{} }

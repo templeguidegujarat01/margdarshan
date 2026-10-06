@@ -976,3 +976,83 @@
   });
 })();
 </script>
+<script>
+(function(){
+  "use strict";
+  /* ---------- Breadcrumb trail: Home > Science > CSE > JEE Main > Coaching ----------
+     Career and exam pages decorate their links to exam pages and to the coaching / college
+     finders with the path taken so far:  ?from=<stream>&via=<career page>&exam=<exam page>.
+     A page opened with those params rebuilds its breadcrumb from them (labels come from
+     assets/crumb-map.json). Without params nothing changes, so plain visits and no-JS keep
+     the static breadcrumb. */
+  var ol = document.querySelector('.crumb-bar .breadcrumb ol');
+  var main = document.getElementById('main');
+  if(!ol || !main) return;
+  var EXAMS = {{ site.data.explorer.exam_pages | jsonify }};
+  var STREAMS = ['science', 'commerce', 'arts', 'diploma', 'iti', 'govt-exams'];
+  var SLUG = /^[a-z0-9-]+$/;
+  var q = new URLSearchParams(window.location.search);
+  function param(k){ var v = q.get(k); return v && SLUG.test(v) ? v : ''; }
+  var slug = (window.location.pathname.split('/').pop() || 'index').replace(/\.html$/, '') || 'index';
+  var items = ol.querySelectorAll('li');
+  if(items.length < 2) return;
+  var parentA = items.length > 2 ? items[1].querySelector('a') : null;
+  var parentSlug = parentA ? parentA.getAttribute('href').replace(/[?#].*$/, '').replace(/\.html$/, '') : '';
+  var onExam = EXAMS.indexOf(slug) > -1;
+
+  var from = param('from'), via = param('via'), exam = param('exam');
+  var hasTrail = !!(from || via || exam);
+  /* A career page (its crumb parent is a stream hub) starts its own trail. */
+  if(!from && !via && STREAMS.indexOf(parentSlug) > -1){ from = parentSlug; via = slug; }
+
+  /* ---- 1. carry the trail on outgoing links ---- */
+  if((from && via) || onExam){
+    main.querySelectorAll('a[href]').forEach(function(a){
+      var m = /^([a-z0-9-]+)\.html(\?[^#]*)?(#.*)?$/.exec(a.getAttribute('href'));
+      if(!m || m[1] === slug) return;
+      var t = m[1];
+      var finder = t === 'coaching' || t === 'colleges' || /^(coaching|colleges)-/.test(t);
+      if(!finder && EXAMS.indexOf(t) < 0) return;
+      var add = [], have = m[2] || '';
+      /* on an exam page the finder opens for THIS exam, replacing any generic exam key already in the link */
+      if(finder && onExam) have = have.replace(/([?&])exam=[^&]*&?/, '$1').replace(/[?&]$/, '');
+      function put(k, v){ if(v && have.indexOf(k + '=') < 0) add.push(k + '=' + v); }
+      if(from && via){ put('from', from); put('via', via); }
+      if(finder && onExam) put('exam', slug);
+      if(!add.length) return;
+      a.setAttribute('href', t + '.html' + (have ? have + '&' : '?') + add.join('&') + (m[3] || ''));
+    });
+  }
+
+  /* ---- 2. rebuild the breadcrumb when this page was opened with a trail ---- */
+  if(!hasTrail) return;
+  fetch('assets/crumb-map.json', { credentials: 'same-origin' })
+    .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function(map){
+      var trail = [], seen = {};
+      seen[slug] = true;
+      function add(s, href){
+        if(!s || seen[s] || !map[s]) return;
+        seen[s] = true;
+        trail.push({ label: map[s].l, href: href });
+      }
+      var tp = (from && via ? '?from=' + from : '');
+      add(from, from + '.html');
+      add(via, via + '.html' + tp);
+      add(exam, exam + '.html' + (from && via ? '?from=' + from + '&via=' + via : ''));
+      if(parentA && parentSlug){ if(!seen[parentSlug]){ seen[parentSlug] = true; trail.push({ label: parentA.textContent, href: parentA.getAttribute('href') }); } }
+      var current = items[items.length - 1];
+      var frag = document.createDocumentFragment();
+      frag.appendChild(items[0]);
+      trail.forEach(function(t){
+        var li = document.createElement('li'), a = document.createElement('a');
+        a.href = t.href; a.textContent = t.label;
+        li.appendChild(a); frag.appendChild(li);
+      });
+      frag.appendChild(current);
+      ol.innerHTML = '';
+      ol.appendChild(frag);
+    })
+    .catch(function(){ /* keep the static breadcrumb */ });
+})();
+</script>

@@ -7,7 +7,10 @@
 
   Config:  _data/explorer.yml   (streams, which courses / exams sit under each, deep-link aliases)
   Data:    assets/explorer-colleges.json | assets/explorer-coaching.json  (built from _data/*.yml, fetched on load)
-  Deep links:  ?career=<key or alias>[&stream=][&state=][&city=]  — e.g. colleges.html?career=computer-science
+  Deep links:  ?career=<key or alias> (or ?exam= on coaching, ?course= on colleges)[&stream=][&state=][&city=]
+               e.g. colleges.html?career=computer-science, coaching.html?stream=science&exam=jee-main.
+               Cards stay hidden until a state AND a city are chosen; the URL never pre-picks them for you.
+               Trail params ?from=&via=&exam= are read by _includes/scripts.html (breadcrumb) and preserved here.
   The page URL is kept in sync (history.replaceState) so a filtered view can be shared.
   Per-course pages (colleges-<course>.html, coaching-<exam>.html) stay as the crawlable, server-rendered finders.
 {%- endcomment -%}
@@ -38,7 +41,7 @@
 
   <p class="fx-count" id="finder" data-ex-count aria-live="polite">Start by selecting your stream.</p>
   <div class="cx-grid fx-results" data-ex-results></div>
-  <noscript><p class="fx-count">This finder needs JavaScript. You can also browse the course and exam pages listed below.</p></noscript>
+  <noscript><p class="fx-count">This finder needs JavaScript. You can still open any course or exam page from the sidebar.</p></noscript>
 </div>
 
 <script type="application/json" id="ex-config">{ "streams": {{ site.data.explorer.streams | jsonify }}, "aliases": {{ site.data.explorer.aliases[ex_type] | jsonify }} }</script>
@@ -61,7 +64,7 @@
   var one = type === 'colleges' ? 'college' : 'coaching centre';
   var many = type === 'colleges' ? 'colleges' : 'coaching centres';
   var data = null;
-  var sel = { stream: '', career: '', state: '', city: 'all' };
+  var sel = { stream: '', career: '', state: '', city: '' };
   var PIN = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>';
   var EXT = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>';
 
@@ -134,7 +137,7 @@
     if(!items.length){ citiesEl.innerHTML = ''; return; }
     var seen = [], counts = {};
     items.forEach(function(c){ if(!counts[c.city]){ counts[c.city] = 0; seen.push(c.city); } counts[c.city]++; });
-    var html = '<button type="button" class="fx-pill" data-city="all" aria-pressed="' + (sel.city === 'all') + '">All cities <span class="fx-pill-count">' + items.length + '</span></button>';
+    var html = '';
     seen.forEach(function(city){
       html += '<button type="button" class="fx-pill" data-city="' + esc(slug(city)) + '" aria-pressed="' + (sel.city === slug(city)) + '">' + esc(city) + ' <span class="fx-pill-count">' + counts[city] + '</span></button>';
     });
@@ -197,7 +200,7 @@
   function drawResults(){
     if(!sel.career){
       resultsEl.innerHTML = '';
-      countEl.textContent = !sel.stream ? 'Start by selecting your stream.' : (type === 'colleges' ? 'Now choose a course.' : 'Now choose an entrance exam.');
+      countEl.textContent = !sel.stream ? (type === 'colleges' ? 'Start by selecting your stream, then the course you want to study.' : 'Start by selecting your stream, then your entrance exam, state and city.') : (type === 'colleges' ? 'Now choose a course.' : 'Now choose an entrance exam.');
       return;
     }
     if(!sel.state){
@@ -207,10 +210,15 @@
         : 'No verified ' + many + ' listed yet for ' + careerLabel(sel.career) + '.';
       return;
     }
+    if(!sel.city){
+      resultsEl.innerHTML = '';
+      countEl.textContent = 'Last step: pick a city in ' + stateName(sel.state) + ' to see the ' + many + '.';
+      return;
+    }
     var items = itemsFor(sel.career).filter(function(c){
-      return c.state === sel.state && (sel.city === 'all' || slug(c.city) === sel.city);
+      return c.state === sel.state && slug(c.city) === sel.city;
     });
-    var place = sel.city === 'all' ? stateName(sel.state) : (items[0] ? items[0].city : stateName(sel.state));
+    var place = items[0] ? items[0].city : stateName(sel.state);
     resultsEl.innerHTML = items.map(type === 'colleges' ? collegeCard : coachingCard).join('');
     var page = data.meta[sel.career] && data.meta[sel.career].page;
     countEl.innerHTML = 'Showing ' + items.length + ' ' + (items.length === 1 ? one : many) + ' for ' + esc(careerLabel(sel.career)) + ' in ' + esc(place)
@@ -219,36 +227,29 @@
 
   function syncUrl(){
     if(!(window.history && history.replaceState)) return;
-    var p = new URLSearchParams();
+    /* keep the breadcrumb-trail params (from, via, and exam while it still matches); rewrite the selection */
+    var p = new URLSearchParams(window.location.search);
+    ['stream', 'career', 'course', 'state', 'city'].forEach(function(k){ p.delete(k); });
+    if(p.get('exam') && resolveCareer(p.get('exam')) !== sel.career) p.delete('exam');
     if(sel.stream) p.set('stream', sel.stream);
     if(sel.career) p.set('career', sel.career);
     if(sel.state) p.set('state', sel.state);
-    if(sel.city !== 'all') p.set('city', sel.city);
+    if(sel.city) p.set('city', sel.city);
     var qs = p.toString();
     history.replaceState(null, '', window.location.pathname + (qs ? '?' + qs : '') + window.location.hash);
-  }
-  function firstStateWithItems(career){
-    /* the state with the most listings (first in the dropdown order on a tie) */
-    var items = itemsFor(career), best = '', bestN = 0;
-    data.states.forEach(function(s){
-      var n = items.filter(function(c){ return c.state === s.id; }).length;
-      if(n > bestN){ best = s.id; bestN = n; }
-    });
-    return best;
   }
   function redraw(){ drawStreams(); drawCareers(); drawStates(); drawCities(); drawResults(); syncUrl(); }
 
   streamsEl.addEventListener('click', function(e){
     var b = e.target.closest('[data-stream]'); if(!b || !data) return;
-    sel.stream = b.getAttribute('data-stream'); sel.career = ''; sel.state = ''; sel.city = 'all';
+    sel.stream = b.getAttribute('data-stream'); sel.career = ''; sel.state = ''; sel.city = '';
     redraw();
   });
   careerSel.addEventListener('change', function(){
-    sel.career = careerSel.value; sel.city = 'all';
-    sel.state = sel.career ? firstStateWithItems(sel.career) : '';
+    sel.career = careerSel.value; sel.state = ''; sel.city = '';
     redraw();
   });
-  stateSel.addEventListener('change', function(){ sel.state = stateSel.value; sel.city = 'all'; redraw(); });
+  stateSel.addEventListener('change', function(){ sel.state = stateSel.value; sel.city = ''; redraw(); });
   citiesEl.addEventListener('click', function(e){
     var b = e.target.closest('[data-city]'); if(!b) return;
     sel.city = b.getAttribute('data-city'); drawCities(); drawResults(); syncUrl();
@@ -256,16 +257,20 @@
 
   function start(){
     var q = new URLSearchParams(window.location.search);
-    var career = resolveCareer(q.get('career'));
+    /* ?career= is the generic key; ?exam= (coaching) and ?course= (colleges) are the same thing under friendlier names */
+    var career = resolveCareer(q.get('career')) || resolveCareer(q.get('exam')) || resolveCareer(q.get('course'));
     if(career){
       sel.career = career;
       sel.stream = streamForCareer(career, q.get('stream'));
       var items = itemsFor(career);
       var qs = q.get('state');
       var has = function(id){ return items.some(function(c){ return c.state === id; }); };
-      sel.state = qs && has(qs) ? qs : firstStateWithItems(career);
-      var qc = q.get('city');
-      if(qc && items.some(function(c){ return c.state === sel.state && slug(c.city) === qc; })) sel.city = qc;
+      /* state and city come from the URL only when valid; nothing is guessed, so no cards show until both are chosen */
+      if(qs && has(qs)){
+        sel.state = qs;
+        var qc = q.get('city');
+        if(qc && items.some(function(c){ return c.state === sel.state && slug(c.city) === qc; })) sel.city = qc;
+      }
     } else if(streamById(q.get('stream'))){
       sel.stream = q.get('stream');
     }
@@ -278,6 +283,6 @@
   fetch(root.getAttribute('data-ex-src'), { credentials: 'same-origin' })
     .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
     .then(function(d){ data = d; start(); })
-    .catch(function(){ countEl.textContent = 'Could not load the listings. Please refresh, or browse the pages listed below.'; });
+    .catch(function(){ countEl.textContent = 'Could not load the listings. Please refresh, or use the course and exam pages in the sidebar.'; });
 })();
 </script>

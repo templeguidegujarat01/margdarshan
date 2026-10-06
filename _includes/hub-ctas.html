@@ -13,6 +13,7 @@
                                 (e.g. "Find ITI institutes" for the ITI finder)
     colleges2_href, colleges2_label      optional second college finder
     exam_sub                    overrides the exam card subtitle
+    exam2_href, exam2_label     optional second "[label] details" card (e.g. JEE Advanced next to JEE Main)
     link_href, link_title, link_sub, link_icon       generic card (on-page
     link2_*, link3_*                                 section or another page)
       link_icon: doc | check | route | compare | rupee | book (default route)
@@ -43,6 +44,13 @@
   {%- assign hc_page = include.colleges2_href | split: "#" | first | remove: ".html" -%}
   {%- for e in site.data.colleges.courses -%}{%- if e[1].page == hc_page -%}{%- assign hc_col2_key = e[0] -%}{%- endif -%}{%- endfor -%}
 {%- endif -%}
+{%- comment -%}
+  Hand-off params: stream (from the page's own `stream:` front matter) + exam / course, so
+  coaching.html?stream=science&exam=jee and colleges.html?stream=science&course=btech open pre-filled.
+{%- endcomment -%}
+{%- assign hc_stream = page.stream | default: "" -%}
+{%- if hc_stream == "diploma" or hc_stream == "iti" -%}{%- assign hc_stream = "diploma-iti" -%}{%- elsif hc_stream == "govt-exams" -%}{%- assign hc_stream = "govt" -%}{%- endif -%}
+{%- capture hc_sp -%}{%- if hc_stream != "" -%}stream={{ hc_stream }}&amp;{%- endif -%}{%- endcapture -%}
 {%- capture hc_arrow -%}<svg class="hub-cta-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>{%- endcapture -%}
 <div class="hub-ctas">
   {%- if include.exam %}
@@ -61,8 +69,18 @@
       {{ hc_arrow }}
     </a>
     {%- endif %}
+    {%- if include.exam2_href %}
+    <a class="hub-cta" href="{{ include.exam2_href }}">
+      <span class="hub-cta-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg></span>
+      <span class="hub-cta-text">
+        <strong>{{ include.exam2_label | default: include.exam2 }} details</strong>
+        <span>{{ include.exam_sub | default: "Eligibility, pattern, syllabus &amp; dates" }}</span>
+      </span>
+      {{ hc_arrow }}
+    </a>
+    {%- endif %}
     {%- if include.coaching_href %}
-    <a class="hub-cta" href="{% if hc_coach_key != "" %}coaching.html?career={{ hc_coach_key }}#finder{% else %}{{ include.coaching_href }}{% unless include.coaching_href contains "#" %}#finder{% endunless %}{% endif %}">
+    <a class="hub-cta" href="{% if hc_coach_key != "" %}coaching.html?{{ hc_sp }}exam={{ hc_coach_key }}#finder{% else %}{{ include.coaching_href }}{% unless include.coaching_href contains "#" %}#finder{% endunless %}{% endif %}">
       <span class="hub-cta-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/></svg></span>
       <span class="hub-cta-text">
         <strong>{% if include.coaching_text %}{{ include.coaching_text }}{% else %}Find {{ include.coaching_label }} coaching{% endif %}</strong>
@@ -72,7 +90,7 @@
     </a>
     {%- endif %}
     {%- if include.colleges_href %}
-    <a class="hub-cta" href="{% if hc_col_key != "" %}colleges.html?career={{ hc_col_key }}#finder{% else %}{{ include.colleges_href }}{% unless include.colleges_href contains "#" %}#finder{% endunless %}{% endif %}">
+    <a class="hub-cta" href="{% if hc_col_key != "" %}colleges.html?{{ hc_sp }}course={{ hc_col_key }}#finder{% else %}{{ include.colleges_href }}{% unless include.colleges_href contains "#" %}#finder{% endunless %}{% endif %}">
       <span class="hub-cta-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M4 10h16M12 3l9 5H3z"/><path d="M6 10v8M10 10v8M14 10v8M18 10v8"/></svg></span>
       <span class="hub-cta-text">
         <strong>{% if include.colleges_text %}{{ include.colleges_text }}{% else %}Explore {{ include.colleges_label }} colleges{% endif %}</strong>
@@ -82,7 +100,7 @@
     </a>
     {%- endif %}
     {%- if include.colleges2_href %}
-    <a class="hub-cta" href="{% if hc_col2_key != "" %}colleges.html?career={{ hc_col2_key }}#finder{% else %}{{ include.colleges2_href }}{% unless include.colleges2_href contains "#" %}#finder{% endunless %}{% endif %}">
+    <a class="hub-cta" href="{% if hc_col2_key != "" %}colleges.html?{{ hc_sp }}course={{ hc_col2_key }}#finder{% else %}{{ include.colleges2_href }}{% unless include.colleges2_href contains "#" %}#finder{% endunless %}{% endif %}">
       <span class="hub-cta-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M4 10h16M12 3l9 5H3z"/><path d="M6 10v8M10 10v8M14 10v8M18 10v8"/></svg></span>
       <span class="hub-cta-text">
         <strong>Explore {{ include.colleges2_label }} colleges</strong>

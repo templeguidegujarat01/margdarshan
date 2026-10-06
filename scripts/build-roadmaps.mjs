@@ -83,10 +83,10 @@ breadcrumb:
     // ---- inject button + link card into the career page (idempotent) ----
     let out = page;
     if (!out.includes('btn-journey')) {
-      const btn = `<a href="roadmaps/${c.slug}.html" class="btn btn-journey">📍 See The Journey / Full Roadmap ${ARROW}</a>`;
+      const btn = `<a href="roadmaps/${c.slug}.html" class="btn btn-journey btn-page-link">📍 See The Journey / Full Roadmap</a>`;
       if (/class="page-hero-ctas"/.test(out)) {
         // supersede the old "See the Roadmap" anchor, otherwise prepend
-        const old = /<a href="#roadmap" class="btn btn-primary">[\s\S]*?<\/a>/;
+        const old = /<a href="#roadmap" class="btn btn-primary btn-inpage-jump">[\s\S]*?<\/a>/;
         const heroIdx = out.indexOf('page-hero-ctas');
         const oldM = old.exec(out.slice(heroIdx, heroIdx + 900));
         if (oldM) out = out.slice(0, heroIdx) + out.slice(heroIdx).replace(old, btn);
@@ -103,7 +103,7 @@ breadcrumb:
       if (end < 0) problems.push(c.slug + ': no #roadmap section');
       else {
         const lastDiv = out.lastIndexOf('</div>', end);
-        const card = `\n      <div class="rm-link-card reveal"><div><strong>Want the exact step-by-step journey?</strong><p>Eligibility, exams and cycles, training and final qualification for ${c.name}, in order, with official links.</p></div><a href="roadmaps/${c.slug}.html" class="btn btn-journey">📍 See The Journey / Full Roadmap ${ARROW}</a></div>\n    `;
+        const card = `\n      <div class="rm-link-card reveal"><div><strong>Want the exact step-by-step journey?</strong><p>Eligibility, exams and cycles, training and final qualification for ${c.name}, in order, with official links.</p></div><a href="roadmaps/${c.slug}.html" class="btn btn-journey btn-page-link">📍 See The Journey / Full Roadmap</a></div>\n    `;
         out = out.slice(0, lastDiv) + card.replace(/\s+$/, '\n    ') + out.slice(lastDiv);
       }
     }

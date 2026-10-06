@@ -41,7 +41,7 @@
         {%- if item.children %}
         <li class="sb-item has-children{% if child_on or is_page or in_trail %} is-open{% endif %}">
           <div class="sb-row">
-            <a class="sb-link{% if in_trail %} is-trail{% endif %}" href="{{ item.href }}" title="{{ item.label }}"{% if is_page %} aria-current="page"{% endif %}><span class="sb-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{{ item.icon }}</svg></span><span class="sb-label">{{ item.label }}</span></a>
+            <a class="sb-link{% if in_trail %} is-trail{% endif %}" href="{{ item.href }}" title="{{ item.label }}"{% if is_page %} aria-current="page"{% endif %}><span class="sb-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{{ item.icon }}</svg></span><span class="sb-label">{{ item.label }}</span><span class="sb-rail-label" aria-hidden="true">{{ item.short | default: item.label }}</span></a>
             <button type="button" class="sb-expand" aria-expanded="{% if child_on or is_page or in_trail %}true{% else %}false{% endif %}" aria-controls="sbs-{{ forloop.index }}-{{ group.id }}" aria-label="Show {{ item.label }} sub-pages">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
             </button>
@@ -56,7 +56,7 @@
           </ul></div>
         </li>
         {%- else %}
-        <li class="sb-item"><a class="sb-link{% if in_trail %} is-trail{% endif %}" href="{{ item.href }}" title="{{ item.label }}"{% if is_page %} aria-current="page"{% endif %}><span class="sb-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{{ item.icon }}</svg></span><span class="sb-label">{{ item.label }}</span></a></li>
+        <li class="sb-item"><a class="sb-link{% if in_trail %} is-trail{% endif %}" href="{{ item.href }}" title="{{ item.label }}"{% if is_page %} aria-current="page"{% endif %}><span class="sb-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{{ item.icon }}</svg></span><span class="sb-label">{{ item.label }}</span><span class="sb-rail-label" aria-hidden="true">{{ item.short | default: item.label }}</span></a></li>
         {%- endif %}
         {%- endfor %}
       </ul></div>

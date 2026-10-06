@@ -159,6 +159,9 @@ html.nav-locked{overflow:hidden;}
 [data-theme="dark"] .icon-sun{display:block;}
 
 .app-main{margin-left:var(--sidebar-w);min-width:0;padding-top:var(--header-h);transition:margin-left .22s var(--ease);}
+/* Search-Console style: topbar, rail and breadcrumb share one canvas colour with no
+   divider lines; the content column is set apart only by hairlines on its left/right edges. */
+@media (min-width:1024px){.app-main{border-left:1px solid var(--line);border-right:1px solid var(--line);}}
 
 /* ---- Sidebar ---- */
 .sidebar{position:fixed;top:var(--header-h);bottom:0;left:0;z-index:940;width:var(--sidebar-w);display:flex;flex-direction:column;background:var(--bg-header);transition:width .22s var(--ease),transform .25s var(--ease),box-shadow .25s var(--ease);}
@@ -188,6 +191,7 @@ html.nav-locked{overflow:hidden;}
 .sb-link{position:relative;display:flex;align-items:center;gap:.75rem;padding:.55rem .7rem;border-radius:10px;font-size:.93rem;font-weight:600;line-height:1.3;color:var(--text-muted);transition:background .15s var(--ease),color .15s var(--ease);}
 .sb-icon{flex:0 0 22px;display:grid;place-items:center;color:var(--text-muted);transition:color .15s var(--ease);}
 .sb-label{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.sb-rail-label{display:none;}
 .sb-link:hover,.sb-link:focus-visible{background:rgba(var(--hl-rgb),.06);color:var(--text);}
 .sb-link:hover .sb-icon{color:var(--link);}
 .sb-link.is-trail{color:var(--text);}
@@ -217,12 +221,15 @@ html.nav-locked{overflow:hidden;}
   html[data-sidebar="collapsed"] .sb-sub,
   html[data-sidebar="collapsed"] .sb-group-btn,
   html[data-sidebar="collapsed"] .sb-group[data-group="page"],
-  html[data-sidebar="collapsed"] .sb-foot{display:none;}
-  html[data-sidebar="collapsed"] .sb-scroll{padding:.4rem .25rem 1rem;}
+  html[data-sidebar="collapsed"] .sb-foot,
+  html[data-sidebar="collapsed"] .sb-group[data-group="global"],
+  html[data-sidebar="collapsed"] .sb-label{display:none;}
+  html[data-sidebar="collapsed"] .sb-scroll{padding:6px 0;}
   html[data-sidebar="collapsed"] .sb-group-body{grid-template-rows:1fr;visibility:visible;}
   html[data-sidebar="collapsed"] .sb-group + .sb-group{margin-top:0;padding-top:0;}
   html[data-sidebar="collapsed"] .sb-link{flex-direction:column;justify-content:center;gap:.2rem;padding:.55rem .15rem .45rem;text-align:center;}
-  html[data-sidebar="collapsed"] .sb-label{display:block;max-width:100%;font-size:.625rem;font-weight:600;line-height:1.15;letter-spacing:.01em;}
+  html[data-sidebar="collapsed"] .sb-row{display:block;}
+  html[data-sidebar="collapsed"] .sb-rail-label{display:block;max-width:64px;margin:0 auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10px;font-weight:600;line-height:1.1;letter-spacing:.01em;}
   html[data-sidebar="collapsed"] .sb-link[aria-current="page"]::before{display:none;}
 }
 
@@ -246,7 +253,7 @@ html.nav-locked{overflow:hidden;}
 }
 
 /* Breadcrumb: first thing in the page area, directly under the fixed top bar */
-.crumb-bar{position:sticky;top:var(--header-h);z-index:90;display:flex;align-items:center;height:var(--crumb-h);background:var(--surface);background:color-mix(in srgb,var(--surface) 92%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
+.crumb-bar{position:sticky;top:var(--header-h);z-index:90;display:flex;align-items:center;height:var(--crumb-h);background:var(--bg-header);}
 .crumb-bar .container{width:100%;}
 .breadcrumb{min-width:0;font-size:.88rem;}
 .breadcrumb ol{display:flex;align-items:center;flex-wrap:nowrap;min-width:0;}
@@ -1729,10 +1736,13 @@ a.feature-card:hover,a.feature-card:focus-visible{border-color:var(--gold);box-s
    DEEP ROADMAP PAGES (roadmaps/<slug>.html, _includes/roadmap-page.html)
    and the "See The Journey" hero button on career pages.
    ========================================================================== */
-.btn-journey{background:var(--ink);color:#fff;border-color:var(--ink);box-shadow:var(--shadow-md);}
-.btn-journey:hover,.btn-journey:focus-visible{background:var(--gold-strong);color:#fff;border-color:var(--gold-strong);}
-[data-theme="dark"] .btn-journey{background:var(--gold);color:#241703;border-color:var(--gold);}
-[data-theme="dark"] .btn-journey:hover,[data-theme="dark"] .btn-journey:focus-visible{background:#F0B65A;color:#241703;}
+/* Light: dark ink button, always white text. Dark: gold button, always dark text.
+   !important so no generic link/hero colour rule can ever win. */
+.btn-journey,.btn-journey:visited{background:var(--ink);color:#fff !important;border-color:var(--ink);box-shadow:var(--shadow-md);}
+.btn-journey:hover,.btn-journey:focus-visible{background:var(--ink-soft);color:#fff !important;border-color:var(--ink-soft);}
+.btn-journey svg{color:inherit;}
+[data-theme="dark"] .btn-journey,[data-theme="dark"] .btn-journey:visited{background:var(--gold);color:#241703 !important;border-color:var(--gold);}
+[data-theme="dark"] .btn-journey:hover,[data-theme="dark"] .btn-journey:focus-visible{background:#F0B65A;color:#241703 !important;border-color:#F0B65A;}
 .rm-link-card{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;margin-top:1.5rem;padding:1.1rem 1.3rem;border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:var(--radius-md);background:var(--surface);}
 .rm-link-card p{margin:0;max-width:60ch;color:var(--text-muted);}
 .rm-link-card strong{display:block;color:var(--text);font-size:1.05rem;margin-bottom:.15rem;}

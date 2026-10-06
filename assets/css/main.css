@@ -1890,3 +1890,13 @@ a.hub-cta.hub-cta-jump:hover .hub-cta-arrow,a.hub-cta.hub-cta-jump:focus-visible
 
 /* Standalone subject/keyword pills under stream-hub overviews are removed; chips inside .info-card (exam syllabus) stay. */
 .block > .container > .subject-chips,.prose + .subject-chips{display:none !important;}
+
+/* Requirement / "Beyond the exams" lists: li was a flex row, so the text node, <strong> and trailing text became separate
+   flex items and wrapped word-by-word. Render each item as a block card with the icon pinned left. */
+.prose ul:not(.eligibility-list){grid-template-columns:1fr;}
+@media (min-width:900px){.prose ul:not(.eligibility-list):has(> li > svg:first-child):not(:has(> li:nth-child(odd):last-child)){grid-template-columns:repeat(2,minmax(0,1fr));}}
+.prose ul:not(.eligibility-list) > li:has(> svg:first-child){display:block;position:relative;min-width:0;padding:16px 16px 16px 46px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid var(--line);white-space:normal;word-break:keep-all;overflow-wrap:break-word;line-height:1.65;}
+.prose ul:not(.eligibility-list) > li:has(> svg:first-child) > svg{position:absolute;left:16px;top:20px;margin:0;}
+.prose ul:not(.eligibility-list) > li:has(> svg:first-child) > strong:first-of-type{color:var(--text);font-weight:700;}
+.warn{flex-wrap:nowrap;align-items:flex-start;padding:1.1rem 1.3rem;line-height:1.65;white-space:normal;word-break:keep-all;overflow-wrap:break-word;}
+.warn > span{min-width:0;}

@@ -23,27 +23,16 @@
   <section class="page-hero" aria-labelledby="hero-heading">
     <div class="container page-hero-inner">
       <a class="table-back" href="{{ rm.back_href }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Back to {{ rm.back_label }}</a>
-      <span class="eyebrow">📍 The full journey</span>
-      <h1 id="hero-heading">{{ rm.title }}: step-by-step roadmap</h1>
-      <p>{{ rm.intro }}</p>
-      {%- if rm.glance %}
-      <div class="quickfacts">
-        {%- for g in rm.glance %}
-        <div class="qf-card"><span>{{ g[0] }}</span><strong>{{ g[1] }}</strong></div>
-        {%- endfor %}
-      </div>
-      {%- endif %}
+      <h1 id="hero-heading">{{ rm.title }} — Step-by-Step Roadmap</h1>
     </div>
   </section>
 
   <section class="block" aria-labelledby="rm-heading">
     <div class="container">
       <div class="section-head reveal">
-        <span class="eyebrow">{{ rm.phases.size }} phases</span>
         <h2 id="rm-heading">Your journey, phase by phase</h2>
-        <p>Open any phase for exact eligibility, exam or training details, and what to do next. Everything follows the order a real student goes through.</p>
       </div>
-      <nav class="rm-chips" aria-label="Jump to phase">
+      <nav class="rm-chips" aria-label="Jump to phase" style="--rm-rows:{{ rm.phases.size | divided_by: 2.0 | ceil }}">
         {%- for p in rm.phases %}
         <a href="#phase-{{ forloop.index }}"><b>{{ forloop.index }}</b><span>{{ p.title }}</span></a>
         {%- endfor %}
@@ -71,7 +60,7 @@
                 {%- for f in p.facts %}<div><dt>{{ f[0] }}</dt><dd>{{ f[1] }}</dd></div>{% endfor %}
               </dl>
               {%- endif %}
-              {%- if p.tip %}<p class="rm-tip"><strong>Tip:</strong> {{ p.tip }}</p>{% endif %}
+              {%- if p.tip %}<ul class="rm-points rm-tip"><li><strong>Tip:</strong> {{ p.tip }}</li></ul>{% endif %}
             </div>
           </details>
         </li>

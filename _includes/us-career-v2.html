@@ -20,8 +20,13 @@
 {%- assign CAT = US.pathways.categories | where: "id", P.category | first -%}
 {%- assign O = US.occupations[P.lead] -%}
 {%- assign D = US.occupation_details[P.lead] -%}
-{%- assign OS = US.oews_summary.socs[O.soc[0]] -%}
+{%- assign salary_soc = P.salary_soc | default: O.soc[0] -%}
+{%- assign OS = US.oews_summary.socs[salary_soc] -%}
 {%- if P.license != "none" %}{%- assign LIC = US.licenses[P.license] -%}{%- endif -%}
+{%- comment -%} Salary depth page: its own (salary: true) or another pathway's with the same lead occupation (salary_from). {%- endcomment -%}
+{%- assign has_salary = false -%}{%- assign salary_slug = P.slug -%}
+{%- if P.salary %}{%- assign has_salary = true -%}{%- endif -%}
+{%- if P.salary_from %}{%- assign has_salary = true -%}{%- assign salary_slug = P.salary_from -%}{%- endif -%}
 {%- capture info_icon %}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>{% endcapture -%}
 <script type="application/ld+json">
 {
@@ -61,10 +66,10 @@
 <main id="main" class="md-page">
 
   <div class="container md-page-top">
-    {%- if P.salary %}
+    {%- if has_salary %}
     <nav class="md-subnav" aria-label="{{ P.title }} pages">
       <a href="us/careers/{{ P.slug }}/" aria-current="page">Overview</a>
-      <a href="us/careers/{{ P.slug }}/salary/">Salary by state</a>
+      <a href="us/careers/{{ salary_slug }}/salary/">Salary by state</a>
     </nav>
     {%- endif %}
 
@@ -105,7 +110,7 @@
       </div>
       <div class="md-answer-actions">
         <a href="#path" class="btn btn-primary">See the path</a>
-        {%- if P.salary %}<a href="us/careers/{{ P.slug }}/salary/" class="md-textlink">Salary by state and city</a>
+        {%- if has_salary %}<a href="us/careers/{{ salary_slug }}/salary/" class="md-textlink">Salary by state and city</a>
         {%- elsif D.industries %}<a href="#pay" class="md-textlink">{{ D.breakdown_label | default: "Pay by industry" }}</a>{% endif %}
       </div>
     </header>
@@ -187,8 +192,8 @@
         {%- if has_iqr %}<div class="md-pay-legend"><span><i></i>Middle half of workers (25th–75th percentile)</span><span><i class="is-med"></i>Median</span></div>{% endif %}
         {%- if D.pay_note %}<p class="md-tile-note">{{ D.pay_note }}</p>{% endif %}
 
-        {%- if P.salary %}
-        <a class="md-cta-row" href="us/careers/{{ P.slug }}/salary/"><span><strong>Salary by state and metro area</strong>All {{ OS.states_reported }} state-level areas and {{ OS.metros_reported }} metro and nonmetro areas BLS publishes, plus pay by industry.</span><span aria-hidden="true">→</span></a>
+        {%- if has_salary %}
+        <a class="md-cta-row" href="us/careers/{{ salary_slug }}/salary/"><span><strong>Salary by state and metro area</strong>All {{ OS.states_reported }} state-level areas and {{ OS.metros_reported }} metro and nonmetro areas BLS publishes, plus pay by industry.</span><span aria-hidden="true">→</span></a>
         {%- elsif D.industries %}
         {%- assign bd_label = D.breakdown_label | default: "Median pay by industry" %}
         <h3 class="md-pay-sub">{{ bd_label }}</h3>
@@ -213,7 +218,7 @@
     <div class="container">
       <div class="md-sec-head"><h2 id="path-h">How to get there</h2><p>{% if P.roadmap == "license" %}{{ LIC.education }}.{% else %}A typical route. Many people reach the same job in different ways.{% endif %}</p></div>
       {%- if P.roadmap == "license" %}
-      {%- assign exam_words = "exam,Exam,MCAT,LSAT,USMLE,COMLEX,MPRE,NCLEX,DAT" | split: "," %}
+      {%- assign exam_words = "exam,Exam,MCAT,LSAT,USMLE,COMLEX,MPRE,NCLEX,DAT,INBDE,NAPLEX,MPJE,NPTE,EPPP" | split: "," %}
       <ol class="md-road">
         {%- for step in LIC.steps %}
         {%- comment -%} Step kinds from the step text: an exam or admission test is a gate; the step that grants the
@@ -245,7 +250,7 @@
         <ul class="md-occ md-exams">
           {%- for e in LIC.exams %}
           <li><span><strong>{{ e.name }}</strong><small>{{ e.what }}</small></span>
-            <details class="md-src"><summary>{{ e.by | split: " (" | first | truncate: 24 }}</summary><div class="md-src-pop"><strong>{{ SRC[e.source].name }}</strong>{{ SRC[e.source].publisher }}<dl><dt>Checked</dt><dd>{{ SRC[e.source].accessed | date: "%-d %b %Y" }}</dd></dl><a href="{{ SRC[e.source].url }}">View source</a></div></details></li>
+            <details class="md-src"><summary>{{ SRC[e.source].short | default: e.by }}</summary><div class="md-src-pop"><strong>{{ SRC[e.source].name }}</strong>{{ SRC[e.source].publisher }}<dl><dt>Checked</dt><dd>{{ SRC[e.source].accessed | date: "%-d %b %Y" }}</dd></dl><a href="{{ SRC[e.source].url }}">View source</a></div></details></li>
           {%- endfor %}
         </ul>
       </details>
@@ -278,7 +283,7 @@
           <span class="md-stat-label">{{ k.label }}</span>
           <span class="md-stat-value is-text">{{ k.value }}</span>
           {%- if k.note %}<span class="md-stat-note">{{ k.note }}</span>{% endif %}
-          <details class="md-src"><summary>{{ SRC[k.source].publisher | split: " (" | first | truncate: 28 }}</summary><div class="md-src-pop"><strong>{{ SRC[k.source].name }}</strong>{{ SRC[k.source].publisher }}<dl><dt>Checked</dt><dd>{{ SRC[k.source].accessed | date: "%-d %b %Y" }}</dd></dl><a href="{{ SRC[k.source].url }}">View source</a></div></details>
+          <details class="md-src"><summary>{{ SRC[k.source].short | default: SRC[k.source].publisher }}</summary><div class="md-src-pop"><strong>{{ SRC[k.source].name }}</strong>{{ SRC[k.source].publisher }}<dl><dt>Checked</dt><dd>{{ SRC[k.source].accessed | date: "%-d %b %Y" }}</dd></dl><a href="{{ SRC[k.source].url }}">View source</a></div></details>
         </div>
         {%- endfor %}
       </div>
@@ -304,7 +309,7 @@
           {%- endfor %}
         </tbody>
       </table>
-      <div class="md-datanote">Sources:{% for s in C.sources %} <a href="{{ SRC[s].url }}">{{ SRC[s].publisher | split: " (" | first }}</a>{% unless forloop.last %} ·{% endunless %}{% endfor %}</div>
+      <div class="md-datanote">Sources:{% for s in C.sources %} <a href="{{ SRC[s].url }}">{{ SRC[s].short | default: SRC[s].publisher }}</a>{% unless forloop.last %} ·{% endunless %}{% endfor %}</div>
     </div>
   </section>
   {%- endif %}
@@ -317,7 +322,7 @@
       <ul class="md-occ md-exams">
         {%- for e in LIC.exams %}
         <li><span><strong>{{ e.name }}</strong><small>{{ e.what }}</small></span>
-          <details class="md-src"><summary>{{ e.by | split: " (" | first | truncate: 24 }}</summary><div class="md-src-pop"><strong>{{ SRC[e.source].name }}</strong>{{ SRC[e.source].publisher }}<dl><dt>Checked</dt><dd>{{ SRC[e.source].accessed | date: "%-d %b %Y" }}</dd></dl><a href="{{ SRC[e.source].url }}">View source</a></div></details></li>
+          <details class="md-src"><summary>{{ SRC[e.source].short | default: e.by }}</summary><div class="md-src-pop"><strong>{{ SRC[e.source].name }}</strong>{{ SRC[e.source].publisher }}<dl><dt>Checked</dt><dd>{{ SRC[e.source].accessed | date: "%-d %b %Y" }}</dd></dl><a href="{{ SRC[e.source].url }}">View source</a></div></details></li>
         {%- endfor %}
       </ul>
       {%- if LIC.not_required_for %}<p class="md-tile-note"><strong>Not always required:</strong> {{ LIC.not_required_for | join: " " }}</p>{% endif %}

@@ -13,8 +13,7 @@ Medicine, Dentistry, Pharmacy, Nursing, Physical Therapy, Law, Accounting & CPA,
 - Template changes: key-numbers block, specialty breakdown tables (no share column), work-settings line, "Where the jobs are" only when state data exists, work-context table optional.
 - Fixed: technology chips were capped at 3 by the stream-card rule (`.stream-chips span:nth-child(n+4)`); career pages now use `.stream-chips.us-chips` and show all.
 
-**Pending:** BLS OEWS state data for the 10 Phase 6 occupations. The BLS API daily quota was exhausted. When it resets, run in a scratch folder:
-`node <repo>/scripts/fetch-oews.mjs emp 291021,291051,291141,291123,231011,132011,132051,131111,193033`, then `wage`, then `report`, and add a `states` block (same shape as Phase 5) to each occupation in `occupation_details.yml`. BLS has no all-physicians state series (only specialties), so Medicine shows a note instead.
+**State data (done):** BLS OEWS May 2025 top-5 states added for the 9 Phase 6 occupations that have state series (fetched with `scripts/fetch-oews.mjs` after the API quota reset). BLS has no all-physicians state series (only specialties), so Medicine shows a note instead.
 
 ## Phase 5 — career pages (as built)
 

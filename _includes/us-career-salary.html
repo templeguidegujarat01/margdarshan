@@ -69,6 +69,9 @@
             <input id="geoMetro" type="search" list="geoMetroList" placeholder="e.g. Austin, Seattle, Atlanta" autocomplete="off" disabled>
             <datalist id="geoMetroList"></datalist>
           </label>
+          <label class="md-select"><span class="md-stat-label">Compare with</span>
+            <select id="geoCompare" disabled><option value="">No comparison</option></select>
+          </label>
         </div>
         <div class="md-pay-head" style="margin-top:var(--sp-5)">
           <div><h3 id="geoName">United States</h3><span class="md-stat-label">{{ STITLE }} · annual wages, {{ US.oews_summary.period }}</span></div>
@@ -91,6 +94,13 @@
           <div><dt>Top 10% above</dt><dd data-k="p90">{% include fmt-num.html n=N.p90 prefix="$" %}</dd></div>
         </dl>
         <div class="md-pay-legend"><span><i></i>Middle half of workers</span><span><i class="is-med"></i>Median</span><span>Mean <b data-k="mean">{% include fmt-num.html n=N.mean prefix="$" %}</b></span><span>Jobs <b data-k="emp">{% include fmt-num.html n=N.emp %}</b></span></div>
+        <div class="table-wrap" id="geoCmpWrap" hidden>
+          <table class="md-table md-cmp-table" id="geoCmp" aria-live="polite">
+            <caption class="sr-only">Pay comparison between two places</caption>
+            <thead><tr><th scope="col">{{ STITLE }}</th><th scope="col" class="num" id="geoCmpA">United States</th><th scope="col" class="num" id="geoCmpB"></th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
         <p class="md-tile-note" id="geoNote">BLS publishes this occupation for {{ OS.states_reported }} state-level areas (50 states, DC and territories where available) and {{ OS.metros_reported }} metro and nonmetro areas. Places it does not publish are not estimated here.</p>
         <noscript><p class="md-tile-note">The state picker and metro search need JavaScript; the tables below work without it.</p></noscript>
       </div>
@@ -99,17 +109,57 @@
 
   <section class="md-sec md-sec-alt" id="states" aria-labelledby="states-h">
     <div class="container">
-      <div class="md-sec-head"><h2 id="states-h">States with the most jobs</h2><p>Pay is usually higher where living costs are higher.</p></div>
-      <div class="table-wrap">
-        <table class="md-table">
-          <thead><tr><th>State</th><th class="num">Jobs</th><th class="num">Median</th><th class="num">Mean</th><th class="num">Top 10% above</th></tr></thead>
-          <tbody>
-            {%- for s in OS.top_states %}
-            <tr><td><strong>{{ s.state }}</strong></td><td class="num">{% include fmt-num.html n=s.emp %}</td><td class="num">{% include fmt-num.html n=s.median prefix="$" %}</td><td class="num">{% include fmt-num.html n=s.mean prefix="$" %}</td><td class="num">{% if s.p90.value %}{% include fmt-num.html n=s.p90.value prefix="$" %}+{% else %}{% include fmt-num.html n=s.p90 prefix="$" %}{% endif %}</td></tr>
+      <div class="md-sec-head"><h2 id="states-h">Where the jobs are, and where pay is highest</h2><p>Median annual pay, {{ US.oews_summary.period }}. Highest-pay lists only include places with at least {% include fmt-num.html n=US.oews_summary.rank_min_emp %} jobs. BLS wages are not adjusted for living costs, which are usually higher where pay is higher.</p></div>
+      <div class="md-tiles2">
+        <div class="md-tile">
+          <h3>States with the most jobs</h3>
+          <ol class="md-occ md-rank">
+            {%- for x in OS.top_states %}
+            <li><span>{{ x.state }}<small>{% include fmt-num.html n=x.emp %} jobs</small></span><b>{% if x.median.value %}{% include fmt-num.html n=x.median.value prefix="$" %}+{% else %}{% include fmt-num.html n=x.median prefix="$" %}{% endif %}</b></li>
             {%- endfor %}
-          </tbody>
-        </table>
+          </ol>
+        </div>
+        <div class="md-tile">
+          <h3>Highest-paying states</h3>
+          <ol class="md-occ md-rank">
+            {%- for x in OS.top_pay_states %}
+            <li><span>{{ x.name }}<small>{% include fmt-num.html n=x.emp %} jobs</small></span><b>{% if x.median.value %}{% include fmt-num.html n=x.median.value prefix="$" %}+{% else %}{% include fmt-num.html n=x.median prefix="$" %}{% endif %}</b></li>
+            {%- endfor %}
+          </ol>
+        </div>
+        <div class="md-tile">
+          <h3>Metro areas with the most jobs</h3>
+          <ol class="md-occ md-rank">
+            {%- for x in OS.top_emp_metros %}
+            <li><span>{{ x.name }}<small>{% include fmt-num.html n=x.emp %} jobs</small></span><b>{% if x.median.value %}{% include fmt-num.html n=x.median.value prefix="$" %}+{% else %}{% include fmt-num.html n=x.median prefix="$" %}{% endif %}</b></li>
+            {%- endfor %}
+          </ol>
+        </div>
+        <div class="md-tile">
+          <h3>Highest-paying metro areas</h3>
+          <ol class="md-occ md-rank">
+            {%- for x in OS.top_pay_metros %}
+            <li><span>{{ x.name }}<small>{% include fmt-num.html n=x.emp %} jobs</small></span><b>{% if x.median.value %}{% include fmt-num.html n=x.median.value prefix="$" %}+{% else %}{% include fmt-num.html n=x.median prefix="$" %}{% endif %}</b></li>
+            {%- endfor %}
+          </ol>
+        </div>
       </div>
+      <details class="md-more md-all-states">
+        <summary>All {{ OS.states_reported }} state-level areas (sortable)</summary>
+        <div class="table-wrap">
+          <table class="md-table" id="geoAll">
+            <caption class="sr-only">Pay by state; select a column heading to sort</caption>
+            <thead><tr>
+              <th scope="col" aria-sort="ascending"><button type="button" data-sort="name">State</button></th>
+              <th scope="col" class="num"><button type="button" data-sort="emp">Jobs</button></th>
+              <th scope="col" class="num"><button type="button" data-sort="median">Median</button></th>
+              <th scope="col" class="num"><button type="button" data-sort="mean">Mean</button></th>
+              <th scope="col" class="num"><button type="button" data-sort="p90">Top 10% above</button></th>
+            </tr></thead>
+            <tbody><tr><td colspan="5">The full list loads with JavaScript; the lists above work without it.</td></tr></tbody>
+          </table>
+        </div>
+      </details>
     </div>
   </section>
 
@@ -149,24 +199,45 @@
 
 </main>
 <script>
-/* Salary explorer: load every published area for this occupation and update the bar, values and name. */
+/* Salary explorer (progressive enhancement; the HTML above already shows national figures and rankings).
+   Loads every area BLS publishes for this occupation, then: state picker + metro search update the bar;
+   "Compare with" shows two places side by side; the all-states table sorts by any column. */
 document.addEventListener('DOMContentLoaded', function(){
   var box = document.querySelector('[data-oews]'); if(!box || !window.fetch) return;
   var s = document.querySelector('script[data-root]'); var root = s ? s.getAttribute('data-root') : '';
-  var sel = document.getElementById('geoState'), metro = document.getElementById('geoMetro'), list = document.getElementById('geoMetroList');
-  var nameEl = document.getElementById('geoName'), note = document.getElementById('geoNote');
+  var $ = function(id){ return document.getElementById(id); };
+  var sel = $('geoState'), metro = $('geoMetro'), list = $('geoMetroList'), cmp = $('geoCompare');
+  var nameEl = $('geoName'), note = $('geoNote');
+  var esc = function(t){ return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); };
   var num = function(v){ return v && typeof v === 'object' ? v.value : v; };
   var money = function(v){ if(v === undefined || v === null) return 'Not published'; return '$' + num(v).toLocaleString('en-US') + (typeof v === 'object' && v.cap ? '+' : ''); };
+  var jobs = function(v){ return v ? v.toLocaleString('en-US') : 'Not published'; };
+  var ROWS = [['p10', 'Lowest 10% below'], ['p25', '25th percentile'], ['median', 'Median'], ['p75', '75th percentile'], ['p90', 'Top 10% above'], ['mean', 'Mean'], ['emp', 'Jobs']];
   fetch(root + box.getAttribute('data-oews')).then(function(r){ if(!r.ok) throw r; return r.json(); }).then(function(d){
     var states = Object.keys(d.states).sort();
-    sel.innerHTML = '<option value="">United States</option>' + states.map(function(n){ return '<option>' + n + '</option>'; }).join('');
+    var opts = states.map(function(n){ return '<option>' + esc(n) + '</option>'; }).join('');
+    sel.innerHTML = '<option value="">United States</option>' + opts;
+    cmp.innerHTML = '<option value="">No comparison</option><option value="__us">United States</option>' + opts; cmp.disabled = false;
     var byName = {}; Object.keys(d.metros).forEach(function(k){ byName[d.metros[k].name] = d.metros[k]; });
-    list.innerHTML = Object.keys(byName).sort().map(function(n){ return '<option value="' + n.replace(/"/g, '&quot;') + '">'; }).join('');
+    list.innerHTML = Object.keys(byName).sort().map(function(n){ return '<option value="' + esc(n) + '">'; }).join('');
     metro.disabled = false;
+    var cur = { name: 'United States', r: d.national };
+    function renderCompare(){
+      var wrap = $('geoCmpWrap');
+      if(!cmp.value){ wrap.hidden = true; return; }
+      var other = cmp.value === '__us' ? { name: 'United States', r: d.national } : { name: cmp.value, r: d.states[cmp.value] };
+      $('geoCmpA').textContent = cur.name; $('geoCmpB').textContent = other.name;
+      wrap.querySelector('tbody').innerHTML = ROWS.map(function(row){
+        var f = row[0] === 'emp' ? jobs : money;
+        return '<tr><th scope="row">' + row[1] + '</th><td class="num">' + f(cur.r[row[0]]) + '</td><td class="num">' + f(other.r[row[0]]) + '</td></tr>';
+      }).join('');
+      wrap.hidden = false;
+    }
     function show(name, r){
+      cur = { name: name, r: r };
       nameEl.textContent = name;
-      box.querySelectorAll('[data-k]').forEach(function(el){ var k = el.getAttribute('data-k'); el.textContent = k === 'emp' ? (r.emp ? r.emp.toLocaleString('en-US') : 'Not published') : money(r[k]); });
-      var lo = num(r.p10), hi = num(r.p90), iqr = document.getElementById('geoIqr'), med = document.getElementById('geoMed');
+      box.querySelectorAll('.md-pay-scale [data-k], .md-pay-legend [data-k]').forEach(function(el){ var k = el.getAttribute('data-k'); el.textContent = k === 'emp' ? jobs(r.emp) : money(r[k]); });
+      var lo = num(r.p10), hi = num(r.p90), iqr = $('geoIqr'), med = $('geoMed');
       if(lo && hi && hi > lo){
         var pos = function(v){ return ((num(v) - lo) / (hi - lo) * 100).toFixed(2) + '%'; };
         iqr.style.display = r.p25 && r.p75 ? '' : 'none';
@@ -174,9 +245,25 @@ document.addEventListener('DOMContentLoaded', function(){
         med.style.display = r.median ? '' : 'none'; if(r.median) med.style.left = pos(r.median);
       } else { iqr.style.display = 'none'; med.style.display = 'none'; }
       note.textContent = (name === 'United States' ? 'National estimate.' : 'Estimate for ' + name + '.') + ' Values BLS does not publish for a place are shown as "Not published", never estimated.';
+      renderCompare();
     }
     sel.addEventListener('change', function(){ metro.value = ''; show(sel.value || 'United States', sel.value ? d.states[sel.value] : d.national); });
     metro.addEventListener('change', function(){ var m = byName[metro.value]; if(m){ sel.value = ''; show(m.name, m); } });
-  }).catch(function(){ note.textContent += ' (The full state and metro list could not be loaded; the national figures and tables are still correct.)'; });
+    cmp.addEventListener('change', renderCompare);
+
+    /* All states: sortable table (buttons in the headers; aria-sort marks the active column). */
+    var table = $('geoAll'), rows = states.map(function(n){ var r = d.states[n]; return { name: n, emp: r.emp, median: r.median, mean: r.mean, p90: r.p90 }; });
+    var key = 'name', dir = 1;
+    function draw(){
+      rows.sort(function(a, b){
+        if(key === 'name') return dir * a.name.localeCompare(b.name);
+        var x = num(a[key]), y = num(b[key]); if(x == null) return 1; if(y == null) return -1; return dir * (x - y);
+      });
+      table.querySelector('tbody').innerHTML = rows.map(function(r){ return '<tr><td><strong>' + esc(r.name) + '</strong></td><td class="num">' + jobs(r.emp) + '</td><td class="num">' + money(r.median) + '</td><td class="num">' + money(r.mean) + '</td><td class="num">' + money(r.p90) + '</td></tr>'; }).join('');
+      table.querySelectorAll('th').forEach(function(th){ var b = th.querySelector('button'); if(b && b.getAttribute('data-sort') === key) th.setAttribute('aria-sort', dir > 0 ? 'ascending' : 'descending'); else th.removeAttribute('aria-sort'); });
+    }
+    table.querySelectorAll('button[data-sort]').forEach(function(b){ b.addEventListener('click', function(){ var k = b.getAttribute('data-sort'); if(k === key) dir = -dir; else { key = k; dir = k === 'name' ? 1 : -1; } draw(); }); });
+    draw();
+  }).catch(function(){ note.textContent += ' (The full state and metro list could not be loaded; the national figures and lists are still correct.)'; });
 });
 </script>

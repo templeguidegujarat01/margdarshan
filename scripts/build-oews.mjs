@@ -9,7 +9,8 @@
 // Output (default --out = a scratch folder; Phase 10 points it at assets/data/us/oews):
 //   <out>/<soc>.json      national + every state + every metro/nonmetro area published for that SOC:
 //                         emp (01), mean (04), p10/p25/median/p75/p90 annual (11–15)
-//   --summary <file>      per SOC: national figures + top 5 states by employment, for Liquid/HTML
+//   --summary <file>      per SOC: national figures, top 5 states by jobs, top 5 states and metros by median
+//                         (areas with >= RANK_MIN_EMP jobs), top 5 metros by jobs — for Liquid/HTML
 //                         (default <out>/_summary.json; the site uses _data/us/oews_summary.json)
 //   <out>/_meta.json      release name, area count, SOCs with no OEWS series (e.g. broad groups)
 // Rules: values are copied, never computed or rounded. BLS footnote 5 (wage ≥ $239,200/yr, shown by
@@ -27,6 +28,7 @@ const BASE = 'https://download.bls.gov/pub/time.series/oe/';
 const UA = { 'User-Agent': `Margdarshan data refresh (${process.env.BLS_CONTACT || 'see emargdarshan.com/contact.html'})` };
 const out = path.resolve(arg('--out') || 'oews-out');
 const summaryFile = path.resolve(arg('--summary') || path.join(out, '_summary.json'));
+const RANK_MIN_EMP = 500; // highest-pay rankings only include areas with at least this many jobs
 const DT = { '01': 'emp', '04': 'mean', '11': 'p10', '12': 'p25', '13': 'median', '14': 'p75', '15': 'p90' };
 
 let socs = arg('--soc')?.split(',');
@@ -76,9 +78,20 @@ for (const s of socs) {
   const file = { soc: s, period: release.description, source: 'BLS Occupational Employment and Wage Statistics', source_url: 'https://www.bls.gov/oes/', national: clean(o.N['0000000']), states, metros };
   fs.writeFileSync(path.join(out, s + '.json'), JSON.stringify(file));
   const top = Object.entries(states).sort((a, b) => num(b[1].emp) - num(a[1].emp)).slice(0, 5).map(([state, r]) => ({ state, ...r }));
-  summary[s] = { national: file.national, top_states: top, states_reported: Object.keys(states).length, metros_reported: Object.keys(metros).length };
+  // Rankings (orderings of published values, nothing computed). Highest-pay lists only include areas with
+  // at least RANK_MIN_EMP jobs and a published median, so a handful of jobs cannot top the list.
+  const ranked = (list) => list.filter((x) => x.median && num(x.emp) >= RANK_MIN_EMP).sort((a, b) => num(b.median) - num(a.median)).slice(0, 5);
+  const stateList = Object.entries(states).map(([name, r]) => ({ name, ...r }));
+  const metroList = Object.values(metros);
+  summary[s] = {
+    national: file.national, top_states: top,
+    top_pay_states: ranked(stateList).map(({ name, emp, median, mean }) => ({ name, emp, median, mean })),
+    top_pay_metros: ranked(metroList).map(({ name, emp, median, mean }) => ({ name, emp, median, mean })),
+    top_emp_metros: metroList.filter((x) => x.emp).sort((a, b) => num(b.emp) - num(a.emp)).slice(0, 5).map(({ name, emp, median, mean }) => ({ name, emp, median, mean })),
+    states_reported: Object.keys(states).length, metros_reported: Object.keys(metros).length,
+  };
 }
-fs.writeFileSync(summaryFile, JSON.stringify({ period: release.description, source: 'BLS Occupational Employment and Wage Statistics', socs: summary }, null, 1));
+fs.writeFileSync(summaryFile, JSON.stringify({ period: release.description, source: 'BLS Occupational Employment and Wage Statistics', rank_min_emp: RANK_MIN_EMP, socs: summary }, null, 1));
 fs.writeFileSync(path.join(out, '_meta.json'), JSON.stringify({ release: release.description, release_code: release.release_date, built: new Date().toISOString().slice(0, 10), socs: socs.length, written: Object.keys(summary).length, missing, lines, kept }, null, 1));
 console.log(`${release.description}: scanned ${lines} lines, kept ${kept} values, wrote ${Object.keys(summary).length} SOC files to ${out}`);
 if (missing.length) console.log('no national OEWS series (broad group or not published):', missing.join(', '));

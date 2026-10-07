@@ -133,7 +133,13 @@ for (const p of paths.list.filter((x) => x.live)) {
 // v2 career pages (global-platform Phase 7–9): answer-first copy, salary depth pages backed by
 // generated OEWS data, licence roadmaps backed by licenses.yml, and source short labels for chips.
 const oewsFile = path.join(root, '_data/us/oews_summary.json');
-const oews = fs.existsSync(oewsFile) ? JSON.parse(fs.readFileSync(oewsFile, 'utf8')).socs : {};
+const oewsAll = fs.existsSync(oewsFile) ? JSON.parse(fs.readFileSync(oewsFile, 'utf8')) : { socs: {} };
+const oews = oewsAll.socs;
+// Freshness: the generated OEWS data and the vintage the pages print must be the same release
+// (see docs/global-platform/DATA-REFRESH.md). A half-finished yearly refresh fails here.
+if (oewsAll.period && oewsAll.period !== sources.bls_vintage?.wage_ref) err('oews_summary.json', `period "${oewsAll.period}" does not match sources.yml bls_vintage.wage_ref "${sources.bls_vintage?.wage_ref}"`);
+const oewsMeta = path.join(root, 'assets/data/us/oews/_meta.json');
+if (fs.existsSync(oewsMeta)) { const m = JSON.parse(fs.readFileSync(oewsMeta, 'utf8')); if (m.release !== oewsAll.period) err('assets/data/us/oews/_meta.json', `release "${m.release}" does not match oews_summary.json period "${oewsAll.period}" (rebuild both together)`); if (m.missing?.length) err('assets/data/us/oews/_meta.json', 'SOCs without OEWS data: ' + m.missing.join(', ')); }
 for (const p of paths.list.filter((x) => x.template === 'v2')) {
   const w = `pathways.${p.slug} (v2)`;
   const page = fs.existsSync(path.join(root, 'us/careers', p.slug, 'index.html')) ? fs.readFileSync(path.join(root, 'us/careers', p.slug, 'index.html'), 'utf8') : '';

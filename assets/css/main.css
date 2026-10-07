@@ -2243,3 +2243,18 @@ html[data-region="us"] .sb-group[data-region-nav]:not([data-region-nav="us"]){di
 .md-links a:hover{border-color:var(--gold);}
 .md-links strong{font-size:var(--fs-small);}
 .md-links span{font-size:var(--fs-label);color:var(--text-muted);}
+/* Salary page (Phase 10): rankings grid, comparison table, sortable all-states table */
+.md-tiles2{display:grid;gap:var(--sp-4);grid-template-columns:minmax(0,1fr);}
+@media (min-width:768px){.md-tiles2{grid-template-columns:repeat(2,minmax(0,1fr));}}
+.md-rank{counter-reset:rank;}
+.md-rank li{counter-increment:rank;}
+.md-rank li > span{display:block;}
+.md-rank li > span::before{content:counter(rank) ". ";font-weight:700;color:var(--text-muted);}
+.md-rank li > span small{display:block;}
+.md-cmp-table{margin-top:var(--sp-5);}
+.md-cmp-table tbody th{font-weight:600;color:var(--text-muted);font-size:var(--fs-label);}
+.md-all-states{margin-top:var(--sp-5);}
+.md-table th button{font:inherit;font-weight:700;color:inherit;background:none;border:0;padding:.35rem 0;cursor:pointer;min-height:32px;}
+.md-table th[aria-sort="ascending"] button::after{content:" ▲";font-size:.7em;}
+.md-table th[aria-sort="descending"] button::after{content:" ▼";font-size:.7em;}
+.md-table th button:hover{color:var(--text);}

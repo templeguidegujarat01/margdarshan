@@ -8,6 +8,17 @@ og_description: "How U.S. high school, tests, degrees and professional licenses 
 {%- assign US = site.data.us -%}
 {%- assign V = US.sources.bls_vintage -%}
 {%- assign SRC = US.sources.list -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": {{ page.title | jsonify }},
+  "description": {{ page.description | jsonify }},
+  "url": "{{ page.url | absolute_url }}",
+  "inLanguage": "en-US",
+  "publisher": { "@type": "Organization", "name": "Margdarshan", "url": "{{ site.url }}{{ site.baseurl }}/" }
+}
+</script>
 <main id="main">
 
   <!-- ===================== HERO ===================== -->

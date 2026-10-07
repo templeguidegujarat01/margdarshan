@@ -32,6 +32,19 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": {{ page.title | split: " | " | first | jsonify }},
+  "description": {{ page.description | jsonify }},
+  "inLanguage": "en-US",
+  "dateModified": "{{ PP.last_reviewed | date: '%Y-%m-%d' }}",
+  "mainEntityOfPage": "{{ page.url | absolute_url }}",
+  "author": { "@type": "Organization", "name": "Margdarshan", "url": "{{ site.url }}{{ site.baseurl }}/" },
+  "publisher": { "@type": "Organization", "name": "Margdarshan", "url": "{{ site.url }}{{ site.baseurl }}/" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
     {%- for f in PP.faqs %}

@@ -179,7 +179,8 @@
     var catLabels = {};
     sCats.forEach(function(b){ catLabels[b.getAttribute('data-cat')] = b.textContent.trim(); });
     var sIndex = null, sLoading = false, sFailed = false;
-    var sCat = 'all', sActive = -1, sLastFocus = null;
+    var sCatOn = searchOverlay.querySelector('.search-cat[aria-pressed="true"]');
+    var sCat = sCatOn ? sCatOn.getAttribute('data-cat') : 'all', sActive = -1, sLastFocus = null;
 
     // "B.Com (Hons)" -> "b com hons"; dots dropped so "bcom" also matches.
     function norm(s){ return (s || '').toLowerCase().replace(/&/g, ' and ').replace(/\./g, '').replace(/[^a-z0-9+]+/g, ' ').trim(); }
@@ -257,6 +258,8 @@
       sIndex.forEach(function(e, i){
         if(sCat !== 'all' && e.d.c !== sCat) return;
         var sc = words.length ? score(e, q, words) : 1;
+        // Same-edition results first: USA pages rank "usa" items higher, India pages the rest.
+        if(sc && ((root.getAttribute('data-region') === 'us') === (e.d.c === 'usa'))) sc += 100;
         if(sc) hits.push({ e: e, sc: sc, i: i });
       });
       hits.sort(function(a, b){ return b.sc - a.sc || a.i - b.i; });

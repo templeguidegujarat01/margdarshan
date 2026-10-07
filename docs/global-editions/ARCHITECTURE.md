@@ -1,6 +1,12 @@
 # Margdarshan Global Editions — Architecture & Phase Plan
 
-Status: **Phase 6 complete** (all 20 career pages live). Last updated: 2026-10-07.
+Status: **Phase 7 complete** (search, structured data, SEO audit). Last updated: 2026-10-08.
+
+## Phase 7 — search and SEO (as built)
+
+- Site search: 27 USA pages added to `_data/search.yml` under a new category `usa` ("USA Edition"). On USA pages (`region_id == "us"`) `_includes/career-search.html` preselects that category (shown right after "All"), uses a USA placeholder, USA popular searches and USA starting links; India pages keep their own. `scripts.html` reads the preselected category from the DOM and adds +100 to results from the page's own edition, so India searches still rank India pages first and USA searches rank USA pages first (other edition's results still appear below).
+- Structured data: Article (headline, description, inLanguage en-US, dateModified, publisher) on every career page; ItemList of live pathways on /us/careers/; WebPage on /us/. Existing BreadcrumbList and FAQPage kept. No hreflang: India and USA pages cover different systems, not translations of the same page.
+- SEO audit (all 27 USA pages, rendered): one title and description each, all unique; canonical = og:url = absolute URL matching the sitemap; lang en-US / og:locale en_US; exactly one h1; valid JSON-LD; no noindex; sitemap lists exactly the 27 USA pages with no duplicates (228 URLs total). Two over-long title/description strings were shortened.
 
 ## Phase 6 — remaining 10 career pages (as built)
 
@@ -175,5 +181,5 @@ Sources that block automated readers (IB, NABP) are marked `note:` in `sources.y
 | **4** ✅ | USA hubs: High School (grades 9–12, GPA, AP/IB/Honors/dual enrollment), Tests, College & Degrees, Professional Licenses, International Students | Yes |
 | **5** ✅ | USA career template + first 10 pathways (tech + engineering) | Yes |
 | **6** ✅ | Remaining 10 pathways (health, law, business, psychology) + licensing pathway blocks | Yes |
-| 7 | SEO: region-aware breadcrumb root, footer, JSON-LD, search index entries, sitemap additions from real generated URLs | Yes |
+| **7** ✅ | SEO: region-aware breadcrumb root, footer, JSON-LD, search index entries, sitemap additions from real generated URLs | Yes |
 | 8 | QA matrix (1920→375px, light/dark, drawer, switcher, localStorage vs URL), full India regression diff, final report | No |

@@ -20,6 +20,19 @@ breadcrumb:
   ]
 }
 </script>
+{%- assign live_paths = US.pathways.list | where: "live", true %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "U.S. career pathways",
+  "itemListElement": [
+    {%- for p in live_paths %}
+    { "@type": "ListItem", "position": {{ forloop.index }}, "name": {{ p.title | jsonify }}, "url": "{{ site.url }}{{ site.baseurl }}/us/careers/{{ p.slug }}/" }{% unless forloop.last %},{% endunless %}
+    {%- endfor %}
+  ]
+}
+</script>
 <main id="main">
 
   <section class="page-hero" aria-labelledby="hero-heading">

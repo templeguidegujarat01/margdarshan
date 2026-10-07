@@ -1,0 +1,162 @@
+# USA Edition — facts used by the hub pages (high school, tests, college & money,
+# international). Same rules as the other _data/us files: every value has a
+# source id (sources.yml) and an as_of / last-checked date. Numbers are copied,
+# never computed. "experience" blocks are survey data about what students
+# actually go through — real experience, but from official/primary surveys.
+
+admissions:
+  factors:
+    survey: "Fall 2023 admission cycle, 185 four-year colleges"
+    label: "Share of colleges giving each factor 'considerable importance'"
+    rows:
+      - { factor: "Grades in college-prep courses", pct: 76.8 }
+      - { factor: "Grades in all courses", pct: 74.1 }
+      - { factor: "Strength of curriculum", pct: 63.8 }
+      - { factor: "Positive character attributes", pct: 28.3 }
+      - { factor: "Essay or writing sample", pct: 18.9 }
+      - { factor: "Student's interest in attending", pct: 15.7 }
+      - { factor: "Counselor recommendation", pct: 11.9 }
+      - { factor: "Teacher recommendation", pct: 10.8 }
+      - { factor: "Extracurricular activities", pct: 6.5 }
+      - { factor: "Class rank", pct: 5.5 }
+      - { factor: "Admission test scores (SAT, ACT)", pct: 4.9 }
+      - { factor: "Interview", pct: 4.3 }
+    source: nacac_factors
+  plans:
+    - { name: "Early Decision (ED)", text: "Binding: apply to only one college ED; if admitted with enough financial aid, you must attend. Some colleges offer two rounds (ED I and ED II). Not a fit if you need to compare aid offers." }
+    - { name: "Early Action (EA)", text: "Non-binding: apply early to several colleges, hear back early, and still decide by spring." }
+    - { name: "Regular Decision (RD)", text: "Non-binding: apply by the regular deadline and get a decision later in the year." }
+  plans_timing: "Early applications are usually due in October or November, with decisions in December or January. Most colleges give admitted students until May 1 to accept."
+  plans_source: cb_ed_ea
+  gpa:
+    text: "Colleges usually look at GPA on a 4.0 scale. Some high schools weight AP and honors classes higher; many colleges recalculate GPAs, focusing on core subjects (English, math, science, social studies, world languages) and adjusting or removing extra weighting, because grading scales differ between schools."
+    source: cb_gpa
+  example_state:
+    name: "University of California (example of state-specific rules)"
+    facts:
+      - "At least 15 year-long 'A-G' courses in grades 9–12 with a C or better, 11 of them finished before senior year."
+      - "Minimum GPA in A-G courses taken in grades 10–11: 3.0 for California residents, 3.4 for nonresidents."
+      - "SAT and ACT scores are not considered for admission or scholarships."
+    source: uc_requirements
+  as_of: 2026-10-07
+
+dual_enrollment:
+  students: "More than 3.1 million"
+  year: "2024–25"
+  facts:
+    - "Up 10% from 2.8 million in 2023–24 and 24% from 2.5 million in 2022–23."
+    - "Community colleges taught about 70% of dual enrollment students."
+  source: ccrc_dual_enrollment
+  as_of: 2026-10-07
+
+testing:
+  sat_format: "About 2 hours 14 minutes (Reading and Writing 64 minutes, Math 70 minutes), digital and adaptive: each section has two modules, and the second adjusts to how you did on the first."
+  sat_source: cb_sat_length
+  act_format: "About 2 hours 5 minutes for a Composite score: English (35 min, 50 questions), Math (50 min, 45 questions), Reading (40 min, 36 questions); Science (40 min) and Writing (40 min) are optional."
+  act_source: act_vs_sat
+  ap:
+    fee_us: 99
+    fee_outside_us: 129
+    late_fee: 40
+    fee_reduction: 37
+    exam_year: 2027
+    note: "Schools may charge more to cover local costs; some states add fee help."
+    source: cb_ap_fees
+    courses_source: cb_ap_courses
+  policies:
+    note: "Testing policies change often and differ even among similar colleges. These are examples checked on official admissions pages; always check each college's own page."
+    examples:
+      - { college: "MIT", policy: "Required", detail: "SAT or ACT required for first-year and transfer applicants.", source: mit_testing }
+      - { college: "Yale University", policy: "Required", detail: "All first-year and transfer applicants must submit ACT or SAT scores; AP/IB scores optional but encouraged.", source: yale_testing }
+      - { college: "Princeton University", policy: "Optional now, required later", detail: "Test optional for students entering in fall 2027; SAT or ACT required for students entering in fall 2028.", source: princeton_testing }
+      - { college: "University of California", policy: "Test-free", detail: "SAT and ACT scores are not considered for admission or scholarships.", source: uc_requirements }
+  as_of: 2026-10-07
+
+money:
+  sticker_prices:
+    year: "2025–26"
+    label: "Average published tuition and fees (before any aid)"
+    rows:
+      - { type: "Public two-year (in-district)", usd: 4150 }
+      - { type: "Public four-year (in-state)", usd: 11950 }
+      - { type: "Public four-year (out-of-state)", usd: 31880 }
+      - { type: "Private nonprofit four-year", usd: 45000 }
+    notes:
+      - "These are tuition and fees only — housing, food, books and transport are extra."
+      - "Public four-year in-state tuition ranges from $6,360 in Florida to $18,090 in Vermont."
+      - "Many students pay less than the sticker price after grants; College Board estimates average net tuition and fees of about $2,300 for first-time, full-time in-state students at public four-year colleges."
+    source: cb_pricing_2025
+  fafsa:
+    text: "The FAFSA is the free federal form for grants, work-study and federal loans. The 2027–28 FAFSA (for college between July 1, 2027 and June 30, 2028) is open — the law requires launch by October 1. States and colleges set their own, often earlier, deadlines."
+    source: ed_fafsa_2027_28
+  pell:
+    max: 7395
+    min: 740
+    year: "2026–27"
+    text: "Need-based federal grant for undergraduates that usually does not have to be repaid."
+    source: fsa_pell_2026_27
+  loans:
+    first_year_dependent: 5500
+    first_year_subsidized_max: 3500
+    text: "Federal Direct Loans for a dependent first-year undergraduate are capped at $5,500 a year (no more than $3,500 subsidized), rising to $6,500 in year two and $7,500 after that."
+    source: fsa_loans
+  grad_changes:
+    date: 2026-07-01
+    text: "Under the One Big Beautiful Bill Act, Grad PLUS loans end for new graduate and professional borrowers from July 1, 2026, with new federal caps of $20,500 a year ($100,000 total) for graduate students and $50,000 a year ($200,000 total) for professional students such as medical and law students. Students already borrowing for a program before that date keep their old terms until they finish."
+    source: ed_obbba_loans
+  as_of: 2026-10-07
+
+transfer:
+  cohort: "Students who first started at a community college in fall 2018"
+  transferred_pct: 31.6
+  of_those_bachelor_pct: 48.7
+  text: "About a third transferred to a four-year college within six years, and just under half of those finished a bachelor's degree in that time."
+  # tips = Margdarshan's practical advice (not from the source); pages label them as tips.
+  tips:
+    - "Pick the four-year college (or at least the state system) early and follow its transfer agreement or guaranteed-admission program."
+    - "Ask both colleges in writing which courses will transfer and count toward your major, not just as electives."
+    - "Meet a transfer advisor every term; requirements differ by major."
+  source: nsc_tracking_transfer
+  as_of: 2026-10-07
+
+experience:
+  stopout:
+    study: "Lumina Foundation–Gallup 2024 State of Higher Education (surveyed Oct–Nov 2023; 6,015 enrolled students)"
+    considered_pct: 35
+    reasons:
+      - { reason: "Emotional stress", pct: 54 }
+      - { reason: "Mental health", pct: 43 }
+      - { reason: "Cost", pct: 31 }
+    note: "Among bachelor's students who considered leaving, 67% cited emotional stress."
+    source: gallup_stopout
+  ai:
+    study: "Lumina Foundation–Gallup 2026 State of Higher Education (surveyed Oct 2–31, 2025; 1,433 associate and 2,368 bachelor's students)"
+    facts:
+      - "57% of college students use AI for coursework at least weekly; about 20% use it daily."
+      - "42% say their school discourages AI use and 11% say it prohibits it; 42% say it is encouraged (mostly with limits)."
+      - "42% of bachelor's students say AI made them think at least a fair amount about changing their major; 16% of enrolled students have already switched majors because of AI."
+    sources: [gallup_ai_use, gallup_ai_majors]
+  as_of: 2026-10-07
+
+international:
+  numbers:
+    year: "2024/25"
+    total: 1177766
+    india: 363019
+    china: 265919
+    undergrad: 357231
+    grad: 488481
+    opt: 294253
+    note: "India was the largest country of origin, up 10%; China second, down 4%. Students on OPT grew 21%."
+    source: open_doors_2025
+  steps:
+    - { step: "Get admitted", text: "Apply to SEVP-certified colleges. Each college sets its own English-test rules (for example TOEFL, IELTS or Duolingo) and may ask for a credential evaluation of foreign transcripts." }
+    - { step: "Receive your Form I-20", text: "A Designated School Official (DSO) at your college issues the I-20 when you are accepted. You need it for every step that follows." }
+    - { step: "Pay the I-901 SEVIS fee", text: "$350 for F-1 students, paid after you receive the I-20 and before the visa is issued." }
+    - { step: "Apply for the F-1 visa", text: "Visas can be issued up to 365 days before your program start date; bring the original I-20 to the interview." }
+    - { step: "Enter the U.S.", text: "You may arrive no more than 30 days before the program start date on your I-20." }
+    - { step: "Study and work within the rules", text: "On-campus jobs: up to 20 hours a week while school is in session, full time during breaks. Off-campus work needs separate authorization (CPT, OPT)." }
+  step_sources: [dhs_i20, ice_sevis_fee, ice_employment]
+  credential_eval: "Colleges often ask for a course-by-course evaluation of foreign transcripts from a NACES member such as World Education Services (WES) or Educational Credential Evaluators (ECE). Use the evaluator your college names."
+  credential_source: naces
+  as_of: 2026-10-07

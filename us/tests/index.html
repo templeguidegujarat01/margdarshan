@@ -1,0 +1,237 @@
+---
+title: "SAT, ACT, PSAT and AP Explained: Formats, Scores and College Testing Policies | Margdarshan USA"
+description: "How the digital SAT, enhanced ACT, PSAT/NMSQT, AP and IB work, what scores mean, how much tests really count (NACAC data) and real testing policies at MIT, Yale, Princeton and the University of California."
+og_title: "SAT vs ACT, PSAT and AP — Formats, Scores and Real College Testing Policies"
+og_description: "Digital SAT and enhanced ACT formats, score ranges, AP fees and credit, and checked testing policies at real colleges."
+header:
+  faq_href: "#faq"
+breadcrumb:
+  current: "Tests"
+---
+{%- assign US = site.data.us -%}
+{%- assign G = US.guides -%}
+{%- assign T = US.tests -%}
+{%- assign SRC = US.sources.list -%}
+{%- assign F_test = G.admissions.factors.rows | where: "factor", "Admission test scores (SAT, ACT)" | first -%}
+{%- assign F_prep = G.admissions.factors.rows | where: "factor", "Grades in college-prep courses" | first -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "USA Home", "item": "{{ site.url }}{{ site.baseurl }}/us/" },
+    { "@type": "ListItem", "position": 2, "name": "Tests", "item": "{{ site.url }}{{ site.baseurl }}/us/tests/" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Should I take the SAT or the ACT?", "acceptedAnswer": { "@type": "Answer", "text": "Colleges that use test scores accept either. Take a free official practice test of each and focus on the one that suits you; there is no admissions advantage to one over the other." } },
+    { "@type": "Question", "name": "What does test-optional mean?", "acceptedAnswer": { "@type": "Answer", "text": "You may apply without scores and will not be penalized; if you send scores, the college will consider them. Test-free (test-blind) colleges do not consider scores at all, and test-required colleges need them." } },
+    { "@type": "Question", "name": "Do AP scores give college credit?", "acceptedAnswer": { "@type": "Answer", "text": "Sometimes. Each college decides which scores earn credit or placement; many give credit for a 3 or higher. Check each college's AP policy." } },
+    { "@type": "Question", "name": "Does the PSAT count for college admission?", "acceptedAnswer": { "@type": "Answer", "text": "No. The PSAT is practice and, in grade 11, the qualifying test for the National Merit Scholarship Program. Colleges do not use it for admission." } }
+  ]
+}
+</script>
+<main id="main">
+
+  <section class="page-hero" aria-labelledby="hero-heading">
+    <svg class="page-hero-bg" viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M-50 340 C 220 300, 320 380, 500 300 S 780 200, 980 260 1150 160 1300 200" stroke="#E8A33D" stroke-width="1.4" fill="none" opacity=".3"/>
+    </svg>
+    <div class="container page-hero-inner">
+      <span class="eyebrow">USA Edition · Tests</span>
+      <h1 id="hero-heading">SAT, ACT, PSAT and AP, without the myths</h1>
+      <div class="meta-row">
+        <span>Formats and scores</span><span>·</span><span>Real college policies</span><span>·</span><span>Checked {{ G.testing.as_of | date: "%b %Y" }}</span>
+      </div>
+      <p>Tests still matter at some colleges and not at all at others. Here is how each test works, what the scores mean, and what real colleges require right now, checked on their own admissions pages.</p>
+      <div class="page-hero-ctas">
+        <a href="#policies" class="btn btn-primary btn-inpage-jump">Do colleges require tests?</a>
+        <a href="#sat-act" class="btn btn-ghost btn-inpage-jump">SAT vs ACT</a>
+      </div>
+      <div class="quickfacts">
+        <div class="qf-card"><span>SAT total</span><strong>{{ T.high_school.sat.total }}</strong></div>
+        <div class="qf-card"><span>ACT Composite</span><strong>1–36</strong></div>
+        <div class="qf-card"><span>AP score</span><strong>{{ T.high_school.ap.total }}</strong></div>
+        <div class="qf-card"><span>Colleges rating tests "considerable importance"</span><strong>{{ F_test.pct }}%</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="quicknav-bar">
+    <div class="container">
+      <nav class="quicknav" aria-label="Section navigation">
+        <a href="#policies">Testing Policies</a>
+        <a href="#sat-act">SAT vs ACT</a>
+        <a href="#all-tests">All Tests</a>
+        <a href="#ap">AP Exams</a>
+        <a href="#grad-tests">Professional School Tests</a>
+        <a href="#tips">Tips</a>
+        <a href="#faq">FAQs</a>
+      </nav>
+    </div>
+  </div>
+
+  <section class="block" id="policies" aria-labelledby="policies-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Real colleges, checked</span>
+        <h2 id="policies-heading">Do colleges require the SAT or ACT?</h2>
+        <p>Some do, some don't, and some don't look at scores at all. Across four-year colleges, {{ F_test.pct }}% gave test scores "considerable importance" in NACAC's Fall 2023 survey, versus {{ F_prep.pct }}% for grades in college-prep courses — yet several highly selective colleges have brought requirements back.</p>
+      </div>
+      <div class="chip-grid reveal">
+        <div class="item"><strong>Test-required</strong>You must send SAT or ACT scores.</div>
+        <div class="item"><strong>Test-optional</strong>You choose whether to send scores; applying without them is allowed.</div>
+        <div class="item"><strong>Test-free (test-blind)</strong>Scores are not considered even if you have them.</div>
+      </div>
+      <h3 class="block-subhead">Examples checked on official admissions pages</h3>
+      <div class="table-wrap">
+        <table class="table-simple">
+          <thead><tr><th>College</th><th>Policy</th><th>Details</th></tr></thead>
+          <tbody>
+            {%- for e in G.testing.policies.examples %}
+            <tr><td><strong>{{ e.college }}</strong></td><td>{{ e.policy }}</td><td>{{ e.detail }} <a href="{{ SRC[e.source].url }}">Official page</a></td></tr>
+            {%- endfor %}
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">{{ G.testing.policies.note }} Checked {{ G.testing.as_of | date: "%Y-%m-%d" }}.</p>
+    </div>
+  </section>
+
+  <section class="block block-alt" id="sat-act" aria-labelledby="sat-act-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Side by side</span>
+        <h2 id="sat-act-heading">SAT vs ACT</h2>
+        <p>Colleges that use scores accept either one. Pick the test whose format suits you better.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="table-simple">
+          <thead><tr><th></th><th>SAT</th><th>ACT (enhanced)</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Made by</strong></td><td>{{ T.high_school.sat.by }}</td><td>{{ T.high_school.act.by }}</td></tr>
+            <tr><td><strong>Scores</strong></td><td>{{ T.high_school.sat.total }} ({{ T.high_school.sat.sections }})</td><td>{{ T.high_school.act.total }} ({{ T.high_school.act.sections }})</td></tr>
+            <tr><td><strong>Format and length</strong></td><td>{{ G.testing.sat_format }} <a href="{{ SRC[G.testing.sat_source].url }}">Source</a></td><td>{{ G.testing.act_format }} <a href="{{ SRC[G.testing.act_source].url }}">Source</a></td></tr>
+            <tr><td><strong>Good to know</strong></td><td>{{ T.high_school.sat.notes | join: " " }}</td><td>{{ T.high_school.act.notes | join: " " }}</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="all-tests" aria-labelledby="all-tests-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Every high school test</span>
+        <h2 id="all-tests-heading">PSAT, SAT, ACT, AP and IB at a glance</h2>
+      </div>
+      <div class="table-wrap">
+        <table class="table-simple">
+          <thead><tr><th>Test</th><th>Typical grade</th><th>Score range</th><th>What to know</th></tr></thead>
+          <tbody>
+            {%- for t in T.high_school %}
+            {%- assign d = t[1] %}
+            <tr>
+              <td><strong>{{ d.name }}</strong><br><span class="us-by">{{ d.by }}</span></td>
+              <td>{{ d.grades }}</td>
+              <td>{{ d.total }}{% if d.sections %}<br><span class="us-by">{{ d.sections }}</span>{% endif %}</td>
+              <td>{% if d.scale %}{{ d.scale | join: "; " }}. {% endif %}{{ d.notes | join: " " }} <a href="{{ SRC[d.source].url }}">Source</a></td>
+            </tr>
+            {%- endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  {%- assign APF = G.testing.ap %}
+  <section class="block block-alt" id="ap" aria-labelledby="ap-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Advanced Placement</span>
+        <h2 id="ap-heading">AP exams: cost and college credit</h2>
+      </div>
+      <div class="chip-grid us-links reveal">
+        <div class="item"><strong>Fee ({{ APF.exam_year }} exams)</strong>${{ APF.fee_us }} per exam at U.S. schools, ${{ APF.fee_outside_us }} elsewhere; ${{ APF.late_fee }} extra for late orders. {{ APF.note }} <a href="{{ SRC[APF.source].url }}">Fees</a></div>
+        <div class="item"><strong>Help with cost</strong>Students with significant financial need can get a ${{ APF.fee_reduction }} College Board reduction per exam; ask your AP coordinator about state help.</div>
+        <div class="item"><strong>Credit and placement</strong>{{ T.high_school.ap.notes | first }} <a href="{{ SRC[T.high_school.ap.credit_source].url }}">Credit policies</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="grad-tests" aria-labelledby="grad-tests-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">After college</span>
+        <h2 id="grad-tests-heading">Tests for professional school</h2>
+        <p>Medicine, dentistry and law add their own admission tests after (or near the end of) a bachelor's degree.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="table-simple">
+          <thead><tr><th>Test</th><th>For</th><th>What to know</th></tr></thead>
+          <tbody>
+            {%- for t in T.professional_admission %}
+            {%- assign d = t[1] %}
+            <tr><td><strong>{{ d.name }}</strong><br><span class="us-by">{{ d.by }}</span></td><td>{{ d.for }}</td><td>{% if d.total %}Total {{ d.total }}. {% endif %}{% if d.sections %}{{ d.sections }}. {% endif %}{{ d.notes | join: " " }} <a href="{{ SRC[d.source].url }}">Source</a></td></tr>
+            {%- endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="block block-alt" id="tips" aria-labelledby="tips-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Practical tips</span>
+        <h2 id="tips-heading">Testing without wasting time or money</h2>
+      </div>
+      <div class="prose reveal">
+        <ul>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><strong>Check your list first.</strong> If every college you are considering is test-free or test-optional, heavy test prep may matter less than your grades.</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><strong>Try both formats.</strong> Take an official practice SAT and ACT before choosing; colleges that use scores accept either.</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><strong>Use grade 11 well.</strong> The PSAT/NMSQT in grade 11 is the only year that counts for National Merit, and it is good practice for the SAT.</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><strong>Ask about fee help.</strong> AP fee reductions and state programs exist for students with financial need.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="faq" aria-labelledby="faq-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Good to know</span>
+        <h2 id="faq-heading">Frequently asked questions</h2>
+      </div>
+      <div class="faq-list reveal">
+        <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">Should I take the SAT or the ACT?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">Colleges that use test scores accept either. Take a free official practice test of each and focus on the one that suits you; there is no admissions advantage to one over the other.</div></div>
+        <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">What does test-optional mean?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">You may apply without scores and will not be penalized; if you send scores, the college will consider them. Test-free (test-blind) colleges do not consider scores at all, and test-required colleges need them.</div></div>
+        <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">Do AP scores give college credit?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">Sometimes. Each college decides which scores earn credit or placement; many give credit for a 3 or higher. Check each college's AP policy.</div></div>
+        <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">Does the PSAT count for college admission?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">No. The PSAT is practice and, in grade 11, the qualifying test for the National Merit Scholarship Program. Colleges do not use it for admission.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block block-alt" aria-labelledby="related-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Keep going</span>
+        <h2 id="related-heading">Next steps in the USA Edition</h2>
+      </div>
+      <div class="related-grid reveal">
+        <a class="related-card" href="us/high-school/"><strong>High School</strong><span>GPA, AP, IB, plan</span></a>
+        <a class="related-card" href="us/college/"><strong>College &amp; Money</strong><span>Degrees, costs, aid</span></a>
+        <a class="related-card" href="us/#careers"><strong>Career Pathways</strong><span>20 fields with BLS data</span></a>
+        <a class="related-card" href="us/international-students/"><strong>International Students</strong><span>F-1, OPT, H-1B</span></a>
+      </div>
+    </div>
+  </section>
+
+  {% include us-sources.html ids="nacac_factors,mit_testing,yale_testing,princeton_testing,uc_requirements,cb_sat_scores,cb_sat_length,cb_psat_score_structure,act_enhanced,act_vs_sat,cb_ap_scores,cb_ap_credit,cb_ap_fees,ib_dp,aamc_mcat,ada_dat,aba_journal_503,aacp_pcat" %}
+
+</main>

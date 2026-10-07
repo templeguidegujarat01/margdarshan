@@ -1,0 +1,222 @@
+---
+title: "U.S. High School Guide: Grades 9–12, GPA, AP, IB and Dual Enrollment | Margdarshan USA"
+description: "A grade-by-grade guide to U.S. high school: how GPA works, honors, AP, IB and dual enrollment, what colleges actually weigh (NACAC data), state rules and the mistakes to avoid."
+og_title: "U.S. High School, Grade by Grade — GPA, AP, IB and What Colleges Weigh"
+og_description: "Grade-by-grade plan, GPA explained, AP/IB/dual enrollment, and NACAC data on what colleges actually weigh in admissions."
+header:
+  faq_href: "#faq"
+breadcrumb:
+  current: "High School"
+---
+{%- assign US = site.data.us -%}
+{%- assign G = US.guides -%}
+{%- assign SRC = US.sources.list -%}
+{%- assign F_prep = G.admissions.factors.rows | where: "factor", "Grades in college-prep courses" | first -%}
+{%- assign F_curr = G.admissions.factors.rows | where: "factor", "Strength of curriculum" | first -%}
+{%- assign F_test = G.admissions.factors.rows | where: "factor", "Admission test scores (SAT, ACT)" | first -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "USA Home", "item": "{{ site.url }}{{ site.baseurl }}/us/" },
+    { "@type": "ListItem", "position": 2, "name": "High School", "item": "{{ site.url }}{{ site.baseurl }}/us/high-school/" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Is there a national exam at the end of U.S. high school?", "acceptedAnswer": { "@type": "Answer", "text": "No. States and local districts set diploma requirements. Some states use end-of-course or exit exams, but there is no single national graduation exam." } },
+    { "@type": "Question", "name": "Is a weighted or unweighted GPA better?", "acceptedAnswer": { "@type": "Answer", "text": "Neither is better; schools report GPA differently. Many colleges recalculate GPAs using core subjects and adjust or remove extra weighting so applicants from different schools can be compared." } },
+    { "@type": "Question", "name": "Should I take AP, IB or dual enrollment?", "acceptedAnswer": { "@type": "Answer", "text": "Take the most challenging courses you can handle well. Strength of curriculum matters to many colleges, but grades in those courses matter even more. Availability depends on your school, and each college sets its own credit policy." } },
+    { "@type": "Question", "name": "How much do SAT or ACT scores matter?", "acceptedAnswer": { "@type": "Answer", "text": "It depends on the college. In NACAC's Fall 2023 survey, {{ F_test.pct }}% of colleges gave test scores considerable importance, compared with {{ F_prep.pct }}% for grades in college-prep courses, but some selective colleges require tests." } },
+    { "@type": "Question", "name": "When should I start planning for college?", "acceptedAnswer": { "@type": "Answer", "text": "Grade 9, because your GPA and course choices start counting then. Testing, college research and visits usually happen in grade 11, and applications in the fall of grade 12." } }
+  ]
+}
+</script>
+<main id="main">
+
+  <section class="page-hero" aria-labelledby="hero-heading">
+    <svg class="page-hero-bg" viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M-50 340 C 220 300, 320 380, 500 300 S 780 200, 980 260 1150 160 1300 200" stroke="#E8A33D" stroke-width="1.4" fill="none" opacity=".3"/>
+    </svg>
+    <div class="container page-hero-inner">
+      <span class="eyebrow">USA Edition · High School</span>
+      <h1 id="hero-heading">U.S. high school, grade by grade</h1>
+      <div class="meta-row">
+        <span>Grades 9–12</span><span>·</span><span>GPA, AP, IB, dual enrollment</span><span>·</span><span>Checked {{ G.admissions.as_of | date: "%b %Y" }}</span>
+      </div>
+      <p>What you do in grades 9–12 shapes your options after graduation more than any single test. Here is how GPA, course choices and activities actually count, using national data from college admission offices rather than rumors.</p>
+      <div class="page-hero-ctas">
+        <a href="#plan" class="btn btn-primary btn-inpage-jump">See the grade-by-grade plan</a>
+        <a href="#what-counts" class="btn btn-ghost btn-inpage-jump">What colleges weigh</a>
+      </div>
+      <div class="quickfacts">
+        <div class="qf-card"><span>Grades</span><strong>9–12</strong></div>
+        <div class="qf-card"><span>National exit exam</span><strong>None</strong></div>
+        <div class="qf-card"><span>Top admission factor</span><strong>Grades in college-prep courses</strong></div>
+        <div class="qf-card"><span>Dual enrollment, {{ G.dual_enrollment.year }}</span><strong>{{ G.dual_enrollment.students }} students</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="quicknav-bar">
+    <div class="container">
+      <nav class="quicknav" aria-label="Section navigation">
+        <a href="#plan">Grade-by-Grade Plan</a>
+        <a href="#gpa">GPA</a>
+        <a href="#rigor">Honors, AP, IB, Dual Enrollment</a>
+        <a href="#what-counts">What Colleges Weigh</a>
+        <a href="#apply">Application Plans</a>
+        <a href="#state-rules">State Rules</a>
+        <a href="#mistakes">Common Mistakes</a>
+        <a href="#faq">FAQs</a>
+      </nav>
+    </div>
+  </div>
+
+  {% include roadmap-flow.html id="plan" eyebrow="Grade-by-grade plan" heading="What each year of high school is for" intro="A typical path for a student aiming at a four-year college. Your school counselor can adapt it to your goals." s1="Grade 9|Build strong habits|Your GPA starts here. Take the most challenging core classes you can do well in, and try a few activities." s2="Grade 10|Add rigor|Consider honors, AP or dual enrollment if offered. The PSAT 10 is optional practice." s3="Grade 11|Test and research|PSAT/NMSQT (the National Merit year), the SAT or ACT if your colleges use them, college visits and a balanced list." s4="Grade 12|Apply and decide|Early deadlines in October–November, FAFSA from October 1, decisions in winter and spring, and most colleges' reply deadline on May 1." s5="Goal|College, training or work|A four-year college, community college, career training, the military or a job — all start from the same diploma." note="Community college and career training are full options, not fallbacks. See College &amp; Money for costs and transfer." %}
+
+  <section class="block block-alt" id="gpa" aria-labelledby="gpa-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Grades</span>
+        <h2 id="gpa-heading">How GPA works</h2>
+      </div>
+      <div class="prose reveal">
+        <p>{{ G.admissions.gpa.text }}</p>
+        <p>In practice: an A in a hard class counts for more than a number on your transcript suggests, and a weighted 4.3 from one school is not automatically "better" than an unweighted 3.9 from another. Colleges see your school's profile and course offerings alongside your grades.</p>
+      </div>
+      <a class="source-link" href="{{ SRC[G.admissions.gpa.source].url }}">Source: {{ SRC[G.admissions.gpa.source].publisher }}</a>
+    </div>
+  </section>
+
+  <section class="block" id="rigor" aria-labelledby="rigor-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Course rigor</span>
+        <h2 id="rigor-heading">Honors, AP, IB and dual enrollment</h2>
+        <p>Four ways to take harder courses. Which ones you can choose depends on your school; each college decides its own credit rules.</p>
+      </div>
+      {%- assign AP = US.tests.high_school.ap %}
+      {%- assign IB = US.tests.high_school.ib %}
+      <div class="chip-grid us-links reveal">
+        <div class="item"><strong>Honors</strong>Harder versions of regular courses, set by each high school. Many schools weight honors grades in their GPA.</div>
+        <div class="item"><strong>Advanced Placement (AP)</strong>College-level courses with a College Board exam scored {{ AP.total }}. {{ AP.notes | first }} The {{ G.testing.ap.exam_year }} exam fee is ${{ G.testing.ap.fee_us }} at U.S. schools, with a ${{ G.testing.ap.fee_reduction }} reduction for students with financial need. <a href="{{ SRC[G.testing.ap.source].url }}">Fees</a> · <a href="{{ SRC[G.testing.ap.courses_source].url }}">All AP courses</a></div>
+        <div class="item"><strong>International Baccalaureate (IB)</strong>A two-year diploma program in grades 11–12. {{ IB.notes | join: " " }} <a href="{{ SRC[IB.source].url }}">IB</a></div>
+        <div class="item"><strong>Dual enrollment</strong>Real college courses, often at a community college, that can count for high school and college credit. {{ G.dual_enrollment.students }} high school students took one in {{ G.dual_enrollment.year }}. {{ G.dual_enrollment.facts | join: " " }} <a href="{{ SRC[G.dual_enrollment.source].url }}">CCRC (IPEDS data)</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block block-alt" id="what-counts" aria-labelledby="what-counts-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Real admissions data</span>
+        <h2 id="what-counts-heading">What colleges actually weigh</h2>
+        <p>NACAC asked four-year colleges how much each factor matters ({{ G.admissions.factors.survey }}). Grades and course choices dominate; test scores matter most at a small, often highly selective group of colleges.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="table-simple">
+          <thead><tr><th>Factor</th><th>{{ G.admissions.factors.label }}</th></tr></thead>
+          <tbody>
+            {%- for r in G.admissions.factors.rows %}
+            <tr><td>{{ r.factor }}</td><td><span class="us-bar"><span class="us-bar-track" aria-hidden="true"><span class="us-bar-fill" style="width:{{ r.pct }}%"></span></span><span class="us-bar-val">{{ r.pct }}%</span></span></td></tr>
+            {%- endfor %}
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Averages across colleges. Selective colleges may weigh essays, recommendations and activities more heavily, and some require test scores — see <a href="us/tests/#policies">testing policies</a>. <a class="source-link" href="{{ SRC[G.admissions.factors.source].url }}">Source: {{ SRC[G.admissions.factors.source].publisher }}</a></p>
+    </div>
+  </section>
+
+  <section class="block" id="apply" aria-labelledby="apply-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Senior year</span>
+        <h2 id="apply-heading">Early Decision, Early Action or Regular Decision?</h2>
+        <p>{{ G.admissions.plans_timing }}</p>
+      </div>
+      <div class="chip-grid reveal">
+        {%- for p in G.admissions.plans %}
+        <div class="item"><strong>{{ p.name }}</strong>{{ p.text }}</div>
+        {%- endfor %}
+      </div>
+      <a class="source-link" href="{{ SRC[G.admissions.plans_source].url }}">Source: {{ SRC[G.admissions.plans_source].publisher }}</a>
+    </div>
+  </section>
+
+  <section class="block block-alt" id="state-rules" aria-labelledby="state-rules-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">State and college rules</span>
+        <h2 id="state-rules-heading">Requirements depend on where you live and apply</h2>
+        <p>{{ US.degrees.high_school.requirements_note }}</p>
+      </div>
+      <h3 class="block-subhead">Example: {{ G.admissions.example_state.name }}</h3>
+      <div class="prose reveal">
+        <ul>
+          {%- for f in G.admissions.example_state.facts %}
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>{{ f }}</li>
+          {%- endfor %}
+        </ul>
+      </div>
+      <p class="table-note">Other states' public universities set different course lists and minimums. Check your state university system and your school counselor. <a class="source-link" href="{{ SRC[G.admissions.example_state.source].url }}">Source: {{ SRC[G.admissions.example_state.source].publisher }}</a> · <a class="source-link" href="{{ SRC.nces_hs_credits.url }}">NCES state credit table</a></p>
+    </div>
+  </section>
+
+  <section class="block" id="mistakes" aria-labelledby="mistakes-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Learn from the data</span>
+        <h2 id="mistakes-heading">Common mistakes in high school</h2>
+      </div>
+      <div class="prose reveal">
+        <ul>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><strong>Avoiding hard classes to protect GPA.</strong> Strength of curriculum mattered considerably to {{ F_curr.pct }}% of colleges in NACAC's survey. Challenge yourself where you can still earn good grades.</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><strong>Treating one test as everything.</strong> Grades in college-prep courses ({{ F_prep.pct }}%) far outweigh test scores ({{ F_test.pct }}%) on average — but check the colleges you want, because some require tests.</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><strong>Applying Early Decision without checking money.</strong> ED is binding, so you cannot compare financial aid offers.</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><strong>Assuming one state's rules apply everywhere.</strong> Required courses and minimum GPAs differ by state and by university system.</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><strong>Missing aid deadlines.</strong> The FAFSA opens by October 1 of senior year, and many states and colleges have earlier deadlines than the federal one.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="block block-alt" id="faq" aria-labelledby="faq-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Good to know</span>
+        <h2 id="faq-heading">Frequently asked questions</h2>
+      </div>
+      <div class="faq-list reveal">
+        <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">Is there a national exam at the end of U.S. high school?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">No. States and local districts set diploma requirements. Some states use end-of-course or exit exams, but there is no single national graduation exam.</div></div>
+        <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">Is a weighted or unweighted GPA better?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">Neither is better; schools report GPA differently. Many colleges recalculate GPAs using core subjects and adjust or remove extra weighting so applicants from different schools can be compared.</div></div>
+        <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">Should I take AP, IB or dual enrollment?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">Take the most challenging courses you can handle well. Strength of curriculum matters to many colleges, but grades in those courses matter even more. Availability depends on your school, and each college sets its own credit policy.</div></div>
+        <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">How much do SAT or ACT scores matter?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">It depends on the college. In NACAC's Fall 2023 survey, {{ F_test.pct }}% of colleges gave test scores considerable importance, compared with {{ F_prep.pct }}% for grades in college-prep courses, but some selective colleges require tests.</div></div>
+        <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">When should I start planning for college?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">Grade 9, because your GPA and course choices start counting then. Testing, college research and visits usually happen in grade 11, and applications in the fall of grade 12.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="related-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Keep going</span>
+        <h2 id="related-heading">Next steps in the USA Edition</h2>
+      </div>
+      <div class="related-grid reveal">
+        <a class="related-card" href="us/tests/"><strong>Tests</strong><span>SAT, ACT, PSAT, AP</span></a>
+        <a class="related-card" href="us/college/"><strong>College &amp; Money</strong><span>Degrees, costs, aid</span></a>
+        <a class="related-card" href="us/#careers"><strong>Career Pathways</strong><span>20 fields with BLS data</span></a>
+        <a class="related-card" href="us/professional-licenses/"><strong>Licensed Professions</strong><span>Who grants licenses</span></a>
+      </div>
+    </div>
+  </section>
+
+  {% include us-sources.html ids="nacac_factors,cb_gpa,cb_ed_ea,cb_ap_scores,cb_ap_fees,cb_ap_courses,ib_dp,ccrc_dual_enrollment,uc_requirements,nces_hs_credits" bg="alt" %}
+
+</main>

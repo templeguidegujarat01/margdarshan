@@ -1968,3 +1968,15 @@ html[data-region="us"] .sb-group[data-region-nav]:not([data-region-nav="us"]){di
 .us-asof{font-family:var(--font-mono);font-size:.8rem;color:var(--text-muted);}
 .us-by{display:inline-block;margin-top:.15rem;font-size:.8rem;line-height:1.45;color:var(--text-muted);}
 .chip-grid.us-links .item a{color:var(--link);font-weight:600;text-decoration:underline;text-underline-offset:2px;}
+/* USA hubs: horizontal percentage bar inside a table cell (value is also printed as text). */
+.us-bar{display:flex;align-items:center;gap:.6rem;min-width:9rem;}
+.us-bar-track{flex:1;height:8px;border-radius:999px;background:var(--paper);border:1px solid var(--line);overflow:hidden;}
+.us-bar-fill{display:block;height:100%;border-radius:999px;background:var(--gold);}
+.us-bar-val{flex-shrink:0;min-width:3.4rem;text-align:right;font-family:var(--font-mono);font-size:.82rem;font-weight:600;color:var(--text);}
+.us-steps{margin-top:.4rem;}
+/* Wrapped roadmap flows (USA licensing/visa steps): no connector after the last card of each row. */
+@media (min-width:900px){
+  .rflow[style*="--rflow-n:3"] .rflow-step:nth-child(3n)::after,
+  .rflow[style*="--rflow-n:4"] .rflow-step:nth-child(4n)::after,
+  .rflow[style*="--rflow-n:5"] .rflow-step:nth-child(5n)::after{display:none;}
+}

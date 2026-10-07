@@ -1,6 +1,17 @@
 # Margdarshan Global Editions — Architecture & Phase Plan
 
-Status: **Phase 3 complete** (region engine, switcher, USA home live at /us/). Last updated: 2026-10-07.
+Status: **Phase 4 complete** (5 USA hub pages). Last updated: 2026-10-07.
+
+## Phase 4 — USA hubs (as built)
+
+Pages (all data-driven, same components as India hubs: page-hero + quickfacts, quicknav, roadmap-flow/rflow, table-simple, chip-grid, faq, related-grid; BreadcrumbList + FAQPage JSON-LD):
+`us/high-school/`, `us/tests/`, `us/college/`, `us/professional-licenses/`, `us/international-students/`. USA nav now has two groups (Plan Your Path / Careers & Beyond); the USA home links each section to its hub; sitemap lists all 6 USA URLs.
+
+New data: `_data/us/guides.yml` (admissions factors, ED/EA/RD, GPA, UC example, dual enrollment, SAT/ACT formats, AP fees, real college testing policies, college prices, FAFSA, Pell, loans + 2026 grad-loan changes, transfer outcomes, student-experience surveys, international steps and numbers) with 27 more sources in `sources.yml`. `_includes/us-sources.html` renders a page's source list; `check-us-data.mjs` now also checks guides.yml source ids/dates and every page's `us-sources` ids.
+
+"Real experience" layer: Reddit blocks Anthropic's crawler, so community posts could not be read. Instead the hubs use large surveys of real students and colleges: NACAC (what colleges weigh, Fall 2023), Lumina–Gallup (35% considered leaving; stress 54%, mental health 43%, cost 31%; AI use 57% weekly, 16% changed major because of AI), NSC Tracking Transfer (31.6% transfer, 48.7% of those finish), CCRC/IPEDS (3.1M dual enrollment), Open Doors 2025. Practical tips are labelled as Margdarshan's advice, not as source facts.
+
+Not stated (could not verify): a $250 "visa integrity fee" for F-1 applicants and the current State Department visa fee (travel.state.gov blocks readers) — the page points readers to their embassy instead. ed.gov pages (FAFSA launch, 2026 loan caps) block readers; figures come from the Department's own releases as indexed by search and are marked in `sources.yml`.
 
 ## Phase 3 — how the region engine works (as built)
 
@@ -139,7 +150,7 @@ Sources that block automated readers (IB, NABP) are marked `note:` in `sources.y
 | **1** ✅ | Audit, multi-level `root` fix, `_data/regions.yml`, `us/` region default, this doc | None (verified byte-identical) |
 | **2** ✅ | Research dataset `_data/us/*.yml` from BLS, O*NET, College Board, ACT, NCES, USMLE, NCBE, NASBA, NCEES, USCIS, ADA/NABP/NCSBN/FSBPT — every value with source + date | None |
 | **3** ✅ | Region engine: `data-region`, lang/locale, region nav (`sidebar_us`), **region switcher** in sidebar (keyboard/SR accessible, mobile drawer), `md-region` localStorage, USA home `/us/`, rename "Margdarshan USA" study-abroad label (with OK) | Yes — switcher + `/us/` |
-| 4 | USA hubs: High School (grades 9–12, GPA, AP/IB/Honors/dual enrollment), Tests, College & Degrees, Professional Licenses, International Students | Yes |
+| **4** ✅ | USA hubs: High School (grades 9–12, GPA, AP/IB/Honors/dual enrollment), Tests, College & Degrees, Professional Licenses, International Students | Yes |
 | 5 | USA career template + first 10 pathways (tech + engineering) | Yes |
 | 6 | Remaining 10 pathways (health, law, business, psychology) + licensing pathway blocks | Yes |
 | 7 | SEO: region-aware breadcrumb root, footer, JSON-LD, search index entries, sitemap additions from real generated URLs | Yes |

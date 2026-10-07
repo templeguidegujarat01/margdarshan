@@ -81,6 +81,27 @@ for (const p of paths.list) {
   if (p.in_page && !fs.existsSync(path.join(root, p.in_page))) err(w, `in_page ${p.in_page} does not exist`);
 }
 
+// guides.yml: every `source`/`sources`/`*_source(s)` value anywhere must be a known source id.
+const guides = load('guides');
+const walkSrc = (node, where) => {
+  if (Array.isArray(node)) return node.forEach((v, i) => walkSrc(v, `${where}[${i}]`));
+  if (!node || typeof node !== 'object') return;
+  for (const [k, v] of Object.entries(node)) {
+    if (/(^|_)sources?$/.test(k)) [].concat(v).forEach((id) => needSrc(`${where}.${k}`, id));
+    else walkSrc(v, `${where}.${k}`);
+  }
+};
+walkSrc(guides, 'guides');
+for (const k of Object.keys(guides)) if (guides[k] && typeof guides[k] === 'object' && !Array.isArray(guides[k]) && !isDate(guides[k].as_of)) err(`guides.${k}`, 'missing as_of');
+
+// Pages: ids passed to {% include us-sources.html ids="…" %} must exist.
+const pageFiles = [];
+const walkPages = (d) => { for (const e of fs.readdirSync(d, { withFileTypes: true })) { const p = path.join(d, e.name); if (e.isDirectory()) walkPages(p); else if (e.name.endsWith('.html')) pageFiles.push(p); } };
+walkPages(path.join(root, 'us'));
+for (const p of pageFiles) {
+  for (const m of fs.readFileSync(p, 'utf8').matchAll(/us-sources\.html ids="([^"]*)"/g)) m[1].split(',').forEach((id) => needSrc(path.relative(root, p), id.trim()));
+}
+
 console.log(`checked ${Object.keys(sources.list).length} sources, ${Object.keys(occ).length} occupations, ${Object.keys(lic).length} licenses, ${testIds.size} tests, ${paths.list.length} pathways`);
 if (errors.length) { console.log(errors.join('\n')); console.log(`\n${errors.length} problem(s)`); process.exit(1); }
 console.log('OK: 0 problems');

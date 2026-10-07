@@ -1,0 +1,241 @@
+---
+title: "U.S. College Guide: Degrees, Real Costs, FAFSA, Pell Grants and Community College Transfer | Margdarshan USA"
+description: "Associate to doctoral degrees explained, 2025–26 college prices, the 2027–28 FAFSA, Pell Grants and federal loan limits, 2026 graduate loan changes, the truth about community college transfer and what students say about college life."
+og_title: "U.S. College — Degrees, Real Costs, Financial Aid and Transfer"
+og_description: "Degree levels, 2025–26 college prices, FAFSA, Pell Grants, 2026 loan changes, transfer rates and student survey data."
+header:
+  faq_href: "#faq"
+breadcrumb:
+  current: "College & Money"
+---
+{%- assign US = site.data.us -%}
+{%- assign G = US.guides -%}
+{%- assign M = G.money -%}
+{%- assign L = US.degrees.levels -%}
+{%- assign SRC = US.sources.list -%}
+{%- assign in_state = M.sticker_prices.rows | where: "type", "Public four-year (in-state)" | first -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "USA Home", "item": "{{ site.url }}{{ site.baseurl }}/us/" },
+    { "@type": "ListItem", "position": 2, "name": "College & Money", "item": "{{ site.url }}{{ site.baseurl }}/us/college/" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Do I have to pay the full sticker price?", "acceptedAnswer": { "@type": "Answer", "text": "Often not. Published tuition is before grants and scholarships. Use each college's net price calculator and file the FAFSA to see what you would actually pay." } },
+    { "@type": "Question", "name": "Is starting at a community college a good idea?", "acceptedAnswer": { "@type": "Answer", "text": "It can save money, but plan the transfer from day one. Of students who started at a community college in fall 2018, 31.6% transferred to a four-year college within six years, and 48.7% of those earned a bachelor's degree in that time." } },
+    { "@type": "Question", "name": "When should I file the FAFSA?", "acceptedAnswer": { "@type": "Answer", "text": "As soon as you can after it opens (by October 1 each year). Federal, state and college deadlines differ, and some state and college aid runs out." } },
+    { "@type": "Question", "name": "How will the 2026 loan changes affect medical or law school?", "acceptedAnswer": { "@type": "Answer", "text": "From July 1, 2026, new graduate and professional borrowers can no longer get Grad PLUS loans, and federal loans for professional students are capped at $50,000 a year and $200,000 in total. Plan for the full cost before you enroll." } }
+  ]
+}
+</script>
+<main id="main">
+
+  <section class="page-hero" aria-labelledby="hero-heading">
+    <svg class="page-hero-bg" viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M-50 340 C 220 300, 320 380, 500 300 S 780 200, 980 260 1150 160 1300 200" stroke="#E8A33D" stroke-width="1.4" fill="none" opacity=".3"/>
+    </svg>
+    <div class="container page-hero-inner">
+      <span class="eyebrow">USA Edition · College &amp; Money</span>
+      <h1 id="hero-heading">College in the U.S.: degrees, real costs and aid</h1>
+      <div class="meta-row">
+        <span>Associate to doctorate</span><span>·</span><span>FAFSA, Pell, loans</span><span>·</span><span>Checked {{ M.as_of | date: "%b %Y" }}</span>
+      </div>
+      <p>The right college route is the one you can finish and afford. Here are the degree levels, what college really costs, how financial aid works, and what national data says about transfer and student life.</p>
+      <div class="page-hero-ctas">
+        <a href="#cost" class="btn btn-primary btn-inpage-jump">What college costs</a>
+        <a href="#transfer" class="btn btn-ghost btn-inpage-jump">Community college &amp; transfer</a>
+      </div>
+      <div class="quickfacts">
+        <div class="qf-card"><span>Public 4-year, in-state tuition ({{ M.sticker_prices.year }})</span><strong>{% include fmt-num.html n=in_state.usd prefix="$" %}</strong></div>
+        <div class="qf-card"><span>Max Pell Grant ({{ M.pell.year }})</span><strong>{% include fmt-num.html n=M.pell.max prefix="$" %}</strong></div>
+        <div class="qf-card"><span>Community college starters who transfer in 6 yrs</span><strong>{{ G.transfer.transferred_pct }}%</strong></div>
+        <div class="qf-card"><span>Students who considered leaving college</span><strong>{{ G.experience.stopout.considered_pct }}%</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="quicknav-bar">
+    <div class="container">
+      <nav class="quicknav" aria-label="Section navigation">
+        <a href="#degrees">Degree Levels</a>
+        <a href="#cost">Costs</a>
+        <a href="#aid">Financial Aid</a>
+        <a href="#transfer">Transfer</a>
+        <a href="#experience">Student Life</a>
+        <a href="#faq">FAQs</a>
+      </nav>
+    </div>
+  </div>
+
+  {% include roadmap-flow.html id="degrees-flow" eyebrow="Degree ladder" heading="From high school diploma to doctorate" intro="Not every career needs every step. Many jobs start after an associate or bachelor's degree; medicine and law add a professional school." s1="Diploma|High school|Grades 9–12 with state- and district-set requirements." s2="2 years|Associate degree|Community or technical college; leads to work or transfer." s3="4 years|Bachelor's degree|The entry-level degree for most professional jobs." s4="1–3 years|Master's degree|Graduate study for specialist or senior roles." s5="Goal|Doctorate or professional degree|Ph.D. for research; M.D., J.D., Pharm.D. and others for licensed professions." %}
+
+  <section class="block block-alt" id="degrees" aria-labelledby="degrees-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Official definitions</span>
+        <h2 id="degrees-heading">Degree levels in detail</h2>
+        <p>How the National Center for Education Statistics defines each level.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="table-simple">
+          <thead><tr><th>Degree</th><th>Examples</th><th>Definition and notes</th></tr></thead>
+          <tbody>
+            {%- for lv in L %}
+            {%- assign d = lv[1] %}
+            <tr><td><strong>{{ d.name }}</strong></td><td>{{ d.examples | join: ", " }}</td><td>{{ d.definition }}{% if d.where %} Where: {{ d.where }}.{% endif %}{% if d.leads_to %} Leads to: {{ d.leads_to }}.{% endif %}{% if d.note %} {{ d.note }}{% endif %}</td></tr>
+            {%- endfor %}
+          </tbody>
+        </table>
+      </div>
+      <a class="source-link" href="{{ SRC.nces_ipeds_glossary.url }}">Source: {{ SRC.nces_ipeds_glossary.publisher }} (IPEDS glossary)</a>
+    </div>
+  </section>
+
+  <section class="block" id="cost" aria-labelledby="cost-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Real prices</span>
+        <h2 id="cost-heading">What college costs ({{ M.sticker_prices.year }})</h2>
+        <p>{{ M.sticker_prices.label }}, from College Board's annual survey.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="table-simple">
+          <thead><tr><th>Type of college</th><th>Tuition and fees per year</th></tr></thead>
+          <tbody>
+            {%- for r in M.sticker_prices.rows %}
+            <tr><td>{{ r.type }}</td><td><strong>{% include fmt-num.html n=r.usd prefix="$" %}</strong></td></tr>
+            {%- endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="prose reveal" style="margin-top:1rem;">
+        <ul>
+          {%- for n in M.sticker_prices.notes %}
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>{{ n }}</li>
+          {%- endfor %}
+        </ul>
+      </div>
+      <a class="source-link" href="{{ SRC[M.sticker_prices.source].url }}">Source: {{ SRC[M.sticker_prices.source].publisher }}</a>
+    </div>
+  </section>
+
+  <section class="block block-alt" id="aid" aria-labelledby="aid-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Financial aid</span>
+        <h2 id="aid-heading">FAFSA, grants and loans</h2>
+        <p>Grants do not have to be repaid; loans do. Most federal aid starts with one free form.</p>
+      </div>
+      <div class="chip-grid us-links reveal">
+        <div class="item"><strong>FAFSA</strong>{{ M.fafsa.text }} <a href="{{ SRC[M.fafsa.source].url }}">Source</a></div>
+        <div class="item"><strong>Pell Grant ({{ M.pell.year }})</strong>{{ M.pell.text }} Up to {% include fmt-num.html n=M.pell.max prefix="$" %} a year; the minimum award is {% include fmt-num.html n=M.pell.min prefix="$" %}. <a href="{{ SRC[M.pell.source].url }}">Source</a></div>
+        <div class="item"><strong>Federal student loans</strong>{{ M.loans.text }} <a href="{{ SRC[M.loans.source].url }}">Source</a></div>
+        <div class="item"><strong>Graduate &amp; professional loans changed in 2026</strong>{{ M.grad_changes.text }} <a href="{{ SRC[M.grad_changes.source].url }}">Source</a></div>
+      </div>
+      <p class="table-note">Aid rules change with new laws and each award year. Confirm amounts on StudentAid.gov and with each college's financial aid office.</p>
+    </div>
+  </section>
+
+  {%- assign TR = G.transfer %}
+  <section class="block" id="transfer" aria-labelledby="transfer-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Community college</span>
+        <h2 id="transfer-heading">Community college and transfer: the real numbers</h2>
+        <p>Starting at a community college is a smart way to save money — if you plan the transfer. National data on {{ TR.cohort | downcase }}:</p>
+      </div>
+      <div class="table-wrap">
+        <table class="table-simple">
+          <thead><tr><th>Outcome within six years</th><th>Share</th></tr></thead>
+          <tbody>
+            <tr><td>Transferred to a four-year college</td><td><span class="us-bar"><span class="us-bar-track" aria-hidden="true"><span class="us-bar-fill" style="width:{{ TR.transferred_pct }}%"></span></span><span class="us-bar-val">{{ TR.transferred_pct }}%</span></span></td></tr>
+            <tr><td>Of those who transferred: earned a bachelor's degree</td><td><span class="us-bar"><span class="us-bar-track" aria-hidden="true"><span class="us-bar-fill" style="width:{{ TR.of_those_bachelor_pct }}%"></span></span><span class="us-bar-val">{{ TR.of_those_bachelor_pct }}%</span></span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">{{ TR.text }} <a class="source-link" href="{{ SRC[TR.source].url }}">Source: {{ SRC[TR.source].publisher }}</a></p>
+      <h3 class="block-subhead">Practical tips for transferring</h3>
+      <div class="prose reveal">
+        <ul>
+          {%- for t in TR.tips %}
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>{{ t }}</li>
+          {%- endfor %}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  {%- assign EX = G.experience %}
+  <section class="block block-alt" id="experience" aria-labelledby="experience-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">What students say</span>
+        <h2 id="experience-heading">College life, from national student surveys</h2>
+        <p>Real experiences of currently enrolled students, from large national surveys rather than anecdotes.</p>
+      </div>
+      <h3 class="block-subhead">{{ EX.stopout.considered_pct }}% considered leaving their program in the past six months</h3>
+      <div class="table-wrap">
+        <table class="table-simple">
+          <thead><tr><th>Reason given by students who considered leaving</th><th>Share</th></tr></thead>
+          <tbody>
+            {%- for r in EX.stopout.reasons %}
+            <tr><td>{{ r.reason }}</td><td><span class="us-bar"><span class="us-bar-track" aria-hidden="true"><span class="us-bar-fill" style="width:{{ r.pct }}%"></span></span><span class="us-bar-val">{{ r.pct }}%</span></span></td></tr>
+            {%- endfor %}
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">{{ EX.stopout.note }} {{ EX.stopout.study }}. If you are struggling, campus counseling and advising offices exist for exactly this. <a class="source-link" href="{{ SRC[EX.stopout.source].url }}">Source: {{ SRC[EX.stopout.source].publisher }}</a></p>
+
+      <h3 class="block-subhead">AI is already part of college — and of choosing a major</h3>
+      <div class="prose reveal">
+        <ul>
+          {%- for f in EX.ai.facts %}
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>{{ f }}</li>
+          {%- endfor %}
+        </ul>
+      </div>
+      <p class="table-note">{{ EX.ai.study }}. Every college and even every instructor sets its own AI rules — read the syllabus. {% for s in EX.ai.sources %}<a class="source-link" href="{{ SRC[s].url }}">{{ SRC[s].publisher }}{% if forloop.first %} (AI use){% else %} (majors){% endif %}</a> {% endfor %}</p>
+    </div>
+  </section>
+
+  <section class="block" id="faq" aria-labelledby="faq-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Good to know</span>
+        <h2 id="faq-heading">Frequently asked questions</h2>
+      </div>
+      <div class="faq-list reveal">
+        <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">Do I have to pay the full sticker price?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">Often not. Published tuition is before grants and scholarships. Use each college's net price calculator and file the FAFSA to see what you would actually pay.</div></div>
+        <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">Is starting at a community college a good idea?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">It can save money, but plan the transfer from day one. Of students who started at a community college in fall 2018, {{ TR.transferred_pct }}% transferred to a four-year college within six years, and {{ TR.of_those_bachelor_pct }}% of those earned a bachelor's degree in that time.</div></div>
+        <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">When should I file the FAFSA?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">As soon as you can after it opens (by October 1 each year). Federal, state and college deadlines differ, and some state and college aid runs out.</div></div>
+        <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">How will the 2026 loan changes affect medical or law school?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">From July 1, 2026, new graduate and professional borrowers can no longer get Grad PLUS loans, and federal loans for professional students are capped at $50,000 a year and $200,000 in total. Plan for the full cost before you enroll.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block block-alt" aria-labelledby="related-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Keep going</span>
+        <h2 id="related-heading">Next steps in the USA Edition</h2>
+      </div>
+      <div class="related-grid reveal">
+        <a class="related-card" href="us/high-school/"><strong>High School</strong><span>GPA, AP, IB, plan</span></a>
+        <a class="related-card" href="us/tests/"><strong>Tests</strong><span>SAT, ACT, AP</span></a>
+        <a class="related-card" href="us/#careers"><strong>Career Pathways</strong><span>20 fields with BLS data</span></a>
+        <a class="related-card" href="us/professional-licenses/"><strong>Licensed Professions</strong><span>Medicine, law, CPA, PE</span></a>
+      </div>
+    </div>
+  </section>
+
+  {% include us-sources.html ids="nces_ipeds_glossary,cb_pricing_2025,ed_fafsa_2027_28,fsa_pell_2026_27,fsa_loans,ed_obbba_loans,nsc_tracking_transfer,gallup_stopout,gallup_ai_use,gallup_ai_majors" %}
+
+</main>

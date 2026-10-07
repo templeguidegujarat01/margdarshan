@@ -1,0 +1,23 @@
+{%- comment -%}
+  USA Edition "Sources" section: lists the given source ids from _data/us/sources.yml with
+  publisher and last-checked date. Usage: include us-sources.html ids="bls_ooh,onet" bg="alt"
+  (comma-separated, no spaces). Unknown ids are skipped; scripts/check-us-data.mjs catches them.
+{%- endcomment -%}
+{%- assign us_src_ids = include.ids | split: "," -%}
+<section class="block{% if include.bg == 'alt' %} block-alt{% endif %}" id="sources" aria-labelledby="sources-heading">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Sources</span>
+      <h2 id="sources-heading">Where these facts come from</h2>
+      <p>Official and primary sources only, each checked on the date shown. Rules on testing, aid, licensing and immigration change, so confirm a detail with its source before you rely on it.</p>
+    </div>
+    <ul class="us-sources">
+      {%- for sid in us_src_ids %}
+      {%- assign s = site.data.us.sources.list[sid] %}
+      {%- if s %}
+      <li><a href="{{ s.url }}">{{ s.name }}</a> · {{ s.publisher }} <span class="us-asof">checked {{ s.accessed | date: "%Y-%m-%d" }}</span></li>
+      {%- endif %}
+      {%- endfor %}
+    </ul>
+  </div>
+</section>

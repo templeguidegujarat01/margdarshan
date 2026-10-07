@@ -130,6 +130,32 @@ for (const p of paths.list.filter((x) => x.live)) {
   if (!details[p.lead]) err(w, `no occupation_details for lead ${p.lead}`);
 }
 
+// v2 career pages (global-platform Phase 7–9): answer-first copy, salary depth pages backed by
+// generated OEWS data, licence roadmaps backed by licenses.yml, and source short labels for chips.
+const oewsFile = path.join(root, '_data/us/oews_summary.json');
+const oews = fs.existsSync(oewsFile) ? JSON.parse(fs.readFileSync(oewsFile, 'utf8')).socs : {};
+for (const p of paths.list.filter((x) => x.template === 'v2')) {
+  const w = `pathways.${p.slug} (v2)`;
+  const page = fs.existsSync(path.join(root, 'us/careers', p.slug, 'index.html')) ? fs.readFileSync(path.join(root, 'us/careers', p.slug, 'index.html'), 'utf8') : '';
+  if (!page.includes('us-career-v2.html')) err(w, 'page does not include us-career-v2.html');
+  if (!pages[p.slug]?.answer) err(w, 'pathway_pages entry needs a one-sentence `answer`');
+  if (p.salary) {
+    const soc = p.salary_soc || occ[p.lead]?.soc?.[0];
+    if (!oews[soc]) err(w, `salary: true but no OEWS summary for SOC ${soc} (run scripts/build-oews.mjs)`);
+    else if (!oews[soc].states_reported) err(w, `salary: true but BLS publishes no state data for SOC ${soc}`);
+    if (!fs.existsSync(path.join(root, 'us/careers', p.slug, 'salary/index.html'))) err(w, 'salary: true but salary/index.html is missing');
+    if (p.salary_soc && !p.salary_title) err(w, 'salary_soc needs a salary_title (the name shown for that SOC)');
+    if (p.salary_soc && !(occ[p.lead]?.soc || []).includes(p.salary_soc)) err(w, `salary_soc ${p.salary_soc} is not one of the lead occupation's SOC codes`);
+  }
+  if (p.salary_from) {
+    const t = paths.list.find((x) => x.slug === p.salary_from);
+    if (!t?.salary) err(w, `salary_from ${p.salary_from} has no salary page`);
+    else if (t.lead !== p.lead) err(w, `salary_from ${p.salary_from} has a different lead occupation`);
+  }
+  if (p.roadmap === 'license' && !(lic[p.license]?.steps?.length)) err(w, 'roadmap: license needs licenses.yml steps');
+}
+for (const [id, s] of Object.entries(sources.list)) if (!s.short) err(`sources.${id}`, 'missing short label (used on source chips)');
+
 console.log(`checked ${Object.keys(sources.list).length} sources, ${Object.keys(occ).length} occupations, ${Object.keys(lic).length} licenses, ${testIds.size} tests, ${paths.list.length} pathways`);
 if (errors.length) { console.log(errors.join('\n')); console.log(`\n${errors.length} problem(s)`); process.exit(1); }
 console.log('OK: 0 problems');

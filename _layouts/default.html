@@ -88,6 +88,7 @@
 /* Apply saved theme and sidebar state before first paint (no flash, no layout shift). */
 (function(){
   var d = document.documentElement;
+  d.classList.add('js'); /* scroll-reveal hides content only when JS is running (see .js .reveal in main.css) */
   try {
     var t = localStorage.getItem('md-theme');
     if(t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) d.setAttribute('data-theme','dark');

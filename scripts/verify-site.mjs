@@ -56,6 +56,18 @@ const permalinkIndex = new Set(['index.html']);
 const targets = [...urlSet].filter((f) => f.endsWith('.html') && !f.startsWith('_') && !f.startsWith('redirects/') && (all ? true : f.startsWith('roadmaps/')));
 const errors = [];
 const err = (f, m) => errors.push(f + ': ' + m);
+
+// ---- Jekyll compatibility lint (liquidjs is more lenient than GitHub Pages' Jekyll 3 / Liquid 4) ----
+// Include parameters must match Jekyll's own VALID_SYNTAX, or the GitHub Pages build fails
+// (e.g. `n=data[key]` renders here but is "Invalid syntax for include tag" in Jekyll; assign it first).
+const JEKYLL_PARAM = /([\w-]+)\s*=\s*(?:"([^"\\]*(?:\\.[^"\\]*)*)"|'([^'\\]*(?:\\.[^'\\]*)*)'|([\w.-]+))/;
+const JEKYLL_PARAMS_FULL = new RegExp(`^\\s*(?:${JEKYLL_PARAM.source}(?=\\s|$)\\s*)*$`);
+for (const f of [...urlSet].filter((x) => x.endsWith('.html') && !x.startsWith('docs/'))) {
+  const src = fs.readFileSync(path.join(root, f), 'utf8');
+  for (const m of src.matchAll(/\{%-?\s*include\s+([^\s%]+)([^%]*?)-?%\}/g)) {
+    if (!JEKYLL_PARAMS_FULL.test(m[2])) err(f, `include ${m[1]}: parameters "${m[2].trim()}" are not valid Jekyll include syntax (assign complex values to a variable first)`);
+  }
+}
 const idCache = {};
 
 async function render(f) {

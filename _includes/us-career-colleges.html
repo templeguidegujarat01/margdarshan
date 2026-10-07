@@ -86,7 +86,7 @@
         </table>
       </div>
       {%- if P.cip.size > 1 %}
-      <p class="md-tile-note">By program: {% for c in P.cip %}{{ c.label }} {% include fmt-num.html n=CS.by_cip[c.code] %}{% unless forloop.last %} · {% endunless %}{% endfor %} degrees.</p>
+      <p class="md-tile-note">By program: {% for c in P.cip %}{%- assign cip_n = CS.by_cip[c.code] %}{{ c.label }} {% include fmt-num.html n=cip_n %}{% unless forloop.last %} · {% endunless %}{% endfor %} degrees.</p>
       {%- endif %}
     </div>
   </section>

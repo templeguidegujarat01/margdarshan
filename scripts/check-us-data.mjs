@@ -102,6 +102,34 @@ for (const p of pageFiles) {
   for (const m of fs.readFileSync(p, 'utf8').matchAll(/us-sources\.html ids="([^"]*)"/g)) m[1].split(',').forEach((id) => needSrc(path.relative(root, p), id.trim()));
 }
 
+// Career pages: live pathways need a page file, copy (pathway_pages.yml) with a 5-step route,
+// and deep data for the lead occupation (occupation_details.yml).
+const pages = load('pathway_pages');
+const details = load('occupation_details');
+for (const [id, d] of Object.entries(details)) {
+  const w = `occupation_details.${id}`;
+  if (!occ[id]) err(w, 'unknown occupation');
+  for (const k of ['pay_low10', 'pay_high10']) if (typeof d[k] !== 'number') err(w, `${k} must be a number`);
+  const mid = d.pay_median ?? occ[id]?.pay;
+  if (occ[id] && !(d.pay_low10 < mid && mid < d.pay_high10)) err(w, 'median not between 10th and 90th percentile');
+  (d.states?.top || []).forEach((s, i) => { if (typeof s.jobs !== 'number' || typeof s.median !== 'number') err(`${w}.states[${i}]`, 'jobs/median must be numbers'); });
+  (d.onet?.context || []).concat(d.onet?.education || []).forEach((c, i) => { if (!(c.pct >= 0 && c.pct <= 100)) err(`${w}.onet[${i}]`, 'pct out of range'); });
+  if (!isDate(d.last_verified)) err(w, 'missing last_verified');
+}
+for (const [slug, pg] of Object.entries(pages)) {
+  const w = `pathway_pages.${slug}`;
+  if (!slugs.has(slug)) err(w, 'unknown pathway');
+  if (!Array.isArray(pg.route) || pg.route.length !== 5 || !pg.route.every((r) => r.split('|').length === 3)) err(w, 'route must be 5 "Tag|Title|Text" steps');
+  if (!pg.faqs?.length) err(w, 'needs faqs');
+  if (!isDate(pg.last_reviewed)) err(w, 'missing last_reviewed');
+}
+for (const p of paths.list.filter((x) => x.live)) {
+  const w = `pathways.${p.slug} (live)`;
+  if (!fs.existsSync(path.join(root, 'us/careers', p.slug, 'index.html'))) err(w, 'page file missing');
+  if (!pages[p.slug]) err(w, 'no pathway_pages entry');
+  if (!details[p.lead]) err(w, `no occupation_details for lead ${p.lead}`);
+}
+
 console.log(`checked ${Object.keys(sources.list).length} sources, ${Object.keys(occ).length} occupations, ${Object.keys(lic).length} licenses, ${testIds.size} tests, ${paths.list.length} pathways`);
 if (errors.length) { console.log(errors.join('\n')); console.log(`\n${errors.length} problem(s)`); process.exit(1); }
 console.log('OK: 0 problems');

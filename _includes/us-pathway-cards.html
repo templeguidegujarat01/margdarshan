@@ -1,0 +1,33 @@
+{%- comment -%}
+  Grid of USA career pathway cards grouped by category (_data/us/pathways.yml), each with the BLS
+  median pay and projected change for its lead occupation. A pathway with `live: true` (its page
+  exists) becomes a link to /us/careers/<slug>/; the others stay as data cards.
+  Used by us/index.html (#careers) and us/careers/index.html.
+{%- endcomment -%}
+{%- assign UPC = site.data.us -%}
+{%- assign UPC_V = UPC.sources.bls_vintage -%}
+{%- for cat in UPC.pathways.categories %}
+{%- assign in_cat = UPC.pathways.list | where: "category", cat.id %}
+<h3 class="block-subhead">{{ cat.label }}</h3>
+<ul class="trend-grid">
+  {%- for p in in_cat %}
+  {%- assign o = UPC.occupations[p.lead] %}
+  <li>{% if p.live %}<a class="trend-card" href="us/careers/{{ p.slug }}/" id="path-{{ p.slug }}">{% else %}<article class="trend-card is-static" id="path-{{ p.slug }}">{% endif %}
+    <span class="trend-badge {{ cat.badge }}">{{ cat.label }}</span>
+    <h3>{{ p.title }}</h3>
+    <p class="us-occ">Example occupation: <strong>{{ o.title }}</strong></p>
+    <dl class="trend-meta"><div><dt>Median pay</dt><dd>{% include fmt-num.html n=o.pay prefix="$" %}</dd></div><div><dt>Outlook {{ UPC_V.projection_period }}</dt><dd>{% include fmt-num.html n=o.outlook_pct sign=true %}%</dd></div></dl>
+    <p class="us-fine">Job outlook: {{ o.outlook_label | downcase }}{% if o.group %} (BLS group: {{ o.group | downcase }}){% endif %}. Typical entry: {{ o.education | downcase }}.</p>
+    {%- if p.live %}
+    <span class="trend-go">Full career guide →</span>
+    </a>{% else %}
+    {%- assign others = "" %}
+    {%- for oid in p.occupations offset: 1 %}{%- assign others = others | append: UPC.occupations[oid].title | append: "|" -%}{%- endfor %}
+    {%- if others != "" %}
+    <p class="us-fine">Also leads to: {{ others | split: "|" | join: ", " | downcase }}.</p>
+    {%- endif %}
+    <a class="source-link" href="{{ o.ooh_url }}">BLS: {{ o.title | downcase }}</a>
+    </article>{% endif %}</li>
+  {%- endfor %}
+</ul>
+{%- endfor %}

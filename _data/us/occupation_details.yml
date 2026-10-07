@@ -1,0 +1,381 @@
+# USA Edition — deep detail for the lead occupation of each career page.
+# Adds to occupations.yml (which keeps the headline figures). Values copied from:
+#   bls:    the BLS OOH page in occupations.yml → ooh_url (May 2025 wages)
+#   states: BLS OEWS May 2025 via the BLS Public Data API (series OEUS…, datatypes
+#           01 employment, 13 annual median, 04 annual mean). Top 5 states by
+#           employment of the 50 states + DC; states where BLS suppresses data
+#           are not ranked (states_reported says how many had data).
+#   onet:   O*NET OnLine summary page for the first code in occupations.yml → onet.
+#           Work context = share of surveyed workers giving that answer.
+# Never compute or round. Update last_verified when re-checked.
+
+software-developers:
+  pay_low10: 82460
+  pay_high10: 214670
+  industries:
+    - { name: "Software publishers", median: 164550 }
+    - { name: "Manufacturing", median: 136330 }
+    - { name: "Management of companies and enterprises", median: 135680 }
+    - { name: "Finance and insurance", median: 135460 }
+    - { name: "Computer systems design and related services", median: 132050 }
+  hours: "Most work full time."
+  education_note: "Typically a bachelor's degree in computer and information technology or a related field, such as engineering or mathematics."
+  qualities: [Analytical skills, Communication skills, Creativity, Detail oriented, Interpersonal skills, Problem-solving skills]
+  growth_why: "BLS expects strong demand from the continued expansion of software for artificial intelligence (AI), the Internet of Things (IoT), robotics and other automation, plus security concerns and the growing number of products that use software."
+  states:
+    reported: 51
+    top:
+      - { state: California, jobs: 284390, median: 174410, mean: 186770 }
+      - { state: Texas, jobs: 163880, median: 132150, mean: 136450 }
+      - { state: New York, jobs: 113510, median: 166180, mean: 163820 }
+      - { state: Washington, jobs: 107030, median: 166540, mean: 171040 }
+      - { state: Virginia, jobs: 88280, median: 136460, mean: 146340 }
+  onet:
+    code: "15-1252.00"
+    tasks:
+      - "Analyze user needs and software requirements to determine feasibility of design within time and cost constraints."
+      - "Develop or direct software system testing or validation procedures, programming, or documentation."
+      - "Confer with systems analysts, engineers, programmers and others to design systems and to obtain information on project limitations and capabilities, performance requirements and interfaces."
+      - "Modify existing software to correct errors, adapt it to new hardware, or upgrade interfaces and improve performance."
+    hot_tech: [Git, React, Spring Boot, PostgreSQL, Apache Kafka, Jenkins CI, Atlassian JIRA, AWS CloudFormation]
+    context:
+      - { label: "Sit continually or almost continually", pct: 95 }
+      - { label: "Say working with a team is extremely important", pct: 71 }
+      - { label: "Work a typical 40-hour week", pct: 90 }
+      - { label: "Face time pressure at least weekly (not daily)", pct: 40 }
+    interests: "Investigative, Conventional"
+    education:
+      - { level: "Bachelor's degree", pct: 85 }
+      - { level: "Associate's degree", pct: 5 }
+      - { level: "Master's degree", pct: 5 }
+  last_verified: 2026-10-07
+
+computer-research-scientists:
+  pay_low10: 82200
+  pay_high10: 230630
+  industries:
+    - { name: "Federal government", share: 31, median: 124870 }
+    - { name: "Computer systems design and related services", share: 16, median: 162760 }
+    - { name: "Research and development in the physical, engineering, and life sciences", share: 14, median: 141830 }
+    - { name: "Colleges, universities, and professional schools (state)", share: 7, median: 85460 }
+    - { name: "Software publishers", share: 3, median: 211270 }
+  hours: "Most work full time."
+  education_note: "Typically a master's degree in computer science or a related field (computer engineering, information systems). Some employers prefer a Ph.D.; some federal jobs accept a bachelor's degree. Specialized fields may need domain knowledge, such as biology for biomedical work."
+  qualities: [Analytical skills, Communication skills, Detail oriented, Interpersonal skills, Logical thinking, Math skills, Problem-solving skills]
+  growth_why: "BLS cites demand for new and better technology, expertise needed to create new artificial intelligence (AI) technologies, data mining as businesses collect more data, and research into preventing cyberattacks."
+  states:
+    reported: 36
+    top:
+      - { state: California, jobs: 8440, median: 159100, mean: 168580 }
+      - { state: Virginia, jobs: 3590, median: 157390, mean: 164260 }
+      - { state: Maryland, jobs: 2870, median: 145310, mean: 148630 }
+      - { state: Washington, jobs: 2050, median: 202400, mean: 194360 }
+      - { state: Texas, jobs: 1960, median: 121210, mean: 130400 }
+  onet:
+    code: "15-1221.00"
+    tasks:
+      - "Analyze problems to develop solutions involving computer hardware and software."
+      - "Apply theoretical expertise and innovation to create or apply new technology, such as adapting principles for applying computers to new uses."
+      - "Meet with managers, vendors, and others to solicit cooperation and resolve problems."
+      - "Design computers and the software that runs them."
+    hot_tech: [Python, TensorFlow, Java, Apache Spark, Docker, Kubernetes, GitHub]
+    context:
+      - { label: "Use email every day", pct: 100 }
+      - { label: "Have constant contact with others", pct: 62 }
+      - { label: "Face deadlines at least weekly (not daily)", pct: 66 }
+      - { label: "Work a typical 40-hour week", pct: 58 }
+    interests: "Investigative, Conventional"
+  last_verified: 2026-10-07
+
+data-scientists:
+  pay_low10: 67240
+  pay_high10: 199130
+  industries:
+    - { name: "Publishing, broadcasting, and content providers", share: 12, median: 142240 }
+    - { name: "Computer systems design and related services", share: 10, median: 132380 }
+    - { name: "Insurance carriers", share: 10, median: 108650 }
+    - { name: "Management of companies and enterprises", share: 10, median: 128050 }
+    - { name: "Credit intermediation and related activities", share: 6, median: 129490 }
+  hours: "Most work full time, mainly in offices."
+  education_note: "At least a bachelor's degree in mathematics, statistics, computer science or a related field; some employers require or prefer a master's or doctoral degree."
+  hs_prep: "BLS suggests high school students interested in data science take linear algebra, calculus, and probability and statistics."
+  qualities: [Analytical skills, Computer skills, Communication skills, Logical-thinking skills, Math skills, Problem-solving skills]
+  growth_why: "BLS expects growth from demand for data-driven decisions, the growing volume of data, and companies integrating AI-based systems that data scientists help them use."
+  states:
+    reported: 50
+    top:
+      - { state: California, jobs: 39310, median: 141590, mean: 156000 }
+      - { state: Texas, jobs: 25860, median: 122090, mean: 119710 }
+      - { state: New York, jobs: 23970, median: 130460, mean: 137690 }
+      - { state: Pennsylvania, jobs: 13810, median: 106850, mean: 110810 }
+      - { state: North Carolina, jobs: 11430, median: 119090, mean: 121270 }
+  onet:
+    code: "15-2051.00"
+    tasks:
+      - "Analyze, manipulate, or process large sets of data using statistical software."
+      - "Create graphs, charts, or other visualizations to convey the results of data analysis using specialized software."
+      - "Test, validate, and reformulate models to ensure accurate prediction of outcomes of interest."
+      - "Recommend data-driven solutions to key stakeholders."
+    hot_tech: [TensorFlow, Apache Spark, Microsoft Power BI, SAS, MATLAB, Docker, Kubernetes, GitHub]
+    context:
+      - { label: "Use email every day", pct: 96 }
+      - { label: "Sit continually or almost continually", pct: 76 }
+      - { label: "Work a typical 40-hour week", pct: 63 }
+      - { label: "Have contact with others about half the time", pct: 56 }
+    interests: "Investigative, Conventional"
+    education:
+      - { level: "Bachelor's degree", pct: 48 }
+      - { level: "Master's degree", pct: 44 }
+      - { level: "Associate's degree", pct: 4 }
+  last_verified: 2026-10-07
+
+information-security-analysts:
+  pay_low10: 75090
+  pay_high10: 199850
+  industries:
+    - { name: "Computer systems design and related services", share: 22, median: 132410 }
+    - { name: "Finance and insurance", share: 17, median: 130630 }
+    - { name: "Management of companies and enterprises", share: 9, median: 128950 }
+    - { name: "Information", share: 9, median: 138650 }
+    - { name: "Management, scientific, and technical consulting services", share: 6, median: 125420 }
+  hours: "Most work full time; some work more than 40 hours a week and may be on call outside business hours for emergencies."
+  education_note: "Usually a bachelor's degree in computer science or a related field, plus less than 5 years of related IT experience (often network or systems administration). Some enter with a high school diploma and industry certifications; many employers prefer an information security certification."
+  qualities: [Analytical skills, Communication skills, Creativity, Detail oriented, Problem-solving skills]
+  growth_why: "BLS points to more frequent cyberattacks, the need for new ways to stop hackers stealing information, and increased use of AI and e-commerce."
+  states:
+    reported: 50
+    top:
+      - { state: Virginia, jobs: 19120, median: 134900, mean: 141360 }
+      - { state: Texas, jobs: 16130, median: 129890, mean: 130710 }
+      - { state: California, jobs: 15570, median: 138570, mean: 149090 }
+      - { state: Florida, jobs: 14220, median: 124860, mean: 124510 }
+      - { state: New York, jobs: 10060, median: 134660, mean: 144720 }
+  onet:
+    code: "15-1212.00"
+    tasks:
+      - "Develop plans to safeguard computer files against accidental or unauthorized modification, destruction, or disclosure."
+      - "Monitor current reports of computer viruses to determine when to update virus protection systems."
+      - "Encrypt data transmissions and erect firewalls to conceal confidential information."
+      - "Perform risk assessments and execute tests of data processing system to ensure functioning."
+    hot_tech: [Splunk Enterprise, Docker, Red Hat OpenShift, AWS CloudFormation, GitHub, Tableau, Chef]
+    context:
+      - { label: "Use email every day", pct: 98 }
+      - { label: "Work more than 40 hours a week", pct: 62 }
+      - { label: "Have constant contact with others", pct: 46 }
+      - { label: "Have some freedom to make decisions", pct: 64 }
+    interests: "Conventional, Investigative"
+    education:
+      - { level: "Bachelor's degree", pct: 53 }
+      - { level: "Post-baccalaureate certificate", pct: 23 }
+      - { level: "Associate's degree", pct: 13 }
+  last_verified: 2026-10-07
+
+computer-hardware-engineers:
+  pay_low10: 92940
+  pay_high10: 225330
+  industries:
+    - { name: "Semiconductor and other electronic component manufacturing", share: 24, median: 166150 }
+    - { name: "Research and development in the physical, engineering, and life sciences", share: 18, median: 171820 }
+    - { name: "Computer systems design and related services", share: 15, median: 155470 }
+    - { name: "Information", share: 7, median: 169030 }
+    - { name: "Federal government", share: 6, median: 136990 }
+  hours: "Most work full time."
+  education_note: "Typically a bachelor's degree in computer engineering or a related field such as electrical engineering, with coursework in circuit design and computer and operating systems organization; familiarity with programming helps."
+  qualities: [Communication skills, Computer skills, Critical-thinking skills, Problem-solving skills]
+  growth_why: "BLS says these engineers are needed to design processors and components for manufactured products such as household appliances, medical devices and automobiles."
+  states:
+    reported: 45
+    top:
+      - { state: California, jobs: 19820, median: 185180, mean: 190590 }
+      - { state: Texas, jobs: 7390, median: 163860, mean: 161360 }
+      - { state: New Mexico, jobs: 5260, median: 165350, mean: 163890 }
+      - { state: Florida, jobs: 3290, median: 134160, mean: 137810 }
+      - { state: Massachusetts, jobs: 3150, median: 167600, mean: 177030 }
+  onet:
+    code: "17-2061.00"
+    tasks:
+      - "Design and develop computer hardware and support peripherals, including central processing units (CPUs), support logic, microprocessors, custom integrated circuits, and printers and disk drives."
+      - "Build, test, and modify product prototypes, using working models or theoretical models constructed with computer simulation."
+      - "Confer with engineering staff and consult specifications to evaluate interface between hardware and software and operational and performance requirements of overall system."
+      - "Update knowledge and skills to keep up with rapid advancements in computer technology."
+    hot_tech: [C, C++, Python, MATLAB, Git, AutoCAD]
+    context:
+      - { label: "Work more than 40 hours a week", pct: 76 }
+      - { label: "Use email every day", pct: 93 }
+      - { label: "Sit continually or almost continually", pct: 61 }
+      - { label: "Have some freedom to make decisions", pct: 66 }
+    interests: "Realistic, Investigative, Conventional"
+    education:
+      - { level: "Bachelor's degree", pct: 48 }
+      - { level: "Master's degree", pct: 34 }
+  last_verified: 2026-10-07
+
+mechanical-engineers:
+  pay_low10: 73990
+  pay_high10: 164340
+  industries:
+    - { name: "Architectural, engineering, and related services", share: 20, median: 103440 }
+    - { name: "Machinery manufacturing", share: 14, median: 98620 }
+    - { name: "Transportation equipment manufacturing", share: 10, median: 105560 }
+    - { name: "Scientific research and development services", share: 7, median: 132040 }
+    - { name: "Computer and electronic product manufacturing", share: 6, median: 106870 }
+  hours: "Most work full time and some work more than 40 hours a week; mostly in offices, with occasional visits to worksites."
+  education_note: "A bachelor's degree in mechanical engineering or mechanical engineering technology, ideally from an ABET-accredited program; many programs emphasize internships and co-ops."
+  qualities: [Creativity, Listening skills, Math skills, Mechanical skills, Problem-solving skills]
+  growth_why: "BLS expects automation and innovation to create demand for engineers who design, test and maintain products and systems, and who integrate complex automated machinery into manufacturing."
+  states:
+    reported: 51
+    top:
+      - { state: Michigan, jobs: 34630, median: 104890, mean: 112320 }
+      - { state: California, jobs: 30530, median: 130900, mean: 136660 }
+      - { state: Texas, jobs: 22080, median: 112410, mean: 121510 }
+      - { state: Ohio, jobs: 14390, median: 99100, mean: 101320 }
+      - { state: Pennsylvania, jobs: 13550, median: 97920, mean: 103740 }
+  onet:
+    code: "17-2141.00"
+    tasks:
+      - "Read and interpret blueprints, technical drawings, schematics, or computer-generated reports."
+      - "Research, design, evaluate, install, operate, or maintain mechanical products, equipment, systems or processes to meet requirements."
+      - "Confer with engineers or other personnel to implement operating procedures, resolve system malfunctions, or provide technical information."
+      - "Investigate equipment failures or difficulties to diagnose faulty operation and recommend remedial actions."
+    hot_tech: [SolidWorks, MATLAB, AutoCAD, LabVIEW, Microsoft Project]
+    context:
+      - { label: "Use email every day", pct: 100 }
+      - { label: "Have constant contact with others", pct: 74 }
+      - { label: "Work indoors in a controlled environment every day", pct: 69 }
+      - { label: "Work a typical 40-hour week", pct: 55 }
+    interests: "Realistic, Investigative, Conventional"
+    education:
+      - { level: "Bachelor's degree", pct: 52 }
+      - { level: "Associate's degree", pct: 29 }
+      - { level: "Post-secondary certificate", pct: 9 }
+  last_verified: 2026-10-07
+
+civil-engineers:
+  pay_low10: 68240
+  pay_high10: 163220
+  industries:
+    - { name: "Engineering services", share: 51, median: 100620 }
+    - { name: "State government", share: 11, median: 102440 }
+    - { name: "Local government", share: 10, median: 113640 }
+    - { name: "Nonresidential building construction", share: 7, median: 82400 }
+    - { name: "Federal government", share: 3, median: 117790 }
+  hours: "Most work full time and some work more than 40 hours a week; time is split between offices and construction sites, sometimes in a temporary onsite office."
+  education_note: "A bachelor's degree in civil engineering or a related field. Graduate study, a PE license and experience help with moving into supervisory roles."
+  qualities: [Communication skills, Decision-making skills, Interpersonal skills, Math skills, Organizational skills, Problem-solving skills]
+  growth_why: "BLS expects continued investment in U.S. infrastructure — bridges, roads, water systems and buildings — plus new waste treatment plants and water system upkeep."
+  states:
+    reported: 51
+    top:
+      - { state: California, jobs: 55180, median: 122500, mean: 124540 }
+      - { state: Texas, jobs: 34870, median: 96860, mean: 104250 }
+      - { state: Florida, jobs: 23750, median: 98570, mean: 103810 }
+      - { state: New York, jobs: 17500, median: 103760, mean: 117880 }
+      - { state: Pennsylvania, jobs: 15870, median: 97850, mean: 100750 }
+  onet:
+    code: "17-2051.00"
+    tasks:
+      - "Direct engineering activities, ensuring compliance with environmental, safety, or other governmental regulations."
+      - "Manage and direct the construction, operations, or maintenance activities at project site."
+      - "Inspect project sites to monitor progress and ensure conformance to design specifications and safety or sanitation standards."
+      - "Compute load and grade requirements, water flow rates, or material stress factors to determine design specifications."
+    hot_tech: [AutoCAD Civil 3D, Autodesk Revit, Bentley MicroStation, ESRI ArcGIS, Microsoft Excel]
+    context:
+      - { label: "Use email every day", pct: 100 }
+      - { label: "Talk on the phone every day", pct: 90 }
+      - { label: "Have face-to-face discussions every day", pct: 76 }
+      - { label: "Work more than 40 hours a week", pct: 57 }
+    interests: "Realistic, Investigative, Conventional"
+    education:
+      - { level: "Bachelor's degree", pct: 86 }
+      - { level: "Master's degree", pct: 10 }
+  last_verified: 2026-10-07
+
+electrical-electronics-engineers:
+  pay_note: "Pay range is for electrical engineers; electronics engineers (except computer): lowest 10% under $81,840, highest 10% over $206,960."
+  pay_title: "electrical engineers"
+  pay_median: 120630   # electrical engineers (same occupation as the range)
+  pay_low10: 76550
+  pay_high10: 184300
+  industries_note: "Electrical engineers"
+  industries:
+    - { name: "Engineering services", share: 22, median: 105780 }
+    - { name: "Electric power generation, transmission and distribution", share: 10, median: 122430 }
+    - { name: "Research and development in the physical, engineering, and life sciences", share: 5, median: 135230 }
+    - { name: "Navigational, measuring, electromedical, and control instruments manufacturing", share: 5, median: 121610 }
+    - { name: "Aerospace product and parts manufacturing", share: 5, median: 141160 }
+  hours: "Most work full time, generally in offices, with travel to project sites at times."
+  education_note: "A bachelor's degree in electrical engineering, electronics engineering or a related field; co-op programs and internships are common. Experienced engineers may earn a PE license to sign off on projects and serve the public directly."
+  hs_prep: "BLS suggests high school courses in physics and math, including algebra, trigonometry and calculus."
+  qualities: [Communication skills, Computer skills, Initiative, Interpersonal skills, Math skills, Problem-solving skills, Project management skills]
+  growth_why: "BLS expects engineers to play key roles in consumer electronics, solar arrays, semiconductors and communications technologies."
+  states_occupation: "electrical engineers"
+  states:
+    reported: 51
+    top:
+      - { state: California, jobs: 24230, median: 144040, mean: 151180 }
+      - { state: Texas, jobs: 20870, median: 129450, mean: 135580 }
+      - { state: Michigan, jobs: 10840, median: 106070, mean: 112740 }
+      - { state: Florida, jobs: 9220, median: 104780, mean: 111430 }
+      - { state: New York, jobs: 8770, median: 119010, mean: 122140 }
+  onet:
+    code: "17-2071.00"
+    tasks:
+      - "Design, implement, maintain, or improve electrical instruments, equipment, facilities, components, products, or systems for commercial, industrial, or domestic purposes."
+      - "Oversee project production efforts to assure projects are completed on time and within budget."
+      - "Perform detailed calculations to compute and establish manufacturing, construction, or installation standards or specifications."
+      - "Operate computer-assisted engineering or design software or equipment to perform engineering tasks."
+    hot_tech: [MATLAB, Python, C++, SolidWorks, Autodesk Revit, Microsoft Excel]
+    context:
+      - { label: "Use email every day", pct: 87 }
+      - { label: "Work more than 40 hours a week", pct: 58 }
+      - { label: "Have a lot of freedom to make decisions", pct: 61 }
+      - { label: "Have constant contact with others", pct: 48 }
+    interests: "Realistic, Investigative, Conventional"
+    education:
+      - { level: "Bachelor's degree", pct: 82 }
+      - { level: "Associate's degree", pct: 11 }
+      - { level: "Master's degree", pct: 7 }
+  last_verified: 2026-10-07
+
+aerospace-engineers:
+  pay_low10: 86700
+  pay_high10: 205890
+  industries:
+    - { name: "Aerospace product and parts manufacturing", share: 38, median: 137030 }
+    - { name: "Engineering services", share: 16, median: 132440 }
+    - { name: "Federal government", share: 15, median: 142630 }
+    - { name: "Research and development in the physical, engineering, and life sciences", share: 8, median: 149260 }
+    - { name: "Navigational, measuring, electromedical, and control instruments manufacturing", share: 8, median: 126740 }
+  hours: "Most work full time and some work more than 40 hours a week, including overtime to monitor progress and troubleshoot problems."
+  education_note: "A bachelor's degree in aerospace engineering or a related field, ideally ABET-accredited. Defense-related work may require a security clearance, and some clearances require U.S. citizenship."
+  hs_prep: "BLS suggests high school classes in chemistry, physics and math."
+  qualities: [Analytical skills, Business skills, Communication skills, Interpersonal skills, Math skills, Problem-solving skills]
+  growth_why: "BLS cites redesigning aircraft for less noise and better fuel efficiency, cheaper satellite launches and small satellites making space more accessible, and continued interest in drones."
+  states:
+    reported: 43
+    top:
+      - { state: California, jobs: 9170, median: 157620, mean: 159960 }
+      - { state: Texas, jobs: 6750, median: 130270, mean: 137010 }
+      - { state: Alabama, jobs: 5820, median: 127540, mean: 131910 }
+      - { state: Washington, jobs: 5760, median: 158370, mean: 156000 }
+      - { state: Colorado, jobs: 4070, median: 156190, mean: 157060 }
+  onet:
+    code: "17-2011.00"
+    tasks:
+      - "Formulate conceptual design of aeronautical or aerospace products or systems to meet customer requirements or conform to environmental regulations."
+      - "Plan or conduct experimental, environmental, operational, or stress tests on models or prototypes of aircraft or aerospace systems or equipment."
+      - "Direct or coordinate activities of engineering or technical personnel involved in designing, fabricating, modifying, or testing of aircraft or aerospace products."
+      - "Diagnose performance problems by reviewing reports or documentation from customers or field engineers or by inspecting malfunctioning or damaged products."
+    hot_tech: [SolidWorks, MATLAB, AutoCAD, C, C++]
+    context:
+      - { label: "Work more than 40 hours a week", pct: 73 }
+      - { label: "Use email every day", pct: 91 }
+      - { label: "Sit continually or almost continually", pct: 61 }
+      - { label: "Have some freedom to make decisions", pct: 81 }
+    interests: "Investigative, Realistic, Conventional"
+    education:
+      - { level: "Bachelor's degree", pct: 80 }
+      - { level: "Associate's degree", pct: 18 }
+      - { level: "Master's degree", pct: 2 }
+  last_verified: 2026-10-07

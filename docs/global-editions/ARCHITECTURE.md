@@ -1,6 +1,15 @@
 # Margdarshan Global Editions — Architecture & Phase Plan
 
-Status: **Phase 4 complete** (5 USA hub pages). Last updated: 2026-10-07.
+Status: **Phase 5 complete** (career template + 10 career pages + careers hub). Last updated: 2026-10-07.
+
+## Phase 5 — career pages (as built)
+
+- `_includes/us-career-page.html` — one template for every pathway page; a page is a 12-line stub (`us/careers/<slug>/index.html`, front matter `pathway: <slug>`). Sections: hero quick facts, career options table (all occupations), pay range (10th/median/90th percentile) + pay by industry, where the jobs are (top 5 states), real work life (O*NET tasks, worker-reported context, technologies, interests), 5-step route, high school prep, college (majors, study, degree route, ABET for engineering, O*NET education shares), license (when the pathway has one), outlook drivers, tips, FAQ, related pathways, per-page sources. BreadcrumbList + FAQPage JSON-LD from data.
+- Data: `_data/us/occupation_details.yml` (deep data for the 9 lead occupations), `_data/us/pathway_pages.yml` (student-facing copy for 10 pathways). `pathways.yml` marks built pages `live: true`, which turns cards into links and activates the region switcher's same-field mapping (9 India pages now jump to their USA counterpart; computer engineering has no India match and falls back to the USA home).
+- `_includes/us-pathway-cards.html` shared by the USA home and the new Careers hub (`us/careers/`).
+- State data: BLS OEWS May 2025 via the BLS Public Data API v1 (series OEUS…; datatypes 01 employment, 13 median, 04 mean). 24 requests used on 2026-10-07; the free tier allows 25/day, so the remaining 10 pathways (Phase 6) need a new day's quota or a free registered key (500/day). Script: `scripts/fetch-oews.mjs` (emp / wage / report for a list of SOC codes).
+- Real "day-to-day" data comes from O*NET work context (surveyed workers), e.g. 62% of information security analysts and 73% of aerospace engineers report working more than 40 hours a week.
+- Checker additions: occupation_details (numbers, median between percentiles, pct ranges, dates), pathway_pages (5-step routes, FAQs, dates), live pathways have page + copy + lead details.
 
 ## Phase 4 — USA hubs (as built)
 
@@ -151,7 +160,7 @@ Sources that block automated readers (IB, NABP) are marked `note:` in `sources.y
 | **2** ✅ | Research dataset `_data/us/*.yml` from BLS, O*NET, College Board, ACT, NCES, USMLE, NCBE, NASBA, NCEES, USCIS, ADA/NABP/NCSBN/FSBPT — every value with source + date | None |
 | **3** ✅ | Region engine: `data-region`, lang/locale, region nav (`sidebar_us`), **region switcher** in sidebar (keyboard/SR accessible, mobile drawer), `md-region` localStorage, USA home `/us/`, rename "Margdarshan USA" study-abroad label (with OK) | Yes — switcher + `/us/` |
 | **4** ✅ | USA hubs: High School (grades 9–12, GPA, AP/IB/Honors/dual enrollment), Tests, College & Degrees, Professional Licenses, International Students | Yes |
-| 5 | USA career template + first 10 pathways (tech + engineering) | Yes |
+| **5** ✅ | USA career template + first 10 pathways (tech + engineering) | Yes |
 | 6 | Remaining 10 pathways (health, law, business, psychology) + licensing pathway blocks | Yes |
 | 7 | SEO: region-aware breadcrumb root, footer, JSON-LD, search index entries, sitemap additions from real generated URLs | Yes |
 | 8 | QA matrix (1920→375px, light/dark, drawer, switcher, localStorage vs URL), full India regression diff, final report | No |

@@ -1,0 +1,362 @@
+{%- comment -%}
+  USA career pathway page. A page in us/careers/<slug>/index.html sets `pathway: <slug>` (plus
+  title/description/breadcrumb) and includes this file. Everything below is built from data:
+    _data/us/pathways.yml          the pathway (occupations, route, license, related)
+    _data/us/pathway_pages.yml     student-facing copy (intro, study, hs, tips, faqs)
+    _data/us/occupations.yml       BLS headline figures for every occupation
+    _data/us/occupation_details.yml  deep data for the lead occupation (pay range,
+                                   industries, states, O*NET work context)
+    _data/us/licenses.yml          licensing route when the pathway has one
+  Same components as the India career pages and USA hubs; no page-specific CSS.
+{%- endcomment -%}
+{%- assign US = site.data.us -%}
+{%- assign SRC = US.sources.list -%}
+{%- assign V = US.sources.bls_vintage -%}
+{%- assign P = US.pathways.list | where: "slug", page.pathway | first -%}
+{%- assign PP = US.pathway_pages[page.pathway] -%}
+{%- assign CAT = US.pathways.categories | where: "id", P.category | first -%}
+{%- assign O = US.occupations[P.lead] -%}
+{%- assign D = US.occupation_details[P.lead] -%}
+{%- if P.license != "none" %}{%- assign LIC = US.licenses[P.license] -%}{%- endif -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "USA Home", "item": "{{ site.url }}{{ site.baseurl }}/us/" },
+    { "@type": "ListItem", "position": 2, "name": "Careers", "item": "{{ site.url }}{{ site.baseurl }}/us/careers/" },
+    { "@type": "ListItem", "position": 3, "name": {{ P.title | jsonify }}, "item": "{{ site.url }}{{ site.baseurl }}/us/careers/{{ P.slug }}/" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {%- for f in PP.faqs %}
+    { "@type": "Question", "name": {{ f.q | jsonify }}, "acceptedAnswer": { "@type": "Answer", "text": {{ f.a | jsonify }} } }{% unless forloop.last %},{% endunless %}
+    {%- endfor %}
+  ]
+}
+</script>
+<main id="main">
+
+  <section class="page-hero" aria-labelledby="hero-heading">
+    <svg class="page-hero-bg" viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M-50 340 C 220 300, 320 380, 500 300 S 780 200, 980 260 1150 160 1300 200" stroke="#E8A33D" stroke-width="1.4" fill="none" opacity=".3"/>
+    </svg>
+    <div class="container page-hero-inner">
+      <span class="eyebrow">USA Edition · {{ CAT.label }}</span>
+      <h1 id="hero-heading">{{ P.title }}</h1>
+      <div class="meta-row">
+        <span>{{ P.occupations.size }} career options</span><span>·</span><span>BLS pay {{ V.wage_ref }}, outlook {{ V.projection_period }}</span><span>·</span><span>Checked {{ PP.last_reviewed | date: "%b %Y" }}</span>
+      </div>
+      <p>{{ PP.intro }}</p>
+      <div class="page-hero-ctas">
+        <a href="#careers" class="btn btn-primary btn-inpage-jump">Careers and pay</a>
+        <a href="#path" class="btn btn-ghost btn-inpage-jump">How to get there</a>
+      </div>
+      <div class="quickfacts">
+        <div class="qf-card"><span>Median pay · {{ O.title }}</span><strong>{% include fmt-num.html n=O.pay prefix="$" %}</strong></div>
+        <div class="qf-card"><span>Job outlook {{ V.projection_period }}</span><strong>{% include fmt-num.html n=O.outlook_pct sign=true %}% · {{ O.outlook_label }}</strong></div>
+        <div class="qf-card"><span>Typical entry education</span><strong>{{ O.education }}</strong></div>
+        <div class="qf-card"><span>License</span><strong>{% if LIC %}{{ LIC.short }} — for some roles{% else %}Not required for most jobs{% endif %}</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="quicknav-bar">
+    <div class="container">
+      <nav class="quicknav" aria-label="Section navigation">
+        <a href="#careers">Careers</a>
+        <a href="#pay">Pay</a>
+        <a href="#states">Where the Jobs Are</a>
+        <a href="#work">Day-to-Day Work</a>
+        <a href="#path">Path</a>
+        <a href="#high-school">High School</a>
+        <a href="#college">College</a>
+        {%- if LIC %}<a href="#license">License</a>{% endif %}
+        <a href="#outlook">Outlook</a>
+        <a href="#tips">Tips</a>
+        <a href="#faq">FAQs</a>
+      </nav>
+    </div>
+  </div>
+
+  <section class="block" id="careers" aria-labelledby="careers-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Career options</span>
+        <h2 id="careers-heading">Where {{ P.title }} can lead</h2>
+        <p>A field of study is not one job. These are the occupations BLS tracks for this pathway, with median annual pay ({{ V.wage_ref }}) and projected change in employment ({{ V.projection_period }}); total U.S. employment is projected to grow {{ V.all_occupations_growth_pct }}%.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="table-simple">
+          <thead><tr><th>Occupation</th><th>Median pay</th><th>Outlook</th><th>Openings / year</th><th>Typical entry</th></tr></thead>
+          <tbody>
+            {%- for oid in P.occupations %}
+            {%- assign oc = US.occupations[oid] %}
+            <tr>
+              <td><a href="{{ oc.ooh_url }}">{{ oc.title }}</a>{% if oc.group %}<br><span class="us-by">Outlook and openings for BLS group: {{ oc.group | downcase }}</span>{% endif %}</td>
+              <td><strong>{% include fmt-num.html n=oc.pay prefix="$" %}</strong></td>
+              <td>{% include fmt-num.html n=oc.outlook_pct sign=true %}%<br><span class="us-by">{{ oc.outlook_label }}</span></td>
+              <td>{% include fmt-num.html n=oc.openings %}</td>
+              <td>{{ oc.education }}</td>
+            </tr>
+            {%- endfor %}
+          </tbody>
+        </table>
+      </div>
+      {%- if P.bls_note %}<p class="table-note">{{ P.bls_note }}</p>{% endif %}
+      <p class="table-note">Median: half of workers earned more, half earned less. Source: <a href="{{ SRC.bls_ooh.url }}">BLS Occupational Outlook Handbook</a>, checked {{ O.last_verified | date: "%Y-%m-%d" }}.</p>
+    </div>
+  </section>
+
+  {%- if D %}
+  <section class="block block-alt" id="pay" aria-labelledby="pay-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Pay in detail</span>
+        <h2 id="pay-heading">What {% if D.pay_title %}{{ D.pay_title }}{% else %}{{ O.title | downcase }}{% endif %} earn</h2>
+        <p>Pay varies widely with experience, employer and location. BLS figures for {{ V.wage_ref }}.</p>
+      </div>
+      <div class="salary-cards reveal">
+        <div class="salary-card"><span>Lowest 10% earned less than</span><strong>{% include fmt-num.html n=D.pay_low10 prefix="$" %}</strong><p>Often new graduates</p></div>
+        {%- assign pay_mid = D.pay_median | default: O.pay %}<div class="salary-card"><span>Median</span><strong>{% include fmt-num.html n=pay_mid prefix="$" %}</strong><p>Half earned more, half less</p></div>
+        <div class="salary-card"><span>Highest 10% earned more than</span><strong>{% include fmt-num.html n=D.pay_high10 prefix="$" %}</strong><p>Often senior or specialized roles</p></div>
+      </div>
+      {%- if D.pay_note %}<p class="table-note">{{ D.pay_note }}</p>{% endif %}
+      <h3 class="block-subhead">Median pay by industry{% if D.industries_note %} ({{ D.industries_note }}){% endif %}</h3>
+      <div class="table-wrap">
+        <table class="table-simple">
+          <thead><tr><th>Industry</th><th>Share of jobs</th><th>Median pay</th></tr></thead>
+          <tbody>
+            {%- for i in D.industries %}
+            <tr><td>{{ i.name }}</td><td>{% if i.share %}{{ i.share }}%{% else %}—{% endif %}</td><td>{% include fmt-num.html n=i.median prefix="$" %}</td></tr>
+            {%- endfor %}
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Source: <a href="{{ O.ooh_url }}">BLS, {{ O.title | downcase }}</a> (pay and work environment tabs).</p>
+    </div>
+  </section>
+
+  <section class="block" id="states" aria-labelledby="states-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Local data</span>
+        <h2 id="states-heading">Where the jobs are</h2>
+        <p>The five states with the most jobs for {% if D.states_occupation %}{{ D.states_occupation }}{% else %}{{ O.title | downcase }}{% endif %} in {{ V.wage_ref }}, with local median and average (mean) pay. Pay is usually higher where living costs are higher.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="table-simple">
+          <thead><tr><th>State</th><th>Jobs</th><th>Median pay</th><th>Mean pay</th></tr></thead>
+          <tbody>
+            {%- for s in D.states.top %}
+            <tr><td><strong>{{ s.state }}</strong></td><td>{% include fmt-num.html n=s.jobs %}</td><td>{% include fmt-num.html n=s.median prefix="$" %}</td><td>{% include fmt-num.html n=s.mean prefix="$" %}</td></tr>
+            {%- endfor %}
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">{% if D.states.reported >= 51 %}BLS publishes estimates for all 50 states and DC for this occupation.{% else %}BLS publishes estimates for {{ D.states.reported }} of the 51 areas (50 states and DC) for this occupation; the others are withheld for confidentiality or reliability.{% endif %} Source: <a href="{{ SRC.bls_oews.url }}">BLS Occupational Employment and Wage Statistics</a>, {{ V.wage_ref }}.</p>
+    </div>
+  </section>
+
+  {%- assign W = D.onet %}
+  <section class="block block-alt" id="work" aria-labelledby="work-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Real work life</span>
+        <h2 id="work-heading">What the work is really like</h2>
+        <p>From O*NET, which surveys people working in the job. {{ D.hours }}</p>
+      </div>
+      <h3 class="block-subhead">Common tasks</h3>
+      <div class="prose reveal">
+        <ul>
+          {%- for t in W.tasks %}
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>{{ t }}</li>
+          {%- endfor %}
+        </ul>
+      </div>
+      <h3 class="block-subhead">What workers report</h3>
+      <div class="table-wrap">
+        <table class="table-simple">
+          <thead><tr><th>Share of workers who…</th><th>Share</th></tr></thead>
+          <tbody>
+            {%- for c in W.context %}
+            <tr><td>{{ c.label }}</td><td><span class="us-bar"><span class="us-bar-track" aria-hidden="true"><span class="us-bar-fill" style="width:{{ c.pct }}%"></span></span><span class="us-bar-val">{{ c.pct }}%</span></span></td></tr>
+            {%- endfor %}
+          </tbody>
+        </table>
+      </div>
+      <h3 class="block-subhead">Technology used on the job</h3>
+      <div class="stream-chips">{% for t in W.hot_tech %}<span>{{ t }}</span>{% endfor %}</div>
+      <p class="table-note">Interests that fit this work (Holland codes): {{ W.interests }}. Source: <a href="https://www.onetonline.org/link/summary/{{ W.code }}">O*NET OnLine, {{ W.code }}</a>, checked {{ D.last_verified | date: "%Y-%m-%d" }}.</p>
+    </div>
+  </section>
+  {%- endif %}
+
+  {%- assign r1 = PP.route[0] %}{%- assign r2 = PP.route[1] %}{%- assign r3 = PP.route[2] %}{%- assign r4 = PP.route[3] %}{%- assign r5 = PP.route[4] %}
+  {% include roadmap-flow.html id="path" eyebrow="Your path" heading="How to get there, step by step" intro="A typical route. Many people reach the same job in different ways." s1=r1 s2=r2 s3=r3 s4=r4 s5=r5 %}
+
+  <section class="block block-alt" id="high-school" aria-labelledby="hs-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Grades 9–12</span>
+        <h2 id="hs-heading">High school preparation</h2>
+        {%- if D.hs_prep %}<p><strong>From BLS:</strong> {{ D.hs_prep }}</p>{% endif %}
+      </div>
+      <div class="prose reveal">
+        <ul>
+          {%- for h in PP.hs %}
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>{{ h }}</li>
+          {%- endfor %}
+        </ul>
+      </div>
+      <p class="table-note">Course suggestions are Margdarshan's guidance; what you can take depends on your school. See the <a href="us/high-school/">high school guide</a> for GPA, AP and dual enrollment.</p>
+    </div>
+  </section>
+
+  <section class="block" id="college" aria-labelledby="college-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">College</span>
+        <h2 id="college-heading">Degrees and what you study</h2>
+        <p>{{ D.education_note | default: O.education }}</p>
+      </div>
+      <div class="chip-grid reveal">
+        <div class="item"><strong>Typical majors</strong>{{ PP.majors | join: " · " }}</div>
+        <div class="item"><strong>What you study</strong>{{ PP.study }}</div>
+        <div class="item"><strong>Degree route</strong>{% for d in P.route %}{{ US.degrees.levels[d].name }}{% unless forloop.last %} → {% endunless %}{% endfor %}</div>
+        {%- if CAT.id == "engineering" %}
+        <div class="item"><strong>Accreditation</strong>Look for programs accredited by ABET's Engineering Accreditation Commission; NCEES designs the FE exam for students finishing EAC/ABET-accredited degrees.</div>
+        {%- endif %}
+      </div>
+      {%- if D.onet.education %}
+      <h3 class="block-subhead">Education workers say their job requires (O*NET)</h3>
+      <div class="table-wrap">
+        <table class="table-simple">
+          <thead><tr><th>Education level</th><th>Share of workers</th></tr></thead>
+          <tbody>
+            {%- for e in D.onet.education %}
+            <tr><td>{{ e.level }}</td><td><span class="us-bar"><span class="us-bar-track" aria-hidden="true"><span class="us-bar-fill" style="width:{{ e.pct }}%"></span></span><span class="us-bar-val">{{ e.pct }}%</span></span></td></tr>
+            {%- endfor %}
+          </tbody>
+        </table>
+      </div>
+      {%- endif %}
+      <p class="table-note">Costs and aid: see <a href="us/college/">College &amp; Money</a>. Important qualities BLS lists for {{ O.title | downcase }}: {{ D.qualities | join: ", " | downcase }}.</p>
+    </div>
+  </section>
+
+  {%- if LIC %}
+  <section class="block block-alt" id="license" aria-labelledby="license-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Licensing</span>
+        <h2 id="license-heading">{{ LIC.name }}</h2>
+        <p>Granted by {{ LIC.authority | downcase }}. {{ LIC.jurisdiction_note }}</p>
+      </div>
+      <div class="chip-grid us-links reveal">
+        {%- for e in LIC.exams %}
+        <div class="item"><strong>{{ e.name }}</strong>{{ e.what }} <a href="{{ SRC[e.source].url }}">{{ e.by }}</a></div>
+        {%- endfor %}
+      </div>
+      {%- if LIC.not_required_for %}<p class="table-note"><strong>Not always required:</strong> {{ LIC.not_required_for | join: " " }}</p>{% endif %}
+      <a class="source-link" href="us/professional-licenses/#{{ P.license }}">Full step-by-step licensing route →</a>
+    </div>
+  </section>
+  {%- endif %}
+
+  <section class="block" id="outlook" aria-labelledby="outlook-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Job outlook {{ V.projection_period }}</span>
+        <h2 id="outlook-heading">Why demand is changing</h2>
+        <p>{{ D.growth_why }}</p>
+      </div>
+      <div class="salary-cards reveal">
+        <div class="salary-card"><span>Projected change</span><strong>{% include fmt-num.html n=O.outlook_pct sign=true %}%</strong><p>{{ O.outlook_label }}{% if O.group %} (BLS group){% endif %}</p></div>
+        <div class="salary-card"><span>Jobs in 2025</span><strong>{% include fmt-num.html n=O.jobs %}</strong><p>{% if O.group %}{{ O.group }}{% else %}{{ O.title }}{% endif %}</p></div>
+        <div class="salary-card"><span>Openings per year</span><strong>{% include fmt-num.html n=O.openings %}</strong><p>Average over the decade, including replacements</p></div>
+      </div>
+      <p class="table-note">Studying from outside the U.S.? Education and immigration are separate pathways — see the <a href="us/international-students/">international student guide</a>.</p>
+    </div>
+  </section>
+
+  <section class="block block-alt" id="tips" aria-labelledby="tips-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Practical tips</span>
+        <h2 id="tips-heading">Advice for getting in</h2>
+        <p>Margdarshan's guidance, based on the data above.</p>
+      </div>
+      <div class="prose reveal">
+        <ul>
+          {%- for t in PP.tips %}
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>{{ t }}</li>
+          {%- endfor %}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="faq" aria-labelledby="faq-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Good to know</span>
+        <h2 id="faq-heading">Frequently asked questions</h2>
+      </div>
+      <div class="faq-list reveal">
+        {%- for f in PP.faqs %}
+        <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">{{ f.q }}<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">{{ f.a }}</div></div>
+        {%- endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="block block-alt" aria-labelledby="related-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Related</span>
+        <h2 id="related-heading">Related career pathways</h2>
+      </div>
+      <div class="related-grid reveal">
+        {%- for rs in P.related %}
+        {%- assign rp = US.pathways.list | where: "slug", rs | first %}
+        {%- assign ro = US.occupations[rp.lead] %}
+        {%- if rp.live %}
+        <a class="related-card" href="us/careers/{{ rp.slug }}/"><strong>{{ rp.title }}</strong><span>Median {% include fmt-num.html n=ro.pay prefix="$" %}</span></a>
+        {%- else %}
+        <a class="related-card" href="us/careers/#path-{{ rp.slug }}"><strong>{{ rp.title }}</strong><span>Median {% include fmt-num.html n=ro.pay prefix="$" %}</span></a>
+        {%- endif %}
+        {%- endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="sources" aria-labelledby="sources-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Sources</span>
+        <h2 id="sources-heading">Where these facts come from</h2>
+        <p>Official sources only, checked on the dates shown.</p>
+      </div>
+      <ul class="us-sources">
+        {%- for oid in P.occupations %}
+        {%- assign oc = US.occupations[oid] %}
+        <li><a href="{{ oc.ooh_url }}">BLS Occupational Outlook Handbook: {{ oc.title }}</a> <span class="us-asof">checked {{ oc.last_verified | date: "%Y-%m-%d" }}</span></li>
+        {%- endfor %}
+        {%- if D %}
+        <li><a href="https://www.onetonline.org/link/summary/{{ D.onet.code }}">O*NET OnLine: {{ D.onet.code }}</a> · U.S. Department of Labor <span class="us-asof">checked {{ D.last_verified | date: "%Y-%m-%d" }}</span></li>
+        <li><a href="{{ SRC.bls_oews.url }}">{{ SRC.bls_oews.name }}</a> <span class="us-asof">checked {{ SRC.bls_oews.accessed | date: "%Y-%m-%d" }}</span></li>
+        {%- endif %}
+        {%- if LIC %}{%- for s in LIC.sources %}
+        <li><a href="{{ SRC[s].url }}">{{ SRC[s].name }}</a> · {{ SRC[s].publisher }} <span class="us-asof">checked {{ SRC[s].accessed | date: "%Y-%m-%d" }}</span></li>
+        {%- endfor %}{%- endif %}
+      </ul>
+    </div>
+  </section>
+
+</main>

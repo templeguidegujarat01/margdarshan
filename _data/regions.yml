@@ -1,0 +1,61 @@
+# Country editions — the single source of truth for region context.
+# Read as site.data.regions. A page's region comes from its front matter
+# `region:` (set automatically for every page under a region's `path_prefix`
+# by `defaults` in _config.yml); pages with no region belong to `default`.
+#
+# Adding a country later (uk, ca, au …) = one entry here + one defaults
+# block in _config.yml + its nav/content data. Layouts and includes must read
+# from here instead of hard-coding "India" / "USA".
+#
+#   id            short code used in front matter, data-region, localStorage
+#   name          full edition name shown in the region switcher
+#   short         compact label (collapsed rail, small screens)
+#   country       country name in copy ("careers in the {{ country }}")
+#   lang / locale <html lang> and og:locale for that edition's pages
+#   currency      ISO 4217 code; currency_symbol for display
+#   home          the edition's home page, root-relative (no leading slash)
+#   path_prefix   URL folder that belongs to this edition ("" = top level)
+#   flag_svg      inline SVG body for a 24x24 viewBox (emoji flags do not
+#                 render on Windows, see the note in nav.yml)
+#   status        live | beta — beta editions show a small badge
+#   data_note     how this edition's salary/outlook figures are sourced
+
+default: in
+
+# localStorage key for the visitor's chosen edition. URL context always wins
+# over the stored value (a /us/ page is always USA).
+storage_key: md-region
+
+list:
+  - in
+  - us
+
+in:
+  id: in
+  name: India Edition
+  short: India
+  country: India
+  lang: en
+  locale: en_IN
+  currency: INR
+  currency_symbol: "₹"
+  home: index.html
+  path_prefix: ""
+  status: live
+  data_note: "Salary ranges are indicative INR figures; check each page's sources."
+  flag_svg: '<rect x="2" y="5" width="20" height="14" rx="2" fill="#fff" stroke="currentColor" stroke-width="1"/><rect x="2.5" y="5.5" width="19" height="4.33" fill="#FF9933"/><rect x="2.5" y="14.17" width="19" height="4.33" fill="#138808"/><circle cx="12" cy="12" r="1.6" fill="none" stroke="#000080" stroke-width=".8"/>'
+
+us:
+  id: us
+  name: USA Edition
+  short: USA
+  country: the United States
+  lang: en-US
+  locale: en_US
+  currency: USD
+  currency_symbol: "$"
+  home: us/
+  path_prefix: us/
+  status: beta
+  data_note: "Pay and outlook figures come from the U.S. Bureau of Labor Statistics (BLS); each figure shows its reference year."
+  flag_svg: '<rect x="2" y="5" width="20" height="14" rx="2" fill="#fff" stroke="currentColor" stroke-width="1"/><path d="M2.5 6.6h19M2.5 8.7h19M2.5 10.9h19M2.5 13.1h19M2.5 15.3h19M2.5 17.4h19" stroke="#B22234" stroke-width="1.1"/><rect x="2.5" y="5.5" width="8.5" height="7.6" fill="#3C3B6E"/>'

@@ -22,6 +22,7 @@ exclude:
   - LICENSE
   - scripts
   - node_modules
+  - docs
 
 # Every page uses _layouts/default.html, which owns the shared <head>, header,
 # breadcrumb, footer and scripts. A page only supplies front matter (title,
@@ -32,3 +33,9 @@ defaults:
       path: ""
     values:
       layout: default
+  # Country editions (see _data/regions.yml). Every page under us/ is USA-edition
+  # context; everything else stays India (the default) with no front matter change.
+  - scope:
+      path: "us"
+    values:
+      region: us

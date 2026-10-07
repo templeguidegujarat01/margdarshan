@@ -63,6 +63,13 @@ try {
     }
     // Drawer is a dialog-like layer on small screens only.
     if(!desktopMq.matches){ if(open) sidebar.removeAttribute('inert'); else sidebar.setAttribute('inert',''); }
+    // While the drawer is open on small screens, the page behind it is inert: Tab stays inside the
+    // drawer (it has its own close button) and screen readers do not wander into the covered page.
+    var behind = [document.querySelector('.app-main'), document.getElementById('backToTop'), document.querySelector('.skip-link')];
+    behind.forEach(function(el){
+      if(!el) return;
+      if(open && !desktopMq.matches) el.setAttribute('inert', ''); else el.removeAttribute('inert');
+    });
   }
   function syncSidebarMode(){
     if(!sidebar) return;
@@ -1154,7 +1161,7 @@ try {
 
   /* ---- 2. rebuild the breadcrumb when this page was opened with a trail ---- */
   if(!hasTrail) return;
-  fetch('assets/crumb-map.json', { credentials: 'same-origin' })
+  fetch(SCRIPT_ROOT + 'assets/crumb-map.json', { credentials: 'same-origin' }) /* prefix: works on nested pages too */
     .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
     .then(function(map){
       var trail = [], seen = {};

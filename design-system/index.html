@@ -1,0 +1,455 @@
+---
+title: "Design System Preview | Margdarshan"
+description: "Internal preview of the proposed Margdarshan global design system: type scale, stat cards, source chips, pay range, roadmap, comparison."
+robots: "noindex, nofollow"
+breadcrumb:
+  current: "Design System Preview"
+# National 25th/75th percentiles are not stored in _data/us yet (schema change = Phase 4).
+# Retrieved for this preview from the BLS Public Data API, OEWS May 2025 national,
+# series OEUN000000000000015125212 (25th) and …214 (75th), on 2026-10-07.
+# The same call returned 82,460 / 135,980 / 214,670 for the 10th / median / 90th,
+# matching occupation_details.yml, plus OEWS employment 1,687,890 and mean 148,100.
+preview_pay:
+  p25: 105210
+  p75: 171980
+  oews_emp: 1687890
+  mean: 148100
+---
+{%- comment -%}
+  PHASE 2 PREVIEW — not linked from navigation, noindex, not in sitemap.xml.
+  Every component here is scoped to .ds-preview and uses new md-* class names, so
+  nothing on the existing India or USA pages changes. Facts come from _data/us
+  (rendered by Liquid); nothing is typed in by hand except the preview_pay values
+  above, which are documented in front matter.
+  Spec: docs/global-platform/PHASE-2-DESIGN-SYSTEM.md
+{%- endcomment -%}
+{%- assign US = site.data.us -%}
+{%- assign SRC = US.sources.list -%}
+{%- assign V = US.sources.bls_vintage -%}
+{%- assign P = US.pathways.list | where: "slug", "computer-science" | first -%}
+{%- assign PP = US.pathway_pages["computer-science"] -%}
+{%- assign O = US.occupations[P.lead] -%}
+{%- assign D = US.occupation_details[P.lead] -%}
+{%- assign X = page.preview_pay -%}
+{%- assign LIC = US.licenses.medicine -%}
+<style>
+/* ===== Proposed tokens (Phase 2). Scoped to the preview; Phase 5 moves them to :root. ===== */
+.ds-preview{
+  --fs-display:clamp(2rem,1.45rem + 2.4vw,2.75rem);
+  --fs-h2:clamp(1.5rem,1.25rem + 1.1vw,2rem);
+  --fs-h3:1.1875rem;
+  --fs-body:1.0625rem;
+  --fs-small:.9375rem;
+  --fs-label:.8125rem;
+  --fs-stat:clamp(1.5rem,1.25rem + 1vw,1.875rem);
+  --sp-1:.25rem;--sp-2:.5rem;--sp-3:.75rem;--sp-4:1rem;--sp-5:1.5rem;--sp-6:2rem;--sp-7:3rem;--sp-8:4rem;
+  --section-y:clamp(2.5rem,1.8rem + 2.4vw,4rem);
+  --surface-2:#F7F9F8;
+  --pos:#1F6F5C;
+  --line-strong:rgba(15,42,61,.22);
+  --measure:68ch;
+}
+[data-theme="dark"] .ds-preview{
+  --surface-2:#183142;
+  --pos:#5FC3A8;
+  --line-strong:rgba(255,255,255,.22);
+}
+.ds-preview{font-size:var(--fs-body);}
+.ds-sec{padding:var(--section-y) 0;border-bottom:1px solid var(--line);}
+.ds-sec > .container > h2{font-size:var(--fs-h2);margin-bottom:var(--sp-2);}
+.ds-lede{color:var(--text-muted);max-width:var(--measure);margin-bottom:var(--sp-6);font-size:var(--fs-small);}
+.ds-label{font-size:var(--fs-label);font-weight:600;color:var(--text-muted);letter-spacing:.01em;}
+
+/* ---- Type specimen ---- */
+.ds-type{display:grid;gap:var(--sp-4);}
+.ds-type > div{display:grid;gap:var(--sp-1);padding-bottom:var(--sp-4);border-bottom:1px dashed var(--line);}
+.ds-type code{font-size:.75rem;color:var(--text-muted);}
+
+/* ---- md-answer: answer-first hero ---- */
+.md-answer{background:var(--bg-hero);color:var(--on-ink);border-radius:var(--radius-lg);padding:var(--sp-6) var(--sp-5);}
+.md-answer .eyebrow{color:var(--accent-on-surface);}
+.md-answer h1{font-size:var(--fs-display);color:var(--on-ink-strong);margin-top:var(--sp-2);}
+.md-answer-lede{margin-top:var(--sp-3);max-width:60ch;color:var(--on-ink-muted);font-size:var(--fs-body);line-height:1.6;}
+.md-stats{display:grid;gap:var(--sp-3);grid-template-columns:repeat(2,minmax(0,1fr));margin-top:var(--sp-5);}
+@media (min-width:768px){.md-stats{grid-template-columns:repeat(4,minmax(0,1fr));}}
+.md-stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);padding:var(--sp-4);min-width:0;display:flex;flex-direction:column;gap:var(--sp-1);}
+.md-stat-label{font-size:var(--fs-label);font-weight:600;color:var(--text-muted);line-height:1.35;}
+.md-stat-value{font-size:var(--fs-stat);font-weight:700;line-height:1.1;color:var(--text);letter-spacing:-.01em;}
+.md-stat-value.is-text{font-size:1.125rem;line-height:1.3;}
+.md-stat-note{font-size:var(--fs-label);color:var(--text-muted);line-height:1.4;}
+.md-stat-value .is-pos{color:var(--pos);}
+.md-answer-actions{display:flex;flex-wrap:wrap;gap:var(--sp-3);align-items:center;margin-top:var(--sp-5);}
+.md-answer-actions .md-textlink{color:var(--on-ink);font-weight:600;text-decoration:underline;text-underline-offset:3px;}
+
+/* ---- md-src: compact source chip (native details element, works without JS) ---- */
+.md-src{position:relative;display:inline-block;vertical-align:middle;}
+.md-src > summary{list-style:none;display:inline-flex;align-items:center;gap:.3rem;min-height:28px;padding:.15rem .55rem;border-radius:999px;border:1px solid var(--line-strong);font-size:.75rem;font-weight:600;color:var(--text-muted);cursor:pointer;white-space:nowrap;background:transparent;}
+.md-src > summary::-webkit-details-marker{display:none;}
+.md-src > summary:hover{color:var(--text);border-color:var(--text-muted);}
+.md-src[open] > summary{color:var(--text);background:var(--surface-2);}
+.md-src svg{display:inline-block;flex-shrink:0;}
+.md-src-pop{position:absolute;z-index:30;top:calc(100% + 6px);left:0;width:min(19rem,calc(100vw - 2.5rem));background:var(--surface);color:var(--text);border:1px solid var(--line-strong);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);padding:var(--sp-3) var(--sp-4);font-size:var(--fs-label);line-height:1.5;white-space:normal;text-align:left;font-weight:400;}
+.md-src[data-align="end"] .md-src-pop{left:auto;right:0;}
+/* Phones: the pop-over becomes a bottom sheet, so it can never run off either edge. */
+@media (max-width:639px){
+  .md-src[open] > summary::before{content:"";position:fixed;inset:0;background:rgba(0,0,0,.28);z-index:29;}
+  .md-src-pop,.md-src[data-align="end"] .md-src-pop{position:fixed;left:.75rem;right:.75rem;bottom:.75rem;top:auto;width:auto;padding:var(--sp-4) var(--sp-5);font-size:var(--fs-small);border-radius:var(--radius-md);box-shadow:var(--shadow-lg);}
+}
+.md-src-pop strong{display:block;font-size:var(--fs-small);margin-bottom:.15rem;}
+.md-src-pop dl{display:grid;grid-template-columns:auto 1fr;gap:.1rem .6rem;margin:var(--sp-2) 0;}
+.md-src-pop dt{color:var(--text-muted);}
+.md-src-pop dd{margin:0;}
+.md-src-pop a{color:var(--link);font-weight:600;text-decoration:underline;text-underline-offset:2px;}
+.md-answer .md-src > summary{color:var(--on-ink-muted);border-color:var(--border-surface);}
+
+/* ---- md-paybar: percentile range (CSS only; values are also text) ---- */
+.md-pay{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);padding:var(--sp-5);}
+.md-pay-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--sp-3);align-items:flex-start;}
+.md-pay-head h3{font-family:var(--font-body);font-size:var(--fs-h3);font-weight:700;}
+.md-paybar{position:relative;height:14px;margin:var(--sp-7) 0 var(--sp-2);border-radius:999px;background:var(--surface-2);border:1px solid var(--line);}
+.md-paybar-iqr{position:absolute;top:-1px;bottom:-1px;border-radius:999px;background:var(--gold);opacity:.85;}
+.md-paybar-med{position:absolute;top:-10px;bottom:-10px;width:3px;margin-left:-1.5px;border-radius:2px;background:var(--text);}
+.md-paybar-med span{position:absolute;bottom:calc(100% + 4px);left:50%;transform:translateX(-50%);white-space:nowrap;font-size:var(--fs-label);font-weight:700;color:var(--text);}
+.md-pay-scale{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--sp-2);margin:var(--sp-5) 0 0;padding:0;}
+.md-pay-scale div{display:flex;flex-direction:column;gap:.1rem;min-width:0;}
+.md-pay-scale dt{font-size:.75rem;color:var(--text-muted);font-weight:600;}
+.md-pay-scale dd{margin:0;font-weight:700;font-size:var(--fs-small);font-variant-numeric:tabular-nums;}
+@media (max-width:479px){.md-pay-scale{grid-template-columns:repeat(2,minmax(0,1fr));}.md-pay-scale div:nth-child(3){grid-column:1 / -1;order:-1;}}
+.md-pay-legend{display:flex;flex-wrap:wrap;gap:var(--sp-4);font-size:var(--fs-label);color:var(--text-muted);margin-top:var(--sp-4);}
+.md-pay-legend i{display:inline-block;width:14px;height:8px;border-radius:999px;background:var(--gold);vertical-align:middle;margin-right:.35rem;}
+.md-pay-legend i.is-med{width:3px;height:12px;background:var(--text);border-radius:2px;}
+
+/* ---- md-geo: national → state selector ---- */
+.md-geo{display:grid;gap:var(--sp-4);margin-top:var(--sp-5);padding-top:var(--sp-5);border-top:1px solid var(--line);}
+.md-select{display:grid;gap:var(--sp-1);max-width:20rem;}
+.md-select select{appearance:none;font:inherit;font-size:var(--fs-small);font-weight:600;color:var(--text);background:var(--surface-2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2352625F' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right .8rem center;border:1px solid var(--line-strong);border-radius:var(--radius-sm);padding:.65rem 2.2rem .65rem .8rem;min-height:44px;}
+.md-geo-out{display:grid;gap:var(--sp-3);grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr));}
+.md-geo-out .md-stat{background:var(--surface-2);}
+
+/* ---- md-road: data-driven roadmap ---- */
+.md-road{list-style:none;margin:0;padding:0;display:grid;gap:0;counter-reset:road;}
+.md-road > li{position:relative;display:grid;grid-template-columns:2.25rem minmax(0,1fr);gap:var(--sp-3);padding-bottom:var(--sp-5);counter-increment:road;}
+.md-road > li::before{content:counter(road);display:grid;place-items:center;width:2.25rem;height:2.25rem;border-radius:50%;background:var(--surface);border:2px solid var(--gold);font-weight:700;font-size:var(--fs-small);color:var(--text);position:relative;z-index:1;}
+.md-road > li::after{content:"";position:absolute;left:calc(1.125rem - 1px);top:2.25rem;bottom:0;width:2px;background:var(--line-strong);}
+.md-road > li:last-child{padding-bottom:0;}
+.md-road > li:last-child::after{display:none;}
+.md-road-body{padding-top:.3rem;min-width:0;}
+.md-road-body strong{display:block;font-size:var(--fs-body);line-height:1.35;}
+.md-road-body p{font-size:var(--fs-small);color:var(--text-muted);margin-top:.15rem;}
+.md-kind{display:inline-block;margin-top:var(--sp-1);font-size:.75rem;font-weight:700;border-radius:999px;padding:.1rem .55rem;border:1px solid var(--line-strong);color:var(--text-muted);}
+.md-road > li[data-kind="gate"]::before{border-radius:7px;}
+.md-road > li[data-kind="gate"] .md-kind{border-color:var(--gold);color:var(--gold-strong);}
+[data-theme="dark"] .md-road > li[data-kind="gate"] .md-kind{color:var(--gold);}
+.md-road > li[data-kind="license"]::before{background:var(--gold);color:#241703;}
+.md-road > li[data-kind="license"] .md-kind{background:var(--gold);border-color:var(--gold);color:#241703;}
+.md-road > li[data-kind="optional"]::before{border-style:dashed;}
+.md-branch{display:flex;flex-wrap:wrap;gap:var(--sp-2);margin-top:var(--sp-2);}
+.md-branch span{font-size:var(--fs-label);font-weight:600;padding:.2rem .65rem;border-radius:var(--radius-sm);background:var(--surface-2);border:1px solid var(--line);}
+/* Short routes (≤5 steps) run horizontally from 1024px; long ones stay vertical (readable, no tiny columns). */
+@media (min-width:1024px){
+  .md-road.is-short{grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:var(--sp-4);}
+  .md-road.is-short > li{grid-template-columns:1fr;padding-bottom:0;}
+  .md-road.is-short > li::after{left:2.75rem;right:calc(-1 * var(--sp-4));top:calc(1.125rem - 1px);bottom:auto;width:auto;height:2px;}
+}
+.md-road-legend{display:flex;flex-wrap:wrap;gap:var(--sp-3);margin-top:var(--sp-5);font-size:var(--fs-label);color:var(--text-muted);}
+
+/* ---- md-cmp: compact comparison ---- */
+.md-cmp{width:100%;border-collapse:separate;border-spacing:0;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);overflow:hidden;font-size:var(--fs-small);}
+.md-cmp th,.md-cmp td{padding:var(--sp-3) var(--sp-4);text-align:left;vertical-align:top;border-bottom:1px solid var(--line);}
+.md-cmp tr:last-child th,.md-cmp tr:last-child td{border-bottom:0;}
+.md-cmp thead th{font-family:var(--font-display);font-size:var(--fs-h3);background:var(--surface-2);}
+.md-cmp tbody th{font-weight:600;color:var(--text-muted);width:28%;font-size:var(--fs-label);}
+.md-cmp td.is-same{color:var(--text-muted);}
+@media (max-width:639px){
+  .md-cmp thead{display:none;}
+  .md-cmp tbody tr{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line);}
+  .md-cmp tbody th{grid-column:1 / -1;width:auto;border:0;padding-bottom:0;}
+  .md-cmp td{border:0;}
+  .md-cmp td::before{content:attr(data-col);display:block;font-size:.75rem;font-weight:700;color:var(--text-muted);}
+  .md-cmp td[colspan]{grid-column:1 / -1;}
+}
+
+/* ---- md-subnav + md-bento + disclosure ---- */
+.md-subnav{display:flex;gap:var(--sp-1);overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line);margin-bottom:var(--sp-5);}
+.md-subnav a{flex-shrink:0;padding:var(--sp-3) var(--sp-4);font-weight:600;font-size:var(--fs-small);color:var(--text-muted);border-bottom:2px solid transparent;min-height:44px;display:inline-flex;align-items:center;}
+.md-subnav a[aria-current="page"]{color:var(--text);border-bottom-color:var(--gold);}
+.md-bento{display:grid;gap:var(--sp-4);grid-template-columns:minmax(0,1fr);}
+@media (min-width:900px){.md-bento{grid-template-columns:2fr 1fr;grid-template-rows:auto auto;}.md-bento > .is-primary{grid-row:span 2;}}
+.md-tile{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);padding:var(--sp-5);min-width:0;}
+.md-tile.is-primary{border-color:var(--line-strong);}
+.md-tile h3{font-family:var(--font-body);font-size:var(--fs-h3);font-weight:700;margin-bottom:var(--sp-3);}
+.md-tile .md-tier{display:block;margin-bottom:var(--sp-2);}
+.md-occ{list-style:none;margin:0;padding:0;}
+.md-occ li{display:flex;justify-content:space-between;gap:var(--sp-3);padding:var(--sp-3) 0;border-bottom:1px solid var(--line);font-size:var(--fs-small);}
+.md-occ li:last-child{border-bottom:0;}
+.md-occ b{font-variant-numeric:tabular-nums;white-space:nowrap;}
+.md-more > summary{list-style:none;cursor:pointer;font-weight:600;color:var(--link);font-size:var(--fs-small);min-height:44px;display:inline-flex;align-items:center;gap:.35rem;}
+.md-more > summary::-webkit-details-marker{display:none;}
+.md-more > summary::after{content:"";width:.5rem;height:.5rem;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .2s var(--ease);}
+.md-more[open] > summary::after{transform:rotate(-135deg) translateY(-2px);}
+.md-datanote{font-size:var(--fs-label);color:var(--text-muted);margin-top:var(--sp-6);padding-top:var(--sp-4);border-top:1px solid var(--line);}
+.md-datanote a{color:var(--link);font-weight:600;}
+
+/* swatches */
+.ds-swatches{display:grid;gap:var(--sp-3);grid-template-columns:repeat(auto-fill,minmax(9rem,1fr));}
+.ds-swatches div{border:1px solid var(--line);border-radius:var(--radius-sm);overflow:hidden;font-size:.75rem;}
+.ds-swatches i{display:block;height:3rem;}
+.ds-swatches span{display:block;padding:.4rem .55rem;color:var(--text-muted);}
+</style>
+
+<main id="main" class="ds-preview">
+
+  <section class="ds-sec">
+    <div class="container">
+      <span class="eyebrow">Phase 2 · internal preview</span>
+      <h2 style="font-size:var(--fs-display);margin-top:var(--sp-2)">Margdarshan design system</h2>
+      <p class="ds-lede" style="margin-top:var(--sp-3)">Proposed components rendered with real data from <code>_data/us</code>. Nothing on this page is used by live pages yet. Use the theme button to check dark mode; resize to 375&nbsp;px to check mobile. Not indexed, not in the sitemap.</p>
+    </div>
+  </section>
+
+  <!-- 1. Answer-first career header -->
+  <section class="ds-sec" aria-labelledby="ds1">
+    <div class="container">
+      <h2 id="ds1">Answer-first career header</h2>
+      <p class="ds-lede">Replaces hero + 6-line intro + two stacked buttons. The page answers "what is it, what does it pay, how do I get in" in the first phone screen. Each number carries its own source chip.</p>
+
+      <nav class="md-subnav" aria-label="Computer Science pages">
+        <a href="#ds1" aria-current="page">Overview</a>
+        <a href="#ds4">Salary</a>
+        <a href="#ds1">Colleges</a>
+      </nav>
+
+      <div class="md-answer">
+        <span class="eyebrow">USA · Technology</span>
+        <h1>{{ P.title }}</h1>
+        <p class="md-answer-lede">The study of algorithms, software and computing systems. It leads to several jobs, not one: software developer, security analyst, data scientist and researcher.</p>
+        <div class="md-stats">
+          <div class="md-stat">
+            <span class="md-stat-label">Median pay · {{ O.title | downcase }}</span>
+            <span class="md-stat-value">{% include fmt-num.html n=O.pay prefix="$" %}</span>
+            <details class="md-src"><summary><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>BLS · {{ V.wage_ref }}</summary>
+              <div class="md-src-pop"><strong>{{ SRC.bls_ooh.name }}</strong>{{ SRC.bls_ooh.publisher }}<dl><dt>Data</dt><dd>Median annual wage, {{ V.wage_ref }}</dd><dt>Checked</dt><dd>{{ O.last_verified | date: "%-d %b %Y" }}</dd></dl><a href="{{ O.ooh_url }}">View official data</a></div>
+            </details>
+          </div>
+          <div class="md-stat">
+            <span class="md-stat-label">Job outlook {{ V.projection_period }}</span>
+            <span class="md-stat-value"><span class="is-pos">{% include fmt-num.html n=O.outlook_pct sign=true %}%</span></span>
+            <span class="md-stat-note">{{ O.outlook_label }}{% if O.group %} · BLS group{% endif %}</span>
+          </div>
+          <div class="md-stat">
+            <span class="md-stat-label">Typical entry</span>
+            <span class="md-stat-value is-text">{{ O.education }}</span>
+          </div>
+          <div class="md-stat">
+            <span class="md-stat-label">License</span>
+            <span class="md-stat-value is-text">Not required</span>
+            <span class="md-stat-note">for most jobs</span>
+          </div>
+        </div>
+        <div class="md-answer-actions">
+          <a href="#ds3" class="btn btn-primary">See the pathway</a>
+          <a href="#ds4" class="md-textlink">Salary by state</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Hierarchy -->
+  <section class="ds-sec" aria-labelledby="ds2">
+    <div class="container">
+      <h2 id="ds2">Bento with real hierarchy</h2>
+      <p class="ds-lede">One primary tile, two supporting tiles — not a wall of equal cards. Extra rows sit behind a single "show all" (one disclosure level, never nested).</p>
+      <div class="md-bento">
+        <div class="md-tile is-primary">
+          <span class="ds-label md-tier">Primary</span>
+          <h3>Where it leads</h3>
+          <ul class="md-occ">
+            {%- for oid in P.occupations limit:3 %}{%- assign oc = US.occupations[oid] %}
+            <li><span>{{ oc.title }}</span><b>{% include fmt-num.html n=oc.pay prefix="$" %}</b></li>
+            {%- endfor %}
+          </ul>
+          {%- assign rest = P.occupations.size | minus: 3 %}
+          {%- if rest > 0 %}
+          <details class="md-more">
+            <summary>Show {{ rest }} more</summary>
+            <ul class="md-occ">
+              {%- for oid in P.occupations offset:3 %}{%- assign oc = US.occupations[oid] %}
+              <li><span>{{ oc.title }}</span><b>{% include fmt-num.html n=oc.pay prefix="$" %}</b></li>
+              {%- endfor %}
+            </ul>
+          </details>
+          {%- endif %}
+          <div class="ds-label" style="margin-top:var(--sp-3)">Median annual pay, {{ V.wage_ref }}
+            <details class="md-src"><summary>BLS</summary><div class="md-src-pop"><strong>{{ SRC.bls_ooh.name }}</strong>{{ SRC.bls_ooh.publisher }} · {{ V.wage_ref }}. <a href="{{ SRC.bls_ooh.url }}">View official data</a></div></details>
+          </div>
+        </div>
+        <div class="md-tile">
+          <span class="ds-label md-tier">Supporting</span>
+          <h3>Typical majors</h3>
+          <p style="font-size:var(--fs-small);color:var(--text-muted)">{{ PP.majors | join: " · " }}</p>
+        </div>
+        <div class="md-tile">
+          <span class="ds-label md-tier">Supporting</span>
+          <h3>Tools on the job</h3>
+          <p style="font-size:var(--fs-small);color:var(--text-muted)">{{ D.onet.hot_tech | slice: 0, 5 | join: " · " }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Roadmaps -->
+  <section class="ds-sec" aria-labelledby="ds3">
+    <div class="container">
+      <h2 id="ds3">Roadmap v2 — any number of steps, gates and branches</h2>
+      <p class="ds-lede">One <code>&lt;ol&gt;</code>, text stays selectable. Short routes (5 steps or fewer) run horizontally on desktop; long regulated routes stay vertical everywhere so every step stays readable. Step kinds: stage, exam gate, branch, license, optional.</p>
+
+      <h3 class="ds-label" style="margin-bottom:var(--sp-4)">Degree pathway · {{ P.title }}</h3>
+      <ol class="md-road is-short" style="--n:{{ PP.route.size }}">
+        {%- for r in PP.route %}{%- assign s = r | split: "|" %}
+        <li data-kind="stage"><div class="md-road-body"><strong>{{ s[1] }}</strong><p>{{ s[2] }}</p></div></li>
+        {%- endfor %}
+      </ol>
+
+      <h3 class="ds-label" style="margin:var(--sp-7) 0 var(--sp-4)">Licensed pathway · Medicine</h3>
+      <ol class="md-road">
+        {%- for step in LIC.steps %}
+        {%- assign kind = "stage" %}{%- assign tag = "" %}
+        {%- if step contains "MCAT" or step contains "USMLE" %}{%- assign kind = "gate" %}{%- assign tag = "Exam" %}{%- endif %}
+        {%- if step contains "license" %}{%- assign kind = "license" %}{%- assign tag = "License" %}{%- endif %}
+        {%- if step contains "Optional" %}{%- assign kind = "optional" %}{%- assign tag = "Optional" %}{%- endif %}
+        <li data-kind="{{ kind }}"><div class="md-road-body"><strong>{{ step }}</strong>
+          {%- if step contains "M.D. or D.O." %}<div class="md-branch" aria-label="Two routes"><span>M.D. → USMLE</span><span>D.O. → COMLEX-USA</span></div>{% endif %}
+          {%- if tag != "" %}<span class="md-kind">{{ tag }}</span>{% endif %}</div></li>
+        {%- endfor %}
+      </ol>
+      <div class="md-datanote">{{ LIC.jurisdiction_note }}
+        <details class="md-src"><summary>USMLE · NBOME · BLS</summary><div class="md-src-pop"><strong>Sources</strong>{% for s in LIC.sources %}<a href="{{ SRC[s].url }}">{{ SRC[s].publisher }}</a>{% unless forloop.last %} · {% endunless %}{% endfor %}<dl><dt>Checked</dt><dd>{{ LIC.last_verified | date: "%-d %b %Y" }}</dd></dl></div></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Pay range + geography -->
+  {%- assign p10 = D.pay_low10 %}{%- assign p90 = D.pay_high10 %}{%- assign span = p90 | minus: p10 | times: 1.0 %}
+  {%- assign l25 = X.p25 | minus: p10 | divided_by: span | times: 100 | round: 2 %}
+  {%- assign l75 = X.p75 | minus: p10 | divided_by: span | times: 100 | round: 2 %}
+  {%- assign w = l75 | minus: l25 %}
+  {%- assign lmed = O.pay | minus: p10 | divided_by: span | times: 100 | round: 2 %}
+  <section class="ds-sec" aria-labelledby="ds4">
+    <div class="container">
+      <h2 id="ds4">Pay range and National → State selector</h2>
+      <p class="ds-lede">Five numbers instead of a table, drawn with CSS (no chart library). The bar is decorative (<code>aria-hidden</code>); the same values are listed as text below it. The state picker shows five states in the HTML and could load the full 50-state set from a small JSON file only when someone uses it.</p>
+      <div class="md-pay">
+        <div class="md-pay-head">
+          <div><h3>{{ O.title }} · United States</h3><span class="ds-label">Annual wages, {{ V.wage_ref }}</span></div>
+          <details class="md-src"><summary><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>BLS OEWS · {{ V.wage_ref }}</summary>
+            <div class="md-src-pop"><strong>Occupational Employment and Wage Statistics</strong>{{ SRC.bls_oews.publisher }}<dl><dt>Area</dt><dd>National</dd><dt>Period</dt><dd>{{ V.wage_ref }}</dd><dt>SOC</dt><dd>{{ O.soc | join: ", " }}</dd><dt>Checked</dt><dd>7 Oct 2026</dd></dl><a href="{{ SRC.bls_oews.url }}">View official data</a></div>
+          </details>
+        </div>
+        <div class="md-paybar" aria-hidden="true">
+          <span class="md-paybar-iqr" style="left:{{ l25 }}%;width:{{ w }}%"></span>
+          <span class="md-paybar-med" style="left:{{ lmed }}%"><span>Median</span></span>
+        </div>
+        <dl class="md-pay-scale">
+          <div><dt>10th</dt><dd>{% include fmt-num.html n=p10 prefix="$" %}</dd></div>
+          <div><dt>25th</dt><dd>{% include fmt-num.html n=X.p25 prefix="$" %}</dd></div>
+          <div><dt>Median</dt><dd>{% include fmt-num.html n=O.pay prefix="$" %}</dd></div>
+          <div><dt>75th</dt><dd>{% include fmt-num.html n=X.p75 prefix="$" %}</dd></div>
+          <div><dt>90th</dt><dd>{% include fmt-num.html n=p90 prefix="$" %}</dd></div>
+        </dl>
+        <div class="md-pay-legend"><span><i></i>Middle half of workers (25th–75th percentile)</span><span><i class="is-med"></i>Median</span></div>
+
+        <div class="md-geo">
+          <label class="md-select"><span class="ds-label">Location</span>
+            <select id="dsGeo">
+              <option value="us">United States</option>
+              {%- for s in D.states.top %}<option value="{{ forloop.index0 }}">{{ s.state }}</option>{% endfor %}
+            </select>
+          </label>
+          <div class="md-geo-out" aria-live="polite">
+            <div class="md-stat"><span class="md-stat-label">Median</span><span class="md-stat-value" id="dsGeoMed">{% include fmt-num.html n=O.pay prefix="$" %}</span></div>
+            <div class="md-stat"><span class="md-stat-label">Mean</span><span class="md-stat-value" id="dsGeoMean">{% include fmt-num.html n=X.mean prefix="$" %}</span></div>
+            <div class="md-stat"><span class="md-stat-label">Jobs (OEWS)</span><span class="md-stat-value" id="dsGeoJobs">{% include fmt-num.html n=X.oews_emp %}</span></div>
+          </div>
+        </div>
+      </div>
+      <script type="application/json" id="dsGeoData">{"us":{"median":{{ O.pay }},"mean":{{ X.mean }},"jobs":{{ X.oews_emp }}},"states":[{% for s in D.states.top %}{"median":{{ s.median }},"mean":{{ s.mean }},"jobs":{{ s.jobs }}}{% unless forloop.last %},{% endunless %}{% endfor %}]}</script>
+    </div>
+  </section>
+
+  <!-- 5. Comparison -->
+  <section class="ds-sec" aria-labelledby="ds5">
+    <div class="container">
+      <h2 id="ds5">Compact comparison · M.D. vs D.O.</h2>
+      <p class="ds-lede">Five rows that matter, not thirty. Shared answers are shown once across both columns. On phones each row becomes a two-column card, with no sideways scrolling.</p>
+      <table class="md-cmp">
+        <thead><tr><td></td><th scope="col">M.D.</th><th scope="col">D.O.</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Degree</th><td data-col="M.D.">Doctor of Medicine</td><td data-col="D.O.">Doctor of Osteopathic Medicine</td></tr>
+          <tr><th scope="row">Medical school</th><td colspan="2" class="is-same">4 years for both</td></tr>
+          <tr><th scope="row">Licensing exam</th><td data-col="M.D.">USMLE Step 1, Step 2 CK, Step 3</td><td data-col="D.O.">COMLEX-USA Level 1, 2-CE, 3</td></tr>
+          <tr><th scope="row">Residency</th><td colspan="2" class="is-same">3 to 9 years depending on specialty, for both</td></tr>
+          <tr><th scope="row">License from</th><td colspan="2" class="is-same">{{ LIC.authority }}, for both</td></tr>
+        </tbody>
+      </table>
+      <div class="md-datanote">Data: {{ LIC.experience }}
+        <details class="md-src"><summary>USMLE · NBOME · BLS</summary><div class="md-src-pop"><strong>Sources</strong>{% for s in LIC.sources %}<a href="{{ SRC[s].url }}">{{ SRC[s].publisher }}</a>{% unless forloop.last %} · {% endunless %}{% endfor %}</div></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Tokens -->
+  <section class="ds-sec" aria-labelledby="ds6">
+    <div class="container">
+      <h2 id="ds6">Tokens</h2>
+      <p class="ds-lede">Seven type steps replace 56 font sizes. Brand colors stay the same. Uppercase is used only for eyebrows. Numbers use Hind; tabular figures only inside columns.</p>
+      <div class="ds-type">
+        <div><span style="font-family:var(--font-display);font-size:var(--fs-display);font-weight:600;line-height:1.1">Display · page title</span><code>--fs-display clamp(32→44px) · Fraunces 600</code></div>
+        <div><span style="font-family:var(--font-display);font-size:var(--fs-h2);font-weight:600">Section heading</span><code>--fs-h2 clamp(24→32px) · Fraunces 600</code></div>
+        <div><span style="font-size:var(--fs-h3);font-weight:700">Card / sub-heading</span><code>--fs-h3 19px · Hind 700</code></div>
+        <div><span style="font-size:var(--fs-body)">Body text for reading, about 68 characters per line at most.</span><code>--fs-body 17px · Hind 400 · line-height 1.6</code></div>
+        <div><span style="font-size:var(--fs-small);color:var(--text-muted)">Secondary text, notes, table cells</span><code>--fs-small 15px</code></div>
+        <div><span class="ds-label">Label · sentence case</span><code>--fs-label 13px · Hind 600 (minimum text size)</code></div>
+        <div><span style="font-size:var(--fs-stat);font-weight:700">$135,980</span><code>--fs-stat clamp(24→30px) · Hind 700, proportional figures</code></div>
+      </div>
+      <h3 class="ds-label" style="margin:var(--sp-6) 0 var(--sp-3)">Color roles (current brand, unchanged)</h3>
+      <div class="ds-swatches">
+        <div><i style="background:var(--paper)"></i><span>--paper · page</span></div>
+        <div><i style="background:var(--surface)"></i><span>--surface · card</span></div>
+        <div><i style="background:var(--surface-2)"></i><span>--surface-2 · raised (new)</span></div>
+        <div><i style="background:var(--text)"></i><span>--text</span></div>
+        <div><i style="background:var(--text-muted)"></i><span>--text-muted</span></div>
+        <div><i style="background:var(--gold)"></i><span>--gold · accent</span></div>
+        <div><i style="background:var(--pos)"></i><span>--pos · growth (new)</span></div>
+        <div><i style="background:var(--line-strong)"></i><span>--line-strong (new)</span></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+<script>
+(function(){
+  /* Source chips: one open at a time, close on outside click / Escape, flip to the right edge if the pop-over would overflow. */
+  var chips = document.querySelectorAll('.md-src');
+  chips.forEach(function(d){
+    d.addEventListener('toggle', function(){
+      if(!d.open) return;
+      chips.forEach(function(o){ if(o !== d) o.open = false; });
+      var pop = d.querySelector('.md-src-pop');
+      d.removeAttribute('data-align');
+      if(pop.getBoundingClientRect().right > document.documentElement.clientWidth - 8) d.setAttribute('data-align','end');
+    });
+  });
+  document.addEventListener('click', function(e){ chips.forEach(function(d){ if(d.open && !d.contains(e.target)) d.open = false; }); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') chips.forEach(function(d){ if(d.open){ d.open = false; d.querySelector('summary').focus(); } }); });
+
+  /* National → state selector (data embedded above; full set would be fetched from JSON). */
+  var sel = document.getElementById('dsGeo'), data = JSON.parse(document.getElementById('dsGeoData').textContent);
+  var fmt = function(n, p){ return (p || '') + n.toLocaleString('en-US'); };
+  sel.addEventListener('change', function(){
+    var r = sel.value === 'us' ? data.us : data.states[+sel.value];
+    document.getElementById('dsGeoMed').textContent = fmt(r.median, '$');
+    document.getElementById('dsGeoMean').textContent = fmt(r.mean, '$');
+    document.getElementById('dsGeoJobs').textContent = fmt(r.jobs);
+  });
+})();
+</script>

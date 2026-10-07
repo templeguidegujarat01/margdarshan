@@ -40,6 +40,11 @@
 {%- assign depth = page.url | append: "x" | split: "/" | size | minus: 2 -%}
 {%- for i in (1..depth) %}{%- assign root = root | append: "../" -%}{%- endfor -%}
 {%- comment -%}
+  404.html is served by GitHub Pages at whatever missing URL was requested (e.g. /us/careers/typo/),
+  so relative links would resolve against that folder. Give it site-absolute links instead.
+{%- endcomment -%}
+{%- if page.url == "/404.html" %}{%- assign root = site.baseurl | append: "/" -%}{%- endif -%}
+{%- comment -%}
   Country edition (see _data/regions.yml). region_id comes from front matter (pages under us/ get
   region: us via _config.yml defaults), else the default edition. R = that edition's settings.
   Region-neutral pages (legal, contact, 404) render every edition's nav and let the saved
@@ -124,7 +129,7 @@
 {% include footer.html col3_heading=page.footer.col3_heading col3_content=col3_content guidance_careers_href=page.footer.careers_href guidance_careers_label=page.footer.careers_label guidance_faq_href=page.footer.faq_href %}
 </div>
 {%- endcapture -%}
-{%- if depth > 0 -%}
+{%- if root != "" -%}
   {%- comment -%} Prefix every relative href/src with root, then undo it for #anchors, absolute and mailto/tel links. {%- endcomment -%}
   {%- assign hr = 'href="' | append: root -%}
   {%- assign sr = 'src="' | append: root -%}

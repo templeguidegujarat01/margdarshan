@@ -1,6 +1,20 @@
 # Margdarshan Global Editions — Architecture & Phase Plan
 
-Status: **Phase 7 complete** (search, structured data, SEO audit). Last updated: 2026-10-08.
+Status: **All 8 phases complete.** Last updated: 2026-10-08.
+
+## Final report (Phase 8)
+
+**India functionality preserved: YES** · **USA region implemented: YES** · **Build/verification passed: YES** (Jekyll is not installed locally; every check renders the real templates with liquidjs and `_config.yml` defaults, as GitHub Pages' Jekyll would)
+
+**Known issues:** (1) The 4 verifier warnings that existed before this project remain (two stub pages without #main, "coming soon" text on the coaching and colleges finders). (2) Sidebar label "Margdarshan USA" (India study-abroad guide) is unchanged until the owner decides on a rename. (3) Some official sites block automated readers (ed.gov, travel.state.gov, NABP, IB, an AAMC cost page); those facts are marked `note:` in `sources.yml` for a manual re-check. (4) Data is a snapshot (BLS May 2025 / 2025–35, checked 2026-10-07/08) — refresh yearly using `sources.yml → bls_vintage`, `scripts/fetch-oews.mjs` and `scripts/check-us-data.mjs`.
+
+**Phase 8 work:** `404.html` now uses site-absolute links (GitHub Pages serves it at any missing URL, e.g. /us/careers/typo/, where relative links broke styling).
+
+**QA matrix (headless Chrome over DevTools Protocol):** 10 pages (India: home, science hub, CSE career, JEE Main exam, colleges finder, About [neutral]; USA: home, high-school hub, nursing career, a missing URL inside /us/) × 9 widths (1920, 1440, 1280, 1024, 820, 768, 430, 390, 375) × light and dark = 180 loads: no horizontal overflow, stylesheet loaded on every page including the /us/ 404, no console errors other than the intended 404 status. Mobile drawer opens, scroll-locks and closes on Escape in both editions.
+
+**India regression (vs. a render snapshot taken before Phase 1):** all 398 India pages still exist; the `<main>` content of 369 India pages is byte-identical (the 28 others are redirect/stub pages without <main>; 404.html changed only to absolute links). Shell differences are exactly: the `data-region` attribute, the region switcher, region JS, the search "USA Edition" filter and same-edition ranking, a JS comment, and (on 7 neutral pages) the hidden USA nav groups.
+
+**Commits:** dcfa5a1 (P1) · 3d3d334 (P2) · 381f296 (P3) · 583d419 (P4) · d78f4cb (P5) · c223a0f + 56a9955 (P6) · 159e69e (P7) · Phase 8 commit.
 
 ## Phase 7 — search and SEO (as built)
 
@@ -182,4 +196,4 @@ Sources that block automated readers (IB, NABP) are marked `note:` in `sources.y
 | **5** ✅ | USA career template + first 10 pathways (tech + engineering) | Yes |
 | **6** ✅ | Remaining 10 pathways (health, law, business, psychology) + licensing pathway blocks | Yes |
 | **7** ✅ | SEO: region-aware breadcrumb root, footer, JSON-LD, search index entries, sitemap additions from real generated URLs | Yes |
-| 8 | QA matrix (1920→375px, light/dark, drawer, switcher, localStorage vs URL), full India regression diff, final report | No |
+| **8** ✅ | QA matrix (1920→375px, light/dark, drawer, switcher, localStorage vs URL), full India regression diff, final report | No |

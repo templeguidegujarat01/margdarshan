@@ -1,0 +1,24 @@
+{%- comment -%}
+  Dated immigration changes, grouped by topic (global-platform Phase 13). From _data/us/immigration.yml:
+  each listed key's name, summary (when show_summary) and dated `changes`, newest first, each with a source chip.
+  Params: keys (comma-separated immigration keys, no spaces), show_summary (true/false).
+{%- endcomment -%}
+{%- assign CH_IM = site.data.us.immigration -%}
+{%- assign ch_keys = include.keys | split: "," -%}
+<div class="md-changes">
+  {%- for k in ch_keys %}
+  {%- assign d = CH_IM[k] %}
+  {%- if d.changes %}
+  <div class="md-changes-topic">
+    <h3>{{ d.name }}</h3>
+    {%- if include.show_summary %}<p class="md-tile-note">{{ d.summary }}</p>{% endif %}
+    <ul class="md-occ">
+      {%- assign ch_sorted = d.changes | sort: "date" | reverse %}
+      {%- for c in ch_sorted %}
+      <li><span><strong>{{ c.date | date: "%-d %b %Y" }}</strong><small>{{ c.text }}</small></span>{% include us-src-chip.html id=c.source align="end" %}</li>
+      {%- endfor %}
+    </ul>
+  </div>
+  {%- endif %}
+  {%- endfor %}
+</div>

@@ -1,0 +1,100 @@
+---
+title: "F-1 Work Rules: On-Campus Jobs, CPT, OPT, STEM OPT, Cap-Gap and H-1B (Checked Oct 2026) | Margdarshan USA"
+description: "What an F-1 student may work, and when: on-campus jobs, CPT, OPT, the STEM OPT extension, the cap-gap extension and the H-1B, plus the 2026 changes (duration of status rule, CPT guidance, $100,000 H-1B payment), each dated and sourced from USCIS, DHS and SEVP."
+og_title: "F-1 Work Rules: CPT, OPT, STEM OPT and H-1B — Checked and Dated"
+og_description: "On-campus jobs to H-1B in order, with the 2026 court rulings and guidance, each with a date and an official source."
+header:
+  faq_href: "#faq"
+breadcrumb:
+  parent_href: "us/international-students/"
+  parent_label: "International Students"
+  current: "Work, OPT and H-1B"
+---
+{%- assign US = site.data.us -%}
+{%- assign IM = US.immigration -%}
+{%- assign SRC = US.sources.list -%}
+{%- comment -%} Work authorization for F-1 students (global-platform Phase 13). All facts from _data/us/immigration.yml. {%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "USA Home", "item": "{{ site.url }}{{ site.baseurl }}/us/" },
+    { "@type": "ListItem", "position": 2, "name": "International Students", "item": "{{ site.url }}{{ site.baseurl }}/us/international-students/" },
+    { "@type": "ListItem", "position": 3, "name": "Work, OPT and H-1B", "item": "{{ site.url }}{{ site.baseurl }}/us/international-students/work-authorization/" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Can I work off campus in my first year on an F-1 visa?", "acceptedAnswer": { "@type": "Answer", "text": "Usually not. On-campus jobs are allowed from the start (up to 20 hours a week in term). CPT normally needs one full academic year first, except in graduate programs that require training right away, and must be a required part of your program." } },
+    { "@type": "Question", "name": "Does a U.S. degree guarantee OPT or an H-1B?", "acceptedAnswer": { "@type": "Answer", "text": "No. OPT and STEM OPT have their own eligibility rules and applications, and the H-1B depends on an employer, an annual cap and a selection process." } },
+    { "@type": "Question", "name": "Is there a four-year limit on F-1 status?", "acceptedAnswer": { "@type": "Answer", "text": "A 2026 DHS rule would admit F-1 students for a fixed period of at most four years, but a federal court blocked it on Sept. 14, 2026, before it took effect. Until that changes, students are still admitted for duration of status. The government has appealed, so check DHS before you plan around either rule." } }
+  ]
+}
+</script>
+<main id="main" class="md-page">
+
+  <div class="container md-page-top">
+    <header class="md-answer">
+      <span class="eyebrow">USA · International students</span>
+      <h1>Working in the U.S. as an F-1 student</h1>
+      <p class="md-answer-lede">Your degree and your permission to work are separate. Each kind of work below has its own rules and paperwork, and none is guaranteed by a degree. Checked {{ IM.checked | date: "%-d %b %Y" }}; these rules are changing now, so confirm with your school's DSO and USCIS.</p>
+      <div class="md-stats">
+        <div class="md-stat"><span class="md-stat-label">On-campus jobs in term</span><span class="md-stat-value is-text">Up to 20 hrs/week</span></div>
+        <div class="md-stat"><span class="md-stat-label">OPT</span><span class="md-stat-value is-text">Up to 12 months</span><span class="md-stat-note">per degree level</span></div>
+        <div class="md-stat"><span class="md-stat-label">STEM OPT extension</span><span class="md-stat-value is-text">+24 months</span><span class="md-stat-note">STEM degree list, E-Verify employer</span></div>
+        <div class="md-stat"><span class="md-stat-label">H-1B cap each year</span><span class="md-stat-value is-text">65,000 + 20,000</span><span class="md-stat-note">the 20,000 for U.S. master's or higher</span></div>
+      </div>
+      <div class="md-answer-actions">
+        <a href="#route" class="btn btn-primary">Work options in order</a>
+        <a href="#changes" class="md-textlink">What changed in 2026</a>
+      </div>
+    </header>
+  </div>
+
+  <div class="container">{% include us-intl-subnav.html current="work" %}</div>
+
+  <section class="md-sec" id="route" aria-labelledby="route-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="route-h">Work options, in the order you meet them</h2><p>From your first term to a long-term work visa. Your school's Designated School Official (DSO) handles on-campus work, CPT and the OPT recommendation; USCIS decides OPT, STEM OPT and H-1B applications.</p></div>
+      {%- assign work_keys = "on_campus,cpt,opt,stem_opt,cap_gap,h1b" | split: "," %}
+      <ol class="md-road md-work">
+        {%- for k in work_keys %}
+        {%- assign d = IM[k] %}
+        <li data-kind="{% if d.stage == 'longer' %}license{% elsif d.stage == 'after' %}gate{% else %}stage{% endif %}" id="{{ k | replace: '_', '-' }}"><div class="md-road-body">
+          <span class="md-road-tag">{% if d.stage == "during" %}While you study{% elsif d.stage == "after" %}After you graduate{% else %}Longer term{% endif %}</span>
+          <strong>{{ d.name }}</strong>
+          <p>{{ d.summary }}</p>
+          {%- if d.facts %}<ul class="md-list">{% for f in d.facts %}<li>{{ f }}</li>{% endfor %}</ul>{% endif %}
+          <div class="md-work-src">{% include us-src-chip.html id=d.source %}{% if d.source_page_updated %}<span class="md-tile-note">Source page updated {{ d.source_page_updated | date: "%-d %b %Y" }}</span>{% endif %}</div>
+        </div></li>
+        {%- endfor %}
+      </ol>
+    </div>
+  </section>
+
+  <section class="md-sec md-sec-alt" id="changes" aria-labelledby="changes-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="changes-h">What changed in 2026</h2><p>Dated, newest first. Two of these rules are blocked by courts for now and the government is appealing, so the situation can change within weeks.</p></div>
+      {% include us-intl-changes.html keys="ds_rule,cpt,h1b" show_summary=true %}
+      <p class="md-tile-note">Fixed admission period rule, if it takes effect: {{ IM.ds_rule.facts | join: " " }}</p>
+    </div>
+  </section>
+
+  <section class="md-sec" id="faq" aria-labelledby="faq-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="faq-h">Questions</h2></div>
+      <div class="faq-list">
+        <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">Can I work off campus in my first year on an F-1 visa?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">Usually not. On-campus jobs are allowed from the start (up to 20 hours a week in term). CPT normally needs one full academic year first, except in graduate programs that require training right away, and must be a required part of your program.</div></div>
+        <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">Does a U.S. degree guarantee OPT or an H-1B?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">No. OPT and STEM OPT have their own eligibility rules and applications, and the H-1B depends on an employer, an annual cap and a selection process.</div></div>
+        <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">Is there a four-year limit on F-1 status?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">A 2026 DHS rule would admit F-1 students for a fixed period of at most four years, but a federal court blocked it on Sept. 14, 2026, before it took effect. Until that changes, students are still admitted for duration of status. The government has appealed, so check DHS before you plan around either rule.</div></div>
+      </div>
+      <div class="md-datanote">{{ IM.disclaimer }} Checked {{ IM.checked | date: "%-d %b %Y" }}; next full review by {{ IM.review_by | date: "%-d %b %Y" }}. Every fact above has a source chip with the date it was checked. <a href="us/methodology/">How Margdarshan sources its data →</a></div>
+    </div>
+  </section>
+
+</main>

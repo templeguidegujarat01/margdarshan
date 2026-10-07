@@ -59,7 +59,16 @@ for (const grp of ['high_school', 'professional_admission']) {
 for (const [id, d] of Object.entries(degrees.levels)) needSrc(`degrees.${id}`, d.source);
 (degrees.high_school.sources || []).forEach((s) => needSrc('degrees.high_school', s));
 
-for (const k of ['f1', 'opt', 'stem_opt', 'h1b']) {
+// Immigration (Phase 13): the whole file is re-checked by review_by (court cases and guidance move fast);
+// items on the work-authorization timeline need a stage; the work-authorization page must exist.
+const immToday = new Date().toISOString().slice(0, 10);
+const immIso = (d) => (d instanceof Date ? d.toISOString().slice(0, 10) : String(d));
+if (!isDate(imm.checked) || !isDate(imm.review_by)) err('immigration', 'needs checked and review_by dates');
+else if (immIso(imm.review_by) < immToday) err('immigration', `review_by ${immIso(imm.review_by)} has passed: re-check USCIS, SEVP and the court cases, then update`);
+for (const k of ['on_campus', 'cpt', 'opt', 'stem_opt', 'cap_gap', 'h1b']) if (!imm[k] || !['during', 'after', 'longer'].includes(imm[k].stage)) err(`immigration.${k}`, 'missing or bad stage (during | after | longer)');
+if (!fs.existsSync(path.join(root, 'us/international-students/work-authorization/index.html'))) err('immigration', 'us/international-students/work-authorization/index.html is missing');
+for (const k of ['f1', 'on_campus', 'cpt', 'opt', 'stem_opt', 'cap_gap', 'h1b', 'ds_rule']) {
+  if (!imm[k]) { err(`immigration.${k}`, 'missing'); continue; }
   needSrc(`immigration.${k}`, imm[k].source);
   if (!isDate(imm[k].as_of)) err(`immigration.${k}`, 'missing as_of');
   (imm[k].changes || []).forEach((c, i) => { needSrc(`immigration.${k}.changes[${i}]`, c.source); if (!isDate(c.date)) err(`immigration.${k}.changes[${i}]`, 'bad date'); });

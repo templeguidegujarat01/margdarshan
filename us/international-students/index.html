@@ -12,6 +12,8 @@ breadcrumb:
 {%- assign I = US.guides.international -%}
 {%- assign IM = US.immigration -%}
 {%- assign SRC = US.sources.list -%}
+{%- comment -%} International students hub (global-platform Phase 13): admission to arrival, English and credentials,
+  a summary of work rules and 2026 changes (detail on work-authorization/), Open Doors numbers. {%- endcomment -%}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -30,125 +32,89 @@ breadcrumb:
     { "@type": "Question", "name": "Can I work while studying in the U.S. on an F-1 visa?", "acceptedAnswer": { "@type": "Answer", "text": "On-campus jobs are allowed up to 20 hours a week while school is in session and full time during breaks. Off-campus work needs separate authorization such as CPT or OPT." } },
     { "@type": "Question", "name": "Does a U.S. degree guarantee OPT or an H-1B?", "acceptedAnswer": { "@type": "Answer", "text": "No. OPT and STEM OPT have their own eligibility rules and applications, and the H-1B depends on an employer, an annual cap and a selection process." } },
     { "@type": "Question", "name": "How early can I get my F-1 visa and travel?", "acceptedAnswer": { "@type": "Answer", "text": "An F-1 visa can be issued up to 365 days before your program start date, but you may enter the U.S. no more than 30 days before that date." } },
+    { "@type": "Question", "name": "Is there a four-year limit on F-1 status?", "acceptedAnswer": { "@type": "Answer", "text": "A 2026 DHS rule would admit F-1 students for a fixed period of at most four years, but a federal court blocked it on Sept. 14, 2026, before it took effect. Students are still admitted for duration of status while the government appeals." } },
     { "@type": "Question", "name": "Which English test do U.S. colleges accept?", "acceptedAnswer": { "@type": "Answer", "text": "Each college sets its own rules. Many accept tests such as TOEFL, IELTS or Duolingo, but minimum scores and accepted tests differ, so check each college." } }
   ]
 }
 </script>
-<main id="main">
+<main id="main" class="md-page">
 
-  <section class="page-hero" aria-labelledby="hero-heading">
-    <svg class="page-hero-bg" viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M-50 340 C 220 300, 320 380, 500 300 S 780 200, 980 260 1150 160 1300 200" stroke="#E8A33D" stroke-width="1.4" fill="none" opacity=".3"/>
-    </svg>
-    <div class="container page-hero-inner">
-      <span class="eyebrow">USA Edition · International Students</span>
-      <h1 id="hero-heading">Coming to the U.S. to study</h1>
-      <div class="meta-row">
-        <span>I-20 to F-1 visa</span><span>·</span><span>Work, OPT, H-1B</span><span>·</span><span>Checked {{ I.as_of | date: "%b %Y" }}</span>
+  <div class="container md-page-top">
+    <header class="md-answer">
+      <span class="eyebrow">USA · International students</span>
+      <h1>Coming to the U.S. to study</h1>
+      <p class="md-answer-lede">Two journeys run side by side: your education (admission, degree) and your immigration status (I-20, F-1 visa, permission to work). This page keeps them apart, uses government sources for the rules and dates every detail that changes.</p>
+      <div class="md-stats">
+        <div class="md-stat"><span class="md-stat-label">International students, {{ I.numbers.year }}</span><span class="md-stat-value">{% include fmt-num.html n=I.numbers.total %}</span><span class="md-stat-note">Open Doors</span></div>
+        <div class="md-stat"><span class="md-stat-label">From India (largest group)</span><span class="md-stat-value">{% include fmt-num.html n=I.numbers.india %}</span></div>
+        <div class="md-stat"><span class="md-stat-label">I-901 SEVIS fee (F-1)</span><span class="md-stat-value">$350</span></div>
+        <div class="md-stat"><span class="md-stat-label">On-campus work in term</span><span class="md-stat-value is-text">Up to 20 hrs/week</span></div>
       </div>
-      <p>Two separate journeys run side by side: your education (admission, degree) and your immigration status (I-20, F-1, work permission). This page keeps them apart, uses only government sources for the rules, and dates every changing detail.</p>
-      <div class="page-hero-ctas">
-        <a href="#steps" class="btn btn-primary btn-inpage-jump">Step-by-step: admission to arrival</a>
-        <a href="#work" class="btn btn-ghost btn-inpage-jump">Work, OPT and H-1B</a>
+      <div class="md-answer-actions">
+        <a href="#steps" class="btn btn-primary">Admission to arrival</a>
+        <a href="us/international-students/work-authorization/" class="md-textlink">Work, OPT and H-1B →</a>
       </div>
-      <div class="quickfacts">
-        <div class="qf-card"><span>International students, {{ I.numbers.year }}</span><strong>{% include fmt-num.html n=I.numbers.total %}</strong></div>
-        <div class="qf-card"><span>From India (largest group)</span><strong>{% include fmt-num.html n=I.numbers.india %}</strong></div>
-        <div class="qf-card"><span>I-901 SEVIS fee (F-1)</span><strong>$350</strong></div>
-        <div class="qf-card"><span>On-campus work in term</span><strong>Up to 20 hrs/week</strong></div>
-      </div>
-    </div>
-  </section>
-
-  <div class="quicknav-bar">
-    <div class="container">
-      <nav class="quicknav" aria-label="Section navigation">
-        <a href="#steps">Steps</a>
-        <a href="#credentials">English &amp; Credentials</a>
-        <a href="#work">Work, OPT, H-1B</a>
-        <a href="#h1b-changes">H-1B Changes</a>
-        <a href="#numbers">The Numbers</a>
-        <a href="#faq">FAQs</a>
-      </nav>
-    </div>
+    </header>
   </div>
 
-  <section class="block" id="steps" aria-labelledby="steps-heading">
+  <div class="container">{% include us-intl-subnav.html current="overview" %}</div>
+
+  <section class="md-sec" id="steps" aria-labelledby="steps-h">
     <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">Step by step</span>
-        <h2 id="steps-heading">From admission to your first day</h2>
-      </div>
-      <ol class="rflow reveal" style="--rflow-n:3">
+      <div class="md-sec-head"><h2 id="steps-h">From admission to your first day</h2><p>In this order. Visa fees and interview waits are set by the State Department and differ by country; check your U.S. embassy or consulate.</p></div>
+      <ol class="md-road is-short" style="--n:{{ I.steps.size }}">
         {%- for s in I.steps %}
-        <li class="rflow-step{% if forloop.last %} is-goal{% endif %}"><span class="rflow-tag">Step {{ forloop.index }}</span><h3>{{ s.step }}</h3><p>{{ s.text }}</p></li>
+        <li data-kind="{% if forloop.last %}license{% elsif s.step contains 'visa' %}gate{% else %}stage{% endif %}"><div class="md-road-body"><span class="md-road-tag">Step {{ forloop.index }}</span><strong>{{ s.step }}</strong><p>{{ s.text }}</p></div></li>
         {%- endfor %}
       </ol>
-      <p class="table-note">Sources: {% for s in I.step_sources %}<a href="{{ SRC[s].url }}">{{ SRC[s].name }}</a>{% unless forloop.last %} · {% endunless %}{% endfor %}. Visa application fees and interview wait times are set by the State Department and vary by country; check your U.S. embassy or consulate.</p>
+      <div class="md-datanote">Checked {{ I.as_of | date: "%-d %b %Y" }}. Sources:{% for s in I.step_sources %} {% include us-src-chip.html id=s %}{% endfor %}</div>
     </div>
   </section>
 
-  <section class="block block-alt" id="credentials" aria-labelledby="credentials-heading">
+  <section class="md-sec md-sec-alt" id="credentials" aria-labelledby="credentials-h">
     <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">Applying from abroad</span>
-        <h2 id="credentials-heading">English tests and credential evaluation</h2>
+      <div class="md-sec-head"><h2 id="credentials-h">English tests and credential evaluation</h2><p>Each college sets these rules for itself, so check every college's international admissions page.</p></div>
+      <div class="md-tiles3">
+        <div class="md-tile"><h3>English proficiency</h3><p class="md-tile-note">Each college decides which tests it accepts (for example TOEFL, IELTS or Duolingo) and the minimum scores, and some waive the requirement for certain applicants.</p></div>
+        <div class="md-tile"><h3>Credential evaluation</h3><p class="md-tile-note">{{ I.credential_eval }}</p><a class="md-tile-link" href="{{ SRC[I.credential_source].url }}">NACES members →</a></div>
+        <div class="md-tile"><h3>Admission tests</h3><p class="md-tile-note">The same testing policies apply to international applicants; some colleges require the SAT or ACT, others do not.</p><a class="md-tile-link" href="us/tests/#policies">Real college policies →</a></div>
       </div>
-      <div class="chip-grid us-links reveal">
-        <div class="item"><strong>English proficiency</strong>Each college decides which tests it accepts and the minimum scores, and some waive the requirement for certain applicants. Check every college's international admissions page.</div>
-        <div class="item"><strong>Credential evaluation</strong>{{ I.credential_eval }} <a href="{{ SRC[I.credential_source].url }}">NACES members</a></div>
-        <div class="item"><strong>Admission tests</strong>The same testing policies apply to international applicants; some colleges require the SAT or ACT, others do not. <a href="us/tests/#policies">See real college policies</a></div>
-      </div>
-      <p class="table-note">From India? The India Edition has a detailed <a href="study-abroad/usa.html">Study in the USA guide</a> with timelines, costs and scholarships for Indian students.</p>
+      <p class="md-tile-note">From India? The India Edition has a detailed <a href="study-abroad/usa.html">Study in the USA guide</a> with timelines, costs and scholarships for Indian students.</p>
     </div>
   </section>
 
-  <section class="block" id="work" aria-labelledby="work-heading">
+  <section class="md-sec" id="work" aria-labelledby="work-h">
     <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">Working in the U.S.</span>
-        <h2 id="work-heading">Work rules, OPT, STEM OPT and H-1B</h2>
-        <p>Your degree is your education pathway. Permission to work is a separate immigration question, and none of these is guaranteed by a degree.</p>
-      </div>
-      <div class="chip-grid us-links reveal">
-        <div class="item"><strong>On-campus jobs</strong>Up to 20 hours a week while school is in session; full time during breaks and annual vacation. <a href="{{ SRC.ice_employment.url }}">ICE</a></div>
-        {%- assign im_keys = "opt,stem_opt,h1b" | split: "," %}
-        {%- for k in im_keys %}
-        {%- assign d = IM[k] %}
-        <div class="item"><strong>{{ d.name }}</strong>{{ d.summary }} {{ d.facts | join: " " }} <a href="{{ SRC[d.source].url }}">USCIS</a></div>
-        {%- endfor %}
-      </div>
-    </div>
-  </section>
-
-  <section class="block block-alt" id="h1b-changes" aria-labelledby="h1b-changes-heading">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">Changing fast</span>
-        <h2 id="h1b-changes-heading">H-1B changes since 2025</h2>
-        <p>Dated, in order. The situation may have moved since the last check — always confirm on USCIS.</p>
-      </div>
-      <ul class="us-sources">
-        {%- for c in IM.h1b.changes %}
-        <li><span class="us-asof">{{ c.date | date: "%Y-%m-%d" }}</span> — {{ c.text }} <a href="{{ SRC[c.source].url }}">Source</a></li>
+      <div class="md-sec-head"><h2 id="work-h">Working while you study and after</h2><p>Permission to work is an immigration question, separate from your degree, and none of these is guaranteed.</p></div>
+      <ul class="md-occ">
+        {%- assign work_keys = "on_campus,cpt,opt,stem_opt,cap_gap,h1b" | split: "," %}
+        {%- for k in work_keys %}{%- assign d = IM[k] %}
+        <li><span><strong><a href="us/international-students/work-authorization/#{{ k | replace: '_', '-' }}">{{ d.name }}</a></strong><small>{% if d.stage == "during" %}While you study{% elsif d.stage == "after" %}After you graduate{% else %}Longer term{% endif %} · {{ d.summary }}</small></span></li>
         {%- endfor %}
       </ul>
-      <div class="note" style="margin-top:1.4rem;">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
-        <span>{{ IM.disclaimer }} Last checked {{ IM.h1b.as_of | date: "%Y-%m-%d" }}.</span>
-      </div>
+      <a class="md-tile-link" href="us/international-students/work-authorization/">Full rules, limits and deadlines →</a>
+    </div>
+  </section>
+
+  <section class="md-sec md-sec-alt" id="h1b-changes" aria-labelledby="changes-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="changes-h">Rules changing now</h2><p>Checked {{ IM.checked | date: "%-d %b %Y" }}. Court cases and guidance are moving fast; confirm with USCIS and your DSO.</p></div>
+      <ul class="md-occ">
+        {%- assign ch_keys = "ds_rule,cpt,h1b" | split: "," %}
+        {%- for k in ch_keys %}{%- assign d = IM[k] %}{%- assign ch_last = d.changes | sort: "date" | last %}
+        <li><span><strong>{{ d.name }}</strong><small>{{ ch_last.date | date: "%-d %b %Y" }}: {{ ch_last.text }}</small></span>{% include us-src-chip.html id=ch_last.source align="end" %}</li>
+        {%- endfor %}
+      </ul>
+      <a class="md-tile-link" href="us/international-students/work-authorization/#changes">Every dated change →</a>
     </div>
   </section>
 
   {%- assign N = I.numbers %}
-  <section class="block" id="numbers" aria-labelledby="numbers-heading">
+  <section class="md-sec" id="numbers" aria-labelledby="numbers-h">
     <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">Open Doors {{ N.year }}</span>
-        <h2 id="numbers-heading">International students in the U.S. by the numbers</h2>
-      </div>
+      <div class="md-sec-head"><h2 id="numbers-h">International students by the numbers</h2><p>Open Doors {{ N.year }}. {{ N.note }}</p></div>
       <div class="table-wrap">
-        <table class="table-simple">
+        <table class="md-table">
           <thead><tr><th>Group</th><th>Students ({{ N.year }})</th></tr></thead>
           <tbody>
             <tr><td><strong>All international students</strong></td><td>{% include fmt-num.html n=N.total %}</td></tr>
@@ -160,40 +126,22 @@ breadcrumb:
           </tbody>
         </table>
       </div>
-      <p class="table-note">{{ N.note }} <a class="source-link" href="{{ SRC[N.source].url }}">Source: {{ SRC[N.source].publisher }}</a></p>
+      <div class="md-datanote">Source: {% include us-src-chip.html id=N.source %}</div>
     </div>
   </section>
 
-  <section class="block block-alt" id="faq" aria-labelledby="faq-heading">
+  <section class="md-sec md-sec-alt" id="faq" aria-labelledby="faq-h">
     <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">Good to know</span>
-        <h2 id="faq-heading">Frequently asked questions</h2>
-      </div>
-      <div class="faq-list reveal">
+      <div class="md-sec-head"><h2 id="faq-h">Questions</h2></div>
+      <div class="faq-list">
         <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">Can I work while studying in the U.S. on an F-1 visa?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">On-campus jobs are allowed up to 20 hours a week while school is in session and full time during breaks. Off-campus work needs separate authorization such as CPT or OPT.</div></div>
         <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">Does a U.S. degree guarantee OPT or an H-1B?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">No. OPT and STEM OPT have their own eligibility rules and applications, and the H-1B depends on an employer, an annual cap and a selection process.</div></div>
         <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">How early can I get my F-1 visa and travel?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">An F-1 visa can be issued up to 365 days before your program start date, but you may enter the U.S. no more than 30 days before that date.</div></div>
+        <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">Is there a four-year limit on F-1 status?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">A 2026 DHS rule would admit F-1 students for a fixed period of at most four years, but a federal court blocked it on Sept. 14, 2026, before it took effect. Students are still admitted for duration of status while the government appeals.</div></div>
         <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">Which English test do U.S. colleges accept?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">Each college sets its own rules. Many accept tests such as TOEFL, IELTS or Duolingo, but minimum scores and accepted tests differ, so check each college.</div></div>
       </div>
+      <div class="md-datanote">{{ IM.disclaimer }} <a href="us/methodology/">How Margdarshan sources its data →</a> · Related: <a href="us/college/">College &amp; money</a> · <a href="us/tests/">Tests</a> · <a href="us/careers/">Career pathways</a></div>
     </div>
   </section>
-
-  <section class="block" aria-labelledby="related-heading">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">Keep going</span>
-        <h2 id="related-heading">Next steps</h2>
-      </div>
-      <div class="related-grid reveal">
-        <a class="related-card" href="us/college/"><strong>College &amp; Money</strong><span>Degrees and costs</span></a>
-        <a class="related-card" href="us/tests/"><strong>Tests</strong><span>SAT, ACT, AP</span></a>
-        <a class="related-card" href="us/careers/"><strong>Career Pathways</strong><span>20 fields with BLS data</span></a>
-        <a class="related-card" href="study-abroad/usa.html"><strong>From India?</strong><span>Study in the USA guide</span></a>
-      </div>
-    </div>
-  </section>
-
-  {% include us-sources.html ids="dhs_i20,ice_sevis_fee,ice_employment,uscis_opt,uscis_stem_opt,uscis_h1b,uscis_h1b_proclamation,fr_h1b_weighted,naces,open_doors_2025" bg="alt" %}
 
 </main>

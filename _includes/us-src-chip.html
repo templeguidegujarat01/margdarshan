@@ -1,0 +1,7 @@
+{%- comment -%}
+  One source chip (md-src) for a source id in _data/us/sources.yml (global-platform Phase 13).
+  Params: id (source id), align ("end" to open the popover to the left). Renders nothing for an unknown id;
+  scripts/check-us-data.mjs reports unknown ids.
+{%- endcomment -%}
+{%- assign CS = site.data.us.sources.list[include.id] -%}
+{%- if CS %}<details class="md-src"{% if include.align %} data-align="{{ include.align }}"{% endif %}><summary>{{ CS.short | default: CS.publisher }}</summary><div class="md-src-pop"><strong>{{ CS.name }}</strong>{{ CS.publisher }}<dl><dt>Checked</dt><dd>{{ CS.accessed | date: "%-d %b %Y" }}</dd></dl>{% if CS.note %}<p>{{ CS.note }}</p>{% endif %}<a href="{{ CS.url }}">View source</a></div></details>{% endif -%}

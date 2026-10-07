@@ -2,6 +2,13 @@
 # pathway). USCIS is the authority. These rules change often: every item has
 # `as_of`; pages must show that date and link to USCIS, and must never imply a
 # degree guarantees OPT, STEM OPT or an H-1B.
+#
+# Phase 13: the whole file is re-checked by `review_by`; check-us-data.mjs fails after that date,
+# because court cases and agency guidance here move within weeks. `stage` places an item on the
+# work-authorization timeline (during = while studying, after = after graduation, longer = beyond OPT).
+
+checked: 2026-10-07
+review_by: 2026-11-07
 
 disclaimer: "Immigration rules change. This is general information, not legal advice. Always confirm with USCIS, your school's Designated School Official (DSO) and, where needed, an immigration attorney."
 
@@ -11,8 +18,33 @@ f1:
   source: uscis_opt
   as_of: 2026-10-07
 
+on_campus:
+  name: "On-campus jobs"
+  stage: during
+  summary: "Work for your school, or for a business on campus that serves students, without separate permission from USCIS."
+  facts:
+    - "No more than 20 hours a week while school is in session; full time during breaks and annual vacation."
+  source: ice_employment
+  as_of: 2026-10-07
+
+cpt:
+  name: "Curricular Practical Training (CPT)"
+  stage: during
+  summary: "Training that is a required part of your program, such as a required internship or practicum, directly related to your major."
+  facts:
+    - "Authorized by your school's Designated School Official (DSO) in SEVIS, not by USCIS."
+    - "Usually after one full academic year of full-time study; graduate programs that require training right away are an exception."
+    - "Part time is 20 hours a week or less; full time is more than 20. Twelve months or more of full-time CPT ends your eligibility for OPT."
+  changes:
+    - date: 2026-08-12
+      text: "SEVP told schools to authorize CPT only when the training is integral to the curriculum: only if the degree could not be completed without it and the work is required of all students in that degree. Schools that misuse CPT risk losing SEVP certification."
+      source: ice_bcm_2608_01
+  source: sits_cpt
+  as_of: 2026-10-07
+
 opt:
   name: "Optional Practical Training (OPT)"
+  stage: after
   summary: "Temporary employment directly related to an F-1 student's major."
   facts:
     - "Up to 12 months per degree level."
@@ -24,17 +56,29 @@ opt:
 
 stem_opt:
   name: "STEM OPT extension"
+  stage: after
   summary: "A 24-month extension of post-completion OPT."
   facts:
     - "Degree (bachelor's, master's or doctoral) must be on the DHS STEM Designated Degree Program List and from an accredited, SEVP-certified school."
     - "Employer must be enrolled in E-Verify and in good standing."
     - "File Form I-765 up to 90 days before current OPT ends."
+    - "Unemployment limit: up to 90 days during post-completion OPT, plus 60 more days with the STEM extension (150 in total)."
   source: uscis_stem_opt
   source_page_updated: 2026-01-30
   as_of: 2026-10-07
 
+cap_gap:
+  name: "Cap-gap extension"
+  stage: after
+  summary: "Bridges the gap between OPT and an H-1B that starts on October 1."
+  facts:
+    - "If an employer files an H-1B cap petition for you on time while you are in F-1 status, your F-1 status and post-completion OPT can be extended, typically until April 1 of the following year (the end date moved from Oct. 1 to April 1 starting with the FY 2026 H-1B cap)."
+  source: sits_cap_gap
+  as_of: 2026-10-07
+
 h1b:
   name: "H-1B specialty occupation"
+  stage: longer
   summary: "Employer-sponsored work status for jobs that require at least a bachelor's degree (or equivalent) in a directly related field."
   facts:
     - "Annual cap: 65,000, plus 20,000 for people with a U.S. master's degree or higher."
@@ -55,4 +99,22 @@ h1b:
       source: uscis_h1b_proclamation
   source: uscis_h1b
   source_page_updated: 2026-09-21
+  as_of: 2026-10-07
+
+ds_rule:
+  name: "Fixed admission period rule (ending “duration of status”)"
+  summary: "F-1 students are admitted for “duration of status”: as long as they keep studying full time and follow the rules. A 2026 DHS rule would replace this with a fixed period. A federal court has blocked it, so duration of status still applies."
+  facts:
+    - "Under the rule, F-1 students would be admitted for the program length on the I-20, at most four years, plus 30 days to arrive and 30 days to leave. Staying longer would need an extension of stay from USCIS or a new admission after travel."
+  changes:
+    - date: 2026-07-17
+      text: "DHS published the final rule, to take effect on Sept. 15, 2026."
+      source: sits_ds_rule
+    - date: 2026-09-14
+      text: "The U.S. District Court for the District of Massachusetts blocked the rule nationwide the day before it was to take effect, in a case brought by NAFSA, the Presidents' Alliance and others."
+      source: nafsa_ds
+    - date: 2026-09-30
+      text: "The government appealed to the First Circuit. The rule stays blocked during the appeal unless a court says otherwise."
+      source: nafsa_ds
+  source: sits_ds_rule
   as_of: 2026-10-07

@@ -61,6 +61,13 @@ move states between groups, then set `checked` to today and `review_by` about th
 map is drawn in the browser; read the state colours with headless Chrome and match them to the map legend.
 PSYPACT blocks automated readers, so it stays a link only.
 
+**Immigration** (`immigration.yml`, monthly while court cases are open). The file has `checked` and
+`review_by` (first: 2026-11-07); the checker fails once `review_by` has passed. Re-check the USCIS OPT,
+STEM OPT and H-1B pages, the USCIS $100,000-payment alert, Study in the States (CPT, cap-gap, the fixed
+admission period rule) and new SEVP broadcast messages (ice.gov/sevis), plus the duration-of-status case
+(D. Mass., appeal in the First Circuit). Add each development as a dated `changes` entry with its source,
+then move `checked` and `review_by` forward.
+
 ## 6. Before pushing
 
 ```

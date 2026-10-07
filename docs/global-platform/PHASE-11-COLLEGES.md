@@ -67,6 +67,16 @@ accounting 1,298 · law 210 · medicine 182 · dentistry 65 · AI 66 · … (all
 - **Caught and fixed:** "Show more" stayed visible with 0 results (`.btn` display overrode `hidden`); a
   double parenthesis in the lede; the label "Psychology, general".
 
+## Production incident (fixed)
+
+The first Phase 11 push (`c8438d0`) **failed the GitHub Pages build**. The live site kept serving Phase 10,
+so nothing broke for visitors, but the new pages were 404 for about 20 minutes. Cause: an include parameter
+with a bracket expression (`{% include fmt-num.html n=CS.by_cip[c.code] %}`). Jekyll 3 / Liquid 4 rejects
+it, while the local liquidjs renderer accepted it. Fix (`727774c`): assign the value to a variable first.
+Prevention: `scripts/verify-site.mjs` now lints every `include` against Jekyll's own parameter syntax
+(tested: it flags the old line). After every push, the Pages run is checked through the public GitHub API
+(`/repos/<owner>/<repo>/actions/runs` → conclusion `success`) before reporting a phase as live.
+
 ## Quality gate
 
 1. **Researched:** IPEDS file availability and dictionary, CIP 2020 codes against the crosswalk, accreditor

@@ -356,6 +356,10 @@
         <li><a href="{% if rp.live %}us/careers/{{ rp.slug }}/{% else %}us/careers/#path-{{ rp.slug }}{% endif %}"><strong>{{ rp.title }}</strong><span>Median {% include fmt-num.html n=ro.pay prefix="$" %}</span></a></li>
         {%- endfor %}
       </ul>
+      {%- assign cmp_n = 0 %}{%- for cp in US.compare %}{% if cp[1].a == P.slug or cp[1].b == P.slug %}{% assign cmp_n = cmp_n | plus: 1 %}{% endif %}{% endfor %}
+      {%- if cmp_n > 0 %}
+      <p class="md-tile-note md-compare-links">Compare:{% assign cmp_i = 0 %}{% for cp in US.compare %}{% if cp[1].a == P.slug or cp[1].b == P.slug %}{% if cmp_i > 0 %} ·{% endif %}{% assign cmp_i = cmp_i | plus: 1 %} <a href="us/compare/{{ cp[0] }}/">{{ cp[1].question | remove: "?" | replace: " or ", " vs " }}</a>{% endif %}{% endfor %}</p>
+      {%- endif %}
       <div class="md-datanote">Data: BLS wages {{ V.wage_ref }}, projections {{ V.projection_period }}; O*NET work data (CC BY 4.0). Checked {{ PP.last_reviewed | date: "%-d %b %Y" }}. <a href="us/methodology/">How Margdarshan sources its data →</a></div>
     </div>
   </section>

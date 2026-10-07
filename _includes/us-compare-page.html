@@ -1,0 +1,136 @@
+{%- comment -%}
+  USA comparison page (global-platform Phase 14). Page stub: us/compare/<id>/index.html → `compare: <id>`.
+  The pair and takeaway come from _data/us/compare.yml; every table row is built from pathways.yml,
+  pathway_pages.yml, occupations.yml, licenses.yml, accreditors.yml and colleges_summary.json. A row whose
+  two cells are identical is shown once, across both columns. check-us-data.mjs builds the same rows and
+  requires at least 5 that differ (IA rule R9).
+{%- endcomment -%}
+{%- assign US = site.data.us -%}
+{%- assign SRC = US.sources.list -%}
+{%- assign V = US.sources.bls_vintage -%}
+{%- assign CMP = US.compare[page.compare] -%}
+{%- assign PA = US.pathways.list | where: "slug", CMP.a | first -%}
+{%- assign PB = US.pathways.list | where: "slug", CMP.b | first -%}
+{%- assign PPA = US.pathway_pages[CMP.a] -%}
+{%- assign PPB = US.pathway_pages[CMP.b] -%}
+{%- assign OA = US.occupations[PA.lead] -%}
+{%- assign OB = US.occupations[PB.lead] -%}
+{%- assign CA = US.colleges_summary.pathways[CMP.a] -%}
+{%- assign CB = US.colleges_summary.pathways[CMP.b] -%}
+{%- assign AY = US.colleges_summary.academic_year -%}
+{%- assign TA = PA.title | split: " &" | first -%}
+{%- assign TB = PB.title | split: " &" | first -%}
+
+{%- comment -%} Cells, one capture per side. {%- endcomment -%}
+{%- capture a_cip %}{% for c in PA.cip %}{{ c.label }} (CIP {{ c.code }}){% unless forloop.last %} · {% endunless %}{% endfor %}{% endcapture -%}
+{%- capture b_cip %}{% for c in PB.cip %}{{ c.label }} (CIP {{ c.code }}){% unless forloop.last %} · {% endunless %}{% endfor %}{% endcapture -%}
+{%- assign a_n = CA.institutions -%}{%- assign a_ba = CA.totals.bachelor | default: 0 -%}
+{%- assign b_n = CB.institutions -%}{%- assign b_ba = CB.totals.bachelor | default: 0 -%}
+{%- capture a_col %}{% include fmt-num.html n=a_n %} colleges · {% include fmt-num.html n=a_ba %} bachelor's degrees{% endcapture -%}
+{%- capture b_col %}{% include fmt-num.html n=b_n %} colleges · {% include fmt-num.html n=b_ba %} bachelor's degrees{% endcapture -%}
+{%- capture a_pay %}{% include fmt-num.html n=OA.pay prefix="$" %}{% endcapture -%}
+{%- capture b_pay %}{% include fmt-num.html n=OB.pay prefix="$" %}{% endcapture -%}
+{%- capture a_jobs %}{% include fmt-num.html n=OA.jobs %} jobs · {{ OA.outlook_pct }}% growth ({{ OA.outlook_label | downcase }}){% endcapture -%}
+{%- capture b_jobs %}{% include fmt-num.html n=OB.jobs %} jobs · {{ OB.outlook_pct }}% growth ({{ OB.outlook_label | downcase }}){% endcapture -%}
+{%- assign a_other = "" -%}{%- for o in PA.occupations -%}{%- if o != PA.lead -%}{%- assign a_other = a_other | append: US.occupations[o].title | append: "^" -%}{%- endif -%}{%- endfor -%}
+{%- assign a_other = a_other | split: "^" | join: ", " -%}
+{%- assign b_other = "" -%}{%- for o in PB.occupations -%}{%- if o != PB.lead -%}{%- assign b_other = b_other | append: US.occupations[o].title | append: "^" -%}{%- endif -%}{%- endfor -%}
+{%- assign b_other = b_other | split: "^" | join: ", " -%}
+{%- capture a_lic %}{% if PA.license != "none" %}{{ US.licenses[PA.license].name }}{% if PA.license_required %} (required){% else %} (only for some roles){% endif %}{% else %}No state license{% endif %}{% endcapture -%}
+{%- capture b_lic %}{% if PB.license != "none" %}{{ US.licenses[PB.license].name }}{% if PB.license_required %} (required){% else %} (only for some roles){% endif %}{% else %}No state license{% endif %}{% endcapture -%}
+{%- capture a_acc %}{% if PA.accreditation.size > 0 %}{% for x in PA.accreditation %}{{ US.accreditors[x].name }}{% unless forloop.last %}, {% endunless %}{% endfor %} (program){% else %}No program accreditor; check institutional accreditation{% endif %}{% endcapture -%}
+{%- capture b_acc %}{% if PB.accreditation.size > 0 %}{% for x in PB.accreditation %}{{ US.accreditors[x].name }}{% unless forloop.last %}, {% endunless %}{% endfor %} (program){% else %}No program accreditor; check institutional accreditation{% endif %}{% endcapture -%}
+
+{%- capture rows -%}
+In one line|{{ PPA.answer }}|{{ PPB.answer }}
+~What you study|{{ PPA.study }}|{{ PPB.study }}
+~College program|{{ a_cip | strip }}|{{ b_cip | strip }}
+~Colleges that awarded it ({{ AY }})|{{ a_col | strip }}|{{ b_col | strip }}
+~Main job (BLS)|{{ OA.title }}|{{ OB.title }}
+~Median pay ({{ V.wage_ref }})|{{ a_pay | strip }}|{{ b_pay | strip }}
+~Jobs and growth ({{ V.projection_period }})|{{ a_jobs | strip }}|{{ b_jobs | strip }}
+~Other jobs it leads to|{{ a_other }}|{{ b_other }}
+~License|{{ a_lic | strip }}|{{ b_lic | strip }}
+~Accreditation to look for|{{ a_acc | strip }}|{{ b_acc | strip }}
+{%- endcapture -%}
+{%- assign row_list = rows | split: "~" -%}
+{%- assign n_diff = 0 -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "USA Home", "item": "{{ site.url }}{{ site.baseurl }}/us/" },
+    { "@type": "ListItem", "position": 2, "name": "Compare", "item": "{{ site.url }}{{ site.baseurl }}/us/compare/" },
+    { "@type": "ListItem", "position": 3, "name": {{ CMP.question | jsonify }}, "item": "{{ page.url | absolute_url }}" }
+  ]
+}
+</script>
+<main id="main" class="md-page">
+
+  <div class="container md-page-top">
+    <header class="md-answer">
+      <span class="eyebrow">USA · Compare</span>
+      <h1>{{ CMP.question }}</h1>
+      <p class="md-answer-lede">{{ CMP.takeaway }}</p>
+      <div class="md-stats">
+        {%- if PA.lead == PB.lead %}
+        <div class="md-stat"><span class="md-stat-label">Both · median pay</span><span class="md-stat-value">{{ a_pay | strip }}</span><span class="md-stat-note">{{ OA.title }} (same BLS job)</span></div>
+        <div class="md-stat"><span class="md-stat-label">Both · jobs</span><span class="md-stat-value">{% include fmt-num.html n=OA.jobs %}</span><span class="md-stat-note">{{ OA.outlook_pct }}% growth, {{ V.projection_period }}</span></div>
+        {%- else %}
+        <div class="md-stat"><span class="md-stat-label">{{ TA }} · median pay</span><span class="md-stat-value">{{ a_pay | strip }}</span><span class="md-stat-note">{{ OA.title }}</span></div>
+        <div class="md-stat"><span class="md-stat-label">{{ TB }} · median pay</span><span class="md-stat-value">{{ b_pay | strip }}</span><span class="md-stat-note">{{ OB.title }}</span></div>
+        {%- endif %}
+        <div class="md-stat"><span class="md-stat-label">{{ TA }} · colleges</span><span class="md-stat-value">{% include fmt-num.html n=a_n %}</span><span class="md-stat-note">awarded it in {{ AY }}</span></div>
+        <div class="md-stat"><span class="md-stat-label">{{ TB }} · colleges</span><span class="md-stat-value">{% include fmt-num.html n=b_n %}</span><span class="md-stat-note">awarded it in {{ AY }}</span></div>
+      </div>
+      <div class="md-answer-actions">
+        <a href="#compare" class="btn btn-primary">Side by side</a>
+        <a href="#next" class="md-textlink">Explore each one</a>
+      </div>
+    </header>
+  </div>
+
+  <section class="md-sec" id="compare" aria-labelledby="compare-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="compare-h">Side by side</h2><p>Rows that are the same for both are shown once.</p></div>
+      <table class="md-cmp">
+        <thead><tr><td></td><th scope="col">{{ TA }}</th><th scope="col">{{ TB }}</th></tr></thead>
+        <tbody>
+          {%- for r in row_list %}
+          {%- assign c = r | strip | split: "|" %}
+          {%- if c[1] == c[2] %}
+          <tr><th scope="row">{{ c[0] }}</th><td colspan="2" class="is-same">Both: {{ c[1] }}</td></tr>
+          {%- else %}{%- assign n_diff = n_diff | plus: 1 %}
+          <tr><th scope="row">{{ c[0] }}</th><td data-col="{{ TA }}">{{ c[1] }}</td><td data-col="{{ TB }}">{{ c[2] }}</td></tr>
+          {%- endif %}
+          {%- endfor %}
+        </tbody>
+      </table>
+      <div class="md-datanote" data-diff-rows="{{ n_diff }}">Pay: BLS Occupational Employment and Wage Statistics, {{ V.wage_ref }}; jobs and growth: BLS Employment Projections {{ V.projection_period }}; colleges: NCES IPEDS {{ AY }} (first majors). {% include us-src-chip.html id="bls_ooh" %} {% include us-src-chip.html id="ipeds_completions" %}{% if PA.bls_note %} {{ PA.bls_note }}{% endif %}{% if PB.bls_note %} {{ PB.bls_note }}{% endif %}</div>
+    </div>
+  </section>
+
+  <section class="md-sec md-sec-alt" id="next" aria-labelledby="next-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="next-h">Explore each one</h2></div>
+      <div class="md-tiles2">
+        {%- assign sides = CMP.a | append: "," | append: CMP.b | split: "," %}
+        {%- for sl in sides %}
+        {%- assign SP = US.pathways.list | where: "slug", sl | first %}
+        {%- assign sp_salary = "" %}{% if SP.salary %}{% assign sp_salary = SP.slug %}{% endif %}{% if SP.salary_from %}{% assign sp_salary = SP.salary_from %}{% endif %}
+        <div class="md-tile"><h3>{{ SP.title }}</h3>
+          <ul class="md-list">
+            <li><a href="us/careers/{{ SP.slug }}/">Overview and roadmap</a></li>
+            {%- if sp_salary != "" %}<li><a href="us/careers/{{ sp_salary }}/salary/">Salary by state</a></li>{% endif %}
+            {%- if SP.colleges %}<li><a href="us/careers/{{ SP.slug }}/colleges/">Colleges that offer it</a></li>{% endif %}
+            {%- if SP.license != "none" %}<li><a href="us/professional-licenses/{{ SP.license }}/">{{ US.licenses[SP.license].short | default: "License" }} route</a></li>{% endif %}
+          </ul>
+        </div>
+        {%- endfor %}
+      </div>
+      <div class="md-datanote">Checked {{ CMP.last_reviewed | date: "%-d %b %Y" }}. <a href="us/compare/">All comparisons</a> · <a href="us/methodology/">How Margdarshan sources its data →</a></div>
+    </div>
+  </section>
+
+</main>

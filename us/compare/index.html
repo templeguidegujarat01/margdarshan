@@ -1,0 +1,46 @@
+---
+title: "Compare U.S. Careers Side by Side: CS vs SE, ME vs EE, Accounting vs Finance | Margdarshan USA"
+description: "Side-by-side comparisons of U.S. fields students actually choose between, built from BLS pay and job data, NCES IPEDS college counts and official licensing rules."
+breadcrumb:
+  current: "Compare"
+---
+{%- assign US = site.data.us -%}
+{%- comment -%} Index of curated comparisons (global-platform Phase 14). Pairs come from _data/us/compare.yml. {%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "USA Home", "item": "{{ site.url }}{{ site.baseurl }}/us/" },
+    { "@type": "ListItem", "position": 2, "name": "Compare", "item": "{{ site.url }}{{ site.baseurl }}/us/compare/" }
+  ]
+}
+</script>
+<main id="main" class="md-page">
+
+  <div class="container md-page-top">
+    <header class="md-answer">
+      <span class="eyebrow">USA · Compare</span>
+      <h1>Compare fields side by side</h1>
+      <p class="md-answer-lede">Only pairs that students really choose between, and only where the differences are real. Every row comes from the same official data as the career pages: BLS pay and jobs, NCES IPEDS colleges and licensing rules.</p>
+    </header>
+  </div>
+
+  <section class="md-sec" id="pairs" aria-labelledby="pairs-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="pairs-h">Comparisons</h2></div>
+      <ul class="md-occ">
+        {%- for pair in US.compare %}
+        <li><span><strong><a href="us/compare/{{ pair[0] }}/">{{ pair[1].question }}</a></strong><small>{{ pair[1].takeaway }}</small></span></li>
+        {%- endfor %}
+      </ul>
+      <h3 class="md-pay-sub">Also compared inside a page</h3>
+      <ul class="md-list">
+        <li><a href="us/careers/medicine/#compare">M.D. vs D.O.</a>: two degrees, one physician license.</li>
+        <li><a href="us/tests/#sat-act">SAT vs ACT</a>: formats, scores and college testing policies.</li>
+      </ul>
+      <div class="md-datanote"><a href="us/careers/">All career pathways</a> · <a href="us/methodology/">How Margdarshan sources its data →</a></div>
+    </div>
+  </section>
+
+</main>

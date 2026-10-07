@@ -209,6 +209,31 @@ for (const p of paths.list.filter((x) => x.colleges)) {
   if (!fs.existsSync(path.join(root, 'us/careers', p.slug, 'colleges/index.html'))) err(w, 'colleges/index.html is missing');
 }
 
+// Comparisons (Phase 14, IA rule R9): both sides live v2 pathways with colleges data, a page stub, no
+// separator characters in the copy the page splits on, and at least 5 of the 10 table rows that differ
+// (the same rows us-compare-page.html builds).
+const cmp = load('compare');
+const seenPairs = new Set();
+for (const [id, c] of Object.entries(cmp)) {
+  const w = `compare.${id}`;
+  const A = paths.list.find((x) => x.slug === c.a), B = paths.list.find((x) => x.slug === c.b);
+  if (!A || !B) { err(w, `unknown pathway ${!A ? c.a : c.b}`); continue; }
+  for (const P of [A, B]) if (!P.live || P.template !== 'v2' || !P.colleges) err(w, `${P.slug} must be a live v2 pathway with colleges data`);
+  const key = [c.a, c.b].sort().join('|');
+  if (seenPairs.has(key)) err(w, 'duplicate pair'); seenPairs.add(key);
+  if (!c.question || !c.takeaway || !isDate(c.last_reviewed)) err(w, 'needs question, takeaway and last_reviewed');
+  if (!fs.existsSync(path.join(root, 'us/compare', id, 'index.html'))) err(w, `us/compare/${id}/index.html is missing`);
+  const cell = (P) => {
+    const pp = pages[P.slug] || {}, o = occ[P.lead] || {}, s = coll[P.slug] || {};
+    return [pp.answer, pp.study, P.cip.map((x) => x.code).join(','), `${s.institutions}/${s.totals?.bachelor || 0}`, o.title, o.pay,
+      `${o.jobs}/${o.outlook_pct}`, (P.occupations || []).filter((x) => x !== P.lead).join(','), `${P.license}/${!!P.license_required}`, (P.accreditation || []).join(',')];
+  };
+  const ca = cell(A), cb = cell(B);
+  for (const v of [...ca, ...cb]) if (/[|~]/.test(String(v ?? ''))) err(w, 'a compared value contains "|" or "~" (the page splits rows on these)');
+  const diff = ca.filter((v, i) => String(v) !== String(cb[i])).length;
+  if (diff < 5) err(w, `only ${diff} of 10 rows differ; R9 needs at least 5`);
+}
+
 console.log(`checked ${Object.keys(sources.list).length} sources, ${Object.keys(occ).length} occupations, ${Object.keys(lic).length} licenses, ${testIds.size} tests, ${paths.list.length} pathways`);
 if (errors.length) { console.log(errors.join('\n')); console.log(`\n${errors.length} problem(s)`); process.exit(1); }
 console.log('OK: 0 problems');

@@ -213,11 +213,18 @@
     <div class="container">
       <div class="md-sec-head"><h2 id="path-h">How to get there</h2><p>{% if P.roadmap == "license" %}{{ LIC.education }}.{% else %}A typical route. Many people reach the same job in different ways.{% endif %}</p></div>
       {%- if P.roadmap == "license" %}
+      {%- assign exam_words = "exam,Exam,MCAT,LSAT,USMLE,COMLEX,MPRE,NCLEX,DAT" | split: "," %}
       <ol class="md-road">
         {%- for step in LIC.steps %}
+        {%- comment -%} Step kinds from the step text: an exam or admission test is a gate; the step that grants the
+          right to practise (a "license" step, or the last step when it is not optional — e.g. "Admission to the bar")
+          is the license; "Optional: …" steps are optional. {%- endcomment -%}
         {%- assign kind = "stage" %}{%- assign tag = "" %}
-        {%- if step contains "MCAT" or step contains "USMLE" or step contains "exam" %}{%- assign kind = "gate" %}{%- assign tag = "Exam" %}{%- endif %}
+        {%- assign is_exam = false %}
+        {%- for kw in exam_words %}{% if step contains kw %}{% assign is_exam = true %}{% endif %}{% endfor %}
+        {%- if is_exam %}{%- assign kind = "gate" %}{%- assign tag = "Exam" %}{%- endif %}
         {%- if step contains "license" %}{%- assign kind = "license" %}{%- assign tag = "License" %}{%- endif %}
+        {%- if forloop.last and kind == "stage" %}{% unless step contains "Optional" %}{%- assign kind = "license" %}{%- assign tag = "License" %}{% endunless %}{%- endif %}
         {%- if step contains "Optional" %}{%- assign kind = "optional" %}{%- assign tag = "Optional" %}{%- endif %}
         <li data-kind="{{ kind }}"><div class="md-road-body"><strong>{{ step }}</strong>
           {%- if step contains "M.D. or D.O." %}<div class="md-branch"><span>M.D. → USMLE</span><span>D.O. → COMLEX-USA</span></div>{% endif %}
@@ -227,7 +234,7 @@
       {%- else %}
       <ol class="md-road is-short" style="--n:{{ PP.route.size }}">
         {%- for r in PP.route %}{%- assign s = r | split: "|" %}
-        <li data-kind="{% if s[0] == 'Goal' %}license{% else %}stage{% endif %}"><div class="md-road-body"><span class="md-road-tag">{{ s[0] }}</span><strong>{{ s[1] }}</strong><p>{{ s[2] }}</p></div></li>
+        <li data-kind="{% if s[0] == 'Goal' %}license{% elsif s[0] == 'Exam' or s[0] == 'Exams' %}gate{% else %}stage{% endif %}"><div class="md-road-body"><span class="md-road-tag">{{ s[0] }}</span><strong>{{ s[1] }}</strong><p>{{ s[2] }}</p></div></li>
         {%- endfor %}
       </ol>
       {%- endif %}

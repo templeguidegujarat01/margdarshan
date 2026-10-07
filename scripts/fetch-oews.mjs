@@ -15,7 +15,7 @@ async function fetchSeries(ids) {
   requests++;
   const r = await fetch('https://api.bls.gov/publicAPI/v1/timeseries/data/', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ seriesid: ids, latest: true }) });
   const j = await r.json();
-  if (j.status !== 'REQUEST_SUCCEEDED') { out.log.push(j.status + ' ' + (j.message || []).join('; ')); throw new Error(j.status + ' ' + (j.message || []).join('; ')); }
+  if (j.status !== 'REQUEST_SUCCEEDED') { const m = j.status + ' ' + (j.message || []).join('; '); out.log.push(m); fs.writeFileSync('oews-cache.json', JSON.stringify(out, null, 1)); console.error(m); process.exit(2); }
   for (const s of j.Results.series) { const d = s.data.find((x) => x.year === '2025'); if (d) out.values[s.seriesID] = d.value; }
   fs.writeFileSync('oews-cache.json', JSON.stringify(out, null, 1));
 }
@@ -35,6 +35,8 @@ if (step === 'emp') {
   const rep = {};
   for (const [o, name] of Object.entries(OCC)) {
     const top = Object.keys(ST).map((s) => [s, +out.values[sid(s, o, '01')] || 0]).sort((a, b) => b[1] - a[1]).slice(0, 5);
+    const n = Object.keys(ST).filter((s) => out.values[sid(s, o, '01')] !== undefined).length;
+    if (n < 51 && !out.values[sid('56', o, '01')] && !out.values[sid('55', o, '01')]) console.error('warning: ' + o + ' may be incomplete (' + n + ' states fetched)');
     rep[o] = { name, top: top.map(([s, e]) => ({ state: ST[s], jobs: e, median: out.values[sid(s, o, '13')], mean: out.values[sid(s, o, '04')] })), statesWithData: Object.keys(ST).filter((s) => out.values[sid(s, o, '01')]).length };
   }
   console.log(JSON.stringify(rep, null, 1));

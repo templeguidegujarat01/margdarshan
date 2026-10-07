@@ -379,3 +379,329 @@ aerospace-engineers:
       - { level: "Associate's degree", pct: 18 }
       - { level: "Master's degree", pct: 2 }
   last_verified: 2026-10-07
+
+# ======================= Phase 6 (healthcare, law, business, psychology) =======================
+# State data for these is pending (BLS API daily quota); the career template hides
+# "Where the jobs are" until `states` is added with scripts/fetch-oews.mjs.
+
+physicians-surgeons:
+  pay_low10: 76560
+  pay_high10: 488320
+  breakdown_label: "Median pay by specialty"
+  industries:
+    - { name: "Pediatric surgeons", median: 559030 }
+    - { name: "Cardiologists", median: 496010 }
+    - { name: "Radiologists", median: 420860 }
+    - { name: "Anesthesiologists", median: 391490 }
+    - { name: "Orthopedic surgeons, except pediatric", median: 358550 }
+    - { name: "Emergency medicine physicians", median: 335550 }
+    - { name: "Dermatologists", median: 328730 }
+    - { name: "Obstetricians and gynecologists", median: 292910 }
+    - { name: "Psychiatrists", median: 281870 }
+    - { name: "General internal medicine physicians", median: 256560 }
+    - { name: "Family medicine physicians", median: 244180 }
+    - { name: "Pediatricians, general", median: 210040 }
+  hours: "Most work full time and some more than 40 hours a week; many work long shifts with irregular and overnight hours or on-call duty."
+  education_note: "A bachelor's degree, then 4 years of medical school (M.D. or D.O.), then 3 to 9 years of internship and residency depending on the specialty."
+  qualities: [Communication skills, Compassion, Detail oriented, Dexterity, Leadership skills, Organizational skills, Patience, Physical stamina, Problem-solving skills]
+  growth_why: "BLS points to more older adults needing complex care, rising chronic illness such as diabetes, cancer and heart disease, and growing demand for psychiatric care — while an expected decline in the child population may limit demand for pediatricians."
+  states_note: "BLS publishes state data for individual physician specialties, not for all physicians together."
+  onet:
+    code: "29-1215.00"
+    example: "Family medicine physicians"
+    tasks:
+      - "Prescribe or administer treatment, therapy, medication, vaccination, and other specialized medical care to treat or prevent illness, disease, or injury."
+      - "Order, perform, and interpret tests and analyze records, reports, and examination information to diagnose patients' condition."
+      - "Collect, record, and maintain patient information, such as medical history, reports, or examination results."
+      - "Monitor patients' conditions and progress and reevaluate treatments as necessary."
+    hot_tech: [Epic Systems, Medical records software, Microsoft Excel]
+    context:
+      - { label: "Say the consequence of an error is extremely serious", pct: 97 }
+      - { label: "Face time pressure every day", pct: 83 }
+      - { label: "Are exposed to disease or infection every day", pct: 78 }
+      - { label: "Work more than 40 hours a week", pct: 42 }
+    interests: "Social, Investigative"
+  last_verified: 2026-10-07
+
+dentists:
+  pay_low10: 89100
+  pay_high10: 337210
+  breakdown_label: "Median pay by specialty"
+  industries:
+    - { name: "Oral and maxillofacial surgeons", median: 352220 }
+    - { name: "Prosthodontists", median: 311180 }
+    - { name: "Orthodontists", median: 289140 }
+    - { name: "Dentists, all other specialists", median: 224990 }
+    - { name: "Dentists, general", median: 170950 }
+  settings: "78% work in offices of dentists and 12% are self-employed."
+  hours: "Many dentists work less than 40 hours a week, although some work considerably more; some work evenings and weekends."
+  education_note: "A bachelor's degree with science coursework, then a D.D.S. or D.M.D. from an accredited dental school; specialties add a 2- to 4-year residency."
+  hs_prep: "BLS suggests high school courses such as biology, chemistry and math."
+  qualities: [Communication skills, Detail oriented, Dexterity, Leadership skills, Organizational skills, Patience, Problem-solving skills]
+  growth_why: "BLS expects more older people needing dental care (and keeping more of their natural teeth), plus restorative work and the growing popularity of cosmetic dentistry."
+  onet:
+    code: "29-1021.00"
+    tasks:
+      - "Examine teeth, gums, and related tissues, using dental instruments, x-rays, or other diagnostic equipment, to evaluate dental health, diagnose diseases or abnormalities, and plan appropriate treatments."
+      - "Formulate plan of treatment for patient's teeth and mouth tissue."
+      - "Administer anesthetics to limit the amount of pain experienced by patients during procedures."
+      - "Use masks, gloves, and safety glasses to protect patients and self from infectious diseases."
+    hot_tech: [Dentrix, eClinicalWorks EHR, Microsoft Excel]
+    context:
+      - { label: "Have constant contact with others", pct: 99 }
+      - { label: "Wear safety equipment every day", pct: 98 }
+      - { label: "Are exposed to disease or infection every day", pct: 88 }
+      - { label: "Say the consequence of an error is extremely serious", pct: 72 }
+    interests: "Investigative, Realistic, Social"
+    education:
+      - { level: "Doctoral degree", pct: 62 }
+      - { level: "Post-doctoral training", pct: 38 }
+  last_verified: 2026-10-07
+
+pharmacists:
+  pay_low10: 99290
+  pay_high10: 174230
+  industries:
+    - { name: "Pharmacies and drug retailers", share: 37, median: 132940 }
+    - { name: "Hospitals; state, local, and private", share: 32, median: 157290 }
+    - { name: "General merchandise retailers", share: 6, median: 151370 }
+    - { name: "Ambulatory healthcare services", share: 6, median: 153920 }
+  hours: "Most work full time; in 24-hour hospitals and facilities pharmacists may work nights, weekends and holidays, and they spend much of the day standing."
+  education_note: "A Doctor of Pharmacy (Pharm.D.) and a state license. Pharm.D. programs usually take 4 years after prerequisite coursework; some 6-year programs admit high school graduates."
+  qualities: [Analytical skills, Communication skills, Compassion, Detail oriented, Interpersonal skills, Managerial skills]
+  growth_why: "BLS expects more demand in hospitals and clinics as pharmacists join healthcare teams beyond dispensing, but limited demand in retail as the industry consolidates and more prescriptions are filled online or by mail."
+  onet:
+    code: "29-1051.00"
+    tasks:
+      - "Review prescriptions to assure accuracy, to ascertain the needed ingredients, and to evaluate their suitability."
+      - "Provide information and advice regarding drug interactions, side effects, dosage, and proper medication storage."
+      - "Collaborate with other health care professionals to plan, monitor, review, or evaluate the quality or effectiveness of drugs or drug regimens, providing advice on drug applications or characteristics."
+    hot_tech: [Epic Systems, MEDITECH, eClinicalWorks EHR, Microsoft Excel]
+    context:
+      - { label: "Say being exact is extremely important", pct: 89 }
+      - { label: "Work a typical 40-hour week", pct: 82 }
+      - { label: "Say the consequence of an error is extremely serious", pct: 71 }
+      - { label: "Face time pressure every day", pct: 68 }
+    interests: "Investigative, Social, Conventional"
+    education:
+      - { level: "Doctoral degree", pct: 78 }
+      - { level: "Bachelor's degree", pct: 11 }
+      - { level: "Post-doctoral training", pct: 5 }
+  last_verified: 2026-10-07
+
+registered-nurses:
+  pay_low10: 68940
+  pay_high10: 137470
+  industries:
+    - { name: "Hospitals; state, local, and private", share: 59, median: 100220 }
+    - { name: "Ambulatory healthcare services", share: 19, median: 91230 }
+    - { name: "Nursing and residential care facilities", share: 6, median: 84300 }
+    - { name: "Government", share: 5, median: 110780 }
+    - { name: "Educational services", share: 3, median: 78620 }
+  hours: "Hospital and nursing-facility nurses usually work shifts for round-the-clock care, including nights, weekends and holidays, and may be on call. BLS notes risks such as back injuries and exposure to infectious disease."
+  education_note: "A BSN, an associate's degree in nursing (ADN/ASN) or a hospital diploma, then the NCLEX-RN and a state license. Hospital employers may require a bachelor's degree."
+  qualities: [Critical-thinking skills, Communication skills, Compassion, Detail oriented, Emotional stability, Organizational skills, Physical stamina]
+  growth_why: "BLS expects more demand from the large number of older people, care for chronic conditions such as diabetes and obesity, and home healthcare."
+  onet:
+    code: "29-1141.00"
+    tasks:
+      - "Record patients' medical information and vital signs."
+      - "Administer medications to patients and monitor patients for reactions or side effects."
+      - "Monitor, record, and report symptoms or changes in patients' conditions."
+      - "Maintain accurate, detailed reports and records."
+    hot_tech: [Epic Systems, MEDITECH, eClinicalWorks EHR, Microsoft Excel]
+    context:
+      - { label: "Have constant contact with others", pct: 91 }
+      - { label: "Work a typical 40-hour week", pct: 65 }
+      - { label: "Are exposed to disease or infection every day", pct: 61 }
+      - { label: "Say the consequence of an error is extremely serious", pct: 57 }
+    interests: "Social, Conventional, Investigative"
+  last_verified: 2026-10-07
+
+physical-therapists:
+  pay_low10: 77140
+  pay_high10: 135140
+  industries:
+    - { name: "Offices of physical, occupational and speech therapists, and audiologists", share: 36, median: 97160 }
+    - { name: "Hospitals; state, local, and private", share: 26, median: 106800 }
+    - { name: "Home healthcare services", share: 11, median: 114740 }
+    - { name: "Nursing and residential care facilities", share: 6, median: 110460 }
+  hours: "Most work full time, though part-time work is common; mostly business hours, sometimes evenings or weekends. They spend much of the day on their feet and often lift and move patients."
+  education_note: "A bachelor's degree with anatomy, chemistry and physics prerequisites, then a Doctor of Physical Therapy (DPT), typically 3 years, and a state license."
+  qualities: [Communication skills, Compassion, Detail oriented, Dexterity, Physical stamina, Resourcefulness, Time-management skills]
+  growth_why: "BLS cites an older population needing rehabilitation after heart attacks, strokes and injuries, more chronic conditions such as diabetes and obesity, and a greater emphasis on non-opioid pain management."
+  onet:
+    code: "29-1123.00"
+    tasks:
+      - "Plan, prepare, or carry out individually designed programs of physical treatment to maintain, improve, or restore physical functioning."
+      - "Perform and document an initial exam, evaluating data to identify problems and determine a diagnosis prior to intervention."
+      - "Instruct patient and family in treatment procedures to be continued at home."
+      - "Record prognosis, treatment, response, and progress in patient's chart or enter information into computer."
+    hot_tech: [eClinicalWorks EHR, MEDITECH, Microsoft Excel]
+    context:
+      - { label: "Have constant contact with others", pct: 94 }
+      - { label: "Work very close to others (near touching)", pct: 93 }
+      - { label: "Have face-to-face discussions every day", pct: 80 }
+      - { label: "Stand more than half the time", pct: 61 }
+    interests: "Social, Investigative, Realistic"
+    education:
+      - { level: "Doctoral degree", pct: 47 }
+      - { level: "Master's degree", pct: 38 }
+      - { level: "Bachelor's degree", pct: 8 }
+  last_verified: 2026-10-07
+
+lawyers:
+  pay_low10: 78360
+  pay_high10: 351600
+  industries:
+    - { name: "Legal services", share: 52, median: 157870 }
+    - { name: "Local government", share: 8, median: 131390 }
+    - { name: "State government", share: 7, median: 115330 }
+    - { name: "Federal government", share: 5, median: 178380 }
+  settings: "11% of lawyers are self-employed."
+  hours: "Most work full time and some more than 40 hours a week; they may travel to meet clients and appear in court."
+  education_note: "About 7 years of full-time study after high school: 4 years of college and 3 years of law school. Most law schools do not require a specific major."
+  qualities: [Analytical skills, Communication skills, Interpersonal skills, Persuasion, Problem-solving skills, Research skills]
+  growth_why: "BLS expects demand for legal work to grow with the economy as individuals, businesses and all levels of government need legal services."
+  onet:
+    code: "23-1011.00"
+    tasks:
+      - "Interpret laws, rulings and regulations for individuals and businesses."
+      - "Analyze the probable outcomes of cases, using knowledge of legal precedents."
+      - "Gather evidence to formulate defense or to initiate legal actions by such means as interviewing clients and witnesses."
+      - "Represent clients in court or before government agencies."
+    hot_tech: [LexisNexis, Microsoft Word, Microsoft Excel, Adobe Acrobat]
+    context:
+      - { label: "Have constant contact with others", pct: 78 }
+      - { label: "Work more than 40 hours a week", pct: 66 }
+      - { label: "Face time pressure at least weekly (not daily)", pct: 62 }
+      - { label: "Deal with unpleasant or angry people at least weekly", pct: 43 }
+    interests: "Enterprising, Conventional, Investigative"
+  last_verified: 2026-10-07
+
+accountants-auditors:
+  pay_low10: 56020
+  pay_high10: 144090
+  industries:
+    - { name: "Accounting, tax preparation, bookkeeping, and payroll services", share: 21, median: 81490 }
+    - { name: "Finance and insurance", share: 8, median: 93290 }
+    - { name: "Government", share: 8, median: 83350 }
+    - { name: "Management of companies and enterprises", share: 6, median: 91940 }
+  settings: "5% of accountants and auditors are self-employed."
+  hours: "Most work full time; longer hours are typical during tax season and quarterly audits."
+  education_note: "A bachelor's degree in accounting or a related field; some employers prefer a master's in accounting or an MBA with an accounting concentration. A CPA license is required for anyone filing reports with the SEC."
+  qualities: [Analytical and critical-thinking skills, Communication skills, Detail oriented, Math skills, Organizational skills]
+  growth_why: "BLS expects demand to grow with the economy and new businesses; technology will automate routine work but raise demand for advisory and analytical duties."
+  onet:
+    code: "13-2011.00"
+    tasks:
+      - "Prepare, examine, or analyze accounting records, financial statements, or other financial reports to assess accuracy, completeness, and conformance to reporting and procedural standards."
+      - "Review accounts for discrepancies and reconcile differences."
+      - "Compute taxes owed and prepare tax returns, ensuring compliance with payment, reporting, or other tax requirements."
+    hot_tech: [Microsoft Excel, Intuit QuickBooks, SAP software, Microsoft PowerPoint]
+    context:
+      - { label: "Use email every day", pct: 97 }
+      - { label: "Say being exact is extremely important", pct: 69 }
+      - { label: "Sit continually or almost continually", pct: 59 }
+      - { label: "Work more than 40 hours a week", pct: 50 }
+    interests: "Conventional, Enterprising, Investigative"
+    education:
+      - { level: "Bachelor's degree", pct: 69 }
+      - { level: "Associate's degree", pct: 7 }
+      - { level: "Post-baccalaureate certificate", pct: 7 }
+  last_verified: 2026-10-07
+
+financial-analysts:
+  pay_title: "financial and investment analysts"
+  pay_median: 102740
+  pay_low10: 63720
+  pay_high10: 180860
+  pay_note: "Financial risk specialists: median $117,330; lowest 10% under $64,820, highest 10% over $196,110."
+  industries:
+    - { name: "Securities, commodity contracts, and other financial investments", share: 24, median: 124370 }
+    - { name: "Professional, scientific, and technical services", share: 14, median: 101540 }
+    - { name: "Credit intermediation and related activities", share: 12, median: 100120 }
+    - { name: "Management of companies and enterprises", share: 11, median: 101760 }
+    - { name: "Insurance carriers and related activities", share: 6, median: 95830 }
+  hours: "Most work full time and some more than 40 hours a week, mainly in offices, sometimes traveling to visit companies or clients."
+  education_note: "A bachelor's degree in finance or a related field; a master's in finance or an MBA can help analysts advance to portfolio or fund manager roles."
+  qualities: [Analytical skills, Communication skills, Computer skills, Decision-making skills, Detail oriented, Math skills]
+  growth_why: "BLS ties demand to overall economic activity, new and expanding businesses, more global investing and growing volumes of data to assess."
+  onet:
+    code: "13-2051.00"
+    tasks:
+      - "Advise clients on aspects of capitalization, such as amounts, sources, or timing."
+      - "Analyze financial or operational performance of companies facing financial difficulties to identify or recommend remedies."
+      - "Assess companies as investments for clients by examining company facilities."
+      - "Collaborate on projects with other professionals, such as lawyers, accountants, or public relations experts."
+    hot_tech: [Microsoft Excel, SQL, Tableau, Microsoft Power BI, Microsoft PowerPoint]
+    context_note: "O*NET has not yet published worker survey (work context) data for this occupation."
+    interests: "Conventional, Enterprising, Investigative"
+  last_verified: 2026-10-07
+
+management-analysts:
+  pay_low10: 60640
+  pay_high10: 171640
+  industries:
+    - { name: "Professional, scientific, and technical services", share: 33, median: 107330 }
+    - { name: "Government", share: 18, median: 97300 }
+    - { name: "Finance and insurance", share: 13, median: 100300 }
+    - { name: "Management of companies and enterprises", share: 5, median: 101030 }
+  settings: "14% of management analysts are self-employed."
+  hours: "Some work more than 40 hours a week; many travel frequently to client sites and may face stress meeting tight client deadlines."
+  education_note: "A bachelor's degree (business, social science or engineering are common), several years of related experience, and sometimes an MBA, which some employers prefer. Certification is not required but can help."
+  qualities: [Analytical skills, Communication skills, Interpersonal skills, Problem-solving skills, Time-management skills]
+  growth_why: "BLS expects organizations to keep seeking efficiency and cost control, more specialized consulting firms, and government agencies looking for savings."
+  onet:
+    code: "13-1111.00"
+    tasks:
+      - "Gather and organize information on problems or procedures."
+      - "Analyze data gathered and develop solutions or alternative methods of proceeding."
+      - "Document findings of study and prepare recommendations for implementation of new systems, procedures, or organizational changes."
+      - "Confer with personnel concerned to ensure successful functioning of newly implemented systems or procedures."
+    hot_tech: [Microsoft Power BI, Tableau, Salesforce, Microsoft Excel, Microsoft Visio]
+    context:
+      - { label: "Use email every day", pct: 100 }
+      - { label: "Have face-to-face discussions every day", pct: 74 }
+      - { label: "Face time pressure at least weekly (not daily)", pct: 62 }
+      - { label: "Work a typical 40-hour week", pct: 52 }
+    interests: "Conventional, Investigative, Enterprising"
+    education:
+      - { level: "Bachelor's degree", pct: 57 }
+      - { level: "Master's degree", pct: 24 }
+  last_verified: 2026-10-07
+
+psychologists:
+  pay_low10: 59080
+  pay_high10: 163380
+  breakdown_label: "Median pay by specialty"
+  industries:
+    - { name: "Industrial-organizational psychologists", median: 193950 }
+    - { name: "Psychologists, all other", median: 110840 }
+    - { name: "Clinical and counseling psychologists", median: 100580 }
+    - { name: "School psychologists", median: 95990 }
+  settings: "25% work in ambulatory healthcare, 24% in elementary and secondary schools and 23% are self-employed."
+  hours: "Most work full time, though part-time work is common; some work evenings or weekends to fit clients' schedules."
+  education_note: "A bachelor's degree in psychology or a related field, then graduate study: Ph.D. programs emphasize research and a dissertation, Psy.D. programs emphasize practice; both include an internship. School psychologists may need a master's or Ed.S."
+  qualities: [Analytical skills, Communication skills, Compassion, Integrity, Interpersonal skills, Observational skills, Patience, Problem-solving skills]
+  growth_why: "BLS points to demand for psychological services in schools, hospitals, mental health centers and social service agencies, and workplace needs for hiring, training and morale."
+  onet:
+    code: "19-3033.00"
+    example: "Clinical and counseling psychologists"
+    tasks:
+      - "Identify psychological, emotional, or behavioral issues and diagnose disorders, using information obtained from interviews, tests, records, or reference materials."
+      - "Conduct assessments of patients' risk for harm to self or others."
+      - "Document patient information including session notes, progress notes, recommendations, and treatment plans."
+      - "Write reports on clients and maintain required paperwork."
+    hot_tech: [eClinicalWorks EHR, Zoom, Microsoft Excel]
+    context:
+      - { label: "Have face-to-face discussions every day", pct: 88 }
+      - { label: "Have a lot of freedom to make decisions", pct: 68 }
+      - { label: "Work a typical 40-hour week", pct: 64 }
+      - { label: "Say the consequence of an error is extremely serious", pct: 40 }
+    interests: "Social, Investigative"
+    education:
+      - { level: "Post-doctoral training", pct: 48 }
+      - { level: "Doctoral degree", pct: 44 }
+      - { level: "Master's degree", pct: 8 }
+  last_verified: 2026-10-07

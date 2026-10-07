@@ -1,6 +1,20 @@
 # Margdarshan Global Editions — Architecture & Phase Plan
 
-Status: **Phase 5 complete** (career template + 10 career pages + careers hub). Last updated: 2026-10-07.
+Status: **Phase 6 complete** (all 20 career pages live). Last updated: 2026-10-07.
+
+## Phase 6 — remaining 10 career pages (as built)
+
+Medicine, Dentistry, Pharmacy, Nursing, Physical Therapy, Law, Accounting & CPA, Finance, Business & Management, Psychology — all `live: true`; the switcher now maps 19 India pages to their USA counterparts.
+
+- Deep data for 10 more lead occupations in `occupation_details.yml` (BLS percentiles, industries or **specialty** pay tables via `breakdown_label`, work settings, hours, growth drivers; O*NET tasks, work context, technologies, education).
+- Physicians and psychologists use an O*NET example specialty (`onet.example`: family medicine; clinical and counseling psychologists) and say so on the page.
+- O*NET has no work-context survey yet for financial and investment analysts (13-2051.00); the page says so (`onet.context_note`) instead of showing numbers.
+- New optional `key_numbers` in `pathway_pages.yml` — reality-check cards with sources: AAMC 2025 applicants (54,699) and enrolled (23,440), AAMC class-of-2026 cost of attendance, 2026 professional loan caps, NCBE 2025 first-time bar pass rate (76%), AICPA 2025 CPA section pass rates.
+- Template changes: key-numbers block, specialty breakdown tables (no share column), work-settings line, "Where the jobs are" only when state data exists, work-context table optional.
+- Fixed: technology chips were capped at 3 by the stream-card rule (`.stream-chips span:nth-child(n+4)`); career pages now use `.stream-chips.us-chips` and show all.
+
+**Pending:** BLS OEWS state data for the 10 Phase 6 occupations. The BLS API daily quota was exhausted. When it resets, run in a scratch folder:
+`node <repo>/scripts/fetch-oews.mjs emp 291021,291051,291141,291123,231011,132011,132051,131111,193033`, then `wage`, then `report`, and add a `states` block (same shape as Phase 5) to each occupation in `occupation_details.yml`. BLS has no all-physicians state series (only specialties), so Medicine shows a note instead.
 
 ## Phase 5 — career pages (as built)
 
@@ -161,6 +175,6 @@ Sources that block automated readers (IB, NABP) are marked `note:` in `sources.y
 | **3** ✅ | Region engine: `data-region`, lang/locale, region nav (`sidebar_us`), **region switcher** in sidebar (keyboard/SR accessible, mobile drawer), `md-region` localStorage, USA home `/us/`, rename "Margdarshan USA" study-abroad label (with OK) | Yes — switcher + `/us/` |
 | **4** ✅ | USA hubs: High School (grades 9–12, GPA, AP/IB/Honors/dual enrollment), Tests, College & Degrees, Professional Licenses, International Students | Yes |
 | **5** ✅ | USA career template + first 10 pathways (tech + engineering) | Yes |
-| 6 | Remaining 10 pathways (health, law, business, psychology) + licensing pathway blocks | Yes |
+| **6** ✅ | Remaining 10 pathways (health, law, business, psychology) + licensing pathway blocks | Yes |
 | 7 | SEO: region-aware breadcrumb root, footer, JSON-LD, search index entries, sitemap additions from real generated URLs | Yes |
 | 8 | QA matrix (1920→375px, light/dark, drawer, switcher, localStorage vs URL), full India regression diff, final report | No |

@@ -71,7 +71,7 @@
       <nav class="quicknav" aria-label="Section navigation">
         <a href="#careers">Careers</a>
         <a href="#pay">Pay</a>
-        <a href="#states">Where the Jobs Are</a>
+        {%- if D.states %}<a href="#states">Where the Jobs Are</a>{% endif %}
         <a href="#work">Day-to-Day Work</a>
         <a href="#path">Path</a>
         <a href="#high-school">High School</a>
@@ -110,6 +110,14 @@
       </div>
       {%- if P.bls_note %}<p class="table-note">{{ P.bls_note }}</p>{% endif %}
       <p class="table-note">Median: half of workers earned more, half earned less. Source: <a href="{{ SRC.bls_ooh.url }}">BLS Occupational Outlook Handbook</a>, checked {{ O.last_verified | date: "%Y-%m-%d" }}.</p>
+      {%- if PP.key_numbers %}
+      <h3 class="block-subhead">Key numbers to know</h3>
+      <div class="chip-grid us-links reveal">
+        {%- for k in PP.key_numbers %}
+        <div class="item"><strong>{{ k.value }}</strong>{{ k.label }}.{% if k.note %} {{ k.note }}.{% endif %} <a href="{{ SRC[k.source].url }}">{{ SRC[k.source].publisher }}</a></div>
+        {%- endfor %}
+      </div>
+      {%- endif %}
     </div>
   </section>
 
@@ -127,21 +135,26 @@
         <div class="salary-card"><span>Highest 10% earned more than</span><strong>{% include fmt-num.html n=D.pay_high10 prefix="$" %}</strong><p>Often senior or specialized roles</p></div>
       </div>
       {%- if D.pay_note %}<p class="table-note">{{ D.pay_note }}</p>{% endif %}
-      <h3 class="block-subhead">Median pay by industry{% if D.industries_note %} ({{ D.industries_note }}){% endif %}</h3>
+      {%- assign bd_label = D.breakdown_label | default: "Median pay by industry" %}
+      {%- assign bd_share = D.industries[0].share %}
+      <h3 class="block-subhead">{{ bd_label }}{% if D.industries_note %} ({{ D.industries_note }}){% endif %}</h3>
       <div class="table-wrap">
         <table class="table-simple">
-          <thead><tr><th>Industry</th><th>Share of jobs</th><th>Median pay</th></tr></thead>
+          <thead><tr><th>{% if D.breakdown_label %}Specialty{% else %}Industry{% endif %}</th>{% if bd_share %}<th>Share of jobs</th>{% endif %}<th>Median pay</th></tr></thead>
           <tbody>
             {%- for i in D.industries %}
-            <tr><td>{{ i.name }}</td><td>{% if i.share %}{{ i.share }}%{% else %}—{% endif %}</td><td>{% include fmt-num.html n=i.median prefix="$" %}</td></tr>
+            <tr><td>{{ i.name }}</td>{% if bd_share %}<td>{% if i.share %}{{ i.share }}%{% else %}—{% endif %}</td>{% endif %}<td>{% include fmt-num.html n=i.median prefix="$" %}</td></tr>
             {%- endfor %}
           </tbody>
         </table>
       </div>
+      {%- if D.settings %}<p class="table-note">Where they work: {{ D.settings }}</p>{% endif %}
+      {%- if D.states_note %}<p class="table-note">{{ D.states_note }}</p>{% endif %}
       <p class="table-note">Source: <a href="{{ O.ooh_url }}">BLS, {{ O.title | downcase }}</a> (pay and work environment tabs).</p>
     </div>
   </section>
 
+  {%- if D.states %}
   <section class="block" id="states" aria-labelledby="states-heading">
     <div class="container">
       <div class="section-head reveal">
@@ -162,6 +175,7 @@
       <p class="table-note">{% if D.states.reported >= 51 %}BLS publishes estimates for all 50 states and DC for this occupation.{% else %}BLS publishes estimates for {{ D.states.reported }} of the 51 areas (50 states and DC) for this occupation; the others are withheld for confidentiality or reliability.{% endif %} Source: <a href="{{ SRC.bls_oews.url }}">BLS Occupational Employment and Wage Statistics</a>, {{ V.wage_ref }}.</p>
     </div>
   </section>
+  {%- endif %}
 
   {%- assign W = D.onet %}
   <section class="block block-alt" id="work" aria-labelledby="work-heading">
@@ -169,7 +183,7 @@
       <div class="section-head reveal">
         <span class="eyebrow">Real work life</span>
         <h2 id="work-heading">What the work is really like</h2>
-        <p>From O*NET, which surveys people working in the job. {{ D.hours }}</p>
+        <p>From O*NET, which surveys people working in the job{% if W.example %} (shown for {{ W.example | downcase }}, one of the main specialties){% endif %}. {{ D.hours }}</p>
       </div>
       <h3 class="block-subhead">Common tasks</h3>
       <div class="prose reveal">
@@ -179,6 +193,7 @@
           {%- endfor %}
         </ul>
       </div>
+      {%- if W.context %}
       <h3 class="block-subhead">What workers report</h3>
       <div class="table-wrap">
         <table class="table-simple">
@@ -190,8 +205,11 @@
           </tbody>
         </table>
       </div>
+      {%- elsif W.context_note %}
+      <p class="table-note">{{ W.context_note }}</p>
+      {%- endif %}
       <h3 class="block-subhead">Technology used on the job</h3>
-      <div class="stream-chips">{% for t in W.hot_tech %}<span>{{ t }}</span>{% endfor %}</div>
+      <div class="stream-chips us-chips">{% for t in W.hot_tech %}<span>{{ t }}</span>{% endfor %}</div>
       <p class="table-note">Interests that fit this work (Holland codes): {{ W.interests }}. Source: <a href="https://www.onetonline.org/link/summary/{{ W.code }}">O*NET OnLine, {{ W.code }}</a>, checked {{ D.last_verified | date: "%Y-%m-%d" }}.</p>
     </div>
   </section>

@@ -1,0 +1,41 @@
+{%- comment -%}
+  Country edition switch — top of the sidebar, so it is also the first thing in the mobile
+  drawer. Plain links (works without JS, native keyboard/screen-reader behaviour), one per
+  edition in _data/regions.yml → list.
+
+  Destination: the same-field page in the other edition only when a real mapping exists —
+  a pathway in _data/us/pathways.yml marked `live: true` (its page is built) with an
+  `in_page` — otherwise that edition's home. Never a guessed URL.
+
+  Current edition: aria-current="true" + filled, bordered, bold option (not colour alone).
+  On region-neutral pages the server cannot know the edition, so CSS keys the filled style
+  off html[data-region] (set before paint) and scripts.html sets aria-current.
+  scripts.html also saves the clicked edition (data-region-set) to localStorage.
+  Reads region_id / region_neutral from _layouts/default.html.
+{%- endcomment -%}
+{%- assign rs_here = page.url | remove_first: "/" -%}
+{%- assign rs_to_us = "" -%}
+{%- assign rs_to_in = "" -%}
+{%- for p in site.data.us.pathways.list -%}
+  {%- if p.live and p.in_page -%}
+    {%- assign p_url = "us/careers/" | append: p.slug | append: "/" -%}
+    {%- if rs_here == p.in_page %}{%- assign rs_to_us = p_url -%}{%- endif -%}
+    {%- if rs_here == p_url %}{%- assign rs_to_in = p.in_page -%}{%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+<div class="region-switch" role="group" aria-labelledby="regionSwitchLabel">
+  <span class="region-switch-label" id="regionSwitchLabel">Country edition</span>
+  <div class="region-seg">
+    {%- for rid in site.data.regions.list %}
+    {%- assign r = site.data.regions[rid] -%}
+    {%- assign dest = r.home -%}
+    {%- if rid == "us" and rs_to_us != "" %}{%- assign dest = rs_to_us -%}{%- endif -%}
+    {%- if rid == "in" and rs_to_in != "" %}{%- assign dest = rs_to_in -%}{%- endif %}
+    <a class="region-opt" href="{{ dest }}" hreflang="{{ r.lang }}" data-region-set="{{ rid }}" aria-label="{{ r.name }}{% if r.status == 'beta' %} (beta){% endif %}" title="{{ r.name }}"{% if rid == region_id and region_neutral == false %} aria-current="true"{% endif %}>
+      <svg class="region-flag" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">{{ r.flag_svg }}</svg>
+      <span class="region-name">{{ r.short }}</span>
+      {%- if r.status == "beta" %}<span class="region-beta" aria-hidden="true">Beta</span>{% endif %}
+    </a>
+    {%- endfor %}
+  </div>
+</div>

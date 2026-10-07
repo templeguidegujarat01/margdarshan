@@ -19,12 +19,27 @@
 #                 render on Windows, see the note in nav.yml)
 #   status        live | beta — beta editions show a small badge
 #   data_note     how this edition's salary/outlook figures are sourced
+#   nav           _data file holding this edition's `sidebar` (and optional
+#                 `footer`) — read as site.data[nav]
+#   crumb_home    label of the first breadcrumb (links to `home`)
 
 default: in
 
 # localStorage key for the visitor's chosen edition. URL context always wins
 # over the stored value (a /us/ page is always USA).
 storage_key: md-region
+
+# Pages that belong to no edition (legal, contact, 404). They render every
+# edition's sidebar; the visitor's saved edition (html[data-region], set
+# before first paint from storage_key) decides which one shows.
+neutral_pages:
+  - about.html
+  - contact.html
+  - privacy-policy.html
+  - terms-and-conditions.html
+  - disclaimer.html
+  - cookie-policy.html
+  - 404.html
 
 list:
   - in
@@ -41,6 +56,8 @@ in:
   currency_symbol: "₹"
   home: index.html
   path_prefix: ""
+  nav: nav
+  crumb_home: Home
   status: live
   data_note: "Salary ranges are indicative INR figures; check each page's sources."
   flag_svg: '<rect x="2" y="5" width="20" height="14" rx="2" fill="#fff" stroke="currentColor" stroke-width="1"/><rect x="2.5" y="5.5" width="19" height="4.33" fill="#FF9933"/><rect x="2.5" y="14.17" width="19" height="4.33" fill="#138808"/><circle cx="12" cy="12" r="1.6" fill="none" stroke="#000080" stroke-width=".8"/>'
@@ -56,6 +73,8 @@ us:
   currency_symbol: "$"
   home: us/
   path_prefix: us/
+  nav: nav_us
+  crumb_home: USA Home
   status: beta
   data_note: "Pay and outlook figures come from the U.S. Bureau of Labor Statistics (BLS); each figure shows its reference year."
   flag_svg: '<rect x="2" y="5" width="20" height="14" rx="2" fill="#fff" stroke="currentColor" stroke-width="1"/><path d="M2.5 6.6h19M2.5 8.7h19M2.5 10.9h19M2.5 13.1h19M2.5 15.3h19M2.5 17.4h19" stroke="#B22234" stroke-width="1.1"/><rect x="2.5" y="5.5" width="8.5" height="7.6" fill="#3C3B6E"/>'

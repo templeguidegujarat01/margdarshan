@@ -1,7 +1,11 @@
 {%- comment -%}
   App sidebar: collapsible groups. The brand lives in brand.html and the
   collapse toggle in header.html, so neither moves with the sidebar.
-  Menu content lives in _data/nav.yml (`sidebar`).
+  Menu content lives in each edition's nav file (_data/regions.yml → <id>.nav, e.g.
+  _data/nav.yml for India, _data/nav_us.yml for USA). The country edition switch
+  (region-switcher.html) sits above the scrolling nav. Region-neutral pages render
+  every edition's groups, tagged data-region-nav; CSS shows the one matching
+  html[data-region].
   Desktop (>=1024px): fixed left rail, collapses to icons. Below: slide-over
   drawer opened from the topbar menu button. Behaviour is in scripts.html.
 
@@ -15,10 +19,14 @@
 {%- assign parent = page.breadcrumb.parent_href -%}
 <aside class="sidebar" id="sidebar" aria-label="Site navigation">
   <div class="sb-drawer-head">{% include brand.html %}<button type="button" class="icon-btn sb-close" aria-label="Close menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  {% include region-switcher.html %}
   <nav class="sb-scroll" aria-label="Primary">
-    {%- for group in site.data.nav.sidebar %}
+    {%- if region_neutral %}{%- assign nav_rids = site.data.regions.list -%}{%- else %}{%- assign nav_rids = region_id | split: "," -%}{%- endif %}
+    {%- for nav_rid in nav_rids %}
+    {%- assign nav_file = site.data.regions[nav_rid].nav -%}
+    {%- for group in site.data[nav_file].sidebar %}
     {%- comment -%} A group opens by default; scripts.html restores the visitor's closed groups. {%- endcomment %}
-    <section class="sb-group is-open" data-group="{{ group.id }}">
+    <section class="sb-group is-open" data-group="{{ group.id }}"{% if region_neutral %} data-region-nav="{{ nav_rid }}"{% endif %}>
       <button type="button" class="sb-group-btn" aria-expanded="true" aria-controls="sbg-{{ group.id }}">
         <span>{{ group.label | replace: "&", "&amp;" }}</span>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
@@ -62,6 +70,7 @@
       </ul></div>
     </section>
     {%- endfor %}
+    {%- endfor %}
 
     {%- if include.careers_href or include.faq_href %}
     <section class="sb-group is-open" data-group="page">
@@ -79,15 +88,17 @@
       </ul></div>
     </section>
     {%- endif %}
-    {%- comment -%} Edition switch: a plain list item at the end of the scrollable nav (no pinned box). {%- endcomment %}
+    {%- comment -%} India's National ↔ Global & State switch: a plain list item at the end of the scrollable nav (no pinned box). India edition only. {%- endcomment %}
+    {%- if region_id == "in" or region_neutral %}
     {%- assign on_global = false -%}
     {%- for gp in site.data.nav.editions.global_pages %}{%- if cur contains gp %}{%- assign on_global = true -%}{%- endif %}{%- endfor %}
     {%- if on_global %}{%- assign ed = site.data.nav.editions.to_national -%}{%- else %}{%- assign ed = site.data.nav.editions.to_global -%}{%- endif %}
-    <section class="sb-group is-open" data-group="edition">
+    <section class="sb-group is-open" data-group="edition"{% if region_neutral %} data-region-nav="in"{% endif %}>
       <ul class="sb-list">
         <li class="sb-item"><a class="sb-link" href="{{ ed.href }}" title="{{ ed.label }}" data-edition="{% if on_global %}global{% else %}national{% endif %}"><span class="sb-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{{ ed.icon }}</svg></span><span class="sb-label">{{ ed.label | replace: "&", "&amp;" }}</span></a></li>
       </ul>
     </section>
+    {%- endif %}
   </nav>
 
 </aside>

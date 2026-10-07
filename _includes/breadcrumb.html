@@ -1,18 +1,21 @@
 {%- comment -%}
   Breadcrumb trail rendered below the topbar (see _layouts/default.html):
   Home > [parent] > current. `current` empty (homepage) renders just "Home".
+  "Home" is the current edition's home (R.home / R.crumb_home from _data/regions.yml).
   Params: parent_href, parent_label, current
 {%- endcomment -%}
+{%- assign crumb_home_href = R.home | default: "index.html" -%}
+{%- assign crumb_home_label = R.crumb_home | default: "Home" -%}
 <nav class="breadcrumb" aria-label="Breadcrumb">
   <ol>
     {%- if include.current %}
-    <li><a href="index.html">Home</a></li>
+    <li><a href="{{ crumb_home_href }}">{{ crumb_home_label }}</a></li>
     {%- if include.parent_href and include.parent_href != "" %}
     <li><a href="{{ include.parent_href }}">{{ include.parent_label }}</a></li>
     {%- endif %}
     <li><span aria-current="page">{{ include.current }}</span></li>
     {%- else %}
-    <li><span aria-current="page">Home</span></li>
+    <li><span aria-current="page">{{ crumb_home_label }}</span></li>
     {%- endif %}
   </ol>
 </nav>

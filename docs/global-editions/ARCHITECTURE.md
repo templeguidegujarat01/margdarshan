@@ -1,6 +1,22 @@
 # Margdarshan Global Editions — Architecture & Phase Plan
 
-Status: **Phase 2 complete** (research dataset, no visible change). Last updated: 2026-10-07.
+Status: **Phase 3 complete** (region engine, switcher, USA home live at /us/). Last updated: 2026-10-07.
+
+## Phase 3 — how the region engine works (as built)
+
+- `_layouts/default.html` resolves `region_id` (front matter → `_config.yml` default for `us/` → `regions.default`) and `R` (its settings) once; emits `<html lang data-region>` and `og:locale` from `R`. Includes read `region_id`, `R`, `region_neutral`.
+- `_includes/sidebar.html` renders `site.data[R.nav].sidebar` (`nav.yml` for India, `nav_us.yml` for USA). India's National ↔ Global & State link shows on India pages only.
+- `_includes/region-switcher.html` — plain links above the scrolling nav (also first in the mobile drawer; flags-only in the collapsed rail). Destination = same-field page only when a pathway is `live: true` with `in_page`, else the edition home. Current edition: `aria-current="true"` + fill + border + bold.
+- Region-neutral pages (`regions.yml → neutral_pages`: About, Contact, legal, 404) render both editions' nav groups tagged `data-region-nav`; an inline `<head>` script applies the saved edition (`localStorage['md-region']`) before paint, CSS hides the other edition's groups, `scripts.html` fixes aria-current and the logo/breadcrumb home link.
+- `scripts.html` stores the edition of every edition page visited and of every switcher click. URL always wins: a /us/ page is USA regardless of storage. Theme / sidebar keys untouched.
+- Brand, breadcrumb root ("USA Home") and footer (`nav_us.yml → footer`) follow the edition; India output of all three is unchanged.
+- `_includes/fmt-num.html` formats integers with thousands separators (Jekyll has no filter for it).
+- `us/index.html` — USA home, fully data-driven from `_data/us/` (ladder, tests, 20 pathway cards with BLS pay/outlook, licensing table, changes to watch, international, FAQ, sources).
+- Tooling: `scripts/verify-site.mjs` now applies `_config.yml` defaults and serves `folder/index.html` at `folder/`, like Jekyll.
+
+Tested (headless Chrome via CDP): 1920/1440/1280/1024/820/768/430/390/375 px — no horizontal overflow; drawer open/close, Escape, scroll lock; rail mode; light/dark; URL-over-storage; neutral page follows saved edition; switcher click stores edition; no console errors. India HTML diff: only `data-region` attribute, the switcher block and the region JS.
+
+Known gaps for later phases: header search indexes India pages only (Phase 7); `404.html` uses relative links, so a 404 inside `/us/` loses styles (pre-existing for any folder; fix in Phase 8); sidebar label "Margdarshan USA" (study-abroad guide) still awaits the owner's rename decision.
 This folder is excluded from the Jekyll build (`exclude: docs` in `_config.yml`), so nothing here is published.
 
 ---
@@ -122,7 +138,7 @@ Sources that block automated readers (IB, NABP) are marked `note:` in `sources.y
 |---|---|---|
 | **1** ✅ | Audit, multi-level `root` fix, `_data/regions.yml`, `us/` region default, this doc | None (verified byte-identical) |
 | **2** ✅ | Research dataset `_data/us/*.yml` from BLS, O*NET, College Board, ACT, NCES, USMLE, NCBE, NASBA, NCEES, USCIS, ADA/NABP/NCSBN/FSBPT — every value with source + date | None |
-| 3 | Region engine: `data-region`, lang/locale, region nav (`sidebar_us`), **region switcher** in sidebar (keyboard/SR accessible, mobile drawer), `md-region` localStorage, USA home `/us/`, rename "Margdarshan USA" study-abroad label (with OK) | Yes — switcher + `/us/` |
+| **3** ✅ | Region engine: `data-region`, lang/locale, region nav (`sidebar_us`), **region switcher** in sidebar (keyboard/SR accessible, mobile drawer), `md-region` localStorage, USA home `/us/`, rename "Margdarshan USA" study-abroad label (with OK) | Yes — switcher + `/us/` |
 | 4 | USA hubs: High School (grades 9–12, GPA, AP/IB/Honors/dual enrollment), Tests, College & Degrees, Professional Licenses, International Students | Yes |
 | 5 | USA career template + first 10 pathways (tech + engineering) | Yes |
 | 6 | Remaining 10 pathways (health, law, business, psychology) + licensing pathway blocks | Yes |

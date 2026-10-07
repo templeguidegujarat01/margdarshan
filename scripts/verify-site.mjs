@@ -61,9 +61,17 @@ const idCache = {};
 async function render(f) {
   const raw = fs.readFileSync(path.join(root, f), 'utf8');
   const m = raw.match(fmRe);
-  const fm = m ? yaml.load(m[1]) : {};
+  const fm = m ? yaml.load(m[1]) || {} : {};
   const body = m ? raw.slice(m[0].length) : raw;
-  const page = { ...fm, url: '/' + f };
+  // Apply _config.yml `defaults` like Jekyll: scope.path is a folder prefix ("" = all); front matter wins.
+  const defaults = {};
+  for (const d of config.defaults || []) {
+    const p = (d.scope && d.scope.path) || '';
+    if (p === '' || f === p || f.startsWith(p.replace(/\/$/, '') + '/')) Object.assign(defaults, d.values);
+  }
+  // Jekyll serves folder/index.html at folder/.
+  const url = f.endsWith('/index.html') ? '/' + f.slice(0, -'index.html'.length) : '/' + f;
+  const page = { ...defaults, ...fm, url };
   const content = await engine.parseAndRender(body, { site, page });
   const layout = fm.layout || 'default';
   if (layout === 'none') return content;

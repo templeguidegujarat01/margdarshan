@@ -39,8 +39,19 @@
 {%- assign root = "" -%}
 {%- assign depth = page.url | append: "x" | split: "/" | size | minus: 2 -%}
 {%- for i in (1..depth) %}{%- assign root = root | append: "../" -%}{%- endfor -%}
+{%- comment -%}
+  Country edition (see _data/regions.yml). region_id comes from front matter (pages under us/ get
+  region: us via _config.yml defaults), else the default edition. R = that edition's settings.
+  Region-neutral pages (legal, contact, 404) render every edition's nav and let the saved
+  edition pick one before first paint. Includes read region_id / R / region_neutral directly.
+{%- endcomment -%}
+{%- assign region_id = page.region | default: site.data.regions.default -%}
+{%- assign R = site.data.regions[region_id] -%}
+{%- assign region_neutral = false -%}
+{%- assign page_path = page.url | remove_first: "/" -%}
+{%- if site.data.regions.neutral_pages contains page_path %}{%- assign region_neutral = true -%}{%- endif -%}
 <!DOCTYPE html>
-<html lang="{{ site.lang }}">
+<html lang="{{ R.lang | default: site.lang }}" data-region="{{ region_id }}"{% if region_neutral %} data-region-neutral{% endif %}>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -57,7 +68,7 @@
 <meta property="og:title" content="{{ og_title }}">
 <meta property="og:description" content="{{ og_description }}">
 <meta property="og:url" content="{{ page_url }}">
-<meta property="og:locale" content="{{ site.locale }}">
+<meta property="og:locale" content="{{ R.locale | default: site.locale }}">
 {%- unless page.no_twitter %}
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="{{ page.twitter_title | default: og_title }}">
@@ -79,6 +90,17 @@
   } catch(e){}
 })();
 </script>
+{%- if region_neutral %}
+<script>
+/* Region-neutral page: show the visitor's saved edition (nav, switcher) before first paint. */
+(function(){
+  try {
+    var r = localStorage.getItem('{{ site.data.regions.storage_key }}');
+    if({{ site.data.regions.list | jsonify }}.indexOf(r) !== -1) document.documentElement.setAttribute('data-region', r);
+  } catch(e){}
+})();
+</script>
+{%- endif %}
 </head>
 <body{% if page.stream %} data-stream="{{ page.stream }}"{% endif %}>
 <a href="#main" class="skip-link">Skip to main content</a>

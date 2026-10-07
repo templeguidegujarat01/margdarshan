@@ -1,0 +1,19 @@
+{%- comment -%}
+  Integer with thousands separators: {% include fmt-num.html n=135980 %} → 135,980
+  (Jekyll's Liquid has no number_with_delimiter). Negative numbers get a true minus sign.
+  Optional: prefix="$" (placed after the sign: −$1,200), sign=true (adds "+" to positives).
+{%- endcomment -%}
+{%- assign fn_n = include.n | plus: 0 -%}
+{%- assign fn_neg = false -%}
+{%- if fn_n < 0 %}{%- assign fn_neg = true -%}{%- assign fn_n = fn_n | times: -1 -%}{%- endif -%}
+{%- assign fn_s = fn_n | append: "" -%}
+{%- assign fn_len = fn_s.size -%}
+{%- assign fn_out = "" -%}
+{%- assign fn_last = fn_len | minus: 1 -%}
+{%- for fn_i in (0..fn_last) -%}
+  {%- assign fn_pos = fn_len | minus: fn_i | modulo: 3 -%}
+  {%- if fn_i > 0 and fn_pos == 0 %}{%- assign fn_out = fn_out | append: "," -%}{%- endif -%}
+  {%- assign fn_ch = fn_s | slice: fn_i -%}
+  {%- assign fn_out = fn_out | append: fn_ch -%}
+{%- endfor -%}
+{%- if fn_neg %}−{% elsif include.sign and fn_n > 0 %}+{% endif %}{{ include.prefix }}{{ fn_out }}{% if false %}{% endif -%}

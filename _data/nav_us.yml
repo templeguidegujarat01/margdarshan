@@ -1,0 +1,50 @@
+# USA Edition navigation — same shape as _data/nav.yml (`sidebar` groups →
+# items → optional children), rendered by _includes/sidebar.html when the
+# page's region is `us` (see _data/regions.yml → us.nav).
+# Group ids start with "us-" so they never clash with India group ids
+# (both editions are rendered together on region-neutral pages).
+# Only link to pages that exist. Sections of the USA home are linked with
+# #anchors until their own hub pages are built (later phases).
+# icon is the inner SVG markup for a 24x24, stroke-based icon.
+
+sidebar:
+  - id: us-start
+    label: USA Edition
+    items:
+      - label: USA Home
+        short: Home
+        href: us/
+        icon: '<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>'
+      - label: Education Ladder
+        short: Ladder
+        href: "us/#ladder"
+        icon: '<path d="M12 3l10 5-10 5L2 8z"/><path d="M6 10.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-5.5"/>'
+      - label: "Tests: SAT, ACT, AP"
+        short: Tests
+        href: "us/#tests"
+        icon: '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/>'
+      - label: Career Pathways
+        short: Careers
+        href: "us/#careers"
+        icon: '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"/>'
+      - label: Licensed Professions
+        short: Licenses
+        href: "us/#licenses"
+        icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/>'
+      - label: International Students
+        short: Intl
+        href: "us/#international"
+        icon: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/>'
+
+# Footer for USA pages (_includes/footer.html uses it when present).
+footer:
+  blurb: "Free career guidance for students in the United States: high school, college, licensing and careers, built on official U.S. data."
+  heading: USA Edition
+  links:
+    - { href: "us/", label: "USA Home" }
+    - { href: "us/#ladder", label: "Education Ladder" }
+    - { href: "us/#tests", label: "Tests: SAT, ACT, AP" }
+    - { href: "us/#careers", label: "Career Pathways" }
+    - { href: "us/#licenses", label: "Licensed Professions" }
+    - { href: "us/#international", label: "International Students" }
+  tagline: "Pay and job outlook data: U.S. Bureau of Labor Statistics."

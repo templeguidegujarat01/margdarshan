@@ -130,6 +130,31 @@
     }
   }
 
+  /* ---------- Country edition (_data/regions.yml) ----------
+     The page's edition is decided server-side from its URL (html[data-region]),
+     so a /us/ page is always USA whatever is stored. This only remembers the
+     visitor's edition: the edition of any edition page they open, or the one
+     they pick in the switcher. Region-neutral pages (legal, 404) had the saved
+     edition applied before paint by the layout; here they also get
+     aria-current on the switcher and logo/breadcrumb "home" links that point
+     at that edition's home. */
+  var REGION_KEY = '{{ site.data.regions.storage_key }}';
+  var REGION_HOMES = { {%- for rid in site.data.regions.list -%}{{ rid | jsonify }}: {{ site.data.regions[rid].home | jsonify }}{% unless forloop.last %}, {% endunless %}{%- endfor -%} };
+  var pageRegion = root.getAttribute('data-region');
+  if(!root.hasAttribute('data-region-neutral')){
+    store(REGION_KEY, pageRegion);
+  } else if(REGION_HOMES[pageRegion]){
+    document.querySelectorAll('.region-opt').forEach(function(a){
+      if(a.getAttribute('data-region-set') === pageRegion) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+    });
+    var regionHome = MD_ROOT + REGION_HOMES[pageRegion];
+    document.querySelectorAll('a.logo, .breadcrumb ol > li:first-child > a').forEach(function(a){ a.setAttribute('href', regionHome); });
+  }
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('[data-region-set]');
+    if(a && REGION_HOMES[a.getAttribute('data-region-set')]) store(REGION_KEY, a.getAttribute('data-region-set'));
+  });
+
   /* ---------- Site search overlay (_includes/career-search.html) ----------
      On every page. Opened from the header search button, the "/" and
      Ctrl/Cmd+K shortcuts, links to index.html#careers, and — only on pages

@@ -1923,3 +1923,48 @@ a.hub-cta.hub-cta-jump:hover .hub-cta-arrow,a.hub-cta.hub-cta-jump:focus-visible
 .table-wrap,.table-responsive{overflow-x:auto;-webkit-overflow-scrolling:touch;}
 .table-simple th,.table-simple td{font-size:.9rem;padding:10px 14px;}
 .table-simple th{position:sticky;top:0;z-index:1;}
+
+/* ============================================================
+   Country editions (_data/regions.yml)
+   .region-switch: edition switch at the top of the sidebar / mobile drawer
+   (_includes/region-switcher.html). The current edition is filled, bordered
+   and bold — never colour alone. On region-neutral pages the server cannot
+   mark it, so the filled style also keys off html[data-region] (set before
+   paint). Adding an edition = one more line in each per-edition rule below.
+   ============================================================ */
+.region-switch{flex-shrink:0;padding:.55rem .75rem .6rem;}
+.region-switch-label{display:block;padding:0 .35rem .4rem;font-family:var(--font-mono);font-size:.66rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);}
+.region-seg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;padding:4px;border:1px solid var(--line);border-radius:12px;background:rgba(var(--hl-rgb),.03);}
+.region-opt{display:flex;align-items:center;justify-content:center;gap:.4rem;min-width:0;min-height:40px;padding:.35rem .45rem;border:1px solid transparent;border-radius:9px;font-size:.88rem;font-weight:600;line-height:1.2;color:var(--text-muted);text-decoration:none;transition:background .15s var(--ease),color .15s var(--ease),border-color .15s var(--ease);}
+.region-opt:hover{background:rgba(var(--hl-rgb),.06);color:var(--text);}
+.region-opt:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+.region-flag{flex-shrink:0;border-radius:3px;color:var(--line);}
+.region-name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.region-beta{flex-shrink:0;font-family:var(--font-mono);font-size:.56rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;line-height:1;padding:.18rem .32rem;border-radius:999px;border:1px solid var(--line);color:var(--text-muted);}
+.region-opt[aria-current="true"],
+html[data-region-neutral][data-region="in"] .region-opt[data-region-set="in"],
+html[data-region-neutral][data-region="us"] .region-opt[data-region-set="us"]{background:var(--surface);border-color:var(--gold);color:var(--text);font-weight:700;box-shadow:var(--shadow-sm);}
+/* Region-neutral pages carry every edition's nav groups; show only the active edition's. */
+html[data-region="in"] .sb-group[data-region-nav]:not([data-region-nav="in"]),
+html[data-region="us"] .sb-group[data-region-nav]:not([data-region-nav="us"]){display:none;}
+@media (min-width:1024px){
+  html[data-sidebar="collapsed"] .region-switch{padding:.5rem 6px;}
+  html[data-sidebar="collapsed"] .region-switch-label,
+  html[data-sidebar="collapsed"] .region-name,
+  html[data-sidebar="collapsed"] .region-beta{display:none;}
+  html[data-sidebar="collapsed"] .region-seg{grid-template-columns:minmax(0,1fr);}
+  html[data-sidebar="collapsed"] .region-opt{min-height:36px;padding:.3rem;}
+}
+
+/* USA Edition pages: static (non-link) data cards reuse .trend-card; source list. */
+.trend-card.is-static:hover{transform:none;box-shadow:none;border-color:var(--line);}
+.trend-card .us-occ{margin:0;font-size:.86rem;color:var(--text-muted);line-height:1.45;}
+.trend-card .us-occ strong{color:var(--text);font-weight:600;}
+.trend-card .us-fine{margin:0;font-size:.78rem;color:var(--text-muted);line-height:1.45;}
+.us-sources{list-style:none;margin:0;padding:0;display:grid;gap:.55rem;grid-template-columns:minmax(0,1fr);}
+@media (min-width:900px){.us-sources{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:1.6rem;}}
+.us-sources li{font-size:.86rem;line-height:1.5;color:var(--text-muted);min-width:0;overflow-wrap:anywhere;}
+.us-sources a{color:var(--link);font-weight:600;}
+.us-asof{font-family:var(--font-mono);font-size:.8rem;color:var(--text-muted);}
+.us-by{display:inline-block;margin-top:.15rem;font-size:.8rem;line-height:1.45;color:var(--text-muted);}
+.chip-grid.us-links .item a{color:var(--link);font-weight:600;text-decoration:underline;text-underline-offset:2px;}

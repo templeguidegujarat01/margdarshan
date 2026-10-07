@@ -168,9 +168,9 @@
       <div class="md-sec-head"><h2 id="pay-h">Pay</h2><p>Pay depends on experience, employer and place. The middle of the bar is where most workers sit.</p></div>
       <div class="md-pay">
         <div class="md-pay-head">
-          <div><h3>{{ O.title }} · United States</h3><span class="md-stat-label">Annual wages, {{ V.wage_ref }}</span></div>
+          <div><h3>{% if D.pay_title %}{{ D.pay_title | capitalize }}{% else %}{{ O.title }}{% endif %} · United States</h3><span class="md-stat-label">Annual wages, {{ V.wage_ref }}</span></div>
           <details class="md-src"><summary>{{ info_icon }}BLS{% if has_iqr %} OEWS{% endif %} · {{ V.wage_ref }}</summary>
-            <div class="md-src-pop">{% if has_iqr %}<strong>Occupational Employment and Wage Statistics</strong>{% else %}<strong>{{ SRC.bls_ooh.name }}</strong>{% endif %}U.S. Bureau of Labor Statistics<dl><dt>Area</dt><dd>National</dd><dt>Period</dt><dd>{{ V.wage_ref }}</dd><dt>SOC</dt><dd>{{ O.soc | join: ", " }}</dd></dl><a href="{% if has_iqr %}{{ SRC.bls_oews.url }}{% else %}{{ O.ooh_url }}{% endif %}">View official data</a></div>
+            <div class="md-src-pop">{% if has_iqr %}<strong>Occupational Employment and Wage Statistics</strong>{% else %}<strong>{{ SRC.bls_ooh.name }}</strong>{% endif %}U.S. Bureau of Labor Statistics<dl><dt>Area</dt><dd>National</dd><dt>Period</dt><dd>{{ V.wage_ref }}</dd><dt>SOC</dt><dd>{% if has_iqr %}{{ salary_soc }}{% else %}{{ O.soc | join: ", " }}{% endif %}</dd></dl><a href="{% if has_iqr %}{{ SRC.bls_oews.url }}{% else %}{{ O.ooh_url }}{% endif %}">View official data</a></div>
           </details>
         </div>
         <div class="md-paybar" aria-hidden="true">

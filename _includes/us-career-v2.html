@@ -66,12 +66,7 @@
 <main id="main" class="md-page">
 
   <div class="container md-page-top">
-    {%- if has_salary %}
-    <nav class="md-subnav" aria-label="{{ P.title }} pages">
-      <a href="us/careers/{{ P.slug }}/" aria-current="page">Overview</a>
-      <a href="us/careers/{{ salary_slug }}/salary/">Salary by state</a>
-    </nav>
-    {%- endif %}
+    {% include us-career-subnav.html current="overview" %}
 
     <header class="md-answer">
       <span class="eyebrow">USA · {{ CAT.label }}</span>
@@ -266,6 +261,7 @@
           <summary><strong>In college</strong><span>What you study</span></summary>
           <p>{{ PP.study }}</p>
           {%- if CAT.id == "engineering" %}<p class="md-tile-note">Look for programs accredited by ABET's Engineering Accreditation Commission.</p>{% endif %}
+          {%- if P.colleges %}<a class="md-tile-link" href="us/careers/{{ P.slug }}/colleges/">Colleges that offer this degree →</a>{% endif %}
           <a class="md-tile-link" href="us/college/">Costs and financial aid →</a>
         </details>
         <details class="md-fold">

@@ -2258,3 +2258,21 @@ html[data-region="us"] .sb-group[data-region-nav]:not([data-region-nav="us"]){di
 .md-table th[aria-sort="ascending"] button::after{content:" ▲";font-size:.7em;}
 .md-table th[aria-sort="descending"] button::after{content:" ▼";font-size:.7em;}
 .md-table th button:hover{color:var(--text);}
+/* College finder (Phase 11) */
+@media (min-width:768px){.md-finder-controls{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media (min-width:1100px){.md-finder-controls{grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));}}
+.md-finder-controls .md-select,.md-finder-controls .md-search{max-width:none;}
+.md-college-list{list-style:none;margin:var(--sp-3) 0 0;padding:0;display:grid;gap:var(--sp-2);}
+.md-college-list li{display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--sp-3);padding:var(--sp-3) var(--sp-4);border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--paper);}
+.md-college-list li > div:first-child{display:flex;flex-direction:column;gap:.15rem;min-width:0;flex:1 1 16rem;}
+.md-college-list strong{font-size:var(--fs-small);}
+.md-college-list small{font-size:var(--fs-label);color:var(--text-muted);}
+.md-chips{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.3rem;}
+.md-chips span{font-size:.75rem;font-weight:600;padding:.1rem .5rem;border-radius:999px;background:var(--surface-2);border:1px solid var(--line);}
+.md-college-links{display:flex;gap:var(--sp-3);align-items:center;flex-wrap:wrap;font-size:var(--fs-label);font-weight:600;}
+.md-college-links a{color:var(--link);min-height:32px;display:inline-flex;align-items:center;}
+.md-more-btn{margin-top:var(--sp-4);color:var(--text);border-color:var(--line-strong);}
+.md-acc li{align-items:center;}
+.md-acc .md-tile-link{margin-top:0;white-space:nowrap;}
+/* The hidden attribute must win over component display rules (e.g. .btn is inline-flex) on md-* pages. */
+.md-page [hidden]{display:none !important;}

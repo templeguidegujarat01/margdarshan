@@ -41,7 +41,13 @@ technologies, education shares) and update `last_verified`. Keep the CC BY 4.0 a
 
 ## 4. IPEDS colleges (once a year, when new HD/C files appear)
 
-`node scripts/build-ipeds.mjs --year <year> --group <pathway>=<cip,...>` (used from Phase 11).
+When NCES releases new `HD<year>` and `C<year>_A` files (check `https://nces.ed.gov/ipeds/datacenter/data/HD<year>.zip`):
+   ```
+   node scripts/build-ipeds.mjs --year <year> --from-pathways --out assets/data/us/colleges --summary _data/us/colleges_summary.json --cache <scratch dir>
+   ```
+   Then update `accessed` for `ipeds_completions` / `ipeds_hd` (and their names, which carry the year) in `sources.yml`
+   and run the checker: it fails if a pathway's CIP code has no completions (codes change between CIP editions,
+   e.g. osteopathic medicine is 51.1202 in CIP 2020, not the old 51.1901).
 
 ## 5. Volatile rules (every quarter)
 

@@ -1,0 +1,150 @@
+{%- comment -%}
+  USA pathway colleges page (depth page, global-platform Phase 11). Page stub:
+  us/careers/<slug>/colleges/index.html → `pathway: <slug>`; the pathway needs `colleges: true` and `cip:`.
+  HTML (crawlable, no JS needed): counts, the 10 largest programs, accreditation directories —
+  from _data/us/colleges_summary.json (scripts/build-ipeds.mjs) and _data/us/accreditors.yml.
+  JS (progressive): loads assets/data/us/colleges/<slug>.json (every school that awarded the degree)
+  for the state / level / type / name finder.
+  IPEDS shows which schools award a degree. It is not a ranking and says nothing about accreditation,
+  quality or admission chances — the page says so and links each accreditor's own directory.
+{%- endcomment -%}
+{%- assign US = site.data.us -%}
+{%- assign SRC = US.sources.list -%}
+{%- assign P = US.pathways.list | where: "slug", page.pathway | first -%}
+{%- assign CAT = US.pathways.categories | where: "id", P.category | first -%}
+{%- assign CS = US.colleges_summary.pathways[P.slug] -%}
+{%- assign AY = US.colleges_summary.academic_year -%}
+{%- assign short_title = P.title | split: " (" | first -%}
+{%- assign LV = "associate:Associate,bachelor:Bachelor's,master:Master's,doctor_research:Research doctorate,doctor_professional:Professional doctorate,doctor_other:Other doctorate" | split: "," -%}
+{%- capture info_icon %}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>{% endcapture -%}
+{%- capture ipeds_chip %}<details class="md-src"><summary>{{ info_icon }}NCES IPEDS · {{ AY }}</summary><div class="md-src-pop"><strong>IPEDS Completions and Institutional Characteristics</strong>National Center for Education Statistics<dl><dt>Year</dt><dd>Degrees awarded July {{ AY | split: "-" | first }} – June 20{{ AY | split: "-" | last }}</dd><dt>Files</dt><dd>{{ US.colleges_summary.files | join: ", " }}</dd><dt>Programs</dt><dd>{% for c in P.cip %}CIP {{ c.code }}{% unless forloop.last %}, {% endunless %}{% endfor %}</dd></dl><a href="{{ SRC.ipeds_completions.url }}">View official data</a></div></details>{% endcapture -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "USA Home", "item": "{{ site.url }}{{ site.baseurl }}/us/" },
+    { "@type": "ListItem", "position": 2, "name": "Careers", "item": "{{ site.url }}{{ site.baseurl }}/us/careers/" },
+    { "@type": "ListItem", "position": 3, "name": {{ P.title | jsonify }}, "item": "{{ site.url }}{{ site.baseurl }}/us/careers/{{ P.slug }}/" },
+    { "@type": "ListItem", "position": 4, "name": "Colleges", "item": "{{ page.url | absolute_url }}" }
+  ]
+}
+</script>
+<main id="main" class="md-page">
+
+  <div class="container md-page-top">
+    {% include us-career-subnav.html current="colleges" %}
+
+    <header class="md-answer">
+      <span class="eyebrow">USA · {{ CAT.label }} · Colleges</span>
+      <h1>{{ short_title }}: where to study</h1>
+      <p class="md-answer-lede">{% if P.cip.size == 1 %}Every U.S. college that awarded this degree in {{ AY }} ({{ P.cip[0].label }}), from the federal IPEDS survey.{% else %}Every U.S. college that awarded these degrees in {{ AY }}: {% for c in P.cip %}{{ c.label }}{% if forloop.rindex == 2 %} and {% elsif forloop.last == false %}, {% endif %}{% endfor %}. From the federal IPEDS survey.{% endif %} A complete list, not a ranking.</p>
+      <div class="md-stats">
+        <div class="md-stat"><span class="md-stat-label">Colleges</span><span class="md-stat-value">{% include fmt-num.html n=CS.institutions %}</span>{{ ipeds_chip }}</div>
+        <div class="md-stat"><span class="md-stat-label">States and territories</span><span class="md-stat-value">{{ CS.states }}</span></div>
+        {%- assign main_lv = "bachelor" %}{%- assign main_n = CS.totals.bachelor | default: 0 %}
+        {%- if CS.totals.doctor_professional > main_n %}{%- assign main_lv = "doctor_professional" %}{%- assign main_n = CS.totals.doctor_professional %}{% endif %}
+        <div class="md-stat"><span class="md-stat-label">{% if main_lv == "bachelor" %}Bachelor's degrees awarded{% else %}Professional doctorates awarded{% endif %}</span><span class="md-stat-value">{% include fmt-num.html n=main_n %}</span><span class="md-stat-note">{{ AY }}, first majors</span></div>
+        {%- assign big = CS.largest[0] %}
+        <div class="md-stat"><span class="md-stat-label">Largest program</span><span class="md-stat-value is-text">{{ big.name }}</span><span class="md-stat-note">{{ big.city }}, {{ big.state }} · {% include fmt-num.html n=big.total %} graduates</span></div>
+      </div>
+    </header>
+  </div>
+
+  <section class="md-sec" id="find" aria-labelledby="find-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="find-h">Find a college</h2><p>Filter by state, degree level and type of school. Each result links to the school's own site and to its official College Navigator profile (costs, admissions, graduation rates).</p></div>
+      <div class="md-pay" data-colleges="assets/data/us/colleges/{{ P.slug }}.json">
+        <div class="md-geo-controls md-finder-controls">
+          <label class="md-select"><span class="md-stat-label">State</span><select id="cfState" disabled><option value="">All states</option></select></label>
+          {%- if P.cip.size > 1 %}
+          <label class="md-select"><span class="md-stat-label">Program</span><select id="cfProg" disabled><option value="">All programs</option>{% for c in P.cip %}<option value="{{ c.code }}">{{ c.label }}</option>{% endfor %}</select></label>
+          {%- endif %}
+          <label class="md-select"><span class="md-stat-label">Degree level</span><select id="cfLevel" disabled><option value="">All levels</option></select></label>
+          <label class="md-select"><span class="md-stat-label">Type of school</span><select id="cfType" disabled><option value="">All types</option><option value="pub">Public</option><option value="np">Private nonprofit</option><option value="fp">Private for-profit</option></select></label>
+          <label class="md-search"><span class="md-stat-label">School name</span><input id="cfName" type="search" placeholder="Search by name" autocomplete="off" disabled></label>
+        </div>
+        <p class="md-tile-note" id="cfCount" aria-live="polite">Loading {% include fmt-num.html n=CS.institutions %} colleges…</p>
+        <ul class="md-college-list" id="cfList"></ul>
+        <button type="button" class="btn btn-ghost md-more-btn" id="cfMore" hidden>Show more</button>
+        <noscript><p class="md-tile-note">The college finder needs JavaScript. The largest programs are listed below, and every school can be found in <a href="{{ SRC.college_navigator.url }}">College Navigator</a>.</p></noscript>
+      </div>
+    </div>
+  </section>
+
+  <section class="md-sec md-sec-alt" id="largest" aria-labelledby="largest-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="largest-h">Largest programs by graduates</h2><p>Degrees awarded in {{ AY }} in these programs (all levels, first majors). Size tells you where many students study, not which program is best for you.</p></div>
+      <div class="table-wrap">
+        <table class="md-table">
+          <thead><tr><th>College</th><th>Location</th><th>Type</th><th class="num">Graduates</th></tr></thead>
+          <tbody>
+            {%- for c in CS.largest %}
+            <tr><td><a href="https://nces.ed.gov/collegenavigator/?id={{ c.id }}">{{ c.name }}</a></td><td>{{ c.city }}, {{ c.state }}</td><td>{{ c.sector }}</td><td class="num">{% include fmt-num.html n=c.total %}</td></tr>
+            {%- endfor %}
+          </tbody>
+        </table>
+      </div>
+      {%- if P.cip.size > 1 %}
+      <p class="md-tile-note">By program: {% for c in P.cip %}{{ c.label }} {% include fmt-num.html n=CS.by_cip[c.code] %}{% unless forloop.last %} · {% endunless %}{% endfor %} degrees.</p>
+      {%- endif %}
+    </div>
+  </section>
+
+  <section class="md-sec" id="accreditation" aria-labelledby="acc-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="acc-h">Check accreditation before you apply</h2><p>This list shows which colleges award the degree. It does not show accreditation. Check the program with the accreditor{% if P.license != "none" %}, and check your state's licensing rules{% endif %}.</p></div>
+      <ul class="md-occ md-acc">
+        {%- for aid in P.accreditation %}{%- assign A = US.accreditors[aid] %}
+        <li><span><strong>{{ A.name }}</strong><small>{{ A.meaning }}</small></span><a class="md-tile-link" href="{{ SRC[A.source].url }}">Search programs →</a></li>
+        {%- endfor %}
+        {%- assign A = US.accreditors.institutional %}
+        <li><span><strong>{{ A.name }}</strong><small>{{ A.meaning }}</small></span><a class="md-tile-link" href="{{ SRC[A.source].url }}">Search DAPIP →</a></li>
+      </ul>
+      {%- if P.license != "none" %}<p class="md-tile-note">Licensing: <a href="us/professional-licenses/#{{ P.license }}">education and exam rules for this license →</a></p>{% endif %}
+      <div class="md-datanote">Data: NCES IPEDS {{ US.colleges_summary.files | join: " and " }} ({{ AY }} degrees, first majors). Programs counted: {% for c in P.cip %}{{ c.label }} (CIP {{ c.code }}){% unless forloop.last %}, {% endunless %}{% endfor %}, matched to this career with the NCES CIP–SOC crosswalk. <a href="us/methodology/">How Margdarshan sources its data →</a> · <a href="us/careers/{{ P.slug }}/">Back to {{ short_title }}</a></div>
+    </div>
+  </section>
+
+</main>
+<script>
+/* College finder: filters every school in the IPEDS list for this pathway. */
+document.addEventListener('DOMContentLoaded', function(){
+  var box = document.querySelector('[data-colleges]'); if(!box || !window.fetch) return;
+  var s = document.querySelector('script[data-root]'); var root = s ? s.getAttribute('data-root') : '';
+  var $ = function(id){ return document.getElementById(id); };
+  var pg = $('cfProg'), st = $('cfState'), lv = $('cfLevel'), ty = $('cfType'), nm = $('cfName'), list = $('cfList'), count = $('cfCount'), more = $('cfMore');
+  var LV = { associate: "Associate", bachelor: "Bachelor's", master: "Master's", doctor_research: 'Research doctorate', doctor_professional: 'Professional doctorate', doctor_other: 'Other doctorate' };
+  var TYPE = { 1: 'pub', 4: 'pub', 7: 'pub', 2: 'np', 5: 'np', 8: 'np', 3: 'fp', 6: 'fp', 9: 'fp' };
+  var esc = function(t){ return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); };
+  var PAGE = window.matchMedia('(max-width: 639px)').matches ? 10 : 30, shown = PAGE, data, rows = []; /* shorter pages on phones */
+  fetch(root + box.getAttribute('data-colleges')).then(function(r){ if(!r.ok) throw r; return r.json(); }).then(function(d){
+    data = d;
+    var states = {}, levels = {};
+    d.rows.forEach(function(r){ states[r[3]] = 1; Object.keys(r[6]).forEach(function(k){ levels[k] = 1; }); });
+    st.innerHTML += Object.keys(states).sort().map(function(x){ return '<option>' + esc(x) + '</option>'; }).join('');
+    lv.innerHTML += Object.keys(LV).filter(function(k){ return levels[k]; }).map(function(k){ return '<option value="' + k + '">' + LV[k] + '</option>'; }).join('');
+    [st, lv, ty, nm, pg].forEach(function(el){ if(!el) return; el.disabled = false; el.addEventListener(el === nm ? 'input' : 'change', function(){ shown = PAGE; apply(); }); });
+    more.addEventListener('click', function(){ shown += PAGE; draw(); });
+    apply();
+  }).catch(function(){ count.textContent = 'The college list could not be loaded. The largest programs below are still correct, and every school is in College Navigator.'; });
+  function apply(){
+    var q = nm.value.trim().toLowerCase();
+    rows = data.rows.filter(function(r){
+      return (!pg || !pg.value || r[7][pg.value]) && (!st.value || r[3] === st.value) && (!lv.value || r[6][lv.value]) && (!ty.value || TYPE[r[4]] === ty.value) && (!q || r[1].toLowerCase().indexOf(q) !== -1);
+    });
+    draw();
+  }
+  function draw(){
+    var multi = data.cip.length > 1;
+    count.textContent = rows.length.toLocaleString('en-US') + (rows.length === 1 ? ' college' : ' colleges') + (rows.length > shown ? ' — showing ' + shown : '');
+    list.innerHTML = rows.slice(0, shown).map(function(r){
+      var lvls = Object.keys(LV).filter(function(k){ return r[6][k]; }).map(function(k){ return '<span>' + LV[k] + ' ' + r[6][k].toLocaleString('en-US') + '</span>'; }).join('');
+      var progs = multi ? '<small>' + Object.keys(r[7]).map(function(c){ return esc(data.labels[c] || c) + ' ' + r[7][c]; }).join(' · ') + '</small>' : '';
+      var web = r[5] ? '<a href="' + esc(/^https?:/.test(r[5]) ? r[5] : 'https://' + r[5]) + '" rel="noopener">Website</a>' : '';
+      return '<li><div><strong>' + esc(r[1]) + '</strong><small>' + esc(r[2]) + ', ' + esc(r[3]) + ' · ' + esc(data.sectors[r[4]] || '') + '</small>' + progs + '<div class="md-chips">' + lvls + '</div></div><div class="md-college-links"><a href="https://nces.ed.gov/collegenavigator/?id=' + r[0] + '">College Navigator</a>' + web + '</div></li>';
+    }).join('');
+    more.hidden = rows.length <= shown;
+  }
+});
+</script>

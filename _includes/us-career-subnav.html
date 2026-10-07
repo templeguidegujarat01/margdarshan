@@ -1,0 +1,20 @@
+{%- comment -%}
+  Local navigation for a USA career hub: Overview · Salary by state · Colleges (global-platform Phase 11).
+  Only pages that exist are listed. Params: current = overview | salary | colleges.
+  Salary: the pathway's own page (salary: true) or another pathway's with the same lead (salary_from).
+{%- endcomment -%}
+{%- assign SN = site.data.us.pathways.list | where: "slug", page.pathway | first -%}
+{%- assign sn_salary = "" -%}
+{%- if SN.salary %}{%- assign sn_salary = SN.slug -%}{%- endif -%}
+{%- if SN.salary_from %}{%- assign sn_salary = SN.salary_from -%}{%- endif -%}
+{%- if sn_salary != "" or SN.colleges %}
+<nav class="md-subnav" aria-label="{{ SN.title }} pages">
+  <a href="us/careers/{{ SN.slug }}/"{% if include.current == "overview" %} aria-current="page"{% endif %}>Overview</a>
+  {%- if sn_salary != "" %}
+  <a href="us/careers/{{ sn_salary }}/salary/"{% if include.current == "salary" %} aria-current="page"{% endif %}>Salary by state</a>
+  {%- endif %}
+  {%- if SN.colleges %}
+  <a href="us/careers/{{ SN.slug }}/colleges/"{% if include.current == "colleges" %} aria-current="page"{% endif %}>Colleges</a>
+  {%- endif %}
+</nav>
+{%- endif %}

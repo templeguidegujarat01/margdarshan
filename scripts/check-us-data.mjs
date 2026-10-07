@@ -162,6 +162,22 @@ for (const p of paths.list.filter((x) => x.template === 'v2')) {
 }
 for (const [id, s] of Object.entries(sources.list)) if (!s.short) err(`sources.${id}`, 'missing short label (used on source chips)');
 
+// Colleges pages (Phase 11): curated CIP codes must have IPEDS data, accreditors must resolve to sources.
+const accr = load('accreditors');
+for (const [id, a] of Object.entries(accr)) { if (!sources.list[a.source]) err(`accreditors.${id}`, `unknown source ${a.source}`); if (!['institutional', 'program'].includes(a.scope)) err(`accreditors.${id}`, 'scope must be institutional or program'); }
+const collFile = path.join(root, '_data/us/colleges_summary.json');
+const coll = fs.existsSync(collFile) ? JSON.parse(fs.readFileSync(collFile, 'utf8')).pathways : {};
+for (const p of paths.list.filter((x) => x.colleges)) {
+  const w = `pathways.${p.slug} (colleges)`;
+  if (!Array.isArray(p.cip) || !p.cip.length) { err(w, 'colleges: true needs a cip list'); continue; }
+  for (const c of p.cip) if (!/^\d{2}\.\d{4}$/.test(c.code) || !c.label) err(w, `bad cip entry ${JSON.stringify(c)}`);
+  const s = coll[p.slug];
+  if (!s) err(w, 'no colleges_summary entry (run scripts/build-ipeds.mjs --from-pathways)');
+  else for (const c of p.cip) if (!s.by_cip?.[c.code]) err(w, `CIP ${c.code} has no IPEDS completions — wrong or outdated code?`);
+  for (const a of p.accreditation || []) if (!accr[a]) err(w, `unknown accreditor ${a}`);
+  if (!fs.existsSync(path.join(root, 'us/careers', p.slug, 'colleges/index.html'))) err(w, 'colleges/index.html is missing');
+}
+
 console.log(`checked ${Object.keys(sources.list).length} sources, ${Object.keys(occ).length} occupations, ${Object.keys(lic).length} licenses, ${testIds.size} tests, ${paths.list.length} pathways`);
 if (errors.length) { console.log(errors.join('\n')); console.log(`\n${errors.length} problem(s)`); process.exit(1); }
 console.log('OK: 0 problems');

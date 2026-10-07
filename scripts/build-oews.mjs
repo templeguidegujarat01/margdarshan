@@ -1,5 +1,6 @@
 // Build USA wage/employment JSON from the official BLS OEWS time-series file (one download per year).
-//   node scripts/build-oews.mjs [--data <local oe.data.0.Current>] [--out <dir>] [--soc 15-1252,29-1141]
+//   node scripts/build-oews.mjs [--data <local oe.data.0.Current>] [--out <dir>] [--summary <file>] [--soc 15-1252,29-1141]
+// Site build: --out assets/data/us/oews --summary _data/us/oews_summary.json
 //
 // Source: https://download.bls.gov/pub/time.series/oe/  (oe.data.0.Current ≈ 330 MB, oe.area, oe.release).
 // download.bls.gov asks automated clients to identify themselves, so requests send a User-Agent with a
@@ -8,7 +9,8 @@
 // Output (default --out = a scratch folder; Phase 10 points it at assets/data/us/oews):
 //   <out>/<soc>.json      national + every state + every metro/nonmetro area published for that SOC:
 //                         emp (01), mean (04), p10/p25/median/p75/p90 annual (11–15)
-//   <out>/_summary.json   per SOC: national figures + top 5 states by employment (for Liquid/HTML)
+//   --summary <file>      per SOC: national figures + top 5 states by employment, for Liquid/HTML
+//                         (default <out>/_summary.json; the site uses _data/us/oews_summary.json)
 //   <out>/_meta.json      release name, area count, SOCs with no OEWS series (e.g. broad groups)
 // Rules: values are copied, never computed or rounded. BLS footnote 5 (wage ≥ $239,200/yr, shown by
 // BLS as a cap) is kept as { value, cap: true }; footnote 8 / "-" (not released) is omitted.
@@ -24,6 +26,7 @@ const arg = (k) => { const i = process.argv.indexOf(k); return i > 0 ? process.a
 const BASE = 'https://download.bls.gov/pub/time.series/oe/';
 const UA = { 'User-Agent': `Margdarshan data refresh (${process.env.BLS_CONTACT || 'see emargdarshan.com/contact.html'})` };
 const out = path.resolve(arg('--out') || 'oews-out');
+const summaryFile = path.resolve(arg('--summary') || path.join(out, '_summary.json'));
 const DT = { '01': 'emp', '04': 'mean', '11': 'p10', '12': 'p25', '13': 'median', '14': 'p75', '15': 'p90' };
 
 let socs = arg('--soc')?.split(',');
@@ -75,7 +78,7 @@ for (const s of socs) {
   const top = Object.entries(states).sort((a, b) => num(b[1].emp) - num(a[1].emp)).slice(0, 5).map(([state, r]) => ({ state, ...r }));
   summary[s] = { national: file.national, top_states: top, states_reported: Object.keys(states).length, metros_reported: Object.keys(metros).length };
 }
-fs.writeFileSync(path.join(out, '_summary.json'), JSON.stringify(summary, null, 1));
+fs.writeFileSync(summaryFile, JSON.stringify({ period: release.description, source: 'BLS Occupational Employment and Wage Statistics', socs: summary }, null, 1));
 fs.writeFileSync(path.join(out, '_meta.json'), JSON.stringify({ release: release.description, release_code: release.release_date, built: new Date().toISOString().slice(0, 10), socs: socs.length, written: Object.keys(summary).length, missing, lines, kept }, null, 1));
 console.log(`${release.description}: scanned ${lines} lines, kept ${kept} values, wrote ${Object.keys(summary).length} SOC files to ${out}`);
 if (missing.length) console.log('no national OEWS series (broad group or not published):', missing.join(', '));

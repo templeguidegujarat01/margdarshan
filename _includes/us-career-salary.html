@@ -1,0 +1,179 @@
+{%- comment -%}
+  USA pathway salary page (depth page, global-platform Phase 7). Page stub:
+  us/careers/<slug>/salary/index.html → `pathway: <slug>`; the pathway needs `salary: true`.
+  HTML (crawlable, works without JS): national 5-number pay range, top 5 states, every occupation,
+  pay by industry — from _data/us/oews_summary.json and occupation_details.yml.
+  JS (progressive): loads assets/data/us/oews/<soc>.json (all state-level and metro/nonmetro areas
+  BLS publishes) when the page is ready and powers the state picker and metro search.
+  All numbers are BLS OEWS values copied by scripts/build-oews.mjs; nothing is computed except
+  positions on the bar.
+{%- endcomment -%}
+{%- assign US = site.data.us -%}
+{%- assign SRC = US.sources.list -%}
+{%- assign V = US.sources.bls_vintage -%}
+{%- assign P = US.pathways.list | where: "slug", page.pathway | first -%}
+{%- assign CAT = US.pathways.categories | where: "id", P.category | first -%}
+{%- assign O = US.occupations[P.lead] -%}
+{%- assign D = US.occupation_details[P.lead] -%}
+{%- assign SOC = O.soc[0] -%}
+{%- assign OS = US.oews_summary.socs[SOC] -%}
+{%- assign N = OS.national -%}
+{%- capture info_icon %}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>{% endcapture -%}
+{%- capture oews_chip %}<details class="md-src"><summary>{{ info_icon }}BLS OEWS · {{ US.oews_summary.period }}</summary><div class="md-src-pop"><strong>Occupational Employment and Wage Statistics</strong>U.S. Bureau of Labor Statistics<dl><dt>Period</dt><dd>{{ US.oews_summary.period }}</dd><dt>SOC</dt><dd>{{ SOC }} {{ O.title }}</dd><dt>File</dt><dd>oe.data.0.Current (download.bls.gov)</dd></dl><a href="{{ SRC.bls_oews.url }}">View official data</a></div></details>{% endcapture -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "USA Home", "item": "{{ site.url }}{{ site.baseurl }}/us/" },
+    { "@type": "ListItem", "position": 2, "name": "Careers", "item": "{{ site.url }}{{ site.baseurl }}/us/careers/" },
+    { "@type": "ListItem", "position": 3, "name": {{ P.title | jsonify }}, "item": "{{ site.url }}{{ site.baseurl }}/us/careers/{{ P.slug }}/" },
+    { "@type": "ListItem", "position": 4, "name": "Salary", "item": "{{ page.url | absolute_url }}" }
+  ]
+}
+</script>
+<main id="main" class="md-page">
+
+  <div class="container md-page-top">
+    <nav class="md-subnav" aria-label="{{ P.title }} pages">
+      <a href="us/careers/{{ P.slug }}/">Overview</a>
+      <a href="us/careers/{{ P.slug }}/salary/" aria-current="page">Salary by state</a>
+    </nav>
+
+    <header class="md-answer">
+      <span class="eyebrow">USA · {{ CAT.label }} · Salary</span>
+      <h1>{{ P.title }} salary by state and city</h1>
+      <p class="md-answer-lede">What {{ O.title | downcase }} — the main job for this pathway — earn across the U.S., from the latest BLS wage survey ({{ US.oews_summary.period }}).</p>
+      <div class="md-stats">
+        <div class="md-stat"><span class="md-stat-label">U.S. median</span><span class="md-stat-value">{% include fmt-num.html n=N.median prefix="$" %}</span>{{ oews_chip }}</div>
+        <div class="md-stat"><span class="md-stat-label">U.S. average (mean)</span><span class="md-stat-value">{% include fmt-num.html n=N.mean prefix="$" %}</span></div>
+        <div class="md-stat"><span class="md-stat-label">Jobs in the survey</span><span class="md-stat-value">{% include fmt-num.html n=N.emp %}</span></div>
+        {%- assign top = OS.top_states[0] %}
+        <div class="md-stat"><span class="md-stat-label">Most jobs</span><span class="md-stat-value is-text">{{ top.state }}</span><span class="md-stat-note">{% include fmt-num.html n=top.emp %} jobs · median {% include fmt-num.html n=top.median prefix="$" %}</span></div>
+      </div>
+    </header>
+  </div>
+
+  <section class="md-sec" id="explore" aria-labelledby="explore-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="explore-h">Pay where you want to work</h2><p>Pick a state or search a metro area. The bar shows the spread from the lowest-paid 10% to the top 10% in that place.</p></div>
+      <div class="md-pay" data-oews="assets/data/us/oews/{{ SOC }}.json">
+        <div class="md-geo-controls">
+          <label class="md-select"><span class="md-stat-label">State</span>
+            <select id="geoState"><option value="">United States</option>{% for s in OS.top_states %}<option value="{{ s.state }}">{{ s.state }}</option>{% endfor %}</select>
+          </label>
+          <label class="md-search"><span class="md-stat-label">Metro area</span>
+            <input id="geoMetro" type="search" list="geoMetroList" placeholder="e.g. Austin, Seattle, Atlanta" autocomplete="off" disabled>
+            <datalist id="geoMetroList"></datalist>
+          </label>
+        </div>
+        <div class="md-pay-head" style="margin-top:var(--sp-5)">
+          <div><h3 id="geoName">United States</h3><span class="md-stat-label">{{ O.title }} · annual wages, {{ US.oews_summary.period }}</span></div>
+          {{ oews_chip }}
+        </div>
+        {%- assign span = N.p90 | minus: N.p10 | times: 1.0 %}
+        {%- assign l25 = N.p25 | minus: N.p10 | divided_by: span | times: 100 | round: 2 %}
+        {%- assign l75 = N.p75 | minus: N.p10 | divided_by: span | times: 100 | round: 2 %}
+        {%- assign w = l75 | minus: l25 %}
+        {%- assign lmed = N.median | minus: N.p10 | divided_by: span | times: 100 | round: 2 %}
+        <div class="md-paybar" aria-hidden="true">
+          <span class="md-paybar-iqr" id="geoIqr" style="left:{{ l25 }}%;width:{{ w }}%"></span>
+          <span class="md-paybar-med" id="geoMed" style="left:{{ lmed }}%"><span>Median</span></span>
+        </div>
+        <dl class="md-pay-scale" aria-live="polite">
+          <div><dt>Lowest 10% below</dt><dd data-k="p10">{% include fmt-num.html n=N.p10 prefix="$" %}</dd></div>
+          <div><dt>25th percentile</dt><dd data-k="p25">{% include fmt-num.html n=N.p25 prefix="$" %}</dd></div>
+          <div><dt>Median</dt><dd data-k="median">{% include fmt-num.html n=N.median prefix="$" %}</dd></div>
+          <div><dt>75th percentile</dt><dd data-k="p75">{% include fmt-num.html n=N.p75 prefix="$" %}</dd></div>
+          <div><dt>Top 10% above</dt><dd data-k="p90">{% include fmt-num.html n=N.p90 prefix="$" %}</dd></div>
+        </dl>
+        <div class="md-pay-legend"><span><i></i>Middle half of workers</span><span><i class="is-med"></i>Median</span><span>Mean <b data-k="mean">{% include fmt-num.html n=N.mean prefix="$" %}</b></span><span>Jobs <b data-k="emp">{% include fmt-num.html n=N.emp %}</b></span></div>
+        <p class="md-tile-note" id="geoNote">BLS publishes this occupation for {{ OS.states_reported }} state-level areas (50 states, DC and territories where available) and {{ OS.metros_reported }} metro and nonmetro areas. Places it does not publish are not estimated here.</p>
+        <noscript><p class="md-tile-note">The state picker and metro search need JavaScript; the tables below work without it.</p></noscript>
+      </div>
+    </div>
+  </section>
+
+  <section class="md-sec md-sec-alt" id="states" aria-labelledby="states-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="states-h">States with the most jobs</h2><p>Pay is usually higher where living costs are higher.</p></div>
+      <div class="table-wrap">
+        <table class="md-table">
+          <thead><tr><th>State</th><th class="num">Jobs</th><th class="num">Median</th><th class="num">Mean</th><th class="num">Top 10% above</th></tr></thead>
+          <tbody>
+            {%- for s in OS.top_states %}
+            <tr><td><strong>{{ s.state }}</strong></td><td class="num">{% include fmt-num.html n=s.emp %}</td><td class="num">{% include fmt-num.html n=s.median prefix="$" %}</td><td class="num">{% include fmt-num.html n=s.mean prefix="$" %}</td><td class="num">{% if s.p90.value %}{% include fmt-num.html n=s.p90.value prefix="$" %}+{% else %}{% include fmt-num.html n=s.p90 prefix="$" %}{% endif %}</td></tr>
+            {%- endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="md-sec" id="occupations" aria-labelledby="occ-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="occ-h">Every job in this pathway</h2><p>National figures. A field of study leads to several occupations, each with its own pay.</p></div>
+      <div class="table-wrap">
+        <table class="md-table">
+          <thead><tr><th>Occupation</th><th class="num">Lowest 10%</th><th class="num">Median</th><th class="num">Top 10%</th><th class="num">Jobs</th></tr></thead>
+          <tbody>
+            {%- for oid in P.occupations %}
+            {%- assign oc = US.occupations[oid] %}
+            {%- assign ocs = US.oews_summary.socs[oc.soc[0]] %}
+            <tr><td><a href="{{ oc.ooh_url }}">{{ oc.title }}</a></td>
+              {%- if oc.soc.size == 1 and ocs %}
+              <td class="num">{% include fmt-num.html n=ocs.national.p10 prefix="$" %}</td><td class="num"><strong>{% include fmt-num.html n=ocs.national.median prefix="$" %}</strong></td><td class="num">{% include fmt-num.html n=ocs.national.p90 prefix="$" %}</td><td class="num">{% include fmt-num.html n=ocs.national.emp %}</td>
+              {%- else %}
+              <td class="num">—</td><td class="num"><strong>{% include fmt-num.html n=oc.pay prefix="$" %}</strong></td><td class="num">—</td><td class="num">—</td>
+              {%- endif %}
+            </tr>
+            {%- endfor %}
+          </tbody>
+        </table>
+      </div>
+      <p class="md-tile-note">"Jobs" counts wage-and-salary jobs in the OEWS survey; it differs from the employment totals in BLS projections. "—": BLS publishes this group as separate occupations; the median shown is the group figure from the Occupational Outlook Handbook.</p>
+
+      {%- if D.industries %}
+      <h3 class="md-pay-sub">{{ D.breakdown_label | default: "Median pay by industry" }} · {{ O.title | downcase }}</h3>
+      <ul class="md-occ">
+        {%- for i in D.industries %}<li><span>{{ i.name }}</span><b>{% include fmt-num.html n=i.median prefix="$" %}</b></li>{% endfor %}
+      </ul>
+      {%- endif %}
+
+      <div class="md-datanote">Data: BLS Occupational Employment and Wage Statistics, {{ US.oews_summary.period }} (national, state, metro and nonmetro estimates). <a href="us/methodology/">How Margdarshan sources its data →</a> · <a href="us/careers/{{ P.slug }}/">Back to {{ P.title }}</a></div>
+    </div>
+  </section>
+
+</main>
+<script>
+/* Salary explorer: load every published area for this occupation and update the bar, values and name. */
+document.addEventListener('DOMContentLoaded', function(){
+  var box = document.querySelector('[data-oews]'); if(!box || !window.fetch) return;
+  var s = document.querySelector('script[data-root]'); var root = s ? s.getAttribute('data-root') : '';
+  var sel = document.getElementById('geoState'), metro = document.getElementById('geoMetro'), list = document.getElementById('geoMetroList');
+  var nameEl = document.getElementById('geoName'), note = document.getElementById('geoNote');
+  var num = function(v){ return v && typeof v === 'object' ? v.value : v; };
+  var money = function(v){ if(v === undefined || v === null) return 'Not published'; return '$' + num(v).toLocaleString('en-US') + (typeof v === 'object' && v.cap ? '+' : ''); };
+  fetch(root + box.getAttribute('data-oews')).then(function(r){ if(!r.ok) throw r; return r.json(); }).then(function(d){
+    var states = Object.keys(d.states).sort();
+    sel.innerHTML = '<option value="">United States</option>' + states.map(function(n){ return '<option>' + n + '</option>'; }).join('');
+    var byName = {}; Object.keys(d.metros).forEach(function(k){ byName[d.metros[k].name] = d.metros[k]; });
+    list.innerHTML = Object.keys(byName).sort().map(function(n){ return '<option value="' + n.replace(/"/g, '&quot;') + '">'; }).join('');
+    metro.disabled = false;
+    function show(name, r){
+      nameEl.textContent = name;
+      box.querySelectorAll('[data-k]').forEach(function(el){ var k = el.getAttribute('data-k'); el.textContent = k === 'emp' ? (r.emp ? r.emp.toLocaleString('en-US') : 'Not published') : money(r[k]); });
+      var lo = num(r.p10), hi = num(r.p90), iqr = document.getElementById('geoIqr'), med = document.getElementById('geoMed');
+      if(lo && hi && hi > lo){
+        var pos = function(v){ return ((num(v) - lo) / (hi - lo) * 100).toFixed(2) + '%'; };
+        iqr.style.display = r.p25 && r.p75 ? '' : 'none';
+        if(r.p25 && r.p75){ iqr.style.left = pos(r.p25); iqr.style.width = ((num(r.p75) - num(r.p25)) / (hi - lo) * 100).toFixed(2) + '%'; }
+        med.style.display = r.median ? '' : 'none'; if(r.median) med.style.left = pos(r.median);
+      } else { iqr.style.display = 'none'; med.style.display = 'none'; }
+      note.textContent = (name === 'United States' ? 'National estimate.' : 'Estimate for ' + name + '.') + ' Values BLS does not publish for a place are shown as "Not published", never estimated.';
+    }
+    sel.addEventListener('change', function(){ metro.value = ''; show(sel.value || 'United States', sel.value ? d.states[sel.value] : d.national); });
+    metro.addEventListener('change', function(){ var m = byName[metro.value]; if(m){ sel.value = ''; show(m.name, m); } });
+  }).catch(function(){ note.textContent += ' (The full state and metro list could not be loaded; the national figures and tables are still correct.)'; });
+});
+</script>

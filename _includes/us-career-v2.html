@@ -1,0 +1,382 @@
+{%- comment -%}
+  USA career pathway page, v2 (global-platform Phase 7). Answer-first, about half the length of v1.
+  Used by pathways with `template: v2` in _data/us/pathways.yml; the others still use
+  us-career-page.html until Phase 9. Page stub: us/careers/<slug>/index.html → `pathway: <slug>`.
+  Data (nothing typed here):
+    pathways.yml → P            occupations, route, license, salary (has a /salary/ page), roadmap
+    pathway_pages.yml → PP      answer, intro, majors, study, hs, route, tips, faqs, key_numbers, compare
+    occupations.yml → O         BLS OOH headline figures (lead occupation) and every occupation row
+    occupation_details.yml → D  10th/90th percentiles, specialty/industry pay, O*NET work data
+    oews_summary.json → OS      generated from the BLS OEWS file (scripts/build-oews.mjs)
+    licenses.yml → LIC          when the pathway has a license
+  Sources appear as md-src chips next to the numbers; the full list is on /us/methodology/.
+  Section order follows docs/global-platform/PHASE-3-INFORMATION-ARCHITECTURE.md §5.
+{%- endcomment -%}
+{%- assign US = site.data.us -%}
+{%- assign SRC = US.sources.list -%}
+{%- assign V = US.sources.bls_vintage -%}
+{%- assign P = US.pathways.list | where: "slug", page.pathway | first -%}
+{%- assign PP = US.pathway_pages[page.pathway] -%}
+{%- assign CAT = US.pathways.categories | where: "id", P.category | first -%}
+{%- assign O = US.occupations[P.lead] -%}
+{%- assign D = US.occupation_details[P.lead] -%}
+{%- assign OS = US.oews_summary.socs[O.soc[0]] -%}
+{%- if P.license != "none" %}{%- assign LIC = US.licenses[P.license] -%}{%- endif -%}
+{%- capture info_icon %}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>{% endcapture -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "USA Home", "item": "{{ site.url }}{{ site.baseurl }}/us/" },
+    { "@type": "ListItem", "position": 2, "name": "Careers", "item": "{{ site.url }}{{ site.baseurl }}/us/careers/" },
+    { "@type": "ListItem", "position": 3, "name": {{ P.title | jsonify }}, "item": "{{ site.url }}{{ site.baseurl }}/us/careers/{{ P.slug }}/" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": {{ page.title | split: " | " | first | jsonify }},
+  "description": {{ page.description | jsonify }},
+  "inLanguage": "en-US",
+  "dateModified": "{{ PP.last_reviewed | date: '%Y-%m-%d' }}",
+  "mainEntityOfPage": "{{ page.url | absolute_url }}",
+  "author": { "@type": "Organization", "name": "Margdarshan", "url": "{{ site.url }}{{ site.baseurl }}/" },
+  "publisher": { "@type": "Organization", "name": "Margdarshan", "url": "{{ site.url }}{{ site.baseurl }}/" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {%- for f in PP.faqs %}
+    { "@type": "Question", "name": {{ f.q | jsonify }}, "acceptedAnswer": { "@type": "Answer", "text": {{ f.a | jsonify }} } }{% unless forloop.last %},{% endunless %}
+    {%- endfor %}
+  ]
+}
+</script>
+<main id="main" class="md-page">
+
+  <div class="container md-page-top">
+    {%- if P.salary %}
+    <nav class="md-subnav" aria-label="{{ P.title }} pages">
+      <a href="us/careers/{{ P.slug }}/" aria-current="page">Overview</a>
+      <a href="us/careers/{{ P.slug }}/salary/">Salary by state</a>
+    </nav>
+    {%- endif %}
+
+    <header class="md-answer">
+      <span class="eyebrow">USA · {{ CAT.label }}</span>
+      <h1>{{ P.title }}</h1>
+      <p class="md-answer-lede">{{ PP.answer | default: PP.intro }}</p>
+      <div class="md-stats">
+        <div class="md-stat">
+          <span class="md-stat-label">Median pay · {{ O.title | downcase }}</span>
+          <span class="md-stat-value">{% include fmt-num.html n=O.pay prefix="$" %}</span>
+          <details class="md-src"><summary>{{ info_icon }}BLS · {{ V.wage_ref }}</summary>
+            <div class="md-src-pop"><strong>{{ SRC.bls_ooh.name }}</strong>{{ SRC.bls_ooh.publisher }}<dl><dt>Data</dt><dd>Median annual wage, {{ V.wage_ref }}</dd><dt>Checked</dt><dd>{{ O.last_verified | date: "%-d %b %Y" }}</dd></dl><a href="{{ O.ooh_url }}">View official data</a></div>
+          </details>
+        </div>
+        <div class="md-stat">
+          <span class="md-stat-label">Job outlook {{ V.projection_period }}</span>
+          <span class="md-stat-value"><span class="is-pos">{% include fmt-num.html n=O.outlook_pct sign=true %}%</span></span>
+          <span class="md-stat-note">{{ O.outlook_label }}{% if O.group %} · BLS group{% endif %}</span>
+        </div>
+        <div class="md-stat">
+          <span class="md-stat-label">Typical entry</span>
+          <span class="md-stat-value is-text">{{ O.education }}</span>
+        </div>
+        <div class="md-stat">
+          <span class="md-stat-label">License</span>
+          {%- if LIC and P.license_required %}
+          <span class="md-stat-value is-text">Required</span>
+          <span class="md-stat-note">{{ LIC.authority }}</span>
+          {%- elsif LIC %}
+          <span class="md-stat-value is-text">For some roles</span>
+          <span class="md-stat-note">{{ LIC.short }}</span>
+          {%- else %}
+          <span class="md-stat-value is-text">Not required</span>
+          <span class="md-stat-note">for most jobs</span>
+          {%- endif %}
+        </div>
+      </div>
+      <div class="md-answer-actions">
+        <a href="#path" class="btn btn-primary">See the path</a>
+        {%- if P.salary %}<a href="us/careers/{{ P.slug }}/salary/" class="md-textlink">Salary by state and city</a>
+        {%- elsif D.industries %}<a href="#pay" class="md-textlink">{{ D.breakdown_label | default: "Pay by industry" }}</a>{% endif %}
+      </div>
+    </header>
+  </div>
+
+  {%- comment -%} 1. Where it leads: occupations (primary) + majors + demand (supporting) {%- endcomment -%}
+  <section class="md-sec" id="careers" aria-labelledby="careers-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="careers-h">Where it leads</h2></div>
+      <div class="md-bento">
+        <div class="md-tile is-primary">
+          <h3>Jobs and median pay</h3>
+          <ul class="md-occ">
+            {%- for oid in P.occupations limit:3 %}{%- assign oc = US.occupations[oid] %}
+            <li><span><a href="{{ oc.ooh_url }}">{{ oc.title }}</a><small>{% include fmt-num.html n=oc.outlook_pct sign=true %}% outlook{% if oc.group %} (BLS group){% endif %} · {{ oc.education }}</small></span><b>{% include fmt-num.html n=oc.pay prefix="$" %}</b></li>
+            {%- endfor %}
+          </ul>
+          {%- assign rest = P.occupations.size | minus: 3 %}
+          {%- if rest > 0 %}
+          <details class="md-more">
+            <summary>Show {{ rest }} more</summary>
+            <ul class="md-occ">
+              {%- for oid in P.occupations offset:3 %}{%- assign oc = US.occupations[oid] %}
+              <li><span><a href="{{ oc.ooh_url }}">{{ oc.title }}</a><small>{% include fmt-num.html n=oc.outlook_pct sign=true %}% outlook{% if oc.group %} (BLS group){% endif %} · {{ oc.education }}</small></span><b>{% include fmt-num.html n=oc.pay prefix="$" %}</b></li>
+              {%- endfor %}
+            </ul>
+          </details>
+          {%- endif %}
+          <div class="md-tile-foot">Median annual pay {{ V.wage_ref }}; projected change {{ V.projection_period }} (all jobs: +{{ V.all_occupations_growth_pct }}%).
+            <details class="md-src"><summary>BLS OOH</summary><div class="md-src-pop"><strong>{{ SRC.bls_ooh.name }}</strong>{{ SRC.bls_ooh.publisher }}<dl><dt>Pay</dt><dd>{{ V.wage_ref }}</dd><dt>Outlook</dt><dd>{{ V.projection_period }}</dd></dl><a href="{{ SRC.bls_ooh.url }}">View official data</a></div></details>
+          </div>
+          {%- if P.bls_note %}<p class="md-tile-note">{{ P.bls_note }}</p>{% endif %}
+        </div>
+        <div class="md-tile">
+          <h3>Typical majors</h3>
+          <p>{{ PP.majors | join: " · " }}</p>
+        </div>
+        <div class="md-tile">
+          <h3>Why demand is changing</h3>
+          <p>{{ D.growth_why }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} 2. Pay: national range (5 percentiles when OEWS has them), then a link to the salary page or a specialty/industry list {%- endcomment -%}
+  {%- if D %}
+  {%- assign p10 = D.pay_low10 %}{%- assign p90 = D.pay_high10 %}{%- assign pmed = D.pay_median | default: O.pay %}
+  {%- assign has_iqr = false %}
+  {%- if OS and OS.national.p25 and OS.national.median == pmed %}{%- assign has_iqr = true %}{%- endif %}
+  {%- assign span = p90 | minus: p10 | times: 1.0 %}
+  {%- assign lmed = pmed | minus: p10 | divided_by: span | times: 100 | round: 2 %}
+  <section class="md-sec md-sec-alt" id="pay" aria-labelledby="pay-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="pay-h">Pay</h2><p>Pay depends on experience, employer and place. The middle of the bar is where most workers sit.</p></div>
+      <div class="md-pay">
+        <div class="md-pay-head">
+          <div><h3>{{ O.title }} · United States</h3><span class="md-stat-label">Annual wages, {{ V.wage_ref }}</span></div>
+          <details class="md-src"><summary>{{ info_icon }}BLS{% if has_iqr %} OEWS{% endif %} · {{ V.wage_ref }}</summary>
+            <div class="md-src-pop">{% if has_iqr %}<strong>Occupational Employment and Wage Statistics</strong>{% else %}<strong>{{ SRC.bls_ooh.name }}</strong>{% endif %}U.S. Bureau of Labor Statistics<dl><dt>Area</dt><dd>National</dd><dt>Period</dt><dd>{{ V.wage_ref }}</dd><dt>SOC</dt><dd>{{ O.soc | join: ", " }}</dd></dl><a href="{% if has_iqr %}{{ SRC.bls_oews.url }}{% else %}{{ O.ooh_url }}{% endif %}">View official data</a></div>
+          </details>
+        </div>
+        <div class="md-paybar" aria-hidden="true">
+          {%- if has_iqr %}
+          {%- assign l25 = OS.national.p25 | minus: p10 | divided_by: span | times: 100 | round: 2 %}
+          {%- assign l75 = OS.national.p75 | minus: p10 | divided_by: span | times: 100 | round: 2 %}
+          {%- assign w = l75 | minus: l25 %}
+          <span class="md-paybar-iqr" style="left:{{ l25 }}%;width:{{ w }}%"></span>
+          {%- endif %}
+          <span class="md-paybar-med" style="left:{{ lmed }}%"><span>Median</span></span>
+        </div>
+        <dl class="md-pay-scale{% unless has_iqr %} is-three{% endunless %}">
+          <div><dt>Lowest 10% below</dt><dd>{% include fmt-num.html n=p10 prefix="$" %}</dd></div>
+          {%- if has_iqr %}<div><dt>25th percentile</dt><dd>{% include fmt-num.html n=OS.national.p25 prefix="$" %}</dd></div>{% endif %}
+          <div><dt>Median</dt><dd>{% include fmt-num.html n=pmed prefix="$" %}</dd></div>
+          {%- if has_iqr %}<div><dt>75th percentile</dt><dd>{% include fmt-num.html n=OS.national.p75 prefix="$" %}</dd></div>{% endif %}
+          <div><dt>Top 10% above</dt><dd>{% include fmt-num.html n=p90 prefix="$" %}</dd></div>
+        </dl>
+        {%- if has_iqr %}<div class="md-pay-legend"><span><i></i>Middle half of workers (25th–75th percentile)</span><span><i class="is-med"></i>Median</span></div>{% endif %}
+        {%- if D.pay_note %}<p class="md-tile-note">{{ D.pay_note }}</p>{% endif %}
+
+        {%- if P.salary %}
+        <a class="md-cta-row" href="us/careers/{{ P.slug }}/salary/"><span><strong>Salary by state and metro area</strong>All {{ OS.states_reported }} state-level areas and {{ OS.metros_reported }} metro and nonmetro areas BLS publishes, plus pay by industry.</span><span aria-hidden="true">→</span></a>
+        {%- elsif D.industries %}
+        {%- assign bd_label = D.breakdown_label | default: "Median pay by industry" %}
+        <h3 class="md-pay-sub">{{ bd_label }}</h3>
+        <ul class="md-occ">
+          {%- for i in D.industries limit:5 %}<li><span>{{ i.name }}</span><b>{% include fmt-num.html n=i.median prefix="$" %}</b></li>{% endfor %}
+        </ul>
+        {%- assign more_i = D.industries.size | minus: 5 %}
+        {%- if more_i > 0 %}
+        <details class="md-more"><summary>Show {{ more_i }} more</summary>
+          <ul class="md-occ">{%- for i in D.industries offset:5 %}<li><span>{{ i.name }}</span><b>{% include fmt-num.html n=i.median prefix="$" %}</b></li>{% endfor %}</ul>
+        </details>
+        {%- endif %}
+        {%- if D.states_note %}<p class="md-tile-note">{{ D.states_note }}</p>{% endif %}
+        {%- endif %}
+      </div>
+    </div>
+  </section>
+  {%- endif %}
+
+  {%- comment -%} 3. The path: roadmap v2, then high school / college / stand out {%- endcomment -%}
+  <section class="md-sec" id="path" aria-labelledby="path-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="path-h">How to get there</h2><p>{% if P.roadmap == "license" %}{{ LIC.education }}.{% else %}A typical route. Many people reach the same job in different ways.{% endif %}</p></div>
+      {%- if P.roadmap == "license" %}
+      <ol class="md-road">
+        {%- for step in LIC.steps %}
+        {%- assign kind = "stage" %}{%- assign tag = "" %}
+        {%- if step contains "MCAT" or step contains "USMLE" or step contains "exam" %}{%- assign kind = "gate" %}{%- assign tag = "Exam" %}{%- endif %}
+        {%- if step contains "license" %}{%- assign kind = "license" %}{%- assign tag = "License" %}{%- endif %}
+        {%- if step contains "Optional" %}{%- assign kind = "optional" %}{%- assign tag = "Optional" %}{%- endif %}
+        <li data-kind="{{ kind }}"><div class="md-road-body"><strong>{{ step }}</strong>
+          {%- if step contains "M.D. or D.O." %}<div class="md-branch"><span>M.D. → USMLE</span><span>D.O. → COMLEX-USA</span></div>{% endif %}
+          {%- if tag != "" %}<span class="md-kind">{{ tag }}</span>{% endif %}</div></li>
+        {%- endfor %}
+      </ol>
+      {%- else %}
+      <ol class="md-road is-short" style="--n:{{ PP.route.size }}">
+        {%- for r in PP.route %}{%- assign s = r | split: "|" %}
+        <li data-kind="{% if s[0] == 'Goal' %}license{% else %}stage{% endif %}"><div class="md-road-body"><span class="md-road-tag">{{ s[0] }}</span><strong>{{ s[1] }}</strong><p>{{ s[2] }}</p></div></li>
+        {%- endfor %}
+      </ol>
+      {%- endif %}
+      {%- if LIC and P.roadmap == "license" %}
+      <div class="md-datanote">{{ LIC.jurisdiction_note }} <a href="us/professional-licenses/#{{ P.license }}">Full licensing route →</a></div>
+      <details class="md-more md-exams-more">
+        <summary>About the licensing exams</summary>
+        <ul class="md-occ md-exams">
+          {%- for e in LIC.exams %}
+          <li><span><strong>{{ e.name }}</strong><small>{{ e.what }}</small></span>
+            <details class="md-src"><summary>{{ e.by | split: " (" | first | truncate: 24 }}</summary><div class="md-src-pop"><strong>{{ SRC[e.source].name }}</strong>{{ SRC[e.source].publisher }}<dl><dt>Checked</dt><dd>{{ SRC[e.source].accessed | date: "%-d %b %Y" }}</dd></dl><a href="{{ SRC[e.source].url }}">View source</a></div></details></li>
+          {%- endfor %}
+        </ul>
+      </details>
+      {%- endif %}
+
+      <div class="md-tiles3 md-folds">
+        <details class="md-fold">
+          <summary><strong>In high school</strong><span>{{ PP.hs.size }} things to focus on</span></summary>
+          <ul class="md-list">{% for h in PP.hs %}<li>{{ h }}</li>{% endfor %}</ul>
+          <a class="md-tile-link" href="us/high-school/">GPA, AP and dual enrollment →</a>
+        </details>
+        <details class="md-fold">
+          <summary><strong>In college</strong><span>What you study</span></summary>
+          <p>{{ PP.study }}</p>
+          {%- if CAT.id == "engineering" %}<p class="md-tile-note">Look for programs accredited by ABET's Engineering Accreditation Commission.</p>{% endif %}
+          <a class="md-tile-link" href="us/college/">Costs and financial aid →</a>
+        </details>
+        <details class="md-fold">
+          <summary><strong>Stand out</strong><span>{{ PP.tips.size }} tips from Margdarshan</span></summary>
+          <ul class="md-list">{% for t in PP.tips %}<li>{{ t }}</li>{% endfor %}</ul>
+          <span class="md-tile-note">Margdarshan's advice, based on the data on this page.</span>
+        </details>
+      </div>
+
+      {%- if PP.key_numbers %}
+      <h3 class="md-pay-sub">Reality check</h3>
+      <div class="md-stats md-stats-plain">
+        {%- for k in PP.key_numbers %}
+        <div class="md-stat">
+          <span class="md-stat-label">{{ k.label }}</span>
+          <span class="md-stat-value is-text">{{ k.value }}</span>
+          {%- if k.note %}<span class="md-stat-note">{{ k.note }}</span>{% endif %}
+          <details class="md-src"><summary>{{ SRC[k.source].publisher | split: " (" | first | truncate: 28 }}</summary><div class="md-src-pop"><strong>{{ SRC[k.source].name }}</strong>{{ SRC[k.source].publisher }}<dl><dt>Checked</dt><dd>{{ SRC[k.source].accessed | date: "%-d %b %Y" }}</dd></dl><a href="{{ SRC[k.source].url }}">View source</a></div></details>
+        </div>
+        {%- endfor %}
+      </div>
+      {%- endif %}
+    </div>
+  </section>
+
+  {%- comment -%} 4. Comparison inside the pathway (e.g. M.D. vs D.O.) {%- endcomment -%}
+  {%- if PP.compare %}
+  {%- assign C = PP.compare %}
+  <section class="md-sec md-sec-alt" id="compare" aria-labelledby="compare-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="compare-h">{{ C.title }}</h2></div>
+      <table class="md-cmp">
+        <thead><tr><td></td><th scope="col">{{ C.a }}</th><th scope="col">{{ C.b }}</th></tr></thead>
+        <tbody>
+          {%- for r in C.rows %}
+          {%- if r.same %}
+          <tr><th scope="row">{{ r.label }}</th><td colspan="2" class="is-same">{{ r.same }}</td></tr>
+          {%- else %}
+          <tr><th scope="row">{{ r.label }}</th><td data-col="{{ C.a }}">{{ r.a }}</td><td data-col="{{ C.b }}">{{ r.b }}</td></tr>
+          {%- endif %}
+          {%- endfor %}
+        </tbody>
+      </table>
+      <div class="md-datanote">Sources:{% for s in C.sources %} <a href="{{ SRC[s].url }}">{{ SRC[s].publisher | split: " (" | first }}</a>{% unless forloop.last %} ·{% endunless %}{% endfor %}</div>
+    </div>
+  </section>
+  {%- endif %}
+
+  {%- comment -%} 5. License (when the pathway has one) {%- endcomment -%}
+  {%- if LIC and P.roadmap != "license" %}
+  <section class="md-sec" id="license" aria-labelledby="license-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="license-h">{{ LIC.name }}</h2><p>Granted by {{ LIC.authority | downcase }}. {{ LIC.jurisdiction_note }}</p></div>
+      <ul class="md-occ md-exams">
+        {%- for e in LIC.exams %}
+        <li><span><strong>{{ e.name }}</strong><small>{{ e.what }}</small></span>
+          <details class="md-src"><summary>{{ e.by | split: " (" | first | truncate: 24 }}</summary><div class="md-src-pop"><strong>{{ SRC[e.source].name }}</strong>{{ SRC[e.source].publisher }}<dl><dt>Checked</dt><dd>{{ SRC[e.source].accessed | date: "%-d %b %Y" }}</dd></dl><a href="{{ SRC[e.source].url }}">View source</a></div></details></li>
+        {%- endfor %}
+      </ul>
+      {%- if LIC.not_required_for %}<p class="md-tile-note"><strong>Not always required:</strong> {{ LIC.not_required_for | join: " " }}</p>{% endif %}
+      <a class="md-tile-link" href="us/professional-licenses/#{{ P.license }}">Full licensing route and changes to watch →</a>
+    </div>
+  </section>
+  {%- endif %}
+
+  {%- comment -%} 6. Real work life (O*NET) {%- endcomment -%}
+  {%- if D.onet %}
+  {%- assign W = D.onet %}
+  <section class="md-sec md-sec-alt" id="work" aria-labelledby="work-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="work-h">What the work is like</h2><p>{{ D.hours }}</p></div>
+      <div class="md-bento">
+        <div class="md-tile is-primary">
+          <h3>Common tasks{% if W.example %} · {{ W.example | downcase }}{% endif %}</h3>
+          <ul class="md-list">{% for t in W.tasks limit:3 %}<li>{{ t }}</li>{% endfor %}</ul>
+          {%- if W.context %}
+          <h3 class="md-pay-sub">What workers report</h3>
+          <ul class="md-bars">
+            {%- for c in W.context %}
+            <li><span>{{ c.label }}</span><span class="us-bar"><span class="us-bar-track" aria-hidden="true"><span class="us-bar-fill" style="width:{{ c.pct }}%"></span></span><span class="us-bar-val">{{ c.pct }}%</span></span></li>
+            {%- endfor %}
+          </ul>
+          {%- elsif W.context_note %}<p class="md-tile-note">{{ W.context_note }}</p>{% endif %}
+        </div>
+        <div class="md-tile">
+          <h3>Tools on the job</h3>
+          <p>{{ W.hot_tech | join: " · " }}</p>
+          <h3 class="md-pay-sub">Suits people who are</h3>
+          <p>{{ W.interests }} (Holland codes). Qualities BLS lists: {{ D.qualities | join: ", " | downcase }}.</p>
+        </div>
+      </div>
+      <div class="md-datanote">Work data from O*NET{% if W.example %} for {{ W.example | downcase }}{% endif %}, which surveys people in the job.
+        <details class="md-src"><summary>O*NET {{ W.code }}</summary><div class="md-src-pop"><strong>O*NET OnLine</strong>U.S. Department of Labor, Employment and Training Administration (USDOL/ETA). Used under the CC BY 4.0 license.<dl><dt>Code</dt><dd>{{ W.code }}</dd><dt>Checked</dt><dd>{{ D.last_verified | date: "%-d %b %Y" }}</dd></dl><a href="https://www.onetonline.org/link/summary/{{ W.code }}">View on O*NET</a></div></details>
+      </div>
+    </div>
+  </section>
+  {%- endif %}
+
+  {%- comment -%} 7. Questions, related pathways, data note {%- endcomment -%}
+  <section class="md-sec" id="faq" aria-labelledby="faq-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="faq-h">Questions</h2></div>
+      <div class="faq-list">
+        {%- for f in PP.faqs %}
+        <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">{{ f.q }}<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">{{ f.a }}</div></div>
+        {%- endfor %}
+      </div>
+      <p class="md-tile-note md-intl">Studying from outside the U.S.? Education and immigration are separate routes — see the <a href="us/international-students/">international student guide</a>.</p>
+    </div>
+  </section>
+
+  <section class="md-sec md-sec-alt" aria-labelledby="related-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="related-h">Related pathways</h2></div>
+      <ul class="md-links">
+        {%- for rs in P.related %}
+        {%- assign rp = US.pathways.list | where: "slug", rs | first %}
+        {%- assign ro = US.occupations[rp.lead] %}
+        <li><a href="{% if rp.live %}us/careers/{{ rp.slug }}/{% else %}us/careers/#path-{{ rp.slug }}{% endif %}"><strong>{{ rp.title }}</strong><span>Median {% include fmt-num.html n=ro.pay prefix="$" %}</span></a></li>
+        {%- endfor %}
+      </ul>
+      <div class="md-datanote">Data: BLS wages {{ V.wage_ref }}, projections {{ V.projection_period }}; O*NET work data (CC BY 4.0). Checked {{ PP.last_reviewed | date: "%-d %b %Y" }}. <a href="us/methodology/">How Margdarshan sources its data →</a></div>
+    </div>
+  </section>
+
+</main>

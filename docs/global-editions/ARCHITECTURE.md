@@ -1,6 +1,6 @@
 # Margdarshan Global Editions — Architecture & Phase Plan
 
-Status: **Phase 1 complete** (foundation, no visible change). Last updated: 2026-10-07.
+Status: **Phase 2 complete** (research dataset, no visible change). Last updated: 2026-10-07.
 This folder is excluded from the Jekyll build (`exclude: docs` in `_config.yml`), so nothing here is published.
 
 ---
@@ -85,7 +85,34 @@ A **pathway** (e.g. Computer Science) is the student-facing route. It links to s
 
 Corrections to the original brief: the brief lists UBE + NextGen as future/parallel — NextGen is **already live** (July 2026). ACT pages must not say Science counts toward the Composite. Software-developer outlook must be labelled as the combined BLS group.
 
-Still to verify in Phase 2: the other 15+ occupations, O*NET codes, AP/PSAT details, USMLE step structure, CPA (NASBA / 2024+ "150-hour" alternative pathways by state), FE/PE (NCEES), dental (INBDE) and pharmacy (NAPLEX) licensing, NCLEX, DPT/NPTE, H-1B current rules (USCIS — fee/selection changes in 2025–26 must be checked, not assumed).
+### Phase 2 — research dataset (`_data/us/`)
+
+| File | Contents |
+|---|---|
+| `sources.yml` | 35 official sources (BLS, O*NET, NCES, College Board, ACT, IB, AAMC, ADA, AACP, USMLE, NBOME, NCBE, NASBA/AICPA, NCEES, ABET, NCSBN, NABP, JCNDE, FSBPT, ASPPB, USCIS, Federal Register) + the BLS data vintage in one place |
+| `occupations.yml` | 34 BLS OOH occupations: median pay, entry education, jobs, outlook %, change, openings, SOC + O*NET codes, group/sub-pay where BLS publishes a group |
+| `pathways.yml` | The 20 student pathways → occupations, degree route, admission tests, license, honest BLS caveat, same-field India page for the switcher |
+| `licenses.yml` | 9 licensing models (medicine, law, CPA, PE, nursing, pharmacy, dentistry, PT, psychology) with authority, exams, experience, steps, jurisdiction note, what does *not* need a license, time-sensitive "watch" items |
+| `tests.yml` | PSAT 8/9, PSAT 10, PSAT/NMSQT, SAT, ACT, AP, IB; MCAT, DAT, LSAT/GRE, PCAT (retired) |
+| `degrees.yml` | IPEDS degree definitions, high school (no national board exam; state credits 11–24), transfer |
+| `immigration.yml` | F-1, OPT, STEM OPT, H-1B with dated change log |
+
+Check with `VERIFY_DEPS=<dir with js-yaml> node scripts/check-us-data.mjs` (cross-references, types, sources, dates, India mapping files). `scripts/verify-site.mjs` now reads YAML inside `_data/` subfolders too.
+
+**Research corrections to the original brief (all from primary sources):**
+1. NextGen UBE is live since July 2026; legacy UBE ends Feb 2028 (NCBE).
+2. ACT Composite = English + Math + Reading; Science optional (ACT).
+3. D.O. students take **COMLEX-USA** (NBOME), not only USMLE.
+4. **PCAT was retired in January 2024** — never list it for pharmacy (AACP).
+5. CPA: BLS OOH still says "all states require 150 hours"; NASBA/AICPA UAA 9th ed. (2025) adds a **120-hour + 2 years experience** pathway, adopted state by state. Use NASBA, not the OOH line.
+6. Software developers +10% and electrical engineers +8% are **BLS group** figures, not single-occupation figures.
+7. BLS/O*NET have **no "AI engineer"** occupation — the AI pathway maps to research scientists, data scientists, software developers.
+8. O*NET codes ≠ SOC codes in places (counselors: SOC 21-1018 → O*NET 21-1011.00 + 21-1014.00).
+9. BLS says ADN/ASN programs "typically take 4 years" (verbatim, 2025–35 edition) — quote BLS, don't substitute the common "2 years".
+10. Law school tests: ABA Standard 503 still requires a test, but 21 of 198 schools held variances (Aug 2026).
+11. H-1B: $100,000 payment (Sept 2025) guidance vacated by a district court (June 2026), stay denied by the First Circuit (July 2026); weighted wage-based selection replaced the lottery (rule effective Feb 2026). Treat as volatile.
+
+Sources that block automated readers (IB, NABP) are marked `note:` in `sources.yml` for a manual re-check.
 
 ---
 
@@ -94,7 +121,7 @@ Still to verify in Phase 2: the other 15+ occupations, O*NET codes, AP/PSAT deta
 | Phase | Scope | Visible change? |
 |---|---|---|
 | **1** ✅ | Audit, multi-level `root` fix, `_data/regions.yml`, `us/` region default, this doc | None (verified byte-identical) |
-| 2 | Research dataset `_data/us/*.yml` from BLS, O*NET, College Board, ACT, NCES, USMLE, NCBE, NASBA, NCEES, USCIS, ADA/NABP/NCSBN/FSBPT — every value with source + date | None |
+| **2** ✅ | Research dataset `_data/us/*.yml` from BLS, O*NET, College Board, ACT, NCES, USMLE, NCBE, NASBA, NCEES, USCIS, ADA/NABP/NCSBN/FSBPT — every value with source + date | None |
 | 3 | Region engine: `data-region`, lang/locale, region nav (`sidebar_us`), **region switcher** in sidebar (keyboard/SR accessible, mobile drawer), `md-region` localStorage, USA home `/us/`, rename "Margdarshan USA" study-abroad label (with OK) | Yes — switcher + `/us/` |
 | 4 | USA hubs: High School (grades 9–12, GPA, AP/IB/Honors/dual enrollment), Tests, College & Degrees, Professional Licenses, International Students | Yes |
 | 5 | USA career template + first 10 pathways (tech + engineering) | Yes |

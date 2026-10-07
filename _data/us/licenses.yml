@@ -1,0 +1,280 @@
+# USA Edition — professional licensing model.
+# Every U.S. license is granted by a state/jurisdiction board; national bodies
+# only write exams or accredit schools. Pages must show `jurisdiction_note`
+# and never present one state's rule as national.
+#
+# Fields
+#   name             what the license/credential is called
+#   authority        who grants the license
+#   national_bodies  who writes the exams / accredits programs (not licensers)
+#   education        required education (as stated by the sources)
+#   exams            [{ name, by, what, source }]
+#   experience       supervised practice / experience requirement
+#   steps            ordered student-facing route (high school → license)
+#   jurisdiction_note  what varies by state — always displayed
+#   not_required_for   roles where the license is NOT needed (avoid overclaiming)
+#   watch            time-sensitive changes with dates — re-check on refresh
+#   sources          ids from sources.yml
+#   last_verified
+
+medicine:
+  name: "State medical license (physician)"
+  authority: "State medical boards"
+  national_bodies:
+    - "USMLE — owned by the Federation of State Medical Boards (FSMB) and the National Board of Medical Examiners (NBME)"
+    - "COMLEX-USA — National Board of Osteopathic Medical Examiners (NBOME)"
+  education: "Bachelor's degree, then a 4-year medical school program leading to an M.D. or a D.O., then residency"
+  exams:
+    - name: "USMLE Step 1, Step 2 CK, Step 3"
+      by: "FSMB and NBME"
+      what: "Three-step exam taken at different points in an M.D. student's education and training; results go to state medical boards, which grant the license."
+      source: usmle
+    - name: "COMLEX-USA Level 1, Level 2-CE, Level 3"
+      by: "NBOME"
+      what: "Three-level licensing exam for osteopathic physicians (D.O.). Levels 1 and 2-CE are required to graduate from accredited D.O. programs; NBOME says it is the only licensing exam accepted for D.O.s in all 50 states."
+      source: nbome_comlex
+  experience: "Residency of 3 to 9 years depending on specialty; optional fellowship of 1 to 3 years (BLS)."
+  steps:
+    - "High school diploma"
+    - "Bachelor's degree with pre-med coursework (any major)"
+    - "MCAT and medical school application"
+    - "Medical school — M.D. or D.O. (4 years)"
+    - "USMLE (M.D.) or COMLEX-USA (D.O.) during and after medical school"
+    - "Residency (3–9 years)"
+    - "State medical license"
+    - "Optional: fellowship and board certification"
+  jurisdiction_note: "Each state medical board sets its own licensure rules. Passing USMLE or COMLEX-USA alone does not grant a license."
+  not_required_for:
+    - "Board certification is not required to practice (BLS), though it can widen job options."
+  watch:
+    - "NBOME is changing how D.O. students show clinical skills for COMLEX Level 3 starting with the Class of 2029."
+  sources: [bls_ooh, usmle, nbome_comlex, aamc_mcat]
+  last_verified: 2026-10-07
+
+law:
+  name: "Admission to the bar (lawyer)"
+  authority: "Each jurisdiction's highest court / bar admission authority"
+  national_bodies:
+    - "National Conference of Bar Examiners (NCBE) — UBE, NextGen UBE, MPRE"
+    - "American Bar Association (ABA) — accredits law schools"
+  education: "Bachelor's degree, then a J.D. from a law school (most jurisdictions require an ABA-accredited school)"
+  exams:
+    - name: "Bar exam — legacy Uniform Bar Exam (UBE) or NextGen UBE, plus any state-specific components"
+      by: "NCBE (jurisdictions decide which exam they use)"
+      what: "NextGen UBE debuted in July 2026 in 10 jurisdictions; the legacy UBE is given through February 2028; most large states (including California, Texas and New York) switch in July 2028. A few jurisdictions have not announced adoption."
+      source: ncbe_nextgen
+    - name: "MPRE (Multistate Professional Responsibility Examination)"
+      by: "NCBE"
+      what: "Two-hour, 60-question ethics exam required for bar admission in all U.S. jurisdictions except Wisconsin and Puerto Rico; Connecticut and New Jersey also accept a law school professional-responsibility course instead."
+      source: ncbe_mpre
+  experience: "None nationally; jurisdictions also run a character and fitness review."
+  steps:
+    - "High school diploma"
+    - "Bachelor's degree (any major)"
+    - "Law school admission (LSAT or GRE at most schools)"
+    - "J.D. (typically 3 years full time)"
+    - "MPRE"
+    - "Bar exam in the chosen jurisdiction"
+    - "Character and fitness review"
+    - "Admission to the bar"
+  jurisdiction_note: "Bar admission is granted state by state. Which bar exam is given, passing scores and score transfer rules all vary by jurisdiction."
+  watch:
+    - "Bar exam transition: legacy UBE ends February 2028; check your jurisdiction's NextGen UBE start date."
+    - "Law school admission tests: ABA Standard 503 still requires a valid and reliable test, but the ABA grants variances; 21 of 198 ABA-accredited schools held one as of August 2026."
+  sources: [bls_ooh, ncbe_nextgen, ncbe_mpre, aba_journal_503]
+  last_verified: 2026-10-07
+
+cpa:
+  name: "Certified Public Accountant (CPA) license"
+  authority: "State boards of accountancy"
+  national_bodies:
+    - "AICPA — writes the Uniform CPA Examination"
+    - "NASBA — coordinates boards of accountancy; co-publishes the Uniform Accountancy Act (UAA)"
+  education: "Depends on the jurisdiction's pathway (see pathways below)"
+  pathways:
+    - "Graduate degree in accounting + 1 year of professional experience + CPA Exam"
+    - "Bachelor's degree in accounting + 30 additional semester credits (150 hours total) + 1 year of experience + CPA Exam"
+    - "Bachelor's degree in accounting (120 semester hours) + 2 years of professional experience + CPA Exam"
+  pathways_note: "These three routes are the NASBA/AICPA model (UAA 9th edition, 2025). A jurisdiction offers them only after its own law adopts them."
+  exams:
+    - name: "Uniform CPA Examination"
+      by: "AICPA (delivered with NASBA)"
+      what: "Three 4-hour Core sections — Auditing and Attestation (AUD), Financial Accounting and Reporting (FAR), Taxation and Regulation (REG) — plus one 4-hour Discipline of the candidate's choice: Business Analysis and Reporting (BAR), Information Systems and Controls (ISC) or Tax Compliance and Planning (TCP)."
+      source: aicpa_disciplines
+  experience: "1 or 2 years depending on the pathway; details set by each board."
+  steps:
+    - "High school diploma"
+    - "Bachelor's degree in accounting (or qualifying coursework)"
+    - "Optional: master's or extra credits, depending on pathway"
+    - "Uniform CPA Exam (3 Core + 1 Discipline)"
+    - "Qualifying experience"
+    - "State board application and license"
+  jurisdiction_note: "Education, experience and ethics-exam rules differ by state. Since 2025 more states let a 120-hour bachelor's plus 2 years of experience qualify, but not all. Check your state board."
+  not_required_for:
+    - "Many accounting jobs do not require a CPA license; BLS says anyone who files reports with the SEC must be a licensed CPA."
+  watch:
+    - "State adoption of the 120-hour pathway is ongoing in 2026 (NASBA tracks enacted laws)."
+  sources: [nasba_pathways, nasba_cpa_exam, aicpa_disciplines, bls_ooh]
+  last_verified: 2026-10-07
+
+pe:
+  name: "Professional Engineer (PE) license"
+  authority: "State engineering licensing boards"
+  national_bodies:
+    - "NCEES — writes the FE and PE exams"
+    - "ABET (Engineering Accreditation Commission) — accredits engineering degree programs"
+  education: "Usually a bachelor's degree from an EAC/ABET-accredited engineering program"
+  exams:
+    - name: "FE (Fundamentals of Engineering)"
+      by: "NCEES"
+      what: "For recent graduates and students close to finishing an EAC/ABET-accredited degree. Computer-based, 110 questions, about 5 hours 20 minutes of testing; pass/fail. Passing usually leads to Engineer in Training (EIT) or Engineer Intern (EI) status."
+      source: ncees_fe
+    - name: "PE (Principles and Practice of Engineering)"
+      by: "NCEES"
+      what: "More than 20 discipline exams for engineers with at least 4 years of post-college experience in their field."
+      source: ncees_pe
+  experience: "Typically at least 4 years of qualifying work experience before the PE exam."
+  steps:
+    - "High school diploma (strong math and science)"
+    - "Bachelor's degree from an ABET-accredited engineering program"
+    - "FE exam → EIT / EI"
+    - "About 4 years of qualifying experience"
+    - "PE exam"
+    - "State PE license"
+  jurisdiction_note: "Each state board sets its own application rules, fees and approval steps; many states require continuing education to renew."
+  not_required_for:
+    - "Many engineering jobs do not require a PE. BLS: a PE is required to offer services directly to the public (e.g. civil engineers signing off public projects); entry-level civil engineers do not need one."
+    - "Computer hardware and most software/industry roles rarely require a PE."
+  sources: [ncees_fe, ncees_pe, abet_programs, bls_ooh]
+  last_verified: 2026-10-07
+
+nursing:
+  name: "Registered Nurse (RN) license"
+  authority: "State boards of nursing"
+  national_bodies:
+    - "NCSBN — writes the NCLEX-RN and NCLEX-PN"
+  education: "BSN, associate's degree in nursing (ADN/ASN) or an approved diploma program"
+  exams:
+    - name: "NCLEX-RN (Next Generation NCLEX since April 2023)"
+      by: "NCSBN"
+      what: "National licensure exam used by U.S. boards of nursing to decide whether a new graduate is safe to practice at entry level."
+      source: ncsbn_nclex
+  experience: "Supervised clinical experience is part of every program."
+  steps:
+    - "High school diploma (biology, chemistry, math)"
+    - "Nursing program — BSN, ADN/ASN or diploma"
+    - "NCLEX-RN"
+    - "State board of nursing license"
+    - "Optional: RN-to-BSN, then graduate study for advanced practice (NP, CNM, CRNA)"
+  jurisdiction_note: "Each state board sets licensing rules, including background checks. Advanced practice (NP, nurse midwife, nurse anesthetist) has additional state requirements."
+  sources: [bls_ooh, ncsbn_nclex]
+  last_verified: 2026-10-07
+
+pharmacy:
+  name: "Pharmacist license"
+  authority: "State boards of pharmacy"
+  national_bodies:
+    - "NABP — writes the NAPLEX and MPJE"
+    - "ACPE — accredits Pharm.D. programs"
+  education: "Doctor of Pharmacy (Pharm.D.) from an ACPE-accredited program"
+  exams:
+    - name: "NAPLEX"
+      by: "NABP"
+      what: "General pharmacy practice knowledge, taken shortly after graduation."
+      source: nabp_exams
+    - name: "MPJE or Uniform MPJE"
+      by: "NABP"
+      what: "Pharmacy law exam for the state where the candidate seeks a license; states adopting the Uniform MPJE (from 2026) need only one law exam."
+      source: nabp_exams
+  experience: "Practice experience is built into Pharm.D. programs; residencies (1–2 years) are optional."
+  steps:
+    - "High school diploma (chemistry, biology, math)"
+    - "Prerequisite college coursework (usually at least 2 years) or a 6-year program that admits high school graduates"
+    - "Pharm.D. (usually 4 years)"
+    - "NAPLEX + MPJE / Uniform MPJE"
+    - "State pharmacist license"
+  jurisdiction_note: "Each state board of pharmacy sets licensure and transfer rules; most states also require certification to give vaccinations (BLS)."
+  watch:
+    - "The PCAT admission test was retired in January 2024; pharmacy schools no longer require it."
+    - "Uniform MPJE rollout began in 2026 in adopting states."
+  sources: [bls_ooh, nabp_exams, aacp_pcat]
+  last_verified: 2026-10-07
+
+dentistry:
+  name: "Dentist license"
+  authority: "State dental boards"
+  national_bodies:
+    - "Joint Commission on National Dental Examinations (JCNDE) — INBDE"
+    - "American Dental Association (ADA) — DAT admission test"
+  education: "D.D.S. or D.M.D. from an accredited dental school (admission usually after a bachelor's degree)"
+  exams:
+    - name: "INBDE (Integrated National Board Dental Examination)"
+      by: "JCNDE"
+      what: "Two-day licensure exam accepted in all U.S. licensing jurisdictions."
+      source: jcnde_inbde
+    - name: "State or regional clinical exam"
+      by: "Varies by state"
+      what: "Most states also require a state or regional clinical examination (BLS)."
+      source: bls_ooh
+  experience: "None for general practice; specialties need a 2- to 4-year residency."
+  steps:
+    - "High school diploma"
+    - "Bachelor's degree with science coursework"
+    - "DAT and dental school application"
+    - "D.D.S. or D.M.D."
+    - "INBDE + clinical exam"
+    - "State dental license"
+    - "Optional: specialty residency"
+  jurisdiction_note: "All states license dentists, and requirements vary by state (BLS)."
+  sources: [bls_ooh, jcnde_inbde, ada_dat]
+  last_verified: 2026-10-07
+
+physical-therapy:
+  name: "Physical therapist license"
+  authority: "State physical therapy licensing boards"
+  national_bodies:
+    - "FSBPT — writes the National Physical Therapy Examination (NPTE)"
+    - "CAPTE — accredits PT programs"
+  education: "Doctor of Physical Therapy (DPT) from a CAPTE-accredited program (typically 3 years after a bachelor's degree)"
+  exams:
+    - name: "NPTE"
+      by: "FSBPT"
+      what: "Entry-level competence exam; all jurisdictions use the same passing standard, and some add other requirements."
+      source: fsbpt_npte
+  experience: "Clinical education is part of the DPT; residencies (about 1 year) are optional."
+  steps:
+    - "High school diploma"
+    - "Bachelor's degree with anatomy, chemistry and physics prerequisites"
+    - "DPT (about 3 years)"
+    - "NPTE"
+    - "State license"
+  jurisdiction_note: "All 50 states, DC, Puerto Rico and the U.S. Virgin Islands require a license; each sets its own eligibility rules."
+  sources: [bls_ooh, fsbpt_npte]
+  last_verified: 2026-10-07
+
+psychology:
+  name: "Licensed psychologist"
+  authority: "State and provincial psychology boards"
+  national_bodies:
+    - "ASPPB — writes the EPPP"
+  education: "Usually a doctoral degree (Ph.D. or Psy.D.) for independent clinical practice; school psychologists may hold a master's or Ed.S. (BLS)"
+  exams:
+    - name: "EPPP (Part 1–Knowledge; some boards also require Part 2–Skills)"
+      by: "ASPPB"
+      what: "All 66 ASPPB member jurisdictions require EPPP Part 1. An integrated EPPP replaces the two-part format for first-time candidates from Q4 2027."
+      source: asppb_eppp
+  experience: "Supervised internship and/or postdoctoral experience, set by each board."
+  steps:
+    - "High school diploma"
+    - "Bachelor's degree (psychology or related)"
+    - "Doctoral program (Ph.D./Psy.D.) with internship"
+    - "Supervised experience"
+    - "EPPP"
+    - "State license"
+  jurisdiction_note: "Most states require a license to provide psychology services or use the title 'psychologist'; supervised-hour and exam rules vary."
+  not_required_for:
+    - "Industrial-organizational psychologists and many research roles may not need a clinical license (BLS: I-O roles usually need a master's)."
+  watch:
+    - "Integrated EPPP takes effect in Q4 2027."
+  sources: [bls_ooh, asppb_eppp]
+  last_verified: 2026-10-07

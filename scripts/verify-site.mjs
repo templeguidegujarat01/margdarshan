@@ -24,7 +24,10 @@ for (const f of fs.readdirSync(path.join(root, '_data'), { withFileTypes: true }
   const p = path.join(root, '_data', f.name);
   if (f.isDirectory()) {
     data[f.name] = {};
-    for (const g of fs.readdirSync(p)) data[f.name][g.replace(/\.[^.]+$/, '')] = JSON.parse(fs.readFileSync(path.join(p, g), 'utf8'));
+    for (const g of fs.readdirSync(p)) {
+      const src = fs.readFileSync(path.join(p, g), 'utf8');
+      data[f.name][g.replace(/\.[^.]+$/, '')] = /\.ya?ml$/.test(g) ? yaml.load(src) : JSON.parse(src);
+    }
   } else if (f.name.endsWith('.json')) data[f.name.slice(0, -5)] = JSON.parse(fs.readFileSync(p, 'utf8'));
   else if (/\.ya?ml$/.test(f.name)) data[f.name.replace(/\.ya?ml$/, '')] = yaml.load(fs.readFileSync(p, 'utf8'));
 }

@@ -1,0 +1,252 @@
+# USA Edition — career PATHWAYS (what a student chooses to study/aim for).
+# A pathway is not an occupation: it lists several BLS occupations
+# (_data/us/occupations.yml) and shows pay/outlook per occupation.
+#
+#   slug           URL: /us/careers/<slug>/
+#   category       sidebar/hub grouping
+#   lead           occupation id used for the "quick facts" headline
+#   occupations    representative destinations, most typical first
+#   route          typical education route (degree ids from degrees.yml)
+#   admission      admission tests beyond high school (ids from tests.yml)
+#   license        id in licenses.yml, or none
+#   bls_note       honest caveat about how BLS classifies this field
+#   related        other pathway slugs
+#   in_page        existing India Edition page on the SAME FIELD, used only by
+#                  the region switcher. Same subject, different system — never
+#                  an equivalence of qualifications (MBBS ≠ M.D., LLB ≠ J.D.).
+#   phase          build phase for the page (see docs/global-editions)
+
+categories:
+  - { id: technology, label: "Technology" }
+  - { id: engineering, label: "Engineering" }
+  - { id: healthcare, label: "Healthcare" }
+  - { id: law, label: "Law" }
+  - { id: business, label: "Business & Finance" }
+  - { id: social-science, label: "Psychology & Social Science" }
+
+list:
+  - slug: computer-science
+    title: "Computer Science"
+    category: technology
+    lead: software-developers
+    occupations: [software-developers, computer-systems-analysts, information-security-analysts, data-scientists, computer-research-scientists]
+    route: [bachelor, master]
+    license: none
+    related: [software-engineering, artificial-intelligence, data-science, cybersecurity, computer-engineering]
+    in_page: cse.html
+    phase: 5
+
+  - slug: software-engineering
+    title: "Software Engineering"
+    category: technology
+    lead: software-developers
+    occupations: [software-developers, software-qa-testers, web-developers, database-administrators-architects]
+    route: [bachelor]
+    license: none
+    bls_note: "BLS has no separate 'software engineer' occupation; software engineers are counted as software developers."
+    related: [computer-science, computer-engineering, cybersecurity]
+    in_page: software-engineer.html
+    phase: 5
+
+  - slug: artificial-intelligence
+    title: "Artificial Intelligence & Machine Learning"
+    category: technology
+    lead: computer-research-scientists
+    occupations: [computer-research-scientists, data-scientists, software-developers]
+    route: [bachelor, master, doctor_research]
+    license: none
+    bls_note: "Neither BLS nor O*NET has an 'AI engineer' occupation. AI work is counted mainly under computer and information research scientists, data scientists and software developers."
+    related: [computer-science, data-science, software-engineering]
+    in_page: ai-engineer.html
+    phase: 5
+
+  - slug: data-science
+    title: "Data Science"
+    category: technology
+    lead: data-scientists
+    occupations: [data-scientists, mathematicians-statisticians, operations-research-analysts, database-administrators-architects]
+    route: [bachelor, master]
+    license: none
+    related: [artificial-intelligence, computer-science, finance]
+    in_page: datascience.html
+    phase: 5
+
+  - slug: cybersecurity
+    title: "Cybersecurity"
+    category: technology
+    lead: information-security-analysts
+    occupations: [information-security-analysts, network-systems-administrators, computer-network-architects]
+    route: [bachelor]
+    license: none
+    related: [computer-science, software-engineering, computer-engineering]
+    in_page: cybersecurity.html
+    phase: 5
+
+  - slug: computer-engineering
+    title: "Computer Engineering"
+    category: engineering
+    lead: computer-hardware-engineers
+    occupations: [computer-hardware-engineers, software-developers, electrical-electronics-engineers]
+    route: [bachelor, master]
+    license: pe
+    related: [electrical-engineering, computer-science, software-engineering]
+    phase: 5
+
+  - slug: mechanical-engineering
+    title: "Mechanical Engineering"
+    category: engineering
+    lead: mechanical-engineers
+    occupations: [mechanical-engineers, aerospace-engineers]
+    route: [bachelor, master]
+    license: pe
+    related: [aerospace-engineering, civil-engineering, electrical-engineering]
+    in_page: mechanical.html
+    phase: 5
+
+  - slug: civil-engineering
+    title: "Civil Engineering"
+    category: engineering
+    lead: civil-engineers
+    occupations: [civil-engineers]
+    route: [bachelor, master]
+    license: pe
+    related: [mechanical-engineering, electrical-engineering]
+    in_page: civil.html
+    phase: 5
+
+  - slug: electrical-engineering
+    title: "Electrical Engineering"
+    category: engineering
+    lead: electrical-electronics-engineers
+    occupations: [electrical-electronics-engineers, computer-hardware-engineers]
+    route: [bachelor, master]
+    license: pe
+    related: [computer-engineering, mechanical-engineering, aerospace-engineering]
+    in_page: electrical.html
+    phase: 5
+
+  - slug: aerospace-engineering
+    title: "Aerospace Engineering"
+    category: engineering
+    lead: aerospace-engineers
+    occupations: [aerospace-engineers, mechanical-engineers]
+    route: [bachelor, master]
+    license: pe
+    related: [mechanical-engineering, electrical-engineering]
+    in_page: aerospace.html
+    phase: 5
+
+  - slug: medicine
+    title: "Medicine (Pre-Med to M.D./D.O.)"
+    category: healthcare
+    lead: physicians-surgeons
+    occupations: [physicians-surgeons]
+    route: [bachelor, doctor_professional]
+    admission: [mcat]
+    license: medicine
+    related: [dentistry, pharmacy, nursing, physical-therapy]
+    in_page: mbbs.html
+    phase: 6
+
+  - slug: dentistry
+    title: "Dentistry (Pre-Dental to D.D.S./D.M.D.)"
+    category: healthcare
+    lead: dentists
+    occupations: [dentists]
+    route: [bachelor, doctor_professional]
+    admission: [dat]
+    license: dentistry
+    related: [medicine, pharmacy]
+    in_page: bds.html
+    phase: 6
+
+  - slug: pharmacy
+    title: "Pharmacy (Pharm.D.)"
+    category: healthcare
+    lead: pharmacists
+    occupations: [pharmacists]
+    route: [doctor_professional]
+    license: pharmacy
+    bls_note: "Pharm.D. programs admit students after prerequisite college coursework or, in some 6-year programs, straight from high school."
+    related: [medicine, nursing]
+    in_page: bpharm.html
+    phase: 6
+
+  - slug: nursing
+    title: "Nursing (RN to Advanced Practice)"
+    category: healthcare
+    lead: registered-nurses
+    occupations: [registered-nurses, advanced-practice-nurses]
+    route: [associate, bachelor, master]
+    license: nursing
+    related: [medicine, physical-therapy, pharmacy]
+    in_page: nursing.html
+    phase: 6
+
+  - slug: physical-therapy
+    title: "Physical Therapy (D.P.T.)"
+    category: healthcare
+    lead: physical-therapists
+    occupations: [physical-therapists]
+    route: [bachelor, doctor_professional]
+    license: physical-therapy
+    related: [nursing, medicine]
+    in_page: bpt.html
+    phase: 6
+
+  - slug: law
+    title: "Law (Pre-Law to J.D. and the Bar)"
+    category: law
+    lead: lawyers
+    occupations: [lawyers, paralegals]
+    route: [bachelor, doctor_professional]
+    admission: [law-admission]
+    license: law
+    related: [business, psychology, finance]
+    in_page: llb.html
+    phase: 6
+
+  - slug: accounting
+    title: "Accounting & CPA"
+    category: business
+    lead: accountants-auditors
+    occupations: [accountants-auditors, financial-managers]
+    route: [bachelor, master]
+    license: cpa
+    related: [finance, business]
+    in_page: cpa.html
+    phase: 6
+
+  - slug: finance
+    title: "Finance"
+    category: business
+    lead: financial-analysts
+    occupations: [financial-analysts, personal-financial-advisors, financial-managers]
+    route: [bachelor, master]
+    license: none
+    bls_note: "Some finance jobs need FINRA licenses, usually sponsored by the employer after hiring."
+    related: [accounting, business, data-science]
+    in_page: bachelor-of-finance.html
+    phase: 6
+
+  - slug: business
+    title: "Business & Management"
+    category: business
+    lead: management-analysts
+    occupations: [management-analysts, project-management-specialists, marketing-managers, financial-managers]
+    route: [bachelor, master]
+    license: none
+    related: [finance, accounting, psychology]
+    in_page: bba.html
+    phase: 6
+
+  - slug: psychology
+    title: "Psychology"
+    category: social-science
+    lead: psychologists
+    occupations: [psychologists, mental-health-counselors]
+    route: [bachelor, master, doctor_research]
+    license: psychology
+    related: [medicine, nursing, business]
+    in_page: ba-psychology.html
+    phase: 6

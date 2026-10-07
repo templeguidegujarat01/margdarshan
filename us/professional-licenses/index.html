@@ -11,6 +11,8 @@ breadcrumb:
 {%- assign US = site.data.us -%}
 {%- assign SRC = US.sources.list -%}
 {%- assign lic_count = 0 -%}{%- for l in US.licenses %}{%- assign lic_count = lic_count | plus: 1 -%}{%- endfor -%}
+{%- comment -%} Hub for the nine licence pages (global-platform Phase 12): compare, then go to the licence page.
+  Row ids keep the old in-page anchors (#medicine, #cpa …) working. {%- endcomment -%}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -33,59 +35,33 @@ breadcrumb:
   ]
 }
 </script>
-<main id="main">
+<main id="main" class="md-page">
 
-  <section class="page-hero" aria-labelledby="hero-heading">
-    <svg class="page-hero-bg" viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M-50 340 C 220 300, 320 380, 500 300 S 780 200, 980 260 1150 160 1300 200" stroke="#E8A33D" stroke-width="1.4" fill="none" opacity=".3"/>
-    </svg>
-    <div class="container page-hero-inner">
-      <span class="eyebrow">USA Edition · Professional Licenses</span>
-      <h1 id="hero-heading">Licensed professions, step by step</h1>
-      <div class="meta-row">
-        <span>{{ lic_count }} licenses</span><span>·</span><span>Exams, experience, state rules</span><span>·</span><span>Checked {{ US.licenses.medicine.last_verified | date: "%b %Y" }}</span>
+  <div class="container md-page-top">
+    <header class="md-answer">
+      <span class="eyebrow">USA · Professional licenses</span>
+      <h1>Licensed professions, step by step</h1>
+      <p class="md-answer-lede">In the U.S., state boards grant professional licenses. National bodies write the exams, but each state sets its own education, experience and character rules. Pick a license for its full route and state rules.</p>
+      <div class="md-stats">
+        <div class="md-stat"><span class="md-stat-label">Who grants licenses</span><span class="md-stat-value is-text">State boards</span></div>
+        <div class="md-stat"><span class="md-stat-label">Licenses covered</span><span class="md-stat-value">{{ lic_count }}</span></div>
+        <div class="md-stat"><span class="md-stat-label">Interstate options listed</span><span class="md-stat-value">4</span><span class="md-stat-note">NLC, IMLC, PT Compact, UBE</span></div>
+        <div class="md-stat"><span class="md-stat-label">Same rules in every state?</span><span class="md-stat-value is-text">No</span></div>
       </div>
-      <p>Doctors, lawyers, CPAs, engineers, nurses and pharmacists all need a license to practice — and in the U.S. every one of those licenses comes from a state board, not from a national exam alone. Here is the real route for each.</p>
-      <div class="page-hero-ctas">
-        <a href="#overview" class="btn btn-primary btn-inpage-jump">Compare all licenses</a>
-        <a href="#changes" class="btn btn-ghost btn-inpage-jump">What is changing</a>
-      </div>
-      <div class="quickfacts">
-        <div class="qf-card"><span>Who grants licenses</span><strong>State boards</strong></div>
-        <div class="qf-card"><span>Licenses covered</span><strong>{{ lic_count }}</strong></div>
-        <div class="qf-card"><span>Bar exam</span><strong>NextGen UBE live since July 2026</strong></div>
-        <div class="qf-card"><span>Same rules in every state?</span><strong>No</strong></div>
-      </div>
-    </div>
-  </section>
-
-  <div class="quicknav-bar">
-    <div class="container">
-      <nav class="quicknav" aria-label="Section navigation">
-        <a href="#overview">Overview</a>
-        {%- for l in US.licenses %}
-        <a href="#{{ l[0] }}">{{ l[1].short | default: l[1].name }}</a>
-        {%- endfor %}
-        <a href="#changes">Changes</a>
-        <a href="#faq">FAQs</a>
-      </nav>
-    </div>
+    </header>
   </div>
 
-  <section class="block" id="overview" aria-labelledby="overview-heading">
+  <section class="md-sec" id="overview" aria-labelledby="overview-h">
     <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">At a glance</span>
-        <h2 id="overview-heading">Who grants each license</h2>
-        <p>National bodies write the exams; state boards set education, experience and character requirements and issue the license.</p>
-      </div>
+      <div class="md-sec-head"><h2 id="overview-h">Compare the licenses</h2><p>National exams and who grants each license. Open a license for the step-by-step route, the exams and the state-by-state rules.</p></div>
       <div class="table-wrap">
-        <table class="table-simple">
-          <thead><tr><th>License</th><th>Granted by</th><th>National exam(s)</th><th>Experience</th></tr></thead>
+        <table class="md-table">
+          <thead><tr><th>License</th><th>Granted by</th><th>National exam(s)</th><th>Other states</th></tr></thead>
           <tbody>
             {%- for l in US.licenses %}
             {%- assign d = l[1] %}
-            <tr><td><a href="#{{ l[0] }}">{{ d.name }}</a></td><td>{{ d.authority }}</td><td>{{ d.exams | map: "name" | join: "; " }}</td><td>{{ d.experience }}</td></tr>
+            {%- assign cpn = "" %}{%- for pair in US.compacts %}{% if pair[0] != "links_only" and pair[1].license == l[0] %}{% assign cpn = pair[1].name | split: " (" | last | remove: ")" %}{% endif %}{% endfor %}
+            <tr id="{{ l[0] }}"><td><a href="us/professional-licenses/{{ l[0] }}/"><strong>{{ d.name }}</strong></a></td><td>{{ d.authority }}</td><td>{{ d.exams | map: "name" | join: "; " }}</td><td>{% if cpn != "" %}{{ cpn }} list{% else %}Apply in each state{% endif %}</td></tr>
             {%- endfor %}
           </tbody>
         </table>
@@ -93,82 +69,28 @@ breadcrumb:
     </div>
   </section>
 
-  {%- for l in US.licenses %}
-  {%- assign d = l[1] %}
-  <section class="block{% cycle ' block-alt', '' %}" id="{{ l[0] }}" aria-labelledby="{{ l[0] }}-heading">
+  <section class="md-sec md-sec-alt" id="changes" aria-labelledby="changes-h">
     <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">{{ d.authority }}</span>
-        <h2 id="{{ l[0] }}-heading">{{ d.name }}</h2>
-        <p>{{ d.education }}.</p>
-      </div>
-      <ol class="rflow reveal" style="--rflow-n:{{ d.steps.size | at_most: 5 }}">
-        {%- for s in d.steps %}
-        <li class="rflow-step{% if forloop.last %} is-goal{% endif %}"><span class="rflow-tag">{% if forloop.last %}Goal{% else %}Step {{ forloop.index }}{% endif %}</span><h3>{{ s }}</h3></li>
-        {%- endfor %}
-      </ol>
-      <div class="chip-grid us-links reveal" style="margin-top:1.4rem;">
-        {%- for e in d.exams %}
-        <div class="item"><strong>{{ e.name }}</strong>{{ e.what }} <a href="{{ SRC[e.source].url }}">{{ e.by }}</a></div>
-        {%- endfor %}
-        {%- if d.pathways %}
-        <div class="item"><strong>Routes to qualify</strong>{{ d.pathways | join: " · " }}. {{ d.pathways_note }}</div>
-        {%- endif %}
-      </div>
-      <div class="note reveal" style="margin-top:1.2rem;">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
-        <span><strong>State differences:</strong> {{ d.jurisdiction_note }}{% if d.not_required_for %} <strong>Not always required:</strong> {{ d.not_required_for | join: " " }}{% endif %}</span>
-      </div>
-      <p class="table-note">Sources: {% for s in d.sources %}<a href="{{ SRC[s].url }}">{{ SRC[s].publisher }}</a>{% unless forloop.last %} · {% endunless %}{% endfor %}. Checked {{ d.last_verified | date: "%Y-%m-%d" }}.</p>
-    </div>
-  </section>
-  {%- endfor %}
-
-  <section class="block block-alt" id="changes" aria-labelledby="changes-heading">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">2026–2028</span>
-        <h2 id="changes-heading">Licensing changes to watch</h2>
-        <p>Rules that are changing now. Check the licensing body before you plan around them.</p>
-      </div>
-      <ul class="us-sources">
+      <div class="md-sec-head"><h2 id="changes-h">Licensing changes to watch</h2><p>Rules that are changing now. Check the licensing body before you plan around them.</p></div>
+      <ul class="md-occ">
         {%- for l in US.licenses %}{%- for w in l[1].watch %}
-        <li><strong>{{ l[1].name }}:</strong> {{ w }}</li>
+        <li><span><strong><a href="us/professional-licenses/{{ l[0] }}/">{{ l[1].name }}</a></strong><small>{{ w }}</small></span></li>
         {%- endfor %}{%- endfor %}
       </ul>
     </div>
   </section>
 
-  <section class="block" id="faq" aria-labelledby="faq-heading">
+  <section class="md-sec" id="faq" aria-labelledby="faq-h">
     <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">Good to know</span>
-        <h2 id="faq-heading">Frequently asked questions</h2>
-      </div>
-      <div class="faq-list reveal">
+      <div class="md-sec-head"><h2 id="faq-h">Questions</h2></div>
+      <div class="faq-list">
         <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">Who grants professional licenses in the U.S.?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">State and territorial boards, not the federal government. National organizations write most licensing exams, but each state board decides who is licensed in that state.</div></div>
         <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">Does passing the USMLE make me a doctor?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">No. A physician also needs an M.D. or D.O., residency training and a license from a state medical board. D.O. students usually take COMLEX-USA.</div></div>
         <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">Can I practice in another state with my license?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">Not automatically. Some professions have compacts or transferable scores, but you usually need to apply to the new state's board.</div></div>
         <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">Do all engineers or accountants need a license?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">No. Many engineering and accounting jobs do not require a PE or CPA license; it is needed for specific roles such as offering engineering services to the public or signing certain financial reports.</div></div>
       </div>
+      <div class="md-datanote">Each license page lists its sources with check dates. <a href="us/methodology/">How Margdarshan sources its data →</a> · Related: <a href="us/careers/">Career pathways</a> · <a href="us/tests/#grad-tests">MCAT, DAT, LSAT</a> · <a href="us/international-students/">International students</a></div>
     </div>
   </section>
-
-  <section class="block block-alt" aria-labelledby="related-heading">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">Keep going</span>
-        <h2 id="related-heading">Next steps in the USA Edition</h2>
-      </div>
-      <div class="related-grid reveal">
-        <a class="related-card" href="us/careers/"><strong>Career Pathways</strong><span>20 fields with BLS data</span></a>
-        <a class="related-card" href="us/college/"><strong>College &amp; Money</strong><span>Professional school costs</span></a>
-        <a class="related-card" href="us/tests/#grad-tests"><strong>MCAT, DAT, LSAT</strong><span>Professional school tests</span></a>
-        <a class="related-card" href="us/international-students/"><strong>International Students</strong><span>F-1, OPT, H-1B</span></a>
-      </div>
-    </div>
-  </section>
-
-  {% include us-sources.html ids="bls_ooh,usmle,nbome_comlex,aamc_mcat,ncbe_nextgen,ncbe_mpre,aba_journal_503,nasba_pathways,nasba_cpa_exam,aicpa_disciplines,ncees_fe,ncees_pe,abet_programs,ncsbn_nclex,nabp_exams,aacp_pcat,jcnde_inbde,ada_dat,fsbpt_npte,asppb_eppp" bg="alt" %}
 
 </main>

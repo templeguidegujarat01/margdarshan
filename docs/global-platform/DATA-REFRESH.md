@@ -54,6 +54,13 @@ When NCES releases new `HD<year>` and `C<year>_A` files (check `https://nces.ed.
 Immigration (USCIS), exam formats (NCBE, NCEES, NCSBN, AICPA/NASBA), loan limits (ED): re-check each item
 in `immigration.yml`, `licenses.yml` (`watch`) and `guides.yml`, then update the source's `accessed` date.
 
+**Licensing compacts** (`compacts.yml`: NLC, IMLC, PT Compact, UBE). Each list has `checked` and
+`review_by`; the checker fails once `review_by` has passed (first: 2027-01-05). Re-read each official list
+(NLC map PDF, IMLC participating-states map, PT Compact states page, NCBE UBE list), copy it as published,
+move states between groups, then set `checked` to today and `review_by` about three months later. The IMLC
+map is drawn in the browser; read the state colours with headless Chrome and match them to the map legend.
+PSYPACT blocks automated readers, so it stays a link only.
+
 ## 6. Before pushing
 
 ```

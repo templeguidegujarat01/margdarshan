@@ -1,0 +1,74 @@
+{%- comment -%}
+  State-by-state status for a licence's interstate compact or transferable exam (_data/us/compacts.yml).
+  Param: license (id). Renders, when a compact exists for the licence: what it does, a "check your state"
+  picker (every state, DC and territory; anything not on the published list shows as not listed), the
+  status groups as published (HTML, works without JS) and a source chip with the check date.
+  When only an official link exists (links_only), renders that link. Renders nothing otherwise.
+{%- endcomment -%}
+{%- assign CSRC = site.data.us.sources.list -%}
+{%- assign CP = nil -%}
+{%- for pair in site.data.us.compacts -%}
+  {%- if pair[0] != "links_only" and pair[1].license == include.license %}{%- assign CP = pair[1] -%}{%- endif -%}
+{%- endfor -%}
+{%- assign CL = site.data.us.compacts.links_only[include.license] -%}
+{%- if CP %}
+<div class="md-compact" data-compact>
+  <h3 class="md-compact-title">{{ CP.name }}</h3>
+  <p class="md-compact-what">{{ CP.what }}</p>
+  <div class="md-compact-check">
+    <label class="md-select"><span class="md-stat-label">Check a state</span>
+      <select data-compact-pick>
+        <option value="">Choose a state</option>
+        {%- assign all_states = "Alabama,Alaska,Arizona,Arkansas,California,Colorado,Connecticut,Delaware,District of Columbia,Florida,Georgia,Hawaii,Idaho,Illinois,Indiana,Iowa,Kansas,Kentucky,Louisiana,Maine,Maryland,Massachusetts,Michigan,Minnesota,Mississippi,Missouri,Montana,Nebraska,Nevada,New Hampshire,New Jersey,New Mexico,New York,North Carolina,North Dakota,Ohio,Oklahoma,Oregon,Pennsylvania,Rhode Island,South Carolina,South Dakota,Tennessee,Texas,Utah,Vermont,Virginia,Washington,West Virginia,Wisconsin,Wyoming,American Samoa,Guam,Northern Mariana Islands,Puerto Rico,U.S. Virgin Islands" | split: "," %}
+        {%- for st in all_states %}<option>{{ st }}</option>{% endfor %}
+      </select>
+    </label>
+    <p class="md-compact-result" data-compact-result aria-live="polite" hidden></p>
+  </div>
+  <div class="md-compact-groups">
+    {%- for g in CP.groups %}
+    <details class="md-more md-compact-group"{% if g.states.size < 8 %} open{% endif %}>
+      <summary>{{ g.label }} · {{ g.states.size }}</summary>
+      <p class="md-tile-note">{{ g.meaning }}</p>
+      <ul class="md-state-list">
+        {%- for s in g.states %}
+        <li data-state="{{ s.name }}" data-group="{{ g.label | escape }}" data-meaning="{{ g.meaning | escape }}"{% if s.since %} data-since="{{ s.since }}"{% endif %}{% if s.note %} data-note="{{ s.note | escape }}"{% endif %}>{{ s.name }}{% if s.since %} <small>{{ s.since }}</small>{% endif %}{% if s.note %} <small>· {{ s.note }}</small>{% endif %}</li>
+        {%- endfor %}
+      </ul>
+    </details>
+    {%- endfor %}
+  </div>
+  <div class="md-datanote">List as published by {{ CSRC[CP.source].publisher }}, checked {{ CP.checked | date: "%-d %b %Y" }}. Memberships change: confirm with the state board before you rely on it.{% if CP.note %} {{ CP.note }}{% endif %}
+    <details class="md-src"><summary>{{ CSRC[CP.source].short }}</summary><div class="md-src-pop"><strong>{{ CSRC[CP.source].name }}</strong>{{ CSRC[CP.source].publisher }}<dl><dt>Checked</dt><dd>{{ CP.checked | date: "%-d %b %Y" }}</dd><dt>Next review</dt><dd>{{ CP.review_by | date: "%-d %b %Y" }}</dd></dl><a href="{{ CSRC[CP.source].url }}">View official list</a></div></details>
+  </div>
+</div>
+<script>
+/* Compact state picker: shows the published status of the chosen state, or that it is not on the list. */
+(function(){
+  var box = document.currentScript && document.currentScript.previousElementSibling;
+  if(!box || !box.hasAttribute('data-compact')) return;
+  var sel = box.querySelector('[data-compact-pick]'), out = box.querySelector('[data-compact-result]');
+  var name = {{ CP.name | jsonify }};
+  sel.addEventListener('change', function(){
+    if(!sel.value){ out.hidden = true; return; }
+    var li = null; box.querySelectorAll('[data-state]').forEach(function(x){ if(x.getAttribute('data-state') === sel.value) li = x; });
+    out.innerHTML = '';
+    var b = document.createElement('strong'); b.textContent = sel.value + ': ';
+    out.appendChild(b);
+    if(li){
+      var t = li.getAttribute('data-group') + (li.getAttribute('data-since') ? ' (since ' + li.getAttribute('data-since') + ')' : '') + '. ' + li.getAttribute('data-meaning') + (li.getAttribute('data-note') ? ' ' + li.getAttribute('data-note') : '');
+      out.appendChild(document.createTextNode(t)); out.className = 'md-compact-result is-in';
+    } else {
+      out.appendChild(document.createTextNode('not on the ' + name + ' list we checked. You would apply for a license from this state’s board directly.')); out.className = 'md-compact-result is-out';
+    }
+    out.hidden = false;
+  });
+})();
+</script>
+{%- elsif CL %}
+<div class="md-compact">
+  <h3 class="md-compact-title">{{ CL.name }}</h3>
+  <p class="md-compact-what">{{ CL.what }}</p>
+  <a class="md-tile-link" href="{{ CSRC[CL.source].url }}">{{ CSRC[CL.source].publisher | split: " (" | first }} →</a>
+</div>
+{%- endif %}

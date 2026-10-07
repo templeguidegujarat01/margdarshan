@@ -1,0 +1,101 @@
+{%- comment -%}
+  USA licence page (global-platform Phase 12). Page stub: us/professional-licenses/<id>/index.html →
+  `license: <id>`. Built from _data/us/licenses.yml (route, exams, experience, state note, watch list),
+  _data/us/compacts.yml (interstate status by state) and pathways.yml (careers that need it).
+{%- endcomment -%}
+{%- assign US = site.data.us -%}
+{%- assign SRC = US.sources.list -%}
+{%- assign LIC = US.licenses[page.license] -%}
+{%- assign careers = US.pathways.list | where: "license", page.license -%}
+{%- assign CP = nil -%}
+{%- for pair in US.compacts -%}{%- if pair[0] != "links_only" and pair[1].license == page.license %}{%- assign CP = pair[1] -%}{%- endif -%}{%- endfor -%}
+{%- capture info_icon %}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>{% endcapture -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "USA Home", "item": "{{ site.url }}{{ site.baseurl }}/us/" },
+    { "@type": "ListItem", "position": 2, "name": "Professional Licenses", "item": "{{ site.url }}{{ site.baseurl }}/us/professional-licenses/" },
+    { "@type": "ListItem", "position": 3, "name": {{ LIC.short | jsonify }}, "item": "{{ page.url | absolute_url }}" }
+  ]
+}
+</script>
+<main id="main" class="md-page">
+
+  <div class="container md-page-top">
+    <header class="md-answer">
+      <span class="eyebrow">USA · Professional license</span>
+      <h1>{{ LIC.name }}</h1>
+      <p class="md-answer-lede">Granted by {{ LIC.authority | downcase }}, not by a national exam alone. {{ LIC.education }}.</p>
+      <div class="md-stats">
+        <div class="md-stat"><span class="md-stat-label">Granted by</span><span class="md-stat-value is-text">{{ LIC.authority }}</span></div>
+        <div class="md-stat"><span class="md-stat-label">National exams</span><span class="md-stat-value">{{ LIC.exams.size }}</span><span class="md-stat-note">{{ LIC.exams | map: "name" | join: " · " | truncate: 90 }}</span></div>
+        <div class="md-stat"><span class="md-stat-label">Experience</span><span class="md-stat-value is-text md-stat-long">{{ LIC.experience }}</span></div>
+        <div class="md-stat"><span class="md-stat-label">Other states</span>
+          {%- if CP %}<span class="md-stat-value is-text">{{ CP.name | split: " (" | last | remove: ")" }}</span><span class="md-stat-note">{{ CP.groups[0].states.size }} jurisdictions · {{ CP.groups[0].label }}</span>
+          {%- else %}<span class="md-stat-value is-text">Apply state by state</span><span class="md-stat-note">no compact list on this page</span>{% endif %}</div>
+      </div>
+      <div class="md-answer-actions">
+        <a href="#route" class="btn btn-primary">See the route</a>
+        <a href="#states" class="md-textlink">Rules in other states</a>
+      </div>
+    </header>
+  </div>
+
+  <section class="md-sec" id="route" aria-labelledby="route-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="route-h">How to get licensed</h2><p>{{ LIC.education }}.</p></div>
+      {% include us-license-steps.html license=page.license %}
+      {%- if LIC.pathways %}
+      <h3 class="md-pay-sub">Routes to qualify</h3>
+      <ul class="md-list">{% for p in LIC.pathways %}<li>{{ p }}</li>{% endfor %}</ul>
+      {%- if LIC.pathways_note %}<p class="md-tile-note">{{ LIC.pathways_note }}</p>{% endif %}
+      {%- endif %}
+    </div>
+  </section>
+
+  <section class="md-sec md-sec-alt" id="exams" aria-labelledby="exams-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="exams-h">The exams</h2><p>National bodies write the exams; the state board decides who is licensed.{% if LIC.national_bodies %} {{ LIC.national_bodies | join: "; " }}.{% endif %}</p></div>
+      {% include us-exam-list.html license=page.license %}
+    </div>
+  </section>
+
+  <section class="md-sec" id="states" aria-labelledby="states-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="states-h">State rules and other states</h2><p>{{ LIC.jurisdiction_note }}</p></div>
+      {% include us-compact.html license=page.license %}
+    </div>
+  </section>
+
+  {%- if LIC.not_required_for or LIC.watch %}
+  <section class="md-sec md-sec-alt" id="watch" aria-labelledby="watch-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="watch-h">Good to know</h2></div>
+      <div class="md-tiles2">
+        {%- if LIC.not_required_for %}
+        <div class="md-tile"><h3>Not always required</h3><ul class="md-list">{% for n in LIC.not_required_for %}<li>{{ n }}</li>{% endfor %}</ul></div>
+        {%- endif %}
+        {%- if LIC.watch %}
+        <div class="md-tile"><h3>Changes to watch</h3><ul class="md-list">{% for w in LIC.watch %}<li>{{ w }}</li>{% endfor %}</ul><span class="md-tile-note">Checked {{ LIC.last_verified | date: "%-d %b %Y" }}. Confirm with the licensing body before you plan around a change.</span></div>
+        {%- endif %}
+      </div>
+    </div>
+  </section>
+  {%- endif %}
+
+  <section class="md-sec" aria-labelledby="careers-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="careers-h">Careers that use this license</h2></div>
+      <ul class="md-links">
+        {%- for p in careers %}{%- assign po = US.occupations[p.lead] %}
+        <li><a href="us/careers/{{ p.slug }}/"><strong>{{ p.title }}</strong><span>{% if p.license_required %}License required{% else %}License for some roles{% endif %} · median {% include fmt-num.html n=po.pay prefix="$" %}</span></a></li>
+        {%- endfor %}
+        <li><a href="us/professional-licenses/"><strong>All professional licenses</strong><span>Compare the nine licenses</span></a></li>
+      </ul>
+      <div class="md-datanote">Sources:{% for s in LIC.sources %} <a href="{{ SRC[s].url }}">{{ SRC[s].short | default: SRC[s].publisher }}</a>{% unless forloop.last %} ·{% endunless %}{% endfor %}. Checked {{ LIC.last_verified | date: "%-d %b %Y" }}. <a href="us/methodology/">How Margdarshan sources its data →</a></div>
+    </div>
+  </section>
+
+</main>

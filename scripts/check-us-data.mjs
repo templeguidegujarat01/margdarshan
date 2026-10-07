@@ -162,6 +162,28 @@ for (const p of paths.list.filter((x) => x.template === 'v2')) {
 }
 for (const [id, s] of Object.entries(sources.list)) if (!s.short) err(`sources.${id}`, 'missing short label (used on source chips)');
 
+// Licence pages and compacts (Phase 12): every licence has a page; compact lists are dated, reviewed in
+// time, use canonical state names, point at real licences and sources.
+const STATES = new Set('Alabama,Alaska,Arizona,Arkansas,California,Colorado,Connecticut,Delaware,District of Columbia,Florida,Georgia,Hawaii,Idaho,Illinois,Indiana,Iowa,Kansas,Kentucky,Louisiana,Maine,Maryland,Massachusetts,Michigan,Minnesota,Mississippi,Missouri,Montana,Nebraska,Nevada,New Hampshire,New Jersey,New Mexico,New York,North Carolina,North Dakota,Ohio,Oklahoma,Oregon,Pennsylvania,Rhode Island,South Carolina,South Dakota,Tennessee,Texas,Utah,Vermont,Virginia,Washington,West Virginia,Wisconsin,Wyoming,American Samoa,Guam,Northern Mariana Islands,Puerto Rico,U.S. Virgin Islands'.split(','));
+for (const id of Object.keys(lic)) if (!fs.existsSync(path.join(root, 'us/professional-licenses', id, 'index.html'))) err(`licenses.${id}`, 'licence page us/professional-licenses/<id>/index.html is missing');
+const compacts = load('compacts');
+const today = new Date().toISOString().slice(0, 10);
+const iso = (d) => (d instanceof Date ? d.toISOString().slice(0, 10) : String(d));
+for (const [id, c] of Object.entries(compacts)) {
+  if (id === 'links_only') { for (const [lid, l] of Object.entries(c)) { if (!lic[lid]) err(`compacts.links_only.${lid}`, 'unknown licence'); if (!sources.list[l.source]) err(`compacts.links_only.${lid}`, `unknown source ${l.source}`); } continue; }
+  const w = `compacts.${id}`;
+  if (!lic[c.license]) err(w, `unknown licence ${c.license}`);
+  if (!sources.list[c.source]) err(w, `unknown source ${c.source}`);
+  if (!isDate(c.checked) || !isDate(c.review_by)) err(w, 'needs checked and review_by dates');
+  else if (iso(c.review_by) < today) err(w, `review_by ${iso(c.review_by)} has passed: re-check the published list and update it`);
+  const seen = new Set();
+  for (const g of c.groups || []) for (const s of g.states || []) {
+    if (!STATES.has(s.name)) err(w, `"${s.name}" is not a canonical state/territory name`);
+    if (seen.has(s.name)) err(w, `"${s.name}" appears in more than one group`);
+    seen.add(s.name);
+  }
+}
+
 // Colleges pages (Phase 11): curated CIP codes must have IPEDS data, accreditors must resolve to sources.
 const accr = load('accreditors');
 for (const [id, a] of Object.entries(accr)) { if (!sources.list[a.source]) err(`accreditors.${id}`, `unknown source ${a.source}`); if (!['institutional', 'program'].includes(a.scope)) err(`accreditors.${id}`, 'scope must be institutional or program'); }

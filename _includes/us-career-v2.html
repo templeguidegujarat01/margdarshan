@@ -213,24 +213,7 @@
     <div class="container">
       <div class="md-sec-head"><h2 id="path-h">How to get there</h2><p>{% if P.roadmap == "license" %}{{ LIC.education }}.{% else %}A typical route. Many people reach the same job in different ways.{% endif %}</p></div>
       {%- if P.roadmap == "license" %}
-      {%- assign exam_words = "exam,Exam,MCAT,LSAT,USMLE,COMLEX,MPRE,NCLEX,DAT,INBDE,NAPLEX,MPJE,NPTE,EPPP" | split: "," %}
-      <ol class="md-road">
-        {%- for step in LIC.steps %}
-        {%- comment -%} Step kinds from the step text: an exam or admission test is a gate; the step that grants the
-          right to practise (a "license" step, or the last step when it is not optional — e.g. "Admission to the bar")
-          is the license; "Optional: …" steps are optional. {%- endcomment -%}
-        {%- assign kind = "stage" %}{%- assign tag = "" %}
-        {%- assign is_exam = false %}
-        {%- for kw in exam_words %}{% if step contains kw %}{% assign is_exam = true %}{% endif %}{% endfor %}
-        {%- if is_exam %}{%- assign kind = "gate" %}{%- assign tag = "Exam" %}{%- endif %}
-        {%- if step contains "license" %}{%- assign kind = "license" %}{%- assign tag = "License" %}{%- endif %}
-        {%- if forloop.last and kind == "stage" %}{% unless step contains "Optional" %}{%- assign kind = "license" %}{%- assign tag = "License" %}{% endunless %}{%- endif %}
-        {%- if step contains "Optional" %}{%- assign kind = "optional" %}{%- assign tag = "Optional" %}{%- endif %}
-        <li data-kind="{{ kind }}"><div class="md-road-body"><strong>{{ step }}</strong>
-          {%- if step contains "M.D. or D.O." %}<div class="md-branch"><span>M.D. → USMLE</span><span>D.O. → COMLEX-USA</span></div>{% endif %}
-          {%- if tag != "" %}<span class="md-kind">{{ tag }}</span>{% endif %}</div></li>
-        {%- endfor %}
-      </ol>
+      {% include us-license-steps.html license=P.license %}
       {%- else %}
       <ol class="md-road is-short" style="--n:{{ PP.route.size }}">
         {%- for r in PP.route %}{%- assign s = r | split: "|" %}
@@ -239,15 +222,10 @@
       </ol>
       {%- endif %}
       {%- if LIC and P.roadmap == "license" %}
-      <div class="md-datanote">{{ LIC.jurisdiction_note }} <a href="us/professional-licenses/#{{ P.license }}">Full licensing route →</a></div>
+      <div class="md-datanote">{{ LIC.jurisdiction_note }} <a href="us/professional-licenses/{{ P.license }}/">Full licensing route →</a></div>
       <details class="md-more md-exams-more">
         <summary>About the licensing exams</summary>
-        <ul class="md-occ md-exams">
-          {%- for e in LIC.exams %}
-          <li><span><strong>{{ e.name }}</strong><small>{{ e.what }}</small></span>
-            <details class="md-src"><summary>{{ SRC[e.source].short | default: e.by }}</summary><div class="md-src-pop"><strong>{{ SRC[e.source].name }}</strong>{{ SRC[e.source].publisher }}<dl><dt>Checked</dt><dd>{{ SRC[e.source].accessed | date: "%-d %b %Y" }}</dd></dl><a href="{{ SRC[e.source].url }}">View source</a></div></details></li>
-          {%- endfor %}
-        </ul>
+        {% include us-exam-list.html license=P.license %}
       </details>
       {%- endif %}
 
@@ -315,14 +293,9 @@
   <section class="md-sec" id="license" aria-labelledby="license-h">
     <div class="container">
       <div class="md-sec-head"><h2 id="license-h">{{ LIC.name }}</h2><p>Granted by {{ LIC.authority | downcase }}. {{ LIC.jurisdiction_note }}</p></div>
-      <ul class="md-occ md-exams">
-        {%- for e in LIC.exams %}
-        <li><span><strong>{{ e.name }}</strong><small>{{ e.what }}</small></span>
-          <details class="md-src"><summary>{{ SRC[e.source].short | default: e.by }}</summary><div class="md-src-pop"><strong>{{ SRC[e.source].name }}</strong>{{ SRC[e.source].publisher }}<dl><dt>Checked</dt><dd>{{ SRC[e.source].accessed | date: "%-d %b %Y" }}</dd></dl><a href="{{ SRC[e.source].url }}">View source</a></div></details></li>
-        {%- endfor %}
-      </ul>
+      {% include us-exam-list.html license=P.license %}
       {%- if LIC.not_required_for %}<p class="md-tile-note"><strong>Not always required:</strong> {{ LIC.not_required_for | join: " " }}</p>{% endif %}
-      <a class="md-tile-link" href="us/professional-licenses/#{{ P.license }}">Full licensing route and changes to watch →</a>
+      <a class="md-tile-link" href="us/professional-licenses/{{ P.license }}/">Full licensing route and changes to watch →</a>
     </div>
   </section>
   {%- endif %}

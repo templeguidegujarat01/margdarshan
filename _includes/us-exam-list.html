@@ -1,0 +1,12 @@
+{%- comment -%}
+  Licensing exams for one licence (_data/us/licenses.yml → <license>.exams), each with a source chip.
+  Param: license (id). Used by career pages and licence pages.
+{%- endcomment -%}
+{%- assign LX = site.data.us.licenses[include.license] -%}
+{%- assign XSRC = site.data.us.sources.list -%}
+        <ul class="md-occ md-exams">
+          {%- for e in LX.exams %}
+          <li><span><strong>{{ e.name }}</strong><small>{{ e.what }}</small></span>
+            <details class="md-src"><summary>{{ XSRC[e.source].short | default: e.by }}</summary><div class="md-src-pop"><strong>{{ XSRC[e.source].name }}</strong>{{ XSRC[e.source].publisher }}<dl><dt>Checked</dt><dd>{{ XSRC[e.source].accessed | date: "%-d %b %Y" }}</dd></dl><a href="{{ XSRC[e.source].url }}">View source</a></div></details></li>
+          {%- endfor %}
+        </ul>

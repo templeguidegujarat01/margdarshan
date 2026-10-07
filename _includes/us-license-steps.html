@@ -1,0 +1,23 @@
+{%- comment -%}
+  Licence route as a roadmap (md-road), from _data/us/licenses.yml → <license>.steps.
+  Param: license (id). Step kinds come from the step text: an exam or admission test is a gate; the step
+  that grants the right to practise (a "license" step, or the last step when it is not optional — e.g.
+  "Admission to the bar") is the licence; "Optional: …" steps are optional.
+  Used by career pages (us-career-v2.html) and licence pages (us-license-page.html).
+{%- endcomment -%}
+{%- assign LS = site.data.us.licenses[include.license] -%}
+{%- assign exam_words = "exam,Exam,MCAT,LSAT,USMLE,COMLEX,MPRE,NCLEX,DAT,INBDE,NAPLEX,MPJE,NPTE,EPPP" | split: "," %}
+      <ol class="md-road">
+        {%- for step in LS.steps %}
+        {%- assign kind = "stage" %}{%- assign tag = "" %}
+        {%- assign is_exam = false %}
+        {%- for kw in exam_words %}{% if step contains kw %}{% assign is_exam = true %}{% endif %}{% endfor %}
+        {%- if is_exam %}{%- assign kind = "gate" %}{%- assign tag = "Exam" %}{%- endif %}
+        {%- if step contains "license" %}{%- assign kind = "license" %}{%- assign tag = "License" %}{%- endif %}
+        {%- if forloop.last and kind == "stage" %}{% unless step contains "Optional" %}{%- assign kind = "license" %}{%- assign tag = "License" %}{% endunless %}{%- endif %}
+        {%- if step contains "Optional" %}{%- assign kind = "optional" %}{%- assign tag = "Optional" %}{%- endif %}
+        <li data-kind="{{ kind }}"><div class="md-road-body"><strong>{{ step }}</strong>
+          {%- if step contains "M.D. or D.O." %}<div class="md-branch"><span>M.D. → USMLE</span><span>D.O. → COMLEX-USA</span></div>{% endif %}
+          {%- if tag != "" %}<span class="md-kind">{{ tag }}</span>{% endif %}</div></li>
+        {%- endfor %}
+      </ol>

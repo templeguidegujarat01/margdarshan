@@ -1,12 +1,18 @@
 # Margdarshan Global Editions — Architecture & Phase Plan
 
-Status: **All 8 phases complete.** Last updated: 2026-10-08.
+Status: **All 8 phases complete + Phase 9 (sidebar architecture, master prompt Parts 13–14).** Last updated: 2026-10-08.
+
+## Phase 9 — sidebar architecture (as built)
+
+- **India sidebar (Part 13):** the GLOBAL & REGIONAL group had 11 flat items, 8 of them identical globe icons ("Study Abroad Hub" plus seven "Margdarshan <Country>" links). The seven study-abroad country guides now sit as sub-links (USA, UK, Germany, Canada, Australia, Ireland, Singapore) under one "Study Abroad" item → 4 items. Every destination is kept; the current country page opens and highlights its parent. This also removes the "Margdarshan USA" label that could be mistaken for the USA Edition. No India page content changed.
+- **USA sidebar (Part 14):** each item now has collapsible sub-links to its main sections — High School (plan, GPA, rigor, what colleges weigh), Tests (policies, SAT vs ACT, AP, professional-school tests), College & Money (degrees, costs, aid, transfer), Career Pathways (6 categories → new `#cat-<id>` anchors from `us-pathway-cards.html`), Licensed Professions (medicine, law, CPA, PE, nursing, others), International Students (steps, credentials, work/OPT/H-1B, H-1B changes). "Universities" from the brief's suggestion is not linked because no such page exists.
+- Verified: verify-site resolves every new anchor; browser tests of current-page highlighting, expand/collapse, anchor jumps, mobile drawer (375 px) and the collapsed rail; no overflow or console errors.
 
 ## Final report (Phase 8)
 
 **India functionality preserved: YES** · **USA region implemented: YES** · **Build/verification passed: YES** (Jekyll is not installed locally; every check renders the real templates with liquidjs and `_config.yml` defaults, as GitHub Pages' Jekyll would)
 
-**Known issues:** (1) The 4 verifier warnings that existed before this project remain (two stub pages without #main, "coming soon" text on the coaching and colleges finders). (2) Sidebar label "Margdarshan USA" (India study-abroad guide) is unchanged until the owner decides on a rename. (3) Some official sites block automated readers (ed.gov, travel.state.gov, NABP, IB, an AAMC cost page); those facts are marked `note:` in `sources.yml` for a manual re-check. (4) Data is a snapshot (BLS May 2025 / 2025–35, checked 2026-10-07/08) — refresh yearly using `sources.yml → bls_vintage`, `scripts/fetch-oews.mjs` and `scripts/check-us-data.mjs`.
+**Known issues:** (1) The 4 verifier warnings that existed before this project remain (two stub pages without #main, "coming soon" text on the coaching and colleges finders). (2) Resolved in Phase 9: the study-abroad country links are grouped under "Study Abroad". (3) Some official sites block automated readers (ed.gov, travel.state.gov, NABP, IB, an AAMC cost page); those facts are marked `note:` in `sources.yml` for a manual re-check. (4) Data is a snapshot (BLS May 2025 / 2025–35, checked 2026-10-07/08) — refresh yearly using `sources.yml → bls_vintage`, `scripts/fetch-oews.mjs` and `scripts/check-us-data.mjs`.
 
 **Phase 8 work:** `404.html` now uses site-absolute links (GitHub Pages serves it at any missing URL, e.g. /us/careers/typo/, where relative links broke styling).
 

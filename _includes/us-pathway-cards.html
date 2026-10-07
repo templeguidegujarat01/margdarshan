@@ -8,7 +8,7 @@
 {%- assign UPC_V = UPC.sources.bls_vintage -%}
 {%- for cat in UPC.pathways.categories %}
 {%- assign in_cat = UPC.pathways.list | where: "category", cat.id %}
-<h3 class="block-subhead">{{ cat.label }}</h3>
+<h3 class="block-subhead" id="cat-{{ cat.id }}">{{ cat.label }}</h3>
 <ul class="trend-grid">
   {%- for p in in_cat %}
   {%- assign o = UPC.occupations[p.lead] %}

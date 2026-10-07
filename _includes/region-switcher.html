@@ -1,19 +1,25 @@
 {%- comment -%}
-  Country edition switch — top of the sidebar, so it is also the first thing in the mobile
-  drawer. Plain links (works without JS, native keyboard/screen-reader behaviour), one per
-  edition in _data/regions.yml → list.
+  Country edition switch — a property-style dropdown (like Google Search Console's
+  property picker) at the top of the sidebar, so it is also the first thing in the
+  mobile drawer. The button shows the current edition; the menu lists every edition in
+  _data/regions.yml → list. Picking one opens that edition, whose pages carry its own
+  sidebar (_data/regions.yml → <id>.nav), so the nav tree switches with the page.
+
+  Built on <details>/<summary>: opens and closes without JS; the options are plain links.
+  scripts.html adds outside-click / Escape closing and arrow-key movement.
 
   Destination: the same-field page in the other edition only when a real mapping exists —
   a pathway in _data/us/pathways.yml marked `live: true` (its page is built) with an
   `in_page` — otherwise that edition's home. Never a guessed URL.
 
-  Current edition: aria-current="true" + filled, bordered, bold option (not colour alone).
-  On region-neutral pages the server cannot know the edition, so CSS keys the filled style
-  off html[data-region] (set before paint) and scripts.html sets aria-current.
-  scripts.html also saves the clicked edition (data-region-set) to localStorage.
+  Current edition: aria-current="true" + check mark + bold option (not colour alone).
+  On region-neutral pages the server cannot know the edition, so the button label and the
+  marked option key off html[data-region] (set before paint) in CSS, and scripts.html sets
+  aria-current. scripts.html also saves the clicked edition (data-region-set) to localStorage.
   Reads region_id / region_neutral from _layouts/default.html.
 {%- endcomment -%}
 {%- assign rs_here = page.url | remove_first: "/" -%}
+{%- assign rs_host = site.url | remove_first: "https://" | remove_first: "http://" -%}
 {%- assign rs_to_us = "" -%}
 {%- assign rs_to_in = "" -%}
 {%- for p in site.data.us.pathways.list -%}
@@ -23,19 +29,37 @@
     {%- if rs_here == p_url %}{%- assign rs_to_in = p.in_page -%}{%- endif -%}
   {%- endif -%}
 {%- endfor -%}
-<div class="region-switch" role="group" aria-labelledby="regionSwitchLabel">
+<div class="region-switch">
   <span class="region-switch-label" id="regionSwitchLabel">Country edition</span>
-  <div class="region-seg">
-    {%- for rid in site.data.regions.list %}
-    {%- assign r = site.data.regions[rid] -%}
-    {%- assign dest = r.home -%}
-    {%- if rid == "us" and rs_to_us != "" %}{%- assign dest = rs_to_us -%}{%- endif -%}
-    {%- if rid == "in" and rs_to_in != "" %}{%- assign dest = rs_to_in -%}{%- endif %}
-    <a class="region-opt" href="{{ dest }}" hreflang="{{ r.lang }}" data-region-set="{{ rid }}" aria-label="{{ r.name }}{% if r.status == 'beta' %} (beta){% endif %}" title="{{ r.name }}"{% if rid == region_id and region_neutral == false %} aria-current="true"{% endif %}>
-      <svg class="region-flag" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">{{ r.flag_svg }}</svg>
-      <span class="region-name">{{ r.short }}</span>
-      {%- if r.status == "beta" %}<span class="region-beta" aria-hidden="true">Beta</span>{% endif %}
-    </a>
-    {%- endfor %}
-  </div>
+  <details class="region-dd" id="regionDd">
+    <summary class="region-dd-btn" aria-describedby="regionSwitchLabel" title="Switch country edition">
+      {%- for rid in site.data.regions.list %}
+      {%- if region_neutral or rid == region_id %}
+      {%- assign r = site.data.regions[rid] %}
+      <span class="region-cur" data-region-cur="{{ rid }}">
+        <svg class="region-flag" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">{{ r.flag_svg }}</svg>
+        <span class="region-cur-text"><span class="region-name">{{ r.name }}</span><span class="region-host">{{ rs_host }}/{{ r.path_prefix }}</span></span>
+      </span>
+      {%- endif %}
+      {%- endfor %}
+      <svg class="region-dd-caret" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+    </summary>
+    <div class="region-menu">
+      <span class="region-menu-head" aria-hidden="true">Choose an edition</span>
+      <ul class="region-menu-list" aria-labelledby="regionSwitchLabel">
+        {%- for rid in site.data.regions.list %}
+        {%- assign r = site.data.regions[rid] -%}
+        {%- assign dest = r.home -%}
+        {%- if rid == "us" and rs_to_us != "" %}{%- assign dest = rs_to_us -%}{%- endif -%}
+        {%- if rid == "in" and rs_to_in != "" %}{%- assign dest = rs_to_in -%}{%- endif %}
+        <li><a class="region-opt" href="{{ dest }}" hreflang="{{ r.lang }}" data-region-set="{{ rid }}"{% if rid == region_id and region_neutral == false %} aria-current="true"{% endif %}>
+          <svg class="region-flag" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">{{ r.flag_svg }}</svg>
+          <span class="region-opt-text"><span class="region-name">{{ r.name }}{% if r.status == "beta" %}<span class="sr-only"> (beta)</span>{% endif %}</span><span class="region-host">{{ rs_host }}/{{ r.path_prefix }}</span></span>
+          {%- if r.status == "beta" %}<span class="region-beta" aria-hidden="true">Beta</span>{% endif %}
+          <svg class="region-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+        </a></li>
+        {%- endfor %}
+      </ul>
+    </div>
+  </details>
 </div>

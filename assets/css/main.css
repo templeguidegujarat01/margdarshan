@@ -1926,34 +1926,61 @@ a.hub-cta.hub-cta-jump:hover .hub-cta-arrow,a.hub-cta.hub-cta-jump:focus-visible
 
 /* ============================================================
    Country editions (_data/regions.yml)
-   .region-switch: edition switch at the top of the sidebar / mobile drawer
-   (_includes/region-switcher.html). The current edition is filled, bordered
-   and bold — never colour alone. On region-neutral pages the server cannot
-   mark it, so the filled style also keys off html[data-region] (set before
-   paint). Adding an edition = one more line in each per-edition rule below.
+   .region-switch: property-style edition dropdown at the top of the sidebar /
+   mobile drawer (_includes/region-switcher.html, a <details> element). The
+   button shows the current edition; in the menu the current one is bold with
+   a check mark — never colour alone. On region-neutral pages the server cannot
+   mark it, so the button label and the marked option key off html[data-region]
+   (set before paint). Adding an edition = one more line in each per-edition
+   rule below.
    ============================================================ */
-.region-switch{flex-shrink:0;padding:.55rem .75rem .6rem;}
+.region-switch{position:relative;flex-shrink:0;padding:.55rem .75rem .6rem;}
 .region-switch-label{display:block;padding:0 .35rem .4rem;font-family:var(--font-mono);font-size:.66rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);}
-.region-seg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;padding:4px;border:1px solid var(--line);border-radius:12px;background:rgba(var(--hl-rgb),.03);}
-.region-opt{display:flex;align-items:center;justify-content:center;gap:.4rem;min-width:0;min-height:40px;padding:.35rem .45rem;border:1px solid transparent;border-radius:9px;font-size:.88rem;font-weight:600;line-height:1.2;color:var(--text-muted);text-decoration:none;transition:background .15s var(--ease),color .15s var(--ease),border-color .15s var(--ease);}
-.region-opt:hover{background:rgba(var(--hl-rgb),.06);color:var(--text);}
-.region-opt:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+.region-dd{position:relative;}
+.region-dd-btn{display:flex;align-items:center;gap:.6rem;min-height:52px;padding:.45rem .6rem .45rem .7rem;border:1px solid var(--line);border-radius:12px;background:var(--surface);box-shadow:var(--shadow-sm);color:var(--text);cursor:pointer;list-style:none;-webkit-user-select:none;user-select:none;transition:border-color .15s var(--ease),box-shadow .15s var(--ease);}
+.region-dd-btn::-webkit-details-marker{display:none;}
+.region-dd-btn::marker{content:"";}
+.region-dd-btn:hover{border-color:rgba(var(--hl-rgb),.3);}
+.region-dd-btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+.region-dd[open] > .region-dd-btn{border-color:var(--gold);}
+.region-cur{display:flex;align-items:center;gap:.6rem;flex:1;min-width:0;}
+.region-cur-text,.region-opt-text{display:flex;flex-direction:column;min-width:0;line-height:1.25;}
+.region-cur .region-name{font-size:.92rem;font-weight:700;}
+.region-host{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:var(--font-mono);font-size:.68rem;color:var(--text-muted);}
+.region-dd-caret{flex-shrink:0;margin-left:auto;color:var(--text-muted);transition:transform .18s var(--ease);}
+.region-dd[open] .region-dd-caret{transform:rotate(180deg);}
+.region-menu{position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:20;min-width:220px;padding:.4rem;border:1px solid var(--line);border-radius:12px;background:var(--surface);box-shadow:var(--shadow-lg);}
+.region-menu-head{display:block;padding:.3rem .55rem .4rem;font-size:.74rem;font-weight:600;color:var(--text-muted);}
+.region-menu-list{list-style:none;margin:0;padding:0;display:grid;gap:2px;}
+.region-opt{display:flex;align-items:center;gap:.6rem;min-width:0;min-height:48px;padding:.4rem .55rem;border-radius:9px;font-size:.9rem;font-weight:500;color:var(--text);text-decoration:none;transition:background .15s var(--ease);}
+.region-opt:hover,.region-opt:focus-visible{background:rgba(var(--hl-rgb),.07);}
+.region-opt:focus-visible{outline:2px solid var(--gold);outline-offset:-2px;}
+.region-opt .region-opt-text{flex:1;}
 .region-flag{flex-shrink:0;border-radius:3px;color:var(--line);}
 .region-name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .region-beta{flex-shrink:0;font-family:var(--font-mono);font-size:.56rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;line-height:1;padding:.18rem .32rem;border-radius:999px;border:1px solid var(--line);color:var(--text-muted);}
+.region-check{flex-shrink:0;color:var(--gold);visibility:hidden;}
 .region-opt[aria-current="true"],
 html[data-region-neutral][data-region="in"] .region-opt[data-region-set="in"],
-html[data-region-neutral][data-region="us"] .region-opt[data-region-set="us"]{background:var(--surface);border-color:var(--gold);color:var(--text);font-weight:700;box-shadow:var(--shadow-sm);}
+html[data-region-neutral][data-region="us"] .region-opt[data-region-set="us"]{font-weight:700;background:rgba(var(--hl-rgb),.05);}
+.region-opt[aria-current="true"] .region-check,
+html[data-region-neutral][data-region="in"] .region-opt[data-region-set="in"] .region-check,
+html[data-region-neutral][data-region="us"] .region-opt[data-region-set="us"] .region-check{visibility:visible;}
+/* Region-neutral pages render every edition's button label; show the active one's. */
+html[data-region="in"] .region-cur:not([data-region-cur="in"]),
+html[data-region="us"] .region-cur:not([data-region-cur="us"]){display:none;}
 /* Region-neutral pages carry every edition's nav groups; show only the active edition's. */
 html[data-region="in"] .sb-group[data-region-nav]:not([data-region-nav="in"]),
 html[data-region="us"] .sb-group[data-region-nav]:not([data-region-nav="us"]){display:none;}
 @media (min-width:1024px){
+  /* Collapsed rail: the button shrinks to the current flag; the menu flies out to the right. */
   html[data-sidebar="collapsed"] .region-switch{padding:.5rem 6px;}
   html[data-sidebar="collapsed"] .region-switch-label,
-  html[data-sidebar="collapsed"] .region-name,
-  html[data-sidebar="collapsed"] .region-beta{display:none;}
-  html[data-sidebar="collapsed"] .region-seg{grid-template-columns:minmax(0,1fr);}
-  html[data-sidebar="collapsed"] .region-opt{min-height:36px;padding:.3rem;}
+  html[data-sidebar="collapsed"] .region-cur-text,
+  html[data-sidebar="collapsed"] .region-dd-caret{display:none;}
+  html[data-sidebar="collapsed"] .region-dd-btn{justify-content:center;min-height:40px;padding:.35rem;}
+  html[data-sidebar="collapsed"] .region-cur{flex:0 0 auto;}
+  html[data-sidebar="collapsed"] .region-menu{top:0;left:calc(100% + 10px);right:auto;width:260px;}
 }
 
 /* USA Edition pages: static (non-link) data cards reuse .trend-card; source list. */

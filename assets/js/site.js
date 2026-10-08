@@ -582,11 +582,12 @@ try {
     if(!btn) return;
     btn.setAttribute('aria-expanded', open ? 'true' : 'false');
     var h2 = sec.querySelector('.section-head h2');
-    if(h2) btn.setAttribute('aria-label', (open ? 'Hide: ' : 'Show: ') + h2.textContent.trim());
+    if(h2) btn.setAttribute('aria-label', (open ? 'Hide details: ' : 'Show details: ') + h2.textContent.trim());
     var label = btn.querySelector('.rm-label');
     if(label) label.textContent = open ? 'Hide details' : 'Show details';
     // Content that was display:none never started its scroll-reveal; show it now.
     if(open) sec.querySelectorAll('.reveal:not(.is-visible)').forEach(function(r){ r.classList.add('is-visible'); });
+    if(open) window.dispatchEvent(new Event('md:unfold'));
   }
   main.querySelectorAll(sel).forEach(function(sec){
     if(sec.tagName !== 'SECTION') return;
@@ -599,7 +600,7 @@ try {
     btn.className = 'readmore-btn md-fold-btn';
     btn.setAttribute('aria-expanded', 'false');
     btn.setAttribute('aria-controls', sec.id);
-    if(h2) btn.setAttribute('aria-label', 'Show: ' + h2.textContent.trim());
+    if(h2) btn.setAttribute('aria-label', 'Show details: ' + h2.textContent.trim());
     btn.innerHTML = '<span class="rm-label">Show details</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
     head.insertAdjacentElement('afterend', btn);
     // A stale cached main.css without the fold rule leaves the content visible: then no button.
@@ -617,6 +618,57 @@ try {
     var id = window.location.hash.slice(1), el = null;
     try { el = id && document.getElementById(decodeURIComponent(id)); } catch(e){}
     if(el) window.mdFoldOpen(el);
+  });
+})();
+} catch (e) { if (window.console) console.error(e); }
+
+/* ===== Keyboard access to wide tables (global-platform Phase 16, WCAG 2.1.1) =====
+   A .table-wrap that scrolls sideways gets tabindex="0" and role="region" named after its table caption or
+   the nearest heading, so keyboard users can focus it and scroll with the arrow keys. Re-checked on resize. */
+try {
+(function(){
+  "use strict";
+  var wraps = document.querySelectorAll('.table-wrap');
+  if(!wraps.length) return;
+  function nameFor(w){
+    var cap = w.querySelector('caption');
+    if(cap && cap.textContent.trim()) return cap.textContent.trim();
+    var sec = w.closest('section, .feature-card, .md-tile');
+    var h = sec && sec.querySelector('h2, h3');
+    return 'Table' + (h ? ': ' + h.textContent.trim() : '');
+  }
+  function update(){
+    wraps.forEach(function(w){
+      var scrolls = w.scrollWidth > w.clientWidth + 1;
+      if(scrolls && !w.hasAttribute('tabindex')){
+        w.setAttribute('tabindex', '0'); w.setAttribute('role', 'region'); w.setAttribute('aria-label', nameFor(w));
+        w.setAttribute('data-kbd-scroll', '');
+      } else if(!scrolls && w.hasAttribute('data-kbd-scroll')){
+        w.removeAttribute('tabindex'); w.removeAttribute('role'); w.removeAttribute('aria-label'); w.removeAttribute('data-kbd-scroll');
+      }
+    });
+  }
+  update();
+  var t; window.addEventListener('resize', function(){ clearTimeout(t); t = setTimeout(update, 200); }, {passive:true});
+  window.addEventListener('load', update);
+  window.addEventListener('md:unfold', update);
+})();
+} catch (e) { if (window.console) console.error(e); }
+
+/* ===== Accessible names that contain the visible label (global-platform Phase 16, WCAG 2.5.3) =====
+   About 576 India links show "View guide" but are named "Read the CA guide", so a voice-control user who
+   says "click View guide" gets no match. The page HTML is protected, so the name is adjusted here:
+   "Read the CA guide" becomes "View guide: CA"; any other mismatch becomes "<visible text>: <old name>". */
+try {
+(function(){
+  "use strict";
+  document.querySelectorAll('a[aria-label], button[aria-label]').forEach(function(el){
+    if(el.children.length && el.querySelector('svg') && !el.textContent.trim()) return;
+    var vis = el.textContent.replace(/s+/g, ' ').trim();
+    var lab = el.getAttribute('aria-label');
+    if(!vis || !lab || lab.toLowerCase().indexOf(vis.toLowerCase()) !== -1) return;
+    var m = lab.match(/^Read the (.+) guide$/i);
+    el.setAttribute('aria-label', vis + ': ' + (m ? m[1] : lab));
   });
 })();
 } catch (e) { if (window.console) console.error(e); }

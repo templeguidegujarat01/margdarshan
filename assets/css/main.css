@@ -396,7 +396,7 @@ html.nav-locked{overflow:hidden;}
 @media (min-width:1024px){.footer-top{grid-template-columns:1.3fr repeat(4,1fr);}}
 .footer-brand .logo{margin-bottom:.9rem;}
 .footer-brand p{max-width:34ch;font-size:.9rem;line-height:1.7;}
-.footer-col h4{color:var(--on-ink-strong);font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;font-family:var(--font-body);margin-bottom:1rem;}
+.footer-col h2,.footer-col h4{color:var(--on-ink-strong);font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;font-family:var(--font-body);margin-bottom:1rem;}
 .footer-col ul{display:grid;gap:.6rem;}
 .footer-col a{font-size:.92rem;transition:color .15s;}
 .footer-col a:hover{color:var(--on-ink-strong);}
@@ -1243,7 +1243,7 @@ a[href="icar-aieea.html"]:not(.cx-link):not(.related-card):not(.source-link):not
 .stat-badge{display:inline-flex;flex-direction:column;gap:.1rem;padding:.45rem .75rem;border-radius:var(--radius-sm);background:var(--stream-soft);border:1px solid var(--stream-border);min-width:5.5rem;}
 .stat-badge span{font-size:.66rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);}
 .stat-badge strong{font-family:var(--font-mono);font-size:.92rem;line-height:1.25;color:var(--gold-strong);}
-.stat-badge.is-tag{flex-direction:row;align-items:center;min-width:0;padding:.25rem .65rem;border-radius:999px;font-size:.72rem;font-weight:700;color:var(--gold-strong);}
+.stat-badge.is-tag{flex-direction:row;align-items:center;min-width:0;padding:.25rem .65rem;border-radius:999px;font-size:.72rem;font-weight:700;color:var(--link);}
 
 .highlight-box{background:var(--stream-soft);border:1px solid var(--stream-border);border-left:4px solid var(--gold);border-radius:var(--radius-md);padding:1.1rem 1.2rem;display:flex;flex-direction:column;gap:.4rem;}
 .highlight-box h3,.highlight-box h4{display:flex;align-items:center;gap:.5rem;margin:0;font-size:1rem;line-height:1.3;}
@@ -2316,3 +2316,16 @@ html.js.fold main:has(#pattern):has(#syllabus) section:is(#syllabus,#prep,[aria-
 html.js.fold main:has(#quick):has(#roadmap) section:is(#subjects,#higher,#proscons,#future,#difficulty,#skills,[aria-labelledby="myth-heading"],[aria-labelledby="tips-heading"],[aria-labelledby="comparison"]):not(.is-unfolded) > .container > .section-head,
 html.js.fold main:has(#pattern):has(#syllabus) section:is(#syllabus,#prep,[aria-labelledby="comparison"]):not(.is-unfolded) > .container > .section-head{margin-bottom:var(--sp-3);}
 @media print{html.js main section > .container > .section-head ~ *{display:revert !important;}.md-fold-btn{display:none !important;}}
+
+/* ---------- Accessibility fixes (global-platform Phase 16) ----------
+   Dark mode never redefined --gold-strong, so ~29 India text uses (tags, numbers, links) showed #96590A on navy
+   (contrast 2.4-3.2). Text now uses the bright gold step (7.4+ on every dark surface). The three places that use
+   it as a background under white text keep the deep gold, and stream badges keep their deep light-mode colours
+   in dark mode (white text on #3FA78D was 2.9). */
+[data-theme="dark"]{--gold-strong:#F0B65A;}
+[data-theme="dark"] .btn-exam-primary,[data-theme="dark"] .trend-badge.t-commerce,[data-theme="dark"] .s-commerce .stream-icon{background:#96590A;}
+[data-theme="dark"] .trend-badge{background:#3D5A80;}
+[data-theme="dark"] .trend-badge.t-science{background:#1F6F5C;}
+[data-theme="dark"] .trend-badge.t-arts{background:#8B4B6B;}
+/* Scrollable tables get tabindex="0" from site.js (keyboard scrolling); show focus like other controls. */
+.table-wrap[tabindex]:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}

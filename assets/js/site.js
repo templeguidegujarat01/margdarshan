@@ -243,6 +243,7 @@ try {
     var sIndex = null, sLoading = false, sFailed = false;
     var sCatOn = searchOverlay.querySelector('.search-cat[aria-pressed="true"]');
     var sCat = sCatOn ? sCatOn.getAttribute('data-cat') : 'all', sActive = -1, sLastFocus = null;
+    var sPrefilled = false;   // opened from the home hub box with text already typed: keep the caret, do not select
 
     // "B.Com (Hons)" -> "b com hons"; dots dropped so "bcom" also matches.
     function norm(s){ return (s || '').toLowerCase().replace(/&/g, ' and ').replace(/\./g, '').replace(/[^a-z0-9+]+/g, ' ').trim(); }
@@ -347,7 +348,7 @@ try {
       document.body.style.overflow = 'hidden';
       loadIndex();
       renderSearch();
-      setTimeout(function(){ sInput.focus(); sInput.select(); }, reduceMotion ? 0 : 60);
+      setTimeout(function(){ sInput.focus(); if(sPrefilled) sPrefilled = false; else sInput.select(); }, reduceMotion ? 0 : 60);
     }
     function closeSearch(){
       if(searchOverlay.getAttribute('data-open') !== 'true') return;
@@ -446,6 +447,24 @@ try {
         if(sActive >= 0 && opts[sActive]){ e.preventDefault(); rememberResult(opts[sActive]); window.location.href = opts[sActive].href; }
       }
     });
+
+    // Home hub search box (index.html #hubSearchForm): the first keystroke opens this overlay with the
+    // text carried over, so results are live and come from the same index and ranking.
+    var hubForm = document.getElementById('hubSearchForm');
+    if(hubForm){
+      var hubInput = hubForm.querySelector('input');
+      var hubHandoff = function(){
+        var v = hubInput.value;
+        sPrefilled = !!v;
+        openSearch();
+        sInput.value = v;
+        hubInput.value = '';
+        sInput.focus();   // same tick as the keystroke, so phones keep the keyboard open
+        renderSearch();
+      };
+      hubInput.addEventListener('input', function(){ if(hubInput.value) hubHandoff(); });
+      hubForm.addEventListener('submit', function(e){ e.preventDefault(); hubHandoff(); });
+    }
   }
 
   /* ---------- FAQ accordion ---------- */
@@ -890,6 +909,7 @@ try {
   // Open whatever is hiding the target: career-group bar, <details>,
   // FAQ answer, or a "Read more" prose block.
   function revealTarget(el){
+    if(window.mdStageReveal) window.mdStageReveal(el);
     if(window.mdFoldOpen) window.mdFoldOpen(el);
     var g = cgFind(el);
     if(g && !g.wrap.classList.contains('is-open')) cgSetOpen(g, true);
@@ -1348,6 +1368,123 @@ try {
       if(e.key === 'Escape' && hd.open){ e.preventDefault(); e.stopPropagation(); hd.open = false; hd.querySelector('summary').focus(); }
     });
     window.addEventListener('pageshow', function(){ hd.open = false; });
+  }
+})();
+} catch (e) { if (window.console) console.error(e); }
+
+/* ===== Stage filter on India pathway pages (_includes/in-career.html, .stage-bar) =====
+   "Where are you now?" — the reader picks a stage; sections that matter less at that stage are hidden
+   (with their "On this page" links), up to three sections are promoted as "Start here", and one next-step
+   page is suggested. The choice is kept in this browser (md-stage) so every career page opens the same way.
+   Nothing is removed: "Show them" brings the hidden sections back, and any link or #hash that points into a
+   hidden section opens it (window.mdStageReveal, called by revealTarget). Section ids are the same on all
+   122 pathway pages (quick, what, who, eligibility, subjects, admission, roadmap, exam, fees, salary, jobs,
+   higher, future, proscons, faq …); ids a page does not have are skipped. */
+try {
+(function(){
+  "use strict";
+  var bar = document.querySelector('[data-stage-bar]');
+  var main = document.getElementById('main');
+  if(!bar || !main) return;
+  var ROOT = SCRIPT_ROOT;
+  var KEY = 'md-stage';
+  var STAGES = {
+    school: { name: 'Class 10 or below', focus: ['what', 'who', 'subjects', 'eligibility'],
+      hide: ['admission', 'fees', 'higher', 'exam', 'pattern', 'syllabus', 'papers', 'passing', 'exemptions', 'specialisations'],
+      next: { href: 'after-10th.html', label: 'Choosing a stream after Class 10' } },
+    hs: { name: 'Class 11–12', focus: ['eligibility', 'admission', 'exam', 'roadmap', 'fees'],
+      hide: ['higher'],
+      next: { href: 'after-12th.html', label: 'All courses after Class 12' } },
+    grad: { name: 'In college', focus: ['higher', 'jobs', 'salary'],
+      hide: ['who', 'subjects'],
+      next: { href: 'study-abroad.html', label: 'Master’s and study-abroad routes' } },
+    pro: { name: 'Graduate / working', focus: ['higher', 'jobs', 'salary', 'future'],
+      hide: ['who', 'subjects', 'admission', 'fees'],
+      next: { href: 'govt-exams.html', label: 'Government exams open to graduates' } }
+  };
+  var opts = bar.querySelectorAll('.stage-opt');
+  var out = bar.querySelector('.stage-out');
+  function sec(id){ var s = document.getElementById(id); return s && s.tagName === 'SECTION' && main.contains(s) ? s : null; }
+  function nameOf(s){
+    var chip = document.querySelector('.quicknav a[href="#' + s.id + '"]');
+    var h = s.querySelector('h2');
+    return ((chip && chip.textContent) || (h && h.textContent) || s.id).trim();
+  }
+  function esc(t){ return String(t).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  // "On this page" links (sidebar, mobile panel, quicknav chips) that point at a section or its heading.
+  function linksFor(s){
+    var ids = [s.id], h = s.querySelector('h2[id]');
+    if(h) ids.push(h.id);
+    var found = [];
+    ids.forEach(function(id){
+      document.querySelectorAll('.page-nav a[href="#' + id + '"], .page-nav-mobile a[href="#' + id + '"], .quicknav a[href="#' + id + '"]').forEach(function(a){ found.push(a); });
+    });
+    return found;
+  }
+  function showSec(s){
+    s.classList.remove('stage-off');
+    linksFor(s).forEach(function(a){ a.classList.remove('stage-off-link'); });
+  }
+  function apply(stage, announce){
+    var cfg = STAGES[stage] || null;
+    opts.forEach(function(b){ b.setAttribute('aria-pressed', b.getAttribute('data-stage') === (cfg ? stage : '') ? 'true' : 'false'); });
+    main.querySelectorAll('section.stage-off').forEach(showSec);
+    main.querySelectorAll('section.stage-focus').forEach(function(s){ s.classList.remove('stage-focus'); });
+    document.documentElement.toggleAttribute('data-stage', !!cfg);
+    if(!cfg){ out.innerHTML = announce ? '<p class="stage-note">Showing every section.</p>' : ''; window.dispatchEvent(new Event('md:unfold')); return; }
+    var hidden = cfg.hide.map(sec).filter(Boolean);
+    hidden.forEach(function(s){
+      s.classList.add('stage-off');
+      linksFor(s).forEach(function(a){ a.classList.add('stage-off-link'); });
+    });
+    var focus = cfg.focus.map(sec).filter(Boolean).slice(0, 3);
+    focus.forEach(function(s){ s.classList.add('stage-focus'); });
+    var html = '<div class="stage-row"><span class="stage-row-label">Start here</span>' +
+      focus.map(function(s){ return '<a class="stage-jump" href="#' + s.id + '">' + esc(nameOf(s)) + '</a>'; }).join('') +
+      '<a class="stage-jump stage-next" href="' + esc(ROOT + cfg.next.href) + '">' + esc(cfg.next.label) + ' →</a></div>';
+    if(hidden.length){
+      html += '<p class="stage-note">Hidden for ' + esc(cfg.name) + ': ' + hidden.map(function(s){ return esc(nameOf(s)); }).join(', ') +
+        '. <button type="button" class="stage-showall">Show them</button></p>';
+    }
+    out.innerHTML = html;
+    window.dispatchEvent(new Event('md:unfold'));   // other blocks re-measure (wide tables, scroll-spy)
+  }
+  function choose(stage){
+    try { if(stage) localStorage.setItem(KEY, stage); else localStorage.removeItem(KEY); } catch(e){}
+    apply(stage, true);
+  }
+  opts.forEach(function(b){ b.addEventListener('click', function(){ choose(b.getAttribute('data-stage')); }); });
+  out.addEventListener('click', function(e){
+    if(e.target.closest('.stage-showall')){ choose(''); return; }
+    var a = e.target.closest('a.stage-jump[href^="#"]');
+    if(!a) return;
+    var t = document.getElementById(a.getAttribute('href').slice(1));
+    if(!t) return;
+    e.preventDefault();
+    if(history.pushState) history.pushState(null, '', a.getAttribute('href'));
+    if(window.mdFoldOpen) window.mdFoldOpen(t.querySelector('.section-head') || t);
+    t.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+  });
+  window.mdStageReveal = function(el){
+    var s = el && el.closest && el.closest('section.stage-off');
+    if(s) showSec(s);
+    return !!s;
+  };
+  window.addEventListener('hashchange', function(){
+    var id = window.location.hash.slice(1), el = null;
+    try { el = id && document.getElementById(decodeURIComponent(id)); } catch(e){}
+    // The browser could not jump while the section was hidden: jump now that it is shown.
+    if(el && window.mdStageReveal(el)) el.scrollIntoView({ block: 'start' });
+  });
+  var saved = '';
+  try { saved = localStorage.getItem(KEY) || ''; } catch(e){}
+  bar.hidden = false;
+  apply(STAGES[saved] ? saved : '', false);
+  // Arriving with #hash into a section this stage hides: open it.
+  if(window.location.hash){
+    var h0 = null;
+    try { h0 = document.getElementById(decodeURIComponent(window.location.hash.slice(1))); } catch(e){}
+    if(h0) window.mdStageReveal(h0);
   }
 })();
 } catch (e) { if (window.console) console.error(e); }

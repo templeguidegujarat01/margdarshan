@@ -78,15 +78,31 @@ footer:
       <path d="M-50 420 C 200 380, 300 460, 480 380 S 760 260, 950 320 1150 200 1300 250" stroke="#E8A33D" stroke-width="1.4" fill="none" opacity=".35"/>
       <path d="M-50 300 C 180 340, 340 220, 520 280 S 780 380, 980 300 1180 340 1300 300" stroke="#3FA78D" stroke-width="1.2" fill="none" opacity=".25"/>
     </svg>
-    <div class="container hero-inner">
-      <div>
-        <span class="eyebrow">Free career guidance · Made for Indian students</span>
+    {%- comment -%} Capacity numbers are counted from the data files at build time — never typed in by hand. {%- endcomment -%}
+    {%- assign n_in = 0 -%}{%- assign n_in_src = 0 -%}
+    {%- for c in site.data.in.careers -%}{%- assign n_in = n_in | plus: 1 -%}{%- assign n_in_src = n_in_src | plus: c[1].sources.size -%}{%- endfor -%}
+    {%- assign n_us_src = 0 -%}{%- for x in site.data.us.sources.list -%}{%- assign n_us_src = n_us_src | plus: 1 -%}{%- endfor -%}
+    {%- assign n_src = n_in_src | plus: n_us_src -%}
+    {%- assign n_us = site.data.us.pathways.list.size -%}
+    {%- assign n_guides = site.data.search.items.size %}
+    <div class="container hero-inner hub-inner">
+      <div class="hub-head">
+        <span class="eyebrow">Free career guidance · India and USA editions</span>
         <h1 id="hero-heading">Choose your path with clarity, not confusion.</h1>
         <p class="hero-sub">Every stream and career after Class 10 and Class 12 — eligibility, entrance exams, fees, salary and future scope, explained in plain English.</p>
-        <!-- Country edition picker: one bordered card per edition in _data/regions.yml (flags are SVG, not emoji: Windows shows flag emoji as letters).
-             This page is the India home, so India jumps to the streams below; other editions open their own home. -->
-        <nav class="ed-pick" aria-labelledby="ed-pick-title">
-          <h2 class="ed-pick-title" id="ed-pick-title">Select your country edition</h2>
+        <ul class="hub-promise">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>100% free</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>No sign-up</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Links to official sources</li>
+        </ul>
+      </div>
+
+      <div class="hub-split">
+        <!-- Left: country. One bordered card per edition in _data/regions.yml (flags are SVG, not emoji: Windows shows flag emoji as letters).
+             This page is the India home, so India jumps to the streams below; other editions open their own home.
+             Under it, the study-abroad guides (written for Indian students going abroad, not full editions). -->
+        <nav class="hub-pane ed-pick" aria-labelledby="ed-pick-title">
+          <h2 class="ed-pick-title" id="ed-pick-title"><span class="hub-step" aria-hidden="true">1</span>Select your country edition</h2>
           <ul class="ed-grid">
             {%- for rid in site.data.regions.list %}
             {%- assign r = site.data.regions[rid] %}
@@ -97,17 +113,48 @@ footer:
             </a></li>
             {%- endfor %}
           </ul>
+          <p class="hub-mini-label" id="hub-abroad-label">Study abroad from India</p>
+          <ul class="hub-links" aria-labelledby="hub-abroad-label">
+            <li><a href="study-abroad/uk.html">UK</a></li>
+            <li><a href="study-abroad/canada.html">Canada</a></li>
+            <li><a href="study-abroad/australia.html">Australia</a></li>
+            <li><a href="study-abroad/germany.html">Germany</a></li>
+            <li><a href="study-abroad/ireland.html">Ireland</a></li>
+            <li><a href="study-abroad/singapore.html">Singapore</a></li>
+            <li><a href="study-abroad.html">All countries →</a></li>
+          </ul>
         </nav>
-        <div class="hero-ctas">
-          <a href="#careers" class="btn btn-primary btn-inpage-jump">Explore Careers</a>
-          <a href="after-10th.html" class="btn btn-ghost btn-page-link">Start After Class 10</a>
-        </div>
-        <div class="trust-strip">
-          <span class="trust-chip"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>100% free, always</span>
-          <span class="trust-chip"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>No sign-up needed</span>
-          <span class="trust-chip"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>120+ careers covered</span>
+
+        <!-- Right: subject / career search. Typing hands the text to the site search overlay
+             (_includes/career-search.html, wired in site.js) so there is one search engine and one result list. -->
+        <div class="hub-pane hub-find">
+          <h2 class="ed-pick-title" id="hub-find-title"><span class="hub-step" aria-hidden="true">2</span>Search a subject or career</h2>
+          <form class="hub-search" id="hubSearchForm" role="search" aria-labelledby="hub-find-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+            <label class="sr-only" for="hubSearch">Search careers, courses and exams</label>
+            <input id="hubSearch" type="search" autocomplete="off" placeholder="Career, course or exam">
+            <button type="submit" class="hub-search-go">Search</button>
+          </form>
+          <p class="hub-mini-label" id="hub-stream-label">Or start from a stream</p>
+          <ul class="hub-links" aria-labelledby="hub-stream-label">
+            <li><a href="science.html">Science</a></li>
+            <li><a href="commerce.html">Commerce</a></li>
+            <li><a href="arts.html">Arts</a></li>
+            <li><a href="diploma.html">Diploma</a></li>
+            <li><a href="iti.html">ITI</a></li>
+            <li><a href="govt-exams.html">Govt exams</a></li>
+            <li><a href="after-10th.html">After Class 10</a></li>
+            <li><a href="after-12th.html">After Class 12</a></li>
+          </ul>
         </div>
       </div>
+
+      <dl class="cap-bar" aria-label="What is on eMargdarshan">
+        <div><dt>India career guides</dt><dd>{{ n_in }}</dd></div>
+        <div><dt>USA career pathways</dt><dd>{{ n_us }}</dd></div>
+        <div><dt>Searchable guides and hubs</dt><dd>{{ n_guides }}</dd></div>
+        <div><dt>Official sources cited</dt><dd>{{ n_src }}</dd></div>
+      </dl>
     </div>
   </section>
 

@@ -2475,3 +2475,78 @@ html.nav-locked .fb-fab,body:has(#site-search[data-open="true"]) .fb-fab{opacity
 .ed-sub{display:block;font-size:.85rem;color:var(--on-ink-muted);}
 .ed-go{margin-left:auto;font-weight:700;color:var(--link);}
 .ed-card[aria-current="page"]{border-color:var(--gold);}
+
+/* ---------- Home hub + capacity bar + stage filter (2026-10-08) ----------
+   1. Home hero (index.html) is a control hub: promise row, then a split pane — country edition (left) and
+      subject/career search (right) — then a capacity bar whose numbers Liquid counts from _data at build time.
+      One column on phones, two panes from 900px. Every colour is a theme token, so light and dark both hold
+      contrast (text on --bg-hero uses --on-ink*, links --on-ink-strong; the pressed states swap fill + text).
+   2. India pathway pages: "Where are you now?" stage bar (_includes/in-career.html + site.js "Stage filter"). */
+.hero-inner.hub-inner{grid-template-columns:1fr;gap:1.75rem;}
+.hub-head h1{max-width:20ch;}
+.hub-promise{display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;margin:1.4rem 0 0;padding:0;list-style:none;}
+.hub-promise li{display:flex;align-items:center;gap:.45rem;font-family:var(--font-display);font-weight:600;font-size:clamp(1.02rem,2.4vw,1.2rem);color:var(--on-ink-strong);}
+.hub-promise svg{flex:none;color:var(--gold-strong);}
+[data-theme="dark"] .hub-promise svg{color:var(--gold);}
+
+.hub-split{display:grid;grid-template-columns:1fr;gap:1rem;}
+@media (min-width:900px){.hub-split{grid-template-columns:1fr 1fr;align-items:stretch;}}
+.hub-split > *{min-width:0;}
+.hub-pane{margin:0;padding:1.25rem;border:1.5px solid var(--border-surface);border-radius:var(--radius-lg);background:rgba(var(--hl-rgb),.035);}
+@media (max-width:639px){.hub-pane{padding:1rem;border-radius:var(--radius-md);}}
+.hub-pane .ed-pick-title{display:flex;align-items:center;gap:.55rem;}
+.hub-step{display:inline-grid;place-items:center;flex:none;width:1.5rem;height:1.5rem;border-radius:50%;font-size:.75rem;letter-spacing:0;background:var(--ink);color:#fff;}
+[data-theme="dark"] .hub-step{background:var(--gold);color:#0B1A22;}
+.hub-pane .ed-grid{max-width:none;}
+@media (min-width:900px){.hub-pane .ed-grid{grid-template-columns:1fr;}}
+@media (min-width:1100px){.hub-pane .ed-grid{grid-template-columns:1fr 1fr;}}
+.hub-mini-label{margin:1.1rem 0 .5rem;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--on-ink-muted);}
+.hub-links{display:flex;flex-wrap:wrap;gap:.45rem;margin:0;padding:0;list-style:none;}
+.hub-links a{display:inline-flex;align-items:center;min-height:40px;padding:.4rem .85rem;border:1px solid rgba(var(--hl-rgb),.3);border-radius:999px;font-size:.88rem;font-weight:600;color:var(--on-ink-strong);background:transparent;transition:border-color .15s,background .15s;}
+.hub-links a:hover{border-color:var(--gold);background:rgba(var(--hl-rgb),.06);}
+
+.hub-search{display:flex;align-items:center;gap:.5rem;padding:.35rem .35rem .35rem .9rem;border:2px solid rgba(var(--hl-rgb),.55);border-radius:var(--radius-md);background:var(--surface);color:var(--text-muted);}
+.hub-search:focus-within{border-color:var(--gold);}
+.hub-search svg{flex:none;}
+.hub-search input{flex:1;min-width:0;min-height:44px;border:0;outline:0;background:transparent;font:inherit;font-size:1rem;color:var(--text);}
+.hub-search input::placeholder{color:var(--text-muted);opacity:1;}
+.hub-search-go{flex:none;min-height:44px;padding:0 1.1rem;border:0;border-radius:var(--radius-sm);background:var(--ink);color:#fff;font:inherit;font-weight:700;cursor:pointer;}
+.hub-search-go:hover{background:var(--ink-soft);}
+[data-theme="dark"] .hub-search-go{background:var(--gold);color:#0B1A22;}
+[data-theme="dark"] .hub-search-go:hover{background:#F0B65A;}
+
+.cap-bar{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;margin:0;border:1.5px solid var(--border-surface);border-radius:var(--radius-md);overflow:hidden;background:var(--border-surface);}
+@media (min-width:768px){.cap-bar{grid-template-columns:repeat(4,minmax(0,1fr));}}
+.cap-bar > div{display:flex;flex-direction:column-reverse;justify-content:flex-end;gap:.15rem;padding:.85rem 1rem;background:var(--bg-hero);}
+.cap-bar dd{margin:0;font-family:var(--font-display);font-weight:600;font-size:clamp(1.5rem,4vw,2rem);line-height:1.1;color:var(--on-ink-strong);font-variant-numeric:tabular-nums;}
+.cap-bar dt{font-size:.8rem;font-weight:600;color:var(--on-ink-muted);line-height:1.3;}
+
+.stage-bar[hidden]{display:none;}
+.stage-bar{background:var(--surface);border-bottom:1px solid var(--line);padding:.85rem 0;}
+.stage-inner{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .9rem;}
+.stage-label{margin:0;font-weight:700;font-size:.92rem;color:var(--text);}
+.stage-opts{display:flex;flex-wrap:wrap;gap:.4rem;}
+.stage-opt{min-height:40px;padding:.4rem .9rem;border:1.5px solid var(--line);border-radius:999px;background:var(--paper);color:var(--text);font:inherit;font-size:.86rem;font-weight:600;cursor:pointer;}
+.stage-opt:hover{border-color:var(--gold-strong);}
+.stage-opt[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff;}
+[data-theme="dark"] .stage-opt[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:#0B1A22;}
+.stage-opt.stage-all[aria-pressed="false"]{border-style:dashed;}
+.stage-out:empty{display:none;}
+.stage-out{margin-top:.7rem;}
+.stage-row{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem;}
+.stage-row-label{font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);margin-right:.2rem;}
+.stage-jump{display:inline-flex;align-items:center;min-height:36px;padding:.3rem .8rem;border-radius:999px;border:1px solid var(--gold-strong);color:var(--text);font-size:.85rem;font-weight:600;background:var(--stream-soft);}
+.stage-jump:hover{background:var(--surface);}
+.stage-next{border-style:dashed;}
+.stage-note{margin:.55rem 0 0;font-size:.85rem;color:var(--text-muted);}
+.stage-showall{padding:0;border:0;background:none;font:inherit;font-weight:700;color:var(--link);text-decoration:underline;cursor:pointer;}
+.stage-showall:hover{color:var(--link-hover);}
+section.stage-off,.page-nav a.stage-off-link,.page-nav-mobile a.stage-off-link,.quicknav a.stage-off-link{display:none !important;}
+.page-nav li:has(> a.stage-off-link){display:none;}
+section.stage-focus{box-shadow:inset 4px 0 0 var(--gold);}
+@media (max-width:639px){
+  .stage-label{width:100%;}
+  .stage-opt{flex:1 1 auto;}
+}
+/* Links inside footer sentences are underlined, not told apart by colour alone (axe link-in-text-block, WCAG 1.4.1). */
+.footer-open p a{text-decoration:underline;text-underline-offset:2px;}

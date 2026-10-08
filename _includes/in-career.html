@@ -129,6 +129,25 @@
   </div>
   {%- endif %}
 
+  {%- comment -%} "Where are you now?" stage filter. Hidden until site.js (block "Stage filter") wires it up,
+      so without JavaScript the page simply shows every section. Which sections each stage hides or
+      promotes is set in site.js (STAGES), by section id, the same ids on all India pathway pages. {%- endcomment %}
+  <div class="stage-bar" data-stage-bar hidden>
+    <div class="container">
+      <div class="stage-inner">
+        <p class="stage-label" id="stage-label">Where are you now?</p>
+        <div class="stage-opts" role="group" aria-labelledby="stage-label">
+          <button type="button" class="stage-opt" data-stage="school" aria-pressed="false">Class 10 or below</button>
+          <button type="button" class="stage-opt" data-stage="hs" aria-pressed="false">Class 11–12</button>
+          <button type="button" class="stage-opt" data-stage="grad" aria-pressed="false">In college</button>
+          <button type="button" class="stage-opt" data-stage="pro" aria-pressed="false">Graduate / working</button>
+          <button type="button" class="stage-opt stage-all" data-stage="" aria-pressed="true">Show everything</button>
+        </div>
+      </div>
+      <div class="stage-out" aria-live="polite"></div>
+    </div>
+  </div>
+
   {%- comment -%} Journey at a glance: the 0 → 100% snapshot, one row per step. {%- endcomment %}
   {%- if C.journey %}
   <section class="block" id="journey" aria-labelledby="journey-heading">

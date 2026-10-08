@@ -34,10 +34,12 @@ label-in-name, scrollable region, colour contrast, plus the redirect-stub title)
 
 Lighthouse accessibility on the 12 live pages: 94–100 → **100 on all 12**. Best practices and SEO: 100.
 
-Performance, live (single runs; the network makes these noisy), before → after f5eab4b:
-CSE 51 → 74, CS salary 57 → 86, Nursing license 65 → 89, USA home 77 → 87, Compare 84 → 90; LCP on those
-pages 4.0–5.9 s → 1.3–3.5 s. Two pages dropped (CA roadmap 99 → 89, USA CS 91 → 78) with the deferred gtag,
-which item 9 reverts. Local A/B with the final setup: CA roadmap 96, USA CS 96, CSE 91–92.
+Performance — **the reliable evidence is the local A/B** (same machine, same throttling, 2–3 runs each):
+before → after the fonts change, LCP ~6.5 s → 2.4–3.6 s and score 65–68 → 81–96 (India home, USA home,
+CSE, CA roadmap, USA CS). Live single runs are too noisy to compare page by page: after the final deploy
+(fcc3542), two runs per page gave e.g. CSE 52/68, USA home 96/57, Nursing 87/72, with LCP 1.2–5.9 s on the
+same page, because Google Fonts and network timing vary per run. Live results are kept in the session
+scratchpad; the first live pass (before fixes) is in the table history of this phase's commit message.
 
 CLS stays "good" everywhere (≤ 0.04; India home 0.026 → 0.038 as fonts now swap after first paint).
 

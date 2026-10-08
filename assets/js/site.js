@@ -692,6 +692,19 @@ try {
 })();
 } catch (e) { if (window.console) console.error(e); }
 
+/* ===== Comparison accordions (.md-matrix) =====
+   Closed in the HTML so phones (< 640px) see one text line instead of a long table. On wider
+   screens open them on load; before printing open them all. */
+try {
+(function(){
+  "use strict";
+  var mx = document.querySelectorAll('details.md-matrix');
+  if(!mx.length) return;
+  if(window.matchMedia && window.matchMedia('(min-width: 640px)').matches) mx.forEach(function(d){ d.open = true; });
+  window.addEventListener('beforeprint', function(){ mx.forEach(function(d){ d.open = true; }); });
+})();
+} catch (e) { if (window.console) console.error(e); }
+
 /* ===== Source chips (.md-src, global design system) =====
    Native <details>, so they open and close without JS. This adds: one open at a time, close on
    outside click and on Escape (focus returns to the chip), and flip the pop-over to the right edge

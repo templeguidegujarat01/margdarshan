@@ -2173,6 +2173,28 @@ html[data-region="us"] .sb-group[data-region-nav]:not([data-region-nav="us"]){di
   .md-cmp td::before{content:attr(data-col);display:block;font-size:.75rem;font-weight:700;color:var(--text-muted);}
   .md-cmp td[colspan]{grid-column:1 / -1;}
 }
+/* Text-only accordion around a long comparison table (closed on phones, opened by site.js >= 640px) */
+.md-matrix > summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;min-height:44px;font-family:var(--font-mono);font-size:var(--fs-small);font-weight:600;color:var(--link);}
+.md-matrix > summary::-webkit-details-marker{display:none;}
+.md-matrix > summary:hover{text-decoration:underline;}
+.md-matrix > summary:focus-visible{outline:2px solid var(--link);outline-offset:2px;border-radius:2px;}
+.md-matrix[open] > summary{margin-bottom:var(--sp-3);}
+.md-matrix .md-matrix-hide,.md-matrix[open] .md-matrix-show{display:none;}
+.md-matrix[open] .md-matrix-hide{display:inline;}
+@media print{.md-matrix > summary{display:none;}}
+/* Local hubs (us-local-hub.html): compact key/value rows and text badges */
+.md-kv{margin:0;border:1px solid var(--line);border-radius:var(--radius-md);background:var(--surface);}
+.md-sec-alt .md-kv{background:var(--paper);}
+.md-kv > div{display:grid;grid-template-columns:minmax(9rem,28%) 1fr;gap:var(--sp-2) var(--sp-4);padding:var(--sp-3) var(--sp-4);border-bottom:1px solid var(--line);}
+.md-kv > div:last-child{border-bottom:0;}
+.md-kv dt{font-weight:600;font-size:var(--fs-label);color:var(--text);}
+.md-kv dd{margin:0;font-size:var(--fs-small);color:var(--text);}
+.md-kv-tag{display:block;font-family:var(--font-mono);font-size:.7rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--text-muted);}
+.md-badges{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:var(--sp-2);}
+.md-badges li{border:1px solid var(--line-strong);border-radius:999px;padding:.3rem .75rem;font-size:var(--fs-label);color:var(--text-muted);background:var(--surface);}
+.md-sec-alt .md-badges li{background:var(--paper);}
+.md-badges strong{color:var(--text);font-weight:600;}
+@media (max-width:639px){.md-kv > div{grid-template-columns:1fr;gap:var(--sp-1);}}
 
 /* ---- md-subnav + md-bento + disclosure ---- */
 .md-subnav{display:flex;gap:var(--sp-1);overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line);margin-bottom:var(--sp-5);}

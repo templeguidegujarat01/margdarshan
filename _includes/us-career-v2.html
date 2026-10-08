@@ -275,6 +275,9 @@
   <section class="md-sec md-sec-alt" id="compare" aria-labelledby="compare-h">
     <div class="container">
       <div class="md-sec-head"><h2 id="compare-h">{{ C.title }}</h2></div>
+      {%- comment -%} Closed in the HTML so phones (< 640px) get one text line; site.js opens it on wider screens. {%- endcomment %}
+      <details class="md-matrix">
+      <summary><span class="md-matrix-show">[ + Expand Detailed Professional Matrix Comparison ]</span><span class="md-matrix-hide">[ − Hide Detailed Professional Matrix Comparison ]</span></summary>
       <table class="md-cmp">
         <thead><tr><td></td><th scope="col">{{ C.a }}</th><th scope="col">{{ C.b }}</th></tr></thead>
         <tbody>
@@ -288,6 +291,7 @@
         </tbody>
       </table>
       <div class="md-datanote">Sources:{% for s in C.sources %} <a href="{{ SRC[s].url }}">{{ SRC[s].short | default: SRC[s].publisher }}</a>{% unless forloop.last %} ·{% endunless %}{% endfor %}</div>
+      </details>
     </div>
   </section>
   {%- endif %}
@@ -364,6 +368,9 @@
       {%- if cmp_n > 0 %}
       <p class="md-tile-note md-compare-links">Compare:{% assign cmp_i = 0 %}{% for cp in US.compare %}{% if cp[1].a == P.slug or cp[1].b == P.slug %}{% if cmp_i > 0 %} ·{% endif %}{% assign cmp_i = cmp_i | plus: 1 %} <a href="us/compare/{{ cp[0] }}/">{{ cp[1].question | remove: "?" | replace: " or ", " vs " }}</a>{% endif %}{% endfor %}</p>
       {%- endif %}
+      {%- for hub in US.local_hubs %}{% for t in hub[1].tracks %}{% if t.pathway == P.slug %}
+      <p class="md-tile-note md-compare-links">Local hub: <a href="us/{{ hub[1].slug }}/#{{ t.id }}">{{ t.title }} in {{ hub[1].name }}</a></p>
+      {%- endif %}{% endfor %}{% endfor %}
       <div class="md-datanote">Data: BLS wages {{ V.wage_ref }}, projections {{ V.projection_period }}. Checked {{ PP.last_reviewed | date: "%-d %b %Y" }}. Work-life data includes information from <a href="https://www.onetonline.org/">O*NET OnLine</a> by the U.S. Department of Labor, Employment and Training Administration (USDOL/ETA), used under the <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> license.</div>
     </div>
   </section>

@@ -73,7 +73,11 @@ const idCache = {};
 async function render(f) {
   const raw = fs.readFileSync(path.join(root, f), 'utf8');
   const m = raw.match(fmRe);
-  const fm = m ? yaml.load(m[1]) || {} : {};
+  // Like Jekyll: a file without front matter is copied as-is (e.g. the Google verification file),
+  // and jekyll-redirect-from replaces a `redirect_to` page with its own bare redirect page.
+  if (!m) return raw;
+  const fm = yaml.load(m[1]) || {};
+  if (fm.redirect_to) return `<!DOCTYPE html><html lang="en-US"><meta charset="utf-8"><title>Redirecting…</title><link rel="canonical" href="${fm.redirect_to}"><meta http-equiv="refresh" content="0; url=${fm.redirect_to}"><a href="${fm.redirect_to}">Click here if you are not redirected.</a></html>`;
   const body = m ? raw.slice(m[0].length) : raw;
   // Apply _config.yml `defaults` like Jekyll: scope.path is a folder prefix ("" = all); front matter wins.
   const defaults = {};

@@ -1,0 +1,79 @@
+# USA Edition — local hubs (city-level pages, like the India state pages).
+# Rendered by _includes/us-local-hub.html; page stub us/<slug>/index.html with `hub: <id>`.
+# IA rule R8: a city page only exists because the place changes more than the numbers
+# (here: New York's own bar admission rules, its prosecutor and defender offices).
+#
+# Every number is copied, never computed, and scripts/check-us-data.mjs checks it:
+#   pay.*            = assets/data/us/oews/<soc>.json → metros[<metro>]   (BLS OEWS, May 2025)
+#   schools[].count  = assets/data/us/colleges/<colleges>.json rows        (IPEDS 2023-24)
+#   every `source`   = an id in sources.yml
+# No rankings, no "target school" labels and no commercial course names: no official source
+# publishes which colleges banks hire from, and Margdarshan does not endorse paid courses.
+
+nyc:
+  slug: new-york-city
+  name: "New York City"
+  eyebrow: "USA · Local hub"
+  title: "New York City: Wall Street and criminal law pathways"
+  lede: "Two careers where New York is the biggest market in the country. Same national route as everywhere else, plus the city's own employers, schools and — for lawyers — New York's own bar rules."
+  metro: "0035620"
+  metro_name: "New York-Newark-Jersey City, NY-NJ"
+  checked: 2026-10-09
+  tracks:
+    - id: investment-banking
+      pathway: investment-banking
+      title: "Investment banking"
+      soc: "41-3031"
+      soc_title: "Securities, commodities, and financial services sales agents"
+      pay_note: "BLS counts investment bankers in this wider group; it has no separate investment banker series."
+      pay: { emp: 59450, median: 167890, p90: 326290, national_median: 78660 }
+      steps:
+        - { k: "Degree", v: "A bachelor's degree, usually in business, finance or economics; internships count a lot.", source: bls_ooh }
+        - { k: "First license", v: "SIE exam — open to anyone 18 or older, no firm needed; a pass is valid for four years.", source: finra_sie }
+        - { k: "On the job", v: "Series 79 (Investment Banking Representative) — needs sponsorship by a FINRA member firm.", source: finra_series79 }
+      schools_title: "NYC colleges that awarded finance degrees"
+      schools_note: "Counts only programs coded Finance (CIP 52.0801). Business, economics and accounting majors are reported under other codes and are not included, so this is not a list of where banks hire."
+      colleges: finance
+      schools:
+        - { unitid: 190512, name: "CUNY Baruch College", count: 827, award: "bachelor's" }
+        - { unitid: 194310, name: "Pace University", count: 112, award: "bachelor's + master's" }
+        - { unitid: 195809, name: "St. John's University", count: 104, award: "bachelor's" }
+        - { unitid: 190549, name: "CUNY Brooklyn College", count: 71, award: "bachelor's" }
+        - { unitid: 190664, name: "CUNY Queens College", count: 67, award: "bachelor's" }
+        - { unitid: 190150, name: "Columbia University", count: 27, award: "master's" }
+        - { unitid: 193900, name: "New York University", count: 17, award: "master's" }
+      schools_source: ipeds_completions
+
+    - id: criminal-law
+      pathway: law
+      title: "Criminal law"
+      soc: "23-1011"
+      soc_title: "Lawyers"
+      pay_note: "All lawyers in the metro area; BLS does not split prosecutors from defense lawyers."
+      pay: { emp: 94610, median: 208880, p90: 391620, national_median: 159670 }
+      steps:
+        - { k: "Law school", v: "A J.D. from an ABA-accredited law school (three years full time).", source: bls_ooh }
+        - { k: "NY bar exam", v: "Pass the UBE, complete the New York Law Course and pass the New York Law Exam and the MPRE.", source: nycrr_520_9 }
+        - { k: "Before admission", v: "50 hours of pro bono work, the skills competency requirement, then a character and fitness interview at the Appellate Division.", source: nybole_admission }
+        - { k: "Exam change", v: "From the July 2028 exam, the NextGen bar exam replaces the UBE in New York.", source: nybole_home }
+      badges:
+        - { label: "First-time pass rate, NY law school graduates", value: "87%", note: "July 2025; 91% for out-of-state ABA graduates", source: nybole_july2025 }
+      employers_title: "Where criminal lawyers work in the city"
+      employers:
+        - { side: "Prosecution · state", name: "Manhattan District Attorney's Office", v: "Prosecutes crimes in New York County (Manhattan); runs legal training and internship and fellowship programs.", source: manhattan_da }
+        - { side: "Prosecution · federal", name: "U.S. Attorney's Office, S.D.N.Y.", v: "More than 220 Assistant U.S. Attorneys. The district covers New York (Manhattan), Bronx, Westchester, Rockland, Putnam, Orange, Dutchess and Sullivan counties.", source: usao_sdny, source2: nysd_about }
+        - { side: "Defense · federal", name: "Federal Defenders of New York", v: "Defends people charged with federal crimes who cannot afford a lawyer, in the Southern and Eastern Districts and the Second Circuit.", source: fdny_defenders }
+      schools_title: "Law schools in the city (J.D.s awarded, 2023-24)"
+      schools_note: "Pace and Touro also report J.D.s under a New York City main campus, but their law schools are in White Plains and Central Islip, so they are left out."
+      schools_note_sources: [pace_law, touro_law]
+      colleges: law
+      schools:
+        - { unitid: 190150, name: "Columbia University", count: 523 }
+        - { unitid: 193900, name: "New York University", count: 523 }
+        - { unitid: 191241, name: "Fordham University", count: 455 }
+        - { unitid: 189501, name: "Brooklyn Law School", count: 400 }
+        - { unitid: 193821, name: "New York Law School", count: 345 }
+        - { unitid: 197708, name: "Yeshiva University (Cardozo)", count: 311 }
+        - { unitid: 195809, name: "St. John's University", count: 265 }
+        - { unitid: 190682, name: "CUNY School of Law", count: 213 }
+      schools_source: ipeds_completions

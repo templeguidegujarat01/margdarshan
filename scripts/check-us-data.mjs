@@ -236,6 +236,41 @@ for (const [id, c] of Object.entries(cmp)) {
   if (diff < 5) err(w, `only ${diff} of 10 rows differ; R9 needs at least 5`);
 }
 
+// Local hubs (us-local-hub.html): every number copied from the generated BLS OEWS metro file and IPEDS
+// colleges file must still match them, every source id must exist, and each track links a live pathway.
+const hubs = load('local_hubs') || {};
+for (const [id, h] of Object.entries(hubs)) {
+  const w = `local_hubs.${id}`;
+  for (const k of ['slug', 'name', 'title', 'lede', 'metro', 'metro_name']) if (!h[k]) err(w, `missing ${k}`);
+  if (!isDate(h.checked)) err(w, 'missing checked date');
+  if (!fs.existsSync(path.join(root, 'us', h.slug || '-', 'index.html'))) err(w, `us/${h.slug}/index.html is missing`);
+  (h.tracks || []).forEach((t, i) => {
+    const tw = `${w}.tracks[${i}]`;
+    const P = paths.list.find((x) => x.slug === t.pathway);
+    if (!P || !P.live) err(tw, `pathway "${t.pathway}" is not a live pathway`);
+    const of = path.join(root, 'assets/data/us/oews', `${t.soc}.json`);
+    const m = fs.existsSync(of) ? JSON.parse(fs.readFileSync(of, 'utf8')) : null;
+    const mm = m && m.metros && m.metros[h.metro];
+    if (!mm) err(tw, `no OEWS metro ${h.metro} for SOC ${t.soc}`);
+    else for (const [k, v] of [['emp', mm.emp], ['median', mm.median], ['p90', mm.p90], ['national_median', m.national.median]])
+      if (t.pay?.[k] !== v) err(tw, `pay.${k} ${t.pay?.[k]} != BLS file ${v}`);
+    for (const s of t.steps || []) needSrc(tw, s.source);
+    for (const b of t.badges || []) needSrc(tw, b.source);
+    for (const e of t.employers || []) { needSrc(tw, e.source); if (e.source2) needSrc(tw, e.source2); }
+    for (const s of t.schools_note_sources || []) needSrc(tw, s);
+    needSrc(tw, t.schools_source);
+    const cf = path.join(root, 'assets/data/us/colleges', `${t.colleges}.json`);
+    const c = fs.existsSync(cf) ? JSON.parse(fs.readFileSync(cf, 'utf8')) : null;
+    if (!c) { err(tw, `no colleges file ${t.colleges}.json`); return; }
+    for (const s of t.schools || []) {
+      const r = c.rows.find((x) => x[0] === s.unitid);
+      const n = r && Object.values(r[7]).reduce((a, b) => a + b, 0);
+      if (!r) err(tw, `unitid ${s.unitid} (${s.name}) not in ${t.colleges}.json`);
+      else if (n !== s.count) err(tw, `${s.name}: count ${s.count} != IPEDS ${n}`);
+    }
+  });
+}
+
 console.log(`checked ${Object.keys(sources.list).length} sources, ${Object.keys(occ).length} occupations, ${Object.keys(lic).length} licenses, ${testIds.size} tests, ${paths.list.length} pathways`);
 if (errors.length) { console.log(errors.join('\n')); console.log(`\n${errors.length} problem(s)`); process.exit(1); }
 console.log('OK: 0 problems');

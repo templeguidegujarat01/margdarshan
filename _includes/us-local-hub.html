@@ -1,0 +1,86 @@
+{%- comment -%}
+  USA local hub (city level, like the India state pages). Page stub: us/<slug>/index.html → `hub: <id>`.
+  Built from _data/us/local_hubs.yml (tracks: pay from BLS OEWS metro data, steps, badges, employers,
+  schools from IPEDS) and pathways.yml (links to the national pathway pages). Numbers are copied from
+  the generated BLS/IPEDS files and checked by scripts/check-us-data.mjs.
+{%- endcomment -%}
+{%- assign US = site.data.us -%}
+{%- assign SRC = US.sources.list -%}
+{%- assign H = US.local_hubs[page.hub] -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "USA Home", "item": "{{ site.url }}{{ site.baseurl }}/us/" },
+    { "@type": "ListItem", "position": 2, "name": {{ H.name | jsonify }}, "item": "{{ page.url | absolute_url }}" }
+  ]
+}
+</script>
+<main id="main" class="md-page">
+
+  <div class="container md-page-top">
+    <header class="md-answer">
+      <span class="eyebrow">{{ H.eyebrow }}</span>
+      <h1>{{ H.title }}</h1>
+      <p class="md-answer-lede">{{ H.lede }}</p>
+      <div class="md-answer-actions">
+        {%- for T in H.tracks %}
+        <a href="#{{ T.id }}" class="{% if forloop.first %}btn btn-primary{% else %}md-textlink{% endif %}">{{ T.title }}</a>
+        {%- endfor %}
+      </div>
+    </header>
+  </div>
+
+  {%- for T in H.tracks %}
+  {%- assign P = US.pathways.list | where: "slug", T.pathway | first %}
+  {%- assign CP = US.pathways.list | where: "slug", T.colleges | first %}
+  <section class="md-sec{% cycle '', ' md-sec-alt' %}" id="{{ T.id }}" aria-labelledby="{{ T.id }}-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="{{ T.id }}-h">{{ T.title }} in {{ H.name }}</h2><p>The national route is on the <a href="us/careers/{{ P.slug }}/">{{ P.title }} pathway</a>; below is what is specific to {{ H.name }}.</p></div>
+
+      <div class="md-stats">
+        <div class="md-stat"><span class="md-stat-label">Metro median pay</span><span class="md-stat-value">{% include fmt-num.html n=T.pay.median prefix="$" %}</span><span class="md-stat-note">U.S.: {% include fmt-num.html n=T.pay.national_median prefix="$" %}</span>{% include us-src-chip.html id="bls_oews_metro" %}</div>
+        <div class="md-stat"><span class="md-stat-label">Top 10% earn over</span><span class="md-stat-value">{% include fmt-num.html n=T.pay.p90 prefix="$" %}</span><span class="md-stat-note">{{ T.soc_title }}</span></div>
+        <div class="md-stat"><span class="md-stat-label">Jobs in the metro</span><span class="md-stat-value">{% include fmt-num.html n=T.pay.emp %}</span><span class="md-stat-note">{{ H.metro_name }}</span></div>
+        {%- for b in T.badges %}
+        <div class="md-stat"><span class="md-stat-label">{{ b.label }}</span><span class="md-stat-value">{{ b.value }}</span>{% if b.note %}<span class="md-stat-note">{{ b.note }}</span>{% endif %}{% include us-src-chip.html id=b.source %}</div>
+        {%- endfor %}
+      </div>
+      <p class="md-tile-note">{{ T.pay_note }} BLS OEWS, May 2025, SOC {{ T.soc }}.</p>
+
+      <h3 class="md-pay-sub">The route here</h3>
+      <dl class="md-kv">
+        {%- for s in T.steps %}
+        <div><dt>{{ s.k }}</dt><dd>{{ s.v }} {% include us-src-chip.html id=s.source %}</dd></div>
+        {%- endfor %}
+      </dl>
+
+      {%- if T.employers %}
+      <h3 class="md-pay-sub">{{ T.employers_title }}</h3>
+      <dl class="md-kv">
+        {%- for e in T.employers %}
+        <div><dt><span class="md-kv-tag">{{ e.side }}</span>{{ e.name }}</dt><dd>{{ e.v }} {% include us-src-chip.html id=e.source %}{% if e.source2 %} {% include us-src-chip.html id=e.source2 %}{% endif %}</dd></div>
+        {%- endfor %}
+      </dl>
+      {%- endif %}
+
+      <h3 class="md-pay-sub">{{ T.schools_title }}</h3>
+      <ul class="md-badges">
+        {%- for c in T.schools %}
+        <li><strong>{{ c.name }}</strong> {% include fmt-num.html n=c.count %}{% if c.award %} {{ c.award }}{% endif %}</li>
+        {%- endfor %}
+      </ul>
+      <div class="md-datanote">{{ T.schools_note }} Source: {% include us-src-chip.html id=T.schools_source %}{% for s in T.schools_note_sources %} {% include us-src-chip.html id=s %}{% endfor %} · <a href="us/careers/{{ CP.slug }}/colleges/">Every U.S. college for this degree →</a></div>
+    </div>
+  </section>
+  {%- endfor %}
+
+  <section class="md-sec" id="about-hub" aria-labelledby="about-hub-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="about-hub-h">How this page is built</h2></div>
+      <p class="md-tile-note">Pay and jobs: BLS OEWS May 2025 for the {{ H.metro_name }} metro area, which includes nearby counties outside the city. Colleges: NCES IPEDS 2023-24 completions. Rules and employers: the official sites linked on each row, checked {{ H.checked | date: "%-d %b %Y" }}. Margdarshan does not rank schools or recommend paid prep courses.</p>
+    </div>
+  </section>
+
+</main>

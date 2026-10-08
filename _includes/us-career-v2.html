@@ -91,7 +91,10 @@
         </div>
         <div class="md-stat">
           <span class="md-stat-label">License</span>
-          {%- if LIC and P.license_required %}
+          {%- if P.license_stat %}
+          <span class="md-stat-value is-text">{{ P.license_stat.value }}</span>
+          <span class="md-stat-note">{{ P.license_stat.note }}</span>
+          {%- elsif LIC and P.license_required %}
           <span class="md-stat-value is-text">Required</span>
           <span class="md-stat-note">{{ LIC.authority }}</span>
           {%- elsif LIC %}

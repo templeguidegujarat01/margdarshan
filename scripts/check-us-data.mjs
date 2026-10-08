@@ -88,6 +88,8 @@ for (const p of paths.list) {
   if (p.license !== 'none' && !lic[p.license]) err(w, `unknown license "${p.license}"`);
   (p.related || []).forEach((r) => { if (!slugs.has(r)) err(w, `unknown related "${r}"`); });
   if (p.in_page && !fs.existsSync(path.join(root, p.in_page))) err(w, `in_page ${p.in_page} does not exist`);
+  if (p.license_stat && (!p.license_stat.value || !p.license_stat.note)) err(w, 'license_stat needs value and note');
+  if (p.license_stat && p.license && p.license !== 'none') err(w, 'license_stat is only for pathways with license: none (a state license already fills the License stat)');
 }
 
 // guides.yml: every `source`/`sources`/`*_source(s)` value anywhere must be a known source id.

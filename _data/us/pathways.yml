@@ -10,6 +10,8 @@
 #   admission      admission tests beyond high school (ids from tests.yml)
 #   license        id in licenses.yml, or none
 #   bls_note       honest caveat about how BLS classifies this field
+#   license_stat   optional { value, note } for the License stat when the licence is not a state
+#                  license in licenses.yml (e.g. FINRA exams that need a sponsoring firm)
 #   related        other pathway slugs
 #   in_page        existing India Edition page on the SAME FIELD, used only by
 #                  the region switcher. Same subject, different system — never
@@ -374,6 +376,21 @@ list:
     salary: true
     salary_soc: "13-2051"     # the lead occupation is a BLS group; salary page uses this published SOC
     salary_title: "Financial and investment analysts"
+
+  - slug: investment-banking
+    title: "Investment Banking"
+    category: business
+    lead: securities-sales-agents
+    occupations: [securities-sales-agents, financial-analysts, financial-managers]
+    route: [bachelor, master]
+    license: none
+    license_stat: { value: "Through your firm", note: "FINRA Series 79 + SIE" }
+    bls_note: "BLS has no separate investment banker occupation: investment bankers are counted with securities, commodities, and financial services sales agents (SOC 41-3031), so pay and outlook describe that whole group. FINRA licenses such as the Series 79 need a sponsoring firm."
+    related: [finance, accounting, business]
+    phase: 6
+    live: true
+    template: v2          # 2026-10-09: added on the owner's request (gap next to Finance)
+    salary: true
 
   - slug: business
     title: "Business & Management"

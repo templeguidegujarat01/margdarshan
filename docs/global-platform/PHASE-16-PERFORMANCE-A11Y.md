@@ -38,8 +38,9 @@ Performance — **the reliable evidence is the local A/B** (same machine, same t
 before → after the fonts change, LCP ~6.5 s → 2.4–3.6 s and score 65–68 → 81–96 (India home, USA home,
 CSE, CA roadmap, USA CS). Live single runs are too noisy to compare page by page: after the final deploy
 (fcc3542), two runs per page gave e.g. CSE 52/68, USA home 96/57, Nursing 87/72, with LCP 1.2–5.9 s on the
-same page, because Google Fonts and network timing vary per run. Live results are kept in the session
-scratchpad; the first live pass (before fixes) is in the table history of this phase's commit message.
+same page, because Google Fonts and network timing vary per run. For reference, the first live pass (before any fix, one run each):
+India home 77, CSE 51, SSC CGL 57, CA roadmap 99, Study in the USA 74, USA home 77, USA CS 91, CS salary 57,
+Medicine colleges 87, Compare 84, F-1 work 85, Nursing license 65 (accessibility 94–100).
 
 CLS stays "good" everywhere (≤ 0.04; India home 0.026 → 0.038 as fonts now swap after first paint).
 

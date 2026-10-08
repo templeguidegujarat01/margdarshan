@@ -13,6 +13,7 @@
                 differs from the visible one
     nav         the "On this page" links (Journey and Sources links are added automatically)
     journey     the "Journey at a glance" table under the hero (editorial, optional)
+    path[]      the path as a short chain in the hero: step (2–4 words), sub (one short line), source (optional)
     sections[]  in page order: id, hid (heading id), alt (tinted band), eyebrow, heading, intro, parts[]
                 each part is one component, named by its key:
                   subhead, note, streams, overview, fit, elig_list, elig_cards, prose, table, steps,
@@ -108,6 +109,23 @@
         {%- for q in H.quickfacts %}
         <div class="qf-card"><span>{{ q.label }}</span><strong>{{ q.value }}{% if q.source %} {% include in-src-ref.html id=q.source %}{% endif %}</strong></div>
         {%- endfor %}
+      </div>
+      {%- comment -%} Money in plain words (regions.yml in.vocab.money_note), printed once when a quick fact uses LPA. {%- endcomment %}
+      {%- assign uses_lpa = false %}
+      {%- for q in H.quickfacts %}{% if q.value contains "LPA" %}{% assign uses_lpa = true %}{% endif %}{% endfor %}
+      {%- if uses_lpa %}
+      <p class="qf-note">{{ site.data.regions.in.vocab.money_note }}</p>
+      {%- endif %}
+      {%- endif %}
+      {%- comment -%} The path, step by step: optional `path:` rows (step, sub, source), drawn as one compact chain. {%- endcomment %}
+      {%- if C.path %}
+      <div class="path-strip">
+        <p class="path-strip-title" id="path-strip-title">{{ site.data.regions.in.vocab.path_title }}</p>
+        <ol aria-labelledby="path-strip-title">
+          {%- for r in C.path %}
+          <li><span class="ps-no" aria-hidden="true">{{ forloop.index }}</span><span class="ps-body"><strong>{{ r.step }}{% if r.source %} {% include in-src-ref.html id=r.source %}{% endif %}</strong>{% if r.sub %}<small>{{ r.sub }}</small>{% endif %}</span></li>
+          {%- endfor %}
+        </ol>
       </div>
       {%- endif %}
       {%- assign X = H.hub %}

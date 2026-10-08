@@ -1,10 +1,31 @@
 /* Margdarshan — shared stylesheet. Edit this file once; every page updates automatically. */
 
+/* ===================== FONT FALLBACKS (no layout shift when web fonts arrive) =====================
+   The Google fonts load without blocking (display=swap), so text first paints in a system font and
+   then re-flows when Fraunces/Hind arrive. On a 390px phone that moved the hero by CLS 0.17.
+   These faces make the system font take up the same width as the web font, so lines wrap the same
+   before and after. size-adjust = measured width of real page text (headings / paragraphs from
+   llb, bcom, ca, mbbs, index and USA law) in the web font divided by the same text in the fallback,
+   measured in Edge on 2026-10-08. ascent/descent = the web font hhea metrics divided by size-adjust.
+   Georgia / Arial / Courier New: Windows, macOS, iOS. Roboto / Noto Serif: Android. A local() that is
+   not installed is skipped and the next family in the stack is tried. Re-measure if the fonts change. */
+@font-face{font-family:"Fraunces Fallback";src:local("Georgia");font-weight:100 549;size-adjust:106.45%;ascent-override:91.87%;descent-override:23.95%;line-gap-override:0%;}
+@font-face{font-family:"Fraunces Fallback";src:local("Georgia Bold"),local("Georgia-Bold");font-weight:550 649;size-adjust:91.81%;ascent-override:106.52%;descent-override:27.77%;line-gap-override:0%;}
+@font-face{font-family:"Fraunces Fallback";src:local("Georgia Bold"),local("Georgia-Bold");font-weight:650 900;size-adjust:94.73%;ascent-override:103.24%;descent-override:26.92%;line-gap-override:0%;}
+@font-face{font-family:"Fraunces Fallback Android";src:local("Noto Serif Bold"),local("NotoSerif-Bold");font-weight:550 900;size-adjust:95.78%;ascent-override:102.11%;descent-override:26.62%;line-gap-override:0%;}
+@font-face{font-family:"Hind Fallback";src:local("Arial"),local("ArialMT");font-weight:100 549;size-adjust:95.52%;ascent-override:110.45%;descent-override:57.16%;line-gap-override:0%;}
+@font-face{font-family:"Hind Fallback";src:local("Arial Bold"),local("Arial-BoldMT");font-weight:550 900;size-adjust:92.23%;ascent-override:114.39%;descent-override:59.20%;line-gap-override:0%;}
+@font-face{font-family:"Hind Fallback Android";src:local("Roboto"),local("Roboto-Regular");font-weight:100 549;size-adjust:96.14%;ascent-override:109.74%;descent-override:56.79%;line-gap-override:0%;}
+@font-face{font-family:"Hind Fallback Android";src:local("Roboto Bold"),local("Roboto-Bold");font-weight:550 900;size-adjust:98.16%;ascent-override:107.48%;descent-override:55.62%;line-gap-override:0%;}
+/* JetBrains Mono and Courier New are both 0.6em per character, so only the vertical metrics differ. */
+@font-face{font-family:"JetBrains Mono Fallback";src:local("Courier New"),local("CourierNewPSMT");font-weight:100 549;size-adjust:100%;ascent-override:102%;descent-override:30%;line-gap-override:0%;}
+@font-face{font-family:"JetBrains Mono Fallback";src:local("Courier New Bold"),local("CourierNewPS-BoldMT");font-weight:550 900;size-adjust:100%;ascent-override:102%;descent-override:30%;line-gap-override:0%;}
+
 /* ===================== TOKENS ===================== */
 :root{
-  --font-display:'Fraunces',Georgia,serif;
-  --font-body:'Hind',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-  --font-mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  --font-display:'Fraunces',"Fraunces Fallback","Fraunces Fallback Android",Georgia,serif;
+  --font-body:'Hind',"Hind Fallback","Hind Fallback Android",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  --font-mono:'JetBrains Mono',"JetBrains Mono Fallback",ui-monospace,Menlo,monospace;
 
   --ink:#0F2A3D;
   --ink-soft:#16394F;
@@ -2550,3 +2571,28 @@ section.stage-focus{box-shadow:inset 4px 0 0 var(--gold);}
 }
 /* Links inside footer sentences are underlined, not told apart by colour alone (axe link-in-text-block, WCAG 1.4.1). */
 .footer-open p a{text-decoration:underline;text-underline-offset:2px;}
+
+/* ---------- Path strip + money note (2026-10-08) ----------
+   India career hero: `path:` rows from the data sheet as one chain of bordered steps (in-career.html).
+   Phones: a compact numbered list joined by a line. From 640px: steps sit in a row and wrap, with an
+   arrow between them. Text only, theme tokens only (on --bg-hero: --on-ink*, borders --border-surface).
+   .qf-note: the one-line "how to read the money" note under quick facts (regions.yml vocab.money_note),
+   also used under the USA career stats. */
+.qf-note{margin:.75rem 0 0;font-size:.86rem;line-height:1.5;color:var(--on-ink-muted);}
+.md-money-note{margin-top:.6rem;color:var(--text-muted);}
+.path-strip{margin-top:1.4rem;}
+.path-strip-title{margin:0 0 .55rem;font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--on-ink-muted);}
+.path-strip ol{display:flex;flex-direction:column;gap:.4rem;margin:0;padding:0;list-style:none;}
+.path-strip li{position:relative;display:flex;align-items:flex-start;gap:.6rem;min-width:0;padding:.55rem .75rem;border:1.5px solid var(--border-surface);border-radius:var(--radius-sm);background:rgba(var(--hl-rgb),.04);}
+.path-strip li:not(:last-child)::after{content:"";position:absolute;left:calc(.75rem + .7rem - 1px);bottom:calc(-.4rem - 2px);width:2px;height:calc(.4rem + 2px);background:var(--gold);}
+.ps-no{display:inline-grid;place-items:center;flex:none;width:1.4rem;height:1.4rem;border-radius:50%;font-size:.72rem;font-weight:700;background:var(--ink);color:#fff;margin-top:.05rem;}
+[data-theme="dark"] .ps-no{background:var(--gold);color:#0B1A22;}
+.ps-body{min-width:0;}
+.ps-body strong{display:block;font-size:.95rem;line-height:1.3;color:var(--on-ink-strong);}
+.ps-body small{display:block;font-size:.8rem;line-height:1.35;color:var(--on-ink-muted);margin-top:.1rem;}
+@media (min-width:640px){
+  .path-strip ol{flex-direction:row;flex-wrap:wrap;gap:.5rem 1.6rem;}
+  .path-strip li{flex:0 1 auto;max-width:15rem;}
+  .path-strip li:not(:last-child)::after{content:"→";left:auto;right:-1.25rem;top:50%;bottom:auto;width:auto;height:auto;transform:translateY(-50%);background:none;color:var(--gold-strong);font-weight:700;}
+  [data-theme="dark"] .path-strip li:not(:last-child)::after{color:var(--gold);}
+}

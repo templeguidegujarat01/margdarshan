@@ -2,7 +2,8 @@
 //   VERIFY_DEPS=<dir containing node_modules with js-yaml> node scripts/check-in-data.mjs
 // Fails (exit 1) on: page missing or not pointing at the sheet, unknown part kinds, a `source:` id that is
 // not in `sources`, a source listed but never cited, duplicate source ids, links to pages that do not
-// exist, "On this page" links to sections that do not exist, journey rows without step/value,
+// exist, "On this page" links to sections that do not exist, journey rows without step/value, path rows
+// without a step or longer than one glance (step 24 / sub 48 characters, max 7 steps),
 // a roadmap link without its page, and empty required text.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -50,12 +51,20 @@ for (const f of fs.readdirSync(dir).filter((x) => x.endsWith('.yml'))) {
     if (Array.isArray(v)) v.forEach(walk);
     else if (v && typeof v === 'object') for (const [k, x] of Object.entries(v)) { if (k === 'source' && typeof x === 'string') cited.add(x); else walk(x); }
   };
-  walk({ hero: C.hero, journey: C.journey, sections: C.sections });
+  walk({ hero: C.hero, path: C.path, journey: C.journey, sections: C.sections });
   for (const id of cited) if (!ids.has(id)) err(`source: "${id}" is cited but not listed under sources`);
   for (const id of ids) if (!cited.has(id)) err(`source "${id}" is listed but never cited (add source: ${id} to a fact)`);
 
   // journey rows
   for (const [i, r] of (C.journey || []).entries()) if (!r.step || !r.value) err(`journey row ${i + 1} needs step and value`);
+
+  // path strip (hero): short steps, so it stays one glance on a phone
+  for (const [i, r] of (C.path || []).entries()) {
+    if (!r.step) err(`path row ${i + 1} needs step`);
+    else if (r.step.length > 24) err(`path row ${i + 1}: step "${r.step}" is longer than 24 characters`);
+    if (r.sub && r.sub.length > 48) err(`path row ${i + 1}: sub is longer than 48 characters`);
+  }
+  if (C.path && C.path.length > 7) err(`path has ${C.path.length} steps (max 7)`);
 
   // sections and parts
   const anchors = new Set(['main', 'journey', 'sources']);

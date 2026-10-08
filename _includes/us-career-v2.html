@@ -9,7 +9,7 @@
     occupation_details.yml → D  10th/90th percentiles, specialty/industry pay, O*NET work data
     oews_summary.json → OS      generated from the BLS OEWS file (scripts/build-oews.mjs)
     licenses.yml → LIC          when the pathway has a license
-  Sources appear as md-src chips next to the numbers; the full list is on /us/methodology/.
+  Sources appear as md-src chips next to the numbers; each chip links to its official source (the separate /us/methodology/ page is being retired).
   Section order follows docs/global-platform/PHASE-3-INFORMATION-ARCHITECTURE.md §5.
 {%- endcomment -%}
 {%- assign US = site.data.us -%}
@@ -103,6 +103,7 @@
           {%- endif %}
         </div>
       </div>
+      <p class="qf-note md-money-note">{{ site.data.regions.us.vocab.money_note }}</p>
       <div class="md-answer-actions">
         <a href="#path" class="btn btn-primary">See the path</a>
         {%- if has_salary %}<a href="us/careers/{{ salary_slug }}/salary/" class="md-textlink">Salary by state and city</a>
@@ -211,7 +212,7 @@
   {%- comment -%} 3. The path: roadmap v2, then high school / college / stand out {%- endcomment -%}
   <section class="md-sec" id="path" aria-labelledby="path-h">
     <div class="container">
-      <div class="md-sec-head"><h2 id="path-h">How to get there</h2><p>{% if P.roadmap == "license" %}{{ LIC.education }}.{% else %}A typical route. Many people reach the same job in different ways.{% endif %}</p></div>
+      <div class="md-sec-head"><h2 id="path-h">{{ site.data.regions.us.vocab.path_title }}</h2><p>{% if P.roadmap == "license" %}{{ LIC.education }}.{% else %}A typical route. Many people reach the same job in different ways.{% endif %}</p></div>
       {%- if P.roadmap == "license" %}
       {% include us-license-steps.html license=P.license %}
       {%- else %}
@@ -360,7 +361,7 @@
       {%- if cmp_n > 0 %}
       <p class="md-tile-note md-compare-links">Compare:{% assign cmp_i = 0 %}{% for cp in US.compare %}{% if cp[1].a == P.slug or cp[1].b == P.slug %}{% if cmp_i > 0 %} ·{% endif %}{% assign cmp_i = cmp_i | plus: 1 %} <a href="us/compare/{{ cp[0] }}/">{{ cp[1].question | remove: "?" | replace: " or ", " vs " }}</a>{% endif %}{% endfor %}</p>
       {%- endif %}
-      <div class="md-datanote">Data: BLS wages {{ V.wage_ref }}, projections {{ V.projection_period }}; O*NET work data (CC BY 4.0). Checked {{ PP.last_reviewed | date: "%-d %b %Y" }}. <a href="us/methodology/">How Margdarshan sources its data →</a></div>
+      <div class="md-datanote">Data: BLS wages {{ V.wage_ref }}, projections {{ V.projection_period }}. Checked {{ PP.last_reviewed | date: "%-d %b %Y" }}. Work-life data includes information from <a href="https://www.onetonline.org/">O*NET OnLine</a> by the U.S. Department of Labor, Employment and Training Administration (USDOL/ETA), used under the <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> license.</div>
     </div>
   </section>
 

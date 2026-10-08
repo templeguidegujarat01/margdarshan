@@ -458,6 +458,9 @@
   </section>
   {%- endfor %}
 
+  {%- comment -%} Moving between countries (_data/mobility.yml; renders nothing without routes) {%- endcomment %}
+  {% include mobility-strip.html ed="in" key=include.career sec="block" %}
+
   {%- comment -%}
     Citation block: every official source the page relies on, numbered to match the [n] markers
     above, plus the same list as Markdown for anyone who wants to cite or re-check it.

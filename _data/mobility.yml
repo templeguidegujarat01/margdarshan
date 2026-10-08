@@ -1,0 +1,139 @@
+# Global Mobility Matrix — which professional qualifications transfer between editions (India, USA, UK).
+# Read by _includes/mobility-strip.html, which India (in-career.html), USA (us-career-v2.html) and UK
+# (uk-career.html) career pages include. A page shows a strip only if `pages` lists routes for it.
+#
+# Rules (checked by scripts/check-uk-data.mjs):
+#   - every route has from/to (edition ids in regions.yml), a source id from `sources` below, and only
+#     facts read on that official page. No route = no strip: never fill a gap with a guess.
+#   - review_by: rules for foreign-qualified professionals change; the checker fails after this date
+#     until every source has been re-read and `checked` / review_by moved forward.
+#   - pages: in.<India sheet slug> | us.<pathway slug> | uk.<UK sheet slug>; each must exist.
+checked: 2026-10-09
+review_by: 2027-04-09
+
+sources:
+  icaew_icai_aca:
+    name: "ACA in India: ICAI members"
+    publisher: "ICAEW"
+    short: "ICAEW"
+    url: "https://www.icaew.com/membership/becoming-a-member/members-of-other-bodies/members-of-other-bodies-a-z/icai-members-join-icaew/aca-india"
+  icaew_icai_join:
+    name: "Join ICAEW as an ICAI member"
+    publisher: "ICAEW"
+    short: "ICAEW"
+    url: "https://www.icaew.com/membership/becoming-a-member/members-of-other-bodies/members-of-other-bodies-a-z/icai-members-join-icaew"
+  acca_exemptions:
+    name: "Exemption information for ACCA students"
+    publisher: "ACCA"
+    short: "ACCA"
+    url: "https://www.accaglobal.com/us/en/student/getting-started/exemptions.html"
+  nasba_mra:
+    name: "Mutual Recognition Agreements (IQAB)"
+    publisher: "NASBA"
+    short: "NASBA"
+    url: "https://nasba.org/international/mra/"
+  sra_qualified_lawyers:
+    name: "Qualified lawyers: becoming a solicitor"
+    publisher: "Solicitors Regulation Authority (SRA)"
+    short: "SRA"
+    url: "https://www.sra.org.uk/become-solicitor/qualified-lawyers/"
+  bsb_tql:
+    name: "Becoming a barrister: transferring qualified lawyers"
+    publisher: "Bar Standards Board (BSB)"
+    short: "BSB"
+    url: "https://www.barstandardsboard.org.uk/training-qualification/becoming-a-barrister.html"
+  nycrr_520_6:
+    name: "22 NYCRR 520.6: study of law in a foreign country"
+    publisher: "New York Court of Appeals (via Cornell LII)"
+    short: "NY rule"
+    url: "https://www.law.cornell.edu/regulations/new-york/22-NYCRR-520.6"
+
+routes:
+  icai-to-aca:
+    from: in
+    to: uk
+    from_label: "Indian CA (ICAI member)"
+    to_label: "ICAEW Chartered Accountant (ACA)"
+    badge: "12 of 15 exams credited"
+    points:
+      - "ICAI members get credit on <strong>12 of the 15</strong> ACA exams."
+      - "Still to do: <strong>3 exams</strong> (Corporate Reporting, Strategic Business Management, Case Study) + online ethics training."
+      - "ICAI member for <strong>5+ years</strong>? You can apply through ICAEW's Pathways to Membership instead."
+      - "Signing UK audits needs more: ICAEW says the ICAI qualification is <strong>not recognised</strong> for the UK Audit Qualification."
+    sources: [icaew_icai_aca, icaew_icai_join]
+  icai-to-acca:
+    from: in
+    to: uk
+    from_label: "Indian CA (ICAI)"
+    to_label: "ACCA"
+    badge: "Exemptions possible"
+    points:
+      - "ACCA can exempt you from <strong>Applied Knowledge and Applied Skills</strong> exams (up to 9)."
+      - "<strong>No exemptions</strong> for the 4 Strategic Professional exams."
+      - "Check your exact exemptions with ACCA's official exemptions calculator."
+    sources: [acca_exemptions]
+  icai-to-cpa:
+    from: in
+    to: us
+    from_label: "Indian CA (ICAI)"
+    to_label: "U.S. CPA"
+    badge: "No shortcut agreement"
+    points:
+      - "ICAI has <strong>no mutual recognition agreement</strong> with the U.S. board (NASBA/AICPA IQAB), so there is no shortened exam route."
+      - "Bodies that do have one: SAICA, CPA Australia, CA ANZ, CPA Canada, Chartered Accountants Ireland, CPA Ireland, IMCP (Mexico)."
+    sources: [nasba_mra]
+  aca-to-cpa:
+    from: uk
+    to: us
+    from_label: "ICAEW Chartered Accountant (ACA)"
+    to_label: "U.S. CPA"
+    badge: "No shortcut agreement"
+    points:
+      - "ICAEW is <strong>not on NASBA's list</strong> of mutual recognition agreements, so there is no shortened exam route."
+      - "Bodies that do have one: SAICA, CPA Australia, CA ANZ, CPA Canada, Chartered Accountants Ireland, CPA Ireland, IMCP (Mexico)."
+    sources: [nasba_mra]
+  lawyer-to-solicitor:
+    from: [in, us]
+    to: uk
+    from_label: "Lawyer qualified outside England and Wales"
+    to_label: "Solicitor of England and Wales"
+    badge: "No 2-year work rule"
+    points:
+      - "Pass <strong>SQE1</strong>. <strong>SQE2</strong> too, unless the SRA gives you an exemption."
+      - "Qualified lawyers <strong>do not need</strong> the 2 years of qualifying work experience."
+      - "You still need a degree (any subject) or equivalent, and the SRA's character checks."
+    sources: [sra_qualified_lawyers]
+  lawyer-to-barrister:
+    from: [in, us]
+    to: uk
+    from_label: "Lawyer qualified abroad"
+    to_label: "Barrister of England and Wales"
+    badge: "Limited right now"
+    points:
+      - "Overseas lawyers may be exempt from some or all barrister training."
+      - "But for now the BSB only takes transfer applications if you have a <strong>pupillage starting before 1 January 2029</strong>, or a job that needs a practising certificate."
+    sources: [bsb_tql]
+  common-law-to-ny:
+    from: [in, uk]
+    to: us
+    from_label: "Law degree from a common-law country (India, UK)"
+    to_label: "New York bar exam"
+    badge: "Degree check + maybe LL.M."
+    points:
+      - "New York accepts law degrees from countries whose law is based on <strong>English common law</strong>."
+      - "The degree must match a U.S. J.D. in length and content. If it does not, a U.S. <strong>LL.M. of at least 24 credits</strong> (with set subjects) can fill the gap."
+      - "Some routes also need you to be <strong>admitted to practise</strong> in your home country first."
+    sources: [nycrr_520_6]
+
+# Which routes each career page shows (order = order on the page).
+pages:
+  in:
+    ca: [icai-to-aca, icai-to-acca, icai-to-cpa]
+    cpa: [icai-to-cpa]
+    llb: [lawyer-to-solicitor, lawyer-to-barrister, common-law-to-ny]
+  us:
+    accounting: [icai-to-cpa, aca-to-cpa]
+    law: [lawyer-to-solicitor, lawyer-to-barrister]
+  uk:
+    accountancy: [icai-to-aca, icai-to-acca, aca-to-cpa]
+    law: [common-law-to-ny, lawyer-to-solicitor, lawyer-to-barrister]

@@ -1,0 +1,40 @@
+{%- comment -%}
+  Global Mobility Matrix strip: which qualifications transfer between India, the USA and the UK.
+  Data: _data/mobility.yml (routes + official sources). Renders nothing when the page has no routes.
+  Params: ed (edition id: in | us | uk), key (India sheet slug, USA pathway slug or UK sheet slug),
+          sec ("block" on India pages, default md-sec), alt (true = alternate background).
+  Text only (flags are the edition SVGs from regions.yml); colours come from theme tokens, so it
+  reads the same in light and dark mode.
+{%- endcomment -%}
+{%- assign MB = site.data.mobility -%}
+{%- assign mb_ids = MB.pages[include.ed][include.key] -%}
+{%- if mb_ids and mb_ids.size > 0 %}
+{%- if include.sec == "block" %}
+<section class="block{% if include.alt %} block-alt{% endif %}" id="mobility" aria-labelledby="mobility-h">
+{%- else %}
+<section class="md-sec{% if include.alt %} md-sec-alt{% endif %}" id="mobility" aria-labelledby="mobility-h">
+{%- endif %}
+  <div class="container">
+    <div class="md-sec-head"><h2 id="mobility-h">Moving between countries</h2><p>Does this qualification count in another country? Only official rules, checked {{ MB.checked | date: "%-d %b %Y" }}.</p></div>
+    <ul class="mob-grid">
+      {%- for id in mb_ids %}
+      {%- assign M = MB.routes[id] %}
+      {%- assign mb_from = M.from | join: "," | split: "," %}
+      {%- assign mb_from1 = mb_from | first %}
+      <li class="mob-card">
+        <p class="mob-route">
+          <span class="mob-end"><svg class="mob-flag" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">{{ site.data.regions[mb_from1].flag_svg }}</svg>{{ M.from_label }}</span>
+          <span class="mob-arrow" aria-hidden="true">→</span><span class="sr-only"> to </span>
+          <span class="mob-end"><svg class="mob-flag" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">{{ site.data.regions[M.to].flag_svg }}</svg><strong>{{ M.to_label }}</strong></span>
+        </p>
+        <span class="mob-badge">{{ M.badge }}</span>
+        <ul class="mob-points">
+          {%- for pt in M.points %}<li>{{ pt }}</li>{%- endfor %}
+        </ul>
+        <p class="mob-src">Source:{% for s in M.sources %}{% assign MS = MB.sources[s] %} <details class="md-src"{% if forloop.last %} data-align="end"{% endif %}><summary>{{ MS.short | default: MS.publisher }}</summary><div class="md-src-pop"><strong>{{ MS.name }}</strong>{{ MS.publisher }}<dl><dt>Checked</dt><dd>{{ MB.checked | date: "%-d %b %Y" }}</dd></dl><a href="{{ MS.url }}">View source</a></div></details>{% endfor %}</p>
+      </li>
+      {%- endfor %}
+    </ul>
+  </div>
+</section>
+{%- endif %}

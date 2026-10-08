@@ -308,6 +308,9 @@
   </section>
   {%- endif %}
 
+  {%- comment -%} 5b. Moving between countries (_data/mobility.yml; renders nothing without routes) {%- endcomment -%}
+  {% include mobility-strip.html ed="us" key=P.slug %}
+
   {%- comment -%} 6. Real work life (O*NET) {%- endcomment -%}
   {%- if D.onet %}
   {%- assign W = D.onet %}

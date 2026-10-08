@@ -1,4 +1,4 @@
-# USA data refresh runbook
+# Data refresh runbook (USA, UK, Global Mobility Matrix)
 
 How to update the USA Edition's official numbers. Excluded from the build (`docs/`).
 Rule: values are copied from official files, never typed in or estimated. Every step ends with a check.
@@ -75,3 +75,37 @@ VERIFY_DEPS=<dir> node scripts/check-us-data.mjs
 VERIFY_DEPS=<dir> node scripts/verify-site.mjs --all
 ```
 Then open one salary page and one career page in a browser and pick a state.
+
+---
+
+# UK Edition and Global Mobility Matrix
+
+## 7. ONS ASHE pay (once a year, provisional tables come out in late October / November)
+1. Download the two zips from ONS: table 14 (occupation, 4-digit SOC) and table 15 (work region by
+   occupation). Links are in the header of `scripts/build-ashe.mjs`. Send a User-Agent with a contact address.
+2. `node scripts/build-ashe.mjs --t14 <ashetable14YYYYprovisional.zip> --t15 <ashetable15YYYYprovisional.zip>`
+   → rewrites `_data/uk/ashe.json` for every `soc:` in `_data/uk/careers/*.yml`. No Python or unzip needed.
+3. In `_data/uk/sources.yml` set `ashe.year`, `ashe.label` (say "provisional" while it is) and the two
+   `ons_ashe*` accessed dates. The checker fails if the year or label disagree with ashe.json.
+4. Pages read pay straight from ashe.json: nothing to retype. Regions without an ONS CV are hidden;
+   CV 10–20% shows "Rough estimate".
+
+## 8. UK rules and pass rates (twice a year)
+- SQE1 results (SRA news, about two months after each January / July sitting): update the two `badges`
+  in `_data/uk/careers/law.yml` and the `sra_sqe1_*` sources.
+- National Careers Service salary ranges (`ncs:`), ICAEW / ACCA / BSB / SRA rules: re-read the linked page,
+  change the fact if needed, move `accessed` / `checked` forward.
+
+## 9. Global Mobility Matrix (`_data/mobility.yml`, every 6 months)
+`scripts/check-uk-data.mjs` fails after `review_by`. Re-read every source in the file (ICAEW ICAI route,
+ACCA exemptions, NASBA MRA list, SRA qualified lawyers, BSB transfer rules, 22 NYCRR 520.6), fix any
+changed point, then move `checked` and `review_by` forward. Add a route only with an official source;
+a page shows no strip when it has no routes.
+
+## 10. Before pushing (all editions)
+```
+VERIFY_DEPS=<dir> node scripts/check-in-data.mjs
+VERIFY_DEPS=<dir> node scripts/check-us-data.mjs
+VERIFY_DEPS=<dir> node scripts/check-uk-data.mjs
+VERIFY_DEPS=<dir> node scripts/verify-site.mjs --all
+```

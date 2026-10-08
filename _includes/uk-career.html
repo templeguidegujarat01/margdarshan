@@ -1,0 +1,142 @@
+{%- comment -%}
+  UK Edition career page. Page stub: uk/careers/<slug>/index.html with `career: <slug>`.
+  Data: _data/uk/careers/<slug>.yml (route, school, tracks, badges; every fact has a source id),
+        _data/uk/ashe.json (ONS ASHE pay by SOC code, built by scripts/build-ashe.mjs; never typed),
+        _data/uk/sources.yml (source chips), _data/mobility.yml (Moving between countries strip).
+  Same building blocks as the USA v2 page (md-answer, md-stats, md-road, md-kv, md-table).
+  Checked by scripts/check-uk-data.mjs.
+{%- endcomment -%}
+{%- assign UK = site.data.uk -%}
+{%- assign C = UK.careers[page.career] -%}
+{%- assign P0 = C.pay | first -%}
+{%- assign A0 = UK.ashe.occupations[P0.soc] -%}
+{%- assign AV = UK.sources.ashe -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "UK Home", "item": "{{ site.url }}{{ site.baseurl }}/uk/" },
+    { "@type": "ListItem", "position": 2, "name": "Careers", "item": "{{ site.url }}{{ site.baseurl }}/uk/careers/" },
+    { "@type": "ListItem", "position": 3, "name": {{ C.title | jsonify }}, "item": "{{ page.url | absolute_url }}" }
+  ]
+}
+</script>
+<main id="main" class="md-page">
+
+  <div class="container md-page-top">
+    <header class="md-answer">
+      <span class="eyebrow">{{ C.eyebrow }}</span>
+      <h1>{{ C.title }}</h1>
+      <p class="md-answer-lede">{{ C.lede }}</p>
+      {%- if C.scope_note %}<p class="md-answer-lede">{{ C.scope_note }}</p>{% endif %}
+      <div class="md-answer-actions">
+        <a href="#route" class="btn btn-primary">See the route</a>
+        <a href="#pay" class="md-textlink">Pay by region</a>
+        {%- if site.data.mobility.pages.uk[C.slug] %}<a href="#mobility" class="md-textlink">Moving between countries</a>{% endif %}
+      </div>
+    </header>
+
+    <div class="md-stats">
+      <div class="md-stat"><span class="md-stat-label">Typical UK pay (median)</span><span class="md-stat-value">{% include fmt-num.html n=A0.uk.median prefix="£" %}</span><span class="md-stat-note">{{ P0.label }}, full time, per year</span>{% include uk-src-chip.html id="ons_ashe" %}</div>
+      {%- if A0.uk.p90 %}
+      <div class="md-stat"><span class="md-stat-label">Top 10% earn over</span><span class="md-stat-value">{% include fmt-num.html n=A0.uk.p90 prefix="£" %}</span><span class="md-stat-note">{{ AV.label }}</span></div>
+      {%- elsif A0.uk.p75 %}
+      <div class="md-stat"><span class="md-stat-label">Top 25% earn over</span><span class="md-stat-value">{% include fmt-num.html n=A0.uk.p75 prefix="£" %}</span><span class="md-stat-note">{{ AV.label }}</span></div>
+      {%- endif %}
+      {%- if A0.uk.jobs_k %}
+      <div class="md-stat"><span class="md-stat-label">Full-time jobs in the UK</span>{% assign jobs_n = A0.uk.jobs_k | times: 1000 | round %}<span class="md-stat-value">{% include fmt-num.html n=jobs_n %}</span><span class="md-stat-note">Employees, rounded by ONS</span></div>
+      {%- endif %}
+      {%- for b in C.badges %}
+      <div class="md-stat"><span class="md-stat-label">{{ b.label }}</span><span class="md-stat-value">{{ b.value }}</span>{% if b.note %}<span class="md-stat-note">{{ b.note }}</span>{% endif %}{% include uk-src-chip.html id=b.source %}</div>
+      {%- endfor %}
+    </div>
+  </div>
+
+  <section class="md-sec" id="route" aria-labelledby="route-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="route-h">{{ site.data.regions.uk.vocab.path_title }}</h2><p>{% if C.tracks.size > 1 %}{{ C.tracks.size }} routes.{% for T in C.tracks %} <a href="#{{ T.id }}">{{ T.title }}</a>{% unless forloop.last %} ·{% endunless %}{% endfor %}{% else %}A typical route.{% endif %}</p></div>
+      {%- for T in C.tracks %}
+      <h3 class="md-pay-sub" id="{{ T.id }}">{{ T.title }} <span class="mob-badge">{{ T.tag }}</span></h3>
+      <p class="md-tile-note">{{ T.who }}</p>
+      <ol class="md-road is-short" style="--n:{{ T.steps.size }}">
+        {%- for s in T.steps %}
+        <li data-kind="{{ s.kind | default: 'stage' }}"><div class="md-road-body"><span class="md-road-tag">{{ s.tag }}</span><strong>{{ s.title }}</strong>{% if s.text != "" %}<p>{{ s.text }} {% include uk-src-chip.html id=s.source %}</p>{% else %}<p>{% include uk-src-chip.html id=s.source %}</p>{% endif %}</div></li>
+        {%- endfor %}
+      </ol>
+      {%- if T.facts %}
+      <dl class="md-kv">
+        {%- for f in T.facts %}
+        <div><dt>{{ f.k }}</dt><dd>{{ f.v }} {% include uk-src-chip.html id=f.source %}</dd></div>
+        {%- endfor %}
+      </dl>
+      {%- endif %}
+      {%- endfor %}
+    </div>
+  </section>
+
+  <section class="md-sec md-sec-alt" id="school" aria-labelledby="school-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="school-h">At school</h2><p>GCSEs (Years 10–11) and A levels (Years 12–13), or equivalents.</p></div>
+      <dl class="md-kv">
+        {%- for f in C.school %}
+        <div><dt>{{ f.k }}</dt><dd>{{ f.v }} {% include uk-src-chip.html id=f.source %}</dd></div>
+        {%- endfor %}
+      </dl>
+    </div>
+  </section>
+
+  <section class="md-sec" id="pay" aria-labelledby="pay-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="pay-h">Pay by region</h2><p>{{ site.data.regions.uk.vocab.money_note }} {{ AV.note }}</p></div>
+      {%- for PE in C.pay %}
+      {%- assign AE = UK.ashe.occupations[PE.soc] %}
+      {%- assign rows = AE.regions | where_exp: "r", "r.cv_median != nil" | sort: "median" | reverse %}
+      <h3 class="md-pay-sub">{{ PE.label }} <span class="mob-badge">SOC {{ PE.soc }}</span></h3>
+      {%- if PE.note %}<p class="md-tile-note">{{ PE.note }}</p>{% endif %}
+      <ul class="md-badges">
+        <li>UK median <strong>{% include fmt-num.html n=AE.uk.median prefix="£" %}</strong></li>
+        {%- if AE.uk.p25 %}<li>Bottom 25% under <strong>{% include fmt-num.html n=AE.uk.p25 prefix="£" %}</strong></li>{% endif %}
+        {%- if AE.uk.p75 %}<li>Top 25% over <strong>{% include fmt-num.html n=AE.uk.p75 prefix="£" %}</strong></li>{% endif %}
+      </ul>
+      {%- if rows.size > 1 %}
+      <div class="table-wrap">
+        <table class="md-table">
+          <caption class="sr-only">{{ PE.label }}: median full-time pay by UK region, highest first</caption>
+          <thead><tr><th scope="col">Region (where people work)</th><th scope="col" class="num">Median pay</th><th scope="col" class="num">Jobs</th><th scope="col">How exact</th></tr></thead>
+          <tbody>
+            {%- for r in rows %}
+            <tr><td>{{ r.region }}</td><td class="num"><strong>{% include fmt-num.html n=r.median prefix="£" %}</strong></td><td class="num">{% if r.jobs_k %}{% assign jobs_n = r.jobs_k | times: 1000 | round %}{% include fmt-num.html n=jobs_n %}{% else %}—{% endif %}</td><td>{% if r.cv_median <= 5 %}<span class="mob-badge is-good">Precise</span>{% elsif r.cv_median <= 10 %}<span class="mob-badge is-good">Good</span>{% else %}<span class="mob-badge">Rough estimate</span>{% endif %}</td></tr>
+            {%- endfor %}
+          </tbody>
+        </table>
+      </div>
+      <p class="md-tile-note">Regions where ONS did not publish a reliable figure are left out. "Rough estimate" = ONS rates it CV 10–20%: use it with care. {% include uk-src-chip.html id="ons_ashe_region" %}</p>
+      {%- endif %}
+      {%- endfor %}
+      {%- if C.ncs %}
+      <h3 class="md-pay-sub">Starting vs experienced (National Careers Service)</h3>
+      <ul class="md-badges">
+        {%- for n in C.ncs %}
+        <li>{{ n.label }}: starter <strong>{% include fmt-num.html n=n.starter prefix="£" %}</strong> · experienced <strong>{% include fmt-num.html n=n.experienced prefix="£" %}</strong> {% include uk-src-chip.html id=n.source align="end" %}</li>
+        {%- endfor %}
+      </ul>
+      {%- endif %}
+    </div>
+  </section>
+
+  {% include mobility-strip.html ed="uk" key=C.slug alt=true %}
+
+  <section class="md-sec" aria-labelledby="related-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="related-h">The same career in other editions</h2></div>
+      <ul class="md-badges">
+        {%- if C.in_page %}<li><a href="{{ C.in_page }}" data-region-set="in">India Edition →</a></li>{% endif %}
+        {%- if C.us_pathway %}<li><a href="us/careers/{{ C.us_pathway }}/" data-region-set="us">USA Edition →</a></li>{% endif %}
+        <li><a href="uk/careers/">All UK careers →</a></li>
+      </ul>
+      <div class="md-datanote">Pay: {{ AV.label }}, tables 14 and 15, full-time employees. Routes and rules: the official sites linked on each row, checked {{ C.checked | date: "%-d %b %Y" }}. Margdarshan does not rank universities or recommend paid courses.</div>
+    </div>
+  </section>
+
+</main>

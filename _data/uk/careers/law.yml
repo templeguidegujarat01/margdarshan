@@ -1,0 +1,53 @@
+# law — UK career data sheet, read by _includes/uk-career.html (page: uk/careers/law/).
+# Rules (checked by scripts/check-uk-data.mjs):
+#   - every `source:` is an id in _data/uk/sources.yml
+#   - pay comes from _data/uk/ashe.json by `soc:` (SOC 2020, 4 digits); never type an ONS number here
+#   - ncs.starter / ncs.experienced are copied from the National Careers Service profile named in `source`
+# Text may use <strong>. Keep words simple: the reader may be 15.
+slug: law
+title: "Law: solicitor or barrister"
+eyebrow: "UK · Law · England and Wales"
+lede: "Two different jobs. <strong>Solicitors</strong> advise clients and run cases. <strong>Barristers</strong> argue cases in court. Both start the same way: GCSEs, A levels, then a degree."
+scope_note: "These rules are for England and Wales. Scotland and Northern Ireland train their lawyers separately."
+checked: 2026-10-09
+in_page: llb.html
+us_pathway: law
+pay:
+  - { soc: "2412", label: "Solicitors and lawyers" }
+  - { soc: "2411", label: "Barristers and judges", note: "ASHE counts employees only. Most barristers are self-employed, so this figure misses most of them." }
+ncs:
+  - { label: "Solicitor", starter: 30000, experienced: 80000, source: ncs_solicitor }
+  - { label: "Barrister", starter: 24000, experienced: 250000, source: ncs_barrister }
+school:
+  - { k: "A levels", v: "<strong>3 A levels</strong> or equivalent for a degree. No subject is required.", source: ncs_solicitor }
+  - { k: "UCAS points", v: "An <strong>A* = 56 points</strong>. Most law courses ask for grades (like AAA) instead of points.", source: ucas_tariff }
+badges:
+  - { label: "SQE1 pass rate", value: "42%", note: "July 2026, all candidates; 47% for first-time sitters", source: sra_sqe1_jul2026 }
+  - { label: "SQE1 pass rate", value: "53%", note: "January 2026, all candidates; 58% for first-time sitters", source: sra_sqe1_jan2026 }
+tracks:
+  - id: solicitor
+    title: "Solicitor"
+    tag: "SRA"
+    who: "Regulated by the <strong>Solicitors Regulation Authority</strong>."
+    steps:
+      - { tag: "School", title: "GCSEs + 3 A levels", text: "Or equivalent qualifications.", kind: stage, source: ncs_solicitor }
+      - { tag: "Degree", title: "A degree in any subject", text: "Law is not required, or an equivalent level 6 qualification.", kind: stage, source: sra_sqe }
+      - { tag: "Exam", title: "SQE1", text: "Part 1 of the Solicitors Qualifying Exam.", kind: gate, source: sra_sqe }
+      - { tag: "Exam", title: "SQE2", text: "Part 2. You must pass both parts.", kind: gate, source: sra_sqe }
+      - { tag: "Work", title: "2 years qualifying work experience", text: "Full time, or the same amount part time.", kind: stage, source: sra_sqe }
+      - { tag: "Goal", title: "Admitted as a solicitor", text: "After passing the SRA's character and suitability checks.", kind: license, source: sra_sqe }
+    facts:
+      - { k: "No degree?", v: "The <strong>Solicitor Level 7 Degree Apprenticeship</strong> takes about 5 to 6 years and includes the SQE.", source: ncs_solicitor }
+  - id: barrister
+    title: "Barrister"
+    tag: "BSB"
+    who: "Regulated by the <strong>Bar Standards Board</strong>."
+    steps:
+      - { tag: "School", title: "2 to 3 A levels", text: "Or equivalent, for a degree.", kind: stage, source: ncs_barrister }
+      - { tag: "Degree", title: "Law degree, or any degree + conversion", text: "Degree at least a <strong>2:2</strong>.", kind: stage, source: bsb_becoming }
+      - { tag: "Course", title: "Bar training course", text: "About one year full time.", kind: gate, source: ncs_barrister }
+      - { tag: "Inn", title: "Join one of the four Inns of Court", text: "Each Inn has its own entry rules.", kind: stage, source: ncs_barrister }
+      - { tag: "Training", title: "Pupillage", text: "About a year: usually 6 months not practising, then 6 months practising.", kind: stage, source: bsb_becoming }
+      - { tag: "Goal", title: "Practising barrister", text: "With a practising certificate.", kind: license, source: bsb_becoming }
+    facts:
+      - { k: "Already a solicitor?", v: "You can apply to switch with <strong>BSB approval</strong> and a <strong>Bar Transfer Test</strong>.", source: ncs_barrister }

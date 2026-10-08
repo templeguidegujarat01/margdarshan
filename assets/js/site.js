@@ -316,13 +316,14 @@ try {
         if(!sFailed) loadIndex();
         return;
       }
+      var ED_CAT = { us: 'usa', uk: 'uk' };
       var words = q ? q.split(' ') : [];
       var hits = [];
       sIndex.forEach(function(e, i){
         if(sCat !== 'all' && e.d.c !== sCat) return;
         var sc = words.length ? score(e, q, words) : 1;
-        // Same-edition results first: USA pages rank "usa" items higher, India pages the rest.
-        if(sc && ((root.getAttribute('data-region') === 'us') === (e.d.c === 'usa'))) sc += 100;
+        // Same-edition results first: USA pages rank "usa" items higher, UK pages "uk" items, India pages the rest.
+        if(sc && (ED_CAT[root.getAttribute('data-region')] ? e.d.c === ED_CAT[root.getAttribute('data-region')] : (e.d.c !== 'usa' && e.d.c !== 'uk'))) sc += 100;
         if(sc) hits.push({ e: e, sc: sc, i: i });
       });
       hits.sort(function(a, b){ return b.sc - a.sc || a.i - b.i; });
@@ -1403,7 +1404,7 @@ try {
   var KEY = 'md-stage';
   var STAGES = {
     school: { name: 'Class 10 or below', focus: ['what', 'who', 'subjects', 'eligibility'],
-      hide: ['admission', 'fees', 'higher', 'exam', 'pattern', 'syllabus', 'papers', 'passing', 'exemptions', 'specialisations'],
+      hide: ['admission', 'fees', 'higher', 'exam', 'pattern', 'syllabus', 'papers', 'passing', 'exemptions', 'specialisations', 'mobility'],
       next: { href: 'after-10th.html', label: 'Choosing a stream after Class 10' } },
     hs: { name: 'Class 11–12', focus: ['eligibility', 'admission', 'exam', 'roadmap', 'fees'],
       hide: ['higher'],

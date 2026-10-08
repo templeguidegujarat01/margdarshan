@@ -11,6 +11,9 @@
   idle suggestions point at USA pages; India pages render exactly as before.
 {%- endcomment -%}
 {%- assign srch_us = false -%}{%- if region_id == "us" %}{%- assign srch_us = true -%}{%- endif -%}
+{%- assign srch_uk = false -%}{%- if region_id == "uk" %}{%- assign srch_uk = true -%}{%- endif -%}
+{%- comment -%} Edition pages open with their own category selected (usa / uk in _data/search.yml). {%- endcomment -%}
+{%- assign srch_ed = "" -%}{%- if srch_us %}{%- assign srch_ed = "usa" -%}{%- elsif srch_uk %}{%- assign srch_ed = "uk" -%}{%- endif -%}
 <div class="search-overlay" id="site-search" data-open="false" role="dialog" aria-modal="true" aria-labelledby="searchTitle">
   <div class="search-overlay-backdrop" data-search-close></div>
   <div class="search-panel">
@@ -18,7 +21,7 @@
     <div class="search-head">
       <svg class="search-head-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
       <label for="careerSearch" class="sr-only">Search careers, exams, colleges and coaching</label>
-      <input type="search" id="careerSearch" placeholder="{% if srch_us %}Search careers, tests, licenses… e.g. nursing, SAT, CPA{% else %}Search careers, exams, colleges… e.g. MBBS, JEE, CA{% endif %}" autocomplete="off" spellcheck="false"
+      <input type="search" id="careerSearch" placeholder="{% if srch_us %}Search careers, tests, licenses… e.g. nursing, SAT, CPA{% elsif srch_uk %}Search UK careers… e.g. solicitor, ACCA, software{% else %}Search careers, exams, colleges… e.g. MBBS, JEE, CA{% endif %}" autocomplete="off" spellcheck="false"
              role="combobox" aria-expanded="false" aria-controls="searchResults" aria-autocomplete="list">
       <kbd class="search-kbd" aria-hidden="true">Esc</kbd>
       <button type="button" class="search-close" data-search-close aria-label="Close search">
@@ -27,11 +30,11 @@
     </div>
 
     <div class="search-cats" role="group" aria-label="Filter by category">
-      <button type="button" class="search-cat" data-cat="all" aria-pressed="{% if srch_us %}false{% else %}true{% endif %}">All</button>
-      {%- if srch_us %}{%- assign usa_cat = site.data.search.categories | where: "id", "usa" | first %}
-      <button type="button" class="search-cat" data-cat="usa" aria-pressed="true">{{ usa_cat.label }}</button>
+      <button type="button" class="search-cat" data-cat="all" aria-pressed="{% if srch_ed != "" %}false{% else %}true{% endif %}">All</button>
+      {%- if srch_ed != "" %}{%- assign ed_cat = site.data.search.categories | where: "id", srch_ed | first %}
+      <button type="button" class="search-cat" data-cat="{{ srch_ed }}" aria-pressed="true">{{ ed_cat.label }}</button>
       {%- endif %}
-      {%- for cat in site.data.search.categories %}{% if srch_us and cat.id == 'usa' %}{% continue %}{% endif %}
+      {%- for cat in site.data.search.categories %}{% if cat.id == srch_ed %}{% continue %}{% endif %}
       <button type="button" class="search-cat" data-cat="{{ cat.id }}" aria-pressed="false">{{ cat.label }}</button>
       {%- endfor %}
     </div>
@@ -47,7 +50,7 @@
         </div>
         <p class="search-label">Popular searches</p>
         <div class="search-chips">
-          {%- if srch_us %}{%- assign popular = "Computer Science,Nursing,Medicine,Law,Data Science,Cybersecurity,Accounting,SAT,FAFSA,F-1 visa" | split: "," %}{% else %}{%- assign popular = "MBBS,CA,JEE Main,NEET,B.Tech Colleges,Data Science,SSC CGL,NDA,BBA,Nursing,Bank PO,ITI Electrician" | split: "," %}{% endif %}
+          {%- if srch_us %}{%- assign popular = "Computer Science,Nursing,Medicine,Law,Data Science,Cybersecurity,Accounting,SAT,FAFSA,F-1 visa" | split: "," %}{% elsif srch_uk %}{%- assign popular = "Solicitor,Barrister,SQE,ACA,ACCA,Software engineer,UCAS" | split: "," %}{% else %}{%- assign popular = "MBBS,CA,JEE Main,NEET,B.Tech Colleges,Data Science,SSC CGL,NDA,BBA,Nursing,Bank PO,ITI Electrician" | split: "," %}{% endif %}
           {%- for p in popular %}
           <button type="button" class="search-chip" data-q="{{ p }}">{{ p }}</button>
           {%- endfor %}
@@ -58,6 +61,10 @@
           <a href="us/high-school/"><strong>High School</strong><span>Grades 9–12 plan</span></a>
           <a href="us/careers/"><strong>Career Pathways</strong><span>20 fields, BLS data</span></a>
           <a href="us/college/"><strong>College &amp; Money</strong><span>Costs and aid</span></a>
+          {%- elsif srch_uk %}
+          <a href="uk/#ladder"><strong>GCSEs to career</strong><span>How the UK system works</span></a>
+          <a href="uk/careers/"><strong>Career Pathways</strong><span>Routes and ONS pay</span></a>
+          <a href="uk/#ucas"><strong>UCAS points</strong><span>Simply explained</span></a>
           {%- else %}
           <a href="after-10th.html"><strong>After 10th</strong><span>Pick the right stream</span></a>
           <a href="after-12th.html"><strong>After 12th</strong><span>Courses & careers</span></a>

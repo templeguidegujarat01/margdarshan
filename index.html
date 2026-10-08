@@ -108,7 +108,7 @@ footer:
             {%- assign r = site.data.regions[rid] %}
             <li><a class="ed-card" href="{% if rid == 'in' %}#streams{% else %}{{ r.home }}{% endif %}" hreflang="{{ r.lang }}" data-region-set="{{ rid }}"{% if rid == 'in' %} aria-current="true"{% endif %}>
               <svg class="ed-flag" width="34" height="34" viewBox="0 0 24 24" aria-hidden="true">{{ r.flag_svg }}</svg>
-              <span><span class="ed-name">{{ r.name }}{% if r.status == "beta" %} <span class="region-beta">Beta</span>{% endif %}</span><span class="ed-sub">{% if rid == 'in' %}You are here · start exploring{% else %}Careers, colleges and licenses{% endif %}</span></span>
+              <span><span class="ed-name">{{ r.name }}{% if r.status == "beta" %} <span class="region-beta">Beta</span>{% endif %}</span><span class="ed-sub">{% if rid == 'in' %}You are here · start exploring{% else %}{{ r.tagline | default: "Careers, colleges and licenses" }}{% endif %}</span></span>
               <span class="ed-go" aria-hidden="true">→</span>
             </a></li>
             {%- endfor %}

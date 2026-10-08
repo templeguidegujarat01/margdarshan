@@ -1,0 +1,105 @@
+# UK Edition — source registry. Every fact in _data/uk/careers/*.yml points here by id (source: <id>).
+# Only official / primary sources: UK government (ONS, National Careers Service, GOV.UK), the regulators
+# (SRA, BSB) and the professional bodies that award the qualification (ICAEW, ACCA, UCAS for admissions).
+# accessed = the date the page was read and the facts copied (YYYY-MM-DD). scripts/check-uk-data.mjs
+# fails on an unknown id, a missing url or a missing date.
+#
+# Pay figures are NOT typed anywhere: they come from _data/uk/ashe.json, built from the ONS ASHE
+# download by scripts/build-ashe.mjs (see the header of that script).
+
+ashe:
+  year: 2025
+  label: "ONS ASHE 2025 (provisional)"
+  note: "ASHE counts employees only, so self-employed people (most barristers, many contractors) are not in these figures."
+
+list:
+  ons_ashe:
+    name: "Annual Survey of Hours and Earnings (ASHE) 2025 provisional, tables 14 and 15"
+    publisher: "Office for National Statistics (ONS)"
+    short: "ONS"
+    url: "https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/datasets/occupation4digitsoc2010ashetable14"
+    accessed: 2026-10-09
+    note: "Medians for full-time employee jobs. ONS hides estimates it rates unreliable (CV over 20%)."
+  ons_ashe_region:
+    name: "ASHE 2025 provisional, table 15: work region by occupation (4-digit SOC 2020)"
+    publisher: "Office for National Statistics (ONS)"
+    short: "ONS"
+    url: "https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/datasets/regionbyoccupation4digitsoc2010ashetable15"
+    accessed: 2026-10-09
+    note: "A region is listed only where ONS published a median for that job."
+  ncs_solicitor:
+    name: "Solicitor — job profile"
+    publisher: "National Careers Service (GOV.UK)"
+    short: "NCS"
+    url: "https://nationalcareers.service.gov.uk/job-profiles/solicitor"
+    accessed: 2026-10-09
+  ncs_barrister:
+    name: "Barrister — job profile"
+    publisher: "National Careers Service (GOV.UK)"
+    short: "NCS"
+    url: "https://nationalcareers.service.gov.uk/job-profiles/barrister"
+    accessed: 2026-10-09
+  ncs_software:
+    name: "Software developer — job profile"
+    publisher: "National Careers Service (GOV.UK)"
+    short: "NCS"
+    url: "https://nationalcareers.service.gov.uk/job-profiles/software-developer"
+    accessed: 2026-10-09
+  sra_sqe:
+    name: "Qualifying as a solicitor through the SQE"
+    publisher: "Solicitors Regulation Authority (SRA)"
+    short: "SRA"
+    url: "https://www.sra.org.uk/become-solicitor/sqe/"
+    accessed: 2026-10-09
+  sra_sqe1_jul2026:
+    name: "SQE1 results, July 2026 (news release, 29 Sep 2026)"
+    publisher: "Solicitors Regulation Authority (SRA)"
+    short: "SRA"
+    url: "https://www.sra.org.uk/news/news/jul-sqe1-26/"
+    accessed: 2026-10-09
+    note: "6,315 candidates sat both parts; 5,012 were first-time sitters."
+  sra_sqe1_jan2026:
+    name: "SQE1 results, January 2026 (news release, 31 Mar 2026)"
+    publisher: "Solicitors Regulation Authority (SRA)"
+    short: "SRA"
+    url: "https://www.sra.org.uk/news/news/jan-sqe1-26/"
+    accessed: 2026-10-09
+    note: "7,863 candidates sat both parts; 6,760 were first-time sitters."
+  bsb_becoming:
+    name: "Becoming a barrister"
+    publisher: "Bar Standards Board (BSB)"
+    short: "BSB"
+    url: "https://www.barstandardsboard.org.uk/training-qualification/becoming-a-barrister.html"
+    accessed: 2026-10-09
+  icaew_pwe:
+    name: "ACA practical work experience"
+    publisher: "ICAEW"
+    short: "ICAEW"
+    url: "https://www.icaew.com/start-your-career/how-to-become-a-chartered-accountant/discover-aca/practical-work-experience"
+    accessed: 2026-10-09
+  icaew_aca_employers:
+    name: "Practical work experience (ACA training process)"
+    publisher: "ICAEW"
+    short: "ICAEW"
+    url: "https://www.icaew.com/learning-and-development/aca/employers/support-hub/aca-training-process/practical-work-experience"
+    accessed: 2026-10-09
+    note: "The ACA: 15 exams, 450 days of practical work experience, professional development, and ethics and professional scepticism."
+  acca_structure:
+    name: "ACCA Qualification structure and requirements"
+    publisher: "ACCA"
+    short: "ACCA"
+    url: "https://www.accaglobal.com/gb/en/student/getting-started/acca-qualification-structure.html"
+    accessed: 2026-10-09
+  acca_who:
+    name: "Who is the ACCA Qualification for?"
+    publisher: "ACCA"
+    short: "ACCA"
+    url: "https://www.accaglobal.com/gb/en/qualifications/glance/acca/who.html"
+    accessed: 2026-10-09
+  ucas_tariff:
+    name: "The new UCAS Tariff: ten things applicants need to know"
+    publisher: "UCAS"
+    short: "UCAS"
+    url: "https://www.ucas.com/corporate/news-and-key-documents/news/new-ucas-tariff-ten-things-university-applicants-teachers-and-parents-need-know"
+    accessed: 2026-10-09
+    note: "An A* at A level is worth 56 Tariff points. Only about a third of courses use Tariff points in their entry requirements; most ask for grades."

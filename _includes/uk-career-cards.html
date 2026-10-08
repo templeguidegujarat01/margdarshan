@@ -1,0 +1,17 @@
+{%- comment -%}
+  Cards for every UK career sheet (_data/uk/careers/*.yml), used on uk/ and uk/careers/.
+  Median pay comes from _data/uk/ashe.json (first `pay:` entry of each sheet).
+{%- endcomment -%}
+<ul class="mob-grid">
+  {%- for cc in site.data.uk.careers %}
+  {%- assign CC = cc[1] %}
+  {%- assign CP = CC.pay | first %}
+  {%- assign CA = site.data.uk.ashe.occupations[CP.soc] %}
+  <li class="mob-card">
+    <h3 class="md-pay-sub" style="margin:0"><a href="uk/careers/{{ CC.slug }}/">{{ CC.title }}</a></h3>
+    <span class="mob-badge">Median {% include fmt-num.html n=CA.uk.median prefix="£" %} / year</span>
+    <p class="md-tile-note" style="margin:0">{{ CC.lede }}</p>
+  </li>
+  {%- endfor %}
+</ul>
+<p class="md-tile-note">Median: {{ site.data.uk.sources.ashe.label }}, full-time employees ({{ site.data.uk.sources.ashe.year }}). {% include uk-src-chip.html id="ons_ashe" %}</p>

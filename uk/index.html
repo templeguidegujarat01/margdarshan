@@ -1,0 +1,69 @@
+---
+title: "eMargdarshan UK — Career Guidance from GCSEs and A Levels to Your First Job"
+description: "Free, source-backed career guidance for UK students: how GCSEs, A levels, apprenticeships, UCAS and degrees lead to careers in law, accountancy and software, with ONS pay by region."
+og_type: "website"
+og_title: "eMargdarshan UK — GCSEs, A Levels and Careers, Explained"
+---
+{%- comment -%}
+  UK Edition home. Every fact links to its source in _data/uk/sources.yml; career cards come from
+  _data/uk/careers via uk-career-cards.html. Checked by scripts/check-uk-data.mjs.
+{%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": {{ page.title | jsonify }},
+  "description": {{ page.description | jsonify }},
+  "url": "{{ page.url | absolute_url }}",
+  "inLanguage": "en-GB",
+  "publisher": { "@type": "Organization", "name": "eMargdarshan", "url": "{{ site.url }}{{ site.baseurl }}/" }
+}
+</script>
+<main id="main" class="md-page">
+
+  <div class="container md-page-top">
+    <header class="md-answer">
+      <span class="eyebrow">UK Edition · Beta</span>
+      <h1>From GCSEs to your first job.</h1>
+      <p class="md-answer-lede">How <strong>GCSEs</strong>, <strong>A levels</strong>, <strong>apprenticeships</strong> and <strong>degrees</strong> lead to a career in the UK. Every fact links to the official source.</p>
+      <div class="md-answer-actions">
+        <a href="#careers" class="btn btn-primary">Explore careers</a>
+        <a href="#ladder" class="md-textlink">How the system works</a>
+      </div>
+    </header>
+  </div>
+
+  <section class="md-sec" id="ladder" aria-labelledby="ladder-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="ladder-h">The path, step by step</h2><p>The usual route in England. Many people mix routes: you can switch later.</p></div>
+      <ol class="md-road is-short" style="--n:5">
+        <li data-kind="stage"><div class="md-road-body"><span class="md-road-tag">Years 10–11</span><strong>GCSEs</strong><p>Grades <strong>9 to 4</strong> are the same as the old <strong>A* to C</strong>. {% include uk-src-chip.html id="ncs_software" %}</p></div></li>
+        <li data-kind="stage"><div class="md-road-body"><span class="md-road-tag">Years 12–13</span><strong>A levels, or an apprenticeship</strong><p>Most degrees ask for <strong>2 to 3 A levels</strong>. Apprenticeships go from <strong>Level 2 up to Level 7</strong>. {% include uk-src-chip.html id="ncs_software" %}</p></div></li>
+        <li data-kind="gate"><div class="md-road-body"><span class="md-road-tag">Apply</span><strong>UCAS</strong><p>You apply to university through UCAS. {% include uk-src-chip.html id="ucas_tariff" %}</p></div></li>
+        <li data-kind="stage"><div class="md-road-body"><span class="md-road-tag">University</span><strong>Degree or degree apprenticeship</strong><p>For example a BSc in computer science, or an LLB in law. Some careers take <strong>any subject</strong>. {% include uk-src-chip.html id="sra_sqe" %}</p></div></li>
+        <li data-kind="license"><div class="md-road-body"><span class="md-road-tag">Qualify</span><strong>Professional exams + work</strong><p>Some careers need them: <strong>SQE</strong> for solicitors, <strong>ACA or ACCA</strong> for chartered accountants. {% include uk-src-chip.html id="sra_sqe" %} {% include uk-src-chip.html id="acca_structure" align="end" %}</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="md-sec md-sec-alt" id="ucas" aria-labelledby="ucas-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="ucas-h">UCAS Tariff points, simply</h2></div>
+      <ul class="md-badges">
+        <li>A level <strong>A* = 56 points</strong></li>
+        <li>Only about <strong>1 in 3 courses</strong> use points</li>
+        <li>Most ask for <strong>grades</strong>, like AAB</li>
+      </ul>
+      <p class="md-tile-note">Always check the exact entry requirements on the course page. {% include uk-src-chip.html id="ucas_tariff" %}</p>
+    </div>
+  </section>
+
+  <section class="md-sec" id="careers" aria-labelledby="careers-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="careers-h">Careers</h2><p>Route, school subjects, pay by region and whether the qualification counts in India or the USA.</p></div>
+      {% include uk-career-cards.html %}
+      <p class="md-tile-note"><a href="uk/careers/">All UK careers →</a></p>
+    </div>
+  </section>
+
+</main>

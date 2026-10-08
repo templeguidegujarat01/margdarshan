@@ -561,6 +561,66 @@ try {
 })();
 } catch (e) { if (window.console) console.error(e); }
 
+/* ===== Folded supporting sections on India pathway and exam pages (global-platform Phase 15) =====
+   main.css hides everything after .section-head in these sections while JS runs (no layout shift on
+   load). This adds the Show/Hide button and window.mdFoldOpen(el), which revealTarget() calls so links,
+   the "On this page" nav and #hash arrivals open the section they point into. Browsers without :has()
+   never hide anything, so no buttons are added there. */
+try {
+(function(){
+  "use strict";
+  var main = document.getElementById('main');
+  if(!main || !window.CSS || !CSS.supports || !CSS.supports('selector(:has(*))')) return;
+  var sel = null;
+  if(main.querySelector('#quick') && main.querySelector('#roadmap')) sel = '#subjects,#higher,#proscons,#future,#difficulty,#skills,section[aria-labelledby="myth-heading"],section[aria-labelledby="tips-heading"],section[aria-labelledby="comparison"]';
+  else if(main.querySelector('#pattern') && main.querySelector('#syllabus')) sel = '#syllabus,#prep,section[aria-labelledby="comparison"]';
+  if(!sel) return;
+  var n = 0;
+  function setOpen(sec, open){
+    var btn = sec.querySelector(':scope > .container > .md-fold-btn');
+    sec.classList.toggle('is-unfolded', open);
+    if(!btn) return;
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    var h2 = sec.querySelector('.section-head h2');
+    if(h2) btn.setAttribute('aria-label', (open ? 'Hide: ' : 'Show: ') + h2.textContent.trim());
+    var label = btn.querySelector('.rm-label');
+    if(label) label.textContent = open ? 'Hide details' : 'Show details';
+    // Content that was display:none never started its scroll-reveal; show it now.
+    if(open) sec.querySelectorAll('.reveal:not(.is-visible)').forEach(function(r){ r.classList.add('is-visible'); });
+  }
+  main.querySelectorAll(sel).forEach(function(sec){
+    if(sec.tagName !== 'SECTION') return;
+    var head = sec.querySelector(':scope > .container > .section-head');
+    if(!head) return;
+    if(!sec.id) sec.id = 'fold-' + (++n);
+    var h2 = head.querySelector('h2');
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'readmore-btn md-fold-btn';
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-controls', sec.id);
+    if(h2) btn.setAttribute('aria-label', 'Show: ' + h2.textContent.trim());
+    btn.innerHTML = '<span class="rm-label">Show details</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+    head.insertAdjacentElement('afterend', btn);
+    // A stale cached main.css without the fold rule leaves the content visible: then no button.
+    var first = btn.nextElementSibling;
+    if(!first || getComputedStyle(first).display !== 'none'){ btn.remove(); return; }
+    sec.classList.add('is-folded');
+    btn.addEventListener('click', function(){ setOpen(sec, !sec.classList.contains('is-unfolded')); });
+  });
+  window.mdFoldOpen = function(el){
+    var sec = el && el.closest && el.closest('section.is-folded');
+    if(sec && !sec.classList.contains('is-unfolded')) setOpen(sec, true);
+  };
+  // Hash changes that do not go through a link click (address bar, back/forward).
+  window.addEventListener('hashchange', function(){
+    var id = window.location.hash.slice(1), el = null;
+    try { el = id && document.getElementById(decodeURIComponent(id)); } catch(e){}
+    if(el) window.mdFoldOpen(el);
+  });
+})();
+} catch (e) { if (window.console) console.error(e); }
+
 /* ===== Source chips (.md-src, global design system) =====
    Native <details>, so they open and close without JS. This adds: one open at a time, close on
    outside click and on Escape (focus returns to the chip), and flip the pop-over to the right edge
@@ -778,6 +838,7 @@ try {
   // Open whatever is hiding the target: career-group bar, <details>,
   // FAQ answer, or a "Read more" prose block.
   function revealTarget(el){
+    if(window.mdFoldOpen) window.mdFoldOpen(el);
     var g = cgFind(el);
     if(g && !g.wrap.classList.contains('is-open')) cgSetOpen(g, true);
     for(var d = el.closest('details'); d; d = d.parentElement && d.parentElement.closest('details')){ d.open = true; }

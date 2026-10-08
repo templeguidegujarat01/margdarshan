@@ -2300,3 +2300,19 @@ html[data-region="us"] .sb-group[data-region-nav]:not([data-region-nav="us"]){di
 .md-changes-topic h3{font-family:var(--font-body);font-size:var(--fs-h3);font-weight:700;margin:0;}
 .md-changes-topic > .md-tile-note{margin:var(--sp-1) 0 var(--sp-2);max-width:var(--measure);}
 .md-src-pop p{margin:.35rem 0 0;color:var(--text-muted);}
+/* ---------- India pathway and exam pages (global-platform Phase 15): supporting sections folded ----------
+   Applies only when the page head set html.fold (it ships with the matching site.js) and the browser supports
+   :has(); otherwise everything stays open, so a stale cached CSS or JS can never hide content without a button.
+   Pathway pages = <main> with #quick and #roadmap; exam pages = <main> with #pattern and #syllabus.
+   The heading (.section-head) stays visible; site.js adds the Show/Hide button and opens a section when a
+   link or the "On this page" nav points into it. No page HTML changes. */
+html.js.fold main:has(#quick):has(#roadmap) section:is(#subjects,#higher,#proscons,#future,#difficulty,#skills,[aria-labelledby="myth-heading"],[aria-labelledby="tips-heading"],[aria-labelledby="comparison"]):not(.is-unfolded) > .container > .section-head ~ :not(.md-fold-btn),
+html.js.fold main:has(#pattern):has(#syllabus) section:is(#syllabus,#prep,[aria-labelledby="comparison"]):not(.is-unfolded) > .container > .section-head ~ :not(.md-fold-btn){display:none;}
+/* Folded sections also get a slimmer band, so a closed section costs about one heading, not a full section. */
+html.js.fold main:has(#quick):has(#roadmap) section:is(#subjects,#higher,#proscons,#future,#difficulty,#skills,[aria-labelledby="myth-heading"],[aria-labelledby="tips-heading"],[aria-labelledby="comparison"]):not(.is-unfolded),
+html.js.fold main:has(#pattern):has(#syllabus) section:is(#syllabus,#prep,[aria-labelledby="comparison"]):not(.is-unfolded){padding-top:2rem;padding-bottom:2rem;}
+.md-fold-btn{margin-top:0;}
+.md-fold-btn[aria-expanded="true"]{margin-bottom:var(--sp-4);}
+html.js.fold main:has(#quick):has(#roadmap) section:is(#subjects,#higher,#proscons,#future,#difficulty,#skills,[aria-labelledby="myth-heading"],[aria-labelledby="tips-heading"],[aria-labelledby="comparison"]):not(.is-unfolded) > .container > .section-head,
+html.js.fold main:has(#pattern):has(#syllabus) section:is(#syllabus,#prep,[aria-labelledby="comparison"]):not(.is-unfolded) > .container > .section-head{margin-bottom:var(--sp-3);}
+@media print{html.js main section > .container > .section-head ~ *{display:revert !important;}.md-fold-btn{display:none !important;}}

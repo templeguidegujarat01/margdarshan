@@ -89,6 +89,7 @@
 (function(){
   var d = document.documentElement;
   d.classList.add('js'); /* scroll-reveal hides content only when JS is running (see .js .reveal in main.css) */
+  d.classList.add('fold'); /* sent with the site.js build that adds Show/Hide buttons: lets main.css fold sections (Phase 15) */
   try {
     var t = localStorage.getItem('md-theme');
     if(t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) d.setAttribute('data-theme','dark');

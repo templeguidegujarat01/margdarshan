@@ -83,6 +83,21 @@ footer:
         <span class="eyebrow">Free career guidance · Made for Indian students</span>
         <h1 id="hero-heading">Choose your path with clarity, not confusion.</h1>
         <p class="hero-sub">Every stream and career after Class 10 and Class 12 — eligibility, entrance exams, fees, salary and future scope, explained in plain English.</p>
+        <!-- Country edition picker: one bordered card per edition in _data/regions.yml (flags are SVG, not emoji: Windows shows flag emoji as letters).
+             This page is the India home, so India jumps to the streams below; other editions open their own home. -->
+        <nav class="ed-pick" aria-labelledby="ed-pick-title">
+          <h2 class="ed-pick-title" id="ed-pick-title">Select your country edition</h2>
+          <ul class="ed-grid">
+            {%- for rid in site.data.regions.list %}
+            {%- assign r = site.data.regions[rid] %}
+            <li><a class="ed-card" href="{% if rid == 'in' %}#streams{% else %}{{ r.home }}{% endif %}" hreflang="{{ r.lang }}" data-region-set="{{ rid }}"{% if rid == 'in' %} aria-current="true"{% endif %}>
+              <svg class="ed-flag" width="34" height="34" viewBox="0 0 24 24" aria-hidden="true">{{ r.flag_svg }}</svg>
+              <span><span class="ed-name">{{ r.name }}{% if r.status == "beta" %} <span class="region-beta">Beta</span>{% endif %}</span><span class="ed-sub">{% if rid == 'in' %}You are here · start exploring{% else %}Careers, colleges and licenses{% endif %}</span></span>
+              <span class="ed-go" aria-hidden="true">→</span>
+            </a></li>
+            {%- endfor %}
+          </ul>
+        </nav>
         <div class="hero-ctas">
           <a href="#careers" class="btn btn-primary btn-inpage-jump">Explore Careers</a>
           <a href="after-10th.html" class="btn btn-ghost btn-page-link">Start After Class 10</a>

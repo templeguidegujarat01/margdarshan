@@ -2435,3 +2435,43 @@ html[data-region="us"] .hd-ed-cur:not([data-region-cur="us"]){display:none;}
 .cite-md pre{margin:0;padding:.9rem;border-top:1px solid var(--line);overflow-x:auto;font-family:var(--font-mono);font-size:.78rem;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere;}
 .cite-report{margin-top:1rem;font-size:.9rem;color:var(--text-muted);}
 .cite-report a{overflow-wrap:anywhere;}
+
+/* ---------- Mobile polish + country gateway (2026-10-08) ----------
+   1. Long words/URLs inside cards wrap instead of spilling out of the box on narrow phones.
+   2. Feedback button: was a white pill with a #DCE3DF border on the #F4F6F4 page (about 1.2:1),
+      so it was easy to miss. Now a filled ink pill with a gold border, on top of page content.
+      It still hides while the phone drawer or the search overlay is open (those sit above it).
+   3. Cards get 1rem padding on phones; tablet/desktop keep their own (larger) values.
+   4. Home page "Select your country edition" block (index.html). */
+.stream-card,.trend-card,.goal-card,.feature-card,.spec-card,.journey-item,.after10-card,.cta-card,
+.elig-card,.fit-card,.pc-card,.related-card,.qf-card,.salary-card,.stat-card,.contact-card,.exam-card,
+.info-card,.fit-result-card,.cx-card,.cx-college-card,.examx-card,.goalx-card,.decision-card,.hub-card,
+.rm-link-card,.ed-card,.faq-q,.faq-a,.section-head,.page-hero-inner,.hero-inner{word-break:break-word;overflow-wrap:anywhere;min-width:0;}
+.stream-grid > *,.trend-grid > *,.feature-grid > *,.ed-grid > *{min-width:0;}
+
+.fb-fab{z-index:9999;background:var(--ink);color:#fff;border:2px solid var(--gold);box-shadow:0 6px 18px rgba(11,26,34,.28);}
+.fb-fab:hover{background:var(--ink);color:#fff;border-color:#fff;}
+[data-theme="dark"] .fb-fab{background:var(--gold);color:#0B1A22;border-color:#fff;}
+[data-theme="dark"] .fb-fab:hover{background:var(--gold);color:#0B1A22;border-color:var(--gold);}
+html.nav-locked .fb-fab,body:has(#site-search[data-open="true"]) .fb-fab{opacity:0;pointer-events:none;}
+
+@media (max-width:639px){
+  .stream-card,.trend-card,.goal-card,.feature-card,.spec-card,.journey-item,.after10-card,.cta-card,
+  .elig-card,.fit-card,.pc-card,.related-card,.qf-card,.salary-card,.stat-card,.contact-card,.exam-card,
+  .info-card,.fit-result-card,.cx-card,.cx-college-card,.examx-card,.goalx-card,.decision-card,.hub-card,
+  .rm-link-card,.ed-card{padding:1rem;}
+}
+
+/* Home: country edition picker, right under the hero title */
+.ed-pick{margin-top:1.6rem;}
+.ed-pick-title{margin:0 0 .7rem;font-family:var(--font-body);font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--on-ink-muted);}
+.ed-grid{display:grid;grid-template-columns:1fr;gap:.75rem;max-width:640px;margin:0;padding:0;list-style:none;}
+@media (min-width:640px){.ed-grid{grid-template-columns:1fr 1fr;}}
+.ed-card{display:flex;align-items:center;gap:.8rem;min-height:64px;padding:1rem 1.15rem;border:2px solid rgba(var(--hl-rgb),.55);border-radius:var(--radius-md);color:var(--on-ink-strong);text-decoration:none;transition:border-color .15s,background .15s;}
+.ed-card:hover{border-color:var(--gold);background:rgba(var(--hl-rgb),.06);color:var(--on-ink-strong);}
+.ed-card:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
+.ed-flag{flex:none;width:34px;height:34px;}
+.ed-name{display:block;font-weight:700;font-size:1rem;}
+.ed-sub{display:block;font-size:.85rem;color:var(--on-ink-muted);}
+.ed-go{margin-left:auto;font-weight:700;color:var(--link);}
+.ed-card[aria-current="page"]{border-color:var(--gold);}

@@ -57,7 +57,7 @@ their comment, so the roadmap injector leaves them alone, and the template draws
 
 ## Open items
 
-- 118 India pathway pages still hand-written; convert in batches with the steps above.
+- 2026-10-08: the other 119 pathway pages were converted in one run (`--write-page`). Rendered `<main>` and `<head>` identical on 119/119; JSON-LD differs only as described above (FAQ schema from visible text on 50 pages, Home crumb on cpa and cs). They have no `journey:` or `sources:` yet: add them page by page (step 2), from official websites only. `coaching.html` and `colleges.html` are hubs and stay hand-written.
 - Journey rows and sources for CA/CSE/LLB were written from official-body knowledge and press reports
   (NIRF 2025 top-5 lists, LSAT—India). None has a `checked:` date yet: confirm each on the official
   website and add the date.

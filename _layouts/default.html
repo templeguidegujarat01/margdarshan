@@ -8,6 +8,7 @@
     twitter_title, twitter_description   default to the og_* values
     no_twitter: true            omit the twitter:* tags
     og_type                     default "article" (hub pages use "website")
+    og_image, og_image_alt      optional 1200x630 social image; default per edition (regions.yml)
     robots                      default "index, follow"
     stream                      body data-stream palette: science | commerce | arts | diploma | iti | govt-exams
     header:                     passed to _includes/sidebar.html
@@ -74,8 +75,15 @@
 <meta property="og:description" content="{{ og_description }}">
 <meta property="og:url" content="{{ page_url }}">
 <meta property="og:locale" content="{{ R.locale | default: site.locale }}">
+{%- assign og_image = page.og_image | default: R.og_image -%}
+{%- if og_image %}
+<meta property="og:image" content="{{ og_image | absolute_url }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{{ page.og_image_alt | default: R.og_image_alt }}">
+{%- endif %}
 {%- unless page.no_twitter %}
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="{% if og_image %}summary_large_image{% else %}summary{% endif %}">
 <meta name="twitter:title" content="{{ page.twitter_title | default: og_title }}">
 <meta name="twitter:description" content="{{ page.twitter_description | default: og_description }}">
 {%- endunless %}

@@ -1,0 +1,31 @@
+{%- comment -%}
+  Floating "Feedback" button (bottom-right, every page) + a small overlay with the feedback email.
+  No form, no sign-up, nothing collected: the overlay only shows the address (site.feedback_email
+  in _config.yml) with a mailto link and a Copy button.
+  Without JS the button is a normal link to contact.html. site.js (block "Feedback overlay") turns
+  it into a button that opens the native <dialog> (Escape and the Close button close it, focus
+  returns to the button). The back-to-top button sits just above it (main.css).
+{%- endcomment -%}
+<a href="contact.html" class="fb-fab" id="feedbackOpen" aria-haspopup="dialog" aria-controls="feedbackDialog">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  <span class="fb-fab-text">Feedback</span>
+</a>
+<dialog class="fb-dialog" id="feedbackDialog" aria-labelledby="fbTitle">
+  <div class="fb-head">
+    <h2 id="fbTitle">Feedback &amp; guide requests</h2>
+    <button type="button" class="icon-btn fb-close" data-fb-close aria-label="Close">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <p>No sign-up and no forms. Just email us — a person reads every message.</p>
+  <ul class="fb-uses">
+    <li><strong>Correction:</strong> the page link + the official source that shows the right fact.</li>
+    <li><strong>Request a career guide:</strong> the career, and your country or state.</li>
+    <li><strong>Anything else:</strong> what confused you or what was missing.</li>
+  </ul>
+  <div class="fb-email-row">
+    <a class="fb-email" href="mailto:{{ site.feedback_email }}?subject=eMargdarshan%20feedback">{{ site.feedback_email }}</a>
+    <button type="button" class="btn btn-ghost fb-copy" data-fb-copy="{{ site.feedback_email }}">Copy</button>
+  </div>
+  <p class="fb-status" role="status" aria-live="polite"></p>
+</dialog>

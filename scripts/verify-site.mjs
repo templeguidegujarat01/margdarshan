@@ -19,18 +19,18 @@ const all = process.argv.includes('--all');
 
 // ---- site data ----
 const config = yaml.load(fs.readFileSync(path.join(root, '_config.yml'), 'utf8'));
-const data = {};
-for (const f of fs.readdirSync(path.join(root, '_data'), { withFileTypes: true })) {
-  const p = path.join(root, '_data', f.name);
-  if (f.isDirectory()) {
-    data[f.name] = {};
-    for (const g of fs.readdirSync(p)) {
-      const src = fs.readFileSync(path.join(p, g), 'utf8');
-      data[f.name][g.replace(/\.[^.]+$/, '')] = /\.ya?ml$/.test(g) ? yaml.load(src) : JSON.parse(src);
-    }
-  } else if (f.name.endsWith('.json')) data[f.name.slice(0, -5)] = JSON.parse(fs.readFileSync(p, 'utf8'));
-  else if (/\.ya?ml$/.test(f.name)) data[f.name.replace(/\.ya?ml$/, '')] = yaml.load(fs.readFileSync(p, 'utf8'));
-}
+// Nested folders load like Jekyll: _data/in/careers/llb.yml -> site.data.in.careers.llb
+const loadData = (dir) => {
+  const out = {};
+  for (const f of fs.readdirSync(dir, { withFileTypes: true })) {
+    const p = path.join(dir, f.name);
+    if (f.isDirectory()) out[f.name] = loadData(p);
+    else if (f.name.endsWith('.json')) out[f.name.slice(0, -5)] = JSON.parse(fs.readFileSync(p, 'utf8'));
+    else if (/\.ya?ml$/.test(f.name)) out[f.name.replace(/\.ya?ml$/, '')] = yaml.load(fs.readFileSync(p, 'utf8'));
+  }
+  return out;
+};
+const data = loadData(path.join(root, '_data'));
 const site = { ...config, data };
 const engine = new Liquid({ root: [path.join(root, '_includes'), path.join(root, '_layouts')], extname: '.html', jekyllInclude: true, jekyllWhere: true, strictVariables: false });
 engine.registerFilter('absolute_url', (v) => (config.url || '') + (config.baseurl || '') + (String(v).startsWith('/') ? v : '/' + v));

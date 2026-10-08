@@ -65,7 +65,7 @@ try {
     if(!desktopMq.matches){ if(open) sidebar.removeAttribute('inert'); else sidebar.setAttribute('inert',''); }
     // While the drawer is open on small screens, the page behind it is inert: Tab stays inside the
     // drawer (it has its own close button) and screen readers do not wander into the covered page.
-    var behind = [document.querySelector('.app-main'), document.getElementById('backToTop'), document.querySelector('.skip-link')];
+    var behind = [document.querySelector('.app-main'), document.getElementById('backToTop'), document.getElementById('feedbackOpen'), document.querySelector('.skip-link')];
     behind.forEach(function(el){
       if(!el) return;
       if(open && !desktopMq.matches) el.setAttribute('inert', ''); else el.removeAttribute('inert');
@@ -1302,5 +1302,52 @@ try {
       ol.appendChild(frag);
     })
     .catch(function(){ /* keep the static breadcrumb */ });
+})();
+} catch (e) { if (window.console) console.error(e); }
+
+/* ===== Block 5: feedback overlay + header edition dropdown ===== */
+try {
+(function(){
+  "use strict";
+  /* Floating Feedback button (_includes/feedback.html): without JS it is a link to contact.html;
+     here it opens the <dialog> instead. Browsers without <dialog> keep the plain link. */
+  var fab = document.getElementById('feedbackOpen');
+  var dlg = document.getElementById('feedbackDialog');
+  if(fab && dlg && typeof dlg.showModal === 'function'){
+    fab.setAttribute('role', 'button');
+    fab.addEventListener('click', function(e){
+      e.preventDefault();
+      dlg.showModal();
+      var close = dlg.querySelector('[data-fb-close]');
+      if(close) close.focus();
+    });
+    fab.addEventListener('keydown', function(e){ if(e.key === ' '){ e.preventDefault(); fab.click(); } });
+    dlg.addEventListener('click', function(e){
+      if(e.target === dlg || (e.target.closest && e.target.closest('[data-fb-close]'))) dlg.close();
+    });
+    dlg.addEventListener('close', function(){ fab.focus(); });
+    var copy = dlg.querySelector('[data-fb-copy]');
+    var status = dlg.querySelector('.fb-status');
+    if(copy){
+      if(!navigator.clipboard){ copy.hidden = true; }
+      else copy.addEventListener('click', function(){
+        navigator.clipboard.writeText(copy.getAttribute('data-fb-copy')).then(function(){
+          if(status) status.textContent = 'Email address copied.';
+        }, function(){
+          if(status) status.textContent = 'Could not copy. Please select the address above.';
+        });
+      });
+    }
+  }
+
+  /* Header edition dropdown (_includes/header-edition.html): close on outside click and Escape. */
+  var hd = document.getElementById('hdEdition');
+  if(hd){
+    document.addEventListener('click', function(e){ if(hd.open && !hd.contains(e.target)) hd.open = false; });
+    hd.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && hd.open){ e.preventDefault(); e.stopPropagation(); hd.open = false; hd.querySelector('summary').focus(); }
+    });
+    window.addEventListener('pageshow', function(){ hd.open = false; });
+  }
 })();
 } catch (e) { if (window.console) console.error(e); }

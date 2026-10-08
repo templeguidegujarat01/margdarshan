@@ -53,7 +53,7 @@ for (const f of files) {
     fs.writeFileSync(path.join(root, '_data', 'roadmaps', c.slug + '.json'), JSON.stringify(data, null, 1) + '\n');
 
     const stub = `---
-title: "${esc(c.title)} Roadmap — Step-by-Step Journey, Exams & Training | Margdarshan"
+title: "${esc(c.title)} Roadmap — Step-by-Step Journey, Exams & Training | eMargdarshan"
 description: "${esc(c.name)} full roadmap for Indian students: ${esc(c.phases.map((p) => p.title).slice(0, 4).join(', '))} and more, with exams, eligibility and official links."
 stream: "${fm.stream}"
 header:

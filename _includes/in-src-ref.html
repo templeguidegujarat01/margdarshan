@@ -1,0 +1,10 @@
+{%- comment -%}
+  Small numbered source marker, e.g. [2], linking to that source in the citation block at the
+  bottom of an India career page. Used by in-career.html: {% include in-src-ref.html id=row.source %}
+  Reads C (the career data) from in-career.html. Prints nothing when id is empty or unknown.
+{%- endcomment -%}
+{%- if include.id -%}
+{%- for s in C.sources -%}
+{%- if s.id == include.id %}<a class="src-ref" href="#src-{{ s.id }}" title="Source: {{ s.name }}" aria-label="Source {{ forloop.index }}: {{ s.name }}">[{{ forloop.index }}]</a>{% endif -%}
+{%- endfor -%}
+{%- endif -%}

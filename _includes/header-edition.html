@@ -1,0 +1,48 @@
+{%- comment -%}
+  Compact edition switcher in the top bar (desktop, >=1024px). On smaller screens it is hidden and
+  the full switcher at the top of the menu drawer (region-switcher.html) is used instead; on desktop
+  that sidebar copy is hidden so there is only one switcher on screen (CSS: .hd-ed).
+  Same rules as region-switcher.html: <details> works without JS, options are plain links, the
+  destination is the same-field page in the other edition only when a real mapping exists
+  (_data/us/pathways.yml: live + in_page), otherwise that edition's home. Options reuse the
+  .region-opt class, so site.js marks the current one on region-neutral pages and saves the choice.
+{%- endcomment -%}
+{%- assign he_here = page.url | remove_first: "/" -%}
+{%- assign he_to_us = "" -%}
+{%- assign he_to_in = "" -%}
+{%- for p in site.data.us.pathways.list -%}
+  {%- if p.live and p.in_page -%}
+    {%- assign p_url = "us/careers/" | append: p.slug | append: "/" -%}
+    {%- if he_here == p.in_page %}{%- assign he_to_us = p_url -%}{%- endif -%}
+    {%- if he_here == p_url %}{%- assign he_to_in = p.in_page -%}{%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+<details class="hd-ed" id="hdEdition">
+  <summary class="hd-ed-btn" title="Switch country edition">
+    <span class="sr-only">Country edition: </span>
+    {%- for rid in site.data.regions.list %}
+    {%- if region_neutral or rid == region_id %}
+    {%- assign r = site.data.regions[rid] %}
+    <span class="hd-ed-cur" data-region-cur="{{ rid }}"><svg class="region-flag" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">{{ r.flag_svg }}</svg>{{ r.short | default: r.name }}{% if r.status == "beta" %} <span class="region-beta">Beta</span>{% endif %}</span>
+    {%- endif %}
+    {%- endfor %}
+    <svg class="region-dd-caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+  </summary>
+  <div class="region-menu hd-ed-menu">
+    <span class="region-menu-head" aria-hidden="true">Choose an edition</span>
+    <ul class="region-menu-list">
+      {%- for rid in site.data.regions.list %}
+      {%- assign r = site.data.regions[rid] -%}
+      {%- assign dest = r.home -%}
+      {%- if rid == "us" and he_to_us != "" %}{%- assign dest = he_to_us -%}{%- endif -%}
+      {%- if rid == "in" and he_to_in != "" %}{%- assign dest = he_to_in -%}{%- endif %}
+      <li><a class="region-opt" href="{{ dest }}" hreflang="{{ r.lang }}" data-region-set="{{ rid }}"{% if rid == region_id and region_neutral == false %} aria-current="true"{% endif %}>
+        <svg class="region-flag" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">{{ r.flag_svg }}</svg>
+        <span class="region-opt-text"><span class="region-name">{{ r.name }}{% if r.status == "beta" %}<span class="sr-only"> (beta)</span>{% endif %}</span></span>
+        {%- if r.status == "beta" %}<span class="region-beta" aria-hidden="true">Beta</span>{% endif %}
+        <svg class="region-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+      </a></li>
+      {%- endfor %}
+    </ul>
+  </div>
+</details>

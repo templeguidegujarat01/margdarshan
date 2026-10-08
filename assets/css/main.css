@@ -2335,3 +2335,103 @@ html.js.fold main:has(#pattern):has(#syllabus) section:is(#syllabus,#prep,[aria-
 .myth-badge{color:#A8361F;}
 [data-theme="dark"] .myth-badge,[data-theme="dark"] .pc-card.cons h3{color:#F08C76;}
 [data-theme="dark"] .pc-card.pros h3,[data-theme="dark"] .rflow-step.is-goal .rflow-tag{color:#5FC3A8;}
+
+/* ---------- Global shell additions + India data template (Architecture Phase A) ----------
+   Header: compact edition switcher + About/Help links (desktop only; phones use the drawer).
+   Floating Feedback button + <dialog> (_includes/feedback.html), open-data band in the footer
+   (_includes/footer-open.html), and the India career template's journey table, specialisation
+   cards and citation block (_includes/in-career.html). Text and 1px borders only, no images. */
+.hd-ed,.topbar-links{display:none;}
+@media (min-width:1024px){
+  .hd-ed{display:block;position:relative;}
+  /* One switcher on screen: the header one on desktop, the drawer one below 1024px. */
+  .sidebar .region-switch{display:none;}
+}
+@media (min-width:1280px){
+  /* About / Help only where the bar has room for them next to the search box (footer has both too). */
+  .topbar-links{display:flex;align-items:center;gap:.25rem;}
+}
+.hd-ed-btn{display:flex;align-items:center;gap:.45rem;min-height:40px;padding:0 .7rem;border:1px solid var(--border-surface);border-radius:999px;background:transparent;color:var(--on-ink-strong);font-size:.88rem;font-weight:600;cursor:pointer;list-style:none;-webkit-user-select:none;user-select:none;}
+.hd-ed-btn::-webkit-details-marker{display:none;}
+.hd-ed-btn::marker{content:"";}
+.hd-ed-btn:hover{border-color:rgba(var(--hl-rgb),.35);}
+.hd-ed-btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+.hd-ed[open] > .hd-ed-btn{border-color:var(--gold);}
+.hd-ed[open] .region-dd-caret{transform:rotate(180deg);}
+.hd-ed-cur{display:inline-flex;align-items:center;gap:.4rem;white-space:nowrap;}
+html[data-region="in"] .hd-ed-cur:not([data-region-cur="in"]),
+html[data-region="us"] .hd-ed-cur:not([data-region-cur="us"]){display:none;}
+.hd-ed-menu{left:auto;right:0;width:240px;}
+.topbar-links a{display:inline-flex;align-items:center;min-height:40px;padding:0 .7rem;border-radius:999px;color:var(--on-ink-muted);font-size:.9rem;font-weight:600;text-decoration:none;}
+.topbar-links a:hover{color:var(--on-ink-strong);background:rgba(var(--hl-rgb),.06);}
+.topbar-links a:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+
+/* Floating Feedback button: bottom-right; back-to-top moves up to sit above it. */
+.fb-fab{position:fixed;right:1.25rem;bottom:1.25rem;z-index:800;display:inline-flex;align-items:center;gap:.45rem;height:46px;padding:0 1.05rem;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--text);font-size:.9rem;font-weight:700;text-decoration:none;box-shadow:var(--shadow-md);}
+.fb-fab:hover{border-color:var(--gold);color:var(--text);}
+.fb-fab:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
+.back-to-top{bottom:calc(1.25rem + 58px);}
+/* Room under the footer so its last line can scroll clear of the floating buttons. */
+.site-footer{padding-bottom:calc(2rem + 64px);}
+.footer-bottom{padding-right:4rem;}
+/* The sticky "On this page" panel stops above the two floating buttons (back-to-top + Feedback) so they never cover its last links. */
+.page-nav{max-height:calc(100vh - var(--scroll-offset) - 1.25rem - 120px);}
+@media (max-width:639px){
+  .fb-fab{right:.9rem;bottom:.9rem;width:46px;padding:0;justify-content:center;}
+  .fb-fab-text{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;}
+  .back-to-top{right:.9rem;bottom:calc(.9rem + 56px);}
+  body:has(.md-src[open]) .fb-fab{opacity:0;pointer-events:none;}
+}
+@media print{.fb-fab,.fb-dialog{display:none !important;}}
+.fb-dialog{width:min(92vw,440px);margin:auto;padding:1.4rem 1.4rem 1.2rem;border:1px solid var(--line);border-radius:var(--radius-md);background:var(--surface);color:var(--text);box-shadow:var(--shadow-lg);}
+.fb-dialog::backdrop{background:rgba(11,26,34,.55);}
+.fb-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:.5rem;}
+.fb-head h2{font-size:1.25rem;margin:0;}
+.fb-close{margin:-.4rem -.5rem 0 0;color:var(--text-muted);}
+.fb-dialog p{margin:.4rem 0;color:var(--text-muted);font-size:.95rem;}
+.fb-uses{margin:.8rem 0 1rem;padding:0 0 0 1.1rem;font-size:.92rem;display:grid;gap:.35rem;}
+.fb-email-row{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem;padding:.75rem .9rem;border:1px solid var(--line);border-radius:var(--radius-sm);}
+.fb-email{flex:1 1 200px;min-width:0;overflow-wrap:anywhere;font-family:var(--font-mono);font-size:.88rem;font-weight:600;color:var(--link);}
+.fb-copy{min-height:38px;padding:0 .9rem;}
+.fb-status:empty{display:none;}
+
+/* Footer open-data band (both footers) */
+.footer-open{display:grid;gap:1.6rem;grid-template-columns:1fr;padding-top:2rem;padding-bottom:2rem;border-bottom:1px solid rgba(var(--hl-rgb),.1);}
+@media (min-width:768px){.footer-open{grid-template-columns:repeat(3,1fr);}}
+.footer-open h2{color:var(--on-ink-strong);font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;font-family:var(--font-body);margin-bottom:.6rem;}
+.footer-open p{font-size:.9rem;line-height:1.6;margin:0;}
+.footer-open a{color:var(--link);overflow-wrap:anywhere;}
+
+/* India career template: journey table, specialisations, source markers, citation block */
+.journey-table tbody th{background:transparent;color:var(--text);font-size:.92rem;font-weight:700;text-transform:none;letter-spacing:0;white-space:normal;min-width:9rem;}
+.journey-step-no{display:inline-grid;place-items:center;width:1.5rem;height:1.5rem;margin-right:.35rem;border:1px solid var(--line);border-radius:999px;font-family:var(--font-mono);font-size:.72rem;color:var(--text-muted);}
+.journey-table td:last-child{white-space:nowrap;}
+.journey-table a{font-weight:600;}
+@media (max-width:639px){
+  /* Phones: each step becomes a small bordered card instead of a sideways-scrolling table. */
+  .journey-table thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);}
+  .journey-table,.journey-table tbody,.journey-table tr,.journey-table th,.journey-table td{display:block;width:100%;}
+  .journey-table tr{padding:.8rem .9rem;border-bottom:1px solid var(--line);}
+  .journey-table tbody th,.journey-table td{padding:0;border:0;}
+  .journey-table td{margin-top:.3rem;}
+  .journey-table td:last-child:not(:has(a)){display:none;}
+}
+.src-ref{font-family:var(--font-mono);font-size:.72rem;font-weight:600;color:var(--text-muted);text-decoration:none;white-space:nowrap;vertical-align:super;line-height:0;}
+.src-ref:hover,.src-ref:focus-visible{color:var(--link);text-decoration:underline;}
+.spec-card{padding:1.3rem 1.4rem;border:1px solid var(--line);border-radius:var(--radius-md);background:var(--surface);scroll-margin-top:var(--scroll-offset);}
+.spec-card + .spec-card{margin-top:1rem;}
+.spec-card h3{font-size:1.2rem;margin:0 0 .4rem;}
+.spec-card > p{color:var(--text-muted);margin:0 0 .6rem;max-width:70ch;}
+.spec-card .btn{margin-top:.8rem;}
+.cite-list{margin:0;padding:0 0 0 1.6rem;display:grid;gap:.8rem;list-style:decimal;}
+.cite-list li::marker{font-family:var(--font-mono);font-size:.8rem;font-weight:600;color:var(--text-muted);}
+.cite-list li{scroll-margin-top:var(--scroll-offset);}
+.cite-list li:target{outline:2px solid var(--gold);outline-offset:4px;border-radius:4px;}
+.cite-list .source-link{margin-top:0;font-size:.92rem;color:var(--text);}
+.cite-covers{display:block;margin-top:.15rem;font-size:.85rem;color:var(--text-muted);}
+.cite-md{margin-top:1.4rem;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);}
+.cite-md summary{cursor:pointer;padding:.7rem .9rem;font-size:.88rem;font-weight:600;}
+.cite-md summary:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+.cite-md pre{margin:0;padding:.9rem;border-top:1px solid var(--line);overflow-x:auto;font-family:var(--font-mono);font-size:.78rem;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere;}
+.cite-report{margin-top:1rem;font-size:.9rem;color:var(--text-muted);}
+.cite-report a{overflow-wrap:anywhere;}

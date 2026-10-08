@@ -5,7 +5,7 @@ const CLAT = ['CLAT (Consortium of NLUs)', 'https://consortiumofnlus.ac.in/'];
 export default [
 C('llb', 'LLB', 'LLB — Becoming a Lawyer in India',
   'From Class 12 to a practising advocate: CLAT and other law entrances, 5-year integrated or 3-year LLB, internships, AIBE and enrolment with a State Bar Council.',
-  [['Duration', '5 years (integrated) or 3 years (after graduation)'], ['Entrance', 'CLAT, AILET, LSAT-India, CUET, state CETs'], ['Licence', 'AIBE after enrolment'], ['Regulator', 'Bar Council of India']],
+  [['Duration', '5 years (integrated) or 3 years (after graduation)'], ['Entrance', 'CLAT, AILET, CUET, state CETs'], ['Licence', 'AIBE after enrolment'], ['Regulator', 'Bar Council of India']],
   [
     P('Class 11–12: stream and eligibility', 'Class 11–12', 'Any stream can study law; Arts and Commerce students find the subjects familiar.', [
       'Integrated 5-year law (BA LLB, BBA LLB, B.Com LLB, BSc LLB) is open after Class 12 in any stream.',
@@ -13,12 +13,12 @@ C('llb', 'LLB', 'LLB — Becoming a Lawyer in India',
       'The 3-year LLB is open after a bachelor’s degree in any discipline, with minimum marks as set by the university and the BCI.',
       'Build reading speed, English and awareness of current affairs and legal news in Class 11–12.'],
       [['5-year LLB', 'After Class 12, any stream'], ['3-year LLB', 'After any graduation'], ['Min. marks', 'About 45% (40% SC/ST)']]),
-    P('Entrance exams and admission', 'Class 12 year', 'CLAT leads to 24 NLUs; AILET, LSAT-India, SLAT, CUET and state tests open other colleges.', [
+    P('Entrance exams and admission', 'Class 12 year', 'CLAT leads to 24 NLUs; AILET, SLAT, CUET and state tests open other colleges.', [
       'CLAT UG is held once a year (usually in December): 120 multiple-choice questions in 2 hours on English Language, Current Affairs and General Knowledge, Legal Reasoning, Logical Reasoning and Quantitative Techniques, with negative marking of 0.25.',
-      'AILET is the separate entrance for NLU Delhi; SLAT for Symbiosis; LSAT-India and university tests for others; many central universities use CUET-UG.',
+      'AILET is the separate entrance for NLU Delhi; SLAT for Symbiosis; university tests for others (LSAT—India was discontinued by LSAC from 2025); many central universities use CUET-UG.',
       'Counselling is rank-based, with choice of NLUs and seat acceptance across several rounds.',
       'For the 3-year LLB, entrance routes include CLAT-PG-linked tests, DU LLB entrance and state tests such as MH CET Law.'],
-      [['CLAT', '120 Qs, 2 hours, −0.25'], ['Held', 'Usually December'], ['Other exams', 'AILET, SLAT, LSAT-India, CUET']],
+      [['CLAT', '120 Qs, 2 hours, −0.25'], ['Held', 'Usually December'], ['Other exams', 'AILET, SLAT, CUET']],
       'Practise daily newspaper editorials; CLAT passage-based questions reward reading speed and comprehension.'),
     P('Law school years', 'Year 1–5', 'Core legal subjects, specialisations and moot courts.', [
       'Year 1–2: Constitutional Law, Contracts, Torts, Criminal Law (IPC/BNS), Legal Methods and Jurisprudence plus social-science subjects.',

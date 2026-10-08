@@ -140,6 +140,9 @@
 {% endcapture -%}
 {% include footer.html col3_heading=page.footer.col3_heading col3_content=col3_content guidance_careers_href=page.footer.careers_href guidance_careers_label=page.footer.careers_label guidance_faq_href=page.footer.faq_href %}
 </div>
+
+{%- comment -%} Inside the shell capture so its contact.html link gets the folder prefix like every other shell link. {%- endcomment %}
+{% include feedback.html %}
 {%- endcapture -%}
 {%- if root != "" -%}
   {%- comment -%} Prefix every relative href/src with root, then undo it for #anchors, absolute and mailto/tel links. {%- endcomment -%}

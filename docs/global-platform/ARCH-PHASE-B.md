@@ -63,3 +63,29 @@ their comment, so the roadmap injector leaves them alone, and the template draws
   website and add the date.
 - Government-exam pages (`#pattern` + `#syllabus`) use a different layout and are not covered by the
   extractor yet.
+
+## Brand: Education Margdarshan (2026-10-10)
+
+The official name is **Education Margdarshan** (the "e" in emargdarshan.com stands for Education). Commit
+468ec1d changed `site.title`, front-matter titles, JSON-LD names, the footer and the roadmap generator, and
+replaced the orange "A" badge with `_includes/logo-mark.html` (one-colour inline SVG: an E whose arms run
+into a D bowl, in a fine square frame). The follow-up commit moved the About, Contact and 404 pages,
+the study-abroad portal brands ("Education Margdarshan USA" …), the edition og:image alt text and the
+"Education Margdarshan's advice" labels on US/UK pages to the full name. The longer page titles are accepted.
+
+Still "Margdarshan" on purpose: the 404 line that explains the word itself ("Margdarshan" means
+"path-showing"), code comments, and the data-refresh User-Agent strings. Legal pages (privacy, terms,
+cookie policy, disclaimer), hub pages and finder notes also still say "Margdarshan" and are not yet
+reviewed.
+
+<!-- TASK (next design iteration): redraw raster brand assets with the E+D mark
+     Owner: design. Source of truth: _includes/logo-mark.html and assets/img/favicon.svg.
+     - assets/img/favicon-48.png, favicon-192.png, favicon-512.png  (navy #0F2A3D square, light mark)
+     - assets/img/apple-touch-icon.png (180x180, no transparency, iOS rounds the corners)
+     - favicon.ico (16/32/48)
+     - assets/img/og-in.png, og-us.png (1200x630 social cards; still show the old orange "A" badge and the
+       name "Margdarshan"); og-uk.png does not exist yet
+     Done when: no file under assets/img or the root shows the "A" badge, and the og cards say
+     "Education Margdarshan". -->
+- [ ] Redraw raster brand assets (favicon PNGs, apple-touch-icon, favicon.ico, og-in/og-us cards) with the
+  E+D mark. See the TASK comment above.

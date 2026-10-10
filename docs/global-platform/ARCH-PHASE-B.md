@@ -87,5 +87,5 @@ reviewed.
        name "Margdarshan"); og-uk.png does not exist yet
      Done when: no file under assets/img or the root shows the "A" badge, and the og cards say
      "Education Margdarshan". -->
-- [ ] Redraw raster brand assets (favicon PNGs, apple-touch-icon, favicon.ico, og-in/og-us cards) with the
-  E+D mark. See the TASK comment above.
+- [x] Redraw raster brand assets (favicon PNGs, apple-touch-icon, favicon.ico, og-in/og-us cards) with the
+  E+D mark. Done 2026-10-10 with the cyan-to-emerald gradient tile; regenerate with scripts/build-brand-assets.mjs.

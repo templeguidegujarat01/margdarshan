@@ -297,7 +297,8 @@ html.nav-locked{overflow:hidden;}
   .sb-drawer-head .sb-brand-name{display:inline;}
   /* Drawer + scrim sit above the topbar so the drawer's own brand header is visible. */
   .sidebar{z-index:970;}
-  .sb-drawer-head .logo{font-size:1.2rem;}
+  .sb-drawer-head .logo{font-size:1.15rem;min-width:0;line-height:1.1;}
+  .sb-drawer-head .sb-brand-name{white-space:normal;} /* long name wraps to two lines instead of running under the close button */
   .app-main{margin-left:0;}
   .sb-open{display:grid;}
   .sb-collapse{display:none;}
@@ -415,7 +416,7 @@ html.nav-locked{overflow:hidden;}
 .footer-top{display:grid;gap:2.4rem;grid-template-columns:1fr;padding-bottom:2.5rem;border-bottom:1px solid rgba(var(--hl-rgb),.1);}
 @media (min-width:768px) and (max-width:1023px){.footer-top{grid-template-columns:1fr 1fr;}}
 @media (min-width:1024px){.footer-top{grid-template-columns:1.3fr repeat(4,1fr);}}
-.footer-brand .logo{margin-bottom:.9rem;}
+.footer-brand .logo{margin-bottom:.9rem;align-items:flex-start;line-height:1.15;} /* two-line name: mark sits beside the first line */
 .footer-brand p{max-width:34ch;font-size:.9rem;line-height:1.7;}
 .footer-col h2,.footer-col h4{color:var(--on-ink-strong);font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;font-family:var(--font-body);margin-bottom:1rem;}
 .footer-col ul{display:grid;gap:.6rem;}

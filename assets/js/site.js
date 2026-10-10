@@ -222,7 +222,7 @@ try {
      under it, each tagged India / USA / UK. The index (assets/search.json, built from _data/search.yml) is
      fetched the first time the box gets focus. On an edition page that edition ranks first; the global home
      boosts none. Up/Down move, Enter opens the highlighted (or first) result, Escape closes, "/" or
-     Ctrl/Cmd+K focuses the box. This replaced the full-screen search overlay (career-search.html) on
+     Ctrl/Cmd+K focuses the box. This replaced the full-screen search overlay (former career-search.html, deleted) on
      2026-10-10; every old opener (data-search-open buttons, #search, "Search all careers" links, the India
      home hub box) now focuses this box instead. */
   /* Search helpers shared by the overlay below and the global home's inline header search. */

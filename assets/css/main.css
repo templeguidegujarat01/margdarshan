@@ -188,6 +188,10 @@ html.nav-locked{overflow:hidden;}
 /* ---- Sidebar ---- */
 .sidebar{position:fixed;top:var(--header-h);bottom:0;left:0;z-index:940;width:var(--sidebar-w);display:flex;flex-direction:column;background:var(--bg-header);transition:width .22s var(--ease),transform .25s var(--ease),box-shadow .25s var(--ease);}
 .sb-brand-name{white-space:nowrap;}
+/* Name lockup (brand.html, footer.html): small tracked "EDUCATION" kicker over the "Margdarshan" wordmark */
+.brand-name{display:flex;flex-direction:column;line-height:1;white-space:nowrap;}
+.brand-kicker{font-family:var(--font-body);font-size:.5em;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--on-ink-muted);margin:0 0 .28em .08em;}
+.brand-word{letter-spacing:-.01em;}
 .sb-drawer-head{display:none;}
 .sb-drawer-head .sb-close{margin-left:auto;}
 .sb-scroll{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:transparent transparent;padding:.5rem .75rem 1rem;}
@@ -294,11 +298,10 @@ html.nav-locked{overflow:hidden;}
   .topbar-brand .sb-brand-name{display:none;}
   .sidebar{top:0;}
   .sb-drawer-head{display:flex;align-items:center;justify-content:space-between;gap:.5rem;flex-shrink:0;height:var(--header-h);padding:0 .6rem 0 1rem;}
-  .sb-drawer-head .sb-brand-name{display:inline;}
+  .sb-drawer-head .sb-brand-name{display:flex;}
   /* Drawer + scrim sit above the topbar so the drawer's own brand header is visible. */
   .sidebar{z-index:970;}
   .sb-drawer-head .logo{font-size:1.15rem;min-width:0;line-height:1.1;}
-  .sb-drawer-head .sb-brand-name{white-space:normal;} /* long name wraps to two lines instead of running under the close button */
   .app-main{margin-left:0;}
   .sb-open{display:grid;}
   .sb-collapse{display:none;}
@@ -416,7 +419,7 @@ html.nav-locked{overflow:hidden;}
 .footer-top{display:grid;gap:2.4rem;grid-template-columns:1fr;padding-bottom:2.5rem;border-bottom:1px solid rgba(var(--hl-rgb),.1);}
 @media (min-width:768px) and (max-width:1023px){.footer-top{grid-template-columns:1fr 1fr;}}
 @media (min-width:1024px){.footer-top{grid-template-columns:1.3fr repeat(4,1fr);}}
-.footer-brand .logo{margin-bottom:.9rem;align-items:flex-start;line-height:1.15;} /* two-line name: mark sits beside the first line */
+.footer-brand .logo{margin-bottom:.9rem;}
 .footer-brand p{max-width:34ch;font-size:.9rem;line-height:1.7;}
 .footer-col h2,.footer-col h4{color:var(--on-ink-strong);font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;font-family:var(--font-body);margin-bottom:1rem;}
 .footer-col ul{display:grid;gap:.6rem;}

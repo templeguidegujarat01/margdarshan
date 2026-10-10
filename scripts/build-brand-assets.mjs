@@ -1,4 +1,4 @@
-// Regenerates every raster brand asset from the E+D gradient mark (same drawing as
+// Regenerates every raster brand asset from the E+M gradient mark (same drawing as
 // _includes/logo-mark.html and assets/img/favicon.svg):
 //   assets/img/favicon-48.png, favicon-192.png, favicon-512.png, apple-touch-icon.png,
 //   favicon.ico (16 + 32 + 48, PNG-in-ICO), assets/img/og-in.png, og-us.png (1200x630).
@@ -17,10 +17,16 @@ const img = (f) => path.join(root, 'assets/img', f);
 
 const INK = '#0F2A3D';
 const GRAD = 'linear-gradient(135deg,#00A3FF 0%,#00E5A3 100%)';
-const GLYPH = `<path d="M9 8.5H16A7.5 7.5 0 0 1 16 23.5H9Z" stroke="${INK}" stroke-width="3.2"/><path d="M9 16H15.5" stroke="${INK}" stroke-width="3.2"/>`;
-// rounded = transparent corners (browser tab icons); square = full-bleed (iOS applies its own mask)
+// E+M monogram: gradient strokes on an ink tile. One mark per render, so a fixed gradient id is fine.
+const GLYPH = '<g stroke="url(#g)" stroke-width="2.6" stroke-miterlimit="2"><path d="M11.5 24H5.5V8H15L20.75 17L26.5 8"/><path d="M15 8V24M26.5 6.7V24M5.5 16H10.5"/></g>';
+const DEFS = '<defs><linearGradient id="g" x1="4" y1="6" x2="28" y2="26" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#00A3FF"/><stop offset="1" stop-color="#00E5A3"/></linearGradient></defs>';
+// rounded = transparent corners + faint gradient ring (browser tab icons, OG cards);
+// square = full-bleed ink (apple-touch-icon; iOS applies its own mask)
+const tile = (rounded) => rounded
+  ? `<rect x=".5" y=".5" width="31" height="31" rx="7.5" fill="${INK}" stroke="url(#g)" stroke-opacity=".55"/>`
+  : `<rect width="32" height="32" fill="${INK}"/>`;
 const mark = (px, rounded = true) =>
-  `<svg width="${px}" height="${px}" viewBox="0 0 32 32" fill="none" style="display:block;background:${GRAD};border-radius:${rounded ? '24%' : '0'}">${GLYPH}</svg>`;
+  `<svg width="${px}" height="${px}" viewBox="0 0 32 32" fill="none" style="display:block">${DEFS}${tile(rounded)}${GLYPH}</svg>`;
 
 const EDITIONS = [
   { file: 'og-in.png', badge: 'India Edition', title: 'Free career guidance for Indian students', sub: 'Streams, courses, exams and colleges after Class 10 and Class 12', domain: 'emargdarshan.com' },

@@ -1,10 +1,11 @@
 {%- comment -%}
-  Brand mark: one continuous "E+D" monogram — the E's spine and top/bottom bars flow straight into the
-  forward arc of a "D" (Education + Direction), with the E's middle bar inside the bowl. Drawn in deep ink
-  (#0F2A3D) on a rounded tile with a cyan-to-emerald gradient (#00A3FF -> #00E5A3).
-  The gradient is a CSS background on the <svg> itself, not an SVG <linearGradient>, because this include
-  appears several times per page (top bar, drawer, footer) and a gradient id would be duplicated.
-  The tile looks the same in light and dark themes (ink on cyan/emerald is 5:1+). Pass size=<px> (default 30).
+  Brand mark: an "E+M" monogram (Education + Margdarshan). The E's spine and bars sit on the left; its top bar
+  runs straight on into the M's falling and rising diagonals, and the M's left leg stands beside the E's arms.
+  The strokes carry a cyan-to-mint gradient (#00A3FF -> #00E5A3) on a deep ink tile (#0F2A3D) with a faint
+  gradient ring, so the mark keeps strong contrast on the white light-mode bar and on dark backgrounds.
+  Params: size=<px> (default 30); uid=<word> makes the gradient id unique — this include appears several times
+  per page (top bar, drawer, footer), and ids must not repeat.
   Keep in step with assets/img/favicon.svg and scripts/build-brand-assets.mjs.
 {%- endcomment -%}
-<svg class="logo-mark" width="{{ include.size | default: 30 }}" height="{{ include.size | default: 30 }}" viewBox="0 0 32 32" fill="none" style="background:linear-gradient(135deg,#00A3FF 0%,#00E5A3 100%);border-radius:24%" aria-hidden="true" focusable="false"><path d="M9 8.5H16A7.5 7.5 0 0 1 16 23.5H9Z" stroke="#0F2A3D" stroke-width="3.2" stroke-linejoin="miter"/><path d="M9 16H15.5" stroke="#0F2A3D" stroke-width="3.2"/></svg>
+{%- assign lm = 'lm-' | append: include.uid -%}
+<svg class="logo-mark" width="{{ include.size | default: 30 }}" height="{{ include.size | default: 30 }}" viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false"><defs><linearGradient id="{{ lm }}" x1="4" y1="6" x2="28" y2="26" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#00A3FF"/><stop offset="1" stop-color="#00E5A3"/></linearGradient></defs><rect x=".5" y=".5" width="31" height="31" rx="7.5" fill="#0F2A3D" stroke="url(#{{ lm }})" stroke-opacity=".55"/><g stroke="url(#{{ lm }})" stroke-width="2.6" stroke-miterlimit="2"><path d="M11.5 24H5.5V8H15L20.75 17L26.5 8"/><path d="M15 8V24M26.5 6.7V24M5.5 16H10.5"/></g></svg>

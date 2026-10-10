@@ -1,0 +1,21 @@
+{%- comment -%}
+  Inline search box in the top bar of every page (header.html on edition pages, header-gateway.html on
+  the global home). The visitor types straight into the bar; results drop down under it with an
+  India / USA / UK tag (site.js block "Inline navbar search", index assets/search.json built from
+  _data/search.yml). On an edition page that edition's results rank first; the global home boosts none.
+  Empty box + focus shows "Recently viewed" (this browser only). "/" or Ctrl/Cmd+K focuses it from anywhere.
+  Reads region_id from _layouts/default.html.
+{%- endcomment -%}
+<form class="nav-search" id="navSearchForm" role="search" aria-label="Search the site" autocomplete="off">
+  <svg class="nav-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+  <label class="sr-only" for="navSearch">Search careers, exams and colleges in India, the USA and the UK</label>
+  <input id="navSearch" type="search" placeholder="{% if region_id == 'us' %}Search careers, tests, licenses…{% elsif region_id == 'uk' %}Search UK careers, routes…{% else %}Search a career, course or exam…{% endif %}" spellcheck="false"
+         role="combobox" aria-expanded="false" aria-controls="navSearchList" aria-autocomplete="list">
+  <kbd class="nav-search-kbd" aria-hidden="true">/</kbd>
+  <button type="submit" class="nav-search-go">Search</button>
+  <div class="nav-search-pop" id="navSearchPop" hidden>
+    <p class="nav-search-head" id="navSearchHead" hidden>Recently viewed</p>
+    <ul class="nav-search-list" id="navSearchList" role="listbox" aria-label="Search results"></ul>
+    <p class="nav-search-note" id="navSearchNote" aria-live="polite"></p>
+  </div>
+</form>

@@ -2,8 +2,7 @@
   Top bar of the global home (index.html, front matter shell: gateway). No sidebar and no search overlay:
     left   = brand (logo + name, links to the global home)
     centre = inline search: the visitor types straight into the bar and results drop down under it
-             (site.js block "Global home"; same index assets/search.json and the same ranking as the
-             overlay on every other page). Phones: the search moves to a second row of the bar.
+             (_includes/nav-search.html, shared with every other page). Phones: the search moves to a second row of the bar.
     right  = "Select Study Destination" menu (<details>, works without JS; options are plain links to
              each edition's home from _data/regions.yml → list) + About + theme switch.
   Bar height is fixed in CSS (--header-h on .shell-gw), so nothing below moves when results open.
@@ -11,18 +10,7 @@
 <header class="topbar gw-bar">
   <div class="gw-brand">{% include brand.html uid="top" %}</div>
 
-  <form class="gw-search" id="gwSearchForm" role="search" aria-label="Search every edition" autocomplete="off">
-    <svg class="gw-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-    <label class="sr-only" for="gwSearch">Search careers, exams and colleges in India, the USA and the UK</label>
-    <input id="gwSearch" type="search" placeholder="Search a career, course or exam…" spellcheck="false"
-           role="combobox" aria-expanded="false" aria-controls="gwSearchList" aria-autocomplete="list">
-    <kbd class="gw-search-kbd" aria-hidden="true">/</kbd>
-    <button type="submit" class="gw-search-go">Search</button>
-    <div class="gw-search-pop" id="gwSearchPop" hidden>
-      <ul class="gw-search-list" id="gwSearchList" role="listbox" aria-label="Search results"></ul>
-      <p class="gw-search-note" id="gwSearchNote" aria-live="polite"></p>
-    </div>
-  </form>
+  {% include nav-search.html %}
 
   <div class="gw-actions">
     <details class="gw-dest" id="gwDest">

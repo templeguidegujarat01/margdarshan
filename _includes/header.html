@@ -1,6 +1,6 @@
 {%- comment -%}
   Fixed top bar of the app shell, three zones: left = sidebar toggle + brand,
-  centre = global search (opens the overlay in career-search.html; "/" focuses it),
+  centre = inline search box (nav-search.html; results drop down under it, "/" focuses it),
   right = edition switcher (desktop, header-edition.html) + About / Help links (desktop) + theme switch.
   The breadcrumb lives in _layouts/default.html, below this bar.
   The site navigation itself is _includes/sidebar.html.
@@ -16,11 +16,7 @@
     <div class="topbar-brand">{% include brand.html uid="top" %}</div>
   </div>
   <div class="topbar-center">
-    <button type="button" class="search-trigger" id="searchNavBtn" data-search-open aria-label="Search careers, exams and colleges" aria-haspopup="dialog" aria-controls="site-search">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-      <span class="search-trigger-text">Search careers, exams, colleges…</span>
-      <kbd class="search-trigger-kbd" aria-hidden="true">/</kbd>
-    </button>
+    {% include nav-search.html %}
   </div>
   <div class="topbar-actions">
     {% include header-edition.html %}

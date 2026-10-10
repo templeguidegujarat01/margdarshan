@@ -217,17 +217,14 @@ try {
     window.addEventListener('pageshow', function(){ regionDd.open = false; });
   }
 
-  /* ---------- Site search overlay (_includes/career-search.html) ----------
-     On every page. Opened from the header search button, the "/" and
-     Ctrl/Cmd+K shortcuts, links to india.html#careers, and — only on pages
-     with no #careers section of their own (the homepage) — links to
-     #careers. Hub pages (science, arts, jee-main …) have a real
-     <section id="careers">, so the overlay uses id="site-search" and never
-     takes over their in-page #careers links.
-     The index (assets/search.json, built from _data/search.yml) is fetched
-     the first time the overlay opens. Idle state shows recently viewed
-     pages and popular searches; a query and/or category chip lists ranked
-     matches. */
+  /* ---------- Inline navbar search (_includes/nav-search.html) ----------
+     On every page, in the top bar: the visitor types straight into the bar and ranked results drop down
+     under it, each tagged India / USA / UK. The index (assets/search.json, built from _data/search.yml) is
+     fetched the first time the box gets focus. On an edition page that edition ranks first; the global home
+     boosts none. Up/Down move, Enter opens the highlighted (or first) result, Escape closes, "/" or
+     Ctrl/Cmd+K focuses the box. This replaced the full-screen search overlay (career-search.html) on
+     2026-10-10; every old opener (data-search-open buttons, #search, "Search all careers" links, the India
+     home hub box) now focuses this box instead. */
   /* Search helpers shared by the overlay below and the global home's inline header search. */
   // "B.Com (Hons)" -> "b com hons"; dots dropped so "bcom" also matches.
   function norm(s){ return (s || '').toLowerCase().replace(/&/g, ' and ').replace(/\./g, '').replace(/[^a-z0-9+]+/g, ' ').trim(); }
@@ -260,305 +257,152 @@ try {
     return out;
   }
 
-  var searchOverlay = document.getElementById('site-search');
-  if(searchOverlay){
-    var careersIsSearch = !document.getElementById('careers');
-    var sInput = document.getElementById('careerSearch');
-    var sResults = document.getElementById('searchResults');
-    var sIdle = document.getElementById('searchIdle');
-    var sEmpty = document.getElementById('searchEmpty');
-    var sEmptyQ = document.getElementById('searchEmptyQ');
-    var sCount = document.getElementById('searchCount');
-    var sCats = searchOverlay.querySelectorAll('.search-cat');
-    var catLabels = {};
-    sCats.forEach(function(b){ catLabels[b.getAttribute('data-cat')] = b.textContent.trim(); });
-    var sIndex = null, sLoading = false, sFailed = false;
-    var sCatOn = searchOverlay.querySelector('.search-cat[aria-pressed="true"]');
-    var sCat = sCatOn ? sCatOn.getAttribute('data-cat') : 'all', sActive = -1, sLastFocus = null;
-    var sPrefilled = false;   // opened from the home hub box with text already typed: keep the caret, do not select
-
-    function loadIndex(){
-      if(sIndex || sLoading) return;
-      sLoading = true;
-      fetch(MD_ROOT + 'assets/search.json').then(function(r){ if(!r.ok) throw r; return r.json(); }).then(function(data){
-        sIndex = data.map(function(d){
-          return { d: d, t: norm(d.t), s: norm(d.s), k: norm(d.k) + ' ' + norm(catLabels[d.c]) };
-        });
-        sLoading = false;
-        renderSearch();
-      }).catch(function(){ sLoading = false; sFailed = true; renderSearch(); });
-    }
-
-    var arrowSvg = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
-
-    function sSetActive(i){
-      var opts = sResults.querySelectorAll('[role="option"]');
-      if(!opts.length){ sActive = -1; sInput.removeAttribute('aria-activedescendant'); return; }
-      sActive = (i + opts.length) % opts.length;
-      opts.forEach(function(o, j){ o.setAttribute('aria-selected', j === sActive ? 'true' : 'false'); });
-      sInput.setAttribute('aria-activedescendant', opts[sActive].id);
-      var el = opts[sActive], box = sResults.parentElement;
-      var r = el.getBoundingClientRect(), b = box.getBoundingClientRect();
-      if(r.top < b.top) box.scrollTop -= (b.top - r.top) + 8;
-      else if(r.bottom > b.bottom) box.scrollTop += (r.bottom - b.bottom) + 8;
-    }
-
-    function renderSearch(){
-      var q = norm(sInput.value);
-      var idle = q === '' && sCat === 'all';
-      sIdle.hidden = !idle;
-      sEmpty.hidden = true;
-      sResults.hidden = idle;
-      sInput.setAttribute('aria-expanded', idle ? 'false' : 'true');
-      if(idle){ renderRecent(); sResults.innerHTML = ''; sCount.textContent = sIndex ? sIndex.length + ' guides, exams & finders' : ''; sSetActive(-1); return; }
-      if(!sIndex){
-        sResults.innerHTML = '<li class="search-status">' + (sFailed ? 'Search could not load. Please check your connection and try again.' : 'Loading…') + '</li>';
-        sCount.textContent = '';
-        if(!sFailed) loadIndex();
-        return;
-      }
-      var ED_CAT = { us: 'usa', uk: 'uk' };
-      var words = q ? q.split(' ') : [];
-      var hits = [];
-      sIndex.forEach(function(e, i){
-        if(sCat !== 'all' && e.d.c !== sCat) return;
-        var sc = words.length ? score(e, q, words) : 1;
-        // Same-edition results first: USA pages rank "usa" items higher, UK pages "uk" items, India pages the rest.
-        if(sc && (ED_CAT[root.getAttribute('data-region')] ? e.d.c === ED_CAT[root.getAttribute('data-region')] : (e.d.c !== 'usa' && e.d.c !== 'uk'))) sc += 100;
-        if(sc) hits.push({ e: e, sc: sc, i: i });
-      });
-      hits.sort(function(a, b){ return b.sc - a.sc || a.i - b.i; });
-      sResults.innerHTML = hits.map(function(h, j){
-        var d = h.e.d;
-        return '<li><a role="option" id="sr-' + j + '" aria-selected="false" class="search-result" href="' + esc(MD_ROOT + d.u) + '" data-t="' + esc(d.t) + '" data-c="' + esc(d.c) + '">' +
-          '<span class="search-result-cat" data-c="' + esc(d.c) + '">' + esc(catLabels[d.c] || '') + '</span>' +
-          '<span class="search-result-main"><strong>' + mark(d.t, words) + '</strong><span>' + mark(d.s, words) + '</span></span>' +
-          arrowSvg + '</a></li>';
-      }).join('');
-      sEmpty.hidden = hits.length !== 0;
-      if(!hits.length) sEmptyQ.textContent = sInput.value.trim();
-      sCount.textContent = hits.length ? hits.length + (hits.length === 1 ? ' result' : ' results') : '';
-      sResults.parentElement.scrollTop = 0;
-      sSetActive(words.length && hits.length ? 0 : -1);
-    }
-
-    function openSearch(){
-      if(searchOverlay.getAttribute('data-open') === 'true') return;
-      sLastFocus = document.activeElement;
-      if(typeof setDrawer === "function") setDrawer(false);
-      searchOverlay.setAttribute('data-open', 'true');
-      document.body.style.overflow = 'hidden';
-      loadIndex();
-      renderSearch();
-      setTimeout(function(){ sInput.focus(); if(sPrefilled) sPrefilled = false; else sInput.select(); }, reduceMotion ? 0 : 60);
-    }
-    function closeSearch(){
-      if(searchOverlay.getAttribute('data-open') !== 'true') return;
-      searchOverlay.setAttribute('data-open', 'false');
-      document.body.style.overflow = '';
-      if(careersIsSearch && window.location.hash === '#careers' && history.replaceState){
-        history.replaceState(null, '', window.location.pathname + window.location.search);
-      }
-      if(sLastFocus && sLastFocus.focus) sLastFocus.focus();
-    }
-
-    // Header button(s): any element with data-search-open.
-    document.querySelectorAll('[data-search-open]').forEach(function(el){ el.addEventListener('click', openSearch); });
-    searchOverlay.querySelectorAll('[data-search-close]').forEach(function(el){ el.addEventListener('click', closeSearch); });
-
-    // "Explore Careers" links that mean the homepage search open it in place.
-    document.addEventListener('click', function(e){
-      var a = e.target.closest && e.target.closest(careersIsSearch ? 'a[href="#careers"], a[href="india.html#careers"]' : 'a[href="india.html#careers"]');
-      if(!a || e.metaKey || e.ctrlKey || e.shiftKey) return;
-      e.preventDefault();
-      openSearch();
-    });
-    function hashOpens(){ return window.location.hash === '#search' || (careersIsSearch && window.location.hash === '#careers'); }
-    if(hashOpens()) openSearch();
-    window.addEventListener('hashchange', function(){ if(hashOpens()) openSearch(); });
-
-    // Recently viewed: remember results the student opens (this browser only).
+  var navForm = document.getElementById('navSearchForm');
+  if(navForm){
+    var nsInput = document.getElementById('navSearch');
+    var nsPop = document.getElementById('navSearchPop');
+    var nsList = document.getElementById('navSearchList');
+    var nsHead = document.getElementById('navSearchHead');
+    var nsNote = document.getElementById('navSearchNote');
+    var NS_MAX = 8;
+    var NS_CATS = {};
+    {{ site.data.search.categories | jsonify }}.forEach(function(c){ NS_CATS[c.id] = c.label; });
+    var NS_ED = { usa: 'USA', uk: 'UK' };                         // search.yml category -> edition tag; anything else is India
+    var NS_HOME_CAT = { 'in': 'india', us: 'usa', uk: 'uk' }[root.getAttribute('data-region')] || null;   // null on the global home
+    var nsIndex = null, nsLoading = false, nsFailed = false, nsActive = -1;
     var RECENT_KEY = 'md-recent-search';
-    function getRecent(){ try { return JSON.parse(localStorage.getItem(RECENT_KEY)) || []; } catch(err){ return []; } }
-    function rememberResult(a){
+    var getRecent = function(){ try { return JSON.parse(localStorage.getItem(RECENT_KEY)) || []; } catch(err){ return []; } };
+    var rememberResult = function(a){
       var item = { t: a.getAttribute('data-t'), u: (a.getAttribute('href') || '').replace(MD_ROOT, ''), c: a.getAttribute('data-c') };
       if(!item.t) return;
       var list = getRecent().filter(function(r){ return r.u !== item.u; });
       list.unshift(item);
       try { localStorage.setItem(RECENT_KEY, JSON.stringify(list.slice(0, 6))); } catch(err){}
-    }
-    function renderRecent(){
-      var list = getRecent();
-      sRecentWrap.hidden = !list.length;
-      sRecentList.innerHTML = list.map(function(r){
-        return '<a class="search-recent-item" href="' + esc(MD_ROOT + r.u) + '"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>' + esc(r.t) + '</a>';
-      }).join('');
-    }
-    var sRecentWrap = document.getElementById('searchRecent');
-    var sRecentList = document.getElementById('searchRecentList');
-    var sRecentClear = document.getElementById('searchRecentClear');
-    if(sRecentClear) sRecentClear.addEventListener('click', function(){
-      try { localStorage.removeItem(RECENT_KEY); } catch(err){}
-      renderRecent();
-      sInput.focus();
-    });
-    sResults.addEventListener('click', function(e){
-      var a = e.target.closest('.search-result');
-      if(a) rememberResult(a);
-    });
+    };
+    var edTag = function(c){ return NS_ED[c] || 'India'; };
+    var optionHtml = function(d, j, words){
+      return '<li><a role="option" id="nsr-' + j + '" aria-selected="false" class="nav-sr" href="' + esc(MD_ROOT + d.u) + '" data-t="' + esc(d.t) + '" data-c="' + esc(d.c || '') + '">' +
+        '<span class="nav-sr-ed">' + esc(edTag(d.c)) + '</span>' +
+        '<span class="nav-sr-main"><strong>' + mark(d.t, words) + '</strong>' + (d.s ? '<span>' + mark(d.s, words) + '</span>' : '') + '</span></a></li>';
+    };
 
-    sInput.addEventListener('input', renderSearch);
-    sCats.forEach(function(b){
-      b.addEventListener('click', function(){
-        sCats.forEach(function(x){ x.setAttribute('aria-pressed', 'false'); });
-        b.setAttribute('aria-pressed', 'true');
-        sCat = b.getAttribute('data-cat');
-        renderSearch();
-        sInput.focus();
-      });
-    });
-    searchOverlay.querySelectorAll('.search-chip').forEach(function(c){
-      c.addEventListener('click', function(){ sInput.value = c.getAttribute('data-q'); renderSearch(); sInput.focus(); });
-    });
-
-    document.addEventListener('keydown', function(e){
-      var open = searchOverlay.getAttribute('data-open') === 'true';
-      if(!open){
-        var t = e.target, typing = t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName));
-        if((e.key === '/' && !typing && !e.ctrlKey && !e.metaKey && !e.altKey) || ((e.key || '').toLowerCase() === 'k' && (e.ctrlKey || e.metaKey))){
-          e.preventDefault();
-          openSearch();
-        }
-        return;
-      }
-      if(e.key === 'Escape'){ e.preventDefault(); closeSearch(); return; }
-      if(e.key === 'Tab'){
-        // Keep focus inside the dialog (only controls that are actually shown).
-        var f = Array.prototype.filter.call(searchOverlay.querySelectorAll('input, button, a[href]'), function(el){ return el.getClientRects().length > 0; });
-        if(!f.length) return;
-        var first = f[0], last = f[f.length - 1];
-        if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
-        else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
-        return;
-      }
-      if(e.target !== sInput) return;
-      if(e.key === 'ArrowDown'){ e.preventDefault(); sSetActive(sActive + 1); }
-      else if(e.key === 'ArrowUp'){ e.preventDefault(); sSetActive(sActive - 1); }
-      else if(e.key === 'Enter'){
-        var opts = sResults.querySelectorAll('[role="option"]');
-        if(sActive >= 0 && opts[sActive]){ e.preventDefault(); rememberResult(opts[sActive]); window.location.href = opts[sActive].href; }
-      }
-    });
-
-    // Home hub search box (index.html #hubSearchForm): the first keystroke opens this overlay with the
-    // text carried over, so results are live and come from the same index and ranking.
-    var hubForm = document.getElementById('hubSearchForm');
-    if(hubForm){
-      var hubInput = hubForm.querySelector('input');
-      var hubHandoff = function(){
-        var v = hubInput.value;
-        sPrefilled = !!v;
-        openSearch();
-        sInput.value = v;
-        hubInput.value = '';
-        sInput.focus();   // same tick as the keystroke, so phones keep the keyboard open
-        renderSearch();
-      };
-      hubInput.addEventListener('input', function(){ if(hubInput.value) hubHandoff(); });
-      hubForm.addEventListener('submit', function(e){ e.preventDefault(); hubHandoff(); });
-    }
-  }
-
-  /* ---------- Global home: inline header search (_includes/header-gateway.html) ----------
-     The global home has no overlay: results drop down right under the box in the top bar, from the
-     same index (assets/search.json) and the same score() as the overlay. No edition is boosted, since
-     this page belongs to none; each result carries an India / USA / UK tag instead. Up/Down move,
-     Enter opens the highlighted (or first) result, Escape closes, "/" focuses the box. */
-  var gwForm = document.getElementById('gwSearchForm');
-  if(gwForm){
-    var gwInput = document.getElementById('gwSearch');
-    var gwPop = document.getElementById('gwSearchPop');
-    var gwList = document.getElementById('gwSearchList');
-    var gwNote = document.getElementById('gwSearchNote');
-    var GW_MAX = 8;
-    var GW_CATS = {};
-    {{ site.data.search.categories | jsonify }}.forEach(function(c){ GW_CATS[c.id] = c.label; });
-    var GW_ED = { usa: 'USA', uk: 'UK' };
-    var gwIndex = null, gwLoading = false, gwFailed = false, gwActive = -1;
-
-    var gwLoad = function(){
-      if(gwIndex || gwLoading) return;
-      gwLoading = true;
+    var nsLoad = function(){
+      if(nsIndex || nsLoading) return;
+      nsLoading = true;
       fetch(MD_ROOT + 'assets/search.json').then(function(r){ if(!r.ok) throw r; return r.json(); }).then(function(data){
-        gwIndex = data.map(function(d){ return { d: d, t: norm(d.t), s: norm(d.s), k: norm(d.k) + ' ' + norm(GW_CATS[d.c]) }; });
-        gwLoading = false;
-        gwRender();
-      }).catch(function(){ gwLoading = false; gwFailed = true; gwRender(); });
+        nsIndex = data.map(function(d){ return { d: d, t: norm(d.t), s: norm(d.s), k: norm(d.k) + ' ' + norm(NS_CATS[d.c]) }; });
+        nsLoading = false;
+        if(document.activeElement === nsInput) nsRender();
+      }).catch(function(){ nsLoading = false; nsFailed = true; if(document.activeElement === nsInput) nsRender(); });
     };
-    var gwShow = function(open){
-      gwPop.hidden = !open;
-      gwInput.setAttribute('aria-expanded', open ? 'true' : 'false');
-      if(!open){ gwActive = -1; gwInput.removeAttribute('aria-activedescendant'); }
+    var nsShow = function(open){
+      nsPop.hidden = !open;
+      nsInput.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if(!open){ nsActive = -1; nsInput.removeAttribute('aria-activedescendant'); }
     };
-    var gwSetActive = function(i){
-      var opts = gwList.querySelectorAll('[role="option"]');
-      if(!opts.length){ gwActive = -1; gwInput.removeAttribute('aria-activedescendant'); return; }
-      gwActive = (i + opts.length) % opts.length;
-      opts.forEach(function(o, j){ o.setAttribute('aria-selected', j === gwActive ? 'true' : 'false'); });
-      gwInput.setAttribute('aria-activedescendant', opts[gwActive].id);
-      opts[gwActive].scrollIntoView({ block: 'nearest' });
+    var nsSetActive = function(i){
+      var opts = nsList.querySelectorAll('[role="option"]');
+      if(!opts.length || i < 0){ nsActive = -1; nsInput.removeAttribute('aria-activedescendant'); opts.forEach(function(o){ o.setAttribute('aria-selected', 'false'); }); return; }
+      nsActive = (i + opts.length) % opts.length;
+      opts.forEach(function(o, j){ o.setAttribute('aria-selected', j === nsActive ? 'true' : 'false'); });
+      nsInput.setAttribute('aria-activedescendant', opts[nsActive].id);
+      opts[nsActive].scrollIntoView({ block: 'nearest' });
     };
-    var gwRender = function(){
-      var q = norm(gwInput.value);
-      if(!q){ gwList.innerHTML = ''; gwNote.textContent = ''; gwShow(false); return; }
-      gwShow(true);
-      if(!gwIndex){
-        gwList.innerHTML = '';
-        gwNote.textContent = gwFailed ? 'Search could not load. Please check your connection and try again.' : 'Loading…';
-        if(!gwFailed) gwLoad();
+    var nsRender = function(){
+      var q = norm(nsInput.value);
+      if(!q){
+        // Empty box: recently viewed pages (this browser only), else nothing.
+        var recent = getRecent();
+        nsHead.hidden = !recent.length;
+        nsList.innerHTML = recent.map(function(r, j){ return optionHtml({ t: r.t, u: r.u, c: r.c }, j, []); }).join('');
+        nsNote.textContent = '';
+        nsShow(recent.length > 0);
+        nsSetActive(-1);
+        return;
+      }
+      nsHead.hidden = true;
+      nsShow(true);
+      if(!nsIndex){
+        nsList.innerHTML = '';
+        nsNote.textContent = nsFailed ? 'Search could not load. Please check your connection and try again.' : 'Loading…';
+        if(!nsFailed) nsLoad();
         return;
       }
       var words = q.split(' ');
       var hits = [];
-      gwIndex.forEach(function(e, i){ var sc = score(e, q, words); if(sc) hits.push({ e: e, sc: sc, i: i }); });
+      nsIndex.forEach(function(e, i){
+        var sc = score(e, q, words);
+        if(!sc) return;
+        // Edition pages rank their own edition first (India = every category that is not usa / uk).
+        if(NS_HOME_CAT && (NS_HOME_CAT === 'india' ? !NS_ED[e.d.c] : e.d.c === NS_HOME_CAT)) sc += 100;
+        hits.push({ e: e, sc: sc, i: i });
+      });
       hits.sort(function(a, b){ return b.sc - a.sc || a.i - b.i; });
-      gwList.innerHTML = hits.slice(0, GW_MAX).map(function(h, j){
-        var d = h.e.d;
-        return '<li><a role="option" id="gwr-' + j + '" aria-selected="false" class="gw-sr" href="' + esc(MD_ROOT + d.u) + '">' +
-          '<span class="gw-sr-ed">' + esc(GW_ED[d.c] || 'India') + '</span>' +
-          '<span class="gw-sr-main"><strong>' + mark(d.t, words) + '</strong><span>' + mark(d.s, words) + '</span></span></a></li>';
-      }).join('');
-      gwNote.textContent = !hits.length ? 'No match for “' + gwInput.value.trim() + '”. Try a shorter word, a course (BCA), an exam (NEET, SAT) or a job (doctor, solicitor).'
-        : hits.length > GW_MAX ? 'Top ' + GW_MAX + ' of ' + hits.length + ' results. Type more to narrow it down.'
+      nsList.innerHTML = hits.slice(0, NS_MAX).map(function(h, j){ return optionHtml(h.e.d, j, words); }).join('');
+      nsNote.textContent = !hits.length ? 'No match for “' + nsInput.value.trim() + '”. Try a shorter word, a course (BCA), an exam (NEET, SAT) or a job (doctor, solicitor).'
+        : hits.length > NS_MAX ? 'Top ' + NS_MAX + ' of ' + hits.length + ' results. Type more to narrow it down.'
         : hits.length + (hits.length === 1 ? ' result' : ' results');
-      gwSetActive(hits.length ? 0 : -1);
+      nsSetActive(hits.length ? 0 : -1);
     };
+    // Any other "search" control on a page (buttons with data-search-open, "Search all careers" links, the
+    // India home hub box) now just puts the caret in this box. Closing the menu drawer first keeps it visible.
+    var focusNavSearch = function(text){
+      if(typeof setDrawer === 'function') setDrawer(false);
+      if(typeof text === 'string') nsInput.value = text;
+      nsInput.focus();   // same tick as the click / keystroke, so phones keep the keyboard open
+      nsRender();
+    };
+    window.mdFocusSearch = focusNavSearch;
 
-    gwInput.addEventListener('input', gwRender);
-    gwInput.addEventListener('focus', function(){ gwLoad(); if(gwInput.value) gwRender(); });
-    gwInput.addEventListener('keydown', function(e){
-      if(e.key === 'ArrowDown'){ e.preventDefault(); if(gwPop.hidden) gwRender(); else gwSetActive(gwActive + 1); }
-      else if(e.key === 'ArrowUp'){ e.preventDefault(); gwSetActive(gwActive - 1); }
-      else if(e.key === 'Escape'){ if(!gwPop.hidden){ e.preventDefault(); gwShow(false); } else if(gwInput.value){ e.preventDefault(); gwInput.value = ''; } }
+    nsInput.addEventListener('input', nsRender);
+    nsInput.addEventListener('focus', function(){ nsLoad(); nsRender(); });
+    nsInput.addEventListener('keydown', function(e){
+      if(e.key === 'ArrowDown'){ e.preventDefault(); if(nsPop.hidden) nsRender(); else nsSetActive(nsActive + 1); }
+      else if(e.key === 'ArrowUp'){ e.preventDefault(); nsSetActive(nsActive - 1); }
+      else if(e.key === 'Escape'){ if(!nsPop.hidden){ e.preventDefault(); nsShow(false); } else if(nsInput.value){ e.preventDefault(); nsInput.value = ''; } }
     });
-    gwForm.addEventListener('submit', function(e){
+    navForm.addEventListener('submit', function(e){
       e.preventDefault();
-      var opts = gwList.querySelectorAll('[role="option"]');
-      var pick = opts[gwActive] || opts[0];
-      if(pick && !gwPop.hidden){ window.location.href = pick.href; return; }
-      gwRender();
-      gwInput.focus();
+      var opts = nsList.querySelectorAll('[role="option"]');
+      var pick = opts[nsActive] || (norm(nsInput.value) ? opts[0] : null);
+      if(pick && !nsPop.hidden){ rememberResult(pick); window.location.href = pick.href; return; }
+      nsInput.focus();
+      nsRender();
     });
-    document.addEventListener('click', function(e){ if(!gwForm.contains(e.target)) gwShow(false); });
-    gwForm.addEventListener('focusout', function(e){ if(e.relatedTarget && !gwForm.contains(e.relatedTarget)) gwShow(false); });
+    nsList.addEventListener('click', function(e){ var a = e.target.closest('.nav-sr'); if(a) rememberResult(a); });
+    document.addEventListener('click', function(e){ if(!navForm.contains(e.target)) nsShow(false); });
+    navForm.addEventListener('focusout', function(e){ if(e.relatedTarget && !navForm.contains(e.relatedTarget)) nsShow(false); });
     document.addEventListener('keydown', function(e){
       var t = e.target, typing = t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName));
       if((e.key === '/' && !typing && !e.ctrlKey && !e.metaKey && !e.altKey) || ((e.key || '').toLowerCase() === 'k' && (e.ctrlKey || e.metaKey))){
         e.preventDefault();
-        gwInput.focus();
+        focusNavSearch();
       }
     });
-    window.addEventListener('pageshow', function(){ gwShow(false); });
+    window.addEventListener('pageshow', function(){ nsShow(false); });
+
+    document.querySelectorAll('[data-search-open]').forEach(function(el){ el.addEventListener('click', function(e){ e.preventDefault(); focusNavSearch(); }); });
+    // "Search all careers" links (india.html#careers from other pages; #careers on pages with no such section).
+    var careersIsSearch = !document.getElementById('careers');
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest(careersIsSearch ? 'a[href="#careers"], a[href="india.html#careers"]' : 'a[href="india.html#careers"]');
+      if(!a || e.metaKey || e.ctrlKey || e.shiftKey) return;
+      e.preventDefault();
+      focusNavSearch();
+    });
+    var hashOpens = function(){ return window.location.hash === '#search' || (careersIsSearch && window.location.hash === '#careers'); };
+    if(hashOpens()) focusNavSearch();
+    window.addEventListener('hashchange', function(){ if(hashOpens()) focusNavSearch(); });
+
+    // India home hub box (india.html #hubSearchForm): the first keystroke moves the text into the top bar box,
+    // so there is one result list.
+    var hubForm = document.getElementById('hubSearchForm');
+    if(hubForm){
+      var hubInput = hubForm.querySelector('input');
+      var hubHandoff = function(){ var v = hubInput.value; hubInput.value = ''; focusNavSearch(v); };
+      hubInput.addEventListener('input', function(){ if(hubInput.value) hubHandoff(); });
+      hubForm.addEventListener('submit', function(e){ e.preventDefault(); hubHandoff(); });
+    }
   }
 
   /* Global home "Select Study Destination" menu (<details>, works without JS): close on outside click /

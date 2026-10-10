@@ -1,9 +1,10 @@
 // Regenerates every raster brand asset from the E+M gradient mark (same drawing as
 // _includes/logo-mark.html and assets/img/favicon.svg):
 //   assets/img/favicon-48.png, favicon-192.png, favicon-512.png, apple-touch-icon.png,
-//   favicon.ico (16 + 32 + 48, PNG-in-ICO), assets/img/og-in.png, og-us.png (1200x630).
+//   favicon.ico (16 + 32 + 48, PNG-in-ICO), assets/img/og-global.png, og-in.png, og-us.png (1200x630).
 // Renders with a local Edge/Chrome through playwright-core (no image libraries needed):
 //   BRAND_DEPS=<dir containing node_modules/playwright-core> node scripts/build-brand-assets.mjs
+// BRAND_ONLY=og-global.png (comma list of file names) writes only those files and leaves the rest untouched.
 // The OG cards load Fraunces + Hind from Google Fonts, so run it online.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -29,6 +30,7 @@ const mark = (px, rounded = true) =>
   `<svg width="${px}" height="${px}" viewBox="0 0 32 32" fill="none" style="display:block">${DEFS}${tile(rounded)}${GLYPH}</svg>`;
 
 const EDITIONS = [
+  { file: 'og-global.png', badge: 'India · USA · UK', title: 'Choose your path with clarity, not confusion.', sub: 'Mapped globally, centered locally. Free career guidance in three country editions.', domain: 'emargdarshan.com' },
   { file: 'og-in.png', badge: 'India Edition', title: 'Free career guidance for Indian students', sub: 'Streams, courses, exams and colleges after Class 10 and Class 12', domain: 'emargdarshan.com' },
   { file: 'og-us.png', badge: 'USA Edition', title: 'Careers, colleges and licenses in the U.S.', sub: 'Built on official data: BLS, NCES IPEDS, state boards and USCIS', domain: 'emargdarshan.com/us/' },
 ];
@@ -75,13 +77,19 @@ const shot = async (html, w, h, opts = {}) => {
 };
 const iconHtml = (px, rounded) => `<!doctype html><body style="margin:0;background:transparent">${mark(px, rounded)}</body>`;
 
-const out = {};
-for (const px of [16, 32, 48, 192, 512]) out[px] = await shot(iconHtml(px, true), px, px, { transparent: true });
-fs.writeFileSync(img('favicon-48.png'), out[48]);
-fs.writeFileSync(img('favicon-192.png'), out[192]);
-fs.writeFileSync(img('favicon-512.png'), out[512]);
-fs.writeFileSync(path.join(root, 'favicon.ico'), ico([16, 32, 48].map((size) => ({ size, buf: out[size] }))));
-fs.writeFileSync(img('apple-touch-icon.png'), await shot(iconHtml(180, false), 180, 180));
-for (const e of EDITIONS) fs.writeFileSync(img(e.file), await shot(og(e), 1200, 630));
+const only = process.env.BRAND_ONLY ? process.env.BRAND_ONLY.split(',').map((f) => f.trim()) : null;
+const want = (f) => !only || only.includes(f);
+const wrote = [];
+const write = (f, p, buf) => { fs.writeFileSync(p, buf); wrote.push(f); };
+if (['favicon-48.png', 'favicon-192.png', 'favicon-512.png', 'favicon.ico', 'apple-touch-icon.png'].some(want)) {
+  const out = {};
+  for (const px of [16, 32, 48, 192, 512]) out[px] = await shot(iconHtml(px, true), px, px, { transparent: true });
+  if (want('favicon-48.png')) write('favicon-48.png', img('favicon-48.png'), out[48]);
+  if (want('favicon-192.png')) write('favicon-192.png', img('favicon-192.png'), out[192]);
+  if (want('favicon-512.png')) write('favicon-512.png', img('favicon-512.png'), out[512]);
+  if (want('favicon.ico')) write('favicon.ico', path.join(root, 'favicon.ico'), ico([16, 32, 48].map((size) => ({ size, buf: out[size] }))));
+  if (want('apple-touch-icon.png')) write('apple-touch-icon.png', img('apple-touch-icon.png'), await shot(iconHtml(180, false), 180, 180));
+}
+for (const e of EDITIONS) if (want(e.file)) write(e.file, img(e.file), await shot(og(e), 1200, 630));
 await browser.close();
-console.log('wrote favicon.ico, favicon-48/192/512.png, apple-touch-icon.png, ' + EDITIONS.map((e) => e.file).join(', '));
+console.log('wrote ' + (wrote.join(', ') || 'nothing (check BRAND_ONLY names)'));

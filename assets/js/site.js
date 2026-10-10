@@ -156,8 +156,8 @@ try {
      visitor's edition: the edition of any edition page they open, or the one
      they pick in the switcher. Region-neutral pages (legal, 404) had the saved
      edition applied before paint by the layout; here they also get
-     aria-current on the switcher and logo/breadcrumb "home" links that point
-     at that edition's home. */
+     aria-current on the switcher and a breadcrumb "home" link that points at
+     that edition's home (the logo always goes to the global home). */
   var REGION_KEY = '{{ site.data.regions.storage_key }}';
   var REGION_HOMES = { {%- for rid in site.data.regions.list -%}{{ rid | jsonify }}: {{ site.data.regions[rid].home | jsonify }}{% unless forloop.last %}, {% endunless %}{%- endfor -%} };
   var pageRegion = root.getAttribute('data-region');
@@ -168,7 +168,7 @@ try {
       if(a.getAttribute('data-region-set') === pageRegion) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
     });
     var regionHome = MD_ROOT + REGION_HOMES[pageRegion];
-    document.querySelectorAll('a.logo, .breadcrumb ol > li:first-child > a').forEach(function(a){ a.setAttribute('href', regionHome); });
+    document.querySelectorAll('.breadcrumb ol > li:first-child > a').forEach(function(a){ a.setAttribute('href', regionHome); });
   }
   document.addEventListener('click', function(e){
     var a = e.target.closest && e.target.closest('[data-region-set]');

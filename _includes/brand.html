@@ -1,10 +1,11 @@
 {%- comment -%}
   Brand link (E+D logo mark + "Education Margdarshan"; the e in emargdarshan.com stands for Education). Included by header.html (always visible, left of
-  the breadcrumb) and sidebar.html (top of the mobile drawer). Links to the current
-  edition's home (R = region settings from _layouts/default.html).
+  the breadcrumb) and sidebar.html (top of the mobile drawer). Always links to the GLOBAL home
+  (regions.yml `global`, index.html) from every page and edition; the sidebar "Home" item and the
+  breadcrumb are what lead to the current edition's home.
   Pass uid=<word> (unique per page) for the logo's gradient id. Name lockup: small "EDUCATION" over "Margdarshan".
 {%- endcomment -%}
-<a href="{{ R.home | default: 'index.html' }}" class="logo" title="Education Margdarshan home">
+<a href="{{ site.data.regions.global.home | default: 'index.html' }}" class="logo" title="Education Margdarshan home">
   {% include logo-mark.html size=32 uid=include.uid %}
   <span class="sb-brand-name brand-name"><span class="brand-kicker">Education</span> <span class="brand-word">Margdarshan</span></span>
 </a>

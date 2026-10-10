@@ -1989,6 +1989,8 @@ a.hub-cta.hub-cta-jump:hover .hub-cta-arrow,a.hub-cta.hub-cta-jump:focus-visible
 .region-opt .region-opt-text{flex:1;}
 .region-flag{flex-shrink:0;border-radius:3px;color:var(--line);}
 .region-name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+/* Menu options never truncate an edition name: the menu grows to fit it (or the name wraps in the narrow drawer). */
+.region-menu .region-name{overflow:visible;text-overflow:clip;white-space:normal;}
 .region-beta{flex-shrink:0;font-family:var(--font-mono);font-size:.56rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;line-height:1;padding:.18rem .32rem;border-radius:999px;border:1px solid var(--line);color:var(--text-muted);}
 .region-check{flex-shrink:0;color:var(--gold);visibility:hidden;}
 .region-opt[aria-current="true"],
@@ -2413,7 +2415,8 @@ html.js.fold main:has(#pattern):has(#syllabus) section:is(#syllabus,#prep,[aria-
 html[data-region="in"] .hd-ed-cur:not([data-region-cur="in"]),
 html[data-region="us"] .hd-ed-cur:not([data-region-cur="us"]),
 html[data-region="uk"] .hd-ed-cur:not([data-region-cur="uk"]){display:none;}
-.hd-ed-menu{left:auto;right:0;width:240px;}
+/* Right-aligned to the button so it opens leftward into the page; sized to its content, never past the viewport. */
+.hd-ed-menu{left:auto;right:0;width:max-content;min-width:260px;max-width:calc(100vw - 1.5rem);overflow:visible;}
 .topbar-links a{display:inline-flex;align-items:center;min-height:40px;padding:0 .7rem;border-radius:999px;color:var(--on-ink-muted);font-size:.9rem;font-weight:600;text-decoration:none;}
 .topbar-links a:hover{color:var(--on-ink-strong);background:rgba(var(--hl-rgb),.06);}
 .topbar-links a:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
@@ -2703,7 +2706,7 @@ h3 .mob-badge{margin-left:.35rem;}
 .gw-dest-btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
 .gw-dest[open] > .gw-dest-btn{border-color:var(--gold);}
 .gw-dest[open] .region-dd-caret{transform:rotate(180deg);}
-.gw-dest-menu{left:auto;right:0;width:300px;max-width:calc(100vw - 1.5rem);}
+.gw-dest-menu{left:auto;right:0;width:max-content;min-width:300px;max-width:calc(100vw - 1.5rem);overflow:visible;}
 @media (prefers-reduced-motion:no-preference){
   .gw-dest[open] .gw-dest-menu{animation:gwDrop .16s var(--ease);}
   @keyframes gwDrop{from{opacity:0;transform:translateY(-4px);}to{opacity:1;transform:none;}}

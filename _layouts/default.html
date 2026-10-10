@@ -22,6 +22,9 @@
       careers_href, careers_label, faq_href   "Guidance" column links
     progress_full: true         render the scroll progress bar pre-filled (404)
     back_to_top: false          omit the back-to-top button
+    shell: gateway              global home only (index.html): no sidebar, no breadcrumb bar and no search
+                                overlay; the top bar is _includes/header-gateway.html (inline search +
+                                study-destination menu). Every other page keeps the full app shell.
   App shell: a full-width fixed .topbar (toggle, logo + name, breadcrumb, search, theme)
   + .sidebar (fixed left rail / mobile drawer, starts below the bar) + .app-main with
   the page content and the footer.
@@ -119,11 +122,16 @@
 </script>
 {%- endif %}
 </head>
-<body{% if page.stream %} data-stream="{{ page.stream }}"{% endif %}>
+{%- assign gateway = false -%}{%- if page.shell == "gateway" %}{%- assign gateway = true -%}{%- endif %}
+<body{% if page.stream %} data-stream="{{ page.stream }}"{% endif %}{% if gateway %} class="shell-gw"{% endif %}>
 <a href="#main" class="skip-link">Skip to main content</a>
 <div class="progress-bar" id="progressBar"{% if page.progress_full %} style="width:100%;"{% endif %}></div>
 
 {%- capture shell -%}
+{%- if gateway %}
+<div class="app-main">
+{% include header-gateway.html %}
+{%- else %}
 {% include sidebar.html careers_href=page.header.careers_href careers_label=page.header.careers_label faq_href=page.header.faq_href faq_label=page.header.faq_label active_stream=page.header.active_stream %}
 
 {% include career-search.html %}
@@ -132,6 +140,7 @@
 {% include header.html %}
 
 <div class="crumb-bar"><div class="container">{% include breadcrumb.html parent_href=page.breadcrumb.parent_href parent_label=page.breadcrumb.parent_label current=page.breadcrumb.current %}</div></div>
+{%- endif %}
 
 {{ content }}
 

@@ -40,6 +40,8 @@
         <li><a href="cookie-policy.html">Cookie Policy</a></li>
       </ul>
     </div>
+    {%- comment -%} The global home lists every edition under "Start here" already. {%- endcomment -%}
+    {%- unless region_id == "global" %}
     <div class="footer-col">
       <h2>Other editions</h2>
       <ul>
@@ -48,6 +50,7 @@
         {%- endunless %}{%- endfor %}
       </ul>
     </div>
+    {%- endunless %}
   </div>
   {% include footer-open.html %}
   <div class="container footer-bottom">
@@ -59,7 +62,7 @@
 <footer class="site-footer">
   <div class="container footer-top">
     <div class="footer-brand">
-      <a href="index.html" class="logo">
+      <a href="{{ R.home | default: 'india.html' }}" class="logo">
         {% include logo-mark.html size=34 uid="foot" %}
         <span class="brand-name"><span class="brand-kicker">Education</span> <span class="brand-word">Margdarshan</span></span>
       </a>
@@ -103,7 +106,7 @@
         <li><a href="high-paying-careers.html">High-Paying Careers</a></li>
         <li><a href="fast-track-jobs.html">Fast-Track Jobs</a></li>
         <li><a href="professional-courses.html">Professional Courses</a></li>
-        <li><a href="{{ include.guidance_careers_href | default: "index.html#careers" }}">{{ include.guidance_careers_label | default: "All Careers" }}</a></li>
+        <li><a href="{{ include.guidance_careers_href | default: "india.html#careers" }}">{{ include.guidance_careers_label | default: "All Careers" }}</a></li>
         {% if include.guidance_faq_href %}<li><a href="{{ include.guidance_faq_href }}">FAQs</a></li>{% endif %}
       </ul>
     </div>

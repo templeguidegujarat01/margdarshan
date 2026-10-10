@@ -22,13 +22,28 @@
 #   nav           _data file holding this edition's `sidebar` (and optional
 #                 `footer`) — read as site.data[nav]
 #   crumb_home    label of the first breadcrumb (links to `home`)
-#   tagline       optional one-line subtitle on the India home edition picker
+#   tagline       one-line subtitle on the edition cards (global home, India home picker) and the destination menu
+#   map_pin       {x, y} % position of the edition pin on the global home world map
+#                 (printed by scripts/build-world-map.mjs, same projection as assets/img/world-dots.svg)
 #   og_image / og_image_alt   1200x630 social preview (WhatsApp, Facebook, X) for the edition's pages
 #   vocab         plain words each edition uses for the same idea, short enough for a 15-year-old:
 #                 money_note (how to read pay figures), path_title (heading of the route strip).
 #                 Read by in-career.html and us-career-v2.html; change wording here only.
 
 default: in
+
+# The global home (index.html, front matter region: global) belongs to no country. It is NOT in
+# `list`, so it never shows up as an edition in switchers, footers or search; it only gives the
+# layout a lang, a home link and a footer (_data/nav_global.yml) for that one page.
+global:
+  id: global
+  name: Global
+  short: Global
+  lang: en
+  home: index.html
+  path_prefix: ""
+  nav: nav_global
+  crumb_home: Home
 
 # localStorage key for the visitor's chosen edition. URL context always wins
 # over the stored value (a /us/ page is always USA).
@@ -60,10 +75,12 @@ in:
   locale: en_IN
   currency: INR
   currency_symbol: "₹"
-  home: index.html
+  home: india.html
   path_prefix: ""
   nav: nav
-  crumb_home: Home
+  crumb_home: India Home
+  tagline: "Streams, exams, colleges and govt jobs"
+  map_pin: { x: 71.92, y: 43.55 }
   status: live
   data_note: "Salary ranges are indicative INR figures; check each page's sources."
   vocab:
@@ -86,6 +103,8 @@ us:
   path_prefix: us/
   nav: nav_us
   crumb_home: USA Home
+  tagline: "Careers, colleges and licenses"
+  map_pin: { x: 22.64, y: 31.56 }
   status: beta
   data_note: "Pay and outlook figures come from the U.S. Bureau of Labor Statistics (BLS); each figure shows its reference year."
   vocab:
@@ -109,6 +128,7 @@ uk:
   nav: nav_uk
   crumb_home: UK Home
   tagline: "Careers, routes and pay"
+  map_pin: { x: 49.31, y: 21.63 }
   status: beta
   data_note: "Pay figures come from the Office for National Statistics (ONS) Annual Survey of Hours and Earnings; each page shows the year."
   vocab:

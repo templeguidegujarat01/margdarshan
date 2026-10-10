@@ -1,0 +1,56 @@
+{%- comment -%}
+  Top bar of the global home (index.html, front matter shell: gateway). No sidebar and no search overlay:
+    left   = brand (logo + name, links to the global home)
+    centre = inline search: the visitor types straight into the bar and results drop down under it
+             (site.js block "Global home"; same index assets/search.json and the same ranking as the
+             overlay on every other page). Phones: the search moves to a second row of the bar.
+    right  = "Select Study Destination" menu (<details>, works without JS; options are plain links to
+             each edition's home from _data/regions.yml → list) + About + theme switch.
+  Bar height is fixed in CSS (--header-h on .shell-gw), so nothing below moves when results open.
+{%- endcomment -%}
+<header class="topbar gw-bar">
+  <div class="gw-brand">{% include brand.html uid="top" %}</div>
+
+  <form class="gw-search" id="gwSearchForm" role="search" aria-label="Search every edition" autocomplete="off">
+    <svg class="gw-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+    <label class="sr-only" for="gwSearch">Search careers, exams and colleges in India, the USA and the UK</label>
+    <input id="gwSearch" type="search" placeholder="Search a career, course or exam…" spellcheck="false"
+           role="combobox" aria-expanded="false" aria-controls="gwSearchList" aria-autocomplete="list">
+    <kbd class="gw-search-kbd" aria-hidden="true">/</kbd>
+    <button type="submit" class="gw-search-go">Search</button>
+    <div class="gw-search-pop" id="gwSearchPop" hidden>
+      <ul class="gw-search-list" id="gwSearchList" role="listbox" aria-label="Search results"></ul>
+      <p class="gw-search-note" id="gwSearchNote" aria-live="polite"></p>
+    </div>
+  </form>
+
+  <div class="gw-actions">
+    <details class="gw-dest" id="gwDest">
+      <summary class="gw-dest-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></svg>
+        <span class="gw-dest-label"><span class="gw-dest-pre">Select </span><span class="gw-dest-mid">Study </span>Destination</span>
+        <svg class="region-dd-caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </summary>
+      <div class="region-menu gw-dest-menu">
+        <span class="region-menu-head" id="gwDestHead">Choose a country edition</span>
+        <ul class="region-menu-list" aria-labelledby="gwDestHead">
+          {%- for rid in site.data.regions.list %}
+          {%- assign r = site.data.regions[rid] %}
+          <li><a class="region-opt gw-dest-opt" href="{{ r.home }}" hreflang="{{ r.lang }}" data-region-set="{{ rid }}">
+            <svg class="region-flag" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">{{ r.flag_svg }}</svg>
+            <span class="region-opt-text"><span class="region-name">{{ r.name }}{% if r.status == "beta" %}<span class="sr-only"> (beta)</span>{% endif %}</span><span class="gw-dest-sub">{{ r.tagline }}</span></span>
+            {%- if r.status == "beta" %}<span class="region-beta" aria-hidden="true">Beta</span>{% endif %}
+            <span class="gw-dest-last" hidden>Last visited</span>
+          </a></li>
+          {%- endfor %}
+        </ul>
+        <a class="gw-dest-more" href="study-abroad.html">Studying abroad from India? Country guides →</a>
+      </div>
+    </details>
+    <a class="gw-about" href="about.html">About</a>
+    <button type="button" class="icon-btn" id="themeToggle" aria-label="Toggle dark mode" aria-pressed="false">
+      <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+      <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+    </button>
+  </div>
+</header>

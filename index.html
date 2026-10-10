@@ -1,339 +1,308 @@
 ---
-title: "Education Margdarshan — Free Career Guidance for Indian Students After 10th & 12th"
-description: "Education Margdarshan is a completely free career guidance platform for Indian students. Compare Science, Commerce, Arts, Diploma and ITI, and explore 120+ career guides covering eligibility, fees, entrance exams, salary and future scope."
+title: "Education Margdarshan — Free Career Guidance for India, the USA and the UK"
+description: "Free, source-linked career guidance for students. Pick your study destination — India, the USA or the UK — then explore careers, entrance exams, colleges, licences and pay for that country."
 og_type: "website"
-og_title: "Education Margdarshan — Free Career Guidance for Indian Students"
-og_description: "Compare Science, Commerce, Arts, Diploma and ITI, and explore 120+ free, in-depth career guides built for Indian students."
-header:
-  careers_href: "#careers"
-  faq_href: "#faq"
-footer:
-  col3_heading: "Popular Careers"
-  careers_href: "#careers"
-  careers_label: "Explore Careers"
-  faq_href: "#faq"
-  col3_links:
-    - { href: "ca.html", label: "Chartered Accountant" }
-    - { href: "mbbs.html", label: "MBBS" }
-    - { href: "cse.html", label: "Computer Science" }
-    - { href: "datascience.html", label: "Data Science" }
-    - { href: "bba.html", label: "BBA" }
-    - { href: "nursing.html", label: "Nursing" }
+og_title: "Education Margdarshan — Choose your path with clarity, not confusion"
+og_description: "Free career guidance mapped globally, centred locally: India, USA and UK editions, each with its own exams, colleges, licences and pay."
+region: global
+shell: gateway
+back_to_top: false
+# Per-edition card on this page: which number to show (counted below from _data, never typed) and
+# 4 starting points inside that edition. Edition name, flag, tagline and home come from _data/regions.yml.
+editions:
+  in:
+    stat: in
+    stat_label: "career guides"
+    links:
+      - { href: "after-10th.html", label: "After Class 10" }
+      - { href: "after-12th.html", label: "After Class 12" }
+      - { href: "govt-exams.html", label: "Govt exams & jobs" }
+      - { href: "colleges.html", label: "College finder" }
+  us:
+    stat: us
+    stat_label: "career pathways"
+    links:
+      - { href: "us/high-school/", label: "High school plan" }
+      - { href: "us/college/", label: "College & money" }
+      - { href: "us/professional-licenses/", label: "Professional licenses" }
+      - { href: "us/international-students/", label: "International students" }
+  uk:
+    stat: uk
+    stat_label: "career guides"
+    links:
+      - { href: "uk/#ladder", label: "GCSEs to career" }
+      - { href: "uk/#ucas", label: "UCAS points" }
+      - { href: "uk/careers/law/", label: "Solicitor or barrister" }
+      - { href: "uk/careers/", label: "All UK careers" }
+# "One career, three countries": only pages that exist. A missing edition shows "Not covered yet".
+same_career:
+  - name: "Law"
+    in: { href: "llb.html", label: "LLB and CLAT" }
+    us: { href: "us/careers/law/", label: "J.D. and the bar" }
+    uk: { href: "uk/careers/law/", label: "Solicitor or barrister" }
+  - name: "Accountancy"
+    in: { href: "ca.html", label: "Chartered Accountant (CA)" }
+    us: { href: "us/careers/accounting/", label: "Accounting and CPA" }
+    uk: { href: "uk/careers/accountancy/", label: "ACA or ACCA" }
+  - name: "Software engineering"
+    in: { href: "software-engineer.html", label: "Software engineer" }
+    us: { href: "us/careers/software-engineering/", label: "Software engineering" }
+    uk: { href: "uk/careers/software-engineering/", label: "Software engineer" }
+  - name: "Medicine"
+    in: { href: "mbbs.html", label: "MBBS and NEET" }
+    us: { href: "us/careers/medicine/", label: "Pre-med to M.D./D.O." }
+  - name: "Data science"
+    in: { href: "datascience.html", label: "Data science" }
+    us: { href: "us/careers/data-science/", label: "Data science" }
 ---
+{%- comment -%}
+  Global home. Belongs to no country (region: global, see _data/regions.yml) and uses the gateway shell
+  (no sidebar; header-gateway.html). Nothing here defaults to India: every edition gets the same card.
+  Counts are computed from _data at build time — never type them in.
+{%- endcomment -%}
+{%- assign n_in = 0 -%}{%- assign n_in_src = 0 -%}
+{%- for c in site.data.in.careers -%}{%- assign n_in = n_in | plus: 1 -%}{%- assign n_in_src = n_in_src | plus: c[1].sources.size -%}{%- endfor -%}
+{%- assign n_uk = 0 -%}{%- for c in site.data.uk.careers -%}{%- assign n_uk = n_uk | plus: 1 -%}{%- endfor -%}
+{%- assign n_us_src = 0 -%}{%- for x in site.data.us.sources.list -%}{%- assign n_us_src = n_us_src | plus: 1 -%}{%- endfor -%}
+{%- assign n_uk_src = 0 -%}{%- for x in site.data.uk.sources.list -%}{%- assign n_uk_src = n_uk_src | plus: 1 -%}{%- endfor -%}
+{%- assign n_src = n_in_src | plus: n_us_src | plus: n_uk_src -%}
+{%- assign n_us = site.data.us.pathways.list.size -%}
+{%- assign n_col = site.data.colleges.colleges.size -%}
+{%- assign n_guides = site.data.search.items.size -%}
+{%- assign n_ed = site.data.regions.list.size -%}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Education Margdarshan",
-  "url": "{{ site.url }}{{ site.baseurl }}/",
-  "description": "A free career guidance platform helping Indian students choose the right stream and career after Class 10 and Class 12.",
-  "areaServed": "IN",
-  "knowsLanguage": "en"
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
+  "@graph": [
     {
-      "@type": "Question",
-      "name": "Is Education Margdarshan really free to use?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Yes. Every stream guide and career page on Education Margdarshan is free to read, with no subscription, paywall or sign-up required." }
+      "@type": "Organization",
+      "@id": "{{ site.url }}{{ site.baseurl }}/#org",
+      "name": "Education Margdarshan",
+      "url": "{{ site.url }}{{ site.baseurl }}/",
+      "logo": "{{ '/assets/img/favicon-512.png' | absolute_url }}",
+      "description": "Free career guidance for students in India, the United States and the United Kingdom.",
+      "areaServed": ["IN", "US", "GB"],
+      "knowsLanguage": "en"
     },
     {
-      "@type": "Question",
-      "name": "I don't know which stream to choose after Class 10. Where do I start?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Start with our After Class 10 guide. It walks through Science, Commerce, Arts, Diploma and ITI in plain language, so you can shortlist streams before choosing a specific career." }
+      "@type": "WebSite",
+      "name": "Education Margdarshan",
+      "url": "{{ site.url }}{{ site.baseurl }}/",
+      "publisher": { "@id": "{{ site.url }}{{ site.baseurl }}/#org" }
     },
     {
-      "@type": "Question",
-      "name": "Does Education Margdarshan recommend one career over another?",
-      "acceptedAnswer": { "@type": "Answer", "text": "No. Each guide lays out eligibility, fees, entrance exams, salary ranges and future scope for a career so you can judge fit for yourself. We do not push any single path." }
-    },
-    {
-      "@type": "Question",
-      "name": "How often is the information updated?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Guides are reviewed regularly so that eligibility criteria, entrance exam details and other facts stay current with the latest admission cycle." }
-    },
-    {
-      "@type": "Question",
-      "name": "Can I use Education Margdarshan on my phone?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Yes. Every page is built to work well on phones, tablets and laptops, and no app installation is needed." }
-    },
-    {
-      "@type": "Question",
-      "name": "Do I need to create an account to read a guide?",
-      "acceptedAnswer": { "@type": "Answer", "text": "No account or sign-up is needed to read any guide on Education Margdarshan." }
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Which edition should I choose?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Choose the country where you plan to study or start your career. Each edition explains that country's own school system, entrance tests, licences and pay. If you are an Indian student planning to study abroad, start with the study-abroad guides in the India Edition, then read the edition of the country you are going to." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Education Margdarshan free?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Every guide in every edition is free to read. There is no sign-up, no subscription and no paywall." }
+        },
+        {
+          "@type": "Question",
+          "name": "Are the USA and UK editions complete?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Not yet. Both are in beta. The USA Edition has {{ n_us }} career pathways and the UK Edition has {{ n_uk }} career guides so far. The India Edition is the largest, with {{ n_in }} career guides." }
+        },
+        {
+          "@type": "Question",
+          "name": "Where do the salary numbers come from?",
+          "acceptedAnswer": { "@type": "Answer", "text": "It depends on the edition. USA pay comes from the U.S. Bureau of Labor Statistics and UK pay from the Office for National Statistics; each figure shows its year. India salary ranges are indicative figures, and each page lists its sources." }
+        }
+      ]
     }
   ]
 }
 </script>
 
-<main id="main">
+<main id="main" class="gw" data-no-page-nav>
 
-  <!-- ===================== HERO ===================== -->
-  <section class="hero" aria-labelledby="hero-heading">
-    <svg class="hero-bg" viewBox="0 0 1200 500" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M-50 420 C 200 380, 300 460, 480 380 S 760 260, 950 320 1150 200 1300 250" stroke="#E8A33D" stroke-width="1.4" fill="none" opacity=".35"/>
-      <path d="M-50 300 C 180 340, 340 220, 520 280 S 780 380, 980 300 1180 340 1300 300" stroke="#3FA78D" stroke-width="1.2" fill="none" opacity=".25"/>
-    </svg>
-    {%- comment -%} Capacity numbers are counted from the data files at build time — never typed in by hand. {%- endcomment -%}
-    {%- assign n_in = 0 -%}{%- assign n_in_src = 0 -%}
-    {%- for c in site.data.in.careers -%}{%- assign n_in = n_in | plus: 1 -%}{%- assign n_in_src = n_in_src | plus: c[1].sources.size -%}{%- endfor -%}
-    {%- assign n_us_src = 0 -%}{%- for x in site.data.us.sources.list -%}{%- assign n_us_src = n_us_src | plus: 1 -%}{%- endfor -%}
-    {%- assign n_src = n_in_src | plus: n_us_src -%}
-    {%- assign n_us = site.data.us.pathways.list.size -%}
-    {%- assign n_guides = site.data.search.items.size %}
-    <div class="container hero-inner hub-inner">
-      <div class="hub-head">
-        <span class="eyebrow">Free career guidance · India and USA editions</span>
-        <h1 id="hero-heading">Choose your path with clarity, not confusion.</h1>
-        <p class="hero-sub">Every stream and career after Class 10 and Class 12 — eligibility, entrance exams, fees, salary and future scope, explained in plain English.</p>
-        <ul class="hub-promise">
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>100% free</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>No sign-up</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Links to official sources</li>
-        </ul>
+  <!-- ===================== HERO + WORLD MAP ===================== -->
+  <section class="gw-hero" aria-labelledby="gw-title">
+    <div class="container">
+      <div class="gw-hero-head">
+        <span class="eyebrow">Free career guidance · {{ n_ed }} country editions</span>
+        <h1 id="gw-title">Choose your path with clarity, not confusion. <span class="gw-title-accent">Mapped globally, centered locally.</span></h1>
+        <p class="gw-lede">Pick the country where you want to study or work. Each edition explains that country’s own exams, colleges, licences and pay, in plain English, with links to the official sources.</p>
       </div>
 
-      <div class="hub-split">
-        <!-- Left: country. One bordered card per edition in _data/regions.yml (flags are SVG, not emoji: Windows shows flag emoji as letters).
-             This page is the India home, so India jumps to the streams below; other editions open their own home.
-             Under it, the study-abroad guides (written for Indian students going abroad, not full editions). -->
-        <nav class="hub-pane ed-pick" aria-labelledby="ed-pick-title">
-          <h2 class="ed-pick-title" id="ed-pick-title"><span class="hub-step" aria-hidden="true">1</span>Select your country edition</h2>
-          <ul class="ed-grid">
-            {%- for rid in site.data.regions.list %}
-            {%- assign r = site.data.regions[rid] %}
-            <li><a class="ed-card" href="{% if rid == 'in' %}#streams{% else %}{{ r.home }}{% endif %}" hreflang="{{ r.lang }}" data-region-set="{{ rid }}"{% if rid == 'in' %} aria-current="true"{% endif %}>
-              <svg class="ed-flag" width="34" height="34" viewBox="0 0 24 24" aria-hidden="true">{{ r.flag_svg }}</svg>
-              <span><span class="ed-name">{{ r.name }}{% if r.status == "beta" %} <span class="region-beta">Beta</span>{% endif %}</span><span class="ed-sub">{% if rid == 'in' %}You are here · start exploring{% else %}{{ r.tagline | default: "Careers, colleges and licenses" }}{% endif %}</span></span>
-              <span class="ed-go" aria-hidden="true">→</span>
-            </a></li>
+      {%- comment -%}
+        World map: assets/img/world-dots.svg (built by scripts/build-world-map.mjs from Natural Earth land data)
+        is a CSS mask, so the dots follow the theme colour. Fixed aspect-ratio box = no layout shift.
+        Pins are real links to each edition; their % positions are map_pin in _data/regions.yml.
+      {%- endcomment %}
+      <figure class="gw-map">
+        <div class="gw-map-dots" role="img" aria-label="World map with the three country editions marked: India, the United States and the United Kingdom"></div>
+        {%- for rid in site.data.regions.list %}
+        {%- assign r = site.data.regions[rid] %}
+        {%- if r.map_pin %}
+        <a class="gw-pin gw-pin-{{ rid }}" href="{{ r.home }}" hreflang="{{ r.lang }}" data-region-set="{{ rid }}" style="left:{{ r.map_pin.x }}%;top:{{ r.map_pin.y }}%">
+          <span class="gw-pin-dot" aria-hidden="true"></span>
+          <span class="gw-pin-tag"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">{{ r.flag_svg }}</svg>{{ r.short }}<span class="sr-only"> — open the {{ r.name }}</span></span>
+        </a>
+        {%- endif %}
+        {%- endfor %}
+        <figcaption class="gw-map-cap">Tap a country to open its edition.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ===================== EDITIONS ===================== -->
+  <section class="gw-block" id="editions" aria-labelledby="editions-heading">
+    <div class="container">
+      <div class="gw-head">
+        <span class="eyebrow">Select your study destination</span>
+        <h2 id="editions-heading">Where do you want to build your career?</h2>
+        <p>Every edition is written for students in that country: its school system, its entrance tests and its rules.</p>
+      </div>
+      <ul class="gw-eds">
+        {%- for rid in site.data.regions.list %}
+        {%- assign r = site.data.regions[rid] %}
+        {%- assign E = page.editions[rid] %}
+        {%- assign stat = 0 %}
+        {%- if E.stat == "in" %}{% assign stat = n_in %}{% elsif E.stat == "us" %}{% assign stat = n_us %}{% elsif E.stat == "uk" %}{% assign stat = n_uk %}{% endif %}
+        <li class="gw-ed">
+          <a class="gw-ed-main" href="{{ r.home }}" hreflang="{{ r.lang }}" data-region-set="{{ rid }}">
+            <svg class="gw-ed-flag" width="40" height="40" viewBox="0 0 24 24" aria-hidden="true">{{ r.flag_svg }}</svg>
+            <span class="gw-ed-name">{{ r.name }}{% if r.status == "beta" %} <span class="region-beta">Beta</span>{% endif %}</span>
+            <span class="gw-ed-sub">{{ r.tagline }}</span>
+            {%- if E %}<span class="gw-ed-stat"><strong>{{ stat }}</strong> {{ E.stat_label }}</span>{% endif %}
+            <span class="gw-ed-go">Open {{ r.short }} Edition <span aria-hidden="true">→</span></span>
+          </a>
+          {%- if E.links %}
+          <ul class="gw-ed-links" aria-label="Start points in the {{ r.name }}">
+            {%- for l in E.links %}
+            <li><a href="{{ l.href }}">{{ l.label }}</a></li>
             {%- endfor %}
           </ul>
-          <p class="hub-mini-label" id="hub-abroad-label">Study abroad from India</p>
-          <ul class="hub-links" aria-labelledby="hub-abroad-label">
-            <li><a href="study-abroad/uk.html">UK</a></li>
-            <li><a href="study-abroad/canada.html">Canada</a></li>
-            <li><a href="study-abroad/australia.html">Australia</a></li>
-            <li><a href="study-abroad/germany.html">Germany</a></li>
-            <li><a href="study-abroad/ireland.html">Ireland</a></li>
-            <li><a href="study-abroad/singapore.html">Singapore</a></li>
-            <li><a href="study-abroad.html">All countries →</a></li>
-          </ul>
-        </nav>
+          {%- endif %}
+        </li>
+        {%- endfor %}
+      </ul>
+    </div>
+  </section>
 
-        <!-- Right: subject / career search. Typing hands the text to the site search overlay
-             (_includes/career-search.html, wired in site.js) so there is one search engine and one result list. -->
-        <div class="hub-pane hub-find">
-          <h2 class="ed-pick-title" id="hub-find-title"><span class="hub-step" aria-hidden="true">2</span>Search a subject or career</h2>
-          <form class="hub-search" id="hubSearchForm" role="search" aria-labelledby="hub-find-title">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-            <label class="sr-only" for="hubSearch">Search careers, courses and exams</label>
-            <input id="hubSearch" type="search" autocomplete="off" placeholder="Career, course or exam">
-            <button type="submit" class="hub-search-go">Search</button>
-          </form>
-          <p class="hub-mini-label" id="hub-stream-label">Or start from a stream</p>
-          <ul class="hub-links" aria-labelledby="hub-stream-label">
-            <li><a href="science.html">Science</a></li>
-            <li><a href="commerce.html">Commerce</a></li>
-            <li><a href="arts.html">Arts</a></li>
-            <li><a href="diploma.html">Diploma</a></li>
-            <li><a href="iti.html">ITI</a></li>
-            <li><a href="govt-exams.html">Govt exams</a></li>
-            <li><a href="after-10th.html">After Class 10</a></li>
-            <li><a href="after-12th.html">After Class 12</a></li>
-          </ul>
-        </div>
+  <!-- ===================== START FROM WHERE YOU ARE ===================== -->
+  <section class="gw-block gw-alt" id="start" aria-labelledby="start-heading">
+    <div class="container">
+      <div class="gw-head">
+        <span class="eyebrow">Start from where you are</span>
+        <h2 id="start-heading">Which one sounds like you?</h2>
       </div>
+      <ul class="gw-paths">
+        <li><a class="gw-path" href="after-10th.html"><span class="gw-path-flag">{%- assign f = site.data.regions.in.flag_svg -%}<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">{{ f }}</svg></span><span><strong>I’m in school in India</strong><span>Class 10 or 12: pick a stream, then a career</span></span></a></li>
+        <li><a class="gw-path" href="us/high-school/"><span class="gw-path-flag">{%- assign f = site.data.regions.us.flag_svg -%}<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">{{ f }}</svg></span><span><strong>I’m in high school in the USA</strong><span>A grade 9–12 plan for college and careers</span></span></a></li>
+        <li><a class="gw-path" href="uk/#ladder"><span class="gw-path-flag">{%- assign f = site.data.regions.uk.flag_svg -%}<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">{{ f }}</svg></span><span><strong>I’m doing GCSEs or A levels</strong><span>How UK school leads to a job</span></span></a></li>
+        <li><a class="gw-path" href="study-abroad.html"><span class="gw-path-flag gw-path-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 16l20-6-3-2-6 2-7-4-2 1 5 4-4 1-2-1-1 1z"/><path d="M3 21h18"/></svg></span><span><strong>I want to study abroad from India</strong><span>Visas, costs and scholarships, country by country</span></span></a></li>
+        <li><a class="gw-path" href="us/international-students/"><span class="gw-path-flag gw-path-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M8 17h8"/></svg></span><span><strong>I’m an international student in the USA</strong><span>F-1 rules, OPT and work permission</span></span></a></li>
+        <li><a class="gw-path" href="career-fit.html"><span class="gw-path-flag gw-path-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg></span><span><strong>I’m not sure what fits me</strong><span>A short quiz on your interests (India Edition)</span></span></a></li>
+      </ul>
+    </div>
+  </section>
 
-      <dl class="cap-bar" aria-label="What is on Education Margdarshan">
-        <div><dt>India career guides</dt><dd>{{ n_in }}</dd></div>
-        <div><dt>USA career pathways</dt><dd>{{ n_us }}</dd></div>
-        <div><dt>Searchable guides and hubs</dt><dd>{{ n_guides }}</dd></div>
-        <div><dt>Official sources cited</dt><dd>{{ n_src }}</dd></div>
+  <!-- ===================== ONE CAREER, THREE COUNTRIES ===================== -->
+  <section class="gw-block" id="compare" aria-labelledby="compare-heading">
+    <div class="container">
+      <div class="gw-head">
+        <span class="eyebrow">Same career, different country</span>
+        <h2 id="compare-heading">One career, three routes</h2>
+        <p>The same job can need a different degree, exam and licence in each country. Open a country to see its route.</p>
+      </div>
+      <div class="table-wrap gw-cmp-wrap">
+        <table class="gw-cmp">
+          <caption class="sr-only">Career guides for the same career in each edition</caption>
+          <thead>
+            <tr>
+              <th scope="col">Career</th>
+              {%- for rid in site.data.regions.list %}
+              {%- assign r = site.data.regions[rid] %}
+              <th scope="col"><span class="gw-cmp-ed"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">{{ r.flag_svg }}</svg>{{ r.short }}</span></th>
+              {%- endfor %}
+            </tr>
+          </thead>
+          <tbody>
+            {%- for row in page.same_career %}
+            <tr>
+              <th scope="row">{{ row.name }}</th>
+              {%- for rid in site.data.regions.list %}
+              {%- assign cell = row[rid] %}
+              <td data-ed="{{ site.data.regions[rid].short }}">{% if cell %}<a href="{{ cell.href }}">{{ cell.label }}<span class="sr-only"> ({{ site.data.regions[rid].name }})</span></a>{% else %}<span class="gw-cmp-none">Not covered yet</span>{% endif %}</td>
+              {%- endfor %}
+            </tr>
+            {%- endfor %}
+          </tbody>
+        </table>
+      </div>
+      <p class="gw-note">Moving between countries? Career pages show which qualifications are recognised in another edition, where an official rule exists.</p>
+    </div>
+  </section>
+
+  <!-- ===================== WHAT IS ON THE SITE (counted from _data) ===================== -->
+  <section class="gw-block gw-alt" id="numbers" aria-labelledby="numbers-heading">
+    <div class="container">
+      <div class="gw-head">
+        <span class="eyebrow">What is inside</span>
+        <h2 id="numbers-heading">Built from official sources, counted from our own data</h2>
+      </div>
+      <dl class="gw-stats">
+        <div class="gw-stat"><dt>India career guides</dt><dd>{{ n_in }}</dd></div>
+        <div class="gw-stat"><dt>USA career pathways</dt><dd>{{ n_us }}</dd></div>
+        <div class="gw-stat"><dt>UK career guides</dt><dd>{{ n_uk }}</dd></div>
+        <div class="gw-stat"><dt>Indian colleges listed</dt><dd>{{ n_col }}</dd></div>
+        <div class="gw-stat"><dt>Official sources cited</dt><dd>{{ n_src }}</dd></div>
+        <div class="gw-stat"><dt>Searchable guides and hubs</dt><dd>{{ n_guides }}</dd></div>
       </dl>
     </div>
   </section>
 
-  <!-- ===================== STREAMS ===================== -->
-  <section class="streams" id="streams" aria-labelledby="streams-heading">
+  <!-- ===================== HOW IT WORKS ===================== -->
+  <section class="gw-block" id="how" aria-labelledby="how-heading">
     <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">Explore by stream</span>
-        <h2 id="streams-heading">Choose your stream</h2>
-        <p>Every stream opens different doors. Compare them honestly before you choose one.</p>
+      <div class="gw-head">
+        <span class="eyebrow">How it works</span>
+        <h2 id="how-heading">Three steps, no sign-up</h2>
       </div>
-
-      <div class="stream-grid">
-        <article class="stream-card s-science reveal">
-          <span class="stream-icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6l-5.5 9a2 2 0 001.7 3h11.6a2 2 0 001.7-3L14 9V3"/><path d="M8.5 14h7"/></svg></span>
-          <h3>Science</h3>
-          <p>For students drawn to engineering, medicine, research and technology. Keeps the widest range of options open after Class 12.</p>
-          <div class="stream-chips"><span>MBBS</span><span>Engineering</span><span>AI Engineer</span><span>Biotech</span></div>
-          <a href="science.html" class="stream-link">Explore Science <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </article>
-
-        <article class="stream-card s-commerce reveal">
-          <span class="stream-icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a2 2 0 012-2h4a2 2 0 012 2v2"/></svg></span>
-          <h3>Commerce</h3>
-          <p>For students interested in business, finance and the numbers behind how companies actually run.</p>
-          <div class="stream-chips"><span>CA</span><span>CS</span><span>BBA</span><span>Actuarial Science</span></div>
-          <a href="commerce.html" class="stream-link">Explore Commerce <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </article>
-
-        <article class="stream-card s-arts reveal">
-          <span class="stream-icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="9" cy="10" r="1"/><circle cx="14" cy="8.5" r="1"/><circle cx="16" cy="13" r="1"/><path d="M12 21a4 4 0 010-8 3 3 0 003-3"/></svg></span>
-          <h3>Arts</h3>
-          <p>For students drawn to society, language, design, law, media and the humanities.</p>
-          <div class="stream-chips"><span>Economics</span><span>Design</span><span>Law</span><span>Journalism</span></div>
-          <a href="arts.html" class="stream-link">Explore Arts <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </article>
-
-        <article class="stream-card s-diploma reveal">
-          <span class="stream-icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.5 2 4 .6-2.9 2.8.7 4-3.9-2-3.9 2 .7-4L7.2 4.6l4-.6z"/><path d="M8 15v6l4-2 4 2v-6"/></svg></span>
-          <h3>Diploma</h3>
-          <p>A faster, skill-first route into the workforce, or into an engineering degree through lateral entry.</p>
-          <div class="stream-chips"><span>Polytechnic</span><span>Lateral Entry</span></div>
-          <a href="diploma.html" class="stream-link">Explore Diploma <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </article>
-
-        <article class="stream-card s-iti reveal">
-          <span class="stream-icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 10-5.4 5.4L4 17v3h3l5.3-5.3a4 4 0 005.4-5.4z"/></svg></span>
-          <h3>ITI</h3>
-          <p>Hands-on trade training for students who want a job-ready skill in the shortest possible time.</p>
-          <div class="stream-chips"><span>Electrician</span><span>Fitter</span><span>Welder</span></div>
-          <a href="iti.html" class="stream-link">Explore ITI <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== TRENDING CAREERS ===================== -->
-  <section class="block" id="careers" aria-labelledby="careers-heading">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">Trending careers</span>
-        <h2 id="careers-heading">Popular careers students explore</h2>
-        <p>Starting salary and duration are typical ranges for freshers in India. Open a guide for eligibility, exams, fees and scope.</p>
-      </div>
-      <ul class="trend-grid">
-        <li><a class="trend-card reveal" href="ca.html"><span class="trend-badge t-commerce">Commerce</span><h3>Chartered Accountant (CA)</h3><dl class="trend-meta"><div><dt>Starting salary</dt><dd>₹6–12 LPA</dd></div><div><dt>Duration</dt><dd>~4.5–5 yrs</dd></div></dl><span class="trend-go">View guide →</span></a></li>
-        <li><a class="trend-card reveal" href="mbbs.html"><span class="trend-badge t-science">Science · PCB</span><h3>MBBS (Doctor)</h3><dl class="trend-meta"><div><dt>Starting salary</dt><dd>₹6–12 LPA</dd></div><div><dt>Duration</dt><dd>5.5 yrs incl. internship</dd></div></dl><span class="trend-go">View guide →</span></a></li>
-        <li><a class="trend-card reveal" href="cse.html"><span class="trend-badge t-science">Science · PCM</span><h3>Computer Science Engineering</h3><dl class="trend-meta"><div><dt>Starting salary</dt><dd>₹3.5–8 LPA</dd></div><div><dt>Duration</dt><dd>4 yrs</dd></div></dl><span class="trend-go">View guide →</span></a></li>
-        <li><a class="trend-card reveal" href="datascience.html"><span class="trend-badge t-science">Tech</span><h3>Data Science</h3><dl class="trend-meta"><div><dt>Starting salary</dt><dd>₹5–10 LPA</dd></div><div><dt>Duration</dt><dd>Degree + skill-building</dd></div></dl><span class="trend-go">View guide →</span></a></li>
-        <li><a class="trend-card reveal" href="bba.html"><span class="trend-badge t-commerce">Commerce</span><h3>BBA</h3><dl class="trend-meta"><div><dt>Starting salary</dt><dd>₹3–8 LPA</dd></div><div><dt>Duration</dt><dd>3 yrs</dd></div></dl><span class="trend-go">View guide →</span></a></li>
-        <li><a class="trend-card reveal" href="nursing.html"><span class="trend-badge t-science">Science · PCB</span><h3>Nursing</h3><dl class="trend-meta"><div><dt>Starting salary</dt><dd>₹2.5–4 LPA</dd></div><div><dt>Duration</dt><dd>4 yrs (BSc)</dd></div></dl><span class="trend-go">View guide →</span></a></li>
-        <li><a class="trend-card reveal" href="upsc-civil-services.html"><span class="trend-badge t-govt">Govt exam</span><h3>Civil Services (IAS/IPS)</h3><dl class="trend-meta"><div><dt>Starting salary</dt><dd>₹56,100/month</dd></div><div><dt>Duration</dt><dd>Degree + 3-stage exam</dd></div></dl><span class="trend-go">View guide →</span></a></li>
-        <li><a class="trend-card reveal" href="llb.html"><span class="trend-badge t-arts">Arts</span><h3>Law (LLB)</h3><dl class="trend-meta"><div><dt>Starting salary</dt><dd>₹3–15+ LPA</dd></div><div><dt>Duration</dt><dd>5 yrs integrated</dd></div></dl><span class="trend-go">View guide →</span></a></li>
-        <li><a class="trend-card reveal" href="graphic-design.html"><span class="trend-badge t-arts">Arts</span><h3>Design</h3><dl class="trend-meta"><div><dt>Starting salary</dt><dd>₹2.5–5 LPA</dd></div><div><dt>Duration</dt><dd>Portfolio-led</dd></div></dl><span class="trend-go">View guide →</span></a></li>
-        <li><a class="trend-card reveal" href="diploma-civil-engineering.html"><span class="trend-badge t-diploma">Diploma</span><h3>Polytechnic Diploma (Civil)</h3><dl class="trend-meta"><div><dt>Starting salary</dt><dd>₹2–4 LPA</dd></div><div><dt>Duration</dt><dd>3 yrs</dd></div></dl><span class="trend-go">View guide →</span></a></li>
-        <li><a class="trend-card reveal" href="ibps-po.html"><span class="trend-badge t-govt">Govt exam</span><h3>Banking (IBPS PO)</h3><dl class="trend-meta"><div><dt>Starting salary</dt><dd>₹48,480/month basic</dd></div><div><dt>Duration</dt><dd>Degree + 3-stage exam</dd></div></dl><span class="trend-go">View guide →</span></a></li>
-        <li><a class="trend-card reveal" href="nda.html"><span class="trend-badge t-govt">Defence</span><h3>Defence (NDA)</h3><dl class="trend-meta"><div><dt>Starting salary</dt><dd>₹56,100/month stipend</dd></div><div><dt>Duration</dt><dd>~4 yrs training</dd></div></dl><span class="trend-go">View guide →</span></a></li>
+      <ol class="gw-steps">
+        <li><span class="gw-step-n" aria-hidden="true">1</span><h3>Pick a country</h3><p>Use the map, the cards above or <strong>Select Study Destination</strong> at the top.</p></li>
+        <li><span class="gw-step-n" aria-hidden="true">2</span><h3>Pick a career or stream</h3><p>Or search from the top bar: a career, a course or an exam.</p></li>
+        <li><span class="gw-step-n" aria-hidden="true">3</span><h3>Check the official source</h3><p>Facts link to the body that sets the rule, so you can confirm before you decide.</p></li>
+      </ol>
+      <ul class="gw-data">
+        {%- for rid in site.data.regions.list %}
+        {%- assign r = site.data.regions[rid] %}
+        <li><span class="gw-data-ed"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">{{ r.flag_svg }}</svg>{{ r.short }}</span>{{ r.data_note }}</li>
+        {%- endfor %}
       </ul>
-      <div class="trend-more">
-        <button type="button" class="btn btn-ghost" data-search-open>Search all 120+ careers</button>
-        <a href="high-paying-careers.html" class="btn btn-ghost btn-page-link">High-paying careers</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== EXPLORE BY GOAL ===================== -->
-  <section class="goals" id="goals" aria-labelledby="goals-heading">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">Or choose by purpose</span>
-        <h2 id="goals-heading">Explore by goal</h2>
-        <p>Not sure which stream fits? Start from what you're trying to achieve instead.</p>
-      </div>
-      <div class="feature-grid">
-        <a href="after-10th.html" class="goal-card reveal">
-          <h3>After Class 10</h3>
-          <p>A complete, judgment-free walkthrough of Science, Commerce, Arts, Diploma and ITI.</p>
-          <span class="goal-link">Start here →</span>
-        </a>
-        <a href="after-12th.html" class="goal-card reveal">
-          <h3>After Class 12</h3>
-          <p>Choose by stream or by goal — with links to every relevant career guide.</p>
-          <span class="goal-link">Start here →</span>
-        </a>
-        <a href="govt-exams.html" class="goal-card reveal">
-          <h3>Government Jobs</h3>
-          <p>UPSC, SSC, Banking, Railways, Defence and State PSC exams — eligibility, age limit and selection process in one hub.</p>
-          <span class="goal-link">Explore govt exams →</span>
-        </a>
-        <a href="professional-courses.html" class="goal-card reveal">
-          <h3>Professional Courses</h3>
-          <p>CA, CS, CMA, law, medicine, pharmacy, nursing and teaching — grouped by field with governing body, duration and eligibility.</p>
-          <span class="goal-link">Compare courses →</span>
-        </a>
-        <a href="high-paying-careers.html" class="goal-card reveal">
-          <h3>High-Paying Careers</h3>
-          <p>Tech, finance, medicine, law, PSU engineering and government officer roles — ranked by starting salary, high to low.</p>
-          <span class="goal-link">See the ranking →</span>
-        </a>
-        <a href="fast-track-jobs.html" class="goal-card reveal">
-          <h3>Fast-Track Jobs</h3>
-          <p>ITI trades, short diplomas, skilled roles and government jobs that get you earning soon after Class 10 or 12.</p>
-          <span class="goal-link">Find quick routes →</span>
-        </a>
-        <a href="career-fit.html" class="goal-card reveal">
-          <h3>Don't Know What to Choose</h3>
-          <p>A quick guided quiz — answer a few questions about your interests and get a few possible directions to explore.</p>
-          <span class="goal-link">Find my fit →</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== WHY MARGDARSHAN ===================== -->
-  <!-- ===================== AFTER 10TH BANNER ===================== -->
-  <section class="after10">
-    <div class="container">
-      <div class="after10-card reveal">
-        <div>
-          <span class="eyebrow">New to Education Margdarshan?</span>
-          <h2>Just finished Class 10?</h2>
-          <p>Start with a complete, judgment-free guide to choosing Science, Commerce, Arts, Diploma or ITI — before you pick a specific career.</p>
-        </div>
-        <a href="after-10th.html" class="btn btn-primary btn-page-link">Start Here</a>
-      </div>
     </div>
   </section>
 
   <!-- ===================== FAQ ===================== -->
-  <section class="faq" id="faq" aria-labelledby="faq-heading">
+  <section class="faq gw-faq" id="faq" aria-labelledby="faq-heading">
     <div class="container">
-      <div class="section-head reveal">
+      <div class="gw-head">
         <span class="eyebrow">Good to know</span>
         <h2 id="faq-heading">Frequently asked questions</h2>
       </div>
-      <div class="faq-list reveal">
+      <div class="faq-list">
         <div class="faq-item" data-open="false">
-          <button type="button" class="faq-q" aria-expanded="false">Is Education Margdarshan really free to use?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="faq-a">Yes. Every stream guide and career page on Education Margdarshan is free to read, with no subscription, paywall or sign-up required.</div>
+          <button type="button" class="faq-q" aria-expanded="false">Which edition should I choose?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="faq-a">Choose the country where you plan to study or start your career. Each edition explains that country's own school system, entrance tests, licences and pay. If you are an Indian student planning to study abroad, start with the <a href="study-abroad.html">study-abroad guides</a> in the India Edition, then read the edition of the country you are going to.</div>
         </div>
         <div class="faq-item" data-open="false">
-          <button type="button" class="faq-q" aria-expanded="false">I don't know which stream to choose after Class 10. Where do I start?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="faq-a">Start with our After Class 10 guide. It walks through Science, Commerce, Arts, Diploma and ITI in plain language, so you can shortlist streams before choosing a specific career.</div>
+          <button type="button" class="faq-q" aria-expanded="false">Is Education Margdarshan free?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="faq-a">Yes. Every guide in every edition is free to read. There is no sign-up, no subscription and no paywall.</div>
         </div>
         <div class="faq-item" data-open="false">
-          <button type="button" class="faq-q" aria-expanded="false">Does Education Margdarshan recommend one career over another?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="faq-a">No. Each guide lays out eligibility, fees, entrance exams, salary ranges and future scope so you can judge fit for yourself. We don't push any single path.</div>
+          <button type="button" class="faq-q" aria-expanded="false">Are the USA and UK editions complete?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="faq-a">Not yet. Both are in beta. The USA Edition has {{ n_us }} career pathways and the UK Edition has {{ n_uk }} career guides so far. The India Edition is the largest, with {{ n_in }} career guides.</div>
         </div>
         <div class="faq-item" data-open="false">
-          <button type="button" class="faq-q" aria-expanded="false">How often is the information updated?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="faq-a">Guides are reviewed regularly so eligibility criteria, entrance exam details and other facts stay current with the latest admission cycle.</div>
-        </div>
-        <div class="faq-item" data-open="false">
-          <button type="button" class="faq-q" aria-expanded="false">Can I use Education Margdarshan on my phone?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="faq-a">Yes. Every page is built to work well on phones, tablets and laptops, with no app installation needed.</div>
-        </div>
-        <div class="faq-item" data-open="false">
-          <button type="button" class="faq-q" aria-expanded="false">Do I need to create an account to read a guide?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="faq-a">No account or sign-up is needed to read any guide on Education Margdarshan.</div>
+          <button type="button" class="faq-q" aria-expanded="false">Where do the salary numbers come from?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="faq-a">It depends on the edition. USA pay comes from the U.S. Bureau of Labor Statistics and UK pay from the Office for National Statistics; each figure shows its year. India salary ranges are indicative figures, and each page lists its sources.</div>
         </div>
       </div>
     </div>

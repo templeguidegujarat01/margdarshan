@@ -2916,3 +2916,10 @@ main > section.mb .md-badges li{background:var(--paper);}
 /* Stage filter focus marker moves from the full-width band to the card. */
 main > section.mb.stage-focus{box-shadow:none;}
 main > section.mb.stage-focus > .container{box-shadow:inset 4px 0 0 var(--gold);}
+/* Hero meta row ("14 min read · SSC · UPSC … · Open after Class 10, 12 or graduation"): flows as one line of
+   text instead of flex items. As flex items a whole item jumped to a new line in the fallback font and back
+   once the web font arrived (+33px, CLS 0.18 on a 390px phone). Wrapping word by word keeps the same number
+   of lines in both fonts. */
+.page-hero .meta-row{display:block;line-height:1.6;}
+.page-hero .meta-row > *{display:inline;}
+.page-hero .meta-row > * + *{margin-left:.35rem;}

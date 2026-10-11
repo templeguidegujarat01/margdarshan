@@ -3,7 +3,7 @@
   scripts/build-roadmaps.mjs from scripts/roadmap-src/*.mjs -> _data/roadmaps/<slug>.json).
   Param: key  = slug (file name in _data/roadmaps).
   Data: name, title, intro, glance [[label,value]], phases [{title,when,summary,points[],facts[[k,v]],tip}],
-        sources [[label,url]], back_href, back_label
+        sources [[label,url]], back_href, back_label (back_* = the "Full <name> career guide" link)
 {%- endcomment -%}
 {%- assign rm = site.data.roadmaps[include.key] -%}
 <script type="application/ld+json">
@@ -22,7 +22,6 @@
 <main id="main" class="rm-page">
   <section class="page-hero" aria-labelledby="hero-heading">
     <div class="container page-hero-inner">
-      <a class="table-back" href="{{ rm.back_href }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Back to {{ rm.back_label }}</a>
       <h1 id="hero-heading">{{ rm.title }} — Step-by-Step Roadmap</h1>
     </div>
   </section>

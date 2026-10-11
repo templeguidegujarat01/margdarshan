@@ -1361,7 +1361,7 @@ try {
 } catch (e) { if (window.console) console.error(e); }
 
 /* ===== Stage filter on India pathway pages (_includes/in-career.html, .stage-bar) =====
-   "Where are you now?" — the reader picks a stage; sections that matter less at that stage are hidden
+   "Where are you now?" — the reader picks a stage from one dropdown; sections that matter less at that stage are hidden
    (with their "On this page" links), up to three sections are promoted as "Start here", and one next-step
    page is suggested. The choice is kept in this browser (md-stage) so every career page opens the same way.
    Nothing is removed: "Show them" brings the hidden sections back, and any link or #hash that points into a
@@ -1390,7 +1390,7 @@ try {
       hide: ['who', 'subjects', 'admission', 'fees'],
       next: { href: 'govt-exams.html', label: 'Government exams open to graduates' } }
   };
-  var opts = bar.querySelectorAll('.stage-opt');
+  var pick = bar.querySelector('[data-stage-select]');
   var out = bar.querySelector('.stage-out');
   function sec(id){ var s = document.getElementById(id); return s && s.tagName === 'SECTION' && main.contains(s) ? s : null; }
   function nameOf(s){
@@ -1415,7 +1415,7 @@ try {
   }
   function apply(stage, announce){
     var cfg = STAGES[stage] || null;
-    opts.forEach(function(b){ b.setAttribute('aria-pressed', b.getAttribute('data-stage') === (cfg ? stage : '') ? 'true' : 'false'); });
+    if(pick) pick.value = cfg ? stage : '';
     main.querySelectorAll('section.stage-off').forEach(showSec);
     main.querySelectorAll('section.stage-focus').forEach(function(s){ s.classList.remove('stage-focus'); });
     document.documentElement.toggleAttribute('data-stage', !!cfg);
@@ -1441,7 +1441,7 @@ try {
     try { if(stage) localStorage.setItem(KEY, stage); else localStorage.removeItem(KEY); } catch(e){}
     apply(stage, true);
   }
-  opts.forEach(function(b){ b.addEventListener('click', function(){ choose(b.getAttribute('data-stage')); }); });
+  if(pick) pick.addEventListener('change', function(){ choose(pick.value); });
   out.addEventListener('click', function(e){
     if(e.target.closest('.stage-showall')){ choose(''); return; }
     var a = e.target.closest('a.stage-jump[href^="#"]');

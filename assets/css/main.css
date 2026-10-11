@@ -2923,3 +2923,23 @@ main > section.mb.stage-focus > .container{box-shadow:inset 4px 0 0 var(--gold);
 .page-hero .meta-row{display:block;line-height:1.6;}
 .page-hero .meta-row > *{display:inline;}
 .page-hero .meta-row > * + *{margin-left:.35rem;}
+
+/* ===================== FULL-WIDTH HERO TEXT (site-wide, 2026-10-11) =====================
+   Hero titles and their intro lines used to be capped at 16–30ch (titles) and 46–62ch (intros), so on a
+   laptop they stacked into 2–4 short lines on the left and pushed the cards and buttons below the fold.
+   Now they use the full container width. Font sizes are trimmed so a typical title (up to ~50 characters)
+   fits on one line from ~1280px up; a longer one fills the first line and wraps once (`pretty`, not
+   `balance`, on wide screens, because balance would split it into two half-width lines again).
+   Intros take 1–2 lines. Phones keep balanced wrapping. */
+.hero h1,.hub-head h1,.page-hero h1,.md-answer h1,.gw-hero h1{max-width:none;}
+.page-hero-inner,.gw-hero-head,.section-head{max-width:none;}
+.hero-sub,.page-hero p,.md-answer-lede,.gw-lede,.section-head p{max-width:none;}
+.section-head h2,.gw-head h2,.md-sec-head h2{max-width:none;}
+.hero h1{font-size:clamp(2rem,3.6vw,2.6rem);}
+.gw-hero h1{font-size:clamp(2rem,3.8vw,2.75rem);}
+.page-hero h1{font-size:clamp(1.75rem,3.1vw,2.3rem);}
+@media (min-width:900px){
+  .hero h1,.page-hero h1,.md-answer h1,.gw-hero h1{text-wrap:pretty;}
+}
+/* A hero with a single text column (e.g. us/index.html) spans the whole row instead of the left 1.1fr track. */
+.hero-inner > :only-child{grid-column:1 / -1;}

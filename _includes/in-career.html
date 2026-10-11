@@ -168,7 +168,7 @@
 
   {%- comment -%} Journey at a glance: the 0 → 100% snapshot, one row per step. {%- endcomment %}
   {%- if C.journey %}
-  <section class="block" id="journey" aria-labelledby="journey-heading">
+  <section class="block mb" id="journey" aria-labelledby="journey-heading">
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">Journey at a glance</span>
@@ -195,7 +195,7 @@
   {%- endif %}
 
   {%- for S in C.sections %}
-  <section class="block{% if S.alt %} block-alt{% endif %}"{% if S.id %} id="{{ S.id }}"{% endif %} aria-labelledby="{{ S.hid }}">
+  <section class="block mb{% if S.alt %} block-alt{% endif %}"{% if S.id %} id="{{ S.id }}"{% endif %} aria-labelledby="{{ S.hid }}">
     <div class="container">
       <div class="{{ S.head_class | default: 'section-head reveal' }}">
         {%- if S.eyebrow %}
@@ -466,7 +466,7 @@
     above, plus the same list as Markdown for anyone who wants to cite or re-check it.
   {%- endcomment %}
   {%- if C.sources %}
-  <section class="block block-alt" id="sources" aria-labelledby="sources-heading">
+  <section class="block block-alt mb" id="sources" aria-labelledby="sources-heading">
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">Sources &amp; verification</span>

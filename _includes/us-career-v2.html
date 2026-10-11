@@ -116,7 +116,7 @@
   </div>
 
   {%- comment -%} 1. Where it leads: occupations (primary) + majors + demand (supporting) {%- endcomment -%}
-  <section class="md-sec" id="careers" aria-labelledby="careers-h">
+  <section class="md-sec mb" id="careers" aria-labelledby="careers-h">
     <div class="container">
       <div class="md-sec-head"><h2 id="careers-h">Where it leads</h2></div>
       <div class="md-bento">
@@ -162,7 +162,7 @@
   {%- if OS and OS.national.p25 and OS.national.median == pmed %}{%- assign has_iqr = true %}{%- endif %}
   {%- assign span = p90 | minus: p10 | times: 1.0 %}
   {%- assign lmed = pmed | minus: p10 | divided_by: span | times: 100 | round: 2 %}
-  <section class="md-sec md-sec-alt" id="pay" aria-labelledby="pay-h">
+  <section class="md-sec md-sec-alt mb" id="pay" aria-labelledby="pay-h">
     <div class="container">
       <div class="md-sec-head"><h2 id="pay-h">Pay</h2><p>Pay depends on experience, employer and place. The middle of the bar is where most workers sit.</p></div>
       <div class="md-pay">
@@ -213,7 +213,7 @@
   {%- endif %}
 
   {%- comment -%} 3. The path: roadmap v2, then high school / college / stand out {%- endcomment -%}
-  <section class="md-sec" id="path" aria-labelledby="path-h">
+  <section class="md-sec mb" id="path" aria-labelledby="path-h">
     <div class="container">
       <div class="md-sec-head"><h2 id="path-h">{{ site.data.regions.us.vocab.path_title }}</h2><p>{% if P.roadmap == "license" %}{{ LIC.education }}.{% else %}A typical route. Many people reach the same job in different ways.{% endif %}</p></div>
       {%- if P.roadmap == "license" %}
@@ -272,7 +272,7 @@
   {%- comment -%} 4. Comparison inside the pathway (e.g. M.D. vs D.O.) {%- endcomment -%}
   {%- if PP.compare %}
   {%- assign C = PP.compare %}
-  <section class="md-sec md-sec-alt" id="compare" aria-labelledby="compare-h">
+  <section class="md-sec md-sec-alt mb" id="compare" aria-labelledby="compare-h">
     <div class="container">
       <div class="md-sec-head"><h2 id="compare-h">{{ C.title }}</h2></div>
       {%- comment -%} Closed in the HTML so phones (< 640px) get one text line; site.js opens it on wider screens. {%- endcomment %}
@@ -298,7 +298,7 @@
 
   {%- comment -%} 5. License (when the pathway has one) {%- endcomment -%}
   {%- if LIC and P.roadmap != "license" %}
-  <section class="md-sec" id="license" aria-labelledby="license-h">
+  <section class="md-sec mb" id="license" aria-labelledby="license-h">
     <div class="container">
       <div class="md-sec-head"><h2 id="license-h">{{ LIC.name }}</h2><p>Granted by {{ LIC.authority | downcase }}. {{ LIC.jurisdiction_note }}</p></div>
       {% include us-exam-list.html license=P.license %}
@@ -314,7 +314,7 @@
   {%- comment -%} 6. Real work life (O*NET) {%- endcomment -%}
   {%- if D.onet %}
   {%- assign W = D.onet %}
-  <section class="md-sec md-sec-alt" id="work" aria-labelledby="work-h">
+  <section class="md-sec md-sec-alt mb" id="work" aria-labelledby="work-h">
     <div class="container">
       <div class="md-sec-head"><h2 id="work-h">What the work is like</h2><p>{{ D.hours }}</p></div>
       <div class="md-bento">
@@ -345,7 +345,7 @@
   {%- endif %}
 
   {%- comment -%} 7. Questions, related pathways, data note {%- endcomment -%}
-  <section class="md-sec" id="faq" aria-labelledby="faq-h">
+  <section class="md-sec mb" id="faq" aria-labelledby="faq-h">
     <div class="container">
       <div class="md-sec-head"><h2 id="faq-h">Questions</h2></div>
       <div class="faq-list">
@@ -357,7 +357,7 @@
     </div>
   </section>
 
-  <section class="md-sec md-sec-alt" aria-labelledby="related-h">
+  <section class="md-sec md-sec-alt mb" aria-labelledby="related-h">
     <div class="container">
       <div class="md-sec-head"><h2 id="related-h">Related pathways</h2></div>
       <ul class="md-links">

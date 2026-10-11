@@ -2859,3 +2859,60 @@ h3 .mob-badge{margin-left:.35rem;}
 .gw-data-ed svg{border-radius:3px;color:var(--line);align-self:center;}
 .gw-faq{padding:4rem 0 5rem;}
 .gw-faq .faq-a a{color:var(--link);text-decoration:underline;}
+
+/* ===================== HEADING WRAP + MASTER BLOCKS (site-wide) =====================
+   1) Headings balance their lines, so a title never ends on one stray word ("…its own / rules").
+      Body text uses `pretty`, which only avoids a lone last word. Both are applied by the browser
+      before first paint, so they add no layout shift; browsers without support keep normal wrapping.
+   2) Hero blocks are a little shorter, so the first cards and buttons sit higher on the first screen.
+   3) Master blocks: a topic <section class="mb"> (direct child of <main>) draws its .container as one
+      bordered card. Cards alternate corners: 1st, 3rd, 5th… sharp (0); 2nd, 4th, 6th… rounded (12px).
+      Counting uses `:nth-child(… of .mb)` so a hero, banner or a section hidden by the India stage
+      filter (.stage-off) does not break the sequence; older browsers fall back to :nth-of-type.
+      Used on index.html, india.html, _includes/in-career.html and _includes/us-career-v2.html. */
+:root{--border-color:var(--line);--card-bg:var(--surface);}
+
+h1,h2,h3{text-wrap:balance;}
+p,li,dd,figcaption{text-wrap:pretty;}
+.page-hero h1,.md-answer h1{max-width:30ch;}
+.section-head h2,.gw-head h2,.md-sec-head h2{max-width:40ch;}
+
+.gw-hero{padding:2.75rem 0 2rem;}
+.gw-lede{margin-top:.85rem;font-size:1.03rem;line-height:1.55;}
+.gw-map{margin-top:1.75rem;}
+.hero{padding:3rem 0 2.5rem;}
+.hero-sub{margin-top:.85rem;font-size:1.04rem;line-height:1.55;}
+.page-hero{padding:2.5rem 0 2.25rem;}
+.page-hero p{margin-top:.8rem;line-height:1.55;max-width:62ch;}
+.page-hero-ctas{margin-top:1.25rem;}
+.md-answer-lede{line-height:1.55;}
+@media (max-width:599.98px){
+  .gw-hero{padding:1.75rem 0 2.5rem;}
+  .gw-map{margin-top:1.5rem;}
+  .hero{padding:2rem 0 1.75rem;}
+  .page-hero{padding:1.75rem 0 1.75rem;}
+  .page-hero p{font-size:1rem;}
+}
+
+main > section.mb{padding:clamp(.75rem,.5rem + 1vw,1.25rem) 0;background:transparent;border:0;}
+main > :not(.mb) + section.mb{padding-top:clamp(1.5rem,1rem + 2vw,2.5rem);}
+main > section.mb:last-child{padding-bottom:clamp(2.5rem,2rem + 2vw,4rem);}
+main > section.mb > .container{
+  width:calc(100% - 2.5rem);max-width:calc(var(--container) - 2.5rem);
+  border:1px solid var(--border-color);background:var(--card-bg);
+  padding:clamp(1.15rem,.6rem + 2.4vw,2rem);
+}
+main > section.mb > .container > :last-child{margin-bottom:0;}
+@media (max-width:599.98px){main > section.mb > .container{width:calc(100% - 2rem);}}
+main > section.mb:nth-of-type(odd) > .container{border-radius:0 !important;}
+main > section.mb:nth-of-type(even) > .container{border-radius:12px !important;}
+@supports selector(:nth-child(1 of .mb)){
+  main > section.mb:nth-child(odd of .mb:not(.stage-off)) > .container{border-radius:0 !important;}
+  main > section.mb:nth-child(even of .mb:not(.stage-off)) > .container{border-radius:12px !important;}
+}
+/* Inner tiles sit on the card colour, so they take the page colour to stay visible (as .md-sec-alt did). */
+main > section.mb :is(.md-tile,.md-pay,.md-cmp,.md-kv,.md-fold,.mob-card,.faq-item){background:var(--paper);}
+main > section.mb .md-badges li{background:var(--paper);}
+/* Stage filter focus marker moves from the full-width band to the card. */
+main > section.mb.stage-focus{box-shadow:none;}
+main > section.mb.stage-focus > .container{box-shadow:inset 4px 0 0 var(--gold);}

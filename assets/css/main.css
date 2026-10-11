@@ -2939,3 +2939,60 @@ main > section.mb.stage-focus > .container{box-shadow:inset 4px 0 0 var(--gold);
 }
 /* A hero with a single text column (e.g. us/index.html) spans the whole row instead of the left 1.1fr track. */
 .hero-inner > :only-child{grid-column:1 / -1;}
+
+/* ===================== IN-PAGE COMMAND BAR (India career pages, 2026-10-11) =====================
+   _includes/career-control.html: two <details> dropdowns under the hero quick facts — verified colleges
+   (_data/colleges.yml) and exam pages + coaching centres (_data/coaching.yml), each grouped by state.
+   Phones (<768px): the panel opens in the page flow, full width, so nothing is cut off and there is no
+   inner scrollbar. From 768px: the panel floats over the page under its trigger; the hero (overflow:hidden
+   for its background line) lets it out while a dropdown is open. site.js "Page control" keeps one open. */
+.pc-exam-line{margin:1.4rem 0 .8rem;}
+.md-page-control{display:grid;gap:.75rem;margin-top:1.2rem;grid-template-columns:minmax(0,1fr);}
+.pc-exam-line + .md-page-control{margin-top:0;}
+.pc-drop{position:relative;min-width:0;}
+.pc-trigger{display:flex;align-items:center;gap:.8rem;min-height:56px;padding:.8rem 1rem;background:var(--surface);color:var(--text);border:1px solid var(--line);border-left:4px solid var(--stream-accent);border-radius:var(--radius-md);box-shadow:var(--shadow-sm);cursor:pointer;list-style:none;transition:box-shadow .18s var(--ease),border-color .18s var(--ease);}
+.pc-trigger::-webkit-details-marker{display:none;}
+.pc-trigger::marker{content:"";}
+.pc-trigger:hover{box-shadow:var(--shadow-md);border-color:var(--accent-on-surface);}
+.pc-trigger:focus-visible{outline:3px solid var(--accent-on-surface);outline-offset:2px;}
+.pc-drop[open] > .pc-trigger{border-color:var(--accent-on-surface);box-shadow:var(--shadow-md);}
+.pc-ico{flex-shrink:0;display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:var(--stream-soft);font-size:1.25rem;line-height:1;}
+.pc-label{display:flex;flex-direction:column;gap:.1rem;min-width:0;flex:1;}
+.pc-label strong{font-size:.98rem;line-height:1.3;overflow-wrap:anywhere;}
+.pc-label small{font-size:.8rem;color:var(--text-muted);overflow-wrap:anywhere;}
+.pc-chev{flex-shrink:0;color:var(--stream-primary);transition:transform .22s var(--ease);}
+.pc-drop[open] .pc-chev{transform:rotate(180deg);}
+.pc-panel{margin-top:.5rem;padding:1rem;background:var(--surface);color:var(--text);border:1px solid var(--line);border-radius:var(--radius-md);box-shadow:var(--shadow-lg);animation:pc-in .22s var(--ease);}
+@keyframes pc-in{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:none;}}
+.pc-group + .pc-group{margin-top:1.1rem;padding-top:1rem;border-top:1px solid var(--line);}
+.pc-group-title{margin:0 0 .55rem;font-weight:700;font-size:.95rem;color:var(--text);display:flex;flex-direction:column;gap:.1rem;}
+.pc-group-title span{font-weight:400;font-size:.8rem;color:var(--text-muted);}
+.pc-state{border:1px solid var(--line);border-radius:10px;}
+.pc-state + .pc-state{margin-top:.4rem;}
+.pc-state > summary{display:flex;align-items:center;justify-content:space-between;gap:.6rem;min-height:44px;padding:.45rem .75rem;cursor:pointer;font-weight:600;font-size:.9rem;list-style:none;}
+.pc-state > summary::-webkit-details-marker{display:none;}
+.pc-state > summary::marker{content:"";}
+.pc-state > summary::after{content:"";flex-shrink:0;width:.5rem;height:.5rem;border-right:2px solid var(--stream-primary);border-bottom:2px solid var(--stream-primary);transform:rotate(45deg) translate(-2px,-2px);transition:transform .2s var(--ease);}
+.pc-state[open] > summary::after{transform:rotate(225deg) translate(-2px,-2px);}
+.pc-state > summary:focus-visible{outline:3px solid var(--accent-on-surface);outline-offset:-3px;border-radius:10px;}
+.pc-state > summary > span:first-child{flex:1;min-width:0;}
+.pc-count{flex-shrink:0;min-width:1.6rem;padding:.05rem .45rem;border-radius:999px;background:var(--stream-soft);color:var(--text);font-family:var(--font-mono);font-size:.75rem;text-align:center;}
+.pc-list{list-style:none;margin:0;padding:0 .75rem .6rem;display:grid;gap:.45rem;}
+.pc-state[open] .pc-list{animation:pc-in .2s var(--ease);}
+.pc-exams{padding:0;}
+.pc-list li{display:flex;flex-direction:column;gap:.05rem;min-width:0;}
+.pc-list a{color:var(--link);font-weight:600;font-size:.9rem;line-height:1.35;overflow-wrap:anywhere;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px;}
+.pc-list a svg{display:inline;vertical-align:-1px;}
+.pc-meta{font-size:.78rem;color:var(--text-muted);overflow-wrap:anywhere;}
+.pc-foot{display:inline-flex;align-items:center;gap:.35rem;min-height:44px;margin-top:.5rem;color:var(--link);font-weight:700;font-size:.88rem;text-decoration:none;}
+.pc-foot:hover{text-decoration:underline;}
+@media (min-width:768px){
+  .md-page-control{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .page-hero:has(.pc-drop[open]){overflow:visible;z-index:85;}
+  .pc-panel{position:absolute;left:0;right:0;top:100%;z-index:90;max-height:min(32rem,calc(100vh - 14rem));overflow:auto;overscroll-behavior:contain;}
+  .md-page-control > .pc-drop:only-child{max-width:calc(50% - .375rem);}
+}
+@media (prefers-reduced-motion:reduce){
+  .pc-panel,.pc-state[open] .pc-list{animation:none;}
+  .pc-chev,.pc-state > summary::after{transition:none;}
+}

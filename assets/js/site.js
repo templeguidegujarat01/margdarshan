@@ -1476,3 +1476,33 @@ try {
   }
 })();
 } catch (e) { if (window.console) console.error(e); }
+
+/* ===== Page control on India career pages (_includes/career-control.html, .md-page-control) =====
+   The two dropdowns are plain <details>, so they work without JavaScript. This only keeps one open at a
+   time and closes an open one on Escape (focus back on its trigger) or on a click outside the bar. */
+try {
+(function(){
+  "use strict";
+  var bars = document.querySelectorAll('[data-page-control]');
+  if(!bars.length) return;
+  var drops = document.querySelectorAll('[data-page-control] > .pc-drop');
+  drops.forEach(function(d){
+    d.addEventListener('toggle', function(){
+      if(!d.open) return;
+      drops.forEach(function(o){ if(o !== d && o.open) o.open = false; });
+    });
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key !== 'Escape') return;
+    drops.forEach(function(d){
+      if(!d.open) return;
+      var inside = d.contains(document.activeElement);
+      d.open = false;
+      if(inside) d.querySelector('summary').focus();
+    });
+  });
+  document.addEventListener('click', function(e){
+    drops.forEach(function(d){ if(d.open && !d.contains(e.target)) d.open = false; });
+  });
+})();
+} catch (e) { if (window.console) console.error(e); }

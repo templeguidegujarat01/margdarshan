@@ -428,6 +428,18 @@ try {
     });
     gwDest.addEventListener('focusout', function(e){ if(gwDest.open && e.relatedTarget && !gwDest.contains(e.relatedTarget)) gwDest.open = false; });
     window.addEventListener('pageshow', function(){ gwDest.open = false; });
+    /* Safety net for zoom, scrollbars, translated text and odd widths: if the open menu would cross either
+       edge of the visible page (12px gutter), shift it back in by adjusting its `right` offset. */
+    var gwMenu = gwDest.querySelector('.gw-dest-menu');
+    var fitGwMenu = function(){
+      gwMenu.style.right = '';
+      if(!gwDest.open) return;
+      var r = gwMenu.getBoundingClientRect(), edge = document.documentElement.clientWidth - 12;
+      var shift = r.right > edge ? r.right - edge : (r.left < 12 ? -(12 - r.left) : 0);
+      if(shift) gwMenu.style.right = (parseFloat(getComputedStyle(gwMenu).right) + shift) + 'px';
+    };
+    gwDest.addEventListener('toggle', fitGwMenu);
+    window.addEventListener('resize', fitGwMenu);
   }
 
   /* ---------- FAQ accordion ---------- */

@@ -566,7 +566,7 @@ try {
   var main = document.getElementById('main');
   if(!main || !window.CSS || !CSS.supports || !CSS.supports('selector(:has(*))')) return;
   var sel = null;
-  if(main.querySelector('#quick') && main.querySelector('#roadmap')) sel = '#subjects,#higher,#proscons,#future,#difficulty,#skills,section[aria-labelledby="myth-heading"],section[aria-labelledby="tips-heading"],section[aria-labelledby="comparison"]';
+  if(main.querySelector('#what') && main.querySelector('#roadmap')) sel = '#subjects,#higher,#proscons,#future,#difficulty,#skills,section[aria-labelledby="myth-heading"],section[aria-labelledby="tips-heading"],section[aria-labelledby="comparison"]';
   else if(main.querySelector('#pattern') && main.querySelector('#syllabus')) sel = '#syllabus,#prep,section[aria-labelledby="comparison"]';
   if(!sel) return;
   var n = 0;
@@ -1366,7 +1366,7 @@ try {
    page is suggested. The choice is kept in this browser (md-stage) so every career page opens the same way.
    Nothing is removed: "Show them" brings the hidden sections back, and any link or #hash that points into a
    hidden section opens it (window.mdStageReveal, called by revealTarget). Section ids are the same on all
-   122 pathway pages (quick, what, who, eligibility, subjects, admission, roadmap, exam, fees, salary, jobs,
+   122 pathway pages (what, who, eligibility, subjects, admission, roadmap, exam, fees, salary, jobs,
    higher, future, proscons, faq …); ids a page does not have are skipped. */
 try {
 (function(){

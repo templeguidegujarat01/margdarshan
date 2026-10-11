@@ -140,7 +140,7 @@
     <div class="container">
       <nav class="quicknav" aria-label="Section navigation">
         {%- if C.journey %}<a href="#journey">Journey at a Glance</a>{% endif %}
-        {%- for n in C.nav %}<a href="{{ n.href }}">{{ n.label }}</a>{% endfor %}
+        {%- for n in C.nav %}{% unless n.href == "#quick" %}<a href="{{ n.href }}">{{ n.label }}</a>{% endunless %}{% endfor %}
         {%- if C.sources %}<a href="#sources">Sources</a>{% endif %}
       </nav>
     </div>
@@ -194,7 +194,8 @@
   </section>
   {%- endif %}
 
-  {%- for S in C.sections %}
+  {%- comment -%} The "Quick answers" section (id quick) is hidden on every career page for now (2026-10-11); its data stays in the YAML. {%- endcomment %}
+  {%- for S in C.sections %}{%- if S.id == "quick" %}{% continue %}{% endif %}
   <section class="block mb{% if S.alt %} block-alt{% endif %}"{% if S.id %} id="{{ S.id }}"{% endif %} aria-labelledby="{{ S.hid }}">
     <div class="container">
       <div class="{{ S.head_class | default: 'section-head reveal' }}">

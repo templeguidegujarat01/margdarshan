@@ -22,6 +22,7 @@
       careers_href, careers_label, faq_href   "Guidance" column links
     progress_full: true         render the scroll progress bar pre-filled (404)
     back_to_top: false          omit the back-to-top button
+    header_hubs: true           India home only: dropdown row under the breadcrumb (_includes/in-header-hubs.html)
     shell: gateway              global home only (index.html): no sidebar and no breadcrumb bar; the top
                                 bar is _includes/header-gateway.html (inline search + study-destination
                                 menu). Every other page keeps the full app shell.
@@ -138,6 +139,7 @@
 {% include header.html %}
 
 <div class="crumb-bar"><div class="container">{% include breadcrumb.html parent_href=page.breadcrumb.parent_href parent_label=page.breadcrumb.parent_label current=page.breadcrumb.current %}</div></div>
+{%- if page.header_hubs %}{% include in-header-hubs.html %}{% endif %}
 {%- endif %}
 
 {{ content }}

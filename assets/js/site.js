@@ -1484,9 +1484,9 @@ try {
 try {
 (function(){
   "use strict";
-  var bars = document.querySelectorAll('[data-page-control]');
-  if(!bars.length) return;
-  var drops = document.querySelectorAll('[data-page-control] > .pc-drop');
+  // Also drives the India home header dropdown row (_includes/in-header-hubs.html, .hh-dd).
+  var drops = document.querySelectorAll('[data-page-control] > .pc-drop, .in-header-hubs .hh-dd');
+  if(!drops.length) return;
   drops.forEach(function(d){
     d.addEventListener('toggle', function(){
       if(!d.open) return;

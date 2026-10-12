@@ -321,6 +321,39 @@ html.nav-locked{overflow:hidden;}
   .breadcrumb li:nth-child(2):nth-last-child(2)::before{display:none;}
 }
 
+/* India home header dropdown row (_includes/in-header-hubs.html), under the breadcrumb bar.
+   Two <details> menus + one solid action tile. Below 1024px the row wraps and each menu panel
+   spans the full row width, so nothing can push past the screen edge. */
+.in-header-hubs{position:relative;z-index:85;background:var(--bg-header);border-bottom:1px solid var(--line);}
+.hh-row{position:relative;display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;min-width:0;padding:.55rem 0;}
+.hh-row > li{position:relative;min-width:0;}
+.hh-btn,.hh-tile{display:flex;align-items:center;gap:.5rem;min-width:0;min-height:42px;padding:.5rem .9rem;border-radius:10px;font-size:.93rem;font-weight:600;line-height:1.25;cursor:pointer;transition:background .15s var(--ease),color .15s var(--ease),border-color .15s var(--ease);}
+.hh-btn{list-style:none;border:1px solid var(--line);background:var(--surface);color:var(--text);user-select:none;}
+.hh-btn::-webkit-details-marker{display:none;}
+.hh-btn:hover,.hh-dd[open] > .hh-btn{border-color:var(--stream-border);background:var(--stream-soft);}
+.hh-btn:focus-visible{outline:2px solid var(--link);outline-offset:2px;}
+.hh-ico{flex-shrink:0;display:grid;place-items:center;color:var(--link);}
+.hh-chev{flex-shrink:0;color:var(--text-muted);transition:transform .2s var(--ease);}
+.hh-dd[open] > .hh-btn .hh-chev{transform:rotate(180deg);}
+/* Solid gold with near-black text in both themes (5.7:1 light, 8.2:1 dark). */
+.hh-tile,.hh-tile:visited,.hh-tile:hover{background:var(--gold);color:#241703;border:1px solid transparent;box-shadow:var(--shadow-sm);font-weight:700;}
+.hh-tile .hh-ico{color:#241703;}
+.hh-tile:hover{filter:brightness(1.06);}
+.hh-tile:focus-visible{outline:2px solid var(--text);outline-offset:2px;}
+.hh-panel{position:absolute;top:calc(100% + 6px);left:0;z-index:2;width:max-content;min-width:260px;max-width:340px;display:grid;gap:2px;padding:.4rem;background:var(--surface);border:1px solid var(--border-surface);border-radius:12px;box-shadow:var(--shadow-lg);animation:hh-in .18s var(--ease);}
+.hh-panel a{display:grid;gap:.1rem;padding:.55rem .75rem;border-radius:8px;color:var(--text);}
+.hh-panel a strong{font-size:.93rem;font-weight:700;}
+.hh-panel a span{font-size:.82rem;color:var(--text-muted);}
+.hh-panel a:hover,.hh-panel a:focus-visible{background:var(--stream-soft);}
+.hh-panel a:focus-visible{outline:2px solid var(--link);outline-offset:-2px;}
+@keyframes hh-in{from{opacity:0;transform:translateY(-4px);}to{opacity:1;transform:none;}}
+@media (prefers-reduced-motion:reduce){.hh-panel{animation:none;}.hh-chev{transition:none;}}
+@media (max-width:1023.98px){
+  .hh-row > li{position:static;}
+  .hh-btn,.hh-tile{font-size:.9rem;padding:.45rem .75rem;}
+  .hh-panel{left:0;right:0;width:auto;min-width:0;max-width:none;}
+}
+
 /* ---- Mobile / tablet: sidebar becomes a slide-over drawer ---- */
 @media (max-width:1023.98px){
   :root{--sidebar-w:0px;}

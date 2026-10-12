@@ -1,0 +1,37 @@
+{%- comment -%}
+  India home header dropdown row, drawn by _layouts/default.html under the breadcrumb bar when a
+  page sets `header_hubs: true` (india.html). Links come from _data/nav.yml: `streams` (the five
+  pathways; govt-exams is pulled out as the action tile) and `goals` (the three career hubs).
+  Each menu is a <details>, so it works without JS; the site.js "Page control" block closes the other menu,
+  and closes on outside click and Escape.
+{%- endcomment -%}
+{%- assign hh_govt = site.data.nav.streams | where: "key", "govt-exams" | first -%}
+<nav class="in-header-hubs" aria-label="India career guides">
+  <div class="container">
+    <ul class="hh-row">
+      <li>
+        <details class="hh-dd">
+          <summary class="hh-btn"><span class="hh-ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l10 5-10 5L2 8z"/><path d="M6 10.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-5.5"/></svg></span>After Class 10th<svg class="hh-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+          <ul class="hh-panel">
+            {%- for s in site.data.nav.streams %}{%- if s.key == "govt-exams" %}{%- continue -%}{%- endif %}
+            <li><a href="{{ s.href }}"><strong>{{ s.label }}</strong><span>{{ s.desc }}</span></a></li>
+            {%- endfor %}
+          </ul>
+        </details>
+      </li>
+      <li>
+        <details class="hh-dd">
+          <summary class="hh-btn"><span class="hh-ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"/></svg></span>Career Hubs<svg class="hh-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+          <ul class="hh-panel">
+            {%- for g in site.data.nav.goals %}
+            <li><a href="{{ g.href }}"><strong>{{ g.label }}</strong><span>{{ g.desc }}</span></a></li>
+            {%- endfor %}
+          </ul>
+        </details>
+      </li>
+      <li>
+        <a class="hh-tile" href="{{ hh_govt.href }}"><span class="hh-ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{{ hh_govt.icon }}</svg></span>Government Exams &amp; Jobs</a>
+      </li>
+    </ul>
+  </div>
+</nav>

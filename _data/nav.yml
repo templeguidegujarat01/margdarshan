@@ -149,12 +149,15 @@ sidebar:
         icon: '<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/>'
 
 # ---------------------------------------------------------------------------
-# India home top menu (_includes/in-header-hubs.html, shown on pages with
-# `header_hubs: true`). Left to right in the order below.
+# India edition top menu (_includes/in-header-hubs.html), drawn on EVERY India
+# edition page (region "in", not region-neutral) — those pages have no sidebar.
+# Left to right in the order below; the items sit tight together (no end push).
 #   type home  = icon-only link
 #   type menu  = <details> dropdown of children (label, href, desc)
 #   type tile  = solid gold action link
-#   end: true  = pushed to the right end of the row on desktop
+#   sub        = optional flyout at the base of a menu panel: { label, href, children }.
+#                Desktop with a mouse: opens to the RIGHT of the panel on hover/focus
+#                (flips left when there is no room). Touch / below 1024px: listed inline.
 # icon (home and tile only) is the inner SVG markup for a 24x24, stroke-based icon.
 # ---------------------------------------------------------------------------
 topnav:
@@ -181,18 +184,30 @@ topnav:
       - { label: High-Paying Careers, href: high-paying-careers.html, desc: "Ranked by realistic salary" }
       - { label: Fast-Track Jobs, href: fast-track-jobs.html, desc: "Start earning after 10th / 12th" }
       - { label: Professional Courses, href: professional-courses.html, desc: "CA, CS, law, medicine" }
-  - type: tile
-    label: Govt Exams & Jobs
-    href: govt-exams.html
-    icon: '<path d="M3 21h18M4 10h16M12 3l9 5H3z"/><path d="M6 10v8M10 10v8M14 10v8M18 10v8"/>'
+  - type: menu
+    label: Entrance & Competitive Exams
+    children:
+      - { label: Engineering, href: jee-main.html, desc: "JEE Main / JEE Advanced" }
+      - { label: Medical, href: neet-ug.html, desc: "NEET UG" }
+      - { label: Central Universities, href: cuet-ug.html, desc: "CUET UG" }
+      - { label: Law Admissions, href: llb.html, desc: "CLAT — 5-year integrated LLB" }
+      - { label: Architecture & Design, href: "coaching.html?stream=arts&amp;exam=nata#finder", desc: "NATA / NIFT — verified coaching finder" }
+    sub:
+      label: Government Exams
+      href: govt-exams.html
+      children:
+        - { label: UPSC Civil Services, href: upsc-civil-services.html }
+        - { label: SSC CGL, href: ssc-cgl.html }
+        - { label: Defence (NDA / CDS / CAPF AC), href: nda.html }
+        - { label: Banking & Insurance (IBPS / SBI), href: ibps-po.html }
+        - { label: State & Local Board Exams, href: state-psc.html }
   - type: menu
     label: Colleges & Coaching
     children:
       - { label: Colleges & Universities, href: colleges.html, desc: "College finder by state and course" }
-      - { label: Entrance Exams & Coaching, href: coaching.html, desc: "Exam guides and verified coaching centres" }
+      - { label: Find Verified Coaching Centers, href: "coaching.html#finder", desc: "Coaching finder by exam and state" }
   - type: menu
     label: Global & Regional
-    end: true
     children:
       - { label: Global & State Hub, href: global-regional-hub.html, desc: "State and abroad guides in one place" }
       - { label: State-Level Pathways, href: state-pathways.html, desc: "State exams, boards and routes" }

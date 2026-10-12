@@ -321,7 +321,7 @@ html.nav-locked{overflow:hidden;}
   .breadcrumb li:nth-child(2):nth-last-child(2)::before{display:none;}
 }
 
-/* India home top menu (_includes/in-header-hubs.html, items from _data/nav.yml topnav), under the
+/* India edition top menu (_includes/in-header-hubs.html, items from _data/nav.yml topnav), under the
    breadcrumb bar. One row at every width: when it does not fit, it scrolls sideways (swipe on touch).
    The strip, its items and the <details> stay unpositioned, so an open panel is placed against
    .in-header-hubs and the strip's overflow never clips it. site.js sets --hh-x (the open button's
@@ -360,12 +360,53 @@ html.nav-locked{overflow:hidden;}
 .hh-panel a:focus-visible{outline:2px solid var(--link);outline-offset:-2px;}
 @keyframes hh-in{from{opacity:0;transform:translateY(-4px);}to{opacity:1;transform:none;}}
 @media (prefers-reduced-motion:reduce){.hh-panel{animation:none;}.hh-chev{transition:none;}}
+/* Small laptops / landscape tablets: slightly tighter buttons so the whole row still fits at 1024px. */
+@media (min-width:1024px) and (max-width:1099.98px){
+  .hh-row{gap:.25rem;}
+  .hh-btn{padding:.5rem .5rem;font-size:.85rem;}
+}
 /* Phones: the open panel spans the gutters instead of following its button. */
 @media (max-width:599.98px){
   .hh-btn,.hh-tile{font-size:.9rem;padding:.45rem .75rem;}
   .hh-panel{left:1.25rem;right:1.25rem;width:auto;min-width:0;max-width:none;}
 }
 
+/* Entrance & Competitive Exams: "Government Exams" flyout at the base of the panel (nav.yml topnav `sub`).
+   Touch and below 1024px: its links are listed inline under the heading. Desktop with a mouse: the list
+   opens to the RIGHT of the panel on hover or keyboard focus; site.js adds .hh-flip when there is no room
+   on the right. The flyout is hidden with visibility (not display), so site.js can measure it, and hidden
+   links are skipped by Tab until the heading is focused. */
+.hh-sub{margin-top:.3rem;padding-top:.3rem;border-top:1px solid var(--line);}
+.hh-panel .hh-sub-btn{display:flex;align-items:center;gap:.55rem;padding:.6rem .75rem;border-radius:8px;color:var(--text);}
+.hh-sub-btn strong{flex:1;font-size:.93rem;font-weight:700;}
+.hh-sub-ico{flex-shrink:0;color:var(--gold);}
+.hh-sub-arrow{flex-shrink:0;color:var(--text-muted);transition:transform .15s var(--ease);}
+.hh-sub:hover .hh-sub-btn,.hh-panel .hh-sub-btn:focus-visible,.hh-sub:focus-within .hh-sub-btn{background:var(--stream-soft);}
+.hh-fly{display:grid;gap:2px;padding:.15rem 0 .1rem 2.05rem;}
+.hh-panel .hh-fly a{display:block;padding:.45rem .75rem;font-size:.9rem;font-weight:600;}
+.hh-panel a[aria-current="page"]{background:var(--stream-soft);}
+@media (min-width:1024px) and (hover:hover){
+  .hh-sub{position:relative;}
+  .hh-sub:hover .hh-sub-arrow,.hh-sub:focus-within .hh-sub-arrow{transform:translateX(3px);}
+  .hh-fly{position:absolute;top:-.4rem;left:calc(100% + .55rem);z-index:3;width:max-content;min-width:250px;max-width:300px;padding:.4rem;background:var(--surface);border:1px solid var(--border-surface);border-radius:12px;box-shadow:var(--shadow-lg);visibility:hidden;opacity:0;transform:translateX(-4px);transition:opacity .15s var(--ease),transform .15s var(--ease),visibility 0s linear .15s;}
+  /* Invisible bridge over the gap, so the pointer can travel from the heading to the list without closing it. */
+  .hh-fly::before{content:"";position:absolute;top:0;bottom:0;left:-.65rem;width:.65rem;}
+  .hh-sub.hh-flip .hh-fly{left:auto;right:calc(100% + .55rem);transform:translateX(4px);}
+  .hh-sub.hh-flip .hh-fly::before{left:auto;right:-.65rem;}
+  .hh-sub:hover .hh-fly,.hh-sub:focus-within .hh-fly{visibility:visible;opacity:1;transform:none;transition:opacity .15s var(--ease),transform .15s var(--ease),visibility 0s;}
+}
+@media (prefers-reduced-motion:reduce){.hh-fly,.hh-sub-arrow{transition:none !important;}}
+
+/* India edition pages (body.shell-in, _layouts/default.html): no sidebar, so the content takes the full width
+   and the top bar has no menu button. On phones the logo mark stands where the menu button was (it lived in the
+   drawer before). The top menu row above is the navigation on every screen size. */
+.shell-in .app-main{margin-left:0;border-left:0;border-right:0;}
+.shell-in .sb-open,.shell-in .sb-collapse{display:none !important;}
+@media (max-width:767.98px){
+  .shell-in .topbar .topbar-brand,.shell-in .topbar .logo{display:flex !important;}
+  .shell-in .topbar-left .logo-mark{display:block !important;}
+  .shell-in .topbar-brand{margin-right:0;}
+}
 /* ---- Mobile / tablet: sidebar becomes a slide-over drawer ---- */
 @media (max-width:1023.98px){
   :root{--sidebar-w:0px;}
@@ -1022,14 +1063,14 @@ a.goal-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);}
    Makes a genuine internal link to an exam page (JEE Main, JEE Advanced,
    NEET-UG, CUET-UG, etc.) visually distinguishable from ordinary body text,
    without touching links that already have their own component style
-   (.cx-link, .related-card, .source-link, header/footer/breadcrumb nav).
+   (.cx-link, .related-card, .source-link, .hh-link top menu, header/footer/breadcrumb nav).
    New exam pages just need to be added to this selector list once.
    ========================================================================== */
-a[href="jee-main.html"]:not(.cx-link):not(.related-card):not(.source-link):not(.hub-cta),
-a[href="jee-advanced.html"]:not(.cx-link):not(.related-card):not(.source-link):not(.hub-cta),
-a[href="neet-ug.html"]:not(.cx-link):not(.related-card):not(.source-link):not(.hub-cta),
-a[href="cuet-ug.html"]:not(.cx-link):not(.related-card):not(.source-link):not(.hub-cta),
-a[href="icar-aieea.html"]:not(.cx-link):not(.related-card):not(.source-link):not(.hub-cta){
+a[href="jee-main.html"]:not(.cx-link):not(.related-card):not(.source-link):not(.hub-cta):not(.hh-link),
+a[href="jee-advanced.html"]:not(.cx-link):not(.related-card):not(.source-link):not(.hub-cta):not(.hh-link),
+a[href="neet-ug.html"]:not(.cx-link):not(.related-card):not(.source-link):not(.hub-cta):not(.hh-link),
+a[href="cuet-ug.html"]:not(.cx-link):not(.related-card):not(.source-link):not(.hub-cta):not(.hh-link),
+a[href="icar-aieea.html"]:not(.cx-link):not(.related-card):not(.source-link):not(.hub-cta):not(.hh-link){
   color:var(--text);
   font-weight:700;
   text-decoration:underline;
@@ -1037,9 +1078,9 @@ a[href="icar-aieea.html"]:not(.cx-link):not(.related-card):not(.source-link):not
   text-decoration-thickness:1.5px;
   text-underline-offset:2px;
 }
-a[href="jee-main.html"]:not(.cx-link):not(.related-card):not(.source-link):not(.hub-cta):hover,
-a[href="jee-advanced.html"]:not(.cx-link):not(.related-card):not(.source-link):not(.hub-cta):hover,
-a[href="neet-ug.html"]:not(.cx-link):not(.related-card):not(.source-link):not(.hub-cta):hover,
+a[href="jee-main.html"]:not(.cx-link):not(.related-card):not(.source-link):not(.hub-cta):not(.hh-link):hover,
+a[href="jee-advanced.html"]:not(.cx-link):not(.related-card):not(.source-link):not(.hub-cta):not(.hh-link):hover,
+a[href="neet-ug.html"]:not(.cx-link):not(.related-card):not(.source-link):not(.hub-cta):not(.hh-link):hover,
 a[href="cuet-ug.html"]:not(.cx-link):not(.related-card):not(.source-link):not(.hub-cta):hover,
 a[href="icar-aieea.html"]:not(.cx-link):not(.related-card):not(.source-link):not(.hub-cta):hover{
   color:var(--stream-primary);

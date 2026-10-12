@@ -1484,7 +1484,7 @@ try {
 try {
 (function(){
   "use strict";
-  // Also drives the India home top menu (_includes/in-header-hubs.html, .hh-dd).
+  // Also drives the India edition top menu (_includes/in-header-hubs.html, .hh-dd).
   var drops = document.querySelectorAll('[data-page-control] > .pc-drop, .in-header-hubs .hh-dd');
   if(!drops.length) return;
   drops.forEach(function(d){
@@ -1508,7 +1508,7 @@ try {
 })();
 } catch (e) { if (window.console) console.error(e); }
 
-/* ===== India home top menu (_includes/in-header-hubs.html) =====
+/* ===== India edition top menu (_includes/in-header-hubs.html, every India page) =====
    Opening/closing is the Page control block above. This places an open panel under its own button
    (--hh-x, kept inside the bar), keeps it under the button while the strip is swiped, and fades the right edge (nav.hh-more) while more items are hidden off to the right. */
 try {
@@ -1546,6 +1546,18 @@ try {
     e.preventDefault();
     row.scrollLeft += e.deltaY;
   }, { passive: false });
+  // "Government Exams" flyout (.hh-sub): opens to the right of the panel; flip it left when the
+  // right side has no room for it (desktop hover layout only — elsewhere it is listed inline).
+  nav.querySelectorAll('.hh-sub').forEach(function(sub){
+    var fly = sub.querySelector('.hh-fly');
+    function side(){
+      if(!fly || getComputedStyle(fly).position !== 'absolute') return;
+      var r = sub.getBoundingClientRect(), w = fly.offsetWidth + 12, vw = document.documentElement.clientWidth;
+      sub.classList.toggle('hh-flip', r.right + w > vw - 8 && r.left - w >= 8);
+    }
+    sub.addEventListener('mouseenter', side);
+    sub.addEventListener('focusin', side);
+  });
   window.addEventListener('resize', function(){ more(); drops.forEach(function(d){ if(d.open) place(d); }); });
   more();
   // Web fonts change the item widths after first paint, so measure again once they are in.

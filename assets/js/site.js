@@ -1484,7 +1484,7 @@ try {
 try {
 (function(){
   "use strict";
-  // Also drives the India home header dropdown row (_includes/in-header-hubs.html, .hh-dd).
+  // Also drives the India home top menu (_includes/in-header-hubs.html, .hh-dd).
   var drops = document.querySelectorAll('[data-page-control] > .pc-drop, .in-header-hubs .hh-dd');
   if(!drops.length) return;
   drops.forEach(function(d){
@@ -1505,5 +1505,51 @@ try {
   document.addEventListener('click', function(e){
     drops.forEach(function(d){ if(d.open && !d.contains(e.target)) d.open = false; });
   });
+})();
+} catch (e) { if (window.console) console.error(e); }
+
+/* ===== India home top menu (_includes/in-header-hubs.html) =====
+   Opening/closing is the Page control block above. This places an open panel under its own button
+   (--hh-x, kept inside the bar), keeps it under the button while the strip is swiped, and fades the right edge (nav.hh-more) while more items are hidden off to the right. */
+try {
+(function(){
+  "use strict";
+  var nav = document.querySelector('.in-header-hubs');
+  if(!nav) return;
+  var row = nav.querySelector('.hh-row');
+  var drops = nav.querySelectorAll('.hh-dd');
+  function place(d){
+    var panel = d.querySelector('.hh-panel');
+    var nr = nav.getBoundingClientRect(), br = d.querySelector('summary').getBoundingClientRect();
+    var gutter = 20, x = br.left - nr.left;
+    x = Math.max(gutter, Math.min(x, nr.width - panel.offsetWidth - gutter));
+    nav.style.setProperty('--hh-x', Math.round(x) + 'px');
+  }
+  function more(){ nav.classList.toggle('hh-more', row.scrollLeft + row.clientWidth < row.scrollWidth - 2); }
+  drops.forEach(function(d){ d.addEventListener('toggle', function(){
+    if(!d.open) return;
+    // A button half hidden off the strip's edge is scrolled fully into view first (only sideways).
+    var sr = row.getBoundingClientRect(), br = d.querySelector('summary').getBoundingClientRect();
+    if(br.right > sr.right) row.scrollLeft += br.right - sr.right + 20;
+    else if(br.left < sr.left) row.scrollLeft -= sr.left - br.left + 20;
+    place(d);
+  }); });
+  row.addEventListener('scroll', function(){
+    more();
+    drops.forEach(function(d){ if(d.open) place(d); });
+  }, { passive: true });
+  // A mouse wheel over the strip scrolls it sideways while it overflows (desktop has no swipe).
+  row.addEventListener('wheel', function(e){
+    if(row.scrollWidth <= row.clientWidth || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+    var max = row.scrollWidth - row.clientWidth;
+    if((e.deltaY < 0 && row.scrollLeft <= 0) || (e.deltaY > 0 && row.scrollLeft >= max - 1)) return;
+    e.preventDefault();
+    row.scrollLeft += e.deltaY;
+  }, { passive: false });
+  window.addEventListener('resize', function(){ more(); drops.forEach(function(d){ if(d.open) place(d); }); });
+  more();
+  // Web fonts change the item widths after first paint, so measure again once they are in.
+  window.addEventListener('load', more);
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(more);
 })();
 } catch (e) { if (window.console) console.error(e); }

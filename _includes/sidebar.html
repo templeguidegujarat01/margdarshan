@@ -92,7 +92,8 @@
     {%- endfor %}
     {%- endfor %}
 
-    {%- if include.careers_href or include.faq_href %}
+    {%- comment -%} "This page" links: not drawn on India edition pages (the India home has its own top menu, in-header-hubs.html). {%- endcomment %}
+    {%- if region_id != "in" and include.careers_href or region_id != "in" and include.faq_href %}
     <section class="sb-group is-open" data-group="page">
       <button type="button" class="sb-group-btn" aria-expanded="true" aria-controls="sbg-page">
         <span>This page</span>
@@ -106,17 +107,6 @@
         <li class="sb-item"><a class="sb-link" href="{{ include.faq_href }}" title="{{ include.faq_label | default: 'FAQs' }}"><span class="sb-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17h.01"/></svg></span><span class="sb-label">{{ include.faq_label | default: "FAQs" }}</span></a></li>
         {%- endif %}
       </ul></div>
-    </section>
-    {%- endif %}
-    {%- comment -%} India's National ↔ Global & State switch: a plain list item at the end of the scrollable nav (no pinned box). India edition only. {%- endcomment %}
-    {%- if region_id == "in" or region_neutral %}
-    {%- assign on_global = false -%}
-    {%- for gp in site.data.nav.editions.global_pages %}{%- if cur contains gp %}{%- assign on_global = true -%}{%- endif %}{%- endfor %}
-    {%- if on_global %}{%- assign ed = site.data.nav.editions.to_national -%}{%- else %}{%- assign ed = site.data.nav.editions.to_global -%}{%- endif %}
-    <section class="sb-group is-open" data-group="edition"{% if region_neutral %} data-region-nav="in"{% endif %}>
-      <ul class="sb-list">
-        <li class="sb-item"><a class="sb-link" href="{{ ed.href }}" title="{{ ed.label }}" data-edition="{% if on_global %}global{% else %}national{% endif %}"><span class="sb-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{{ ed.icon }}</svg></span><span class="sb-label">{{ ed.label | replace: "&", "&amp;" }}</span></a></li>
-      </ul>
     </section>
     {%- endif %}
   </nav>

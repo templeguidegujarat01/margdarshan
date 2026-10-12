@@ -321,26 +321,38 @@ html.nav-locked{overflow:hidden;}
   .breadcrumb li:nth-child(2):nth-last-child(2)::before{display:none;}
 }
 
-/* India home header dropdown row (_includes/in-header-hubs.html), under the breadcrumb bar.
-   Two <details> menus + one solid action tile. Below 1024px the row wraps and each menu panel
-   spans the full row width, so nothing can push past the screen edge. */
+/* India home top menu (_includes/in-header-hubs.html, items from _data/nav.yml topnav), under the
+   breadcrumb bar. One row at every width: when it does not fit, it scrolls sideways (swipe on touch).
+   The strip, its items and the <details> stay unpositioned, so an open panel is placed against
+   .in-header-hubs and the strip's overflow never clips it. site.js sets --hh-x (the open button's
+   left edge) so the panel sits under its button; without JS it sits at the left gutter. */
 .in-header-hubs{position:relative;z-index:85;background:var(--bg-header);border-bottom:1px solid var(--line);}
-.hh-row{position:relative;display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;min-width:0;padding:.55rem 0;}
-.hh-row > li{position:relative;min-width:0;}
-.hh-btn,.hh-tile{display:flex;align-items:center;gap:.5rem;min-width:0;min-height:42px;padding:.5rem .9rem;border-radius:10px;font-size:.93rem;font-weight:600;line-height:1.25;cursor:pointer;transition:background .15s var(--ease),color .15s var(--ease),border-color .15s var(--ease);}
+.hh-row{display:flex;flex-wrap:nowrap;align-items:center;gap:.3rem;min-width:0;margin:0 -1.25rem;padding:.55rem 1.25rem;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;scrollbar-width:none;scroll-padding:0 1.25rem;}
+.hh-row::-webkit-scrollbar{display:none;}
+/* Right-edge fade while items are hidden off to the right: an overlay, not a mask (a mask would clip the open panel too). */
+.in-header-hubs::after{content:"";position:absolute;top:0;bottom:0;right:0;width:48px;pointer-events:none;background:linear-gradient(90deg,transparent,var(--bg-header));opacity:0;transition:opacity .15s var(--ease);}
+.in-header-hubs.hh-more::after{opacity:1;}
+.hh-row > li{flex-shrink:0;}
+.hh-end{margin-left:auto;}
+.hh-btn,.hh-tile{display:flex;align-items:center;gap:.4rem;min-height:42px;padding:.5rem .62rem;border-radius:10px;font-size:.88rem;font-weight:600;line-height:1.25;white-space:nowrap;cursor:pointer;transition:background .15s var(--ease),color .15s var(--ease),border-color .15s var(--ease);}
 .hh-btn{list-style:none;border:1px solid var(--line);background:var(--surface);color:var(--text);user-select:none;}
 .hh-btn::-webkit-details-marker{display:none;}
 .hh-btn:hover,.hh-dd[open] > .hh-btn{border-color:var(--stream-border);background:var(--stream-soft);}
-.hh-btn:focus-visible{outline:2px solid var(--link);outline-offset:2px;}
+.hh-btn:focus-visible{outline:2px solid var(--link);outline-offset:-2px;}
 .hh-ico{flex-shrink:0;display:grid;place-items:center;color:var(--link);}
 .hh-chev{flex-shrink:0;color:var(--text-muted);transition:transform .2s var(--ease);}
 .hh-dd[open] > .hh-btn .hh-chev{transform:rotate(180deg);}
+.hh-home{display:grid;place-items:center;width:42px;height:42px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--text);transition:background .15s var(--ease),border-color .15s var(--ease);}
+.hh-home .hh-ico{color:inherit;}
+.hh-home:hover,.hh-home[aria-current="page"]{border-color:var(--stream-border);background:var(--stream-soft);}
+.hh-home[aria-current="page"] .hh-ico{color:var(--link);}
+.hh-home:focus-visible{outline:2px solid var(--link);outline-offset:-2px;}
 /* Solid gold with near-black text in both themes (5.7:1 light, 8.2:1 dark). */
 .hh-tile,.hh-tile:visited,.hh-tile:hover{background:var(--gold);color:#241703;border:1px solid transparent;box-shadow:var(--shadow-sm);font-weight:700;}
 .hh-tile .hh-ico{color:#241703;}
 .hh-tile:hover{filter:brightness(1.06);}
-.hh-tile:focus-visible{outline:2px solid var(--text);outline-offset:2px;}
-.hh-panel{position:absolute;top:calc(100% + 6px);left:0;z-index:2;width:max-content;min-width:260px;max-width:340px;display:grid;gap:2px;padding:.4rem;background:var(--surface);border:1px solid var(--border-surface);border-radius:12px;box-shadow:var(--shadow-lg);animation:hh-in .18s var(--ease);}
+.hh-tile:focus-visible{outline:2px solid var(--text);outline-offset:-3px;}
+.hh-panel{position:absolute;top:calc(100% - 2px);left:var(--hh-x,1.25rem);z-index:2;width:max-content;min-width:260px;max-width:min(340px,calc(100% - 2.5rem));display:grid;gap:2px;padding:.4rem;white-space:normal;background:var(--surface);border:1px solid var(--border-surface);border-radius:12px;box-shadow:var(--shadow-lg);animation:hh-in .18s var(--ease);}
 .hh-panel a{display:grid;gap:.1rem;padding:.55rem .75rem;border-radius:8px;color:var(--text);}
 .hh-panel a strong{font-size:.93rem;font-weight:700;}
 .hh-panel a span{font-size:.82rem;color:var(--text-muted);}
@@ -348,10 +360,10 @@ html.nav-locked{overflow:hidden;}
 .hh-panel a:focus-visible{outline:2px solid var(--link);outline-offset:-2px;}
 @keyframes hh-in{from{opacity:0;transform:translateY(-4px);}to{opacity:1;transform:none;}}
 @media (prefers-reduced-motion:reduce){.hh-panel{animation:none;}.hh-chev{transition:none;}}
-@media (max-width:1023.98px){
-  .hh-row > li{position:static;}
+/* Phones: the open panel spans the gutters instead of following its button. */
+@media (max-width:599.98px){
   .hh-btn,.hh-tile{font-size:.9rem;padding:.45rem .75rem;}
-  .hh-panel{left:0;right:0;width:auto;min-width:0;max-width:none;}
+  .hh-panel{left:1.25rem;right:1.25rem;width:auto;min-width:0;max-width:none;}
 }
 
 /* ---- Mobile / tablet: sidebar becomes a slide-over drawer ---- */

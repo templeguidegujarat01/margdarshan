@@ -18,7 +18,7 @@
     link2_*, link3_*                                 section or another page)
       link_icon: doc | check | route | compare | rupee | book (default route)
 
-  Finder hrefs get "#finder" appended unless they already carry a #hash.
+  Finder hrefs carry no #hash, so visitors land at the top of the page.
 
     {% include hub-ctas.html exam="NEET-UG" exam_href="neet-ug.html"
          coaching_href="coaching-neet.html" coaching_label="NEET-UG"
@@ -27,7 +27,7 @@
 {%- comment -%}
   Deep links: a coaching_href / colleges_href that names a course or exam in _data/colleges.yml or
   _data/coaching.yml points at the interactive hub with that career preselected
-  (colleges.html?career=btech#finder). Anything else keeps its own href.
+  (colleges.html?career=btech). Anything else keeps its own href.
 {%- endcomment -%}
 {%- assign hc_coach_key = "" -%}
 {%- if include.coaching_href -%}
@@ -83,7 +83,7 @@
     </a>
     {%- endif %}
     {%- if include.coaching_href %}
-    <a class="hub-cta" href="{% if hc_coach_key != "" %}coaching.html?{{ hc_sp }}exam={{ hc_coach_key }}#finder{% else %}{{ include.coaching_href }}{% unless include.coaching_href contains "#" %}#finder{% endunless %}{% endif %}">
+    <a class="hub-cta" href="{% if hc_coach_key != "" %}coaching.html?{{ hc_sp }}exam={{ hc_coach_key }}{% else %}{{ include.coaching_href }}{% endif %}">
       <span class="hub-cta-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/></svg></span>
       <span class="hub-cta-text">
         <strong>{% if include.coaching_text %}{{ include.coaching_text }}{% else %}Find {{ include.coaching_label }} coaching{% endif %}</strong>
@@ -93,7 +93,7 @@
     </a>
     {%- endif %}
     {%- if include.colleges_href %}
-    <a class="hub-cta" href="{% if hc_col_key != "" %}colleges.html?{{ hc_sp }}course={{ hc_col_key }}#finder{% else %}{{ include.colleges_href }}{% unless include.colleges_href contains "#" %}#finder{% endunless %}{% endif %}">
+    <a class="hub-cta" href="{% if hc_col_key != "" %}colleges.html?{{ hc_sp }}course={{ hc_col_key }}{% else %}{{ include.colleges_href }}{% endif %}">
       <span class="hub-cta-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M4 10h16M12 3l9 5H3z"/><path d="M6 10v8M10 10v8M14 10v8M18 10v8"/></svg></span>
       <span class="hub-cta-text">
         <strong>{% if include.colleges_text %}{{ include.colleges_text }}{% else %}Explore {{ include.colleges_label }} colleges{% endif %}</strong>
@@ -103,7 +103,7 @@
     </a>
     {%- endif %}
     {%- if include.colleges2_href %}
-    <a class="hub-cta" href="{% if hc_col2_key != "" %}colleges.html?{{ hc_sp }}course={{ hc_col2_key }}#finder{% else %}{{ include.colleges2_href }}{% unless include.colleges2_href contains "#" %}#finder{% endunless %}{% endif %}">
+    <a class="hub-cta" href="{% if hc_col2_key != "" %}colleges.html?{{ hc_sp }}course={{ hc_col2_key }}{% else %}{{ include.colleges2_href }}{% endif %}">
       <span class="hub-cta-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M4 10h16M12 3l9 5H3z"/><path d="M6 10v8M10 10v8M14 10v8M18 10v8"/></svg></span>
       <span class="hub-cta-text">
         <strong>Explore {{ include.colleges2_label }} colleges</strong>

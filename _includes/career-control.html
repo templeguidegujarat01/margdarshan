@@ -9,7 +9,7 @@
                                        hub.coaching_href
 
   An href names its key either as a finder page (colleges-mbbs.html -> courses.mbbs.page) or as a
-  query (colleges.html?course=bcom#finder). A dropdown renders only when it has verified listings
+  query (colleges.html?course=bcom). A dropdown renders only when it has verified listings
   (finder link policy: no empty finders), so pages without keys simply show no bar.
   site.js (block "Page control") closes the other dropdown, and closes on Escape / outside click.
 
@@ -90,7 +90,7 @@
         </details>
         {%- endif %}
         {%- endfor %}
-        <a class="pc-foot" href="colleges.html?{{ pc_sp }}course={{ k }}#finder">Compare all {{ pc_course.label }} colleges in the finder <span aria-hidden="true">→</span></a>
+        <a class="pc-foot" href="colleges.html?{{ pc_sp }}course={{ k }}">Compare all {{ pc_course.label }} colleges in the finder <span aria-hidden="true">→</span></a>
       </div>
       {%- endif %}
       {%- endfor %}
@@ -135,7 +135,7 @@
         </details>
         {%- endif %}
         {%- endfor %}
-        <a class="pc-foot" href="coaching.html?{{ pc_sp }}exam={{ pc_exam }}#finder">Compare all {{ pc_ex.tag }} centres in the finder <span aria-hidden="true">→</span></a>
+        <a class="pc-foot" href="coaching.html?{{ pc_sp }}exam={{ pc_exam }}">Compare all {{ pc_ex.tag }} centres in the finder <span aria-hidden="true">→</span></a>
       </div>
       {%- endif %}
     </div>

@@ -46,7 +46,27 @@
           {%- if child.href == cbase and cbase == cur %}{%- assign child_on = true -%}{%- endif -%}
           {%- if child.key and child.key == include.active_stream %}{%- assign child_on = true -%}{%- endif -%}
         {%- endfor %}
-        {%- if item.children %}
+        {%- assign item_label = item.label | replace: "&", "&amp;" -%}
+        {%- if item.toggle and item.children %}
+        {%- comment -%} Dropdown node: the whole row is the toggle. The rail-only link stands in for it in the collapsed desktop icon rail, which cannot show children. {%- endcomment %}
+        {%- assign node_open = false -%}
+        {%- if child_on or is_page or in_trail %}{%- assign node_open = true -%}{%- endif %}
+        <li class="sb-item has-children sb-node{% if node_open %} is-open{% endif %}">
+          <a class="sb-link sb-rail-only{% if in_trail or child_on %} is-trail{% endif %}" href="{{ item.href }}" title="{{ item_label }}"{% if is_page %} aria-current="page"{% endif %}><span class="sb-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{{ item.icon }}</svg></span><span class="sb-rail-label" aria-hidden="true">{{ item.short | default: item_label }}</span><span class="sr-only">{{ item_label }}</span></a>
+          <button type="button" class="sb-link sb-node-btn{% if node_open %} is-trail{% endif %}" aria-expanded="{{ node_open }}" aria-controls="sbs-{{ forloop.index }}-{{ group.id }}"><span class="sb-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{{ item.icon }}</svg></span><span class="sb-label">{{ item_label }}</span><svg class="sb-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="sb-sub" id="sbs-{{ forloop.index }}-{{ group.id }}"><ul class="sb-sub-list">
+            {%- for child in item.children %}
+            {%- assign cbase = child.href | split: "#" | first %}
+            {%- assign c_page = false -%}
+            {%- if child.href == cbase and cbase == cur %}{%- assign c_page = true -%}{%- endif %}
+            <li><a href="{{ child.href }}"{% if c_page %} aria-current="page"{% elsif child.key and child.key == include.active_stream %} class="is-trail"{% endif %}>{{ child.label }}</a></li>
+            {%- endfor %}
+          </ul></div>
+        </li>
+        {%- elsif item.tile %}
+        {%- comment -%} Standalone high-contrast action tile. {%- endcomment %}
+        <li class="sb-item sb-tile-item"><a class="sb-link sb-tile{% if in_trail %} is-trail{% endif %}" href="{{ item.href }}" title="{{ item_label }}"{% if is_page %} aria-current="page"{% endif %}><span class="sb-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{{ item.icon }}</svg></span><span class="sb-label">{{ item_label }}</span><span class="sb-rail-label" aria-hidden="true">{{ item.short | default: item_label }}</span><svg class="sb-tile-go" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+        {%- elsif item.children %}
         <li class="sb-item has-children{% if child_on or is_page or in_trail %} is-open{% endif %}">
           <div class="sb-row">
             <a class="sb-link{% if in_trail %} is-trail{% endif %}" href="{{ item.href }}" title="{{ item.label }}"{% if is_page %} aria-current="page"{% endif %}><span class="sb-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{{ item.icon }}</svg></span><span class="sb-label">{{ item.label }}</span><span class="sb-rail-label" aria-hidden="true">{{ item.short | default: item.label }}</span></a>

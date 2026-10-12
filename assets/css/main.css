@@ -235,6 +235,30 @@ html.nav-locked{overflow:hidden;}
 .sb-sub a.is-trail{color:var(--text);font-weight:600;}
 .sb-sub a[aria-current="page"]{background:var(--stream-soft);color:var(--text);font-weight:700;}
 .sb-sub-list li:first-child{margin-top:2px;}
+/* Dropdown node (_data/nav.yml `toggle: true`): the whole row is a button. The rail-only link
+   replaces it in the collapsed icon rail. */
+.sb-rail-only{display:none;}
+.sb-node-btn{width:100%;border:none;background:none;font:inherit;font-size:.93rem;font-weight:600;text-align:left;cursor:pointer;}
+.sb-node-btn .sb-label{flex:1;}
+.sb-node-btn .sb-chev{flex-shrink:0;transition:transform .2s var(--ease);}
+.sb-node.is-open > .sb-node-btn .sb-chev{transform:rotate(180deg);}
+.sb-node.is-open > .sb-node-btn,.sb-node-btn:hover .sb-icon{color:var(--text);}
+.sb-node.is-open > .sb-node-btn .sb-icon{color:var(--link);}
+.sb-node-btn:focus-visible{outline:2px solid var(--link);outline-offset:-2px;}
+/* Standalone action tile (_data/nav.yml `tile: true`): solid gold with near-black text in both
+   themes (5.7:1 light, 8.2:1 dark), so it never depends on the page background. */
+.sb-tile-item{margin-top:.45rem;}
+.sb-tile{padding-right:.85rem;}
+.sb-tile,.sb-tile:hover,.sb-tile:focus-visible,.sb-tile[aria-current="page"]{background:var(--gold);color:#241703;box-shadow:var(--shadow-sm);}
+.sb-tile .sb-icon,.sb-tile:hover .sb-icon,.sb-tile[aria-current="page"] .sb-icon{color:#241703;}
+.sb-tile .sb-label{flex:1;font-weight:700;}
+.sb-tile .sb-tile-go{flex-shrink:0;transition:transform .15s var(--ease);}
+.sb-tile:hover .sb-tile-go,.sb-tile:focus-visible .sb-tile-go{transform:translateX(3px);}
+.sb-tile:hover{filter:brightness(1.06);}
+.sb-tile:focus-visible{outline:2px solid var(--text);outline-offset:2px;}
+.sb-tile[aria-current="page"]{box-shadow:inset 0 0 0 2px #241703;}
+.sb-tile[aria-current="page"]::before{display:none;}
+@media (prefers-reduced-motion:reduce){.sb-node-btn .sb-chev,.sb-tile .sb-tile-go{transition:none;}}
 
 /* Desktop rail (html[data-sidebar="collapsed"]): YouTube-style primary items only,
    icon over a small caption. Group headings, sub-links and "This page" are hidden. */
@@ -244,7 +268,12 @@ html.nav-locked{overflow:hidden;}
   html[data-sidebar="collapsed"] .sb-group-btn,
   html[data-sidebar="collapsed"] .sb-group[data-group="page"],
   html[data-sidebar="collapsed"] .sb-group[data-group="global"],
+  html[data-sidebar="collapsed"] .sb-node-btn,
+  html[data-sidebar="collapsed"] .sb-tile-go,
   html[data-sidebar="collapsed"] .sb-label{display:none;}
+  html[data-sidebar="collapsed"] .sb-rail-only{display:flex;}
+  html[data-sidebar="collapsed"] .sb-tile-item{margin-top:4px;}
+  html[data-sidebar="collapsed"] .sb-tile[aria-current="page"]{background:var(--gold);}
   html[data-sidebar="collapsed"] .sb-scroll{padding:6px 0;}
   html[data-sidebar="collapsed"] .sb-group-body{grid-template-rows:1fr;visibility:visible;}
   html[data-sidebar="collapsed"] .sb-group + .sb-group{margin-top:0;padding-top:0;}

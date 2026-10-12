@@ -133,7 +133,8 @@ try {
         store('md-sb-closed', JSON.stringify(closedGroups));
       });
     });
-    sidebar.querySelectorAll('.sb-expand').forEach(function(b){
+    // .sb-node-btn = a dropdown node whose whole row is the toggle (_data/nav.yml `toggle: true`).
+    sidebar.querySelectorAll('.sb-expand, .sb-node-btn').forEach(function(b){
       b.addEventListener('click', function(){
         var item = b.closest('.sb-item');
         var open = !item.classList.contains('is-open');
@@ -1382,7 +1383,7 @@ try {
       next: { href: 'after-10th.html', label: 'Choosing a stream after Class 10' } },
     hs: { name: 'Class 11–12', focus: ['eligibility', 'admission', 'exam', 'roadmap', 'fees'],
       hide: ['higher'],
-      next: { href: 'after-12th.html', label: 'All courses after Class 12' } },
+      next: { href: 'coaching.html', label: 'Entrance exams and coaching' } },
     grad: { name: 'In college', focus: ['higher', 'jobs', 'salary'],
       hide: ['who', 'subjects'],
       next: { href: 'study-abroad.html', label: 'Master’s and study-abroad routes' } },

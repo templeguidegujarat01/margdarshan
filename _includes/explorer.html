@@ -19,7 +19,7 @@
   <div class="ex-controls">
     <div class="ex-step">
       <p class="fx-label" id="ex-stream-label"><span class="fx-num" aria-hidden="true">1</span>Select your stream</p>
-      <div class="fx-pills" role="group" aria-labelledby="ex-stream-label" data-ex-streams></div>
+      <div class="ex-tiles" role="group" aria-labelledby="ex-stream-label" data-ex-streams></div>
     </div>
     <div class="ex-step">
       <label class="fx-label" for="ex-career"><span class="fx-num" aria-hidden="true">2</span>{% if ex_type == "colleges" %}Select a course{% else %}Select an exam{% endif %}</label>
@@ -103,7 +103,7 @@
 
   function drawStreams(){
     streamsEl.innerHTML = streamsForHub().map(function(s){
-      return '<button type="button" class="fx-pill" data-stream="' + esc(s.id) + '" aria-pressed="' + (sel.stream === s.id) + '">' + esc(s.label) + '</button>';
+      return '<button type="button" class="ex-tile" data-stream="' + esc(s.id) + '" aria-pressed="' + (sel.stream === s.id) + '">' + esc(s.label) + '</button>';
     }).join('');
   }
   function drawCareers(){
@@ -265,8 +265,8 @@
     redraw();
   }
 
-  /* Stream chips are usable at once; the rest waits for the feed. */
-  streamsEl.innerHTML = streamsForHub().map(function(s){ return '<button type="button" class="fx-pill" disabled>' + esc(s.label) + '</button>'; }).join('');
+  /* Stream tiles are usable at once; the rest waits for the feed. */
+  streamsEl.innerHTML = streamsForHub().map(function(s){ return '<button type="button" class="ex-tile" disabled>' + esc(s.label) + '</button>'; }).join('');
   countEl.textContent = 'Loading…';
   fetch(root.getAttribute('data-ex-src'), { credentials: 'same-origin' })
     .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })

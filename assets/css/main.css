@@ -1743,6 +1743,38 @@ main :is(.prose, .page-hero-inner > p, .note, .table-note, .career-compare-note,
 @media (min-width:768px){.ex-controls{grid-template-columns:repeat(2,minmax(0,1fr));}.ex-step:first-child,.ex-step[data-ex-city-step]{grid-column:1/-1;}}
 .ex-step[hidden]{display:none;}
 .fx-select:disabled,.fx-pill:disabled{opacity:.55;cursor:not-allowed;}
+/* Console look: inside a Master Block card the controls drop their own box (no card-in-card) and sit on the card grid. */
+main > section.mb .ex-controls{padding:0;background:transparent;border:0;border-radius:0;gap:1.5rem 1.25rem;margin-bottom:1.5rem;}
+/* Step 1: stream tiles — square-edged, uniform grid instead of pills. */
+.ex-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;}
+.ex-tile{
+  min-height:56px;padding:1rem;border:1px solid var(--border-color);border-radius:0;background:var(--card-bg);
+  color:var(--text);font:inherit;font-size:.95rem;font-weight:500;text-align:center;line-height:1.3;cursor:pointer;
+  transition:all .2s ease;
+}
+main > section.mb .ex-tile{background:var(--paper);}
+.ex-tile:hover:not(:disabled){border-color:#00A3FF;}
+.ex-tile:focus-visible{outline:2px solid #00A3FF;outline-offset:2px;}
+.ex-tile[aria-pressed="true"],main > section.mb .ex-tile[aria-pressed="true"]{
+  /* the 2px border is kept inside the same box (padding drops 1px) so the tile never grows or shifts its row */
+  padding:calc(1rem - 1px);border:2px solid #00A3FF;background:rgba(0,163,255,.07);
+  box-shadow:0 0 0 3px rgba(0,163,255,.16),0 6px 18px rgba(0,163,255,.22);font-weight:700;
+}
+.ex-tile:disabled{opacity:.55;cursor:not-allowed;}
+/* Steps 2–3: roomier selects with a fine chevron, options drawn in the site colours. */
+.ex .fx-select{
+  min-height:52px;padding:.85rem 3rem .85rem 1.25rem;border-color:var(--border-color);border-radius:0;
+  background:var(--card-bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2300A3FF' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 9l7 7 7-7'/%3E%3C/svg%3E") no-repeat right 1.25rem center;
+  font-size:1rem;font-weight:600;transition:border-color .2s ease,box-shadow .2s ease;
+}
+main > section.mb .ex .fx-select{background-color:var(--paper);}
+.ex .fx-select:hover:not(:disabled){border-color:#00A3FF;}
+.ex .fx-select:focus-visible{outline:none;border-color:#00A3FF;box-shadow:0 0 0 3px rgba(0,163,255,.22);}
+.ex .fx-select option,.ex .fx-select optgroup{background:var(--surface);color:var(--text);font-weight:500;}
+.ex .fx-select option:disabled{color:var(--text-muted);}
+[data-theme="dark"] .ex .fx-select{color-scheme:dark;}
+.ex .fx-label{font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);}
+.ex .fx-num{border-radius:0;}
 .fx-count a{color:var(--link);text-decoration:underline;}
 
 /* ---------- Career comparison tool (career-comparison.html) ---------- */

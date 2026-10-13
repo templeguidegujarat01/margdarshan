@@ -11,8 +11,8 @@
     roadmap     link of the deep roadmap page (hero button + roadmap card)
     ld          WebPage JSON-LD name / description; crumb = schema name of the last breadcrumb when it
                 differs from the visible one
-    nav         the "On this page" links (Journey and Sources links are added automatically)
-    journey     the "Journey at a glance" table under the hero (editorial, optional)
+    nav         the "On this page" links (the Sources link is added automatically)
+    journey     NOT RENDERED (2026-10-13): the old "Journey at a glance" table; rows kept in the data
     path[]      step (2–4 words), sub, source: kept in the data and checked, but no longer drawn on the page
     sections[]  in page order: id, hid (heading id), alt (tinted band), eyebrow, heading, intro, parts[]
                 each part is one component, named by its key:
@@ -134,11 +134,10 @@
     </div>
   </section>
 
-  {%- if C.nav or C.journey or C.sources %}
+  {%- if C.nav or C.sources %}
   <div class="quicknav-bar">
     <div class="container">
       <nav class="quicknav" aria-label="Section navigation">
-        {%- if C.journey %}<a href="#journey">Journey at a Glance</a>{% endif %}
         {%- for n in C.nav %}{% unless n.href == "#quick" %}<a href="{{ n.href }}">{{ n.label }}</a>{% endunless %}{% endfor %}
         {%- if C.sources %}<a href="#sources">Sources</a>{% endif %}
       </nav>
@@ -165,33 +164,8 @@
     </div>
   </div>
 
-  {%- comment -%} Journey at a glance: the 0 → 100% snapshot, one row per step. {%- endcomment %}
-  {%- if C.journey %}
-  <section class="block mb" id="journey" aria-labelledby="journey-heading">
-    <div class="container">
-      <div class="section-head">
-        <span class="eyebrow">Journey at a glance</span>
-        <h2 id="journey-heading">{{ C.journey_heading | default: "From Class 12 to your first job, in one table" }}</h2>
-        <p>Each row is one step. Follow the link to go deeper; the number in brackets is the official source, listed at the bottom of this page.</p>
-      </div>
-      <div class="table-wrap">
-        <table class="table-simple journey-table">
-          <caption class="sr-only">{{ C.hero.title | strip_html }}: journey, step by step</caption>
-          <thead><tr><th scope="col">Step</th><th scope="col">What it means for you</th><th scope="col">Go to</th></tr></thead>
-          <tbody>
-            {%- for r in C.journey %}
-            <tr>
-              <th scope="row"><span class="journey-step-no" aria-hidden="true">{{ forloop.index }}</span> {{ r.step }}</th>
-              <td>{{ r.value }} {% include in-src-ref.html id=r.source %}</td>
-              <td>{% if r.href %}<a href="{{ r.href }}">Open<span class="sr-only"> — {{ r.step }}</span> →</a>{% else %}<span aria-hidden="true">—</span>{% endif %}</td>
-            </tr>
-            {%- endfor %}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-  {%- endif %}
+  {%- comment -%} The "Journey at a glance" table (id journey) is no longer drawn on any career page (2026-10-13);
+      its `journey:` rows stay in the YAML and check-in-data.mjs still validates them. {%- endcomment %}
 
   {%- comment -%} The "Quick answers" section (id quick) is hidden on every career page for now (2026-10-11); its data stays in the YAML. {%- endcomment %}
   {%- for S in C.sections %}{%- if S.id == "quick" %}{% continue %}{% endif %}

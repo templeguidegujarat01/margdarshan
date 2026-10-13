@@ -1,0 +1,15 @@
+{%- comment -%}
+  State links into the verified-list pages (colleges/<state>/ or coaching/<state>/), from _data/seo_landings.yml.
+    {% include seo-browse-states.html type="colleges" %}                    every state with a list
+    {% include seo-browse-states.html type="coaching" current="gujarat" %}  leaves one state out
+  Links are written from the site root; the layout adds the folder prefix on nested pages.
+{%- endcomment -%}
+{%- assign sb_idx = site.data.seo_landings[include.type] -%}
+<ul class="sl-links sl-links-lg">
+  {%- for st in site.data.finder_states %}
+  {%- assign sb_st = sb_idx.states[st.id] %}
+  {%- if sb_st == nil or st.id == include.current %}{% continue %}{% endif %}
+  {%- assign sb_n = sb_st.lists_n %}
+  <li><a href="{{ include.type }}/{{ st.id }}/">{{ st.name }} <span>{{ sb_n }} {% if sb_n == 1 %}list{% else %}lists{% endif %}</span></a></li>
+  {%- endfor %}
+</ul>

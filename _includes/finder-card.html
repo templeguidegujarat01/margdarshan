@@ -1,0 +1,68 @@
+{%- comment -%}
+  One listing card (college or coaching centre). Shared by _includes/finder.html and
+  _includes/seo-listing-renderer.html, so a card looks the same everywhere.
+  Reads the caller's variables (Jekyll includes share the caller's scope):
+    c          the listing (_data/colleges.yml colleges[] or _data/coaching.yml centres[])
+    s          its state (_data/finder_states.yml entry)
+    fx_type    "colleges" | "coaching"
+    fx_key     course / exam key;  fx_meta  its entry in courses / exams
+    fx_hidden  true -> card starts hidden (finder: outside the default state)
+    fx_pin, fx_ext   the location and external-link icons (captured by the caller)
+{%- endcomment %}
+<article class="cx-college-card fx-card{% if c.featured %} is-featured{% endif %}" data-fx-card data-fx-state="{{ s.id }}" data-fx-city="{{ c.city | slugify }}"{% if fx_hidden %} hidden{% endif %}>
+  <div class="fx-card-top">
+    {%- if fx_type == "coaching" %}
+    <span class="cx-tag">{{ fx_meta.tag | escape }}</span>
+    {%- else %}
+    <span class="cx-tag fx-own fx-own-{{ c.ownership | downcase }}">{{ c.ownership }}</span>
+    {%- if c.type_detail %}<span class="fx-subtag">{{ c.type_detail | escape }}</span>{% endif %}
+    {%- endif %}
+    {%- if c.featured %}<span class="fx-featured">{% if c.sponsored %}Sponsored{% else %}Featured{% endif %}</span>{% endif %}
+    <span class="fx-loc">{{ fx_pin }}{{ c.city }}, {{ s.name }}</span>
+  </div>
+  <h3>{{ c.name | escape }}</h3>
+  {%- if fx_type == "coaching" %}
+  {%- assign brand = site.data.coaching.brands[c.brand] %}
+  <p>{{ c.area | escape }}{% if c.extra[fx_key] %} {{ c.extra[fx_key] | escape }}{% endif %}</p>
+  {%- if brand.batches or brand.formats %}
+  <dl class="fx-facts">
+    {%- if brand.batches %}<div><dt>Batches</dt><dd><ul class="fx-chips">{% for b in brand.batches %}<li>{{ b }}</li>{% endfor %}</ul></dd></div>{% endif %}
+    {%- if brand.formats %}<div><dt>Offers</dt><dd><ul class="fx-chips">{% for f in brand.formats %}<li>{{ f }}</li>{% endfor %}</ul></dd></div>{% endif %}
+  </dl>
+  {%- endif %}
+  <div class="fx-actions">
+    <a class="btn-exam-primary" href="{{ c.url }}" target="_blank" rel="noopener noreferrer">Visit {{ c.url_label | downcase }} {{ fx_ext }}<span class="sr-only"> (opens in a new tab)</span></a>
+    <details class="fx-more">
+      <summary class="btn-exam-secondary">Enquire / view details</summary>
+      <div class="fx-more-body">
+        <p>Enquire using the phone number or form on the provider's official site — Education Margdarshan doesn't collect or forward your details. Before you pay, ask for:</p>
+        <ul>
+          <li>Current batch start dates, timings and the nearest centre</li>
+          <li>Total fee including GST, instalments and the refund policy in writing</li>
+          <li>Batch size and which faculty will teach your batch</li>
+          <li>A free demo class or scholarship / admission test</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+  {%- else %}
+  {%- assign course = fx_meta %}
+  <p>{{ c.desc | escape }}</p>
+  <dl class="fx-facts">
+    {%- if c.prog[fx_key] %}<div><dt>Programme</dt><dd>{{ c.prog[fx_key] | escape }}</dd></div>{% endif %}
+    <div><dt>Entrance</dt><dd>{% if c.entrance_by[fx_key] %}{{ c.entrance_by[fx_key] | escape }}{% else %}{{ c.entrance | default: course.entrance | escape }}{% endif %}</dd></div>
+    <div><dt>Admission</dt><dd>{{ c.counselling | escape }}</dd></div>
+    {%- if c.fees %}<div><dt>Annual fees</dt><dd>{{ c.fees | escape }}{% if c.as_of %} ({{ c.as_of }}){% endif %}</dd></div>{% endif %}
+    {%- if c.seats %}<div><dt>{{ course.label }} seats</dt><dd>{{ c.seats }}{% if c.as_of %} ({{ c.as_of }}){% endif %}</dd></div>{% endif %}
+    {%- if c.cutoff %}<div><dt>Closing rank</dt><dd>{{ c.cutoff | escape }}{% if c.as_of %} ({{ c.as_of }}){% endif %}</dd></div>{% endif %}
+    {%- unless c.fees and c.seats %}<div><dt>Fees, seats &amp; cutoff</dt><dd>Change every year — published in the counselling authority's fee notice and seat matrix.</dd></div>{% endunless %}
+  </dl>
+  <div class="fx-actions">
+    <a class="btn-exam-primary" href="{{ c.url }}" target="_blank" rel="noopener noreferrer">{{ c.url_label | default: "Official website" }} {{ fx_ext }}<span class="sr-only"> (opens in a new tab)</span></a>
+    {%- assign body = site.data.counselling[c.body] %}
+    {%- if body and body.url != c.url %}
+    <a class="btn-exam-secondary" href="{{ body.url }}" target="_blank" rel="noopener noreferrer">Counselling &amp; fees info {{ fx_ext }}<span class="sr-only"> ({{ body.name }}, opens in a new tab)</span></a>
+    {%- endif %}
+  </div>
+  {%- endif %}
+</article>

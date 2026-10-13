@@ -3131,3 +3131,43 @@ main > section.mb.stage-focus > .container{box-shadow:inset 4px 0 0 var(--gold);
   .pc-panel,.pc-state[open] .pc-list{animation:none;}
   .pc-chev,.pc-state > summary::after{transition:none;}
 }
+
+/* ---------- Career hero consolidation (2026-10-13) ----------
+   India career pages (in-career.html, .career-hero) and USA v2 career pages (us-career-v2.html,
+   .md-answer-career): centred heading block, quick facts as one low row of micro chips, a compact
+   roadmap button, and the college / coaching dropdowns as one slim, centred bar. The LPA note and
+   the `path:` chain are no longer drawn. Hub pages keep exactly one jump button (.btn-hub-jump). */
+.btn-compact{padding:.5rem 1.05rem;font-size:.88rem;gap:.4rem;}
+.career-hero .page-hero-inner{text-align:center;}
+.career-hero h1{text-align:center;margin-left:auto;margin-right:auto;}
+.career-hero .meta-row,.career-hero .page-hero-ctas{justify-content:center;}
+.career-hero .page-hero-inner > p{margin-left:auto;margin-right:auto;max-width:62ch;}
+.career-hero .page-hero-ctas{margin-top:1rem;}
+.quickfacts.qf-micro{display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem;margin-top:1rem;}
+.qf-micro .qf-card{display:inline-flex;align-items:baseline;flex-wrap:wrap;gap:.1rem .4rem;max-width:100%;padding:.3rem .75rem;border-radius:10px;text-align:left;}
+.qf-micro .qf-card span{display:inline;font-size:.64rem;}
+.qf-micro .qf-card strong{display:inline;margin-top:0;font-size:.84rem;line-height:1.35;}
+.career-hero .pc-exam-line{justify-content:center;margin:1rem 0 .5rem;}
+.career-hero .md-page-control{max-width:760px;margin:1rem auto 0;padding:.5rem;gap:.5rem;text-align:left;background:rgba(var(--hl-rgb),.05);border:1px solid var(--border-surface);border-radius:var(--radius-md);}
+.career-hero .pc-exam-line + .md-page-control{margin-top:0;}
+.career-hero .pc-trigger{min-height:44px;padding:.5rem 1rem;gap:.6rem;font-size:.9rem;box-shadow:none;border-left-width:3px;}
+.career-hero .pc-ico{width:30px;height:30px;border-radius:9px;font-size:1rem;}
+.career-hero .pc-label strong{font-size:.9rem;}
+.career-hero .pc-label small{font-size:.74rem;}
+@media (min-width:768px){
+  .career-hero .md-page-control:has(> .pc-drop:only-child){max-width:380px;grid-template-columns:minmax(0,1fr);}
+  .career-hero .md-page-control > .pc-drop:only-child{max-width:none;}
+}
+.md-answer-career{text-align:center;}
+.md-answer-career h1{text-align:center;margin-left:auto;margin-right:auto;}
+.md-answer-career .md-answer-lede{margin-left:auto;margin-right:auto;}
+.md-answer-career .md-answer-actions{justify-content:center;margin-top:var(--sp-3);}
+.md-answer-career .md-src-pop{text-align:left;}
+.md-stats.md-stats-micro{gap:.5rem;margin-top:var(--sp-3);}
+.md-stats-micro .md-stat{padding:.55rem .75rem;gap:.15rem;border-radius:var(--radius-sm);}
+.md-stats-micro .md-stat-value{font-size:1.15rem;}
+.md-stats-micro .md-stat-value.is-text{font-size:.92rem;}
+.md-stats-micro .md-stat-label,.md-stats-micro .md-stat-note{font-size:.72rem;}
+/* Hub pages: the one jump button down to the career list, solid and compact. */
+.btn-inpage-jump.btn-hub-jump{padding:.6rem 1.25rem;font-size:.92rem;background:var(--stream-accent);color:#241703;border:1.5px solid var(--stream-accent);box-shadow:var(--shadow-sm);}
+.btn-inpage-jump.btn-hub-jump:hover,.btn-inpage-jump.btn-hub-jump:focus-visible{background:var(--stream-primary);color:#241703;border-color:var(--stream-primary);box-shadow:var(--shadow-md);}

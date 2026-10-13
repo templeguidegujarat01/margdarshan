@@ -13,7 +13,7 @@
                 differs from the visible one
     nav         the "On this page" links (Journey and Sources links are added automatically)
     journey     the "Journey at a glance" table under the hero (editorial, optional)
-    path[]      the path as a short chain in the hero: step (2–4 words), sub (one short line), source (optional)
+    path[]      step (2–4 words), sub, source: kept in the data and checked, but no longer drawn on the page
     sections[]  in page order: id, hid (heading id), alt (tinted band), eyebrow, heading, intro, parts[]
                 each part is one component, named by its key:
                   subhead, note, streams, overview, fit, elig_list, elig_cards, prose, table, steps,
@@ -71,7 +71,7 @@
 
 <main id="main">
   {%- assign H = C.hero %}
-  <section class="page-hero" aria-labelledby="hero-heading">
+  <section class="page-hero career-hero" aria-labelledby="hero-heading">
     <svg class="page-hero-bg" viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
       <path d="M-50 340 C 220 300, 320 380, 500 300 S 780 200, 980 260 1150 160 1300 200" stroke="#E8A33D" stroke-width="1.4" fill="none" opacity=".3"/>
     </svg>
@@ -97,7 +97,7 @@
       {%- if C.roadmap or H.links %}
       <div class="page-hero-ctas">
         {%- if C.roadmap %}
-        <a href="{{ C.roadmap }}" class="btn btn-journey btn-page-link">📍 See The Journey / Full Roadmap</a>
+        <a href="{{ C.roadmap }}" class="btn btn-journey btn-page-link btn-compact">📍 See The Journey / Full Roadmap</a>
         {%- endif %}
         {%- for l in H.links %}
         <a href="{{ l.href }}" class="{{ l.class | default: 'btn btn-ghost btn-page-link' }}">{{ l.label }}</a>
@@ -105,34 +105,18 @@
       </div>
       {%- endif %}
       {%- if H.quickfacts %}
-      <div class="quickfacts">
+      <div class="quickfacts qf-micro">
         {%- for q in H.quickfacts %}
         <div class="qf-card"><span>{{ q.label }}</span><strong>{{ q.value }}{% if q.source %} {% include in-src-ref.html id=q.source %}{% endif %}</strong></div>
         {%- endfor %}
       </div>
-      {%- comment -%} Money in plain words (regions.yml in.vocab.money_note), printed once when a quick fact uses LPA. {%- endcomment %}
-      {%- assign uses_lpa = false %}
-      {%- for q in H.quickfacts %}{% if q.value contains "LPA" %}{% assign uses_lpa = true %}{% endif %}{% endfor %}
-      {%- if uses_lpa %}
-      <p class="qf-note">{{ site.data.regions.in.vocab.money_note }}</p>
-      {%- endif %}
       {%- endif %}
       {%- comment -%} In-page command bar: college + coaching dropdowns from the hub keys (career-control.html).
           It replaced the hub-ctas.html cards; their link/link2/link3 jump cards are no longer drawn
-          ("On this page" covers those sections). {%- endcomment %}
+          ("On this page" covers those sections). The `path:` chain and the LPA money note are no
+          longer drawn either (2026-10-13 UI pass); `path:` rows stay in the data sheets. {%- endcomment %}
       {%- if H.hub %}
       {% include career-control.html hub=H.hub %}
-      {%- endif %}
-      {%- comment -%} The path, step by step: optional `path:` rows (step, sub, source), drawn as one compact chain. {%- endcomment %}
-      {%- if C.path %}
-      <div class="path-strip">
-        <p class="path-strip-title" id="path-strip-title">{{ site.data.regions.in.vocab.path_title }}</p>
-        <ol aria-labelledby="path-strip-title">
-          {%- for r in C.path %}
-          <li><span class="ps-no" aria-hidden="true">{{ forloop.index }}</span><span class="ps-body"><strong>{{ r.step }}{% if r.source %} {% include in-src-ref.html id=r.source %}{% endif %}</strong>{% if r.sub %}<small>{{ r.sub }}</small>{% endif %}</span></li>
-          {%- endfor %}
-        </ol>
-      </div>
       {%- endif %}
     </div>
   </section>

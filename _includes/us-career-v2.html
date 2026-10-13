@@ -68,11 +68,11 @@
   <div class="container md-page-top">
     {% include us-career-subnav.html current="overview" %}
 
-    <header class="md-answer">
+    <header class="md-answer md-answer-career">
       <span class="eyebrow">USA · {{ CAT.label }}</span>
       <h1>{{ P.title }}</h1>
       <p class="md-answer-lede">{{ PP.answer | default: PP.intro }}</p>
-      <div class="md-stats">
+      <div class="md-stats md-stats-micro">
         <div class="md-stat">
           <span class="md-stat-label">Median pay · {{ O.title | downcase }}</span>
           <span class="md-stat-value">{% include fmt-num.html n=O.pay prefix="$" %}</span>
@@ -108,7 +108,7 @@
       </div>
       <p class="qf-note md-money-note">{{ site.data.regions.us.vocab.money_note }}</p>
       <div class="md-answer-actions">
-        <a href="#path" class="btn btn-primary">See the path</a>
+        <a href="#path" class="btn btn-primary btn-compact">See the path</a>
         {%- if has_salary %}<a href="us/careers/{{ salary_slug }}/salary/" class="md-textlink">Salary by state and city</a>
         {%- elsif D.industries %}<a href="#pay" class="md-textlink">{{ D.breakdown_label | default: "Pay by industry" }}</a>{% endif %}
       </div>

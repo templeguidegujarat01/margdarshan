@@ -58,7 +58,10 @@
 {%- capture pc_sp -%}{%- if pc_stream != "" -%}stream={{ pc_stream }}&amp;{%- endif -%}{%- endcapture -%}
 {%- capture pc_chev -%}<svg class="pc-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>{%- endcapture -%}
 {%- capture pc_ext -%}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg><span class="sr-only"> (opens in a new tab)</span>{%- endcapture -%}
-{%- if X.exam or X.route %}
+{%- comment -%} exam_in_facts=true: the caller (in-career.html) already shows the exam row in its fact console. {%- endcomment -%}
+{%- assign pc_show_exam = false -%}
+{%- if X.exam or X.route -%}{%- unless include.exam_in_facts -%}{%- assign pc_show_exam = true -%}{%- endunless -%}{%- endif -%}
+{%- if pc_show_exam %}
 <p class="hub-ctas-exam pc-exam-line">{% if X.exam %}<span>Entrance exam</span> <strong>{{ X.exam }}</strong>{% if X.exam2 %} <span aria-hidden="true">·</span> <strong>{{ X.exam2 }}</strong>{% endif %}{% if X.exam_note %} <em>{{ X.exam_note }}</em>{% endif %}{% else %}<span>Admission</span> <strong>{{ X.route }}</strong>{% endif %}</p>
 {%- endif %}
 {%- if pc_col_total > 0 or pc_has_prep %}

@@ -104,19 +104,32 @@
         {%- endfor %}
       </div>
       {%- endif %}
+      {%- comment -%} Fact console: a 2 x 2 label/value sheet (a <dl>, so each label is announced with its
+          value) with the entrance exam / admission route as its full-width last row. The exam row
+          moved here from career-control.html, which skips it when called with exam_in_facts. {%- endcomment %}
+      {%- assign HX = H.hub %}
       {%- if H.quickfacts %}
-      <div class="quickfacts qf-micro">
+      <dl class="quickfacts qf-micro">
         {%- for q in H.quickfacts %}
-        <div class="qf-card"><span>{{ q.label }}</span><strong>{{ q.value }}{% if q.source %} {% include in-src-ref.html id=q.source %}{% endif %}</strong></div>
+        <div class="qf-card"><dt>{{ q.label }}</dt><dd>{{ q.value }}{% if q.source %} {% include in-src-ref.html id=q.source %}{% endif %}</dd></div>
         {%- endfor %}
-      </div>
+        {%- if HX.exam %}
+        <div class="qf-card qf-exam"><dt>Entrance exam</dt><dd>{% if HX.exam_href %}<a href="{{ HX.exam_href }}">{{ HX.exam }}</a>{% else %}{{ HX.exam }}{% endif %}{% if HX.exam2 %} <span class="qf-sep" aria-hidden="true">·</span> {% if HX.exam2_href %}<a href="{{ HX.exam2_href }}">{{ HX.exam2 }}</a>{% else %}{{ HX.exam2 }}{% endif %}{% endif %}{% if HX.exam_note %} <em>{{ HX.exam_note }}</em>{% endif %}</dd></div>
+        {%- elsif HX.route %}
+        <div class="qf-card qf-exam"><dt>Admission</dt><dd>{{ HX.route }}</dd></div>
+        {%- endif %}
+      </dl>
       {%- endif %}
       {%- comment -%} In-page command bar: college + coaching dropdowns from the hub keys (career-control.html).
           It replaced the hub-ctas.html cards; their link/link2/link3 jump cards are no longer drawn
           ("On this page" covers those sections). The `path:` chain and the LPA money note are no
           longer drawn either (2026-10-13 UI pass); `path:` rows stay in the data sheets. {%- endcomment %}
       {%- if H.hub %}
+      {%- if H.quickfacts %}
+      {% include career-control.html hub=H.hub exam_in_facts=true %}
+      {%- else %}
       {% include career-control.html hub=H.hub %}
+      {%- endif %}
       {%- endif %}
     </div>
   </section>

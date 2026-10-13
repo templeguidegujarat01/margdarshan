@@ -3135,7 +3135,7 @@ main > section.mb.stage-focus > .container{box-shadow:inset 4px 0 0 var(--gold);
 /* ---------- Career hero consolidation (2026-10-13) ----------
    India career pages (in-career.html, .career-hero) and USA v2 career pages (us-career-v2.html,
    .md-answer-career): the hero is one centred column. The h1 is the focal point; eyebrow, meta,
-   lede, the compact roadmap button, the quick facts (one low row of micro chips) and the college /
+   lede, the compact roadmap button, the quick-facts console (2 x 2 sheet + exam row) and the college /
    coaching dropdown console all sit on the same centre axis beneath it, so nothing hangs off the
    left edge. Text inside chips, stat cards and dropdown panels stays left-aligned. The LPA note and
    the `path:` chain are no longer drawn. Hub pages keep exactly one jump button (.btn-hub-jump). */
@@ -3145,26 +3145,60 @@ main > section.mb.stage-focus > .container{box-shadow:inset 4px 0 0 var(--gold);
 .career-hero .page-hero-inner > p{max-width:64ch;margin-left:auto;margin-right:auto;}
 .career-hero .meta-row,.career-hero .page-hero-ctas{justify-content:center;}
 .career-hero .page-hero-ctas{margin-top:1.1rem;}
+/* Fact console (India): one bordered 2 x 2 label/value sheet, the same 760px width as the college /
+   coaching console under it, so the two read as one unit. Label above value (spec-sheet style), with
+   hairline dividers instead of four floating chips; the entrance exam / admission route is the
+   full-width last row. Under 560px each row becomes label-left / value-right (one compact column). */
 .quickfacts.qf-micro{display:flex;flex-wrap:wrap;justify-content:flex-start;gap:.4rem;margin-top:1rem;}
-.career-hero .quickfacts.qf-micro{justify-content:center;max-width:760px;margin-left:auto;margin-right:auto;}
 .qf-micro .qf-card{display:inline-flex;align-items:baseline;flex-wrap:wrap;gap:.1rem .4rem;max-width:100%;padding:.3rem .75rem;border-radius:10px;text-align:left;}
-.qf-micro .qf-card span{display:inline;font-size:.64rem;}
-.qf-micro .qf-card strong{display:inline;margin-top:0;font-size:.84rem;line-height:1.35;}
+.qf-micro .qf-card :is(span,dt){display:inline;font-size:.64rem;}
+.qf-micro .qf-card :is(strong,dd){display:inline;margin:0;font-size:.84rem;line-height:1.35;}
+.career-hero .quickfacts.qf-micro{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;width:100%;max-width:760px;margin:1.5rem auto 0;text-align:left;background:rgba(var(--hl-rgb),.04);border:1px solid var(--border-surface);border-radius:var(--radius-md);overflow:hidden;}
+.career-hero .qf-micro .qf-card{display:flex;flex-direction:column;gap:.3rem;padding:.8rem 1.05rem;background:none;border:0;border-radius:0;border-top:1px solid var(--border-surface);}
+.career-hero .qf-micro .qf-card:nth-child(-n+2){border-top:0;}
+.career-hero .qf-micro .qf-card:nth-child(2n){border-left:1px solid var(--border-surface);}
+.career-hero .qf-micro dt{display:block;font-family:var(--font-mono);font-size:.66rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--on-ink-muted);line-height:1.3;}
+.career-hero .qf-micro dd{display:block;margin:0;font-family:var(--font-body);font-size:.93rem;font-weight:650;line-height:1.4;color:var(--on-ink-strong);font-variant-numeric:tabular-nums;}
+.career-hero .qf-micro .qf-exam{grid-column:1 / -1;flex-direction:row;flex-wrap:wrap;align-items:baseline;gap:.25rem .9rem;background:rgba(var(--hl-rgb),.04);}
+.career-hero .qf-micro .qf-exam:nth-child(2n){border-left:0;}
+.career-hero .qf-exam dd a{color:var(--on-ink-strong);text-decoration:underline;text-decoration-color:var(--accent-on-surface);text-decoration-thickness:2px;text-underline-offset:3px;}
+.career-hero .qf-exam dd a:is(:hover,:focus-visible){color:var(--accent-on-surface);}
+.career-hero .qf-exam .qf-sep{color:var(--on-ink-muted);margin:0 .15rem;}
+.career-hero .qf-exam em{font-style:normal;font-weight:500;color:var(--on-ink-muted);font-size:.86rem;}
+@media (max-width:559px){
+  .career-hero .quickfacts.qf-micro{grid-template-columns:minmax(0,1fr);margin-top:1.25rem;}
+  .career-hero .qf-micro .qf-card{display:grid;grid-template-columns:6.5rem minmax(0,1fr);gap:.75rem;align-items:baseline;padding:.65rem .9rem;}
+  .career-hero .qf-micro .qf-card:nth-child(2){border-top:1px solid var(--border-surface);}
+  .career-hero .qf-micro .qf-card:nth-child(2n){border-left:0;}
+  .career-hero .qf-micro dd{font-size:.9rem;}
+}
 .career-hero .pc-exam-line{margin:1.1rem auto .5rem;text-align:center;}
-.career-hero .md-page-control{width:100%;max-width:760px;margin:1.1rem auto 0;padding:.5rem;gap:.5rem;text-align:left;background:rgba(var(--hl-rgb),.05);border:1px solid var(--border-surface);border-radius:var(--radius-md);}
+.career-hero .md-page-control{width:100%;max-width:760px;margin:.75rem auto 0;padding:.5rem;gap:.5rem;text-align:left;background:rgba(var(--hl-rgb),.05);border:1px solid var(--border-surface);border-radius:var(--radius-md);}
 .career-hero .pc-exam-line + .md-page-control{margin-top:0;}
 .career-hero .pc-trigger{min-height:44px;padding:.5rem 1rem;gap:.6rem;font-size:.9rem;box-shadow:none;border-left-width:3px;}
 .career-hero .pc-ico{width:30px;height:30px;border-radius:9px;font-size:1rem;}
 .career-hero .pc-label strong{font-size:.9rem;}
 .career-hero .pc-label small{font-size:.74rem;}
+/* One dropdown: it spans the full console width so its edges line up with the fact console. */
 @media (min-width:768px){
-  .career-hero .md-page-control:has(> .pc-drop:only-child){max-width:380px;grid-template-columns:minmax(0,1fr);}
+  .career-hero .md-page-control:has(> .pc-drop:only-child){grid-template-columns:minmax(0,1fr);}
   .career-hero .md-page-control > .pc-drop:only-child{max-width:none;}
 }
 .md-answer-career{text-align:center;}
 .md-answer-career h1{text-align:center;margin-left:auto;margin-right:auto;}
 .md-answer-career .md-answer-lede,.md-answer-career .md-money-note{max-width:64ch;margin-left:auto;margin-right:auto;}
-.md-answer-career .md-stats-micro{max-width:880px;margin-left:auto;margin-right:auto;text-align:left;}
+/* USA: the four stats use the same console as India (2 x 2, hairline dividers, 760px, centred).
+   overflow stays visible so the source pop-overs are not clipped. */
+.md-answer-career .md-stats.md-stats-micro{grid-template-columns:repeat(2,minmax(0,1fr));gap:0;max-width:760px;margin:var(--sp-4) auto 0;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);}
+.md-answer-career .md-stats-micro .md-stat{background:none;border:0;border-radius:0;padding:.8rem 1.05rem;border-top:1px solid var(--line);}
+.md-answer-career .md-stats-micro .md-stat:nth-child(-n+2){border-top:0;}
+.md-answer-career .md-stats-micro .md-stat:nth-child(2n){border-left:1px solid var(--line);}
+.md-answer-career .md-stats-micro .md-stat-label{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.07em;text-transform:uppercase;}
+@media (max-width:399px){
+  .md-answer-career .md-stats.md-stats-micro{grid-template-columns:minmax(0,1fr);}
+  .md-answer-career .md-stats-micro .md-stat:nth-child(2){border-top:1px solid var(--line);}
+  .md-answer-career .md-stats-micro .md-stat:nth-child(2n){border-left:0;}
+}
 .md-answer-career .md-answer-actions{justify-content:center;margin-top:var(--sp-3);}
 .md-stats.md-stats-micro{gap:.5rem;margin-top:var(--sp-3);}
 .md-stats-micro .md-stat{padding:.55rem .75rem;gap:.15rem;border-radius:var(--radius-sm);}

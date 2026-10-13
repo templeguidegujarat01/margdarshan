@@ -14,8 +14,12 @@
   site.js (block "Page control") closes the other dropdown, and closes on Escape / outside click.
 
     {% include career-control.html hub=C.hero.hub %}
+
+  Exam pages (jee-main.html, ssc-cgl.html …) have no data sheet, so they pass the same keys flat:
+
+    {% include career-control.html coaching_href="coaching-jee.html" colleges_href="colleges-btech.html" %}
 {%- endcomment -%}
-{%- assign X = include.hub -%}
+{%- if include.hub -%}{%- assign X = include.hub -%}{%- else -%}{%- assign X = include -%}{%- endif -%}
 {%- assign pc_courses = "" -%}
 {%- assign pc_hrefs = X.colleges_href | append: "|" | append: X.colleges2_href | split: "|" -%}
 {%- for h in pc_hrefs -%}

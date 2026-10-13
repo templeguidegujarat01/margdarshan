@@ -292,7 +292,8 @@ walk('colleges'); walk('coaching');
 const stale = existing.filter((f) => !files.has(f));
 const changed = [...files].filter(([f, c]) => {
   const p = path.join(root, f);
-  return !fs.existsSync(p) || fs.readFileSync(p, 'utf8') !== c;
+  // Compare without \r: git on Windows may check these files out with CRLF line endings.
+  return !fs.existsSync(p) || fs.readFileSync(p, 'utf8').replace(/\r\n/g, '\n') !== c;
 }).map(([f]) => f);
 
 const pages = [...files.keys()].filter((f) => f.endsWith('.html'));

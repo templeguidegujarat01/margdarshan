@@ -1,5 +1,5 @@
 # National exam consoles (India edition) -> jee-main.html, jee-advanced.html, neet-ug.html, upsc-ese.html, upsc-cms.html,
-# clat.html, cuet-ug.html, nata.html, nift.html
+# clat.html, cuet-ug.html, nata.html, nift.html, jeecup.html, jexpo.html
 # Rendered by _includes/national-exam.html; validated by scripts/check-in-data.mjs.
 # Same part kinds as the state cockpit sheets (p, list, table, note, warn, links). Every p / list / table
 # and every hero fact must carry `source:` naming an id from that exam's sources[].
@@ -7,7 +7,7 @@
 # Facts come only from the official files listed under each exam, read on `checked`. On that date only the
 # UPSC ESE 2027 notice and the CLAT 2027 pages were out, so ESE and CLAT are the 2027 cycle and every other
 # exam is the 2026 cycle (NATA 2027 and NIFT 2027 bulletins were not out either).
-# stream: engineering | medical | govt | law | university | architecture | design (labels the "More national exams" list).
+# stream: engineering | medical | govt | law | university | architecture | design | polytechnic (labels the "More national exams" list).
 checked: 2026-10-14
 
 exams:
@@ -1522,3 +1522,287 @@ exams:
       - { id: nift-pn, name: "NTA — Public Notice for NIFTEE 2026 (8 Dec 2025)", url: "https://www.nift.ac.in/sites/default/files/2026-08/Public-Notice-Admissions-2026.pdf", covers: "NTA's role, exam date and modes, cities, registration window, e-KYC and uploads", checked: 2026-10-14 }
       - { id: nift-ib, name: "NTA — NIFTEE 2026 Information Bulletin", url: "https://www.nift.ac.in/sites/default/files/2026-08/NTA-Information-Bulletin-2026_0.pdf", covers: "About NIFT (NIFT Act 2006, 20 campuses), marking scheme", checked: 2026-10-14 }
       - { id: nift-pr, name: "NIFT — Admission Prospectus 2026", url: "https://www.nift.ac.in/sites/default/files/2026-08/Admission-Prospectus-2026_1.pdf", covers: "Fee structure 2026-30, placement process", checked: 2026-10-14 }
+
+  # ---------------------------------------------------------------- JEECUP (2026 cycle)
+  # Same official brochure as state/uttar-pradesh/jeecup.html (_data/in/states/uttar-pradesh.yml), re-read on 14 Oct 2026.
+  # The brochure gives 4 marks per correct answer and prints no deduction for a wrong one.
+  - slug: jeecup
+    short: "JEECUP"
+    stream: polytechnic
+    body: "Joint Entrance Examination Council, Uttar Pradesh"
+    eyebrow: "Entrance Exam · Polytechnic Diploma · 2026 cycle"
+    title: "JEECUP — eligibility, test scheme, reservation & fees"
+    lede: "The Uttar Pradesh Joint Entrance Examination (Polytechnic), run by the Joint Entrance Examination Council since 1986-87, fills diploma seats in UP's government, aided and private polytechnics. This page follows the 2026 information brochure; the 2027 brochure had not been published when it was checked."
+    colleges_href: "colleges-diploma.html"
+    facts:
+      - { label: "Conducted by", value: "Joint Entrance Examination Council, UP (Lucknow)", source: jee-ib }
+      - { label: "Engineering diploma", value: "Class 10 with at least 35% · age 14+", source: jee-ib }
+      - { label: "Paper", value: "100 MCQs · 400 marks · 2 hours 30 minutes", source: jee-ib }
+      - { label: "Fee per application", value: "₹300 · ₹200 SC/ST", source: jee-ib }
+    official:
+      - { label: "jeecup.admissions.nic.in", url: "https://jeecup.admissions.nic.in/" }
+      - { label: "JEECUP 2026 brochure (Hindi)", url: "https://cdnbbsr.s3waas.gov.in/s325db67c5657914454081c6a18e93d6dd/uploads/2026/01/20260320986118241.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; governing authority"
+        heading: "One council, one online test, every UP polytechnic"
+        parts:
+          - p: "JEECUP is conducted by the <strong>Joint Entrance Examination Council, Uttar Pradesh</strong> (Lucknow), which has held the state's polytechnic entrance since 1986-87. Its merit list and online counselling fill diploma seats in engineering, pharmacy, design, management and second-year lateral entry across government, aided and private polytechnics."
+            source: jee-ib
+          - table:
+              caption: "JEECUP 2026 calendar (brochure; dates can change)"
+              head: ["Step", "Date"]
+              rows:
+                - ["Online applications", "15 Jan – 30 Apr 2026"]
+                - ["Corrections to the form", "26 – 30 Apr 2026"]
+                - ["Admit cards", "8 May 2026"]
+                - ["Entrance tests (all groups, online)", "15 – 22 May 2026"]
+                - ["Result", "30 May 2026"]
+                - ["Online counselling opens", "1 Jun 2026"]
+                - ["Last date for admission through counselling", "31 Jul 2026"]
+            source: jee-ib
+          - note: "Watch jeecup.admissions.nic.in for the 2027 brochure; the rules below are the 2026 ones."
+            source: jee-ib
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Academic eligibility"
+        heading: "Class 10 with 35% for engineering — Class 12 for pharmacy and lateral entry"
+        parts:
+          - table:
+              caption: "Main course groups (Table-1 of the 2026 brochure)"
+              head: ["Group", "Course", "Length", "Minimum qualification", "Test subjects"]
+              rows:
+                - ["A", "Diploma in engineering / technology", "3 years", "Class 10 with at least 35%", "Mathematics 50% · Physics and Chemistry 50%"]
+                - ["B", "Agricultural engineering", "3 years", "Class 10 with at least 35%", "Mathematics 50% · Physics and Chemistry 50%"]
+                - ["C", "Fashion design, home science, textile design and similar", "2–3 years", "Class 10 with at least 35%", "English and Hindi comprehension 20% · Reasoning 50% · General awareness 30%"]
+                - ["D", "Modern office management, library and information science", "2 years", "Intermediate (10+2)", "Comprehension 30% · Reasoning 35% · Numerical ability 10% · General awareness 25%"]
+                - ["E", "Diploma in Pharmacy", "2 years", "Intermediate with Physics and Chemistry plus Mathematics or Biology", "Physics and Chemistry 50% · Biology or Mathematics 50%"]
+                - ["G", "Post-graduate diplomas (computer application, marketing and others)", "1–2 years", "Graduate", "Comprehension 20% · Numerical 15% · Reasoning 30% · Intelligence 20% · General awareness 15%"]
+            source: jee-ib
+          - list:
+              - "<strong>Group K — lateral entry to the second year:</strong> High School plus a matching ITI trade, or Intermediate with vocational / technical subjects or science. Up to 10% of each course's intake is open to lateral entry, and these students must also clear the first-year subjects set for them."
+              - "<strong>Age:</strong> at least 14 years on 1 July 2026 (born on or before 1 July 2012); Group I courses need 16. The brochure sets no upper age limit."
+              - "<strong>Health:</strong> a doctor's fitness certificate is needed before admission; Group I (aeronautical) also needs freedom from colour blindness."
+              - "Students sitting their qualifying exam in 2026 may apply, but must show the pass certificate at counselling."
+            source: jee-ib
+      - id: scheme
+        nav: "Exam scheme"
+        eyebrow: "Exam scheme &amp; marking matrix"
+        heading: "100 questions, 4 marks each, 2½ hours on a computer"
+        parts:
+          - table:
+              caption: "Every JEECUP 2026 paper"
+              head: ["Item", "Rule"]
+              rows:
+                - ["Mode", "Online computer-based test, questions shown in Hindi and English"]
+                - ["Questions", "100 multiple-choice questions, four options, one correct"]
+                - ["Marks", "4 for each correct answer — 400 in all"]
+                - ["Duration", "2 hours 30 minutes"]
+                - ["Wrong or two-answer questions", "Full 4 marks to everyone who attempted it"]
+            source: jee-ib
+          - list:
+              - "The brochure prints no deduction for a wrong answer, and questions can be marked for review before submitting."
+              - "A mock test opens on the portal two days before the exam."
+              - "Choose four exam districts in order of preference; the council may allot any district. Reach the centre two hours early for biometric registration — only a black or blue ball pen is allowed, and calculators and phones are banned."
+            source: jee-ib
+      - id: reservation
+        nav: "Reservation"
+        eyebrow: "Reservation &amp; category quotas"
+        heading: "UP's vertical quotas plus four horizontal ones"
+        parts:
+          - table:
+              caption: "Reservation in diploma admissions through JEECUP 2026"
+              head: ["Category", "Share of seats in each course"]
+              rows:
+                - ["Scheduled Caste", "21%"]
+                - ["Scheduled Tribe", "2%"]
+                - ["Other Backward Class", "27%"]
+                - ["EWS", "10%"]
+                - ["Dependents of freedom fighters (horizontal)", "up to 2%"]
+                - ["Sons and daughters of UP defence personnel (horizontal)", "up to 5%"]
+                - ["Persons with disabilities (horizontal)", "up to 5%"]
+                - ["Women (horizontal)", "up to 20%"]
+            source: jee-ib
+          - list:
+              - "Only one horizontal reservation can be used."
+              - "A reservation certificate in the council's format must be shown at counselling; if it is missing or the claim is false, the seat is cancelled and the candidate is not moved to another category."
+              - "Vimukt jatis get no reservation and cannot claim it as Scheduled Tribe."
+            source: jee-ib
+      - id: fees
+        nav: "Application &amp; fees"
+        eyebrow: "Registration steps &amp; fees"
+        heading: "Up to three applications, ₹300 each"
+        parts:
+          - list:
+              - "<strong>Step 1 — Register</strong> on jeecup.admissions.nic.in with your Aadhaar number (it is used to download the admit card) and a working mobile number and e-mail for OTPs."
+              - "<strong>Step 2 — Pick groups:</strong> Group A, Group E and one of the other groups (B, C, D, F, G, H, I, K1–K8, L) — at most three applications, each paid for separately."
+              - "<strong>Step 3 — Pay online</strong> by net banking, debit or credit card or UPI, and choose four exam districts."
+              - "<strong>Step 4 — Correct</strong> the form in the correction window if needed, then download the admit card and carry it with Aadhaar or another photo ID."
+            source: jee-ib
+          - table:
+              caption: "JEECUP 2026 application fee"
+              head: ["Category", "Fee per application"]
+              rows:
+                - ["General / OBC", "₹300"]
+                - ["SC / ST", "₹200"]
+            source: jee-ib
+          - note: "Bank charges are extra and the fee is not refunded in any case."
+            source: jee-ib
+      - id: horizons
+        nav: "Courses &amp; colleges"
+        eyebrow: "Career horizons &amp; mapped institutions"
+        heading: "From a UP polytechnic diploma into B.Tech"
+        parts:
+          - p: "An engineering diploma with at least <strong>45% (40% for SC/ST)</strong> lets a student join the <strong>second year of B.Tech</strong> in AKTU-affiliated colleges through UPTAC lateral-entry counselling; a pharmacy diploma does the same for B.Pharm."
+            source: tac-ib
+          - links:
+              - { label: "Polytechnic colleges in Uttar Pradesh (verified list)", url: "colleges/uttar-pradesh/diploma.html" }
+              - { label: "D.Pharm colleges in Uttar Pradesh (verified list)", url: "colleges/uttar-pradesh/dpharm.html" }
+              - { label: "AKTU admissions (UPTAC)", url: "state/uttar-pradesh/aktu-uptac.html" }
+              - { label: "JEECUP in the Uttar Pradesh cockpit", url: "state/uttar-pradesh/jeecup.html" }
+              - { label: "West Bengal polytechnic admission (JEXPO)", url: "jexpo.html" }
+    sources:
+      - { id: jee-ib, name: "JEECUP — Information Brochure, UP Joint Entrance Examination (Polytechnic) 2026 (Hindi)", url: "https://cdnbbsr.s3waas.gov.in/s325db67c5657914454081c6a18e93d6dd/uploads/2026/01/20260320986118241.pdf", covers: "council history, timetable, course groups, eligibility, age, exam pattern and marking, reservation, application steps and fee", checked: 2026-10-14 }
+      - { id: tac-ib, name: "AKTU — UPTAC Information Brochure 2026-27", url: "https://samarth-notification.s3.ap-south-1.amazonaws.com/uptacadmin.samarth.ac.in/admission/2026/july/admissionhed126/bc7d57e0090dd6f13e771125a9ad72a1ecdc68edf2e4430417ac2bb64bd909331/17901474761_admission_docs.pdf", covers: "lateral entry to B.Tech / B.Pharm for diploma holders", checked: 2026-10-14 }
+
+  # ---------------------------------------------------------------- JEXPO / West Bengal polytechnic admission (2026-27)
+  # There was NO JEXPO written test for 2026-27: WBSCTVESD's brochures (Common Admission Portal notice board,
+  # 19 May / 17 Jun 2026) admit on a merit list built from qualifying-exam marks. The portal serves its PDFs
+  # through an encrypted API (no direct file URL), so the sources point at the portal whose notice board lists them.
+  - slug: jexpo
+    short: "JEXPO (WB Polytechnic)"
+    stream: polytechnic
+    body: "West Bengal State Council of Technical and Vocational Education and Skill Development (WBSCTVESD)"
+    eyebrow: "Polytechnic Admission · West Bengal · 2026-27 session"
+    title: "West Bengal polytechnic admission (JEXPO) — eligibility, merit, reservation & fees"
+    lede: "JEXPO was West Bengal's entrance test for the first year of polytechnic diplomas. For the 2026-27 session the State Council held no written test: it ranked applicants on the marks of their qualifying exam and filled seats through online counselling on its Common Admission Portal. This page follows the 2026-27 information brochures."
+    colleges_href: "colleges-diploma.html"
+    facts:
+      - { label: "Admitting body", value: "WBSCTVESD (Technical Education Division), Kolkata", source: wb-ib1 }
+      - { label: "First-year eligibility", value: "Madhyamik / Class 10 with Science and Maths", source: wb-ib1 }
+      - { label: "Entrance test 2026-27", value: "None — merit on qualifying-exam marks", source: wb-ib1 }
+      - { label: "Application fee", value: "₹450 · ₹225 Kanyashree", source: wb-ib1 }
+    official:
+      - { label: "Common Admission Portal", url: "https://admission-tetsd.wb.gov.in/" }
+      - { label: "WBSCTVESD (Technical Education)", url: "https://webscte.co.in/" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; governing authority"
+        heading: "A merit list, not an exam, for 2026-27"
+        parts:
+          - p: "Polytechnic admission in West Bengal is run by the <strong>West Bengal State Council of Technical and Vocational Education and Skill Development</strong> (Technical Education Division), a statutory body under West Bengal Act XXVI of 2013 and the successor of the West Bengal State Council of Technical Education. The Council prepares merit lists for diploma admission either through entrance tests such as <strong>JEXPO</strong> (first year) and <strong>VOCLET</strong> (second year) or on the marks of the qualifying exam."
+            source: wb-ib1
+          - p: "For the <strong>2026-27 session</strong> the first-year brochure says admission to the Diploma in Engineering &amp; Technology in all polytechnics is made on a <strong>merit list prepared from the marks obtained in the qualifying examination</strong>, followed by online counselling. The second-year (lateral entry) brochure follows the same rule."
+            source: wb-ib1
+          - table:
+              caption: "First-year counselling 2026-27 (revised schedule of 4 Aug 2026)"
+              head: ["Step", "Date"]
+              rows:
+                - ["Counselling fee payment and choice filling", "29 – 30 Jul 2026"]
+                - ["Phase 1 allotment result", "1 Aug 2026"]
+                - ["Phase 1 admission / seat booking", "1 – 5 Aug 2026"]
+                - ["Phase 2 allotment result", "7 Aug 2026"]
+                - ["Phase 2 admission / seat booking", "7 – 10 Aug 2026"]
+                - ["Phase 3 allotment result", "12 Aug 2026"]
+                - ["Phase 3 admission", "13 – 17 Aug 2026"]
+            source: wb-cs
+          - note: "Mop-up, online spot and a physical spot round (9 Oct 2026) followed for vacant seats. Watch the portal for the 2027-28 brochure — the Council can bring an entrance test back."
+            source: wb-spot
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Academic eligibility"
+        heading: "Madhyamik with Science and Maths for year one — Class 12 or ITI for year two"
+        parts:
+          - list:
+              - "<strong>First year (3-year diploma):</strong> passed or appearing Madhyamik / Class 10 or an equivalent board exam with Science or Physical Science and Mathematics."
+              - "<strong>Age:</strong> date of birth on or before 1 July 2011; no upper age limit."
+              - "<strong>Citizenship:</strong> Indian citizens only. A West Bengal domicile certificate (Proforma A, B or C — 10 years' continuous residence as on 31 Dec 2025) must be produced at admission."
+              - "The first-year brochure sets <strong>no minimum percentage</strong>; rank comes from the merit list."
+              - "<strong>Medical:</strong> no colour blindness, physically and mentally fit — a registered doctor's certificate is needed at admission."
+            source: wb-ib1
+          - list:
+              - "<strong>Second year by lateral entry (2-year diploma, no age limit):</strong> passed or appearing Higher Secondary / 10+2 with the subjects in AICTE table 8.4, or Higher Secondary (Vocational) of WBSCTVESD, or passed 10th + 2-year ITI (continuous)."
+              - "<strong>Lateral-entry subjects</strong> depend on the branch: Civil and Chemical need Physics, Chemistry and Maths; Computer, IT, Electrical and Electronics branches need Physics and Maths plus one of Chemistry, Computer Science, Electronics, IT, Biology, Informatics Practices, Biotechnology, a technical vocational subject, Agriculture, Engineering Graphics, Business Studies or Entrepreneurship."
+              - "Candidates still appearing in ITI are not eligible for lateral entry."
+            source: wb-ib2
+      - id: scheme
+        nav: "Merit scheme"
+        eyebrow: "Exam scheme &amp; marking matrix"
+        heading: "No paper to sit: your qualifying-exam marks set your rank"
+        parts:
+          - list:
+              - "There is <strong>no JEXPO question paper, mode or marking scheme</strong> for 2026-27: the Council ranks every applicant on the marks of the eligibility examination (Madhyamik / Class 10 for first year)."
+              - "Allotment then runs through <strong>online counselling</strong> on the Common Admission Portal: take admission within the date on the allotment letter, or the seat goes to the next eligible candidate."
+              - "A merit rank and an allotted seat do not guarantee admission — eligibility documents are checked physically at the institute, and any mismatch with the application cancels the candidature."
+              - "The brochure lists 45 first-year disciplines, from Civil, Mechanical, Electrical and Computer Science &amp; Technology to Artificial Intelligence, Cyber Forensics, Electric Vehicle Technology, Renewable Energy and Photography."
+            source: wb-ib1
+          - warn: "Websites still describing a JEXPO OMR or CBT test, its syllabus or a sectional Maths / Science split are out of date for 2026-27."
+            source: wb-ib1
+      - id: reservation
+        nav: "Reservation"
+        eyebrow: "Reservation &amp; category quotas"
+        heading: "West Bengal quotas, district quota and tuition-fee waiver"
+        parts:
+          - table:
+              caption: "Seats in Government and Government-sponsored polytechnics, 2026-27"
+              head: ["Quota", "Share"]
+              rows:
+                - ["Scheduled Caste (West Bengal certificates only)", "22%"]
+                - ["Scheduled Tribe (West Bengal certificates only)", "6%"]
+                - ["OBC", "As per government norms, subject to income eligibility"]
+                - ["EWS", "10%"]
+                - ["Physically challenged (40%+ disability)", "Up to 5% of intake"]
+                - ["Female candidates (all categories)", "20%"]
+                - ["Land losers", "2%"]
+                - ["Wards of ex-servicemen", "As per government norms"]
+                - ["District quota (Madhyamik from a school in the district)", "50% — not in Kolkata, North and South 24-Parganas, Howrah and some sub-divisions"]
+                - ["Tuition Fee Waiver (family income up to ₹8 lakh, WB domicile)", "Up to 5%, over and above intake"]
+            source: wb-ib1
+          - list:
+              - "Caste certificates issued by other states do not count: such candidates must apply as General."
+              - "Self-financed polytechnics keep 25% of intake as management quota."
+              - "Women's Polytechnics at Kolkata and Chandannagar admit only women; Ramakrishna Mission Shilpapitha (Belgharia) and Shilpamandira (Belur) admit only men. Darjeeling, Kalimpong and Mirik polytechnics prefer candidates from the hill areas."
+            source: wb-ib1
+          - note: "On 18 May 2026 the state's Backward Classes Welfare Department withdrew its 2025 OBC notifications, so check the portal for the current OBC rules before claiming the quota."
+            source: wb-obc
+      - id: fees
+        nav: "Application &amp; fees"
+        eyebrow: "Registration steps &amp; fees"
+        heading: "Apply once on the Common Admission Portal — ₹450"
+        parts:
+          - list:
+              - "<strong>Step 1 — Apply online</strong> on admission-tetsd.wb.gov.in; take special care with your name, parents' names and date of birth, because details cannot be changed later."
+              - "<strong>Step 2 — Pay ₹450</strong> (₹225 for valid Kanyashree enrollees) by net banking, debit or credit card or UPI, and download the filled form."
+              - "<strong>Step 3 — Counselling:</strong> follow the counselling notices on the portal and take admission within the dates on the allotment letter."
+              - "<strong>Step 4 — Admission and registration:</strong> show originals (domicile, caste, EWS, TFW, PwD and medical certificates) at the institute, then register with the Council in time or the admission is cancelled."
+            source: wb-ib1
+          - table:
+              caption: "Tuition fee, Diploma in Engineering &amp; Technology 2026-27"
+              head: ["Seat", "Tuition fee"]
+              rows:
+                - ["Government polytechnic", "₹50 a month"]
+                - ["Self-financed polytechnic, counselling seat", "₹1,500 a month"]
+                - ["Self-financed polytechnic, management quota", "₹2,500 a month"]
+            source: wb-ib1
+          - note: "Kanyashree enrollees get a 50% waiver on the form, registration and counselling fees, and hostel priority in government polytechnics."
+            source: wb-ib1
+      - id: horizons
+        nav: "Courses &amp; colleges"
+        eyebrow: "Career horizons &amp; mapped institutions"
+        heading: "Government polytechnics at ₹50 a month"
+        parts:
+          - p: "Seats are offered in Government, Government-sponsored and self-financed polytechnics affiliated to the Council; the final institute list for 2026-27 is published on the counselling portal, and new polytechnics or branches join only after AICTE approval and Council affiliation."
+            source: wb-ib1
+          - links:
+              - { label: "Polytechnic colleges in West Bengal (verified list)", url: "colleges/west-bengal/diploma.html" }
+              - { label: "Diploma college finder", url: "colleges-diploma.html" }
+              - { label: "Diploma after Class 10", url: "diploma.html" }
+              - { label: "JEECUP (Uttar Pradesh)", url: "jeecup.html" }
+    sources:
+      - { id: wb-ib1, name: "WBSCTVESD — Information Brochure for Admission to Polytechnics in the 1st Year, Diploma in Engineering & Technology, 2026-27 (Common Admission Portal notice board, 19 May 2026)", url: "https://admission-tetsd.wb.gov.in/", covers: "council status, merit-list admission, eligibility, age, disciplines, application fee, Kanyashree waiver, medical rules, tuition fees, reservation, district quota, TFW, EWS, domicile", checked: 2026-10-14 }
+      - { id: wb-ib2, name: "WBSCTVESD — Revised Information Brochure for Admission to the 2nd Year (lateral entry), Diploma in Engineering & Technology, 2026-27 (notice board, 17 Jun 2026)", url: "https://admission-tetsd.wb.gov.in/", covers: "lateral-entry eligibility, branch-wise 10+2 subjects for lateral entry", checked: 2026-10-14 }
+      - { id: wb-cs, name: "WBSCTVESD — Revised Counselling Schedule for Admission to 1st Year Diploma Courses 2026-27 (4 Aug 2026)", url: "https://admission-tetsd.wb.gov.in/", covers: "choice filling, allotment and admission dates for three phases", checked: 2026-10-14 }
+      - { id: wb-spot, name: "WBSCTVESD — Notification for Physical Spot Counselling 2026-27 (7 Oct 2026)", url: "https://admission-tetsd.wb.gov.in/", covers: "mop-up, online and physical spot rounds", checked: 2026-10-14 }
+      - { id: wb-obc, name: "Government of West Bengal, Backward Classes Welfare Dept — Notification 944-BCW/MR-23/2026 (18 May 2026), on the portal notice board", url: "https://admission-tetsd.wb.gov.in/", covers: "withdrawal of the 2025 OBC notifications", checked: 2026-10-14 }

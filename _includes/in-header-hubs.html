@@ -1,14 +1,16 @@
 {%- comment -%}
   India edition top menu, drawn by _layouts/default.html under the breadcrumb bar on every India
   edition page (body.shell-in — those pages have no sidebar). Items and their order come from
-  _data/nav.yml `topnav` (type home | menu | tile; a menu may end in a `sub` flyout). Each menu is a
+  _data/nav.yml `topnav` (type home | menu | tile; a menu has children and/or nodes). Each menu is a
   <details>, so it works without JS; the site.js "Page control" block keeps one open at a time and
   closes it on outside click and Escape.
   The row is one line at every width and scrolls sideways when it does not fit; panels hang off the nav itself
   (not the scrolling strip), so the strip's overflow never clips them.
-  `sub` flyout: desktop with a mouse (>=1024px, hover) opens it to the RIGHT of the panel on hover or
-  keyboard focus (site.js flips it left when there is no room); on touch and below 1024px it is listed
-  inline at the base of the panel. Its heading links to the sub's own hub page.
+  `nodes` (three-tier matrix, used by Entrance & Competitive Exams): the panel lists stream nodes and each
+  node owns a flyout of columns (cols[] {label, icon, links[]}). Desktop with a mouse (>=1024px, hover): the
+  flyout opens to the RIGHT of the panel, top-aligned with it, on hover or keyboard focus (site.js flips it
+  left when there is no room). Touch and below 1024px: the columns sit under the node as a strip that
+  swipes sideways inside the panel. A node's heading links to its stream hub page.
 {%- endcomment -%}
 {%- assign hh_cur = page.url | remove_first: "/" -%}
 <nav class="in-header-hubs" aria-label="India menu">
@@ -29,16 +31,24 @@
             {%- for c in it.children %}
             <li><a class="hh-link" href="{{ c.href }}"{% if hh_cur == c.href %} aria-current="page"{% endif %}><strong>{{ c.label | replace: "&", "&amp;" }}</strong>{% if c.desc %}<span>{{ c.desc | replace: "&", "&amp;" }}</span>{% endif %}</a></li>
             {%- endfor %}
-            {%- if it.sub %}
-            <li class="hh-sub">
-              <a class="hh-sub-btn" href="{{ it.sub.href }}" aria-haspopup="true"{% if hh_cur == it.sub.href %} aria-current="page"{% endif %}><svg class="hh-sub-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M4 10h16M12 3l9 5H3z"/><path d="M6 10v8M10 10v8M14 10v8M18 10v8"/></svg><strong>{{ it.sub.label | replace: "&", "&amp;" }}</strong><svg class="hh-sub-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-              <ul class="hh-fly" aria-label="{{ it.sub.label | replace: "&", "&amp;" }}">
-                {%- for c in it.sub.children %}
-                <li><a class="hh-link" href="{{ c.href }}"{% if hh_cur == c.href %} aria-current="page"{% endif %}>{{ c.label | replace: "&", "&amp;" }}</a></li>
+            {%- for n in it.nodes %}
+            {%- assign n_label = n.label | replace: "&", "&amp;" %}
+            <li class="hh-sub hh-node">
+              <a class="hh-sub-btn" href="{{ n.href }}" aria-haspopup="true"{% if hh_cur == n.href %} aria-current="page"{% endif %}><span class="hh-node-txt"><strong>{{ n_label }}</strong>{% if n.desc %}<span>{{ n.desc | replace: "&", "&amp;" }}</span>{% endif %}</span><svg class="hh-sub-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+              <div class="hh-fly hh-grid{% if n.cols.size > 1 %} hh-grid-2{% endif %}" role="group" aria-label="{{ n_label }}">
+                {%- for col in n.cols %}
+                <div class="hh-col">
+                  <p class="hh-col-head">{% if col.icon %}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{{ col.icon }}</svg>{% endif %}{{ col.label | replace: "&", "&amp;" }}</p>
+                  <ul>
+                    {%- for c in col.links %}
+                    <li><a class="hh-link" href="{{ c.href }}"{% if hh_cur == c.href %} aria-current="page"{% endif %}><strong>{{ c.label | replace: "&", "&amp;" }}</strong>{% if c.desc %}<span>{{ c.desc | replace: "&", "&amp;" }}</span>{% endif %}</a></li>
+                    {%- endfor %}
+                  </ul>
+                </div>
                 {%- endfor %}
-              </ul>
+              </div>
             </li>
-            {%- endif %}
+            {%- endfor %}
           </ul>
         </details>
       </li>

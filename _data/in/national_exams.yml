@@ -1,0 +1,569 @@
+# National entrance exam consoles (India edition) -> jee-main.html, jee-advanced.html, neet-ug.html
+# Rendered by _includes/national-exam.html; validated by scripts/check-in-data.mjs.
+# Same part kinds as the state cockpit sheets (p, list, table, note, warn, links). Every p / list / table
+# and every hero fact must carry `source:` naming an id from that exam's sources[].
+# Six fixed blocks, in this order: overview, eligibility, scheme, reservation, fees, horizons.
+# Facts come only from the official files listed under each exam, read on `checked`. The 2027 cycle
+# bulletins were not out on that date, so every figure is the 2026 cycle.
+checked: 2026-10-14
+
+exams:
+  # ---------------------------------------------------------------- JEE Main
+  - slug: jee-main
+    short: "JEE Main"
+    stream: engineering
+    body: "National Testing Agency (NTA)"
+    eyebrow: "Entrance Exam · Engineering · 2026 cycle"
+    title: "JEE Main — eligibility, marking, reservation & fees"
+    lede: "The NTA exam for B.E./B.Tech, B.Arch and B.Planning seats at NITs, IIITs and other government-funded institutes — and the gate to JEE Advanced."
+    coaching_href: "coaching-jee.html"
+    colleges_href: "colleges-btech.html"
+    facts:
+      - { label: "Conducted by", value: "National Testing Agency (NTA)", source: jm-ib }
+      - { label: "Sessions (2026)", value: "21–30 Jan &amp; 2–9 Apr 2026", source: jm-ib }
+      - { label: "Paper 1 (B.E./B.Tech)", value: "75 questions · 300 marks · 3 hours", source: jm-ib }
+      - { label: "Marking", value: "+4 correct · −1 wrong, both sections", source: jm-ib }
+    official:
+      - { label: "jeemain.nta.nic.in", url: "https://jeemain.nta.nic.in/" }
+      - { label: "Information Bulletin 2026 (PDF)", url: "https://cdnbbsr.s3waas.gov.in/s3f8e59f4b2fe7c5705bf878bbd494ccdf/uploads/2025/11/202511021649722475.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; governing bodies"
+        heading: "Who runs JEE Main, and what it decides"
+        parts:
+          - p: "JEE Main is conducted by the <strong>National Testing Agency (NTA)</strong>, an autonomous body set up by the Ministry of Education under the Societies Registration Act. The Department of Higher Education has given NTA the job of conducting JEE Main since 2019."
+            source: jm-ib
+          - list:
+              - "<strong>Paper 1 (B.E./B.Tech)</strong> — admission to undergraduate engineering at NITs, IIITs, other Centrally Funded Technical Institutions and institutions funded or recognised by participating state governments."
+              - "<strong>Paper 1 is also the eligibility test for JEE Advanced</strong>, which is used for IIT admission."
+              - "<strong>Paper 2A (B.Arch)</strong> and <strong>Paper 2B (B.Planning)</strong> — architecture and planning admissions."
+            source: jm-ib
+          - p: "Seats are not given by NTA. The <strong>Joint Seat Allocation Authority (JoSAA)</strong> allots seats at IITs and IISc (on JEE Advanced ranks) and at the <strong>NIT+ System</strong> — NITs, IIEST Shibpur, IIITs and Other-GFTIs, including Schools of Planning and Architecture — on JEE Main ranks, in one common process."
+            source: josaa-br
+          - p: "There are two sessions a year. A candidate may sit one or both; if both, the better of the two total NTA scores is used for the merit list."
+            source: jm-ib
+          - table:
+              caption: "JEE Main 2026 calendar"
+              head: ["Event", "Session 1 (January)", "Session 2 (April)"]
+              rows:
+                - ["Online application", "31 Oct – 27 Nov 2025", "From the last week of Jan 2026"]
+                - ["Exam dates", "21 – 30 Jan 2026", "2 – 9 Apr 2026"]
+                - ["Result", "By 12 Feb 2026", "By 20 Apr 2026"]
+            source: jm-ib
+          - warn: "The JEE Main 2027 Information Bulletin was not yet published on 14 October 2026, so this page describes the 2026 cycle. NTA can change dates, fees and the pattern in the 2027 bulletin — check it the day it comes out."
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Eligibility criteria"
+        heading: "Who can sit JEE Main, and who can take a seat"
+        parts:
+          - list:
+              - "<strong>No age limit</strong> for appearing. Institutes may still apply their own age rules at admission."
+              - "<strong>Year of Class 12:</strong> passed in 2024 or 2025, or appearing in 2026. Those who passed Class 12 in 2023 or earlier cannot sit JEE Main 2026."
+              - "The passing year is the year the board first declared you 'pass'. An improvement attempt does not count as a new first attempt."
+              - "<strong>State code of eligibility</strong> is the state where you passed Class 12 — not your home town or address."
+            source: jm-ib
+          - p: "<strong>Attempts:</strong> the bulletin sets no count of attempts; the limit comes from the Class 12 year rule above. In practice a student can sit JEE Main in the year of Class 12 and in the two years after it, with two sessions each year."
+            source: jm-ib
+          - table:
+              caption: "Class 12 rule for NIT+ seats through JoSAA / CSAB (the 75% rule)"
+              head: ["Category", "Option 1 — aggregate of five subjects", "Option 2 — board percentile"]
+              rows:
+                - ["General, Gen-EWS, OBC-NCL", "At least 75%", "Within the category-wise top 20 percentile of your Class 12 board"]
+                - ["SC, ST, PwD", "At least 65%", "Within the category-wise top 20 percentile of your Class 12 board"]
+            source: jm-ib
+          - table:
+              caption: "Subjects you need in Class 12 for each NIT+ programme"
+              head: ["Programme (rank used)", "Class 12 subjects required"]
+              rows:
+                - ["B.E./B.Tech (Paper 1)", "Physics, Mathematics, a language, one of Chemistry / Biotechnology / Biology / a technical vocational subject, and any one more subject"]
+                - ["B.Arch (Paper 2A)", "Physics, Chemistry, Mathematics and two more subjects"]
+                - ["B.Planning (Paper 2B)", "Mathematics and four other subjects"]
+            source: jm-ib
+          - p: "Outside the NIT+ System, the bulletin quotes the Council of Architecture rule for B.Arch (Physics and Mathematics compulsory plus one listed subject, with at least 45% aggregate, or a 10+3 diploma with Mathematics and 45%) and, for B.Planning, at least 50% in Mathematics and 50% aggregate."
+            source: jm-ib
+      - id: scheme
+        nav: "Exam scheme"
+        eyebrow: "Exam scheme &amp; marking matrix"
+        heading: "Paper 1: two sections per subject, negative marking in both"
+        parts:
+          - table:
+              caption: "Paper 1 (B.E./B.Tech) — computer-based test, 3 hours"
+              head: ["Subject", "Section A (MCQ)", "Section B (numerical value)", "Marks"]
+              rows:
+                - ["Mathematics", "20", "5", "100"]
+                - ["Physics", "20", "5", "100"]
+                - ["Chemistry", "20", "5", "100"]
+                - ["Total", "60", "15", "300 (75 questions)"]
+            source: jm-ib
+          - table:
+              caption: "Marking matrix (Paper 1, and the Mathematics part of Papers 2A / 2B)"
+              head: ["Response", "Section A — MCQ", "Section B — numerical value"]
+              rows:
+                - ["Correct or most appropriate answer", "+4", "+4"]
+                - ["Incorrect answer", "−1", "−1"]
+                - ["Unanswered / marked for review", "0", "0"]
+            source: jm-ib
+          - list:
+              - "Section B answers are typed as an <strong>integer</strong> with the on-screen keypad; round your answer off to the nearest integer."
+              - "If a question is dropped, or (in Section B) found incorrect, all candidates in that shift get +4. If more than one MCQ option is correct, +4 goes to anyone who marked a correct option."
+              - "Time: 3 hours for Paper 1; 4 hours for PwD/PwBD candidates eligible for a scribe (20 minutes per hour)."
+              - "13 languages: English, Hindi, Assamese, Bengali, Gujarati, Kannada, Malayalam, Marathi, Odia, Punjabi, Tamil, Telugu and Urdu. The language cannot be changed after the form is submitted."
+              - "Ties are broken by NTA score in Mathematics, then Physics, then Chemistry, then by the lower ratio of wrong to right answers."
+            source: jm-ib
+          - table:
+              caption: "Papers 2A (B.Arch) and 2B (B.Planning)"
+              head: ["Paper", "Part I — Mathematics", "Part II — Aptitude", "Part III", "Total"]
+              rows:
+                - ["2A B.Arch", "25 questions · 100 marks", "50 questions · 200 marks", "Drawing: 2 questions · 100 marks (pen and paper, A4 sheet)", "77 questions · 400 marks"]
+                - ["2B B.Planning", "25 questions · 100 marks", "50 questions · 200 marks", "Planning-based: 25 questions · 100 marks", "100 questions · 400 marks"]
+            source: jm-ib
+          - note: "Paper 2A or 2B alone takes 3 hours; both together take 3 hours 30 minutes."
+            source: jm-ib
+      - id: reservation
+        nav: "Reservation"
+        eyebrow: "Reservation thresholds"
+        heading: "Seat shares for each category"
+        parts:
+          - table:
+              caption: "Central reservation applied to JEE Main admissions"
+              head: ["Category", "Share of seats", "Condition"]
+              rows:
+                - ["SC", "15%", "Castes in the central list for your state"]
+                - ["ST", "7.5%", "Tribes in the central list for your state"]
+                - ["OBC-NCL", "27%", "Non-creamy layer and in the central OBC list (ncbc.nic.in)"]
+                - ["Gen-EWS", "10%", "As per the 17 January 2019 Ministry of Social Justice OM"]
+                - ["PwD / PwBD", "5% (horizontal)", "5% inside each of GEN, Gen-EWS, OBC-NCL, SC and ST seats"]
+            source: jm-ib
+          - list:
+              - "An OBC caste that is only in the state list (not the central list) cannot claim OBC-NCL reservation."
+              - "OBC candidates in the creamy layer are treated as General and compete only for OPEN seats."
+              - "Category certificates are checked at seat allocation; without the original in the required format, the reserved seat is not given."
+            source: jm-ib
+          - p: "<strong>Female supernumerary seats:</strong> extra seats are created for women in NITs, IIEST and some IIITs (as in IITs and IISc) to bring female enrolment to at least 20%."
+            source: josaa-br
+          - p: "<strong>Home State quota:</strong> NIT, IIEST Shibpur and PEC Chandigarh seats are split into Home State and Other States quotas. Home State means the state of your state code of eligibility — where you passed Class 12."
+            source: josaa-br
+      - id: fees
+        nav: "Registration &amp; fees"
+        eyebrow: "Step-by-step registration &amp; form costs"
+        heading: "How to apply, and what it costs per session"
+        parts:
+          - list:
+              - "<strong>Step 1 — Registration:</strong> register on jeemain.nta.nic.in, create a password and security question, and note the application number. The same number is used for both sessions."
+              - "<strong>Step 2 — Application form:</strong> choose the paper and exam cities, enter your education details, take a live photograph and upload a photo (JPG, 10–200 kb), signature (JPG, 10–100 kb) and Class 10 certificate (PDF, 50–300 kb), plus a PwD/UDID certificate if it applies."
+              - "<strong>Step 3 — Fee:</strong> pay online by net banking, debit/credit card or UPI. The confirmation page appears only after payment succeeds."
+              - "Session 2 is applied for separately (same application number) with its own fee. Only one application per candidate — more than one is treated as unfair means."
+            source: jm-ib
+          - table:
+              caption: "Fee for one paper (Paper 1, 2A or 2B), per session"
+              head: ["Category", "Gender", "Centre in India", "Centre outside India"]
+              rows:
+                - ["General", "Male", "₹1,000", "₹5,000"]
+                - ["General", "Female", "₹800", "₹4,000"]
+                - ["Gen-EWS / OBC-NCL", "Male", "₹900", "₹4,500"]
+                - ["Gen-EWS / OBC-NCL", "Female", "₹800", "₹4,000"]
+                - ["SC / ST / PwD / PwBD", "Male", "₹500", "₹2,500"]
+                - ["SC / ST / PwD / PwBD", "Female", "₹500", "₹2,500"]
+                - ["Third gender", "—", "₹500", "₹3,000"]
+            source: jm-ib
+          - table:
+              caption: "Fee for two papers (Paper 1 + 2A, 1 + 2B, all three, or 2A + 2B), per session"
+              head: ["Category", "Gender", "Centre in India", "Centre outside India"]
+              rows:
+                - ["General / Gen-EWS / OBC-NCL", "Male", "₹2,000", "₹10,000"]
+                - ["General / Gen-EWS / OBC-NCL", "Female", "₹1,600", "₹8,000"]
+                - ["SC / ST / PwD / PwBD", "Male", "₹1,000", "₹5,000"]
+                - ["SC / ST / PwD / PwBD", "Female", "₹1,000", "₹5,000"]
+                - ["Third gender", "—", "₹1,000", "₹5,000"]
+            source: jm-ib
+          - note: "Bank processing charges and GST are extra."
+            source: jm-ib
+          - p: "<strong>After the result — JoSAA seat acceptance fee:</strong> ₹15,000 for SC, ST and PwD category tags, ₹30,000 for everyone else. It includes ₹5,000 JoSAA processing charges; the rest is adjusted against the institute's admission fee."
+            source: josaa-br
+      - id: horizons
+        nav: "Careers &amp; institutions"
+        eyebrow: "In-hand career horizons &amp; mapped institutions"
+        heading: "Where a JEE Main rank takes you"
+        parts:
+          - list:
+              - "<strong>NIT+ System through JoSAA / CSAB:</strong> NITs, IIEST Shibpur, IIITs and Other-GFTIs, including the Schools of Planning and Architecture."
+              - "<strong>State engineering colleges:</strong> a state may prepare its own rank list from JEE Main for its colleges, on criteria it decides."
+              - "<strong>JEE Advanced:</strong> the top 2,50,000 Paper 1 candidates (all categories together) become eligible for JEE Advanced and the IITs."
+            source: jm-ib
+          - p: "<strong>A government career benchmark:</strong> after an engineering degree, the UPSC Engineering Services Examination recruits engineers to Group A central services. The ESE 2026 notice expected about 474 vacancies and needs a degree in engineering."
+            source: ese
+          - warn: "NTA, JoSAA and the ESE 2026 notice publish no starting-salary or pay-level figure for engineering graduates, so this page gives none. Salary ranges for each branch are on the career pages below."
+          - links:
+              - { label: "Computer Science Engineering", url: "cse.html" }
+              - { label: "Mechanical Engineering", url: "mechanical.html" }
+              - { label: "Civil Engineering", url: "civil.html" }
+              - { label: "Electrical Engineering", url: "electrical.html" }
+              - { label: "Electronics Engineering", url: "electronics.html" }
+              - { label: "B.Tech college finder", url: "colleges-btech.html" }
+              - { label: "JEE Advanced", url: "jee-advanced.html" }
+    sources:
+      - { id: jm-ib, name: "NTA — JEE (Main) 2026 Information Bulletin", url: "https://cdnbbsr.s3waas.gov.in/s3f8e59f4b2fe7c5705bf878bbd494ccdf/uploads/2025/11/202511021649722475.pdf", covers: "Dates, scheme, marking, eligibility, 75% rule, reservation, steps and fees", checked: 2026-10-14 }
+      - { id: josaa-br, name: "JoSAA — Business Rules for Joint Seat Allocation 2026-27 (1 June 2026)", url: "https://cdnbbsr.s3waas.gov.in/s313111c20aee51aeb480ecbd988cd8cc9/uploads/2026/06/20260601632081678.pdf", covers: "NIT+ System, Home State quota, female supernumerary seats, seat acceptance fee", checked: 2026-10-14 }
+      - { id: ese, name: "UPSC — Engineering Services Examination 2026, Notice No. 02/2026-ENGG", url: "https://www.upsc.gov.in/sites/default/files/Notif-ESEP-26-Engl.pdf", covers: "ESE 2026 vacancies and degree requirement", checked: 2026-10-14 }
+
+  # ---------------------------------------------------------------- JEE Advanced
+  - slug: jee-advanced
+    short: "JEE Advanced"
+    stream: engineering
+    body: "the seven Zonal Coordinating IITs (Joint Admission Board)"
+    eyebrow: "Entrance Exam · IIT admission · 2026 cycle"
+    title: "JEE Advanced — eligibility, attempts, papers & fees"
+    lede: "The exam for B.Tech, BS, B.Arch and dual-degree seats at the 23 IITs, open only to the top 2,50,000 JEE Main Paper 1 candidates."
+    coaching_href: "coaching-jee.html"
+    colleges_href: "colleges-btech.html"
+    facts:
+      - { label: "Organising IIT (2026)", value: "IIT Roorkee", source: ja-ib }
+      - { label: "Exam date (2026)", value: "Sun 17 May 2026 — two papers", source: ja-ib }
+      - { label: "Who can sit", value: "Top 2,50,000 in JEE Main Paper 1", source: ja-ib }
+      - { label: "Attempts", value: "Max 2, in two consecutive years", source: ja-ib }
+    official:
+      - { label: "jeeadv.ac.in", url: "https://jeeadv.ac.in/" }
+      - { label: "Information Brochure 2026 (PDF)", url: "https://jeeadv.ac.in/documents/IBEnglish_2026.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; governing bodies"
+        heading: "Who runs JEE Advanced, and what it decides"
+        parts:
+          - p: "JEE Advanced 2026 was conducted by the <strong>seven Zonal Coordinating IITs</strong> under the <strong>Joint Admission Board (JAB) 2026</strong>, with <strong>IIT Roorkee</strong> as the organising institute. JAB's decisions are final on the exam and IIT admission."
+            source: ja-ib
+          - table:
+              caption: "The 23 IITs by zone (* = zonal coordinating IIT)"
+              head: ["Zone", "IITs"]
+              rows:
+                - ["East", "Bhubaneswar*, Kharagpur, (ISM) Dhanbad"]
+                - ["Central", "Bhilai, Kanpur*, (BHU) Varanasi, Indore"]
+                - ["North-Central", "Delhi*, Jammu, Jodhpur"]
+                - ["North-East", "Guwahati*, Patna"]
+                - ["North", "Roorkee* (organising IIT), Mandi, Ropar"]
+                - ["South", "Madras*, Hyderabad, Palakkad, Tirupati"]
+                - ["West", "Bombay*, Dharwad, Gandhinagar, Goa"]
+            source: ja-ib
+          - list:
+              - "Programmes on JEE Advanced rank: B.Tech and BS (4 years), B.Arch (5 years), and 5-year dual degrees and integrated Masters (B.Tech-M.Tech, BS-MS, Integrated M.Tech, B.Tech-MBA and others)."
+              - "B.Arch is offered only at IIT (BHU) Varanasi, IIT Kharagpur and IIT Roorkee, and needs the separate Architecture Aptitude Test (AAT)."
+              - "Results were declared on 1 June 2026. Qualifying does not guarantee a seat — seats depend on rank and availability in each JoSAA round."
+            source: ja-ib
+          - p: "Seats at all IITs — and, in 2026, at IISc Bengaluru — are allotted on JEE Advanced ranks by <strong>JoSAA</strong>, under its Business Rules dated 1 June 2026."
+            source: josaa-br
+          - warn: "The JEE Advanced 2027 Information Brochure was not yet published on 14 October 2026, so this page describes the 2026 cycle."
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Eligibility criteria"
+        heading: "Five criteria — you must meet all of them"
+        parts:
+          - list:
+              - "<strong>A1 — JEE Main:</strong> be among the top 2,50,000 successful candidates (all categories) in JEE Main 2026 Paper 1."
+              - "<strong>A2 — Age:</strong> born on or after 1 October 2001. SC, ST and PwD get five years' relaxation: born on or after 1 October 1996."
+              - "<strong>A3 — Attempts:</strong> at most two attempts, in two consecutive years."
+              - "<strong>A4 — Class 12:</strong> first appeared in Class 12 in 2025 or 2026, with Physics, Chemistry and Mathematics compulsory. First appearance in 2024 or earlier makes you ineligible (an exception applies to boards that declared 2023-24 results on or after 18 June 2024)."
+              - "<strong>A5 — No earlier IIT admission:</strong> you must not have been admitted to an IIT programme before, even if you later left. Those who were allotted a seat but did not report, withdrew or had it cancelled before the last round may sit again."
+            source: ja-ib
+          - table:
+              caption: "How the top 2,50,000 are split (Criterion A1)"
+              head: ["Category", "Without PwD", "PwD (5% horizontal)", "Total"]
+              rows:
+                - ["OPEN (40.5%)", "96,187", "5,063", "1,01,250"]
+                - ["Gen-EWS (10%)", "23,750", "1,250", "25,000"]
+                - ["OBC-NCL (27%)", "64,125", "3,375", "67,500"]
+                - ["SC (15%)", "35,625", "1,875", "37,500"]
+                - ["ST (7.5%)", "17,812", "938", "18,750"]
+            source: ja-ib
+          - table:
+              caption: "Class 12 performance needed for an IIT seat (the 75% rule)"
+              head: ["Category", "Option 1 — aggregate of five subjects", "Option 2 — board percentile"]
+              rows:
+                - ["General, Gen-EWS, OBC-NCL", "At least 75%", "Within the category-wise top 20 percentile of your Class 12 board"]
+                - ["SC, ST, PwD", "At least 65%", "Within the category-wise top 20 percentile of your Class 12 board"]
+            source: ja-ib
+          - note: "The five subjects counted are Physics, Chemistry, Mathematics, a language (the higher-scoring one if you took more than one) and your best other subject. Marks not out of 100 are scaled to 100, for a total out of 500."
+            source: ja-ib
+      - id: scheme
+        nav: "Exam scheme"
+        eyebrow: "Exam scheme &amp; marking matrix"
+        heading: "Two compulsory 3-hour papers; marking shown only on the day"
+        parts:
+          - table:
+              caption: "JEE Advanced 2026 schedule — computer-based test only"
+              head: ["Paper", "Time (IST)", "Sections"]
+              rows:
+                - ["Paper 1", "09:00 – 12:00", "Physics, Chemistry, Mathematics"]
+                - ["Paper 2", "14:30 – 17:30", "Physics, Chemistry, Mathematics"]
+            source: ja-ib
+          - list:
+              - "Both papers are compulsory; only candidates who sit both are ranked."
+              - "The question types and marking scheme are <strong>not fixed in advance</strong>: the brochure says negative marks may apply to some questions and the scheme is given in the 'Instructions to Candidates' at the time of the exam."
+              - "Questions are in English and Hindi; you can switch language at any time during the exam."
+              - "Subject marks = that subject's marks in Paper 1 + Paper 2. Ranks use the aggregate; ties go first to higher positive marks, then higher Mathematics, then higher Physics."
+              - "PwD candidates (at least 40% impairment) and those with less than 40% disability who have difficulty writing get one extra hour per paper."
+            source: ja-ib
+          - table:
+              caption: "Minimum marks to be included in a rank list"
+              head: ["Rank list", "Minimum % in each subject", "Minimum % aggregate"]
+              rows:
+                - ["Common Rank List (CRL)", "10.0", "35.0"]
+                - ["Gen-EWS", "9.0", "31.5"]
+                - ["OBC-NCL", "9.0", "31.5"]
+                - ["SC / ST", "5.0", "17.5"]
+                - ["All PwD rank lists", "5.0", "17.5"]
+                - ["Preparatory course lists", "2.5", "8.75"]
+            source: ja-ib
+          - warn: "There is no fixed Section A / Section B or integer-type structure in JEE Advanced, unlike JEE Main. Any 'official pattern' quoted before the exam day is a guess based on past papers."
+      - id: reservation
+        nav: "Reservation"
+        eyebrow: "Reservation thresholds"
+        heading: "Seat shares and special seats at the IITs"
+        parts:
+          - table:
+              caption: "Reservation of IIT seats"
+              head: ["Category", "Share of seats", "Condition"]
+              rows:
+                - ["SC", "15%", "Central list for your state (socialjustice.gov.in)"]
+                - ["ST", "7.5%", "Central list for your state (ncst.nic.in)"]
+                - ["OBC-NCL", "27%", "Non-creamy layer, central OBC list"]
+                - ["Gen-EWS", "10%", "As per the 17 January 2019 OM"]
+                - ["PwD", "5% (horizontal)", "At least 40% impairment; 5% inside each of OPEN, Gen-EWS, OBC-NCL, SC and ST"]
+            source: ja-ib
+          - list:
+              - "Your category is the one recorded in JEE Main; it cannot be changed for JEE Advanced."
+              - "<strong>Female supernumerary seats:</strong> each IIT creates extra seats so that female undergraduate enrolment is at least 20%; offered only on JEE Advanced performance."
+              - "<strong>Defence Service candidates:</strong> two seats per IIT for children of defence/paramilitary personnel killed or permanently disabled in action."
+              - "<strong>Foreign nationals:</strong> supernumerary seats capped at 10% of each course; they do not need JEE Main."
+            source: ja-ib
+      - id: fees
+        nav: "Registration &amp; fees"
+        eyebrow: "Step-by-step registration &amp; form costs"
+        heading: "Registration window and fee"
+        parts:
+          - list:
+              - "<strong>Step 1:</strong> qualify in the top 2,50,000 of JEE Main Paper 1."
+              - "<strong>Step 2:</strong> register on jeeadv.ac.in — in 2026 from 23 April (10:00 IST) to 2 May 2026 (23:59 IST)."
+              - "<strong>Step 3:</strong> pay the fee — last date 4 May 2026 (23:59 IST)."
+              - "Foreign nationals and OCI/PIO (F) candidates register directly (2026: 6 April – 2 May)."
+            source: ja-ib
+          - table:
+              caption: "JEE Advanced 2026 registration fee — exam centres in India"
+              head: ["Candidate", "Fee"]
+              rows:
+                - ["Female candidates (all categories)", "₹1,600"]
+                - ["SC, ST and PwD candidates", "₹1,600"]
+                - ["All other Indian candidates", "₹3,200"]
+                - ["OCI/PIO (I) — female, or OPEN (GEN-PwD)", "₹1,600"]
+                - ["OCI/PIO (I) — OPEN (GEN)", "₹3,200"]
+                - ["Foreign nationals &amp; OCI/PIO (F) — SAARC countries", "USD 100"]
+                - ["Foreign nationals &amp; OCI/PIO (F) — non-SAARC countries", "USD 200"]
+            source: ja-ib
+          - note: "Centres abroad: USD 200 for Indian nationals and OCI/PIO (I); USD 200 (SAARC) or USD 300 (non-SAARC) for foreign nationals. Gateway charges are extra and the fee is non-refundable."
+            source: ja-ib
+          - p: "<strong>After the result — JoSAA seat acceptance fee:</strong> ₹15,000 for SC, ST and PwD category tags, ₹30,000 for everyone else (includes ₹5,000 JoSAA processing; the rest is adjusted against the admission fee)."
+            source: josaa-br
+      - id: horizons
+        nav: "Careers &amp; institutions"
+        eyebrow: "In-hand career horizons &amp; mapped institutions"
+        heading: "Where a JEE Advanced rank takes you"
+        parts:
+          - list:
+              - "<strong>The 23 IITs</strong> — B.Tech, BS, B.Arch, dual degrees and integrated Masters."
+              - "Institutes that have used JEE Advanced ranks in the past: IISc Bengaluru; the IISERs at Berhampur, Bhopal, Kolkata, Mohali, Pune, Thiruvananthapuram and Tirupati; IIST Thiruvananthapuram; RGIPT Rae Bareli; and IIPE Visakhapatnam. Contact them directly for admission details."
+            source: ja-ib
+          - p: "<strong>A government career benchmark:</strong> after the degree, the UPSC Engineering Services Examination recruits engineers to Group A central services; the ESE 2026 notice expected about 474 vacancies."
+            source: ese
+          - warn: "The IITs, JoSAA and the ESE 2026 notice publish no starting-salary or pay-level figure for B.Tech graduates, so this page gives none. Branch-wise salary ranges are on the career pages below."
+          - links:
+              - { label: "Computer Science Engineering", url: "cse.html" }
+              - { label: "AI Engineering", url: "ai-engineer.html" }
+              - { label: "Aerospace Engineering", url: "aerospace.html" }
+              - { label: "Electrical Engineering", url: "electrical.html" }
+              - { label: "B.Tech college finder", url: "colleges-btech.html" }
+              - { label: "JEE Main", url: "jee-main.html" }
+    sources:
+      - { id: ja-ib, name: "IIT Roorkee (JAB 2026) — JEE (Advanced) 2026 Information Brochure", url: "https://jeeadv.ac.in/documents/IBEnglish_2026.pdf", covers: "IITs, eligibility A1–A5, 2.5 lakh split, schedule, papers, rank lists, reservation, fees, 75% rule", checked: 2026-10-14 }
+      - { id: josaa-br, name: "JoSAA — Business Rules for Joint Seat Allocation 2026-27 (1 June 2026)", url: "https://cdnbbsr.s3waas.gov.in/s313111c20aee51aeb480ecbd988cd8cc9/uploads/2026/06/20260601632081678.pdf", covers: "IIT and IISc seat allocation, seat acceptance fee", checked: 2026-10-14 }
+      - { id: ese, name: "UPSC — Engineering Services Examination 2026, Notice No. 02/2026-ENGG", url: "https://www.upsc.gov.in/sites/default/files/Notif-ESEP-26-Engl.pdf", covers: "ESE 2026 vacancies", checked: 2026-10-14 }
+
+  # ---------------------------------------------------------------- NEET UG
+  - slug: neet-ug
+    short: "NEET UG"
+    stream: medical
+    body: "National Testing Agency (NTA)"
+    eyebrow: "Entrance Exam · Medical · 2026 cycle"
+    title: "NEET UG — eligibility, marking, reservation & fees"
+    lede: "The single national entrance for MBBS, BDS, BAMS, BUMS, BSMS and BHMS in every medical institution in India, including AIIMS and JIPMER."
+    coaching_href: "coaching-neet.html"
+    colleges_href: "colleges-mbbs.html"
+    facts:
+      - { label: "Conducted by", value: "National Testing Agency (NTA)", source: neet-ib }
+      - { label: "Mode", value: "Pen and paper, one shift", source: neet-ib }
+      - { label: "Paper", value: "180 questions · 720 marks · 3 hours", source: neet-ib }
+      - { label: "2026 exam", value: "Re-held on Sun 21 June 2026", source: neet-re }
+    official:
+      - { label: "neet.nta.nic.in", url: "https://neet.nta.nic.in/" }
+      - { label: "Information Bulletin 2026 (PDF)", url: "https://cdnbbsr.s3waas.gov.in/s37bc1ec1d9c3426357e69acd5bf320061/uploads/2026/02/202602231394640855.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; governing bodies"
+        heading: "Who runs NEET UG, and what it decides"
+        parts:
+          - p: "NEET (UG) is required by <strong>Section 14 of the National Medical Commission Act, 2019</strong> (and the matching sections of the NCISM Act, 2020 and NCH Act, 2020) as the one uniform entrance for undergraduate medical courses in all medical institutions. <strong>NTA</strong> has conducted it since 2019. It has also been the entrance for MBBS at AIIMS and JIPMER since 2020."
+            source: neet-ib
+          - list:
+              - "Courses: MBBS, BDS, BAMS, BUMS, BSMS and BHMS."
+              - "NEET (UG) results are also used for B.Sc. (Hons) Nursing and for BVSc &amp; AH seats under the 15% VCI quota."
+              - "NTA conducts the exam, declares the result and issues the All India Rank. Merit lists, domicile and counselling belong to the admitting and state authorities."
+              - "Counselling: the <strong>Medical Counselling Committee (MCC)</strong> for the 15% All India Quota in MBBS/BDS; <strong>AACCC</strong> for the All India Quota in BAMS/BUMS/BSMS and BHMS; state authorities for state quotas."
+            source: neet-res
+          - table:
+              caption: "NEET (UG) 2026 calendar"
+              head: ["Event", "Date"]
+              rows:
+                - ["Online application", "8 Feb – 8 Mar 2026"]
+                - ["Correction window", "10 – 12 Mar 2026"]
+                - ["Exam as first scheduled", "Sun 3 May 2026, 2:00 – 5:00 PM"]
+            source: neet-ib
+          - p: "NTA then held a <strong>re-examination on Sunday 21 June 2026</strong> (2:00 – 5:15 PM including formalities), in pen-and-paper mode in 13 languages, with no fee charged to candidates (public notice of 15 May 2026)."
+            source: neet-re
+          - p: "The result came on <strong>16 July 2026</strong>: close to 20 lakh candidates appeared at 5,440 centres and 11.21 lakh qualified."
+            source: neet-res
+          - warn: "The NEET (UG) 2027 Information Bulletin was not yet published on 14 October 2026, so this page describes the 2026 cycle."
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Eligibility criteria"
+        heading: "Age, subjects and the qualifying percentile"
+        parts:
+          - list:
+              - "<strong>Minimum age:</strong> 17 years on or before 31 December of the exam year — for NEET 2026, born on or before 31 December 2009."
+              - "<strong>No upper age limit</strong> (NMC letter of 9 March 2022), and the bulletin sets no cap on the number of attempts."
+              - "<strong>Subjects:</strong> Physics, Chemistry, Biology/Biotechnology and English in Class 12 (or equivalent). Since NMC's November 2023 public notice, students who studied these as additional subjects after Class 12 from a recognised board may also sit."
+              - "Students whose Class 12 result is awaited can sit, but cannot be admitted unless they have passed by the first counselling round."
+              - "Indian citizens and OCI holders who want to study medicine abroad must also qualify NEET (UG)."
+            source: neet-ib
+          - table:
+              caption: "Qualifying percentile for admission (marks at or above this percentile)"
+              head: ["Category", "Minimum percentile"]
+              rows:
+                - ["General, Gen-EWS", "50th"]
+                - ["SC, ST, OBC", "40th"]
+                - ["PwBD — General / Gen-EWS", "45th"]
+                - ["PwBD — SC / ST / OBC-NCL", "40th"]
+            source: neet-ib
+          - note: "The Central Government, with NMC and the other councils, may lower these percentiles for a year if too few candidates qualify."
+            source: neet-ib
+      - id: scheme
+        nav: "Exam scheme"
+        eyebrow: "Exam scheme &amp; marking matrix"
+        heading: "180 compulsory MCQs, +4 / −1"
+        parts:
+          - table:
+              caption: "NEET (UG) 2026 pattern — pen and paper, 3 hours"
+              head: ["Subject", "Questions", "Marks"]
+              rows:
+                - ["Physics", "45", "180"]
+                - ["Chemistry", "45", "180"]
+                - ["Biology (Botany &amp; Zoology)", "90", "360"]
+                - ["Total", "180", "720"]
+            source: neet-ib
+          - table:
+              caption: "Marking matrix"
+              head: ["Response", "Marks"]
+              rows:
+                - ["Correct or most appropriate answer", "+4"]
+                - ["Incorrect option", "−1"]
+                - ["Unanswered", "0"]
+            source: neet-ib
+          - list:
+              - "All 180 questions are compulsory — there are no optional questions (NMC letter of 5 December 2025)."
+              - "Every question is an MCQ with four options and one correct or best answer. There is no numerical-value section."
+              - "If more than one option is correct, +4 goes to anyone who marked a correct one; if a question is wrong or dropped, all candidates get +4."
+              - "13 mediums: Assamese, Bengali, English, Gujarati, Hindi, Kannada, Malayalam, Marathi, Odia, Punjabi, Tamil, Telugu and Urdu."
+              - "PwD/PwBD candidates with a physical limitation to write get one extra hour, whether or not they use a scribe."
+            source: neet-ib
+      - id: reservation
+        nav: "Reservation"
+        eyebrow: "Reservation thresholds"
+        heading: "Central reservation — and why state seats differ"
+        parts:
+          - table:
+              caption: "15% All India Quota, central institutes and central universities"
+              head: ["Category", "Share of seats"]
+              rows:
+                - ["SC", "15%"]
+                - ["ST", "7.5%"]
+                - ["OBC-NCL (central list)", "27%"]
+                - ["Gen-EWS", "10%"]
+                - ["PwBD", "5% (horizontal)"]
+            source: neet-ib
+          - list:
+              - "This applies to the 15% All India Quota, central institutes (ABVIMS &amp; RML, VMMC &amp; Safdarjung, ESIC), DU, AMU, BHU, AIIMS and JIPMER."
+              - "<strong>State quota seats</strong> (and private colleges under state governments) follow the state's own reservation policy and eligibility rules."
+              - "Creamy-layer OBC candidates, and OBCs not in the central list, should choose General."
+            source: neet-ib
+      - id: fees
+        nav: "Registration &amp; fees"
+        eyebrow: "Step-by-step registration &amp; form costs"
+        heading: "How to apply, and what it costs"
+        parts:
+          - list:
+              - "<strong>Step 1 — Register:</strong> on neet.nta.nic.in; create a password and security question and note the application number."
+              - "<strong>Step 2 — Complete the form:</strong> personal details, question-paper medium, exam cities and education; take a live photograph and upload a passport photo taken after 1 January 2026, signature, left- and right-hand finger and thumb impressions, Class 10 marksheet and certificate, and category / PwBD certificates if they apply."
+              - "<strong>Step 3 — Pay:</strong> online by card, net banking or UPI, by the last date (8 March 2026, 11:50 PM, for 2026)."
+            source: neet-ib
+          - table:
+              caption: "NEET (UG) 2026 application fee"
+              head: ["Category", "Centre in India", "Centre outside India"]
+              rows:
+                - ["General", "₹1,700", "₹9,500"]
+                - ["Gen-EWS / OBC-NCL", "₹1,600", "₹9,500"]
+                - ["SC / ST / PwBD / PwD / Third gender", "₹1,000", "₹9,500"]
+            source: neet-ib
+          - note: "Unlike JEE Main, the NEET fee does not change with gender."
+            source: neet-ib
+          - note: "No fee was charged for the 21 June 2026 re-examination."
+            source: neet-re
+      - id: horizons
+        nav: "Careers &amp; institutions"
+        eyebrow: "In-hand career horizons &amp; mapped institutions"
+        heading: "Where a NEET rank takes you — and a doctor's government pay"
+        parts:
+          - list:
+              - "<strong>Through MCC:</strong> 15% All India Quota MBBS/BDS seats in government colleges of the states; 100% MBBS at AIIMS; JIPMER, AMU, BHU, DU and IP University seats; ESIC seats; Deemed Universities; and B.Sc. Nursing at selected central institutes. MCC only registers candidates for AFMC."
+              - "<strong>Through state authorities:</strong> the remaining state quota seats in government and private colleges."
+            source: neet-ib
+          - table:
+              caption: "Government pay for MBBS doctors — UPSC Combined Medical Services Examination 2026"
+              head: ["Post (2026 vacancies)", "Pay Matrix level", "Basic pay range"]
+              rows:
+                - ["Medical Officer, General Duty, Central Health Service (864)", "Level 10", "₹56,100 – ₹1,77,500 + NPA"]
+                - ["Assistant Divisional Medical Officer, Railways (450)", "Level 10, Group A Junior Scale", "₹56,100 – ₹1,77,500 + NPA"]
+                - ["General Duty Medical Officer, NDMC (14)", "Level 10", "₹56,100 – ₹1,77,500 + restricted NPA"]
+                - ["General Duty Medical Officer Grade-II, MCD (30)", "Level 10, first cell", "Starts at ₹56,100 + NPA and allowances"]
+            source: cms
+          - table:
+              caption: "Promotion ladder for an NDMC General Duty Medical Officer"
+              head: ["Grade", "Pay Matrix level", "Range"]
+              rows:
+                - ["Senior Medical Officer", "Level 11", "₹67,700 – ₹2,08,700"]
+                - ["Chief Medical Officer", "Level 12", "₹78,800 – ₹2,09,200"]
+                - ["CMO (Non-functional Selection Grade)", "Level 13", "₹1,18,500 – ₹2,14,100"]
+                - ["Senior Administrative Grade", "Level 14", "₹1,44,200 – ₹2,18,200"]
+            source: cms
+          - note: "These are basic pay ranges. In-hand pay also depends on allowances (DA, HRA, NPA) that change over time and are not stated as amounts in the notice. Private practice is not allowed in these posts."
+            source: cms
+          - links:
+              - { label: "MBBS (Doctor)", url: "mbbs.html" }
+              - { label: "BDS (Dentist)", url: "bds.html" }
+              - { label: "BAMS", url: "bams.html" }
+              - { label: "BHMS", url: "bhms.html" }
+              - { label: "MBBS college finder", url: "colleges-mbbs.html" }
+              - { label: "NEET coaching finder", url: "coaching-neet.html" }
+    sources:
+      - { id: neet-ib, name: "NTA — NEET (UG) 2026 Information Bulletin", url: "https://cdnbbsr.s3waas.gov.in/s37bc1ec1d9c3426357e69acd5bf320061/uploads/2026/02/202602231394640855.pdf", covers: "Legal basis, dates, pattern, marking, age, subjects, percentiles, reservation, steps, fees, MCC seats", checked: 2026-10-14 }
+      - { id: neet-re, name: "NTA — Public notice: Conduct of re-examination for NEET (UG) 2026 (15 May 2026)", url: "https://cdnbbsr.s3waas.gov.in/s37bc1ec1d9c3426357e69acd5bf320061/uploads/2026/05/20260515960654684.pdf", covers: "21 June 2026 re-exam date, timing, mode, no fee", checked: 2026-10-14 }
+      - { id: neet-res, name: "NTA — Press release: Result of NEET (UG) 2026 (16 July 2026)", url: "https://cdnbbsr.s3waas.gov.in/s37bc1ec1d9c3426357e69acd5bf320061/uploads/2026/07/20260716477215762.pdf", covers: "Result date, candidates appeared and qualified, counselling bodies, other courses using NEET", checked: 2026-10-14 }
+      - { id: cms, name: "UPSC — Combined Medical Services Examination 2026, Notice No. 9/2026-CMS", url: "https://www.upsc.gov.in/sites/default/files/Notification-CMSE-2026-English-110326.pdf", covers: "2026 vacancies, Pay Matrix levels and promotion ladder for government doctors", checked: 2026-10-14 }

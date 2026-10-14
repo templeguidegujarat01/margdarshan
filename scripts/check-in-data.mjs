@@ -181,7 +181,87 @@ if (fs.existsSync(stateDir)) for (const f of fs.readdirSync(stateDir).filter((x)
   }
 }
 
+// ---- National entrance exam consoles (_data/in/national_exams.yml -> <slug>.html) ----
+// Same part rules as the state sheets; the six fixed blocks are NX_BLOCKS, and each page must include
+// national-exam.html for its slug. coaching_href / colleges_href must point at pages that exist.
+const nxFile = path.join(root, '_data', 'in', 'national_exams.yml');
+const NX_BLOCKS = ['overview', 'eligibility', 'scheme', 'reservation', 'fees', 'horizons'];
+let nxExams = 0;
+if (fs.existsSync(nxFile)) {
+  const err = (m) => errors.push(`national_exams.yml: ${m}`);
+  let D;
+  try { D = yaml.load(fs.readFileSync(nxFile, 'utf8')); } catch (e) { err('YAML error: ' + e.message.split('\n')[0]); D = {}; }
+  if (!isDay(D.checked)) err('checked must be a date (YYYY-MM-DD)');
+  const slugs = (D.exams || []).map((e) => e.slug);
+  if (new Set(slugs).size !== slugs.length) err('duplicate exam slugs');
+  for (const E of D.exams || []) {
+    nxExams++;
+    const ex = (m) => err(`${E.slug}: ${m}`);
+    for (const k of ['slug', 'short', 'stream', 'body', 'eyebrow', 'title', 'lede']) if (!E[k]) ex(`${k} is required`);
+    for (const k of ['coaching_href', 'colleges_href']) if (E[k] && !linkOk(E[k])) ex(`${k} points at a missing page: ${E[k]}`);
+    const page = path.join(root, E.slug + '.html');
+    if (!fs.existsSync(page)) ex(`page ${E.slug}.html missing`);
+    else if (!fs.readFileSync(page, 'utf8').includes(`{% include national-exam.html exam="${E.slug}" %}`)) ex('page does not include national-exam.html for this exam');
+    const ids = new Set();
+    for (const s of E.sources || []) {
+      if (!s.id || !s.name || !s.url || !s.covers) ex(`source ${JSON.stringify(s.id)} needs id, name, url, covers`);
+      if (ids.has(s.id)) ex(`duplicate source id ${s.id}`);
+      ids.add(s.id);
+      if (!/^https:\/\//.test(s.url || '')) ex(`source ${s.id}: url must start with https://`);
+      if (!isDay(s.checked)) ex(`source ${s.id}: checked must be a date (YYYY-MM-DD)`);
+    }
+    if (!ids.size) ex('no sources');
+    const cited = new Set();
+    const cite = (where, src, required) => {
+      if (src) { cited.add(src); if (!ids.has(src)) ex(`${where}: source "${src}" is not listed under sources`); }
+      else if (required) ex(`${where}: fact without source`);
+    };
+    for (const q of E.facts || []) { if (!q.label || !q.value) ex('every fact needs label and value'); cite(`fact "${q.label}"`, q.source, true); }
+    if ((E.facts || []).length !== 4) ex('the hero console needs exactly 4 facts (2 x 2)');
+    for (const o of E.official || []) if (!/^https:\/\//.test(o.url || '')) ex(`official link ${o.label}: url must start with https://`);
+    const secIds = (E.sections || []).map((s) => s.id);
+    if (secIds.join() !== NX_BLOCKS.join()) ex(`sections must be ${NX_BLOCKS.join(', ')} in that order (found ${secIds.join(', ')})`);
+    for (const S of E.sections || []) {
+      for (const k of ['nav', 'eyebrow', 'heading']) if (!S[k]) ex(`section ${S.id}: ${k} is required`);
+      for (const [i, p] of (S.parts || []).entries()) {
+        const kinds = Object.keys(p).filter((k) => k !== 'source');
+        const where = `section ${S.id} part ${i + 1}`;
+        if (kinds.length !== 1 || !SC_KINDS.includes(kinds[0])) { ex(`${where}: unknown part ${JSON.stringify(kinds)}`); continue; }
+        cite(where, p.source, FACT_KINDS.includes(kinds[0]));
+        if (p.table) {
+          const w = (p.table.head || []).length;
+          if (!w) ex(`${where}: table needs head`);
+          for (const [r, row] of (p.table.rows || []).entries()) if (row.length !== w) ex(`${where}: table row ${r + 1} has ${row.length} cells, head has ${w}`);
+        }
+        for (const l of p.links || []) if (!l.label || !l.url || !linkOk(l.url)) ex(`${where}: bad link ${JSON.stringify(l)}`);
+      }
+    }
+    for (const sid of ids) if (!cited.has(sid)) ex(`source "${sid}" is listed but never cited`);
+  }
+}
+
+// ---- India top menu (_data/nav.yml topnav): every menu link, node heading and flyout link must exist ----
+const navFile = path.join(root, '_data', 'nav.yml');
+let navLinks = 0;
+if (fs.existsSync(navFile)) {
+  const N = yaml.load(fs.readFileSync(navFile, 'utf8')) || {};
+  const chk = (where, h) => { navLinks++; if (!h || !linkOk(String(h).replace(/&amp;/g, '&'))) errors.push(`nav.yml topnav ${where}: missing page ${h}`); };
+  for (const it of N.topnav || []) {
+    if (it.href) chk(it.label, it.href);
+    for (const c of it.children || []) chk(`${it.label} > ${c.label}`, c.href);
+    for (const n of it.nodes || []) {
+      chk(`${it.label} > ${n.label}`, n.href);
+      if (!(n.cols || []).length) errors.push(`nav.yml topnav ${it.label} > ${n.label}: node has no cols`);
+      for (const col of n.cols || []) {
+        if (!col.label || !(col.links || []).length) errors.push(`nav.yml topnav ${n.label}: every column needs a label and links`);
+        for (const c of col.links || []) chk(`${n.label} > ${col.label} > ${c.label}`, c.href);
+      }
+    }
+  }
+}
+
 console.log(`checked ${sheets} India data sheets`);
+console.log(`checked ${nxExams} national exam console(s), ${navLinks} top-menu link(s)`);
 console.log(`checked ${stateSheets} state cockpit sheet(s), ${stateExams} exam page(s)`);
 if (errors.length) { console.log('ERRORS:\n' + errors.join('\n')); process.exit(1); }
 console.log('OK');

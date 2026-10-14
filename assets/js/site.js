@@ -1490,8 +1490,13 @@ try {
   function place(d){
     var panel = d.querySelector('.hh-panel');
     var nr = nav.getBoundingClientRect(), br = d.querySelector('summary').getBoundingClientRect();
-    var gutter = 20, x = br.left - nr.left;
-    x = Math.max(gutter, Math.min(x, nr.width - panel.offsetWidth - gutter));
+    var gutter = 20, x = br.left - nr.left, fly = 0;
+    // A flyout matrix opens to the RIGHT of the panel: reserve room for its widest flyout, so the panel
+    // slides left just enough instead of the flyout flipping over to the left side.
+    panel.querySelectorAll('.hh-grid').forEach(function(g){
+      if(getComputedStyle(g).position === 'absolute') fly = Math.max(fly, g.offsetWidth + 8);
+    });
+    x = Math.max(gutter, Math.min(x, nr.width - panel.offsetWidth - fly - gutter));
     nav.style.setProperty('--hh-x', Math.round(x) + 'px');
   }
   function more(){ nav.classList.toggle('hh-more', row.scrollLeft + row.clientWidth < row.scrollWidth - 2); }
@@ -1515,8 +1520,8 @@ try {
     e.preventDefault();
     row.scrollLeft += e.deltaY;
   }, { passive: false });
-  // "Government Exams" flyout (.hh-sub): opens to the right of the panel; flip it left when the
-  // right side has no room for it (desktop hover layout only — elsewhere it is listed inline).
+  // Flyout matrix nodes (.hh-sub / .hh-node): a node's columns open to the right of the panel; flip them
+  // left when the right side has no room (desktop hover layout only — elsewhere they swipe inside the panel).
   nav.querySelectorAll('.hh-sub').forEach(function(sub){
     var fly = sub.querySelector('.hh-fly');
     function side(){

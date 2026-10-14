@@ -366,31 +366,56 @@ html.nav-locked{overflow:hidden;}
   .hh-panel{left:1.25rem;right:1.25rem;width:auto;min-width:0;max-width:none;}
 }
 
-/* Entrance & Competitive Exams: "Government Exams" flyout at the base of the panel (nav.yml topnav `sub`).
-   Touch and below 1024px: its links are listed inline under the heading. Desktop with a mouse: the list
-   opens to the RIGHT of the panel on hover or keyboard focus; site.js adds .hh-flip when there is no room
-   on the right. The flyout is hidden with visibility (not display), so site.js can measure it, and hidden
-   links are skipped by Tab until the heading is focused. */
-.hh-sub{margin-top:.3rem;padding-top:.3rem;border-top:1px solid var(--line);}
+/* ===== Three-tier flyout matrix (Entrance & Competitive Exams; nav.yml topnav `nodes`) =====
+   Tier 1 = the menu button, tier 2 = the stream nodes listed in the panel (.hh-node), tier 3 = each node's
+   flyout of columns (.hh-grid > .hh-col). Pure CSS: the flyout is shown by :hover / :focus-within, so it
+   needs no script; site.js only adds .hh-flip when the right side has no room. It is hidden with visibility
+   (not display), so its size is reserved up front (no layout shift) and hidden links are skipped by Tab
+   until their node is focused. No images: the column icons are inline strokes.
+   Touch and below 1024px: each node's columns sit under it as a strip that swipes sideways inside the
+   panel (scroll-snap); the strip scrolls on its own, so the page never gets a horizontal scrollbar. */
+.hh-node{list-style:none;}
+.hh-node + .hh-node{border-top:1px solid var(--line);}
 .hh-panel .hh-sub-btn{display:flex;align-items:center;gap:.55rem;padding:.6rem .75rem;border-radius:8px;color:var(--text);}
-.hh-sub-btn strong{flex:1;font-size:.93rem;font-weight:700;}
-.hh-sub-ico{flex-shrink:0;color:var(--gold);}
+.hh-node-txt{flex:1;display:grid;gap:.1rem;min-width:0;}
+.hh-node-txt strong{font-size:.93rem;font-weight:700;}
+.hh-node-txt span{font-size:.8rem;color:var(--text-muted);}
 .hh-sub-arrow{flex-shrink:0;color:var(--text-muted);transition:transform .15s var(--ease);}
 .hh-sub:hover .hh-sub-btn,.hh-panel .hh-sub-btn:focus-visible,.hh-sub:focus-within .hh-sub-btn{background:var(--stream-soft);}
-.hh-fly{display:grid;gap:2px;padding:.15rem 0 .1rem 2.05rem;}
-.hh-panel .hh-fly a{display:block;padding:.45rem .75rem;font-size:.9rem;font-weight:600;}
+.hh-panel .hh-sub-btn:focus-visible{outline:2px solid var(--link);outline-offset:-2px;}
 .hh-panel a[aria-current="page"]{background:var(--stream-soft);}
+.hh-col{min-width:0;}
+.hh-col-head{display:flex;align-items:center;gap:.4rem;margin:0 0 .25rem;padding:.35rem .75rem .3rem;font-family:var(--font-mono);font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--line);}
+.hh-col-head svg{flex-shrink:0;color:var(--gold);}
+.hh-col ul{display:grid;gap:2px;margin:0;padding:0;list-style:none;}
+.hh-panel .hh-col a{display:grid;gap:.1rem;padding:.45rem .75rem;border-radius:8px;}
+.hh-panel .hh-col a strong{font-size:.9rem;}
+.hh-panel .hh-col a span{font-size:.78rem;}
+/* Touch / narrow: sideways strip of column cards under the node. */
+.hh-grid{display:flex;gap:.5rem;margin:0 0 .4rem;padding:.1rem .75rem .35rem;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:thin;}
+.hh-grid .hh-col{flex:0 0 min(220px,85%);scroll-snap-align:start;padding:.25rem;border:1px solid var(--line);border-radius:10px;background:var(--paper,var(--surface));}
+.hh-grid .hh-col:only-child{flex-basis:100%;}
 @media (min-width:1024px) and (hover:hover){
-  .hh-sub{position:relative;}
+  .hh-panel:has(.hh-node){min-width:300px;}
+  .hh-node .hh-sub-arrow{transform:none;}
   .hh-sub:hover .hh-sub-arrow,.hh-sub:focus-within .hh-sub-arrow{transform:translateX(3px);}
-  .hh-fly{position:absolute;top:-.4rem;left:calc(100% + .55rem);z-index:3;width:max-content;min-width:250px;max-width:300px;padding:.4rem;background:var(--surface);border:1px solid var(--border-surface);border-radius:12px;box-shadow:var(--shadow-lg);visibility:hidden;opacity:0;transform:translateX(-4px);transition:opacity .15s var(--ease),transform .15s var(--ease),visibility 0s linear .15s;}
-  /* Invisible bridge over the gap, so the pointer can travel from the heading to the list without closing it. */
-  .hh-fly::before{content:"";position:absolute;top:0;bottom:0;left:-.65rem;width:.65rem;}
-  .hh-sub.hh-flip .hh-fly{left:auto;right:calc(100% + .55rem);transform:translateX(4px);}
-  .hh-sub.hh-flip .hh-fly::before{left:auto;right:-.65rem;}
-  .hh-sub:hover .hh-fly,.hh-sub:focus-within .hh-fly{visibility:visible;opacity:1;transform:none;transition:opacity .15s var(--ease),transform .15s var(--ease),visibility 0s;}
+  /* Positioned against the panel (the node itself is not positioned), so every flyout is top-aligned with
+     the panel and at least as tall as it: one symmetrical block to the right of the parent card. */
+  .hh-grid{position:absolute;top:0;left:calc(100% + .5rem);z-index:3;display:grid;grid-template-columns:minmax(0,1fr);gap:0;width:250px;min-height:100%;margin:0;padding:.4rem;overflow:visible;background:var(--surface);border:1px solid var(--border-surface);border-radius:12px;box-shadow:var(--shadow-lg);visibility:hidden;opacity:0;transform:translateX(-4px);transition:opacity .15s var(--ease),transform .15s var(--ease),visibility 0s linear .15s;}
+  .hh-grid-2{grid-template-columns:repeat(2,minmax(0,1fr));width:460px;}
+  .hh-grid-2 .hh-col + .hh-col{border-left:1px solid var(--line);}
+  .hh-grid .hh-col{padding:0 .15rem;border:0;border-radius:0;background:none;}
+  /* Invisible bridge over the gap, so the pointer can travel from the node to its flyout without closing it. */
+  .hh-grid::before{content:"";position:absolute;top:0;bottom:0;left:-.6rem;width:.6rem;}
+  .hh-sub.hh-flip .hh-grid{left:auto;right:calc(100% + .5rem);transform:translateX(4px);}
+  .hh-sub.hh-flip .hh-grid::before{left:auto;right:-.6rem;}
+  .hh-sub:hover .hh-grid,.hh-sub:focus-within .hh-grid{visibility:visible;opacity:1;transform:none;transition:opacity .15s var(--ease),transform .15s var(--ease),visibility 0s;}
 }
-@media (prefers-reduced-motion:reduce){.hh-fly,.hh-sub-arrow{transition:none !important;}}
+/* Touch / narrow: the five nodes plus their strips are tall, so the panel scrolls itself instead of the page. */
+@media not all and (min-width:1024px) and (hover:hover){
+  .hh-panel:has(.hh-node){max-height:min(72vh,600px);overflow-y:auto;overscroll-behavior-y:contain;}
+}
+@media (prefers-reduced-motion:reduce){.hh-grid,.hh-sub-arrow{transition:none !important;}}
 
 /* India edition pages (body.shell-in, _layouts/default.html): no sidebar, so the content takes the full width
    and the top bar has no menu button. On phones the logo mark stands where the menu button was (it lived in the

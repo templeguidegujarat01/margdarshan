@@ -187,21 +187,59 @@ topnav:
       - { label: Specialised Careers, href: "specialised-careers.html", desc: "Pilot, loco pilot, patent agent, perfusionist & more" }
   - type: menu
     label: Entrance & Competitive Exams
-    children:
-      - { label: Engineering, href: jee-main.html, desc: "JEE Main / JEE Advanced" }
-      - { label: Medical, href: neet-ug.html, desc: "NEET UG" }
-      - { label: Central Universities, href: cuet-ug.html, desc: "CUET UG" }
-      - { label: Law Admissions, href: llb.html, desc: "CLAT — 5-year integrated LLB" }
-      - { label: Architecture & Design, href: "coaching.html?stream=arts&amp;exam=nata", desc: "NATA / NIFT — verified coaching finder" }
-    sub:
-      label: Government Exams
-      href: govt-exams.html
-      children:
-        - { label: UPSC Civil Services, href: upsc-civil-services.html }
-        - { label: SSC CGL, href: ssc-cgl.html }
-        - { label: Defence (NDA / CDS / CAPF AC), href: nda.html }
-        - { label: Banking & Insurance (IBPS / SBI), href: ibps-po.html }
-        - { label: State & Local Board Exams, href: state-psc.html }
+    # Three tiers: menu button -> 5 stream nodes -> flyout columns (cols). Desktop with a mouse opens a
+    # node's columns to the RIGHT of the panel; touch and below 1024px swipe them sideways inside the panel.
+    nodes:
+      - label: Science Exams
+        href: science.html
+        desc: "Engineering & medical entrances"
+        cols:
+          - label: Engineering
+            icon: '<path d="M14.7 6.3a4 4 0 00-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 005.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/>'
+            links:
+              - { label: JEE Main, href: jee-main.html, desc: "NTA · NITs, IIITs, GFTIs" }
+              - { label: JEE Advanced, href: jee-advanced.html, desc: "IIT Roorkee 2026 · the 23 IITs" }
+          - label: Medical
+            icon: '<path d="M4.8 2.3A.3.3 0 105 2H4a2 2 0 00-2 2v5a6 6 0 006 6 6 6 0 006-6V4a2 2 0 00-2-2h-1a.2.2 0 10.3.3"/><path d="M8 15v1a6 6 0 006 6 6 6 0 006-6v-4"/><circle cx="20" cy="10" r="2"/>'
+            links:
+              - { label: NEET UG, href: neet-ug.html, desc: "NTA · MBBS, BDS, AYUSH" }
+      - label: Commerce Exams
+        href: commerce.html
+        desc: "University, CA & IPM routes"
+        cols:
+          - label: Commerce & Management
+            links:
+              - { label: CUET UG, href: cuet-ug.html, desc: "Central university admissions" }
+              - { label: CA Foundation, href: ca.html, desc: "ICAI chartered accountancy route" }
+              - { label: IPMAT, href: coaching-ipmat.html, desc: "Verified coaching finder" }
+      - label: Arts & Design Exams
+        href: arts.html
+        desc: "Law, architecture & design"
+        cols:
+          - label: Arts, Law & Design
+            links:
+              - { label: CLAT, href: llb.html, desc: "5-year integrated LLB" }
+              - { label: NATA, href: coaching-nata.html, desc: "Verified coaching finder" }
+              - { label: NIFT / NID, href: coaching-design.html, desc: "Verified coaching finder" }
+      - label: Polytechnic Diploma Entrances
+        href: diploma.html
+        desc: "State diploma admissions"
+        cols:
+          - label: State polytechnic admissions
+            links:
+              - { label: JEECUP (Uttar Pradesh), href: state/uttar-pradesh/jeecup.html, desc: "UP polytechnic entrance" }
+              - { label: ACPDC (Gujarat), href: state/gujarat/acpdc.html, desc: "Gujarat diploma admissions" }
+      - label: Government Competitive Exams
+        href: govt-exams.html
+        desc: "UPSC, SSC, defence, banking"
+        cols:
+          - label: Government exams
+            links:
+              - { label: UPSC Civil Services, href: upsc-civil-services.html }
+              - { label: SSC CGL, href: ssc-cgl.html }
+              - { label: "Defence (NDA / CDS / CAPF AC)", href: nda.html }
+              - { label: "Banking & Insurance (IBPS / SBI)", href: ibps-po.html }
+              - { label: State & Local Board Exams, href: state-psc.html }
   - type: menu
     label: Colleges & Coaching
     children:

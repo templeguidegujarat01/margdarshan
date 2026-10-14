@@ -1,0 +1,11 @@
+{%- comment -%}
+  Numbered source marker for the state exam cockpit, e.g. [2], linking to that source in the
+  "Where these facts come from" block of the same page. Reads SRC (the current exam's or the
+  cockpit's source list) set by state-exam.html. Prints nothing for an empty or unknown id.
+  Usage: {% include state-src-ref.html id=part.source %}
+{%- endcomment -%}
+{%- if include.id -%}
+{%- for s in SRC -%}
+{%- if s.id == include.id %}<a class="src-ref" href="#src-{{ s.id }}" title="Source: {{ s.name }}" aria-label="Source {{ forloop.index }}: {{ s.name }}">[{{ forloop.index }}]</a>{% endif -%}
+{%- endfor -%}
+{%- endif -%}

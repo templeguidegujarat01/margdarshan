@@ -1,0 +1,141 @@
+{%- comment -%}
+  State Exam & Career Cockpit dashboard: {% include state-cockpit.html state="gujarat" %}
+  Data: _data/in/states/<state>.yml → cockpit (hero copy, facts, groups of exam slugs, portals) and
+  exams[] (each tile uses short, body, card, card_facts and links to state/<state>/<slug>.html).
+  Image-free; each group is one bordered master block (.mb), so the blocks alternate sharp/rounded corners.
+{%- endcomment -%}
+{%- assign SD = site.data.in.states[include.state] -%}
+{%- assign K = SD.cockpit -%}
+{%- assign civil_n = SD.exams | where: "group", "civil" | size -%}
+{%- assign acad_n = SD.exams | where: "group", "academic" | size -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site.url }}{{ site.baseurl }}/" },
+    { "@type": "ListItem", "position": 2, "name": "State-Level Pathways", "item": "{{ site.url }}{{ site.baseurl }}/state-pathways.html" },
+    { "@type": "ListItem", "position": 3, "name": {{ SD.state.name | append: " Exam Cockpit" | jsonify }}, "item": "{{ page.url | absolute_url }}" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": {{ K.title | replace: "&amp;", "&" | jsonify }},
+  "url": "{{ page.url | absolute_url }}",
+  "isPartOf": { "@type": "WebSite", "name": {{ site.title | jsonify }}, "url": "{{ site.url }}{{ site.baseurl }}/" },
+  "description": {{ page.description | jsonify }},
+  "hasPart": [
+    {%- for x in SD.exams %}
+    { "@type": "WebPage", "name": {{ x.title | replace: "&amp;", "&" | jsonify }}, "url": "{{ site.url }}{{ site.baseurl }}/state/{{ SD.state.id }}/{{ x.slug }}.html" }{% unless forloop.last %},{% endunless %}
+    {%- endfor %}
+  ]
+}
+</script>
+
+<main id="main" class="sc-page" data-no-page-nav>
+  <section class="page-hero career-hero sc-hero" aria-labelledby="hero-heading">
+    <svg class="page-hero-bg" viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M-50 340 C 220 300, 320 380, 500 300 S 780 200, 980 260 1150 160 1300 200" stroke="#E8A33D" stroke-width="1.4" fill="none" opacity=".3"/>
+    </svg>
+    <div class="container page-hero-inner">
+      <span class="eyebrow">{{ K.eyebrow }}</span>
+      <h1 id="hero-heading">{{ K.title }}</h1>
+      <div class="meta-row">
+        <span>{{ civil_n }} recruitment nodes</span>
+        <span>·</span><span>{{ acad_n }} admission nodes</span>
+        <span>·</span><span>Every fact linked to an official file</span>
+      </div>
+      {%- for p in K.intro %}
+      <p>{{ p }}</p>
+      {%- endfor %}
+      <div class="page-hero-ctas">
+        <a href="#civil" class="btn btn-primary btn-inpage-jump">Government recruitment</a>
+        <a href="#academic" class="btn btn-ghost btn-inpage-jump">Admissions</a>
+      </div>
+      <dl class="quickfacts qf-micro">
+        {%- for q in K.facts %}
+        <div class="qf-card"><dt>{{ q.label }}</dt><dd>{{ q.value }}</dd></div>
+        {%- endfor %}
+      </dl>
+    </div>
+  </section>
+
+  <div class="quicknav-bar sc-quicknav">
+    <div class="container">
+      <nav class="quicknav" aria-label="On this page">
+        <span class="sc-otp" aria-hidden="true">On this page</span>
+        {%- for g in K.groups %}<a href="#{{ g.id }}">{{ g.heading }}</a>{% endfor %}
+        <a href="#compare">Side-by-side</a>
+        <a href="#portals">Official portals</a>
+      </nav>
+    </div>
+  </div>
+
+  {%- for g in K.groups %}
+  <section class="block mb sc-block" id="{{ g.id }}" aria-labelledby="{{ g.id }}-heading">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">{{ g.eyebrow }}</span>
+        <h2 id="{{ g.id }}-heading">{{ g.heading }}</h2>
+        <p>{{ g.intro }}</p>
+      </div>
+      <ul class="sc-grid" role="list">
+        {%- for slug in g.exams %}
+        {%- assign x = SD.exams | where: "slug", slug | first %}
+        <li class="sc-tile">
+          <a class="sc-tile-link" href="state/{{ SD.state.id }}/{{ x.slug }}.html">
+            <span class="sc-tile-body">{{ x.body }}</span>
+            <span class="sc-tile-title">{{ x.short }}</span>
+            <span class="sc-tile-text">{{ x.card }}</span>
+            <span class="sc-tile-chips">{% for c in x.card_facts %}<span>{{ c }}</span>{% endfor %}</span>
+            <span class="sc-tile-go" aria-hidden="true">Open the 9-block guide →</span>
+          </a>
+        </li>
+        {%- endfor %}
+      </ul>
+    </div>
+  </section>
+  {%- endfor %}
+
+  <section class="block mb sc-block" id="compare" aria-labelledby="compare-heading">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">At a glance</span>
+        <h2 id="compare-heading">Every {{ SD.state.name }} node side by side</h2>
+        <p>{{ K.compare_note }}</p>
+      </div>
+      <div class="table-wrap sc-table"><table class="table-simple">
+        <caption class="sr-only">{{ SD.state.name }} exams and admission routes compared</caption>
+        <thead><tr><th scope="col">Exam / route</th><th scope="col">Conducted by</th><th scope="col">Key facts</th></tr></thead>
+        <tbody>
+          {%- for x in SD.exams %}
+          <tr>
+            <th scope="row"><a href="state/{{ SD.state.id }}/{{ x.slug }}.html">{{ x.short }}</a></th>
+            <td>{{ x.body }}</td>
+            <td><ul class="sc-kv">{% for q in x.facts %}<li><span class="sc-k">{{ q.label }}</span> {{ q.value }}</li>{% endfor %}</ul></td>
+          </tr>
+          {%- endfor %}
+        </tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <section class="block mb sc-block" id="portals" aria-labelledby="portals-heading">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Official portals</span>
+        <h2 id="portals-heading">Where to apply and check notices</h2>
+        <p>All Gujarat government recruitment forms are filled online; the admission committees run their own portals. Only use these official addresses.</p>
+      </div>
+      <ul class="sl-links sc-portals">
+        {%- for o in K.portals %}
+        <li><a href="{{ o.url }}" target="_blank" rel="noopener noreferrer">{{ o.label }}<span>Official ↗</span></a></li>
+        {%- endfor %}
+      </ul>
+      <p class="sl-note">How this cockpit is built: each exam page is written only from that board's own advertisement or admission notice (linked in its “Where these facts come from” block, with the date we read it). Coaching and news sites are not used. Spotted something out of date? Email <a href="mailto:{{ site.feedback_email }}?subject={{ 'Gujarat exam cockpit — correction' | uri_escape }}">{{ site.feedback_email }}</a>.</p>
+    </div>
+  </section>
+</main>

@@ -1,0 +1,34 @@
+{%- comment -%}
+  Universal state selector (state-pathways.html). A no-JavaScript dropdown (<details>) listing every state in
+  _data/state_exams.json. A state with an exam cockpit sheet (_data/in/states/<id>.yml) opens its cockpit at
+  state/<id>/index.html; the others open their admissions guide (state-pathways/<id>.html) or their card below.
+  The panel opens and closes by clicking the summary; it sits in the page flow (not absolute), so the
+  hero's overflow never clips it.
+{%- endcomment -%}
+{%- assign live_n = 0 -%}
+{%- for s in site.data.state_exams.states %}{% if site.data.in.states[s.id] %}{% assign live_n = live_n | plus: 1 %}{% endif %}{% endfor -%}
+<section class="sc-picker-bar" aria-labelledby="sc-picker-heading">
+  <div class="container sc-picker-inner">
+    <div class="sc-picker-copy">
+      <span class="eyebrow">State Exam &amp; Career Cockpit</span>
+      <h2 id="sc-picker-heading">Select your target state</h2>
+      <p>Open a full cockpit of government recruitment exams and admission routes, built from official notifications. {{ live_n }} state cockpit{% if live_n != 1 %}s are{% else %} is{% endif %} live; the other states open their admissions guide.</p>
+    </div>
+    <details class="sc-picker">
+      <summary class="sc-picker-btn"><span class="sc-picker-label">Target state</span><span class="sc-picker-value">Choose a state</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <ul class="sc-picker-list" role="list">
+        {%- for s in site.data.state_exams.states %}
+        {%- if site.data.in.states[s.id] %}
+        <li><a class="sc-opt is-live" href="state/{{ s.id }}/index.html"><span>{{ s.name }}</span><span class="sc-opt-tag">Exam cockpit · live</span></a></li>
+        {%- endif %}
+        {%- endfor %}
+        {%- for s in site.data.state_exams.states %}
+        {%- unless site.data.in.states[s.id] %}
+        {%- assign hp = site.data.state_pages.states[s.id] %}
+        <li><a class="sc-opt" href="{% if hp %}state-pathways/{{ s.id }}.html{% else %}#{{ s.id }}{% endif %}"><span>{{ s.name }}</span><span class="sc-opt-tag">Admissions guide</span></a></li>
+        {%- endunless %}
+        {%- endfor %}
+      </ul>
+    </details>
+  </div>
+</section>

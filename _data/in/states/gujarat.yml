@@ -1,0 +1,1298 @@
+# Gujarat State Exam & Career Cockpit — one data sheet for the cockpit (state/gujarat/index.html)
+# and every exam page under state/gujarat/. Rendered by _includes/state-cockpit.html and
+# _includes/state-exam.html; checked by scripts/check-in-data.mjs (state sheets block).
+#
+# Rules for this sheet (see docs in the includes):
+#   - Every fact part carries `source: <id>`; the id must be listed under that exam's `sources`.
+#   - Sources are the official advertisement / portal files themselves (read 2026-10-14). Nothing here
+#     comes from coaching or news sites. Where an official file did not state a value, the text says so
+#     instead of guessing (for example the Lokrakshak fixed pay, which GPRB/202526/1 does not print).
+#   - Section ids are the same on every exam page: overview, eligibility, scheme, fees, reservation,
+#     documents, pay, posting (+ sources, drawn automatically).
+#   - Part kinds: p (paragraph), list (bullets), table {head, rows, caption?}, note (small print),
+#     warn (callout box), links [{label, url}] (official buttons).
+state:
+  id: gujarat
+  name: Gujarat
+  checked: 2026-10-14
+
+cockpit:
+  eyebrow: "State Exam & Career Cockpit · Gujarat"
+  title: "Gujarat Exam &amp; Career Cockpit"
+  intro:
+    - "Every major Gujarat government recruitment and state admission route on one screen: who conducts it, who can apply, how the exam works, what it costs and what the job or seat leads to. Each exam page is built only from the official advertisement or admission notice of the conducting body, and every fact links back to that file."
+  facts:
+    - { label: "Recruitment exams", value: "4 boards · 6 cadres" }
+    - { label: "Admission routes", value: "GCAS · ACPC · ACPDC · GUJCET" }
+    - { label: "Applications", value: "Online on OJAS / board portals" }
+    - { label: "Last checked", value: "14 Oct 2026" }
+  groups:
+    - id: civil
+      eyebrow: "Administrative &amp; civil"
+      heading: "Government recruitment exams"
+      intro: "Class 1 and Class 2 officers through GPSC, village and office staff through GPSSB and GSSSB, and police cadres through the Gujarat Police Recruitment Board."
+      exams: [gpsc, talati, junior-clerk, police]
+    - id: academic
+      eyebrow: "Academic &amp; professional admissions"
+      heading: "State admission routes after Class 10 and 12"
+      intro: "Arts, Commerce and Science degrees through GCAS, B.E./B.Tech through ACPC, polytechnic diploma through ACPDC, and the GSEB board exams and GUJCET that feed them."
+      exams: [gcas, acpc, acpdc, gseb]
+  compare_note: "Fees and age limits are from the latest advertisement of each board. Boards revise them for every cycle, so always open the current notification before applying."
+  portals:
+    - { label: "OJAS (all recruitment applications)", url: "https://ojas.gujarat.gov.in/" }
+    - { label: "GPSC", url: "https://gpsc.gujarat.gov.in/" }
+    - { label: "GSSSB", url: "https://gsssb.gujarat.gov.in/" }
+    - { label: "GPSSB", url: "https://gpssb.gujarat.gov.in/" }
+    - { label: "Gujarat Police Recruitment Board", url: "https://gprb.gujarat.gov.in/" }
+    - { label: "GCAS", url: "https://gcas.gujgov.edu.in/" }
+    - { label: "ACPC", url: "https://acpc.gujarat.gov.in/" }
+    - { label: "ACPDC", url: "https://acpdc.gujarat.gov.in/" }
+    - { label: "GSEB", url: "https://www.gseb.org/" }
+
+exams:
+  # ------------------------------------------------------------------ GPSC
+  - slug: gpsc
+    group: civil
+    short: "GPSC Class 1 &amp; 2"
+    body: "Gujarat Public Service Commission"
+    card: "Gujarat Administrative Service Class 1, Gujarat Civil Services Class 1 and 2 and Municipal Chief Officer, through one combined competitive exam."
+    card_facts: ["Any graduate", "Age 20–35", "Prelim → Mains → Interview"]
+    eyebrow: "GPSC · Class 1 &amp; Class 2"
+    title: "GPSC Class 1 &amp; 2 — Gujarat Administrative &amp; Civil Services"
+    lede: "The Gujarat Public Service Commission fills the state's senior administrative posts — Gujarat Administrative Service Class 1, Deputy Superintendent of Police and seven Class 2 services — through one combined exam. This page follows Advertisement No. 5/2026-27, the latest cycle."
+    facts:
+      - { label: "Qualification", value: "Bachelor's degree", source: gpsc-advt }
+      - { label: "Age limit", value: "20–35 years, relaxable", source: gpsc-advt }
+      - { label: "Stages", value: "Prelim → Mains → Interview", source: gpsc-advt }
+      - { label: "Pay", value: "Level 10 (Class 1) · Level 8 (Class 2)", source: gpsc-advt }
+    official:
+      - { label: "GPSC advertisement 5/2026-27", url: "https://gpsc.gujarat.gov.in/AdvertisementDetail?no=2333&tab=" }
+      - { label: "Apply on GPSC-OJAS", url: "https://gpsc-ojas.gujarat.gov.in/" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "What the GPSC Class 1–2 exam is"
+        parts:
+          - p: "GPSC runs one combined competitive exam for Gujarat Administrative Service Class 1, Gujarat Civil Services Class 1 and Class 2 and Gujarat Municipal Chief Officer Service Class 2. Advertisement 5/2026-27 opened online applications on gpsc-ojas.gujarat.gov.in from 2 April 2026 (1 pm) to 16 April 2026 (11:59 pm)."
+            source: gpsc-advt
+          - table:
+              caption: "Posts in Advertisement 5/2026-27 (as first published)"
+              head: ["Class", "Post", "Posts"]
+              rows:
+                - ["Class 1", "Gujarat Administrative Service (Junior Scale)", "5"]
+                - ["Class 1", "Deputy Superintendent of Police (Unarmed)", "8"]
+                - ["Class 2", "Government Labour Officer", "13"]
+                - ["Class 2", "Assistant District Registrar (Co-operative Societies)", "7"]
+                - ["Class 2", "Superintendent, Prohibition and Excise", "11"]
+                - ["Class 2", "Social Welfare Officer (Developing Castes)", "11"]
+                - ["Class 2", "Assistant Director (Food and Civil Supplies)", "6"]
+                - ["Class 2", "Assistant Information Director (Administration)", "4"]
+                - ["Class 2", "Municipal Chief Officer", "6"]
+            source: gpsc-advt
+          - note: "The advertisement launched with 71 posts (13 Class 1 + 58 Class 2). The commission's advertisement page, after a vacancy addendum dated 22 July 2026, lists 213 posts in total."
+            source: gpsc-page
+          - p: "Key dates printed in the advertisement: Preliminary exam on 7 June 2026; Main (written) exam planned for 5–10 October 2026."
+            source: gpsc-advt
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "Who can apply, and the age relaxations for women"
+        parts:
+          - list:
+              - "<strong>Qualification:</strong> a bachelor's degree from a university set up by a central or state act, or an institution recognised under Section 3 of the UGC Act, 1956, or an equivalent qualification."
+              - "<strong>Final-year students</strong> may apply for the Preliminary exam, but must have passed the degree by the last date of the Main exam application and send proof with that form."
+              - "<strong>Age:</strong> at least 20 and not more than 35 years on the last date of application (16 April 2026 for this cycle)."
+              - "<strong>Computer knowledge:</strong> basic computer knowledge as prescribed in the Gujarat Civil Services Classification and Recruitment (General) Rules, 1967 is needed for appointment."
+              - "<strong>Citizenship:</strong> Indian citizen, or a subject of Nepal or Bhutan, or another category allowed by the advertisement with an eligibility certificate."
+            source: gpsc-advt
+          - table:
+              caption: "Upper age relaxation (Advertisement 5/2026-27)"
+              head: ["Candidate", "Relaxation", "Ceiling"]
+              rows:
+                - ["Unreserved (General) woman", "5 years", "Up to 45 years"]
+                - ["SC, ST, SEBC or EWS of Gujarat origin — man", "5 years", "Up to 45 years"]
+                - ["SC, ST, SEBC or EWS of Gujarat origin — woman", "10 years (includes the 5 years for women)", "Up to 45 years"]
+                - ["Candidate with a disability", "10 years", "Up to 45 years"]
+                - ["Gujarat government employee (permanent, or temporary with 6 months' continuous service, who was within the age limit at first appointment)", "No upper age limit", "—"]
+            source: gpsc-advt
+          - note: "A reserved-category candidate who applies against an unreserved post does not get the age relaxation."
+            source: gpsc-advt
+          - table:
+              caption: "Minimum physical standards (only for these two posts)"
+              head: ["Post / candidate", "Height", "Chest (unexpanded / expanded)", "Weight"]
+              rows:
+                - ["Dy. SP — man (other than ST of Gujarat)", "165 cm", "84 / 89 cm (5 cm expansion)", "50 kg"]
+                - ["Dy. SP — man, ST of Gujarat", "160 cm", "84 / 89 cm", "50 kg"]
+                - ["Dy. SP — woman (other than ST of Gujarat)", "158 cm", "—", "45 kg"]
+                - ["Dy. SP — woman, ST of Gujarat", "156 cm", "—", "45 kg"]
+                - ["Supdt. Prohibition &amp; Excise — man (other than ST)", "165 cm", "77 / 82 cm", "50 kg"]
+                - ["Supdt. Prohibition &amp; Excise — woman (other than ST)", "158 cm", "—", "45 kg"]
+            source: gpsc-advt
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme"
+        heading: "Prelim, Mains and interview — paper by paper"
+        parts:
+          - table:
+              caption: "Preliminary exam (objective, screening only)"
+              head: ["Paper", "Marks", "Questions", "Time", "Medium"]
+              rows:
+                - ["General Studies", "200", "200", "180 minutes", "Gujarati / English"]
+            source: gpsc-syl-pre
+          - list:
+              - "The Prelim is only a screening test; its marks are not counted in the final merit."
+              - "About 15 times the number of advertised posts are admitted to the Main exam, provisionally."
+            source: gpsc-advt
+          - table:
+              caption: "Main exam (descriptive) and interview"
+              head: ["Paper", "Subject", "Marks", "Time"]
+              rows:
+                - ["I", "Gujarati Language (qualifying — minimum 25%)", "300", "3 hours"]
+                - ["II", "English Language (qualifying — minimum 25%)", "300", "3 hours"]
+                - ["III", "Essay", "250", "3 hours"]
+                - ["IV", "General Studies I", "250", "3 hours"]
+                - ["V", "General Studies II", "250", "3 hours"]
+                - ["VI", "General Studies III", "250", "3 hours"]
+                - ["VII", "General Studies IV", "250", "3 hours"]
+                - ["—", "Written total counted for merit (Papers III–VII)", "1,250", "—"]
+                - ["—", "Personality test (interview)", "150", "—"]
+                - ["—", "Total for final selection", "1,400", "—"]
+            source: gpsc-syl-main
+          - list:
+              - "Final merit = Main written marks (Papers III–VII) + interview marks."
+              - "About three times the number of posts are called for the interview, held at Gandhinagar. The Main exam is held at Ahmedabad / Gandhinagar."
+              - "Physical measurements for Dy. SP and Supdt. Prohibition &amp; Excise are taken by a government medical officer on the interview day."
+            source: gpsc-advt
+          - warn: "Not appearing in any one Main exam paper makes a candidate ineligible."
+            source: gpsc-advt
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "Application fee by category and gender"
+        parts:
+          - table:
+              caption: "Preliminary exam fee"
+              head: ["Candidate", "Fee"]
+              rows:
+                - ["Unreserved — man or woman", "₹100 + postal charges (paid at a post office) or ₹100 + service charges (online)"]
+                - ["SC, ST, SEBC, EWS of Gujarat", "Exempt"]
+                - ["Candidates with a disability (any category)", "Exempt"]
+                - ["Ex-servicemen", "Exempt"]
+            source: gpsc-advt
+          - note: "Women in the unreserved category are not exempt. Any fee for the Main exam is announced separately, with the Main exam form."
+            source: gpsc-advt
+      - id: reservation
+        nav: "Reservation &amp; Cut-offs"
+        eyebrow: "Reservation, cut-offs &amp; certificates"
+        heading: "Category posts, qualifying marks and certificate validity"
+        parts:
+          - table:
+              caption: "Post-wise reservation shown on GPSC's page for 5/2026-27 (after the addendum)"
+              head: ["Category", "Posts", "Of which reserved for women"]
+              rows:
+                - ["Unreserved", "98", "29"]
+                - ["SC", "14", "2"]
+                - ["ST", "28", "7"]
+                - ["SEBC", "51", "13"]
+                - ["EWS", "22", "4"]
+                - ["Total", "213", "55"]
+            source: gpsc-page
+          - note: "Within these, 7 posts are for persons with a disability and 3 for ex-servicemen."
+            source: gpsc-page
+          - list:
+              - "Reservation benefits apply only to SC, ST, SEBC and EWS candidates who are of Gujarat origin."
+              - "<strong>Qualifying marks:</strong> at least 25% in each of the Gujarati and English papers of the Main exam; candidates who fail them are not considered further. Prelim and Main cut-offs are set by the commission for each cycle and published with the results."
+              - "If no qualified woman is available for a post reserved for women, it goes to a man of the same category."
+              - "A widow gets 5% of her total marks added, subject to certificate checks."
+            source: gpsc-advt
+          - table:
+              caption: "Certificates that decide your category"
+              head: ["Category", "Certificate", "Validity rule"]
+              rows:
+                - ["SEBC", "Non-Creamy Layer certificate in the Gujarati format Appendix-4 (Parishisht-4) or Appendix-K", "Three financial years including the year of issue; must be issued by the last date of the Main exam form"]
+                - ["EWS", "Eligibility certificate in Annexure-KH (Gujarati Parishisht-G) from the Gujarat Social Justice and Empowerment Department", "Three years from the date of issue; the central government's EWS Income and Asset certificate is not accepted"]
+            source: gpsc-advt
+          - note: "Example from GPSC's own reservation FAQ: an NCL certificate issued on 28 March 2024 is valid for 2023-24, 2024-25 and 2025-26, that is, up to 31 March 2026."
+            source: gpsc-resv
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "What to keep ready for the Main exam form and interview"
+        parts:
+          - list:
+              - "<strong>Date of birth:</strong> the SSC (Class 10) certificate from the SSC board is the proof GPSC accepts."
+              - "<strong>Degree:</strong> degree certificate and mark sheets; proof of passing must be sent with the Main exam form."
+              - "<strong>Category:</strong> caste certificate from the competent authority, plus the SEBC Non-Creamy Layer or EWS certificate in the Gujarat format (see the table above)."
+              - "<strong>Disability:</strong> certificate under Chapter VII (Form V, VI or VII) of the Rights of Persons with Disabilities Rules, 2017."
+              - "<strong>Ex-servicemen:</strong> discharge book; candidates retiring within one year need a no-objection certificate from the commanding officer."
+              - "<strong>Government employees:</strong> inform the employer within 7 days of applying, and submit a no-objection certificate with the Main exam form."
+              - "<strong>Widows:</strong> certificate of widowhood and an affidavit of not having remarried, to get the 5% extra marks."
+              - "Upload documents for the Main exam on gpsc-iass.gujarat.gov.in when the commission asks; do not post them."
+            source: gpsc-advt
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Pay scales under the 7th Pay Commission matrix"
+        parts:
+          - table:
+              head: ["Class", "Pay matrix level", "Pay range (basic)"]
+              rows:
+                - ["Class 1", "Level 10", "₹56,100 – ₹1,77,500 + admissible allowances"]
+                - ["Class 2", "Level 8", "₹44,900 – ₹1,42,400 + admissible allowances"]
+            source: gpsc-advt
+          - list:
+              - "Selected candidates serve 2 years on probation; no increment is paid during probation."
+              - "During probation, officers must pass the Hindi exam, the pre-service training and the departmental exams set by the government. Failing them can stop increments or end the service."
+              - "Selected candidates must give a security and surety bond before training, as the government decides."
+            source: gpsc-advt
+          - note: "Take-home pay depends on the allowances and deductions in force, so it is not shown here."
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Where these officers work"
+        parts:
+          - table:
+              head: ["Post", "Area of work (from the post title)"]
+              rows:
+                - ["Gujarat Administrative Service (Junior Scale)", "State administrative service (recruitment requisitioned by the General Administration Department)"]
+                - ["Deputy Superintendent of Police (Unarmed)", "Police"]
+                - ["Government Labour Officer", "Labour administration"]
+                - ["Assistant District Registrar", "Co-operative Societies"]
+                - ["Superintendent, Prohibition and Excise", "Prohibition and Excise"]
+                - ["Social Welfare Officer", "Developing Castes welfare"]
+                - ["Assistant Director", "Food and Civil Supplies"]
+                - ["Assistant Information Director", "Information (administration)"]
+                - ["Municipal Chief Officer", "Municipalities"]
+            source: gpsc-advt
+          - list:
+              - "Duties are those the government assigns to each cadre from time to time."
+              - "Posting is in the cadre allotted by the commission's recommendation; a candidate cannot ask to switch to another cadre after appointment."
+              - "Candidates whose mother tongue is not Gujarati must pass the Gujarati language exam set by the government."
+            source: gpsc-advt
+    sources:
+      - { id: gpsc-advt, name: "GPSC — Detailed Advertisement 5/2026-27 (Gujarati)", url: "https://gpsc.gujarat.gov.in/Documents/AdvertismentDocument/DA-5-202627.pdf", covers: "posts, eligibility, age relaxation, physical standards, fee, exam stages, pay levels, probation, documents", checked: 2026-10-14 }
+      - { id: gpsc-page, name: "GPSC — Advertisement 5/2026-27 page", url: "https://gpsc.gujarat.gov.in/AdvertisementDetail?no=2333&tab=", covers: "category-wise and women-reserved posts after the vacancy addendum", checked: 2026-10-14 }
+      - { id: gpsc-syl-pre, name: "GPSC — Prelim syllabus 5/2026-27", url: "https://gpsc.gujarat.gov.in/Documents/AdvertismentDocument/SYP-5-202627.pdf", covers: "Prelim marks, questions, time and medium", checked: 2026-10-14 }
+      - { id: gpsc-syl-main, name: "GPSC — Main exam syllabus (Advt 240/2024-25, English)", url: "https://gpsc.gujarat.gov.in/Documents/AdvertismentDocument/SY-MWE-240-202425.pdf", covers: "Main exam papers and marks (same scheme printed in Advt 5/2026-27)", checked: 2026-10-14 }
+      - { id: gpsc-resv, name: "GPSC — FAQ regarding reservation", url: "https://gpsc.gujarat.gov.in/Documents/Regarding-Reservation.pdf", covers: "validity of NCL and EWS certificates", checked: 2026-10-14 }
+
+  # ------------------------------------------------------------------ TALATI
+  - slug: talati
+    group: civil
+    short: "Talati cum Mantri (GPSSB)"
+    body: "Gujarat Panchayat Service Selection Board"
+    card: "Village Panchayat Secretary (Class 3), recruited district-wise by the Panchayat board through a one-paper objective test."
+    card_facts: ["Any graduate", "Age 18–35", "100-mark MCQ"]
+    eyebrow: "GPSSB · Class 3 · Panchayat"
+    title: "Gujarat Talati cum Mantri (Village Panchayat Secretary)"
+    lede: "The Talati cum Mantri is the secretary of a village panchayat. The post is filled by the Gujarat Panchayat Service Selection Board (GPSSB), not by GSSSB. This page follows the latest Talati advertisement, No. 14/2025-26, and the last regular cycle, No. 10/2021-22."
+    facts:
+      - { label: "Qualification", value: "Bachelor's degree", source: gpssb-14 }
+      - { label: "Age limit", value: "18–35 years", source: gpssb-14 }
+      - { label: "Exam", value: "1 paper · 100 marks · 60 min", source: gpssb-14 }
+      - { label: "Pay", value: "₹26,000 fixed for 5 years", source: gpssb-14 }
+    official:
+      - { label: "GPSSB website", url: "https://gpssb.gujarat.gov.in/" }
+      - { label: "Apply on OJAS", url: "https://ojas.gujarat.gov.in/" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "What the Talati exam is"
+        parts:
+          - p: "Talati cum Mantri (Gram Panchayat Secretary, Class 3) is a Panchayat Service cadre. GPSSB, Gandhinagar recruits it district by district, with the vacancies of each District Panchayat listed separately in the advertisement. Applications are only online, on ojas.gujarat.gov.in."
+            source: gpssb-14
+          - p: "Advertisement 14/2025-26 (15 April – 15 May 2025) was a special recruitment drive only for candidates with a disability: 238 posts across 33 District Panchayats. The last regular (open) cycle was Advertisement 10/2021-22."
+            source: gpssb-14
+          - note: "The qualification changed after the 2021-22 cycle: Advertisement 10/2021-22 asked for Class 12, while the 2023 notification now in force asks for a bachelor's degree. Rely on the current notification, not on older guides."
+            source: gpssb-10
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "Who can apply"
+        parts:
+          - list:
+              - "<strong>Qualification:</strong> a bachelor's degree from a recognised university or institution, or an equivalent qualification recognised by the government."
+              - "<strong>Computer knowledge:</strong> basic knowledge of computer application as prescribed in the Gujarat Civil Services Classification and Recruitment (General) Rules, 1967."
+              - "<strong>Language:</strong> adequate knowledge of Gujarati or Hindi or both."
+              - "<strong>Age:</strong> not less than 18 and not more than 35 years, counted on the last date of application (Panchayat Department notification KP/66 of 2023, dated 11 December 2023)."
+            source: gpssb-14
+          - table:
+              caption: "Upper age relaxation printed in Advertisement 14/2025-26 (disability drive)"
+              head: ["Candidate with a disability", "Relaxation", "Ceiling"]
+              rows:
+                - ["General category — man", "10 years", "45 years"]
+                - ["General category — woman (10 + 5)", "15 years", "45 years"]
+                - ["Reserved category — man (5 + 10)", "15 years", "45 years"]
+                - ["Reserved category — woman (5 + 10 + 5)", "20 years", "45 years"]
+                - ["Ex-serviceman with a disability", "Service period + 3 years", "45 years"]
+            source: gpssb-14
+          - note: "The breakdown shows the building blocks used across Gujarat Class 3 recruitment: 5 years for women, 5 years for SC/ST/SEBC/EWS of Gujarat, 10 years for disability, with a 45-year ceiling. Check the regular-cycle advertisement for the exact table when it is published."
+            source: gpssb-14
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme"
+        heading: "One objective paper, 100 marks in 60 minutes"
+        parts:
+          - table:
+              caption: "Written test under the Gujarat Panchayat Service (Class 3) Recruitment (Exam) Rules, 2021"
+              head: ["Section", "Marks", "Medium"]
+              rows:
+                - ["General Awareness and General Knowledge", "50", "Gujarati"]
+                - ["Gujarati Language and Grammar", "20", "Gujarati"]
+                - ["English Language and Grammar", "20", "English"]
+                - ["General Mathematics", "10", "Gujarati"]
+                - ["Total (one hour)", "100", "—"]
+            source: gpssb-14
+          - list:
+              - "General Awareness covers mental ability, history and culture of India and Gujarat, geography, sports, polity and the Constitution, Panchayati Raj, state and central welfare schemes, economy, general science and IT, and current affairs."
+              - "Each correct answer gets 1 mark. A wrong answer, a blank answer or more than one option marked each costs 0.25 mark."
+              - "Every question has an option E, “Not attempted”; choosing it carries no negative mark."
+              - "Equal marks are broken by age (older first), then by the merit of the qualifying degree."
+              - "After the result, candidates on the provisional merit list are called for certificate verification; selected candidates then choose a district on screen, in merit order, from the vacancies left."
+            source: gpssb-14
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "Application fee"
+        parts:
+          - table:
+              caption: "Fee in the last regular cycle (Advertisement 10/2021-22)"
+              head: ["Candidate", "Fee"]
+              rows:
+                - ["General category — man or woman", "₹100 + service or postal charges"]
+                - ["SC, ST, SEBC, EWS", "No fee"]
+                - ["Ex-servicemen (all categories)", "No fee"]
+                - ["Candidates with a disability (all categories)", "No fee"]
+            source: gpssb-10
+          - note: "Candidates with a disability paid no fee in the 2025 special drive either. The fee for the next regular cycle will be in its own advertisement."
+            source: gpssb-14
+      - id: reservation
+        nav: "Reservation &amp; Cut-offs"
+        eyebrow: "Reservation, cut-offs &amp; certificates"
+        heading: "Reservation, merit and certificates"
+        parts:
+          - list:
+              - "Only SC, ST, SEBC and EWS candidates of Gujarat origin get reserved-category benefits."
+              - "A candidate who cannot produce the category certificate when asked is treated as unreserved, with no relaxation."
+              - "SEBC candidates need the “not in creamy layer” certificate whose validity is three financial years from the year of issue, and it must be issued by the last date of application."
+              - "EWS candidates need the state eligibility certificate (Annexure-KH / Parishisht-G); it is valid for three years from issue."
+              - "A widow, and a candidate with a recognised sports certificate, each get 5% of total marks added."
+            source: gpssb-14
+          - note: "GPSSB publishes a provisional merit list and final selection list for each cycle on its website; there is no fixed cut-off in the rules."
+            source: gpssb-14
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Certificates checked at verification"
+        parts:
+          - list:
+              - "Degree certificate and mark sheets of every year or semester."
+              - "School leaving certificate (for date of birth)."
+              - "Caste certificate, and the SEBC non-creamy-layer or EWS certificate in the Gujarat format."
+              - "Disability certificate (if applicable), ex-serviceman papers, sports certificate, widow certificate and affidavit."
+              - "Proof of basic computer knowledge — a course certificate, a degree or diploma with computers as a subject, or a Class 10 / 12 pass with computers as a subject (GAD resolution of 18 March 2016)."
+              - "No-objection certificate from the employer for serving government staff."
+              - "No documents are uploaded with the online form, but every detail you type must match the original certificates."
+            source: gpssb-14
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Fixed pay for five years, then the regular scale"
+        parts:
+          - table:
+              head: ["Period", "Pay"]
+              rows:
+                - ["First 5 years (contract appointment)", "₹26,000 per month, fixed (Finance Department resolution dated 18 October 2023)"]
+                - ["After 5 years of satisfactory service", "Regular appointment in the pay scale of the post, as per government rules then in force"]
+            source: gpssb-14
+          - note: "The fixed-pay system is subject to the final decision of the Supreme Court in SLP 14124/2012 and 14125/2012, as the advertisement notes."
+            source: gpssb-14
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "District-wise posting"
+        parts:
+          - p: "Talatis are recruited for a District Panchayat and posted to village panchayats in that district. In the 2025 drive the vacancies ran district by district — for example Ahmedabad 9, Surat 11, Vadodara 12, Rajkot 10 and Banaskantha 21 posts."
+            source: gpssb-14
+          - list:
+              - "The district is allotted on screen in merit order; the allotted district cannot be changed later and mutual transfer requests are not considered."
+              - "As secretary of the gram panchayat, the Talati works under the Panchayat, Rural Housing and Rural Development Department."
+            source: gpssb-14
+    sources:
+      - { id: gpssb-14, name: "GPSSB — Advertisement 14/2025-26, Talati cum Mantri (Gujarati)", url: "https://gpssb.gujarat.gov.in/writereaddata/Portal/EventActivity/81/885_1_1_gpssb_202526_14.pdf", covers: "qualification, age, exam pattern, negative marking, pay, district vacancies, certificates", checked: 2026-10-14 }
+      - { id: gpssb-10, name: "GPSSB — Advertisement 10/2021-22, Talati cum Mantri (Gujarati)", url: "https://gpssb.gujarat.gov.in/writereaddata/Portal/EventActivity/31/56_1_1_GPSSB_202122_10-Detailed.pdf", covers: "fee and exemptions in the last regular cycle; old Class 12 qualification", checked: 2026-10-14 }
+
+  # ------------------------------------------------------------------ JUNIOR CLERK (GSSSB CCE)
+  - slug: junior-clerk
+    group: civil
+    short: "Junior Clerk &amp; Revenue Clerk (GSSSB)"
+    body: "Gujarat Subordinate Service Selection Board"
+    card: "Junior Clerk, Revenue Clerk, Senior Clerk and Head Clerk through GSSSB's Combined Competitive Exam (Class 3, Group A and B)."
+    card_facts: ["Any graduate", "Age 20–35", "Prelim → Mains"]
+    eyebrow: "GSSSB · Class 3 · Combined Competitive Exam"
+    title: "GSSSB Junior Clerk, Revenue Clerk &amp; Combined Class 3 Exam"
+    lede: "GSSSB fills Gujarat's office clerical cadres through one Combined Competitive Examination for Class 3 Group A and Group B posts. This page follows Advertisement 378/2025-26, with 5,370 posts."
+    facts:
+      - { label: "Qualification", value: "Bachelor's degree", source: gsssb-378 }
+      - { label: "Age limit", value: "20–35 years", source: gsssb-378 }
+      - { label: "Stages", value: "Prelim (150) → Mains", source: gsssb-378 }
+      - { label: "Pay", value: "₹26,000 fixed for 5 years (Junior Clerk)", source: gsssb-378 }
+    official:
+      - { label: "GSSSB website", url: "https://gsssb.gujarat.gov.in/" }
+      - { label: "Advertisement 378/2025-26 (OJAS)", url: "https://ojas.gujarat.gov.in/AdvtDetailFiles/GSSSB_202526_378.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "What the GSSSB Combined Competitive Exam is"
+        parts:
+          - p: "Advertisement 378/2025-26 invited online applications on ojas.gujarat.gov.in from 5 February 2026 (2 pm) to 20 February 2026 (11:59 pm) for Gujarat Subordinate Services, Class 3 (Group A and Group B)."
+            source: gsssb-378
+          - table:
+              caption: "Posts in Advertisement 378/2025-26"
+              head: ["Group", "Cadre", "Office", "Posts"]
+              rows:
+                - ["A", "Social Welfare Inspector", "Director, Developing Castes Welfare", "125"]
+                - ["A", "Office Superintendent", "Director of Fisheries", "3"]
+                - ["A", "Revenue Clerk (Collector office clerk)", "Collector offices", "1,600"]
+                - ["A", "Head Clerk", "Various heads of department", "134"]
+                - ["A", "Senior Clerk", "Various heads of department", "503"]
+                - ["B", "Junior Clerk", "Various heads of department", "3,005"]
+                - ["—", "Total", "—", "5,370"]
+            source: gsssb-378
+          - note: "Talati cum Mantri (village panchayat secretary) is a different exam, run by GPSSB — see the Talati page."
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "Who can apply, and the relaxations for women"
+        parts:
+          - list:
+              - "<strong>Qualification:</strong> a bachelor's degree from a university set up by a central or state act, or a deemed university under Section 3 of the UGC Act, 1956, or an equivalent recognised qualification."
+              - "<strong>Computer knowledge:</strong> basic knowledge of computer use as prescribed in the Gujarat Civil Services Classification and Recruitment (General) Rules, 1967."
+              - "<strong>Language:</strong> adequate knowledge of Gujarati or Hindi or both."
+              - "<strong>Age:</strong> not less than 20 and not more than 35 years, counted on the last date of application."
+            source: gsssb-378
+          - table:
+              caption: "Upper age relaxation (Advertisement 378/2025-26)"
+              head: ["Candidate", "Relaxation", "Ceiling"]
+              rows:
+                - ["General category — woman", "5 years", "—"]
+                - ["Reserved category — man", "5 years", "—"]
+                - ["Reserved category — woman (5 + 5)", "10 years", "45 years"]
+                - ["General category — man with a disability", "10 years", "45 years"]
+                - ["General category — woman with a disability (10 + 5)", "15 years", "45 years"]
+                - ["Reserved category — man with a disability (5 + 10)", "15 years", "45 years"]
+                - ["Reserved category — woman with a disability (5 + 10 + 5)", "20 years", "45 years"]
+                - ["Ex-serviceman", "Service in the forces + 3 years", "—"]
+            source: gsssb-378
+          - note: "Reserved means SC, ST, SEBC or EWS of Gujarat origin. A reserved candidate who applies for an unreserved post gets no age relaxation."
+            source: gsssb-378
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme"
+        heading: "Prelim for everyone, then separate Mains for Group A and Group B"
+        parts:
+          - table:
+              caption: "Stage 1 — Preliminary exam (computer-based, MCQ, common to Group A and B)"
+              head: ["Subject", "Marks"]
+              rows:
+                - ["Reasoning", "60"]
+                - ["Quantitative Aptitude", "30"]
+                - ["General Awareness and Current Affairs", "30"]
+                - ["Gujarati", "15"]
+                - ["English", "15"]
+                - ["Total — 150 questions in 120 minutes", "150"]
+            source: gsssb-378
+          - list:
+              - "Each wrong answer costs 0.25 mark. Candidates with a disability get 20 extra minutes per hour."
+              - "The Prelim is a screening test; its marks do not count in the final selection."
+              - "Separate Group A and Group B lists are made, calling about seven times the category-wise vacancies to the Main exam."
+              - "The minimum qualifying standard is 40% in each stage and in every paper of that stage, for all categories — it will not be lowered."
+            source: gsssb-378
+          - table:
+              caption: "Stage 2 — Group B Main exam (Junior Clerk): MCQ, 200 marks, 120 minutes"
+              head: ["Topic", "Marks"]
+              rows:
+                - ["Indian state system and Constitution", "20"]
+                - ["Indian economy, state economy, NITI Aayog", "20"]
+                - ["Public administration and governance", "20"]
+                - ["Discipline and ethics in public service", "10"]
+                - ["Government schemes", "30"]
+                - ["Regional, national and international events incl. current affairs", "30"]
+                - ["History and geography of Gujarat", "20"]
+                - ["Cultural heritage of Gujarat (arts and literature)", "10"]
+                - ["Gujarati and English", "20"]
+                - ["Science, environment and information technology", "20"]
+                - ["Total", "200"]
+            source: gsssb-378
+          - table:
+              caption: "Stage 2 — Group A Main exam (Revenue, Senior and Head Clerk etc.): descriptive"
+              head: ["Paper", "Subject", "Marks", "Time"]
+              rows:
+                - ["I", "Gujarati Language Skill", "100", "3 hours"]
+                - ["II", "English Language Skill", "100", "3 hours"]
+                - ["III", "General Studies", "150", "3 hours"]
+                - ["—", "Total", "350", "—"]
+            source: gsssb-378
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "Prelim fee — refunded if you appear"
+        parts:
+          - table:
+              head: ["Candidate", "Prelim fee"]
+              rows:
+                - ["Unreserved — man", "₹500"]
+                - ["Women of all categories", "₹400"]
+                - ["SEBC, SC, ST, EWS", "₹400"]
+                - ["Candidates with a disability, ex-servicemen", "₹400"]
+            source: gsssb-378
+          - list:
+              - "The fee is refunded to candidates who appear for the exam (GAD notification of 18 May 2023)."
+              - "Pay online through OJAS (debit card, net banking, UPI or wallet)."
+              - "If you submit more than one application, only the last confirmed one is kept; extra fees are not refunded."
+            source: gsssb-378
+      - id: reservation
+        nav: "Reservation &amp; Cut-offs"
+        eyebrow: "Reservation, cut-offs &amp; certificates"
+        heading: "Reservation and qualifying standard"
+        parts:
+          - list:
+              - "Reserved posts are only for SC, ST, SEBC and EWS candidates of Gujarat origin, with posts reserved for women inside each category."
+              - "If no eligible woman is available, a post reserved for women goes to a man of the same category."
+              - "Women can also be selected on the posts not reserved for women, purely on merit."
+              - "The 40% minimum qualifying standard applies in every stage and every paper for all categories."
+            source: gsssb-378
+          - table:
+              caption: "Example — Revenue Clerk, Collector offices (1,600 posts)"
+              head: ["Unreserved", "EWS", "SEBC", "SC", "ST", "Ex-servicemen"]
+              rows:
+                - ["670", "144", "429", "113", "244", "144"]
+            source: gsssb-378
+          - note: "Category certificates must be in the Gujarat government formats and issued by the dates the advertisement sets (SEBC non-creamy-layer, EWS eligibility)."
+            source: gsssb-378
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "What to keep ready"
+        parts:
+          - list:
+              - "Degree certificate and mark sheets."
+              - "School leaving certificate (date of birth)."
+              - "Caste certificate, SEBC non-creamy-layer certificate or EWS eligibility certificate in the Gujarat format."
+              - "Disability certificate, ex-serviceman papers (if applicable)."
+              - "Proof of basic computer knowledge."
+              - "No-objection certificate from the employer if you already work for the Gujarat government, a board or a corporation; inform your office in writing."
+              - "Keep all originals with you while filling the form: wrong or incomplete details lead to cancellation at any stage."
+            source: gsssb-378
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Fixed pay for the first five years"
+        parts:
+          - table:
+              caption: "Fixed monthly pay for the first 5 years (Advertisement 378/2025-26)"
+              head: ["Cadre", "Fixed pay"]
+              rows:
+                - ["Junior Clerk", "₹26,000"]
+                - ["Revenue Clerk (Collector office)", "₹26,000"]
+                - ["Senior Clerk", "₹26,000"]
+                - ["Head Clerk", "₹40,800"]
+                - ["Social Welfare Inspector", "₹40,800"]
+                - ["Office Superintendent", "₹49,600"]
+            source: gsssb-378
+          - p: "After five years of satisfactory service, the employee is eligible for regular appointment in the pay scale of the post under the government's rules, subject to the Supreme Court's final decision in SLP 14124/2012 and 14125/2012."
+            source: gsssb-378
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Where clerks are posted"
+        parts:
+          - list:
+              - "Junior Clerk, Senior Clerk and Head Clerk posts are spread across many heads of department — the advertisement lists them office by office, from education and health directorates to the Roads and Buildings circles in Rajkot."
+              - "Revenue Clerks are posted to Collector offices in the districts."
+              - "Social Welfare Inspectors work under the Director, Developing Castes Welfare, Gandhinagar; Office Superintendents under the Director of Fisheries."
+            source: gsssb-378
+    sources:
+      - { id: gsssb-378, name: "GSSSB — Advertisement 378/2025-26, Combined Competitive Exam (Gujarati, on OJAS)", url: "https://ojas.gujarat.gov.in/AdvtDetailFiles/GSSSB_202526_378.pdf", covers: "posts, qualification, age, relaxation, fee, Prelim and Main scheme, fixed pay", checked: 2026-10-14 }
+
+  # ------------------------------------------------------------------ POLICE
+  - slug: police
+    group: civil
+    short: "Police PSI &amp; Lokrakshak"
+    body: "Gujarat Police Recruitment Board"
+    card: "PSI cadre (unarmed PSI, armed PSI, Jailer) and Lokrakshak constable cadre through one physical test and separate written exams."
+    card_facts: ["PSI: graduate", "LRD: Class 12", "Physical test first"]
+    eyebrow: "GPRB · Police Sub Inspector &amp; Lokrakshak"
+    title: "Gujarat Police PSI &amp; Lokrakshak (Constable) Recruitment"
+    lede: "The Gujarat Police Recruitment Board (GPRB) recruits the PSI cadre and the Lokrakshak (constable) cadre together. This page follows Advertisement GPRB/202526/1 — 13,591 posts, applications 3–23 December 2025."
+    facts:
+      - { label: "PSI qualification", value: "Bachelor's degree, max age 35", source: gprb-1 }
+      - { label: "Lokrakshak qualification", value: "Class 12, age 18–33", source: gprb-1 }
+      - { label: "Running test", value: "Men 5 km in 25 min · Women 1.6 km in 9:30", source: gprb-1 }
+      - { label: "PSI pay", value: "₹49,600 fixed during contract", source: gprb-1 }
+    official:
+      - { label: "GPRB website", url: "https://gprb.gujarat.gov.in/" }
+      - { label: "Advertisement GPRB/202526/1 (OJAS)", url: "https://ojas.gujarat.gov.in/AdvtDetailFiles/GPRB_202526_1.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "One application, two cadres"
+        parts:
+          - p: "GPRB was set up by the Home Department resolution of 7 March 2024. Under Advertisement GPRB/202526/1, candidates applied online on ojas.gujarat.gov.in from 3 December 2025 (2 pm) to 23 December 2025 (11:59 pm), choosing PSI Cadre, Lokrakshak Cadre or Both."
+            source: gprb-1
+          - table:
+              caption: "Posts in GPRB/202526/1"
+              head: ["Cadre", "Post", "Posts", "Of which for women"]
+              rows:
+                - ["PSI", "Unarmed Police Sub Inspector", "659", "217"]
+                - ["PSI", "Armed Police Sub Inspector (Platoon Commander) — men", "129", "—"]
+                - ["PSI", "Jailer Group 2 — men", "70", "—"]
+                - ["Lokrakshak", "Unarmed Police Constable", "6,942", "2,291"]
+                - ["Lokrakshak", "Armed Police Constable", "2,458", "811"]
+                - ["Lokrakshak", "Armed Police Constable (SRPF) — men", "3,002", "—"]
+                - ["Lokrakshak", "Jail Sepoy — men", "300", "—"]
+                - ["Lokrakshak", "Jail Sepoy (Matron) — women", "31", "—"]
+                - ["—", "Total", "13,591", "3,319"]
+            source: gprb-1
+          - note: "10% of the posts (1,359) are reserved for ex-servicemen as per rules."
+            source: gprb-1
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility, age &amp; physical standards"
+        heading: "Who can apply, with women's and category relaxations"
+        parts:
+          - table:
+              caption: "Qualification and age (general category)"
+              head: ["Cadre", "Qualification", "Age"]
+              rows:
+                - ["PSI cadre", "Bachelor's degree from a recognised university, or an equivalent qualification", "Maximum 35 years (born on or after 23 December 1990)"]
+                - ["Lokrakshak cadre", "Class 12 (Higher Secondary) pass, or an equivalent recognised by the GAD resolution of 15 May 2012", "18 to 33 years (born between 23 December 1992 and 23 December 2007)"]
+            source: gprb-1
+          - table:
+              caption: "Upper age relaxation (both cadres)"
+              head: ["Candidate", "Relaxation", "Ceiling"]
+              rows:
+                - ["General category — woman", "5 years", "—"]
+                - ["Reserved category — man", "5 years", "—"]
+                - ["Reserved category — woman (5 + 5)", "10 years", "45 years"]
+                - ["Sportsperson (on top of the above)", "5 more years", "45 years"]
+                - ["Ex-serviceman", "Service period + 3 years", "—"]
+            source: gprb-1
+          - table:
+              caption: "Minimum physical standards"
+              head: ["Candidate", "Height", "Chest (unexpanded / expanded)"]
+              rows:
+                - ["Man — ST of Gujarat", "162 cm", "79 / 84 cm (at least 5 cm expansion)"]
+                - ["Man — all others", "165 cm", "79 / 84 cm (at least 5 cm expansion)"]
+                - ["Woman — ST of Gujarat", "150 cm", "—"]
+                - ["Woman — all others", "155 cm", "—"]
+            source: gprb-1
+          - list:
+              - "Knock knee, pigeon chest, squint eye, flat feet, varicose veins, hammer toes, fractured limb, decayed teeth, communicable skin disease or colour blindness make a candidate unfit (colour blindness is not a bar for Jail Sepoy)."
+              - "Basic computer knowledge and adequate Gujarati or Hindi are required for both cadres."
+            source: gprb-1
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme"
+        heading: "Physical test first, then the written exam"
+        parts:
+          - table:
+              caption: "Stage 1 — Physical test (qualifying, common to both cadres)"
+              head: ["Candidate", "Run", "Time limit"]
+              rows:
+                - ["Men", "5,000 m", "25 minutes"]
+                - ["Women", "1,600 m", "9 minutes 30 seconds"]
+                - ["Ex-servicemen", "2,400 m", "12 minutes 30 seconds"]
+            source: gprb-1
+          - note: "Those who pass the run go through the height and chest measurement. A candidate who applied for both cadres takes the physical test only once."
+            source: gprb-1
+          - table:
+              caption: "Stage 2 — PSI Main exam (300 marks)"
+              head: ["Paper", "Content", "Marks", "Time"]
+              rows:
+                - ["1 — General Studies (MCQ), Part A", "Reasoning and data interpretation 50 · Quantitative aptitude 50", "100", "3 hours (Parts A + B)"]
+                - ["1 — General Studies (MCQ), Part B", "Constitution and public administration 25 · History, geography, cultural heritage 25 · Current affairs and GK 25 · Environment, science and technology, economics 25", "100", "—"]
+                - ["2 — Gujarati and English language skill (descriptive)", "Gujarati: essay 30, précis 10, comprehension 10, report 10, letter 10 · English: précis 10, comprehension 10, translation from Gujarati 10", "100", "3 hours"]
+            source: gprb-1
+          - table:
+              caption: "Stage 2 — Lokrakshak objective test (200 MCQs, 200 marks, 3 hours)"
+              head: ["Part", "Content", "Marks"]
+              rows:
+                - ["A", "Reasoning and data interpretation 30 · Quantitative aptitude 30 · Comprehension in Gujarati 20", "80"]
+                - ["B", "Constitution of India 30 · Current affairs, science and technology, GK 40 · History, cultural heritage and geography of Gujarat and Bharat 50", "120"]
+            source: gprb-1
+          - list:
+              - "Every MCQ is 1 mark. A wrong answer, or leaving all options blank, costs 0.25 mark; option E, “Not attempted”, carries no penalty."
+              - "Candidates must score at least 40% in Part A and in Part B separately (and 40% in the PSI descriptive paper)."
+              - "The PSI descriptive paper is checked for about 20 times the vacancies, from candidates who cleared both MCQ parts."
+              - "Final PSI selection adds the bonus marks allowed for NCC “C”, Rashtriya Raksha University or National Forensic Sciences University certificates, sports and widowhood."
+            source: gprb-1
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "Application fee"
+        parts:
+          - table:
+              head: ["Application", "General category (men and women)", "EWS, SC, ST, SEBC, ex-servicemen"]
+              rows:
+                - ["PSI cadre only", "₹100 + bank charges", "No fee"]
+                - ["Lokrakshak cadre only", "₹100 + bank charges", "No fee"]
+                - ["Both cadres", "₹200 + bank charges", "No fee"]
+            source: gprb-1
+          - list:
+              - "Fee is paid online only (RuPay and UPI have no bank charge; cards and net banking do). Cash or post-office challans are not accepted."
+              - "The fee is not refunded in any case."
+            source: gprb-1
+      - id: reservation
+        nav: "Reservation &amp; Cut-offs"
+        eyebrow: "Reservation, cut-offs &amp; certificates"
+        heading: "Category split and the certificates that prove it"
+        parts:
+          - table:
+              caption: "Category-wise posts across both cadres (GPRB/202526/1)"
+              head: ["Category", "Posts", "Of which for women"]
+              rows:
+                - ["Unreserved", "5,763", "1,425"]
+                - ["EWS", "1,446", "358"]
+                - ["SEBC", "3,417", "813"]
+                - ["SC", "928", "225"]
+                - ["ST", "2,037", "498"]
+            source: gprb-1
+          - list:
+              - "<strong>SEBC:</strong> non-creamy-layer certificate in the Gujarati Appendix-4 format, issued between 1 April 2023 and 23 December 2025 on the income of 2022-23, 2023-24 or 2024-25. Alternatively, the central government's Annexure-A certificate issued between 1 April 2025 and 23 December 2025."
+              - "<strong>Married SEBC women</strong> must give the certificate on their parents' income; one based on the husband's income makes the application void."
+              - "<strong>EWS:</strong> state certificate in Annexure-KH (Parishisht-G) issued between 23 December 2022 and 23 December 2025, or the central Income and Asset Certificate for 2024-25 issued between 1 April 2025 and 23 December 2025. Certificates for Gujarat government schemes are not accepted."
+              - "Without a valid certificate, the candidate is treated as unreserved — and is out if over the unreserved age limit."
+              - "There is no fixed cut-off: merit lists follow the 40% qualifying rule and the vacancies."
+            source: gprb-1
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Certificates — all issued by 23 December 2025"
+        parts:
+          - list:
+              - "Proof of age and educational qualification."
+              - "Caste certificate and the SEBC or EWS certificate described above."
+              - "NCC “C” certificate, Rashtriya Raksha University or National Forensic Sciences University certificate, sports certificate, widow certificate — only if you claim bonus marks."
+              - "Ex-serviceman identity card from the Gujarat district Sainik Kalyan office (or proof of release within one year)."
+              - "Photo and signature (15 KB each, JPG) for the online form."
+              - "Every certificate used for a claim had to be issued by the last date of application, 23 December 2025."
+            source: gprb-1
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Fixed pay during the contract period"
+        parts:
+          - table:
+              head: ["Post", "Contract period", "Pay during contract"]
+              rows:
+                - ["Unarmed PSI, Jailer Group 2", "5 years", "₹49,600 per month, consolidated"]
+                - ["Armed PSI (Platoon Commander)", "27 months", "₹49,600 per month, consolidated"]
+                - ["Lokrakshak cadre posts", "As per the contract terms", "Fixed monthly pay set by the government (the advertisement does not print the amount)"]
+            source: gprb-1
+          - list:
+              - "On satisfactory completion of training and the contract period, the employee is regularly appointed in the pay scale of the cadre."
+              - "All appointees come under the new contributory pension scheme in force."
+              - "PSI cadre appointees must obtain a light or heavy motor vehicle licence during the contract; SRPF armed constables within two years of appointment."
+            source: gprb-1
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "What each post does and where it serves"
+        parts:
+          - table:
+              head: ["Post", "Open to"]
+              rows:
+                - ["Unarmed Police Sub Inspector", "Men and women"]
+                - ["Armed PSI (Platoon Commander)", "Men"]
+                - ["Jailer Group 2 — prisons", "Men"]
+                - ["Unarmed / armed constable — district police", "Men and women"]
+                - ["Armed constable, State Reserve Police Force", "Men"]
+                - ["Jail Sepoy / Matron — prisons", "Men / women"]
+            source: gprb-1
+          - list:
+              - "After document verification, the cadre is allotted by merit and the preference order you give; the preference cannot be changed later."
+              - "Appointees must complete Hindi, Gujarati or English training and other departmental training as the government decides."
+            source: gprb-1
+    sources:
+      - { id: gprb-1, name: "Gujarat Police Recruitment Board — Advertisement GPRB/202526/1 (on OJAS)", url: "https://ojas.gujarat.gov.in/AdvtDetailFiles/GPRB_202526_1.pdf", covers: "posts, qualification, age, physical standards and test, exam scheme, fee, certificates, pay", checked: 2026-10-14 }
+
+  # ------------------------------------------------------------------ GCAS
+  - slug: gcas
+    group: academic
+    short: "GCAS (UG Arts, Commerce, Science)"
+    body: "Education Department, Government of Gujarat"
+    card: "One online application for undergraduate admission to the affiliated and constituent colleges of Gujarat's universities."
+    card_facts: ["After Class 12", "Fee ₹300 / ₹150", "Merit by each college"]
+    eyebrow: "GCAS · Undergraduate admissions"
+    title: "GCAS — Gujarat Common Admission Services for UG Admission"
+    lede: "GCAS is the Education Department's single portal for undergraduate admission to the affiliated and constituent colleges and departments of the universities linked to it. You apply once, list your university–college–programme preferences, and colleges make offers on the portal."
+    facts:
+      - { label: "Who", value: "Class 12 pass students", source: gcas-ug }
+      - { label: "Registration fee", value: "₹300 · ₹150 reserved / PwBD", source: gcas-ug }
+      - { label: "Round 1 (2026)", value: "Registration 7–28 May 2026", source: gcas-ug }
+      - { label: "Portal", value: "gcas.gujgov.edu.in", source: gcas-ug }
+    official:
+      - { label: "GCAS portal", url: "https://gcas.gujgov.edu.in/" }
+      - { label: "UG schedule 2026-27 (PDF)", url: "https://gcas.gujgov.edu.in/uploads/gcasugschedule20262705052026064044112.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "What GCAS does"
+        parts:
+          - p: "Through GCAS, a student fills one online form, chooses university–college–programme–main subject preferences in order, and uploads documents. Universities and colleges prepare their merit lists and send offers to the student's dashboard on the portal."
+            source: gcas-ug
+          - list:
+              - "One application can carry preferences for many universities, colleges and programmes, but a student can hold admission in only one."
+              - "Programmes admitted through ACPC, ACPDC, ACMPC or another counselling body are not applied for through GCAS."
+              - "Choose “Under Graduate (Regular)” for regular or integrated programmes, and “Under Graduate (for BAOU)” for distance programmes of Dr. Babasaheb Ambedkar Open University."
+            source: gcas-ug
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Eligibility"
+        heading: "Who can apply"
+        parts:
+          - list:
+              - "Students who have passed Class 12 and want undergraduate admission in a GCAS-linked university's college or department."
+              - "Programme eligibility rules are set by each university and college and shown on their websites and the portal — read them before choosing preferences, and keep your Class 12 percentage in mind."
+              - "Students whose mark sheet shows only grades must upload a conversion certificate from the board or university showing marks or percentage, as one document with the mark sheet."
+            source: gcas-ug
+          - note: "GCAS does not set an age limit or a common cut-off; each university applies its own eligibility, merit and tie-breaker rules."
+            source: gcas-ug
+      - id: scheme
+        nav: "Admission Process"
+        eyebrow: "Admission scheme"
+        heading: "No entrance test — rounds of offers and consent"
+        parts:
+          - table:
+              caption: "2026-27 UG schedule, first round"
+              head: ["Step", "Dates", "What you do"]
+              rows:
+                - ["Registration Round 1", "7 May 2026 (11 am) – 28 May 2026 (11:59 pm)", "Quick registration, fee, profile, academic details, preferences, document upload, submit"]
+                - ["Technical process and Offer 1", "29 May – 1 June 2026", "Colleges check merit and send offers; offers visible on your dashboard from 12 midnight on 1 June"]
+                - ["Confirmation and consent 1", "2 – 6 June 2026", "Confirm one offer by OTP; give online consent if you want a higher preference later"]
+            source: gcas-ug
+          - list:
+              - "When you confirm an offer, all preferences below it are deactivated for later rounds."
+              - "If you confirm and click “Consent”, later rounds can still move you to a higher preference; you then confirm the new seat by OTP and the old one is cancelled."
+              - "If you confirm but forget consent, your choice is frozen at the confirmed seat."
+              - "After confirming online, report to the college in the set time with originals; the college confirms the admission by OTP. Not reporting forfeits the seat."
+            source: gcas-ug
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "Registration fee"
+        parts:
+          - table:
+              head: ["Candidate", "GCAS registration fee"]
+              rows:
+                - ["Unreserved", "₹300"]
+                - ["SC, ST, SEBC, EWS", "₹150"]
+                - ["Persons with Benchmark Disability (40% or more)", "₹150"]
+            source: gcas-ug
+          - note: "The registration fee is not refundable, and the category chosen at registration cannot be changed later. College tuition fees are paid to the college as per its rules; refunds on cancellation follow the university or college rules."
+            source: gcas-ug
+      - id: reservation
+        nav: "Merit &amp; Reservation"
+        eyebrow: "Merit, cut-offs &amp; reservation"
+        heading: "How merit is decided"
+        parts:
+          - list:
+              - "Each university, college or department makes its own merit list using its eligibility, merit and tie-breaker rules, then makes offers through GCAS."
+              - "The portal's “Know Your College” tab and AI assistant show college information and cut-offs."
+              - "The category you register with (Unreserved, SC, ST, SEBC, EWS) decides the fee and the category in which you are considered; it is locked after registration."
+            source: gcas-ug
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "What to upload, and what to carry"
+        parts:
+          - list:
+              - "Class 12 mark sheet (with a marks / percentage conversion certificate if it shows only grades)."
+              - "Category certificate if you register as SC, ST, SEBC or EWS; disability certificate for PwBD."
+              - "Your own mobile number and e-mail ID — OTP and offers come to them."
+              - "All originals at the time of reporting to the college, for verification there."
+              - "False information or documents lead to loss of admission; the responsibility is the student's."
+            source: gcas-ug
+      - id: pay
+        nav: "Where It Leads"
+        eyebrow: "After admission"
+        heading: "What GCAS admission leads to"
+        parts:
+          - p: "GCAS covers undergraduate programmes in the affiliated and constituent colleges and departments of the universities associated with it, plus distance programmes of Dr. Babasaheb Ambedkar Open University."
+            source: gcas-ug
+          - p: "The same portal runs separate admission rounds, with their own form-filling guidelines, for postgraduate, B.Ed., LL.B. and LL.M. programmes."
+            source: gcas-home
+          - links:
+              - { label: "Colleges in Gujarat (verified list)", url: "colleges/gujarat/" }
+      - id: posting
+        nav: "Help Centres"
+        eyebrow: "Support"
+        heading: "Help with the form"
+        parts:
+          - list:
+              - "Free form-filling help centres are listed on the GCAS portal; students can visit one in person."
+              - "The GCAS AI assistant answers questions on colleges, cut-offs and the process by chat or phone (+91 79697 99680)."
+            source: gcas-ug
+    sources:
+      - { id: gcas-ug, name: "GCAS — UG admission process schedule 2026-27 (Gujarati)", url: "https://gcas.gujgov.edu.in/uploads/gcasugschedule20262705052026064044112.pdf", covers: "dates, offer and consent rules, fee, documents, who uses GCAS", checked: 2026-10-14 }
+      - { id: gcas-home, name: "GCAS — portal home", url: "https://gcas.gujgov.edu.in/", covers: "programme lists and form-filling guidelines for UG, PG, B.Ed., LL.B., LL.M., M.Ed.", checked: 2026-10-14 }
+
+  # ------------------------------------------------------------------ ACPC
+  - slug: acpc
+    group: academic
+    short: "ACPC (B.E. / B.Tech)"
+    body: "Admission Committee for Professional Courses"
+    card: "Degree engineering admission after Class 12 Science: merit from board theory marks and GUJCET, online choice filling and allotment rounds."
+    card_facts: ["Class 12 Science", "50% board + 50% GUJCET", "Fee ₹350"]
+    eyebrow: "ACPC · Degree engineering admissions"
+    title: "ACPC — Gujarat B.E. / B.Tech Admission"
+    lede: "The Admission Committee for Professional Courses (ACPC), at L. D. College of Engineering, Ahmedabad, runs online admission to degree engineering in Gujarat after Class 12 Science. Facts below follow the 2026-27 advertisement and key dates."
+    facts:
+      - { label: "Minimum marks", value: "45% in Class 12 (40% reserved)", source: acpc-advt }
+      - { label: "Merit", value: "50% board theory + 50% GUJCET percentile", source: acpc-advt }
+      - { label: "Registration fee", value: "₹350, non-refundable", source: acpc-advt }
+      - { label: "Process", value: "Fully online", source: acpc-advt }
+    official:
+      - { label: "ACPC B.E./B.Tech page", url: "https://acpc.gujarat.gov.in/be-b-tech" }
+      - { label: "Online admission portal", url: "https://gujacpc.admissions.nic.in/" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "What ACPC does"
+        parts:
+          - p: "ACPC allots seats in degree engineering colleges of Gujarat through online registration, merit lists, choice filling and allotment rounds on gujacpc.admissions.nic.in. For 2026-27, registration opened on 30 March 2026 and closed on 31 May 2026 (5 pm); you could register before board or entrance results."
+            source: acpc-advt
+          - table:
+              caption: "Who fills which seats"
+              head: ["Seats", "Who is eligible", "Merit basis"]
+              rows:
+                - ["95% of Govt / Grant-in-Aid intake and 50% of unaided intake", "Passed from a school of a valid board located in Gujarat and appeared in GUJCET 2026", "50% weight to board theory percentile in Maths, Physics, Chemistry (or Biology for eligible branches) + 50% weight to GUJCET 2026 percentile"]
+                - ["5% of Govt / Grant-in-Aid intake", "Passed from a school of a valid board anywhere in India (including Gujarat) and appeared in JEE (Main) 2026", "JEE (Main) 2026 All India Rank by NTA"]
+                - ["Government seats of notified Centres of Excellence", "Passed from a Gujarat-located school and appeared in the relevant entrance exam", "Relevant entrance exam"]
+            source: acpc-advt
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Eligibility"
+        heading: "Minimum qualification"
+        parts:
+          - list:
+              - "Class 12 (HSC) passed with at least 45% marks (40% for reserved categories) in the subjects prescribed by AICTE and notified by the government."
+              - "For the 95% / 50% state seats, schooling from a valid board located in Gujarat and a GUJCET 2026 attempt are both required."
+              - "For the 5% Govt / GIA seats, a JEE (Main) 2026 attempt is required; schooling can be anywhere in India."
+            source: acpc-advt
+      - id: scheme
+        nav: "Admission Process"
+        eyebrow: "Admission scheme"
+        heading: "2026-27 key dates"
+        parts:
+          - table:
+              head: ["Activity", "Date (2026)"]
+              rows:
+                - ["Registration and fee — last date", "31 May"]
+                - ["Provisional merit list", "12 June"]
+                - ["Mock round choice filling", "12 – 15 June"]
+                - ["Final merit list", "17 June"]
+                - ["Round 1 choice filling", "17 – 22 June"]
+                - ["Round 1 allotment", "25 June"]
+                - ["Token tuition fee and admission letter (Round 1)", "25 – 30 June"]
+                - ["Academic term begins", "1 July"]
+                - ["Round 2 allotment", "15 July (2 pm)"]
+                - ["Round 3 allotment", "25 July"]
+            source: acpc-dates
+          - note: "Dates are provisional and depend on board results, entrance results, seat approvals and JoSAA counselling."
+            source: acpc-dates
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "Registration and token fees"
+        parts:
+          - list:
+              - "Registration fee: ₹350, non-refundable, paid online only."
+              - "After allotment, a token tuition fee is paid online to confirm admission and generate the admission letter."
+            source: acpc-advt
+          - p: "The remaining fee is paid at the institute when you report there, by the last date in the schedule (28–30 July 2026 for this cycle)."
+            source: acpc-dates
+      - id: reservation
+        nav: "Merit &amp; Cut-offs"
+        eyebrow: "Merit, cut-offs &amp; reservation"
+        heading: "How your rank is made"
+        parts:
+          - list:
+              - "Merit marks = 50% of your board theory percentile in the PCM (or PCB) subjects + 50% of your GUJCET percentile in the corresponding subjects."
+              - "ACPC publishes a provisional merit list, a final merit list after queries, and a revised list after supplementary results."
+              - "Cut-off marks, seat matrix, institute lists and analysis of allotment results are published on acpc.gujarat.gov.in."
+            source: acpc-advt
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Documents are uploaded, not carried"
+        parts:
+          - list:
+              - "Upload all relevant documents during online registration; there is no in-person document verification."
+              - "Candidates do not submit original documents to institutes for the admission process."
+              - "Watch your login for verification queries and correct any discrepancy online within the time given."
+            source: acpc-advt
+      - id: pay
+        nav: "Where It Leads"
+        eyebrow: "After admission"
+        heading: "What an ACPC seat leads to"
+        parts:
+          - p: "A four-year B.E. / B.Tech in a Government, Grant-in-Aid, unaided or Centre of Excellence college in Gujarat. ACPC also runs admissions to degree and diploma pharmacy, architecture, hotel management, and diploma-to-degree lateral entry (DDCET)."
+            source: acpc-be
+          - links:
+              - { label: "B.Tech colleges in Gujarat (verified list)", url: "colleges/gujarat/" }
+      - id: posting
+        nav: "Help &amp; Seminars"
+        eyebrow: "Support"
+        heading: "Free help"
+        parts:
+          - list:
+              - "Free awareness seminars in every district (11 April – 7 June 2026) and live YouTube webinars on registration, choice filling and rounds."
+              - "Designated Cyber Space Centres (11 am – 5 pm, working days) let students without internet register free of charge."
+              - "Helpline: 079-26566000 (8 am – 12 midnight)."
+            source: acpc-advt
+    sources:
+      - { id: acpc-advt, name: "ACPC — Advertisement for degree engineering admission 2026-27 (English)", url: "https://acpc.gujarat.gov.in/assets/uploads/media-uploader/31032026-advertisement-for-degree-engineering-admission-2026-27-english1774956585.pdf", covers: "seat split, eligibility, merit formula, registration fee, online process, help", checked: 2026-10-14 }
+      - { id: acpc-dates, name: "ACPC — Key dates, degree engineering 2026-27", url: "https://acpc.gujarat.gov.in/assets/uploads/media-uploader/31032026-key-dates-for-degree-engineering-admission-2026-271775304957.pdf", covers: "merit and round dates", checked: 2026-10-14 }
+      - { id: acpc-be, name: "ACPC — B.E./B.Tech and course rules pages", url: "https://acpc.gujarat.gov.in/be-b-tech", covers: "courses ACPC admits to (engineering, pharmacy, architecture, hotel management, DDCET)", checked: 2026-10-14 }
+
+  # ------------------------------------------------------------------ ACPDC
+  - slug: acpdc
+    group: academic
+    short: "ACPDC (Polytechnic Diploma)"
+    body: "Admission Committee for Professional Diploma Courses"
+    card: "First-year diploma engineering admission after Class 10, merit on SSC marks, plus C-to-D second-year entry."
+    card_facts: ["After Class 10", "Merit on SSC marks", "Tuition waiver < ₹8 lakh"]
+    eyebrow: "ACPDC · Diploma admissions"
+    title: "ACPDC — Gujarat Polytechnic Diploma Admission"
+    lede: "ACPDC manages merit-based admission to First Year Diploma, Second Year Diploma (C-to-D) and Second Year Diploma for working professionals across participating institutes in Gujarat. Registration and choice filling run on gujdiploma.admissions.nic.in."
+    facts:
+      - { label: "Entry", value: "After Class 10 (SSC)", source: acpdc-guide }
+      - { label: "Merit", value: "SSC marks (Maths, Science, English entered)", source: acpdc-guide }
+      - { label: "Registration 2026", value: "8 May – 19 June 2026", source: acpdc-dates }
+      - { label: "Tuition fee waiver", value: "Family income below ₹8 lakh", source: acpdc-guide }
+    official:
+      - { label: "ACPDC website", url: "https://acpdc.gujarat.gov.in/" }
+      - { label: "First-year key dates 2026 (PDF)", url: "https://acpdc.gujarat.gov.in/information/2026/fy/FY_KeyDate_v1.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "What ACPDC does"
+        parts:
+          - p: "Candidates register on gujdiploma.admissions.nic.in, fill the profile and SSC details, upload documents and pay the registration fee online. Provisional merit numbers are then allotted and the rounds follow ACPDC's schedule."
+            source: acpdc-guide
+          - list:
+              - "First Year Diploma — fresh applicants after Class 10."
+              - "Second Year Diploma (C-to-D) — eligible lateral-entry candidates."
+              - "Second Year Diploma for working professionals."
+            source: acpdc-home
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Eligibility"
+        heading: "Who can apply"
+        parts:
+          - list:
+              - "Students who have passed Class 10 (SSC) from a board on ACPDC's list of valid boards."
+              - "Marks entered in the form: grand total and subject marks in Mathematics (Basic or Standard), Science and English, exactly as on the SSC mark sheet."
+            source: acpdc-guide
+          - note: "Check the valid board list before applying if you studied outside the Gujarat board."
+            source: acpdc-boards
+      - id: scheme
+        nav: "Admission Process"
+        eyebrow: "Admission scheme"
+        heading: "2026-27 first-year schedule"
+        parts:
+          - table:
+              head: ["Activity", "Date (2026)"]
+              rows:
+                - ["Online registration", "8 May – 19 June"]
+                - ["Provisional merit list", "29 June"]
+                - ["Mock round choice filling and result", "29 June – 2 July · result 6 July"]
+                - ["Round 1 choice filling", "6 – 9 July"]
+                - ["Round 1 allotment", "13 July"]
+                - ["Tuition fee payment for Round 1", "13 – 17 July"]
+                - ["Registration incl. supplementary-exam candidates", "21 – 26 July"]
+                - ["Round 2 allotment", "7 August"]
+            source: acpdc-dates
+          - note: "Later rounds in 2026 included vacant rounds only for Government and Grant-in-Aid institutes; follow the notices on acpdc.gujarat.gov.in."
+            source: acpdc-home
+      - id: fees
+        nav: "Fees &amp; Waiver"
+        eyebrow: "Fee structure"
+        heading: "Registration fee and the Tuition Fee Waiver"
+        parts:
+          - list:
+              - "The registration fee is paid online from the dashboard (“Pay Registration Fee”) before merit numbers are allotted; the amount is shown on the portal."
+              - "Tuition fee for an allotted seat is paid online to confirm admission."
+              - "<strong>Tuition Fee Waiver (TFW):</strong> if the whole family's annual income is below ₹8 lakh and you hold a valid income certificate, choose “I am interested” for TFW in the form."
+            source: acpdc-guide
+      - id: reservation
+        nav: "Merit &amp; Cut-offs"
+        eyebrow: "Merit, cut-offs &amp; reservation"
+        heading: "Merit and last year's closing ranks"
+        parts:
+          - list:
+              - "Merit numbers are allotted from the SSC marks you enter; any mismatch with the mark sheet is raised as a verification query."
+              - "Category (Open, SC, ST, SEBC, EWS, ex-serviceman) and sub-category (disability, ex-serviceman, TFW) are chosen in the profile."
+            source: acpdc-guide
+          - links:
+              - { label: "Institute-wise first and last ranks, 2025-26 (PDF)", url: "https://acpdc.gujarat.gov.in/information/2025/fy/FIrstrank_Lastrank_Institutewise_Programwise_%20Admission_Year%202025-26.pdf" }
+            source: acpdc-cutoff
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "What to upload"
+        parts:
+          - list:
+              - "SSC mark sheet as a single PDF; your name must match the Class 10 mark sheet."
+              - "Photograph and the documents the form asks for (category, disability, ex-serviceman, income certificate for TFW, as applicable)."
+              - "Answer any discrepancy query from the verifying officer by uploading the corrected document on the portal."
+            source: acpdc-guide
+      - id: pay
+        nav: "Where It Leads"
+        eyebrow: "After admission"
+        heading: "What a diploma seat leads to"
+        parts:
+          - p: "A diploma in engineering at a Government, Grant-in-Aid, PPP, Centre of Excellence or self-financed institute in Gujarat; ACPDC publishes the provisional list of diploma engineering institutes and their programmes each year."
+            source: acpdc-home
+          - links:
+              - { label: "Diploma colleges in Gujarat (verified list)", url: "colleges/gujarat/" }
+      - id: posting
+        nav: "Help Centres"
+        eyebrow: "Support"
+        heading: "Help with registration"
+        parts:
+          - list:
+              - "ACPDC publishes a list of Cyber Space Centres where candidates can register."
+              - "The ACPDC website has FAQs, an institute finder and a help desk page."
+            source: acpdc-home
+    sources:
+      - { id: acpdc-guide, name: "ACPDC — Guidelines for online admission, First Year Diploma", url: "https://acpdc.gujarat.gov.in/information/2025/fy/OnlineAdmissionProcess_2025_FY.pdf", covers: "registration steps, SSC details, TFW income limit, fee payment, document queries", checked: 2026-10-14 }
+      - { id: acpdc-dates, name: "ACPDC — Provisional key dates, First Year Diploma 2026-27", url: "https://acpdc.gujarat.gov.in/information/2026/fy/FY_KeyDate_v1.pdf", covers: "2026 schedule", checked: 2026-10-14 }
+      - { id: acpdc-boards, name: "ACPDC — Eligible boards for diploma admission", url: "https://acpdc.gujarat.gov.in/information/2025/Valid_Board_List.pdf", covers: "valid boards", checked: 2026-10-14 }
+      - { id: acpdc-cutoff, name: "ACPDC — Institute-wise first and last rank, 2025-26", url: "https://acpdc.gujarat.gov.in/information/2025/fy/FIrstrank_Lastrank_Institutewise_Programwise_%20Admission_Year%202025-26.pdf", covers: "previous closing ranks", checked: 2026-10-14 }
+      - { id: acpdc-home, name: "ACPDC — Diploma admissions portal", url: "https://acpdc.gujarat.gov.in/", covers: "admission streams, notices, help", checked: 2026-10-14 }
+
+  # ------------------------------------------------------------------ GSEB / GUJCET
+  - slug: gseb
+    group: academic
+    short: "GSEB Board &amp; GUJCET"
+    body: "Gujarat Secondary and Higher Secondary Education Board"
+    card: "The state board behind the Class 10 (SSC) and Class 12 (HSC) exams, and the GUJCET entrance test used for engineering and pharmacy."
+    card_facts: ["SSC · HSC", "GUJCET fee ₹350", "Feeds ACPC merit"]
+    eyebrow: "GSEB · Board exams &amp; GUJCET"
+    title: "GSEB Board Exams &amp; GUJCET — Gujarat's School Board Node"
+    lede: "The Gujarat Secondary and Higher Secondary Education Board (GSEB), Gandhinagar, conducts the SSC (Class 10) and HSC (Class 12) exams and the Gujarat Common Entrance Test (GUJCET). Board marks and GUJCET together decide most state admissions."
+    facts:
+      - { label: "GUJCET is for", value: "HSC Science Group A, B and AB", source: gujcet-reg }
+      - { label: "GUJCET fee", value: "₹350 (SBI ePay)", source: gujcet-reg }
+      - { label: "GUJCET 2026", value: "Held on 29 March 2026", source: gujcet-key }
+      - { label: "Used for", value: "Degree engineering, degree/diploma pharmacy", source: gujcet-reg }
+    official:
+      - { label: "GSEB website", url: "https://www.gseb.org/" }
+      - { label: "GSEB e-service notices", url: "https://www.gsebeservice.com/" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "What GSEB runs"
+        parts:
+          - list:
+              - "SSC (Class 10) and HSC (Class 12 — Science, General and vocational streams) exams, with supplementary (purak) exams after the results."
+              - "Results, answer keys and circulars on gseb.org, result.gseb.org and gsebeservice.com."
+            source: gseb-eservice
+          - p: "GUJCET is conducted by GSEB under the Education Department resolution of 19 November 2016, for students seeking admission to degree engineering and degree / diploma pharmacy."
+            source: gujcet-reg
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Eligibility"
+        heading: "Who takes GUJCET"
+        parts:
+          - list:
+              - "Candidates of HSC Science Group A, Group B and Group AB."
+              - "The GUJCET information booklet and online-application instructions are published on www.gseb.org each cycle."
+            source: gujcet-reg
+          - note: "Writing GUJCET matters for ACPC's state-quota engineering seats, which need Gujarat-located schooling plus a GUJCET attempt."
+            source: acpc-advt
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme"
+        heading: "GUJCET subjects and media"
+        parts:
+          - list:
+              - "Papers: Mathematics (subject code 050), Physics (054), Chemistry (052) and Biology (056)."
+              - "Question papers are prepared in Gujarati, Hindi and English media, in sets 1 to 20."
+              - "GSEB publishes a provisional answer key after the exam and takes objections by e-mail before the final key."
+            source: gujcet-key
+          - note: "The paper-wise number of questions and duration are given in the GUJCET information booklet on gseb.org; check the current booklet."
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "GUJCET fees"
+        parts:
+          - table:
+              head: ["Item", "Fee"]
+              rows:
+                - ["GUJCET application (2026)", "₹350, online through SBI ePay (card, net banking) or at any SBI branch via “SBI Branch Payment”"]
+                - ["Challenge to a provisional answer key", "₹500 per question by SBI challan; refunded if the objection is upheld"]
+            source: gujcet-reg
+          - note: "GUJCET 2026 applications opened on 16 December 2025 and were later extended, including a late-fee window."
+            source: gujcet-reg
+      - id: reservation
+        nav: "How Marks Are Used"
+        eyebrow: "Merit &amp; cut-offs"
+        heading: "How board marks and GUJCET are used"
+        parts:
+          - p: "<strong>ACPC degree engineering (state seats):</strong> 50% weight to the board theory percentile in Maths, Physics and Chemistry (or Biology for eligible branches) + 50% weight to the GUJCET percentile in the same subjects."
+            source: acpc-advt
+          - p: "<strong>ACPDC first-year diploma:</strong> merit from the SSC (Class 10) marks — total and the Maths, Science and English marks."
+            source: acpdc-guide
+          - p: "<strong>GCAS undergraduate:</strong> each university or college makes its own merit list; students are told to keep their Class 12 percentage in mind while choosing programmes."
+            source: gcas-ug
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Keep these from your board exams"
+        parts:
+          - p: "Keep the SSC mark sheet ready as one PDF for ACPDC, which checks the marks you type against it."
+            source: acpdc-guide
+          - list:
+              - "GUJCET hall ticket (downloaded online before the exam) and result."
+              - "GSEB lets candidates apply for a copy of their GUJCET OMR sheet after the result."
+            source: gseb-eservice
+      - id: pay
+        nav: "Where It Leads"
+        eyebrow: "After the exams"
+        heading: "Where these results take you"
+        parts:
+          - p: "GUJCET results open degree engineering and degree / diploma pharmacy admissions, which ACPC runs."
+            source: gujcet-reg
+          - links:
+              - { label: "ACPC (B.E. / B.Tech) page", url: "state/gujarat/acpc.html" }
+              - { label: "ACPDC (diploma) page", url: "state/gujarat/acpdc.html" }
+              - { label: "GCAS (UG) page", url: "state/gujarat/gcas.html" }
+              - { label: "What after Class 10?", url: "after-10th.html" }
+      - id: posting
+        nav: "Results &amp; Help"
+        eyebrow: "Results &amp; support"
+        heading: "Results, answer keys and copies"
+        parts:
+          - list:
+              - "HSC Science and GUJCET results are declared together, with a result highlights booklet."
+              - "After the supplementary exams, GSEB publishes the procedure for re-checking and answer-sheet copies."
+            source: gseb-eservice
+    sources:
+      - { id: gujcet-reg, name: "GSEB — Press note, GUJCET 2026 registration (Gujarati)", url: "https://www.gsebeservice.com/assets/news/Press%20Note%20for%20GUJCET%20Registration-2026.pdf", covers: "who GUJCET is for, its purpose, fee and application window", checked: 2026-10-14 }
+      - { id: gujcet-key, name: "GSEB — GUJCET 2026 provisional answer key notice (Gujarati)", url: "https://www.gsebeservice.com/assets/news/GUJCET-2026%20PROVISIONAL%20ANSWER%20KEY.pdf", covers: "exam date, subjects and codes, media, answer-key challenge fee", checked: 2026-10-14 }
+      - { id: gseb-eservice, name: "GSEB — e-service notices", url: "https://www.gsebeservice.com/", covers: "results, OMR copy, supplementary exam notices", checked: 2026-10-14 }
+      - { id: acpc-advt, name: "ACPC — Advertisement for degree engineering admission 2026-27", url: "https://acpc.gujarat.gov.in/assets/uploads/media-uploader/31032026-advertisement-for-degree-engineering-admission-2026-27-english1774956585.pdf", covers: "how board marks and GUJCET combine for engineering merit", checked: 2026-10-14 }
+      - { id: acpdc-guide, name: "ACPDC — Guidelines for online admission, First Year Diploma", url: "https://acpdc.gujarat.gov.in/information/2025/fy/OnlineAdmissionProcess_2025_FY.pdf", covers: "SSC marks used for diploma merit", checked: 2026-10-14 }
+      - { id: gcas-ug, name: "GCAS — UG admission process schedule 2026-27", url: "https://gcas.gujgov.edu.in/uploads/gcasugschedule20262705052026064044112.pdf", covers: "university-wise merit for UG admission", checked: 2026-10-14 }

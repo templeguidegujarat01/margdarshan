@@ -3243,3 +3243,75 @@ main > section.mb.stage-focus > .container{box-shadow:inset 4px 0 0 var(--gold);
   .sl-console>div:nth-child(odd){border-left:0;}
   .sl-console>div:nth-child(n+3){border-top:1px solid var(--border-surface);}
 }
+
+/* ===================== STATE EXAM & CAREER COCKPIT (state/<id>/, state-pathways.html, 2026-10-14) =====================
+   Pages: state/<id>/index.html (_includes/state-cockpit.html), state/<id>/<exam>.html (_includes/state-exam.html)
+   and the state selector on state-pathways.html (_includes/state-picker.html). Image-free.
+   - Hero reuses .career-hero (centred H1 + 2 x 2 fact console); topic blocks are master blocks (.mb), so they
+     alternate sharp / rounded 1px-border cards like the career pages.
+   - These pages opt out of the auto sidebar (main[data-no-page-nav]); the sticky .quicknav-bar is the
+     "On this page" bar, with a small mono label in front of its chips.
+   - The state picker is a <details> dropdown in the page flow (the dark hero clips absolute panels). */
+.sc-quicknav .quicknav{align-items:center;}
+.sc-otp{flex-shrink:0;font-family:var(--font-mono);font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);padding-right:.35rem;}
+.sc-step{display:inline-block;min-width:1.9em;margin-right:.35rem;padding:.05rem .4rem;border:1px solid var(--line);border-radius:4px;font-family:var(--font-mono);font-size:.7rem;font-weight:600;line-height:1.5;text-align:center;color:var(--text-muted);background:var(--paper);}
+main.sc-page > section.mb .section-head{margin-bottom:1.1rem;}
+.sc-p{max-width:75ch;margin:0 0 1rem;line-height:1.65;}
+.sc-list{margin:0 0 1.1rem;padding-left:1.2rem;display:grid;gap:.5rem;max-width:80ch;}
+.sc-list li{line-height:1.6;}
+.sc-list li::marker{color:var(--gold);}
+.sc-cap{margin-top:1.5rem;}
+.sc-cap:first-child,.section-head + .sc-cap{margin-top:0;}
+.sc-table{margin-bottom:.9rem;}
+.sc-table tbody th{font-weight:650;color:var(--text);background:none;font-size:.9rem;text-transform:none;letter-spacing:0;white-space:normal;}
+.sc-table td,.sc-table th{overflow-wrap:anywhere;}
+.sc-cite{margin:-.4rem 0 1rem;font-size:.8rem;color:var(--text-muted);}
+.sc-note{margin:.2rem 0 1rem;}
+.sc-warn{display:flex;gap:.65rem;align-items:flex-start;margin:.4rem 0 1rem;padding:.85rem 1rem;border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:var(--radius-sm);background:var(--paper);}
+.sc-warn svg{flex:none;margin-top:.15rem;color:var(--accent-on-surface);}
+.sc-warn p{margin:0;font-weight:600;line-height:1.55;}
+.sc-links{margin:.3rem 0 1rem;align-items:center;}
+.sc-cite-inline{font-size:.8rem;}
+.sc-kv{list-style:none;margin:0;padding:0;display:grid;gap:.3rem;}
+@media (min-width:900px){.sc-kv{grid-template-columns:repeat(2,minmax(0,1fr));gap:.55rem 1.2rem;}#compare .table-simple td:last-child{min-width:30rem;}}
+.sc-k{display:block;font-family:var(--font-mono);font-size:.66rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);}
+.sc-more{margin-top:.4rem;}
+
+/* Cockpit tiles: a typographic grid, one card per exam / admission node; odd tiles sharp, even tiles rounded. */
+.sc-grid{list-style:none;margin:0;padding:0;display:grid;gap:.9rem;grid-template-columns:repeat(auto-fill,minmax(min(100%,22rem),1fr));}
+.sc-tile-link{display:flex;flex-direction:column;gap:.45rem;height:100%;padding:1.05rem 1.1rem 1rem;background:var(--paper);border:1px solid var(--line);border-radius:2px;color:var(--text);text-decoration:none;transition:border-color .15s var(--ease),transform .15s var(--ease);}
+.sc-tile:nth-child(even) .sc-tile-link{border-radius:var(--radius-md);}
+.sc-tile-link:is(:hover,:focus-visible){border-color:var(--accent-on-surface);transform:translateY(-1px);}
+.sc-tile-body{font-family:var(--font-mono);font-size:.66rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);line-height:1.35;}
+.sc-tile-title{font-family:var(--font-display);font-size:1.18rem;font-weight:650;line-height:1.25;}
+.sc-tile-text{font-size:.9rem;line-height:1.5;color:var(--text-muted);}
+.sc-tile-chips{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:auto;padding-top:.35rem;}
+.sc-tile-chips span{padding:.15rem .55rem;border:1px solid var(--line);border-radius:999px;background:var(--surface);font-size:.75rem;font-weight:600;}
+.sc-tile-go{font-size:.82rem;font-weight:700;color:var(--link);}
+@media (prefers-reduced-motion:reduce){.sc-tile-link{transition:none;}.sc-tile-link:is(:hover,:focus-visible){transform:none;}}
+
+/* State selector (state-pathways.html) */
+.sc-picker-bar{padding:clamp(1.25rem,1rem + 1.5vw,2rem) 0;background:var(--surface);border-bottom:1px solid var(--line);}
+.sc-picker-inner{display:grid;gap:1rem 2rem;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);align-items:start;}
+.sc-picker-copy h2{margin:.2rem 0 .4rem;font-size:clamp(1.25rem,2.4vw,1.6rem);}
+.sc-picker-copy p{margin:0;color:var(--text-muted);line-height:1.55;}
+.sc-picker{border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--paper);}
+.sc-picker[open]{border-color:var(--accent-on-surface);}
+.sc-picker-btn{display:flex;align-items:center;gap:.75rem;padding:.85rem 1rem;cursor:pointer;list-style:none;font-weight:650;}
+.sc-picker-btn::-webkit-details-marker{display:none;}
+.sc-picker-btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:var(--radius-sm);}
+.sc-picker-label{font-family:var(--font-mono);font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);}
+.sc-picker-value{flex:1;}
+.sc-picker-btn svg{flex:none;transition:transform .15s var(--ease);}
+.sc-picker[open] .sc-picker-btn svg{transform:rotate(180deg);}
+.sc-picker-list{list-style:none;margin:0;padding:.35rem;display:grid;gap:.25rem;border-top:1px solid var(--line);max-height:22rem;overflow-y:auto;}
+.sc-opt{display:flex;justify-content:space-between;align-items:baseline;gap:.75rem;padding:.6rem .75rem;border-radius:6px;color:var(--text);font-weight:600;text-decoration:none;}
+.sc-opt:is(:hover,:focus-visible){background:var(--surface);color:var(--link);}
+.sc-opt-tag{font-family:var(--font-mono);font-size:.68rem;font-weight:600;color:var(--text-muted);white-space:nowrap;}
+.sc-opt.is-live{border:1px solid var(--gold);background:var(--stream-soft);}
+.sc-opt.is-live .sc-opt-tag{color:var(--accent-on-surface);}
+.sc-card-cockpit a{border-color:var(--gold);font-weight:700;}
+@media (max-width:767.98px){
+  .sc-picker-inner{grid-template-columns:1fr;}
+  .sc-otp{display:none;}
+}

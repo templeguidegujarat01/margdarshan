@@ -73,7 +73,8 @@ footer:
       </div>
       <p>Admission to engineering, pharmacy, medical and diploma courses in India often depends on your state. Each state runs its own entrance test or counselling, keeps a share of seats for local candidates, and operates its own polytechnic board and scholarship portal. This hub puts those rules side by side for ten major states so that you can see which exam to prepare for, how quota and domicile affect your chances, and where to apply for financial help.</p>
       <div class="page-hero-ctas">
-        <a href="#states" class="btn btn-primary btn-inpage-jump btn-hub-jump">Browse state directory</a>
+        <a href="#state-picker" class="btn btn-primary btn-inpage-jump btn-hub-jump">Select your state</a>
+        <a href="state/gujarat/index.html" class="btn btn-ghost btn-page-link">Gujarat exam cockpit</a>
       </div>
       <div class="quickfacts">
         <div class="qf-card"><span>States covered</span><strong>{{ site.data.state_exams.states | size }}</strong></div>
@@ -84,6 +85,9 @@ footer:
     </div>
   </section>
 
+  <div id="state-picker">
+  {% include state-picker.html %}
+  </div>
 
   <section class="block" id="how" aria-labelledby="how-heading"><div class="container">
     <div class="section-head reveal"><span class="eyebrow">Overview</span><h2 id="how-heading">How state admissions work</h2></div>
@@ -157,6 +161,8 @@ footer:
           {%- endfor %}
         </ul>
 
+        {%- assign has_page = site.data.state_pages.states[s.id] %}
+        {%- if site.data.in.states[s.id] %}<div class="chip-links sc-card-cockpit"><a href="state/{{ s.id }}/index.html">Open the {{ s.name }} exam &amp; career cockpit</a></div>{% endif %}
         {%- if has_page %}<div class="chip-links"><a href="state-pathways/{{ s.id }}.html">Full {{ s.name }} guide: exams, quotas, counselling, scholarships</a></div>{% endif %}
         {%- if s.official.size > 0 %}
         <div class="chip-links" aria-label="Official links for {{ s.name }}">

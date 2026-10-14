@@ -1,0 +1,1006 @@
+# Karnataka State Exam & Career Cockpit — one data sheet for the cockpit (state/karnataka/index.html) and every
+# exam page under state/karnataka/. Rendered by _includes/state-cockpit.html and _includes/state-exam.html;
+# checked by scripts/check-in-data.mjs (state sheets block).
+#
+# Rules for this sheet (same as gujarat.yml, maharashtra.yml, uttar-pradesh.yml and delhi.yml):
+#   - Every fact part carries `source: <id>`; the id must be listed under that exam's `sources`.
+#   - Sources are the official files themselves (read 2026-10-14): the KPSC Gazetted Probationers 2026-27
+#     notification and its corrigendum (Kannada image scans, read page by page), the KEA UGCET-2026 and
+#     PGCET-2026 information bulletins (English text PDFs), the KEA Village Administrative Officer 2026
+#     notifications and notices (Kannada scans), the Karnataka State Police constable notification 2026-27
+#     (Kannada scan) and the KSEAB 2027 time tables and fee memo (scans). Nothing comes from coaching or news sites.
+#     Where no official file we could open states a value (KPSC pay scales, KCET application fee, PGCET
+#     registration fee, a current PSI notification, in-hand pay), the text says so instead of guessing.
+#   - Section ids are the same on every exam page: overview, eligibility, scheme, fees, reservation,
+#     documents, pay, posting (+ sources, drawn automatically).
+#   - Part kinds: p (paragraph), list (bullets), table {head, rows, caption?}, note (small print),
+#     warn (callout box), links [{label, url}] (official buttons).
+state:
+  id: karnataka
+  name: Karnataka
+  checked: 2026-10-14
+
+cockpit:
+  eyebrow: "State Exam &amp; Career Cockpit · Karnataka"
+  title: "Karnataka Exam &amp; Career Cockpit"
+  intro:
+    - "Every major Karnataka government recruitment and admission route on one screen: KPSC Gazetted Probationers (Group A and B), KEA's Village Administrative Officer recruitment, Karnataka State Police constables, KCET (UGCET) for engineering, farm science and pharmacy, PGCET for MBA, MCA and M.Tech, and the KSEAB SSLC and II PUC board exams. Each page is built only from the official notification, bulletin or circular, and every fact links back to that file."
+    - "Three Karnataka rules decide more results than any other. Rural reservation (study from Class 1 to 10 in a rural area) and Kannada-medium reservation (Class 1 to 10 in Kannada medium) need their own certificates; candidates who have not passed Kannada as a first or second language in SSLC must clear a compulsory Kannada test for state jobs; and Kalyana-Karnataka (Article 371(J)) seats and posts need a separate eligibility certificate from the Assistant Commissioner."
+  facts:
+    - { label: "Recruitment nodes", value: "KPSC Gazetted Probationers · KEA VAO · Police Constable" }
+    - { label: "Admission nodes", value: "KCET (UGCET) · PGCET · KSEAB SSLC &amp; II PUC" }
+    - { label: "Coming up", value: "KPSC GP prelims 15 Nov 2026 (tentative)" }
+    - { label: "Last checked", value: "14 Oct 2026" }
+  groups:
+    - id: civil
+      eyebrow: "Civil recruitment &amp; administrative"
+      heading: "Government recruitment exams"
+      intro: "Group A and B administrative posts through the Karnataka Public Service Commission (KPSC), village-level Revenue Department posts through the Karnataka Examinations Authority (KEA), and Civil Police Constables of the Karnataka State Police, whose written test KEA also conducts."
+      exams: [kpsc, vao, police]
+    - id: academic
+      eyebrow: "Academic &amp; professional admissions"
+      heading: "Admission routes, and the board behind them"
+      intro: "Government-quota seats in engineering, farm science, veterinary, nursing and pharmacy through KCET, MBA, MCA and M.E. / M.Tech seats through PGCET (both run by KEA), and the SSLC and II PUC exams of the Karnataka School Examination and Assessment Board (KSEAB) that most Karnataka students take."
+      exams: [kcet, pgcet, kseab]
+  compare_note: "Fees, age limits and dates are from the latest notice of each body. They change every cycle, so always open the current notice before applying."
+  portals_note: "KPSC applications run only on kpsconline.karnataka.gov.in (one-time registration first); KEA recruitment and CET applications run on cetonline.karnataka.gov.in/kea; police notifications are posted on ksp.karnataka.gov.in and ksp-recruitment.in; board circulars are on kseab.karnataka.gov.in. Only use these official addresses."
+  portals:
+    - { label: "KPSC (notifications)", url: "https://kpsc.karnataka.gov.in/" }
+    - { label: "KPSC online application", url: "https://kpsconline.karnataka.gov.in/" }
+    - { label: "Karnataka Examinations Authority (KEA)", url: "https://cetonline.karnataka.gov.in/kea/" }
+    - { label: "Karnataka State Police — recruitment", url: "https://ksp.karnataka.gov.in/info-3/Recruitment/kn" }
+    - { label: "KSP recruitment portal", url: "https://ksp-recruitment.in/" }
+    - { label: "KSEAB (SSLC and II PUC)", url: "https://kseab.karnataka.gov.in/" }
+
+exams:
+  # ------------------------------------------------------------------ KPSC GAZETTED PROBATIONERS
+  - slug: kpsc
+    group: civil
+    short: "KPSC Gazetted Probationers (Group A &amp; B)"
+    body: "Karnataka Public Service Commission"
+    card: "Karnataka's state civil services exam: Assistant Commissioner, Tahsildar, Commercial Tax Officer, Assistant Commissioner of Commercial Taxes, Chief Officer and other Group A and B posts, through a prelims, a mains with two qualifying language papers, and a personality test."
+    card_facts: ["2026-27: 319 posts", "Age 21–40 (43 / 45 for reserved)", "Prelims 15 Nov 2026 (tentative)"]
+    eyebrow: "KPSC · Group A &amp; B services"
+    title: "KPSC Gazetted Probationers 2026-27 — 319 Group A and B Posts"
+    lede: "The Gazetted Probationers (GP) exam fills Karnataka's senior administrative posts. This page follows the KPSC notification of 31 July 2026 for 319 posts (117 Group A, 202 Group B; 297 in the residual parent cadre and 22 in the Hyderabad-Karnataka cadre) and its corrigendum of 31 August 2026."
+    facts:
+      - { label: "Posts", value: "319 (Group A 117 · Group B 202)", source: gp-26 }
+      - { label: "Qualification", value: "Any bachelor's degree", source: gp-26 }
+      - { label: "Age", value: "21 to 40 (2A–3B: 43 · SC/ST/Cat-1: 45)", source: gp-26 }
+      - { label: "Fee", value: "₹600 · 2A–3B ₹300 · SC/ST/Cat-1/PH nil", source: gp-26 }
+    official:
+      - { label: "KPSC notifications", url: "https://kpsc.karnataka.gov.in/256/latest-notifications/kn" }
+      - { label: "GP 2026-27 notification (PDF)", url: "https://demo.karnataka.gov.in/kpsc2/public/uploads/notification%20GP%202026_1785564344.pdf" }
+      - { label: "Apply on kpsconline.karnataka.gov.in", url: "https://kpsconline.karnataka.gov.in/" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "The 2026-27 notification"
+        parts:
+          - p: "KPSC notification No. KPSCKA/EXA1/EXMF/9/2026-EXAM-1/I/251710/2026 of 31 July 2026 invites applications for 319 Gazetted Probationer posts under the Karnataka Gazetted Probationers (Appointment by Competitive Examinations) Rules, 1997. Online applications opened on 1 August 2026; the preliminary examination is tentatively set for 15 November 2026."
+            source: gp-26
+          - p: "The original closing date of 31 August 2026 was extended to 7 September 2026 because many applicants could not get caste, income and Hyderabad-Karnataka certificates in time from the Nadakacheri and Seva Sindhu servers. Nothing else in the notification changed."
+            source: gp-cor
+          - table:
+              caption: "Group A posts (residual parent cadre + Hyderabad-Karnataka cadre)"
+              head: ["Post and department", "RPC", "HK", "Total"]
+              rows:
+                - ["Assistant Commissioner (junior scale), DPAR", "36", "3", "39"]
+                - ["Assistant Commissioner of Commercial Taxes", "50", "–", "50"]
+                - ["Assistant Director, Treasury", "2", "–", "2"]
+                - ["Executive Officer / Assistant Secretary, Rural Development &amp; Panchayat Raj", "13", "2", "15"]
+                - ["Assistant Director Grade-1, Social Welfare", "11", "–", "11"]
+                - ["Total Group A", "112", "5", "117"]
+            source: gp-26
+          - table:
+              caption: "Group B posts"
+              head: ["Post and department", "RPC", "HK", "Total"]
+              rows:
+                - ["Tahsildar (Grade-2), Revenue", "18", "7", "25"]
+                - ["Commercial Tax Officer", "74", "–", "74"]
+                - ["Assistant Superintendent, Prisons", "5", "1", "6"]
+                - ["Assistant Registrar of Co-operative Societies", "19", "2", "21"]
+                - ["Assistant Director, Agricultural Marketing", "10", "2", "12"]
+                - ["Excise Deputy Superintendent", "5", "–", "5"]
+                - ["Employment Officer, Skill Development", "3", "–", "3"]
+                - ["Chief Officer (Grade-1), Urban Development", "18", "2", "20"]
+                - ["Assistant Treasury Officer, Finance", "12", "–", "12"]
+                - ["Assistant Director, Food &amp; Civil Supplies", "2", "2", "4"]
+                - ["Section Officer, Karnataka Government Secretariat", "5", "–", "5"]
+                - ["Section Officer, KPSC", "3", "1", "4"]
+                - ["Assistant Director Grade-2, Social Welfare", "11", "–", "11"]
+                - ["Total Group B", "185", "17", "202"]
+            source: gp-26
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "Degree, age and number of attempts"
+        parts:
+          - list:
+              - "<strong>Qualification:</strong> a bachelor's or master's degree from a university established by law in India, or an equivalent qualification (Rule 7). Final-year students may sit the prelims, but must show the degree when applying for the mains."
+              - "<strong>Citizenship:</strong> the candidate must be a citizen of India."
+              - "<strong>Age:</strong> at least 21 on the last date for applications."
+            source: gp-26
+          - table:
+              caption: "Maximum age (includes the one-time 5-year relaxation of Government Order 29-01-2026)"
+              head: ["Category", "Maximum age"]
+              rows:
+                - ["General merit", "40"]
+                - ["Category 2A, 2B, 3A, 3B", "43"]
+                - ["SC, ST, Category-1", "45"]
+            source: gp-26
+          - list:
+              - "<strong>Ex-servicemen:</strong> military service + 3 years."
+              - "<strong>Persons with disabilities:</strong> 10 years more."
+              - "<strong>Widows:</strong> 10 years more (with a certificate that they have not remarried)."
+            source: gp-26
+          - table:
+              caption: "Maximum attempts at the preliminary exam"
+              head: ["Category", "Attempts"]
+              rows:
+                - ["General merit", "5"]
+                - ["Category 1, 2A, 2B, 3A, 3B", "7"]
+                - ["SC, ST", "No limit"]
+            source: gp-26
+          - note: "Physical standards apply to some posts — for example Deputy Superintendent of Police (Civil) asks men for 165 cm height and 84 cm chest, and women for 157 cm and 46 kg; Assistant Superintendent of Prisons and Excise Deputy Superintendent have their own tables in para 11 of the notification."
+            source: gp-26
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme"
+        heading: "Prelims, mains with Kannada and English, then interview"
+        parts:
+          - table:
+              caption: "Preliminary exam — two objective papers, 2 hours each, 2 marks per question"
+              head: ["Paper", "Subject", "Questions", "Marks"]
+              rows:
+                - ["Paper 1", "General studies (national and international importance)", "40", "80"]
+                - ["Paper 1", "Humanities", "60", "120"]
+                - ["Paper 2", "General studies related to State importance", "40", "80"]
+                - ["Paper 2", "General science &amp; technology, environment &amp; ecology", "30", "60"]
+                - ["Paper 2", "General mental ability", "30", "60"]
+                - ["Total", "", "200", "400"]
+            source: gp-26
+          - list:
+              - "Negative marking: one-fourth (0.25) of the marks of a question is deducted for each wrong answer; more than one answer counts as wrong; a blank answer has no penalty."
+              - "Papers are set in Kannada and English; general mental ability is at SSLC level, the rest at degree level."
+              - "15 times the number of vacancies are admitted to the mains, category-wise."
+            source: gp-26
+          - table:
+              caption: "Main examination (descriptive)"
+              head: ["Paper", "Subject", "Marks", "Hours"]
+              rows:
+                - ["Qualifying", "Kannada", "150", "2"]
+                - ["Qualifying", "English", "150", "2"]
+                - ["Paper 1", "Essay", "250", "3"]
+                - ["Papers 2–5", "General Studies 1, 2, 3, 4 (250 each)", "1,000", "3 each"]
+                - ["Written total", "", "1,250", ""]
+                - ["Personality test", "", "25", ""]
+                - ["Grand total", "", "1,275", ""]
+            source: gp-26
+          - warn: "The Kannada and English papers only qualify, but you must score at least 35% (52.5 of 150) in each. Anyone who misses this mark is not called for the personality test, however high the other papers are."
+            source: gp-26
+          - note: "Candidates are called for the personality test in a 1:3 ratio to vacancies; the final 1:1 select list adds written and interview marks."
+            source: gp-26
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "Application fee"
+        parts:
+          - table:
+              head: ["Candidate", "Fee"]
+              rows:
+                - ["General merit", "₹600"]
+                - ["Category 2A, 2B, 3A, 3B", "₹300"]
+                - ["Ex-servicemen", "₹50"]
+                - ["SC, ST, Category-1, persons with disabilities", "Exempt"]
+            source: gp-26
+          - note: "Paid online only (net banking, debit or credit card, UPI) and never refunded or carried over to another exam. Demand drafts and postal orders are not accepted."
+            source: gp-26
+      - id: reservation
+        nav: "Reservation &amp; Certificates"
+        eyebrow: "Reservation &amp; certificates"
+        heading: "Caste forms, rural, Kannada medium and Hyderabad-Karnataka"
+        parts:
+          - table:
+              caption: "Caste certificate formats (Annexure-2 of the notification)"
+              head: ["Category", "Form"]
+              rows:
+                - ["SC (Category A, B, C) and ST", "Form D"]
+                - ["Category-1", "Form E"]
+                - ["Category 2A, 2B, 3A, 3B", "Form F"]
+            source: gp-26
+          - list:
+              - "<strong>Validity:</strong> SC, ST and Category-1 certificates stay valid for life unless cancelled; 2A, 2B, 3A and 3B certificates are valid for 5 years and must be valid on the last date for applications."
+              - "<strong>Balija sub-castes:</strong> Balija, Banajiga, Naidu, Telaga Balija, Shetty Balija and related sub-castes are 2A for education but must claim 3A for jobs."
+              - "<strong>Rural candidates:</strong> must have studied Class 1 to 10 in a rural area; general-merit applicants need Form-1 (creamy-layer exclusion from the Tahsildar) and Form-2 (study certificate signed by the head teacher and countersigned by the Block Education Officer); reserved categories need Form-2."
+              - "<strong>Kannada medium:</strong> Class 1 to 10 in Kannada medium, certified by the head teacher (Government notification of 24-10-2002)."
+              - "<strong>Hyderabad-Karnataka (Article 371(J)):</strong> local-person eligibility certificate in Annexure-A from the Assistant Commissioner of the sub-division."
+              - "<strong>Category is final:</strong> a reservation not claimed in the online form cannot be claimed later."
+            source: gp-26
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "What to upload and keep ready"
+        parts:
+          - list:
+              - "KPSC one-time registration (OTR) on kpsconline.karnataka.gov.in, then 'Apply to Post'."
+              - "Photograph and signature in JPEG (photo up to 200 KB, signature up to 70 KB)."
+              - "Date of birth: only the SSLC (or equivalent) marks card, transfer certificate or cumulative-record extract is accepted."
+              - "Degree certificate and marks cards (for the mains)."
+              - "Caste / income certificate RD number, rural Form-1 / Form-2, Kannada-medium certificate, Annexure-A for HK, ex-servicemen and disability papers — all obtained before the last date and uploaded with the form."
+            source: gp-26
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Pay scales"
+        parts:
+          - note: "The 2026-27 notification lists posts, cadres and vacancy classification but does not print pay scales, so none is shown here. Each department's pay scale is notified under the Karnataka Civil Services rules; in-hand salary adds dearness allowance and HRA and subtracts deductions."
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Where Gazetted Probationers work"
+        parts:
+          - p: "Group A officers start as Assistant Commissioners (sub-division revenue heads), Assistant Commissioners of Commercial Taxes, Executive Officers of taluk panchayats and Assistant Directors; Group B officers start as Tahsildars, Commercial Tax Officers, Chief Officers of urban local bodies, Assistant Registrars of co-operatives, Section Officers and similar posts. The 22 Hyderabad-Karnataka cadre posts are filled from local candidates of that region."
+            source: gp-26
+    sources:
+      - { id: gp-26, name: "KPSC — Notification, Gazetted Probationers Group A &amp; B 2026-27, No. KPSCKA/EXA1/EXMF/9/2026-EXAM-1/I/251710/2026 (31 Jul 2026, Kannada)", url: "https://demo.karnataka.gov.in/kpsc2/public/uploads/notification%20GP%202026_1785564344.pdf", covers: "319 posts, dates, qualification, age and attempts, fee, prelims and mains scheme, negative marking, reservation certificates, physical standards, documents", checked: 2026-10-14 }
+      - { id: gp-cor, name: "KPSC — Corrigendum notification, GP 2026-27 (31 Aug 2026)", url: "https://demo.karnataka.gov.in/kpsc2/public/uploads/corrigendum_notification_GP-2026_1788240823.pdf", covers: "application deadline extended to 7 Sep 2026", checked: 2026-10-14 }
+
+  # ------------------------------------------------------------------ KEA VILLAGE ADMINISTRATIVE OFFICER
+  - slug: vao
+    group: civil
+    short: "KEA Village Administrative Officer (VAO)"
+    body: "Karnataka Examinations Authority (for the Revenue Department)"
+    card: "Group-C Village Administrative Officer posts of the Revenue Department, filled district-wise through a KEA OMR exam after Class 12 (PUC). 2026: 505 posts in the residual cadre and 67 in Kalyana-Karnataka."
+    card_facts: ["2026: 505 + 67 posts", "PUC · age 18–40", "Exam held 4 Oct 2026"]
+    eyebrow: "KEA · Revenue Department"
+    title: "KEA Village Administrative Officer (VAO) Recruitment 2026 — 572 Posts"
+    lede: "Village Administrative Officers (Grama Adalitha Adhikari) are the Revenue Department's officers at village level. In 2026 KEA notified 505 posts in 21 districts of the residual parent cadre (RPC) and 67 in the Kalyana-Karnataka (KK) districts, with the written exam on 4 October 2026."
+    facts:
+      - { label: "Posts", value: "505 (RPC) + 67 (KK)", source: vao-rpc }
+      - { label: "Qualification", value: "PUC (Class 12) or equivalent", source: vao-rpc }
+      - { label: "Age", value: "18 to 40 (2A–3B: 43 · SC/ST/Cat-1: 45)", source: vao-rpc }
+      - { label: "Pay scale", value: "₹34,100 – ₹67,600", source: vao-rpc }
+    official:
+      - { label: "KEA VAO 2026 (RPC) page", url: "https://cetonline.karnataka.gov.in/kea/vaorpc2026" }
+      - { label: "KEA VAO 2026 (KK) page", url: "https://cetonline.karnataka.gov.in/kea/vaokk2026" }
+      - { label: "RPC notification (PDF)", url: "https://cetonline.karnataka.gov.in/keawebentry456/vaorpc2026/vao_rpc_notification_10072026kannada.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "The 2026 notifications"
+        parts:
+          - p: "KEA notification No. ED/KEA/26/Ne.V./2026 (RPC) of 10 July 2026 invites applications for 505 Group-C Village Administrative Officer posts in 21 districts of the residual parent cadre, for direct recruitment through a competitive exam. Candidates may apply for one district only."
+            source: vao-rpc
+          - table:
+              caption: "RPC posts by district (largest first)"
+              head: ["District", "Posts"]
+              rows:
+                - ["Tumakuru, Mandya", "50 each"]
+                - ["Belagavi", "48"]
+                - ["Mysuru", "45"]
+                - ["Hassan", "35"]
+                - ["Chamarajanagar", "31"]
+                - ["Bengaluru South", "30"]
+                - ["Bengaluru Rural", "29"]
+                - ["Kolar", "22"]
+                - ["Chikkaballapur", "21"]
+                - ["Bengaluru Urban, Dakshina Kannada", "20 each"]
+                - ["Shivamogga", "18"]
+                - ["Bagalkote", "16"]
+                - ["Chitradurga, Haveri", "15 each"]
+                - ["Gadag", "14"]
+                - ["Udupi, Chikkamagaluru", "10 each"]
+                - ["Bidar", "4"]
+                - ["Raichur", "2"]
+                - ["Total", "505"]
+            source: vao-rpc
+          - p: "A separate notification No. ED/KEA/27/Ne.V./2026 (KK) of the same date covers 67 posts in the Kalyana-Karnataka local cadre: Kalaburagi 40, Bidar 17 and Raichur 10."
+            source: vao-kk
+          - p: "Applications ran from 11 July 2026; the closing date was extended to 20 August 2026 and fee payment to 26 August 2026 (4 pm)."
+            source: vao-ext
+          - p: "The written exam was held on 4 October 2026 and provisional keys were published on 6 October; objections were accepted online until 10.30 am on 8 October 2026 at ₹25 per objection."
+            source: vao-key
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "PUC and the age table"
+        parts:
+          - list:
+              - "<strong>Qualification:</strong> PUC (Class 12) or equivalent, held on the last date for applications. Equivalents: CBSE / ICSE Class 12, another state board's Class 12, NIOS senior secondary, a 2-year ITI with an NIOS or PU-board language + subject, the state's JOC vocational course, and a 3-year diploma of the Technical Education Department (Government orders of 2018 and 2021)."
+              - "<strong>Age:</strong> at least 18 on the last date."
+              - "<strong>Citizenship:</strong> the candidate must be a citizen of India."
+            source: vao-rpc
+          - table:
+              caption: "Maximum age (includes the one-time 5-year relaxation of Government Order 29-01-2026)"
+              head: ["Category", "Maximum age"]
+              rows:
+                - ["General merit", "40"]
+                - ["Category 2A, 2B, 3A, 3B", "43"]
+                - ["SC, ST, Category-1", "45"]
+            source: vao-rpc
+          - list:
+              - "<strong>Persons with disabilities, widows, and freed bonded labourers:</strong> 10 years more."
+              - "<strong>Ex-servicemen:</strong> service + 3 years."
+              - "<strong>State / local-body employees:</strong> years of service or 10 years, whichever is less."
+            source: vao-rpc
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme"
+        heading: "Two OMR papers and the compulsory Kannada test"
+        parts:
+          - table:
+              caption: "Competitive exam (offline OMR)"
+              head: ["Paper", "Subjects", "Questions / Marks", "Time"]
+              rows:
+                - ["Paper 1", "General knowledge: current events, everyday science, Indian Constitution, history and geography of India with focus on Karnataka, state administration, rural development and panchayat raj, Karnataka's economy and environment", "100 / 100", "2 hours"]
+                - ["Paper 2", "General Kannada, general English, computer knowledge", "100 / 100", "2 hours"]
+            source: vao-rpc
+          - list:
+              - "At least 35% is required in the competitive exam to be considered for selection."
+              - "Negative marking: 0.25 mark for each wrong answer; leaving the 5th 'not attempted' circle unshaded also costs 0.25 per question."
+              - "Selection is district-wise; KEA hands the merit list to the Deputy Commissioner of each district, who is the appointing authority."
+            source: vao-rpc
+          - warn: "Compulsory Kannada test: anyone who has not passed Kannada as a first or second language in SSLC (or higher), or studied in Kannada medium, or cleared an earlier compulsory Kannada test, must pass this 150-mark objective test with at least 50 marks. Its marks do not count for merit."
+            source: vao-rpc
+          - note: "The 2026 compulsory Kannada test was held on 8 October 2026, 3 pm to 5 pm: 100 questions, 1.5 marks each, 150 marks."
+            source: vao-kan
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "Application fee"
+        parts:
+          - table:
+              head: ["Candidate", "Fee"]
+              rows:
+                - ["General merit and Category 2A, 2B, 3A, 3B", "₹750 (₹500 application + ₹250 processing)"]
+                - ["SC, ST, Category-1, ex-servicemen, transgender", "₹500 (₹250 + ₹250)"]
+                - ["Persons with disabilities", "₹250 (processing fee only)"]
+            source: vao-rpc
+          - note: "Paid online only and never refunded."
+            source: vao-rpc
+      - id: reservation
+        nav: "Reservation &amp; Certificates"
+        eyebrow: "Reservation &amp; certificates"
+        heading: "Forms D, E, F, rural and Kannada medium"
+        parts:
+          - table:
+              caption: "Caste certificate formats"
+              head: ["Category", "Form"]
+              rows:
+                - ["SC (A, B, C) and ST", "Form D (enter the RD number for SC A / B / C)"]
+                - ["Category-1", "Form E"]
+                - ["Category 2A, 2B, 3A, 3B", "Form F"]
+            source: vao-rpc
+          - list:
+              - "Only caste and income certificates issued for <strong>employment</strong> are accepted — certificates taken for education are not."
+              - "Married women of 2A, 2B, 3A and 3B need a caste and income certificate issued in the husband's name."
+              - "<strong>Rural reservation:</strong> study from Class 1 to 10 in a rural area; general-merit applicants need Form-1 (Tahsildar) and Form-2 (head teacher, countersigned by the Block Education Officer); reserved categories need Form-2. Losing a caste claim also cancels the rural claim."
+              - "<strong>Kannada medium:</strong> Class 1 to 10 in Kannada medium, certified by the head teacher."
+              - "<strong>Ex-servicemen:</strong> 10% of direct-recruitment posts."
+              - "<strong>Persons with disabilities:</strong> 5% horizontal reservation in Group-C posts (40% or more disability; blind and low-vision candidates are not eligible for this post)."
+              - "<strong>Transgender persons:</strong> 1% of posts in every category, with a District Magistrate certificate."
+              - "<strong>Project-displaced families:</strong> certificate from the Tahsildar."
+            source: vao-rpc
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "What to keep ready"
+        parts:
+          - list:
+              - "Aadhaar card."
+              - "Marks cards of the qualifying exam (all subjects / semesters) and the provisional degree or diploma certificate."
+              - "Proof of date of birth: SSLC marks card, school transfer certificate or birth certificate."
+              - "Caste and income certificate in the prescribed form, rural Form-1 / Form-2, Kannada-medium certificate, ex-servicemen, transgender or disability papers, if claimed."
+              - "No-objection certificate from the employer, for candidates already in service."
+              - "Photo (JPEG, 50–200 KB) and signature (JPEG, 50–70 KB)."
+            source: vao-rpc
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Pay scale"
+        parts:
+          - p: "<strong>Pay scale:</strong> ₹34,100 – 800 – 35,700 – 900 – 39,300 – 1,000 – 43,300 – 1,125 – 47,800 – 1,250 – 52,800 – 1,375 – 58,300 – 1,500 – 64,300 – 1,650 – 67,600. Probation is two years, and the post is covered by the National Pension System."
+            source: vao-rpc
+          - note: "The first figure is the starting basic pay. In-hand salary adds dearness allowance, HRA and other allowances and subtracts deductions; the notification gives only the pay scale, so no in-hand figure is shown here."
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "A district-level post"
+        parts:
+          - p: "The Village Administrative Officer post has district-level seniority. KEA sends the district-wise merit lists to the government, which passes them to each Deputy Commissioner; the Deputy Commissioner completes verification and appointment."
+            source: vao-rpc
+    sources:
+      - { id: vao-rpc, name: "KEA — Detailed notification, Village Administrative Officer recruitment (RPC), No. ED/KEA/26/Ne.V./2026 (10 Jul 2026, Kannada)", url: "https://cetonline.karnataka.gov.in/keawebentry456/vaorpc2026/vao_rpc_notification_10072026kannada.pdf", covers: "district posts, qualification, age and relaxations, fee, pay scale, exam scheme, negative marking, compulsory Kannada test, reservation certificates, documents", checked: 2026-10-14 }
+      - { id: vao-kk, name: "KEA — Detailed notification, Village Administrative Officer recruitment (KK), No. ED/KEA/27/Ne.V./2026 (10 Jul 2026, Kannada)", url: "https://cetonline.karnataka.gov.in/keawebentry456/vaokk2026/vao_kk_notification_10072026kannada.pdf", covers: "67 Kalyana-Karnataka posts by district", checked: 2026-10-14 }
+      - { id: vao-ext, name: "KEA — Notices extending the VAO (RPC) application and fee dates (6 Aug 2026 and 25 Aug 2026)", url: "https://cetonline.karnataka.gov.in/keawebentry456/vaorpc2026/vaorpc_06082026kannada.pdf", covers: "application until 20 Aug 2026; fee until 26 Aug 2026", checked: 2026-10-14 }
+      - { id: vao-key, name: "KEA — Notice on provisional keys of the VAO (RPC) competitive exam (6 Oct 2026)", url: "https://cetonline.karnataka.gov.in/keawebentry456/vaorpc2026/VAO_KEY_WITH_NOTE_06102026kannada.pdf", covers: "exam held 4 Oct 2026; objections till 8 Oct 2026, ₹25 each", checked: 2026-10-14 }
+      - { id: vao-kan, name: "KEA — Compulsory Kannada language test 2026: date and bell timings (8 Oct 2026)", url: "https://cetonline.karnataka.gov.in/keawebentry456/vaorpc2026/08_10_2026_KANNADA_EXAM_2026kannada.pdf", covers: "Kannada test on 8 Oct 2026, 100 questions, 150 marks", checked: 2026-10-14 }
+
+  # ------------------------------------------------------------------ KARNATAKA STATE POLICE
+  - slug: police
+    group: civil
+    short: "Karnataka Police Constable (Civil) &amp; PSI"
+    body: "Karnataka State Police (written test by KEA)"
+    card: "Police Constable (Civil) posts across Karnataka's districts and commissionerates: 3,395 in the residual cadre and 596 in Kalyana-Karnataka for 2026-27, through a KEA written test, physical standard and endurance tests, and a medical."
+    card_facts: ["2026-27: 3,395 + 596 posts", "PUC · age 18–33 (35 reserved)", "Height 168 cm men · 157 cm women"]
+    eyebrow: "Karnataka State Police · Constable recruitment"
+    title: "Karnataka Police Constable (Civil) Recruitment 2026-27 — 3,395 + 596 Posts"
+    lede: "The Karnataka State Police recruits Civil Police Constables through notification No. 02/Recruitment-4/2026-27 of 5 June 2026 (3,395 posts in the residual cadre) and a parallel Kalyana-Karnataka notification (596 posts). The Karnataka Examinations Authority runs the application and the written test."
+    facts:
+      - { label: "Posts", value: "3,395 (residual) + 596 (Kalyana-Karnataka)", source: pc-pet }
+      - { label: "Qualification", value: "PUC (Class 12) or equivalent", source: pc-26 }
+      - { label: "Age", value: "18 to 33 (SC/ST/Cat-1/2A–3B: 35)", source: pc-26 }
+      - { label: "Pay scale", value: "₹37,500 – ₹76,100", source: pc-26 }
+    official:
+      - { label: "KSP recruitment page", url: "https://ksp.karnataka.gov.in/info-3/Recruitment/kn" }
+      - { label: "Constable 3,395 notification (PDF)", url: "https://ksp.karnataka.gov.in/storage/pdf-files/Police%20Constable%20(Civil)%20Recruitment%202026%E2%80%9327-3395%20Posts.pdf" }
+      - { label: "KEA constable (RPC) page", url: "https://cetonline.karnataka.gov.in/kea/cpcrpc2026" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "The 2026-27 constable drive"
+        parts:
+          - table:
+              caption: "Police Constable (Civil), residual cadre — notification of 5 Jun 2026"
+              head: ["Direct men", "Direct women", "In-service men", "In-service women", "Transgender", "Total"]
+              rows:
+                - ["2,266", "755", "257", "82", "35", "3,395"]
+            source: pc-26
+          - p: "Applications ran from 8 June to 3 July 2026 (fee by 4 July 2026) on the KEA website, and the written test was held on 2 August 2026, 10.30 am to 12 noon."
+            source: pc-26
+          - p: "On 15 September 2026 the Director General's office asked KEA to issue call letters for the physical standard and endurance tests for both the 596 Kalyana-Karnataka (Article 371(J)) posts and the 3,395 residual-cadre posts, and to publish the test schedule."
+            source: pc-pet
+          - p: "The Karnataka State Police recruitment page also lists armed police constable (CAR / DAR) drives — 1,421 vacancies in the non-Kalyana-Karnataka region and 179 in Kalyana-Karnataka."
+            source: ksp-rec
+          - warn: "Police Sub-Inspector (PSI): no PSI (Civil) recruitment was open when we checked. The KSP 2021 recruitment portal shows final select lists for the last PSI (Civil) drives of 545 and 402 posts; a new PSI notification will appear on ksp.karnataka.gov.in and ksp-recruitment.in."
+            source: psi-21
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "PUC, age and the Kannada test"
+        parts:
+          - list:
+              - "<strong>Qualification:</strong> PUC (Class 12) or equivalent held on the last date — CBSE / ICSE or another state board's Class 12, NIOS senior secondary, the specified ITI + language combination, JOC, or a 3-year diploma of the Technical Education Department."
+              - "<strong>Kannada:</strong> candidates who have not passed Kannada as a first or second language in SSLC or higher (or an earlier compulsory Kannada test) must score at least 50 of 150 in KEA's compulsory Kannada test."
+              - "<strong>Age:</strong> at least 18 on the last date."
+            source: pc-26
+          - table:
+              caption: "Maximum age (includes the one-time 5-year relaxation of Government Order 29-01-2026)"
+              head: ["Candidate", "Maximum age"]
+              rows:
+                - ["Direct men, women, transgender — general merit", "33"]
+                - ["Direct — SC, ST, Category 1, 2A, 2B, 3A, 3B", "35"]
+                - ["Tribal candidates living in Karnataka's forest areas", "38"]
+                - ["In-service (CAR / DAR / KSRP / IRB / KSISF with 5 years' service) — general merit", "38"]
+                - ["In-service — SC, ST, Category 1, 2A, 2B, 3A, 3B", "40"]
+            source: pc-26
+          - note: "Ex-servicemen get military service + 3 years. The 'forest tribal' relaxation covers named communities such as Siddi, Jenu Kuruba, Kadu Kuruba, Yerava, Soliga, Gowdalu, Hasalaru, Malekudiya and the Kodagu tribal communities living in the forest areas of listed districts."
+            source: pc-26
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme &amp; physical standards"
+        heading: "Written test, then PST and endurance test"
+        parts:
+          - table:
+              caption: "Written test (offline OMR)"
+              head: ["Paper", "Subjects", "Questions / Marks", "Time"]
+              rows:
+                - ["Written", "General knowledge: science, geography, history, Indian Constitution, freedom movement, mental ability and ethics", "100 / 100", "1½ hours"]
+            source: pc-26
+          - list:
+              - "At least 30% in the written test is required."
+              - "Negative marking: 0.25 mark for each wrong answer, and 0.25 for leaving the 5th 'not attempted' circle unshaded."
+              - "Candidates are called for the physical tests in a 1:5 ratio; after PST and ET, a 1:2 shortlist goes to the medical."
+            source: pc-26
+          - table:
+              caption: "Physical standard test (PST)"
+              head: ["Candidate", "Standard"]
+              rows:
+                - ["Men, in-service men, ex-servicemen", "Height 168 cm; chest 86 cm with 5 cm expansion"]
+                - ["Women and transgender", "Height 157 cm; weight 45 kg"]
+                - ["Forest-tribal men", "Height 155 cm; chest expansion 5 cm (75 cm unexpanded)"]
+                - ["Forest-tribal women", "Height 150 cm"]
+            source: pc-26
+          - table:
+              caption: "Endurance test (qualifying only; every event must be passed)"
+              head: ["Event", "Men", "Women and transgender"]
+              rows:
+                - ["Run", "1,600 m in 6 min 30 s", "400 m in 2 min"]
+                - ["High jump or long jump", "1.20 m or 3.80 m (3 chances)", "0.90 m or 2.50 m (3 chances)"]
+                - ["Shot put", "7.26 kg, 5.60 m (3 chances)", "4 kg, 3.75 m (3 chances)"]
+            source: pc-26
+          - note: "The medical checks eyesight (distant vision 6/9 in both eyes, or 6/9 and 6/12; colour blindness disqualifies), hearing, varicose veins, speech, chest X-ray and limb deformities such as knock knees and flat feet."
+            source: pc-26
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "Application fee"
+        parts:
+          - table:
+              head: ["Candidate", "Fee"]
+              rows:
+                - ["General merit and Category 2A, 2B, 3A, 3B", "₹750"]
+                - ["SC, ST, Category-1, ex-servicemen, transgender", "₹500"]
+            source: pc-26
+          - note: "Paid online only and never refunded."
+            source: pc-26
+      - id: reservation
+        nav: "Reservation &amp; Certificates"
+        eyebrow: "Reservation &amp; certificates"
+        heading: "Caste forms, rural, Kannada medium and transgender posts"
+        parts:
+          - list:
+              - "<strong>Caste certificates:</strong> Form D (SC, ST), Form E (Category-1), Form F (2A, 2B, 3A, 3B), valid on the last date; only certificates issued for employment are accepted."
+              - "<strong>Rural reservation:</strong> study from Class 1 to 10 in a rural area, proved by Form-2 (and Form-1 for general merit)."
+              - "<strong>Kannada medium:</strong> Class 1 to 10 in Kannada medium, certified by the head teacher."
+              - "<strong>Ex-servicemen:</strong> 10% of direct-recruitment posts."
+              - "<strong>Transgender candidates:</strong> 1% of posts; under the government letter of 12 November 2025, transgender-quota posts left unfilled go 25% to women and then 75% to men of the same category."
+              - "<strong>Project-displaced families:</strong> Tahsildar's certificate in the prescribed form."
+            source: pc-26
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "What to keep ready"
+        parts:
+          - list:
+              - "Aadhaar card; SSLC marks card as proof of date of birth; PUC / equivalent marks cards."
+              - "Caste and income certificate, rural Form-1 / Form-2, Kannada-medium certificate, ex-servicemen or transgender certificate, if claimed."
+              - "Photo (JPEG, 50–200 KB) and signature (JPEG, 50–70 KB)."
+              - "For the PST and ET: the call letter, a printout of the online application, and one original photo ID (passport, driving licence, PAN, service ID, bank passbook with photo, voter ID or Aadhaar)."
+            source: pc-26
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Pay scale and training"
+        parts:
+          - p: "<strong>Pay scale:</strong> ₹37,500 – 900 – 39,300 – 1,000 – 43,300 – 1,125 – 47,800 – 1,250 – 52,800 – 1,375 – 58,300 – 1,500 – 64,300 – 1,650 – 74,200 – 1,900 – 76,100. Selected candidates do nine months of basic training at police training schools and a probation of two years and six months, and are covered by the National Pension System."
+            source: pc-26
+          - note: "The first figure is the starting basic pay. In-hand salary adds dearness allowance, HRA and other allowances and subtracts deductions; the notification gives only the pay scale."
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Districts and commissionerates"
+        parts:
+          - p: "Constable (Civil) vacancies are spread over district police units, city commissionerates such as Bengaluru, Mysuru, Mangaluru, Hubballi-Dharwad and Kalaburagi, and the Railways unit in Bengaluru; the KSP recruitment portal publishes candidate lists unit by unit for the physical tests."
+            source: ksp-portal
+    sources:
+      - { id: pc-26, name: "Karnataka State Police — Notification No. 02/Recruitment-4/2026-27, Police Constable (Civil) 3,395 posts (5 Jun 2026, Kannada)", url: "https://ksp.karnataka.gov.in/storage/pdf-files/Police%20Constable%20(Civil)%20Recruitment%202026%E2%80%9327-3395%20Posts.pdf", covers: "posts, dates, qualification, Kannada test, age, fee, pay, written test, PST, ET, medical, reservation, documents", checked: 2026-10-14 }
+      - { id: pc-pet, name: "Karnataka State Police — Letter to KEA on PST &amp; ET call letters, Police Constable (Civil) 2026-27 (15 Sep 2026)", url: "https://cetonline.karnataka.gov.in/keawebentry456/cpcrpc2026/20260916181455kannada.pdf", covers: "596 Kalyana-Karnataka and 3,395 residual-cadre posts; PST / ET call letters", checked: 2026-10-14 }
+      - { id: ksp-rec, name: "Karnataka State Police — Recruitment information page", url: "https://ksp.karnataka.gov.in/info-3/Recruitment/kn", covers: "list of current police recruitment notifications (CAR / DAR vacancies)", checked: 2026-10-14 }
+      - { id: ksp-portal, name: "Karnataka State Police — Recruitment online portal (2026 unit-wise lists)", url: "https://ksp-recruitment.in/", covers: "unit-wise PST / ET candidate lists for Police Constable (Civil) 2026", checked: 2026-10-14 }
+      - { id: psi-21, name: "Karnataka State Police — Recruitment 2021 portal (PSI final select lists)", url: "https://arc21.ksp-recruitment.in/", covers: "final select lists for PSI (Civil) 545 and 402 posts", checked: 2026-10-14 }
+
+  # ------------------------------------------------------------------ KCET (UGCET)
+  - slug: kcet
+    group: academic
+    short: "KCET / UGCET (Engineering, Farm Science, Pharmacy)"
+    body: "Karnataka Examinations Authority"
+    card: "Karnataka's common entrance test for government-quota seats in B.E. / B.Tech, farm science, B.V.Sc, B.Sc Nursing, BNYS and B.Pharm / Pharm-D; one KEA application also covers NEET and NATA counselling."
+    card_facts: ["4 papers · 60 marks each", "No negative marking", "Engg rank: 50% CET + 50% PUC"]
+    eyebrow: "KEA · Undergraduate admissions"
+    title: "KCET (UGCET) 2026 — Eligibility, Clauses, Exam Pattern, Rural &amp; Kannada Quotas, Fees"
+    lede: "The Karnataka Common Entrance Test decides government-quota seats in Karnataka's professional colleges. This page follows KEA's UGCET-2026 Information Bulletin-1 (17 January 2026) and the provisional 2026-27 fee structure (10 July 2026)."
+    facts:
+      - { label: "Papers", value: "Physics, Chemistry, Maths, Biology — 60 marks each", source: kcet-ib }
+      - { label: "Engineering rank", value: "PCM in CET and PUC, equal weight", source: kcet-ib }
+      - { label: "Engineering minimum", value: "45% in PCM (40% reserved)", source: kcet-ib }
+      - { label: "Govt college fee 2026-27", value: "₹47,100 (GM)", source: kcet-fee }
+    official:
+      - { label: "KEA UGCET-2026 page", url: "https://cetonline.karnataka.gov.in/kea/ugcet2026" }
+      - { label: "Information Bulletin-1 (PDF)", url: "https://cetonline.karnataka.gov.in/keawebentry456/ugcet2026/information_bulletin_1_ugcet_2026_17012026english.pdf" }
+      - { label: "Fee structure 2026-27 (PDF)", url: "https://cetonline.karnataka.gov.in/keawebentry456/ugcet2026/ugcet_2026_feesbreakupenglish.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "What KCET covers and the 2026 calendar"
+        parts:
+          - p: "KCET 2026 determined merit for the government share of seats in engineering, technology, architecture (on NATA), BNYS, B.Sc Nursing, B.V.Sc &amp; A.H., farm science courses (B.Sc Agriculture, Horticulture, Sericulture, Forestry and others), B.Pharm, Pharm-D and 2nd-year B.Pharm lateral entry, in government, university, aided and unaided colleges for 2026-27. Admissions follow the CET-2006 Admission Rules."
+            source: kcet-ib
+          - table:
+              caption: "CET-2026 calendar"
+              head: ["Event", "Date"]
+              rows:
+                - ["Registration and online application", "From 17 Jan 2026"]
+                - ["Last date to apply / pay fee", "16 Feb 2026 / 18 Feb 2026"]
+                - ["Kannada language test (Horanadu &amp; Gadinadu only)", "22 Apr 2026"]
+                - ["CET — Physics and Chemistry", "23 Apr 2026"]
+                - ["CET — Mathematics and Biology", "24 Apr 2026"]
+            source: kcet-ib
+          - table:
+              caption: "Which CET papers to take"
+              head: ["Course", "CET subjects"]
+              rows:
+                - ["Engineering / Technology", "PCM"]
+                - ["Farm science courses", "PCMB"]
+                - ["B.V.Sc &amp; A.H., BNYS, B.Sc Nursing", "PCB"]
+                - ["B.Pharm, 2nd-year B.Pharm, Pharm-D", "PCM or PCB"]
+                - ["Medical, dental, AYUSH", "NEET (register with KEA too)"]
+                - ["Architecture", "NATA (register with KEA too)"]
+                - ["BPT, B.Sc Allied Health, BPO, D.Pharm", "No exam — PU marks (register with KEA)"]
+            source: kcet-ib
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; clauses"
+        heading: "Academic eligibility and the 'Karnataka candidate' clauses"
+        parts:
+          - table:
+              caption: "Academic eligibility (Rule 3 of the CET-2006 Admission Rules)"
+              head: ["Course", "Qualifying exam requirement"]
+              rows:
+                - ["B.E. / B.Tech", "II PUC / Class 12 with English; Physics and Maths with Chemistry / Biotechnology / Biology / Electronics / Computer — 45% aggregate (40% for SC, ST, Cat-1, 2A, 2B, 3A, 3B)"]
+                - ["Farm science", "II PUC / Class 12 with Physics, Chemistry, Maths and Biology"]
+                - ["B.V.Sc &amp; A.H.", "50% in Physics, Chemistry, Biology and English (40% reserved)"]
+                - ["B.Pharm", "PCB or PCM with 45% (40% reserved), or D.Pharm with 45%"]
+                - ["B.Sc Nursing", "PCB and English passed, 45% in PCB (40% SC / ST / OBC)"]
+            source: kcet-ib
+          - list:
+              - "<strong>Clause (a), the common route:</strong> studied in Karnataka for at least seven academic years between Class 1 and II PUC / Class 12, and passed SSLC / Class 10 or II PUC / Class 12 from Karnataka, with a study certificate countersigned by the BEO / DDPU."
+              - "<strong>Clause (b):</strong> passed both I and II PUC (or Classes 11 and 12) in Karnataka and one parent studied in Karnataka for at least seven years."
+              - "<strong>Reservation is for Karnataka candidates only:</strong> SC, ST, Category 1, 2A, 2B, 3A, 3B, rural and Kannada-medium benefits apply only to candidates eligible under clauses (a), (b), (f), (h), (j), (k), (l) and (o), not under (c), (d), (e), (g), (i), (m), (n) or (y)."
+              - "Candidates from KSOU or from boards not on the VTU-notified list are not eligible; candidates awaiting results may apply."
+            source: kcet-ib
+          - note: "Horanadu and Gadinadu Kannadiga candidates must pass a 4th-standard-level Kannada test (12 of 50 marks) unless they studied ten years in Kannada medium outside Karnataka."
+            source: kcet-ib
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme &amp; ranking"
+        heading: "Four 60-mark papers, no negative marking"
+        parts:
+          - list:
+              - "Four papers over two days — Physics and Chemistry on day 1, Mathematics and Biology on day 2 — each 60 one-mark MCQs in 80 minutes (10 minutes to fill OMR details, 70 to answer)."
+              - "Syllabus: Karnataka I and II PUC syllabus of the Department of School Education (Pre-University)."
+              - "No negative marking, but no marks for more than one answer."
+              - "You keep a carbon replica of each OMR sheet; preserve it for a year after admission."
+            source: kcet-ib
+          - table:
+              caption: "How ranks are made (Rule 4)"
+              head: ["Course", "Merit basis"]
+              rows:
+                - ["Engineering / Technology", "PCM marks in CET and in the qualifying exam, equal proportions"]
+                - ["Farm science", "PCMB in CET and qualifying exam, equal proportions"]
+                - ["B.V.Sc &amp; A.H.", "PCB in CET"]
+                - ["B.Pharm, Pharm-D", "PCM or PCB in CET, whichever is higher"]
+                - ["Architecture", "NATA-2026 norms"]
+            source: kcet-ib
+          - note: "Agriculturist quota: a 200-mark practical test (50% minimum); merit = 25% PUC PCMB + 25% CET + 50% practical (B.V.Sc: 50% CET + 50% practical). Practical-test fee ₹500 (₹250 SC, ST, Cat-1)."
+            source: kcet-ib
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "Provisional 2026-27 engineering fees"
+        parts:
+          - table:
+              caption: "Annual fee for government-quota engineering seats (KEA, 10 Jul 2026)"
+              head: ["College type", "GM / 2A–3B", "SC / ST up to ₹10 lakh income", "Cat-1 up to ₹2.5 lakh"]
+              rows:
+                - ["Government colleges (most courses)", "₹47,100", "₹0", "₹22,950"]
+                - ["Government — Mechanical, Textile, Silk Tech, Civil, Automobile", "₹29,985", "₹0", "₹17,910"]
+                - ["UVCE", "₹56,500", "₹0", "₹22,900"]
+                - ["VTU constituent colleges (lower limit)", "₹1,10,910", "₹0", "₹86,760"]
+                - ["Type-1 unaided colleges", "₹1,20,320", "₹0", "₹96,170"]
+                - ["Type-2 unaided colleges", "₹1,30,320", "₹0", "₹1,06,170"]
+                - ["Private / deemed universities", "₹1,20,320", "₹0", "₹96,170"]
+            source: kcet-fee
+          - note: "Architecture costs ₹750 more. The bulletin itself does not print the CET application fee amount, so none is shown here — check the KEA application page."
+            source: kcet-fee
+          - list:
+              - "<strong>SNQ (tuition fee waiver) quota:</strong> supernumerary engineering seats (not architecture) for meritorious students whose family income is below ₹8 lakh a year; the tuition fee is waived and only other fees are paid."
+              - "<strong>SC / ST fee exemption:</strong> 100% exemption for family income up to ₹10 lakh."
+            source: kcet-ib
+      - id: reservation
+        nav: "Reservation &amp; Certificates"
+        eyebrow: "Reservation &amp; certificates"
+        heading: "Category, rural, Kannada medium and Kalyana-Karnataka"
+        parts:
+          - table:
+              caption: "Reservations under Rule 9 of the CET-2006 Admission Rules"
+              head: ["Reservation", "Who qualifies", "Certificate"]
+              rows:
+                - ["SC, ST, Category 1, 2A, 2B, 3A, 3B", "Karnataka candidates; 2A–3B only if family income is below ₹8 lakh", "Tahsildar: Form D (SC / ST), Form E (Cat-1), Form F (2A–3B), with RD number"]
+                - ["Rural (15%, horizontal)", "Class 1 to 10 in a non-urban area of Karnataka, parents not creamy layer", "Rural study certificate countersigned by the BEO; general merit also need a non-creamy-layer certificate"]
+                - ["Kannada medium (5%, horizontal)", "Class 1 to 10 in Kannada medium", "Kannada-medium study certificate countersigned by the BEO"]
+                - ["Kalyana-Karnataka (Article 371(J))", "Local candidates of Bidar, Kalaburagi, Yadgir, Raichur, Koppal, Ballari-Vijayanagara: 70% of seats in that region's institutions, 8% in state-wide ones", "Annexure-A from the Assistant Commissioner"]
+            source: kcet-ib
+          - note: "Special categories (NCC, sports, defence, ex-defence, CAPF, scouts &amp; guides, persons with disabilities) need separate certificates checked at KEA. Caste, income and Article 371(J) certificates must be in the candidate's own name, and category and income entered in the form cannot be changed later."
+            source: kcet-ib
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "What to keep ready"
+        parts:
+          - list:
+              - "SSLC / Class 10 and II PUC / Class 12 marks cards."
+              - "Study certificate for the clause claimed (for clause (a): seven years in Karnataka, countersigned by the BEO / DDPU)."
+              - "RD numbers of caste, income, NCLC and Article 371(J) certificates — KEA checks them online through the Revenue Department."
+              - "Rural and Kannada-medium study certificates for Class 1 to 10, if claimed."
+              - "Your name must match the SSLC marks card exactly in every certificate."
+            source: kcet-ib
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Costs &amp; support"
+        heading: "Education loans"
+        parts:
+          - p: "Students admitted through KEA to engineering, architecture, medical, dental, AYUSH, B.Sc (Agri), B.V.Sc and similar courses can take an education loan of up to ₹5 lakh at 6% interest from nationalised banks in the state."
+            source: kcet-ib
+      - id: posting
+        nav: "After KCET"
+        eyebrow: "After the test"
+        heading: "Seat allotment"
+        parts:
+          - p: "Seats are allotted online round by round in order of CET / NEET / NATA rank against the government seat matrix; only candidates holding a verification slip can enter options. Surrendering or not reporting after a later round can forfeit the fee and attract a penalty of five times the annual course fee."
+            source: kcet-ib
+          - links:
+              - { label: "Engineering colleges in Karnataka (verified list)", url: "colleges/karnataka/btech.html" }
+              - { label: "B.Pharm colleges in Karnataka", url: "colleges/karnataka/bpharm.html" }
+    sources:
+      - { id: kcet-ib, name: "KEA — UGCET-2026 e-Information Bulletin-1 (17 Jan 2026, English)", url: "https://cetonline.karnataka.gov.in/keawebentry456/ugcet2026/information_bulletin_1_ugcet_2026_17012026english.pdf", covers: "calendar, courses, CET papers, Kannada test, eligibility clauses, academic eligibility, method of CET, ranking, reservation, fee exemption, SNQ, loans, documents", checked: 2026-10-14 }
+      - { id: kcet-fee, name: "KEA — Provisional fee structure UGCET 2026-27, Engineering / Architecture (10 Jul 2026)", url: "https://cetonline.karnataka.gov.in/keawebentry456/ugcet2026/ugcet_2026_feesbreakupenglish.pdf", covers: "engineering fees by college type and category", checked: 2026-10-14 }
+
+  # ------------------------------------------------------------------ PGCET
+  - slug: pgcet
+    group: academic
+    short: "Karnataka PGCET (MBA, MCA, M.E. / M.Tech)"
+    body: "Karnataka Examinations Authority"
+    card: "KEA's entrance test for government-quota MBA, MCA and M.E. / M.Tech seats in Karnataka; M.Arch uses PGETA and GATE holders get priority for M.Tech."
+    card_facts: ["100 questions · 100 marks · 2 h", "No negative marking", "50% in degree (45% reserved)"]
+    eyebrow: "KEA · Postgraduate admissions"
+    title: "Karnataka PGCET 2026 — MBA, MCA and M.Tech Eligibility, Exam Pattern and Counselling"
+    lede: "The Post Graduate Common Entrance Test fills government seats in MBA, MCA and M.E. / M.Tech courses in Karnataka. This page follows KEA's PGCET-2026 Information Bulletin (26 March 2026)."
+    facts:
+      - { label: "Exam", value: "100 MCQs · 100 marks · 2 hours", source: pg-ib }
+      - { label: "Degree marks", value: "50% aggregate (45% SC / ST / Cat-1)", source: pg-ib }
+      - { label: "2026 dates", value: "M.Tech 23 May · MCA &amp; MBA 24 May", source: pg-ib }
+      - { label: "Merit", value: "PGCET marks only", source: pg-ib }
+    official:
+      - { label: "KEA PGCET-2026 page", url: "https://cetonline.karnataka.gov.in/kea/pgcet2026" }
+      - { label: "Information Bulletin (PDF)", url: "https://cetonline.karnataka.gov.in/keawebentry456/pgcet2026/PGCET_2026_Information_Bulletin26032026english.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "Courses and the 2026 calendar"
+        parts:
+          - p: "PGCET-2026 decided merit for full-time and part-time MBA, MCA and M.E. / M.Tech seats in government, university, aided and unaided institutions in Karnataka for 2026-27. Non-Karnataka candidates can take only MBA / MCA seats surrendered by managements."
+            source: pg-ib
+          - table:
+              caption: "PGCET-2026 calendar"
+              head: ["Event", "Date"]
+              rows:
+                - ["Notification", "20 Mar 2026"]
+                - ["Online application", "23 Mar – 8 Apr 2026 (fee by 10 Apr)"]
+                - ["M.E. / M.Tech test", "23 May 2026, 2.30–4.30 pm"]
+                - ["MCA test", "24 May 2026, 10.30 am–12.30 pm"]
+                - ["MBA test", "24 May 2026, 2.30–4.30 pm"]
+            source: pg-ib
+          - p: "Provisional PGCET 2026 results for MBA, MCA and M.Tech were linked on 19 August 2026, and first-round seat allotment followed in September 2026."
+            source: pg-portal
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility"
+        heading: "Who can apply"
+        parts:
+          - table:
+              head: ["Course", "Eligibility"]
+              rows:
+                - ["MBA (full time)", "Recognised 3-year bachelor's degree with 50% aggregate in all subjects including languages (45% SC-A / SC-B / SC-C, ST, Cat-1)"]
+                - ["MBA / M.Tech (part time)", "Same degree marks + 3 years' work after the degree by 31 Jul 2026, working within 40 km of the institution"]
+                - ["MCA", "BCA / B.E. CSE or equivalent, or B.Sc / B.Com / B.A. with Maths at 10+2 or degree level (bridge courses as per university), 50% aggregate (45% reserved)"]
+                - ["M.E. / M.Tech / M.Arch", "Valid GATE score, or the prescribed degree with 50% aggregate (45% reserved)"]
+            source: pg-ib
+          - list:
+              - "Rounding off the aggregate is not allowed; the aggregate counts all subjects of all years / semesters."
+              - "Final-year students may apply."
+              - "There is no lateral entry to MCA."
+              - "The M.E. / M.Tech test is held only in Civil, Computer Science, Mechanical Sciences and Electrical Sciences; Biotechnology, Chemical, Environmental, Polymer Science and Textile Technology admit on degree marks."
+            source: pg-ib
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme"
+        heading: "One 100-mark OMR paper"
+        parts:
+          - list:
+              - "Each test: 100 objective questions, 100 marks, 2 hours, OMR sheet."
+              - "Non-programmable calculators are allowed only in the M.E. / M.Tech test."
+              - "No negative marking; more than one answer gets no marks."
+              - "Merit lists are made separately for MBA, MCA and M.E. / M.Tech / M.Arch on PGCET marks alone; degree marks only decide eligibility."
+              - "M.Arch needs PGETA-2026 of the Council of Architecture plus KEA registration."
+            source: pg-ib
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fees"
+        heading: "Fee exemption for reserved categories"
+        parts:
+          - table:
+              head: ["Candidate", "Fee rule"]
+              rows:
+                - ["SC / ST, income below ₹2.5 lakh", "100% exempt in government seats, and up to the government-college fee in private seats"]
+                - ["SC / ST, income ₹2.5–10 lakh", "50% exempt"]
+                - ["Category-1, income below ₹2.5 lakh", "Exempt in government colleges; in private colleges pay the balance over the government-college fee"]
+            source: pg-ib
+          - note: "The bulletin we read does not print the PGCET registration fee amount, so none is shown here."
+      - id: reservation
+        nav: "Reservation &amp; Certificates"
+        eyebrow: "Reservation &amp; certificates"
+        heading: "SC internal reservation and Karnataka-only benefits"
+        parts:
+          - list:
+              - "From 2026 the bulletin applies internal reservation for Scheduled Castes in three groups — SC-A, SC-B and SC-C — following the government order of 25 August 2025."
+              - "SC-A / SC-B / SC-C, ST and Category-I benefits apply only to Karnataka-origin candidates claiming government seats under the eligibility clauses."
+              - "2A, 2B, 3A and 3B reservation needs parents' gross annual income below ₹8 lakh (spouse's income included if married)."
+              - "Caste, income and Article 371(J) certificates are verified online through their RD numbers."
+            source: pg-ib
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "What to keep ready"
+        parts:
+          - list:
+              - "Study certificates from the institutions where SSLC, PUC and the degree were passed."
+              - "Degree marks cards for all years / semesters (CGPA holders must check the converted percentage)."
+              - "GATE scorecard (M.Tech) or PGETA result (M.Arch), if applicable."
+              - "Employer NOC and experience proof for part-time courses."
+              - "RD numbers of caste and income certificates; name exactly as on the SSLC marks card."
+            source: pg-ib
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Costs"
+        heading: "Course fees"
+        parts:
+          - note: "Course fees are notified each year by the government with the seat matrix; the PGCET bulletin gives only the fee-exemption rules above."
+      - id: posting
+        nav: "After PGCET"
+        eyebrow: "After the test"
+        heading: "Counselling"
+        parts:
+          - p: "KEA publishes the answer key for objections, then rank lists; eligible candidates verify documents and enter options for online seat allotment. A candidate who surrenders a first-round seat before second-round option entry gets the fee back minus ₹5,000; surrendering after the second round forfeits the entire fee."
+            source: pg-ib
+    sources:
+      - { id: pg-ib, name: "KEA — PGCET-2026 Information Bulletin, MBA / MCA / M.E. / M.Tech / M.Arch (26 Mar 2026, English)", url: "https://cetonline.karnataka.gov.in/keawebentry456/pgcet2026/PGCET_2026_Information_Bulletin26032026english.pdf", covers: "calendar, courses, eligibility, test pattern, merit, SC internal reservation, fee exemption, documents, counselling", checked: 2026-10-14 }
+      - { id: pg-portal, name: "KEA — PGCET-2026 page (result and seat allotment notices)", url: "https://cetonline.karnataka.gov.in/kea/pgcet2026", covers: "provisional result link of 19 Aug 2026 and first-round schedule", checked: 2026-10-14 }
+
+  # ------------------------------------------------------------------ KSEAB
+  - slug: kseab
+    group: academic
+    short: "KSEAB Board — SSLC &amp; II PUC"
+    body: "Karnataka School Examination and Assessment Board"
+    card: "The state board's SSLC (Class 10) and II PUC (Class 12) exams. For 2027 the board has published tentative time tables for Exam-1 and Exam-2 and a 5% higher SSLC exam fee."
+    card_facts: ["II PUC Exam-1: 27 Feb – 17 Mar 2027", "SSLC Exam-1: 22 Mar – 5 Apr 2027", "SSLC fee ₹746"]
+    eyebrow: "KSEAB · Board exams"
+    title: "KSEAB 2027 — SSLC and II PUC Exam Dates, Exam-1 / Exam-2 and SSLC Fee"
+    lede: "The Karnataka School Examination and Assessment Board conducts the SSLC and II PUC exams. This page follows the board's tentative 2027 time tables (8 October 2026), the SSLC exam-fee memo (10 September 2026) and the II PUC Exam-1 registration manual."
+    facts:
+      - { label: "II PUC Exam-1", value: "27 Feb – 17 Mar 2027 (tentative)", source: pu-tt }
+      - { label: "SSLC Exam-1", value: "22 Mar – 5 Apr 2027 (tentative)", source: sslc-tt }
+      - { label: "SSLC Exam-2", value: "From 24 May 2027 (tentative)", source: sslc-tt2 }
+      - { label: "SSLC exam fee", value: "₹746 (first-time)", source: sslc-fee }
+    official:
+      - { label: "KSEAB website", url: "https://kseab.karnataka.gov.in/" }
+      - { label: "SSLC Exam-1 time table (PDF)", url: "https://kseab.karnataka.gov.in/uploads/2027_SSLC_Exam_1_Timetable_1791461654.pdf" }
+      - { label: "II PUC Exam-1 time table (PDF)", url: "https://kseab.karnataka.gov.in/uploads/2027PU_Exam1_Tentative_TimeTable_1791480401.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "The 2027 board exams"
+        parts:
+          - p: "KSEAB published tentative time tables for SSLC and II PUC Exam-1 and Exam-2 on 8 October 2026. Students, parents and the public may send objections until 22 October 2026 (dpikseab@gmail.com for SSLC, directorpuekseab@gmail.com for PUC); later objections are not considered."
+            source: sslc-tt
+          - table:
+              caption: "SSLC Exam-1, March–April 2027 (tentative)"
+              head: ["Date", "Paper", "Time"]
+              rows:
+                - ["22 Mar 2027", "First language (Kannada, English, Hindi and others) — 100 marks", "10.00 am – 1.15 pm"]
+                - ["25 Mar 2027", "Science / Political Science (80); Hindustani / Carnatic Music in the afternoon", "10.00 am – 1.15 pm"]
+                - ["27 Mar 2027", "Second language (English, Kannada) — 80 marks", "10.00 am – 1.00 pm"]
+                - ["30 Mar 2027", "Mathematics / Sociology — 80 marks", "10.00 am – 1.15 pm"]
+                - ["2 Apr 2027", "Third language; NSQF subjects", "10.00 am – 1.00 pm / 12.15 pm"]
+                - ["3 Apr 2027", "JTS subjects / Economics", "10.00 am – 1.15 pm"]
+                - ["5 Apr 2027", "Social Science — 80 marks", "10.00 am – 1.15 pm"]
+            source: sslc-tt
+          - table:
+              caption: "II PUC Exam-1, 2027 (tentative; most papers 10 am – 1 pm)"
+              head: ["Date", "Subjects"]
+              rows:
+                - ["27 Feb 2027", "Kannada, Arabic"]
+                - ["1 Mar 2027", "English"]
+                - ["2 Mar 2027", "Tamil, Telugu, Malayalam, Marathi, Urdu, Sanskrit, French"]
+                - ["3 Mar 2027", "Geography, Psychology"]
+                - ["4 Mar 2027", "Sociology, Physics"]
+                - ["5 Mar 2027", "Accountancy"]
+                - ["8 Mar 2027", "Chemistry, Education, Basic Maths"]
+                - ["9 Mar 2027", "Economics, Geology"]
+                - ["11 Mar 2027", "Hindustani Music and NSQF subjects (IT, Retail, Automobile, Healthcare, Beauty &amp; Wellness and others)"]
+                - ["12 Mar 2027", "Business Studies, Mathematics"]
+                - ["13 Mar 2027", "Optional Kannada, Logic, Home Science"]
+                - ["15 Mar 2027", "Political Science, Biology, Computer Science"]
+                - ["16 Mar 2027", "History, Statistics, Electronics"]
+                - ["17 Mar 2027", "Hindi"]
+            source: pu-tt
+      - id: eligibility
+        nav: "Who Sits"
+        eyebrow: "Who sits the exams"
+        heading: "Regular, repeater and private candidates"
+        parts:
+          - list:
+              - "Regular II PUC students are registered by their college principal on the board portal, using each student's SATS number; any correction to name or details must be made in SATS first."
+              - "Repeater and private candidates register separately through the board's registration links (circulars of 13 October 2026)."
+              - "The student photograph must be a .jpg file of 20–80 KB."
+            source: pu-reg
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme"
+        heading: "Exam-1 and Exam-2"
+        parts:
+          - list:
+              - "SSLC first-language papers carry 100 marks (3 hours 15 minutes); core subjects and second language 80 marks; third language 80 marks (2 hours 45 minutes); NSQF vocational subjects 60 marks."
+              - "Candidates with disabilities get extra time: 60 minutes on a 3-hour paper, 50 minutes on 2½ hours, 40 minutes on 2 hours, 30 minutes on 1½ hours."
+              - "Each paper starts with 15 minutes to read the question paper."
+            source: sslc-tt
+          - p: "SSLC Exam-2 in May 2027 repeats the pattern: first language on 24 May, Science / Political Science on 25 May, second language on 26 May, Mathematics / Sociology on 27 May and third language / NSQF on 28 May 2027 (tentative)."
+            source: sslc-tt2
+          - note: "Most II PUC theory papers are 80 marks (Physics, Chemistry, Biology, Computer Science and some others 70) and 3 hours; NSQF subjects are 60 marks in 2 hours 15 minutes."
+            source: pu-tt
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "SSLC exam fee 2026-27"
+        parts:
+          - table:
+              caption: "SSLC fee, revised by 5% under the government order of 11 Jun 2020 (memo of 10 Sep 2026)"
+              head: ["Item", "2025-26", "2026-27"]
+              rows:
+                - ["SSLC exam fee — first-time school / private candidates", "₹710", "₹746"]
+                - ["New private-candidate registration + application", "₹248", "₹260"]
+                - ["Renewal for earlier-registered private candidates", "₹72", "₹76"]
+                - ["Repeater — one subject", "₹448", "₹470"]
+                - ["Repeater — two subjects", "₹559", "₹587"]
+                - ["Repeater — three or more subjects", "₹752", "₹790"]
+            source: sslc-fee
+          - note: "II PUC fees (marks-card, exam and practical fee) are entered by the college on the registration portal; the manual does not print the amounts."
+            source: pu-reg
+      - id: reservation
+        nav: "Concessions"
+        eyebrow: "Concessions"
+        heading: "Extra time for candidates with disabilities"
+        parts:
+          - p: "Candidates with disabilities get extra writing time on every SSLC paper (see the exam scheme above). Other concessions and exemptions are notified separately by the board."
+            source: sslc-tt
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Registration checklist"
+        heading: "What the college needs"
+        parts:
+          - list:
+              - "SATS number and correct SATS details of the student."
+              - "Mobile number of the student."
+              - "Photograph (.jpg, 20–80 KB)."
+              - "Fee details (marks-card fee, exam fee, practical fee) as shown on the portal; print the registration slip after submission."
+            source: pu-reg
+      - id: pay
+        nav: "Next Steps"
+        eyebrow: "After the board"
+        heading: "Where II PUC marks count"
+        parts:
+          - p: "II PUC marks count in KCET ranking: engineering ranks use PCM marks of the qualifying exam and CET in equal proportion, and KCET uses results of KSEAB's annual and improvement exams."
+            source: kcet-link
+      - id: posting
+        nav: "Official Links"
+        eyebrow: "Official links"
+        heading: "Where to check updates"
+        parts:
+          - note: "All time tables here are tentative. Final time tables, hall tickets and results are published only on kseab.karnataka.gov.in."
+          - links:
+              - { label: "KSEAB website", url: "https://kseab.karnataka.gov.in/" }
+              - { label: "KCET (UGCET) on this site", url: "state/karnataka/kcet.html" }
+    sources:
+      - { id: sslc-tt, name: "KSEAB — Circular and tentative time table, SSLC Exam-1 March / April 2027, No. C1/SSLC/Pa.Ve.Pa-2027/53/2026-27 (8 Oct 2026)", url: "https://kseab.karnataka.gov.in/uploads/2027_SSLC_Exam_1_Timetable_1791461654.pdf", covers: "SSLC Exam-1 dates, marks, durations, extra time; objection window till 22 Oct 2026", checked: 2026-10-14 }
+      - { id: sslc-tt2, name: "KSEAB — Tentative time table, SSLC Exam-2 May 2027 (8 Oct 2026)", url: "https://kseab.karnataka.gov.in/uploads/2027_SSLC_Exam_2_Timetable_1791461715.pdf", covers: "SSLC Exam-2 dates", checked: 2026-10-14 }
+      - { id: pu-tt, name: "KSEAB — Tentative time table, II PUC Exam-1 2027 (8 Oct 2026)", url: "https://kseab.karnataka.gov.in/uploads/2027PU_Exam1_Tentative_TimeTable_1791480401.pdf", covers: "II PUC Exam-1 dates, marks and durations", checked: 2026-10-14 }
+      - { id: sslc-fee, name: "KSEAB — Memo on revision of SSLC exam fee 2026-27, No. KSEAB/DPIE/A8(RERA)/1/2026 (10 Sep 2026)", url: "https://kseab.karnataka.gov.in/uploads/Exam_Fee_enhancement_modified_circular_dt_10_1790741116.pdf", covers: "SSLC fees for regular, private and repeater candidates", checked: 2026-10-14 }
+      - { id: pu-reg, name: "KSEAB — II PUC Examination-1 2027 regular student registration: circular and user manual", url: "https://kseab.karnataka.gov.in/uploads/2027%20II%20PUC%20EXAM%20-%201%20REGULAR%20STUDENTS%20REGISTRATION%20CIRCULAR_1791443563.pdf", covers: "SATS-based registration, photo spec, fee fields", checked: 2026-10-14 }
+      - { id: kcet-link, name: "KEA — UGCET-2026 e-Information Bulletin-1 (merit rules)", url: "https://cetonline.karnataka.gov.in/keawebentry456/ugcet2026/information_bulletin_1_ugcet_2026_17012026english.pdf", covers: "use of II PUC marks and KSEAB exam results in KCET ranks", checked: 2026-10-14 }

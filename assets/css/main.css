@@ -2540,7 +2540,7 @@ html.js.fold main:has(#pattern):has(#syllabus) section:is(#syllabus,#prep,[aria-
 
 /* ---------- Global shell additions + India data template (Architecture Phase A) ----------
    Header: compact edition switcher + About/Help links (desktop only; phones use the drawer).
-   Floating Feedback button + <dialog> (_includes/feedback.html), open-data band in the footer
+   Open-data band in the footer
    (_includes/footer-open.html), and the India career template's journey table, specialisation
    cards and citation block (_includes/in-career.html). Text and 1px borders only, no images. */
 .hd-ed,.topbar-links{display:none;}
@@ -2570,34 +2570,14 @@ html[data-region="uk"] .hd-ed-cur:not([data-region-cur="uk"]){display:none;}
 .topbar-links a:hover{color:var(--on-ink-strong);background:rgba(var(--hl-rgb),.06);}
 .topbar-links a:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
 
-/* Floating Feedback button: bottom-right; back-to-top moves up to sit above it. */
-.fb-fab{position:fixed;right:1.25rem;bottom:1.25rem;z-index:800;display:inline-flex;align-items:center;gap:.45rem;height:46px;padding:0 1.05rem;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--text);font-size:.9rem;font-weight:700;text-decoration:none;box-shadow:var(--shadow-md);}
-.fb-fab:hover{border-color:var(--gold);color:var(--text);}
-.fb-fab:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
-.back-to-top{bottom:calc(1.25rem + 58px);}
-/* Room under the footer so its last line can scroll clear of the floating buttons. */
+/* Room under the footer so its last line can scroll clear of the floating back-to-top button. */
 .site-footer{padding-bottom:calc(2rem + 64px);}
 .footer-bottom{padding-right:4rem;}
-/* The sticky "On this page" panel stops above the two floating buttons (back-to-top + Feedback) so they never cover its last links. */
-.page-nav{max-height:calc(100vh - var(--scroll-offset) - 1.25rem - 120px);}
+/* The sticky "On this page" panel stops above the back-to-top button so it never covers its last links. */
+.page-nav{max-height:calc(100vh - var(--scroll-offset) - 1.25rem - 64px);}
 @media (max-width:639px){
-  .fb-fab{right:.9rem;bottom:.9rem;width:46px;padding:0;justify-content:center;}
-  .fb-fab-text{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;}
-  .back-to-top{right:.9rem;bottom:calc(.9rem + 56px);}
-  body:has(.md-src[open]) .fb-fab{opacity:0;pointer-events:none;}
+  .back-to-top{right:.9rem;bottom:.9rem;}
 }
-@media print{.fb-fab,.fb-dialog{display:none !important;}}
-.fb-dialog{width:min(92vw,440px);margin:auto;padding:1.4rem 1.4rem 1.2rem;border:1px solid var(--line);border-radius:var(--radius-md);background:var(--surface);color:var(--text);box-shadow:var(--shadow-lg);}
-.fb-dialog::backdrop{background:rgba(11,26,34,.55);}
-.fb-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:.5rem;}
-.fb-head h2{font-size:1.25rem;margin:0;}
-.fb-close{margin:-.4rem -.5rem 0 0;color:var(--text-muted);}
-.fb-dialog p{margin:.4rem 0;color:var(--text-muted);font-size:.95rem;}
-.fb-uses{margin:.8rem 0 1rem;padding:0 0 0 1.1rem;font-size:.92rem;display:grid;gap:.35rem;}
-.fb-email-row{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem;padding:.75rem .9rem;border:1px solid var(--line);border-radius:var(--radius-sm);}
-.fb-email{flex:1 1 200px;min-width:0;overflow-wrap:anywhere;font-family:var(--font-mono);font-size:.88rem;font-weight:600;color:var(--link);}
-.fb-copy{min-height:38px;padding:0 .9rem;}
-.fb-status:empty{display:none;}
 
 /* Footer open-data band (both footers) */
 .footer-open{display:grid;gap:1.6rem;grid-template-columns:1fr;padding-top:2rem;padding-bottom:2rem;border-bottom:1px solid rgba(var(--hl-rgb),.1);}
@@ -2642,9 +2622,7 @@ html[data-region="uk"] .hd-ed-cur:not([data-region-cur="uk"]){display:none;}
 
 /* ---------- Mobile polish + country gateway (2026-10-08) ----------
    1. Long words/URLs inside cards wrap instead of spilling out of the box on narrow phones.
-   2. Feedback button: was a white pill with a #DCE3DF border on the #F4F6F4 page (about 1.2:1),
-      so it was easy to miss. Now a filled ink pill with a gold border, on top of page content.
-      It still hides while the phone drawer or the search overlay is open (those sit above it).
+   2. (Floating Feedback button removed 2026-10-14; the feedback email stays in the footer and citation blocks.)
    3. Cards get 1rem padding on phones; tablet/desktop keep their own (larger) values.
    4. Home page "Select your country edition" block (index.html). */
 .stream-card,.trend-card,.goal-card,.feature-card,.spec-card,.journey-item,.after10-card,.cta-card,
@@ -2653,11 +2631,6 @@ html[data-region="uk"] .hd-ed-cur:not([data-region-cur="uk"]){display:none;}
 .rm-link-card,.ed-card,.faq-q,.faq-a,.section-head,.page-hero-inner,.hero-inner{word-break:break-word;overflow-wrap:anywhere;min-width:0;}
 .stream-grid > *,.trend-grid > *,.feature-grid > *,.ed-grid > *{min-width:0;}
 
-.fb-fab{z-index:9999;background:var(--ink);color:#fff;border:2px solid var(--gold);box-shadow:0 6px 18px rgba(11,26,34,.28);transition:background-color .2s ease,color .2s ease;}
-.fb-fab:hover{background:var(--ink);color:#fff;border-color:#fff;}
-[data-theme="dark"] .fb-fab{background:var(--gold);color:#0B1A22;border-color:#fff;}
-[data-theme="dark"] .fb-fab:hover{background:var(--gold);color:#0B1A22;border-color:var(--gold);}
-html.nav-locked .fb-fab,body:has(#site-search[data-open="true"]) .fb-fab{opacity:0;pointer-events:none;}
 
 @media (max-width:639px){
   .stream-card,.trend-card,.goal-card,.feature-card,.spec-card,.journey-item,.after10-card,.cta-card,

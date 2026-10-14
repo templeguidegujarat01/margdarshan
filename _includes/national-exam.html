@@ -1,5 +1,5 @@
 {%- comment -%}
-  National entrance exam console (jee-main.html, jee-advanced.html, neet-ug.html). The page file keeps only
+  National exam console (jee-main.html, jee-advanced.html, neet-ug.html, upsc-ese.html, upsc-cms.html). The page file keeps only
   its SEO front matter and
 
       {% include national-exam.html exam="jee-main" %}
@@ -147,10 +147,10 @@
         {%- endfor %}
       </ol>
       <p class="cite-report">Spotted something out of date? Email <a href="mailto:{{ site.feedback_email }}?subject={{ E.short | append: ' — correction' | uri_escape }}">{{ site.feedback_email }}</a> with the official link and we will update it.</p>
-      <h3 class="block-subhead">More national entrance exams</h3>
+      <h3 class="block-subhead">More national exams</h3>
       <ul class="sl-links sc-more">
         {%- for x in ND.exams %}{% if x.slug == E.slug %}{% continue %}{% endif %}
-        <li><a href="{{ x.slug }}.html">{{ x.short }} <span>{% if x.stream == "medical" %}Medical{% else %}Engineering{% endif %}</span></a></li>
+        <li><a href="{{ x.slug }}.html">{{ x.short }} <span>{% if x.stream == "medical" %}Medical{% elsif x.stream == "govt" %}UPSC{% else %}Engineering{% endif %}</span></a></li>
         {%- endfor %}
         <li><a href="govt-exams.html">Government exams <span>Recruitment</span></a></li>
       </ul>

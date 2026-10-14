@@ -1,10 +1,11 @@
-# National entrance exam consoles (India edition) -> jee-main.html, jee-advanced.html, neet-ug.html
+# National exam consoles (India edition) -> jee-main.html, jee-advanced.html, neet-ug.html, upsc-ese.html, upsc-cms.html
 # Rendered by _includes/national-exam.html; validated by scripts/check-in-data.mjs.
 # Same part kinds as the state cockpit sheets (p, list, table, note, warn, links). Every p / list / table
 # and every hero fact must carry `source:` naming an id from that exam's sources[].
 # Six fixed blocks, in this order: overview, eligibility, scheme, reservation, fees, horizons.
-# Facts come only from the official files listed under each exam, read on `checked`. The 2027 cycle
-# bulletins were not out on that date, so every figure is the 2026 cycle.
+# Facts come only from the official files listed under each exam, read on `checked`. On that date only the
+# UPSC ESE 2027 notice was out, so ESE is the 2027 cycle and every other exam is the 2026 cycle.
+# stream: engineering | medical | govt (labels the "More national exams" list).
 checked: 2026-10-14
 
 exams:
@@ -202,6 +203,7 @@ exams:
               - { label: "Electronics Engineering", url: "electronics.html" }
               - { label: "B.Tech college finder", url: "colleges-btech.html" }
               - { label: "JEE Advanced", url: "jee-advanced.html" }
+              - { label: "UPSC ESE (engineering services)", url: "upsc-ese.html" }
     sources:
       - { id: jm-ib, name: "NTA — JEE (Main) 2026 Information Bulletin", url: "https://cdnbbsr.s3waas.gov.in/s3f8e59f4b2fe7c5705bf878bbd494ccdf/uploads/2025/11/202511021649722475.pdf", covers: "Dates, scheme, marking, eligibility, 75% rule, reservation, steps and fees", checked: 2026-10-14 }
       - { id: josaa-br, name: "JoSAA — Business Rules for Joint Seat Allocation 2026-27 (1 June 2026)", url: "https://cdnbbsr.s3waas.gov.in/s313111c20aee51aeb480ecbd988cd8cc9/uploads/2026/06/20260601632081678.pdf", covers: "NIT+ System, Home State quota, female supernumerary seats, seat acceptance fee", checked: 2026-10-14 }
@@ -562,8 +564,352 @@ exams:
               - { label: "BHMS", url: "bhms.html" }
               - { label: "MBBS college finder", url: "colleges-mbbs.html" }
               - { label: "NEET coaching finder", url: "coaching-neet.html" }
+              - { label: "UPSC CMS (government doctors)", url: "upsc-cms.html" }
     sources:
       - { id: neet-ib, name: "NTA — NEET (UG) 2026 Information Bulletin", url: "https://cdnbbsr.s3waas.gov.in/s37bc1ec1d9c3426357e69acd5bf320061/uploads/2026/02/202602231394640855.pdf", covers: "Legal basis, dates, pattern, marking, age, subjects, percentiles, reservation, steps, fees, MCC seats", checked: 2026-10-14 }
       - { id: neet-re, name: "NTA — Public notice: Conduct of re-examination for NEET (UG) 2026 (15 May 2026)", url: "https://cdnbbsr.s3waas.gov.in/s37bc1ec1d9c3426357e69acd5bf320061/uploads/2026/05/20260515960654684.pdf", covers: "21 June 2026 re-exam date, timing, mode, no fee", checked: 2026-10-14 }
       - { id: neet-res, name: "NTA — Press release: Result of NEET (UG) 2026 (16 July 2026)", url: "https://cdnbbsr.s3waas.gov.in/s37bc1ec1d9c3426357e69acd5bf320061/uploads/2026/07/20260716477215762.pdf", covers: "Result date, candidates appeared and qualified, counselling bodies, other courses using NEET", checked: 2026-10-14 }
       - { id: cms, name: "UPSC — Combined Medical Services Examination 2026, Notice No. 9/2026-CMS", url: "https://www.upsc.gov.in/sites/default/files/Notification-CMSE-2026-English-110326.pdf", covers: "2026 vacancies, Pay Matrix levels and promotion ladder for government doctors", checked: 2026-10-14 }
+
+  # ---------------------------------------------------------------- UPSC ESE
+  - slug: upsc-ese
+    short: "UPSC ESE"
+    stream: govt
+    body: "Union Public Service Commission (UPSC)"
+    eyebrow: "Recruitment Exam · Engineering Services · 2027 cycle"
+    title: "UPSC ESE — eligibility, age limits, exam scheme & fees"
+    lede: "The UPSC exam that recruits engineering graduates to Group A and Group B central services and posts — Railways, CPWD, telecom, defence engineering, water and power — in Civil, Mechanical, Electrical and Electronics &amp; Telecommunication."
+    colleges_href: "colleges-btech.html"
+    facts:
+      - { label: "Conducted by", value: "UPSC · Rules by the Department of Telecommunications", source: ese27 }
+      - { label: "Vacancies (2027)", value: "About 480, including 19 for PwBD", source: ese27 }
+      - { label: "Exam dates", value: "Prelims 31 Jan 2027 · Mains 18 Jun 2027", source: ese27 }
+      - { label: "Age on 1 Jan 2027", value: "21 to under 30 years (relaxations below)", source: ese27 }
+    official:
+      - { label: "ESE 2027 notice (PDF)", url: "https://www.upsc.gov.in/sites/default/files/Notif-ESEP-2027-Engl-160926.pdf" }
+      - { label: "upsconline.nic.in", url: "https://upsconline.nic.in/" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; governing authority"
+        heading: "Who runs ESE, and which services it fills"
+        parts:
+          - p: "The Engineering Services Examination (ESE) is held by the <strong>Union Public Service Commission (UPSC)</strong> under the Rules of Engineering Services Examination, 2027, notified by the <strong>Department of Telecommunications, Ministry of Communications</strong> in the Gazette of India (Extraordinary) on 16 September 2026. The 2027 notice is Examination Notice No. 02/2027-ENGG."
+            source: ese27
+          - p: "Recruitment is in four engineering categories. A candidate applies for <strong>only one</strong> of them — Civil, Mechanical, Electrical, or Electronics &amp; Telecommunication."
+            source: ese27
+          - table:
+              caption: "ESE 2027 calendar"
+              head: ["Event", "Date"]
+              rows:
+                - ["Notification", "16 Sep 2026"]
+                - ["Online application", "16 Sep – 6 Oct 2026 (till 6:00 PM)"]
+                - ["Preliminary / Stage-I exam", "31 Jan 2027"]
+                - ["Main / Stage-II exam", "18 Jun 2027"]
+            source: ese27
+          - list:
+              - "<strong>Stage-I:</strong> Preliminary exam — two objective papers; it screens candidates for the Main exam."
+              - "<strong>Stage-II:</strong> Main exam — two conventional (written-answer) papers in your engineering discipline."
+              - "<strong>Stage-III:</strong> Personality Test / Interview."
+              - "Marks from all three stages are added for the final rank."
+            source: ese27
+          - warn: "The ESE 2027 application window closed on 6 October 2026. If you missed it, the next window opens with the ESE 2028 notice on upsc.gov.in — UPSC can change dates, vacancies and the pattern in every notice."
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Academic eligibility"
+        heading: "The degree you need to sit ESE"
+        parts:
+          - list:
+              - "A <strong>degree in Engineering</strong> from a university set up by a Central or State Act, an institution set up by an Act of Parliament, or a deemed university under Section 3 of the UGC Act; or"
+              - "Sections A and B of the Institution Examinations of the <strong>Institution of Engineers (India)</strong>; or"
+              - "A degree/diploma in Engineering from a foreign university or institution recognised by the Government; or"
+              - "Graduate Membership Examination of the IETE (India); Associate Membership Parts II and III / Sections A and B of the Aeronautical Society of India; or Graduate Membership of the Institution of Electronics and Radio Engineers, London (held after November 1959)."
+            source: ese27
+          - list:
+              - "<strong>M.Sc. route (two services only):</strong> Indian Naval Armament Service (Electronics Engg. posts) and Indian Radio Regulatory Service Group A also accept an M.Sc. with Wireless Communication Electronics, Radio Physics or Radio Engineering (and, for IRRS, a Master's in Science with Physics and Radio Communication, Electronics or Telecommunication)."
+              - "<strong>IETE / AeSI after 31 May 2013:</strong> degrees or certificates from these bodies taken by admission after 31.05.2013 are <strong>not</strong> admissible for ESE 2027. Institution of Engineers (India) admissions after that date are subject to a pending Government decision."
+              - "<strong>Final-year students can apply.</strong> Proof of passing must be uploaded in a 10-day window after the Main result, or you cannot appear in the interview."
+            source: ese27
+          - p: "<strong>Nationality:</strong> a citizen of India, or a subject of Nepal or Bhutan, a Tibetan refugee who came before 1 January 1962, or a person of Indian origin who migrated from the listed countries to settle in India — the non-citizen groups need a Government eligibility certificate before an offer of appointment."
+            source: ese27
+          - note: "Physical and medical standards apply. Every finally recommended candidate has a medical examination, and its findings are binding for service allocation."
+            source: ese27
+      - id: scheme
+        nav: "Exam scheme"
+        eyebrow: "Exam scheme &amp; marking matrix"
+        heading: "Three stages, 1,300 marks"
+        parts:
+          - table:
+              caption: "ESE 2027 plan of examination (each discipline)"
+              head: ["Stage", "Paper", "Type", "Duration", "Marks"]
+              rows:
+                - ["Stage-I Prelims", "Paper I — General Studies &amp; Engineering Aptitude", "Objective (MCQ)", "2 hours", "200"]
+                - ["Stage-I Prelims", "Paper II — your engineering discipline", "Objective (MCQ)", "3 hours", "300"]
+                - ["Stage-II Mains", "Paper I — your engineering discipline", "Conventional", "3 hours", "300"]
+                - ["Stage-II Mains", "Paper II — your engineering discipline", "Conventional", "3 hours", "300"]
+                - ["Stage-III", "Personality Test / Interview", "—", "—", "200"]
+                - ["Total", "", "", "", "1,300"]
+            source: ese27
+          - table:
+              caption: "Marking in the objective (Prelims) papers"
+              head: ["Response", "Marks"]
+              rows:
+                - ["Correct answer", "Marks assigned to the question"]
+                - ["Wrong answer", "One-third (0.33) of the question's marks deducted"]
+                - ["More than one answer marked", "Treated as wrong — same penalty"]
+                - ["Left blank", "0 (no penalty)"]
+            source: ese27
+          - list:
+              - "About <strong>six to seven times</strong> the number of vacancies are called to the Main exam, on minimum qualifying marks in both Prelims papers."
+              - "About <strong>twice</strong> the number of vacancies are called to the interview. The interview has <strong>no minimum qualifying marks</strong>."
+              - "Conventional papers must be answered in English; question papers are set in English only."
+            source: ese27
+      - id: reservation
+        nav: "Age &amp; relaxations"
+        eyebrow: "Age limits &amp; category relaxations"
+        heading: "21 to 30 on 1 January 2027, with fixed relaxations"
+        parts:
+          - p: "You must be at least <strong>21</strong> and must not have reached <strong>30</strong> on <strong>1 January 2027</strong> — born between <strong>2 January 1997 and 1 January 2006</strong>. Date of birth is taken only from the Matriculation / Secondary certificate or equivalent."
+            source: ese27
+          - table:
+              caption: "Relaxation of the upper age limit (30 years)"
+              head: ["Category", "Relaxation", "Highest upper limit"]
+              rows:
+                - ["SC / ST", "Up to 5 years", "35"]
+                - ["OBC (eligible for reservation)", "Up to 3 years", "33"]
+                - ["Defence personnel disabled in hostilities / disturbed areas and released", "Up to 3 years", "33"]
+                - ["Ex-servicemen incl. Commissioned Officers and ECOs/SSCOs with 5 years' service by 1 Jan 2027", "Up to 5 years", "35"]
+                - ["ECOs/SSCOs with extended assignment and an MoD certificate", "Up to 5 years", "35"]
+                - ["PwBD (low vision, deaf and hard of hearing, locomotor, SLD, mental illness)", "Up to 10 years", "40"]
+                - ["Government servants in the listed departments, applying for those departments' services", "Upper limit raised", "35"]
+            source: ese27
+          - list:
+              - "SC, ST and OBC candidates who are also ex-servicemen or PwBD get the relaxations <strong>added together</strong>."
+              - "Reservation for SC, ST, OBC, EWS and PwBD is as fixed by the Government. The caste must be on the Central list."
+              - "OBC (Non-Creamy Layer) and EWS certificates must be issued on or after 1 April 2026 and by the closing date, 6 October 2026."
+              - "The category cannot be changed after the application; a reserved candidate moves to unreserved only by qualifying every stage on the general standard."
+            source: ese27
+          - note: "Blindness: no ESE 2027 vacancy is identified for blind candidates, and UPSC advises them not to apply. Low-vision candidates may apply only for services that accept it."
+            source: ese27
+      - id: fees
+        nav: "Application &amp; fees"
+        eyebrow: "Application steps &amp; registration fee"
+        heading: "Apply online at upsconline.nic.in — ₹200, many exempt"
+        parts:
+          - list:
+              - "<strong>Step 1 — URN:</strong> create an account and the one-time Universal Registration Number (URN) profile, ideally with Aadhaar as ID."
+              - "<strong>Step 2 — Common Application Form:</strong> upload a photograph and capture a live photograph; upload your signature signed three times on white paper in black ink."
+              - "<strong>Step 3 — Exam-specific module:</strong> choose the engineering category and centre, pay the fee and submit. Each exam gives its own Application Number."
+              - "No withdrawal and no change in any field after submission. Centre seats are first-apply-first-allot."
+            source: ese27
+          - table:
+              caption: "ESE 2027 examination fee"
+              head: ["Candidate", "Fee"]
+              rows:
+                - ["General, OBC and EWS (male)", "₹200"]
+                - ["All female candidates", "Exempt (₹0)"]
+                - ["SC / ST", "Exempt (₹0)"]
+                - ["PwBD", "Exempt (₹0)"]
+            source: ese27
+          - note: "Pay by net banking, Visa / Master / RuPay credit or debit card, or UPI. OBC and EWS candidates get no fee exemption. The fee is not refunded or carried to another exam."
+            source: ese27
+      - id: horizons
+        nav: "Pay &amp; cadre"
+        eyebrow: "Pay scales &amp; cadre placement"
+        heading: "Where an ESE rank places you"
+        parts:
+          - p: "Services are allotted strictly by <strong>merit rank, your preferences, the number of vacancies and medical fitness</strong>. Most services are Group A; a few posts (for example Junior Telecom Officer) are Group B."
+            source: ese27
+          - table:
+              caption: "Some participating services in each ESE 2027 category"
+              head: ["Category", "Services include"]
+              rows:
+                - ["Civil", "Central Engineering Service, CES (Roads), Central Water Engineering Service, Indian Railway Management Service (Civil), Indian Defence Service of Engineers, Survey of India"]
+                - ["Mechanical", "IRMS (Mechanical), Indian Naval Armament Service, Defence Aeronautical Quality Assurance Service, Central Power Engineering Service, GSI Engineering Service"]
+                - ["Electrical", "IRMS (Electrical), Central Electrical &amp; Mechanical Engineering Service, Central Power Engineering Service, Indian Naval Material Management Service"]
+                - ["Electronics &amp; Telecom", "Indian Telecommunications Service Gr A, Indian Radio Regulatory Service Gr A, IRMS (Signal &amp; Telecommunication), Junior Telecom Officer Gr B"]
+            source: ese27
+          - p: "<strong>Pay benchmark (Indian Telecommunications Service):</strong> ESE 2024 candidates allotted to ITS were offered Assistant Divisional Engineer Telecom (Junior Time Scale, Group A) at <strong>Pay Matrix Level 10 — ₹56,100 to ₹1,77,500 plus allowances</strong> (7th CPC), with two years' probation and liability to serve anywhere in or outside India."
+            source: dot-its
+          - warn: "The ESE 2027 notice states no pay figure. The Level 10 figure above is from one service's official offer letter; other services set pay in their own rules, and Group B posts are not Group A scale. Non-Practising Allowance is a doctors' allowance, not part of ESE pay."
+          - links:
+              - { label: "Civil Engineering", url: "civil.html" }
+              - { label: "Mechanical Engineering", url: "mechanical.html" }
+              - { label: "Electrical Engineering", url: "electrical.html" }
+              - { label: "Electronics Engineering", url: "electronics.html" }
+              - { label: "JEE Main", url: "jee-main.html" }
+    sources:
+      - { id: ese27, name: "UPSC — Engineering Services Examination 2027, Notice No. 02/2027-ENGG (16 Sep 2026)", url: "https://www.upsc.gov.in/sites/default/files/Notif-ESEP-2027-Engl-160926.pdf", covers: "Dates, vacancies, services, nationality, degree, age and relaxations, fee, application, plan of exam, marking", checked: 2026-10-14 }
+      - { id: dot-its, name: "Department of Telecommunications — Offer of appointment to ADET (JTS of ITS Group A) on ESE 2024 results (17 Jul 2025)", url: "https://www.dot.gov.in/static/uploads/2025/07/a172d7f416a217056bb02e226e68f82a.pdf", covers: "Pay Matrix Level 10 for an ESE-recruited ITS officer, probation", checked: 2026-10-14 }
+
+  # ---------------------------------------------------------------- UPSC CMS
+  - slug: upsc-cms
+    short: "UPSC CMS"
+    stream: govt
+    body: "Union Public Service Commission (UPSC)"
+    eyebrow: "Recruitment Exam · Government doctors · 2026 cycle"
+    title: "UPSC CMS — eligibility, age limits, exam scheme & pay"
+    lede: "The UPSC exam that recruits MBBS doctors as Medical Officers in the Central Health Service, Assistant Divisional Medical Officers in the Railways, and General Duty Medical Officers in NDMC and MCD."
+    colleges_href: "colleges-mbbs.html"
+    facts:
+      - { label: "Conducted by", value: "Union Public Service Commission (UPSC)", source: cms26 }
+      - { label: "Vacancies (2026)", value: "1,358 tentative across four services", source: cms26 }
+      - { label: "Written exam", value: "2 papers × 250 marks · 2 hours each", source: cms26 }
+      - { label: "Age on 1 Aug 2026", value: "Under 32 (CHS posts: up to 35)", source: cms26 }
+    official:
+      - { label: "CMS 2026 notice (PDF)", url: "https://www.upsc.gov.in/sites/default/files/Notification-CMSE-2026-English-110326.pdf" }
+      - { label: "upsconline.nic.in", url: "https://upsconline.nic.in/" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; governing authority"
+        heading: "Who runs CMS, and which posts it fills"
+        parts:
+          - p: "The Combined Medical Services Examination (CMS) is held by the <strong>Union Public Service Commission (UPSC)</strong>. The 2026 notice is Examination Notice No. 9/2026-CMS, dated 11 March 2026. One application covers all the posts; you give your service preferences later."
+            source: cms26
+          - table:
+              caption: "CMS 2026 tentative vacancies"
+              head: ["Category", "Post", "Vacancies"]
+              rows:
+                - ["Category-I", "Medical Officers Grade, General Duty Medical Officers Sub-cadre, Central Health Service", "864"]
+                - ["Category-II", "Assistant Divisional Medical Officer, Railways", "450"]
+                - ["Category-II", "General Duty Medical Officer, New Delhi Municipal Council", "14"]
+                - ["Category-II", "General Duty Medical Officer Grade-II, Municipal Corporation of Delhi", "30"]
+            source: cms26
+          - table:
+              caption: "CMS 2026 calendar"
+              head: ["Event", "Date"]
+              rows:
+                - ["Notification", "11 Mar 2026"]
+                - ["Last date to apply", "31 Mar 2026"]
+                - ["Written exam", "2 Aug 2026"]
+            source: cms26
+          - note: "On 2 August 2026, Paper I ran 9:30–11:30 AM and Paper II 2:00–4:00 PM."
+            source: cms-tt
+          - p: "The written result came out on <strong>1 September 2026</strong>, and Personality Tests for <strong>2,842 candidates</strong> began on <strong>12 October 2026</strong>."
+            source: cms-pt
+          - warn: "The CMS 2027 notice was not published on 14 October 2026 (the 2026 notice came out in March), so this page describes the 2026 cycle. Check upsc.gov.in for the 2027 dates, vacancies and rules."
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Academic eligibility"
+        heading: "MBBS is the only qualifying degree"
+        parts:
+          - list:
+              - "You must have passed the <strong>written and practical parts of the final M.B.B.S. examination</strong>."
+              - "Students who have appeared, or are yet to appear, in final MBBS may apply provisionally; proof of passing must be uploaded in the 15-day window after the written result."
+              - "<strong>Internship:</strong> a candidate still doing the compulsory rotating internship may sit the exam, but is appointed only after completing it."
+              - "Only a degree certificate, final marksheet or provisional degree certificate issued by the competent authority is accepted as proof."
+            source: cms26
+          - note: "Physical and medical standards in Appendix III of the CMS Rules apply to every candidate."
+            source: cms26
+      - id: scheme
+        nav: "Exam scheme"
+        eyebrow: "Exam scheme &amp; marking matrix"
+        heading: "A 500-mark written test, then a 100-mark interview"
+        parts:
+          - table:
+              caption: "CMS 2026 plan of examination"
+              head: ["Part", "Paper", "Questions", "Duration", "Marks"]
+              rows:
+                - ["Written", "Paper I — General Medicine (96) &amp; Paediatrics (24)", "120", "2 hours", "250"]
+                - ["Written", "Paper II — Surgery, Gynaecology &amp; Obstetrics, Preventive &amp; Social Medicine (40 each)", "120", "2 hours", "250"]
+                - ["Personality Test", "Interview", "—", "—", "100"]
+                - ["Total", "", "", "", "600"]
+            source: cms26
+          - table:
+              caption: "Marking in both papers (objective, multiple choice)"
+              head: ["Response", "Marks"]
+              rows:
+                - ["Correct answer", "Marks assigned to the question"]
+                - ["Wrong answer", "One-third (0.33) of the question's marks deducted"]
+                - ["More than one answer marked", "Treated as wrong — same penalty"]
+                - ["Left blank", "0 (no penalty)"]
+            source: cms26
+          - list:
+              - "Both papers are of <strong>MBBS standard</strong>, set in English only. No calculators."
+              - "UPSC may fix qualifying marks in either or both papers; only those who qualify are called to the interview."
+              - "<strong>Tie-break:</strong> higher written total, then the older candidate, then the earlier internship completion date."
+            source: cms26
+      - id: reservation
+        nav: "Age &amp; relaxations"
+        eyebrow: "Age limits &amp; category relaxations"
+        heading: "Under 32 on 1 August 2026, with fixed relaxations"
+        parts:
+          - p: "You must not have reached <strong>32 years on 1 August 2026</strong> — born on or after <strong>2 August 1994</strong>. For Medical Officers in the <strong>Central Health Service</strong>, the upper limit is <strong>35 years</strong> on the same date. The notice sets no lower age limit."
+            source: cms26
+          - table:
+              caption: "Relaxation of the upper age limit"
+              head: ["Category", "Relaxation", "Highest limit (32 base · CHS 35 base)"]
+              rows:
+                - ["SC / ST", "Up to 5 years", "37 · 40"]
+                - ["OBC (eligible for reservation)", "Up to 3 years", "35 · 38"]
+                - ["Defence personnel disabled in hostilities / disturbed areas and released", "Up to 3 years", "35 · 38"]
+                - ["Ex-servicemen incl. Commissioned Officers and ECOs/SSCOs with 5 years' service by 1 Aug 2026", "Up to 5 years", "37 · 40"]
+                - ["ECOs/SSCOs with extended assignment and an MoD certificate", "Up to 5 years", "37 · 40"]
+                - ["PwBD (benchmark disabilities under Section 34, RPwD Act 2016)", "Up to 10 years", "42 · 45"]
+            source: cms26
+          - list:
+              - "SC, ST and OBC candidates who are also ex-servicemen or PwBD get the relaxations <strong>added together</strong>."
+              - "Reservation for SC, ST, OBC, EWS and PwBD is as fixed by the Government."
+              - "PwBD vacancies in 2026: 34 in CHS, 18 in Railways (listed locomotor classes), 2 in MCD, none in NDMC."
+            source: cms26
+      - id: fees
+        nav: "Application &amp; fees"
+        eyebrow: "Application steps &amp; registration fee"
+        heading: "Apply online at upsconline.nic.in — ₹200, many exempt"
+        parts:
+          - list:
+              - "<strong>Step 1 — URN:</strong> create the one-time Universal Registration Number profile on upsconline.nic.in."
+              - "<strong>Step 2 — Common Application Form:</strong> upload photograph, live photograph and signature, plus your date-of-birth, category and MBBS documents."
+              - "<strong>Step 3 — Exam-specific form:</strong> choose the centre, pay the fee and submit. One application and one fee cover every CMS post."
+              - "No addition, deletion or change after submission."
+            source: cms26
+          - table:
+              caption: "CMS 2026 examination fee"
+              head: ["Candidate", "Fee"]
+              rows:
+                - ["General, OBC and EWS (male)", "₹200"]
+                - ["All female candidates", "Exempt (₹0)"]
+                - ["SC / ST", "Exempt (₹0)"]
+                - ["PwBD", "Exempt (₹0)"]
+            source: cms26
+          - note: "Pay by net banking, Visa / Master / RuPay credit or debit card, or UPI. OBC and EWS candidates get no fee exemption. The fee is not refunded or carried to another exam."
+            source: cms26
+      - id: horizons
+        nav: "Pay &amp; cadre"
+        eyebrow: "Pay scales &amp; cadre placement"
+        heading: "Level 10 entry pay, plus Non-Practising Allowance"
+        parts:
+          - table:
+              caption: "Entry pay and posting for each CMS post (7th CPC Pay Matrix)"
+              head: ["Post", "Pay", "Allowance", "Posting &amp; probation"]
+              rows:
+                - ["Medical Officer, CHS (GDMO Sub-cadre)", "Level 10 · ₹56,100 – ₹1,77,500", "NPA as per Government orders", "Any CHS dispensary or hospital in India · 2 years"]
+                - ["Assistant Divisional Medical Officer, Railways", "Level 10, Group A Junior Scale · ₹56,100 – ₹1,77,500", "NPA as per rules", "Railway health units; liable to transfer to any Railway · 1 year"]
+                - ["General Duty Medical Officer, NDMC", "Level 10 · ₹56,100 – ₹1,77,500", "Restricted NPA", "NDMC hospitals, dispensaries and centres · 2 years"]
+                - ["General Duty Medical Officer Gr-II, MCD", "Level 10, first cell · starts at ₹56,100", "NPA and admissible allowances", "MCD hospitals, dispensaries and PHCs · 2 years"]
+            source: cms26
+          - table:
+              caption: "Promotion ladder for an NDMC General Duty Medical Officer"
+              head: ["Grade", "Pay Matrix level", "Range"]
+              rows:
+                - ["Senior Medical Officer", "Level 11", "₹67,700 – ₹2,08,700"]
+                - ["Chief Medical Officer", "Level 12", "₹78,800 – ₹2,09,200"]
+                - ["CMO (Non-functional Selection Grade)", "Level 13", "₹1,18,500 – ₹2,14,100"]
+                - ["Senior Administrative Grade", "Level 14", "₹1,44,200 – ₹2,18,200"]
+            source: cms26
+          - list:
+              - "<strong>Private practice is prohibited</strong> in every CMS post, including lab and consultant practice in CHS."
+              - "Railway ADMOs are under the Contributory Pension System (for entrants from 1 January 2004), get Railway passes, and must pass a Hindi exam during probation."
+              - "Railway ADMOs may be required to serve up to four years in Defence-linked posts (not after ten years of service or, ordinarily, after age 45)."
+            source: cms26
+          - note: "These are basic pay ranges. In-hand pay adds DA, HRA, NPA and other allowances, which change over time and are not stated as amounts in the notice."
+            source: cms26
+          - links:
+              - { label: "MBBS (Doctor)", url: "mbbs.html" }
+              - { label: "NEET UG", url: "neet-ug.html" }
+              - { label: "MBBS college finder", url: "colleges-mbbs.html" }
+    sources:
+      - { id: cms26, name: "UPSC — Combined Medical Services Examination 2026, Notice No. 9/2026-CMS (11 Mar 2026)", url: "https://www.upsc.gov.in/sites/default/files/Notification-CMSE-2026-English-110326.pdf", covers: "Vacancies, MBBS eligibility, age and relaxations, fee, application, plan of exam, marking, tie-break, pay and posting", checked: 2026-10-14 }
+      - { id: cms-tt, name: "UPSC — CMS Examination 2026 Time Table", url: "https://www.upsc.gov.in/sites/default/files/TT-CMSE-2026-English-140526.pdf", covers: "2 August 2026 paper timings", checked: 2026-10-14 }
+      - { id: cms-pt, name: "UPSC — CMS Examination 2026 Personality Test notice (25 Sep 2026)", url: "https://www.upsc.gov.in/sites/default/files/Intv-CMSE-2026-Engl-250926.pdf", covers: "Written result date, interview start date, number of candidates", checked: 2026-10-14 }

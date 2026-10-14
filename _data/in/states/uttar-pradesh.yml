@@ -1,0 +1,1035 @@
+# Uttar Pradesh State Exam & Career Cockpit — one data sheet for the cockpit (state/uttar-pradesh/index.html)
+# and every exam page under state/uttar-pradesh/. Rendered by _includes/state-cockpit.html and
+# _includes/state-exam.html; checked by scripts/check-in-data.mjs (state sheets block).
+#
+# Rules for this sheet (same as gujarat.yml and maharashtra.yml):
+#   - Every fact part carries `source: <id>`; the id must be listed under that exam's `sources`.
+#   - Sources are the official advertisement / notice / brochure files themselves (read 2026-10-14). Most
+#     UPPSC, UPSSSC, police and board files are Hindi scans; they were read page by page from rendered images.
+#     Nothing here comes from coaching or news sites. Where no official file we could open states a value
+#     (for example the UPSSSC PET-2026 age limit or the UPMSP exam fee), the text says so instead of guessing.
+#   - UPPSC serves its PDFs only to visitors arriving from its own pages, so UPPSC sources point to the
+#     commission's website and name the advertisement or notice number to open.
+#   - Section ids are the same on every exam page: overview, eligibility, scheme, fees, reservation,
+#     documents, pay, posting (+ sources, drawn automatically).
+#   - Part kinds: p (paragraph), list (bullets), table {head, rows, caption?}, note (small print),
+#     warn (callout box), links [{label, url}] (official buttons).
+state:
+  id: uttar-pradesh
+  name: Uttar Pradesh
+  checked: 2026-10-14
+
+cockpit:
+  eyebrow: "State Exam & Career Cockpit · Uttar Pradesh"
+  title: "Uttar Pradesh Exam &amp; Career Cockpit"
+  intro:
+    - "Every major Uttar Pradesh government recruitment and state admission route on one screen: who conducts it, who can apply, how the exam works, what it costs and where it leads. Each page is built only from the official advertisement, notice or information brochure of the conducting body (most of them Hindi scans, read page by page), and every fact links back to that file."
+  facts:
+    - { label: "Recruitment nodes", value: "UPPSC PCS · UPSSSC PET · UP Police" }
+    - { label: "Admission nodes", value: "JEECUP · AKTU (UPTAC) · UPMSP Board" }
+    - { label: "Applications", value: "OTR on uppsc / upsssc · uppbpb.gov.in" }
+    - { label: "Last checked", value: "14 Oct 2026" }
+  groups:
+    - id: civil
+      eyebrow: "Administrative &amp; civil"
+      heading: "Government recruitment exams"
+      intro: "Deputy Collector, DSP and other Group-A and Group-B officers through UPPSC's Combined State / Upper Subordinate Services (PCS) exam, Group-C posts such as Lekhpal through UPSSSC's two-tier PET system, and Constables and Sub-Inspectors through the UP Police Recruitment and Promotion Board."
+      exams: [uppsc, upsssc-pet, police]
+    - id: academic
+      eyebrow: "Academic &amp; professional admissions"
+      heading: "State admission routes after Class 10, 12 and graduation"
+      intro: "Polytechnic diplomas through JEECUP, B.Tech, B.Pharm, BBA, BCA, MBA and MCA seats in AKTU-affiliated colleges through UPTAC counselling, and the UPMSP High School and Intermediate exams that every route starts from."
+      exams: [jeecup, aktu-uptac, upmsp]
+  compare_note: "Fees, age limits and dates are from the latest notification of each body. They change every cycle, so always open the current notification before applying."
+  portals_note: "UPPSC and UPSSSC applications need a One Time Registration (OTR) first; police forms run only on uppbpb.gov.in; polytechnic forms on jeecup.admissions.nic.in; AKTU counselling on uptac.samarth.edu.in. Only use these official addresses."
+  portals:
+    - { label: "UPPSC (notices and advertisements)", url: "https://uppsc.up.nic.in/" }
+    - { label: "UPPSC / UPSSSC One Time Registration", url: "https://otr.pariksha.nic.in/" }
+    - { label: "UPSSSC", url: "https://upsssc.gov.in/" }
+    - { label: "UP Police Recruitment &amp; Promotion Board", url: "https://uppbpb.gov.in/" }
+    - { label: "JEECUP (polytechnic)", url: "https://jeecup.admissions.nic.in/" }
+    - { label: "UPTAC (AKTU counselling)", url: "https://uptac.samarth.edu.in/" }
+    - { label: "UPMSP (state board)", url: "https://upmsp.edu.in/" }
+
+exams:
+  # ------------------------------------------------------------------ UPPSC PCS
+  - slug: uppsc
+    group: civil
+    short: "UPPSC PCS (Combined State / Upper Subordinate)"
+    body: "Uttar Pradesh Public Service Commission"
+    card: "Deputy Collector, DSP, BDO, Assistant Commissioner (Commercial Tax), Treasury Officer, Naib Tehsildar and other Group-A and Group-B posts through the Prelim, a descriptive Mains and an interview."
+    card_facts: ["Any graduate", "Age 21–40", "Prelim 200 → Mains 1,500 → Interview 100"]
+    eyebrow: "UPPSC · Group-A &amp; Group-B"
+    title: "UPPSC Combined State / Upper Subordinate Services (PCS) 2026"
+    lede: "Uttar Pradesh's senior administrative posts are filled through one exam: the Combined State / Upper Subordinate Services (General/Special Recruitment) Examination. This page follows the 2026 cycle (Advertisement A-1/E-1/2026, about 500 posts) and the 2025 cycle now at the interview stage."
+    facts:
+      - { label: "Qualification", value: "Bachelor's degree (some posts need a specific one)", source: pcs-26 }
+      - { label: "Age on 1 July 2026", value: "21–40 · +5 UP SC/ST/OBC · +15 PwD", source: pcs-26 }
+      - { label: "Stages", value: "Prelim → descriptive Mains → Interview", source: pcs-26 }
+      - { label: "PCS 2026 Prelim", value: "6 Dec 2026 (proposed)", source: uppsc-cal }
+    official:
+      - { label: "UPPSC website (Advt A-1/E-1/2026)", url: "https://uppsc.up.nic.in/" }
+      - { label: "One Time Registration (OTR)", url: "https://otr.pariksha.nic.in/" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "Where the PCS cycles stand"
+        parts:
+          - p: "Advertisement A-1/E-1/2026 (25 June 2026) opened the Combined State / Upper Subordinate Services (General/Special Recruitment) Examination 2026 for about 500 posts; the number may rise or fall. Online applications ran from 25 June to 27 July 2026, with corrections and fee reconciliation until 3 August 2026. Applying needs a One Time Registration (OTR) number from otr.pariksha.nic.in first."
+            source: pcs-26
+          - p: "UPPSC's exam calendar for 2026 (notice of 30 January 2026) proposes the PCS Preliminary Examination 2026 for Sunday 6 December 2026. The 2025 cycle (Advertisement A-1/E-1/2025) held its Mains from 29 March 2026 over four days."
+            source: uppsc-cal
+          - p: "Interviews for the 2025 cycle run in two daily sessions (9:30 am and 2 pm) from 28 September to 24 October 2026; interview letters are downloaded from the UPPSC home page with the OTR number."
+            source: pcs-25-intv
+          - table:
+              caption: "Some of the posts in the 2025 cycle, with the posts counted at the interview stage (UPPSC 'Details of posts' notice)"
+              head: ["Post", "Department", "Pay level", "Posts"]
+              rows:
+                - ["Deputy Collector", "Appointment", "Level-10", "34"]
+                - ["Deputy Superintendent of Police", "Home (Police)", "Level-10", "56"]
+                - ["Assistant Commissioner (Commercial Tax)", "State Tax", "Level-10", "45"]
+                - ["Assistant Regional Transport Officer", "Transport", "Level-10", "35"]
+                - ["Treasury Officer / Accounts Officer", "Finance", "Level-10", "92"]
+                - ["Block Development Officer", "Rural Development", "Level-10", "85"]
+                - ["Excise Inspector", "Excise Commissioner's office", "Level-7", "123"]
+                - ["Food Safety Officer", "Food Safety and Drug Administration", "Level-7", "72"]
+                - ["Naib Tehsildar", "Board of Revenue", "Level-6", "105"]
+            source: pcs-25-posts
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "Who can apply, and the age limits by category"
+        parts:
+          - list:
+              - "<strong>Qualification:</strong> a bachelor's degree from a recognised university by the last date of application. Some posts need a specific degree — for example Principal, Government Inter College needs a post-graduate degree plus B.Ed., and Account and Audit Officer needs a commerce degree with accountancy; the full list of specific-qualification posts is in the advertisement."
+              - "<strong>Preference:</strong> two years in the Territorial Army or an NCC 'B' certificate gives preference when other things are equal."
+              - "<strong>Marital status:</strong> a man with more than one living wife, or a woman married to a man who already has a wife, is not eligible unless the Governor grants an exemption."
+              - "<strong>Age is counted on:</strong> 1 July 2026 — at least 21 and not over 40 (born between 2 July 1986 and 1 July 2005)."
+            source: pcs-26
+          - table:
+              caption: "Upper age limit and relaxations printed in Advertisement A-1/E-1/2026"
+              head: ["Candidate", "Upper age limit"]
+              rows:
+                - ["Unreserved, EWS and candidates from other states", "40 years"]
+                - ["SC, ST and OBC of Uttar Pradesh", "45 years (+5)"]
+                - ["Skilled players of classified games of UP", "45 years (+5)"]
+                - ["UP State Government employees (including Basic Shiksha Parishad and aided Madhyamik teachers and staff)", "45 years (+5)"]
+                - ["Persons with disabilities of UP", "55 years (+15)"]
+                - ["Emergency / Short Service Commissioned Officers and ex-army personnel of UP", "40 + 3 years + period of army service"]
+                - ["Principal, Government Inter College", "minimum 30, maximum 40"]
+            source: pcs-26
+          - warn: "There is no age relaxation for dependents of freedom fighters, for EWS candidates or for women. UPPSC's notice for the 2025 posts states this in so many words. These groups get horizontal reservation instead (see Reservation)."
+            source: pcs-25-posts
+          - note: "Every age relaxation and reservation is only for permanent residents (domicile) of Uttar Pradesh. A candidate eligible for more than one relaxation gets only the single most useful one. Research Scholars of the Chief Minister Fellowship Programme get age relaxation and Mains weightage under the 2026 Rules (1 to 7.5 marks depending on years completed and the paper's maximum marks)."
+            source: pcs-26
+          - table:
+              caption: "Physical standards for Deputy Superintendent of Police (2025 posts notice)"
+              head: ["Candidate", "Height", "Chest (normal / expanded)"]
+              rows:
+                - ["Men — Unreserved, OBC, SC", "165 cm", "84 / 89 cm"]
+                - ["Men — ST", "160 cm", "79 / 84 cm"]
+                - ["Women — Unreserved, OBC, SC", "152 cm", "not applicable"]
+                - ["Women — ST", "147 cm", "not applicable"]
+                - ["Women — all categories", "minimum weight 40 kg", "—"]
+            source: pcs-25-posts
+          - note: "Excise Inspector also has physical standards: men 167 cm with chest 81.2 / 86.2 cm; women 152 cm (147 cm for SC/ST women). District Youth Welfare and Pradeshik Vikas Dal Officer has its own height and chest table in the same notice."
+            source: pcs-25-posts
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme"
+        heading: "Prelim, descriptive Mains and interview"
+        parts:
+          - table:
+              caption: "Preliminary Examination (objective, OMR)"
+              head: ["Paper", "Questions", "Marks", "Time", "Counts for"]
+              rows:
+                - ["Paper I — General Studies I", "150", "200", "2 hours (9:30 – 11:30 am)", "Merit for the Mains list"]
+                - ["Paper II — General Studies II", "100", "200", "2 hours (2:30 – 4:30 pm)", "Qualifying only: at least 33%"]
+            source: pcs-26
+          - list:
+              - "Both Prelim papers must be taken; missing either one disqualifies the candidate."
+              - "Negative marking: one third (0.33) of a question's marks is deducted for each wrong answer; marking more than one answer counts as wrong; a blank question costs nothing."
+              - "About fifteen times the number of vacancies are declared successful for the Mains, and about three times the vacancies are called for interview."
+            source: pcs-26
+          - table:
+              caption: "Main (written) Examination — all papers conventional (essay-type), 3 hours each"
+              head: ["Paper", "Marks"]
+              rows:
+                - ["General Hindi", "150"]
+                - ["Essay", "150"]
+                - ["General Studies I", "200"]
+                - ["General Studies II", "200"]
+                - ["General Studies III", "200"]
+                - ["General Studies IV", "200"]
+                - ["General Studies V (Uttar Pradesh)", "200"]
+                - ["General Studies VI (Uttar Pradesh)", "200"]
+                - ["Personality test (interview)", "100"]
+            source: pcs-26
+          - note: "A minimum mark in General Hindi is set by the government or the commission. Final selection is on Mains + interview marks (a few posts are filled on written marks alone under their service rules). Minimum efficiency standard: SC and ST candidates need at least 35%, others at least 40%, in the Prelim and the Mains to enter the merit list."
+            source: pcs-26
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "Exam fee by category"
+        parts:
+          - table:
+              caption: "Fee = exam fee + ₹25 online processing fee (Advertisement A-1/E-1/2026)"
+              head: ["Candidate", "Prelim", "Mains"]
+              rows:
+                - ["Unreserved, EWS, OBC (and candidates of other states at Mains)", "₹125", "₹225"]
+                - ["SC / ST", "₹65", "₹105"]
+                - ["Persons with disabilities", "₹25", "₹25"]
+                - ["Ex-servicemen", "₹65", "₹105"]
+            source: pcs-26
+          - note: "Dependents of freedom fighters, women and skilled / outstanding sportspersons of UP pay the fee of their original category. Payment is online through SBI MOPS (net banking, card or other modes), and the application is accepted only once the fee reaches the bank."
+            source: pcs-26
+      - id: reservation
+        nav: "Reservation &amp; Certificates"
+        eyebrow: "Reservation, cut-offs &amp; certificates"
+        heading: "OBC non-creamy layer, EWS, women and domicile"
+        parts:
+          - list:
+              - "<strong>Vertical reservation:</strong> SC, ST, OBC and EWS candidates of Uttar Pradesh, under the relevant government rules."
+              - "<strong>Horizontal reservation:</strong> dependents of freedom fighters of UP, women, ex-servicemen of UP, persons with disabilities of UP (only on posts identified for them) and outstanding sportspersons of UP."
+              - "<strong>Domicile:</strong> SC, ST, OBC, EWS, freedom-fighter-dependent, disabled, sportsperson and ex-serviceman candidates who are not permanent residents of UP get no reservation or age relaxation and are treated as unreserved."
+              - "<strong>OBC and EWS details:</strong> category, sub-category, EWS and creamy-layer status, name and address as filled by the last date of application (or correction date) are final; no later change is accepted."
+              - "<strong>EWS certificate:</strong> must follow Personnel Department Office Memorandum 1/2019/4/1/2002/Ka-2/19 T.C.-II of 18 February 2019 and be for the financial year before the year of application."
+              - "<strong>Women's reservation:</strong> under the 2007 government order, horizontal reservation for women in direct recruitment goes only to women who are original residents of UP. The High Court struck this part down on 16 January 2019; the state's Special Appeal (D) 475/2019 is pending, and the reservation is subject to its outcome."
+              - "<strong>Women's caste certificate:</strong> only a certificate issued on the father's side is valid."
+              - "Certificates for reservation or age relaxation must be on the proformas in Appendix-1 of the advertisement and produced when the commission asks; a candidate claiming more than one gets only the most useful concession."
+            source: pcs-26
+          - note: "Cut-offs are not fixed in advance; UPPSC publishes marks and cut-offs after each result."
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "What to keep ready"
+        parts:
+          - list:
+              - "High School (Class 10) certificate — the only accepted proof of date of birth; it must be attached to the Mains application."
+              - "Self-attested mark sheets, certificates and degrees supporting the educational qualification, sent with the Mains application form."
+              - "Caste, EWS, freedom-fighter-dependent, disability, ex-serviceman or sportsperson certificate on the Appendix-1 proforma, where claimed."
+              - "Disability certificate from a Medical Officer / Specialist countersigned by the Chief Medical Officer (Rule 3 of the 2021 Amendment Act)."
+              - "Printout of the online application and fee transaction slip."
+            source: pcs-26
+          - note: "Do not send hard copies at the Prelim stage. Wrong information can lead to cancellation and debarment for up to five years; the UP Public Examinations (Prevention of Unfair Means) Act, 2024 applies."
+            source: pcs-26
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Pay levels of PCS posts"
+        parts:
+          - table:
+              caption: "Pay printed against posts in the 2025 cycle (7th Pay Commission pay matrix)"
+              head: ["Post (examples)", "Pay level", "Pay range"]
+              rows:
+                - ["Deputy Collector, DSP, BDO, ARTO, Asst. Commissioner (Commercial Tax), Treasury Officer", "Level-10", "₹56,100 – ₹1,77,500"]
+                - ["District Minority Welfare Officer, District Backward Class Welfare Officer, District Food Marketing Officer", "Level-8", "₹47,600 – ₹1,51,100"]
+                - ["Excise Inspector, Food Safety Officer", "Level-7", "₹44,900 – ₹1,42,400"]
+                - ["Naib Tehsildar", "Level-6", "pay band ₹9,300 – ₹34,800, grade pay ₹4,200"]
+            source: pcs-25-posts
+          - note: "In-hand salary is the basic pay of the level plus dearness allowance and other allowances, minus deductions; the notices give only the pay level, so no in-hand figure is shown here."
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Where these officers work"
+        parts:
+          - p: "PCS officers join state departments across Uttar Pradesh — revenue administration as Deputy Collectors, the police as DSPs, rural development as BDOs, the treasuries, commercial tax, transport, excise and many others. Before interview, candidates fill a post-preference sheet; posts are allotted on merit and preference."
+            source: pcs-25-posts
+          - links:
+              - { label: "UPSC &amp; state PSC coaching in Uttar Pradesh", url: "coaching/uttar-pradesh/upsc.html" }
+    sources:
+      - { id: pcs-26, name: "UPPSC — Advertisement A-1/E-1/2026, Combined State / Upper Subordinate Services (General/Special Recruitment) Examination 2026 (25 Jun 2026); open it from the UPPSC website", url: "https://uppsc.up.nic.in/", covers: "posts, dates, qualification, age limits and relaxations, fee, reservation and domicile rules, EWS and women notes, exam scheme, negative marking, documents", checked: 2026-10-14 }
+      - { id: pcs-25-posts, name: "UPPSC — 'Details of posts' for Advt A-1/E-1/2025, Combined State / Upper Subordinate Services Exam 2025 (home-page notice, Hindi)", url: "https://uppsc.up.nic.in/", covers: "posts and numbers, pay levels, physical standards, age rule wording (no relaxation for freedom-fighter dependents and EWS)", checked: 2026-10-14 }
+      - { id: uppsc-cal, name: "UPPSC — Exam Calendar 2026, notice 2920/14/Misc/E-1/2000-01 T.C. (30 Jan 2026, Hindi)", url: "https://uppsc.up.nic.in/", covers: "PCS 2025 Mains dates, PCS 2026 Prelim proposed date", checked: 2026-10-14 }
+      - { id: pcs-25-intv, name: "UPPSC — Interview schedule notice 260/01/E-3/2025-26 for PCS (Mains) Exam 2025 (18 Sep 2026, Hindi)", url: "https://uppsc.up.nic.in/", covers: "interview dates and sessions", checked: 2026-10-14 }
+
+  # ------------------------------------------------------------------ UPSSSC PET (+ LEKHPAL)
+  - slug: upsssc-pet
+    group: civil
+    short: "UPSSSC PET &amp; Group-C (Lekhpal) Bharti"
+    body: "Uttar Pradesh Subordinate Services Selection Commission"
+    card: "The Preliminary Eligibility Test (PET) is the first tier for UPSSSC Group-C recruitment; its normalised score decides who is shortlisted for each post's Mains, such as the Lekhpal Mains under PET-2025."
+    card_facts: ["Two-tier: PET → Mains", "PET-2026: 25 & 30 Oct, 1 Nov 2026", "60 districts"]
+    eyebrow: "UPSSSC · Group-C"
+    title: "UPSSSC PET 2026 and Group-C (Lekhpal) Recruitment"
+    lede: "Uttar Pradesh fills most Group-C posts in two tiers: a common Preliminary Eligibility Test (PET), then a separate Mains for each advertised post, open only to candidates with a PET score. This page follows PET-2026 (Advertisement 16-Exam/2026) and how PET-2025 scores are being used for Mains such as Lekhpal."
+    facts:
+      - { label: "PET-2026", value: "Advt 16-Exam/2026", source: sss-pet-dates }
+      - { label: "PET-2026 exam", value: "25 Oct, 30 Oct, 1 Nov 2026 · two shifts", source: sss-pet-dates }
+      - { label: "Mains shortlist", value: "about 15× posts by normalised PET score", source: sss-21-2026 }
+      - { label: "Lekhpal Mains (PET-2025)", value: "Written exam held 21 May 2026", source: sss-cal }
+    official:
+      - { label: "UPSSSC website", url: "https://upsssc.gov.in/" }
+      - { label: "PET-2026 exam-district notice (12 Oct 2026)", url: "https://upsssc.gov.in/ViewPdf.aspx?jAU6hktxazvm4Lxx+kRM7RO6W5+P3HdSzrpMn1pW3TI=" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "How the two-tier PET system works"
+        parts:
+          - p: "Under the Personnel Department's two-tier recruitment system (notification of 20 November 2020), only candidates who sat the Preliminary Eligibility Test (PET) can apply for a Group-C post's Mains. Shortlisting for each Mains is about 15 times the posts in each category, on the PET normalised score (to two decimal places), including everyone tied at the last cut-off score. Candidates with a zero or negative PET score are not shortlisted."
+            source: sss-21-2026
+          - p: "PET-2026 (Advertisement 16-Exam/2026) was first fixed for 23, 24 and 25 October 2026. A notice of 25 September 2026 moved it to Sunday 25 October, Friday 30 October and Sunday 1 November 2026, in two shifts each day: 10 am – 12 noon and 3 pm – 5 pm."
+            source: sss-pet-dates
+          - p: "The exam is proposed in 60 districts. An advance intimation of the exam district was released on 12 October 2026 (it is not the admit card); admit cards will be announced separately on the website."
+            source: sss-pet-dist
+          - table:
+              caption: "Group-C Mains that UPSSSC is running on PET-2025 scores (2026 calendar, 3 Aug 2026)"
+              head: ["Advertisement", "Mains", "Exam date"]
+              rows:
+                - ["02-Exam/2025", "Lekhpal Mains (PET-2025)/01", "21 May 2026 (held)"]
+                - ["07-Exam/2026", "Combined Lower Subordinate Services (graduate level) Mains", "23 Aug 2026"]
+                - ["12-Exam/2026", "Forest Guard and Wildlife Guard Mains", "27 Sep 2026"]
+                - ["13-Exam/2026", "Cane Supervisor Mains", "29 Nov 2026"]
+                - ["14-Exam/2026", "Auditor and Assistant Accountant Mains", "20 Dec 2026"]
+            source: sss-cal
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "Who can apply"
+        parts:
+          - warn: "The PET-2026 advertisement itself (eligibility, age limit and fee) is no longer served by the UPSSSC website, and we do not copy these figures from coaching or news sites. Check your eligibility in the PET-2026 advertisement on upsssc.gov.in or in the applicant dashboard."
+          - list:
+              - "Each Mains advertisement sets its own qualification and age limit through the post's service rules — for example the 2026 State Rural Development Institute (Senior Instructor) Mains asks for a post-graduate degree with 50% in the relevant subject and an age of 21–40 on 1 July of the year of advertisement."
+              - "Only candidates who appeared in the PET of the stated year and received a score card can apply for that Mains, logging in with the PET registration number."
+              - "Upper age limits are higher by the number of years set by government for SC, ST and other notified categories; Uttar Pradesh government employees get 5 years more (Personnel GO of 27 August 2013)."
+              - "Research Scholars of the Chief Minister Fellowship Programme get age relaxation and weightage under the 2026 Rules (notification of 30 January 2026)."
+              - "A man with more than one living wife, or a woman married to a man who already has a wife, is not eligible unless the Governor exempts them."
+            source: sss-21-2026
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme"
+        heading: "PET first, then the post's Mains"
+        parts:
+          - list:
+              - "PET-2026: written test in two-hour shifts (10 am – 12 noon and 3 – 5 pm) on 25 Oct, 30 Oct and 1 Nov 2026."
+            source: sss-pet-dates
+          - list:
+              - "Where an exam runs in more than one shift or day, scores are normalised under the commission's notice of 22 May 2019, and Mains shortlisting uses the PET normalised score."
+            source: sss-21-2026
+          - table:
+              caption: "Example of a Mains paper: 21-Exam/2026, Senior Instructor (State Rural Development Institute)"
+              head: ["Part", "Subject", "Questions", "Marks"]
+              rows:
+                - ["Part 1", "Rural development subject knowledge", "50", "50"]
+                - ["Part 1", "Analytical ability and data interpretation", "15", "15"]
+                - ["Part 2", "Computer and IT concepts", "15", "15"]
+                - ["Part 3", "General knowledge of Uttar Pradesh", "20", "20"]
+                - ["Total", "One paper, 2 hours (120 minutes)", "100", "100"]
+            source: sss-21-2026
+          - note: "In this paper every question is objective and carries one mark, with a negative mark of one quarter for each wrong answer. Selection for these posts is on the written exam alone (interviews for such posts were ended under the 2017 rules)."
+            source: sss-21-2026
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "What a Mains application costs"
+        parts:
+          - table:
+              caption: "Application stage of a PET-based Mains (21-Exam/2026)"
+              head: ["Category", "Application fee", "Online processing fee", "Total"]
+              rows:
+                - ["Unreserved", "₹0", "₹25", "₹25"]
+                - ["OBC", "₹0", "₹25", "₹25"]
+                - ["SC", "₹0", "₹25", "₹25"]
+                - ["ST", "₹0", "₹25", "₹25"]
+            source: sss-21-2026
+          - note: "Dependents of freedom fighters, ex-servicemen, women, persons with disabilities and outstanding sportspersons pay by their original category. The Mains exam fee is paid separately, only by shortlisted candidates, before downloading the Mains admit card. The PET-2026 application fee was not readable from an official file (see Eligibility)."
+            source: sss-21-2026
+      - id: reservation
+        nav: "Reservation &amp; Certificates"
+        eyebrow: "Reservation &amp; certificates"
+        heading: "OBC, EWS, freedom-fighter dependents, women and domicile"
+        parts:
+          - list:
+              - "<strong>Domicile:</strong> candidates who are not original residents of Uttar Pradesh get no reservation and are treated as unreserved."
+              - "<strong>EWS:</strong> 10% for families whose income from all sources (salary, farming, business) in the financial year before applying is under ₹8 lakh, under the EWS Reservation Act, 2020. The certificate must be issued between 1 April 2026 and the last date of application, based on 2025-26 income and valid for 2026-27, on the 14 March 2019 proforma."
+              - "<strong>Dependents of freedom fighters:</strong> the certificate must follow the GO of 21 April 2015 under the UP Public Services (Reservation for Physically Disabled, Dependents of Freedom Fighters and Ex-Servicemen) Act, 1993."
+              - "<strong>Women:</strong> reservation under GO 18/1/99/Ka-2/99 (26 February 1999) and GO 39 Rit/Ka-2/2019 (26 June 2019), subject to the outcome of Special Appeal (D) 475/2019 against the High Court order of 16 January 2019; women must use a caste certificate issued on the father's side."
+              - "<strong>Ex-servicemen:</strong> must have retired by the last date of application to claim the reservation."
+              - "<strong>Disability:</strong> certificate on the format of the Personnel Department OM of 18 April 2022, stating the type and percentage of disability."
+              - "A candidate claiming more than one reserved category gets only the most useful concession. Selected horizontal-reservation candidates are adjusted in their own vertical category."
+            source: sss-21-2026
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Keep these ready before applying"
+        parts:
+          - list:
+              - "PET registration number with the linked mobile number and email (login is by OTP)."
+              - "High School certificate — the only accepted proof of date of birth."
+              - "Caste or EWS certificate issued by the last date of application, on the proforma in the advertisement's appendix."
+              - "Freedom-fighter-dependent, disability, ex-serviceman or outstanding-sportsperson certificate, where claimed."
+              - "No-objection certificate from the employer, for candidates already in central or state government service."
+              - "Mark sheets, certificates and degrees for the qualification, shown when asked at document verification."
+            source: sss-21-2026
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Pay depends on the post"
+        parts:
+          - p: "Each Mains advertisement prints the pay of its posts. For example, the Senior Instructor posts in 21-Exam/2026 are in pay Level-6 (₹35,400 – ₹1,12,400)."
+            source: sss-21-2026
+          - note: "The pay of Lekhpal was not in any official file we could open for this page, so it is not shown."
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Where Group-C staff work"
+        parts:
+          - p: "UPSSSC recruits Group-C staff for state departments — revenue (Lekhpal), forests, cane development, audit and accounts, rural development, the Sports Directorate and others. Posts are allotted on merit, availability and the order of preference the candidate gives at document verification."
+            source: sss-21-2026
+          - links:
+              - { label: "SSC &amp; state exam coaching in Uttar Pradesh", url: "coaching/uttar-pradesh/ssc.html" }
+    sources:
+      - { id: sss-pet-dates, name: "UPSSSC — PET-2026 (Advt 16-Exam/2026) date notices 1303/36/Teen(Pari-1)/2026 of 9 Sep 2026 and 1423 of 25 Sep 2026 (Hindi)", url: "https://upsssc.gov.in/ViewPdf.aspx?NJbKyTiDxAqQnRYKCqojRTHwngIdnR5KGQXPSU/8zc0=", covers: "PET-2026 dates and shift timings (the 9 Sep notice is at ViewPdf.aspx?PA/fJh/lxObOB7cITC5EX8On43KGKg8R7nLWBSVT5Kg=)", checked: 2026-10-14 }
+      - { id: sss-pet-dist, name: "UPSSSC — PET-2026 advance exam-district intimation notice 238 (12 Oct 2026, Hindi)", url: "https://upsssc.gov.in/ViewPdf.aspx?jAU6hktxazvm4Lxx+kRM7RO6W5+P3HdSzrpMn1pW3TI=", covers: "60 exam districts, district intimation is not an admit card", checked: 2026-10-14 }
+      - { id: sss-cal, name: "UPSSSC — Exam and interview calendar January–December 2026, notice 1061/20/Teen(Pari-1)/2025 (3 Aug 2026, Hindi)", url: "https://upsssc.gov.in/ViewPdf.aspx?qgM0wYrv9BlfgcbXKAbfp1ndqm/fy3LuA/nVzushm7Q=", covers: "Lekhpal Mains and other PET-2025 Mains dates, PET-2026 month", checked: 2026-10-14 }
+      - { id: sss-21-2026, name: "UPSSSC — Advertisement 21-Exam/2026, State Rural Development Institute (Senior Instructor) Mains (PET-2025)/21 (10 Sep 2026, Hindi)", url: "https://upsssc.gov.in/ViewPdf.aspx?tOQhA8AoFpXYk2w83x0Lq7j0MMNLknYnsdotBC2/+Bk=", covers: "two-tier rule, PET shortlisting, fee table, reservation, EWS, women, freedom-fighter and disability certificates, documents, example Mains scheme and pay", checked: 2026-10-14 }
+
+  # ------------------------------------------------------------------ UP POLICE
+  - slug: police
+    group: civil
+    short: "UP Police Constable &amp; Sub-Inspector"
+    body: "UP Police Recruitment &amp; Promotion Board"
+    card: "Constable (civil police, PAC, special security force, women battalion, mounted police) and Jail Warder through Direct Recruitment-2025, and Sub-Inspector through SI Direct Recruitment-2025."
+    card_facts: ["Constable: 12th pass", "SI: graduate", "Written → DV/PST → PET run"]
+    eyebrow: "UPPRPB · Constable &amp; Sub-Inspector"
+    title: "UP Police Constable 2025 &amp; Sub-Inspector 2025 Recruitment"
+    lede: "The Uttar Pradesh Police Recruitment and Promotion Board fills constable and sub-inspector posts through one written test, document checks with body measurement, and a qualifying run. This page follows Constable Direct Recruitment-2025 (32,679 posts, final result 14 October 2026) and SI Direct Recruitment-2025 (final result 14 July 2026)."
+    facts:
+      - { label: "Constable 2025", value: "32,679 posts · Level-3", source: con-adv }
+      - { label: "Constable age (1 Jul 2025)", value: "Men 18–22 · Women 18–25", source: con-adv }
+      - { label: "SI age (1 Jul 2025)", value: "21–28 + one-time 3 years", source: si-adv }
+      - { label: "Fee", value: "₹500 · SC/ST ₹400", source: con-adv }
+    official:
+      - { label: "UPPRPB notices", url: "https://uppbpb.gov.in/Home/Notice" }
+      - { label: "Constable 2025 advertisement (PDF)", url: "https://uppbpb.gov.in/FilesUploaded/Notice/CONSTABLE-VIGYAPTIc7be0cc8-3365-471e-9237-447c528d341a.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "Constable 2025 and SI 2025 at a glance"
+        parts:
+          - p: "Notice PRPB-B (Constable PAC and other cadres)-07/2025 of 31 December 2025 invited online applications for 32,679 posts. Applications ran from 31 December 2025 to 30 January 2026 (fee reconciliation until 2 February 2026)."
+            source: con-adv
+          - table:
+              caption: "Constable Direct Recruitment-2025 posts"
+              head: ["Post", "Who can apply", "Posts"]
+              rows:
+                - ["Constable, civil police", "Men and women", "10,469"]
+                - ["Constable, PAC / armed police", "Men only", "15,131"]
+                - ["Constable, Special Security Force", "Men only", "1,341"]
+                - ["Woman constable for women battalions (Lucknow, Badaun, Gorakhpur)", "Women only", "2,282"]
+                - ["Constable, mounted police", "Men only", "71"]
+                - ["Jail Warder (men)", "Men", "3,279"]
+                - ["Jail Warder (women)", "Women", "106"]
+            source: con-adv
+          - p: "28,86,797 applications were received. The written exam was held on 8, 9 and 10 June 2026 in six shifts across 75 districts; 76,184 candidates (about 2.33 times the posts) were called for document checks and body measurement from 17 to 31 August 2026; the qualifying run was held from 1 to 11 October 2026; and the final result was published on 14 October 2026."
+            source: con-final
+          - p: "SI Direct Recruitment-2025 (notice PRPB-B (SI cadre)-03/2025 of 12 August 2025) covered 4,242 Sub-Inspector (civil police), 135 Platoon Commander PAC / SI armed police, 60 Platoon Commander / SI Special Security Force and 106 women SI (women battalion) posts. 15,75,760 applied; the written exam ran on 14 and 15 March 2026; 12,333 were called for document checks and measurement (15–17 June 2026); the run was held from 29 June to 4 July 2026; the final result came on 14 July 2026."
+            source: si-final
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "Qualification, age and physical standards"
+        parts:
+          - list:
+              - "<strong>Constable:</strong> Intermediate (Class 12) from a board established by law in India, or an equivalent recognised by the government, already passed when applying (appearing candidates are not eligible)."
+              - "<strong>Preference (not marks):</strong> a DOEACC / NIELIT 'O' level computer certificate, two years in the Territorial Army, or an NCC 'B' certificate breaks ties."
+              - "<strong>Nationality:</strong> citizen of India, or a Tibetan refugee or person of Indian origin covered by the advertisement's conditions."
+            source: con-adv
+          - table:
+              caption: "Constable age on 1 July 2025 (relaxations only for original residents of UP)"
+              head: ["Category", "Men — born between", "Women — born between"]
+              rows:
+                - ["Unreserved / EWS", "2 Jul 2003 – 1 Jul 2007 (18–22)", "2 Jul 2000 – 1 Jul 2007 (18–25)"]
+                - ["SC, ST, OBC (+5 years)", "2 Jul 1998 – 1 Jul 2007", "2 Jul 1995 – 1 Jul 2007"]
+                - ["UP State Government employee (+5 years)", "2 Jul 1998 – 1 Jul 2007", "2 Jul 1995 – 1 Jul 2007"]
+                - ["Ex-serviceman of UP", "age minus army service may exceed the limit by up to 3 years", "same rule"]
+            source: con-adv
+          - note: "A candidate who fits more than one category gets relaxation only in the one category that gives the most (an OBC candidate who is also a state employee still gets 5 years). There is no separate age relaxation for dependents of freedom fighters or home guards; they get horizontal reservation. Check the board's notices for any later change to the age table."
+            source: con-adv
+          - list:
+              - "<strong>Sub-Inspector:</strong> a bachelor's degree from a university established by law in India (or a recognised equivalent), already passed when applying."
+              - "<strong>SI age:</strong> 21 to 28 on 1 July 2025. Under GO 972187/6-1001(008)/24/2023 of 26 May 2025, all categories got a one-time 3-year relaxation for this recruitment, so the unreserved upper limit became 31 (born on or after 2 July 1994) and SC and ST candidates got 5 + 3 years (born on or after 2 July 1989)."
+            source: si-adv
+          - table:
+              caption: "Minimum physical standards (same for Constable 2025 and SI 2025)"
+              head: ["Candidate", "Height", "Chest (unexpanded / expanded)"]
+              rows:
+                - ["Men — Unreserved, OBC, SC", "168 cm", "79 / 84 cm"]
+                - ["Men — ST", "160 cm", "77 / 82 cm"]
+                - ["Women — Unreserved, OBC, SC", "152 cm", "minimum weight 40 kg"]
+                - ["Women — ST", "147 cm", "minimum weight 40 kg"]
+            source: con-dv
+          - note: "Chest expansion of at least 5 cm is compulsory. Measurements from earlier recruitments or private clinics are not accepted; a candidate unhappy with the measurement can appeal the same day."
+            source: si-adv
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme"
+        heading: "Written test, document check and body measurement, then the run"
+        parts:
+          - table:
+              caption: "Constable written exam (OMR, offline)"
+              head: ["Item", "Detail"]
+              rows:
+                - ["Questions and marks", "150 questions × 2 marks = 300 marks"]
+                - ["Time", "2 hours"]
+                - ["Subjects", "General knowledge; General Hindi; Numerical and mental ability; Mental aptitude, intelligence and reasoning"]
+                - ["Minimum to stay in", "Unreserved 30% · EWS 25% · OBC 25% · SC/ST 20%"]
+                - ["More than one shift", "Scores are normalised (board notice of 18 Dec 2023)"]
+            source: con-adv
+          - table:
+              caption: "SI written exam (OMR, 400 marks, 160 questions, 2 hours)"
+              head: ["Section", "Subject", "Questions", "Marks"]
+              rows:
+                - ["1", "General Hindi", "40", "100"]
+                - ["2", "Basic law / Constitution / General knowledge", "40", "100"]
+                - ["3", "Numerical and mental ability", "40", "100"]
+                - ["4", "Mental aptitude / intelligence / reasoning", "40", "100"]
+            source: si-adv
+          - note: "SI candidates need at least 35% in every section and 50% overall; each section is normalised separately and the four normalised scores are added."
+            source: si-adv
+          - table:
+              caption: "Constable 2025 physical efficiency test (qualifying run, PET procedure notice of 23 Sep 2026)"
+              head: ["Candidate", "Run"]
+              rows:
+                - ["Men", "4.8 km in 25 minutes"]
+                - ["Women", "2.4 km in 14 minutes"]
+            source: con-pet
+          - list:
+              - "SI 2025 run: men 4.8 km in 28 minutes, women 2.4 km in 16 minutes; it only qualifies and adds no marks."
+            source: si-adv
+          - note: "The final merit list uses only the normalised written score and the order of preference; ties go to preference qualifications, then to the older candidate, then to alphabetical order of name."
+            source: con-final
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "Application fee"
+        parts:
+          - table:
+              head: ["Candidate", "Constable 2025", "SI 2025"]
+              rows:
+                - ["Unreserved / EWS / OBC", "₹500", "₹500"]
+                - ["SC / ST", "₹400", "₹400"]
+            source: con-adv
+          - note: "The SI fee is printed in para 2.4 of the SI 2025 advertisement; the same ₹500 / ₹400 applies."
+            source: si-adv
+      - id: reservation
+        nav: "Reservation &amp; Certificates"
+        eyebrow: "Reservation, cut-offs &amp; certificates"
+        heading: "Reservation, cut-offs and certificate dates"
+        parts:
+          - table:
+              caption: "Reservation in Constable 2025 (vertical and horizontal only for original residents of UP)"
+              head: ["Group", "Share", "Age relaxation", "Certificate"]
+              rows:
+                - ["Scheduled Caste", "21%", "5 years", "Caste certificate (proforma 1)"]
+                - ["Scheduled Tribe", "2%", "5 years", "Caste certificate (proforma 1)"]
+                - ["Other Backward Class", "27%", "5 years", "OBC certificate (proforma 2), issued for FY 2025-26 from 1 Apr 2025"]
+                - ["EWS", "10%", "none", "EWS certificate valid for FY 2025-26, issued from 1 Apr 2025"]
+                - ["Dependent of freedom fighter (horizontal)", "2%", "none", "DFF certificate (proforma 3), GO of 21 Apr 2015"]
+                - ["Ex-serviceman (horizontal)", "5%", "3-year rule", "Unit discharge certificate"]
+                - ["Home guard (horizontal)", "5%", "none", "3 years' continuous service certificate"]
+                - ["Women (horizontal)", "20%", "—", "—"]
+            source: con-adv
+          - list:
+              - "<strong>Women:</strong> for women's reserved posts in the police, all women candidates are considered, whichever state or union territory they come from (GO 39 Rit/Ka-2/2019 of 26 June 2019), subject to the pending Special Appeal (D) 475/2019."
+              - "<strong>EWS:</strong> family income from all sources under ₹8 lakh in the year before applying (UP EWS Reservation Act, 2020)."
+              - "Every certificate must be issued by the last date of application."
+            source: con-adv
+          - table:
+              caption: "Constable 2025 final cut-off — civil police (normalised score, 14 Oct 2026)"
+              head: ["Category", "Posts", "Vertical cut-off", "Women", "Freedom-fighter dependents", "Ex-servicemen"]
+              rows:
+                - ["Unreserved", "4,191", "266.57849", "262.30755", "168.78657", "164.31712"]
+                - ["EWS", "1,046", "261.59726", "257.12296", "88.86897", "87.77463"]
+                - ["OBC", "2,826", "263.7037", "258.03661", "135.4606", "143.26718"]
+                - ["SC", "2,198", "252.81045", "247.35926", "74.38623", "65.84435"]
+                - ["ST", "208", "238.28209", "225.8777", "157.00839", "103.59287"]
+            source: con-final
+          - note: "For PAC / armed police (men only, 15,131 posts) the vertical cut-offs were: unreserved 258.58176, EWS 253.86618, OBC 255.90114, SC 244.74572, ST 226.18425."
+            source: con-final
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "What is checked at document verification"
+        parts:
+          - list:
+              - "Class 12 mark sheet and certificate (graduation degree for SI), already held when applying."
+              - "High School certificate for date of birth and name."
+              - "Caste, OBC, EWS, freedom-fighter-dependent, ex-serviceman or home-guard certificate, issued by the last date of application on the proforma in the advertisement."
+              - "UP domicile (original residence) certificate for any reservation or age relaxation."
+              - "State Government employee certificate on proforma 5, where age relaxation is claimed."
+              - "Preference certificates: 'O' level, Territorial Army or NCC 'B'."
+            source: con-adv
+          - note: "Uploads made with the online form are matched against originals; any forged or wrong document cancels the candidature, and criminal action can follow."
+            source: con-dv
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Pay of constables and sub-inspectors"
+        parts:
+          - table:
+              head: ["Post", "Pay printed in the advertisement"]
+              rows:
+                - ["Constable (all 2025 posts, including Jail Warder)", "Pay matrix Level-3: ₹21,700 – ₹69,100 (old pay band ₹5,200 – ₹20,200, grade pay ₹2,000)"]
+            source: con-adv
+          - table:
+              head: ["Post", "Pay printed in the advertisement"]
+              rows:
+                - ["Sub-Inspector (civil police) and equivalent posts", "Pay band ₹9,300 – ₹34,800, grade pay ₹4,200"]
+            source: si-adv
+          - note: "In-hand pay is the basic pay plus dearness and other allowances minus deductions; the advertisements give only the pay scale, so no in-hand figure is shown."
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Where they serve"
+        parts:
+          - p: "Constables serve in district civil police, the Provincial Armed Constabulary (PAC), the UP Special Security Force, the women battalions at Lucknow, Badaun and Gorakhpur, mounted police and the prisons department (Jail Warder). Selection to each is by written merit and the order of preference given in the form."
+            source: con-adv
+          - links:
+              - { label: "Police &amp; defence coaching in Uttar Pradesh", url: "coaching/uttar-pradesh/defence.html" }
+    sources:
+      - { id: con-adv, name: "UPPRPB — Notice PRPB-B (Constable PAC and other cadres)-07/2025, Constable and equivalent posts Direct Recruitment-2025 (31 Dec 2025, Hindi)", url: "https://uppbpb.gov.in/FilesUploaded/Notice/CONSTABLE-VIGYAPTIc7be0cc8-3365-471e-9237-447c528d341a.pdf", covers: "posts, dates, fee, qualification, age table, written exam scheme, minimum marks, reservation and certificates, pay", checked: 2026-10-14 }
+      - { id: con-dv, name: "UPPRPB — Constable 2025 document verification and physical standard test dates and instructions (Hindi)", url: "https://uppbpb.gov.in/FilesUploaded/Notice/DVPST%20DATE%20AND%20INSTRUCTION8728d36f-f7fc-479f-98b7-8d59b3466acf.pdf", covers: "height, chest and weight standards, document check rules", checked: 2026-10-14 }
+      - { id: con-pet, name: "UPPRPB — Constable 2025 physical efficiency test procedure, notice 07/2025 (23 Sep 2026, Hindi)", url: "https://uppbpb.gov.in/FilesUploaded/Notice/IMG_00012c883b76-d826-4ad7-8263-f1fb7cecdcff.pdf", covers: "run distance and time for men and women", checked: 2026-10-14 }
+      - { id: con-final, name: "UPPRPB — Constable 2025 final selection result notice (14 Oct 2026, Hindi)", url: "https://uppbpb.gov.in/FilesUploaded/Notice/const%2014%20Oct%202026c0201978-124f-4557-9c66-e162a881cb82.pdf", covers: "applications, exam and PET dates, candidates called, merit method, final cut-offs", checked: 2026-10-14 }
+      - { id: si-adv, name: "UPPRPB — Notice PRPB-B (SI cadre)-03/2025, Sub-Inspector and equivalent posts Direct Recruitment-2025 (12 Aug 2025, Hindi)", url: "https://uppbpb.gov.in/FilesUploaded/Notice/SI_vigyapti_202567e84cf2-8d04-4072-bdbc-56f3c8e1ccbe.pdf", covers: "SI qualification, age and one-time relaxation, fee, written exam, physical standards, run times, pay band", checked: 2026-10-14 }
+      - { id: si-final, name: "UPPRPB — SI Direct Recruitment-2025 final selection result notice (14 Jul 2026, Hindi)", url: "https://uppbpb.gov.in/FilesUploaded/Notice/14-07-2026%20UPSI2025%20VIGYPTI944a5675-a3d4-4ac6-a52f-f476f72e81c1.pdf", covers: "SI posts, applications, exam, DV/PST and run dates, final result date", checked: 2026-10-14 }
+
+  # ------------------------------------------------------------------ JEECUP
+  - slug: jeecup
+    group: academic
+    short: "JEECUP (UP Polytechnic Entrance)"
+    body: "Joint Entrance Examination Council (Polytechnic), UP"
+    card: "UP Joint Entrance Examination (Polytechnic) for diplomas in engineering, pharmacy, design, management and lateral entry to the second year, in government, aided and private polytechnics."
+    card_facts: ["Engineering diploma: Class 10, 35%", "100 questions, 2.5 hours", "₹300 · SC/ST ₹200"]
+    eyebrow: "JEECUP · Polytechnic admissions"
+    title: "JEECUP 2026 — UP Polytechnic Entrance (UPJEE Polytechnic)"
+    lede: "Admission to diploma courses in Uttar Pradesh's polytechnics runs through the UP Joint Entrance Examination (Polytechnic), conducted by the Joint Entrance Examination Council since 1986-87. This page follows the 2026 information brochure."
+    facts:
+      - { label: "Engineering diploma (Group A)", value: "Class 10 with 35%", source: jee-ib }
+      - { label: "Minimum age", value: "14 on 1 July 2026", source: jee-ib }
+      - { label: "Exam 2026", value: "15–22 May 2026 · online CBT", source: jee-ib }
+      - { label: "Fee", value: "₹300 · SC/ST ₹200 per application", source: jee-ib }
+    official:
+      - { label: "JEECUP website", url: "https://jeecup.admissions.nic.in/" }
+      - { label: "Information Brochure 2026 (PDF, Hindi)", url: "https://cdnbbsr.s3waas.gov.in/s325db67c5657914454081c6a18e93d6dd/uploads/2026/01/20260320986118241.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "The 2026 cycle"
+        parts:
+          - table:
+              caption: "JEECUP 2026 timetable (brochure; dates may change)"
+              head: ["Step", "Date"]
+              rows:
+                - ["Online applications", "15 Jan – 30 Apr 2026"]
+                - ["Corrections to the form", "26 – 30 Apr 2026"]
+                - ["Admit cards on the website", "8 May 2026"]
+                - ["Entrance exams (all groups, online)", "15 – 22 May 2026"]
+                - ["Result", "30 May 2026"]
+                - ["Online counselling opens", "1 Jun 2026"]
+                - ["Last date for admission through counselling", "31 Jul 2026"]
+            source: jee-ib
+          - p: "A candidate may apply for Group A, Group E and one of the other groups (B, C, D, F, G, H, I, K1–K8, L) — at most three applications. Students appearing in their qualifying exam in 2026 may apply but must show the pass certificate at counselling."
+            source: jee-ib
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "Course groups and who can apply"
+        parts:
+          - table:
+              caption: "Main course groups (Table-1 of the brochure)"
+              head: ["Group", "Course", "Length", "Minimum qualification", "Entrance subjects"]
+              rows:
+                - ["A", "Diploma in engineering / technology", "3 years", "Class 10 with at least 35%", "Mathematics 50% · Physics and Chemistry 50%"]
+                - ["B", "Agricultural engineering", "3 years", "Class 10 with at least 35%", "Mathematics 50% · Physics and Chemistry 50%"]
+                - ["C", "Fashion design, home science, textile design and similar", "2–3 years", "Class 10 with at least 35%", "English and Hindi comprehension 20% · Reasoning 50% · General awareness 30%"]
+                - ["D", "Modern office management, library and information science", "2 years", "Intermediate (10+2)", "Comprehension 30% · Reasoning 35% · Numerical ability 10% · General awareness 25%"]
+                - ["E", "Diploma in Pharmacy", "2 years", "Intermediate with Physics and Chemistry plus Mathematics or Biology", "Physics and Chemistry 50% · Biology or Mathematics 50%"]
+                - ["G", "Post-graduate diplomas (computer application, marketing and others)", "1–2 years", "Graduate", "Comprehension 20% · Numerical 15% · Reasoning 30% · Intelligence 20% · General awareness 15%"]
+            source: jee-ib
+          - list:
+              - "<strong>Group K (lateral entry):</strong> students with High School plus a matching ITI trade, or Intermediate with vocational / technical subjects or science, can join the second year of a three-year engineering diploma. Up to 10% of each course's intake is available for lateral entry, and these students must also clear the first-year subjects set for them."
+              - "<strong>Age:</strong> at least 14 years on 1 July 2026 (born on or before 1 July 2012); Group I courses need at least 16 years. There is no upper age limit in the brochure."
+              - "<strong>Health:</strong> a fitness certificate from a doctor is required before admission; Group I (aeronautical) needs freedom from colour blindness."
+            source: jee-ib
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme"
+        heading: "How the online test works"
+        parts:
+          - list:
+              - "Online computer-based test for every group, with questions shown in Hindi and English."
+              - "Each paper: 100 multiple-choice questions, four options each, 4 marks for every correct answer, 2 hours 30 minutes."
+              - "If a question is found wrong or has two correct options, every candidate who attempted it gets the full 4 marks."
+              - "Candidates choose four exam districts in order of preference; the council may allot any district. A mock test opens on the portal two days before the exam."
+              - "Reach the centre two hours early for biometric registration; only a black or blue ball pen is allowed — calculators and phones are banned."
+            source: jee-ib
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "Application fee"
+        parts:
+          - table:
+              head: ["Candidate", "Fee per application"]
+              rows:
+                - ["General / OBC", "₹300"]
+                - ["SC / ST", "₹200"]
+            source: jee-ib
+          - note: "Paid online by net banking, debit or credit card or UPI; bank charges are extra and the fee is not refunded in any case."
+            source: jee-ib
+          - note: "The tuition fee of private polytechnics is fixed by the state's admission and fee committee; for 2025-26 the government kept the 2024-25 standard fee (office memorandum of 26 August 2025), but the amounts are not printed in that order, so none is shown."
+            source: jee-fee
+      - id: reservation
+        nav: "Reservation &amp; Certificates"
+        eyebrow: "Reservation &amp; certificates"
+        heading: "Seats reserved by category"
+        parts:
+          - table:
+              caption: "Reservation in diploma admissions through JEECUP"
+              head: ["Group", "Share of seats in each course"]
+              rows:
+                - ["Scheduled Caste", "21%"]
+                - ["Scheduled Tribe", "2%"]
+                - ["Other Backward Class", "27%"]
+                - ["EWS", "10%"]
+                - ["Dependents of freedom fighters (horizontal)", "up to 2%"]
+                - ["Sons and daughters of UP defence personnel (horizontal)", "up to 5%"]
+                - ["Persons with disabilities (horizontal)", "up to 5%"]
+                - ["Women (horizontal)", "up to 20%"]
+            source: jee-ib
+          - list:
+              - "Only one horizontal reservation can be used."
+              - "A reservation certificate in the council's format must be shown at counselling; if it is missing or the claim is false, the seat is cancelled and the candidate is not moved to another category."
+              - "Vimukt jatis get no reservation and cannot claim it as Scheduled Tribe."
+            source: jee-ib
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "What to keep ready"
+        parts:
+          - list:
+              - "Aadhaar number (used to download the admit card) and a working mobile number and email for OTPs and SMS."
+              - "Aadhaar card or another photo ID at the exam centre with the admit card."
+              - "Qualifying-exam mark sheet and certificate (High School, Intermediate, ITI or degree as the group needs)."
+              - "Caste, EWS or horizontal-reservation certificate in the council's format."
+              - "Medical fitness certificate (with eyesight colour-vision report for Group I)."
+            source: jee-ib
+      - id: pay
+        nav: "Where It Leads"
+        eyebrow: "After the diploma"
+        heading: "What a polytechnic diploma leads to"
+        parts:
+          - p: "An engineering diploma with at least 45% (40% for SC/ST) lets a student join the second year of B.Tech in AKTU-affiliated colleges through UPTAC lateral-entry counselling; a pharmacy diploma does the same for B.Pharm."
+            source: tac-ib-j
+          - links:
+              - { label: "Polytechnic colleges in Uttar Pradesh (verified list)", url: "colleges/uttar-pradesh/diploma.html" }
+              - { label: "D.Pharm colleges in Uttar Pradesh (verified list)", url: "colleges/uttar-pradesh/dpharm.html" }
+      - id: posting
+        nav: "Help"
+        eyebrow: "Support"
+        heading: "Help and contacts"
+        parts:
+          - list:
+              - "Address: Secretary, Joint Entrance Examination Council, UP, 1 Guru Gobind Singh Marg, Bansmandi Chauraha, Charbagh, Lucknow 226001."
+              - "Phone (working days, 10 am – 5 pm): 0522-2630106, 2630667, 2630695, 2636589; email jeecuphelp@gmail.com."
+              - "Install the government 'Sandes' app to get exam and counselling messages; grievances can be filed from the candidate login."
+            source: jee-ib
+    sources:
+      - { id: jee-ib, name: "JEECUP — Information Brochure, UP Joint Entrance Examination (Polytechnic) 2026 (Hindi)", url: "https://cdnbbsr.s3waas.gov.in/s325db67c5657914454081c6a18e93d6dd/uploads/2026/01/20260320986118241.pdf", covers: "timetable, course groups, eligibility, age, exam pattern, fee, reservation, documents, contacts", checked: 2026-10-14 }
+      - { id: jee-fee, name: "UP Technical Education Section-1 — Office Memorandum on private-institution fees for 2025-26 (26 Aug 2025), linked from the JEECUP site", url: "https://cdnbbsr.s3waas.gov.in/s325db67c5657914454081c6a18e93d6dd/uploads/2026/01/20260121602103765.pdf", covers: "tuition fee rule for private diploma institutions", checked: 2026-10-14 }
+      - { id: tac-ib-j, name: "AKTU — UPTAC Information Brochure 2026-27", url: "https://samarth-notification.s3.ap-south-1.amazonaws.com/uptacadmin.samarth.ac.in/admission/2026/july/admissionhed126/bc7d57e0090dd6f13e771125a9ad72a1ecdc68edf2e4430417ac2bb64bd909331/17901474761_admission_docs.pdf", covers: "lateral entry to B.Tech / B.Pharm for diploma holders", checked: 2026-10-14 }
+
+  # ------------------------------------------------------------------ AKTU / UPTAC
+  - slug: aktu-uptac
+    group: academic
+    short: "AKTU Admissions (UPTAC) — UPCET route"
+    body: "Dr. A.P.J. Abdul Kalam Technical University (AKTU)"
+    card: "UP Technical Admission Counselling fills B.Tech, B.Arch, B.Pharm, BBA, BCA, MBA, MCA and lateral-entry seats in AKTU-affiliated colleges on national entrance scores — there is no separate UP entrance in the 2026 brochure."
+    card_facts: ["B.Tech: JEE Main", "BBA/BCA/B.Pharm: CUET-UG", "Registration ₹1,000"]
+    eyebrow: "AKTU · UPTAC counselling"
+    title: "AKTU Admissions 2026-27 through UPTAC (B.Tech, B.Pharm, BBA, BCA, MBA, MCA)"
+    lede: "Admission to the 750-plus colleges affiliated to Dr. A.P.J. Abdul Kalam Technical University, Lucknow, runs through UP Technical Admission Counselling (UPTAC). The 2026-27 brochure lists JEE Main, CUET-UG, CUET-PG, NATA and UCEED as the merit exams; no separate state entrance (the old UPSEE / UPCET) appears in it."
+    facts:
+      - { label: "B.Tech merit", value: "JEE (Main) 2026", source: tac-ib }
+      - { label: "B.Tech eligibility", value: "10+2 with 45% (SC/ST 40%)", source: tac-ib }
+      - { label: "Age limit", value: "None", source: tac-ib }
+      - { label: "Counselling fee", value: "₹1,000 registration", source: tac-ib }
+    official:
+      - { label: "UPTAC portal", url: "https://uptac.samarth.edu.in/" }
+      - { label: "UPTAC Information Brochure 2026-27 (PDF)", url: "https://samarth-notification.s3.ap-south-1.amazonaws.com/uptacadmin.samarth.ac.in/admission/2026/july/admissionhed126/bc7d57e0090dd6f13e771125a9ad72a1ecdc68edf2e4430417ac2bb64bd909331/17901474761_admission_docs.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "Which exam counts for which course"
+        parts:
+          - table:
+              caption: "Merit exams for first-year admission (Table-I, UPTAC 2026-27)"
+              head: ["Course", "Main counselling", "Special counselling (vacant seats)"]
+              rows:
+                - ["B.Tech (all branches)", "JEE (Main) 2026", "JEE (Main) 2026, then CUET-UG 2026, then Intermediate marks"]
+                - ["B.Arch, M.Tech (Integrated)", "NATA 2025 / 2026, then JEE (Main) 2026", "same"]
+                - ["B.Pharm, Pharm.D, BHMCT, MBA (Integrated), MCA (Integrated)", "CUET-UG 2026", "CUET-UG 2026, then Intermediate marks"]
+                - ["BFAD, BFA, B.Des", "UCEED 2026, JEE (Main) 2026, CUET-UG 2026", "then Intermediate marks"]
+                - ["BBA / BMS, BCA, B.Voc", "CUET-UG 2026", "—"]
+                - ["MBA, MCA", "CUET-PG 2026", "CUET-PG 2026, then graduation marks"]
+                - ["B.Tech lateral (2nd year)", "CUET-UG 2026", "Diploma in engineering, B.Sc, D.Voc"]
+                - ["B.Pharm lateral (2nd year)", "CUET-UG 2026", "Diploma in pharmacy"]
+            source: tac-ib
+          - p: "Government, aided and government self-financed institutes fill 100% of first-year seats through UPTAC; private colleges fill 85% through counselling and 15% through management / NRI quota at the institute. Lateral-entry seats are capped at 10% of the previous year's first-year intake."
+            source: tac-ib
+      - id: eligibility
+        nav: "Eligibility &amp; Domicile"
+        eyebrow: "Eligibility &amp; domicile"
+        heading: "Who can register"
+        parts:
+          - table:
+              caption: "Minimum qualification (Table-II, UPTAC 2026-27)"
+              head: ["Course", "Qualification"]
+              rows:
+                - ["B.Tech, M.Tech (Integrated)", "10+2 with Physics and Mathematics plus one of Chemistry / Biology / a technical vocational subject / Computer Science / IT / Informatics, at least 45% in the required subjects taken together (40% for SC/ST), or D.Voc in the same or allied sector"]
+                - ["BBA / BMS, BCA", "10+2 passed"]
+                - ["B.Tech lateral", "3-year or 2-year (lateral) engineering diploma with 45% (40% SC/ST), or a B.Sc with 45% and Mathematics at 10+2 (B.Sc students only after diploma students)"]
+                - ["MBA", "3-year bachelor's degree with 50% (45% SC/ST)"]
+                - ["MCA", "BCA / B.Sc (CS or IT) / B.Tech (CSE or IT), or any degree with Mathematics at 10+2 or degree level, with 50% (45% SC/ST)"]
+            source: tac-ib
+          - note: "B.Pharm, B.Arch, BHMCT, BFAD, BFA and the integrated MBA / MCA have their own rows in Table-II of the brochure (most ask for 10+2 with 45%, 40% for SC/ST); check the exact subjects there."
+            source: tac-ib
+          - list:
+              - "<strong>No age limit</strong> for any course in the counselling."
+              - "<strong>Domicile:</strong> regular rounds are open to those who passed the qualifying exam from an institution in UP, or whose father or mother is domiciled in UP (with the parent's domicile certificate). Candidates with neither link are considered only in the special round."
+              - "Children of defence personnel posted in or settled in UP and of All India Services officers of the UP cadre are exempt from the domicile rule."
+              - "The qualifying-exam result must be declared by the registration deadline, with no compartment pending in the eligibility subjects."
+            source: tac-ib
+      - id: scheme
+        nav: "Counselling Steps"
+        eyebrow: "How counselling works"
+        heading: "From registration to reporting"
+        parts:
+          - list:
+              - "Register once on uptac.samarth.edu.in, pay the fee and upload documents — registration is allowed only in this window for the regular rounds."
+              - "Online document verification and replies to any query."
+              - "Fill and lock choices of institute and branch; seats are allotted on merit, preference and category seats."
+              - "Pay the seat confirmation fee (₹20,000 or ₹12,000 as listed in the schedule) and choose Freeze or Float; later rounds allow withdrawal."
+              - "Physically report at the allotted institute; a frozen seat not reported is cancelled without refund. Internal sliding and a special round follow for vacant seats."
+            source: tac-sched
+          - note: "Seats are allotted strictly by merit and preference, subject to category seats; once allotted, the institute or branch cannot be changed."
+            source: tac-ib
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "Counselling fees and fee waiver"
+        parts:
+          - list:
+              - "Counselling registration fee: ₹1,000."
+              - "Fee paid after a seat is allotted is forfeited if the candidate does not report, except on withdrawal within the schedule."
+              - "Tuition fee waiver seats for economically weaker meritorious students: up to 5% over and above the approved intake in B.Tech, BHMCT, BFAD, BFA, B.Des, B.Pharm, MCA and MBA (not B.Arch), with no tuition fee; an income certificate is needed. This is separate from the EWS category, which gets no fee concession."
+            source: tac-ib
+          - p: "Seat confirmation fee in the 2026 schedule: ₹20,000 / ₹12,000."
+            source: tac-sched
+      - id: reservation
+        nav: "Reservation &amp; Certificates"
+        eyebrow: "Reservation &amp; certificates"
+        heading: "Category seats, rural weightage and certificate dates"
+        parts:
+          - table:
+              head: ["Group", "Share"]
+              rows:
+                - ["Scheduled Caste of UP", "21%"]
+                - ["Scheduled Tribe of UP", "2%"]
+                - ["Other Backward Classes of UP", "27%"]
+                - ["EWS of UP", "10%"]
+                - ["Dependents of freedom fighters of UP (horizontal)", "up to 2%"]
+                - ["Children of UP defence personnel (horizontal)", "up to 5%"]
+                - ["Divyangjan of UP (horizontal)", "up to 5%"]
+                - ["Women of UP (horizontal)", "up to 20%"]
+            source: tac-ib
+          - list:
+              - "<strong>OBC certificate</strong> must be issued on or after 1 April 2026 and state non-creamy-layer status; the <strong>EWS certificate</strong> must be valid for academic year 2026-27. Certificates from the UP e-District portal are accepted."
+              - "Only one of the freedom-fighter, defence and divyangjan sub-categories can be claimed; women can combine one of them with the women's quota."
+              - "<strong>Rural weightage:</strong> unreserved (UPGE) candidates who passed the qualifying exam from a rural institution in UP get 3% of their entrance marks added, with certificate no. 7. It is not available with any reservation, for lateral entry, or to UPGD candidates."
+              - "A category or sub-category cannot be changed after the form is submitted; without the certificate the candidate is treated as general."
+            source: tac-ib
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Upload and carry"
+        parts:
+          - list:
+              - "Recent colour photograph and signature (blurred photos are rejected)."
+              - "Qualifying-exam mark sheet; a percentage-conversion certificate if the board gives only grades."
+              - "Entrance score card (JEE Main, CUET, NATA or UCEED as the course needs)."
+              - "Category certificates on the Appendix-A proformas or from the UP e-District portal; parent's domicile certificate for UPGD candidates."
+              - "Medical fitness certificate (certificate no. 9)."
+              - "Income certificate (no. 12) for a tuition-fee-waiver seat; rural institution certificate (no. 7) for rural weightage."
+            source: tac-ib
+      - id: pay
+        nav: "Where It Leads"
+        eyebrow: "After admission"
+        heading: "Where a UPTAC seat leads"
+        parts:
+          - p: "UPTAC fills seats in all technical institutions affiliated to AKTU, and in some courses of other state universities, across Uttar Pradesh."
+            source: tac-ib
+          - links:
+              - { label: "B.Tech colleges in Uttar Pradesh (verified list)", url: "colleges/uttar-pradesh/btech.html" }
+              - { label: "B.Pharm colleges in Uttar Pradesh (verified list)", url: "colleges/uttar-pradesh/bpharm.html" }
+              - { label: "BCA colleges in Uttar Pradesh (verified list)", url: "colleges/uttar-pradesh/bca.html" }
+      - id: posting
+        nav: "Help"
+        eyebrow: "Support"
+        heading: "Help and contacts"
+        parts:
+          - list:
+              - "UPTAC help desk: toll-free 1800-1800-161; 0522-2336800, 0522-2336811; uptac.helpdesk@aktu.ac.in."
+              - "Registrar, AKTU, Sector-11, Jankipuram Extension, Lucknow 226031; registrar@aktu.ac.in."
+              - "All counselling updates appear only on uptac.samarth.edu.in and aktu.ac.in; legal disputes fall under Lucknow courts."
+            source: tac-ib
+    sources:
+      - { id: tac-ib, name: "AKTU — UPTAC Information Brochure 2026-27", url: "https://samarth-notification.s3.ap-south-1.amazonaws.com/uptacadmin.samarth.ac.in/admission/2026/july/admissionhed126/bc7d57e0090dd6f13e771125a9ad72a1ecdc68edf2e4430417ac2bb64bd909331/17901474761_admission_docs.pdf", covers: "merit exams, seat shares, eligibility, domicile, age, fees, fee waiver, reservation, rural weightage, documents, contacts", checked: 2026-10-14 }
+      - { id: tac-sched, name: "AKTU — UPTAC 2026 tentative schedule (rounds, seat confirmation fee)", url: "https://samarth-notification.s3.ap-south-1.amazonaws.com/uptacadmin.samarth.ac.in/admission/2026/july/admissionhed126/32ec419df6b81e9b5c8cd5219a08c00cabcba35bbf4e1d4fc02af76caed625d29/17905818019_admission_docs.pdf", covers: "counselling steps, seat confirmation fee, freeze / float, reporting, internal sliding", checked: 2026-10-14 }
+
+  # ------------------------------------------------------------------ UPMSP BOARD
+  - slug: upmsp
+    group: academic
+    short: "UPMSP Board (High School &amp; Intermediate)"
+    body: "Madhyamik Shiksha Parishad, Uttar Pradesh"
+    card: "The UP Board's High School (Class 10) and Intermediate (Class 12) exams — the qualification behind JEECUP, UPTAC and police recruitment. The 2027 exams run 5–24 February 2027."
+    card_facts: ["Exams 5–24 Feb 2027", "Two shifts a day", "Forms via school or centre"]
+    eyebrow: "UPMSP · State board"
+    title: "UP Board (UPMSP) High School &amp; Intermediate 2027 — Exam Dates and Form Windows"
+    lede: "Madhyamik Shiksha Parishad, Uttar Pradesh, Prayagraj, runs the High School and Intermediate exams. Its notices for the 2027 exams set the timetable and the deadlines by which schools and forwarding centres must upload students' forms."
+    facts:
+      - { label: "Board exams 2027", value: "5 – 24 Feb 2027", source: msp-tt }
+      - { label: "Shifts", value: "8:30–11:45 am · 2:00–5:15 pm", source: msp-tt }
+      - { label: "Regular forms upload", value: "by 30 Sep 2026", source: msp-reg }
+      - { label: "Private late fee", value: "₹100 per student", source: msp-pvt }
+    official:
+      - { label: "UPMSP website", url: "https://upmsp.edu.in/" }
+      - { label: "2027 exam timetable (PDF, Hindi)", url: "https://upmsp.edu.in/Downloads/TimeTable_2027_Vigyapti.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "The 2027 board exams"
+        parts:
+          - p: "The board's notice of 12 October 2026 announced that the High School and Intermediate exams of 2027 will be held together from 5 February 2027 to 24 February 2027, with a subject-wise timetable attached."
+            source: msp-tt
+          - table:
+              caption: "First days of the 2027 timetable"
+              head: ["Date", "Morning (8:30 – 11:45 am)", "Afternoon (2:00 – 5:15 pm)"]
+              rows:
+                - ["Fri 5 Feb 2027", "High School: Hindi, Elementary Hindi", "Intermediate: Hindi, General Hindi"]
+                - ["Mon 8 Feb 2027", "High School: Social Science; Intermediate: vocational trade paper 1", "Intermediate: English"]
+                - ["Tue 9 Feb 2027", "High School: NCC; Intermediate: Agronomy (Agriculture parts 1 and 2)", "High School: Human Science; Intermediate: Civics"]
+                - ["Wed 10 Feb 2027", "High School: English; Intermediate: vocational trade paper 2", "—"]
+            source: msp-tt
+      - id: eligibility
+        nav: "Who Can Sit"
+        eyebrow: "Who can sit the exam"
+        heading: "Regular and private candidates"
+        parts:
+          - list:
+              - "<strong>Regular (institutional) students</strong> sit through their school: the principal collects the exam fee, deposits it by treasury challan and uploads every student's details on upmsp.edu.in."
+            source: msp-reg
+          - list:
+              - "<strong>Private students</strong> apply through a forwarding centre (agrasaran kendra), whose principal collects the form and fee and uploads the details."
+            source: msp-pvt
+          - list:
+              - "Class 9 and Class 11 students are pre-registered online in their first year (session 2026-27 registrations are for the 2028 exams); registered students' details are carried into the board form and only partly corrected later."
+            source: msp-home
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme"
+        heading: "Timetable rules"
+        parts:
+          - list:
+              - "High School and Intermediate papers run in the same 19-day window, in two shifts: 8:30 to 11:45 am and 2:00 to 5:15 pm."
+              - "The full date-wise and subject-wise timetable, including every vocational subject, is in the board's notice."
+            source: msp-tt
+          - links:
+              - { label: "Full 2027 timetable (UPMSP)", url: "https://upmsp.edu.in/Downloads/TimeTable_2027_Vigyapti.pdf" }
+      - id: fees
+        nav: "Form Deadlines &amp; Fees"
+        eyebrow: "Form deadlines &amp; fees"
+        heading: "Deadlines for the 2027 exam forms"
+        parts:
+          - table:
+              caption: "Regular (and private) Class 10 and 12 — extended dates (notice of 9 Sep 2026)"
+              head: ["Step", "Last date"]
+              rows:
+                - ["School deposits all students' exam fee by one treasury challan", "28 Sep 2026"]
+                - ["Upload of fee details and students' data on upmsp.edu.in", "30 Sep 2026 (midnight)"]
+                - ["Check the downloaded checklist and correct entries (no new students)", "1 – 6 Oct 2026"]
+                - ["Send photo nominal roll and treasury receipt to the regional office via the DIOS", "15 Oct 2026"]
+            source: msp-reg
+          - table:
+              caption: "Private candidates — forwarding centre deadlines (2027 exams)"
+              head: ["Step", "Last date"]
+              rows:
+                - ["Centre receives forms and exam fee", "5 Aug 2026"]
+                - ["Fee deposited by treasury challan", "10 Aug 2026"]
+                - ["Late deposit with ₹100 late fee per student", "16 Aug 2026"]
+                - ["Upload with late fee", "20 Aug 2026"]
+                - ["Checklist check", "21 – 31 Aug 2026"]
+                - ["Corrections (no new students)", "1 – 10 Sep 2026"]
+                - ["Photo nominal roll to the regional office", "30 Sep 2026"]
+            source: msp-pvt
+          - note: "The amount of the board exam fee itself is not printed in these notices, so it is not shown here; schools and forwarding centres collect it."
+            source: msp-pvt
+      - id: reservation
+        nav: "Later Use"
+        eyebrow: "Where the certificates are used"
+        heading: "Why the board marks matter later"
+        parts:
+          - list:
+              - "The UP Police constable recruitment asks for Intermediate (Class 12) and accepts only the High School certificate as proof of date of birth."
+            source: msp-con
+          - list:
+              - "JEECUP's engineering diploma (Group A) needs High School with at least 35%; its pharmacy diploma needs Intermediate with Physics and Chemistry."
+            source: msp-jee
+          - list:
+              - "UPTAC (AKTU) admission to B.Tech needs 10+2 with 45% (40% for SC/ST) in the required subjects taken together."
+            source: msp-tac
+      - id: documents
+        nav: "Form Details"
+        eyebrow: "Form checklist"
+        heading: "What schools must get right"
+        parts:
+          - list:
+              - "Name, mother's and father's name, date of birth, gender, subjects and photo are checked from the downloaded checklist; corrections are possible only in the notified window and no new student can be added then."
+            source: msp-pvt
+          - list:
+              - "The photo nominal roll and the treasury receipt go to the board's regional office through the District Inspector of Schools."
+              - "After the extended dates no further chance is given to submit exam forms."
+            source: msp-reg
+      - id: pay
+        nav: "Results"
+        eyebrow: "Results &amp; services"
+        heading: "Results and corrections"
+        parts:
+          - p: "Results are published on the board's results portal, and the board's 'Samadhan' and public-service-guarantee portals handle mark-sheet corrections, certificates and grievances."
+            source: msp-home
+          - links:
+              - { label: "UPMSP results portal", url: "https://results.upmsp.edu.in/" }
+      - id: posting
+        nav: "Help"
+        eyebrow: "Next steps"
+        heading: "After the board exams"
+        parts:
+          - links:
+              - { label: "JEECUP — polytechnic after Class 10", url: "state/uttar-pradesh/jeecup.html" }
+              - { label: "AKTU / UPTAC — degrees after Class 12", url: "state/uttar-pradesh/aktu-uptac.html" }
+              - { label: "UP Police Constable — after Class 12", url: "state/uttar-pradesh/police.html" }
+    sources:
+      - { id: msp-tt, name: "UPMSP — Notice 183-7 announcing the High School and Intermediate exam timetable 2027 (12 Oct 2026, Hindi)", url: "https://upmsp.edu.in/Downloads/TimeTable_2027_Vigyapti.pdf", covers: "exam window, shifts, date-wise subjects", checked: 2026-10-14 }
+      - { id: msp-reg, name: "UPMSP — Notice extending the 2027 Class 10 and 12 exam form dates (9 Sep 2026, Hindi)", url: "https://upmsp.edu.in/Downloads/Vigyapti_Class_10th_12th_Avedan_2026-27_10092026.pdf", covers: "regular form fee, upload, correction and nominal-roll dates", checked: 2026-10-14 }
+      - { id: msp-pvt, name: "UPMSP — Notice on private candidates' forms for the 2027 exams (Hindi)", url: "https://upmsp.edu.in/Downloads/Private_Vigyapti_2026_27.pdf", covers: "forwarding-centre deadlines, ₹100 late fee", checked: 2026-10-14 }
+      - { id: msp-home, name: "UPMSP — official website home page (registration portals, results and Samadhan services)", url: "https://upmsp.edu.in/", covers: "Class 9 / 11 pre-registration, results portal, Samadhan and service-guarantee portals", checked: 2026-10-14 }
+      - { id: msp-con, name: "UPPRPB — Constable Direct Recruitment-2025 advertisement (31 Dec 2025, Hindi)", url: "https://uppbpb.gov.in/FilesUploaded/Notice/CONSTABLE-VIGYAPTIc7be0cc8-3365-471e-9237-447c528d341a.pdf", covers: "Class 12 requirement for constables", checked: 2026-10-14 }
+      - { id: msp-jee, name: "JEECUP — Information Brochure 2026 (Hindi)", url: "https://cdnbbsr.s3waas.gov.in/s325db67c5657914454081c6a18e93d6dd/uploads/2026/01/20260320986118241.pdf", covers: "High School / Intermediate requirement for diplomas", checked: 2026-10-14 }
+      - { id: msp-tac, name: "AKTU — UPTAC Information Brochure 2026-27", url: "https://samarth-notification.s3.ap-south-1.amazonaws.com/uptacadmin.samarth.ac.in/admission/2026/july/admissionhed126/bc7d57e0090dd6f13e771125a9ad72a1ecdc68edf2e4430417ac2bb64bd909331/17901474761_admission_docs.pdf", covers: "10+2 percentage requirement", checked: 2026-10-14 }

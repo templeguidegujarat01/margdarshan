@@ -79,7 +79,7 @@ const COLLEGE_SHORT = {
   danimation: 'Animation Diploma', dbm: 'Business Management Diploma', dfood: 'Food Technology Diploma',
 };
 const COACHING_SHORT = {
-  neet: 'NEET-UG', jee: 'JEE Main & Advanced', cuet: 'CUET-UG', ca: 'CA', cs: 'CS', cma: 'CMA', clat: 'CLAT & AILET',
+  neet: 'NEET-UG', jee: 'JEE Main & Advanced', cuet: 'CUET-UG', ca: 'CA', cs: 'CS', cma: 'CMA', ipmat: 'IPMAT & JIPMAT', clat: 'CLAT & AILET',
   design: 'NIFT / NID Design Entrance', nata: 'NATA (B.Arch)', ssc: 'SSC', banking: 'Bank Exam', upsc: 'UPSC Civil Services',
   acca: 'ACCA', cfa: 'CFA', frm: 'FRM', cpa: 'US CPA', actuarial: 'Actuarial Science (ACET)', judiciary: 'Judiciary Exam',
   defence: 'Defence Exam (NDA / CDS / AFCAT)', hotel: 'Hotel Management (NCHM JEE)',

@@ -1,11 +1,13 @@
-# National exam consoles (India edition) -> jee-main.html, jee-advanced.html, neet-ug.html, upsc-ese.html, upsc-cms.html
+# National exam consoles (India edition) -> jee-main.html, jee-advanced.html, neet-ug.html, upsc-ese.html, upsc-cms.html,
+# clat.html, cuet-ug.html
 # Rendered by _includes/national-exam.html; validated by scripts/check-in-data.mjs.
 # Same part kinds as the state cockpit sheets (p, list, table, note, warn, links). Every p / list / table
 # and every hero fact must carry `source:` naming an id from that exam's sources[].
 # Six fixed blocks, in this order: overview, eligibility, scheme, reservation, fees, horizons.
 # Facts come only from the official files listed under each exam, read on `checked`. On that date only the
-# UPSC ESE 2027 notice was out, so ESE is the 2027 cycle and every other exam is the 2026 cycle.
-# stream: engineering | medical | govt (labels the "More national exams" list).
+# UPSC ESE 2027 notice and the CLAT 2027 pages were out, so ESE and CLAT are the 2027 cycle and every other
+# exam is the 2026 cycle.
+# stream: engineering | medical | govt | law | university (labels the "More national exams" list).
 checked: 2026-10-14
 
 exams:
@@ -913,3 +915,302 @@ exams:
       - { id: cms26, name: "UPSC — Combined Medical Services Examination 2026, Notice No. 9/2026-CMS (11 Mar 2026)", url: "https://www.upsc.gov.in/sites/default/files/Notification-CMSE-2026-English-110326.pdf", covers: "Vacancies, MBBS eligibility, age and relaxations, fee, application, plan of exam, marking, tie-break, pay and posting", checked: 2026-10-14 }
       - { id: cms-tt, name: "UPSC — CMS Examination 2026 Time Table", url: "https://www.upsc.gov.in/sites/default/files/TT-CMSE-2026-English-140526.pdf", covers: "2 August 2026 paper timings", checked: 2026-10-14 }
       - { id: cms-pt, name: "UPSC — CMS Examination 2026 Personality Test notice (25 Sep 2026)", url: "https://www.upsc.gov.in/sites/default/files/Intv-CMSE-2026-Engl-250926.pdf", covers: "Written result date, interview start date, number of candidates", checked: 2026-10-14 }
+
+  # ---------------------------------------------------------------- CLAT UG (2027 cycle)
+  - slug: clat
+    short: "CLAT UG"
+    stream: law
+    body: "Consortium of National Law Universities"
+    eyebrow: "Entrance Exam · Law · 2027 cycle"
+    title: "CLAT UG — eligibility, paper format, NLU reservation & fees"
+    lede: "The Common Law Admission Test for the five-year integrated LL.B. programmes at the National Law Universities. CLAT 2027 is on Sunday, 6 December 2026, and fills seats for the academic year 2027-28."
+    coaching_href: "coaching-clat.html"
+    colleges_href: "colleges-law.html"
+    facts:
+      - { label: "Conducted by", value: "Consortium of National Law Universities", source: clat-home }
+      - { label: "Exam date", value: "Sun 6 Dec 2026 · 2:00–4:00 PM", source: clat-pr }
+      - { label: "UG paper", value: "120 MCQs · 120 marks · 2 hours", source: clat-fmt }
+      - { label: "Marking", value: "+1 correct · −0.25 wrong", source: clat-fmt }
+    official:
+      - { label: "consortiumofnlus.ac.in", url: "https://consortiumofnlus.ac.in/clat-2027/" }
+      - { label: "UG instructions", url: "https://consortiumofnlus.ac.in/clat-2027/ug-instructions.html" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; governing authority"
+        heading: "Who runs CLAT, and what it decides"
+        parts:
+          - p: "CLAT is conducted by the <strong>Consortium of National Law Universities</strong>, set up on 19 August 2017 to raise standards of legal education. Twenty-six National Law Universities are members; the serving President is the Vice-Chancellor of MNLU Mumbai."
+            source: clat-home
+          - p: "CLAT 2027 covers admission to the <strong>five-year integrated LL.B.</strong> (UG) and LL.M. (PG) programmes at participating NLUs that start in the academic year <strong>2027-28</strong>. This page covers the UG test only."
+            source: clat-faq
+          - table:
+              caption: "CLAT 2027 calendar"
+              head: ["Event", "Date"]
+              rows:
+                - ["Applications open", "3 Aug 2026"]
+                - ["Last date to apply and pay", "31 Oct 2026"]
+                - ["CLAT 2027 exam", "Sun 6 Dec 2026, 2:00–4:00 PM"]
+            source: clat-pr
+          - note: "Counselling for admissions is expected in December 2026 / January 2027."
+            source: clat-faq
+          - note: "Hall tickets are downloaded from your CLAT login; the release date is announced on the website."
+            source: clat-ins
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Academic eligibility"
+        heading: "Class 12 with 45% — or 40% for SC, ST and PwD"
+        parts:
+          - list:
+              - "You must have passed <strong>10+2 or an equivalent examination</strong> with at least <strong>45%</strong> marks (or the equivalent grade)."
+              - "Candidates from the <strong>SC, ST and PwD</strong> categories need at least <strong>40%</strong>."
+              - "Students appearing for Class 12 in <strong>March/April 2027</strong> can apply, but must show proof of passing at the time of admission, or lose the right to be considered."
+              - "There is <strong>no upper age limit</strong> for the UG programme."
+            source: clat-elig
+          - list:
+              - "Indian nationals, NRIs, PIO card holders and OCI card holders can sit CLAT 2027."
+              - "Foreign nationals are not eligible for CLAT; they apply to the NLUs directly. NRI / NRI-sponsored seats are also filled by each NLU, not by the Consortium."
+            source: clat-ins
+      - id: scheme
+        nav: "Exam scheme"
+        eyebrow: "Exam scheme &amp; marking matrix"
+        heading: "One 2-hour offline paper of 120 one-mark questions"
+        parts:
+          - table:
+              caption: "CLAT 2027 UG question paper format"
+              head: ["Item", "Rule"]
+              rows:
+                - ["Maximum marks", "120"]
+                - ["Duration", "2 hours"]
+                - ["Questions", "120 multiple-choice questions, one mark each"]
+                - ["Negative marking", "0.25 mark for each wrong answer"]
+            source: clat-fmt
+          - table:
+              caption: "Subject weightage (approximate number of questions)"
+              head: ["Section", "Questions", "Share of paper"]
+              rows:
+                - ["English Language", "22–26", "about 20%"]
+                - ["Current Affairs, including General Knowledge", "28–32", "about 25%"]
+                - ["Legal Reasoning", "28–32", "about 25%"]
+                - ["Logical Reasoning", "22–26", "about 20%"]
+                - ["Quantitative Techniques", "10–14", "about 10%"]
+            source: clat-fmt
+          - list:
+              - "CLAT 2027 is held in <strong>offline</strong> mode; only the application is online."
+              - "Eligible PwD candidates write from 2:00 PM to <strong>4:40 PM</strong>."
+              - "<strong>Tie-break:</strong> higher marks in Legal Aptitude, then the older candidate, then a computerised draw of lots."
+            source: clat-ins
+      - id: reservation
+        nav: "Reservation"
+        eyebrow: "Reservation &amp; domicile quotas"
+        heading: "Every NLU applies its own seat matrix"
+        parts:
+          - p: "CLAT has no single national quota. Each NLU's intake, reservation policy and fee are set by that university and listed in its brochure on the Consortium website. To claim a reserved seat you must produce the certificate prescribed by the Government of India or the State Government at admission."
+            source: clat-ins
+          - list:
+              - "<strong>NLSIU Bengaluru — 310 BA LLB seats (AY 2027-28).</strong> Vertical: SC 15% (45), ST 7.5% (22), OBC-NCL 27% (81), EWS 10% (30), General 122. Horizontal: women 30% (90), PwD 5% (15), Karnataka Students 25% (75, compartmentalised), plus 10 extra Karnataka Students seats on merit."
+              - "<strong>Karnataka Students</strong> means at least 7 years of study in a recognised Karnataka institution, with set exceptions for children of defence, state-government, AIS (Karnataka cadre) and CAPF employees posted outside the state."
+            source: nlsiu
+          - list:
+              - "<strong>NALSAR Hyderabad — 132 BA LLB seats.</strong> 99 seats (75%) for all-India candidates and 33 (25%) for Resident Students of Telangana."
+              - "Category totals: Unreserved 66, SC 19, ST 8, OBC/BC (non-creamy layer) 26, EWS 13."
+              - "Horizontal: 30% for women (39 seats) and 5% for persons with benchmark disabilities (6 seats)."
+            source: nalsar
+          - list:
+              - "<strong>GNLU Gandhinagar — 176 all-India UG seats</strong> across BA, BBA, B.Com, B.Sc and BSW LL.B. (Hons.)."
+              - "Vertical: General 50.5% (81), SC 15% (24), ST 7.5% (12), OBC-NCL 27% (43), EWS 10% (16)."
+              - "Horizontal: women 30% (48), PwD 5% (8), and <strong>Gujarat domicile 25% (40)</strong> cutting across all categories except EWS."
+            source: gnlu
+          - note: "Changes notified on 5 September 2026: WBNUJS Kolkata dropped the OBC-A / OBC-B categories of West Bengal and added OBC of West Bengal (UG and PG). Applicants could update their category until 31 October 2026."
+            source: clat-wb
+          - note: "NLU Meghalaya added Khasi &amp; Jaintia, Garo, and Other Scheduled Castes / Scheduled Tribes of Meghalaya as domicile categories (UG and PG), also updatable until 31 October 2026."
+            source: clat-meg
+          - p: "Candidates with a disability under Section 2(s) of the RPwD Act, 2016 can ask for reasonable accommodation — compensatory time, a scribe or reader, screen-reading software, easier access to the centre — by marking it in the form and uploading a UDID card or disability certificate."
+            source: clat-pwd
+      - id: fees
+        nav: "Application &amp; fees"
+        eyebrow: "Registration steps &amp; fees"
+        heading: "Apply online by 31 October 2026 — ₹4,000 or ₹3,500"
+        parts:
+          - list:
+              - "<strong>Step 1 — Register</strong> on the CLAT 2027 website with your own mobile number and e-mail ID; validate the mobile with the OTP and log in."
+              - "<strong>Step 2 — Fill the form</strong> with your name and parents' names exactly as on your certificates. Upload a passport-size photo, your signature, and SC / ST / OBC, PwD or BPL certificates if you claim them (PDF only)."
+              - "<strong>Step 3 — Pay and submit</strong> by 31 October 2026, 11:59 PM. Incomplete forms are not considered."
+              - "Once submitted and paid, the programme, category and BPL fields cannot be changed. If you submit more than one form, only the last one counts and earlier fees are not refunded."
+            source: clat-ins
+          - table:
+              caption: "CLAT 2027 application fee"
+              head: ["Category", "Fee"]
+              rows:
+                - ["General / OBC", "₹4,000"]
+                - ["SC / ST / BPL / PwD", "₹3,500"]
+                - ["Previous years' question papers (optional)", "₹500 extra"]
+            source: clat-ins
+          - note: "Fees are paid online only, are non-refundable and non-adjustable, and bank transaction charges are paid by the candidate."
+            source: clat-ins
+      - id: horizons
+        nav: "Courses &amp; NLUs"
+        eyebrow: "Career horizons &amp; mapped institutions"
+        heading: "Five-year law degrees at the National Law Universities"
+        parts:
+          - p: "CLAT 2027 admits to the participating NLUs — 27 campuses on the Consortium's list, from NLSIU Bengaluru, NALSAR Hyderabad, WBNUJS Kolkata and NLU Jodhpur to the newer NLUs at Agartala, Prayagraj, Goa and Shillong, plus GNLU's Silvassa campus."
+            source: clat-pu
+          - list:
+              - "NLSIU Bengaluru pioneered the five-year B.A., LL.B. (Hons.) in India — its first batch was admitted in 1988. Intake for AY 2026-27 is 310 seats."
+              - "NLSIU's BA LLB (Hons) fee for AY 2027-28 is <strong>₹5,38,000</strong> for General and <strong>₹5,32,000</strong> for SC/ST candidates, including refundable deposits (subject to revision)."
+            source: nlsiu
+          - p: "Some NLUs offer more than the BA LLB. GNLU Gandhinagar's 176 all-India UG seats are split B.A. LL.B. 80, B.B.A. LL.B. 30, B.Com LL.B. 20, B.Sc. LL.B. 23 and B.S.W. LL.B. 23."
+            source: gnlu
+          - links:
+              - { label: "Law (LLB) career guide", url: "llb.html" }
+              - { label: "Law college finder", url: "colleges-law.html" }
+              - { label: "CLAT coaching finder", url: "coaching-clat.html" }
+              - { label: "CUET UG", url: "cuet-ug.html" }
+    sources:
+      - { id: clat-home, name: "Consortium of National Law Universities — home page", url: "https://consortiumofnlus.ac.in/", covers: "Founding date, 26 member NLUs, office-bearers", checked: 2026-10-14 }
+      - { id: clat-pr, name: "Consortium of NLUs — CLAT 2027 Press Release (22 Jul 2026)", url: "https://consortiumofnlus.ac.in/clat-2027/notifications/Press_Release_CLAT_2027.pdf", covers: "Exam date and time, application window", checked: 2026-10-14 }
+      - { id: clat-elig, name: "Consortium of NLUs — CLAT 2027 UG Eligibility", url: "https://consortiumofnlus.ac.in/clat-2027/ug-eligibility.html", covers: "45% / 40% Class 12 rule, appearing candidates, no age limit", checked: 2026-10-14 }
+      - { id: clat-ins, name: "Consortium of NLUs — CLAT 2027 UG Instructions", url: "https://consortiumofnlus.ac.in/clat-2027/ug-instructions.html", covers: "Offline mode, PwD timing, who can appear, tie-break, application steps, documents, fees, hall ticket, reservation certificates", checked: 2026-10-14 }
+      - { id: clat-fmt, name: "Consortium of NLUs — CLAT 2027 UG Question Paper Format", url: "https://consortiumofnlus.ac.in/clat-2027/ug-question-format.html", covers: "Marks, duration, questions, negative marking, section weightage", checked: 2026-10-14 }
+      - { id: clat-faq, name: "Consortium of NLUs — CLAT 2027 FAQs", url: "https://consortiumofnlus.ac.in/clat-2027/FAQs.html", covers: "Programmes and academic year covered, counselling timing", checked: 2026-10-14 }
+      - { id: clat-pu, name: "Consortium of NLUs — CLAT 2027 Participating Universities", url: "https://consortiumofnlus.ac.in/clat-2027/participating_universities.html", covers: "List of participating NLUs and their brochures", checked: 2026-10-14 }
+      - { id: nlsiu, name: "NLSIU Bengaluru — CLAT 2027 brochure", url: "https://consortiumofnlus.ac.in/clat-2027/nlus/brochure/NLSIU.pdf", covers: "Intake, reservation, Karnataka Students rule, BA LLB fee", checked: 2026-10-14 }
+      - { id: nalsar, name: "NALSAR Hyderabad — CLAT 2027 brochure", url: "https://consortiumofnlus.ac.in/clat-2027/nlus/brochure/NALSAR.pdf", covers: "BA LLB seat matrix, Telangana resident quota, horizontal reservation", checked: 2026-10-14 }
+      - { id: gnlu, name: "GNLU Gandhinagar — CLAT 2027 brochure", url: "https://consortiumofnlus.ac.in/clat-2027/nlus/brochure/GNLU.pdf", covers: "UG programmes, seat matrix, Gujarat domicile quota", checked: 2026-10-14 }
+      - { id: clat-wb, name: "Consortium of NLUs — Change in reservation category, WBNUJS (5 Sep 2026)", url: "https://s3.ap-south-1.amazonaws.com/files2027.consortiumofnlus.ac.in/sites/consortiumofnlus.ac.in/entity-uploads/notification/attachment/Attachment_abb9404540464e6da450be350bfbd2fa_53836.pdf", covers: "West Bengal OBC category change", checked: 2026-10-14 }
+      - { id: clat-meg, name: "Consortium of NLUs — Change in reservation category, NLU Meghalaya (5 Sep 2026)", url: "https://s3.ap-south-1.amazonaws.com/files2027.consortiumofnlus.ac.in/sites/consortiumofnlus.ac.in/entity-uploads/notification/attachment/Attachment_8f031e47a4e54e909c4cb97c80015e59_48952.pdf", covers: "Meghalaya domicile categories added", checked: 2026-10-14 }
+      - { id: clat-pwd, name: "Consortium of NLUs — PwD policy for conduct of CLAT 2027 (7 Sep 2026)", url: "https://s3.ap-south-1.amazonaws.com/files2027.consortiumofnlus.ac.in/sites/consortiumofnlus.ac.in/entity-uploads/notification/attachment/Attachment_1ac849bcce3b4209b531810e2b887cdc_12326.pdf", covers: "Reasonable accommodation and proof of disability", checked: 2026-10-14 }
+
+  # ---------------------------------------------------------------- CUET UG (2026 cycle)
+  - slug: cuet-ug
+    short: "CUET UG"
+    stream: university
+    body: "National Testing Agency (NTA)"
+    eyebrow: "Entrance Exam · Central universities · 2026 cycle"
+    title: "CUET UG — eligibility, marking, reservation & fees"
+    lede: "The NTA test whose scores are used for undergraduate admission at all the Central Universities — DU, BHU, AMU, JNU, Jamia and more — and at state and other participating universities."
+    coaching_href: "coaching-cuet.html"
+    colleges_href: "colleges-ba.html"
+    facts:
+      - { label: "Conducted by", value: "National Testing Agency (NTA)", source: cuet-ib }
+      - { label: "Subjects", value: "Up to 5 of 37 tests", source: cuet-ib }
+      - { label: "Each test", value: "50 MCQs · 60 minutes · CBT only", source: cuet-ib }
+      - { label: "Marking", value: "+5 correct · −1 wrong", source: cuet-ib }
+    official:
+      - { label: "cuet.nta.nic.in", url: "https://cuet.nta.nic.in/" }
+      - { label: "Information Bulletin 2026 (PDF)", url: "https://cdnbbsr.s3waas.gov.in/s3d1a21da7bca4abff8b0b61b87597de73/uploads/2026/01/202601031633478370.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; governing authority"
+        heading: "Who runs CUET UG, and what it decides"
+        parts:
+          - p: "CUET (UG) is conducted by the <strong>National Testing Agency (NTA)</strong>, an autonomous testing body set up by the Ministry of Education. Its scores are used for admission to UG programmes at <strong>all Central Universities</strong> and at other participating universities and institutions, for the academic session 2026-27."
+            source: cuet-ib
+          - p: "NTA's role stops at registration, the test, answer keys and the score card. <strong>Each university prepares its own merit list</strong> and handles admission queries — NTA does not."
+            source: cuet-ib
+          - table:
+              caption: "CUET (UG) 2026 calendar"
+              head: ["Event", "Date"]
+              rows:
+                - ["Online application", "3–30 Jan 2026"]
+                - ["Last date to pay the fee", "31 Jan 2026"]
+                - ["Correction window", "2–4 Feb 2026"]
+                - ["Exam (as announced in the bulletin)", "11–31 May 2026 (tentative)"]
+            source: cuet-ib
+          - note: "The 2026 test began on 11 May 2026, and NTA has since published the final answer keys and declared the result / NTA scores."
+            source: cuet-nt
+          - warn: "The CUET (UG) 2027 bulletin was not published on 14 October 2026 (the 2026 bulletin came out in January 2026), so this page describes the 2026 cycle. Check cuet.nta.nic.in for the 2027 dates and rules."
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Academic eligibility"
+        heading: "Class 12 passed or appearing — no age limit"
+        parts:
+          - list:
+              - "There is <strong>no age limit</strong> for CUET (UG)."
+              - "You can sit the test if you have <strong>passed Class 12 / equivalent</strong> or are <strong>appearing in 2026</strong>."
+              - "Accepted qualifying exams include any recognised Central / State Board 10+2, NIOS Senior Secondary (five subjects), a 3-year AICTE / state-board diploma, GCE A-level, IB Diploma, and the HSC vocational exam."
+              - "You may pick subjects <strong>irrespective of the subjects you took in Class 12</strong> — but choose them to match the programme eligibility of the university you want."
+            source: cuet-ib
+          - warn: "CUET itself sets no minimum marks. Each university applies its own rules on Class 12 marks, subject combinations, year of passing and age — appearing in CUET does not by itself make you eligible for a programme."
+            source: cuet-ib
+      - id: scheme
+        nav: "Exam scheme"
+        eyebrow: "Exam scheme &amp; marking matrix"
+        heading: "Up to five 60-minute computer-based tests"
+        parts:
+          - table:
+              caption: "CUET (UG) 2026 scheme of examination"
+              head: ["Item", "Rule"]
+              rows:
+                - ["Tests on offer", "37 — 13 languages, 23 domain subjects, 1 General Aptitude Test"]
+                - ["Your choice", "Up to 5 tests, including languages and the General Aptitude Test"]
+                - ["Mode", "Computer Based Test (CBT) only"]
+                - ["Questions", "50 objective MCQs per test, all compulsory"]
+                - ["Duration", "60 minutes per test (PwBD: 20 extra minutes per hour)"]
+                - ["Marking", "+5 for a correct answer, −1 for a wrong answer"]
+            source: cuet-ib
+          - list:
+              - "Question papers are in English and your chosen medium, from 13 languages: Assamese, Bengali, English, Gujarati, Hindi, Kannada, Malayalam, Marathi, Odia, Punjabi, Tamil, Telugu and Urdu. The English version prevails."
+              - "Domain subjects follow the <strong>NCERT syllabus</strong>; the General Aptitude Test covers general knowledge, current affairs, mental ability, numerical ability and logical reasoning."
+              - "The exam runs in multiple shifts depending on the number of candidates and subject choices."
+            source: cuet-ib
+      - id: reservation
+        nav: "Reservation"
+        eyebrow: "Reservation &amp; category quotas"
+        heading: "Reservation follows each university's rules"
+        parts:
+          - p: "Indian nationals in the <strong>OBC-NCL, Gen-EWS, SC, ST and PwD/PwBD</strong> categories are admitted against seats reserved for them under Government of India / State Government rules. Each university's existing policy on quota, category, relaxation and reservation applies to admissions through CUET (UG)."
+            source: cuet-ib
+          - list:
+              - "<strong>OBC</strong> means OBC-NCL on the <strong>central list</strong> (ncbc.nic.in). State-list OBC candidates who are not on the central list must choose General / Unreserved."
+              - "<strong>EWS</strong> follows the 17 January 2019 orders of the Ministry of Social Justice and the Ministry of Education for central educational institutions."
+              - "<strong>PwBD</strong> means at least 40% of a specified disability under the RPwD Act, 2016, as certified by the certifying authority. PwBD candidates get 20 minutes of compensatory time per hour."
+            source: cuet-ib
+          - note: "The bulletin gives no seat percentages or state domicile quotas — those are set by each university. Read the prospectus of every university you list before applying."
+            source: cuet-ib
+      - id: fees
+        nav: "Application &amp; fees"
+        eyebrow: "Registration steps &amp; fees"
+        heading: "Fee depends on how many subjects you choose"
+        parts:
+          - list:
+              - "<strong>Step 1 — Registration:</strong> register on cuet.nta.nic.in and note the system-generated Application Number; set a password and security question."
+              - "<strong>Step 2 — Application form:</strong> fill personal and education details, select universities, programmes and test papers, choose exam cities and upload your documents."
+              - "<strong>Step 3 — Fee payment:</strong> pay online by net banking, credit / debit card or UPI."
+              - "<strong>Step 4 — Confirmation page:</strong> generated only after the fee is received; keep a printout."
+              - "Only one application per candidate — multiple forms lead to cancellation of the result."
+            source: cuet-ib
+          - table:
+              caption: "CUET (UG) 2026 examination fee"
+              head: ["Category", "Up to 3 subjects", "Each additional subject"]
+              rows:
+                - ["General (UR)", "₹1,000", "₹400"]
+                - ["OBC-NCL / Gen-EWS", "₹900", "₹375"]
+                - ["SC / ST / PwD / PwBD / Third gender", "₹800", "₹350"]
+                - ["Centres outside India", "₹4,500", "₹1,800"]
+            source: cuet-ib
+          - note: "Bank / payment-gateway processing charges and GST are extra. With the 5-subject maximum, the General fee tops out at ₹1,800."
+            source: cuet-ib
+      - id: horizons
+        nav: "Universities &amp; courses"
+        eyebrow: "Career horizons &amp; mapped institutions"
+        heading: "The 48 Central Universities on the 2026 list"
+        parts:
+          - p: "The 2026 bulletin's Appendix I lists <strong>48 Central Universities</strong> (course mapping as on 3 January 2026), including <strong>University of Delhi, Banaras Hindu University, Aligarh Muslim University, Jawaharlal Nehru University, Jamia Millia Islamia, University of Hyderabad, University of Allahabad, Visva-Bharati, Pondicherry University and Tezpur University</strong>, plus 14 universities named “Central University of …” for states and union territories."
+            source: cuet-ib
+          - p: "State, deemed and private universities that admit through CUET are listed separately at cuet.nta.nic.in/participating-universities. Admission, cut-offs and counselling are run by each university, not by NTA."
+            source: cuet-ib
+          - links:
+              - { label: "B.Com", url: "bcom.html" }
+              - { label: "BBA", url: "bba.html" }
+              - { label: "BJMC (Journalism)", url: "bjmc.html" }
+              - { label: "Biotechnology", url: "biotechnology.html" }
+              - { label: "Microbiology", url: "microbiology.html" }
+              - { label: "Forensic Science", url: "forensic-science.html" }
+              - { label: "BA college finder", url: "colleges-ba.html" }
+              - { label: "CUET coaching finder", url: "coaching-cuet.html" }
+              - { label: "CLAT UG", url: "clat.html" }
+    sources:
+      - { id: cuet-ib, name: "NTA — CUET (UG) 2026 Information Bulletin", url: "https://cdnbbsr.s3waas.gov.in/s3d1a21da7bca4abff8b0b61b87597de73/uploads/2026/01/202601031633478370.pdf", covers: "Role of NTA, dates, fees, scheme, marking, eligibility, qualifying exams, reservation, list of Central Universities", checked: 2026-10-14 }
+      - { id: cuet-nt, name: "NTA — CUET (UG) 2026 public notices (commencement on 11 May 2026, final answer keys, result)", url: "https://cuet.nta.nic.in/", covers: "Start date of the 2026 test, final answer keys and result declared", checked: 2026-10-14 }

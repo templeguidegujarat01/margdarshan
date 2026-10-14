@@ -1,0 +1,1102 @@
+# Maharashtra State Exam & Career Cockpit — one data sheet for the cockpit (state/maharashtra/index.html)
+# and every exam page under state/maharashtra/. Rendered by _includes/state-cockpit.html and
+# _includes/state-exam.html; checked by scripts/check-in-data.mjs (state sheets block).
+#
+# Rules for this sheet (same as gujarat.yml):
+#   - Every fact part carries `source: <id>`; the id must be listed under that exam's `sources`.
+#   - Sources are the official advertisement / notice / gazette files themselves (read 2026-10-14). Most
+#     MPSC, police and board files are Marathi scans; they were read page by page from rendered images.
+#     Nothing here comes from coaching or news sites. Where an official file did not state a value
+#     (for example the Talathi or Police Constable pay scale), the text says so instead of guessing.
+#   - MPSC serves its files through a script-driven listing, so MPSC sources point to the official
+#     "Advertisements / Notifications / Corrigendums" page and name the advertisement number to open.
+#   - Section ids are the same on every exam page: overview, eligibility, scheme, fees, reservation,
+#     documents, pay, posting (+ sources, drawn automatically).
+#   - Part kinds: p (paragraph), list (bullets), table {head, rows, caption?}, note (small print),
+#     warn (callout box), links [{label, url}] (official buttons).
+state:
+  id: maharashtra
+  name: Maharashtra
+  checked: 2026-10-14
+
+cockpit:
+  eyebrow: "State Exam & Career Cockpit · Maharashtra"
+  title: "Maharashtra Exam &amp; Career Cockpit"
+  intro:
+    - "Every major Maharashtra government recruitment and state admission route on one screen: who conducts it, who can apply, how the exam works, what it costs and where it leads. Each page is built only from the official advertisement, gazette rule or information brochure of the conducting body (most of them Marathi scans, read page by page), and every fact links back to that file."
+  facts:
+    - { label: "Recruitment nodes", value: "MPSC · Group-C (Talathi) · Police" }
+    - { label: "Admission nodes", value: "MHT-CET · MBA CET · BBA/BMS CAP · Board" }
+    - { label: "Applications", value: "mpsconline.gov.in · mahacet.org" }
+    - { label: "Last checked", value: "14 Oct 2026" }
+  groups:
+    - id: civil
+      eyebrow: "Administrative &amp; civil"
+      heading: "Government recruitment exams"
+      intro: "Group-A and Group-B officers through the MPSC State Services exam, village revenue officers (Talathi) through MPSC's Group-C exam, and police constables through district and commissionerate units (with PSI through MPSC)."
+      exams: [mpsc, talathi, police]
+    - id: academic
+      eyebrow: "Academic &amp; professional admissions"
+      heading: "State admission routes after Class 10, 12 and graduation"
+      intro: "Engineering and pharmacy through MHT-CET, MBA/MMS through MAH-MBA/MMS CET, the newly CET-based BBA/BMS/BBM and BCA admissions through the State CET Cell's CAP, and the MSBSHSE board exams that every route starts from."
+      exams: [mhtcet, mba-cet, bba-cap, msbshse]
+  compare_note: "Fees, age limits and dates are from the latest notification of each body. They change every cycle, so always open the current notification before applying."
+  portals_note: "MPSC applications are filled only on mpsconline.gov.in; police constable forms run on the Home Department's recruitment portal; every CET and CAP form runs on mahacet.org. Only use these official addresses."
+  portals:
+    - { label: "MPSC (notifications)", url: "https://mpsc.gov.in/adv_notification/8" }
+    - { label: "MPSC online applications", url: "https://mpsconline.gov.in/candidate" }
+    - { label: "Maharashtra Police recruitment portal", url: "https://policerecruitment2025.mahait.org/Forms/Home.aspx" }
+    - { label: "State CET Cell", url: "https://cetcell.mahacet.org/" }
+    - { label: "CAP portals 2026-27 (all courses)", url: "https://cetcell.mahacet.org/cap-_2026-27/" }
+    - { label: "MSBSHSE (state board)", url: "https://www.mahahsscboard.in/" }
+
+exams:
+  # ------------------------------------------------------------------ MPSC RAJYASEVA
+  - slug: mpsc
+    group: civil
+    short: "MPSC State Services (Rajyaseva)"
+    body: "Maharashtra Public Service Commission"
+    card: "Deputy Collector, DySP, BDO, Assistant Director (Finance) and other Group-A and Group-B posts through the Civil Services Gazetted Combined Prelim and the descriptive State Services Main exam."
+    card_facts: ["Any graduate", "Age up to 38 (open)", "Prelim 400 → Mains 1,750 → Interview 275"]
+    eyebrow: "MPSC · Group-A &amp; Group-B (Gazetted)"
+    title: "MPSC State Services (Rajyaseva) 2026 — Group-A &amp; Group-B"
+    lede: "Maharashtra's senior administrative posts are filled through two MPSC notifications: the Civil Services Gazetted Group-A and Group-B Combined Preliminary Exam 2026 (Advertisement 132/2025) and the State Services Main Exam 2026 (Notification 018/2026). This page follows both."
+    facts:
+      - { label: "Qualification", value: "Any bachelor's degree + Marathi", source: mpsc-132 }
+      - { label: "Age limit", value: "Up to 38 (open) · 43 reserved · 45 disabled", source: mpsc-132 }
+      - { label: "Stages", value: "Prelim → descriptive Mains → Interview", source: mpsc-018 }
+      - { label: "Main exam 2026", value: "238 posts · 3 Oct – 1 Nov 2026", source: mpsc-018 }
+    official:
+      - { label: "MPSC notifications (open 132/2025 and 018/2026)", url: "https://mpsc.gov.in/adv_notification/8" }
+      - { label: "Apply on MPSC online", url: "https://mpsconline.gov.in/candidate" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "How Rajyaseva is recruited now"
+        parts:
+          - p: "Advertisement 132/2025 (24 December 2025) announced the Maharashtra Civil Services Gazetted Group-A and Group-B Combined Preliminary Exam 2026 for 87 posts: 79 in the State Service exam and 8 Veterinary Officer posts in the Maharashtra Veterinary Service exam. Online applications ran from 31 December 2025 (2 pm) to 20 January 2026, and the Prelim was held on Sunday 31 May 2026 at 37 district centres."
+            source: mpsc-132
+          - p: "After a corrigendum on 17 June 2026 added posts sent later by government departments, the Prelim result (22 June 2026) was processed for 238 posts. The State Services Main Exam 2026 (Notification 018/2026, 25 August 2026) is being held for these 238 posts from 3 October to 1 November 2026 at Amravati, Chhatrapati Sambhajinagar, Nagpur, Nashik, Navi Mumbai and Pune."
+            source: mpsc-018
+          - table:
+              caption: "Some of the cadres in the State Services Main Exam 2026 (Appendix-1 of Notification 018/2026)"
+              head: ["Post", "Group"]
+              rows:
+                - ["Deputy Superintendent of Police / Assistant Commissioner of Police (unarmed)", "Group-A"]
+                - ["Deputy Chief Executive Officer / Block Development Officer (Senior grade)", "Group-A"]
+                - ["Assistant Director, Maharashtra Finance and Accounts Service", "Group-A"]
+                - ["Assistant Commissioner of State Tax", "Group-A"]
+                - ["Chief Officer / Assistant Commissioner (municipal)", "Group-A"]
+                - ["Assistant Commissioner of Labour", "Group-A"]
+                - ["Assistant Block Development Officer", "Group-B"]
+                - ["Industry Officer (Technical)", "Group-B"]
+                - ["Section Officer, Mantralaya departments", "Group-B"]
+                - ["Deputy Superintendent, State Excise", "Group-B"]
+                - ["Government Labour Officer", "Group-B"]
+                - ["Skill Development, Employment and Entrepreneurship Guidance Officer", "Group-B"]
+            source: mpsc-018
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "Who can apply, and the age limits by category"
+        parts:
+          - list:
+              - "<strong>Citizenship:</strong> Indian citizen."
+              - "<strong>Qualification:</strong> a degree from a recognised university, or a qualification the Maharashtra government has declared equivalent to a degree."
+              - "<strong>Exceptions:</strong> Assistant Director, Maharashtra Finance and Accounts Service needs a commerce degree with at least 55%, or CA / ICWA final, or a commerce post-graduate degree, or an MBA (finance) from an AICTE-recognised institute. Industry Officer (Technical) needs an engineering or technology degree (not civil or architecture-type branches) or a science degree. Veterinary Officer needs a veterinary science degree and registration under the Maharashtra Veterinary Practitioners Act, 1971."
+              - "<strong>Marathi:</strong> knowledge of Marathi is required."
+              - "<strong>Final-year students</strong> may sit the Prelim, but must have passed the degree by the last date of the Main exam application."
+              - "<strong>Age is counted on:</strong> 1 April 2026 for all cadres except Industry Officer (Technical) and Veterinary Officer, for whom it is counted on 20 January 2026."
+            source: mpsc-132
+          - table:
+              caption: "Age limits printed in Advertisement 132/2025 (same table in Notification 018/2026)"
+              head: ["Candidate", "Minimum", "Maximum"]
+              rows:
+                - ["Unreserved (open)", "18/19 years (as printed, for all cadres)", "38 years"]
+                - ["Backward class, EWS or orphan", "18/19 years", "43 years"]
+                - ["Meritorious sportsperson — open or backward class", "18/19 years", "43 years"]
+                - ["Ex-serviceman / Emergency or Short Service Commissioned Officer — open or backward class", "18/19 years", "43 years"]
+                - ["Candidate with a disability", "18/19 years", "45 years"]
+            source: mpsc-132
+          - note: "There is no separate age relaxation for women in this table. Women are helped through the 30% horizontal reservation instead (see Reservation). Where a candidate qualifies for more than one relaxation, only the single highest one is given; the limits are not relaxed in any other way."
+            source: mpsc-132
+          - table:
+              caption: "Minimum physical standards (only these cadres)"
+              head: ["Cadre", "Men", "Women"]
+              rows:
+                - ["Deputy Superintendent of Police / Assistant Commissioner of Police, Group-A", "Height 165 cm (barefoot); chest 84 cm unexpanded with at least 5 cm expansion", "Height 157 cm (barefoot)"]
+                - ["Superintendent, State Excise, Group-A and Deputy Superintendent, State Excise, Group-B", "Height 165 cm; chest 79 cm unexpanded with at least 5 cm expansion", "Height 155 cm"]
+            source: mpsc-018
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme"
+        heading: "Prelim, descriptive Mains and interview"
+        parts:
+          - table:
+              caption: "Stages and marks (Advertisement 132/2025, para 9)"
+              head: ["Exam", "Combined Prelim", "Main exam", "Interview"]
+              rows:
+                - ["State Service exam", "400 marks", "1,750 marks", "275 marks"]
+                - ["Maharashtra Veterinary Service exam", "400 marks", "400 marks", "50 marks"]
+            source: mpsc-132
+          - table:
+              caption: "State Services Main Exam 2026 timetable (11 am – 2 pm each day)"
+              head: ["Date", "Paper"]
+              rows:
+                - ["3 October 2026", "Paper 1 — Language"]
+                - ["4 October 2026", "Paper 2 — Language"]
+                - ["5 October 2026", "Paper 3 — Essay"]
+                - ["10 October 2026", "Paper 4 — General Studies 1"]
+                - ["11 October 2026", "Paper 5 — General Studies 2"]
+                - ["17 October 2026", "Paper 6 — General Studies 3"]
+                - ["18 October 2026", "Paper 7 — General Studies 4"]
+                - ["31 October 2026", "Paper 8 — Optional subject"]
+                - ["1 November 2026", "Paper 9 — Optional subject"]
+            source: mpsc-018
+          - list:
+              - "The Main exam is written in the revised descriptive (essay-type) pattern."
+              - "Language Papers 1 and 2 carry 300 marks each and are qualifying only: at least 25% is needed in each."
+              - "Papers 3 to 9 are counted for merit — 1,750 marks — and the interview carries 275 marks."
+              - "Papers 3 to 7 may be answered in Marathi or English, but one paper must be written in one language only. The optional subject and the medium chosen in the Prelim form cannot be changed later."
+              - "About three candidates per post in each category are called for interview, provided they reach the minimum percentile in the written total: open 35, backward class 30, disabled 20, top-level sportsperson 20, orphan 30."
+              - "Final merit = Main exam marks + interview marks; posts are then allotted by the cadre preference each candidate submits online."
+            source: mpsc-018
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "Exam fee by category"
+        parts:
+          - table:
+              head: ["Candidate", "Prelim fee (132/2025)", "Main exam fee (018/2026)"]
+              rows:
+                - ["Unreserved (open)", "₹544", "₹544"]
+                - ["Backward class, EWS, orphan or disabled", "₹344", "₹344"]
+            source: mpsc-018
+          - note: "Bank charges and tax are extra. The fee is not refundable. For the 2026 Main exam the challan option was withdrawn: the fee had to be paid online (debit card, credit card, net banking or UPI) by 13 September 2026."
+            source: mpsc-018
+      - id: reservation
+        nav: "Reservation &amp; Certificates"
+        eyebrow: "Reservation, cut-offs &amp; certificates"
+        heading: "NCL, EWS, women's posts and domicile"
+        parts:
+          - list:
+              - "<strong>Domicile:</strong> any reservation benefit is only for candidates who are ordinarily resident (domiciled) in Maharashtra, as defined under Section 20 of the Representation of the People Act, 1950."
+              - "<strong>Non-Creamy Layer:</strong> backward-class candidates (other than SC and ST) must hold a valid NCL certificate for financial year 2025-26."
+              - "<strong>EWS:</strong> the EWS claim needs an eligibility certificate for financial year 2025-26, issued before the last date of the Prelim application (20 January 2026)."
+              - "<strong>Women's posts:</strong> under the Women and Child Development Department GR of 4 May 2023, open-category women and women of all backward classes no longer need an NCL certificate to claim posts reserved for open (unreserved) women. Women claiming women's posts within a backward category other than SC/ST still follow the NCL rules, and every woman claiming a women's post must state in the form that she is domiciled in Maharashtra."
+              - "<strong>SEBC:</strong> reservation for the Socially and Educationally Backward Classes is applied subject to the final court decisions on the 2024 Act."
+              - "<strong>Open posts:</strong> every candidate, including backward-class candidates, is considered for unreserved posts on merit, so the original category must be filled in correctly."
+            source: mpsc-132
+          - table:
+              caption: "Example from Appendix-1 of Advertisement 132/2025: Deputy CEO / BDO (Senior grade), Group-A, 13 posts"
+              head: ["Category", "SC", "ST", "VJ(A)", "NT(B)", "NT(C)", "NT(D)", "OBC", "SBC", "SEBC", "EWS", "Open", "Total"]
+              rows:
+                - ["Posts", "1", "—", "—", "—", "—", "1", "3", "—", "2", "4", "2", "13"]
+            source: mpsc-132
+          - note: "Cut-offs are not fixed in advance: the commission sets the Prelim and Main cut-off lines for each category and sub-category when it declares results."
+            source: mpsc-018
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "What you upload with the Main exam form"
+        parts:
+          - table:
+              caption: "Uploads listed in Notification 018/2026 (PDF, 50–500 KB each, where applicable)"
+              head: ["#", "Document"]
+              rows:
+                - ["1", "SSC certificate or equivalent (date of birth)"]
+                - ["2", "Proof of age"]
+                - ["3", "Proof of educational qualification"]
+                - ["4", "Proof of belonging to a socially backward class (caste certificate)"]
+                - ["5", "EWS eligibility certificate for 2025-26, dated before 20 January 2026"]
+                - ["6", "Non-Creamy Layer certificate for 2025-26"]
+                - ["7", "Disability certificate with UDID card, or the UDID enrolment number"]
+                - ["8", "Ex-serviceman proof"]
+                - ["9", "Sports certificate verification report (for sports reservation)"]
+                - ["10", "Orphan certificate"]
+                - ["11", "Maharashtra domicile certificate (for open women, sports, disabled, ex-serviceman or orphan claims)"]
+                - ["12", "Proof of change of name (married women)"]
+                - ["13", "Proof of Marathi knowledge, where applicable"]
+                - ["14", "Small-family declaration (Maharashtra Civil Services rules)"]
+            source: mpsc-018
+          - note: "Bring all originals for verification at the interview; a candidate who cannot produce them is not interviewed. Candidates claiming disability must link their UDID card details on the MPSC profile; without that validation they cannot apply."
+            source: mpsc-018
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "How pay is fixed"
+        parts:
+          - p: "Notification 018/2026 states only that Group-A and Group-B posts are paid at the levels of the revised (7th Pay Commission) pay matrix of the Maharashtra government. It does not print a basic pay figure for each cadre, so none is shown here."
+            source: mpsc-018
+          - list:
+              - "Selected candidates must pass the departmental or professional exams of their department, the Hindi and Marathi language exams (unless exempt) and the computer-knowledge certificate set by the Information Technology GR of 4 February 2013."
+              - "Candidates must sign the training bond fixed by the General Administration Department GR of 24 April 2015."
+              - "Veterinary Officers must serve at least three years including probation, or repay the bond amount."
+            source: mpsc-132
+          - note: "Maharashtra uses its own S-levels (for example S-14 = ₹38,600 – ₹1,22,800 for Police Sub-Inspector, see the Police page) rather than the central government's level numbers."
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Where these officers work"
+        parts:
+          - list:
+              - "Seniority among officers appointed through the State Services exam is fixed by the Maharashtra Civil Services (seniority of direct recruits and promotees) Rules, 2015."
+              - "Except Veterinary Officer (Group-A) and Desk Officer (Group-B), every cadre is allotted a Revenue division on direct appointment and on promotion, under the 2021 Revenue-division allotment rules for Group-A and Group-B posts."
+              - "Duties of each cadre are published on MPSC's 'Duties and Responsibilities of various Posts' page."
+            source: mpsc-132
+          - links:
+              - { label: "MPSC — duties of each post", url: "https://mpsc.gov.in/duties_responsibilities/10" }
+    sources:
+      - { id: mpsc-132, name: "MPSC — Advertisement 132/2025, Maharashtra Civil Services Gazetted Group-A & Group-B Combined Preliminary Exam 2026 (Marathi, 24 Dec 2025)", url: "https://mpsc.gov.in/adv_notification/8", covers: "posts, dates, age limits, qualification, reservation rules, NCL/EWS years, fee, exam stages, bond and post-entry conditions", checked: 2026-10-14 }
+      - { id: mpsc-018, name: "MPSC — Notification 018/2026, State Services Main Examination 2026 (Marathi, 25 Aug 2026) and corrigendum of 2 Sep 2026", url: "https://mpsc.gov.in/adv_notification/8", covers: "238 posts, Main exam timetable and centres, physical standards, marks, qualifying rules, interview percentiles, fee, uploads, pay level wording", checked: 2026-10-14 }
+
+  # ------------------------------------------------------------------ TALATHI (MPSC GROUP-C)
+  - slug: talathi
+    group: civil
+    short: "Talathi (Gram Mahsul Adhikari)"
+    body: "MPSC · Maharashtra Group-C Services Combined Exam"
+    card: "Village revenue officer (Talathi, now titled Gram Mahsul Adhikari), Group-C — 1,539 posts added to MPSC's Group-C Combined Prelim 2026."
+    card_facts: ["Any graduate", "1,539 posts", "Prelim on 3 Jan 2027"]
+    eyebrow: "MPSC Group-C · Revenue &amp; Forest Department"
+    title: "Maharashtra Talathi (Gram Mahsul Adhikari) Recruitment 2026"
+    lede: "Talathi posts are no longer filled by a separate district-level Talathi Bharti. In 2026 the Revenue and Forest Department sent its 1,539 Gram Mahsul Adhikari (Talathi) vacancies to MPSC, which added them to the Maharashtra Group-C Services Combined Preliminary Exam 2026 (Advertisement 017/2026)."
+    facts:
+      - { label: "Qualification", value: "Degree in any discipline", source: mpsc-017-posts }
+      - { label: "Talathi posts", value: "1,539 (of 5,707 in the exam)", source: mpsc-017-posts }
+      - { label: "Prelim", value: "3 January 2027 · offline OMR", source: mpsc-017-date }
+      - { label: "Marks", value: "Prelim 100 · Mains 400", source: mpsc-017 }
+    official:
+      - { label: "MPSC notifications (open 017/2026)", url: "https://mpsc.gov.in/adv_notification/8" }
+      - { label: "Apply on MPSC online", url: "https://mpsconline.gov.in/candidate" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "How Talathi entered the MPSC Group-C exam"
+        parts:
+          - p: "Advertisement 017/2026 (25 June 2026) opened the Maharashtra Group-C Services Combined Preliminary Exam 2026 for 2,619 posts: Industry Inspector, Technical Assistant (Insurance), Tax Assistant, Assistant Motor Vehicle Inspector and Clerk-Typist."
+            source: mpsc-017
+          - p: "Under the General Administration Department GR of 5 May 2026 on streamlining recruitment, MPSC's corrigendum of 22 July 2026 added new cadres with similar qualifications. The largest is Gram Mahsul Adhikari (Talathi), Group-C, Revenue and Forest Department — 1,539 posts across the appointing authorities. With the other additions the exam now covers 5,707 posts."
+            source: mpsc-017-posts
+          - table:
+              caption: "Cadres added on 22 July 2026"
+              head: ["Department", "Post", "Posts", "Qualification"]
+              rows:
+                - ["Revenue and Forest", "Gram Mahsul Adhikari (Talathi), Group-C", "1,539", "Degree in any discipline from a statutory university"]
+                - ["State Consumer Disputes Redressal Commission, Mumbai", "Senior Record Keeper / Senior Clerk / Record Keeper", "11", "Degree in any discipline"]
+                - ["State Consumer Disputes Redressal Commission, Mumbai", "Assistant Superintendent", "11", "Degree in any discipline"]
+                - ["Agriculture, Animal Husbandry, Dairy Development and Fisheries", "Assistant Fisheries Development Officer (Technical)", "254", "B.F.Sc. at least second class"]
+                - ["Rationing / Food, Civil Supplies / Tribal Development / Revenue (incl. Registration and Stamps)", "Clerk-Typist", "1,273", "Any degree + typing qualification"]
+            source: mpsc-017-posts
+          - note: "The Prelim was first set for 25 October 2026 (offline OMR). MPSC's corrigendum of 9 September 2026 moved it to 3 January 2027 at all district centres."
+            source: mpsc-017-date
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "Who can apply for Talathi"
+        parts:
+          - list:
+              - "<strong>Citizenship:</strong> Indian citizen."
+              - "<strong>Marathi:</strong> knowledge of Marathi is required."
+            source: mpsc-017
+          - list:
+              - "<strong>Qualification:</strong> a degree in any discipline from a statutory university."
+              - "<strong>Age rule:</strong> under the Talathi service-entry rules, counted on the last date of application."
+            source: mpsc-017-posts
+          - p: "After the extension, the age-counting date for Talathi is 10 August 2026."
+            source: mpsc-017-pesa
+          - table:
+              caption: "Age limits printed in Advertisement 017/2026 for the original Group-C cadres (counted on 1 October 2026)"
+              head: ["Candidate", "Minimum", "Maximum"]
+              rows:
+                - ["Open (unreserved)", "19 (18 for Tax Assistant)", "38"]
+                - ["Backward class, orphan or EWS", "19", "43"]
+                - ["Meritorious sportsperson (open or reserved)", "19", "43"]
+                - ["Ex-serviceman — open", "19", "38 + length of service + 3 years"]
+                - ["Ex-serviceman — backward class / orphan / EWS", "19", "43 + length of service + 3 years"]
+                - ["Disabled (where the post is identified for disability)", "19", "45"]
+            source: mpsc-017
+          - note: "The Talathi corrigendum points to the Talathi service-entry rules for the age limit and does not print a separate Talathi table, so check the limits in your MPSC profile's eligibility check before paying the fee. There is no separate age relaxation for women; women get 30% horizontal reservation."
+            source: mpsc-017-pesa
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme"
+        heading: "Combined Prelim, then Combined Main"
+        parts:
+          - table:
+              head: ["Stage", "Marks", "Notes"]
+              rows:
+                - ["Combined Preliminary Exam", "100", "Common for all Group-C cadres; now offline OMR-based"]
+                - ["Combined Main Exam", "400", "Common for the cadres listed in the advertisement (AMVI has a separate 300-mark Main)"]
+            source: mpsc-017
+          - list:
+              - "The advertisement planned the Prelim as a computer-based test in several sessions with normalised scores; the 16 July 2026 corrigendum switched it to the usual offline OMR mode on a single day."
+              - "After the Prelim, MPSC publishes the answer key and each candidate's response sheet in the profile."
+              - "Main exam admission is decided by category-wise cut-off lines; a separate Main exam form and fee follow."
+            source: mpsc-017
+          - p: "The Prelim date is now 3 January 2027, at all district centres."
+            source: mpsc-017-date
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "Exam fee by category"
+        parts:
+          - table:
+              head: ["Exam", "Open", "Backward class / EWS / orphan", "Ex-serviceman (Group-C only)"]
+              rows:
+                - ["Combined Prelim", "₹394", "₹294", "₹44"]
+                - ["Main exam", "₹544", "₹344", "₹44"]
+            source: mpsc-017
+          - note: "Bank charges and tax are extra; the fee is not refundable. After the extension, Talathi applications closed on 10 August 2026 and online fee payment on 13 August 2026; challan payment was withdrawn."
+            source: mpsc-017-pesa
+      - id: reservation
+        nav: "Reservation &amp; PESA"
+        eyebrow: "Reservation &amp; certificates"
+        heading: "PESA-area Talathi posts and certificates"
+        parts:
+          - list:
+              - "The government sent district-wise Talathi requisitions separately for <strong>PESA</strong> (Scheduled Area) and <strong>non-PESA</strong> areas, each with its own social reservation."
+              - "PESA-area Talathi posts are filled only from local Scheduled Tribe candidates with the required qualification (GAD GR of 1 February 2023)."
+              - "A candidate may apply for a PESA-area post only if he or she, or the spouse, parents or grandparents, have lived continuously in that district's Scheduled Area since 26 January 1950."
+              - "Scheduled Tribe candidates applying for PESA-area posts must submit a Scheduled Area residence certificate issued by the Integrated Tribal Development Project office before 25 October 2026."
+              - "Chandrapur district's PESA posts are for the Scheduled Tribe category."
+            source: mpsc-017-pesa
+          - list:
+              - "Reservation is only for candidates domiciled in Maharashtra; NCL and EWS certificates must be valid for the year the advertisement asks for."
+              - "Horizontal reservations in this exam include women, sportspersons, disabled, ex-servicemen, orphans, project-affected, earthquake-affected and part-time graduate employees (the last three only for Clerk-Typist posts outside Greater Mumbai)."
+            source: mpsc-017
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "What to upload with the Prelim form"
+        parts:
+          - list:
+              - "Disability certificate (and UDID), ex-serviceman proof, sports certificate verification report or its acknowledgement, orphan certificate, part-time graduate employee proof, earthquake-affected and project-affected certificates — only if you claim them."
+              - "Maharashtra domicile certificate if you claim open-women, sports, disability, ex-serviceman, orphan, part-time, earthquake-affected or project-affected reservation."
+              - "Each file: PDF, 50–500 KB. MPSC also accepts certificates through DigiLocker under its circular of 7 May 2026."
+            source: mpsc-017
+          - list:
+              - "For PESA-area Talathi posts: the Scheduled Area residence certificate from the Integrated Tribal Development Project office (before 25 October 2026)."
+            source: mpsc-017-pesa
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Pay of the Group-C cadres"
+        parts:
+          - table:
+              caption: "Pay levels printed in Advertisement 017/2026 (plus DA and other allowances)"
+              head: ["Post", "Pay matrix level"]
+              rows:
+                - ["Assistant Motor Vehicle Inspector", "S-14: ₹38,600 – ₹1,22,800"]
+                - ["Industry Inspector", "S-13: ₹35,400 – ₹1,12,400"]
+                - ["Technical Assistant (Insurance)", "S-10: ₹29,200 – ₹92,300"]
+                - ["Tax Assistant", "S-8: ₹25,500 – ₹81,100"]
+                - ["Clerk-Typist", "S-6: ₹19,900 – ₹63,200"]
+            source: mpsc-017
+          - note: "The Talathi corrigendum does not print the Gram Mahsul Adhikari pay level, so it is not shown here. None of these MPSC Group-C notifications mentions a fixed-pay (contract) period."
+            source: mpsc-017-posts
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Where a Talathi works"
+        parts:
+          - list:
+              - "The Revenue and Forest Department sent district-wise Talathi requisitions for several appointing authorities, split into PESA and non-PESA areas."
+              - "Candidates are asked for their option for PESA-area Talathi posts through the MPSC application."
+            source: mpsc-017-pesa
+          - list:
+              - "Appointees must pass the departmental exams, the Hindi and Marathi language exams (unless exempt) and hold the computer-knowledge certificate."
+            source: mpsc-017
+    sources:
+      - { id: mpsc-017, name: "MPSC — Advertisement 017/2026, Maharashtra Group-C Services Combined Preliminary Exam 2026 (Marathi, 25 Jun 2026)", url: "https://mpsc.gov.in/adv_notification/8", covers: "original posts, pay levels, age table, Marathi, exam stages and marks, fee, uploads, post-entry conditions", checked: 2026-10-14 }
+      - { id: mpsc-017-posts, name: "MPSC — Corrigendum of 22 Jul 2026 to Advt 017/2026 (new cadres incl. Gram Mahsul Adhikari / Talathi)", url: "https://mpsc.gov.in/adv_notification/8", covers: "1,539 Talathi posts, qualification, age-date rule, total 5,707 posts", checked: 2026-10-14 }
+      - { id: mpsc-017-pesa, name: "MPSC — Corrigendum of 5 Aug 2026 to Advt 017/2026 (Revenue Village Officer / PESA, extension)", url: "https://mpsc.gov.in/adv_notification/8", covers: "Talathi age date 10 Aug 2026, PESA rules and certificate, last dates", checked: 2026-10-14 }
+      - { id: mpsc-017-date, name: "MPSC — Corrigendum of 9 Sep 2026 to Advt 017/2026 (revised exam date)", url: "https://mpsc.gov.in/adv_notification/8", covers: "Prelim moved from 25 Oct 2026 to 3 Jan 2027, offline OMR", checked: 2026-10-14 }
+
+  # ------------------------------------------------------------------ POLICE
+  - slug: police
+    group: civil
+    short: "Police Constable &amp; PSI"
+    body: "Maharashtra Police (Home Department) · MPSC for PSI"
+    card: "Police Shipai (constable) through unit-wise recruitment with a 50-mark physical and 100-mark written test; Police Sub-Inspector through MPSC's Group-B (Non-Gazetted) exam."
+    card_facts: ["Constable: Class 12", "PSI: graduate", "Physical test 50 + written 100"]
+    eyebrow: "Police Shipai · Police Sub-Inspector"
+    title: "Maharashtra Police Constable (Shipai) &amp; PSI Recruitment"
+    lede: "Police constables are recruited by each commissionerate or district superintendent under the Maharashtra Police Constables (Recruitment) Rules, 2011; the 2024-25 drive opened on 29 October 2025. Police Sub-Inspectors are recruited by MPSC through the Group-B (Non-Gazetted) Combined Exam (Advertisement 011/2026)."
+    facts:
+      - { label: "Constable qualification", value: "HSC (Class 12) pass", source: pc-rules }
+      - { label: "Constable test", value: "Physical 50 + written 100", source: pc-2022 }
+      - { label: "PSI posts (011/2026)", value: "310 · age 19–31 (open)", source: mpsc-011 }
+      - { label: "PSI pay", value: "S-14: ₹38,600 – ₹1,22,800", source: mpsc-011 }
+    official:
+      - { label: "Police recruitment portal", url: "https://policerecruitment2025.mahait.org/Forms/Home.aspx" }
+      - { label: "MPSC notifications (open 011/2026)", url: "https://mpsc.gov.in/adv_notification/8" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "Two different recruitments"
+        parts:
+          - p: "Police Shipai (constable) posts are advertised separately by every police unit — the police commissionerates, district superintendents and railway police units listed on the 2024-25 portal. Applications ran from 29 October 2025 (6 pm) to 7 December 2025, with online fee payment until 10 December 2025."
+            source: pc-portal
+          - p: "Example: the Pune City Police Commissionerate advertisement dated 29 October 2025 fills 1,733 posts — 1,700 Police Shipai and 33 Bandsmen."
+            source: pc-pune
+          - p: "Police Sub-Inspector (Group-B, Non-Gazetted) is an MPSC post. Advertisement 011/2026 (Maharashtra Group-B Non-Gazetted Services Combined Preliminary Exam 2026) offers 552 posts, of which 310 are PSI; the Prelim was held on Sunday 14 June 2026 at 37 district centres."
+            source: mpsc-011
+      - id: eligibility
+        nav: "Eligibility &amp; Physical"
+        eyebrow: "Eligibility, age &amp; physical standards"
+        heading: "Who can apply, by gender and category"
+        parts:
+          - table:
+              caption: "Police Shipai — Maharashtra Police Constables (Recruitment) Rules, 2011, rule 3"
+              head: ["Requirement", "Men", "Women"]
+              rows:
+                - ["Age", "18 to 25 years; higher limit relaxed for backward classes as per government policy", "Same"]
+                - ["Education", "HSC (Class 12) from a Maharashtra divisional board, or an exam declared equivalent", "Same"]
+                - ["Height", "At least 165 cm", "At least 155 cm"]
+                - ["Chest", "At least 79 cm unexpanded, with at least 5 cm expansion", "Not measured"]
+            source: pc-rules
+          - p: "<strong>Scheduled Tribe candidates:</strong> the required height is relaxed by 5 cm (2024 amendment)."
+            source: pc-2024
+          - p: "<strong>Notified Naxal-affected areas:</strong> Scheduled Tribe residents of those areas, and children of police informants, police patils or police staff killed or seriously injured in Naxal attacks, need only Class 7, get 2.5 cm off the height and have no chest requirement — but are not transferable outside the Naxal-affected area (rule 3(2))."
+            source: pc-rules
+          - note: "One-time age relief for the 2024 and 2025 vacancies: candidates of all categories who crossed the upper age limit between 1 January 2022 and 31 December 2025 may still apply (Amendment Rules, 2025)."
+            source: pc-2025
+          - table:
+              caption: "Police Sub-Inspector — MPSC Advertisement 011/2026 (age counted on 1 August 2026)"
+              head: ["Requirement", "Men / self-identified male transgender", "Women / self-identified female transgender"]
+              rows:
+                - ["Qualification", "Degree from a statutory university or equivalent, plus Marathi", "Same"]
+                - ["Age — open", "19 to 31 years", "Same"]
+                - ["Age — backward class / EWS / orphan", "19 to 34 years", "Same"]
+                - ["Age — sportsperson or ex-serviceman", "Up to 36 years", "Same"]
+                - ["Height", "At least 165 cm (barefoot)", "At least 157 cm (barefoot)"]
+                - ["Chest", "79 cm unexpanded, at least 5 cm expansion", "Not measured"]
+                - ["Candidates with a disability", "Not eligible for PSI", "Not eligible for PSI"]
+            source: mpsc-011
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme"
+        heading: "Physical test, written test and merit"
+        parts:
+          - table:
+              caption: "Police Shipai physical fitness test — 50 marks (First Amendment Rules, 2022)"
+              head: ["Event (men)", "Marks", "Event (women)", "Marks"]
+              rows:
+                - ["1,600 m run", "20", "800 m run", "20"]
+                - ["100 m run", "15", "100 m run", "15"]
+                - ["Shot put", "15", "Shot put", "15"]
+            source: pc-2022
+          - list:
+              - "Candidates scoring at least 50% in the physical test are called for the written test in the ratio 1:10 of the vacancies in their category (ties at the cut-off rank are all called)."
+              - "Written test: 100 marks, multiple choice, in Marathi, 90 minutes, on arithmetic, general knowledge and current affairs, intelligence test and Marathi grammar."
+              - "At least 40% in the written test is required; below that the candidate is ineligible."
+              - "Final merit adds physical and written marks, following the Home Department GR of 10 December 2020."
+            source: pc-2022
+          - table:
+              caption: "Police Sub-Inspector (MPSC 011/2026)"
+              head: ["Stage", "Marks", "Rule"]
+              rows:
+                - ["Combined Prelim", "100", "Screening for the Group-B Main"]
+                - ["Group-B (Non-Gazetted) Main exam", "400", "Counted for merit"]
+                - ["Physical test", "100", "Qualifying: at least 60 marks to reach the interview; not added to merit"]
+                - ["Interview", "40", "Only for those with 60+ in the physical test"]
+            source: mpsc-011
+          - note: "PSI selection is made on the Main exam marks plus the interview marks."
+            source: mpsc-011
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "Application fees"
+        parts:
+          - table:
+              caption: "MPSC Group-B Combined Prelim 2026 (includes PSI)"
+              head: ["Candidate", "Fee"]
+              rows:
+                - ["Open", "₹394"]
+                - ["Backward class / EWS / orphan / disabled", "₹294"]
+                - ["Ex-serviceman — open", "₹394"]
+                - ["Ex-serviceman — backward class / EWS / orphan / disabled", "₹294"]
+            source: mpsc-011
+          - note: "The Pune City constable advertisement does not print the application fee, so no constable fee is shown here. MPSC fees exclude bank charges and are not refundable."
+            source: pc-pune
+      - id: reservation
+        nav: "Reservation"
+        eyebrow: "Reservation &amp; certificates"
+        heading: "Category and horizontal reservation in a police unit"
+        parts:
+          - table:
+              caption: "Pune City Police Shipai 2024-25 — vacancies by category (1,733 total)"
+              head: ["SC", "ST", "VJ-A", "NT-B", "NT-C", "NT-D", "SBC", "OBC", "SEBC", "EWS", "Open", "Total"]
+              rows:
+                - ["176", "48", "25", "24", "37", "22", "16", "450", "173", "173", "589", "1,733"]
+            source: pc-pune
+          - table:
+              caption: "Horizontal (parallel) reservation inside those posts — Pune City example"
+              head: ["Group", "Share", "Posts"]
+              rows:
+                - ["Women", "30%", "521"]
+                - ["Ex-servicemen", "15%", "260"]
+                - ["Sportspersons", "5%", "87"]
+                - ["Project-affected", "5%", "87"]
+                - ["Part-time graduates", "5%", "87"]
+                - ["Home Guards", "5%", "87"]
+                - ["Police wards (children of police staff)", "3%", "52"]
+                - ["Earthquake-affected", "2%", "34"]
+                - ["Orphans", "1% of all vacancies", "17"]
+            source: pc-pune
+          - list:
+              - "PSI posts in 011/2026 (310): SC 30, ST 26, VJ-A 13, NT-B 9, NT-C 15, NT-D 8, OBC 82, SBC 7, SEBC 31, EWS 31 and 58 open; of these 93 are for women and 16 for sportspersons."
+              - "NCL and EWS certificates for the PSI claim must be for 2025-26 or 2026-27."
+            source: mpsc-011
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Papers that decide your claim"
+        parts:
+          - p: "The unit advertisement does not carry a document list. The rules and GRs the portal publishes for the 2024-25 drive tell you which papers each claim rests on:"
+            source: pc-pune
+          - list:
+              - "HSC (Class 12), or an exam declared equivalent by the School Education Department GR of 14 June 1999."
+              - "EWS — the General Administration Department GR for the open-category Economically Weaker Section; SEBC — the Maratha reservation Act."
+              - "Horizontal claims — GRs for women (30%), meritorious sportspersons (5%), project-affected and earthquake-affected persons, ex-servicemen (with age and physical-standard concessions), part-time graduate employees, children of police staff, and orphans (1%)."
+              - "A small-family declaration under the Maharashtra Civil Services (Declaration of Small Family) Rules, 2005."
+              - "Character verification before appointment, under the Home Department GR."
+            source: pc-portal
+          - list:
+              - "For PSI (MPSC): caste proof, EWS certificate and NCL for 2025-26 or 2026-27, disability, ex-serviceman, sports and orphan proofs, and the Maharashtra domicile certificate for open-women, sports, ex-serviceman or orphan claims — PDF, 50–500 KB each."
+            source: mpsc-011
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Pay scales"
+        parts:
+          - table:
+              head: ["Post", "Pay matrix level"]
+              rows:
+                - ["Police Sub-Inspector (Group-B)", "S-14: ₹38,600 – ₹1,22,800 + DA and allowances"]
+                - ["Assistant Section Officer (same exam)", "S-16: ₹44,900 – ₹1,42,400 + DA and allowances"]
+            source: mpsc-011
+          - note: "The unit advertisements for Police Shipai do not print the pay scale, so no constable pay figure is shown here. The police portal lists the Finance Department rules that put employees appointed on or after 1 November 2005 under the defined-contribution pension scheme (DCPS, now merged with the NPS)."
+            source: pc-portal
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Where you serve"
+        parts:
+          - list:
+              - "A constable joins the unit (commissionerate, district or railway police) that advertised the post."
+            source: pc-pune
+          - p: "Gadchiroli district recruitment is open only to residents of Gadchiroli with a tahsildar's residence certificate; they also take an extra 100-mark written test in the Gondi and Madia languages and are not transferable outside the district (2018 amendment)."
+            source: pc-2018
+          - p: "PSI recruits are governed by the Police Sub-Inspector (Group-B Non-Gazetted) Recruitment Rules, 1995, and must pass the departmental and language exams and hold the computer-knowledge certificate after appointment."
+            source: mpsc-011
+    sources:
+      - { id: pc-portal, name: "Maharashtra Police — Recruitment portal 2024-25 (rules, GRs, dates, unit advertisements)", url: "https://policerecruitment2025.mahait.org/Forms/Home.aspx", covers: "application dates, list of units, rules and GRs (equivalence, reservations, small family, character verification, pension)", checked: 2026-10-14 }
+      - { id: pc-pune, name: "Pune City Police Commissionerate — Police Shipai Bharti 2024-25 advertisement (Marathi, 29 Oct 2025)", url: "https://policerecruitment2025.mahait.org/PDF/Advt_PDF/Advt_Police_Constable/CP_PuneCity_PC.pdf", covers: "1,733 posts, category-wise and horizontal reservation", checked: 2026-10-14 }
+      - { id: pc-rules, name: "Maharashtra Police Constables (Recruitment) Rules, 2011 (Marathi gazette, 16 Jun 2011)", url: "https://policerecruitment2025.mahait.org/PDF/16-6-2011_PC_RECT_RULE.pdf", covers: "age, HSC qualification, height and chest, Naxal-area relaxations", checked: 2026-10-14 }
+      - { id: pc-2018, name: "Maharashtra Police Constables (Recruitment) (Amendment) Rules, 2018 (Home Department order, 23 Mar 2018)", url: "https://policerecruitment2025.mahait.org/PDF/%E0%A4%AE%E0%A4%B9%E0%A4%BE%E0%A4%B0%E0%A4%BE%E0%A4%B7%E0%A5%8D%E0%A4%9F%E0%A5%8D%E0%A4%B0%20%E0%A4%AA%E0%A5%8B%E0%A4%B2%E0%A5%80%E0%A4%B8%20%E0%A4%B6%E0%A4%BF%E0%A4%AA%E0%A4%BE%E0%A4%88%20(%E0%A4%B8%E0%A5%87%E0%A4%B5%E0%A4%BE%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%87%E0%A4%B6)%20(2%20%E0%A4%B0%E0%A5%80%20%E0%A4%B8%E0%A5%81%E0%A4%A7%E0%A4%BE%E0%A4%B0%E0%A4%A3%E0%A4%BE)%E0%A4%A8%E0%A4%BF%E0%A4%AF%E0%A4%AE%202018.pdf", covers: "Gadchiroli residence rule and Gondi/Madia language test", checked: 2026-10-14 }
+      - { id: pc-2022, name: "Maharashtra Police Constables (Recruitment) (First Amendment) Rules, 2022 (gazette, 23 Jun 2022)", url: "https://policerecruitment2025.mahait.org/PDF/%E0%A4%AE%E0%A4%B9%E0%A4%BE%E0%A4%B0%E0%A4%BE%E0%A4%B7%E0%A5%8D%E0%A4%9F%E0%A5%8D%E0%A4%B0%20%E0%A4%AA%E0%A5%8B%E0%A4%B2%E0%A5%80%E0%A4%B8%20%E0%A4%B6%E0%A4%BF%E0%A4%AA%E0%A4%BE%E0%A4%88%20(%E0%A4%B8%E0%A5%87%E0%A4%B5%E0%A4%BE%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%87%E0%A4%B6)(%E0%A4%AA%E0%A4%B9%E0%A4%BF%E0%A4%B2%E0%A5%80%20%E0%A4%B8%E0%A5%81%E0%A4%A7%E0%A4%BE%E0%A4%B0%E0%A4%A3%E0%A4%BE)%20%E0%A4%A8%E0%A4%BF%E0%A4%AF%E0%A4%AE%202022.pdf", covers: "physical test events and marks, written test, 1:10 call ratio, 40% minimum, merit", checked: 2026-10-14 }
+      - { id: pc-2024, name: "Maharashtra Police Constables (Recruitment) (Amendment) Rules, 2024 (gazette, 4 Oct 2024)", url: "https://policerecruitment2025.mahait.org/PDF/%E0%A4%AE%E0%A4%B9%E0%A4%BE%E0%A4%B0%E0%A4%BE%E0%A4%B7%E0%A5%8D%E0%A4%9F%E0%A5%8D%E0%A4%B0%20%E0%A4%AA%E0%A5%8B%E0%A4%B2%E0%A5%80%E0%A4%B8%20%E0%A4%B6%E0%A4%BF%E0%A4%AA%E0%A4%BE%E0%A4%88%20(%E0%A4%B8%E0%A5%87%E0%A4%B5%E0%A4%BE%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%87%E0%A4%B6)%20(%E0%A4%B8%E0%A5%81%E0%A4%A7%E0%A4%BE%E0%A4%B0%E0%A4%A3%E0%A4%BE)%20%E0%A4%A8%E0%A4%BF%E0%A4%AF%E0%A4%AE,%20%E0%A5%A8%E0%A5%A6%E0%A5%A8%E0%A5%AA.pdf", covers: "5 cm height relaxation for Scheduled Tribes", checked: 2026-10-14 }
+      - { id: pc-2025, name: "Maharashtra Police Constables (Recruitment) (Amendment) Rules, 2025 — age (gazette, 20 Oct 2025)", url: "https://policerecruitment2025.mahait.org/PDF/%E0%A4%AE%E0%A4%B9%E0%A4%BE%E0%A4%B0%E0%A4%BE%E0%A4%B7%E0%A5%8D%E0%A4%9F%E0%A5%8D%E0%A4%B0%20%E0%A4%AA%E0%A5%8B%E0%A4%B2%E0%A5%80%E0%A4%B8%20%E0%A4%B6%E0%A4%BF%E0%A4%AA%E0%A4%BE%E0%A4%88%20(%E0%A4%B8%E0%A5%87%E0%A4%B5%E0%A4%BE%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%87%E0%A4%B6)(%E0%A4%B8%E0%A5%81%E0%A4%A7%E0%A4%BE%E0%A4%B0%E0%A4%A3%E0%A4%BE)%20%E0%A4%A8%E0%A4%BF%E0%A4%AF%E0%A4%AE%20%E0%A5%A8%E0%A5%A6%E0%A5%A8%E0%A5%AB%20%E0%A4%B5%E0%A4%AF%E0%A5%8B%E0%A4%AE%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%A6%E0%A4%BE.pdf", covers: "one-time age relief for 2024 and 2025 vacancies", checked: 2026-10-14 }
+      - { id: mpsc-011, name: "MPSC — Advertisement 011/2026, Maharashtra Group-B (Non-Gazetted) Services Combined Preliminary Exam 2026 (Marathi, 9 Apr 2026)", url: "https://mpsc.gov.in/adv_notification/8", covers: "PSI posts and reservation, age, physical standards, stages and marks, fee, pay levels, documents", checked: 2026-10-14 }
+
+  # ------------------------------------------------------------------ MHT-CET
+  - slug: mhtcet
+    group: academic
+    short: "MHT-CET (Engineering &amp; Pharmacy)"
+    body: "State Common Entrance Test Cell, Maharashtra"
+    card: "The state CET for B.E./B.Tech, B.Pharm, Pharm.D and B.Planning; its percentile feeds the CET Cell's centralised admission process (CAP)."
+    card_facts: ["PCM or PCB", "No negative marking", "Fee ₹1,300 / ₹1,000"]
+    eyebrow: "State CET Cell · MHT-CET 2026"
+    title: "MHT-CET 2026 — Maharashtra Engineering &amp; Pharmacy Entrance"
+    lede: "MHT-CET is conducted by the Maharashtra State Common Entrance Test Cell for first-year B.E./B.Tech, Pharmacy, Pharm.D and B.Planning admissions for 2026-27. Seats are then filled through the CET Cell's Centralised Admission Process (CAP)."
+    facts:
+      - { label: "Who can sit", value: "Class 12 passed or appearing; no age limit", source: mht-ib }
+      - { label: "Paper", value: "CBT · 180 min · no negative marks", source: mht-ib }
+      - { label: "Fee (one group)", value: "₹1,300 open · ₹1,000 reserved (MH)", source: mht-ib }
+      - { label: "B.E. eligibility", value: "45% in PCM-type subjects (40% reserved)", source: cap-ib }
+    official:
+      - { label: "MHT-CET 2026 information brochure", url: "https://cetcell.mahacet.org/wp-content/uploads/2023/12/MHT-CET-2026-Information-Brochure-Updated-on-11.04.2026.pdf" }
+      - { label: "CAP portals 2026-27", url: "https://cetcell.mahacet.org/cap-_2026-27/" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "What MHT-CET is for"
+        parts:
+          - p: "The Commissioner of the State CET Cell, set up under the Maharashtra Unaided Private Professional Educational Institutions (Regulation of Admissions and Fees) Act, 2015, conducts MHT-CET 2026 for first-year B.E./B.Tech, Planning, Pharmacy, M.E./M.Tech (Integrated), Pharm.D and M.Planning (Integrated) admissions in 2026-27. The same admission rules apply to government and aided colleges, including ICT Mumbai."
+            source: mht-ib
+          - p: "Online registration ran from 10 January to 12 February 2026, with fee payment until 13 February 2026. The test is computer-based at almost all district headquarters of Maharashtra."
+            source: mht-ib
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Eligibility &amp; candidature"
+        heading: "Who can appear, and which candidature type you are"
+        parts:
+          - list:
+              - "Any Indian national who has passed or is appearing in HSC / Class 12 or its equivalent may appear. There is no age limit."
+              - "MHT-CET is compulsory for Maharashtra State and Minority candidature candidates seeking B.E./B.Tech or B.Pharm/Pharm.D. All India candidates may skip it: JEE (Main) 2026 is preferred for B.E./B.Tech and NEET 2026 for B.Pharm/Pharm.D."
+              - "NRI, Gulf-worker children, OCI/PIO and foreign national candidates are exempt from MHT-CET."
+            source: mht-ib
+          - table:
+              caption: "Maharashtra State candidature types (claim only one)"
+              head: ["Type", "Who"]
+              rows:
+                - ["A", "Passed SSC and HSC (or Diploma / D.Voc) from Maharashtra, and is domiciled in and/or born in Maharashtra"]
+                - ["B", "Not Type A, but the candidate or father or mother is domiciled in Maharashtra with a domicile certificate"]
+                - ["C", "Father or mother is a Government of India / GoI undertaking employee posted in Maharashtra before the CAP form deadline"]
+                - ["D", "Father or mother is a serving or retired Maharashtra government / undertaking employee"]
+                - ["E", "Studied in or lives in the Maharashtra–Karnataka border area and mother tongue is Marathi"]
+            source: mht-ib
+          - p: "For first-year B.E./B.Tech, a Maharashtra candidate needs 10+2 with Physics and Mathematics compulsory plus Chemistry or one of the listed vocational / technical subjects, with at least 45% in those subjects taken together (40% for reserved categories, EWS and disabled candidates of Maharashtra), and a non-zero score in all subjects of PCM MHT-CET. PCB candidates with 45% / 40% and a non-zero PCB score are eligible only for nine branches such as Biotechnology, Agricultural, Food and Pharmaceutical Engineering."
+            source: cap-ib
+          - note: "The 2026 brochure says eligibility follows the previous year's (2025-26) CAP brochure until the 2026-27 CAP rules are notified."
+            source: mht-ib
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme"
+        heading: "Paper pattern"
+        parts:
+          - table:
+              head: ["Group", "Questions", "Marking", "Time"]
+              rows:
+                - ["PCM", "150", "Physics and Chemistry 1 mark each; Mathematics 2 marks each", "180 min: first 90 min Physics + Chemistry, next 90 min Mathematics"]
+                - ["PCB", "200", "1 mark each", "180 min: first 90 min Physics + Chemistry, next 90 min Biology"]
+            source: mht-ib
+          - list:
+              - "Multiple choice with four options; there is no negative marking."
+              - "Question paper in English, Marathi or Urdu (the choice is final); the English version prevails in case of doubt."
+              - "Candidates may take PCM, PCB or both, and may opt for two attempts of a group. With two attempts, the better total percentile counts for admission."
+              - "Results are percentile scores calculated shift-wise from raw marks; a percentile is not a percentage."
+            source: mht-ib
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "Application fee"
+        parts:
+          - table:
+              head: ["Option", "Open / OMS / J&amp;K migrant", "Reserved, EWS, PwD of Maharashtra; orphan; transgender"]
+              rows:
+                - ["PCM or PCB — first attempt", "₹1,300", "₹1,000"]
+                - ["PCM or PCB — both attempts", "₹2,600", "₹2,000"]
+            source: mht-ib
+          - p: "In CAP, candidates admitted on the basis of MHT-CET do not pay a separate CAP application fee; those applying only on a national-level exam pay a CAP fee."
+            source: cap-ib
+      - id: reservation
+        nav: "Reservation"
+        eyebrow: "Reservation &amp; certificates"
+        heading: "Seat reservation in CAP (Maharashtra candidates only)"
+        parts:
+          - table:
+              caption: "Vertical reservation of Maharashtra CAP seats (2025-26 CAP brochure)"
+              head: ["Category", "Share"]
+              rows:
+                - ["Scheduled Castes (incl. converts to Buddhism)", "13%"]
+                - ["Scheduled Tribes", "7%"]
+                - ["VJ / DT — NT(A)", "3%"]
+                - ["NT(B)", "2.5%"]
+                - ["NT(C)", "3.5%"]
+                - ["NT(D)", "2%"]
+                - ["OBC", "19%"]
+                - ["SEBC (subject to the High Court's decision)", "10%"]
+                - ["Total", "60%"]
+            source: cap-ib
+          - list:
+              - "<strong>EWS:</strong> 10% seats, over and above the sanctioned intake."
+              - "<strong>Women:</strong> 30% of seats (none under Defence, PwD or Orphan quotas)."
+              - "<strong>Defence:</strong> 5% for children of ex- and serving defence personnel (DEF-1/2/3)."
+              - "<strong>Persons with Disability:</strong> 5% for at least 40% benchmark disability."
+              - "<strong>Orphans:</strong> 1% of CAP seats."
+            source: cap-ib
+          - note: "To be counted in a category you must upload the caste certificate, caste validity certificate, Non-Creamy Layer certificate and EWS certificate in the state format at the time of the CAP form."
+            source: mht-ib
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "What CAP asks for"
+        parts:
+          - list:
+              - "All candidates: SSC and HSC mark sheets, CET score card, school leaving certificate if needed, proof of Indian nationality."
+              - "Type A: domicile, birth or leaving certificate showing birth in Maharashtra. Type B: domicile certificate of the candidate or parent. Type C/D: employer certificate (Proforma A or B). Type E: border-area and Marathi mother-tongue certificates (Proforma G1, G2)."
+              - "SC/ST: caste and caste validity certificates. VJ/NT/OBC/SBC/SEBC: caste, caste validity and a Non-Creamy Layer certificate valid up to 31 March of the admission year."
+              - "EWS: eligibility certificate in Proforma V. Orphan: Proforma U. Defence: Proforma C (and D/E)."
+              - "Originals are scanned and uploaded (JPG/GIF, 150 dpi, up to 1 MB each); facilitation centres scan them free."
+            source: cap-ib
+          - list:
+              - "For MHT-CET registration itself: Aadhaar authentication and APAAR ID verification through DigiLocker, and a 2 × 2 inch colour photo (100 KB – 5 MB)."
+            source: mht-ib
+      - id: pay
+        nav: "Where It Leads"
+        eyebrow: "After admission"
+        heading: "What an MHT-CET rank leads to"
+        parts:
+          - p: "CAP allots seats in B.E./B.Tech, B.Pharm, Pharm.D, B.Planning and the integrated M.E./M.Tech and M.Planning programmes in government, aided, university and unaided colleges across Maharashtra."
+            source: mht-ib
+          - links:
+              - { label: "B.Tech colleges in Maharashtra (verified list)", url: "colleges/maharashtra/btech.html" }
+              - { label: "B.Pharm colleges in Maharashtra (verified list)", url: "colleges/maharashtra/bpharm.html" }
+      - id: posting
+        nav: "Help"
+        eyebrow: "Support"
+        heading: "Help and grievances"
+        parts:
+          - list:
+              - "Helpdesk email cethelpdesk-2026@maharashtracet.org, toll-free 1800-209-0191, helplines 079-6913-4401 / 4402 (10 am – 6 pm)."
+              - "Objections to questions are raised only through the candidate login during the notified window."
+              - "Candidates with a disability get 20 minutes per hour of compensatory time when using a scribe; the scribe must be two academic years below the candidate."
+            source: mht-ib
+    sources:
+      - { id: mht-ib, name: "State CET Cell — MHT-CET 2026 Information Brochure (updated 11 Apr 2026)", url: "https://cetcell.mahacet.org/wp-content/uploads/2023/12/MHT-CET-2026-Information-Brochure-Updated-on-11.04.2026.pdf", covers: "dates, candidature types, exam pattern, fees, PwD rules, results, certificates", checked: 2026-10-14 }
+      - { id: cap-ib, name: "State CET Cell — CAP Information Brochure for UG & PG Technical Courses 2025-26", url: "https://cetcell.mahacet.org/wp-content/uploads/2023/12/Information_Brochure_UG_PG_2025_26_Final_02_07_2025.pdf", covers: "B.E. eligibility, reservation percentages, CAP fee rule, CAP documents", checked: 2026-10-14 }
+
+  # ------------------------------------------------------------------ MBA CET
+  - slug: mba-cet
+    group: academic
+    short: "MAH-MBA/MMS CET"
+    body: "State Common Entrance Test Cell, Maharashtra"
+    card: "The state CET for two-year MBA and MMS admissions in government, university and unaided management institutes of Maharashtra."
+    card_facts: ["Graduate, 50% (45% reserved)", "200 questions · 150 min", "Two attempts, best counts"]
+    eyebrow: "State CET Cell · MAH-MBA/MMS CET 2026"
+    title: "MAH-MBA/MMS CET 2026 — Maharashtra Management Entrance"
+    lede: "MAH-MBA/MMS CET is the State CET Cell's online test for first-year admission to the two-year full-time MBA and MMS courses in Maharashtra for 2026-27; seats are then filled through CAP."
+    facts:
+      - { label: "Eligibility", value: "Bachelor's, 50% (45% reserved MH)", source: mba-ib }
+      - { label: "Paper", value: "200 MCQs · 150 min · no negative", source: mba-ib }
+      - { label: "Fee", value: "₹1,500 open · ₹1,300 reserved (MH)", source: mba-ib }
+      - { label: "Attempts", value: "Up to two; better percentile counts", source: mba-ib }
+    official:
+      - { label: "MBA/MMS CET 2026 information brochure", url: "https://cetcell.mahacet.org/wp-content/uploads/2023/12/MAH-MBA-MMS-CET-2026-Information-Brochure.pdf" }
+      - { label: "MBA CAP portal 2026", url: "https://mba2026.mahacet.org.in/mba_26/home" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "What MAH-MBA/MMS CET covers"
+        parts:
+          - p: "Admissions based on this CET cover all Government of Maharashtra management institutes, university departments, university-managed institutes and all unaided management institutes under the 2015 Act, provided they are approved and affiliated to a non-agricultural university in Maharashtra. Registration ran from 10 January to 12 February 2026 (fee until 13 February)."
+            source: mba-ib
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Eligibility"
+        heading: "Who can appear"
+        parts:
+          - list:
+              - "A bachelor's degree of at least three years from a UGC / AIU-recognised university in any discipline, with at least 50% aggregate (45% for backward class categories, EWS and persons with disability belonging to Maharashtra)."
+              - "Final-year degree students may also appear."
+              - "Aggregate means the grand total of marks in the subjects on which the university declares the class; CGPA is converted by the university's own certified method; percentages are rounded to two decimals."
+            source: mba-ib
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme"
+        heading: "Sections and marks"
+        parts:
+          - table:
+              head: ["Section", "Questions", "Marks"]
+              rows:
+                - ["Logical Reasoning", "75", "75"]
+                - ["Abstract Reasoning", "25", "25"]
+                - ["Quantitative Aptitude", "50", "50"]
+                - ["Verbal Ability / Reading Comprehension", "50", "50"]
+                - ["Total", "200", "200"]
+            source: mba-ib
+          - list:
+              - "Online test, 150 minutes, English medium; five options per question; no negative marking."
+              - "Two attempts are allowed, each in multiple shifts. Percentiles are computed from raw marks, and with two attempts the better percentile is used for 2026-27 admissions."
+            source: mba-ib
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "Application fee"
+        parts:
+          - table:
+              head: ["Option", "Open / OMS / J&amp;K migrant", "Reserved, EWS, PwD of Maharashtra; orphan; transgender"]
+              rows:
+                - ["First attempt", "₹1,500", "₹1,300"]
+                - ["Both attempts", "₹3,000", "₹2,600"]
+            source: mba-ib
+      - id: reservation
+        nav: "Reservation"
+        eyebrow: "Reservation &amp; certificates"
+        heading: "Certificates you will need at CAP"
+        parts:
+          - list:
+              - "Caste certificate, caste validity certificate and a Non-Creamy Layer certificate valid up to 31 March 2027, where applicable, at the time of the CAP form."
+              - "EWS certificate and Persons with Disability certificate, where applicable, at the CAP form."
+              - "SEBC reservation is subject to the High Court's decision in the pending writ petitions."
+            source: mba-ib
+          - note: "The CAP seat-reservation percentages for Maharashtra candidates are the same as on the MHT-CET page (60% vertical, plus EWS 10% over intake, 30% women, 5% defence, 5% PwD, 1% orphans)."
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "On test day and at registration"
+        parts:
+          - list:
+              - "Printed hall ticket plus an original photo ID with the same name (PAN, passport, permanent driving licence, voter card, bank passbook with photo, Aadhaar / e-Aadhaar, college ID and others listed). Ration cards and learner's licences are not accepted."
+              - "Women whose name changed after marriage must bring the gazette notification, marriage certificate or affidavit."
+              - "Registration uses Aadhaar authentication and APAAR ID verification through DigiLocker."
+            source: mba-ib
+      - id: pay
+        nav: "Where It Leads"
+        eyebrow: "After admission"
+        heading: "What the CET leads to"
+        parts:
+          - p: "A two-year full-time MBA or MMS seat allotted through CAP in a government, university or unaided management institute of Maharashtra."
+            source: mba-ib
+          - links:
+              - { label: "MBA CAP portal 2026", url: "https://mba2026.mahacet.org.in/mba_26/home" }
+      - id: posting
+        nav: "Help"
+        eyebrow: "Support"
+        heading: "Help"
+        parts:
+          - list:
+              - "Helpdesk email cethelpdesk-2026@maharashtracet.org, toll-free 1800-209-0191, helplines 079-6913-4401 / 4402 (10 am – 6 pm)."
+              - "Plan for about four hours at the venue although the test is 150 minutes."
+            source: mba-ib
+    sources:
+      - { id: mba-ib, name: "State CET Cell — MAH-MBA/MMS CET 2026 Information Brochure", url: "https://cetcell.mahacet.org/wp-content/uploads/2023/12/MAH-MBA-MMS-CET-2026-Information-Brochure.pdf", covers: "institutes covered, dates, eligibility, sections and marks, attempts, fees, certificates, ID rules", checked: 2026-10-14 }
+
+  # ------------------------------------------------------------------ BBA / BMS / BBM / BCA CAP
+  - slug: bba-cap
+    group: academic
+    short: "BBA / BMS / BBM / BCA CET &amp; CAP"
+    body: "State Common Entrance Test Cell, Maharashtra"
+    card: "Undergraduate management and computer-application degrees are now regulated admissions: a state CET followed by the CET Cell's centralised CAP rounds."
+    card_facts: ["Class 12 passed or appearing", "100 MCQs · 120 min", "CAP Rounds I–IV"]
+    eyebrow: "State CET Cell · MAH-BHMCT/BCA/BBA/BMS/BBM CET 2026"
+    title: "BBA, BMS, BBM &amp; BCA Admission in Maharashtra — CET and CAP"
+    lede: "BBA, BMS, BBM, BCA and the integrated MBA/MCA courses are treated as professional technical courses in Maharashtra: candidates take the MAH-BHMCT/BCA/BBA/BMS/BBM CET and are then admitted through the State CET Cell's Centralised Admission Process."
+    facts:
+      - { label: "Who can sit", value: "Class 12 passed or appearing", source: bba-ib }
+      - { label: "Paper", value: "100 MCQs · 120 min · English", source: bba-ib }
+      - { label: "Fee", value: "₹1,300 open · ₹1,000 reserved (MH)", source: bba-ib }
+      - { label: "CAP need", value: "Non-zero CET score (MH candidates)", source: cap-ib }
+    official:
+      - { label: "CET 2026 information brochure", url: "https://cetcell.mahacet.org/wp-content/uploads/2023/12/Information-brochure-for-MAH-BHMCT-BCA-BBA-BMS-BBM-CET-2026.pdf" }
+      - { label: "BBA/BMS/BBM CAP portal 2026", url: "https://bba2026.mahacet.org.in/bba_26/home" }
+      - { label: "BCA CAP portal 2026", url: "https://bca2026.mahacet.org/StaticPages/HomePage" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "One CET for five kinds of degree"
+        parts:
+          - p: "The 2026 CET covers first-year BHMCT (4 years), BCA, BBA, BMS and BBM (3 or 4 years), MBA (Integrated), MCA (Integrated) and M.HMCT (Integrated) for 2026-27. Online registration ran from 14 January to 16 February 2026, with payment until 17 February 2026."
+            source: bba-ib
+          - p: "In CAP, BBA/BMS/BBM and BCA are listed alongside engineering, pharmacy and architecture as full-time professional undergraduate technical courses, so the same CAP stages, reservations and document rules apply."
+            source: cap-ib
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Eligibility"
+        heading: "Who can appear and who gets a CAP seat"
+        parts:
+          - list:
+              - "Indian citizen who has passed or is appearing in 10+2 or an equivalent exam."
+              - "BCA / BBA / BMS / BBM: 10+2 pass with eligibility as per the admission policy of the affiliating university."
+              - "BHMCT / M.HMCT (Integrated): 10+2 with at least 45% aggregate (40% for reserved categories, EWS and disabled candidates of Maharashtra)."
+            source: bba-ib
+          - table:
+              caption: "CAP eligibility for BBA/BMS/BBM (2025-26 CAP brochure)"
+              head: ["Candidature", "What is needed"]
+              rows:
+                - ["Maharashtra State", "10+2 as per the affiliating university's policy and a non-zero score in MAH-BCA/BBA/BMS/BBM CET"]
+                - ["All India, J&amp;K and Ladakh migrant", "10+2 as above and a non-zero positive score in CUET-UG or a non-zero CET score; CUET-UG scorers are preferred"]
+            source: cap-ib
+      - id: scheme
+        nav: "Exam &amp; CAP"
+        eyebrow: "Exam scheme &amp; CAP rounds"
+        heading: "Test pattern and the CAP process"
+        parts:
+          - table:
+              head: ["Section", "Questions", "Marks"]
+              rows:
+                - ["English Language", "30", "30"]
+                - ["Reasoning (verbal and arithmetic)", "30", "30"]
+                - ["General Knowledge &amp; Awareness", "20", "20"]
+                - ["Computer Basics", "20", "20"]
+                - ["Total", "100", "100"]
+            source: bba-ib
+          - list:
+              - "Online test, 120 minutes, English medium, four options per question, no negative marking."
+              - "Expect to be at the venue for about 180 minutes for checks and log-in."
+            source: bba-ib
+          - list:
+              - "CAP stages: information brochure → online CAP application → upload of scanned original documents → provisional and final merit lists → option forms and allotment for each round."
+              - "Seats left after CAP and institutional-quota seats are filled by institutes under the CET Cell's notice."
+            source: cap-ib
+          - p: "The 2026 BBA/BMS/BBM CAP portal published separate merit lists for All India, Maharashtra and Defence candidates and vacancy positions for CAP Rounds II, III and IV; it now shows that all processes for 2026-27 are closed."
+            source: bba-cap26
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "CET fee and CAP fee"
+        parts:
+          - table:
+              head: ["Candidate", "CET fee"]
+              rows:
+                - ["Open category (Maharashtra), OMS, J&amp;K migrant", "₹1,300"]
+                - ["SC, ST, VJ/DT-NT(A), NT(B), NT(C), NT(D), OBC, SBC, SEBC, EWS and PwD of Maharashtra; orphans; transgender candidates", "₹1,000"]
+            source: bba-ib
+          - p: "Candidates seeking admission on the basis of the state CET do not pay a separate CAP application fee; those applying only through a national exam (such as CUET-UG) pay the CAP fee."
+            source: cap-ib
+      - id: reservation
+        nav: "Reservation"
+        eyebrow: "Reservation &amp; certificates"
+        heading: "Category seats and certificates"
+        parts:
+          - list:
+              - "Caste certificate, caste validity certificate and Non-Creamy Layer certificate (valid up to 31 March 2027), EWS certificate and PwD certificate, where applicable, at the CAP form."
+              - "SEBC reservation is subject to the High Court's decision."
+            source: bba-ib
+          - list:
+              - "Maharashtra CAP seats: SC 13%, ST 7%, NT(A) 3%, NT(B) 2.5%, NT(C) 3.5%, NT(D) 2%, OBC 19%, SEBC 10%."
+              - "EWS 10% over intake; 30% for women; 5% defence; 5% PwD; 1% orphans."
+            source: cap-ib
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Uploads for CAP"
+        parts:
+          - list:
+              - "SSC and HSC mark sheets, CET (or CUET-UG) score card, leaving certificate if needed, proof of Indian nationality."
+              - "Candidature proof (domicile / birth certificate for Type A, domicile certificate for Type B, employer Proforma A/B for Types C/D, Proforma G1/G2 for Type E)."
+              - "Category documents as above; EWS Proforma V; orphan Proforma U; defence Proforma C/D/E."
+            source: cap-ib
+          - p: "The 2026 CAP portal's download section carries the proformas (A, B1, B2, C, D, G1 & G2, J&K, M, O, U, V, W2, S)."
+            source: bba-cap26
+      - id: pay
+        nav: "Where It Leads"
+        eyebrow: "After admission"
+        heading: "What a CAP seat leads to"
+        parts:
+          - p: "A three- or four-year BBA, BMS, BBM or BCA (or an integrated MBA / MCA) in a college affiliated to a Maharashtra university, allotted through CAP."
+            source: bba-ib
+          - links:
+              - { label: "BBA colleges in Maharashtra (verified list)", url: "colleges/maharashtra/bba.html" }
+              - { label: "BCA colleges in Maharashtra (verified list)", url: "colleges/maharashtra/bca.html" }
+      - id: posting
+        nav: "Help"
+        eyebrow: "Support"
+        heading: "Help"
+        parts:
+          - list:
+              - "CET helpdesk: cethelpdesk-2026@maharashtracet.org, toll-free 1800-209-0191."
+            source: bba-ib
+          - list:
+              - "BBA/BMS/BBM CAP helpline: 1800-410-6363 and 76698-61010 (10 am – 6 pm)."
+            source: bba-cap26
+    sources:
+      - { id: bba-ib, name: "State CET Cell — MAH-BHMCT/BCA/BBA/BMS/BBM CET 2026 Information Brochure", url: "https://cetcell.mahacet.org/wp-content/uploads/2023/12/Information-brochure-for-MAH-BHMCT-BCA-BBA-BMS-BBM-CET-2026.pdf", covers: "courses, dates, eligibility, test pattern, fees, certificates", checked: 2026-10-14 }
+      - { id: cap-ib, name: "State CET Cell — CAP Information Brochure for UG & PG Technical Courses 2025-26", url: "https://cetcell.mahacet.org/wp-content/uploads/2023/12/Information_Brochure_UG_PG_2025_26_Final_02_07_2025.pdf", covers: "CAP eligibility for BBA/BMS/BBM, CAP stages, CAP fee rule, reservations, documents", checked: 2026-10-14 }
+      - { id: bba-cap26, name: "State CET Cell — BBA/BMS/BBM/MBA (Integrated) CAP portal 2026-27", url: "https://bba2026.mahacet.org.in/bba_26/home", covers: "2026 merit lists, CAP rounds II–IV, proformas, helpline, process closed", checked: 2026-10-14 }
+
+  # ------------------------------------------------------------------ MSBSHSE
+  - slug: msbshse
+    group: academic
+    short: "MSBSHSE Board (SSC &amp; HSC)"
+    body: "Maharashtra State Board of Secondary and Higher Secondary Education, Pune"
+    card: "The state board behind the Class 10 (SSC) and Class 12 (HSC) exams, held through nine divisional boards. HSC is the qualifying exam for every CET route above."
+    card_facts: ["9 divisional boards", "HSC from 8 Feb 2027", "SSC from 15 Feb 2027"]
+    eyebrow: "MSBSHSE · SSC &amp; HSC 2027"
+    title: "Maharashtra Board (MSBSHSE) SSC &amp; HSC 2027 — Dates and Forms"
+    lede: "The Maharashtra State Board of Secondary and Higher Secondary Education, Pune conducts the SSC (Class 10) and HSC (Class 12) exams through nine divisional boards. This page follows the board's notices for the February–March 2027 exams."
+    facts:
+      - { label: "HSC written exam", value: "8 Feb – 16 Mar 2027", source: board-dates }
+      - { label: "SSC written exam", value: "15 Feb – 11 Mar 2027", source: board-dates }
+      - { label: "SSC forms (regular fee)", value: "19 Aug – 31 Oct 2026", source: board-ssc-form }
+      - { label: "Divisional boards", value: "9", source: board-dates }
+    official:
+      - { label: "MSBSHSE website", url: "https://www.mahahsscboard.in/" }
+      - { label: "Feb–Mar 2027 exam dates notice", url: "https://state-board-strapi-upload.blr1.digitaloceanspaces.com/6_3915_170926_9c8b56fe4f.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "What the board runs"
+        parts:
+          - p: "The board holds the SSC and HSC written, practical, grade, oral and internal-assessment exams through its nine divisional boards at Pune, Nagpur, Chhatrapati Sambhajinagar, Mumbai, Kolhapur, Amravati, Nashik, Latur and Konkan. Its notice of 17 September 2026 announced the probable dates for February–March 2027 early so that schools can plan and students face less stress; the subject-wise timetable is published separately."
+            source: board-dates
+      - id: eligibility
+        nav: "Who Applies"
+        eyebrow: "Eligibility &amp; forms"
+        heading: "Who fills the exam form, and how"
+        parts:
+          - list:
+              - "Regular students: forms are filled online by the school from the student's UDISE+ PEN-ID."
+              - "Repeaters, private candidates holding an enrolment certificate, candidates under the class-improvement scheme, candidates with isolated subjects, and ITI students taking transfer of credit: forms are filled online through the school in the usual way, since their data is not on UDISE+."
+              - "Students seeking transfer of credit under the Kaushalya Setu scheme also apply online and submit hard copies to the divisional board."
+              - "The APAAR ID is recorded on the form where the student has one."
+            source: board-ssc-form
+      - id: scheme
+        nav: "Exam Dates"
+        eyebrow: "Exam schedule"
+        heading: "February–March 2027 dates"
+        parts:
+          - table:
+              head: ["Exam", "HSC (Class 12)", "SSC (Class 10)"]
+              rows:
+                - ["Written exam", "Mon 8 Feb – Tue 16 Mar 2027", "Mon 15 Feb – Thu 11 Mar 2027"]
+                - ["Practical, grade, oral and internal assessment", "Wed 20 Jan – Sat 6 Feb 2027", "Thu 28 Jan – Sat 13 Feb 2027"]
+            source: board-dates
+      - id: fees
+        nav: "Form Fees"
+        eyebrow: "Fee windows"
+        heading: "SSC 2027 form and fee dates"
+        parts:
+          - table:
+              head: ["Fee type", "Forms by students / schools", "Schools pay the fee"]
+              rows:
+                - ["Regular fee", "Wed 19 Aug – Sat 31 Oct 2026", "Mon 31 Aug – Sat 31 Oct 2026"]
+                - ["Late fee", "Sun 1 Nov – Sun 15 Nov 2026", "Sun 1 Nov – Sun 15 Nov 2026"]
+                - ["Extra-late fee", "Mon 16 Nov – Mon 30 Nov 2026", "Mon 16 Nov – Mon 30 Nov 2026 (₹50 per student per day)"]
+            source: board-ssc-form
+          - list:
+              - "Schools deposit the fee receipts and student pre-lists with the divisional board by Monday 7 December 2026."
+              - "Fees are paid by the school through the SBI online gateway; old bank challans and cash are not accepted. Hall tickets are not issued until the fee is paid, and the dates will not be extended."
+            source: board-ssc-form
+          - note: "The circular gives the windows but not the per-subject fee amounts; schools see those in their login."
+            source: board-ssc-form
+      - id: reservation
+        nav: "Category &amp; Later Use"
+        eyebrow: "Category, certificates &amp; later use"
+        heading: "Where your board certificates are used"
+        parts:
+          - p: "Your SSC and HSC mark sheets are the base documents for every Maharashtra CAP admission, and the HSC is the qualifying exam whose marks decide CET eligibility (for B.E./B.Tech: 45% in the relevant subjects, 40% for reserved, EWS and PwD candidates of Maharashtra)."
+            source: cap-ib
+      - id: documents
+        nav: "Form Details"
+        eyebrow: "Form checklist"
+        heading: "Details schools must get right"
+        parts:
+          - list:
+              - "Photo: a recent (within 6 months) professional colour passport photo, JPG only, 25–40 KB, plain white or light background, face fully visible, preferably in school uniform. The photo cannot be changed once the form is sent and hall tickets are generated."
+              - "Students or parents sign the pre-list or form printout because name and date-of-birth errors are common."
+              - "Schools must update their School Profile (institution, recognised subjects, teachers) before filling forms."
+            source: board-ssc-form
+      - id: pay
+        nav: "Where It Leads"
+        eyebrow: "After the board"
+        heading: "What comes next"
+        parts:
+          - p: "After HSC, the State CET Cell's tests (MHT-CET, the BBA/BCA CET and others) and CAP decide most professional admissions in Maharashtra; see the other admission nodes in this cockpit."
+            source: mht-ib
+          - links:
+              - { label: "MHT-CET page", url: "state/maharashtra/mhtcet.html" }
+              - { label: "BBA / BMS / BCA CET &amp; CAP page", url: "state/maharashtra/bba-cap.html" }
+      - id: posting
+        nav: "Help"
+        eyebrow: "Support"
+        heading: "Help"
+        parts:
+          - list:
+              - "The board runs a student counselling helpline, 91127-09112, and offers online verification of SSC and HSC mark sheets and certificates and duplicate mark sheets on its website."
+            source: board-home
+    sources:
+      - { id: board-dates, name: "MSBSHSE — Notice on HSC and SSC February–March 2027 exam dates (Marathi, 17 Sep 2026)", url: "https://state-board-strapi-upload.blr1.digitaloceanspaces.com/6_3915_170926_9c8b56fe4f.pdf", covers: "nine divisional boards, written and practical exam windows", checked: 2026-10-14 }
+      - { id: board-ssc-form, name: "MSBSHSE — Circular on SSC February–March 2027 online exam forms (Marathi, 18 Aug 2026)", url: "https://state-board-strapi-upload.blr1.digitaloceanspaces.com/_64615b9ac7.pdf", covers: "who applies, UDISE+ PEN-ID, fee windows, late fees, photo rules", checked: 2026-10-14 }
+      - { id: board-home, name: "MSBSHSE — Official website", url: "https://www.mahahsscboard.in/", covers: "helpline and online services", checked: 2026-10-14 }
+      - { id: cap-ib, name: "State CET Cell — CAP Information Brochure for UG & PG Technical Courses 2025-26", url: "https://cetcell.mahacet.org/wp-content/uploads/2023/12/Information_Brochure_UG_PG_2025_26_Final_02_07_2025.pdf", covers: "use of SSC/HSC in CAP and B.E. eligibility", checked: 2026-10-14 }
+      - { id: mht-ib, name: "State CET Cell — MHT-CET 2026 Information Brochure", url: "https://cetcell.mahacet.org/wp-content/uploads/2023/12/MHT-CET-2026-Information-Brochure-Updated-on-11.04.2026.pdf", covers: "HSC as the qualifying exam for MHT-CET", checked: 2026-10-14 }

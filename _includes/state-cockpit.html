@@ -1,6 +1,6 @@
 {%- comment -%}
   State Exam & Career Cockpit dashboard: {% include state-cockpit.html state="gujarat" %}
-  Data: _data/in/states/<state>.yml → cockpit (hero copy, facts, groups of exam slugs, portals) and
+  Data: _data/in/states/<state>.yml → cockpit (hero copy, facts, groups of exam slugs, portals, portals_note) and
   exams[] (each tile uses short, body, card, card_facts and links to state/<state>/<slug>.html).
   Image-free; each group is one bordered master block (.mb), so the blocks alternate sharp/rounded corners.
 {%- endcomment -%}
@@ -128,14 +128,14 @@
       <div class="section-head">
         <span class="eyebrow">Official portals</span>
         <h2 id="portals-heading">Where to apply and check notices</h2>
-        <p>All Gujarat government recruitment forms are filled online; the admission committees run their own portals. Only use these official addresses.</p>
+        <p>{{ K.portals_note }}</p>
       </div>
       <ul class="sl-links sc-portals">
         {%- for o in K.portals %}
         <li><a href="{{ o.url }}" target="_blank" rel="noopener noreferrer">{{ o.label }}<span>Official ↗</span></a></li>
         {%- endfor %}
       </ul>
-      <p class="sl-note">How this cockpit is built: each exam page is written only from that board's own advertisement or admission notice (linked in its “Where these facts come from” block, with the date we read it). Coaching and news sites are not used. Spotted something out of date? Email <a href="mailto:{{ site.feedback_email }}?subject={{ 'Gujarat exam cockpit — correction' | uri_escape }}">{{ site.feedback_email }}</a>.</p>
+      <p class="sl-note">How this cockpit is built: each exam page is written only from that board's own advertisement or admission notice (linked in its “Where these facts come from” block, with the date we read it). Coaching and news sites are not used. Spotted something out of date? Email <a href="mailto:{{ site.feedback_email }}?subject={{ SD.state.name | append: ' exam cockpit — correction' | uri_escape }}">{{ site.feedback_email }}</a>.</p>
     </div>
   </section>
 </main>

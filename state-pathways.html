@@ -74,7 +74,9 @@ footer:
       <p>Admission to engineering, pharmacy, medical and diploma courses in India often depends on your state. Each state runs its own entrance test or counselling, keeps a share of seats for local candidates, and operates its own polytechnic board and scholarship portal. This hub puts those rules side by side for ten major states so that you can see which exam to prepare for, how quota and domicile affect your chances, and where to apply for financial help.</p>
       <div class="page-hero-ctas">
         <a href="#state-picker" class="btn btn-primary btn-inpage-jump btn-hub-jump">Select your state</a>
-        <a href="state/gujarat/index.html" class="btn btn-ghost btn-page-link">Gujarat exam cockpit</a>
+        {%- for s in site.data.state_exams.states %}{% if site.data.in.states[s.id] %}
+        <a href="state/{{ s.id }}/index.html" class="btn btn-ghost btn-page-link">{{ s.name }} exam cockpit</a>
+        {%- endif %}{% endfor %}
       </div>
       <div class="quickfacts">
         <div class="qf-card"><span>States covered</span><strong>{{ site.data.state_exams.states | size }}</strong></div>

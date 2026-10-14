@@ -134,6 +134,7 @@ if (fs.existsSync(stateDir)) for (const f of fs.readdirSync(stateDir).filter((x)
     if (!g.id || !g.heading) err('every cockpit group needs id and heading');
     for (const s of g.exams || []) { if (!slugs.includes(s)) err(`group ${g.id}: unknown exam "${s}"`); grouped.set(s, g.id); }
   }
+  if (!(D.cockpit && D.cockpit.portals_note)) err('cockpit.portals_note is required');
   for (const o of (D.cockpit && D.cockpit.portals) || []) if (!/^https:\/\//.test(o.url || '')) err(`portal ${o.label}: url must start with https://`);
   for (const E of D.exams || []) {
     stateExams++;

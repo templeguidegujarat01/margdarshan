@@ -1,0 +1,1008 @@
+# Delhi (NCT) State Exam & Career Cockpit — one data sheet for the cockpit (state/delhi/index.html) and every
+# exam page under state/delhi/. Rendered by _includes/state-cockpit.html and _includes/state-exam.html;
+# checked by scripts/check-in-data.mjs (state sheets block).
+#
+# Rules for this sheet (same as gujarat.yml, maharashtra.yml and uttar-pradesh.yml):
+#   - Every fact part carries `source: <id>`; the id must be listed under that exam's `sources`.
+#   - Sources are the official advertisement / notice / brochure files themselves (read 2026-10-14): DSSSB
+#     advertisements (text PDFs), the SSC notices for Delhi Police, the JAC Delhi 2026 brochure (text PDF),
+#     the GGSIPU 2026-27 bachelor's brochure and the CBSE LOC circular (both image scans, read page by page).
+#     Nothing here comes from coaching or news sites. Where no official file we could open states a value
+#     (for example the GGSIPU CET application fee or a DSSSB in-hand salary), the text says so instead of guessing.
+#   - Section ids are the same on every exam page: overview, eligibility, scheme, fees, reservation,
+#     documents, pay, posting (+ sources, drawn automatically).
+#   - Part kinds: p (paragraph), list (bullets), table {head, rows, caption?}, note (small print),
+#     warn (callout box), links [{label, url}] (official buttons).
+state:
+  id: delhi
+  name: Delhi (NCT)
+  checked: 2026-10-14
+
+cockpit:
+  eyebrow: "State Exam &amp; Career Cockpit · Delhi (NCR)"
+  title: "Delhi Exam &amp; Career Cockpit"
+  intro:
+    - "Every major Delhi government recruitment and admission route on one screen: DSSSB teacher and clerical exams, Delhi Police Constable and Sub-Inspector, JAC Delhi engineering counselling, GGSIPU (IPU CET) admissions and the CBSE board. Each page is built only from the official advertisement, notice or brochure of the conducting body, and every fact links back to that file."
+    - "One rule decides more Delhi results than any other: the region and the certificate. DSSSB gives OBC reservation only to OBC (Delhi) certificate holders (an OBC certificate from another state counts as unreserved), JAC Delhi and GGSIPU keep 85% of seats for students who passed Class 12 from a school in Delhi, and those Delhi-region reserved seats need a certificate issued by the Government of NCT of Delhi."
+  facts:
+    - { label: "Recruitment nodes", value: "DSSSB teachers · DSSSB combined · Delhi Police" }
+    - { label: "Admission nodes", value: "JAC Delhi · GGSIPU (IPU CET) · CBSE board" }
+    - { label: "Open right now", value: "DSSSB Advt 04/2026 till 4 Nov 2026" }
+    - { label: "Last checked", value: "14 Oct 2026" }
+  groups:
+    - id: civil
+      eyebrow: "Civil recruitment &amp; administrative"
+      heading: "Government recruitment exams"
+      intro: "Teachers (PRT, TGT, PGT) and clerical, court and engineering posts of the Delhi Government through the Delhi Subordinate Services Selection Board (DSSSB), and Constables and Sub-Inspectors of Delhi Police through the Staff Selection Commission (SSC)."
+      exams: [dsssb, dsssb-combined, delhi-police]
+    - id: academic
+      eyebrow: "Academic &amp; professional admissions"
+      heading: "Admission routes after Class 12, and the board behind them"
+      intro: "B.Tech and B.Arch at NSUT, DTU, IGDTUW, IIIT-Delhi and DSEU through JAC Delhi, BBA, B.Com, BCA, law and many other degrees at GGSIPU and its affiliated colleges through IPU CET, CUET or national tests, and the CBSE Class 10 and 12 exams that most Delhi students take."
+      exams: [jac-delhi, ipu-cet, cbse]
+  compare_note: "Fees, age limits and dates are from the latest notice of each body. They change every cycle, so always open the current notice before applying."
+  portals_note: "DSSSB forms run only on dsssbonline.nic.in (one-time registration first); Delhi Police Constable and SI forms run on ssc.gov.in; JAC Delhi on jacdelhi.admissions.nic.in; GGSIPU on ipu.admissions.nic.in. Only use these official addresses."
+  portals:
+    - { label: "DSSSB (vacancies and notices)", url: "https://dsssb.delhi.gov.in/dsssb-vacancies" }
+    - { label: "DSSSB online application", url: "https://dsssbonline.nic.in/" }
+    - { label: "Staff Selection Commission", url: "https://ssc.gov.in/" }
+    - { label: "Delhi Police (PE&amp;MT admit cards)", url: "https://delhipolice.gov.in/" }
+    - { label: "JAC Delhi counselling", url: "https://jacdelhi.admissions.nic.in/" }
+    - { label: "GGSIPU admissions", url: "https://ipu.ac.in/" }
+    - { label: "CBSE", url: "https://www.cbse.gov.in/" }
+
+exams:
+  # ------------------------------------------------------------------ DSSSB TEACHERS
+  - slug: dsssb
+    group: civil
+    short: "DSSSB Teachers (PRT, TGT, PGT)"
+    body: "Delhi Subordinate Services Selection Board"
+    card: "Assistant Teacher (Primary), Trained Graduate Teacher and Post Graduate Teacher posts in Delhi Government (Directorate of Education) and NDMC schools, filled through one-tier computer-based exams."
+    card_facts: ["TGT 2025: 5,346 posts", "Age up to 30 (+5 SC/ST, +3 OBC-Delhi)", "₹100 fee · women, SC/ST free"]
+    eyebrow: "DSSSB · Teaching posts"
+    title: "DSSSB Teacher Recruitment — PRT, TGT and PGT"
+    lede: "Delhi's government schools recruit teachers through the Delhi Subordinate Services Selection Board. This page follows the three latest teaching advertisements: TGT (Advt 06/2025, 5,346 posts), Assistant Teacher Primary (Advt 05/2025, 1,180 posts) and PGT (Advt 10/2024, 432 posts), plus the TGT Computer Science and Special Educator posts in Advt 03/2026."
+    facts:
+      - { label: "TGT qualification", value: "Subject degree with 50% + B.Ed + CTET", source: d-0625 }
+      - { label: "Age limit", value: "Up to 30 years (PRT, TGT, PGT)", source: d-0625 }
+      - { label: "Exam", value: "One tier · TGT 200 marks · PGT 300 marks", source: d-1024 }
+      - { label: "Fee", value: "₹100 · women, SC, ST, PwBD, ESM exempt", source: d-0625 }
+    official:
+      - { label: "DSSSB current vacancies", url: "https://dsssb.delhi.gov.in/dsssb-vacancies" }
+      - { label: "TGT Advt 06/2025 (PDF)", url: "https://dsssb.delhi.gov.in/sites/default/files/DSSSB/circulars-orders/advertisement_no_06-2025.pdf" }
+      - { label: "Apply on dsssbonline.nic.in", url: "https://dsssbonline.nic.in/" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "The latest teacher advertisements"
+        parts:
+          - p: "<strong>TGT — Advt 06/2025</strong> (3 Oct 2025): 5,346 posts of Trained Graduate Teacher in nine subjects (male and female posts advertised separately), Drawing Teacher and Special Education Teacher; applications ran from 9 October to 7 November 2025."
+            source: d-0625
+          - p: "<strong>Assistant Teacher (Primary) — Advt 05/2025</strong> (10 Sep 2025): 1,180 posts — 1,055 in the Directorate of Education and 125 in NDMC; applications ran from 17 September to 16 October 2025."
+            source: d-0525
+          - p: "<strong>PGT — Advt 10/2024</strong> (30 Dec 2024): 432 posts of Post Graduate Teacher in Hindi, Maths, Physics, Chemistry, Biology, Economics, Commerce, History, Geography, Political Science and other subjects; applications ran from 16 January to 14 February 2025."
+            source: d-1024
+          - p: "<strong>Advt 03/2026</strong> (29 May 2026, applications 16 June – 15 July 2026) added TGT Computer Science (675 posts), Special Educator (Primary) (450), TGT Special Education Teacher (163) and Domestic Science Teacher (129), alongside non-teaching posts — 1,979 posts in all."
+            source: d-0326
+          - table:
+              caption: "TGT 2025 vacancies by subject (Advt 06/2025, Directorate of Education)"
+              head: ["Subject", "Male", "Female"]
+              rows:
+                - ["Mathematics", "744", "376"]
+                - ["English", "869", "104"]
+                - ["Social Science", "310", "92"]
+                - ["Natural Science", "630", "502"]
+                - ["Hindi", "420", "136"]
+                - ["Sanskrit", "342", "416"]
+                - ["Urdu", "45", "116"]
+                - ["Punjabi", "67", "160"]
+            source: d-0625
+          - p: "Vacancies are tentative and are reported by the departments (Directorate of Education, NDMC); DSSSB says they may go up or down. Exam dates are announced later only on the DSSSB website."
+            source: d-0625
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "Qualifications for each teaching post"
+        parts:
+          - table:
+              caption: "TGT and Drawing Teacher (Advt 06/2025)"
+              head: ["Post", "Qualification", "Age limit"]
+              rows:
+                - ["TGT (subject)", "Bachelor's in the subject with 50% (subject studied at least 2 years) or master's with 50% in bachelor's or master's, or 4-year B.El.Ed / B.Sc.B.Ed / B.A.B.Ed; plus B.Ed and CTET", "Up to 30 years"]
+                - ["Drawing Teacher", "5-year diploma in drawing / painting / sculpture / graphic art, or master's in drawing and painting / fine art, or bachelor's in fine art + 2-year diploma", "Up to 30 years"]
+            source: d-0625
+          - list:
+              - "<strong>Assistant Teacher (Primary):</strong> Class 12 with 50% + 2-year Diploma in Elementary Education (or 45% under the NCTE 2002 norms, or a 4-year B.El.Ed) + CTET; age up to 30 years."
+            source: d-0525
+          - list:
+              - "<strong>PGT:</strong> master's in the subject with at least 50% + B.Ed (or B.A.B.Ed / B.Sc.B.Ed, or 3-year integrated B.Ed-M.Ed); age up to 30 years."
+            source: d-1024
+          - list:
+              - "<strong>Cut-off date:</strong> qualification, age and experience are counted on the closing date of the advertisement (7 Nov 2025 for TGT 2025)."
+              - "<strong>Citizenship:</strong> the candidate must be a citizen of India."
+              - "<strong>Government servants:</strong> the 30-year limit is relaxable up to 5 years under central instructions."
+              - "<strong>Guest / contract teachers of DoE:</strong> a one-time relaxation equal to the time served as a contract employee of the same department, up to 5 years, if they worked at least 120 days in that year (Services Department OM of 11 June 2019)."
+            source: d-0625
+          - table:
+              caption: "Age relaxation (para 7 of Advt 06/2025)"
+              head: ["Category", "Extra years"]
+              rows:
+                - ["SC / ST", "5"]
+                - ["OBC (Delhi)", "3"]
+                - ["PwBD (UR / EWS)", "10"]
+                - ["PwBD (SC / ST)", "15"]
+                - ["PwBD (OBC)", "13"]
+                - ["Ex-servicemen (Group B)", "military service + 3 years, up to age 55"]
+            source: d-0625
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme"
+        heading: "One-tier computer-based test"
+        parts:
+          - table:
+              caption: "TGT, Drawing and Special Education Teacher — one tier, MCQ, 1 mark each (Advt 06/2025)"
+              head: ["Section", "Content", "Marks"]
+              rows:
+                - ["A", "General awareness, reasoning, arithmetic, Hindi, English (20 each)", "100"]
+                - ["B", "The subject, including teaching methodology / B.Ed", "100"]
+                - ["Total", "200 questions in 2 hours", "200"]
+            source: d-0625
+          - table:
+              caption: "PGT — one tier, MCQ, 1 mark each (Advt 10/2024)"
+              head: ["Section", "Content", "Marks"]
+              rows:
+                - ["I", "Mental ability, general awareness, English, Hindi, numerical aptitude and data interpretation (20 each)", "100"]
+                - ["II", "Post-graduation subject and teaching methodology", "200"]
+                - ["Total", "300 questions in 3 hours", "300"]
+            source: d-1024
+          - note: "Assistant Teacher (Primary) also has a one-tier, 200-question, 200-mark, 2-hour test (Advt 05/2025)."
+            source: d-0525
+          - list:
+              - "Negative marking: 0.25 mark for each wrong answer."
+              - "Questions are bilingual (Hindi and English) except the language sections."
+              - "Minimum qualifying marks apply only to the subject section (Section B), but Section A + B together decide the merit list."
+              - "Scores from multiple shifts are normalised by DSSSB's 2018 formula; draft answer keys are shown online for objections; there is no re-checking."
+              - "Ties are broken by more marks in the subject section, then by older age, then by first name in English alphabetical order."
+            source: d-0625
+          - table:
+              caption: "Minimum qualifying marks"
+              head: ["Category", "Minimum"]
+              rows:
+                - ["General / EWS", "40%"]
+                - ["OBC (Delhi)", "35%"]
+                - ["SC / ST / PwBD", "30%"]
+                - ["Ex-servicemen", "5% less than their category (not below 30%)"]
+            source: d-0625
+          - note: "PGT is a combined examination: post preferences for departments are taken at the e-dossier stage, and anyone who does not submit at least one preference is left out of the final result. There is no waiting panel."
+            source: d-1024
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "Application fee"
+        parts:
+          - table:
+              head: ["Candidate", "Fee"]
+              rows:
+                - ["General, OBC, EWS (men)", "₹100"]
+                - ["Women (all categories), SC, ST, PwBD, Ex-servicemen", "Nil"]
+            source: d-0625
+          - note: "Paid only through SBI e-pay and never refunded. Ex-servicemen already re-employed in a regular civil post after using ESM reservation must pay."
+            source: d-0625
+      - id: reservation
+        nav: "Reservation &amp; Certificates"
+        eyebrow: "Reservation &amp; certificates"
+        heading: "The Delhi-OBC rule, EWS and own-merit selection"
+        parts:
+          - warn: "Only OBC (Delhi) candidates get OBC reservation or age relaxation in DSSSB. An OBC certificate from another state (OBC-Outside) is treated as Unreserved, and such candidates must apply in the UR category."
+            source: d-0625
+          - list:
+              - "<strong>Valid OBC certificates:</strong> (a) an OBC (Delhi) certificate issued by the Revenue Department, Government of NCT of Delhi, for a caste notified as OBC by Delhi; or (b) an OBC certificate from outside Delhi, for a caste notified as OBC by Delhi, issued on the basis of a Delhi OBC certificate of the father, siblings or real paternal uncles who lived in Delhi before 8 September 1993."
+              - "<strong>Dates:</strong> the OBC certificate must be issued on or before the closing date; the OBC non-creamy-layer certificate must be issued between 1 April 2025 and the closing date (for TGT 2025)."
+              - "<strong>Category is final:</strong> the category chosen in the online form cannot be changed later."
+              - "<strong>Own merit:</strong> SC, ST, OBC, EWS and PwBD candidates selected without any relaxed standard are counted against unreserved vacancies; anyone who used a relaxation (age, qualification and so on) is counted against reserved vacancies."
+              - "<strong>Guest teachers:</strong> one-time age relaxation for contract or guest teachers of DoE who have not used it before."
+            source: d-0625
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "What to keep ready for the e-dossier"
+        parts:
+          - list:
+              - "DSSSB one-time registration on dsssbonline.nic.in (only one registration is allowed; duplicates are cancelled and debarred)."
+              - "Mark sheets and degrees for the subject degree or master's, B.Ed / D.El.Ed, and the CTET certificate."
+              - "OBC (Delhi) certificate and a non-creamy-layer certificate of the current year, EWS certificate, SC / ST certificate, PwBD certificate, ex-servicemen papers, as applicable."
+              - "Contract / guest service proof if claiming the one-time age relaxation."
+              - "Copies are asked for only at the online e-dossier stage; missing the e-dossier window ends the candidature."
+            source: d-0625
+          - note: "Exam-day rules: no phones, watches or metal items; light half-sleeve clothes and slippers or low-heel sandals (shoes not allowed)."
+            source: d-0625
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Pay levels of teaching posts"
+        parts:
+          - list:
+              - "<strong>TGT, Drawing Teacher, Special Education Teacher:</strong> Level-7, ₹44,900 – ₹1,42,400, Group B non-gazetted."
+            source: d-0625
+          - list:
+              - "<strong>Assistant Teacher (Primary):</strong> Level-6, ₹35,400 – ₹1,12,400."
+            source: d-0525
+          - list:
+              - "<strong>PGT:</strong> Level-8, ₹47,600 – ₹1,51,100, Group B non-gazetted."
+            source: d-1024
+          - note: "The first figure of each range is the starting basic pay. In-hand salary adds dearness allowance, HRA and other allowances and subtracts deductions; the advertisements give only the pay level, so no in-hand figure is shown here."
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Where DSSSB teachers work"
+        parts:
+          - p: "Selected teachers join Delhi Government schools run by the Directorate of Education or schools of the New Delhi Municipal Council (NDMC), depending on the post code they applied for; final allotment follows merit and the department preferences given at the e-dossier stage."
+            source: d-1024
+          - links:
+              - { label: "B.Ed colleges in Delhi (verified list)", url: "colleges/delhi/bed.html" }
+    sources:
+      - { id: d-0625, name: "DSSSB — Vacancy Notice / Advertisement No. 06/2025 (TGT, Drawing Teacher, Special Education Teacher), 3 Oct 2025", url: "https://dsssb.delhi.gov.in/sites/default/files/DSSSB/circulars-orders/advertisement_no_06-2025.pdf", covers: "TGT vacancies, qualifications, age and relaxations, fee, exam scheme, qualifying marks, OBC (Delhi) rules, documents, pay", checked: 2026-10-14 }
+      - { id: d-1024, name: "DSSSB — Advertisement No. 10/2024, Combined Examination 2024 for Post Graduate Teacher (30 Dec 2024)", url: "https://dsssb.delhi.gov.in/sites/default/files/DSSSB/circulars-orders/final_advt_10-2024_combined_pgts.pdf", covers: "PGT vacancies (432), qualification, age, 300-mark scheme, post preferences, pay", checked: 2026-10-14 }
+      - { id: d-0525, name: "DSSSB — Advertisement No. 05/2025, Combined Examination 2025 for Assistant Teacher (Primary) (10 Sep 2025)", url: "https://dsssb.delhi.gov.in/sites/default/files/DSSSB/circulars-orders/final_advt_no_05-2025_asstt_teacher_primary.pdf", covers: "PRT vacancies (1,180), qualification, age, exam, pay", checked: 2026-10-14 }
+      - { id: d-0326, name: "DSSSB — Advertisement No. 03/2026, post codes 21/26 to 45/26 (29 May 2026)", url: "https://dsssb.delhi.gov.in/sites/default/files/DSSSB/circulars-orders/final_advt-03-2026_1.pdf", covers: "TGT Computer Science, Special Educator, Domestic Science Teacher vacancies and dates", checked: 2026-10-14 }
+
+  # ------------------------------------------------------------------ DSSSB COMBINED (ASO, JE, COURTS)
+  - slug: dsssb-combined
+    group: civil
+    short: "DSSSB Combined Exams (ASO, JE, Court JJA &amp; PA)"
+    body: "Delhi Subordinate Services Selection Board"
+    card: "Grade-II (GNCTDSS) / Assistant Section Officer, Junior and Assistant Engineers, and — open right now — Junior Judicial Assistant, Personal Assistant, Process Server and Peon in Delhi's District Courts."
+    card_facts: ["ASO: 576 posts, Level-7", "Courts Advt 04/2026: 641 posts", "Apply by 4 Nov 2026"]
+    eyebrow: "DSSSB · Combined examinations"
+    title: "DSSSB Combined Exams — ASO / Grade-II, JE, and District Court Posts 2026"
+    lede: "Besides teachers, DSSSB fills Delhi Government office and court posts through 'combined examinations'. This page follows Advt 01/2026 (Grade-II / Assistant Section Officer, JE and AE Civil, Legal Assistant — 911 posts) and Advt 04/2026 for the District Courts (Senior PA, PA, Junior Judicial Assistant, Process Server, Peon — 641 posts), which is open until 4 November 2026."
+    facts:
+      - { label: "Courts Advt 04/2026", value: "641 posts · 6 Oct – 4 Nov 2026", source: d-0426 }
+      - { label: "ASO / Grade-II", value: "Any degree · age 21–30 · Level-7", source: d-0126 }
+      - { label: "JJA", value: "Graduate + 40 wpm typing · age 18–27", source: d-0426 }
+      - { label: "Fee", value: "₹100 · women, SC, ST, PwBD, ESM exempt", source: d-0426 }
+    official:
+      - { label: "Advt 04/2026 — District Courts (PDF)", url: "https://dsssb.delhi.gov.in/sites/default/files/DSSSB/circulars-orders/final_adv_1.pdf" }
+      - { label: "Advt 01/2026 — ASO, JE, AE (PDF)", url: "https://dsssb.delhi.gov.in/sites/default/files/DSSSB/circulars-orders/final_advt_01-2026.pdf" }
+      - { label: "Apply on dsssbonline.nic.in", url: "https://dsssbonline.nic.in/" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "Two combined advertisements of 2026"
+        parts:
+          - table:
+              caption: "Advt 04/2026 — District &amp; Sessions Courts and Family Courts (applications 6 Oct – 4 Nov 2026, 11 pm)"
+              head: ["Post (post code)", "Pay", "Vacancies"]
+              rows:
+                - ["Senior Personal Assistant (805/26)", "Pay band ₹9,300–34,800 + GP ₹4,800 (Level-8)", "27"]
+                - ["Personal Assistant (805/26)", "Level-7", "189 + 17 (Family Courts)"]
+                - ["Junior Judicial Assistant (806/26)", "Pay band ₹5,200–20,200 + GP ₹2,800 (Level-5)", "151 + 23 (Family Courts)"]
+                - ["Process Server (807/26)", "Pay band ₹5,200–20,200 + GP ₹2,400 (Level-4)", "91 + 1"]
+                - ["Peon / Orderly / Dak Peon (808/26)", "Pay band ₹5,200–20,200 + GP ₹2,000 (Level-3)", "139 + 3"]
+                - ["Total", "", "641"]
+            source: d-0426
+          - table:
+              caption: "Advt 01/2026 — Combined Examinations 2026 (applications closed 25 Mar 2026)"
+              head: ["Post (post code)", "Department", "Pay level", "Vacancies"]
+              rows:
+                - ["Grade-II (GNCTDSS) / Assistant Section Officer (804/26)", "Services Department, DPCC, DUSIB", "Level-7", "576 + 3 + 8"]
+                - ["Junior Engineer (Civil) (803/26)", "Delhi Jal Board, NDMC", "Level-6", "180 + 101"]
+                - ["Assistant Engineer (Civil) (802/26)", "Delhi Jal Board, Delhi Agricultural Marketing Board", "Level-7", "32 + 1"]
+                - ["Legal Assistant (801/26)", "DPCC, DUSIB, Law Department, DTC", "Level-6", "10"]
+                - ["Total", "", "", "911"]
+            source: d-0126
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "Who can apply"
+        parts:
+          - table:
+              caption: "District Court posts (age counted on 1 June 2026)"
+              head: ["Post", "Qualification", "Age"]
+              rows:
+                - ["Senior Personal Assistant", "Graduate + shorthand 110 wpm and typing 40 wpm", "18–27"]
+                - ["Personal Assistant", "Graduate + shorthand 100 wpm and typing 40 wpm", "18–27"]
+                - ["Junior Judicial Assistant", "Graduate + typing 40 wpm on computer", "18–27"]
+                - ["Process Server", "Matriculation / Higher Secondary + LMV driving licence and 2 years' unblemished driving", "18–27"]
+                - ["Peon / Orderly / Dak Peon", "Matriculation", "18–27"]
+            source: d-0426
+          - table:
+              caption: "Advt 01/2026 posts"
+              head: ["Post", "Qualification", "Age"]
+              rows:
+                - ["Grade-II (GNCTDSS) / ASO", "Bachelor's degree", "21–30"]
+                - ["Legal Assistant (DPCC)", "Law degree + 3 years as a legal practitioner or 1 year of legal work in a government department", "Up to 30"]
+            source: d-0126
+          - note: "JE and AE (Civil) need the civil-engineering qualification printed for each department in Advt 01/2026. Age relaxations follow the DSSSB category table (in Advt 06/2025, for example: SC/ST +5, OBC (Delhi) +3, PwBD +10 / +13 / +15)."
+            source: d-0126
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme"
+        heading: "Tiers, skill tests and interviews"
+        parts:
+          - table:
+              caption: "Grade-II / ASO — two tiers"
+              head: ["Tier", "Paper", "Marks", "Time"]
+              rows:
+                - ["Tier-I (qualifying only)", "200 MCQs: general awareness, reasoning, arithmetic, Hindi, English (40 each)", "200", "2 hours"]
+                - ["Tier-II Part I", "200 MCQs: general awareness, reasoning, arithmetic, English, computer proficiency (40 each)", "200", "3 hours (one session)"]
+                - ["Tier-II Part II", "Descriptive in English: essay 50, letter / application 25, précis 25", "100", "(same session)"]
+            source: d-0126
+          - note: "Selection for ASO is on Tier-II Part I + Part II. JE and AE (Civil) have one tier of 300 marks: Section A 100 one-mark MCQs (general) and Section B 100 two-mark MCQs on civil engineering, 3 hours. Negative marking: 0.25 for a wrong one-mark answer, 0.50 for a wrong two-mark answer."
+            source: d-0126
+          - table:
+              caption: "District Court posts (Advt 04/2026)"
+              head: ["Post", "Tier-I MCQ", "Next stages"]
+              rows:
+                - ["Senior PA / PA", "90 marks, 90 min (English 50, GK 20, intelligence 20) — English only", "Descriptive English 75 (essay 30, grammar 25, translation 20) → shorthand test (550 / 500 words in 5 min, 40 min to transcribe, 4% mistakes allowed) → interview 10"]
+                - ["Junior Judicial Assistant", "120 marks, 120 min (English 60, GK 30, intelligence 30) — English only", "Descriptive English 100 (essay 50, grammar 30, translation 20) → typing test 40 wpm → interview 15"]
+                - ["Process Server", "100 marks, 120 min (English, Hindi, GK, arithmetic — 25 each), bilingual", "Driving test in real traffic (qualifying) → interview 15"]
+                - ["Peon / Orderly / Dak Peon", "100 marks, 120 min (English, Hindi, GK, arithmetic — 25 each), bilingual", "Interview 15"]
+            source: d-0426
+          - list:
+              - "Up to 25 times the vacancies are called for the descriptive test, and up to 10 times for the skill test (15 times for the Process Server driving test, 10 times for Peon interviews)."
+              - "Minimum qualifying marks in Tier-I and Tier-II: UR / EWS 50%; OBC (Delhi), SC, ST, PwBD and ex-servicemen 45%. Negative marking 0.25 per wrong MCQ."
+              - "Interviews and the final merit list (Tier-II + interview) are prepared by the Delhi District Courts, Tis Hazari; there is no minimum mark in the interview."
+            source: d-0426
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "Application fee"
+        parts:
+          - table:
+              head: ["Candidate", "Fee"]
+              rows:
+                - ["General, OBC, EWS (men)", "₹100"]
+                - ["Women, SC, ST, PwBD, Ex-servicemen", "Nil"]
+            source: d-0426
+          - note: "Only SBI e-pay is accepted, and the fee is never refunded."
+            source: d-0426
+      - id: reservation
+        nav: "Reservation &amp; Certificates"
+        eyebrow: "Reservation &amp; certificates"
+        heading: "OBC (Delhi) and other categories"
+        parts:
+          - warn: "As in every DSSSB exam, OBC reservation and the OBC age relaxation are only for OBC (Delhi) certificate holders; OBC candidates from other states are treated as Unreserved."
+            source: d-0625
+          - list:
+              - "Vacancies include backlog posts for SC, ST, OBC and EWS, and separate counts for PwBD (by disability type), ex-servicemen and meritorious sportspersons where the department reported them."
+              - "Each post is identified for specific benchmark disabilities (for example Senior PA is suitable only for some locomotor disabilities); PwBD candidates should check the line printed under each post."
+              - "Preferences for court posts / departments are taken at the interview; a candidate who gives none is allotted at the District Courts' discretion."
+            source: d-0426
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "What to keep ready"
+        parts:
+          - list:
+              - "DSSSB one-time registration and the online application printout."
+              - "Graduation (or matriculation) mark sheets and certificate."
+              - "For the driving-based Process Server post: LMV driving licence and proof of 2 years' driving."
+              - "OBC (Delhi) certificate with a current non-creamy-layer certificate, EWS / SC / ST / PwBD / ex-servicemen certificates, as applicable."
+            source: d-0426
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Pay of combined-exam posts"
+        parts:
+          - list:
+              - "<strong>Grade-II / ASO, Assistant Engineer (Civil):</strong> Level-7, ₹44,900 – ₹1,42,400."
+              - "<strong>Junior Engineer (Civil), Legal Assistant:</strong> Level-6, ₹35,400 – ₹1,12,400."
+            source: d-0126
+          - table:
+              caption: "District Court posts (Advt 04/2026)"
+              head: ["Post", "Pay"]
+              rows:
+                - ["Personal Assistant", "Level-7"]
+                - ["Senior Personal Assistant", "₹9,300–34,800 + grade pay ₹4,800"]
+                - ["Junior Judicial Assistant", "₹5,200–20,200 + grade pay ₹2,800"]
+                - ["Process Server", "₹5,200–20,200 + grade pay ₹2,400"]
+                - ["Peon / Orderly / Dak Peon", "₹5,200–20,200 + grade pay ₹2,000"]
+            source: d-0426
+          - note: "Court posts are printed in the older pay-band and grade-pay format; the level shown in the overview table is the one printed in the vacancy table. In-hand salary adds DA, HRA and other allowances, which the advertisements do not print."
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Where these posts serve"
+        parts:
+          - p: "ASOs join the Delhi Government secretariat services (GNCTDSS) and bodies such as DPCC and DUSIB; JEs and AEs join Delhi Jal Board and NDMC; court staff serve in the District and Sessions Courts and Family Courts of Delhi."
+            source: d-0126
+          - links:
+              - { label: "SSC and government-exam coaching in Delhi", url: "coaching/delhi/ssc.html" }
+    sources:
+      - { id: d-0426, name: "DSSSB — Advertisement No. 04/2026, Combined Examination 2026 for Senior PA, PA, Junior Judicial Assistant, Process Server and Peon (30 Sep 2026)", url: "https://dsssb.delhi.gov.in/sites/default/files/DSSSB/circulars-orders/final_adv_1.pdf", covers: "court vacancies, dates, qualifications, age, fee, four-tier schemes, qualifying marks, pay", checked: 2026-10-14 }
+      - { id: d-0126, name: "DSSSB — Advertisement No. 01/2026, Combined Examinations 2026 for Legal Assistant, AE (Civil), JE (Civil) and Grade-II (GNCTDSS) / ASO (20 Feb 2026)", url: "https://dsssb.delhi.gov.in/sites/default/files/DSSSB/circulars-orders/final_advt_01-2026.pdf", covers: "vacancies, qualifications, age, two-tier ASO scheme, JE / AE scheme, negative marking, pay", checked: 2026-10-14 }
+      - { id: d-0625, name: "DSSSB — Advertisement No. 06/2025 (para 6, reservation and OBC (Delhi) certificates)", url: "https://dsssb.delhi.gov.in/sites/default/files/DSSSB/circulars-orders/advertisement_no_06-2025.pdf", covers: "OBC (Delhi) rule that applies to all DSSSB exams", checked: 2026-10-14 }
+
+  # ------------------------------------------------------------------ DELHI POLICE
+  - slug: delhi-police
+    group: civil
+    short: "Delhi Police Constable &amp; Sub-Inspector"
+    body: "Staff Selection Commission for Delhi Police"
+    card: "Constable (Executive) through the SSC's Delhi Police exam (Class 12, 100-mark CBT, run and jumps), and Sub-Inspector through the SSC 'SI in Delhi Police and CAPFs' exam, whose 2026 CBT is on 20–28 November 2026."
+    card_facts: ["Constable 2025: 7,201 posts", "SI 2026: 317 Delhi Police posts", "Height 170 cm men / 157 cm women"]
+    eyebrow: "SSC · Delhi Police"
+    title: "Delhi Police Constable 2025 and Sub-Inspector 2026 — Eligibility, Physical Test, Exam, Cut-offs"
+    lede: "Delhi Police does not run its own written exams: the Staff Selection Commission does, and Delhi Police holds the physical tests. This page follows the Constable (Executive) Male and Female 2025 exam (result of 19 June 2026, PE&amp;MT next) and the Sub-Inspector in Delhi Police and CAPFs Exam 2026 (CBT 20–28 November 2026)."
+    facts:
+      - { label: "Constable qualification", value: "Class 12 · age 18–25 (on 1 Jul 2025)", source: dp-c25 }
+      - { label: "SI qualification", value: "Any degree · age 20–25 (on 1 Aug 2026)", source: cpo-26 }
+      - { label: "SI 2026 CBT", value: "20–28 Nov 2026", source: ssc-cal }
+      - { label: "Pay", value: "Constable Level-3 · SI Level-6", source: cpo-26 }
+    official:
+      - { label: "SSC website (notices and results)", url: "https://ssc.gov.in/" }
+      - { label: "Constable 2025 notice (PDF)", url: "https://delhipolice.gov.in/RecruitmentFile/63193_NoticeConstable2025.pdf" }
+      - { label: "SI in Delhi Police &amp; CAPFs 2026 notice (PDF)", url: "https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_adv_capf_2026.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "Where both recruitments stand"
+        parts:
+          - table:
+              caption: "Constable (Executive) 2025 — revised vacancies (SSC notice of 25 Feb 2026)"
+              head: ["Post", "UR", "EWS", "OBC", "SC", "ST", "Total"]
+              rows:
+                - ["Male (open)", "1,733", "434", "956", "729", "337", "4,189"]
+                - ["Male (ex-servicemen, others)", "96", "24", "53", "62", "36", "271"]
+                - ["Male (ex-servicemen, commando)", "96", "24", "56", "138", "51", "365"]
+                - ["Female", "948", "238", "525", "457", "208", "2,376"]
+                - ["Total", "2,873", "720", "1,590", "1,386", "632", "7,201"]
+            source: ssc-vac
+          - p: "The Constable CBT was held from 18 December 2025 to 6 January 2026. The CBT result came on 19 June 2026, and shortlisted candidates now go to the Physical Endurance and Measurement Test (PE&amp;MT) and document verification, scheduled by Delhi Police on delhipolice.gov.in."
+            source: dp-res
+          - table:
+              caption: "SI in Delhi Police 2026 — tentative vacancies (applications closed 30 Sep 2026)"
+              head: ["Post", "UR", "OBC", "SC", "ST", "EWS", "Total"]
+              rows:
+                - ["SI (Exe.) Male", "87", "54", "30", "14", "20", "205"]
+                - ["SI (Exe.) Female", "47", "30", "16", "8", "11", "112"]
+            source: cpo-26
+          - note: "The same exam also fills 1,320 SI (GD) posts in CRPF, BSF, ITBP, CISF and SSB and 234 SI (Fire) posts in CISF."
+            source: cpo-26
+          - p: "SSC's exam schedule of 1 October 2026 fixes the Paper-I computer-based exam of the SI in Delhi Police and CAPFs Examination 2026 for 20–28 November 2026."
+            source: ssc-cal
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "Qualification, age and licence"
+        parts:
+          - list:
+              - "<strong>Constable — qualification:</strong> Class 12 (10+2) passed by 21 October 2025; candidates from all over India may apply; the post is not identified for PwBD."
+              - "<strong>Constable — age:</strong> 18–25 on 1 July 2025 (born 2 July 2000 – 1 July 2007)."
+              - "<strong>Constable — licence:</strong> men need a valid LMV (motorcycle or car) licence at the PE&amp;MT; a learner's licence is not accepted."
+              - "<strong>Constable — relaxations:</strong> SC / ST 5 years, OBC 3 years, ex-servicemen 3 years after deducting military service; sons and daughters of serving, retired or deceased Delhi Police personnel and MTS up to 29 years with Class 11 as the minimum qualification; departmental candidates up to 40 / 43 / 45 years (UR-EWS / OBC / SC-ST)."
+            source: dp-c25
+          - list:
+              - "<strong>SI — qualification:</strong> a bachelor's degree by the closing date (30 September 2026)."
+              - "<strong>SI — age:</strong> 20–25 on 1 August 2026 (born 2 August 2001 – 1 August 2006)."
+              - "<strong>SI — licence:</strong> men need a valid LMV licence for motorcycle and car at the PE&amp;MT, otherwise they are eligible only for CAPF posts."
+              - "<strong>SI — relaxations:</strong> SC / ST 5 years, OBC 3 years, ex-servicemen 3 years after deducting military service; widows, divorced or judicially separated women not remarried up to 35 years (40 for SC/ST); Delhi Police Constables, Head Constables and ASIs with 3 years' service up to 30 years (33 OBC, 35 SC/ST) for open male SI vacancies."
+            source: cpo-26
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme &amp; physical test"
+        heading: "CBT, then the physical test by Delhi Police"
+        parts:
+          - table:
+              caption: "Constable CBT — 100 questions, 100 marks, 90 minutes, matriculation level"
+              head: ["Part", "Subject", "Marks"]
+              rows:
+                - ["A", "General knowledge / current affairs", "50"]
+                - ["B", "Reasoning", "25"]
+                - ["C", "Numerical ability", "15"]
+                - ["D", "Computer fundamentals, MS Excel, MS Word, email, internet", "10"]
+            source: dp-c25
+          - table:
+              caption: "Constable PE&amp;MT — Physical Endurance Test (qualifying, three chances for the jumps)"
+              head: ["Candidate (age)", "1,600 m race", "Long jump", "High jump"]
+              rows:
+                - ["Men up to 30", "6 minutes", "14 feet", "3 ft 9 in"]
+                - ["Men 30–40", "7 minutes", "13 feet", "3 ft 6 in"]
+                - ["Men above 40", "8 minutes", "12 feet", "3 ft 3 in"]
+                - ["Women up to 30", "8 minutes", "10 feet", "3 ft"]
+                - ["Women 30–40", "9 minutes", "9 feet", "2 ft 9 in"]
+                - ["Women above 40", "10 minutes", "8 feet", "2 ft 6 in"]
+            source: dp-c25
+          - list:
+              - "Constable height: men 170 cm, women 157 cm. Men's chest 81 cm with 4 cm expansion. Relaxations: hill-area residents and ST men 5 cm (height and chest); hill-area and SC / ST women 2 cm; sons and daughters of Delhi Police personnel 5 cm."
+              - "Constable CBT: 0.25 negative mark per wrong answer, English and Hindi only; NCC bonus 5% (C), 3% (B), 2% (A) of maximum marks; Rashtriya Raksha University degree holders get 2–5% extra."
+            source: dp-c25
+          - table:
+              caption: "SI 2026 — Paper-I (1 hour, sectional timer 15 min) and Paper-II (English, after PST/PET)"
+              head: ["Paper", "Content", "Questions / marks", "Negative marking"]
+              rows:
+                - ["Paper-I", "Reasoning, general knowledge, quantitative aptitude, English comprehension (25 each)", "100 / 100", "0.25"]
+                - ["Paper-II Parts I–III", "Reasoning, general knowledge, quantitative aptitude (20 questions, 40 marks each), 1 hour", "60 / 120", "0.50"]
+                - ["Paper-II Part IV", "English comprehension, 1 hour", "100 / 200", "0.50"]
+            source: cpo-26
+          - list:
+              - "SI height for Delhi Police: men 170 cm (hill areas 165, ST 162.5) with chest 80–85 cm (ST 77–82); women 157 cm (hill areas 155, ST 154)."
+              - "SI PET, men: 100 m in 16 s, 1.6 km in 6.5 min, long jump 3.65 m, high jump 1.2 m, shot put (16 lb) 4.5 m. Women: 100 m in 18 s, 800 m in 4 min, long jump 2.7 m, high jump 0.9 m."
+            source: cpo-26
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "Application fee"
+        parts:
+          - list:
+              - "<strong>Constable 2025:</strong> ₹100; women, SC, ST and ex-servicemen eligible for reservation pay nothing. Paid online (BHIM UPI, net banking, debit cards) and never refunded. Answer-key objections cost ₹50 per question."
+            source: dp-c25
+          - list:
+              - "<strong>SI 2026:</strong> ₹100; women, SC, ST and ex-servicemen eligible for reservation pay nothing."
+            source: cpo-26
+      - id: reservation
+        nav: "Reservation &amp; Cut-offs"
+        eyebrow: "Reservation, cut-offs &amp; certificates"
+        heading: "Delhi-OBC certificates and the 2025 Constable cut-offs"
+        parts:
+          - list:
+              - "<strong>Constable — OBC:</strong> castes in the central list; an OBC certificate issued by the Government of NCT of Delhi is also accepted. Not falling in the creamy layer is checked on the closing date."
+              - "<strong>Constable — EWS:</strong> income and asset certificate for 2025-26 based on 2024-25 income, in the Annexure-VIII format."
+              - "<strong>Constable — ex-servicemen:</strong> 10% of male Constable posts, half of it for commando-trained / Special Forces ex-servicemen."
+            source: dp-c25
+          - list:
+              - "<strong>SI — OBC:</strong> OBC certificates issued by GNCTD for castes on Delhi's list but not on the central list count only for the SI in Delhi Police post; for CAPF posts those candidates are treated as UR / EWS."
+            source: cpo-26
+          - table:
+              caption: "Constable 2025 CBT — normalised marks of the last candidate shortlisted for PE&amp;MT (out of 100)"
+              head: ["Category", "Male (open)", "Female"]
+              rows:
+                - ["UR", "70.05", "63.53"]
+                - ["OBC", "70.05", "63.06"]
+                - ["EWS", "68.55", "61.56"]
+                - ["SC", "62.84", "54.60"]
+                - ["ST", "60.08", "49.07"]
+            source: dp-res
+          - note: "Minimum qualifying marks in the Constable CBT: UR 35, SC / ST / OBC / EWS 30, ex-servicemen 25. The results of 423 candidates were not processed for malpractice."
+            source: dp-res
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "What to carry to PE&amp;MT and document verification"
+        parts:
+          - list:
+              - "Class 10 certificate (date of birth) and Class 12 mark sheet and certificate (degree for SI), showing the result declared by the closing date."
+              - "Valid LMV driving licence (male candidates)."
+              - "Caste / OBC non-creamy-layer / EWS certificate in the prescribed format; hill-area certificate from DC / DM / SDM / Tehsildar for height relaxation."
+              - "NCC certificate or Rashtriya Raksha University degree for bonus marks; ex-servicemen discharge papers or NOC."
+              - "SSC one-time registration (Aadhaar-based authentication recommended) and the online application."
+            source: dp-c25
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Pay levels"
+        parts:
+          - list:
+              - "<strong>Constable (Executive):</strong> Pay Level-3, ₹21,700 – ₹69,100, Group C."
+            source: dp-c25
+          - list:
+              - "<strong>Sub-Inspector (Executive), Delhi Police:</strong> Pay Level-6, ₹35,400 – ₹1,12,400, classified as Group C by Delhi Police."
+            source: cpo-26
+          - note: "The first figure is the starting basic pay. In-hand pay adds DA and other allowances that the notices do not print."
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "After selection"
+        parts:
+          - p: "The final Constable result is declared by SSC on CBT merit for candidates who qualify the PE&amp;MT and medical examination; Delhi Police handles the physical tests, document checks and medicals."
+            source: dp-c25
+          - links:
+              - { label: "SSC coaching in Delhi", url: "coaching/delhi/ssc.html" }
+              - { label: "Defence and police coaching in Delhi", url: "coaching/delhi/defence.html" }
+    sources:
+      - { id: dp-c25, name: "SSC — Notice, Constable (Executive) Male and Female in Delhi Police Examination 2025 (F. No. HQ-C-3020/2/2025-C-3, uploaded 22 Sep 2025), copy on delhipolice.gov.in", url: "https://delhipolice.gov.in/RecruitmentFile/63193_NoticeConstable2025.pdf", covers: "original vacancies, pay, age and relaxations, qualification, fee, CBT pattern, PE&MT standards, NCC and RRU bonus, documents", checked: 2026-10-14 }
+      - { id: ssc-vac, name: "SSC — Important Notice on revised vacancies, Constable (Exe.) in Delhi Police Exam 2025 (25 Feb 2026)", url: "https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/notice1_25022026.pdf", covers: "revised vacancy table (7,201)", checked: 2026-10-14 }
+      - { id: dp-res, name: "SSC — Declaration of CBT result for PE&MT / DV, Constable (Exe.) in Delhi Police Exam 2025 (19 Jun 2026)", url: "https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/writeup_dpce_19062026.pdf", covers: "CBT dates, minimum qualifying marks, category-wise cut-offs, malpractice cases", checked: 2026-10-14 }
+      - { id: cpo-26, name: "SSC — Notice, Sub-Inspector in Delhi Police and Central Armed Police Forces Examination 2026 (E/37/2026-C-2, 10 Sep 2026)", url: "https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_adv_capf_2026.pdf", covers: "SI vacancies, age, qualification, licence, OBC (GNCTD) rule, fee, Paper-I / II pattern, height and PET standards, pay", checked: 2026-10-14 }
+      - { id: ssc-cal, name: "SSC — Important Notice on exam schedule (1 Oct 2026)", url: "https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_01102026.pdf", covers: "SI 2026 CBT dates", checked: 2026-10-14 }
+
+  # ------------------------------------------------------------------ JAC DELHI
+  - slug: jac-delhi
+    group: academic
+    short: "JAC Delhi (DTU, NSUT, IGDTUW, IIIT-D, DSEU)"
+    body: "Joint Admission Counselling Delhi (coordinated by NSUT in 2026)"
+    card: "One online counselling for B.Tech and B.Arch at NSUT, DTU, IGDTUW, IIIT-Delhi and DSEU, on JEE Main rank, with 85% of seats for students who passed Class 12 from a Delhi school."
+    card_facts: ["7,765 B.Tech + 90 B.Arch seats", "85% Delhi region · 15% outside", "60% in PCM (OBC 55, SC/ST 50)"]
+    eyebrow: "JAC Delhi · Engineering admissions"
+    title: "JAC Delhi 2026 — DTU, NSUT, IGDTUW, IIIT-Delhi and DSEU Admission on JEE Main"
+    lede: "Delhi has no state engineering entrance exam. The Joint Admission Counselling (JAC) Delhi, started in 2014 by the Delhi Government, fills B.Tech and B.Arch seats of five Delhi universities using JEE Main ranks. This page follows the JAC Delhi 2026 brochure, with NSUT as the coordinating university."
+    facts:
+      - { label: "Admission basis", value: "JEE Main 2026 CRL (Paper-I; Paper-II for B.Arch)", source: jac-ib }
+      - { label: "Region split", value: "85% Delhi · 15% outside Delhi", source: jac-ib }
+      - { label: "Minimum marks", value: "60% in PCM (IIIT-D: 70% + 70% maths)", source: jac-ib }
+      - { label: "Registration fee", value: "₹1,500", source: jac-ib }
+    official:
+      - { label: "JAC Delhi website", url: "https://jacdelhi.admissions.nic.in/" }
+      - { label: "Admission Brochure 2026 (PDF)", url: "https://cdnbbsr.s3waas.gov.in/s3e45823afe1e5120cec11fc4c379a0c67/uploads/2026/05/202605261990309362.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "Institutes, seats and the 2026 timeline"
+        parts:
+          - table:
+              caption: "Participating universities (JAC Delhi 2026)"
+              head: ["University", "Programmes", "Note"]
+              rows:
+                - ["Netaji Subhas University of Technology (NSUT)", "B.Tech (18 branches across Main, East and West campuses), B.Arch (5 years)", "Coordinating university in 2026"]
+                - ["Delhi Technological University (DTU)", "B.Tech in 18 branches", "1 supernumerary single-girl-child seat per branch"]
+                - ["Indira Gandhi Delhi Technical University for Women (IGDTUW)", "B.Tech (10 branches), dual degree B.Tech (MAE) + MBA, B.Arch", "Women only; 1,323 seats listed"]
+                - ["IIIT-Delhi", "B.Tech in 9 branches (CSE, ECE, CSAM, CSD, CSSS, CSB, CSAI, EVE, CSEcon)", "JEE percentile + up to 2 bonus points"]
+                - ["Delhi Skill and Entrepreneurship University (DSEU)", "B.Tech across its campuses (incl. former GB Pant engineering college)", "Lower fee slab"]
+            source: jac-ib
+          - p: "In 2026 JAC Delhi allotted 7,765 engineering seats in the five institutions and 90 B.Arch seats in two. Registration and choice filling ran from 28 May to 9 June 2026, with one more three-day window on 26–28 June 2026; no registration is allowed after that in the whole cycle. Counselling has four rounds, an upgradation round for admitted candidates and a spot round if seats are left."
+            source: jac-ib
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; region"
+        heading: "Delhi region, marks in Class 12 and age"
+        parts:
+          - list:
+              - "<strong>Delhi region (85% of seats):</strong> passed the qualifying exam from a recognised school / college located in the NCT of Delhi."
+              - "<strong>Outside Delhi region (15%):</strong> passed it from a school outside the NCT of Delhi."
+              - "<strong>NIOS / Patrachar Vidyalaya:</strong> region is decided by where the exam centre was."
+              - "<strong>Qualifying exam:</strong> CBSE Class 12, ISC, or an equivalent. A candidate placed in compartment in 2026 is not eligible for 2026 admission."
+              - "<strong>Age:</strong> no minimum or maximum age."
+            source: jac-ib
+          - table:
+              caption: "Minimum marks in the qualifying exam"
+              head: ["Category", "NSUT, DTU, IGDTUW, DSEU (aggregate of PCM)", "IIIT-Delhi (best five incl. PCM, plus maths)"]
+              rows:
+                - ["General / EWS", "60%", "70% and 70% in maths"]
+                - ["OBC-NCL", "55%", "65%"]
+                - ["SC / ST", "50%", "60%"]
+                - ["Defence (CW)", "55%", "65%"]
+                - ["Persons with disabilities", "50%", "65%"]
+            source: jac-ib
+          - note: "English (core or elective) must be passed, and every other subject passed separately. B.Arch needs 45% in PCM + English (or a 3-year diploma with maths) and JEE Main Paper-II. EWS gets no relaxation in marks. Ties on JEE rank are broken by older date of birth, then a random draw."
+            source: jac-ib
+      - id: scheme
+        nav: "Counselling Process"
+        eyebrow: "How admission works"
+        heading: "Rank, choices and rounds"
+        parts:
+          - list:
+              - "There is no separate JAC exam: NSUT, DTU, IGDTUW and DSEU use the JEE Main 2026 Common Rank List (Paper-I); IIIT-Delhi uses the JEE Main percentile plus bonus points for Olympiads, programming contests, NTSE, sports and similar achievements (up to 2 points, only the highest category counts)."
+              - "Counselling runs in four rounds; after Round 4, admitted candidates can be upgraded, and a spot round follows only if seats remain."
+            source: jac-ib
+          - list:
+              - "Fill as many choices as possible in the registration window — choices cannot be edited after it closes."
+              - "After each round's allotment, pay the seat acceptance fee online (open until 2 pm on the last day of physical reporting) and report for document verification."
+              - "Defence (Priority I–V), Kashmiri Migrant and IIIT-Delhi bonus-point claimants must get documents verified at NSUT before Round 1 (10 June 2026 in this cycle)."
+              - "There may be no fresh registration before the spot round, so anyone who may want a spot-round seat must register in the main window."
+            source: jac-sch
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "Counselling and first-year fees"
+        parts:
+          - table:
+              caption: "First-year fee printed in the JAC Delhi 2026 brochure"
+              head: ["University", "Total first-year fee", "Later years (B.Tech)"]
+              rows:
+                - ["NSUT", "B.Tech ₹2,70,000 · B.Arch ₹2,75,000", "₹2,90,000 · ₹3,19,000 · ₹3,33,000"]
+                - ["DTU", "B.Tech ₹2,69,700", "₹2,86,700 · ₹3,06,700 · ₹3,22,000"]
+                - ["IGDTUW", "B.Tech / dual degree ₹1,68,000 · B.Arch ₹1,85,500 (+ ₹5,000 refundable security, ₹2,000 alumni)", "₹1,84,500 · ₹2,02,500 · ₹2,22,500"]
+                - ["IIIT-Delhi", "₹4,50,000 (₹2,25,000 per semester)", "₹4,75,000 · ₹5,00,000 · ₹5,30,000"]
+                - ["DSEU", "₹1,85,300 · SC / ST / PD ₹80,900", "—"]
+            source: jac-ib
+          - note: "Registration-cum-counselling fee: ₹1,500 + transaction charges, non-refundable. The seat acceptance fee paid online at allotment is ₹95,000 at NSUT, DTU and IIIT-Delhi; the balance is paid to the university."
+            source: jac-ib
+      - id: reservation
+        nav: "Reservation &amp; Certificates"
+        eyebrow: "Reservation &amp; certificates"
+        heading: "Category seats and the Delhi certificate rule"
+        parts:
+          - table:
+              head: ["Category", "Share of seats"]
+              rows:
+                - ["SC", "15%"]
+                - ["ST", "7.5%"]
+                - ["OBC (non-creamy layer)", "27%"]
+                - ["EWS", "10%"]
+                - ["Defence (CW) — within each category", "5%"]
+                - ["Persons with disabilities — within each category", "5%"]
+                - ["Kashmiri Migrants (supernumerary)", "1 seat (NSUT, DTU, IGDTUW); 1 per programme (IIIT-D, DSEU)"]
+                - ["Single girl child (supernumerary, Delhi-school girls)", "1 per B.Tech programme at DTU; 2 per programme at IGDTUW"]
+            source: jac-ib
+          - warn: "For Delhi-region reserved seats, the SC / ST / OBC certificate must be issued by the Government of NCT of Delhi and the candidate must have passed Class 12 from a school in Delhi. An OBC certificate from the Government of India or any other state is not accepted under any circumstances for Delhi-region OBC seats."
+            source: jac-ib
+          - list:
+              - "A Delhi certificate issued on the basis of a parent's certificate from another state is accepted only if the caste is in the central OBC list for Delhi / Delhi's notified OBC list."
+              - "OBC-NCL certificates must be issued after 31 March 2026, or come with a fresh non-creamy-layer certificate from the same authority."
+              - "The certificate must be in the candidate's own name; a parent's certificate is not accepted even for provisional admission."
+              - "EWS: family gross income below ₹8 lakh, and no 5 acres of farm land, 1,000 sq ft flat, 100 sq yd plot in notified municipalities or 200 sq yd plot elsewhere."
+              - "Unfilled SC / ST seats swap with each other, then go to general; unfilled Delhi general seats go to outside-Delhi general and vice versa."
+            source: jac-ib
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "What to carry at physical reporting"
+        parts:
+          - list:
+              - "Seat acceptance fee receipt and the online registration form signed by the candidate and parent."
+              - "Printout of filled choices and the seat allotment letter."
+              - "JEE Main 2026 admit card and score card."
+              - "Class 12 mark sheet; Class 10 certificate for date of birth."
+              - "Category / sub-category certificate, EWS certificate, medical fitness certificate in the brochure format."
+              - "Three passport-size photographs; IIIT-Delhi bonus-point documents if claimed."
+            source: jac-ib
+      - id: pay
+        nav: "Where It Leads"
+        eyebrow: "Branches"
+        heading: "Branches on offer"
+        parts:
+          - p: "NSUT offers B.Tech in computer science (with data science, AI, big data and IoT tracks), IT, ECE, electrical, mechanical, civil, biotech, geoinformatics and others; DTU adds chemical, environmental, production and industrial, software engineering and engineering physics; IGDTUW offers CSE, AI and ML, ECE, robotics and a dual B.Tech + MBA for women; IIIT-Delhi offers CS with design, social sciences, biosciences, economics and AI."
+            source: jac-ib
+          - links:
+              - { label: "B.Tech colleges in Delhi (verified list)", url: "colleges/delhi/btech.html" }
+              - { label: "JEE coaching in Delhi", url: "coaching/delhi/jee.html" }
+      - id: posting
+        nav: "Help"
+        eyebrow: "Support"
+        heading: "Beware of touts"
+        parts:
+          - p: "JAC Delhi's 2026 public advisory warns that no agent can promise admission in NSUT, DTU, IIIT-Delhi, IGDTUW or DSEU: seats are allotted only through the online counselling on JEE Main rank. Use only jacdelhi.admissions.nic.in."
+            source: jac-adv
+    sources:
+      - { id: jac-ib, name: "JAC Delhi — Admission Brochure, Joint Admission Counselling Delhi 2026 (coordinating university NSUT)", url: "https://cdnbbsr.s3waas.gov.in/s3e45823afe1e5120cec11fc4c379a0c67/uploads/2026/05/202605261990309362.pdf", covers: "institutes, seats, dates, region rule, minimum marks, reservation, certificate rules, EWS criteria, fees, documents", checked: 2026-10-14 }
+      - { id: jac-sch, name: "JAC Delhi — Counselling Schedule 2026", url: "https://cdnbbsr.s3waas.gov.in/s3e45823afe1e5120cec11fc4c379a0c67/uploads/2026/05/202606101248642407.pdf", covers: "registration windows, choice editing, seat acceptance fee timing, document verification for CW / KM / bonus", checked: 2026-10-14 }
+      - { id: jac-adv, name: "JAC Delhi — Public Advisory against touts (20 May 2026)", url: "https://cdnbbsr.s3waas.gov.in/s3e45823afe1e5120cec11fc4c379a0c67/uploads/2026/05/202605261129471745.pdf", covers: "warning against agents promising admission", checked: 2026-10-14 }
+
+  # ------------------------------------------------------------------ GGSIPU / IPU CET
+  - slug: ipu-cet
+    group: academic
+    short: "GGSIPU Admissions (IPU CET / CUET)"
+    body: "Guru Gobind Singh Indraprastha University, Delhi"
+    card: "Delhi Government's state university: BBA, B.Com (H), BCA, BA (JMC), B.Ed, law and over 30 other bachelor's programmes in its own schools and 115+ affiliated colleges, through IPU CET, CUET or national tests, with 85% of seats for Delhi-region students."
+    card_facts: ["CET: 100 Qs, 400 marks, −1", "Age up to 21 on 1 Aug 2026", "85% Delhi region"]
+    eyebrow: "GGSIPU · Undergraduate admissions"
+    title: "GGSIPU (IPU) Admission 2026-27 — IPU CET Pattern, BBA / B.Com Eligibility, Delhi Quota, Fees"
+    lede: "Guru Gobind Singh Indraprastha University (GGSIPU), set up by the Government of NCT of Delhi, admits students to University Schools of Studies and more than 115 affiliated colleges. Each programme uses its own entrance route — GGSIPU's own CET, CUET-UG or a national test such as JEE Main, NEET-UG, CLAT or NATA. This page follows the Admission Brochure for Bachelor's Programmes 2026-27."
+    facts:
+      - { label: "BBA eligibility", value: "Class 12 with 50% + English", source: ipu-ib }
+      - { label: "CET pattern", value: "100 MCQs · 400 marks · 2.5 hours", source: ipu-ib }
+      - { label: "Upper age (UG)", value: "21 years on 1 Aug 2026", source: ipu-ib }
+      - { label: "Delhi region", value: "85% of seats", source: ipu-ib }
+    official:
+      - { label: "GGSIPU website", url: "https://ipu.ac.in/" }
+      - { label: "Bachelor's Admission Brochure 2026-27 (PDF, 51 MB)", url: "https://ipu.ac.in/adm2026/adm2026br/br280126ug.pdf" }
+      - { label: "Apply online", url: "https://ipu.admissions.nic.in/" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "Which test leads to which programme"
+        parts:
+          - table:
+              caption: "Admission route in order of priority (Chapter 1 of the 2026-27 brochure)"
+              head: ["Programme (code)", "Admission through"]
+              rows:
+                - ["BBA and allied / 5-year BBA-MBA (125)", "1. IPU CET  2. CUET"]
+                - ["B.Com (Hons) (146), BMS (142)", "1. IPU CET  2. CUET"]
+                - ["BCA (114), BA (JMC) (126), BHMCT (127), B.Ed (122), B.Pharm (133)", "1. IPU CET  2. CUET"]
+                - ["BA Economics / English / Liberal Arts (4-year, USS)", "1. IPU CET  2. CUET"]
+                - ["B.Tech (131)", "JEE Main Paper-I, then CUET"]
+                - ["Integrated BA / BBA LL.B (121)", "CLAT UG 2026, then CUET"]
+                - ["MBBS, BDS, BAMS, BHMS", "NEET-UG 2026"]
+                - ["B.Arch (100)", "NATA"]
+                - ["LLB 3-year (238), lateral entry to B.Tech / B.Pharm / B.Des", "IPU CET"]
+            source: ipu-ib
+          - p: "For CET-based programmes, the CET merit list is used first and seats still vacant are then filled from the CUET merit list. The 2026 CET was an offline OMR test held between 25 April and 17 May 2026; counselling (online for most programmes) followed after the results."
+            source: ipu-ib
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "Marks, age and the Delhi region"
+        parts:
+          - list:
+              - "<strong>BBA:</strong> Class 12 (CBSE or equivalent) with at least 50% aggregate and English passed (core, elective or functional). CET subjects: English 25%, general awareness 25%, logical and analytical ability 25%, management and communication aptitude 25%."
+              - "<strong>BA (JMC):</strong> the same 50% + English rule; CET has English, general awareness, reasoning and media aptitude (25% each)."
+              - "<strong>Aggregate of 50%</strong> for law programmes is the best four subjects including English, unless stated otherwise."
+              - "<strong>No rounding off:</strong> 49.99% is not 50%."
+              - "<strong>Result awaited:</strong> students who have appeared may sit the CET and be admitted provisionally, but must submit the final result by 31 October 2026 or the admission is cancelled and fees forfeited."
+              - "<strong>Delhi region:</strong> passed the qualifying exam from a college / school in Delhi or an institution affiliated to GGSIPU; all others are Outside Delhi."
+            source: ipu-ib
+          - table:
+              caption: "Upper age limit on 1 August 2026"
+              head: ["Programme", "Not older than"]
+              rows:
+                - ["Undergraduate programmes after Class 12 (other than MBBS)", "21 years"]
+                - ["MBBS / BAMS / BHMS", "25 years (on 31 Dec), +5 for SC/ST/OBC; minimum 17"]
+                - ["Programmes after graduation", "35 years"]
+            source: ipu-ib
+          - note: "The admission officer may relax the upper age by up to five years in exceptional cases (not for MBBS / BAMS / BHMS) after an explanation of the gap period; candidates may provisionally sit the CET meanwhile."
+            source: ipu-ib
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "IPU CET pattern"
+        heading: "How the GGSIPU CET is set"
+        parts:
+          - list:
+              - "100 objective questions with four options each; every question carries 4 marks — 400 marks in all."
+              - "1 mark is deducted for every wrong answer (marking more than one option also counts as wrong)."
+              - "Duration: 2 hours 30 minutes. Medium: English only (English and Hindi for B.Ed)."
+              - "Mode in 2026: offline OMR-based test."
+              - "No retest for anyone who misses the scheduled date, and no fee refund."
+              - "Centres: Delhi NCR (Delhi, Noida, Greater Noida, Ghaziabad, Gurugram, Faridabad), Chandigarh, Bengaluru, Kolkata, Jaipur, Lucknow, Mumbai — three choices are given; an outstation centre runs only with 100+ candidates in a shift."
+            source: ipu-ib
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "Fee at University Schools of Studies (2026-27)"
+        parts:
+          - table:
+              caption: "Yearly fee at GGSIPU's own schools (USS), 2026-27 intake"
+              head: ["Programme", "Year 1", "Year 2", "Year 3", "Year 4"]
+              rows:
+                - ["BA (JMC), B.A. B.Ed, BBA, B.Com (H), BA Eco (4-year)", "₹1,56,500", "₹1,66,600", "₹1,79,910", "₹1,94,551"]
+                - ["B.Tech (all USS branches)", "₹2,04,900", "₹2,19,840", "₹2,38,474", "₹2,58,971"]
+                - ["B.Des", "₹2,71,450", "₹2,93,045", "₹3,19,000", "₹3,47,549"]
+            source: ipu-ib
+          - note: "Year 1 includes a one-time ₹2,000 alumni contribution. Fees of affiliated self-financing colleges in Delhi are fixed by the State Fee Regulatory Committee (SFRC) and printed separately in the brochure. The CET application fee is not printed in the parts of the brochure we read, so no figure is shown here."
+            source: ipu-ib
+      - id: reservation
+        nav: "Reservation &amp; Certificates"
+        eyebrow: "Reservation &amp; certificates"
+        heading: "Delhi 85% / outside 15% and category seats"
+        parts:
+          - table:
+              caption: "Reservation for 2026-27 (other than minority institutions)"
+              head: ["Institution type", "Delhi region (85%)", "Outside Delhi (15%)"]
+              rows:
+                - ["University Schools and Government institutes in Delhi", "SC 15%, ST 7.5%, OBC 27%, Defence 5%, PwD 5%", "SC 15%, ST 7.5%, Defence 5%, PwD 5%"]
+                - ["Self-financing institutes in Delhi", "SC 17%, ST 1%, Defence 5%, PwD as per GNCTD orders", "SC 15%, ST 7.5%, Defence 5%, PwD as per GNCTD orders"]
+                - ["Self-financing institutes in NCR outside Delhi", "SC 15%, ST 7.5%, Defence 5%, PwD as per university policy", "SC 15%, ST 7.5%, Defence 5%, PwD as per university policy"]
+            source: ipu-ib
+          - list:
+              - "OBC and EWS reservation applies only in University Schools and affiliated Government colleges."
+              - "In self-financing colleges (except minority ones), 10% of the intake is management quota unless surrendered; management-quota candidates must still have a valid CET / CUET / national test score."
+              - "Delhi-region SC / ST / OBC seats need a certificate issued by the Government of NCT of Delhi and Class 12 passed in Delhi; for outside-Delhi reserved seats a valid certificate from anywhere in India is accepted."
+              - "The certificate must be in the candidate's name — a parent's certificate is not accepted even with an undertaking."
+              - "Sports quota and single-girl-child seats are supernumerary and only in University Schools."
+            source: ipu-ib
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "What to keep ready"
+        parts:
+          - list:
+              - "E-admit card printout and an original photo ID (Aadhaar, voter ID, PAN, passport, driving licence) — colour copies are not accepted."
+              - "Class 10 certificate (for name and date of birth) and Class 12 mark sheet."
+              - "Category certificate in the candidate's name, plus the reserved-category undertaking (Appendix 12)."
+              - "Medical certificate (Appendix 4) and the anti-ragging undertakings by student and parent."
+              - "ABC / APAAR ID through DigiLocker."
+            source: ipu-ib
+      - id: pay
+        nav: "Where It Leads"
+        eyebrow: "Colleges"
+        heading: "Where IPU students study"
+        parts:
+          - p: "GGSIPU's own schools are on its Dwarka campus and East Delhi campus, with a third campus being set up at Narela; the university has nearly one lakh students across more than 115 affiliated colleges."
+            source: ipu-ib
+          - links:
+              - { label: "BBA colleges in Delhi (verified list)", url: "colleges/delhi/bba.html" }
+              - { label: "B.Com colleges in Delhi (verified list)", url: "colleges/delhi/bcom.html" }
+              - { label: "BCA colleges in Delhi (verified list)", url: "colleges/delhi/bca.html" }
+      - id: posting
+        nav: "Help"
+        eyebrow: "Support"
+        heading: "Helpline"
+        parts:
+          - p: "GGSIPU's admission helpline numbers printed in the brochure are 011-25302167 and 011-25302169; the university posts every update on ipu.ac.in and does not send individual intimation of results or counselling."
+            source: ipu-ib
+    sources:
+      - { id: ipu-ib, name: "GGSIPU — Admission Brochure for Bachelor's Programmes 2026-27 (image scan, read page by page)", url: "https://ipu.ac.in/adm2026/adm2026br/br280126ug.pdf", covers: "programmes and entrance routes, BBA / JMC eligibility, age limits, CET pattern and centres, region rule, reservation, certificates, USS fees, documents, helpline", checked: 2026-10-14 }
+
+  # ------------------------------------------------------------------ CBSE
+  - slug: cbse
+    group: academic
+    short: "CBSE Board (Class 10 &amp; 12) — Delhi"
+    body: "Central Board of Secondary Education"
+    card: "Most Delhi schools — government and private — take the CBSE Class 10 and 12 exams. From 2027 the first Class 10 board exam in February–March is mandatory, with a second exam later; LOC fee is ₹1,600 for five subjects."
+    card_facts: ["Exam fee ₹1,600 (5 subjects)", "LOC by 21 Oct 2026", "Class 12 decides JAC / IPU region"]
+    eyebrow: "CBSE · Secondary &amp; Senior Secondary"
+    title: "CBSE Board 2027 for Delhi Students — LOC, Fees, Two Board Exams for Class 10"
+    lede: "Delhi's government schools and most private schools are affiliated to CBSE, and where a student passes Class 12 also decides the Delhi-region quota in JAC Delhi and GGSIPU. This page follows CBSE's circular on the List of Candidates (LOC) for the 2027 main examinations."
+    facts:
+      - { label: "Exam fee (India)", value: "₹1,600 for 5 subjects", source: cbse-loc }
+      - { label: "Extra subject", value: "₹320 each", source: cbse-loc }
+      - { label: "LOC window", value: "24 Sep – 21 Oct 2026", source: cbse-loc }
+      - { label: "Class 10", value: "First board exam Feb–Mar is mandatory", source: cbse-loc }
+    official:
+      - { label: "CBSE examination circulars", url: "https://www.cbse.gov.in/cbsenew/examination_Circular.html" }
+      - { label: "LOC circular 2026-27 (PDF)", url: "https://www.cbse.gov.in/cbsenew/documents/LOC_2627_21092026.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "The 2027 board exams"
+        parts:
+          - list:
+              - "The LOC submitted by schools now is for the 2027 main exams of Class 10 and Class 12."
+              - "Under CBSE's Two Board Policy (26 June 2025), the first Class 10 board exam in February–March is mandatory for every Class 10 student; the LOC for the second exam is filled after the first is over, and students can take only the same subjects in the second exam."
+              - "Only students whose names are submitted through the LOC can appear in the 2026-27 board exams."
+            source: cbse-loc
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Who can appear"
+        heading: "Through the school's list of candidates"
+        parts:
+          - list:
+              - "Regular students are sent by their school; the school must check the subject combination against the CBSE scheme of studies — invalid combinations make the candidate ineligible."
+              - "The school must ensure the student meets the minimum and maximum age set by the State / UT government for that class (Rule 6.1 of the Examination Bye-laws)."
+              - "Schools may not ask parents for ITR or other income proof while collecting data."
+            source: cbse-loc
+      - id: scheme
+        nav: "Subjects"
+        eyebrow: "Subject codes"
+        heading: "Codes students most often get wrong"
+        parts:
+          - table:
+              head: ["Class", "Pairs to check"]
+              rows:
+                - ["Class 10", "Hindi-A (002) / Hindi-B (085); Urdu-A (003) / Urdu-B (303); Mathematics Standard (041) / Mathematics Basic (241)"]
+                - ["Class 12", "Hindi Core (302) / Elective (002); English Core (301) / Elective (001); Sanskrit Core (322) / Elective (022); Urdu Core (303) / Elective (003); Mathematics (041) / Applied Mathematics (241)"]
+            source: cbse-loc
+          - note: "JAC Delhi needs Physics, Chemistry and Mathematics in Class 12 with English, and GGSIPU's BBA needs English passed — choose Class 12 subjects with the target course in mind."
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "Board exam fee 2026-27"
+        parts:
+          - table:
+              caption: "LOC fee for Class 10 and Class 12 (schools in India)"
+              head: ["Item", "Fee", "Window"]
+              rows:
+                - ["Exam fee, 5 subjects", "₹1,600 per candidate", "24 Sep – 21 Oct 2026 (online); challan till 17 Oct 2026"]
+                - ["Each additional subject", "₹320", "Same window"]
+                - ["Practical subject (Class 12 only)", "₹160 per subject", "Same window"]
+                - ["Late fee", "₹2,000 per candidate extra", "22 – 30 Oct 2026 (challan till 26 Oct)"]
+            source: cbse-loc
+          - note: "Visually impaired candidates are exempt from the Class 10 and 12 exam fee. CBSE no longer issues a hard-copy migration certificate by default; a soft copy is available after the Class 12 result."
+            source: cbse-loc
+      - id: reservation
+        nav: "Corrections"
+        eyebrow: "Data corrections"
+        heading: "The new data verification slip"
+        parts:
+          - list:
+              - "After the LOC closes, schools generate a data verification slip for each student; mistakes in name, parents' names, date of birth or subjects can be corrected only from 2 to 4 November 2026, and no correction is allowed after that."
+              - "Correcting a name or replacing a subject within the schedule costs nothing; adding a sixth subject needs the extra fee."
+              - "Requests to change subjects just before the exams are not accepted."
+            source: cbse-loc
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Check with your school"
+        heading: "What parents should verify"
+        parts:
+          - list:
+              - "Student's name, mother's, father's and guardian's names and date of birth exactly as in school records."
+              - "Correct subject codes and combination."
+              - "Category (full subjects, improvement or compartment) and APAAR ID (optional)."
+              - "Photograph uploaded by the school."
+            source: cbse-loc
+      - id: pay
+        nav: "Where It Leads"
+        eyebrow: "After Class 12"
+        heading: "Why the school's location matters in Delhi"
+        parts:
+          - p: "JAC Delhi and GGSIPU both decide the 85% Delhi-region quota by where the qualifying exam was passed: a student who passes Class 12 from a school in Delhi is Delhi region; NIOS / Patrachar students are placed by their exam centre."
+            source: jac-ib-c
+          - links:
+              - { label: "JAC Delhi (this cockpit)", url: "state/delhi/jac-delhi.html" }
+              - { label: "GGSIPU admissions (this cockpit)", url: "state/delhi/ipu-cet.html" }
+              - { label: "CUET coaching in Delhi", url: "coaching/delhi/cuet.html" }
+      - id: posting
+        nav: "Help"
+        eyebrow: "Support"
+        heading: "Help"
+        parts:
+          - p: "CBSE's Integrated Office is at Sector-23, Phase-1, Dwarka, New Delhi-110077 (phone 011-24050336-42); queries during office hours go through cbse.gov.in/cbsenew/contact-us.html."
+            source: cbse-loc
+    sources:
+      - { id: cbse-loc, name: "CBSE — Circular CBSE/LOC/X-XII/2026-2027 on Submission of List of Candidates for Class X and XII Main Examinations 2026-27 (17 Sep 2026, image scan)", url: "https://www.cbse.gov.in/cbsenew/documents/LOC_2627_21092026.pdf", covers: "two-board policy for Class 10, LOC rules, subject codes, fees and windows, late fee, correction window, contacts", checked: 2026-10-14 }
+      - { id: jac-ib-c, name: "JAC Delhi — Admission Brochure 2026 (section 2.1, region)", url: "https://cdnbbsr.s3waas.gov.in/s3e45823afe1e5120cec11fc4c379a0c67/uploads/2026/05/202605261990309362.pdf", covers: "Delhi region decided by school location", checked: 2026-10-14 }

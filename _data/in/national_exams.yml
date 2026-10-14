@@ -1,13 +1,13 @@
 # National exam consoles (India edition) -> jee-main.html, jee-advanced.html, neet-ug.html, upsc-ese.html, upsc-cms.html,
-# clat.html, cuet-ug.html
+# clat.html, cuet-ug.html, nata.html, nift.html
 # Rendered by _includes/national-exam.html; validated by scripts/check-in-data.mjs.
 # Same part kinds as the state cockpit sheets (p, list, table, note, warn, links). Every p / list / table
 # and every hero fact must carry `source:` naming an id from that exam's sources[].
 # Six fixed blocks, in this order: overview, eligibility, scheme, reservation, fees, horizons.
 # Facts come only from the official files listed under each exam, read on `checked`. On that date only the
 # UPSC ESE 2027 notice and the CLAT 2027 pages were out, so ESE and CLAT are the 2027 cycle and every other
-# exam is the 2026 cycle.
-# stream: engineering | medical | govt | law | university (labels the "More national exams" list).
+# exam is the 2026 cycle (NATA 2027 and NIFT 2027 bulletins were not out either).
+# stream: engineering | medical | govt | law | university | architecture | design (labels the "More national exams" list).
 checked: 2026-10-14
 
 exams:
@@ -1214,3 +1214,311 @@ exams:
     sources:
       - { id: cuet-ib, name: "NTA — CUET (UG) 2026 Information Bulletin", url: "https://cdnbbsr.s3waas.gov.in/s3d1a21da7bca4abff8b0b61b87597de73/uploads/2026/01/202601031633478370.pdf", covers: "Role of NTA, dates, fees, scheme, marking, eligibility, qualifying exams, reservation, list of Central Universities", checked: 2026-10-14 }
       - { id: cuet-nt, name: "NTA — CUET (UG) 2026 public notices (commencement on 11 May 2026, final answer keys, result)", url: "https://cuet.nta.nic.in/", covers: "Start date of the 2026 test, final answer keys and result declared", checked: 2026-10-14 }
+
+  # ---------------------------------------------------------------- NATA (2026 cycle)
+  - slug: nata
+    short: "NATA"
+    stream: architecture
+    body: "Council of Architecture (CoA)"
+    eyebrow: "Entrance Exam · Architecture · 2026 cycle"
+    title: "NATA — eligibility, test scheme, reservation & fees"
+    lede: "The National Aptitude Test in Architecture, the Council of Architecture's qualifying test for the five-year B.Arch. NATA 2026 ran on Fridays and Saturdays from 4 April to 13 June 2026, with a second phase on 7–8 August for vacant seats. The NATA 2027 brochure had not been published when this page was checked."
+    coaching_href: "coaching-nata.html"
+    colleges_href: "colleges-barch.html"
+    facts:
+      - { label: "Conducted by", value: "Council of Architecture (statutory body, Architects Act 1972)", source: nata-br }
+      - { label: "Test dates (2026)", value: "Fri & Sat, 4 Apr–13 Jun · Phase 2: 7–8 Aug", source: nata-sch }
+      - { label: "Paper", value: "200 marks · 3 hours (drawing 80 + adaptive CBT 120)", source: nata-br }
+      - { label: "Fee per test", value: "₹1,750 · ₹1,250 SC/ST/EWS/PwD", source: nata-fee }
+    official:
+      - { label: "nata.in", url: "https://www.nata.in/" }
+      - { label: "NATA 2026 brochure", url: "https://www.nata.in/assets/pdf/Final-NATA-BROCHURE-2026.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; governing authority"
+        heading: "Who runs NATA, and what a NATA score is for"
+        parts:
+          - p: "NATA is conducted by the <strong>Council of Architecture (CoA)</strong>, an autonomous statutory body of the Ministry of Education constituted under the <strong>Architects Act, 1972</strong>. The Council keeps the register of architects and regulates architecture education and practice across India. It has run NATA since 2006."
+            source: nata-br
+          - p: "Under the CoA (Minimum Standards of Architectural Education) Regulations, 2020, a candidate must qualify an aptitude test in architecture — <strong>NATA</strong>, or the <strong>JEE conducted by NTA</strong> — to be admitted to the B.Arch. degree. NATA itself does not allot seats: admissions are made by the competent authority of each State / UT or institution, on a valid NATA score plus the CoA eligibility rules."
+            source: nata-br
+          - table:
+              caption: "NATA 2026 calendar"
+              head: ["Event", "Date"]
+              rows:
+                - ["Online form filling opens", "9 March 2026"]
+                - ["Phase 1 tests (for CAP counselling)", "Fridays (afternoon) and Saturdays (morning + afternoon), 4 April – 13 June 2026, except public holidays"]
+                - ["Phase 2 tests (vacant seats only)", "7 and 8 August 2026"]
+                - ["Registration closes for a weekend test", "Monday 11:59 pm (Friday test) · Tuesday 11:59 pm (Saturday test)"]
+                - ["Result", "Within 7 days of the test"]
+            source: nata-sch
+          - note: "The NATA 2026 score is valid for the academic session 2026-27 only. Watch nata.in for the NATA 2027 brochure."
+            source: nata-br
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Academic eligibility"
+        heading: "Physics and Mathematics compulsory — 45% for B.Arch admission"
+        parts:
+          - list:
+              - "<strong>To sit NATA 2026:</strong> passed or appearing in 10+2 with the subjects listed below, or passed or appearing in a <strong>10+3 Diploma with Mathematics</strong>."
+              - "<strong>To be admitted to B.Arch.</strong> (Regulation 4(1), CoA Regulations 2020): 10+2 or equivalent with <strong>Physics and Mathematics compulsory</strong>, plus any one of Chemistry, Biology, a technical vocational subject, Computer Science, Information Technology, Informatics Practices, Engineering Graphics or Business Studies — with at least <strong>45% aggregate</strong>."
+              - "Or a <strong>10+3 Diploma</strong> with Mathematics as a compulsory subject and at least <strong>45% aggregate</strong>."
+              - "Qualifying NATA gives no right to a seat unless you also meet every requirement of the admitting authority."
+            source: nata-br
+          - warn: "Chemistry is not compulsory: PCM is one valid combination, but Physics + Mathematics with Biology, Computer Science, Engineering Graphics, Business Studies or another listed subject also qualifies."
+            source: nata-br
+      - id: scheme
+        nav: "Exam scheme"
+        eyebrow: "Exam scheme &amp; marking matrix"
+        heading: "Part A drawing on paper, Part B adaptive on computer — 200 marks"
+        parts:
+          - table:
+              caption: "NATA 2026 question paper"
+              head: ["Part", "Mode and time", "Questions", "Marks"]
+              rows:
+                - ["A1 — Composition and Colour", "Offline drawing test (Part A: 90 minutes)", "1", "25"]
+                - ["A2 — Sketching &amp; Composition (black and white)", "Offline drawing test", "1", "25"]
+                - ["A3 — 3D Composition (with the kit provided)", "Offline drawing test", "1", "30"]
+                - ["B1 — Multiple-choice questions (MCQ)", "Computer-based adaptive test (Part B: 90 minutes, 108 seconds per question)", "42", "Part B total: 120"]
+                - ["B2 — No-choice questions (NCQ)", "Computer-based adaptive test", "8", "(within the 120)"]
+                - ["Total", "3 hours", "53", "200"]
+            source: nata-br
+          - list:
+              - "<strong>Part A</strong> tests composition and colour, sketching a situation with buildings, people and environment to scale with texture, shade and shadow, and building a 3D composition."
+              - "<strong>Part B</strong> covers visual reasoning, logical derivation, general knowledge of architecture and design, language interpretation, design sensitivity and thinking, and numerical ability."
+              - "The test is offered in <strong>English and Hindi</strong>. Sessions run 10:00 am – 1:00 pm and 1:30 pm – 4:30 pm."
+            source: nata-br
+          - list:
+              - "<strong>Attempts:</strong> up to <strong>two tests in Phase 1</strong>, or <strong>one test in Phase 2</strong> — never both phases."
+              - "Phase 1 gives a <strong>percentile score</strong> built on your best raw score, used for centralised (CAP) counselling. Phase 2 gives a <strong>raw score only</strong>, used for seats left vacant after CAP."
+              - "There is <strong>no minimum qualifying raw score</strong>; the final scorecard with the best raw score and a non-zero percentile is the valid qualifying score."
+              - "A valid NATA 2025 score could be used for 2026-27 if the candidate had not taken admission; taking two NATA 2026 attempts cancels it."
+            source: nata-br
+          - p: "Candidates with a certified specific learning disability (dyslexia) get <strong>30 minutes extra</strong> in the drawing test (no scribe there). The online test is time-bound with no extra time, but a scribe may be allowed."
+            source: nata-br
+      - id: reservation
+        nav: "Reservation"
+        eyebrow: "Reservation &amp; category quotas"
+        heading: "Quotas come from your admission authority, not from NATA"
+        parts:
+          - p: "The NATA 2026 brochure says reservation for admission is governed strictly by the rules of the State Government / Union Territory and the concerned admission or counselling authority, and is outside the scope of the test. The form records your category and disability status, but NATA itself fixes no seat percentages."
+            source: nata-br
+          - list:
+              - "Your category changes only the NATA <strong>application fee</strong>: SC / ST / EWS / PwD pay ₹1,250 instead of ₹1,750."
+              - "Seat shares for SC, ST, OBC, EWS, PwD and any domicile quota are set by your state CAP authority or the institute — check its own B.Arch admission brochure."
+            source: nata-fee
+          - note: "B.Arch seats at NITs and other centrally funded institutes are filled through JEE Main Paper 2A and JoSAA, not NATA — see the JEE Main page."
+      - id: fees
+        nav: "Application &amp; fees"
+        eyebrow: "Registration steps &amp; fees"
+        heading: "Apply online for each test — ₹1,750 per attempt"
+        parts:
+          - list:
+              - "<strong>Step 1 — Register</strong> on the NATA portal with your e-mail (it becomes your user name), verify it, and set a password and security question. A NATA Unique ID is e-mailed to you."
+              - "<strong>Step 2 — Personal details</strong>: name, parents' names and date of birth exactly as in Class 10 records, category, disability, and Class 10 and 10+2 / diploma details."
+              - "<strong>Step 3 — Upload</strong> a colour passport photo (4–100 KB, jpg) and your signature (1–30 KB, jpg)."
+              - "<strong>Step 4 — Pay</strong> through the online payment gateway and print the Confirmation Page. Then choose the city and session to generate your Appointment Card; a fresh card is needed for each test."
+              - "Only one chance is given to correct personal details. Multiple forms under changed credentials are rejected without refund."
+            source: nata-br
+          - table:
+              caption: "NATA 2026 application fee (per test attempt)"
+              head: ["Category", "Fee"]
+              rows:
+                - ["General / OBC (NCL)", "₹1,750"]
+                - ["SC / ST / EWS / PwD", "₹1,250"]
+                - ["Transgender", "₹1,000"]
+                - ["Test centre outside India", "₹15,000"]
+            source: nata-fee
+          - note: "The fee is non-refundable. A candidate who first opts for one test may add a second later, up to two attempts."
+            source: nata-fee
+      - id: horizons
+        nav: "Courses &amp; colleges"
+        eyebrow: "Career horizons &amp; mapped institutions"
+        heading: "A five-year B.Arch, then registration as an architect"
+        parts:
+          - p: "About <strong>369 institutions</strong> in India teach architecture to recognised qualifications — university departments, deemed universities, affiliated colleges, IITs, NITs and autonomous institutes — all held to the Council's minimum standards and inspected by it."
+            source: nata-br
+          - p: "Only a person registered with the Council of Architecture may practise under the title “Architect”. Registration needs a recognised qualification earned under the CoA Minimum Standards of Architectural Education Regulations, 2020; misusing the title is a criminal offence under the Architects Act, 1972."
+            source: nata-br
+          - links:
+              - { label: "Architect career guide", url: "architect.html" }
+              - { label: "B.Arch college finder", url: "colleges-barch.html" }
+              - { label: "NATA coaching finder", url: "coaching-nata.html" }
+              - { label: "JEE Main (Paper 2A)", url: "jee-main.html" }
+              - { label: "NIFT", url: "nift.html" }
+    sources:
+      - { id: nata-br, name: "Council of Architecture — NATA 2026 Information Brochure (v2.0, 10 Apr 2026)", url: "https://www.nata.in/assets/pdf/Final-NATA-BROCHURE-2026.pdf", covers: "CoA status, role of NATA, phases and scoring, paper pattern, eligibility, reservation clause, application steps, PwD relaxation, institutions, registration as architect", checked: 2026-10-14 }
+      - { id: nata-sch, name: "Council of Architecture — NATA 2026 Schedule of Dates", url: "https://www.nata.in/schedule.html", covers: "Form opening, Phase 1 and Phase 2 test dates, registration deadlines, result timing", checked: 2026-10-14 }
+      - { id: nata-fee, name: "Council of Architecture — NATA 2026 Fee Structure", url: "https://www.nata.in/fees.html", covers: "Fee per test attempt by category and for overseas centres, refund and attempt notes", checked: 2026-10-14 }
+
+  # ---------------------------------------------------------------- NIFT (2026 cycle)
+  - slug: nift
+    short: "NIFT"
+    stream: design
+    body: "National Testing Agency (NTA) for NIFT"
+    eyebrow: "Entrance Exam · Design · 2026 cycle"
+    title: "NIFT — eligibility, test scheme, reservation & fees"
+    lede: "The NIFT Entrance Examination (NIFTEE) for the B.Des and B.F.Tech programmes at the National Institute of Fashion Technology's campuses. NIFTEE 2026 Stage 1 was held on 8 February 2026 for the session that began on 29 July 2026. The 2027 admission guidelines had not been published when this page was checked."
+    coaching_href: "coaching-design.html"
+    colleges_href: "colleges-design.html"
+    facts:
+      - { label: "Admitting body", value: "NIFT · test run by NTA (NIFTEE)", source: nift-pn }
+      - { label: "Stage 1 (2026)", value: "Sun 8 Feb 2026 · GAT on computer, CAT on paper", source: nift-pn }
+      - { label: "B.Des merit", value: "GAT 30% · CAT 50% · Situation Test 20%", source: nift-ag }
+      - { label: "GAT marking", value: "+1 correct · −0.25 wrong", source: nift-ib }
+    official:
+      - { label: "nift.ac.in/admissions", url: "https://www.nift.ac.in/admissions" }
+      - { label: "Admission Guidelines 2026", url: "https://www.nift.ac.in/sites/default/files/2026-08/Admission-Guidelines-2026_0.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; governing authority"
+        heading: "Who runs NIFT admissions"
+        parts:
+          - p: "The <strong>National Institute of Fashion Technology</strong> was set up in 1986 and became a <strong>statutory institute under the NIFT Act, 2006</strong>, with the President of India as Visitor. It has 20 campuses across the country."
+            source: nift-ib
+          - p: "NIFT entrusted the <strong>National Testing Agency</strong> with conducting NIFTEE 2026 for its UG, PG, lateral-entry, artisan and Ph.D. admissions for 2026-27, in 100 cities, in Hindi and English. NIFT then runs the Situation Test, the final result and seat allocation."
+            source: nift-pn
+          - table:
+              caption: "NIFTEE 2026 calendar (UG, regular)"
+              head: ["Event", "Date"]
+              rows:
+                - ["Online registration", "8 December 2025 – 6 January 2026"]
+                - ["Late registration (₹5,000 late fee extra)", "7–10 January 2026"]
+                - ["Correction window", "12–14 January 2026"]
+                - ["Stage 1 — GAT (computer) and CAT (paper)", "Sunday, 8 February 2026"]
+            source: nift-pn
+          - note: "The Situation Test, final result and seat allocation followed in March–June 2026 (dates were tentative), and classes for 2026-27 began on 29 July 2026."
+            source: nift-ag
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Academic eligibility"
+        heading: "B.Des: Class 12 in any stream — B.F.Tech needs Mathematics"
+        parts:
+          - list:
+              - "<strong>B.Des</strong> (Accessory, Fashion Communication, Fashion Design, Fashion Interiors, Knitwear, Leather and Textile Design): passed 10+2 from any recognised Central / State board, with <strong>no subject condition</strong> — or NIOS Senior Secondary with five subjects, a 3- or 4-year AICTE / State Board diploma after Class 10, an AIU-recognised equivalent, or GCE A-level / IB."
+              - "<strong>B.F.Tech</strong>: the same routes, but <strong>with Mathematics</strong>; a 3- or 4-year diploma must be in a branch of engineering."
+              - "<strong>Age:</strong> under <strong>24 years on 1 August</strong> of the year of admission, relaxed by 5 years for SC, ST and PwD candidates."
+              - "Only Indian citizens apply through the regular route; Foreign National, NRI, OCI, PIO and SAARC candidates have a separate process."
+            source: nift-ag
+          - list:
+              - "Class 12 students may apply, but must prove they have passed at seat allocation — by 30 September 2026 at the latest — or the admission is cancelled and fees forfeited."
+              - "Candidates in a compartment exam get only provisional admission and must clear it under the same board."
+            source: nift-ag
+      - id: scheme
+        nav: "Exam scheme"
+        eyebrow: "Exam scheme &amp; marking matrix"
+        heading: "Stage 1: GAT + CAT. Stage 2: the Situation Test"
+        parts:
+          - table:
+              caption: "General Ability Test (GAT, computer-based) — questions per section"
+              head: ["Section", "B.Des (Section A)", "B.F.Tech (Section A)", "B.F.Tech (Section B)"]
+              rows:
+                - ["Communication Ability and English Comprehension", "40", "40", "—"]
+                - ["Quantitative Ability", "20", "20", "15"]
+                - ["Analytical &amp; Logical Ability", "15", "15", "15"]
+                - ["General Knowledge and Current Affairs", "25", "25", "—"]
+                - ["Case Study", "—", "—", "20"]
+                - ["Total · time", "100 · 120 min", "100 · 120 min", "50 · 60 min"]
+            source: nift-ag
+          - list:
+              - "<strong>Creative Ability Test (CAT)</strong> — a 3-hour pen-and-paper test of intuitive ability, observation, concept development and design ability, with weight on creative use of colour and illustration. Writing personal details or a coaching logo on the sheet disqualifies you."
+              - "<strong>Situation Test</strong> (B.Des only, for candidates shortlisted on GAT + CAT) — a hands-on test: you build a model from a given set of materials and write a short concept note in English. It is judged on space visualisation, creative use of material, composition, colour, construction and finish. You must sit both GAT and CAT to be shortlisted."
+              - "B.F.Tech has <strong>no second stage</strong>: GAT is the final test."
+            source: nift-ag
+          - table:
+              caption: "Weightage in the final merit list"
+              head: ["Programme", "GAT", "CAT", "Situation Test"]
+              rows:
+                - ["B.Des", "30%", "50%", "20%"]
+                - ["B.F.Tech", "100% (Section A 30% + Section B 70%)", "—", "—"]
+                - ["B.F.Tech candidate also taking B.Des", "30% (Section A)", "50%", "20%"]
+            source: nift-ag
+          - p: "In the objective GAT each question carries one mark; a wrong answer costs <strong>0.25</strong> and an unanswered question scores nothing."
+            source: nift-ib
+          - note: "Ties in B.Des are broken by CAT marks, then GAT marks, then the GAT sections in order: English, Quantitative, Analytical, General Knowledge. Stage-2 marks get preference in the final merit."
+            source: nift-ag
+      - id: reservation
+        nav: "Reservation"
+        eyebrow: "Reservation &amp; category quotas"
+        heading: "Central quotas in every programme, plus state domicile seats"
+        parts:
+          - table:
+              caption: "Reserved seats in each NIFT programme"
+              head: ["Category", "Share of seats"]
+              rows:
+                - ["SC", "15%"]
+                - ["ST", "7.5%"]
+                - ["OBC (Non-Creamy Layer)", "27%"]
+                - ["GEN-EWS", "10%"]
+                - ["PwD (40% or more disability)", "5% horizontal, across SC, ST, OBC-NCL and Open"]
+            source: nift-ag
+          - list:
+              - "PwD seats are allotted on the recommendation of NIFT's Evaluation Committee; unfilled PwD seats go back to their own category in the spot round."
+              - "Unfilled OBC-NCL and EWS seats become Open seats in the last round."
+              - "The EWS certificate must be issued on or after 1 April 2025. A reserved-category candidate without a valid certificate is moved to Open only if no relaxed age or cut-off was used."
+            source: nift-ag
+          - list:
+              - "<strong>State domicile seats</strong> at Bhopal, Bhubaneswar, Daman, Jodhpur, Kangra, Kannur, Nava Raipur, Panchkula, Patna, Shillong, Srinagar and Varanasi — seven supernumerary seats (12 at Srinagar), with SC / ST / OBC reservation applied inside them."
+              - "Domicile is the state where you finished Class 12. All eight North-Eastern states count for NIFT Shillong; Jammu, Kashmir, Ladakh and Kashmiri migrants for Srinagar."
+            source: nift-ag
+      - id: fees
+        nav: "Application &amp; fees"
+        eyebrow: "Registration steps &amp; fees"
+        heading: "Apply online with NTA — ₹2,000 or ₹500"
+        parts:
+          - list:
+              - "<strong>Step 1 — Register</strong> on exams.nta.nic.in/niftee; Aadhaar-based e-KYC may be needed."
+              - "<strong>Step 2 — Upload</strong> a live photograph plus a scanned photo and signature; PwD candidates upload a UDID card."
+              - "<strong>Step 3 — Pay online</strong> before the deadline; the late window costs ₹5,000 extra."
+            source: nift-pn
+          - list:
+              - "Give four exam-centre choices in order of preference; centres are allotted first come, first served."
+              - "Pick your category carefully — it cannot be changed later — and opt for state domicile seats at registration if eligible."
+              - "You can edit the form before payment; after it, only the correction window is open."
+            source: nift-ag
+          - table:
+              caption: "NIFT 2026 application fee (non-refundable)"
+              head: ["Category", "One programme", "B.Des + B.F.Tech"]
+              rows:
+                - ["Open / OBC-NCL / Open-EWS", "₹2,000", "₹3,000"]
+                - ["SC / ST / PwD", "₹500", "₹750"]
+            source: nift-ag
+          - note: "Bank and transaction charges are paid by the candidate. Application fees are not refunded, even if you are later found ineligible."
+            source: nift-ag
+      - id: horizons
+        nav: "Campuses &amp; seats"
+        eyebrow: "Career horizons &amp; mapped institutions"
+        heading: "Seven B.Des majors and B.F.Tech across 20 campuses"
+        parts:
+          - table:
+              caption: "UG seats 2026 (regular + state domicile, all campuses)"
+              head: ["Programme", "Seats"]
+              rows:
+                - ["B.Des Fashion Design", "801"]
+                - ["B.Des Fashion Communication", "719"]
+                - ["B.Des Textile Design", "681"]
+                - ["B.Des Accessory Design", "637"]
+                - ["B.F.Tech Apparel Production", "591"]
+                - ["B.Des Knitwear Design", "351"]
+                - ["B.Des Leather Design", "152"]
+                - ["B.Des Fashion Interiors", "82"]
+                - ["Total UG", "4,014"]
+            source: nift-ag
+          - p: "Campuses: Bengaluru, Bhopal, Bhubaneswar, Chennai, Daman, Gandhinagar, Hyderabad, Jodhpur, Kangra, Kannur, Kolkata, Mumbai, Nava Raipur, New Delhi, Panchkula, Patna, Raebareli, Shillong, Srinagar and Varanasi. About 10% of UG seats are later offered to diploma holders through lateral entry (NLEA) into the third semester."
+            source: nift-ag
+          - p: "Tuition for 2026-27 is <strong>₹1,50,000 per semester</strong>, rising to ₹1,74,000 per semester in the final year (2029-30), plus library, exam and mediclaim fees and a refundable ₹12,600 security deposit."
+            source: nift-pr
+          - p: "NIFT runs a centralised on-campus placement process for all eligible final-year students, alongside pre-placement offers from internships and off-campus drives by its Industry &amp; Alumni Affairs unit."
+            source: nift-pr
+          - links:
+              - { label: "Fashion design career guide", url: "fashion-design.html" }
+              - { label: "Design college finder", url: "colleges-design.html" }
+              - { label: "Design coaching finder", url: "coaching-design.html" }
+              - { label: "NATA", url: "nata.html" }
+    sources:
+      - { id: nift-ag, name: "NIFT — Admission Guidelines 2026", url: "https://www.nift.ac.in/sites/default/files/2026-08/Admission-Guidelines-2026_0.pdf", covers: "Calendar, seats, eligibility, age, reservation, domicile, fees, test structure, weightage, tie-break, Situation Test", checked: 2026-10-14 }
+      - { id: nift-pn, name: "NTA — Public Notice for NIFTEE 2026 (8 Dec 2025)", url: "https://www.nift.ac.in/sites/default/files/2026-08/Public-Notice-Admissions-2026.pdf", covers: "NTA's role, exam date and modes, cities, registration window, e-KYC and uploads", checked: 2026-10-14 }
+      - { id: nift-ib, name: "NTA — NIFTEE 2026 Information Bulletin", url: "https://www.nift.ac.in/sites/default/files/2026-08/NTA-Information-Bulletin-2026_0.pdf", covers: "About NIFT (NIFT Act 2006, 20 campuses), marking scheme", checked: 2026-10-14 }
+      - { id: nift-pr, name: "NIFT — Admission Prospectus 2026", url: "https://www.nift.ac.in/sites/default/files/2026-08/Admission-Prospectus-2026_1.pdf", covers: "Fee structure 2026-30, placement process", checked: 2026-10-14 }

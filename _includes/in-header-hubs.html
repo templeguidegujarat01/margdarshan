@@ -35,7 +35,7 @@
             {%- assign n_label = n.label | replace: "&", "&amp;" %}
             <li class="hh-sub hh-node">
               <a class="hh-sub-btn" href="{{ n.href }}" aria-haspopup="true"{% if hh_cur == n.href %} aria-current="page"{% endif %}><span class="hh-node-txt"><strong>{{ n_label }}</strong>{% if n.desc %}<span>{{ n.desc | replace: "&", "&amp;" }}</span>{% endif %}</span><svg class="hh-sub-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
-              <div class="hh-fly hh-grid{% if n.cols.size > 1 %} hh-grid-2{% endif %}" role="group" aria-label="{{ n_label }}">
+              <div class="hh-fly hh-grid{% if n.cols.size > 2 %} hh-grid-2 hh-grid-3{% elsif n.cols.size > 1 %} hh-grid-2{% endif %}" role="group" aria-label="{{ n_label }}">
                 {%- for col in n.cols %}
                 <div class="hh-col">
                   <p class="hh-col-head">{% if col.icon %}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{{ col.icon }}</svg>{% endif %}{{ col.label | replace: "&", "&amp;" }}</p>

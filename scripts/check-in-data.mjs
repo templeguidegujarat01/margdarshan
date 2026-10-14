@@ -198,6 +198,7 @@ if (fs.existsSync(nxFile)) {
     nxExams++;
     const ex = (m) => err(`${E.slug}: ${m}`);
     for (const k of ['slug', 'short', 'stream', 'body', 'eyebrow', 'title', 'lede']) if (!E[k]) ex(`${k} is required`);
+    if (E.checked !== undefined && !isDay(E.checked)) ex('checked must be a date (YYYY-MM-DD)');
     for (const k of ['coaching_href', 'colleges_href']) if (E[k] && !linkOk(E[k])) ex(`${k} points at a missing page: ${E[k]}`);
     const page = path.join(root, E.slug + '.html');
     if (!fs.existsSync(page)) ex(`page ${E.slug}.html missing`);

@@ -1,14 +1,16 @@
 # National exam consoles (India edition) -> jee-main.html, jee-advanced.html, neet-ug.html, upsc-ese.html, upsc-cms.html,
 # clat.html, cuet-ug.html, nata.html, nift.html, jeecup.html, jexpo.html, jee-main-paper2.html, bitsat.html, viteee.html,
-# wbjee.html, gujcet.html, comedk.html, nest.html, iiser-iat.html, cmi.html, isi.html
+# wbjee.html, gujcet.html, comedk.html, nest.html, iiser-iat.html, cmi.html, isi.html, neet-pg.html, ini-cet.html,
+# fmge.html, aiims-norcet.html, gpat.html, niper-jee.html
 # Rendered by _includes/national-exam.html; validated by scripts/check-in-data.mjs.
 # Same part kinds as the state cockpit sheets (p, list, table, note, warn, links). Every p / list / table
 # and every hero fact must carry `source:` naming an id from that exam's sources[].
 # Six fixed blocks, in this order: overview, eligibility, scheme, reservation, fees, horizons.
 # Facts come only from the official files listed under each exam, read on `checked`. On that date only the
 # UPSC ESE 2027 notice and the CLAT 2027 pages were out, so ESE and CLAT are the 2027 cycle and every other
-# exam is the 2026 cycle (NATA 2027 and NIFT 2027 bulletins were not out either).
-# stream: engineering | medical | govt | law | university | architecture | design | polytechnic | science (labels the "More national exams" list).
+# exam is the 2026 cycle (NATA 2027 and NIFT 2027 bulletins were not out either). Phase 7 (read 15 Oct 2026):
+# INI-CET is the January 2027 session, FMGE the October 2026 session, NORCET the NORCET-11 (2026) round.
+# stream: engineering | medical | govt | law | university | architecture | design | polytechnic | science | nursing | pharmacy (labels the "More national exams" list).
 # checked (optional, per exam): the day that exam's files were read; the page shows it instead of the sheet-wide `checked`.
 checked: 2026-10-14
 
@@ -3114,3 +3116,832 @@ exams:
       - { id: isi-sel, name: "ISI — Selection Policy, non-JRF programmes 2026-27", url: "https://admission.isical.ac.in/Documents/IsiAdmission2026/Selection-Policy-Non-JRF-2026.pdf", covers: "stage-wise shortlisting, test maxima, weights, category pass-mark ratios", checked: 2026-10-15 }
       - { id: isi-res, name: "ISI — Policy for Reservation in Admission 2026-27", url: "https://admission.isical.ac.in/Documents/IsiAdmission2026/Reservation-Policy-2026.pdf", covers: "seats per programme, SC/ST/OBC-NCL/EWS/PwBD shares and relaxations", checked: 2026-10-15 }
       - { id: isi-rules, name: "ISI — Business Rules for Admission 2026-27 (B.Stat and B.Math)", url: "https://admission.isical.ac.in/Documents/IsiAdmission2026/Business-Rules-for-BStat-BMath-Admission-2026.pdf", covers: "category and gender tags, gender-neutral and female-only pools, allocation order", checked: 2026-10-15 }
+  # ---------------------------------------------------------------- NEET PG (NBEMS)
+  - slug: neet-pg
+    short: "NEET PG"
+    stream: medical
+    checked: 2026-10-15
+    body: "National Board of Examinations in Medical Sciences (NBEMS)"
+    eyebrow: "Entrance Exam · Postgraduate Medical · 2026 cycle"
+    title: "NEET PG — eligibility, marking, quotas &amp; fees"
+    lede: "The single entrance and ranking test for MD, MS and PG Diploma seats after MBBS — All India Quota, state quota, private and deemed universities, armed forces institutions and NBEMS's own DNB and DrNB courses. This page follows the NEET-PG 2026 Information Bulletin."
+    colleges_href: "colleges-mbbs.html"
+    facts:
+      - { label: "Conducted by", value: "NBEMS, New Delhi", source: npg-ib }
+      - { label: "Exam date (2026)", value: "30 Aug 2026 · result by 30 Sep 2026", source: npg-ib }
+      - { label: "Paper", value: "180 MCQs · 3 h 30 min · computer-based", source: npg-ib }
+      - { label: "Marking", value: "+4 correct · −1 wrong · 0 unattempted", source: npg-ib }
+    official:
+      - { label: "NEET-PG page (natboard.edu.in)", url: "https://natboard.edu.in/viewnbeexam?exam=neetpg" }
+      - { label: "Information Bulletin 2026", url: "https://drive.google.com/file/d/1WmFcaFZhEAaRFrBBgTGUENX81cQwQkVT/view" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; governing bodies"
+        heading: "One test for almost every MD / MS seat in India"
+        parts:
+          - p: "NEET-PG is the eligibility-cum-ranking examination prescribed as the <strong>single entrance examination</strong> for MD, MS and PG Diploma courses under Section 61(2) of the National Medical Commission Act, 2019 and Chapter IV of the Post Graduate Medical Education Regulations, 2023. No state or institution-level entrance test is valid for these courses."
+            source: npg-ib
+          - list:
+              - "<strong>All India 50% quota</strong> seats of every state and union territory."
+              - "<strong>State quota</strong> seats of every state and union territory."
+              - "All <strong>private</strong> medical colleges, institutions and universities, and <strong>deemed universities</strong>."
+              - "<strong>Armed Forces Medical Services</strong> institutions."
+              - "NBEMS's <strong>post-MBBS DNB</strong>, <strong>direct 6-year DrNB</strong> and <strong>post-MBBS NBEMS Diploma</strong> courses."
+            source: npg-ib
+          - p: "Four institutions are <strong>not</strong> filled through NEET-PG: AIIMS New Delhi and the other AIIMS, PGIMER Chandigarh, JIPMER Puducherry and NIMHANS Bengaluru — they admit through INI-CET."
+            source: npg-ib
+          - p: "NBEMS only conducts the test, declares the result and hands it to the counselling authorities. It has <strong>no role in counselling or seat allotment</strong>; documents and eligibility are verified at counselling."
+            source: npg-ib
+          - table:
+              caption: "NEET-PG 2026 calendar"
+              head: ["Step", "Date"]
+              rows:
+                - ["Online application", "1 Jul 2026 (5 pm) – 21 Jul 2026 (11:55 pm)"]
+                - ["Edit window", "25 – 28 Jul 2026"]
+                - ["Selective edit window (deficient images)", "31 Jul – 10 Aug 2026"]
+                - ["Test city intimation", "11 Aug 2026"]
+                - ["Admit cards", "27 Aug 2026"]
+                - ["Examination", "30 Aug 2026"]
+                - ["Result", "By 30 Sep 2026"]
+                - ["Internship completion cut-off", "30 Sep 2026"]
+            source: npg-ib
+          - warn: "The NEET-PG 2027 bulletin was not out on 15 October 2026, so this page describes the 2026 cycle. NBEMS can change the date, pattern and fees in the next bulletin."
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Strict academic eligibility"
+        heading: "MBBS, registration — and the internship cut-off"
+        parts:
+          - list:
+              - "An <strong>MBBS degree or provisional MBBS pass certificate</strong> recognised under the NMC Act, 2019 and the PG Medical Education Regulations, 2023."
+              - "A <strong>permanent or provisional registration</strong> certificate from the NMC / erstwhile MCI or a State Medical Council, shown on exam day and at counselling."
+              - "<strong>One year of internship completed</strong>, or due to be completed, on or before <strong>30 September 2026</strong>."
+            source: npg-ib
+          - p: "Applications from candidates finishing internship after 30 September 2026 are summarily rejected. The 12-month Compulsory Rotating Resident Internship dates entered in the form are final, and the original internship completion certificate must be shown at counselling or admission."
+            source: npg-ib
+          - p: "<strong>Foreign medical graduates</strong> (Indian citizens or OCI holders) must have passed the FMGE screening test, be registered with the NMC / MCI or a State Medical Council, and finish internship by 30 September 2026."
+            source: npg-ib
+          - note: "Some universities do not admit a candidate who is already doing a PG course until that course is finished. NBEMS, MoHFW and the counselling authority are not responsible if such a candidate is refused."
+            source: npg-ib
+      - id: scheme
+        nav: "Exam scheme"
+        eyebrow: "Exam scheme &amp; marking matrix"
+        heading: "180 questions in five locked, timed sections"
+        parts:
+          - list:
+              - "<strong>180 multiple-choice questions</strong>, each with 4 options, in <strong>English only</strong>."
+              - "<strong>3 hours 30 minutes</strong>, computer-based."
+              - "Syllabus: the subjects and knowledge areas of the MBBS curriculum issued by the NMC / erstwhile MCI."
+            source: npg-ib
+          - table:
+              caption: "NEET-PG 2026 marking scheme"
+              head: ["Response", "Marks"]
+              rows:
+                - ["Correct", "+4"]
+                - ["Incorrect", "−1"]
+                - ["Unattempted", "0"]
+            source: npg-ib
+          - p: "The paper is split into <strong>five time-bound sections (Groups A to E) of 36 questions and 42 minutes each</strong>. A section closes when its time runs out — you cannot go back to review or change answers — and the next one opens automatically. NBEMS says the number of such sections may vary with the size of the paper."
+            source: npg-ib
+          - note: "The 2026 bulletin does not publish a subject-wise or clinical-case question split; it only fixes the MBBS-curriculum syllabus."
+            source: npg-ib
+          - table:
+              caption: "Qualifying percentile, NEET-PG 2026"
+              head: ["Category", "Minimum percentile"]
+              rows:
+                - ["General / EWS", "50th"]
+                - ["UR PwBD", "45th"]
+                - ["SC / ST / OBC (including their PwBD)", "40th"]
+            source: npg-ib
+      - id: reservation
+        nav: "Quotas &amp; reservation"
+        eyebrow: "Reservation &amp; institutional quotas"
+        heading: "50% All India Quota, the rest with the states"
+        parts:
+          - table:
+              caption: "Who counsels which NEET-PG seats"
+              head: ["Seats", "Counselling authority"]
+              rows:
+                - ["50% All India Quota", "Medical Counselling Committee (MCC), DGHS — mcc.nic.in"]
+                - ["100% of deemed and central university seats", "MCC, DGHS"]
+                - ["100% all-India open DNB seats", "MCC, DGHS"]
+                - ["State quota seats", "Each state / UT's counselling authority"]
+                - ["In-service seats", "The state government's counselling authority"]
+            source: npg-ib
+          - p: "For <strong>state quota</strong> seats, NBEMS passes only candidate data and scores to the states through DGHS — without applying any state's eligibility or reservation rules. Each state builds its own state rank, category rank, in-service and rural-posting benefits under its own policy. Qualifying NEET-PG does not by itself make you eligible for a state's quota seats."
+            source: npg-ib
+          - list:
+              - "AIQ reservation follows the MCC information bulletin; PG seat reservation follows Government of India and state norms."
+              - "<strong>5% PwBD</strong> reservation applies in 50% AIQ and central university seats; 33 designated centres issue the disability certificate."
+              - "PwBD candidates need at least the 45th percentile (General) or 40th percentile (SC / ST / OBC)."
+              - "OCI cardholders' rights follow the Supreme Court order of 3 February 2023 (Anushka Rengunthwar v. Union of India)."
+            source: npg-ib
+          - note: "A candidate can pass NEET-PG yet not be eligible for AIQ counselling under MCC's criteria — such a candidate can still be considered for state quota seats."
+            source: npg-ib
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Application steps &amp; registration fees"
+        heading: "One fee, paid online"
+        parts:
+          - table:
+              caption: "NEET-PG 2026 examination fee"
+              head: ["Category", "Fee"]
+              rows:
+                - ["General, OBC, EWS", "₹3,500"]
+                - ["SC, ST, PwBD", "₹2,500"]
+            source: npg-ib
+          - list:
+              - "Apply online on the NBEMS portal: register, fill the form, upload photograph, signature and thumb impression, then pay through the payment gateway (gateway charges extra)."
+              - "A submitted form cannot be withdrawn; the fee is never refunded or carried forward."
+              - "If an edit changes your category to one with a higher fee, you must pay the balance; a lower fee is not refunded."
+            source: npg-ib
+      - id: horizons
+        nav: "Where it leads"
+        eyebrow: "Career horizons &amp; mapped institutions"
+        heading: "From NEET-PG rank to residency"
+        parts:
+          - p: "A NEET-PG rank leads to MD / MS / PG Diploma seats in government, private and deemed colleges, to post-MBBS DNB and direct 6-year DrNB super-specialty training, and to NBEMS's 2-year post-MBBS Diploma courses. Clearing the qualifying percentile does not by itself give a seat."
+            source: npg-ib
+          - links:
+              - { label: "INI-CET (AIIMS, JIPMER, PGIMER, NIMHANS)", url: "ini-cet.html" }
+              - { label: "FMGE screening test", url: "fmge.html" }
+              - { label: "UPSC CMS (government doctors)", url: "upsc-cms.html" }
+              - { label: "MBBS career guide", url: "mbbs.html" }
+    sources:
+      - { id: npg-ib, name: "NBEMS — NEET-PG 2026 Information Bulletin (linked from natboard.edu.in)", url: "https://drive.google.com/file/d/1WmFcaFZhEAaRFrBBgTGUENX81cQwQkVT/view", covers: "scope, excluded institutes, calendar, eligibility, internship cut-off, pattern, sections, marking, qualifying percentiles, counselling authorities, state quota data, PwBD, fees", checked: 2026-10-15 }
+  # ---------------------------------------------------------------- INI-CET (AIIMS New Delhi)
+  - slug: ini-cet
+    short: "INI-CET"
+    stream: medical
+    checked: 2026-10-15
+    body: "AIIMS New Delhi (Examination Section)"
+    eyebrow: "Entrance Exam · Postgraduate Medical · January 2027 session"
+    title: "INI-CET — eligibility, marking, institutional preference &amp; fees"
+    lede: "The combined entrance test for MD, MS, MDS, 6-year DM and M.Ch. seats at the Institutes of National Importance — AIIMS New Delhi and 18 other AIIMS, JIPMER, NIMHANS, PGIMER and SCTIMST — which do not admit through NEET-PG. This page follows the January 2027 session prospectus."
+    colleges_href: "colleges-mbbs.html"
+    facts:
+      - { label: "Conducted by", value: "AIIMS New Delhi for 23 INIs", source: ini-a }
+      - { label: "Exam date", value: "1 Nov 2026 (Sunday) · CBT", source: ini-notice }
+      - { label: "Paper", value: "200 questions · 3 hours", source: ini-a }
+      - { label: "Marking", value: "+1 correct · −1/3 wrong", source: ini-a }
+    official:
+      - { label: "aiimsexams.ac.in", url: "https://www.aiimsexams.ac.in/" }
+      - { label: "Prospectus Jan 2027 (Part A &amp; B)", url: "https://www.aiimsexams.ac.in/prospectus/6aaab710c7a01ed08da4242d" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; governing bodies"
+        heading: "One test, 23 Institutes of National Importance"
+        parts:
+          - p: "INI-CET is held by the <strong>Examination Section of AIIMS New Delhi</strong> for the January 2027 session of MD, MS, DM (6 years), M.Ch. (6 years), MDS and MD (Hospital Administration) at the participating Institutes of National Importance."
+            source: ini-a
+          - list:
+              - "<strong>19 AIIMS</strong> — New Delhi, Bhopal, Bhubaneswar, Jodhpur, Nagpur, Patna, Raipur, Rishikesh, Bibinagar, Bathinda, Deoghar, Mangalagiri, Raebareli, Kalyani, Bilaspur, Gorakhpur, Guwahati, Rajkot and Jammu."
+              - "<strong>JIPMER</strong> Puducherry, <strong>NIMHANS</strong> Bengaluru, <strong>PGIMER</strong> Chandigarh and <strong>SCTIMST</strong> Thiruvananthapuram."
+            source: ini-a
+          - table:
+              caption: "INI-CET January 2027 calendar"
+              head: ["Step", "Date"]
+              rows:
+                - ["Admission Notice No. 148/2026", "2 Sep 2026"]
+                - ["Prospectus Part A &amp; Part B uploaded", "16 Sep 2026"]
+                - ["Online registration", "16 Sep – 13 Oct 2026 (5 pm)"]
+                - ["Status of registration", "17 – 19 Oct 2026"]
+                - ["Final status &amp; admit card", "26 Oct 2026"]
+                - ["Examination", "1 Nov 2026 (Sunday)"]
+            source: ini-notice
+          - warn: "Registration for the January 2027 session closed on 13 October 2026. The AIIMS portal lists INI-CET for both a January and a July session each year — watch it for the July 2027 notice."
+            source: ini-portal
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Strict academic eligibility"
+        heading: "MBBS or BDS, internship by 31 January 2027, and 55% aggregate"
+        parts:
+          - list:
+              - "<strong>MBBS</strong> for MD, MS, DM (6 yrs), M.Ch. (6 yrs) and MD (Hospital Administration); <strong>BDS</strong> for MDS — from a university recognised by the NMC / MCI or the Dental Council of India."
+              - "The <strong>12-month compulsory rotating internship</strong> must be complete on or before <strong>31 January 2027</strong>; anyone finishing later cannot register."
+            source: ini-a
+          - table:
+              caption: "Minimum aggregate of all professional MBBS / BDS exams"
+              head: ["Category", "Minimum aggregate"]
+              rows:
+                - ["SC / ST", "50%"]
+                - ["All others, including OBC and EWS", "55%"]
+                - ["PwBD", "Same as the candidate's own category"]
+            source: ini-a
+          - list:
+              - "Enter the aggregate of <strong>all</strong> professional exams, not just one year's marks."
+              - "Indian nationals who graduated abroad: <strong>FMGE marks</strong> are used in place of the MBBS aggregate."
+              - "Sponsored candidates must have worked 3 years for the sponsor — by 31 Jan 2027 (AIIMS, SCTIMST, NIMHANS) or 31 Dec 2026 (JIPMER, PGIMER)."
+            source: ini-a
+          - note: "Each INI can add its own admission conditions in its Part B prospectus, so a candidate may be eligible for some INIs and not others."
+            source: ini-a
+      - id: scheme
+        nav: "Exam scheme"
+        eyebrow: "Exam scheme &amp; marking matrix"
+        heading: "200 questions in four locked 45-minute parts"
+        parts:
+          - list:
+              - "Computer-based, <strong>3 hours (180 minutes)</strong>, <strong>200 questions</strong>."
+              - "Objective questions of varying types, including <strong>single-correct and multiple-correct</strong> choice."
+              - "Four parts of 50 questions and 45 minutes each, shown one at a time; a part locks when its 45 minutes end."
+            source: ini-a
+          - table:
+              caption: "INI-CET January 2027 marking"
+              head: ["Response", "Marks"]
+              rows:
+                - ["Correct", "+1"]
+                - ["Incorrect", "−1/3"]
+                - ["Unanswered / marked for review", "0"]
+            source: ini-a
+          - table:
+              caption: "Minimum percentile for admission"
+              head: ["Seats", "Cut-off"]
+              rows:
+                - ["Unreserved (incl. OCI), EWS, sponsored, foreign nationals", "50th percentile"]
+                - ["OBC, SC, ST, PwBD (and Bhutanese nationals at PGIMER)", "45th percentile"]
+            source: ini-a
+          - p: "Ties are broken by fewer negative marks, then a higher percentage in the qualifying degree, then age (older first), then name in alphabetical order."
+            source: ini-a
+      - id: reservation
+        nav: "Reservation &amp; preference"
+        eyebrow: "Reservation &amp; institutional quotas"
+        heading: "Central reservation plus AIIMS institutional preference"
+        parts:
+          - p: "Seats are allotted online in at least two rounds and an open round, in merit order and by each INI's own policies on institutional preference, community reservation and PwBD, through Institute-wise Synchronised Allocation of Seats (InSAS)."
+            source: ini-a
+          - table:
+              caption: "Reservation at the AIIMS (Part B, January 2027)"
+              head: ["Category", "Share"]
+              rows:
+                - ["SC", "15%"]
+                - ["ST", "7.5%"]
+                - ["OBC", "27%"]
+                - ["EWS", "10%"]
+                - ["PwBD", "5%, horizontal"]
+            source: ini-b
+          - list:
+              - "<strong>AIIMS New Delhi graduates</strong> get institutional preference for open general seats equal to 50% of AIIMS's total MBBS seats, with no discipline-wise preference (Supreme Court, Saurabh Chaudhary v. Union of India, 2004)."
+              - "Graduates of <strong>other AIIMS</strong> get preferential allotment at their own AIIMS only."
+              - "Any preferential or reserved seat left vacant goes to open general candidates in merit order."
+              - "Reservation does not apply to sponsored and foreign national seats."
+            source: ini-b
+          - note: "JIPMER, NIMHANS, PGIMER and SCTIMST publish their own Part B prospectus with their own seat and preference rules."
+            source: ini-a
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Application steps &amp; registration fees"
+        heading: "Fee by category, PwBD exempt"
+        parts:
+          - table:
+              caption: "INI-CET January 2027 application fee"
+              head: ["Applicant", "Fee"]
+              rows:
+                - ["General / OBC (NCL) / foreign national / OCI / sponsored", "₹4,000"]
+                - ["SC / ST / EWS", "₹3,200"]
+                - ["Persons with Benchmark Disabilities", "Nil (exempted)"]
+            source: ini-a
+          - list:
+              - "Apply only online at aiimsexams.ac.in: basic information, qualification details, images, then the fee by debit card, credit card or net banking."
+              - "Bank transaction charges are extra; the fee is not refunded under any circumstances."
+              - "Applications without the fee are rejected."
+            source: ini-a
+      - id: horizons
+        nav: "Where it leads"
+        eyebrow: "Career horizons &amp; mapped institutions"
+        heading: "Junior Residency at an Institute of National Importance"
+        parts:
+          - list:
+              - "MD / MS / MDS students at AIIMS are <strong>Junior Residents</strong> (clinical) or Junior Demonstrators (basic subjects) on a <strong>3-year contract</strong>."
+              - "Pay: entry pay <strong>₹56,100 a month plus NPA</strong> and allowances in the first year (pay scale ₹15,600 + ₹5,400 grade pay, 7th CPC)."
+              - "Leaving the course: ₹3,00,000 within six months of joining, ₹5,00,000 after six months; original certificates stay with AIIMS unless ₹3,00,000 is deposited."
+            source: ini-b
+          - links:
+              - { label: "NEET PG (all other MD / MS seats)", url: "neet-pg.html" }
+              - { label: "FMGE screening test", url: "fmge.html" }
+              - { label: "UPSC CMS", url: "upsc-cms.html" }
+              - { label: "MBBS career guide", url: "mbbs.html" }
+    sources:
+      - { id: ini-notice, name: "AIIMS New Delhi — Admission Notice No. 148/2026, INI-CET January 2027 (2 Sep 2026)", url: "https://www.aiimsexams.ac.in/advertisement/6aaab710c7a01ed08da4242d", covers: "courses, participating INIs, registration and exam dates", checked: 2026-10-15 }
+      - { id: ini-a, name: "AIIMS New Delhi — INI-CET January 2027 Prospectus Part A", url: "https://www.aiimsexams.ac.in/prospectus/6aaab710c7a01ed08da4242d", covers: "participating institutes, eligibility, minimum aggregate, sponsored rules, fees, CBT scheme, marking, percentile cut-offs, tie rules, seat allocation", checked: 2026-10-15 }
+      - { id: ini-b, name: "AIIMS New Delhi — INI-CET January 2027 Prospectus Part B (AIIMS)", url: "https://www.aiimsexams.ac.in/prospectus/6aaab710c7a01ed08da4242d", covers: "AIIMS reservation, PwBD, institutional preference, contract, bond amounts, Junior Resident pay", checked: 2026-10-15 }
+      - { id: ini-portal, name: "AIIMS examination portal — INI-CET sessions and Part B prospectus list", url: "https://www.aiimsexams.ac.in/landingpage/courses/advertisement/68dbf0b6d6fe8f55c65468aa", covers: "INI-CET notices for the January and July sessions", checked: 2026-10-15 }
+  # ---------------------------------------------------------------- FMGE (NBEMS)
+  - slug: fmge
+    short: "FMGE"
+    stream: medical
+    checked: 2026-10-15
+    body: "National Board of Examinations in Medical Sciences (NBEMS)"
+    eyebrow: "Screening Test · Foreign Medical Graduates · October 2026 session"
+    title: "FMGE — eligibility, pass mark, blueprint &amp; fee"
+    lede: "The screening test that Indian citizens and OCI holders with a foreign primary medical degree must pass before the NMC or a State Medical Council will register them. NBEMS now holds it three times a year; this page follows the October 2026 Information Bulletin."
+    facts:
+      - { label: "Conducted by", value: "NBEMS (Screening Test Regulations, 2002)", source: fm-ib }
+      - { label: "Next test", value: "31 Oct 2026 · result by 30 Nov 2026", source: fm-ib }
+      - { label: "Paper", value: "300 MCQs in 2 parts, one day", source: fm-ib }
+      - { label: "To pass", value: "150 of 300 · no negative marking", source: fm-ib }
+    official:
+      - { label: "FMGE page (natboard.edu.in)", url: "https://natboard.edu.in/viewnbeexam?exam=fmge" }
+      - { label: "Information Bulletin Oct 2026 (PDF)", url: "https://nbe.edu.in/IB/FMGE%20october%202026%20information%20bulletin%20v2.2.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; governing bodies"
+        heading: "The licence gate for foreign MBBS graduates"
+        parts:
+          - p: "Under the <strong>Screening Test Regulations, 2002</strong>, an Indian citizen or Overseas Citizen of India with a primary medical qualification from an institution outside India must pass a screening test to get provisional or permanent registration with the NMC (earlier MCI) or a State Medical Council. <strong>NBEMS</strong> conducts it, publishes the result and hands it to the NMC and all State Medical Councils."
+            source: fm-ib
+          - p: "The June 2026 session was held on 28 June 2026. NBEMS has moved to <strong>three tests a year</strong>; the next is on <strong>31 October 2026</strong>."
+            source: fm-ib
+          - table:
+              caption: "FMGE October 2026 calendar"
+              head: ["Step", "Date"]
+              rows:
+                - ["Online application", "11 Sep 2026 (5 pm) – 25 Sep 2026 (11:55 pm)"]
+                - ["Admit cards", "27 Oct 2026"]
+                - ["Examination", "31 Oct 2026"]
+                - ["Result", "By 30 Nov 2026"]
+            source: fm-ib
+          - warn: "Applications for the October 2026 test closed on 25 September 2026. The bulletin for the following session was not on the NBEMS FMGE page on 15 October 2026."
+            source: fm-page
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Primary degree constraints"
+        heading: "A recognised foreign degree, passed by the cut-off date"
+        parts:
+          - list:
+              - "You are a <strong>citizen of India or an OCI</strong> holder."
+              - "Your <strong>primary medical qualification</strong> is confirmed by the Indian Embassy concerned as recognised for enrolment as a medical practitioner in the country that awarded it."
+              - "The result of its final examination was declared <strong>on or before 31 August 2026</strong> — with documents that clearly show you passed every required course."
+            source: fm-ib
+          - p: "<strong>NEET-UG rule:</strong> anyone who went abroad for a primary medical qualification on or after May 2018 must have qualified NEET-UG (Gazette notification of 1 March 2018); the NEET result counts as the Eligibility Certificate, and is valid for three years from its declaration (notification of 14 March 2019). The candidate must also meet the MBBS admission criteria of the Graduate Medical Education Regulations, 1997."
+            source: fm-ib
+          - note: "Exempt from the screening test: holders of an undergraduate medical degree from Australia, Canada, New Zealand, the UK or the USA who also hold a postgraduate medical degree from one of those countries and are recognised to practise there."
+            source: fm-ib
+      - id: scheme
+        nav: "Exam scheme"
+        eyebrow: "Exam scheme &amp; marking matrix"
+        heading: "300 questions over two sittings, no negative marks"
+        parts:
+          - list:
+              - "One paper of <strong>300 multiple-choice questions</strong>, 4 options each, in English, computer-based."
+              - "Two parts on the same day, <strong>150 questions each</strong>, with a break between them: Part I 9:00 – 11:30 am, Part II 2:00 – 4:30 pm, plus up to 3 extra minutes per part for attendance checks (153 minutes each)."
+              - "Each part is split into time-bound sections that lock when their time ends."
+              - "<strong>No negative marking.</strong>"
+            source: fm-ib
+          - table:
+              caption: "FMGE blueprint — pre &amp; para-clinical (100 marks)"
+              head: ["Subject", "Marks"]
+              rows:
+                - ["Anatomy", "17"]
+                - ["Physiology", "17"]
+                - ["Biochemistry", "17"]
+                - ["Pathology", "13"]
+                - ["Microbiology", "13"]
+                - ["Pharmacology", "13"]
+                - ["Forensic Medicine", "10"]
+            source: fm-ib
+          - table:
+              caption: "FMGE blueprint — clinical (200 marks)"
+              head: ["Subject", "Marks"]
+              rows:
+                - ["Medicine (33), Psychiatry (5), Dermatology &amp; STD (5), Radiotherapy (5)", "48"]
+                - ["General Surgery (32), Anaesthesiology (5), Orthopaedics (5), Radiodiagnosis (5)", "47"]
+                - ["Obstetrics &amp; Gynaecology", "30"]
+                - ["Community Medicine", "30"]
+                - ["Paediatrics", "15"]
+                - ["Ophthalmology", "15"]
+                - ["Otorhinolaryngology (ENT)", "15"]
+            source: fm-ib
+      - id: reservation
+        nav: "Pass rule"
+        eyebrow: "Qualifying rule &amp; what it unlocks"
+        heading: "One pass mark for everyone"
+        parts:
+          - list:
+              - "FMGE is a qualifying test: you pass with <strong>at least 150 marks out of 300</strong>. Only Pass / Fail is shown; Part I and Part II marks are not published."
+              - "No re-totalling, re-evaluation or grace marks."
+              - "<strong>No limit on attempts</strong> — but once you pass, you cannot sit FMGE again."
+            source: fm-ib
+          - p: "Passing FMGE, registering with the NMC / a State Medical Council and finishing internship makes a foreign graduate eligible for NEET-PG; for INI-CET, FMGE marks are used in place of the MBBS aggregate."
+            source: npg-ib
+      - id: fees
+        nav: "Fee"
+        eyebrow: "Application steps &amp; registration fee"
+        heading: "₹4,650 including GST"
+        parts:
+          - table:
+              caption: "FMGE October 2026 examination fee"
+              head: ["Part", "Amount"]
+              rows:
+                - ["Examination fee", "₹3,940.68"]
+                - ["GST at 18%", "₹709.32"]
+                - ["Total payable", "₹4,650"]
+            source: fm-ib
+          - list:
+              - "Apply online on the NBEMS portal and upload the primary medical qualification certificate (apostilled or attested by the Indian Embassy), the Eligibility Certificate or NEET result as applicable, and proof of citizenship."
+              - "The fee is paid only through the payment gateway (gateway charges extra)."
+            source: fm-ib
+      - id: horizons
+        nav: "Where it leads"
+        eyebrow: "Career horizons &amp; mapped institutions"
+        heading: "Registration, then the PG race"
+        parts:
+          - p: "An FMGE pass is what NBEMS hands to the NMC and the State Medical Councils for registration. From there the routes are the same as for Indian MBBS graduates: NEET-PG or INI-CET for postgraduate seats, and UPSC CMS for central government doctor posts."
+            source: fm-ib
+          - links:
+              - { label: "NEET PG", url: "neet-pg.html" }
+              - { label: "INI-CET", url: "ini-cet.html" }
+              - { label: "UPSC CMS", url: "upsc-cms.html" }
+              - { label: "NEET UG", url: "neet-ug.html" }
+    sources:
+      - { id: fm-ib, name: "NBEMS — FMGE October 2026 Information Bulletin (v2.2)", url: "https://nbe.edu.in/IB/FMGE%20october%202026%20information%20bulletin%20v2.2.pdf", covers: "Screening Test Regulations, three sessions a year, calendar, eligibility, NEET-UG rule, exemptions, pattern, timing, blueprint, pass mark, attempts, fee", checked: 2026-10-15 }
+      - { id: fm-page, name: "NBEMS — FMGE examination page", url: "https://natboard.edu.in/viewnbeexam?exam=fmge", covers: "sessions and bulletins published (June 2026, October 2026)", checked: 2026-10-15 }
+      - { id: npg-ib, name: "NBEMS — NEET-PG 2026 Information Bulletin", url: "https://drive.google.com/file/d/1WmFcaFZhEAaRFrBBgTGUENX81cQwQkVT/view", covers: "NEET-PG eligibility for foreign medical graduates", checked: 2026-10-15 }
+  # ---------------------------------------------------------------- AIIMS NORCET (Nursing Officer)
+  - slug: aiims-norcet
+    short: "AIIMS NORCET"
+    stream: nursing
+    checked: 2026-10-15
+    body: "AIIMS New Delhi (Examination Section)"
+    eyebrow: "Recruitment Test · Nursing · NORCET-11 (2026)"
+    title: "AIIMS NORCET — eligibility, two-stage scheme, quotas &amp; fees"
+    lede: "The Nursing Officer Recruitment Common Eligibility Test, run by AIIMS New Delhi twice a year, fills Nursing Officer (Group B) posts at AIIMS New Delhi, the other AIIMS and several central hospitals. This page follows the NORCET-11 advertisement, Notice No. 103/2026."
+    colleges_href: "colleges-nursing.html"
+    facts:
+      - { label: "Conducted by", value: "AIIMS New Delhi", source: nc-adv }
+      - { label: "Post", value: "Nursing Officer · Group B · Pay Level 7", source: nc-adv }
+      - { label: "Stages (NORCET-11)", value: "Prelims 12 Sep 2026 · Mains 30 Sep 2026", source: nc-adv }
+      - { label: "Fee", value: "₹3,000 · ₹2,400 SC/ST/EWS · PwBD nil", source: nc-adv }
+    official:
+      - { label: "aiimsexams.ac.in", url: "https://www.aiimsexams.ac.in/" }
+      - { label: "NORCET-11 advertisement", url: "https://www.aiimsexams.ac.in/advertisement/6a6350f7e5a81c4267f4ff04" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; governing bodies"
+        heading: "One test for Nursing Officer posts across the AIIMS"
+        parts:
+          - p: "AIIMS New Delhi invites applications for NORCET to recruit <strong>Nursing Officers at Level 7</strong> of the pay matrix (pre-revised Pay Band-2, ₹9,300 – 34,800 with ₹4,600 grade pay), <strong>Group B</strong>, for AIIMS New Delhi and the other AIIMS against the vacancies each institute reports. The Examination Section only conducts the test — appointment is decided by each participating institute."
+            source: nc-adv
+          - p: "NORCET-11 carries separate advertisements for AIIMS New Delhi and other AIIMS, JIPMER, ESIC, CIP Ranchi, other central government hospitals in Delhi, and NITRD."
+            source: nc-portal
+          - table:
+              caption: "NORCET-11 calendar"
+              head: ["Step", "Date"]
+              rows:
+                - ["Online registration", "24 Jul – 13 Aug 2026 (5 pm)"]
+                - ["NOC upload (government employees)", "By 18 Aug 2026 (5 pm)"]
+                - ["Application status", "24 Aug 2026"]
+                - ["Exam city intimation", "3 Sep 2026"]
+                - ["Admit card", "9 Sep 2026"]
+                - ["Stage I — NORCET Preliminary (CBT)", "12 Sep 2026 (Saturday)"]
+                - ["Stage II — NORCET Mains (CBT)", "30 Sep 2026 (Wednesday)"]
+            source: nc-adv
+          - warn: "NORCET-11 is over — AIIMS published the Stage II result on 10 October 2026. The advertisement says NORCET is planned twice a year, so watch the portal for NORCET-12."
+            source: nc-portal
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Primary degree constraints"
+        heading: "B.Sc. Nursing — or GNM plus two years' experience"
+        parts:
+          - list:
+              - "<strong>Route I:</strong> B.Sc. (Hons) Nursing / B.Sc. Nursing, or B.Sc. (Post-Certificate) / Post-Basic B.Sc. Nursing, from an INC / State Nursing Council recognised institute or university, <strong>and</strong> registration as Nurse &amp; Midwife with a State / Indian Nursing Council."
+              - "<strong>Route II:</strong> Diploma in General Nursing Midwifery (GNM) from a recognised institute, registration as Nurse &amp; Midwife, <strong>and two years' experience</strong> in a hospital of at least 50 beds, gained after the qualification and registration."
+              - "Qualification, registration and experience must all be complete by the closing date of registration."
+            source: nc-adv
+          - table:
+              caption: "Age limit 18 – 30 years on the closing date, with relaxation"
+              head: ["Category", "Extra years"]
+              rows:
+                - ["SC / ST", "5"]
+                - ["OBC", "3"]
+                - ["PwBD", "10 (13 for OBC, 15 for SC / ST), up to age 56"]
+                - ["Ex-servicemen", "Military service + 3 years"]
+                - ["Central Govt. civilian employees (3 years' service)", "5 (8 OBC, 10 SC / ST)"]
+            source: nc-adv
+      - id: scheme
+        nav: "Exam scheme"
+        eyebrow: "Exam scheme &amp; marking matrix"
+        heading: "A qualifying prelim, then a case-based main"
+        parts:
+          - table:
+              caption: "NORCET-11 two-stage scheme"
+              head: ["", "Stage I — Preliminary", "Stage II — Mains"]
+              rows:
+                - ["Questions", "100 MCQs, 100 marks", "160 MCQs, 160 marks"]
+                - ["Content", "20 general knowledge &amp; aptitude + 80 nursing", "Whole nursing syllabus, case-scenario based"]
+                - ["Duration", "90 min — 5 sections of 20 Q, 18 min each", "180 min — 4 sections of 40 Q, 45 min each"]
+                - ["Negative marking", "−1/3 per wrong answer", "−1/3 per wrong answer"]
+                - ["Qualifying", "50 / 45 / 40 percentile (UR-EWS / OBC / SC-ST)", "50% / 45% / 40% (UR-EWS / OBC / SC-ST)"]
+                - ["Role", "Shortlist only, not used for merit", "Final merit list"]
+            source: nc-adv
+          - list:
+              - "PwBD candidates get a further 5 percentile (Stage I) or 5% (Stage II) relaxation in every category."
+              - "Stage II calls 5 times the seats in each category from Stage I qualifiers, plus all qualified PwBD candidates and ties at the cut-off."
+              - "Sections open one at a time and lock when their time ends. Multi-shift papers are normalised under AIIMS Notice No. 35/2023."
+              - "Mains ties: fewer wrong answers in Stage II, then Stage I score, then fewer wrong answers in Stage I, then age (older first)."
+            source: nc-adv
+      - id: reservation
+        nav: "Quotas &amp; allocation"
+        eyebrow: "Reservation &amp; institutional quotas"
+        heading: "80% of AIIMS seats for women, one allocation round"
+        parts:
+          - list:
+              - "At the participating AIIMS, <strong>80% of seats are reserved for women and 20% for men</strong> (decision of the 4th CIB meeting, 27 July 2019)."
+              - "PwBD reservation applies horizontally across categories; the post is identified for OL, AAV, Dw and LC candidates with 40% or more benchmark disability."
+              - "SC / ST / OBC candidates who use age relaxation are considered only for their category's reserved seats."
+              - "OBC-NCL certificates must be in the central format, valid for 2026-27 and issued between 1 Apr 2026 and 13 Aug 2026."
+            source: nc-adv
+          - p: "After Stage II, qualified and eligible candidates fill choices of institutes. There is generally <strong>one allocation round</strong>, in merit order; a candidate who does not join an allotted seat loses the candidature, and there is <strong>no waiting list</strong> because NORCET is held twice a year."
+            source: nc-adv
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Application steps &amp; registration fees"
+        heading: "Fee by category, SC / ST refunded after the result"
+        parts:
+          - table:
+              caption: "NORCET-11 application fee"
+              head: ["Category", "Fee"]
+              rows:
+                - ["General / OBC", "₹3,000"]
+                - ["SC / ST / EWS", "₹2,400"]
+                - ["Persons with Disabilities", "Exempted"]
+            source: nc-adv
+          - list:
+              - "Apply online only at aiimsexams.ac.in; earlier applicants must use their old ID / One Time Registration."
+              - "Pay by debit card, credit card or net banking; the fee is not refunded — except that <strong>SC / ST candidates who sit the exam get it back</strong> after the result, on certificate verification."
+              - "Government employees must upload a No Objection Certificate by the notified date."
+            source: nc-adv
+      - id: horizons
+        nav: "Where it leads"
+        eyebrow: "Career horizons &amp; mapped institutions"
+        heading: "A central-government nursing post"
+        parts:
+          - p: "Selected candidates join as Nursing Officers in Group B at Level 7, with the usual allowances of central government servants of similar status in the institute's city. Allocation follows NORCET merit, the choices filled and each institute's recruitment rules."
+            source: nc-adv
+          - links:
+              - { label: "Nursing career guide", url: "nursing.html" }
+              - { label: "Nursing college finder", url: "colleges-nursing.html" }
+              - { label: "NEET UG", url: "neet-ug.html" }
+              - { label: "Government exams", url: "govt-exams.html" }
+    sources:
+      - { id: nc-adv, name: "AIIMS New Delhi — NORCET-11 advertisement, Notice No. 103/2026 (24 Jul 2026), AIIMS New Delhi and other AIIMS", url: "https://www.aiimsexams.ac.in/advertisement/6a6350f7e5a81c4267f4ff04", covers: "post and pay level, eligibility, age and relaxation, fees, dates, two-stage scheme, qualifying marks, tie rules, female quota, allocation", checked: 2026-10-15 }
+      - { id: nc-portal, name: "AIIMS examination portal — NORCET-11 page and results", url: "https://www.aiimsexams.ac.in/", covers: "advertisements per participating organisation; Stage II result of 10 Oct 2026", checked: 2026-10-15 }
+  # ---------------------------------------------------------------- GPAT (NBEMS for PCI)
+  - slug: gpat
+    short: "GPAT"
+    stream: pharmacy
+    checked: 2026-10-15
+    body: "NBEMS, for the Pharmacy Council of India (PCI)"
+    eyebrow: "Entrance Exam · Pharmacy · 2026 cycle"
+    title: "GPAT — eligibility, marking, qualifying rule &amp; fees"
+    lede: "The Graduate Pharmacy Aptitude Test is the national test for M.Pharm admission and the PCI scholarship. NBEMS has run it for the Pharmacy Council of India since NTA's last edition in 2023; this page follows the GPAT 2026 Information Bulletin."
+    colleges_href: "colleges-bpharm.html"
+    facts:
+      - { label: "Conducted by", value: "NBEMS under an MoU with PCI", source: gp-ib }
+      - { label: "Exam date (2026)", value: "7 Mar 2026 · result by 7 Apr 2026", source: gp-ib }
+      - { label: "Paper", value: "125 MCQs · 500 marks · 3 hours", source: gp-ib }
+      - { label: "Marking", value: "+4 correct · −1 wrong · score valid 3 years", source: gp-ib }
+    official:
+      - { label: "GPAT page (natboard.edu.in)", url: "https://natboard.edu.in/viewnbeexam?exam=gpat" }
+      - { label: "Information Bulletin 2026 (PDF)", url: "https://nbe.edu.in/IB/Information%20bulletin%20GPAT%202026.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; governing bodies"
+        heading: "From AICTE to NTA to NBEMS"
+        parts:
+          - p: "GPAT is a national-level examination for the <strong>award of scholarship</strong> to qualified candidates seeking entry into the <strong>Master of Pharmacy (M.Pharm)</strong> course. AICTE ran it from 2010 to 2018 and NTA from 2019 to 2023. After the Supreme Court's judgment of 5 March 2020 placed pharmacy education under the Pharmacy Act, 1948, the <strong>Pharmacy Council of India</strong> took over GPAT and signed an MoU with <strong>NBEMS</strong> to conduct it."
+            source: gp-ib
+          - p: "NBEMS only conducts the test, declares the result and hands it to PCI. It has no role in counselling or scholarship disbursement, and appearing in GPAT gives no automatic right to an M.Pharm seat or scholarship — admission follows the state government or admission committee's rules."
+            source: gp-ib
+          - table:
+              caption: "GPAT 2026 calendar"
+              head: ["Step", "Date"]
+              rows:
+                - ["Online application", "23 Dec 2025 (5 pm) – 12 Jan 2026"]
+                - ["Edit window", "16 – 19 Jan 2026"]
+                - ["Test city intimation", "24 Feb 2026"]
+                - ["Admit cards", "2 Mar 2026"]
+                - ["Examination", "7 Mar 2026"]
+                - ["Result", "By 7 Apr 2026"]
+            source: gp-ib
+          - warn: "GPAT 2026 is over and no GPAT 2027 bulletin was on the NBEMS GPAT page on 15 October 2026 — the next cycle's date, pattern and fees can change."
+            source: gp-page
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Primary degree constraints"
+        heading: "Final-year — or third-year — B.Pharm"
+        parts:
+          - list:
+              - "Students in the <strong>final (4th) year of B.Pharm</strong> whose result comes before M.Pharm admission for 2026-27."
+              - "Students in the <strong>pre-final (3rd) year</strong> whose final-year result comes before M.Pharm admission for 2027-28."
+              - "B.E. / B.Tech. (Pharmaceutical and Fine Chemical Technology) and equivalent candidates are <strong>not eligible</strong>."
+              - "Your B.Pharm must be recognised under the Pharmacy Act, 1948."
+            source: gp-ib
+      - id: scheme
+        nav: "Exam scheme"
+        eyebrow: "Exam scheme &amp; marking matrix"
+        heading: "125 questions, 500 marks, 25% negative"
+        parts:
+          - table:
+              caption: "GPAT 2026 indicative blueprint"
+              head: ["Subject area", "Questions", "Marks"]
+              rows:
+                - ["Pharmaceutical Chemistry &amp; allied subjects", "38", "152"]
+                - ["Pharmaceutics &amp; allied subjects", "38", "152"]
+                - ["Pharmacology &amp; allied subjects", "28", "112"]
+                - ["Other B.Pharm subjects", "11", "44"]
+                - ["Pharmacognosy &amp; allied subjects", "10", "40"]
+                - ["Total", "125", "500"]
+            source: gp-ib
+          - table:
+              caption: "GPAT 2026 marking scheme"
+              head: ["Response", "Marks"]
+              rows:
+                - ["Correct", "+4"]
+                - ["Incorrect", "−1 (25% negative)"]
+                - ["Unattempted", "0"]
+            source: gp-ib
+          - p: "The computer-based paper (English, 4 options per question, 3 hours) is split into time-bound sections — for example five sections of 25 questions and 36 minutes — that lock when their time runs out. The syllabus follows the B.Pharm Course Regulations, 2024."
+            source: gp-ib
+      - id: reservation
+        nav: "Qualifying &amp; quotas"
+        eyebrow: "Reservation &amp; qualifying quotas"
+        heading: "Top 10% of candidates, split by category"
+        parts:
+          - list:
+              - "To be <strong>qualified</strong>, a candidate needs the category's minimum percentile <strong>and</strong> must fall within <strong>10% of all candidates who appeared</strong>, in GPAT merit order."
+              - "Minimum percentile: <strong>50th</strong> for General / EWS, <strong>45th</strong> for OBC / SC / ST, and 45th for PwBD of any category."
+            source: gp-ib
+          - table:
+              caption: "Share of the qualified 10%, by category"
+              head: ["Category (each including its PwBD)", "Share"]
+              rows:
+                - ["Unreserved", "40.5%"]
+                - ["OBC", "27%"]
+                - ["SC", "15%"]
+                - ["EWS", "10%"]
+                - ["ST", "7.5%"]
+            source: gp-ib
+          - note: "Each category has 5% for candidates with 40% or more disability. NBEMS publishes one all-India rank and no category-wise or state-wise merit list."
+            source: gp-ib
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Application steps &amp; registration fees"
+        heading: "Two fee slabs"
+        parts:
+          - table:
+              caption: "GPAT 2026 examination fee"
+              head: ["Category", "Fee"]
+              rows:
+                - ["General, OBC, EWS", "₹3,500"]
+                - ["SC, ST, PwD", "₹2,500"]
+            source: gp-ib
+          - list:
+              - "Apply online on the NBEMS portal, upload photograph, signature and thumb impression, choose a test city and pay through the payment gateway (gateway charges extra)."
+              - "A submitted form cannot be withdrawn, and the fee is neither refunded nor carried forward."
+            source: gp-ib
+      - id: horizons
+        nav: "Where it leads"
+        eyebrow: "Career horizons &amp; mapped institutions"
+        heading: "M.Pharm, Ph.D. and the NIPERs"
+        parts:
+          - p: "The GPAT score is accepted by PCI-approved and affiliated university departments, constituent and affiliated colleges and institutions for <strong>M.Pharm and Ph.D.</strong> admission, and is <strong>valid for three years</strong>. Score cards can be downloaded for six months after the result."
+            source: gp-ib
+          - p: "A valid GPAT (or GATE / NET) score is also the entry ticket to NIPER JEE for the seven National Institutes of Pharmaceutical Education and Research."
+            source: nj-br
+          - links:
+              - { label: "NIPER JEE", url: "niper-jee.html" }
+              - { label: "B.Pharm career guide", url: "bpharm.html" }
+              - { label: "B.Pharm college finder", url: "colleges-bpharm.html" }
+    sources:
+      - { id: gp-ib, name: "NBEMS — GPAT 2026 Information Bulletin", url: "https://nbe.edu.in/IB/Information%20bulletin%20GPAT%202026.pdf", covers: "history, NBEMS role, calendar, eligibility, blueprint, marking, sections, qualifying criteria, category shares, fees, score validity", checked: 2026-10-15 }
+      - { id: gp-page, name: "NBEMS — GPAT examination page", url: "https://natboard.edu.in/viewnbeexam?exam=gpat", covers: "bulletins published (2024, 2025, 2026; none for 2027)", checked: 2026-10-15 }
+      - { id: nj-br, name: "NIPER JEE 2026 — Revised Information Brochure, Master's (19 June 2026)", url: "https://www.niper.gov.in/niperjee2026/include/2026_Masters_Brochure_Revised_19June.pdf", covers: "GPAT / GATE / NET requirement for NIPER JEE", checked: 2026-10-15 }
+  # ---------------------------------------------------------------- NIPER JEE (NIPER Mohali, 2026)
+  - slug: niper-jee
+    short: "NIPER JEE"
+    stream: pharmacy
+    checked: 2026-10-15
+    body: "NIPER S.A.S. Nagar (Mohali), for the 7 NIPERs"
+    eyebrow: "Entrance Exam · Pharmacy · 2026 cycle"
+    title: "NIPER JEE — eligibility, marking, seats &amp; fees"
+    lede: "The joint entrance exam of the seven National Institutes of Pharmaceutical Education and Research — Ahmedabad, Guwahati, Hajipur, Hyderabad, Kolkata, Mohali and Raebareli — for M.S.(Pharm.), M.Pharm., M.Tech., MBA (Pharm.) and Ph.D. This page follows NIPER Mohali's 2026 Master's brochure."
+    colleges_href: "colleges-bpharm.html"
+    facts:
+      - { label: "Conducted by (2026)", value: "NIPER S.A.S. Nagar (Mohali)", source: nj-br }
+      - { label: "Exam date (2026)", value: "13 Jun 2026 · CBT", source: nj-dates }
+      - { label: "Paper", value: "200 MCQs · 150 minutes", source: nj-br }
+      - { label: "Marking", value: "+0.5 correct · −0.125 wrong", source: nj-br }
+    official:
+      - { label: "NIPER JEE 2026 portal", url: "https://www.niper.gov.in/niperjee2026/" }
+      - { label: "Master's brochure 2026 (PDF)", url: "https://www.niper.gov.in/niperjee2026/include/2026_Masters_Brochure_Revised_19June.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; governing bodies"
+        heading: "One exam for seven NIPERs"
+        parts:
+          - p: "NIPER JEE 2026 was organised by <strong>NIPER S.A.S. Nagar (Mohali)</strong> for all seven NIPERs. It is <strong>one common exam</strong> for M.S.(Pharm.), M.Pharm., M.Tech. and MBA (Pharm.); MBA aspirants tick a box in the form and are then called for group discussion and interview. Ph.D. admission has its own brochure and an interview after the test."
+            source: nj-br
+          - table:
+              caption: "NIPER JEE 2026 calendar (revised 15 May 2026)"
+              head: ["Step", "Date"]
+              rows:
+                - ["Online application opens", "16 Apr 2026"]
+                - ["Last date (extended)", "23 May 2026"]
+                - ["Form correction", "25 – 26 May 2026"]
+                - ["Hall tickets", "From 8 Jun 2026"]
+                - ["CBT", "13 Jun 2026 (Saturday)"]
+            source: nj-dates
+          - warn: "The 2026 cycle is over — results came out on 19 June 2026 and online counselling ran in four phases up to August 2026. No NIPER JEE 2027 notice was out on 15 October 2026; the organising NIPER can change."
+            source: nj-portal
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Primary degree constraints"
+        heading: "A national score plus 60% in the qualifying degree"
+        parts:
+          - list:
+              - "A qualifying <strong>GPAT / GATE / NET</strong> or other national fellowship with a <strong>valid score card</strong>."
+              - "The subject-wise qualifying degree with at least <strong>60% aggregate or CGPA 6.75</strong> on a 10-point scale."
+              - "Final-semester students who finish exams by 31 July 2026 can apply; their seat lapses if the result is not out by 15 September 2026 or they fail."
+            source: nj-br
+          - table:
+              caption: "Relaxations"
+              head: ["Group", "Minimum"]
+              rows:
+                - ["SC / ST", "55% or CGPA 6.25"]
+                - ["PwBD (any category)", "50% or CGPA 5.75"]
+                - ["B.V.Sc. / MBBS / BAMS / BDS holders, foreign nationals, sponsored", "GPAT / GATE / NET requirement waived"]
+            source: nj-br
+          - note: "The qualifying degree depends on the programme — mostly B.Pharm, with M.Sc. (chemistry, life sciences), B.Tech., MBBS, BDS or B.V.Sc. accepted for some M.S.(Pharm.), M.Tech. and MBA (Pharm.) specialisations."
+            source: nj-br
+      - id: scheme
+        nav: "Exam scheme"
+        eyebrow: "Exam scheme &amp; marking matrix"
+        heading: "200 questions, two sections, one sitting"
+        parts:
+          - table:
+              caption: "NIPER JEE 2026 (Master's) paper"
+              head: ["Section", "Questions", "Covers"]
+              rows:
+                - ["A", "80", "General English, aptitude, reasoning, general knowledge"]
+                - ["B", "120", "Mainly the B.Pharm syllabus"]
+            source: nj-br
+          - table:
+              caption: "Marking"
+              head: ["Response", "Marks"]
+              rows:
+                - ["Correct", "+0.5"]
+                - ["Incorrect", "−0.125"]
+                - ["Unanswered", "0"]
+            source: nj-br
+          - p: "The paper is common to all Master's programmes and runs <strong>150 minutes without a break</strong>. A question dropped for a technical error gets full marks for everyone."
+            source: nj-br
+      - id: reservation
+        nav: "Seats &amp; reservation"
+        eyebrow: "Reservation &amp; institutional quotas"
+        heading: "Government of India reservation plus supernumerary seats"
+        parts:
+          - p: "Reservation follows the Government of India rules in force. Each NIPER's seat matrix splits seats with fellowship by UR / SC / ST / OBC / EWS — for example NIPER Ahmedabad listed 150 seats with fellowship (76 UR, 22 SC, 7 ST, 37 OBC, 8 EWS)."
+            source: nj-seat
+          - list:
+              - "<strong>5% supernumerary</strong> seats for candidates sponsored by government departments, R&amp;D organisations, PSUs or reputed private pharmaceutical firms."
+              - "<strong>Not less than 3%</strong> supernumerary seats for PwBD candidates."
+              - "<strong>5% supernumerary</strong> seats for foreign nationals and OCI / PIO holders (card on or after 4 March 2021)."
+              - "Some programmes also run seats <strong>without fellowship</strong> (self-financing)."
+            source: nj-br
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Application steps &amp; registration fees"
+        heading: "₹4,000, or ₹2,000 for SC / ST"
+        parts:
+          - table:
+              caption: "NIPER JEE 2026 application fee (Master's)"
+              head: ["Category", "Fee"]
+              rows:
+                - ["General / OBC / PwBD / EWS", "₹4,000"]
+                - ["SC / ST", "₹2,000"]
+            source: nj-br
+          - list:
+              - "Register online, fill the form, upload caste / EWS / OBC-NCL / PwBD certificates where they apply, then pay online (bank charges may apply)."
+              - "No application fee is refunded."
+            source: nj-br
+      - id: horizons
+        nav: "Where it leads"
+        eyebrow: "Career horizons &amp; mapped institutions"
+        heading: "Funded Master's and Ph.D. at Institutes of National Importance"
+        parts:
+          - p: "Master's students admitted on seats with fellowship (not self-financing, sponsored or foreign national seats) get a <strong>stipend of ₹12,400 a month</strong> while they keep a CGPA of at least 6.00; the top three MBA (Pharm.) students get the same financial assistance in semesters 2 to 4. Graduates can go on to the NIPER Ph.D. programmes."
+            source: nj-br
+          - links:
+              - { label: "GPAT", url: "gpat.html" }
+              - { label: "B.Pharm career guide", url: "bpharm.html" }
+              - { label: "B.Pharm college finder", url: "colleges-bpharm.html" }
+    sources:
+      - { id: nj-br, name: "NIPER JEE 2026 — Revised Information Brochure, Master's (19 June 2026)", url: "https://www.niper.gov.in/niperjee2026/include/2026_Masters_Brochure_Revised_19June.pdf", covers: "organiser, programmes, eligibility, relaxations, supernumerary seats, fees, paper pattern, marking, stipend", checked: 2026-10-15 }
+      - { id: nj-dates, name: "NIPER JEE 2026 — Public notice: revised important dates (15 May 2026)", url: "https://www.niper.gov.in/niperjee2026/include/2026_public_notice_revised_important_dates_15May.pdf", covers: "application window, correction, hall tickets, CBT date", checked: 2026-10-15 }
+      - { id: nj-seat, name: "NIPER JEE 2026 — Seat matrix, Master's programmes (updated 24 June 2026)", url: "https://www.niper.gov.in/niperjee2026/include/2026_Seat_Matrix_Masters_Reservation_24June.pdf", covers: "seats with fellowship by category at each NIPER", checked: 2026-10-15 }
+      - { id: nj-portal, name: "NIPER JEE 2026 portal (NIPER Mohali)", url: "https://www.niper.gov.in/niperjee2026/", covers: "result notice of 19 June 2026, counselling phases I–IV", checked: 2026-10-15 }

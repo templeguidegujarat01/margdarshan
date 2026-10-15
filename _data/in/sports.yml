@@ -1,4 +1,5 @@
-# Sports, Olympics & Performing Arts Cockpit (India edition) -> sports-hub.html (hub), football.html, wrestling.html, chess.html
+# Sports, Olympics & Performing Arts Cockpit (India edition) -> sports-hub.html (hub), football.html, wrestling.html,
+# chess.html, cricket.html, hockey.html, kabaddi.html, athletics.html
 # Rendered by _includes/sports-cockpit.html (hub) and _includes/sport-page.html (each sport); validated by
 # scripts/check-in-data.mjs.
 # Part kinds are the exam console's (p, list, table, note, warn, links). Every p / list / table and every hero
@@ -6,8 +7,10 @@
 # student must not miss with <strong>.
 # Eight fixed blocks per sport, in this order (the numbered Sources block makes nine):
 #   rules, recognition, eligibility, roadmap, academies, costs, earnings, traps
-# Facts come only from the governing body's own rule book (UWW, IFAB, FIDE, AIFF) or Government of India files
-# (MYAS, DoPT, SAI, NADA, PIB), read on `checked`. Coaching, news and fan sites are not used.
+# Facts come only from the governing body's own rule book or notices (UWW, IFAB, FIDE, AIFF, ICC, BCCI/IPL, FIH,
+# Hockey India, AKFI/PKL, World Athletics, AFI) or Government of India files (MYAS, DoPT, SAI, NADA, PIB, All India
+# Radio), read on `checked`. An academy's own notice is used only for that academy. Coaching, fan sites and private
+# news outlets are not used.
 # domains[]: the five hub tiles. sports: slugs that have a deep page here; guides: existing Margdarshan pages that
 # cover the domain; next: disciplines listed by name only (no page yet, so no link).
 checked: 2026-10-15
@@ -79,9 +82,9 @@ domains:
   - id: ball
     icon: "⚽"
     label: "Ball &amp; Team Games"
-    intro: "Squad sports picked by trials and league football — contracts, transfers and youth leagues decide the path."
-    sports: [football]
-    next: ["Cricket", "Hockey", "Kabaddi", "Basketball", "Volleyball"]
+    intro: "Squad sports picked by trials, nationals and pro leagues — age groups, auctions and contracts decide the path."
+    sports: [football, cricket, hockey, kabaddi]
+    next: ["Basketball", "Volleyball", "Kho-Kho"]
   - id: combat
     icon: "🤼"
     label: "Combat &amp; Mat Sports"
@@ -92,10 +95,10 @@ domains:
     icon: "🏃"
     label: "Solo, Track &amp; Pool"
     intro: "Timed and measured events where SAI centres, Khelo India and TOPS carry most of the cost."
-    sports: []
+    sports: [athletics]
     guides:
       - { label: "SAI, NIS &amp; sports-quota careers guide", href: "niche-careers/sports.html" }
-    next: ["Athletics", "Swimming", "Shooting", "Archery", "Cycling"]
+    next: ["Swimming", "Shooting", "Archery", "Cycling"]
   - id: mind
     icon: "♟️"
     label: "Mind &amp; Strategy"
@@ -893,4 +896,1136 @@ sports:
         name: "SAI — Brief on Sports Promotional Schemes 2024-25"
         url: "https://www.sportsauthorityofindia.gov.in/sai/public/assets/pdfs/schemes/NCOE_Brief.pdf"
         covers: "NCOE and STC discipline lists (chess not included)"
+        checked: 2026-10-15
+  # ------------------------------------------------------------------------------------------------ Cricket
+  - slug: cricket
+    short: "Cricket"
+    domain: ball
+    body: "International Cricket Council (ICC) · Board of Control for Cricket in India (BCCI)"
+    card: "ICC playing conditions, BCCI's U16-to-Ranji ladder, age-fraud bans, IPL rules 2025-27, central contracts and match fees."
+    card_facts: ["U16 · U19 · U23 · Senior", "2-year ban for age fraud", "IPL fee ₹7.5 L/match"]
+    eyebrow: "Sports Cockpit · Ball &amp; Team · ICC playing conditions 2025 · BCCI season 2026-27"
+    title: "Cricket — formats, BCCI age groups, the IPL &amp; the road to India colours"
+    lede: "Education Margdarshan's cricket map for India: the playing conditions the ICC uses for Tests, ODIs and T20Is, the BCCI's age-group ladder for 2026-27 and its age-fraud bans, the Centre of Excellence fitness system, IPL player rules, central-contract grades, match fees, and where cricket sits in government schemes and job quotas."
+    official:
+      - { label: "ICC T20I Playing Conditions (PDF)", url: "https://images.icc-cricket.com/image/upload/prd/rz8dfczzfiwa0pwzmcs3.pdf" }
+      - { label: "bcci.tv", url: "https://www.bcci.tv/" }
+    facts:
+      - { label: "Senior formats", value: "<strong>Test</strong> 5 days · <strong>ODI</strong> 50 overs · <strong>T20I</strong> 20 overs", source: "icc-test,icc-odi,icc-t20" }
+      - { label: "Overs per bowler", value: "<strong>10</strong> in an ODI · <strong>4</strong> in a T20I", source: "icc-odi,icc-t20" }
+      - { label: "Fake birth certificate", value: "<strong>2-year ban</strong>, then no age-group cricket", source: bcci-age }
+      - { label: "IPL match fee", value: "<strong>₹7.5 lakh</strong> a match on top of the contract", source: ipl-regs }
+    sections:
+      - id: rules
+        nav: "Formats &amp; ages"
+        eyebrow: "Core rules &amp; selection formats"
+        heading: "The three formats and the BCCI age-group ladder"
+        parts:
+          - table:
+              caption: "International formats under the ICC men's playing conditions (2025)"
+              head: ["Rule", "Test", "ODI", "T20I"]
+              rows:
+                - ["Length", "<strong>5 days</strong>, 6 hours a day, at least <strong>90 overs a day</strong>", "<strong>50 overs</strong> an innings", "<strong>20 overs</strong> an innings"]
+                - ["Max overs per bowler", "No limit", "<strong>10</strong>", "<strong>4</strong>"]
+                - ["Fielding restrictions", "None", "Overs 1–10: max 2 fielders outside the 30-yard circle · 11–40: max 4 · 41–50: max 5", "Overs 1–6 (powerplay): max 2 outside · after that: max 5"]
+                - ["New ball", "Home board supplies approved balls", "Two new balls, one from each end, for overs 1–34; the fielding side then keeps one for the rest", "One ball"]
+            source: "icc-test,icc-odi,icc-t20"
+          - list:
+              - "A match is two sides of <strong>eleven players</strong>; each captain names the 11 plus <strong>up to 4 substitute fielders</strong> to the match referee before the toss. <strong>Concussion replacements</strong> are allowed."
+              - "By being nominated, a player agrees to the ICC's Code of Conduct, <strong>Anti-Doping Code</strong> and Anti-Corruption Code."
+            source: icc-t20
+          - table:
+              caption: "Ball and bat limits (ICC Test playing conditions)"
+              head: ["Item", "Limit"]
+              rows:
+                - ["Ball (new)", "<strong>155.9–163 g</strong>; circumference 22.4–22.9 cm"]
+                - ["Bat length", "Not more than <strong>96.52 cm (38 in)</strong>; the handle no more than 52% of it"]
+                - ["Blade", "<strong>Wood only</strong>; width ≤ 10.8 cm, depth ≤ 6.7 cm, edges ≤ 4.0 cm, and it must pass the bat gauge"]
+            source: icc-test
+          - table:
+              caption: "BCCI domestic season 2026-27 — 1,788 matches"
+              head: ["Level", "Men", "Women"]
+              rows:
+                - ["Senior", "Duleep Trophy (six zonal teams, from 23 Aug 2026) · Irani Cup (from 1 Oct) · <strong>Ranji Trophy</strong>: Elite Group of 32 teams in 4 groups + Plate Group of 6, played in two phases", "Senior competitions"]
+                - ["U23", "<strong>Col. C.K. Nayudu Trophy</strong> (two phases; Winners vs Rest of India returns 1–4 Oct 2026) · Men's U23 State A Trophy, now <strong>T20</strong>", "U23 competitions"]
+                - ["U19", "U19 tournaments incl. the <strong>Cooch Behar Trophy</strong> (Elite knockouts at Bengaluru and Mysuru)", "U19 competitions"]
+                - ["U16 / U15", "<strong>Vijay Merchant Trophy (U16)</strong>, moved to November–January", "U15 competitions"]
+            source: bcci-dom26
+          - list:
+              - "Only players aged <strong>14 to 16</strong> may register for the BCCI Under-16 tournament."
+              - "In Under-19 cricket, if a birth was <strong>registered more than 2 years after the birth</strong>, the number of years the player may play BCCI U19 tournaments is restricted."
+            source: bcci-age
+      - id: recognition
+        nav: "Recognition"
+        eyebrow: "Institutional &amp; global recognition"
+        heading: "Olympics 2028, Asian Games and the IPL"
+        parts:
+          - table:
+              caption: "Cricket at the Los Angeles 2028 Olympics"
+              head: ["Item", "Fact"]
+              rows:
+                - ["Format", "<strong>T20</strong>, men and women"]
+                - ["Teams", "<strong>6 per gender</strong>; 90 athlete places each, so <strong>15-player squads</strong>"]
+                - ["Dates", "12–29 July 2028; women's medal matches 20 July, men's 29 July"]
+                - ["Venue", "The Fairgrounds, Pomona, about 50 km from downtown Los Angeles"]
+                - ["History", "Cricket's second Olympic appearance, 128 years after Paris 1900"]
+            source: icc-la28
+          - p: "At the <strong>Asian Games 2026</strong> in Nagoya, India's women won back-to-back gold, beating Sri Lanka by <strong>147 runs</strong> in the final — India's first gold of those Games."
+            source: bcci-ag26
+          - table:
+              caption: "IPL player regulations 2025-27"
+              head: ["Rule", "What it says"]
+              rows:
+                - ["Retentions", "Up to <strong>6</strong> players by retention or Right to Match — at most 5 capped and 2 uncapped"]
+                - ["Auction purse", "<strong>₹120 crore</strong> for IPL 2025"]
+                - ["Total salary cap", "₹146 crore (2025) · ₹151 crore (2026) · ₹157 crore (2027), counting purse, performance pay and match fees"]
+                - ["Match fee", "<strong>₹7.5 lakh</strong> per match to each playing member, including the Impact Player"]
+                - ["Uncapped status", "A capped Indian becomes uncapped if he has not been in a starting XI in Tests, ODIs or T20Is in the last <strong>5 calendar years</strong>, or has no BCCI central contract"]
+            source: ipl-regs
+          - warn: "The Ministry's cash-award scheme pays for medals at the <strong>Olympic, Asian and Commonwealth Games</strong> in all disciplines, but its sport-by-sport list of world championships has <strong>no ICC event</strong> — only the Blind Cricket World Cup in the para section."
+            source: myas-cash
+      - id: eligibility
+        nav: "Fitness &amp; anti-doping"
+        eyebrow: "Physical benchmarks &amp; anti-doping"
+        heading: "How the BCCI tests fitness and clears injured players"
+        parts:
+          - list:
+              - "Contracted and <strong>targeted</strong> players go through <strong>pre-season screening</strong> at the BCCI Centre of Excellence — fitness assessments and field tests, including the <strong>Bronco Test</strong>."
+              - "Every session is logged on the <strong>Athlete Management System</strong>, with GPS used to track activity and workloads."
+              - "Each fast bowler — contracted, targeted and Under-19 — has an <strong>individual weekly workload range</strong>."
+              - "An injured player returns only after meeting the fitness <strong>benchmark</strong> and playing <strong>two return-to-play matches</strong>; the CoE sends fitness reports to the selectors."
+            source: bcci-coe
+          - list:
+              - "Keep to the anti-doping rules: be available for testing, check every medicine against the <strong>Prohibited List</strong> and get a <strong>TUE</strong> when no permitted treatment exists."
+            source: nada-rr
+          - note: "Cricket is not one of the 27 SAI Training Centre disciplines, so SAI's battery of entry tests does not apply — selection runs through state associations and BCCI tournaments."
+            source: sai-schemes
+      - id: roadmap
+        nav: "Roadmap"
+        eyebrow: "Grassroots-to-elite roadmap"
+        heading: "From the U16 trophy to India colours"
+        parts:
+          - table:
+              caption: "The BCCI ladder"
+              head: ["Step", "Age", "What happens"]
+              rows:
+                - ["1. State unit age-group teams", "14–16", "Represent your <strong>home state unit</strong> in the Vijay Merchant Trophy (U16)"]
+                - ["2. U19", "Under 19", "Cooch Behar Trophy and other U19 events; the CoE monitors age-group players"]
+                - ["3. U23", "Under 23", "Col. C.K. Nayudu Trophy; the winners play Rest of India"]
+                - ["4. Senior domestic", "Open", "Ranji Trophy, then Duleep Trophy and Irani Cup"]
+                - ["5. Targeted / contracted", "—", "Screened and monitored at the BCCI Centre of Excellence"]
+                - ["6. IPL", "Any (auction)", "Franchise contract plus ₹7.5 lakh a match"]
+            source: "bcci-age,bcci-dom26,bcci-coe,ipl-regs"
+          - p: "You can only play for the state unit where you genuinely belong: <strong>domicile fraud brings a 2-year ban</strong>, for senior men and women too, and the voluntary-disclosure amnesty never covered it."
+            source: bcci-age
+      - id: academies
+        nav: "Academies"
+        eyebrow: "Top training academies &amp; cities"
+        heading: "Where India's cricketers are trained"
+        parts:
+          - table:
+              caption: "Verified cricket centres"
+              head: ["Centre", "City", "What it is"]
+              rows:
+                - ["<strong>BCCI Centre of Excellence</strong>", "Bengaluru", "The BCCI's high-performance campus — coaching, sports science, sports medicine, strength and conditioning; screening and rehab of contracted, targeted and age-group players"]
+                - ["<strong>MRF Pace Foundation</strong>", "Chennai", "Fast-bowling academy set up in <strong>1987</strong>; its 2024 'Ace of Pace' trials in Kolkata, Mumbai, Delhi and Chennai shortlisted 1,000+ bowlers, sent the top 20 from each city to the final and picked 3 to train free"]
+            source: "bcci-coe,mrf-pace"
+          - note: "The old 'National Cricket Academy' is now the BCCI Centre of Excellence. It is not an open-admission academy — players reach it through the BCCI pathway. SAI's NCOEs have no cricket."
+            source: "bcci-coe,sai-schemes"
+      - id: costs
+        nav: "Kit &amp; cost"
+        eyebrow: "Equipment costs &amp; who pays"
+        heading: "Who pays a cricketer at each level"
+        parts:
+          - table:
+              caption: "BCCI domestic match fee per day (revised September 2021)"
+              head: ["Category", "Playing XI", "Reserve"]
+              rows:
+                - ["Senior men — up to 20 matches", "₹40,000", "₹20,000"]
+                - ["Senior men — 21 to 40 matches", "₹50,000", "₹25,000"]
+                - ["Senior men — above 40 matches", "<strong>₹60,000</strong>", "₹30,000"]
+                - ["U23 men", "₹25,000", "₹12,500"]
+                - ["U19 men", "₹20,000", "₹10,000"]
+                - ["U16 men", "₹7,000", "₹3,500"]
+                - ["Senior women", "₹20,000", "₹10,000"]
+                - ["U23 / U19 / U16 women", "₹10,000", "₹5,000"]
+            source: bcci-fees21
+          - note: "T20 matches pay <strong>50%</strong> of these daily rates. Government athlete schemes do not fund cricket: SAI centres do not offer it, and the TOPS core group of August 2024 was 174 individual athletes plus the two hockey teams."
+            source: "bcci-fees21,sai-schemes,pib-support"
+          - list:
+              - "Kit must meet the ICC limits above — a bat with a <strong>wooden blade</strong> that passes the bat gauge."
+              - "Education Margdarshan does not print shop prices for kit: no governing body publishes them, and they change with brand and grade."
+            source: icc-test
+          - list:
+              - "<strong>Food first</strong>: meet your needs from food, with a certified nutritionist, before thinking of supplements — no supplement is 100% safe."
+            source: nada-supp
+      - id: earnings
+        nav: "Earnings &amp; jobs"
+        eyebrow: "Earning channels &amp; central job quotas"
+        heading: "Central contracts, match fees, IPL and sports-quota jobs"
+        parts:
+          - table:
+              caption: "BCCI annual retainership 2025-26 (1 Oct 2025 – 30 Sep 2026)"
+              head: ["Grade", "Senior men", "Senior women"]
+              rows:
+                - ["A", "3 players", "3 players"]
+                - ["B", "6 players", "5 players"]
+                - ["C", "21 players", "13 players"]
+            source: bcci-contracts26
+          - note: "The BCCI's announcement of 9 February 2026 names the players in each grade but <strong>does not state the retainer amounts</strong>, so Education Margdarshan does not print them."
+            source: bcci-contracts26
+          - table:
+              caption: "International match fees (men and women equal since 27 Oct 2022)"
+              head: ["Format", "Fee per match"]
+              rows:
+                - ["Test", "<strong>₹15 lakh</strong>"]
+                - ["ODI", "₹6 lakh"]
+                - ["T20I", "₹3 lakh"]
+            source: bcci-equity
+          - table:
+              caption: "Test Cricket Incentive Scheme — senior men, extra per Test (based on 9 Tests a season)"
+              head: ["Tests played in the season", "In the playing XI", "Not in the XI"]
+              rows:
+                - ["Under 50% (fewer than 4)", "Nil", "Nil"]
+                - ["Over 50% (5–6)", "₹30 lakh", "₹15 lakh"]
+                - ["Over 75% (7 or more)", "<strong>₹45 lakh</strong>", "₹22.5 lakh"]
+            source: bcci-test-incentive
+          - list:
+              - "Cricket and Tennis Ball Cricket are among the <strong>65 sports</strong> of the central sports quota for <strong>Group C</strong> posts, with up to 5 years' age relaxation (10 for SC/ST)."
+              - "Medals at the Olympics, Asian Games, Commonwealth Games or World Championships can bring up to <strong>three out-of-turn promotions</strong>; in team events only if the player played at least 50% of the matches."
+            source: dopt-2022
+      - id: traps
+        nav: "Red flags"
+        eyebrow: "Disqualification traps"
+        heading: "Mistakes that end cricket careers early"
+        parts:
+          - list:
+              - "<strong>A fake or tampered birth certificate</strong> — 2-year ban from all BCCI and state matches, then no age-group cricket ever again."
+              - "<strong>Domicile fraud</strong> — 2-year ban, seniors included."
+              - "Entering the U16 tournament outside the <strong>14–16</strong> age band, or relying on a birth registered years late."
+            source: bcci-age
+          - list:
+              - "<strong>Pulling out after being bought</strong> at the IPL auction — banned from the tournament and the auction for <strong>2 seasons</strong>."
+              - "Overseas players who skip registration for the big auction cannot register for the next year's auction."
+            source: ipl-regs
+    sources:
+      - id: icc-t20
+        name: "ICC Men's Twenty20 International Playing Conditions (effective July 2025)"
+        url: "https://images.icc-cricket.com/image/upload/prd/rz8dfczzfiwa0pwzmcs3.pdf"
+        covers: "11 players + 4 substitutes, 20 overs, 4 overs per bowler, powerplay overs 1–6, ICC codes accepted on nomination"
+        checked: 2026-10-15
+      - id: icc-odi
+        name: "ICC Men's One-Day International Playing Conditions (effective June 2025)"
+        url: "https://images.icc-cricket.com/image/upload/prd/d25dbgishkx0kijb4jeu.pdf"
+        covers: "50 overs, 10 overs per bowler, three powerplays, two new balls to over 34"
+        checked: 2026-10-15
+      - id: icc-test
+        name: "ICC Men's Test Match Playing Conditions (effective June 2025)"
+        url: "https://images.icc-cricket.com/image/upload/prd/lm8owaz03i86m1eneb7m.pdf"
+        covers: "Five days, 6 hours and 90 overs a day, ball weight and size, bat size limits"
+        checked: 2026-10-15
+      - id: bcci-dom26
+        name: "BCCI — Domestic Home Season 2026-27 to feature 1,788 matches"
+        url: "https://www.bcci.tv/news/article/bcci-domestic-home-season-2026-27-to-feature-1788-matches"
+        covers: "Senior, U23, U19, U16 (men) and U15 (women) categories; Duleep, Irani, Ranji, C.K. Nayudu, Cooch Behar, Vijay Merchant changes"
+        checked: 2026-10-15
+      - id: bcci-age
+        name: "BCCI — Additional measures to tackle age and domicile fraud (from season 2020-21)"
+        url: "https://www.bcci.tv/articles/2020/news/147336/bcci-adopts-additional-measures-to-tackle-age-and-domicile-fraud-in-cricket"
+        covers: "2-year bans for fake birth certificates and domicile fraud, U16 age band 14–16, late birth registration in U19"
+        checked: 2026-10-15
+      - id: ipl-regs
+        name: "IPL Governing Council — TATA IPL Player Regulations 2025-27 (28 Sep 2024)"
+        url: "https://www.iplt20.com/news/4109/ipl-governing-council-announces-tata-ipl-player-regulations-2025-27"
+        covers: "Retentions and RTM, auction purse, salary cap, ₹7.5 lakh match fee, uncapped rule, 2-season ban"
+        checked: 2026-10-15
+      - id: icc-la28
+        name: "ICC — Dates confirmed for cricket's return to the Olympics (16 July 2025)"
+        url: "https://www.icc-cricket.com/news/dates-confirmed-for-cricket-s-return-to-the-olympics"
+        covers: "LA28 T20 format, 6 teams per gender, 15-player squads, dates, Pomona venue"
+        checked: 2026-10-15
+      - id: bcci-ag26
+        name: "BCCI — History in Nagoya: Women in Blue bag Team India's first gold at Asian Games 2026"
+        url: "https://www.bcci.tv/news/article/history-in-nagoya-women-in-blue-bag-team-indias-first-gold-at-asian-games-2026"
+        covers: "Back-to-back women's gold, 147-run win over Sri Lanka"
+        checked: 2026-10-15
+      - id: bcci-coe
+        name: "BCCI — How the BCCI Centre of Excellence is shaping India's high-performance system"
+        url: "https://www.bcci.tv/news/article/how-the-bcci-centre-of-excellence-is-shaping-indias-high-performance-system"
+        covers: "Pre-season screening, Bronco Test, Athlete Management System and GPS, fast-bowler workloads, two return-to-play matches"
+        checked: 2026-10-15
+      - id: mrf-pace
+        name: "MRF Tyres — 'Ace of Pace' fast-bowler hunt by the MRF Pace Foundation (9 Mar 2024)"
+        url: "https://www.mrftyres.com/news/more-than-1000-aspiring-bowlers-showcase-their-skill-in-the-inaugural-ace-of-pace-fast-bowler-hunt-by-the-mrf-pace-foundation"
+        covers: "Foundation set up in 1987, four-city trials, 3 bowlers picked to train free in Chennai"
+        checked: 2026-10-15
+      - id: bcci-fees21
+        name: "BCCI — Update: 9th Apex Council Meeting (20 Sep 2021)"
+        url: "https://www.bcci.tv/articles/2021/news/155092/update-9th-apex-council-meeting"
+        covers: "Revised per-day domestic match fees for men and women, T20 at 50%"
+        checked: 2026-10-15
+      - id: bcci-contracts26
+        name: "BCCI — Annual Player Retainership 2025-26, Team India (9 Feb 2026)"
+        url: "https://www.bcci.tv/articles/2026/news/55556319/bcci-announces-annual-player-retainership-2025-26-team-india"
+        covers: "Grade A/B/C lists for senior men and women, contract period"
+        checked: 2026-10-15
+      - id: bcci-equity
+        name: "BCCI — 15th Apex Council meeting: pay equity policy for women cricketers (27 Oct 2022)"
+        url: "https://www.bcci.tv/articles/2023/news/55555940/15th-bcci-apex-council-meeting-bcci-implements-pay-equity-policy-for-women-cricketers"
+        covers: "Test ₹15 lakh, ODI ₹6 lakh, T20I ₹3 lakh for men and women"
+        checked: 2026-10-15
+      - id: bcci-test-incentive
+        name: "BCCI — Test Cricket Incentive Scheme for senior men (9 Mar 2024)"
+        url: "https://www.bcci.tv/articles/2024/news/55556106/bcci-announces-test-cricket-incentive-scheme-for-senior-men"
+        covers: "Extra ₹15–45 lakh per Test by share of Tests played"
+        checked: 2026-10-15
+      - id: myas-cash
+        name: "MYAS — Scheme of Cash Incentive to Medal Winners (amended 1 Feb 2025)"
+        url: "https://yas.gov.in/sites/default/files/Scheme%20of%20Cash%20Incentive%20to%20Medal%20Winners%20in%20International%20Sports%20Events%20and%20their%20Coaches%20amended%20as%20on%2001.02.2025.pdf"
+        covers: "Multi-sport Games in all disciplines; sport-wise championship list (no ICC event)"
+        checked: 2026-10-15
+      - id: nada-rr
+        name: "NADA India — Athlete's Rights &amp; Responsibilities"
+        url: "https://nadaindia.yas.gov.in/wp-content/uploads/AthleteRR.pdf"
+        covers: "Testing duties, Prohibited List, TUE"
+        checked: 2026-10-15
+      - id: nada-supp
+        name: "NADA India — Managing the Risk of Nutritional Supplements"
+        url: "https://nadaindia.yas.gov.in/wp-content/uploads/Managing-the-Risk-of-Nutritional-Supplements_1.pdf"
+        covers: "Food first, supplement risk"
+        checked: 2026-10-15
+      - id: sai-schemes
+        name: "SAI — Brief on Sports Promotional Schemes 2024-25"
+        url: "https://www.sportsauthorityofindia.gov.in/sai/public/assets/pdfs/schemes/NCOE_Brief.pdf"
+        covers: "NCOE and STC discipline lists (cricket not included)"
+        checked: 2026-10-15
+      - id: pib-support
+        name: "PIB — Financial Support to Athletes (5 Aug 2024)"
+        url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2041702"
+        covers: "TOPS core group composition"
+        checked: 2026-10-15
+      - id: dopt-2022
+        name: "DoPT — Instructions on Recruitment/Promotion for Sportspersons (18 Nov 2022)"
+        url: "https://yas.gov.in/sites/default/files/Compendium%20dated%2018.11.2022.pdf"
+        covers: "Cricket and Tennis Ball Cricket in the 65-sport list, Group C, out-of-turn promotion in team events"
+        checked: 2026-10-15
+  # ------------------------------------------------------------------------------------------------ Hockey
+  - slug: hockey
+    short: "Hockey"
+    domain: ball
+    body: "International Hockey Federation (FIH) · Hockey India"
+    card: "FIH Rules of Hockey from 1 Nov 2026, Hockey India nationals and national-camp selection, SAI centres, HIL auction rules, LA28 qualification."
+    card_facts: ["4 × 15 min · 11 a side", "Stick ≤ 737 g", "HIL cap ₹4 cr (men)"]
+    eyebrow: "Sports Cockpit · Ball &amp; Team · FIH Rules of Hockey (from 1 Nov 2026)"
+    title: "Hockey — FIH rules, Hockey India selection, SAI camps &amp; the Hockey India League"
+    lede: "Education Margdarshan's hockey map for India: the FIH Rules of Hockey in force internationally from 1 November 2026, Hockey India's national championships and how core probables are picked for national camps, the SAI centres that train hockey, who pays, the HIL auction rules and the medals, awards and jobs that follow."
+    official:
+      - { label: "FIH Rules of Hockey (PDF)", url: "https://www.fih.hockey/static-assets/pdf/2026_09_14_fih_rules_of_hockey_2027_clean.pdf" }
+      - { label: "hockeyindia.org", url: "https://www.hockeyindia.org/" }
+    facts:
+      - { label: "Match", value: "<strong>4 quarters of 15 min</strong>; 10-min half-time", source: fih-rules }
+      - { label: "Team", value: "<strong>11</strong> on the field + up to <strong>5</strong> substitutes", source: fih-rules }
+      - { label: "Asian Games 2026", value: "<strong>Gold for men and women</strong> → direct LA28 places", source: "fih-ag-men,fih-ag-women" }
+      - { label: "HIL salary cap", value: "<strong>₹4 crore</strong> (men) · ₹2 crore (women) per team", source: hi-hil26 }
+    sections:
+      - id: rules
+        nav: "Rules &amp; ages"
+        eyebrow: "Core rules &amp; selection formats"
+        heading: "The Rules of Hockey in force from 1 November 2026"
+        parts:
+          - list:
+              - "A match is <strong>four quarters of 15 minutes</strong>, with 2-minute breaks after quarters 1 and 3 and a <strong>10-minute half-time</strong>."
+              - "A team is at most <strong>16 people</strong>: <strong>11 players</strong> on the field and up to <strong>5 substitutes</strong>. A team may play with a goalkeeper (in headgear, leg guards and kickers) or with field players only."
+              - "The field is <strong>91.40 m × 55.00 m</strong>."
+              - "Personal penalties: <strong>green card</strong> = 2 minutes off, <strong>yellow card</strong> = 5 or 10 minutes, <strong>red card</strong> = out of the match."
+            source: fih-rules
+          - table:
+              caption: "What changed on 1 November 2026"
+              head: ["Rule", "Change"]
+              rows:
+                - ["2.3 Goalkeeper substitution", "Time no longer has to be stopped; the goalkeeper may be replaced during play, even by a field player"]
+                - ["4.6 Devices", "<strong>No device to send or receive communication</strong> may be worn or used by players"]
+                - ["13.3 Penalty corner", "As a guideline, no more than <strong>40 seconds</strong> from award to start; the injector must play the ball immediately"]
+                - ["14 Personal penalties", "The same player or team official should not get <strong>two green or two yellow cards</strong> in one match — the next card must be a higher one"]
+                - ["1.9 Flag-posts", "No longer compulsory under the Rules"]
+            source: fih-rules
+          - note: "National associations may choose their own start date for these rules at national level, and FIH has promised no major rule changes before the LA 2028 Olympics."
+            source: fih-rules
+          - table:
+              caption: "Hockey India national championships in the 2026 calendar"
+              head: ["Championship", "Dates", "Venue"]
+              rows:
+                - ["16th Sub Junior Women National Championship", "1–12 Apr 2026", "Ranchi, Jharkhand"]
+                - ["16th Sub Junior Men National Championship", "1–12 Apr 2026", "—"]
+                - ["16th Junior Men National Championship", "28 Jul – 8 Aug 2026", "Coimbatore, Tamil Nadu"]
+                - ["16th Senior Men National Championship", "2026", "Division 'A' at Jhansi, Uttar Pradesh"]
+            source: "hi-nat,hi-jr-nat26,hi-home"
+          - p: "Nationals are played in <strong>three divisions</strong>. At the 2026 Junior Men's event 30 teams played: <strong>12 in Division 'A'</strong> for the title, 10 in 'B' and 8 in 'C'. The bottom two of 'A' drop to 'B'; the top two of 'B' move up and the bottom two drop to 'C'; the top two of 'C' move up."
+            source: hi-jr-nat26
+          - note: "The age cut-off for each Sub Junior and Junior championship is set in that championship's circular — check it with your state hockey unit before trials."
+            source: hi-nat
+      - id: recognition
+        nav: "Recognition"
+        eyebrow: "Institutional &amp; global recognition"
+        heading: "Olympics, Asian Games, World Cup and the HIL"
+        parts:
+          - table:
+              caption: "India's latest major results"
+              head: ["Event", "Result"]
+              rows:
+                - ["Paris 2024 Olympics (men)", "<strong>Bronze</strong> — beat Spain 2-1; second Olympic medal in a row"]
+                - ["Asian Games 2026 (men)", "<strong>Gold</strong> — beat Malaysia 5-1; direct place at the LA 2028 Olympics"]
+                - ["Asian Games 2026 (women)", "<strong>Gold</strong> — beat China 1-0; direct place at the LA 2028 Olympics"]
+            source: "hi-paris-cash,fih-ag-men,fih-ag-women"
+          - table:
+              caption: "Government cash award for a senior hockey medal (₹ lakh, before the team-event rule)"
+              head: ["Event", "Gold", "Silver", "Bronze"]
+              rows:
+                - ["<strong>Olympic Games</strong>", "75", "50", "30"]
+                - ["Asian Games / Commonwealth Games", "30", "20", "10"]
+                - ["FIH Hockey World Cup (every 4 years)", "40", "25", "15"]
+                - ["Asian Championship, senior (every 4 years)", "15", "10", "5"]
+            source: myas-cash
+          - p: "In team events each squad member, <strong>including bench and reserve players</strong>, gets <strong>75%</strong> of the individual amount above."
+            source: myas-cash
+          - p: "The men's and women's hockey teams were part of the <strong>TOPS core group</strong> (August 2024), the government's Olympic-podium scheme."
+            source: pib-support
+      - id: eligibility
+        nav: "Physical &amp; selection"
+        eyebrow: "Physical benchmarks &amp; anti-doping"
+        heading: "Equipment limits, selection criteria and anti-doping"
+        parts:
+          - table:
+              caption: "Stick and ball limits (FIH)"
+              head: ["Item", "Limit"]
+              rows:
+                - ["Stick weight", "Not more than <strong>737 g</strong>"]
+                - ["Stick length", "Not more than <strong>105 cm</strong>"]
+                - ["Stick width", "Must pass through a ring of <strong>51 mm</strong> inside diameter"]
+                - ["Bow of the stick", "Up to <strong>25 mm</strong> deep"]
+                - ["Ball", "<strong>156–163 g</strong>"]
+            source: fih-rules
+          - list:
+              - "The selection committee judges campers on position balance, <strong>physical ability</strong>, the ability to carry out the team's tactical plan, contribution to team dynamics and experience."
+              - "The Chief Coach reports each camper's progress and can recommend <strong>dropping</strong> under-performers or adding new probables."
+              - "Final trials are held <strong>60–45 days</strong> before the team leaves for an overseas event (45–30 days for events in India); SAI is told at least a week ahead and gets the minutes within 48 hours."
+            source: hi-selection
+          - list:
+              - "Team-game entry to SAI Training Centres is for ages <strong>10–18</strong>, after a battery of motor-quality and skill tests; a player who misses the motor-quality level can be taken provisionally for six months."
+            source: sai-schemes
+          - list:
+              - "Anti-doping: be available for testing, check every medicine against the <strong>Prohibited List</strong> and apply for a <strong>TUE</strong> when no permitted treatment exists."
+            source: nada-rr
+      - id: roadmap
+        nav: "Roadmap"
+        eyebrow: "Grassroots-to-elite roadmap"
+        heading: "From the state team to the national camp"
+        parts:
+          - table:
+              caption: "The hockey ladder"
+              head: ["Step", "Age", "What happens"]
+              rows:
+                - ["1. SAI Training Centre", "10–18", "Top 4 at Sub Junior/Junior Nationals, or top 2 at state level, can enter after tests"]
+                - ["2. SAI NCOE", "Scouted juniors", "Residential training at a hockey NCOE"]
+                - ["3. Hockey India Nationals", "Sub Junior · Junior · Senior", "Divisions A/B/C with promotion and relegation"]
+                - ["4. Core probables", "—", "Picked by the selection committee at Nationals, Hockey India-sanctioned all-India tournaments or <strong>through academies</strong>"]
+                - ["5. National camp", "—", "Further assessment; <strong>only campers or core probables</strong> can be picked for tournaments"]
+                - ["6. HIL", "—", "Every squad must carry at least <strong>3 Indian juniors</strong>"]
+            source: "sai-schemes,hi-jr-nat26,hi-selection,hi-hil26"
+      - id: academies
+        nav: "Academies"
+        eyebrow: "Top training academies &amp; cities"
+        heading: "Where India's hockey players are trained"
+        parts:
+          - table:
+              caption: "SAI National Centres of Excellence with hockey"
+              head: ["Centre", "Other disciplines there"]
+              rows:
+                - ["<strong>Bengaluru</strong>", "Athletics, taekwondo, weightlifting"]
+                - ["<strong>Bhopal</strong>", "Athletics, boxing, judo, wushu, kayaking &amp; canoeing"]
+                - ["<strong>Lucknow</strong>", "Athletics, taekwondo, weightlifting, wrestling"]
+                - ["Patiala", "Athletics, cycling, fencing, judo, weightlifting"]
+                - ["Sonepat", "Archery, athletics, kabaddi, wrestling"]
+                - ["Hamirpur", "Athletics, badminton, boxing, judo, wrestling"]
+                - ["Kandivali (Mumbai)", "Kabaddi, wrestling"]
+                - ["Aurangabad", "Boxing, fencing, weightlifting, gymnastics"]
+                - ["Imphal", "Archery, athletics, cycling, fencing, football, judo, weightlifting, wushu"]
+                - ["Kolkata", "Archery, athletics, gymnastics, table tennis"]
+                - ["M.D.C.N.S., Delhi", "Hockey only"]
+            source: sai-schemes
+          - p: "The senior <strong>national camps</strong> run mainly at the <strong>SAI Centre, Bengaluru</strong> — Hockey India's 2025-26 pathway to the Asian Games put almost every men's and women's preparatory camp there, plus Pro League matches in Bhubaneswar."
+            source: hi-selection
+          - note: "Lucknow and Bhopal are development NCOEs for scouted juniors; the national team itself camps at SAI Bengaluru."
+            source: "sai-schemes,hi-selection"
+      - id: costs
+        nav: "Kit &amp; cost"
+        eyebrow: "Equipment costs &amp; who pays"
+        heading: "Who pays a hockey player at each level"
+        parts:
+          - table:
+              caption: "Who pays — hockey"
+              head: ["Stage", "Paid by", "What you get"]
+              rows:
+                - ["Adopted school (age 8–14)", "SAI National Sports Talent Contest", "Kit, competition exposure and a stipend each year"]
+                - ["SAI centre trainee", "SAI", "Coaching, boarding and sports science at an STC or NCOE"]
+                - ["Khelo India athlete", "Ministry of Youth Affairs &amp; Sports", "<strong>₹6.28 lakh a year</strong> incl. ₹1.20 lakh cash"]
+                - ["Olympic squad", "TOPS core group", "The hockey teams were in the core group"]
+                - ["HIL player", "Franchise", "Auction price within the team's salary cap"]
+            source: "sai-schemes,pib-support,hi-hil26"
+          - list:
+              - "Your stick must meet the FIH limits — <strong>737 g</strong>, <strong>105 cm</strong> and the 51 mm ring — whatever it is made of."
+              - "Education Margdarshan does not print shop prices for sticks or kit: no governing body publishes them."
+            source: fih-rules
+          - list:
+              - "<strong>Food first</strong> with a certified nutritionist — no supplement is 100% safe and the athlete is responsible for whatever is found in the sample."
+            source: nada-supp
+      - id: earnings
+        nav: "Earnings &amp; jobs"
+        eyebrow: "Earning channels &amp; central job quotas"
+        heading: "HIL contracts, prize money and sports-quota jobs"
+        parts:
+          - table:
+              caption: "Hockey India League 2026 auction rules"
+              head: ["Rule", "Men", "Women"]
+              rows:
+                - ["Salary cap per team", "<strong>₹4 crore</strong>", "₹2 crore"]
+                - ["Squad", "20 players (2 goalkeepers + 18 outfield)", "20 players (2 goalkeepers + 18 outfield)"]
+                - ["Overseas / juniors", "Max 7 overseas · min 3 Indian juniors", "Max 7 overseas · min 3 Indian juniors"]
+                - ["Base price slabs", "₹2 lakh · ₹5 lakh · ₹10 lakh (₹2 lakh minimum)", "₹2 lakh · ₹5 lakh · ₹10 lakh (₹2 lakh minimum)"]
+            source: hi-hil26
+          - p: "After the Paris 2024 bronze, Hockey India paid <strong>₹15 lakh to each player</strong> and ₹7.5 lakh to each support-staff member."
+            source: hi-paris-cash
+          - note: "Unlike the BCCI, Hockey India publishes <strong>no graded central-contract list</strong>; national campers are trained through SAI camps, and earnings come from the HIL, awards and jobs."
+          - list:
+              - "Hockey is one of the <strong>65 sports</strong> in the central sports quota for <strong>Group C</strong> posts, with up to 5 years' age relaxation (10 for SC/ST)."
+              - "Medals at the Olympics, Asian Games, Commonwealth Games or World Championships can bring up to <strong>three out-of-turn promotions</strong>; in team events only if the player played at least 50% of the matches."
+            source: dopt-2022
+          - p: "Coaching route after playing: Hockey India runs its own <strong>HI Level 1 and Level 2</strong> certification and lists <strong>FIH Academy Level 1–4</strong> certified coaches."
+            source: hi-home
+      - id: traps
+        nav: "Red flags"
+        eyebrow: "Disqualification traps"
+        heading: "Mistakes that cost hockey players their place"
+        parts:
+          - list:
+              - "<strong>Skipping camp</strong> — no outside athlete can be considered for tournament selection; only campers and core probables."
+              - "<strong>Unsatisfactory camp performance</strong> — the Chief Coach can recommend elimination."
+            source: hi-selection
+          - list:
+              - "Picking up a <strong>second green or yellow card</strong> in a match — from November 2026 the next card must be a higher one."
+              - "Carrying a <strong>communication device</strong> on the field."
+            source: fih-rules
+          - list:
+              - "<strong>Age fraud or doping</strong> — grounds for removal from SAI centres; age is verified when admission rests on Sub Junior or Junior results."
+            source: sai-schemes
+    sources:
+      - id: fih-rules
+        name: "FIH — Rules of Hockey including explanations (effective 1 November 2026)"
+        url: "https://www.fih.hockey/static-assets/pdf/2026_09_14_fih_rules_of_hockey_2027_clean.pdf"
+        covers: "Match length, team size, field size, cards, 2026 rule changes, stick and ball specifications"
+        checked: 2026-10-15
+      - id: hi-home
+        name: "Hockey India — official website"
+        url: "https://www.hockeyindia.org/"
+        covers: "Senior Men National Championship 2026 (Jhansi), HI coaching education pathway and FIH Academy levels"
+        checked: 2026-10-15
+      - id: hi-nat
+        name: "Hockey India — National tournaments calendar"
+        url: "https://hockeyindia.org/schedule/national-tournaments"
+        covers: "Sub Junior and Junior national championships 2026, dates and venues"
+        checked: 2026-10-15
+      - id: hi-jr-nat26
+        name: "Hockey India — Preview: 16th Hockey India Junior Men National Championship 2026, Coimbatore"
+        url: "https://www.hockeyindia.org/news/preview-16th-hockey-india-junior-men-national-championship-2026-coimbatore-tamil-nadu"
+        covers: "30 teams in Divisions A, B and C, promotion and relegation"
+        checked: 2026-10-15
+      - id: hi-selection
+        name: "Hockey India — Policy &amp; Guidelines for Selection Trials and Selection of Campers for National Camps (May 2026)"
+        url: "https://hockey-india.b-cdn.net/media/uploads/2026/05/Policy-Guidelines-for-Selection-Trials-Major-Events-Selection-of-Campers-for-National-Camps-1.pdf"
+        covers: "Core probables, selection criteria, trial timelines, Asian Games 2026 camp pathway at SAI Bengaluru"
+        checked: 2026-10-15
+      - id: hi-hil26
+        name: "Hockey India — Hero HIL 2026 mini auctions (24 Sep 2025)"
+        url: "https://www.hockeyindia.org/news/hero-hil-2026-mini-auctions-to-take-place-on-24th-september"
+        covers: "Salary caps, 20-player squads, overseas and junior quotas, base price slabs"
+        checked: 2026-10-15
+      - id: hi-paris-cash
+        name: "Hockey India — Cash prizes for the men's team after the Paris 2024 bronze (8 Aug 2024)"
+        url: "https://www.hockeyindia.org/news/hockey-india-announces-cash-prizes-for-indian-mens-hockey-team-following-historic-bronze-medal-victory-at-2024-paris-olympics"
+        covers: "Bronze win over Spain, ₹15 lakh per player, ₹7.5 lakh per support-staff member"
+        checked: 2026-10-15
+      - id: fih-ag-men
+        name: "FIH — Indian men seal LA28 Olympic qualification with Asian Games gold (3 Oct 2026)"
+        url: "https://www.fih.hockey/news/indian-men-seal-la28-olympic-qualification-with-asian-games-gold"
+        covers: "5-1 final win over Malaysia, direct LA28 place"
+        checked: 2026-10-15
+      - id: fih-ag-women
+        name: "FIH — India clinch Asian Games gold to seal LA28 Olympic qualification (2 Oct 2026)"
+        url: "https://www.fih.hockey/news/india-clinch-asian-games-gold-to-seal-la28-olympic-qualification"
+        covers: "1-0 final win over China, direct LA28 place"
+        checked: 2026-10-15
+      - id: sai-schemes
+        name: "SAI — Brief on Sports Promotional Schemes 2024-25"
+        url: "https://www.sportsauthorityofindia.gov.in/sai/public/assets/pdfs/schemes/NCOE_Brief.pdf"
+        covers: "Hockey NCOEs, STC team-game entry, NSTC support, weeding-out rules"
+        checked: 2026-10-15
+      - id: myas-cash
+        name: "MYAS — Scheme of Cash Incentive to Medal Winners (amended 1 Feb 2025)"
+        url: "https://yas.gov.in/sites/default/files/Scheme%20of%20Cash%20Incentive%20to%20Medal%20Winners%20in%20International%20Sports%20Events%20and%20their%20Coaches%20amended%20as%20on%2001.02.2025.pdf"
+        covers: "Award amounts, FIH World Cup and Asian Championship listing, 75% team rule"
+        checked: 2026-10-15
+      - id: pib-support
+        name: "PIB — Financial Support to Athletes (5 Aug 2024)"
+        url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2041702"
+        covers: "Khelo India ₹6.28 lakh, TOPS core group incl. hockey teams"
+        checked: 2026-10-15
+      - id: nada-rr
+        name: "NADA India — Athlete's Rights &amp; Responsibilities"
+        url: "https://nadaindia.yas.gov.in/wp-content/uploads/AthleteRR.pdf"
+        covers: "Testing duties, Prohibited List, TUE"
+        checked: 2026-10-15
+      - id: nada-supp
+        name: "NADA India — Managing the Risk of Nutritional Supplements"
+        url: "https://nadaindia.yas.gov.in/wp-content/uploads/Managing-the-Risk-of-Nutritional-Supplements_1.pdf"
+        covers: "Food first, supplement risk, strict liability"
+        checked: 2026-10-15
+      - id: dopt-2022
+        name: "DoPT — Instructions on Recruitment/Promotion for Sportspersons (18 Nov 2022)"
+        url: "https://yas.gov.in/sites/default/files/Compendium%20dated%2018.11.2022.pdf"
+        covers: "Hockey in the 65-sport list, Group C, out-of-turn promotion in team events"
+        checked: 2026-10-15
+  # ------------------------------------------------------------------------------------------------ Kabaddi
+  - slug: kabaddi
+    short: "Kabaddi"
+    domain: ball
+    body: "International Kabaddi Federation (IKF) · Amateur Kabaddi Federation of India (AKFI)"
+    card: "AKFI weight and age limits for 2026, court sizes, raid rules, Nationals to PKL to Asian Games selection, PKL auction rules."
+    card_facts: ["Men ≤ 85 kg · Women ≤ 75 kg", "Junior: under 20", "PKL purse ₹5 cr"]
+    eyebrow: "Sports Cockpit · Ball &amp; Team · AKFI circulars 2026 · IKF rules"
+    title: "Kabaddi — weight limits, raid rules, Nationals, the PKL &amp; Asian Games selection"
+    lede: "Education Margdarshan's kabaddi map for India: the weight and age limits in AKFI's 2026 circulars, court sizes and raid rules, how state teams reach the Nationals and Federation Cup, how the Pro Kabaddi League feeds the India squad, the SAI centres for kabaddi, who pays, and the awards and jobs after a medal."
+    official:
+      - { label: "AKFI Rules of Kabaddi (PDF)", url: "https://www.indiankabaddi.org/administrator/components/com_rules/rules/d2fa88d827bea5fc12073bf9db1f10fb-Rulebook-Downloadedon08Nov2017-19MB.pdf" }
+      - { label: "indiankabaddi.org", url: "https://www.indiankabaddi.org/" }
+    facts:
+      - { label: "Senior weight limit", value: "Men <strong>≤ 85 kg</strong> · Women <strong>≤ 75 kg</strong>; age open", source: akfi-fedcup26 }
+      - { label: "Junior (2026)", value: "<strong>Under 20</strong>; boys ≤ 75 kg · girls ≤ 65 kg", source: "akfi-jr-boys26,akfi-jr-girls26" }
+      - { label: "Men's match", value: "<strong>2 × 20 min</strong>, 7 on court, raid ≤ 30 s", source: akfi-rules }
+      - { label: "Asian Games 2026", value: "<strong>Gold for men and women</strong>, both finals v Iran", source: air-kabaddi26 }
+    sections:
+      - id: rules
+        nav: "Rules &amp; limits"
+        eyebrow: "Core rules &amp; selection formats"
+        heading: "Weight and age limits, court sizes and the raid"
+        parts:
+          - table:
+              caption: "Weight and age limits for AKFI championships"
+              head: ["Category", "Weight", "Age", "Rule source"]
+              rows:
+                - ["Senior men", "<strong>85 kg</strong> and below", "Open", "Senior Federation Cup circular, Feb 2026"]
+                - ["Senior women", "<strong>75 kg</strong> and below", "Open", "Senior Federation Cup circular, Feb 2026"]
+                - ["Junior boys", "<strong>75 kg</strong> and below", "<strong>Below 20</strong> on the last day of the event", "52nd Junior Nationals circular, Aug 2026"]
+                - ["Junior girls", "<strong>65 kg</strong> and below", "<strong>Below 20</strong> on the last day of the event", "52nd Junior Nationals circular, Aug 2026"]
+                - ["Sub-junior boys and girls", "<strong>55 kg</strong> and below", "16 or below on the last day of the event", "AKFI rule book"]
+            source: "akfi-fedcup26,akfi-jr-boys26,akfi-jr-girls26,akfi-rules"
+          - note: "The 2017 rule book printed a 70 kg junior-boys limit; the 2026 circular sets <strong>75 kg</strong>. The circular for each championship is what the weigh-in follows."
+            source: "akfi-rules,akfi-jr-boys26"
+          - table:
+              caption: "Court and match (AKFI rule book, IKF rules)"
+              head: ["Item", "Men &amp; junior boys", "Women, junior girls, sub-juniors"]
+              rows:
+                - ["Play field", "<strong>13 × 10 m</strong>", "12 × 8 m (sub-juniors 11 × 8 m)"]
+                - ["Baulk line from mid-line", "3.75 m", "3 m"]
+                - ["Bonus line", "1 m beyond the baulk line", "1 m beyond the baulk line"]
+                - ["Match", "<strong>2 × 20 min</strong>, 5-min break", "2 × 15 min, 5-min break"]
+            source: akfi-rules
+          - list:
+              - "Seven players of a team are on court at a time; the 2026 national circulars allow <strong>14 players per team</strong>."
+              - "A raider must chant (the 'cant') and must <strong>cross the baulk line</strong> at least once, unless a defender is touched; a raid lasts at most <strong>30 seconds</strong>."
+              - "The <strong>third raid after two empty raids</strong> is a 'do-or-die' raid."
+              - "One point for every opponent put out; an <strong>All Out</strong> earns <strong>2 extra points</strong>. Catching a raider when <strong>3 or fewer</strong> defenders are left is a <strong>Super Catch</strong>."
+              - "Each team gets <strong>two 30-second time-outs</strong> per half and up to <strong>five substitutions</strong>."
+              - "Matches are played on mats (25–40 mm synthetic) and <strong>playing shoes are compulsory</strong>."
+            source: "akfi-rules,akfi-fedcup26"
+      - id: recognition
+        nav: "Recognition"
+        eyebrow: "Institutional &amp; global recognition"
+        heading: "Asian Games, World Cups and the Pro Kabaddi League"
+        parts:
+          - table:
+              caption: "India at the Asian Games"
+              head: ["Games", "Men", "Women"]
+              rows:
+                - ["Incheon 2014", "Gold", "Gold"]
+                - ["Jakarta 2018", "Bronze", "Silver"]
+                - ["Hangzhou 2022", "Gold", "Gold"]
+                - ["<strong>Aichi-Nagoya 2026</strong>", "<strong>Gold</strong> — beat Iran 40-34", "<strong>Gold</strong> — beat Iran 37-34"]
+            source: "akfi-ag26,air-kabaddi26"
+          - p: "AKFI also lists gold at the <strong>3rd Youth Asian Games 2025</strong> (boys and girls) and at the <strong>2nd Women's Kabaddi World Cup 2025</strong>."
+            source: akfi-ag26
+          - table:
+              caption: "Government cash award for a senior kabaddi medal (₹ lakh, before the team-event rule)"
+              head: ["Event", "Gold", "Silver", "Bronze"]
+              rows:
+                - ["Asian Games", "30", "20", "10"]
+                - ["Asian Championship (every 2 years)", "7.5", "5", "2.5"]
+            source: myas-cash
+          - p: "The Kabaddi World Cup is also on the scheme's list. In team events each squad member, including reserves, gets <strong>75%</strong> of the individual amount."
+            source: myas-cash
+          - note: "Kabaddi is played at the Asian Games but is not an Olympic sport, so TOPS — the Olympic-podium scheme — is not its main source of money."
+      - id: eligibility
+        nav: "Weigh-in &amp; fitness"
+        eyebrow: "Physical benchmarks &amp; anti-doping"
+        heading: "Weigh-in, registration and how campers are scored"
+        parts:
+          - list:
+              - "<strong>Online player registration on the AKFI website is mandatory</strong>; players without an online registration number or ID card cannot play."
+              - "A <strong>physical Aadhaar card</strong> is compulsory for verification during the <strong>weighing</strong>."
+              - "Junior entries must be uploaded with a <strong>date-of-birth proof</strong>."
+            source: "akfi-fedcup26,akfi-jr-boys26"
+          - table:
+              caption: "How AKFI scored players for the Asian Games 2026 squad"
+              head: ["Factor", "Indicative weight"]
+              rows:
+                - ["Exceptional performance (last 12 months)", "40%"]
+                - ["Consistent performance (12–24 months)", "35%"]
+                - ["Outstanding past performance (4–8 years)", "15%"]
+                - ["Fitness &amp; discipline", "10%"]
+            source: akfi-ag26
+          - list:
+              - "In the national coaching camp each player is scored on technical and tactical skill, <strong>physical fitness and endurance (agility tests, strength benchmarks)</strong>, performance in camp games, and discipline."
+              - "All probables <strong>must comply with NADA and WADA anti-doping rules</strong>; an anti-doping violation is a listed reason for replacing a selected player."
+            source: akfi-ag26
+      - id: roadmap
+        nav: "Roadmap"
+        eyebrow: "Grassroots-to-elite roadmap"
+        heading: "From the state team to the India jersey"
+        parts:
+          - table:
+              caption: "The kabaddi ladder"
+              head: ["Step", "Age / limit", "What happens"]
+              rows:
+                - ["1. SAI Training Centre", "10–18", "Team members finishing top 4 at Sub Junior/Junior Nationals, or top 2 at state level, can enter after tests"]
+                - ["2. State team", "Sub-junior · junior · senior", "AKFI tells states to pick <strong>their own state's players only</strong>"]
+                - ["3. Nationals", "—", "Sub Junior, Junior and Senior National Kabaddi Championships"]
+                - ["4. Senior Federation Cup", "Open", "The top teams of the Senior Nationals plus the host state"]
+                - ["5. Pro Kabaddi League", "Open (auction)", "Franchise contract; PKL is weighted highest for national selection"]
+                - ["6. National probables and camp", "—", "Probables come from the Senior Nationals, Federation Cup and PKL; the camp is the final verification stage"]
+            source: "sai-schemes,akfi-fedcup26,akfi-ag26"
+          - p: "The Khelo India scheme also inducts kabaddi talent: on 23 April 2026 SAI inducted two young right raiders (born 2010 and 2011) as Khelo India Athletes on the recommendation of its Talent Identification and Development Committee, with support from 1 May 2026."
+            source: akfi-kia26
+      - id: academies
+        nav: "Centres"
+        eyebrow: "Top training academies &amp; cities"
+        heading: "Where kabaddi players are trained"
+        parts:
+          - table:
+              caption: "SAI National Centres of Excellence with kabaddi"
+              head: ["Centre", "Note"]
+              rows:
+                - ["<strong>Kandivali (Mumbai)</strong>", "With hockey and wrestling"]
+                - ["<strong>Sonepat</strong> (Haryana)", "With archery, athletics, hockey, wrestling"]
+                - ["<strong>Gandhinagar</strong> (Gujarat)", "With handball, kho-kho, athletics and para sports"]
+                - ["<strong>Dharamshala</strong> (Himachal)", "Kabaddi, athletics, kho-kho, volleyball — <strong>girls only</strong>"]
+            source: sai-schemes
+          - table:
+              caption: "AKFI championships announced for 2026"
+              head: ["Championship", "Dates", "Venue"]
+              rows:
+                - ["5th Senior Federation Cup (men &amp; women)", "19–22 Mar 2026", "Satna, Madhya Pradesh"]
+                - ["52nd Junior National Championship — Boys", "1–4 Nov 2026", "Patliputra Sports Complex, Patna, Bihar"]
+                - ["52nd Junior National Championship — Girls", "26–29 Nov 2026", "Nehru Stadium, Faridkot, Punjab"]
+            source: "akfi-fedcup26,akfi-jr-boys26,akfi-jr-girls26"
+      - id: costs
+        nav: "Kit &amp; cost"
+        eyebrow: "Equipment costs &amp; who pays"
+        heading: "Who pays a kabaddi player at each level"
+        parts:
+          - table:
+              caption: "Who pays — kabaddi"
+              head: ["Stage", "Paid by", "What you get"]
+              rows:
+                - ["National championships", "Organising committee", "<strong>Free boarding, lodging and local transport</strong> for teams and officials"]
+                - ["SAI centre trainee", "SAI", "Coaching, boarding and sports science at an STC or NCOE"]
+                - ["Khelo India athlete", "Ministry of Youth Affairs &amp; Sports", "<strong>₹6.28 lakh a year</strong> incl. ₹1.20 lakh cash"]
+                - ["PKL player", "Franchise", "Auction price from the team purse"]
+            source: "akfi-fedcup26,sai-schemes,pib-support,pkl-s12"
+          - list:
+              - "Kit is light: <strong>playing shoes are compulsory</strong> and matches are on mats; teams must wear colour-coordinated uniforms with chest numbers (4 inch front, 6 inch back)."
+              - "Education Margdarshan does not print shop prices for kit: no governing body publishes them."
+            source: akfi-fedcup26
+          - list:
+              - "<strong>Making weight</strong>: lose weight with food planning, not pills — no supplement is 100% safe and the athlete is responsible for whatever is found in the sample."
+            source: nada-supp
+      - id: earnings
+        nav: "Earnings &amp; jobs"
+        eyebrow: "Earning channels &amp; central job quotas"
+        heading: "PKL auction, awards and sports-quota jobs"
+        parts:
+          - table:
+              caption: "Pro Kabaddi League Season 12 auction rules (May–June 2025)"
+              head: ["Rule", "Detail"]
+              rows:
+                - ["Base prices", "Category A <strong>₹30 lakh</strong> · B ₹20 lakh · C ₹13 lakh · D ₹9 lakh (each split into raiders, defenders, all-rounders)"]
+                - ["Purse", "<strong>₹5 crore</strong> per franchise, less the players already retained"]
+                - ["Squad", "18 to 25 players, 2 to 4 overseas"]
+                - ["Retentions", "Up to 6, of which at most 3 Elite Retained Players"]
+                - ["Final Bid Match", "A team can buy back a released player by matching the winning bid (up to 3 FBM cards)"]
+            source: pkl-s12
+          - list:
+              - "Kabaddi is one of the <strong>65 sports</strong> in the central sports quota for <strong>Group C</strong> posts, with up to 5 years' age relaxation (10 for SC/ST)."
+              - "Medals at the Asian Games can bring <strong>out-of-turn promotions</strong>; in team events only if the player played at least 50% of the matches."
+            source: dopt-2022
+          - p: "Refereeing is a second career: AKFI ran referee-course exams in many states in 2026 and publishes the lists of successful candidates."
+            source: akfi-home
+      - id: traps
+        nav: "Red flags"
+        eyebrow: "Disqualification traps"
+        heading: "Mistakes that knock kabaddi players out"
+        parts:
+          - list:
+              - "<strong>Over the weight limit</strong> or <strong>without Aadhaar</strong> at the weigh-in."
+              - "<strong>No online AKFI registration</strong> — no ID card, no match."
+              - "<strong>Playing for another state</strong> — AKFI issues no certificate of any kind for outside players picked for extraneous reasons."
+              - "Changing your <strong>chest number</strong> after the entry form is submitted."
+            source: "akfi-fedcup26,akfi-jr-boys26"
+          - list:
+              - "<strong>Age fraud</strong> — the rule book bars a guilty state unit for <strong>3 years</strong> and takes back its medals and certificates."
+            source: akfi-rules
+          - list:
+              - "<strong>Doping</strong> — a listed ground for being replaced in the national squad; SAI also weeds out athletes for dope abuse and age fraud."
+            source: "akfi-ag26,sai-schemes"
+    sources:
+      - id: akfi-rules
+        name: "AKFI — Rules and Regulations of All Forms of Kabaddi, version 2.1.0 (8 Nov 2017)"
+        url: "https://www.indiankabaddi.org/administrator/components/com_rules/rules/d2fa88d827bea5fc12073bf9db1f10fb-Rulebook-Downloadedon08Nov2017-19MB.pdf"
+        covers: "Court sizes, lines, mat, age and weight criteria, raid rules, match length, scoring, time-outs, substitutions, age-fraud penalty"
+        checked: 2026-10-15
+      - id: akfi-fedcup26
+        name: "AKFI — Circular, 5th Senior Federation Cup, Satna (28 Feb 2026)"
+        url: "https://www.indiankabaddi.org/documents_2026/5th_circular_Senior_FED_CUP.pdf"
+        covers: "Senior weight limits, open age, 14 players, mats and shoes, online registration, Aadhaar at weigh-in, own-state players, free boarding"
+        checked: 2026-10-15
+      - id: akfi-jr-boys26
+        name: "AKFI — Circular, 52nd Junior National Kabaddi Championship (Boys), Bihar (1 Aug 2026)"
+        url: "https://www.indiankabaddi.org/documents_2026/Circular_52nd_Junior_National_Kabaddi_Championship_2026-Boys.pdf"
+        covers: "Junior boys 75 kg, below 20 years, DOB proof, dates and venue"
+        checked: 2026-10-15
+      - id: akfi-jr-girls26
+        name: "AKFI — Circular, 52nd Junior National Kabaddi Championship (Girls), Punjab"
+        url: "https://www.indiankabaddi.org/documents_2026/Circular_52nd_Junior_National_Kabaddi_Championship_2026-Girls.pdf"
+        covers: "Junior girls 65 kg, below 20 years, dates and venue"
+        checked: 2026-10-15
+      - id: akfi-ag26
+        name: "AKFI — Selection Policy for the Indian Kabaddi Team, Asian Games 2026"
+        url: "https://www.indiankabaddi.org/documents_2026/selection_policy_for_asian_games_2026.pdf"
+        covers: "Past Asian Games results, probables from Nationals/Federation Cup/PKL, scoring weights, camp evaluation, NADA/WADA compliance"
+        checked: 2026-10-15
+      - id: akfi-kia26
+        name: "SAI KITD notification / AKFI letter — Khelo India induction of kabaddi athletes (23 and 30 Apr 2026)"
+        url: "https://www.indiankabaddi.org/documents_2026/Induction_Under_Khelo_India_Scheme.pdf"
+        covers: "Induction of two kabaddi athletes as Khelo India Athletes from 1 May 2026 via TIDC"
+        checked: 2026-10-15
+      - id: akfi-home
+        name: "AKFI — official website (circulars and referee-course results)"
+        url: "https://www.indiankabaddi.org/"
+        covers: "2026 referee-course results by state, circulars"
+        checked: 2026-10-15
+      - id: air-kabaddi26
+        name: "All India Radio News — Kabaddi golden double at the Asian Games (26 Sep 2026)"
+        url: "https://newsonair.gov.in/kabaddi-golden-double-india-wins-mens-and-womens-kabaddi-gold-at-asian-games/"
+        covers: "Men beat Iran 40-34, women beat Iran 37-34 at Aichi-Nagoya 2026"
+        checked: 2026-10-15
+      - id: pkl-s12
+        name: "Pro Kabaddi League — Season 12 player auction rules"
+        url: "https://www.prokabaddi.com/features/everything-you-need-to-know-about-pro-kabaddi-league-season-12-player-auction-rules"
+        covers: "Base price categories, ₹5 crore purse, squad size, overseas limits, retentions, FBM cards"
+        checked: 2026-10-15
+      - id: sai-schemes
+        name: "SAI — Brief on Sports Promotional Schemes 2024-25"
+        url: "https://www.sportsauthorityofindia.gov.in/sai/public/assets/pdfs/schemes/NCOE_Brief.pdf"
+        covers: "Kabaddi NCOEs, STC team-game entry, weeding-out rules"
+        checked: 2026-10-15
+      - id: myas-cash
+        name: "MYAS — Scheme of Cash Incentive to Medal Winners (amended 1 Feb 2025)"
+        url: "https://yas.gov.in/sites/default/files/Scheme%20of%20Cash%20Incentive%20to%20Medal%20Winners%20in%20International%20Sports%20Events%20and%20their%20Coaches%20amended%20as%20on%2001.02.2025.pdf"
+        covers: "Asian Games and Asian Championship amounts, Kabaddi World Cup listing, 75% team rule"
+        checked: 2026-10-15
+      - id: pib-support
+        name: "PIB — Financial Support to Athletes (5 Aug 2024)"
+        url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2041702"
+        covers: "Khelo India ₹6.28 lakh"
+        checked: 2026-10-15
+      - id: nada-supp
+        name: "NADA India — Managing the Risk of Nutritional Supplements"
+        url: "https://nadaindia.yas.gov.in/wp-content/uploads/Managing-the-Risk-of-Nutritional-Supplements_1.pdf"
+        covers: "Supplement risk, strict liability"
+        checked: 2026-10-15
+      - id: dopt-2022
+        name: "DoPT — Instructions on Recruitment/Promotion for Sportspersons (18 Nov 2022)"
+        url: "https://yas.gov.in/sites/default/files/Compendium%20dated%2018.11.2022.pdf"
+        covers: "Kabaddi in the 65-sport list, Group C, out-of-turn promotion in team events"
+        checked: 2026-10-15
+  # ------------------------------------------------------------------------------------------------ Athletics
+  - slug: athletics
+    short: "Athletics"
+    domain: solo
+    body: "World Athletics · Athletics Federation of India (AFI)"
+    card: "World Athletics age groups and shoe rules, AFI's U14-to-senior Nationals, qualification and whereabouts rules, SAI NCOE camps, awards and jobs."
+    card_facts: ["U18 · U20 · Senior", "Track shoes ≤ 20 mm sole", "1 false start = out"]
+    eyebrow: "Sports Cockpit · Solo, Track &amp; Pool · World Athletics rules · AFI 2026"
+    title: "Athletics — age groups, shoe rules, AFI Nationals &amp; the SAI camp system"
+    lede: "Education Margdarshan's athletics map for India: World Athletics age groups, the false-start rule and the 2026 shoe regulations, AFI's age-group Nationals and the meets you must run to qualify, whereabouts and age checks, the SAI centres where India's athletes train, who pays, and the awards and jobs after a medal."
+    official:
+      - { label: "World Athletics Shoe Regulations 2026 (PDF)", url: "https://worldathletics.org/download/download?filename=6bd4910c-4e10-4ac0-8b37-f75f5b5c601f.pdf&urlslug=C2.1A+%E2%80%93+Athletic+Shoe+Regulations+%28effective+from+01+January+2026%29" }
+      - { label: "indianathletics.in", url: "https://indianathletics.in/" }
+    facts:
+      - { label: "Youth categories", value: "<strong>U18</strong> = 16–17 · <strong>U20</strong> = 18–19 on 31 Dec", source: wa-rules }
+      - { label: "False start", value: "<strong>Disqualified</strong> at once (except combined events)", source: wa-rules }
+      - { label: "Shoe sole (track &amp; field)", value: "<strong>Max 20 mm</strong> · road 40 mm", source: wa-shoes }
+      - { label: "Asian Games 2026 squad", value: "<strong>77 athletes</strong> — 34 men, 43 women", source: afi-ag26 }
+    sections:
+      - id: rules
+        nav: "Rules &amp; ages"
+        eyebrow: "Core rules &amp; selection formats"
+        heading: "Age groups, the false-start rule and India's age-group Nationals"
+        parts:
+          - table:
+              caption: "World Athletics age categories"
+              head: ["Category", "Who", "Counted on"]
+              rows:
+                - ["<strong>Under-18 (U18)</strong>", "Aged 16 or 17", "31 December of the competition year"]
+                - ["<strong>Under-20 (U20)</strong>", "Aged 18 or 19", "31 December of the competition year"]
+                - ["Masters", "From the 35th birthday", "The birthday itself"]
+            source: wa-rules
+          - p: "Each competition's own regulations decide which age groups apply and the minimum age to enter."
+            source: wa-rules
+          - list:
+              - "<strong>False start</strong>: except in combined events, the athlete responsible is <strong>disqualified</strong> and shown a red-and-black card. In combined events the first false start brings a warning and a second one disqualification."
+            source: wa-rules
+          - table:
+              caption: "AFI national championships, October 2026"
+              head: ["Championship", "Dates", "Venue", "Who"]
+              rows:
+                - ["65th National Open Athletics Championships", "8–11 Oct 2026", "Jawaharlal Nehru Stadium, New Delhi", "Senior"]
+                - ["6th Indian Open U23 Athletics Competition", "From 16 Oct 2026", "Jaipur", "Under 23"]
+                - ["41st National Junior Athletics Championships", "23–27 Oct 2026", "Jawaharlal Nehru Stadium, Chennai", "<strong>U14 · U16 · U18 · U20</strong> — 98 finals"]
+            source: "afi-open26,afi-home,afi-jr26"
+          - p: "At the Junior Nationals the combined events step up with age: <strong>Triathlon</strong> (U14), <strong>Pentathlon</strong> (U16), <strong>Heptathlon</strong> (U18 men and women, U20 women) and <strong>Decathlon</strong> (U20 men)."
+            source: afi-jr26
+      - id: recognition
+        nav: "Recognition"
+        eyebrow: "Institutional &amp; global recognition"
+        heading: "Olympics, World Championships, Asian Games — and the cash that follows"
+        parts:
+          - p: "AFI named a <strong>77-member squad</strong> (34 men, 43 women) for the <strong>Asian Games 2026</strong> in Aichi-Nagoya, including Avinash Sable (3000m steeplechase), Gulveer Singh (1500m/5000m/10000m), Annu Rani (javelin) and Jyothi Yarraji (100m hurdles)."
+            source: afi-ag26
+          - table:
+              caption: "Government cash award for a senior athletics medal (₹ lakh)"
+              head: ["Event", "Gold", "Silver", "Bronze"]
+              rows:
+                - ["<strong>Olympic Games</strong>", "75", "50", "30"]
+                - ["Asian Games / Commonwealth Games", "30", "20", "10"]
+                - ["World Athletics Championships (every 2 years)", "20", "14", "8"]
+                - ["Asian Athletics Championships (every 2 years)", "7.5", "5", "2.5"]
+            source: myas-cash
+          - note: "Relays are team events: each member gets 75% of the individual amount. The coach also gets a share of the award."
+            source: myas-cash
+      - id: eligibility
+        nav: "Shoes, ages &amp; testing"
+        eyebrow: "Physical benchmarks &amp; anti-doping"
+        heading: "Shoe limits, age checks and whereabouts"
+        parts:
+          - table:
+              caption: "Maximum sole thickness — World Athletics shoe regulations (from 1 Jan 2026)"
+              head: ["Events", "Maximum sole"]
+              rows:
+                - ["<strong>Track and field</strong> (spike or non-spike shoe), except track race walks", "<strong>20 mm</strong>; in jumps the forefoot sole may not be higher than the heel"]
+                - ["Road running and race walks (road and track)", "<strong>40 mm</strong>"]
+                - ["Cross-country", "Any thickness from 1 April 2026"]
+            source: wa-shoes
+          - list:
+              - "Since <strong>1 November 2024</strong>, any shoe thicker than the table above is no longer approved for World Rankings competitions."
+              - "A shoe must be on World Athletics' approved list; <strong>development shoes</strong> are approved for at most 12 months and can never be worn at the Olympic Games."
+            source: wa-shoes
+          - list:
+              - "SAI runs an <strong>Age Verification Test</strong> on new NCOE inductees (boys under 17, girls under 15) before they join; an athlete who does not join within <strong>7 days</strong> loses the place."
+            source: sai-ath-patiala
+          - list:
+              - "AFI publishes <strong>overage lists</strong> after age-verification checks at events such as the National Inter-District Junior Athletics Meet (NIDJAM)."
+            source: afi-overage
+          - list:
+              - "Filing your <strong>whereabouts</strong> with NADA, WADA or the Athletics Integrity Unit in ADAMS is <strong>mandatory to compete</strong> in India or abroad; missed tests and late filings lead to filing failures, for which the athlete alone is responsible."
+            source: afi-whereabouts
+      - id: roadmap
+        nav: "Roadmap"
+        eyebrow: "Grassroots-to-elite roadmap"
+        heading: "From the district meet to the national camp"
+        parts:
+          - table:
+              caption: "The athletics ladder"
+              head: ["Step", "Age", "What happens"]
+              rows:
+                - ["1. District &amp; inter-district", "U14 · U16", "District meets and NIDJAM — with age checks"]
+                - ["2. SAI Training Centre", "12–18", "Up to 8th at Sub-Junior/Junior Nationals, or top 3 at state level, can enter after tests"]
+                - ["3. Junior Nationals", "U14–U20", "Zonal meets, then the National Junior Championships"]
+                - ["4. SAI NCOE", "Scouted athletes", "Inducted by SAI's KITD division after the age test"]
+                - ["5. Senior qualification", "Senior", "Qualify at the <strong>Indian Open or Indian Grand Prix</strong> meets for the Federation Senior Nationals"]
+                - ["6. National camp &amp; team", "—", "AFI selection for Asian, Commonwealth, World and Olympic events"]
+            source: "afi-overage,sai-schemes,afi-home,afi-jr26,sai-ath-patiala,afi-mandatory25"
+          - p: "In 2025 AFI made it compulsory to reach the qualification standard <strong>at an Indian Open meet or Indian Grand Prix</strong> in the same year to be accepted for the National Federation Senior Championships — without it, the entry is refused."
+            source: afi-mandatory25
+      - id: academies
+        nav: "Centres"
+        eyebrow: "Top training academies &amp; cities"
+        heading: "Where India's athletes are trained"
+        parts:
+          - table:
+              caption: "SAI athletics inductions of 17 December 2024"
+              head: ["Centre", "City", "Athletes inducted"]
+              rows:
+                - ["<strong>NSNIS Patiala</strong>", "Patiala, Punjab", "29 (including javelin thrower Neeraj Chopra)"]
+                - ["<strong>NCOE Bengaluru</strong> (NSSC)", "Bengaluru, Karnataka", "40"]
+                - ["<strong>LNCPE</strong>", "Thiruvananthapuram, Kerala", "26"]
+            source: "sai-ath-patiala,sai-ath-blr,sai-ath-tvm"
+          - p: "Athletics is also trained at SAI NCOEs in <strong>Bhopal, Lucknow, Sonepat, Hamirpur, Guwahati, Imphal, Kolkata, Dharamshala (girls) and Gandhinagar</strong>."
+            source: sai-schemes
+      - id: costs
+        nav: "Shoes &amp; cost"
+        eyebrow: "Equipment costs &amp; who pays"
+        heading: "Who pays an athlete at each level"
+        parts:
+          - table:
+              caption: "Who pays — athletics"
+              head: ["Stage", "Paid by", "What you get"]
+              rows:
+                - ["Adopted school (age 8–14)", "SAI National Sports Talent Contest", "Kit, competition exposure and a stipend each year"]
+                - ["SAI centre trainee", "SAI", "Coaching, boarding and sports science at an STC or NCOE"]
+                - ["Khelo India athlete", "Ministry of Youth Affairs &amp; Sports", "<strong>₹6.28 lakh a year</strong> incl. ₹1.20 lakh cash"]
+                - ["Junior medal prospect", "TOPS Development Group", "₹25,000 a month"]
+                - ["Olympic prospect", "TOPS Core Group", "<strong>₹50,000 a month</strong> + approved training plan"]
+                - ["Athlete in need", "PDU National Welfare Fund", "Up to ₹2.50 lakh"]
+            source: "sai-schemes,pib-support"
+          - list:
+              - "Spikes and racing shoes must be on the <strong>approved list</strong> and within the sole limits above — buy approved models, not just any 'spikes'."
+              - "Education Margdarshan does not print shop prices: no governing body publishes them, and models change every season."
+            source: wa-shoes
+          - list:
+              - "<strong>Food first</strong>, with a certified nutritionist; no supplement is 100% safe and <strong>strict liability</strong> applies."
+            source: nada-supp
+      - id: earnings
+        nav: "Earnings &amp; jobs"
+        eyebrow: "Earning channels &amp; central job quotas"
+        heading: "Awards, pensions, coaching and sports-quota jobs"
+        parts:
+          - list:
+              - "Athletics is one of the <strong>65 sports</strong> in the central sports quota for <strong>Group C</strong> posts, with up to 5 years' age relaxation (10 for SC/ST)."
+              - "Medals at the Olympics, Asian Games, Commonwealth Games or World Championships can bring up to <strong>three out-of-turn promotions</strong>."
+            source: dopt-2022
+          - p: "Retired champions can receive the <strong>Pension to Meritorious Sportspersons</strong> of ₹12,000–20,000 a month."
+            source: pib-support
+          - p: "Coaching route: AFI runs <strong>Pre Level 1</strong> courses and World Athletics <strong>CECS Level 1–3</strong> coach courses, and publishes the results and certified-coach lists on its website."
+            source: afi-home
+      - id: traps
+        nav: "Red flags"
+        eyebrow: "Disqualification traps"
+        heading: "Mistakes that cost athletes their season"
+        parts:
+          - list:
+              - "<strong>Skipping the Indian Open / Grand Prix</strong> meets — AFI refuses Senior Nationals entries without a qualifying mark from them."
+            source: afi-mandatory25
+          - list:
+              - "<strong>Not filing whereabouts</strong> — filing failures and missed tests are your responsibility alone."
+            source: afi-whereabouts
+          - list:
+              - "<strong>Racing in an unapproved or over-thick shoe</strong> at a World Rankings competition."
+            source: wa-shoes
+          - list:
+              - "<strong>Age fraud</strong> — overage athletes are listed publicly; SAI weeds out athletes for age fraud and dope abuse."
+            source: "afi-overage,sai-schemes"
+    sources:
+      - id: wa-rules
+        name: "World Athletics — Book C: Competition Rules (C1.1) and Technical Rules (C2.1)"
+        url: "https://worldathletics.org/download/download?filename=63ee3605-11e1-483c-bff6-f0d44d292d2d.pdf&urlslug=C1.1+"
+        covers: "U18, U20 and Masters categories; false-start rule"
+        checked: 2026-10-15
+      - id: wa-shoes
+        name: "World Athletics — Athletic Shoe Regulations (approved 2 Dec 2025, effective 1 Jan 2026)"
+        url: "https://worldathletics.org/download/download?filename=6bd4910c-4e10-4ac0-8b37-f75f5b5c601f.pdf&urlslug=C2.1A+%E2%80%93+Athletic+Shoe+Regulations+%28effective+from+01+January+2026%29"
+        covers: "Sole thickness table, 1 Nov 2024 cut-off, approved and development shoes"
+        checked: 2026-10-15
+      - id: afi-home
+        name: "Athletics Federation of India — official website"
+        url: "https://indianathletics.in/"
+        covers: "6th Indian Open U23 (Jaipur, Oct 2026), zonal junior championships 2026, Pre Level 1 and WA CECS coach courses"
+        checked: 2026-10-15
+      - id: afi-open26
+        name: "AFI — 65th National Open Athletics Championships 2026: competition schedule"
+        url: "https://indianathletics.in/65th-national-open-athletics-championships-2026-competition-schedule/"
+        covers: "Dates and venue, New Delhi, 8–11 Oct 2026"
+        checked: 2026-10-15
+      - id: afi-jr26
+        name: "AFI — 41st National Junior Athletics Championships 2026: competition schedule"
+        url: "https://indianathletics.in/41st-national-junior-athletics-championships-2026-schedule/"
+        covers: "U14, U16, U18, U20 age groups, 98 finals, combined events by age, Chennai 23–27 Oct 2026"
+        checked: 2026-10-15
+      - id: afi-ag26
+        name: "AFI — 77-member squad for the Aichi-Nagoya Asian Games 2026"
+        url: "https://indianathletics.in/athletics-federation-of-india-names-77-member-squad-for-aichi-nagoya-asian-games-2026/"
+        covers: "Squad size and named athletes"
+        checked: 2026-10-15
+      - id: afi-mandatory25
+        name: "AFI — Notice: mandatory participation in Indian Open meets or Indian Grand Prix (1 Apr 2025)"
+        url: "https://indianathletics.in/wp-content/uploads/2025/04/UPDATED-IMPORTANT-NOTICE-Mandatory-Participation-in-Indian-Open-Meetings-or-Indian-Grand-Prix-2025.-1.pdf"
+        covers: "Qualifying mark must come from an Indian Open or Grand Prix meet for the Federation Senior Nationals"
+        checked: 2026-10-15
+      - id: afi-whereabouts
+        name: "AFI — Letter to athletes on submission of whereabouts (22 Nov 2023)"
+        url: "https://indianathletics.in/wp-content/uploads/2023/12/Submission-of-Whereabouts-Reg..pdf"
+        covers: "Whereabouts in ADAMS mandatory to compete, filing failures"
+        checked: 2026-10-15
+      - id: afi-overage
+        name: "AFI — Overage athlete lists (age verification reports)"
+        url: "https://indianathletics.in/overage-athlete-list/"
+        covers: "Overage lists from NIDJAM, junior and other national events"
+        checked: 2026-10-15
+      - id: sai-ath-patiala
+        name: "SAI KITD — Induction of 29 athletes at NSNIS Patiala (17 Dec 2024)"
+        url: "https://indianathletics.in/wp-content/uploads/2024/12/NSNIS-Patiala.pdf"
+        covers: "Inductee list, Age Verification Test (boys U-17, girls U-15), 7-day joining rule"
+        checked: 2026-10-15
+      - id: sai-ath-blr
+        name: "SAI KITD — Induction of 40 athletes at NCOE Bangalore (17 Dec 2024)"
+        url: "https://indianathletics.in/wp-content/uploads/2024/12/Bangalore.pdf"
+        covers: "40 athletics inductees at NSSC Bengaluru"
+        checked: 2026-10-15
+      - id: sai-ath-tvm
+        name: "SAI KITD — Induction of 26 athletes at LNCPE Trivandrum (17 Dec 2024)"
+        url: "https://indianathletics.in/wp-content/uploads/2024/12/LNCPE-Trivandrum.pdf"
+        covers: "26 athletics inductees at LNCPE Thiruvananthapuram"
+        checked: 2026-10-15
+      - id: sai-schemes
+        name: "SAI — Brief on Sports Promotional Schemes 2024-25"
+        url: "https://www.sportsauthorityofindia.gov.in/sai/public/assets/pdfs/schemes/NCOE_Brief.pdf"
+        covers: "Athletics NCOEs, STC individual-event entry, NSTC support, weeding-out rules"
+        checked: 2026-10-15
+      - id: myas-cash
+        name: "MYAS — Scheme of Cash Incentive to Medal Winners (amended 1 Feb 2025)"
+        url: "https://yas.gov.in/sites/default/files/Scheme%20of%20Cash%20Incentive%20to%20Medal%20Winners%20in%20International%20Sports%20Events%20and%20their%20Coaches%20amended%20as%20on%2001.02.2025.pdf"
+        covers: "Award amounts, World and Asian Athletics Championships listing, 75% team rule, coach share"
+        checked: 2026-10-15
+      - id: pib-support
+        name: "PIB — Financial Support to Athletes (5 Aug 2024)"
+        url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2041702"
+        covers: "Khelo India, TOPS Core and Development allowances, welfare fund, pension"
+        checked: 2026-10-15
+      - id: nada-supp
+        name: "NADA India — Managing the Risk of Nutritional Supplements"
+        url: "https://nadaindia.yas.gov.in/wp-content/uploads/Managing-the-Risk-of-Nutritional-Supplements_1.pdf"
+        covers: "Food first, supplement risk, strict liability"
+        checked: 2026-10-15
+      - id: dopt-2022
+        name: "DoPT — Instructions on Recruitment/Promotion for Sportspersons (18 Nov 2022)"
+        url: "https://yas.gov.in/sites/default/files/Compendium%20dated%2018.11.2022.pdf"
+        covers: "Athletics in the 65-sport list, Group C, out-of-turn promotion"
         checked: 2026-10-15

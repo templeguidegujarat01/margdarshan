@@ -3189,3 +3189,21 @@ main.sc-page > section.mb .section-head{margin-bottom:1.1rem;}
   .sc-picker-inner{grid-template-columns:1fr;}
   .sc-otp{display:none;}
 }
+
+/* Sports & Performing Arts Cockpit (sports-hub.html → _includes/sports-cockpit.html; sport pages reuse the exam console).
+   A domain tile is a bordered box (not one link): it holds one link card per deep sport guide or existing guide,
+   then the not-yet-built disciplines as plain chips. The box itself does not lift on hover — its links do. */
+.sp-domain{scroll-margin-top:7rem;}
+.sp-domain-box:is(:hover,:focus-within){transform:none;}
+.sp-ico{font-size:.95rem;letter-spacing:0;}
+.sp-domain .sc-tile-title{margin:0;}
+.sp-go{display:flex;flex-direction:column;gap:.35rem;margin-top:.35rem;padding:.75rem .85rem;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--text);font-size:.9rem;line-height:1.45;text-decoration:none;transition:border-color .15s var(--ease);}
+.sp-go strong{color:var(--text);}
+.sp-go .sc-tile-chips{margin-top:0;padding-top:.1rem;}
+.sp-go:is(:hover,:focus-visible){border-color:var(--accent-on-surface);}
+.sp-go:is(:hover,:focus-visible) .sc-tile-go{text-decoration:underline;}
+.sp-next{display:flex;flex-wrap:wrap;align-items:center;gap:.3rem;margin-top:auto;padding-top:.6rem;}
+.sp-next-k{width:100%;font-family:var(--font-mono);font-size:.64rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);}
+.sp-next span:not(.sp-next-k){padding:.12rem .5rem;border:1px dashed var(--line);border-radius:999px;font-size:.74rem;color:var(--text-muted);}
+.sp-page .sc-p strong,.sp-page .sc-list strong,.sp-page td strong,.sp-hub .sc-list strong{color:var(--text);font-weight:750;}
+@media (prefers-reduced-motion:reduce){.sp-go{transition:none;}}

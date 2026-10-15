@@ -1,0 +1,9 @@
+{%- comment -%}
+  One or more numbered source markers for the sports cockpit. `ids` is one source id or several joined by commas
+  ("sai-schemes,pib-support"), each printed through state-src-ref.html against SRC (set by the calling page).
+  Usage: {% include sport-src-refs.html ids=part.source %}
+{%- endcomment -%}
+{%- if include.ids -%}
+{%- assign sp_ids = include.ids | split: "," -%}
+{%- for sp_id in sp_ids -%}{%- assign sp_one = sp_id | strip -%}{% include state-src-ref.html id=sp_one %}{%- endfor -%}
+{%- endif -%}

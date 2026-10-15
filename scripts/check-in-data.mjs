@@ -241,6 +241,103 @@ if (fs.existsSync(nxFile)) {
   }
 }
 
+// ---- Sports & Performing Arts Cockpit (_data/in/sports.yml -> sports-hub.html + <slug>.html) ----
+// Same part rules as the exam consoles; the eight fixed blocks are SP_BLOCKS. A `source:` may name several ids
+// joined by commas. The hub's facts, ladder and quota rules cite hub.sources; each domain must name existing
+// sports slugs, and each sport must sit in a known domain and be listed by it.
+const spFile = path.join(root, '_data', 'in', 'sports.yml');
+const SP_BLOCKS = ['rules', 'recognition', 'eligibility', 'roadmap', 'academies', 'costs', 'earnings', 'traps'];
+let spSports = 0;
+if (fs.existsSync(spFile)) {
+  const err = (m) => errors.push(`sports.yml: ${m}`);
+  let D;
+  try { D = yaml.load(fs.readFileSync(spFile, 'utf8')); } catch (e) { err('YAML error: ' + e.message.split('\n')[0]); D = {}; }
+  if (!isDay(D.checked)) err('checked must be a date (YYYY-MM-DD)');
+  const ids = (list) => (String(list || '')).split(',').map((x) => x.trim()).filter(Boolean);
+  const checkSources = (where, list) => {
+    const set = new Set();
+    for (const s of list || []) {
+      if (!s.id || !s.name || !s.url || !s.covers) err(`${where}: source ${JSON.stringify(s.id)} needs id, name, url, covers`);
+      if (set.has(s.id)) err(`${where}: duplicate source id ${s.id}`);
+      set.add(s.id);
+      if (!/^https:\/\//.test(s.url || '')) err(`${where}: source ${s.id}: url must start with https://`);
+      if (!isDay(s.checked)) err(`${where}: source ${s.id}: checked must be a date (YYYY-MM-DD)`);
+    }
+    if (!set.size) err(`${where}: no sources`);
+    return set;
+  };
+  const slugs = (D.sports || []).map((e) => e.slug);
+  if (new Set(slugs).size !== slugs.length) err('duplicate sport slugs');
+  // hub page + hub data
+  const hubPage = path.join(root, 'sports-hub.html');
+  if (!fs.existsSync(hubPage)) err('page sports-hub.html missing');
+  else if (!fs.readFileSync(hubPage, 'utf8').includes('{% include sports-cockpit.html %}')) err('sports-hub.html does not include sports-cockpit.html');
+  const H = D.hub || {};
+  for (const k of ['eyebrow', 'title', 'lede']) if (!H[k]) err(`hub.${k} is required`);
+  const hubIds = checkSources('hub', H.sources);
+  const hubCited = new Set(['myas-cash', 'dopt-2022', 'dopt-2024']); // cited by the hub template itself
+  const hubCite = (where, src) => { if (!src) { err(`hub ${where}: fact without source`); return; } for (const i of ids(src)) { hubCited.add(i); if (!hubIds.has(i)) err(`hub ${where}: source "${i}" is not listed under hub.sources`); } };
+  for (const q of H.facts || []) { if (!q.label || !q.value) err('every hub fact needs label and value'); hubCite(`fact "${q.label}"`, q.source); }
+  if ((H.facts || []).length !== 4) err('the hub console needs exactly 4 facts (2 x 2)');
+  if (H.ladder) {
+    hubCite('ladder', H.ladder.source);
+    const w = (H.ladder.head || []).length;
+    for (const [r, row] of (H.ladder.rows || []).entries()) if (row.length !== w) err(`hub ladder row ${r + 1} has ${row.length} cells, head has ${w}`);
+  }
+  if (!(H.quota || []).length) err('hub.quota rules are required');
+  hubCite('quota', H.quota_source);
+  for (const s of hubIds) if (!hubCited.has(s)) err(`hub source "${s}" is listed but never cited`);
+  // domains
+  const listed = new Map();
+  const domIds = new Set();
+  for (const d of D.domains || []) {
+    if (!d.id || !d.label || !d.intro || !d.icon) err(`domain ${JSON.stringify(d.id)} needs id, label, intro, icon`);
+    domIds.add(d.id);
+    for (const s of d.sports || []) { if (!slugs.includes(s)) err(`domain ${d.id}: unknown sport "${s}"`); listed.set(s, d.id); }
+    for (const g of d.guides || []) if (!g.label || !g.href || !linkOk(g.href)) err(`domain ${d.id}: bad guide link ${JSON.stringify(g)}`);
+    if (!(d.sports || []).length && !(d.guides || []).length) err(`domain ${d.id}: needs at least one sport page or guide link`);
+  }
+  if ((D.domains || []).length !== 5) err('the hub needs exactly 5 domains');
+  // sports
+  for (const E of D.sports || []) {
+    spSports++;
+    const ex = (m) => err(`${E.slug}: ${m}`);
+    for (const k of ['slug', 'short', 'domain', 'body', 'card', 'eyebrow', 'title', 'lede']) if (!E[k]) ex(`${k} is required`);
+    if (!domIds.has(E.domain)) ex(`unknown domain "${E.domain}"`);
+    if (listed.get(E.slug) !== E.domain) ex(`not listed under its domain "${E.domain}" in domains[]`);
+    const page = path.join(root, E.slug + '.html');
+    if (!fs.existsSync(page)) ex(`page ${E.slug}.html missing`);
+    else if (!fs.readFileSync(page, 'utf8').includes(`{% include sport-page.html sport="${E.slug}" %}`)) ex('page does not include sport-page.html for this sport');
+    const sIds = checkSources(E.slug, E.sources);
+    const cited = new Set();
+    const cite = (where, src, required) => {
+      if (src) for (const i of ids(src)) { cited.add(i); if (!sIds.has(i)) ex(`${where}: source "${i}" is not listed under sources`); }
+      else if (required) ex(`${where}: fact without source`);
+    };
+    for (const q of E.facts || []) { if (!q.label || !q.value) ex('every fact needs label and value'); cite(`fact "${q.label}"`, q.source, true); }
+    if ((E.facts || []).length !== 4) ex('the hero console needs exactly 4 facts (2 x 2)');
+    for (const o of E.official || []) if (!/^https:\/\//.test(o.url || '')) ex(`official link ${o.label}: url must start with https://`);
+    const secIds = (E.sections || []).map((s) => s.id);
+    if (secIds.join() !== SP_BLOCKS.join()) ex(`sections must be ${SP_BLOCKS.join(', ')} in that order (found ${secIds.join(', ')})`);
+    for (const S of E.sections || []) {
+      for (const k of ['nav', 'eyebrow', 'heading']) if (!S[k]) ex(`section ${S.id}: ${k} is required`);
+      for (const [i, p] of (S.parts || []).entries()) {
+        const kinds = Object.keys(p).filter((k) => k !== 'source');
+        const where = `section ${S.id} part ${i + 1}`;
+        if (kinds.length !== 1 || !SC_KINDS.includes(kinds[0])) { ex(`${where}: unknown part ${JSON.stringify(kinds)}`); continue; }
+        cite(where, p.source, FACT_KINDS.includes(kinds[0]));
+        if (p.table) {
+          const w = (p.table.head || []).length;
+          if (!w) ex(`${where}: table needs head`);
+          for (const [r, row] of (p.table.rows || []).entries()) if (row.length !== w) ex(`${where}: table row ${r + 1} has ${row.length} cells, head has ${w}`);
+        }
+        for (const l of p.links || []) if (!l.label || !l.url || !linkOk(l.url)) ex(`${where}: bad link ${JSON.stringify(l)}`);
+      }
+    }
+    for (const sid of sIds) if (!cited.has(sid)) ex(`source "${sid}" is listed but never cited`);
+  }
+}
+
 // ---- India top menu (_data/nav.yml topnav): every menu link, node heading and flyout link must exist ----
 const navFile = path.join(root, '_data', 'nav.yml');
 let navLinks = 0;
@@ -264,5 +361,6 @@ if (fs.existsSync(navFile)) {
 console.log(`checked ${sheets} India data sheets`);
 console.log(`checked ${nxExams} national exam console(s), ${navLinks} top-menu link(s)`);
 console.log(`checked ${stateSheets} state cockpit sheet(s), ${stateExams} exam page(s)`);
+console.log(`checked ${spSports} sports cockpit page(s)`);
 if (errors.length) { console.log('ERRORS:\n' + errors.join('\n')); process.exit(1); }
 console.log('OK');

@@ -1,0 +1,174 @@
+{%- comment -%}
+  Sports, Olympics & Performing Arts Cockpit hub (sports-hub.html): {% include sports-cockpit.html %}
+  Data: _data/in/sports.yml → hub (hero copy, facts, ladder table, quota rules, sources) and domains[] (the five
+  strategic tiles). A domain lists its deep pages (sports[] slugs → sports[].card/card_facts), any existing
+  Margdarshan guides that cover it, and the disciplines not yet built (`next`, printed as plain names, never links).
+  Image-free; markup and classes are the state cockpit's (.sc-grid / .sc-tile, .mb blocks), so it reads as one system.
+{%- endcomment -%}
+{%- assign SP = site.data.in.sports -%}
+{%- assign H = SP.hub -%}
+{%- assign SRC = H.sources -%}
+{%- assign ext = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>' -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site.url }}{{ site.baseurl }}/" },
+    { "@type": "ListItem", "position": 2, "name": "Sports & Performing Arts Cockpit", "item": "{{ page.url | absolute_url }}" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": {{ H.title | replace: "&amp;", "&" | jsonify }},
+  "url": "{{ page.url | absolute_url }}",
+  "isPartOf": { "@type": "WebSite", "name": {{ site.title | jsonify }}, "url": "{{ site.url }}{{ site.baseurl }}/" },
+  "description": {{ page.description | jsonify }},
+  "hasPart": [
+    {%- for x in SP.sports %}
+    { "@type": "WebPage", "name": {{ x.title | replace: "&amp;", "&" | jsonify }}, "url": "{{ site.url }}{{ site.baseurl }}/{{ x.slug }}.html" }{% unless forloop.last %},{% endunless %}
+    {%- endfor %}
+  ]
+}
+</script>
+<main id="main" class="sc-page sp-hub" data-no-page-nav>
+  <section class="page-hero career-hero sc-hero" aria-labelledby="hero-heading">
+    <svg class="page-hero-bg" viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M-50 340 C 220 300, 320 380, 500 300 S 780 200, 980 260 1150 160 1300 200" stroke="#E8A33D" stroke-width="1.4" fill="none" opacity=".3"/>
+    </svg>
+    <div class="container page-hero-inner">
+      <span class="eyebrow">{{ H.eyebrow }}</span>
+      <h1 id="hero-heading">{{ H.title }}</h1>
+      <div class="meta-row">
+        <span>{{ SP.domains.size }} strategic domains</span>
+        <span>·</span><span>{{ SP.sports.size }} deep sport guides</span>
+        <span>·</span><span>Last checked {{ SP.checked | date: "%-d %b %Y" }}</span>
+      </div>
+      <p>{{ H.lede }}</p>
+      <div class="page-hero-ctas">
+        <a href="#{{ SP.domains.first.id }}" class="btn btn-primary btn-inpage-jump">Pick your sport</a>
+        <a href="#ladder" class="btn btn-ghost btn-inpage-jump">Who pays at each level</a>
+      </div>
+      <dl class="quickfacts qf-micro">
+        {%- for q in H.facts %}
+        <div class="qf-card"><dt>{{ q.label }}</dt><dd>{{ q.value }}{% if q.source %} {% include sport-src-refs.html ids=q.source %}{% endif %}</dd></div>
+        {%- endfor %}
+      </dl>
+    </div>
+  </section>
+
+  <div class="quicknav-bar sc-quicknav">
+    <div class="container">
+      <nav class="quicknav" aria-label="On this page">
+        <span class="sc-otp" aria-hidden="true">On this page</span>
+        {%- for d in SP.domains %}<a href="#{{ d.id }}">{{ d.label }}</a>{% endfor %}
+        <a href="#ladder">Who pays</a>
+        <a href="#quota">Sports-quota jobs</a>
+        <a href="#sources">Sources</a>
+      </nav>
+    </div>
+  </div>
+
+  <section class="block mb sc-block" id="domains" aria-labelledby="domains-heading">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Strategic domains</span>
+        <h2 id="domains-heading">Five families of sport and art — choose yours</h2>
+        <p>Each tile opens a 9-block Margdarshan guide: rules and limits, recognition, eligibility, roadmap, academies, diet and cost, earnings, red flags and sources.</p>
+      </div>
+      <ul class="sc-grid sp-domains" role="list">
+        {%- for d in SP.domains %}
+        <li class="sc-tile sp-domain" id="{{ d.id }}">
+          <div class="sc-tile-link sp-domain-box">
+            <span class="sc-tile-body"><span class="sp-ico" aria-hidden="true">{{ d.icon }}</span> Domain {{ forloop.index }} of {{ SP.domains.size }}</span>
+            <h3 class="sc-tile-title">{{ d.label }}</h3>
+            <span class="sc-tile-text">{{ d.intro }}</span>
+            {%- for slug in d.sports %}
+            {%- assign x = SP.sports | where: "slug", slug | first %}
+            <a class="sp-go" href="{{ x.slug }}.html"><span><strong>{{ x.short }}</strong> — {{ x.card }}</span><span class="sc-tile-chips">{% for c in x.card_facts %}<span>{{ c }}</span>{% endfor %}</span><span class="sc-tile-go">Open the 9-block guide →</span></a>
+            {%- endfor %}
+            {%- for g in d.guides %}
+            <a class="sp-go" href="{{ g.href }}"><strong>{{ g.label }}</strong><span class="sc-tile-go">Open the guide →</span></a>
+            {%- endfor %}
+            {%- if d.next.size > 0 %}
+            <span class="sp-next"><span class="sp-next-k">Next in this domain</span>{% for n in d.next %}<span>{{ n }}</span>{% endfor %}</span>
+            {%- endif %}
+          </div>
+        </li>
+        {%- endfor %}
+      </ul>
+    </div>
+  </section>
+
+  <section class="block mb sc-block" id="ladder" aria-labelledby="ladder-heading">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Financial cost breakdown</span>
+        <h2 id="ladder-heading">Who pays at each level</h2>
+        <p>The same central government ladder sits under every Olympic sport. A family pays least when the child climbs it early — district medals open the first door.</p>
+      </div>
+      <h3 class="block-subhead sc-cap">{{ H.ladder.caption }} {% include sport-src-refs.html ids=H.ladder.source %}</h3>
+      <div class="table-wrap sc-table"><table class="table-simple">
+        <caption class="sr-only">{{ H.ladder.caption }}</caption>
+        <thead><tr>{% for h in H.ladder.head %}<th scope="col">{{ h }}</th>{% endfor %}</tr></thead>
+        <tbody>
+          {%- for r in H.ladder.rows %}
+          <tr>{% for c in r %}{% if forloop.first %}<th scope="row">{{ c }}</th>{% else %}<td>{{ c }}</td>{% endif %}{% endfor %}</tr>
+          {%- endfor %}
+        </tbody>
+      </table></div>
+      <h3 class="block-subhead">Cash award for a senior medal (₹ lakh) {% include sport-src-refs.html ids="myas-cash" %}</h3>
+      <div class="table-wrap sc-table"><table class="table-simple">
+        <caption class="sr-only">Cash award for a senior medal</caption>
+        <thead><tr><th scope="col">Event</th><th scope="col">Gold</th><th scope="col">Silver</th><th scope="col">Bronze</th></tr></thead>
+        <tbody>
+          <tr><th scope="row"><strong>Olympic / Paralympic Games</strong></th><td>75</td><td>50</td><td>30</td></tr>
+          <tr><th scope="row">Asian Games / Commonwealth Games</th><td>30</td><td>20</td><td>10</td></tr>
+          <tr><th scope="row">World Championship / World Cup — every 4 years</th><td>40</td><td>25</td><td>15</td></tr>
+          <tr><th scope="row">World Championship / World Cup — every 2 years</th><td>20</td><td>14</td><td>8</td></tr>
+          <tr><th scope="row">World Championship / World Cup — every year</th><td>10</td><td>7</td><td>4</td></tr>
+        </tbody>
+      </table></div>
+      <p class="table-note sc-note">Team members (including reserves) get <strong>75%</strong> of the matching individual amount; the coach gets <strong>50%</strong> of the athlete's award; claims go through the DBT-MIS portal <strong>within six months</strong> of the event. {% include sport-src-refs.html ids="myas-cash" %}</p>
+    </div>
+  </section>
+
+  <section class="block mb sc-block" id="quota" aria-labelledby="quota-heading">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Post-athletic horizons</span>
+        <h2 id="quota-heading">Central government sports-quota jobs — the rules in six lines</h2>
+      </div>
+      <ul class="sc-list">
+        {%- for i in H.quota %}
+        <li>{{ i }}{% if forloop.last %} {% include sport-src-refs.html ids="dopt-2022,dopt-2024" %}{% endif %}</li>
+        {%- endfor %}
+      </ul>
+    </div>
+  </section>
+
+  <section class="block mb sc-block" id="sources" aria-labelledby="sources-heading">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Official sources &amp; verification</span>
+        <h2 id="sources-heading">Where these facts come from</h2>
+        <p>Education Margdarshan builds this cockpit only from Government of India files and the governing bodies' own rule books, read on {{ SP.checked | date: "%-d %B %Y" }}. Each sport page lists its own sources.</p>
+      </div>
+      <ol class="cite-list">
+        {%- for s in SRC %}
+        <li id="src-{{ s.id }}">
+          <a class="source-link" href="{{ s.url }}" target="_blank" rel="noopener noreferrer">
+            {{ ext }}
+            {{ s.name }}<span class="sr-only"> (opens in a new tab)</span>
+          </a>
+          <span class="cite-covers">{{ s.covers }}{% if s.checked %} · Last checked {{ s.checked | date: "%-d %b %Y" }}{% endif %}</span>
+        </li>
+        {%- endfor %}
+      </ol>
+      <p class="cite-report">Spotted something out of date? Email <a href="mailto:{{ site.feedback_email }}?subject={{ 'Sports cockpit — correction' | uri_escape }}">{{ site.feedback_email }}</a> with the official link and Education Margdarshan will update it.</p>
+    </div>
+  </section>
+</main>

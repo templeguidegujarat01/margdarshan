@@ -1,6 +1,7 @@
 # Sports, Olympics & Performing Arts Cockpit (India edition) -> sports-hub.html (hub), football.html, wrestling.html,
 # chess.html, cricket.html, hockey.html, kabaddi.html, athletics.html, boxing.html, badminton.html, shooting.html,
-# swimming.html, archery.html, weightlifting.html, table-tennis.html, basketball.html, volleyball.html
+# swimming.html, archery.html, weightlifting.html, table-tennis.html, basketball.html, volleyball.html, kathak.html,
+# bharatanatyam.html, hindustani-music.html, carnatic-music.html
 # Rendered by _includes/sports-cockpit.html (hub) and _includes/sport-page.html (each sport); validated by
 # scripts/check-in-data.mjs.
 # Part kinds are the exam console's (p, list, table, note, warn, links). Every p / list / table and every hero
@@ -11,7 +12,9 @@
 # Facts come only from the governing body's own rule book or notices (UWW, IFAB, FIDE, AIFF, ICC, BCCI/IPL, FIH,
 # Hockey India, AKFI/PKL, World Athletics, AFI, World Boxing, BWF, BAI, ISSF, NRAI, World Aquatics, SFI, World Archery,
 # IWF/IWLF, ITTF/TTFI, FIBA/BFI, FIVB/VFI) or Government
-# of India files (MYAS, DoPT, SAI, NADA, PIB, All India Radio), read on `checked` (a sport's own `checked` overrides). An academy's own notice is used only for that academy. Coaching, fan sites and private
+# of India files (MYAS, DoPT, SAI, NADA, PIB, All India Radio); for the classical arts (domain arts) from the Sangeet
+# Natak Akademi, Ministry of Culture / CCRT, Prasar Bharati (AIR, Doordarshan) and ICCR. Arts entries also set body_label,
+# rules_note and sources_note (see _includes/sport-page.html), read on `checked` (a sport's own `checked` overrides). An academy's own notice is used only for that academy. Coaching, fan sites and private
 # news outlets are not used.
 # domains[]: the five hub tiles. sports: slugs that have a deep page here; guides: existing Margdarshan pages that
 # cover the domain; next: disciplines listed by name only (no page yet, so no link).
@@ -110,11 +113,11 @@ domains:
   - id: arts
     icon: "🩰"
     label: "Classical Performing Arts"
-    intro: "Dance, music and theatre — guru training, degrees and stage careers."
-    sports: []
+    intro: "Classical dance and music — guru training, Doordarshan and AIR grades, Akademi honours and the scholarships that pay for it."
+    sports: [kathak, bharatanatyam, hindustani-music, carnatic-music]
     guides:
       - { label: "Performing Arts career guide (dance, music, theatre)", href: "performing-arts.html" }
-    next: ["Bharatanatyam", "Kathak", "Hindustani vocal", "Carnatic music", "Theatre"]
+    next: ["Odissi", "Kuchipudi", "Kathakali", "Manipuri", "Mohiniyattam", "Sattriya", "Theatre"]
 
 sports:
   # ------------------------------------------------------------------------------------------------ Wrestling
@@ -4566,4 +4569,1165 @@ sports:
         name: "DoPT Office Memorandum, 4 March 2024 — Incentive for Sportspersons"
         url: "https://dopt.gov.in/sites/default/files/Incentive%20for%20Sportpersons.pdf"
         covers: "Order of preference, Khelo India Games, Junior Nationals and SGFI medallists added"
+        checked: 2026-10-16
+  # ------------------------------------------------------------------------------------------------ Kathak
+  - slug: kathak
+    short: "Kathak"
+    domain: arts
+    checked: 2026-10-16
+    body_label: "Recognised by"
+    body: "Sangeet Natak Akademi (SNA) · Ministry of Culture"
+    rules_note: "Akademi, Ministry, Prasar Bharati &amp; ICCR files only"
+    sources_note: "Every fact on this Education Margdarshan page is taken from a Sangeet Natak Akademi, Ministry of Culture, Prasar Bharati or ICCR file below, or from an academy's own 2026-27 notice (used only for that academy). Age limits, fees and scheme amounts change every year — open the current file before you apply or pay."
+    card: "Kathak Kendra's age-banded courses, Doordarshan dance grades, SNA awards, ICCR empanelment and the scholarships that pay for training."
+    card_facts: ["Foundation course at 10–15", "DD grades B → Top", "SNA Yuva up to age 40"]
+    eyebrow: "Performing Arts Cockpit · Classical Dance · Kathak Kendra 2026-27"
+    title: "Kathak — training ladder, gharanas, Doordarshan grades &amp; scholarships"
+    lede: "Everything a Kathak student and family need from the first class with a guru to a national stage: what the course syllabus demands, the age limit of every Kathak Kendra course, how Doordarshan grades dancers, the Sangeet Natak Akademi honours, ICCR empanelment, the scholarships and fellowships that pay for training, and an honest look at jobs."
+    official:
+      - { label: "Kathak Kendra admissions", url: "https://www.kathakkendra.in/admission" }
+      - { label: "sangeetnatak.gov.in", url: "https://sangeetnatak.gov.in/" }
+    facts:
+      - { label: "Kathak Kendra Foundation course", value: "<strong>Age 10–15</strong> · 5 years · after Class III", source: kk-adm }
+      - { label: "Doordarshan dance grades", value: "<strong>B · B-High · A · Top</strong> — minimum age 18 / 25 / 35 / 40", source: dd-dance }
+      - { label: "SNA Yuva Puraskar", value: "<strong>₹25,000</strong> + tamrapatra · up to <strong>age 40</strong>", source: sna-yuva }
+      - { label: "Young-artiste scholarship", value: "<strong>₹5,000 a month</strong> for 2 years · age 18–25", source: pib-ksvy }
+    sections:
+      - id: rules
+        nav: "Form &amp; gharanas"
+        eyebrow: "Core rules, lineages &amp; gharana frameworks"
+        heading: "What Kathak training is built on"
+        parts:
+          - p: "There is no single 'rule book' for a classical dance. The nearest official benchmark is what India's national Kathak institute asks of a dancer at the door of its full-time course — Kathak Kendra's Diploma Honours entry standard (age 19–23) lists the repertoire and theory below."
+            source: kk-courses
+          - list:
+              - "<strong>Teentaal</strong> repertoire: theka, nagma, tatkaar, thaat, amad, tihai, paltey / bol-bant / ladi, tukda, paran, parmelu, chakkardar compositions, gat nikas, gat bhav, kavitta and musical compositions such as sargam."
+              - "<strong>Jhaptaal and Dhamaar taal</strong>: theka, nagma, tatkaar and tihai."
+              - "<strong>Thumri</strong> in its primary format, and a Vandana."
+              - "The ability to <strong>recite and dance all nritta and musical compositions on theka</strong>."
+              - "Theory: history and evolution of Kathak, an introduction to <strong>Panchajaati</strong> in rhythm, the relevant chapters of the <strong>Natya Shastra and Abhinaya Darpan</strong>, India's classical and major folk dances, the eminent artistes and gurus of Kathak, and the definition of every technical term used."
+              - "Desirable: training in <strong>Hindustani vocal music, tabla or pakhawaj</strong> — Kathak is taught as one discipline with Hindustani music."
+            source: kk-courses
+          - table:
+              caption: "The two halves every Doordarshan dance audition tests"
+              head: ["Segment", "Minimum time", "Rule"]
+              rows:
+                - ["<strong>Abhinaya</strong> (expressive dance)", "7 min 30 s", "Recorded in a single take, no editing"]
+                - ["<strong>Nritta</strong> (technical dance)", "7 min 30 s", "Black cyclorama / black background; live or pre-recorded music"]
+            source: dd-dance
+          - p: "On lineage, the Sangeet Natak Akademi's own history of Kathak Kendra says the Kendra became a venue for <strong>merging formats from the Lucknow and Jaipur gharanas</strong>, and that Uttar Pradesh set up a state Kathak Kendra in <strong>Lucknow in 1973</strong> (founding director Lachhu Maharaj) while Rajasthan set up the <strong>Jaipur Kathak Kendra</strong> — 'both places are known for their respective gharanas'."
+            source: sna-kk
+          - p: "Doordarshan treats a lineage as a credential: <strong>'stake holders of the legacy traditions (gharana)'</strong> are one of the three groups that may ask the Director General, Doordarshan for exemption from the routine audition."
+            source: dd-dance
+          - warn: "The <strong>Banaras gharana</strong> (and Raigarh) are widely taught, but Margdarshan found no Sangeet Natak Akademi or Ministry of Culture file that defines or ranks Kathak gharanas, so this page does not. Judge a guru by checkable facts — their own training, their students' Doordarshan grades and Akademi recognition — not by a gharana label alone."
+      - id: recognition
+        nav: "Awards &amp; grades"
+        eyebrow: "Institutional &amp; national recognition"
+        heading: "The recognitions that count for a Kathak dancer"
+        parts:
+          - table:
+              caption: "Sangeet Natak Akademi honours (Kathak is a named dance category)"
+              head: ["Honour", "Who is considered", "What it carries"]
+              rows:
+                - ["<strong>Akademi Ratna</strong> (Fellow)", "Ordinarily <strong>age 50+</strong>; at most 40 living Fellows", "₹3 lakh, citation, angavastram, tamrapatra; medical cover up to ₹1.5 lakh a year"]
+                - ["<strong>Akademi Puraskar</strong> (Award)", "Ordinarily <strong>age 35+</strong>; 12 awards a year in the dance field", "₹1 lakh (raised from ₹50,000 in 2009), citation, angavastram, tamrapatra; medical cover up to ₹1 lakh a year"]
+                - ["<strong>Ustad Bismillah Khan Yuva Puraskar</strong>", "<strong>Up to age 40</strong>; at most 33 a year, 8 of them in dance", "₹25,000 and a tamrapatra; awardees are, as far as possible, invited to perform at the Akademi's festival"]
+            source: "sna-awards,sna-yuva"
+          - p: "Nobody applies for these honours. Yuva Puraskar names come from Akademi Fellows and awardees, General Council members, chairpersons of State Akademis, State/UT culture secretaries, heads of performing-arts departments in recognised universities and eminent experts; Akademi Ratna Fellows are elected by a majority of at least three-fourths of the members present and voting."
+            source: "sna-yuva,sna-awards"
+          - table:
+              caption: "Doordarshan dance grades (guidelines of 27 Feb 2025)"
+              head: ["Grade", "Minimum age", "Who awards it", "Processing fee"]
+              rows:
+                - ["<strong>B</strong>", "18", "Local Dance Audition Committee at the Doordarshan Kendra", "₹2,000"]
+                - ["<strong>B-High</strong>", "25", "Central Dance Audition Board, DG Doordarshan, New Delhi", "₹3,000 (B → B-High)"]
+                - ["<strong>A</strong>", "35", "Central Dance Audition Board", "₹4,000 (B-High → A)"]
+                - ["<strong>Top</strong>", "40", "Central Dance Audition Board", "₹5,000 (A → Top)"]
+            source: dd-dance
+          - list:
+              - "Kendras may invite applications from <strong>1–30 April and/or 1–30 November</strong>; Doordarshan Kendra Lucknow, for example, took classical-dance applications from 1 to 30 April 2026."
+              - "Kathak is one of eight listed classical forms; a <strong>separate application is needed for each dance form</strong>."
+              - "Proof of age, certificates from gurus or institutions and press reviews go with the form."
+              - "Anyone not found suitable can <strong>reappear only after one year</strong>."
+              - "<strong>Exemption route</strong>: national, Padma, SNA, State Government or State Akademi award winners, gharana stake-holders and renowned performers may apply with a recording of at least 15 minutes, not older than 6 months, and a ₹10,000 fee — each grade has its own minimum years of national/international performing experience and minimum age."
+            source: dd-dance
+          - list:
+              - "The Indian Council for Cultural Relations (ICCR) empanels artists <strong>aged 18 and above</strong>; applications are open <strong>throughout the year</strong> and expert advisory committees review them annually."
+              - "ICCR's published genre-wise list (updated 25 Nov 2025) shows each empanelled artist's <strong>current category — Outstanding, Established or Proficient</strong> — and the countries ICCR has sponsored them to."
+            source: "iccr-intro,iccr-list"
+          - note: "ICCR's pages do not publish what separates Proficient, Established and Outstanding, so Margdarshan does not guess the criteria. Empanelment puts you on the panel; it is not a promise of a tour."
+      - id: eligibility
+        nav: "Ages &amp; scholarships"
+        eyebrow: "Professional portfolios &amp; scholarship age benchmarks"
+        heading: "Age limits for every course and scholarship"
+        parts:
+          - table:
+              caption: "Kathak Kendra courses, session 2026-27 (ages as on 1 June 2026)"
+              head: ["Course", "Age", "Schooling needed", "Length"]
+              rows:
+                - ["<strong>Foundation</strong>", "10–15", "Continuing school, Class III completed", "5 years"]
+                - ["<strong>Diploma Pass</strong>", "15–20", "Continuing school, Class IX completed", "3 years"]
+                - ["<strong>Diploma Honours</strong> (full-time, 25 seats)", "19–23", "Class XII passed + Diploma Pass or equivalent", "3 years"]
+                - ["<strong>Post Diploma</strong> (full-time, 25 seats)", "21–26", "Graduate + Diploma Honours or equivalent", "2 years"]
+            source: "kk-adm,kk-courses"
+          - table:
+              caption: "Central scholarships and fellowships open to dancers"
+              head: ["Scheme", "Age", "Amount", "Term"]
+              rows:
+                - ["<strong>CCRT Cultural Talent Search Scholarship</strong>", "10–14", "₹3,600 a year + guru/institution tuition reimbursed up to ₹9,000 a year", "2 years at a time, renewable up to the first degree or age 20; 650 new awards a year"]
+                - ["<strong>Scholarship to Young Artistes</strong> (Ministry of Culture)", "18–25, with at least 5 years under a guru or institution", "₹5,000 a month", "2 years; up to 400 a batch; interview before an expert committee"]
+                - ["<strong>Junior Fellowship</strong>", "25–40", "₹10,000 a month", "2 years, for a cultural research project; 200 a batch"]
+                - ["<strong>Senior Fellowship</strong>", "Above 40", "₹20,000 a month", "2 years; 200 a batch"]
+            source: "ccrt-ctss,pib-sya,pib-ksvy"
+          - list:
+              - "Kathak Kendra's form needs a passport photo, the ₹200 fee receipt, a <strong>medical fitness certificate from an MBBS doctor</strong>, qualification and Kathak training certificates, and government ID."
+              - "Doordarshan's form needs proof of age, certificates from your gurus or institutions and press reviews — start a file of every certificate, programme and review from the first year of training."
+            source: "kk-adm,dd-dance"
+          - warn: "BVA and BFA are visual / fine-arts degrees, not dance degrees. A dancer's routes are an institute diploma (such as Kathak Kendra's) or a performing-arts degree (BPA / MPA) from a recognised university — check the university's recognition before paying any fee."
+      - id: roadmap
+        nav: "Guru to stage"
+        eyebrow: "Grassroots-to-maestro residential pipeline"
+        heading: "From a local guru to national stages"
+        parts:
+          - table:
+              caption: "The Kathak ladder, step by step"
+              head: ["Stage", "Typical age", "What happens", "Who pays"]
+              rows:
+                - ["<strong>Guru–shishya start</strong>", "Under 10", "Lessons with a local guru; keep a dated certificate for every year of training", "Family"]
+                - ["<strong>Talent scholarship</strong>", "10–14", "CCRT Cultural Talent Search Scholarship", "Govt: ₹3,600 a year + tuition up to ₹9,000"]
+                - ["<strong>Foundation / Diploma Pass</strong>", "10–20", "Kathak Kendra part-time courses alongside school", "Family: ₹400–450 a month"]
+                - ["<strong>Full-time training</strong>", "19–23", "Diploma Honours; Doordarshan B grade possible from 18", "Family ₹500 a month; Young-artiste scholarship ₹5,000 a month (18–25)"]
+                - ["<strong>Post Diploma</strong>", "21–26", "Two more years for graduates; B-High grade from 25", "Family ₹650 a month"]
+                - ["<strong>Early career</strong>", "25–40", "Doordarshan bookings, ICCR empanelment, SNA Yuva Puraskar (to 40), Junior Fellowship", "Fees, fellowships, award money"]
+                - ["<strong>Senior artiste / guru</strong>", "35 +", "A (35+) and Top (40+) grades; Akademi Puraskar (35+); a guru's Repertory grant", "Ministry of Culture, SNA"]
+            source: "ccrt-ctss,kk-adm,kk-fees,dd-dance,pib-ksvy,sna-yuva,sna-awards"
+          - p: "The Ministry of Culture's <strong>Repertory grant (Guru–Shishya Parampara)</strong> funds one guru and up to 18 shishyas in a dance, music or theatre group: <strong>₹15,000 a month for the guru</strong> and <strong>₹2,000–10,000 a month for each shishya</strong>, depending on age."
+            source: pib-ksvy
+          - p: "The Sangeet Natak Akademi's own <strong>'Kala Deeksha' (Guru Shishya Parampara)</strong> scheme also funds training programmes under named gurus across the country."
+            source: pib-kd
+      - id: academies
+        nav: "Academies"
+        eyebrow: "Top elite academies &amp; universities"
+        heading: "Where to train — verified 2026-27 details"
+        parts:
+          - list:
+              - "<strong>Kathak Kendra (National Institute of Kathak Dance), New Delhi</strong> — a unit of the Sangeet Natak Akademi, established in 1964; it also teaches Hindustani vocal music, pakhawaj and tabla."
+              - "2026-27 forms were available <strong>6–27 June 2026</strong> (online at admission@kathakkendra.in or at the reception), fee ₹200; applicants sit a pre-admission test and are admitted on merit and seats; orientation was on 10 July 2026."
+            source: "sna-kk,kk-adm"
+          - table:
+              caption: "Kathak Kendra fee structure"
+              head: ["Course", "Fee"]
+              rows:
+                - ["Foundation", "₹400 a month"]
+                - ["Diploma Pass", "₹450 a month"]
+                - ["Preparatory phase (for Diploma Honours)", "₹500 a month"]
+                - ["Diploma Honours", "₹500 a month"]
+                - ["Post Diploma", "₹650 a month"]
+                - ["Refresher", "₹1,250 a month"]
+                - ["ICCR scholarship holders", "₹5,000 a month"]
+                - ["One-time at admission", "₹300 admission + ₹1,000 security deposit + ₹500 library (non-refundable)"]
+            source: kk-fees
+          - list:
+              - "<strong>Gandharva Mahavidyalaya, New Delhi</strong> (founded 1939, affiliated to Akhil Bharatiya Gandharva Mahavidyalaya Mandal, Mumbai) teaches Kathak and Odissi; dance admission age is <strong>11 and above</strong> (as on 1 May 2026)."
+              - "Audition: a 2-minute dance sequence with your own music; Kathak classes are 45 minutes, 3 days a week; 75% attendance is compulsory."
+              - "2026-27 fees: form ₹500, admission ₹5,000, tuition and instrument fee <strong>₹3,000 a month</strong> (Indian nationals), all in cash."
+              - "For the 2026 batch, the Vidyalaya teaches from Prarambhik to Alankar Purna but <strong>does not hold the Mandal's exams</strong> — students sit them privately at other centres."
+            source: gmv-prosp
+          - warn: "<strong>Bhatkhande Sanskriti Vishwavidyalaya, Lucknow</strong> also teaches Kathak, but its official website could not be reached when Margdarshan checked (16 Oct 2026), so its seats, fees and dates are not quoted here. Take them only from the university's own notice."
+      - id: costs
+        nav: "Costs"
+        eyebrow: "Costume overheads &amp; who bears the cost"
+        heading: "What Kathak training costs — and who pays"
+        parts:
+          - table:
+              caption: "Costs that are published in official notices"
+              head: ["Item", "Amount", "Paid by"]
+              rows:
+                - ["Kathak Kendra Diploma Honours tuition", "₹500 a month (₹6,000 a year)", "Family, or a scholarship"]
+                - ["Gandharva Mahavidyalaya, New Delhi", "₹5,000 admission + ₹3,000 a month", "Family"]
+                - ["Doordarshan grading / upgrading", "₹2,000 to ₹5,000 per application", "The artiste"]
+            source: "kk-fees,gmv-prosp,dd-dance"
+          - list:
+              - "<strong>Guru's fees, ages 10–14</strong>: the CCRT scholarship reimburses actual tuition paid to the guru or institution up to ₹9,000 a year."
+              - "<strong>Advanced training, ages 18–25</strong>: the Ministry of Culture's young-artiste scholarship pays ₹5,000 a month for 2 years."
+              - "<strong>Touring abroad</strong>: under the Ministry of Culture's Global Engagement Scheme, all expenditure on deputing an artist to a 'Festival of India' abroad is borne by the Government."
+              - "<strong>Institutions</strong>: Sangeet Natak Akademi grants-in-aid to training institutions run from ₹30,000 to ₹1,00,000 a year — and expressly <strong>do not pay for musical instruments, stage lights or other capital items</strong>."
+            source: "ccrt-ctss,pib-sya,pib-foi,sna-grants"
+          - p: "Gandharva Mahavidyalaya's rules tell dance students to bring their own <strong>ghungroo</strong>, notebook and towel, and to follow the teacher's dress code (kurta-churidar, salwar-kameez or frock-slacks with dupatta)."
+            source: gmv-prosp
+          - warn: "Ghungroo, stage costumes, jewellery and recorded music are bought by the family. No Government file publishes a price list, and how many bells a ghungroo set carries is the guru's call — so Margdarshan does not print prices. Ask the guru for an itemised list, buy practice wear first, and buy stage costumes only when a performance is fixed."
+      - id: earnings
+        nav: "Earnings &amp; jobs"
+        eyebrow: "Earning channels &amp; government-job reality"
+        heading: "How Kathak artistes earn — and what the government offers"
+        parts:
+          - list:
+              - "A Doordarshan grade is <strong>not a salary</strong>: graded artists 'may be given an opportunity to showcase their talent' on Doordarshan's platform when the Kendra needs them."
+            source: dd-dance
+          - list:
+              - "<strong>Guru's Repertory grant</strong>: ₹15,000 a month (Ministry of Culture)."
+              - "<strong>Junior / Senior Fellowship</strong>: ₹10,000 / ₹20,000 a month for 2 years of research."
+              - "<strong>Festival engagements</strong>: Zonal Cultural Centres engage artists from across India for the Rashtriya Sanskriti Mahotsavs — 14 held since November 2015."
+              - "<strong>Old age</strong>: Financial Assistance for Veteran Artists pays up to ₹6,000 a month to artistes aged 60+ with annual income up to ₹72,000; it passes to the spouse on death."
+              - "<strong>Prize money</strong>: SNA Yuva ₹25,000, Akademi Puraskar ₹1 lakh, Akademi Ratna ₹3 lakh."
+            source: "pib-ksvy,sna-yuva,sna-awards"
+          - table:
+              caption: "A senior government post in the field — as advertised"
+              head: ["Post", "Pay", "Age", "Qualification"]
+              rows:
+                - ["Director, Kathak Kendra (SNA), contract 1 year, extendable to 3", "Pay Level 11 — ₹67,700–2,08,700", "40–50 (relaxable)", "PG degree, preferably in humanities, social science, music, dance or drama; experience running performing-arts schemes, especially Kathak and classical music"]
+            source: sna-vac
+          - warn: "There is <strong>no 'cultural quota'</strong> in the central sports-quota rules: DoPT's list of qualifying disciplines covers games and sports only — no dance or music form is on it. Government work for a dancer comes through open teaching and academy posts, graded broadcast and festival engagements, and the schemes above."
+            source: dopt-2022
+      - id: traps
+        nav: "Red flags"
+        eyebrow: "Red flags &amp; honest warnings"
+        heading: "Before you pay anyone"
+        parts:
+          - list:
+              - "<strong>Nobody can 'arrange' a Doordarshan grade</strong>: B is decided by the Kendra's Local Dance Audition Committee and every upgrade by the Central Board in New Delhi; disputes go to the Director General, Doordarshan."
+              - "<strong>Akademi honours are by nomination only</strong> — anyone selling a 'Sangeet Natak Akademi award application' is not from the Akademi."
+              - "Kathak Kendra accepts fees only online or by cheque to 'Director, Kathak Kendra, New Delhi' — <strong>no cash</strong>."
+              - "The young-artiste scholarship needs <strong>at least 5 years of training</strong> under a guru or institution — without year-wise certificates you cannot prove it."
+              - "Watch the age windows: Kathak Kendra's Diploma Honours closes at 23 and the young-artiste scholarship at 25 — a late start can be fixed only through a guru, not the institute."
+            source: "dd-dance,sna-yuva,kk-fees,pib-sya,kk-adm"
+          - note: "Performing is physical work: Kathak Kendra asks for a medical fitness certificate before admission. Train under a qualified guru and treat knee and ankle pain from footwork seriously."
+    sources:
+      - id: kk-adm
+        name: "Kathak Kendra — Admission, session 2026-27"
+        url: "https://www.kathakkendra.in/admission"
+        covers: "Course ages and schooling, 2026 form dates, ₹200 fee, documents, pre-admission test"
+        checked: 2026-10-16
+      - id: kk-courses
+        name: "Kathak Kendra — Courses (Elementary and Advanced)"
+        url: "https://www.kathakkendra.in/courses"
+        covers: "Diploma Honours and Post Diploma entry standards, repertoire and theory"
+        checked: 2026-10-16
+      - id: kk-fees
+        name: "Kathak Kendra — Fee Structure"
+        url: "https://www.kathakkendra.in/fee-structure"
+        covers: "Monthly fees by course, admission, security and library charges, payment rules"
+        checked: 2026-10-16
+      - id: sna-kk
+        name: "Sangeet Natak Akademi — Kathak Kendra (constituent unit)"
+        url: "https://sangeetnatak.gov.in/constituent-units-akademi/kathak-kendra"
+        covers: "Status as SNA unit, 1964, music courses, Lucknow and Jaipur gharanas, state Kathak Kendras"
+        checked: 2026-10-16
+      - id: sna-awards
+        name: "Sangeet Natak Akademi — Guidelines for SNA Fellowship &amp; Award"
+        url: "https://sangeetnatak.gov.in/award-honours/ratna-awards-guidelines"
+        covers: "Akademi Ratna and Puraskar purse, numbers, dance categories, age, election"
+        checked: 2026-10-16
+      - id: sna-yuva
+        name: "Sangeet Natak Akademi — Guidelines for Ustad Bismillah Khan Yuva Puraskar"
+        url: "https://sangeetnatak.gov.in/award-honours/yuva-puruskar-guidelines"
+        covers: "Age up to 40, 33 awards, ₹25,000, nominators, festival performance"
+        checked: 2026-10-16
+      - id: sna-grants
+        name: "Sangeet Natak Akademi — Grants-in-aid to cultural institutions"
+        url: "https://sangeetnatak.gov.in/grants-institutions"
+        covers: "₹30,000–₹1,00,000 grants; no money for instruments or other capital items"
+        checked: 2026-10-16
+      - id: sna-vac
+        name: "Sangeet Natak Akademi — Vacancy circular: Director, Kathak Kendra (2025)"
+        url: "https://sangeetnatak.gov.in/public/uploads/vacancy/174729449329968.pdf"
+        covers: "Pay Level 11, age 40–50, qualifications, contract term"
+        checked: 2026-10-16
+      - id: dd-dance
+        name: "Prasar Bharati / DG Doordarshan — Guidelines for Gradation &amp; Audition of Dance Artists (27 Feb 2025)"
+        url: "https://prasarbharati.gov.in/wp-content/uploads/2025/02/DD-letter-dt-27-02-2025-Guidelines-for-Gradation-Audition-of-Dance-Artists-in-Doordarshan.pdf"
+        covers: "Grades, minimum ages, fees, audition segments, boards, exemption, re-audition gap"
+        checked: 2026-10-16
+      - id: gmv-prosp
+        name: "Gandharva Mahavidyalaya, New Delhi — Prospectus 2026-27"
+        url: "https://gandharvamahavidyalayanewdelhi.org/wp-content/uploads/2026/04/Prospectus-2026-27.pdf"
+        covers: "Courses, ABGMVM levels, admission ages, audition, fees, rules"
+        checked: 2026-10-16
+      - id: iccr-intro
+        name: "ICCR — Empanelment of Artists/Groups: Introduction"
+        url: "https://iccr.gov.in/culture/empanelment-artistsgroups/introduction"
+        covers: "Age 18+, year-round applications, annual expert committees"
+        checked: 2026-10-16
+      - id: iccr-list
+        name: "ICCR — Genre-wise list of empanelled artists (updated 25 Nov 2025)"
+        url: "https://iccr.gov.in/sites/default/files/2025-11/GENRE%20WISE%20LIST%20OF%20ICCR%20EMPANELLED%20ARTISTS_1601_25.11.2025%20(1)_1.pdf"
+        covers: "Current categories Outstanding / Established / Proficient, sponsorship history"
+        checked: 2026-10-16
+      - id: ccrt-ctss
+        name: "CCRT (Ministry of Culture) — Cultural Talent Search Scholarship Scheme"
+        url: "https://ccrtindia.gov.in/?p=383"
+        covers: "Age 10–14, ₹3,600 a year + tuition up to ₹9,000, 650 awards, renewal to age 20"
+        checked: 2026-10-16
+      - id: pib-ksvy
+        name: "PIB — Financial assistance to traditional artists, folk artists and cultural institutions (Lok Sabha, 16 Mar 2026)"
+        url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2240540"
+        covers: "Repertory grant, scholarships, Junior/Senior Fellowships, Veteran Artists, Rashtriya Sanskriti Mahotsavs"
+        checked: 2026-10-16
+      - id: pib-sya
+        name: "PIB — Financial Grant Scheme for Young Artists (Lok Sabha, 10 Mar 2025)"
+        url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2109849"
+        covers: "₹5,000 a month, ages 18–25, 5 years' prior training, expert-committee interview"
+        checked: 2026-10-16
+      - id: pib-foi
+        name: "PIB — Financial Assistance Schemes for Traditional Artists (Rajya Sabha, 27 Mar 2025)"
+        url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2115751"
+        covers: "Global Engagement Scheme — Government bears all expenditure for Festival of India artists"
+        checked: 2026-10-16
+      - id: pib-kd
+        name: "PIB — Preservation and Promotion of Cultural Heritage (17 Mar 2025)"
+        url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2112068"
+        covers: "SNA 'Kala Deeksha' Guru Shishya Parampara training programmes"
+        checked: 2026-10-16
+      - id: dopt-2022
+        name: "DoPT — Instructions on Recruitment/Promotion for Sportspersons (18 Nov 2022)"
+        url: "https://yas.gov.in/sites/default/files/Compendium%20dated%2018.11.2022.pdf"
+        covers: "Qualifying list is games and sports only — no performing arts"
+        checked: 2026-10-16
+  # ------------------------------------------------------------------------------------------------ Bharatanatyam
+  - slug: bharatanatyam
+    short: "Bharatanatyam"
+    domain: arts
+    checked: 2026-10-16
+    body_label: "Recognised by"
+    body: "Sangeet Natak Akademi (SNA) · Ministry of Culture"
+    rules_note: "Akademi, Ministry, Prasar Bharati &amp; ICCR files only"
+    sources_note: "Every fact on this Education Margdarshan page is taken from a Sangeet Natak Akademi, Ministry of Culture, Prasar Bharati or ICCR file below, or from an academy's own 2026-27 notice (used only for that academy). Age limits, fees and scheme amounts change every year — open the current file before you apply or pay."
+    card: "Kalakshetra's 4-year diploma and children's Pratama classes, Doordarshan grades, SNA awards, ICCR empanelment and who pays for training."
+    card_facts: ["Kalakshetra diploma: max age 25", "Pratama classes at 7–17", "DD grades B → Top"]
+    eyebrow: "Performing Arts Cockpit · Classical Dance · Kalakshetra prospectus 2026-27"
+    title: "Bharatanatyam — Kalakshetra training, Doordarshan grades &amp; scholarships"
+    lede: "The Bharatanatyam path laid out from official files: how Kalakshetra's four-year diploma is taught year by year, the age limits for the diploma and the children's Pratama course, Doordarshan's dance grades, Sangeet Natak Akademi honours, ICCR empanelment, the scholarships that pay for training, the real fees, and what a teaching job in the field asks for."
+    official:
+      - { label: "Kalakshetra Prospectus 2026-27 (PDF)", url: "https://kalakshetra.in/wp-content/uploads/2026/02/Prospectus-2026-2027-.pdf" }
+      - { label: "sangeetnatak.gov.in", url: "https://sangeetnatak.gov.in/" }
+    facts:
+      - { label: "Kalakshetra Diploma in Bharatanatyam", value: "<strong>4 years</strong> full-time · Class XII · <strong>max age 25</strong>", source: kala-prosp }
+      - { label: "Pratama (part-time, children)", value: "<strong>Age 7–17</strong> · 6 years · 2 classes a week", source: kala-pratama }
+      - { label: "Doordarshan dance grades", value: "<strong>B · B-High · A · Top</strong> — minimum age 18 / 25 / 35 / 40", source: dd-dance }
+      - { label: "Young-artiste scholarship", value: "<strong>₹5,000 a month</strong> for 2 years · age 18–25", source: pib-ksvy }
+    sections:
+      - id: rules
+        nav: "Form &amp; method"
+        eyebrow: "Core rules, lineages &amp; style frameworks"
+        heading: "How Bharatanatyam is taught at Kalakshetra"
+        parts:
+          - p: "Kalakshetra was founded in <strong>1936 by Rukmini Devi Arundale</strong>; Parliament's <strong>Kalakshetra Foundation Act, 1994</strong> declared it an institution of national importance, and it is an autonomous body under the Ministry of Culture on a nearly 100-acre seaside campus in Chennai."
+            source: "kala-prosp,kala-pratama"
+          - list:
+              - "<strong>Years 1–2</strong>: the <strong>adavus</strong> (basic units of movement), taught by Rukmini Devi's systematised method, with exercises and yoga to widen the range of movement."
+              - "<strong>From year 2</strong>: items (repertoire pieces) are introduced step by step."
+              - "<strong>From year 3</strong>: <strong>abhinaya</strong> (expressive) pieces."
+              - "Graduates leave with a theory, music and language base to learn new items on their own."
+            source: kala-prosp
+          - table:
+              caption: "Subjects in the Kalakshetra Diploma in Bharatanatyam"
+              head: ["Group", "Subjects"]
+              rows:
+                - ["Main", "Bharatanatyam"]
+                - ["Allied music", "Vocal music · Mridangam · <strong>Nattuvangam</strong> (conducting with cymbals and recited syllables)"]
+                - ["Theory", "Theory of dance · History of dance · Heritage · Dissertation"]
+                - ["Languages", "Tamil, Sanskrit, English"]
+                - ["Body", "Yoga, Kalari, fitness"]
+                - ["Final year", "Kutcheri (public recital)"]
+            source: kala-prosp
+          - table:
+              caption: "The two halves every Doordarshan dance audition tests"
+              head: ["Segment", "Minimum time", "Rule"]
+              rows:
+                - ["<strong>Abhinaya</strong> (expressive dance)", "7 min 30 s", "Recorded in a single take, no editing"]
+                - ["<strong>Nritta</strong> (technical dance)", "7 min 30 s", "Black cyclorama / black background; live or pre-recorded music"]
+            source: dd-dance
+          - warn: "Bharatanatyam has several teaching lineages (banis). Margdarshan found no Sangeet Natak Akademi or Ministry of Culture file that defines or ranks them, so this page describes only Kalakshetra's own published method. Judge any guru by their training, their students' Doordarshan grades and Akademi recognition."
+      - id: recognition
+        nav: "Awards &amp; grades"
+        eyebrow: "Institutional &amp; national recognition"
+        heading: "The recognitions that count for a Bharatanatyam dancer"
+        parts:
+          - table:
+              caption: "Sangeet Natak Akademi honours (Bharatanatyam is a named dance category)"
+              head: ["Honour", "Who is considered", "What it carries"]
+              rows:
+                - ["<strong>Akademi Ratna</strong> (Fellow)", "Ordinarily <strong>age 50+</strong>; at most 40 living Fellows", "₹3 lakh, citation, angavastram, tamrapatra; medical cover up to ₹1.5 lakh a year"]
+                - ["<strong>Akademi Puraskar</strong> (Award)", "Ordinarily <strong>age 35+</strong>; 12 awards a year in the dance field", "₹1 lakh, citation, angavastram, tamrapatra; medical cover up to ₹1 lakh a year"]
+                - ["<strong>Ustad Bismillah Khan Yuva Puraskar</strong>", "<strong>Up to age 40</strong>; at most 33 a year, 8 of them in dance", "₹25,000 and a tamrapatra; invitation to perform at the Akademi's festival"]
+            source: "sna-awards,sna-yuva"
+          - p: "These honours are by nomination only — Yuva Puraskar names come from Akademi Fellows and awardees, General Council members, State Akademi chairpersons, State/UT culture secretaries, heads of university performing-arts departments and eminent experts."
+            source: sna-yuva
+          - table:
+              caption: "Doordarshan dance grades (guidelines of 27 Feb 2025)"
+              head: ["Grade", "Minimum age", "Who awards it", "Processing fee"]
+              rows:
+                - ["<strong>B</strong>", "18", "Local Dance Audition Committee at the Doordarshan Kendra", "₹2,000"]
+                - ["<strong>B-High</strong>", "25", "Central Dance Audition Board, DG Doordarshan, New Delhi", "₹3,000 (B → B-High)"]
+                - ["<strong>A</strong>", "35", "Central Dance Audition Board", "₹4,000 (B-High → A)"]
+                - ["<strong>Top</strong>", "40", "Central Dance Audition Board", "₹5,000 (A → Top)"]
+            source: dd-dance
+          - list:
+              - "Applications are invited <strong>1–30 April and/or 1–30 November</strong>, one application per dance form, with proof of age, guru/institution certificates and press reviews."
+              - "Anyone not found suitable can <strong>reappear only after one year</strong>."
+              - "Award winners, gharana/tradition stake-holders and renowned performers may seek <strong>exemption</strong> with a 15-minute recording (not older than 6 months) and a ₹10,000 fee."
+            source: dd-dance
+          - list:
+              - "ICCR empanels artists <strong>aged 18 and above</strong>, with applications open <strong>all year</strong> and expert committees meeting annually."
+              - "Its genre-wise list (updated 25 Nov 2025) opens with Bharatanatyam dancers and shows each one's <strong>current category — Outstanding, Established or Proficient</strong> — and the countries ICCR sent them to."
+            source: "iccr-intro,iccr-list"
+          - note: "ICCR does not publish what separates its three categories, and being empanelled is not a promise of a tour."
+      - id: eligibility
+        nav: "Ages &amp; scholarships"
+        eyebrow: "Professional portfolios &amp; scholarship age benchmarks"
+        heading: "Age limits for Kalakshetra and every scholarship"
+        parts:
+          - table:
+              caption: "Kalakshetra (Rukmini Devi College of Fine Arts) admissions, 2026-27"
+              head: ["Course", "Age", "Qualification", "Selection"]
+              rows:
+                - ["<strong>Diploma in Bharatanatyam</strong> (4 years, full-time)", "<strong>Maximum 25</strong> on 1 July 2026", "Higher Secondary pass (those writing it in April/May 2026 may apply)", "Interview → aptitude test → fitness-cum-medical test"]
+                - ["<strong>Pratama</strong> (6 years, part-time)", "<strong>7 to 17</strong> on 1 July 2026", "School students", "Interaction with the child"]
+            source: "kala-prosp,kala-pratama"
+          - list:
+              - "Diploma applications are online only, with a <strong>₹500</strong> fee; applicants bring a physical-fitness certificate from a registered medical practitioner, and dance applicants also undergo Kalakshetra's own medical examination."
+              - "ICCR candidates living outside India send a video of their performance and are interviewed online."
+              - "Pratama applications for 2026-27 closed on <strong>5 June 2026</strong>; seats are limited and the form stops accepting entries once a course fills."
+            source: "kala-prosp,kala-pratama"
+          - table:
+              caption: "Central scholarships and fellowships open to dancers"
+              head: ["Scheme", "Age", "Amount", "Term"]
+              rows:
+                - ["<strong>CCRT Cultural Talent Search Scholarship</strong>", "10–14", "₹3,600 a year + guru/institution tuition reimbursed up to ₹9,000 a year", "2 years at a time, renewable up to the first degree or age 20; 650 new awards a year"]
+                - ["<strong>Scholarship to Young Artistes</strong>", "18–25, with at least 5 years under a guru or institution", "₹5,000 a month", "2 years; up to 400 a batch"]
+                - ["<strong>Junior Fellowship</strong>", "25–40", "₹10,000 a month", "2 years, research project; 200 a batch"]
+                - ["<strong>Senior Fellowship</strong>", "Above 40", "₹20,000 a month", "2 years; 200 a batch"]
+            source: "ccrt-ctss,pib-sya,pib-ksvy"
+          - warn: "BVA and BFA are visual / fine-arts degrees, not dance degrees. A Bharatanatyam dancer's routes are an institute diploma (such as Kalakshetra's) or a performing-arts degree (BPA / MPA) from a recognised university — check recognition before paying."
+      - id: roadmap
+        nav: "Guru to stage"
+        eyebrow: "Grassroots-to-maestro residential pipeline"
+        heading: "From the first adavu to a national stage"
+        parts:
+          - table:
+              caption: "The Bharatanatyam ladder, step by step"
+              head: ["Stage", "Typical age", "What happens", "Who pays"]
+              rows:
+                - ["<strong>Guru–shishya start</strong>", "From about 7", "A local guru, or Kalakshetra's Pratama course in Chennai (7–17)", "Family (Pratama ₹17,200 in year 1)"]
+                - ["<strong>Talent scholarship</strong>", "10–14", "CCRT Cultural Talent Search Scholarship", "Govt: ₹3,600 a year + tuition up to ₹9,000"]
+                - ["<strong>Full-time diploma</strong>", "After Class XII, up to 25", "Kalakshetra's 4-year diploma, residential (hostel)", "Family ₹26,800–30,000 a year + hostel; Top Class / CSR scholarships for some"]
+                - ["<strong>First grade</strong>", "18 +", "Doordarshan B grade; Young-artiste scholarship (18–25)", "Govt ₹5,000 a month (scholars)"]
+                - ["<strong>Early career</strong>", "25–40", "B-High (25+), ICCR empanelment, SNA Yuva Puraskar, Junior Fellowship", "Fees, fellowships, award money"]
+                - ["<strong>Senior artiste / guru</strong>", "35 +", "A (35+) and Top (40+) grades; Akademi Puraskar (35+); a guru's Repertory grant", "Ministry of Culture, SNA"]
+            source: "kala-pratama,kala-prosp,ccrt-ctss,dd-dance,pib-ksvy,sna-yuva,sna-awards"
+          - p: "The Ministry of Culture's <strong>Repertory grant (Guru–Shishya Parampara)</strong> supports one guru and up to 18 shishyas: <strong>₹15,000 a month for the guru</strong> and <strong>₹2,000–10,000 a month per shishya</strong>, depending on age. The Sangeet Natak Akademi also runs its own 'Kala Deeksha' Guru Shishya Parampara programmes."
+            source: "pib-ksvy,pib-kd"
+      - id: academies
+        nav: "Academies"
+        eyebrow: "Top elite academies &amp; universities"
+        heading: "Kalakshetra in detail — and where else to look"
+        parts:
+          - table:
+              caption: "Kalakshetra fees, 2026-27"
+              head: ["Course / year", "Fee for the year", "How it is paid"]
+              rows:
+                - ["Diploma in Bharatanatyam — 1st year", "<strong>₹30,000</strong>", "₹15,500 by 30 June (incl. ₹400 admission, ₹600 calendar &amp; book fee) + ₹14,500 by 31 October"]
+                - ["Diploma — 2nd to 4th year", "<strong>₹26,800</strong>", "₹13,700 + ₹13,100"]
+                - ["Pratama — 1st year", "<strong>₹17,200</strong>", "₹8,900 before classes (incl. ₹400 admission) + ₹8,300 by 31 October 2026"]
+            source: "kala-prosp,kala-pratama"
+          - list:
+              - "Teacher–student ratio <strong>1 : 8</strong>; a library of over 10,000 books on dance and music."
+              - "Vegetarian hostels — two for girls, one for boys — with two or three students to a room; boarding is paid in two instalments."
+              - "The Ministry of Social Justice's <strong>Top Class Scholarship</strong> has been extended to the college, and a few CSR-funded scholarships go to very talented students whose families cannot pay."
+              - "During the course students may <strong>not learn privately under another teacher</strong>, take tuition classes, or perform publicly without the institution's permission."
+              - "75% attendance is needed to sit semester exams; mobile phones are not allowed in class."
+            source: kala-prosp
+          - p: "Pratama classes run twice a week, 4.30–5.30 pm, at the Thiruvanmiyur campus and (for Bharatanatyam) at Alwarpet in Chennai; a group with fewer than five students may be cancelled."
+            source: kala-pratama
+          - p: "Gandharva Mahavidyalaya, New Delhi lists Bharatanatyam among the dances it teaches, but its 2026 admission forms were open only for Odissi and Kathak."
+            source: gmv-prosp
+      - id: costs
+        nav: "Costs"
+        eyebrow: "Costume overheads &amp; who bears the cost"
+        heading: "What Bharatanatyam training costs — and who pays"
+        parts:
+          - list:
+              - "Kalakshetra students must <strong>equip themselves</strong> with textbooks, notebooks, <strong>practice costumes</strong> and musical instruments; practice costumes are of Kalakshetra's own design and must be followed strictly."
+              - "Damage to an institution instrument is <strong>recovered at market price</strong>; Pratama parents pay too."
+              - "Dress code on campus: girls in sarees or half-sarees, boys in pyjama or dhoti with kurta; expensive jewellery is discouraged."
+            source: "kala-prosp,kala-pratama"
+          - list:
+              - "<strong>Ages 10–14</strong>: the CCRT scholarship reimburses actual tuition paid to the guru up to ₹9,000 a year."
+              - "<strong>Ages 18–25</strong>: the young-artiste scholarship pays ₹5,000 a month for advanced training."
+              - "<strong>Touring abroad</strong>: for a 'Festival of India' under the Global Engagement Scheme, the Government bears all expenditure on deputing the artist."
+              - "<strong>Institutions</strong>: SNA grants-in-aid (₹30,000–₹1,00,000) do not pay for instruments or other capital items."
+            source: "ccrt-ctss,pib-sya,pib-foi,sna-grants"
+          - warn: "Stage costumes (often silk), temple jewellery, ankle bells and make-up are bought by the family, and no Government file publishes their prices — so Margdarshan prints none. Ask the guru for an itemised list, buy the institute's practice costume first, and order stage sets only when a performance or arangetram date is fixed."
+      - id: earnings
+        nav: "Earnings &amp; jobs"
+        eyebrow: "Earning channels &amp; government-job reality"
+        heading: "How Bharatanatyam artistes earn — and what a teaching job asks"
+        parts:
+          - table:
+              caption: "A government teaching post, as advertised (Kalakshetra, March 2026)"
+              head: ["Post", "Pay", "Age", "Must have"]
+              rows:
+                - ["Assistant Professor (Bharatanatyam), Group B — deputation / short-term contract, 2 posts", "Pay Level 16, ₹36,400–1,15,700 (Tamil Nadu 7th Pay matrix)", "Not over 40 on 30 Mar 2026", "Class X; diploma, degree or post-diploma in the field; a <strong>solo performance of about 2 hours</strong>; ability to sing and conduct by <strong>nattuvangam</strong>; teaching theory in English; <strong>8 years' experience</strong>"]
+            source: kala-rec
+          - list:
+              - "A Doordarshan grade is <strong>not a salary</strong> — graded artists 'may be given an opportunity' on Doordarshan's platform when needed."
+            source: dd-dance
+          - list:
+              - "<strong>Guru's Repertory grant</strong>: ₹15,000 a month."
+              - "<strong>Junior / Senior Fellowship</strong>: ₹10,000 / ₹20,000 a month for 2 years."
+              - "<strong>Festival engagements</strong> through the Zonal Cultural Centres' Rashtriya Sanskriti Mahotsavs (14 since November 2015)."
+              - "<strong>Veteran Artists</strong>: up to ₹6,000 a month at 60+ with annual income up to ₹72,000."
+              - "<strong>Prize money</strong>: SNA Yuva ₹25,000, Akademi Puraskar ₹1 lakh, Akademi Ratna ₹3 lakh."
+            source: "pib-ksvy,sna-yuva,sna-awards"
+          - warn: "There is <strong>no 'cultural quota'</strong> in the central sports-quota rules — DoPT's qualifying list covers games and sports only. Government income for a dancer comes from open teaching and academy posts, graded broadcast and festival engagements, and the schemes above."
+            source: dopt-2022
+      - id: traps
+        nav: "Red flags"
+        eyebrow: "Red flags &amp; honest warnings"
+        heading: "Before you pay anyone"
+        parts:
+          - list:
+              - "<strong>Nobody can 'arrange' a Doordarshan grade</strong>: B is decided by the Kendra's committee and every upgrade by the Central Board; disputes go to the Director General, Doordarshan."
+              - "<strong>Akademi honours are by nomination only</strong> — no one can sell you an 'SNA award application'."
+              - "Kalakshetra's diploma closes at <strong>age 25</strong>; plan the application before that birthday."
+              - "Kalakshetra fees, once paid, are <strong>not refunded</strong>, and a student who leaves mid-term pays for the whole term."
+              - "The young-artiste scholarship needs proof of <strong>at least 5 years of training</strong> — keep a certificate for every year."
+            source: "dd-dance,sna-yuva,kala-prosp,pib-sya"
+          - note: "The half-sitting stance and footwork load the knees and ankles, and Kalakshetra makes every dance applicant pass its own medical examination. Report pain to a doctor early rather than dancing through it."
+    sources:
+      - id: kala-prosp
+        name: "Kalakshetra Foundation — Prospectus, 4-year Diploma Courses 2026-27"
+        url: "https://kalakshetra.in/wp-content/uploads/2026/02/Prospectus-2026-2027-.pdf"
+        covers: "History, syllabus, eligibility, selection, fees, hostel, rules, scholarships"
+        checked: 2026-10-16
+      - id: kala-pratama
+        name: "Kalakshetra / Rukmini Devi College of Fine Arts — Six-year Pratama courses 2026-27"
+        url: "https://kalakshetra.in/wp-content/uploads/2026/05/6-YEAR-PRATAMA-COURSES-1.pdf"
+        covers: "Age 7–17, timings, venues, last date, selection, fees"
+        checked: 2026-10-16
+      - id: kala-rec
+        name: "Kalakshetra Foundation — Recruitment notice, Assistant Professor (Bharatanatyam), 2026"
+        url: "https://kalakshetra.in/wp-content/uploads/2026/03/Recrutiment-Notice-Assistant-Professor.pdf"
+        covers: "Pay level, age limit, essential and desirable qualifications"
+        checked: 2026-10-16
+      - id: sna-awards
+        name: "Sangeet Natak Akademi — Guidelines for SNA Fellowship &amp; Award"
+        url: "https://sangeetnatak.gov.in/award-honours/ratna-awards-guidelines"
+        covers: "Akademi Ratna and Puraskar purse, numbers, dance categories, age"
+        checked: 2026-10-16
+      - id: sna-yuva
+        name: "Sangeet Natak Akademi — Guidelines for Ustad Bismillah Khan Yuva Puraskar"
+        url: "https://sangeetnatak.gov.in/award-honours/yuva-puruskar-guidelines"
+        covers: "Age up to 40, 33 awards, ₹25,000, nominators"
+        checked: 2026-10-16
+      - id: sna-grants
+        name: "Sangeet Natak Akademi — Grants-in-aid to cultural institutions"
+        url: "https://sangeetnatak.gov.in/grants-institutions"
+        covers: "₹30,000–₹1,00,000 grants; no money for instruments or capital items"
+        checked: 2026-10-16
+      - id: dd-dance
+        name: "Prasar Bharati / DG Doordarshan — Guidelines for Gradation &amp; Audition of Dance Artists (27 Feb 2025)"
+        url: "https://prasarbharati.gov.in/wp-content/uploads/2025/02/DD-letter-dt-27-02-2025-Guidelines-for-Gradation-Audition-of-Dance-Artists-in-Doordarshan.pdf"
+        covers: "Grades, minimum ages, fees, audition segments, boards, exemption"
+        checked: 2026-10-16
+      - id: gmv-prosp
+        name: "Gandharva Mahavidyalaya, New Delhi — Prospectus 2026-27"
+        url: "https://gandharvamahavidyalayanewdelhi.org/wp-content/uploads/2026/04/Prospectus-2026-27.pdf"
+        covers: "Dance subjects taught and 2026 admission subjects"
+        checked: 2026-10-16
+      - id: iccr-intro
+        name: "ICCR — Empanelment of Artists/Groups: Introduction"
+        url: "https://iccr.gov.in/culture/empanelment-artistsgroups/introduction"
+        covers: "Age 18+, year-round applications, annual expert committees"
+        checked: 2026-10-16
+      - id: iccr-list
+        name: "ICCR — Genre-wise list of empanelled artists (updated 25 Nov 2025)"
+        url: "https://iccr.gov.in/sites/default/files/2025-11/GENRE%20WISE%20LIST%20OF%20ICCR%20EMPANELLED%20ARTISTS_1601_25.11.2025%20(1)_1.pdf"
+        covers: "Current categories Outstanding / Established / Proficient"
+        checked: 2026-10-16
+      - id: ccrt-ctss
+        name: "CCRT (Ministry of Culture) — Cultural Talent Search Scholarship Scheme"
+        url: "https://ccrtindia.gov.in/?p=383"
+        covers: "Age 10–14, ₹3,600 a year + tuition up to ₹9,000, 650 awards, renewal to age 20"
+        checked: 2026-10-16
+      - id: pib-ksvy
+        name: "PIB — Financial assistance to traditional artists, folk artists and cultural institutions (Lok Sabha, 16 Mar 2026)"
+        url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2240540"
+        covers: "Repertory grant, scholarships, fellowships, Veteran Artists, Rashtriya Sanskriti Mahotsavs"
+        checked: 2026-10-16
+      - id: pib-sya
+        name: "PIB — Financial Grant Scheme for Young Artists (Lok Sabha, 10 Mar 2025)"
+        url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2109849"
+        covers: "₹5,000 a month, ages 18–25, 5 years' prior training, interview"
+        checked: 2026-10-16
+      - id: pib-foi
+        name: "PIB — Financial Assistance Schemes for Traditional Artists (Rajya Sabha, 27 Mar 2025)"
+        url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2115751"
+        covers: "Global Engagement Scheme — Government bears Festival of India expenditure"
+        checked: 2026-10-16
+      - id: pib-kd
+        name: "PIB — Preservation and Promotion of Cultural Heritage (17 Mar 2025)"
+        url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2112068"
+        covers: "SNA 'Kala Deeksha' Guru Shishya Parampara programmes"
+        checked: 2026-10-16
+      - id: dopt-2022
+        name: "DoPT — Instructions on Recruitment/Promotion for Sportspersons (18 Nov 2022)"
+        url: "https://yas.gov.in/sites/default/files/Compendium%20dated%2018.11.2022.pdf"
+        covers: "Qualifying list is games and sports only — no performing arts"
+        checked: 2026-10-16
+  # ------------------------------------------------------------------------------------------------ Hindustani music
+  - slug: hindustani-music
+    short: "Hindustani Music"
+    domain: arts
+    checked: 2026-10-16
+    body_label: "Recognised by"
+    body: "Sangeet Natak Akademi · Prasar Bharati (All India Radio)"
+    rules_note: "Akademi, Ministry, Prasar Bharati &amp; ICCR files only"
+    sources_note: "Every fact on this Education Margdarshan page is taken from an All India Radio, Sangeet Natak Akademi, Ministry of Culture or ICCR file below, or from an academy's own 2026-27 notice (used only for that academy). Fees, grades and scheme amounts change — open the current file before you apply or pay."
+    card: "Vocal and instrumental: AIR's B-to-Top grading, the approved raga and tala lists, Gandharva exam levels, SNA awards and the scholarships for training."
+    card_facts: ["AIR grades B → Top", "Top only after 10 yrs in A", "60 ragas on AIR's list"]
+    eyebrow: "Performing Arts Cockpit · Classical Music · AIR audition guidelines 2024"
+    title: "Hindustani Classical Music — AIR grades, ragas, training ladder &amp; scholarships"
+    lede: "For a Hindustani vocalist or instrumentalist, the clearest official benchmark is All India Radio's music audition: what it tests, which ragas and talas it accepts, what it charges and how an artiste climbs from B to Top grade. This page adds the Gandharva exam levels, Kathak Kendra's music courses, the Sangeet Natak Akademi honours, ICCR empanelment, scholarships, fellowships and what broadcasting actually pays."
+    official:
+      - { label: "AIR Music Audition guidelines (PDF)", url: "https://prasarbharati.gov.in/wp-content/uploads/2024/04/Guidelines_AIR_Music_Auditions.pdf" }
+      - { label: "sangeetnatak.gov.in", url: "https://sangeetnatak.gov.in/" }
+    facts:
+      - { label: "AIR grades", value: "<strong>B · B-High · A · Top</strong>, awarded by expert boards", source: air-aud }
+      - { label: "Fresher audition fee", value: "<strong>₹1,298</strong> incl. GST (SC/ST ₹1,003)", source: air-aud }
+      - { label: "Top grade", value: "Only after <strong>10 years in A</strong> grade", source: air-aud }
+      - { label: "Young-artiste scholarship", value: "<strong>₹5,000 a month</strong> for 2 years · age 18–25", source: pib-ksvy }
+    sections:
+      - id: rules
+        nav: "Raga &amp; tala rules"
+        eyebrow: "Core rules, lineages &amp; raga–tala frameworks"
+        heading: "What AIR auditions in Hindustani music — and how it judges"
+        parts:
+          - list:
+              - "<strong>Vocal</strong>: Khayal, Dhrupad / Dhamar, Haveli Sangeet, and light classical vocal — Thumri, Dadra, Tappa, Kajari and Raag Pradhan."
+              - "<strong>Instrumental</strong>: any of the 42 instruments on AIR's approved list, from sitar, sarod, surbahar, rabab, sarangi, esraj, dilruba, santoor, flute and shehnai to tabla, pakhawaj and harmonium."
+            source: air-aud
+          - table:
+              caption: "Hindustani audition format (vocal / instrumental, excluding percussion)"
+              head: ["Level", "What you perform", "Duration"]
+              rows:
+                - ["Fresh and B → B-High", "Two ragas — one morning/afternoon, one evening/night — one of your choice and one the station picks from your list of 25", "30 min (2 × 15)"]
+                - ["B-High → A", "Three items: two ragas of your choice (one of each time band) + one of the station's choice from your list", "60 min (30 + 10 + 20)"]
+                - ["Percussion, fresh and B → B-High", "Two solo talas (your choice + station's) from your list of 10, plus accompaniment (Masitkhani and Razakhani, vilambit and drut)", "45 min"]
+                - ["Light classical, fresh / B → B-High", "Thumri 15 min, Dadra 10 min, Kajri / Chaiti / Tappa 5 min", "30 min"]
+            source: air-aud
+          - list:
+              - "<strong>Swar (melody)</strong>: raga swarup — the grammar of the raga — purity of raga and of tradition (<strong>gharana</strong>); voice or tonal quality and pitch alignment; developing the raga in its entirety; aesthetics and style."
+              - "<strong>Taal (rhythm)</strong>: command of laya and tempo; systematic improvisation in a percussion solo; variety of patterns across talas; for percussionists, accompaniment with understanding, grace and finesse."
+              - "<strong>Sahitya (composition)</strong>: purity of the text with bhava and correct pronunciation; performing the composition — or, for instruments, the gat — in its entirety and developing it with musical phrasing."
+              - "No reverb, echo or other effects on audition recordings; recordings made outside the AIR studio are not accepted."
+            source: air-aud
+          - p: "AIR's list of ragas for Dhrupad, Khayal and instrumental auditions runs to <strong>60 ragas</strong> (from Bilaskhani Todi, Malkauns, Bhairav, Yaman, Darbari and Bihag to Vrindabani Sarang and Kausi Kanhra), with 13 more for Thumri/Dadra. Percussion talas on the list: <strong>Teentaal, Jhaptaal, Roopak, Adachautaal, Savari (15 beats), Dhamar, Chautaal, Sooltaal, Laxmitaal, Teevra and Ektaal</strong>."
+            source: air-aud
+          - warn: "AIR's assessment names purity of 'tradition (gharana)' as a criterion, but no Government file lists or ranks Hindustani gharanas — so this page does not. A guru's gharana is a teaching lineage; the audition judges what you actually sing or play."
+      - id: recognition
+        nav: "Grades &amp; awards"
+        eyebrow: "Institutional &amp; national recognition"
+        heading: "AIR grading, Akademi honours and ICCR"
+        parts:
+          - table:
+              caption: "Who grades a classical musician at All India Radio"
+              head: ["Board", "Where", "Role in classical music"]
+              rows:
+                - ["Local Audition Board (LAB)", "Every AIR station", "Live preliminary screening; successful candidates are recorded and sent on"]
+                - ["Central Audition Board (CAB)", "Directorate General, AIR, New Delhi", "Grades every fresh case and every upgrade from B up to Top"]
+            source: air-aud
+          - list:
+              - "A <strong>B-grade artiste must be upgraded within 5 years</strong> or is removed from the list; if the CAB keeps you at B, the 5 years restart from the result date."
+              - "For B-High, A and Top artistes, a station that sees a decline in quality can send a recent recording to the CAB, which may reduce or withhold bookings."
+              - "The decisions of LAB, RAB and CAB are final; the Director General, AIR settles disputes."
+            source: air-aud
+          - table:
+              caption: "Sangeet Natak Akademi honours (Hindustani vocal and instrumental are named music categories)"
+              head: ["Honour", "Who is considered", "What it carries"]
+              rows:
+                - ["<strong>Akademi Ratna</strong> (Fellow)", "Ordinarily <strong>age 50+</strong>; at most 40 living Fellows", "₹3 lakh, citation, angavastram, tamrapatra; medical cover up to ₹1.5 lakh a year"]
+                - ["<strong>Akademi Puraskar</strong> (Award)", "Ordinarily <strong>age 35+</strong>; 12 awards a year in the music field", "₹1 lakh, citation, angavastram, tamrapatra; medical cover up to ₹1 lakh a year"]
+                - ["<strong>Ustad Bismillah Khan Yuva Puraskar</strong>", "<strong>Up to age 40</strong>; at most 33 a year, 8 of them in music", "₹25,000 and a tamrapatra; invitation to perform at the Akademi's festival"]
+            source: "sna-awards,sna-yuva"
+          - list:
+              - "ICCR empanels artists <strong>aged 18 and above</strong> in Hindustani vocal and instrumental music, with applications open all year and expert committees meeting annually."
+              - "Its genre-wise list (updated 25 Nov 2025) shows each artist's <strong>current category — Outstanding, Established or Proficient</strong>."
+            source: "iccr-intro,iccr-list"
+      - id: eligibility
+        nav: "Fees, ages &amp; scholarships"
+        eyebrow: "Professional portfolios &amp; age benchmarks"
+        heading: "What each step costs, and the age limits"
+        parts:
+          - table:
+              caption: "AIR music audition fees (audition fee + ₹100 form fee + 18% GST)"
+              head: ["Category", "Total", "SC/ST (25% off the audition fee)"]
+              rows:
+                - ["<strong>Fresher</strong>", "₹1,298", "₹1,003"]
+                - ["<strong>Any upgrade</strong> (B → B-High, B-High → A)", "₹2,478", "₹1,888"]
+                - ["<strong>A → Top</strong>", "₹6,018", "₹4,543"]
+                - ["Folk / tribal fresher", "Nil", "Nil"]
+                - ["Divyaang, senior citizens, AIR / Doordarshan staff artists", "Nil", "Nil"]
+            source: air-aud
+          - list:
+              - "There is <strong>no waiting period</strong> to re-audition or seek an upgrade — except Top: you need <strong>10 years in A grade</strong>, and after a failed Top attempt you wait a year."
+              - "A classical fresher who fails at the CAB gets <strong>one exemption from the LAB</strong> screening if they reapply within a year."
+              - "If your discipline is not available at your home station, apply at the nearest station that has it; no TA/DA for the audition, but TA/DA is paid for a booked broadcast."
+            source: air-aud
+          - table:
+              caption: "Central scholarships and fellowships open to musicians"
+              head: ["Scheme", "Age", "Amount", "Term"]
+              rows:
+                - ["<strong>CCRT Cultural Talent Search Scholarship</strong>", "10–14", "₹3,600 a year + guru/institution tuition reimbursed up to ₹9,000 a year", "2 years at a time, renewable up to the first degree or age 20; 650 new awards a year"]
+                - ["<strong>Scholarship to Young Artistes</strong>", "18–25, with at least 5 years under a guru or institution", "₹5,000 a month", "2 years; up to 400 a batch"]
+                - ["<strong>Junior Fellowship</strong>", "25–40", "₹10,000 a month", "2 years, research project; 200 a batch"]
+                - ["<strong>Senior Fellowship</strong>", "Above 40", "₹20,000 a month", "2 years; 200 a batch"]
+            source: "ccrt-ctss,pib-sya,pib-ksvy"
+          - warn: "M.Mus / B.Mus and BPA / MPA are university degrees; Gandharva titles such as Visharad and Alankar are the Mandal's own examinations. Margdarshan found no Government file setting out their equivalence to degrees, so ask the university or employer in writing before relying on one in place of the other."
+      - id: roadmap
+        nav: "Guru to Top grade"
+        eyebrow: "Grassroots-to-maestro pipeline"
+        heading: "From the first lesson to Top grade"
+        parts:
+          - table:
+              caption: "The Hindustani music ladder, step by step"
+              head: ["Stage", "Typical age", "What happens", "Who pays"]
+              rows:
+                - ["<strong>Guru–shishya start</strong>", "Childhood", "Lessons with a guru; Gandharva Mahavidyalaya New Delhi takes children's vocal at 11–14+ and instruments from 11", "Family"]
+                - ["<strong>Talent scholarship</strong>", "10–14", "CCRT Cultural Talent Search Scholarship", "Govt: ₹3,600 a year + tuition up to ₹9,000"]
+                - ["<strong>Graded examinations</strong>", "Teens onward", "Akhil Bharatiya Gandharva Mahavidyalaya Mandal levels: Prarambhik → Praveshika → Madhyama → Visharad → Alankar (each after Prarambhik in Pratham and Purna parts)", "Family"]
+                - ["<strong>First AIR grade</strong>", "Adult", "LAB screening at your station → recording → CAB grades you B (or higher)", "₹1,298 fee"]
+                - ["<strong>Advanced training</strong>", "18–25", "Young-artiste scholarship after 5 years' training", "Govt ₹5,000 a month"]
+                - ["<strong>Climb the grades</strong>", "Within 5 years of B", "B-High, then A, by recorded upgrade auditions", "₹2,478 per upgrade"]
+                - ["<strong>Senior artiste</strong>", "10 years after A", "Top grade audition; SNA Award (35+), Ratna (50+); a guru's Repertory grant", "₹6,018 fee; Ministry of Culture, SNA"]
+            source: "gmv-prosp,ccrt-ctss,air-aud,pib-sya,sna-awards,pib-ksvy"
+          - p: "The Ministry of Culture's <strong>Repertory grant (Guru–Shishya Parampara)</strong> supports music ensembles too — one guru and up to 18 shishyas, <strong>₹15,000 a month for the guru</strong> and <strong>₹2,000–10,000 a month per shishya</strong>, depending on age."
+            source: pib-ksvy
+      - id: academies
+        nav: "Academies"
+        eyebrow: "Top elite academies &amp; universities"
+        heading: "Where to train — verified 2026-27 details"
+        parts:
+          - list:
+              - "<strong>Gandharva Mahavidyalaya, New Delhi</strong> — founded 1939 by Pandit Vinaya Chandra Maudgalya, headed by Pandit Madhup Mudgal, affiliated to the Akhil Bharatiya Gandharva Mahavidyalaya Mandal, Mumbai."
+              - "Subjects: Hindustani vocal, and sitar, flute, tabla and harmonium; separate girls' and boys' vocal classes from <strong>age 15</strong>, instruments from <strong>11</strong>, children's vocal at <strong>11 to 14+</strong> (ages as on 1 May 2026)."
+              - "Audition: a 1-minute song of any kind for vocal; viva only for instruments (no instrument needed)."
+              - "Classes: 1 hour, 3 days a week (children's vocal 45 minutes); 75% attendance compulsory; certificates only after 2 years' training."
+              - "2026-27 fees: form ₹500, admission ₹5,000, tuition and instrument fee <strong>₹3,000 a month</strong> (Indian nationals), cash only; for the 2026 batch the Mandal's exams are taken privately at other centres."
+            source: gmv-prosp
+          - table:
+              caption: "Kathak Kendra (SNA), New Delhi — music courses for accompanists"
+              head: ["Course", "Age (1 June 2026)", "Qualification", "Fee"]
+              rows:
+                - ["Certificate — tabla, pakhawaj, sarangi or vocal (1 year)", "19–21", "Class XII passed", "₹400 a month"]
+                - ["Diploma Special — tabla, pakhawaj, sarangi or vocal (3 years)", "20–25", "Graduate", "₹650 a month"]
+            source: "kk-adm,kk-fees"
+          - warn: "<strong>Bhatkhande Sanskriti Vishwavidyalaya, Lucknow</strong> is a major Hindustani music university, but its official website could not be reached when Margdarshan checked (16 Oct 2026), so no fees, seats or dates are quoted. Take them only from the university's own notice."
+      - id: costs
+        nav: "Costs"
+        eyebrow: "Instrumentation expenses &amp; who bears the cost"
+        heading: "What Hindustani music training costs — and who pays"
+        parts:
+          - list:
+              - "At an AIR audition the station provides tanpura and tabla/pakhawaj accompaniment; if you bring your own accompanists they must hold <strong>at least B-High grade</strong>, and AIR pays them nothing."
+              - "Gandharva Mahavidyalaya's monthly ₹3,000 is a combined <strong>tuition and instrument fee</strong>; students pay for any damage to its instruments."
+            source: "air-aud,gmv-prosp"
+          - list:
+              - "<strong>Guru's fees, ages 10–14</strong>: CCRT reimburses actual tuition up to ₹9,000 a year."
+              - "<strong>Ages 18–25</strong>: the young-artiste scholarship pays ₹5,000 a month for advanced training."
+              - "<strong>Touring abroad</strong>: for a 'Festival of India', the Government bears all expenditure on deputing the artist."
+              - "<strong>Institutions</strong>: SNA grants-in-aid (₹30,000–₹1,00,000) <strong>do not pay for buying or repairing musical instruments</strong>."
+            source: "ccrt-ctss,pib-sya,pib-foi,sna-grants"
+          - warn: "A sitar, sarod, tanpura or a pair of tablas is the family's biggest single cost, and no Government file publishes prices — so Margdarshan prints none. Learn first on the institute's instrument, buy only with your guru, and budget for strings, skins and tuning as running costs."
+      - id: earnings
+        nav: "Earnings &amp; jobs"
+        eyebrow: "Earning channels &amp; government-job reality"
+        heading: "What broadcasting pays — and the government-job reality"
+        parts:
+          - table:
+              caption: "AIR basic fee per booking by grade — AIR Mumbai's annual list of music artistes, as on 1 Jan 2020"
+              head: ["Grade", "Basic fee shown"]
+              rows:
+                - ["<strong>Top</strong>", "₹11,000"]
+                - ["<strong>A</strong>", "₹7,400"]
+                - ["<strong>B-High</strong>", "₹3,000"]
+                - ["<strong>B</strong>", "₹1,700"]
+            source: air-mumbai
+          - note: "These are the figures printed in one station's 2020 list — the latest grade-wise fee list Margdarshan could find on Prasar Bharati's site. Ask your station for the current rate before you rely on it. A grade is not a salary: bookings depend on the station, and the boards can reduce booking frequency."
+          - list:
+              - "<strong>Guru's Repertory grant</strong>: ₹15,000 a month."
+              - "<strong>Junior / Senior Fellowship</strong>: ₹10,000 / ₹20,000 a month for 2 years."
+              - "<strong>Festival engagements</strong> through the Zonal Cultural Centres' Rashtriya Sanskriti Mahotsavs (14 since November 2015)."
+              - "<strong>Veteran Artists</strong>: up to ₹6,000 a month at 60+ with annual income up to ₹72,000."
+              - "<strong>Prize money</strong>: SNA Yuva ₹25,000, Akademi Puraskar ₹1 lakh, Akademi Ratna ₹3 lakh."
+            source: "pib-ksvy,sna-yuva,sna-awards"
+          - warn: "There is <strong>no 'cultural quota'</strong> in the central sports-quota rules — DoPT's qualifying list covers games and sports only. Government income for a musician comes from open teaching posts, graded broadcasts and festival engagements, and the schemes above."
+            source: dopt-2022
+      - id: traps
+        nav: "Red flags"
+        eyebrow: "Red flags &amp; honest warnings"
+        heading: "Before you pay anyone"
+        parts:
+          - list:
+              - "<strong>Nobody can 'arrange' an AIR grade</strong> — classical grades are given only by the Central Audition Board, and its decision is final."
+              - "Recordings for an audition are made <strong>at the AIR studio</strong>; a privately produced recording is not accepted."
+              - "An unused B grade <strong>lapses after 5 years</strong> without an upgrade — plan the next audition early."
+              - "<strong>Akademi honours are by nomination only</strong> — no one can sell you an 'SNA award application'."
+              - "Gandharva Mahavidyalaya, New Delhi says it has <strong>no other branch</strong> — anyone selling admission to a 'branch' is not part of it."
+            source: "air-aud,sna-yuva,gmv-prosp"
+          - note: "Riyaz builds a career, but strain does not: vocalists should treat lasting hoarseness, and instrumentalists lasting wrist or finger pain, as a reason to see a doctor."
+    sources:
+      - id: air-aud
+        name: "Prasar Bharati / DG All India Radio — Guidelines on the Music Audition System (2024)"
+        url: "https://prasarbharati.gov.in/wp-content/uploads/2024/04/Guidelines_AIR_Music_Auditions.pdf"
+        covers: "Grades, boards, audition formats, approved instruments, raga and tala lists, assessment, fees, waiting periods"
+        checked: 2026-10-16
+      - id: air-mumbai
+        name: "All India Radio, Mumbai — Annual list of music artistes (casual/staff) as on 1 Jan 2020"
+        url: "https://prasarbharati.gov.in/wp-content/uploads/music_artists/airmumbai.pdf"
+        covers: "Grade-wise basic fee printed against each classical artiste"
+        checked: 2026-10-16
+      - id: gmv-prosp
+        name: "Gandharva Mahavidyalaya, New Delhi — Prospectus 2026-27"
+        url: "https://gandharvamahavidyalayanewdelhi.org/wp-content/uploads/2026/04/Prospectus-2026-27.pdf"
+        covers: "History, ABGMVM levels, admission ages, audition, rules, fees"
+        checked: 2026-10-16
+      - id: kk-adm
+        name: "Kathak Kendra — Admission, session 2026-27"
+        url: "https://www.kathakkendra.in/admission"
+        covers: "Certificate and Diploma Special music course ages and qualifications"
+        checked: 2026-10-16
+      - id: kk-fees
+        name: "Kathak Kendra — Fee Structure"
+        url: "https://www.kathakkendra.in/fee-structure"
+        covers: "Monthly fees for the tabla / pakhawaj / sarangi / vocal courses"
+        checked: 2026-10-16
+      - id: sna-awards
+        name: "Sangeet Natak Akademi — Guidelines for SNA Fellowship &amp; Award"
+        url: "https://sangeetnatak.gov.in/award-honours/ratna-awards-guidelines"
+        covers: "Akademi Ratna and Puraskar purse, music categories, age"
+        checked: 2026-10-16
+      - id: sna-yuva
+        name: "Sangeet Natak Akademi — Guidelines for Ustad Bismillah Khan Yuva Puraskar"
+        url: "https://sangeetnatak.gov.in/award-honours/yuva-puruskar-guidelines"
+        covers: "Age up to 40, 33 awards (8 in music), ₹25,000, nominators"
+        checked: 2026-10-16
+      - id: sna-grants
+        name: "Sangeet Natak Akademi — Grants-in-aid to cultural institutions"
+        url: "https://sangeetnatak.gov.in/grants-institutions"
+        covers: "₹30,000–₹1,00,000 grants; no money for instruments"
+        checked: 2026-10-16
+      - id: iccr-intro
+        name: "ICCR — Empanelment of Artists/Groups: Introduction"
+        url: "https://iccr.gov.in/culture/empanelment-artistsgroups/introduction"
+        covers: "Age 18+, Hindustani vocal and instrumental, year-round applications"
+        checked: 2026-10-16
+      - id: iccr-list
+        name: "ICCR — Genre-wise list of empanelled artists (updated 25 Nov 2025)"
+        url: "https://iccr.gov.in/sites/default/files/2025-11/GENRE%20WISE%20LIST%20OF%20ICCR%20EMPANELLED%20ARTISTS_1601_25.11.2025%20(1)_1.pdf"
+        covers: "Current categories Outstanding / Established / Proficient"
+        checked: 2026-10-16
+      - id: ccrt-ctss
+        name: "CCRT (Ministry of Culture) — Cultural Talent Search Scholarship Scheme"
+        url: "https://ccrtindia.gov.in/?p=383"
+        covers: "Age 10–14, ₹3,600 a year + tuition up to ₹9,000, 650 awards, renewal to age 20"
+        checked: 2026-10-16
+      - id: pib-ksvy
+        name: "PIB — Financial assistance to traditional artists, folk artists and cultural institutions (Lok Sabha, 16 Mar 2026)"
+        url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2240540"
+        covers: "Repertory grant, scholarships, fellowships, Veteran Artists, Rashtriya Sanskriti Mahotsavs"
+        checked: 2026-10-16
+      - id: pib-sya
+        name: "PIB — Financial Grant Scheme for Young Artists (Lok Sabha, 10 Mar 2025)"
+        url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2109849"
+        covers: "₹5,000 a month, ages 18–25, 5 years' prior training, Indian classical music a recognised field"
+        checked: 2026-10-16
+      - id: pib-foi
+        name: "PIB — Financial Assistance Schemes for Traditional Artists (Rajya Sabha, 27 Mar 2025)"
+        url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2115751"
+        covers: "Global Engagement Scheme — Government bears Festival of India expenditure"
+        checked: 2026-10-16
+      - id: dopt-2022
+        name: "DoPT — Instructions on Recruitment/Promotion for Sportspersons (18 Nov 2022)"
+        url: "https://yas.gov.in/sites/default/files/Compendium%20dated%2018.11.2022.pdf"
+        covers: "Qualifying list is games and sports only — no performing arts"
+        checked: 2026-10-16
+  # ------------------------------------------------------------------------------------------------ Carnatic music
+  - slug: carnatic-music
+    short: "Carnatic Music"
+    domain: arts
+    checked: 2026-10-16
+    body_label: "Recognised by"
+    body: "Sangeet Natak Akademi · Prasar Bharati (All India Radio)"
+    rules_note: "Akademi, Ministry, Prasar Bharati &amp; ICCR files only"
+    sources_note: "Every fact on this Education Margdarshan page is taken from an All India Radio, Sangeet Natak Akademi, Ministry of Culture or ICCR file below, or from an academy's own 2026-27 notice (used only for that academy). Fees, grades and scheme amounts change — open the current file before you apply or pay."
+    card: "Vocal, veena, violin, flute and mridangam: AIR's raga groups and audition format, Kalakshetra's diploma and Pratama classes, SNA awards and scholarships."
+    card_facts: ["AIR list: 15 items, 3 raga groups", "Kalakshetra: 3 hrs main class daily", "Pratama at 7–17"]
+    eyebrow: "Performing Arts Cockpit · Classical Music · AIR guidelines &amp; Kalakshetra 2026-27"
+    title: "Carnatic Music — AIR raga groups, Kalakshetra training, grades &amp; scholarships"
+    lede: "The Carnatic path from official files: how All India Radio auditions a vocalist, instrumentalist or percussionist, the raga groups it tests, the B-to-Top grade ladder and its fees, Kalakshetra's four-year diploma and children's Pratama classes, Sangeet Natak Akademi honours, ICCR empanelment, scholarships, fellowships and what broadcasting actually pays."
+    official:
+      - { label: "AIR Music Audition guidelines (PDF)", url: "https://prasarbharati.gov.in/wp-content/uploads/2024/04/Guidelines_AIR_Music_Auditions.pdf" }
+      - { label: "Kalakshetra Prospectus 2026-27 (PDF)", url: "https://kalakshetra.in/wp-content/uploads/2026/02/Prospectus-2026-2027-.pdf" }
+    facts:
+      - { label: "AIR audition list", value: "<strong>15 items</strong> — 5 each from raga Groups A, B and C", source: air-aud }
+      - { label: "Kalakshetra Diploma in Carnatic Music", value: "<strong>4 years</strong> · 3 hours of main class daily · max age 25", source: kala-prosp }
+      - { label: "Top grade", value: "Only after <strong>10 years in A</strong> grade", source: air-aud }
+      - { label: "Young-artiste scholarship", value: "<strong>₹5,000 a month</strong> for 2 years · age 18–25", source: pib-ksvy }
+    sections:
+      - id: rules
+        nav: "Raga &amp; tala rules"
+        eyebrow: "Core rules, lineages &amp; raga–tala frameworks"
+        heading: "What AIR auditions in Carnatic music — and how it judges"
+        parts:
+          - table:
+              caption: "AIR's three raga groups for Carnatic auditions"
+              head: ["Group", "Kind of raga", "Examples from AIR's list"]
+              rows:
+                - ["<strong>A</strong> (21 ragas)", "Shuddha madhyama", "Begada, Bhairavi, Kambhoji, Kharaharapriya, Mayamalavagowla, Shankarabharanam, Thodi"]
+                - ["<strong>B</strong> (14 ragas)", "Prati madhyama", "Dharmavati, Kalyani, Pantuvarali, Shanmukhapriya, Simhendramadhyamam, Vachaspati, Varali"]
+                - ["<strong>C</strong> (27 ragas)", "Audava / shadava (five- and six-note)", "Abhogi, Hamsadhwani, Hindola, Madhyamavati, Mohanam, Sahana, Surati"]
+            source: air-aud
+          - table:
+              caption: "Carnatic audition format (vocal / instrumental, excluding percussion)"
+              head: ["Level", "What you perform", "Duration"]
+              rows:
+                - ["Fresh and B → B-High", "Ragalapana + kriti with <strong>neraval and swaraprastharam</strong> (Group A or B, 15 min); a second item from the other group (10 min); raga alapana only from Group C (5 min)", "30 min"]
+                - ["B-High → A", "Kriti with neraval and swaraprastharam (30 min); a second kriti of the other madhyama (15 min, station's choice); Group C alapana (10 min, station's choice)", "55 min"]
+                - ["Percussion (except thavil), fresh", "Accompaniment for an Adi tala varnam and a Roopaka / Khanda Chapu kriti; then one talam of your choice and one of the station's, each 5 min accompaniment + 10 min solo", "40 min"]
+                - ["Percussion, upgrade", "Ata tala varnam accompaniment; then two talams (yours and the station's), each 10 min accompaniment + 10 min solo", "50 min"]
+            source: air-aud
+          - list:
+              - "Tanpura and mridangam accompaniment is provided by the station; <strong>nagaswaram</strong> is auditioned as a party — leader with ottu, thavil and talam."
+              - "Judging rests on <strong>swar</strong> (raga grammar, purity of tradition, tone, pitch, developing the raga in full), <strong>taal</strong> (command of laya, systematic improvisation, variety across talas, sensitive accompaniment) and <strong>sahitya</strong> (purity of the composition with bhava and correct pronunciation, rendered in its entirety)."
+              - "No reverb or echo is allowed on audition recordings, and recordings made outside the AIR studio are not accepted."
+              - "Approved instruments include veena, chitra veena, gottu vadyam, violin, flute, mridangam, kanjira, ghatam, morsing, thavil and nagaswaram."
+            source: air-aud
+          - list:
+              - "Kalakshetra's Carnatic diploma gives <strong>3 hours of main music class every day</strong> — more, it says, than any comparable programme — in small classes paced to each student."
+              - "Voice culture is built through regular <strong>sruti exercises, aakaram</strong> and repeated basic exercises in many ragas; rare ragas and kritis are covered, along with works of all the major composers."
+              - "Every vocal student takes an <strong>instrument as a subsidiary</strong>; a veena, violin or mridangam major takes vocal as subsidiary. Two of Tamil, Sanskrit and Telugu are compulsory, with yoga and field trips to Thiruvaiyaru."
+            source: kala-prosp
+          - warn: "Margdarshan found no Government file that lists or ranks Carnatic schools or lineages, so this page does not. The AIR audition judges what you actually sing or play."
+      - id: recognition
+        nav: "Grades &amp; awards"
+        eyebrow: "Institutional &amp; national recognition"
+        heading: "AIR grading, Akademi honours and ICCR"
+        parts:
+          - table:
+              caption: "Who grades a classical musician at All India Radio"
+              head: ["Board", "Where", "Role in classical music"]
+              rows:
+                - ["Local Audition Board (LAB)", "Every AIR station", "Live preliminary screening; successful candidates are recorded and sent on"]
+                - ["Central Audition Board (CAB)", "Directorate General, AIR, New Delhi", "Grades every fresh case and every upgrade from B up to Top"]
+            source: air-aud
+          - list:
+              - "A <strong>B-grade artiste must be upgraded within 5 years</strong> or is removed from the list; if the CAB keeps you at B, the 5 years restart."
+              - "For B-High, A and Top artistes, a station that sees a decline in quality can send a recording to the CAB, which may reduce or withhold bookings."
+            source: air-aud
+          - table:
+              caption: "Sangeet Natak Akademi honours (Carnatic vocal and instrumental are named music categories)"
+              head: ["Honour", "Who is considered", "What it carries"]
+              rows:
+                - ["<strong>Akademi Ratna</strong> (Fellow)", "Ordinarily <strong>age 50+</strong>; at most 40 living Fellows", "₹3 lakh, citation, angavastram, tamrapatra; medical cover up to ₹1.5 lakh a year"]
+                - ["<strong>Akademi Puraskar</strong> (Award)", "Ordinarily <strong>age 35+</strong>; 12 awards a year in the music field", "₹1 lakh, citation, angavastram, tamrapatra; medical cover up to ₹1 lakh a year"]
+                - ["<strong>Ustad Bismillah Khan Yuva Puraskar</strong>", "<strong>Up to age 40</strong>; at most 33 a year, 8 of them in music", "₹25,000 and a tamrapatra; invitation to perform at the Akademi's festival"]
+            source: "sna-awards,sna-yuva"
+          - list:
+              - "ICCR empanels artists <strong>aged 18 and above</strong> in Carnatic vocal and instrumental music, with applications open all year and expert committees meeting annually."
+              - "Its genre-wise list (updated 25 Nov 2025) shows each artist's <strong>current category — Outstanding, Established or Proficient</strong> — and the countries ICCR sent them to."
+            source: "iccr-intro,iccr-list"
+      - id: eligibility
+        nav: "Fees, ages &amp; scholarships"
+        eyebrow: "Professional portfolios &amp; age benchmarks"
+        heading: "Age limits, audition fees and scholarships"
+        parts:
+          - table:
+              caption: "Kalakshetra (Rukmini Devi College of Fine Arts) admissions, 2026-27"
+              head: ["Course", "Age", "Qualification", "Selection"]
+              rows:
+                - ["<strong>Diploma in Carnatic Music</strong> (4 years) — vocal, veena, violin, flute or mridangam", "<strong>Maximum 25</strong> on 1 July 2026", "Higher Secondary pass (those writing it in April/May 2026 may apply)", "Interview → aptitude test → fitness-cum-medical test; ₹500 online application"]
+                - ["<strong>Pratama</strong> (6 years, part-time) — vocal, veena, violin, mridangam", "<strong>7 to 17</strong> on 1 July 2026", "School students", "Interaction with the child; 2026-27 forms closed 5 June 2026"]
+            source: "kala-prosp,kala-pratama"
+          - table:
+              caption: "AIR music audition fees (audition fee + ₹100 form fee + 18% GST)"
+              head: ["Category", "Total", "SC/ST (25% off the audition fee)"]
+              rows:
+                - ["<strong>Fresher</strong>", "₹1,298", "₹1,003"]
+                - ["<strong>Any upgrade</strong> (B → B-High, B-High → A)", "₹2,478", "₹1,888"]
+                - ["<strong>A → Top</strong>", "₹6,018", "₹4,543"]
+                - ["Divyaang, senior citizens, AIR / Doordarshan staff artists", "Nil", "Nil"]
+            source: air-aud
+          - table:
+              caption: "Central scholarships and fellowships open to musicians"
+              head: ["Scheme", "Age", "Amount", "Term"]
+              rows:
+                - ["<strong>CCRT Cultural Talent Search Scholarship</strong>", "10–14", "₹3,600 a year + guru/institution tuition reimbursed up to ₹9,000 a year", "2 years at a time, renewable up to the first degree or age 20; 650 new awards a year"]
+                - ["<strong>Scholarship to Young Artistes</strong>", "18–25, with at least 5 years under a guru or institution", "₹5,000 a month", "2 years; up to 400 a batch"]
+                - ["<strong>Junior Fellowship</strong>", "25–40", "₹10,000 a month", "2 years, research project; 200 a batch"]
+                - ["<strong>Senior Fellowship</strong>", "Above 40", "₹20,000 a month", "2 years; 200 a batch"]
+            source: "ccrt-ctss,pib-sya,pib-ksvy"
+          - warn: "M.Mus / B.Mus and BPA / MPA are university degrees; an institute diploma such as Kalakshetra's is a different credential. Before choosing, ask the university or employer in writing which one a job or higher course accepts."
+      - id: roadmap
+        nav: "Guru to Top grade"
+        eyebrow: "Grassroots-to-maestro pipeline"
+        heading: "From the first varisai to Top grade"
+        parts:
+          - table:
+              caption: "The Carnatic music ladder, step by step"
+              head: ["Stage", "Typical age", "What happens", "Who pays"]
+              rows:
+                - ["<strong>Guru–shishya start</strong>", "From about 7", "A local guru, or Kalakshetra's Pratama course in Chennai (7–17)", "Family (Pratama ₹17,200 in year 1)"]
+                - ["<strong>Talent scholarship</strong>", "10–14", "CCRT Cultural Talent Search Scholarship", "Govt: ₹3,600 a year + tuition up to ₹9,000"]
+                - ["<strong>Full-time diploma</strong>", "After Class XII, up to 25", "Kalakshetra's 4-year diploma, residential (hostel)", "Family ₹15,000 (year 1), then ₹26,800 a year + hostel"]
+                - ["<strong>First AIR grade</strong>", "Adult", "LAB screening at your station → recording → CAB grades you", "₹1,298 fee"]
+                - ["<strong>Advanced training</strong>", "18–25", "Young-artiste scholarship after 5 years' training", "Govt ₹5,000 a month"]
+                - ["<strong>Climb the grades</strong>", "Within 5 years of B", "B-High, then A, by recorded upgrade auditions", "₹2,478 per upgrade"]
+                - ["<strong>Senior artiste</strong>", "10 years after A", "Top grade; SNA Award (35+), Ratna (50+); a guru's Repertory grant", "₹6,018 fee; Ministry of Culture, SNA"]
+            source: "kala-pratama,ccrt-ctss,kala-prosp,air-aud,pib-sya,sna-awards,pib-ksvy"
+          - p: "The Ministry of Culture's <strong>Repertory grant (Guru–Shishya Parampara)</strong> supports music ensembles — one guru and up to 18 shishyas, <strong>₹15,000 a month for the guru</strong> and <strong>₹2,000–10,000 a month per shishya</strong>, depending on age."
+            source: pib-ksvy
+      - id: academies
+        nav: "Academies"
+        eyebrow: "Top elite academies &amp; universities"
+        heading: "Kalakshetra in detail — and where else to look"
+        parts:
+          - table:
+              caption: "Kalakshetra fees, 2026-27"
+              head: ["Course / year", "Fee for the year", "How it is paid"]
+              rows:
+                - ["Diploma in Carnatic Music — 1st year", "<strong>₹15,000</strong>", "₹7,750 by 30 June + ₹7,250 by 31 October"]
+                - ["Diploma — 2nd to 4th year", "<strong>₹26,800</strong>", "₹13,700 + ₹13,100"]
+                - ["Pratama — 1st year", "<strong>₹17,200</strong>", "₹8,900 before classes (incl. ₹400 admission) + ₹8,300 by 31 October 2026"]
+            source: "kala-prosp,kala-pratama"
+          - list:
+              - "Teachers who shaped Kalakshetra's music teaching include <strong>Tiger Varadachariar, Mysore Vasudevachariar, Budalur Krishnamurthi Sastri and M.D. Ramanathan</strong>."
+              - "Teacher–student ratio <strong>1 : 8</strong>; a library of over 10,000 books; vegetarian hostels with two or three students to a room."
+              - "The Ministry of Social Justice's <strong>Top Class Scholarship</strong> has been extended to the college, and a few CSR-funded scholarships go to very talented students whose families cannot pay."
+              - "During the course students may <strong>not learn privately under another teacher</strong>, take tuition classes, record on campus without permission, or perform publicly without the institution's permission."
+            source: kala-prosp
+          - note: "Margdarshan lists only institutions whose own 2026-27 notice it has read. Several states also run government music colleges and universities — check each one's own current prospectus for seats and fees."
+      - id: costs
+        nav: "Costs"
+        eyebrow: "Instrumentation expenses &amp; who bears the cost"
+        heading: "What Carnatic music training costs — and who pays"
+        parts:
+          - list:
+              - "Kalakshetra students must <strong>bring their own musical instruments</strong>, textbooks and notebooks; damage to an institution instrument is <strong>recovered at market price</strong> (Pratama parents pay too)."
+              - "At an AIR audition the station provides tanpura and mridangam; your own accompanists must hold <strong>at least B-High grade</strong>, and AIR pays them nothing."
+            source: "kala-prosp,kala-pratama,air-aud"
+          - list:
+              - "<strong>Guru's fees, ages 10–14</strong>: CCRT reimburses actual tuition up to ₹9,000 a year."
+              - "<strong>Ages 18–25</strong>: the young-artiste scholarship pays ₹5,000 a month for advanced training."
+              - "<strong>Touring abroad</strong>: for a 'Festival of India', the Government bears all expenditure on deputing the artist."
+              - "<strong>Institutions</strong>: SNA grants-in-aid (₹30,000–₹1,00,000) <strong>do not pay for buying or repairing musical instruments</strong>."
+            source: "ccrt-ctss,pib-sya,pib-foi,sna-grants"
+          - warn: "A veena, violin or mridangam is the family's biggest single cost, and no Government file publishes prices — so Margdarshan prints none. Start on a teacher-approved student instrument, buy only with your guru, and budget for strings, skins and maintenance."
+      - id: earnings
+        nav: "Earnings &amp; jobs"
+        eyebrow: "Earning channels &amp; government-job reality"
+        heading: "What broadcasting pays — and the government-job reality"
+        parts:
+          - table:
+              caption: "AIR basic fee per booking by grade — AIR Mumbai's annual list of music artistes, as on 1 Jan 2020"
+              head: ["Grade", "Basic fee shown"]
+              rows:
+                - ["<strong>Top</strong>", "₹11,000"]
+                - ["<strong>A</strong>", "₹7,400"]
+                - ["<strong>B-High</strong>", "₹3,000"]
+                - ["<strong>B</strong>", "₹1,700"]
+            source: air-mumbai
+          - note: "These are the grade-wise figures printed in one station's 2020 list — AIR Chennai's list on the same site shows grades but not amounts. Ask your station for the current rate. A grade is not a salary: bookings depend on the station, and the boards can reduce booking frequency."
+          - list:
+              - "<strong>Guru's Repertory grant</strong>: ₹15,000 a month."
+              - "<strong>Junior / Senior Fellowship</strong>: ₹10,000 / ₹20,000 a month for 2 years."
+              - "<strong>Festival engagements</strong> through the Zonal Cultural Centres' Rashtriya Sanskriti Mahotsavs (14 since November 2015)."
+              - "<strong>Veteran Artists</strong>: up to ₹6,000 a month at 60+ with annual income up to ₹72,000."
+              - "<strong>Prize money</strong>: SNA Yuva ₹25,000, Akademi Puraskar ₹1 lakh, Akademi Ratna ₹3 lakh."
+            source: "pib-ksvy,sna-yuva,sna-awards"
+          - warn: "There is <strong>no 'cultural quota'</strong> in the central sports-quota rules — DoPT's qualifying list covers games and sports only. Government income for a musician comes from open teaching posts, graded broadcasts and festival engagements, and the schemes above."
+            source: dopt-2022
+      - id: traps
+        nav: "Red flags"
+        eyebrow: "Red flags &amp; honest warnings"
+        heading: "Before you pay anyone"
+        parts:
+          - list:
+              - "<strong>Nobody can 'arrange' an AIR grade</strong> — classical grades are given only by the Central Audition Board, and its decision is final."
+              - "Audition recordings are made <strong>at the AIR studio</strong>; a privately produced recording is not accepted."
+              - "A B grade <strong>lapses after 5 years</strong> without an upgrade — plan the next audition early."
+              - "<strong>Akademi honours are by nomination only</strong> — no one can sell you an 'SNA award application'."
+              - "Kalakshetra fees are <strong>not refunded</strong>, and a student who leaves mid-term pays for the whole term."
+            source: "air-aud,sna-yuva,kala-prosp"
+          - note: "Riyaz builds a career, but strain does not: vocalists should treat lasting hoarseness, and instrumentalists lasting wrist or finger pain, as a reason to see a doctor."
+    sources:
+      - id: air-aud
+        name: "Prasar Bharati / DG All India Radio — Guidelines on the Music Audition System (2024)"
+        url: "https://prasarbharati.gov.in/wp-content/uploads/2024/04/Guidelines_AIR_Music_Auditions.pdf"
+        covers: "Grades, boards, Carnatic audition formats, raga groups, instruments, assessment, fees"
+        checked: 2026-10-16
+      - id: air-mumbai
+        name: "All India Radio, Mumbai — Annual list of music artistes (casual/staff) as on 1 Jan 2020"
+        url: "https://prasarbharati.gov.in/wp-content/uploads/music_artists/airmumbai.pdf"
+        covers: "Grade-wise basic fee printed against each classical artiste"
+        checked: 2026-10-16
+      - id: kala-prosp
+        name: "Kalakshetra Foundation — Prospectus, 4-year Diploma Courses 2026-27"
+        url: "https://kalakshetra.in/wp-content/uploads/2026/02/Prospectus-2026-2027-.pdf"
+        covers: "Carnatic diploma syllabus, eligibility, selection, fees, hostel, rules, scholarships"
+        checked: 2026-10-16
+      - id: kala-pratama
+        name: "Kalakshetra / Rukmini Devi College of Fine Arts — Six-year Pratama courses 2026-27"
+        url: "https://kalakshetra.in/wp-content/uploads/2026/05/6-YEAR-PRATAMA-COURSES-1.pdf"
+        covers: "Age 7–17, Carnatic vocal and instrument classes, fees, last date"
+        checked: 2026-10-16
+      - id: sna-awards
+        name: "Sangeet Natak Akademi — Guidelines for SNA Fellowship &amp; Award"
+        url: "https://sangeetnatak.gov.in/award-honours/ratna-awards-guidelines"
+        covers: "Akademi Ratna and Puraskar purse, music categories, age"
+        checked: 2026-10-16
+      - id: sna-yuva
+        name: "Sangeet Natak Akademi — Guidelines for Ustad Bismillah Khan Yuva Puraskar"
+        url: "https://sangeetnatak.gov.in/award-honours/yuva-puruskar-guidelines"
+        covers: "Age up to 40, 33 awards (8 in music), ₹25,000, nominators"
+        checked: 2026-10-16
+      - id: sna-grants
+        name: "Sangeet Natak Akademi — Grants-in-aid to cultural institutions"
+        url: "https://sangeetnatak.gov.in/grants-institutions"
+        covers: "₹30,000–₹1,00,000 grants; no money for instruments"
+        checked: 2026-10-16
+      - id: iccr-intro
+        name: "ICCR — Empanelment of Artists/Groups: Introduction"
+        url: "https://iccr.gov.in/culture/empanelment-artistsgroups/introduction"
+        covers: "Age 18+, Carnatic vocal and instrumental, year-round applications"
+        checked: 2026-10-16
+      - id: iccr-list
+        name: "ICCR — Genre-wise list of empanelled artists (updated 25 Nov 2025)"
+        url: "https://iccr.gov.in/sites/default/files/2025-11/GENRE%20WISE%20LIST%20OF%20ICCR%20EMPANELLED%20ARTISTS_1601_25.11.2025%20(1)_1.pdf"
+        covers: "Current categories Outstanding / Established / Proficient"
+        checked: 2026-10-16
+      - id: ccrt-ctss
+        name: "CCRT (Ministry of Culture) — Cultural Talent Search Scholarship Scheme"
+        url: "https://ccrtindia.gov.in/?p=383"
+        covers: "Age 10–14, ₹3,600 a year + tuition up to ₹9,000, 650 awards, renewal to age 20"
+        checked: 2026-10-16
+      - id: pib-ksvy
+        name: "PIB — Financial assistance to traditional artists, folk artists and cultural institutions (Lok Sabha, 16 Mar 2026)"
+        url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2240540"
+        covers: "Repertory grant, scholarships, fellowships, Veteran Artists, Rashtriya Sanskriti Mahotsavs"
+        checked: 2026-10-16
+      - id: pib-sya
+        name: "PIB — Financial Grant Scheme for Young Artists (Lok Sabha, 10 Mar 2025)"
+        url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2109849"
+        covers: "₹5,000 a month, ages 18–25, 5 years' prior training"
+        checked: 2026-10-16
+      - id: pib-foi
+        name: "PIB — Financial Assistance Schemes for Traditional Artists (Rajya Sabha, 27 Mar 2025)"
+        url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2115751"
+        covers: "Global Engagement Scheme — Government bears Festival of India expenditure"
+        checked: 2026-10-16
+      - id: dopt-2022
+        name: "DoPT — Instructions on Recruitment/Promotion for Sportspersons (18 Nov 2022)"
+        url: "https://yas.gov.in/sites/default/files/Compendium%20dated%2018.11.2022.pdf"
+        covers: "Qualifying list is games and sports only — no performing arts"
         checked: 2026-10-16

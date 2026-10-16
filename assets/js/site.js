@@ -10,6 +10,121 @@ sitemap: false
 ---
 var SCRIPT_ROOT = (document.currentScript && document.currentScript.getAttribute('data-root')) || '';
 
+/* ===== Block 0: pointer form — long paragraphs become bullet points, bare lists get visible markers =====
+   Runs on every page (old, new, data-driven or hand-written), so no page needs editing.
+   1. A <p> inside <main> of 140+ characters is split at sentence ends (or, for one long sentence, at
+      "; " / " — ") into <ul class="auto-points">,
+      one sentence per point. Inline markup (links, <strong>) is kept via
+      Range.cloneContents. The <ul> takes over the paragraph's id/class/attributes so its styling stays.
+   2. A plain <ul>/<ol> inside <main> whose items show no marker of their own gets .auto-marked
+      (dot for <ul>, number for <ol>; see main.css).
+   Opt out with data-no-points on the element or any ancestor. Runs before Block 1's read-more,
+   which measures the converted blocks on window load. */
+try {
+(function(){
+  "use strict";
+  var main = document.querySelector('main');
+  if(!main) return;
+  var MIN_CHARS = 140;
+  var SKIP = 'header,nav,footer,form,table,blockquote,figcaption,summary,button,label,a,[contenteditable],[data-no-points]';
+  // Words that end in "." without ending a sentence.
+  var ABBR = /(?:^|[\s(])(?:e\.g|i\.e|etc|vs|v|viz|approx|Rs|No|Nos|Dr|Mr|Mrs|Ms|Prof|St|Sr|Jr|Govt|Dept|Inc|Ltd|Co|Fig|Vol|min|max|yrs|hrs|incl|est|Sec|Art|Ph|[A-Za-z])$/;
+
+  function boundaries(text){
+    var out = [], re = /([.!?।])(["'”’)]*)(\s+)(?=["'“‘(]?[A-Z0-9₹ऀ-૿])/g, m;
+    while((m = re.exec(text))){
+      var before = text.slice(0, m.index);
+      if(m[1] === '.' && (ABBR.test(before) || /\.[A-Za-z]+$/.test(before) || /\d$/.test(before) && /^\d/.test(text.slice(re.lastIndex)))) continue;
+      out.push({ end: m.index + m[1].length + m[2].length, next: re.lastIndex });
+    }
+    return out;
+  }
+  // Fallback for one long sentence: split at "; " (kept on the left) or " — " (dropped) when both
+  // sides are substantial. CSS capitalises the first letter of each point.
+  function clauses(text){
+    var out = [], re = /;\s+|\s+[—–]\s+/g, m;
+    while((m = re.exec(text))){
+      var end = m[0].charAt(0) === ';' ? m.index + 1 : m.index;
+      var prev = out.length ? out[out.length-1].next : 0;
+      if(end - prev >= 40 && text.length - re.lastIndex >= 40) out.push({ end: end, next: re.lastIndex });
+    }
+    return out;
+  }
+
+  function split(p){
+    var text = p.textContent.replace(/\s+/g, ' ').trim();
+    if(text.length < MIN_CHARS) return null;
+    // Map every character of the paragraph to (text node, offset) so a cut point in the flat
+    // string can be turned into a DOM Range position.
+    var nodes = [], flat = '', walker = document.createTreeWalker(p, NodeFilter.SHOW_TEXT, null), n;
+    while((n = walker.nextNode())){ nodes.push({ node: n, start: flat.length }); flat += n.nodeValue; }
+    var cuts = boundaries(flat);
+    if(!cuts.length) cuts = clauses(flat);
+    if(!cuts.length) return null;
+    function pos(i){
+      for(var k = nodes.length - 1; k >= 0; k--){
+        if(i >= nodes[k].start) return { node: nodes[k].node, offset: Math.min(i - nodes[k].start, nodes[k].node.nodeValue.length) };
+      }
+      return { node: nodes[0].node, offset: 0 };
+    }
+    // Segments as [start, end) in the flat string; merge pieces too short to stand alone.
+    var segs = [], from = 0;
+    cuts.forEach(function(c){ segs.push([from, c.end]); from = c.next; });
+    segs.push([from, flat.length]);
+    var merged = [];
+    segs.forEach(function(s){
+      var len = flat.slice(s[0], s[1]).trim().length;
+      if(!len) return;
+      if(merged.length && (len < 25 || flat.slice(merged[merged.length-1][0], merged[merged.length-1][1]).trim().length < 25)) merged[merged.length-1][1] = s[1];
+      else merged.push(s);
+    });
+    if(merged.length < 2) return null;
+    return merged.map(function(s){
+      var r = document.createRange(), a = pos(s[0]), b = pos(s[1]);
+      r.setStart(a.node, a.offset); r.setEnd(b.node, b.offset);
+      return r.cloneContents();
+    });
+  }
+
+  main.querySelectorAll('p').forEach(function(p){
+    if(p.closest(SKIP) || !p.isConnected) return;
+    // Only plain inline content — a paragraph holding block-level or interactive widgets stays as is.
+    if(p.querySelector('img,svg,input,select,textarea,button,br,iframe,video')) return;
+    var parts = split(p);
+    if(!parts) return;
+    var ul = document.createElement('ul');
+    for(var i = 0; i < p.attributes.length; i++) ul.setAttribute(p.attributes[i].name, p.attributes[i].value);
+    ul.classList.add('auto-points');
+    parts.forEach(function(frag){
+      var li = document.createElement('li');
+      li.appendChild(frag);
+      // Trim the whitespace left at either edge of a cut.
+      var f = li.firstChild, l = li.lastChild;
+      if(f && f.nodeType === 3) f.nodeValue = f.nodeValue.replace(/^\s+/, '');
+      if(l && l.nodeType === 3) l.nodeValue = l.nodeValue.replace(/\s+$/, '');
+      ul.appendChild(li);
+    });
+    p.parentNode.replaceChild(ul, p);
+  });
+
+  // Existing lists that render with no visible marker (the global ul/ol reset) get one.
+  main.querySelectorAll('ul:not([class]),ol:not([class])').forEach(function(list){
+    if(list.closest('header,nav,footer,form,[role="tablist"],[role="menu"],[data-no-points]')) return;
+    var cs = getComputedStyle(list);
+    if(cs.display === 'flex' || cs.display === 'inline-flex') return; // chip / pill rows
+    var items = list.querySelectorAll(':scope > li');
+    if(!items.length) return;
+    for(var i = 0; i < items.length; i++){
+      var li = items[i], ls = getComputedStyle(li), before = getComputedStyle(li, '::before').content;
+      if((ls.listStyleType && ls.listStyleType !== 'none') || (before && before !== 'none' && before !== 'normal')) return; // already marked
+      var first = li.firstElementChild;
+      if(first && /^(svg|img)$/i.test(first.tagName) && !(li.firstChild.nodeType === 3 && li.firstChild.nodeValue.trim())) return; // icon bullets
+    }
+    list.classList.add('auto-marked');
+  });
+})();
+} catch (e) { if (window.console) console.error(e); }
+
 /* ===== Block 1: shell: theme, sidebar, edition, search, FAQ, progress, reveal, read-more ===== */
 try {
 (function(){
@@ -512,8 +627,9 @@ try {
     blocks.forEach(function(block){
       // Only target plain paragraph content: skip anything with lists,
       // tables, or other structured/nested content.
-      if(block.querySelector('ul,ol,table,div')) return;
-      var paras = block.querySelectorAll('p');
+      // (.auto-points lists are paragraphs turned into points by Block 0 — still prose.)
+      if(block.querySelector('ul:not(.auto-points),ol,table,div')) return;
+      var paras = block.querySelectorAll('p,ul.auto-points');
       if(!paras.length) return;
 
       var lineHeight = parseFloat(getComputedStyle(block).lineHeight);

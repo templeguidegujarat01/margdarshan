@@ -1,15 +1,17 @@
 {%- comment -%}
   Sports cockpit page (cricket.html, football.html, hockey.html, kabaddi.html, athletics.html, badminton.html,
   boxing.html, shooting.html, swimming.html, archery.html, weightlifting.html, table-tennis.html, basketball.html,
-  volleyball.html, wrestling.html, chess.html). The page file keeps only its SEO front matter and
+  volleyball.html, wrestling.html, chess.html, kathak.html, bharatanatyam.html, hindustani-music.html,
+  carnatic-music.html). The page file keeps only its SEO front matter and
 
       {% include sport-page.html sport="football" %}
 
   Everything else comes from _data/in/sports.yml → sports[] (the entry whose slug = sport): hero (eyebrow, title,
-  lede, body), the 2 x 2 fact console (facts[] with source), official buttons, eight fixed blocks (rules,
+  lede, body — shown after body_label, default "Governed by"), the 2 x 2 fact console (facts[] with source), official buttons, eight fixed blocks (rules,
   recognition, eligibility, roadmap, academies, costs, earnings, traps) and the numbered sources — 9 blocks in all.
   Part kinds and markup are the exam console's (national-exam.html: .sc-*, .mb, 760px console), so the sports
-  pages and exam pages read as one system. scripts/check-in-data.mjs validates the sheet.
+  pages and exam pages read as one system. scripts/check-in-data.mjs validates the sheet. Classical-arts entries
+  (domain arts) set body_label, rules_note and sources_note so the hero and Sources text speak of art forms, not sports.
 {%- endcomment -%}
 {%- assign SP = site.data.in.sports -%}
 {%- assign E = SP.sports | where: "slug", include.sport | first -%}
@@ -48,8 +50,8 @@
       <span class="eyebrow">{{ E.eyebrow }}</span>
       <h1 id="hero-heading">{{ E.title }}</h1>
       <div class="meta-row">
-        <span>Governed by {{ E.body }}</span>
-        <span>·</span><span>Official rule books &amp; government schemes only</span>
+        <span>{{ E.body_label | default: "Governed by" }} {{ E.body }}</span>
+        <span>·</span><span>{{ E.rules_note | default: "Official rule books &amp; government schemes only" }}</span>
         <span>·</span><span>Last checked {{ CK | date: "%-d %b %Y" }}</span>
       </div>
       <p>{{ E.lede }}</p>
@@ -134,7 +136,11 @@
       <div class="section-head">
         <span class="eyebrow"><span class="sc-step">{{ E.sections.size | plus: 1 | prepend: "0" | slice: -2, 2 }}</span> Official sources &amp; verification</span>
         <h2 id="sources-heading">Where these facts come from</h2>
+        {%- if E.sources_note %}
+        <p>{{ E.sources_note }} Read on {{ CK | date: "%-d %B %Y" }}.</p>
+        {%- else %}
         <p>Every fact on this Education Margdarshan page is taken from the governing body's own rule book or a Government of India file below, read on {{ CK | date: "%-d %B %Y" }}. Federations change rules, weight classes and scheme amounts — open the current file before you act on it.</p>
+        {%- endif %}
       </div>
       <ol class="cite-list">
         {%- for s in SRC %}

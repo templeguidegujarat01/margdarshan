@@ -3208,15 +3208,17 @@ main.sc-page > section.mb .section-head{margin-bottom:1.1rem;}
 .sp-page .sc-p strong,.sp-page .sc-list strong,.sp-page td strong,.sp-hub .sc-list strong{color:var(--text);font-weight:750;}
 @media (prefers-reduced-motion:reduce){.sp-go{transition:none;}}
 /* ===================== POINTER FORM (site.js Block 0) =====================
-   .auto-points = a long paragraph split into one point per sentence; .auto-marked = a bare list that had
-   no visible marker. Gold dot for points, gold number for ordered lists. Selectors carry ul/ol + class so
-   they outrank .prose ul li (flex) and similar container rules declared earlier. */
-ul.auto-points,ul.auto-marked{display:grid;gap:.45rem;padding:0;list-style:none;}
-ul.auto-points > li,ul.auto-marked > li{display:block;position:relative;padding-left:1.25rem;line-height:1.6;}
-ul.auto-points > li::before,ul.auto-marked > li::before{content:"";position:absolute;left:.15rem;top:.62em;width:.45rem;height:.45rem;border-radius:999px;background:var(--gold-strong,var(--gold));}
-[data-theme="dark"] ul.auto-points > li::before,[data-theme="dark"] ul.auto-marked > li::before{background:var(--gold);}
-ol.auto-marked{display:grid;gap:.45rem;padding:0;list-style:none;counter-reset:automark;}
-ol.auto-marked > li{position:relative;padding-left:1.7rem;line-height:1.6;counter-increment:automark;}
-ol.auto-marked > li::before{content:counter(automark) ".";position:absolute;left:0;top:0;min-width:1.3rem;font-weight:700;color:var(--gold-strong,var(--gold));font-variant-numeric:tabular-nums;}
+   .auto-points = a long paragraph split into one point per sentence; .auto-marked = a list that had no
+   visible marker (incl. data lists like .sc-list, whose ::marker the global ul/ol reset hid). Every point
+   is li.sc-pointer-line: a 1.5rem hanging gutter with the marker absolutely placed in it, so wrapped lines
+   align under the first word (no text-indent needed). Gold dot for <ul>, gold number for <ol>.
+   Selectors carry ul/ol + class so they outrank .prose ul li (flex) and similar rules declared earlier. */
+ul.auto-points,ul.auto-marked{display:grid;gap:.5rem;padding:0;list-style:none;}
+ul.auto-points > li,ul.auto-marked > li,ul > li.sc-pointer-line{display:block;position:relative;padding-left:1.5rem;line-height:1.6;}
+ul.auto-points > li::before,ul.auto-marked > li::before,ul > li.sc-pointer-line::before{content:"";position:absolute;left:.3rem;top:.58em;width:.5rem;height:.5rem;border-radius:999px;background:var(--gold-strong,var(--gold));}
+[data-theme="dark"] ul.auto-points > li::before,[data-theme="dark"] ul.auto-marked > li::before,[data-theme="dark"] ul > li.sc-pointer-line::before{background:var(--gold);}
+ol.auto-marked{display:grid;gap:.5rem;padding:0;list-style:none;counter-reset:automark;}
+ol.auto-marked > li{position:relative;padding-left:1.75rem;line-height:1.6;counter-increment:automark;}
+ol.auto-marked > li::before{content:counter(automark) ".";position:absolute;left:0;top:0;min-width:1.4rem;font-weight:700;color:var(--gold-strong,var(--gold));font-variant-numeric:tabular-nums;}
 [data-theme="dark"] ol.auto-marked > li::before{color:var(--gold);}
 ul.auto-points > li::first-letter{text-transform:uppercase;}

@@ -16,8 +16,12 @@ var SCRIPT_ROOT = (document.currentScript && document.currentScript.getAttribute
       "; " / " — ") into <ul class="auto-points">,
       one sentence per point. Inline markup (links, <strong>) is kept via
       Range.cloneContents. The <ul> takes over the paragraph's id/class/attributes so its styling stays.
-   2. A plain <ul>/<ol> inside <main> whose items show no marker of their own gets .auto-marked
-      (dot for <ul>, number for <ol>; see main.css).
+   2. A <ul>/<ol> inside <main> whose items show no marker of their own gets .auto-marked
+      (dot for <ul>, number for <ol>; see main.css). Class-less lists always qualify; a styled
+      (classed) list qualifies only when its items are plain text lines — not cards, flex/grid rows,
+      link lists or multi-column grids. Data lists such as .sc-list asked for ::marker, which the global ul/ol reset
+      hides, so they used to render as bare lines.
+   Every point made by 1 or 2 gets .sc-pointer-line (the gold-dot / number marker in main.css).
    Opt out with data-no-points on the element or any ancestor. Runs before Block 1's read-more,
    which measures the converted blocks on window load. */
 try {
@@ -97,6 +101,7 @@ try {
     ul.classList.add('auto-points');
     parts.forEach(function(frag){
       var li = document.createElement('li');
+      li.className = 'sc-pointer-line';
       li.appendChild(frag);
       // Trim the whitespace left at either edge of a cut.
       var f = li.firstChild, l = li.lastChild;
@@ -108,12 +113,26 @@ try {
   });
 
   // Existing lists that render with no visible marker (the global ul/ol reset) get one.
-  main.querySelectorAll('ul:not([class]),ol:not([class])').forEach(function(list){
-    if(list.closest('header,nav,footer,form,[role="tablist"],[role="menu"],[data-no-points]')) return;
+  var BLOCKY = 'div,article,section,aside,figure,table,details,p,ul,ol,h1,h2,h3,h4,h5,h6,img,svg,picture,video,iframe,button,input,select,textarea';
+  function textItems(items){
+    for(var i = 0; i < items.length; i++){
+      var li = items[i], links = li.querySelectorAll('a');
+      // Flex / grid items are laid-out rows (name + figure, bar charts, cards), not sentences.
+      if(/flex|grid/.test(getComputedStyle(li).display)) return false;
+      for(var k = 0; k < li.children.length; k++) if(li.children[k].matches(BLOCKY)) return false;
+      // An item that is nothing but one link is a link list ("more pages"), not a point.
+      if(links.length === 1 && links[0].textContent.trim() === li.textContent.trim()) return false;
+    }
+    return true;
+  }
+  main.querySelectorAll('ul:not(.auto-points),ol').forEach(function(list){
+    if(list.closest('header,nav,footer,form,table,[role="tablist"],[role="menu"],[role="listbox"],[data-no-points]')) return;
     var cs = getComputedStyle(list);
     if(cs.display === 'flex' || cs.display === 'inline-flex') return; // chip / pill rows
+    if(/grid/.test(cs.display) && cs.gridTemplateColumns && cs.gridTemplateColumns.trim().split(/\s+/).length > 1) return; // card grids
     var items = list.querySelectorAll(':scope > li');
     if(!items.length) return;
+    if(list.getAttribute('class') && !textItems(items)) return;
     for(var i = 0; i < items.length; i++){
       var li = items[i], ls = getComputedStyle(li), before = getComputedStyle(li, '::before').content;
       if((ls.listStyleType && ls.listStyleType !== 'none') || (before && before !== 'none' && before !== 'normal')) return; // already marked
@@ -121,6 +140,7 @@ try {
       if(first && /^(svg|img)$/i.test(first.tagName) && !(li.firstChild.nodeType === 3 && li.firstChild.nodeValue.trim())) return; // icon bullets
     }
     list.classList.add('auto-marked');
+    for(var j = 0; j < items.length; j++) items[j].classList.add('sc-pointer-line');
   });
 })();
 } catch (e) { if (window.console) console.error(e); }

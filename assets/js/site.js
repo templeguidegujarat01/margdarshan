@@ -22,13 +22,18 @@ var SCRIPT_ROOT = (document.currentScript && document.currentScript.getAttribute
       link lists or multi-column grids. Data lists such as .sc-list asked for ::marker, which the global ul/ol reset
       hides, so they used to render as bare lines.
    Every point made by 1 or 2 gets .sc-pointer-line (the gold-dot / number marker in main.css).
-   Opt out with data-no-points on the element or any ancestor. Runs before Block 1's read-more,
+   Opt out with data-no-points on the element or any ancestor (the page hero gets it automatically). Runs before Block 1's read-more,
    which measures the converted blocks on window load. */
 try {
 (function(){
   "use strict";
   var main = document.querySelector('main');
   if(!main) return;
+  // The page's opening part (hero / answer header / intro under the h1) stays as written; points
+  // start where the main content starts.
+  main.querySelectorAll('.hero,.page-hero,.gw-hero,.notfound-hero,.md-page-top').forEach(function(el){ el.setAttribute('data-no-points', ''); });
+  var h1 = main.querySelector('h1'), intro = h1 && h1.closest('.section-head');
+  if(intro) intro.setAttribute('data-no-points', '');
   var MIN_CHARS = 140;
   var SKIP = 'header,nav,footer,form,table,blockquote,figcaption,summary,button,label,a,[contenteditable],[data-no-points]';
   // Words that end in "." without ending a sentence.

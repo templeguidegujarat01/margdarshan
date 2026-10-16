@@ -1,5 +1,6 @@
 # Sports, Olympics & Performing Arts Cockpit (India edition) -> sports-hub.html (hub), football.html, wrestling.html,
-# chess.html, cricket.html, hockey.html, kabaddi.html, athletics.html
+# chess.html, cricket.html, hockey.html, kabaddi.html, athletics.html, boxing.html, badminton.html, shooting.html,
+# swimming.html
 # Rendered by _includes/sports-cockpit.html (hub) and _includes/sport-page.html (each sport); validated by
 # scripts/check-in-data.mjs.
 # Part kinds are the exam console's (p, list, table, note, warn, links). Every p / list / table and every hero
@@ -8,8 +9,8 @@
 # Eight fixed blocks per sport, in this order (the numbered Sources block makes nine):
 #   rules, recognition, eligibility, roadmap, academies, costs, earnings, traps
 # Facts come only from the governing body's own rule book or notices (UWW, IFAB, FIDE, AIFF, ICC, BCCI/IPL, FIH,
-# Hockey India, AKFI/PKL, World Athletics, AFI) or Government of India files (MYAS, DoPT, SAI, NADA, PIB, All India
-# Radio), read on `checked`. An academy's own notice is used only for that academy. Coaching, fan sites and private
+# Hockey India, AKFI/PKL, World Athletics, AFI, World Boxing, BWF, BAI, ISSF, NRAI, World Aquatics, SFI) or Government
+# of India files (MYAS, DoPT, SAI, NADA, PIB, All India Radio), read on `checked` (a sport's own `checked` overrides). An academy's own notice is used only for that academy. Coaching, fan sites and private
 # news outlets are not used.
 # domains[]: the five hub tiles. sports: slugs that have a deep page here; guides: existing Margdarshan pages that
 # cover the domain; next: disciplines listed by name only (no page yet, so no link).
@@ -89,16 +90,16 @@ domains:
     icon: "🤼"
     label: "Combat &amp; Mat Sports"
     intro: "Weight-class sports where the scale is as decisive as the bout — weigh-in rules end more careers than injuries."
-    sports: [wrestling]
-    next: ["Boxing", "Judo", "Weightlifting", "Taekwondo", "Wushu"]
+    sports: [wrestling, boxing]
+    next: ["Judo", "Weightlifting", "Taekwondo", "Wushu"]
   - id: solo
     icon: "🏃"
     label: "Solo, Track &amp; Pool"
-    intro: "Timed and measured events where SAI centres, Khelo India and TOPS carry most of the cost."
-    sports: [athletics]
+    intro: "Individual Olympic sports — timed, scored or ranked — where SAI centres, Khelo India and TOPS carry most of the cost."
+    sports: [athletics, badminton, shooting, swimming]
     guides:
       - { label: "SAI, NIS &amp; sports-quota careers guide", href: "niche-careers/sports.html" }
-    next: ["Swimming", "Shooting", "Archery", "Cycling"]
+    next: ["Archery", "Cycling", "Table Tennis"]
   - id: mind
     icon: "♟️"
     label: "Mind &amp; Strategy"
@@ -2029,3 +2030,1141 @@ sports:
         url: "https://yas.gov.in/sites/default/files/Compendium%20dated%2018.11.2022.pdf"
         covers: "Athletics in the 65-sport list, Group C, out-of-turn promotion"
         checked: 2026-10-15
+  # ------------------------------------------------------------------------------------------------ Boxing
+  - slug: boxing
+    short: "Boxing"
+    domain: combat
+    checked: 2026-10-16
+    body: "World Boxing · Boxing Federation of India (BFI)"
+    card: "World Boxing's 10 + 10 elite weight classes, the 7 that go to LA28, medical papers, knockout lay-offs, BFI nationals and the SAI boxing centres."
+    card_facts: ["7 + 7 Olympic classes (LA28)", "3 × 3-min rounds", "KO = 30 to 90 days out"]
+    eyebrow: "Sports Cockpit · Combat &amp; Mat · World Boxing rules · LA28 qualification 2026"
+    title: "Boxing — weight classes, medical rules &amp; the road to LA28"
+    lede: "Education Margdarshan's boxing map for India: the weight classes World Boxing uses now and the seven per gender that will be boxed at the 2028 Olympics, the papers a boxer must carry to every weigh-in, the lay-off after a knockout, the national ladder from sub-junior to elite, the SAI and corporate camps, who pays, and the jobs and awards after a medal."
+    official:
+      - { label: "LA28 boxing qualification system (PDF)", url: "https://worldboxing.org/wp-content/uploads/2026/05/Qualification-System-LA28-Boxing.pdf" }
+      - { label: "worldboxing.org", url: "https://worldboxing.org/" }
+    facts:
+      - { label: "Olympic weight classes (LA28)", value: "<strong>7 men · 7 women</strong> — 248 boxers in all", source: wb-la28 }
+      - { label: "Elite weight classes now", value: "<strong>10 men · 10 women</strong>", source: wb-cup26 }
+      - { label: "Bout", value: "<strong>3 rounds × 3 min</strong>, 1-min rest", source: wb-guide27 }
+      - { label: "Knocked out cold", value: "<strong>No boxing or sparring for 90 days</strong>", source: wb-medical }
+    sections:
+      - id: rules
+        nav: "Weight classes"
+        eyebrow: "Core rules &amp; selection formats"
+        heading: "Weight classes, bout format and who may box at LA28"
+        parts:
+          - p: "Boxing's world body is now <strong>World Boxing</strong>, which the IOC provisionally recognised on <strong>25 February 2025</strong> as the international federation for boxing in the Olympic Movement. Since <strong>1 January 2025</strong> elite men and women each have <strong>10 weight classes</strong> (the old 12 + 12 were dropped)."
+            source: "wb-glasgow,wb-rules24"
+          - table:
+              caption: "Elite weight classes (kg) — the seven LA28 Olympic classes in bold"
+              head: ["", "All 10 elite classes", "LA28 Olympic classes"]
+              rows:
+                - ["Men", "50 · 55 · 60 · 65 · 70 · 75 · 80 · 85 · 90 · 90+", "<strong>55 · 60 · 65 · 70 · 80 · 90 · 90+</strong>"]
+                - ["Women", "48 · 51 · 54 · 57 · 60 · 65 · 70 · 75 · 80 · 80+", "<strong>51 · 54 · 57 · 60 · 65 · 70 · 75</strong>"]
+            source: "wb-cup26,wb-la28"
+          - list:
+              - "The <strong>Glasgow 2026 Commonwealth Games</strong> use the same seven classes per gender as LA28 — the first Commonwealth Games with equal men's and women's classes."
+            source: wb-glasgow
+          - list:
+              - "World Boxing bouts are <strong>three rounds of three minutes</strong> with <strong>one minute's rest</strong> between rounds."
+              - "Boxers weigh in and see the doctor <strong>every competition day</strong>."
+            source: "wb-guide27,wb-cup26"
+          - table:
+              caption: "LA28 Olympic boxing — the hard numbers"
+              head: ["Rule", "What it says"]
+              rows:
+                - ["Age", "Born between <strong>1 January 1988 and 31 December 2009</strong>, checked against the passport"]
+                - ["Places", "124 men + 124 women = <strong>248</strong>; at most <strong>one boxer per class</strong> from each country (14 in all)"]
+                - ["Qualifying window", "<strong>1 April 2027 to 31 May 2028</strong>"]
+                - ["Routes", "2027 World Championships → continental qualifier → World Qualification Tournament 1 → Tournament 2 → host and universality places"]
+                - ["Must also", "Box in <strong>at least one</strong> LA28 qualification tournament and be in good standing with World Boxing"]
+            source: wb-la28
+      - id: recognition
+        nav: "Recognition"
+        eyebrow: "Institutional &amp; global recognition"
+        heading: "Olympics, Commonwealth Games, World Championships — and India's nationals"
+        parts:
+          - table:
+              caption: "Government cash award for a senior boxing medal (₹ lakh)"
+              head: ["Event", "Gold", "Silver", "Bronze"]
+              rows:
+                - ["<strong>Olympic Games</strong>", "75", "50", "30"]
+                - ["Asian Games / Commonwealth Games", "30", "20", "10"]
+            source: myas-cash
+          - note: "The Senior <strong>World Championship</strong> and Senior <strong>Asian Championship</strong> are also on the Ministry's boxing list; the amount depends on how often the event is held (for example ₹20 / 14 / 8 lakh for a World Championship held every two years). The coach of an individual medallist gets 50%. Apply on the DBT-MIS portal within six months."
+            source: myas-cash
+          - p: "At India's <strong>National Boxing Championships 2026</strong> in Noida (January 2026), titles went to Olympic medallist <strong>Lovlina Borgohain</strong>, two-time world champion <strong>Nikhat Zareen</strong>, world champion <strong>Minakshi Hooda</strong> and Olympian <strong>Pooja Rani</strong>; Jadumani Singh won the men's 55 kg."
+            source: air-nationals26
+      - id: eligibility
+        nav: "Medical &amp; testing"
+        eyebrow: "Physical benchmarks &amp; anti-doping"
+        heading: "The papers, the sex test and the knockout lay-off"
+        parts:
+          - list:
+              - "Every boxer needs a <strong>Competition Record Book</strong> with photo — bring the old one too if the new book has no bouts."
+              - "A <strong>yearly medical examination</strong>, signed and stamped by a registered doctor."
+              - "A <strong>pre-competition medical certificate</strong> (Fit to Box) <strong>not older than 3 months</strong>, confirming the boxer is not infectious for HIV 1 and 2, Hepatitis B or C."
+              - "Women boxers: a signed <strong>Declaration of Non-Pregnancy</strong> not older than 7 days before the entry check."
+              - "A signed <strong>doping-control consent</strong>. Missing or incomplete papers mean the Medical Jury can declare the boxer <strong>unfit to box</strong> — with no appeal."
+            source: wb-medical
+          - list:
+              - "Since August 2025 every boxer <strong>over 18</strong> entering a World Boxing owned or sanctioned event must take a <strong>once-in-a-lifetime PCR (SRY gene) test</strong>, or an equivalent genetic test, to confirm sex at birth; national federations carry out the testing."
+            source: wb-sex
+          - table:
+              caption: "World Boxing suspension after head blows"
+              head: ["What happened", "No boxing or sparring for"]
+              rows:
+                - ["KO or referee stops the bout for heavy head blows (no loss of consciousness)", "<strong>At least 30 days</strong>"]
+                - ["KO <strong>with loss of consciousness</strong>", "<strong>At least 90 days</strong>"]
+                - ["Two KO/RSC losses to head blows within 3 months", "90 days after the second"]
+                - ["Three within 12 months", "<strong>One year</strong> after the third"]
+            source: wb-medical
+          - note: "Before returning, a doctor or neurologist must declare the boxer fit; World Boxing <strong>highly recommends a CT or MRI scan</strong>. Recent surgery (90 days) or a seizure in the last 3 months bars a boxer at the pre-bout check."
+            source: wb-medical
+          - list:
+              - "Under the anti-doping code the boxer must be <strong>available for testing in and out of competition</strong> and check every medicine against the <strong>Prohibited List</strong>; if no permitted treatment exists, apply to NADA for a <strong>TUE</strong>."
+            source: nada-rr
+      - id: roadmap
+        nav: "Roadmap"
+        eyebrow: "Grassroots-to-elite residential pipeline"
+        heading: "From the sub-junior ring to the national camp"
+        parts:
+          - table:
+              caption: "The boxing ladder"
+              head: ["Step", "Age", "What happens"]
+              rows:
+                - ["1. Talent hunt", "9–18", "SAI's <strong>KIRTI</strong> tests children at 174 Talent Assessment Centres"]
+                - ["2. Sub-Junior U15 Nationals", "13–14", "BFI's 4th edition (Greater Noida, 7–13 Aug 2025): <strong>15 weight classes</strong>, 700+ boxers"]
+                - ["3. Sub-Junior U17 Nationals", "Under 17", "7th edition (Nagpur, April 2026): <strong>13 weight classes</strong>, ~600 boxers — the selection platform for India's U17 squad"]
+                - ["4. SAI Training Centre", "12–18", "Up to 8th at Sub-Junior/Junior Nationals, or top 3 in the state, plus a battery of tests"]
+                - ["5. SAI NCOE / Khelo India", "Scouted", "Talent Identification and Development Committees select or weed out; skill, fitness, medical and age tests"]
+                - ["6. Elite Nationals &amp; camp", "Senior", "National champions and camp boxers are picked for World Boxing events, LA28 qualifiers and TOPS"]
+            source: "pib-transform,air-subjr25,air-subjr26,sai-schemes,kia-guide,pib-support"
+          - list:
+              - "You <strong>cannot apply</strong> to become a Khelo India athlete — scouts pick from recognised competitions; create your profile on the <strong>National Sports Repository System</strong> with age proof."
+            source: kia-guide
+          - p: "Medals at the <strong>Khelo India Youth Games (above-18 category)</strong>, Junior Nationals and SGFI school games now count for central sports-quota jobs."
+            source: dopt-2024
+      - id: academies
+        nav: "Centres"
+        eyebrow: "Top elite academies &amp; cities"
+        heading: "Where India's boxers train"
+        parts:
+          - table:
+              caption: "SAI National Centres of Excellence with boxing"
+              head: ["Centre", "Other sports there"]
+              rows:
+                - ["<strong>Rohtak</strong>, Haryana", "Boxing only"]
+                - ["Bhopal, Madhya Pradesh", "Athletics, hockey, judo, wushu, kayaking &amp; canoeing"]
+                - ["Aurangabad (Chhatrapati Sambhajinagar), Maharashtra", "Fencing, hockey, weightlifting, gymnastics"]
+                - ["Hamirpur, Himachal Pradesh", "Athletics, badminton, hockey, judo, wrestling"]
+                - ["Guwahati, Assam", "Archery, athletics, cycling, fencing, football, taekwondo"]
+                - ["Itanagar, Arunachal Pradesh", "Weightlifting, wushu"]
+            source: sai-schemes
+          - note: "Boxing is one of SAI's <strong>13 priority disciplines</strong>. NCOEs give boarding, coaches, sports science and individual diets set by nutritionists."
+            source: sai-schemes
+          - p: "<strong>Inspire Institute of Sport (IIS), Vijayanagar, Karnataka</strong> lists boxing among its sports and runs the <strong>Kotak Karma Boxing Programme</strong> — training, equipment, nutrition and support for talented boxers — on a campus with athlete residences, recovery, physiotherapy and biomechanics."
+            source: "iis-programmes,iis-sports"
+      - id: costs
+        nav: "Gear &amp; cost"
+        eyebrow: "Equipment costs &amp; who pays"
+        heading: "Gloves, headguards and who pays the bills"
+        parts:
+          - list:
+              - "At World Boxing events the <strong>organisers supply the gloves, headguards, tape and gauze/Velcro bandages</strong>; boxers bring the rest of their kit."
+              - "A boxer's own training gloves, headgear, mouthguard and shoes are the family's or academy's cost until a scheme picks the boxer up. Education Margdarshan does not print shop prices — no governing body publishes them."
+            source: wb-guide27
+          - table:
+              caption: "Who pays — boxing ladder"
+              head: ["Stage", "Paid by", "What you get"]
+              rows:
+                - ["SAI centre trainee", "Sports Authority of India", "Coaching, boarding, sports science, diet"]
+                - ["Khelo India athlete", "Ministry of Youth Affairs &amp; Sports", "<strong>₹6.28 lakh a year</strong> incl. ₹1.20 lakh cash"]
+                - ["Junior medal prospect", "TOPS Development Group", "₹25,000 a month"]
+                - ["Olympic prospect", "TOPS Core Group", "<strong>₹50,000 a month</strong> + approved training plan"]
+                - ["Athlete in hardship", "PDU National Welfare Fund", "Up to ₹2.50 lakh"]
+            source: "sai-schemes,pib-support"
+          - p: "Corporate money reaches boxers through programmes such as IIS's <strong>Kotak Karma Boxing Programme</strong> and the <strong>JSW Sports Excellence Programme</strong>, which runs elite pathways, nutrition planning and academic support across IIS sports."
+            source: iis-programmes
+          - list:
+              - "<strong>Weight-cutting with pills or powders</strong> is a doping risk: no supplement is 100% safe and <strong>strict liability</strong> applies — food first, with a certified nutritionist."
+            source: nada-supp
+      - id: earnings
+        nav: "Earnings &amp; jobs"
+        eyebrow: "Earning channels &amp; central job quotas"
+        heading: "Awards, pension and sports-quota jobs"
+        parts:
+          - list:
+              - "Boxing is one of the <strong>65 sports</strong> in the central sports quota for <strong>Group C</strong> posts, with up to 5 years' age relaxation (10 for SC/ST)."
+              - "Medals at the Olympics, Asian Games, Commonwealth Games or World Championships can bring up to <strong>three out-of-turn promotions</strong>."
+              - "These central instructions do not apply to Railways Services, the Department of Atomic Energy, the Department of Space and some DRDO technical services."
+            source: dopt-2022
+          - list:
+              - "<strong>Pension to Meritorious Sportspersons</strong>: ₹12,000–20,000 a month after retirement."
+              - "National Sports Awards — Khel Ratna, Arjuna, Dronacharya (coaches)."
+            source: pib-support
+      - id: traps
+        nav: "Red flags"
+        eyebrow: "Disqualification traps"
+        heading: "Mistakes that end a boxer's tournament"
+        parts:
+          - list:
+              - "<strong>Arriving without the papers</strong> — record book, yearly medical, 3-month Fit-to-Box certificate, non-pregnancy declaration: no papers, no bout."
+              - "<strong>Sparring during a knockout suspension</strong> — the lay-off covers training, not just bouts, and is written in the record book."
+            source: wb-medical
+          - list:
+              - "<strong>Skipping every LA28 qualifier</strong> — even host and universality places need at least one qualification tournament."
+            source: wb-la28
+          - list:
+              - "<strong>Age fraud, doping or misconduct</strong> are grounds for weeding a boxer out of SAI centres."
+            source: sai-schemes
+    sources:
+      - id: wb-la28
+        name: "World Boxing — Qualification System, LA28 Olympic Games: Boxing (version 6 May 2026)"
+        url: "https://worldboxing.org/wp-content/uploads/2026/05/Qualification-System-LA28-Boxing.pdf"
+        covers: "7 + 7 Olympic classes, 248 places, one per class per country, birth-date window, qualification period and routes"
+        checked: 2026-10-16
+      - id: wb-cup26
+        name: "World Boxing — World Boxing Cup Brazil 2026 invitation"
+        url: "https://worldboxing.org/wp-content/uploads/2026/01/WB-Cup-Brazil-2026-InvitationV1.pdf"
+        covers: "Current elite men's and women's weight classes, elite birth years, daily weigh-in and medical"
+        checked: 2026-10-16
+      - id: wb-rules24
+        name: "World Boxing — Summary of Competition Rule Changes (1 Oct 2024)"
+        url: "https://worldboxing.org/wp-content/uploads/2024/10/Summary-of-Competition-Rule-Changes-2024-1.pdf"
+        covers: "10 + 10 elite weight classes from 1 Jan 2025, replacing 12 + 12"
+        checked: 2026-10-16
+      - id: wb-glasgow
+        name: "World Boxing — Weight categories confirmed for Glasgow 2026 (23 Oct 2025)"
+        url: "https://worldboxing.org/weight-categories-confirmed-for-glasgow-2026-which-will-be-first-ever-commonwealth-games-to-feature-same-number-of-weight-classes-for-men-and-women/"
+        covers: "Same 7 classes as LA28; IOC provisional recognition on 25 Feb 2025"
+        checked: 2026-10-16
+      - id: wb-guide27
+        name: "World Boxing — Event Guidelines, World Boxing Cup Final 2027"
+        url: "https://worldboxing.org/wp-content/uploads/2026/06/Event-Guidelines_2027_WORLD-BOXING-CUP-FINAL.pdf"
+        covers: "3 × 3-minute rounds, 1-minute rest; gloves, headguards, tape and bandages supplied by World Boxing"
+        checked: 2026-10-16
+      - id: wb-medical
+        name: "World Boxing — Medical Handbook 2025"
+        url: "https://worldboxing.org/wp-content/uploads/2025/08/WB-Medical-Handbook-2025.pdf"
+        covers: "Entry-check documents, pre-bout exclusions, KO/RSC suspension periods, return-to-box rules"
+        checked: 2026-10-16
+      - id: wb-sex
+        name: "World Boxing — Sex Eligibility Policy (20 Aug 2025)"
+        url: "https://worldboxing.org/wp-content/uploads/2025/08/World-Boxing-Sex-Eligibility-Policy_FINAL_20Aug25.pdf"
+        covers: "Once-in-a-lifetime PCR (SRY) test for all boxers over 18 at World Boxing events"
+        checked: 2026-10-16
+      - id: air-nationals26
+        name: "All India Radio News — Lovlina Borgohain, Nikhat Zareen clinch titles at National Boxing Championships (11 Jan 2026)"
+        url: "https://www.newsonair.gov.in/lovlina-borgohain-nikhat-zareen-clinch-titles-at-national-boxing-championships"
+        covers: "2026 national champions, Noida"
+        checked: 2026-10-16
+      - id: air-subjr25
+        name: "All India Radio News — BFI announces dates for 4th Sub-Junior U-15 National Boxing Championships (5 Aug 2025)"
+        url: "https://www.newsonair.gov.in/bfi-announces-dates-for-4th-sub-junior-u-15-national-boxing-championships"
+        covers: "Ages 13–14, 15 weight classes, Greater Noida, 7–13 Aug 2025"
+        checked: 2026-10-16
+      - id: air-subjr26
+        name: "All India Radio News — 7th National Sub-Junior Championship commences in Nagpur (5 Apr 2026)"
+        url: "https://www.newsonair.gov.in/boxing-7th-national-sub-junior-championship-commences-in-nagpur"
+        covers: "Under-17, 13 weight classes, ~600 boxers, U17 squad selection"
+        checked: 2026-10-16
+      - id: myas-cash
+        name: "MYAS — Scheme of Cash Incentive to Medal Winners (amended 1 Feb 2025)"
+        url: "https://yas.gov.in/sites/default/files/Scheme%20of%20Cash%20Incentive%20to%20Medal%20Winners%20in%20International%20Sports%20Events%20and%20their%20Coaches%20amended%20as%20on%2001.02.2025.pdf"
+        covers: "Award amounts, boxing World and Asian Championships listing, coach share, DBT-MIS deadline"
+        checked: 2026-10-16
+      - id: nada-rr
+        name: "NADA India — Athlete's Rights &amp; Responsibilities"
+        url: "https://nadaindia.yas.gov.in/wp-content/uploads/AthleteRR.pdf"
+        covers: "Testing availability, Prohibited List, TUE"
+        checked: 2026-10-16
+      - id: nada-supp
+        name: "NADA India — Managing the Risk of Nutritional Supplements"
+        url: "https://nadaindia.yas.gov.in/wp-content/uploads/Managing-the-Risk-of-Nutritional-Supplements_1.pdf"
+        covers: "Supplement risk, strict liability, food-first approach"
+        checked: 2026-10-16
+      - id: sai-schemes
+        name: "SAI — Brief on Sports Promotional Schemes 2024-25"
+        url: "https://www.sportsauthorityofindia.gov.in/sai/public/assets/pdfs/schemes/NCOE_Brief.pdf"
+        covers: "Boxing NCOEs, priority disciplines, STC entry, weeding-out rules"
+        checked: 2026-10-16
+      - id: kia-guide
+        name: "Khelo India — How to become a Khelo India Athlete"
+        url: "https://dashboard.kheloindia.gov.in/public/front/assets/become_kia/How%20to%20become%20a%20Khelo%20India%20Athlete.pdf"
+        covers: "Scouting, assessment camps, NSRS registration"
+        checked: 2026-10-16
+      - id: pib-transform
+        name: "PIB — India's Sporting Transformation (10 June 2025)"
+        url: "https://static.pib.gov.in/WriteReadData/specificdocs/documents/2025/jun/doc2025610567401.pdf"
+        covers: "KIRTI, ages 9–18, 174 Talent Assessment Centres"
+        checked: 2026-10-16
+      - id: pib-support
+        name: "PIB — Financial Support to Athletes (5 Aug 2024)"
+        url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2041702"
+        covers: "Khelo India, TOPS, welfare fund, pension, national awards"
+        checked: 2026-10-16
+      - id: iis-programmes
+        name: "Inspire Institute of Sport, Vijayanagar — Programmes"
+        url: "https://inspireinstituteofsport.com/programmes/"
+        covers: "Kotak Karma Boxing Programme, JSW Sports Excellence Programme"
+        checked: 2026-10-16
+      - id: iis-sports
+        name: "Inspire Institute of Sport, Vijayanagar — Sports"
+        url: "https://inspireinstituteofsport.com/sports/"
+        covers: "Boxing among IIS sports; facilities"
+        checked: 2026-10-16
+      - id: dopt-2022
+        name: "DoPT — Instructions on Recruitment/Promotion for Sportspersons (18 Nov 2022)"
+        url: "https://yas.gov.in/sites/default/files/Compendium%20dated%2018.11.2022.pdf"
+        covers: "Boxing in the 65-sport list, Group C, out-of-turn promotion, Railways exclusion"
+        checked: 2026-10-16
+      - id: dopt-2024
+        name: "DoPT Office Memorandum, 4 March 2024 — Incentive for Sportspersons"
+        url: "https://dopt.gov.in/sites/default/files/Incentive%20for%20Sportpersons.pdf"
+        covers: "Khelo India Games, Junior Nationals and SGFI medallists added"
+        checked: 2026-10-16
+  # ------------------------------------------------------------------------------------------------ Badminton
+  - slug: badminton
+    short: "Badminton"
+    domain: solo
+    checked: 2026-10-16
+    body: "Badminton World Federation (BWF) · Badminton Association of India (BAI)"
+    card: "The new 15-point scoring, BWF World Tour levels and ranking points, LA28 places, BAI's U11-to-senior ladder, Hyderabad and Bengaluru academies, awards and jobs."
+    card_facts: ["15-point games from 4 Jan 2027", "Super 1000 to Super 100", "U19 = junior"]
+    eyebrow: "Sports Cockpit · Solo, Track &amp; Pool · BWF Laws 2027 · BAI calendar 2026-27"
+    title: "Badminton — new scoring, World Tour points &amp; the BAI ladder"
+    lede: "Education Margdarshan's badminton map for India: the switch to 15-point games, the court and racket rules, how BWF World Tour levels turn into ranking points and prize money, the road to LA28, BAI's ranking tournaments and nationals from the Mini National upward, the academies in Hyderabad and Bengaluru, who pays, and the awards and jobs after a medal."
+    official:
+      - { label: "BWF Laws of Badminton, 4 Jan 2027 (PDF)", url: "https://extranet.bwf.sport/docs/document-system/81/1466/1470/Section%204.1%20-%20Laws%20of%20Badminton%20-%2004%20January%202027%20V6.0.pdf" }
+      - { label: "badmintonindia.org", url: "https://www.badmintonindia.org/" }
+    facts:
+      - { label: "Game (from 4 Jan 2027)", value: "<strong>First to 15</strong>, win by 2, capped at 21", source: bwf-laws27 }
+      - { label: "World Tour", value: "<strong>Finals + Super 1000 / 750 / 500 / 300</strong>, plus Super 100", source: bwf-wt-page }
+      - { label: "LA28 badminton places", value: "<strong>172 players</strong>; max 2 per singles event per country", source: bwf-la28 }
+      - { label: "Junior (BWF)", value: "<strong>Under 19</strong> for the whole calendar year", source: bwf-junior }
+    sections:
+      - id: rules
+        nav: "Scoring &amp; rules"
+        eyebrow: "Core rules &amp; selection formats"
+        heading: "The new scoring, the court and the racket"
+        parts:
+          - table:
+              caption: "Laws of Badminton — scoring before and after 4 January 2027"
+              head: ["Rule", "Until 3 Jan 2027", "<strong>From 4 Jan 2027</strong>"]
+              rows:
+                - ["Match", "Best of three games", "Best of three games"]
+                - ["Game won at", "21 points", "<strong>15 points</strong>"]
+                - ["Deuce", "At 20-all, two clear points", "At <strong>14-all</strong>, two clear points"]
+                - ["Cap", "At 29-all, the 30th point wins", "At <strong>20-all, the 21st point wins</strong>"]
+                - ["Mid-game interval (max 60 s)", "When the leader reaches 11", "When the leader reaches <strong>8</strong>"]
+                - ["Ends change in game 3", "At 11", "At <strong>8</strong>"]
+            source: "bwf-laws25,bwf-laws27"
+          - note: "India switched early: by BAI's circular of <strong>30 June 2026</strong>, all main-draw and qualifying matches at BAI events are played as <strong>best of three games of 15 points</strong>, extendable to 21."
+            source: bai-interstate
+          - list:
+              - "Up to <strong>120 seconds</strong> between games."
+              - "The net top is <strong>1.524 m</strong> at the centre and 1.55 m over the doubles side lines."
+              - "On serve, the whole shuttle must be <strong>below 1.15 m</strong> from the court surface when struck."
+              - "A feathered shuttle has <strong>16 feathers</strong> and weighs <strong>4.74–5.50 g</strong>."
+              - "The racket frame may be at most <strong>680 mm long and 230 mm wide</strong>."
+            source: bwf-laws27
+          - list:
+              - "BWF junior events are <strong>Under 19</strong>: a player must remain under 19 throughout the calendar year of the tournament."
+            source: bwf-junior
+      - id: recognition
+        nav: "Tour &amp; ranking"
+        eyebrow: "Institutional &amp; global recognition"
+        heading: "World Tour levels, ranking points and India's big events"
+        parts:
+          - table:
+              caption: "BWF tournament levels — winner's ranking points and minimum prize money (2026)"
+              head: ["Level", "Name", "Events a year", "Winner's points", "Min. prize money"]
+              rows:
+                - ["Grade 1", "World Championships, Olympic Games", "—", "<strong>14,500</strong>", "Set by BWF"]
+                - ["Level 1", "World Tour Finals (top 8)", "1", "14,000", "US$3.5 million"]
+                - ["Level 2", "<strong>Super 1000</strong>", "4", "12,000–13,500*", "US$1.45 million"]
+                - ["Level 3", "Super 750 (incl. India)", "6", "11,000", "US$950,000"]
+                - ["Level 4", "Super 500", "9", "9,200", "US$500,000"]
+                - ["Level 5", "Super 300 (incl. India)", "11", "7,000", "US$250,000"]
+                - ["Level 6", "Super 100", "Set by BWF", "5,500", "US$120,000"]
+                - ["Grade 3", "International Challenge / Series / Future Series", "—", "4,000 / 2,500 / 1,700", "US$20,000 / 10,000 / under 10,000"]
+            source: "bwf-wt,bwf-wt-page,bwf-ranking,bwf-sanction"
+          - note: "*Super 1000 points rise with extra prize money above the minimum. A player's world ranking adds the <strong>best 10 results in the last 52 weeks</strong>; points from a tournament drop off after 52 weeks or when that event is next held."
+            source: bwf-ranking
+          - table:
+              caption: "Government cash award for a senior badminton medal (₹ lakh)"
+              head: ["Event", "Gold", "Silver", "Bronze"]
+              rows:
+                - ["<strong>Olympic Games</strong>", "75", "50", "30"]
+                - ["Asian Games / Commonwealth Games", "30", "20", "10"]
+                - ["World Championships (annual) / <strong>All England</strong>", "10", "7", "4"]
+                - ["Asian Championships (annual)", "3.75", "2.5", "1.25"]
+            source: myas-cash
+          - note: "The <strong>Thomas Cup</strong> and <strong>Uber Cup</strong> are also on the list; in team events each player gets 75% of the individual amount."
+            source: myas-cash
+          - list:
+              - "India hosted the <strong>BWF World Championships 2026</strong> in New Delhi, 17–23 August 2026; the 2026 Thomas &amp; Uber Cup Finals were in Horsens, Denmark."
+              - "India's World Tour stops include the <strong>Syed Modi India International</strong> (Super 300, Lucknow, 24–29 Nov 2026) and the Super 100 <strong>Guwahati and Odisha Masters</strong> (December 2026)."
+              - "BAI's 2026-27 calendar lists <strong>no Premier Badminton League</strong> season."
+            source: bai-calendar
+      - id: eligibility
+        nav: "Age &amp; testing"
+        eyebrow: "Physical benchmarks &amp; anti-doping"
+        heading: "Age checks, clean sport and the LA28 cut-offs"
+        parts:
+          - list:
+              - "If a player's date of birth was <strong>registered more than one year after birth</strong>, BAI requires <strong>medical age tests at a government hospital</strong> in SAI's format before age-group events."
+              - "BAI may run an <strong>age-estimation test</strong> — physical, dental and X-ray examination — on players who cannot produce the forms."
+            source: bai-age
+          - list:
+              - "At least <strong>15 doping tests</strong> must be done at every Level 1–4 World Tour event (8 at Level 5–6)."
+            source: bwf-wt
+          - list:
+              - "The athlete must be available for testing in and out of competition and check every medicine against the Prohibited List; apply to NADA for a <strong>TUE</strong> if no permitted treatment exists."
+            source: nada-rr
+          - table:
+              caption: "LA28 Olympic badminton — how places are given"
+              head: ["Event", "Places", "Country limit"]
+              rows:
+                - ["Men's / Women's singles", "<strong>38 each</strong> (35 by ranking + host and universality places)", "2 players if both rank <strong>1–16</strong>, otherwise 1"]
+                - ["Men's / Women's / Mixed doubles", "<strong>16 pairs each</strong>", "2 pairs if both rank <strong>1–8</strong>, otherwise 1"]
+            source: bwf-la28
+          - note: "The LA28 Olympic Ranking counts results from <strong>3 May 2027 to 30 April 2028</strong> and is frozen on <strong>2 May 2028</strong>."
+            source: bwf-la28
+      - id: roadmap
+        nav: "Roadmap"
+        eyebrow: "Grassroots-to-elite residential pipeline"
+        heading: "BAI's ladder from the Mini National to the Senior National"
+        parts:
+          - table:
+              caption: "BAI national championships, 2026-27 season"
+              head: ["Championship", "Age", "Dates", "Venue"]
+              rows:
+                - ["5th Mini National", "11 years", "24–27 Nov 2026", "Chhattisgarh (venue to be announced)"]
+                - ["38th Sub-Junior National", "<strong>13 years</strong>", "9–12 Dec 2026", "To be announced"]
+                - ["38th Sub-Junior National", "<strong>U15 &amp; U17</strong>", "30 Nov–5 Dec 2026", "Bengaluru"]
+                - ["49th Junior National (team &amp; individual)", "<strong>U19</strong>", "14–21 Nov 2026", "Gangtok"]
+                - ["88th Senior National (team &amp; individual)", "Men &amp; women", "17–24 Dec 2026", "Bhubaneswar"]
+            source: bai-calendar
+          - list:
+              - "Between the nationals, BAI runs <strong>All India ranking tournaments</strong> for <strong>U13, U15 &amp; U17, U19 and seniors</strong> all season — these are the 'qualifying' events that build a player's BAI ranking."
+              - "State teams meet at the <strong>Inter-State Zonal Championships</strong> (September 2026); a team has 6–10 men, 6–10 women and 3–7 junior boys and girls (U19)."
+            source: "bai-calendar,bai-interstate"
+          - list:
+              - "India's U19 squad for the <strong>BWF World Junior Championships 2026</strong> (Cairo) trained at BAI's <strong>National Centre of Excellence, Guwahati</strong>; players make their own way to the camp."
+            source: bai-wjc26
+          - p: "Above that, the senior route runs through BWF Grade 3 events in India (International Challenges in Raipur and Bengaluru, late October–November 2026), then Super 100 and World Tour events, and from <strong>May 2027</strong> the LA28 ranking race."
+            source: "bai-calendar,bwf-la28"
+      - id: academies
+        nav: "Academies"
+        eyebrow: "Top elite academies &amp; cities"
+        heading: "Where India's shuttlers train"
+        parts:
+          - table:
+              caption: "Verified badminton centres"
+              head: ["Centre", "City", "What its own notice says"]
+              rows:
+                - ["<strong>Pullela Gopichand Badminton Academy</strong>", "Gachibowli, Hyderabad", "Founded 2004 by All England champion Pullela Gopichand; recognised by the Ministry of Sports, SAI and BAI; trained Saina Nehwal, P.V. Sindhu, Srikanth Kidambi, H.S. Prannoy"]
+                - ["<strong>Centre for Badminton Excellence</strong> (formerly PPBA)", "Bengaluru", "Founded 1994 by Prakash Padukone, Vimal Kumar and Vivek Kumar; 75+ high-performance players incl. P.V. Sindhu, Lakshya Sen, Ayush Shetty; 16 BWF-approved courts at the Yonex Sunrise Badminton Centre, CSE"]
+                - ["Padukone School of Badminton", "Bengaluru", "Launched June 2025; 200+ students train at the CSE centre; mentored by Prakash Padukone"]
+                - ["BAI National Centre of Excellence", "Guwahati, Assam", "BAI's base for national coaching camps"]
+                - ["SAI NCOE Hamirpur", "Hamirpur, Himachal Pradesh", "Government residential centre — badminton with athletics, boxing, hockey, judo, wrestling"]
+            source: "pgba,cse-badminton,bai-wjc26,sai-schemes"
+          - warn: "Name change: the academy many families still call the <strong>Prakash Padukone Badminton Academy</strong> now trades as the <strong>Centre for Badminton Excellence (formerly PPBA)</strong>; the separate Padukone School of Badminton is a newer, wider programme."
+            source: cse-badminton
+      - id: costs
+        nav: "Gear &amp; cost"
+        eyebrow: "Equipment costs &amp; who pays"
+        heading: "Rackets, shuttles, fines — and who pays"
+        parts:
+          - list:
+              - "Any racket within the BWF limits (<strong>680 × 230 mm</strong> frame) and any shuttle meeting the 4.74–5.50 g standard is legal — no special 'graphite' rule exists. Education Margdarshan does not print shop prices; no governing body publishes them."
+            source: bwf-laws27
+          - list:
+              - "At the Inter-State Championships the <strong>host state pays boarding, food and local transport</strong> for up to 28 members (24 players + 4 officials); extra members cost the state <strong>₹1,500 a day</strong> each."
+              - "Clothing violations from the main draw on cost <strong>₹1,000</strong>; a yellow card ₹500, a red card ₹2,000."
+            source: bai-interstate
+          - table:
+              caption: "Who pays — badminton"
+              head: ["Stage", "Paid by", "What you get"]
+              rows:
+                - ["SAI centre trainee", "Sports Authority of India", "Coaching, boarding, sports science"]
+                - ["Khelo India athlete", "Ministry of Youth Affairs &amp; Sports", "<strong>₹6.28 lakh a year</strong> incl. ₹1.20 lakh cash"]
+                - ["Junior medal prospect", "TOPS Development Group", "₹25,000 a month"]
+                - ["Olympic prospect", "TOPS Core Group", "<strong>₹50,000 a month</strong> + approved training plan"]
+                - ["Athlete in hardship", "PDU National Welfare Fund", "Up to ₹2.50 lakh"]
+            source: pib-support
+          - list:
+              - "<strong>Food first</strong>, with a certified nutritionist — no supplement is 100% safe and strict liability applies."
+            source: nada-supp
+      - id: earnings
+        nav: "Earnings &amp; jobs"
+        eyebrow: "Earning channels &amp; central job quotas"
+        heading: "Prize money, awards and sports-quota jobs"
+        parts:
+          - list:
+              - "World Tour prize money follows fixed BWF tables; a player or pair must achieve a <strong>confirmed result</strong> in the event to receive it."
+            source: bwf-wt
+          - list:
+              - "Badminton is one of the <strong>65 sports</strong> in the central sports quota for <strong>Group C</strong> posts, with up to 5 years' age relaxation (10 for SC/ST)."
+              - "Medals at the Olympics, Asian Games, Commonwealth Games or World Championships can bring up to <strong>three out-of-turn promotions</strong>."
+            source: dopt-2022
+          - p: "Since <strong>4 March 2024</strong>, medals at Junior Nationals, the <strong>Khelo India Youth Games (above 18)</strong>, Khelo India University Games and SGFI school games also qualify."
+            source: dopt-2024
+          - p: "Retired champions can receive the <strong>Pension to Meritorious Sportspersons</strong> of ₹12,000–20,000 a month."
+            source: pib-support
+      - id: traps
+        nav: "Red flags"
+        eyebrow: "Disqualification traps"
+        heading: "Mistakes that cost shuttlers matches and selections"
+        parts:
+          - list:
+              - "<strong>Training for 21-point games</strong> — BAI events already use 15-point games; pacing and the 8-point interval change match plans."
+            source: "bai-interstate,bwf-laws27"
+          - list:
+              - "<strong>Late birth registration without medical papers</strong> — no age-group entry."
+            source: bai-age
+          - list:
+              - "<strong>Clothing violations and cards</strong> — fines at BAI events; a black card means disqualification for misconduct."
+            source: bai-interstate
+          - list:
+              - "<strong>Age fraud, doping or misconduct</strong> are grounds for weeding a player out of SAI centres."
+            source: sai-schemes
+    sources:
+      - id: bwf-laws27
+        name: "BWF Statutes Section 4.1 — Laws of Badminton, in force 4 January 2027 (Version 6.0)"
+        url: "https://extranet.bwf.sport/docs/document-system/81/1466/1470/Section%204.1%20-%20Laws%20of%20Badminton%20-%2004%20January%202027%20V6.0.pdf"
+        covers: "15-point scoring, intervals, change of ends, service height, net, shuttle, racket limits"
+        checked: 2026-10-16
+      - id: bwf-laws25
+        name: "BWF Statutes Section 4.1 — Laws of Badminton, in force 26 April 2025 (Version 5.0)"
+        url: "https://extranet.bwf.sport/docs/document-system/81/1466/1470/Section%204.1%20-%20Laws%20of%20Badminton%20-%2026%20April%202025%20V5.0%20(2)%20.pdf"
+        covers: "21-point scoring in force until the 2027 change"
+        checked: 2026-10-16
+      - id: bwf-wt
+        name: "BWF Statutes Section 5.2.2 — BWF World Tour Regulations (8 Nov 2025)"
+        url: "https://extranet.bwf.sport/docs/document-system/81/1466/1471/Section%205.2.2%20-%20BWF%20World%20Tour%20Regulations%20-%208%20November%202025%20V5.0%20(1).pdf"
+        covers: "Six levels, events per level, doping-test minimums, prize-money eligibility"
+        checked: 2026-10-16
+      - id: bwf-wt-page
+        name: "BWF — HSBC BWF World Tour (corporate site)"
+        url: "https://corporate.bwfbadminton.com/events/bwf-world-tour/"
+        covers: "Level names Super 1000/750/500/300, Super 100, host countries incl. India"
+        checked: 2026-10-16
+      - id: bwf-ranking
+        name: "BWF Statutes Section 5.3.3.1 — World Ranking System (26 Apr 2026)"
+        url: "https://extranet.bwf.sport/docs/document-system/81/1466/1471/Section%205.3.3.1%20-%20World%20Ranking%20System%20-%2026%20April%202026%20V6.0.pdf"
+        covers: "Points table by grade and level, best 10 results in 52 weeks"
+        checked: 2026-10-16
+      - id: bwf-sanction
+        name: "BWF Statutes Section 5.3.1 — Tournament Sanction Policy (26 Apr 2026)"
+        url: "https://extranet.bwf.sport/docs/document-system/81/1466/1471/Section%205.3.1%20-%20Tournament%20Sanction%20Policy%20-%2026%20April%202026%20V7.0.pdf"
+        covers: "Minimum prize money by level for 2025, 2026 and 2027"
+        checked: 2026-10-16
+      - id: bwf-junior
+        name: "BWF Statutes Section 5.2.3 — Junior Tournament Regulations"
+        url: "https://extranet.bwf.sport/docs/document-system/81/1466/1471/Section%205.2.3%20-%20Junior%20Tournament%20Regulations%20-%2011%20November%202023%20V2.1.pdf"
+        covers: "Under-19 for the whole calendar year"
+        checked: 2026-10-16
+      - id: bwf-la28
+        name: "BWF — Olympic Games Qualifying Regulations for LA 2028 (12 May 2026)"
+        url: "https://extranet.bwf.sport/docs/document-system/81/1466/1471/Section%205.4.1.1%20-%20OG%20-%20Qualifying%20Regulations%20for%20LA%202028%20(ENG)%20-%2012%20May%202026%20v1.1.pdf"
+        covers: "172 places, per-event and per-country limits, ranking window 3 May 2027 – 30 Apr 2028"
+        checked: 2026-10-16
+      - id: bai-calendar
+        name: "BAI — Yearly calendar 2026-27 (as on 15 Aug 2026)"
+        url: "https://www.badmintonindia.org/download/news/BAI%20Calendar%202026-27%20-%20As%20on%2015-08-2026.pdf"
+        covers: "National championships, ranking tournaments, Inter-State zonals, India's BWF events, World Championships 2026 in New Delhi"
+        checked: 2026-10-16
+      - id: bai-interstate
+        name: "BAI — Regulations for the Inter-State Team Championships 2026"
+        url: "https://www.badmintonindia.org/download/news/Regulations%20for%20the%20Inter%20State%20-2026.pdf"
+        covers: "Team sizes, host-state costs, fines, BAI circular of 30 June 2026 on 15-point games"
+        checked: 2026-10-16
+      - id: bai-wjc26
+        name: "BAI — Circular BAI/JNC/WJC/2026/171: National Coaching Camp at NCE Guwahati (23 Sept 2026)"
+        url: "https://www.badmintonindia.org/download/news/NJC%20WJC%20EGYPT%202026.pdf"
+        covers: "Junior camp at BAI's National Centre of Excellence, Guwahati; own travel"
+        checked: 2026-10-16
+      - id: bai-age
+        name: "BAI — Revised notice on age fraud (4 May 2018) with SAI age-estimation format"
+        url: "https://www.badmintonindia.org/download/players/age%20fraud%20notice-new.pdf"
+        covers: "Late birth registration, government-hospital tests, age-estimation test"
+        checked: 2026-10-16
+      - id: pgba
+        name: "Pullela Gopichand Badminton Academy — official website"
+        url: "https://www.gopichandacademy.com/"
+        covers: "Founded 2004, Gachibowli, recognition by MYAS/SAI/BAI, alumni"
+        checked: 2026-10-16
+      - id: cse-badminton
+        name: "Centre for Sports Excellence, Bengaluru — Badminton"
+        url: "https://www.centreforsports.in/badminton"
+        covers: "Centre for Badminton Excellence (formerly PPBA), Padukone School of Badminton, 16 courts"
+        checked: 2026-10-16
+      - id: myas-cash
+        name: "MYAS — Scheme of Cash Incentive to Medal Winners (amended 1 Feb 2025)"
+        url: "https://yas.gov.in/sites/default/files/Scheme%20of%20Cash%20Incentive%20to%20Medal%20Winners%20in%20International%20Sports%20Events%20and%20their%20Coaches%20amended%20as%20on%2001.02.2025.pdf"
+        covers: "Award amounts incl. All England, badminton World/Asian Championships, Thomas and Uber Cup, 75% team rule"
+        checked: 2026-10-16
+      - id: nada-rr
+        name: "NADA India — Athlete's Rights &amp; Responsibilities"
+        url: "https://nadaindia.yas.gov.in/wp-content/uploads/AthleteRR.pdf"
+        covers: "Testing availability, Prohibited List, TUE"
+        checked: 2026-10-16
+      - id: nada-supp
+        name: "NADA India — Managing the Risk of Nutritional Supplements"
+        url: "https://nadaindia.yas.gov.in/wp-content/uploads/Managing-the-Risk-of-Nutritional-Supplements_1.pdf"
+        covers: "Food first, strict liability"
+        checked: 2026-10-16
+      - id: sai-schemes
+        name: "SAI — Brief on Sports Promotional Schemes 2024-25"
+        url: "https://www.sportsauthorityofindia.gov.in/sai/public/assets/pdfs/schemes/NCOE_Brief.pdf"
+        covers: "Badminton at NCOE Hamirpur, weeding-out rules"
+        checked: 2026-10-16
+      - id: pib-support
+        name: "PIB — Financial Support to Athletes (5 Aug 2024)"
+        url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2041702"
+        covers: "Khelo India, TOPS, welfare fund, pension"
+        checked: 2026-10-16
+      - id: dopt-2022
+        name: "DoPT — Instructions on Recruitment/Promotion for Sportspersons (18 Nov 2022)"
+        url: "https://yas.gov.in/sites/default/files/Compendium%20dated%2018.11.2022.pdf"
+        covers: "Badminton in the 65-sport list, Group C, out-of-turn promotion"
+        checked: 2026-10-16
+      - id: dopt-2024
+        name: "DoPT Office Memorandum, 4 March 2024 — Incentive for Sportspersons"
+        url: "https://dopt.gov.in/sites/default/files/Incentive%20for%20Sportpersons.pdf"
+        covers: "Khelo India Games, Junior Nationals and SGFI medallists added"
+        checked: 2026-10-16
+  # ------------------------------------------------------------------------------------------------ Shooting
+  - slug: shooting
+    short: "Shooting"
+    domain: solo
+    checked: 2026-10-16
+    body: "International Shooting Sport Federation (ISSF) · National Rifle Association of India (NRAI)"
+    card: "ISSF rifle, pistol and shotgun events, NRAI's MQS and selection-trial ladder, arms licences for juniors, the 15,000-round import rule, Karni Singh ranges, SLI and jobs."
+    card_facts: ["15 Olympic events", "Junior till the year you turn 21", "15,000 rounds a year import cap"]
+    eyebrow: "Sports Cockpit · Solo, Track &amp; Pool · ISSF Rule Book (July 2026) · NRAI Selection Criteria 2026"
+    title: "Shooting — ISSF events, NRAI trials, gun licences &amp; the cost of a shooter"
+    lede: "Education Margdarshan's shooting map for India: the ISSF rifle, pistol and shotgun events and their shot counts, the scores (MQS) that open India's selection trials, how NRAI ranks shooters, what a junior's family must sign for an arms licence, how renowned shooters import guns and ammunition, the Karni Singh ranges, the Shooting League of India, who pays, and the awards and jobs after a medal."
+    official:
+      - { label: "ISSF Rule Book 2026 print, July 2026 (PDF)", url: "https://backoffice.issf-sports.org/getfile.aspx?mod=docf&pane=1&inst=455&file=ISSF-Rule-Book-2026-Edition-2025-Second-Print-07-2026-Effective-1-July-2026.pdf" }
+      - { label: "thenrai.in", url: "https://www.thenrai.in/" }
+    facts:
+      - { label: "Olympic shooting events", value: "<strong>15</strong> — rifle, pistol, shotgun", source: issf-rules }
+      - { label: "Junior (ISSF)", value: "Until <strong>31 Dec of the year you turn 21</strong>", source: issf-rules }
+      - { label: "Rank for India's team", value: "<strong>Best 4 of latest 5</strong> scores in 180 days", source: nrai-sel26 }
+      - { label: "Import cap (renowned shooter)", value: "<strong>15,000 rounds a year</strong> per calibre", source: nrai-import }
+    sections:
+      - id: rules
+        nav: "Events &amp; guns"
+        eyebrow: "Core rules &amp; selection formats"
+        heading: "The Olympic rifle, pistol and shotgun events"
+        parts:
+          - table:
+              caption: "ISSF Olympic individual events — qualification and final"
+              head: ["Discipline", "Event", "Qualification", "Final"]
+              rows:
+                - ["Rifle", "<strong>10m Air Rifle</strong> (men, women)", "60 shots", "24 shots"]
+                - ["Rifle", "<strong>50m Rifle 3 Positions</strong> — kneeling, prone, standing (men, women)", "3 × 20 shots", "35 shots"]
+                - ["Pistol", "<strong>10m Air Pistol</strong> (men, women)", "60 shots", "24 shots"]
+                - ["Pistol", "<strong>25m Rapid-Fire Pistol</strong> (men) — 8, 6 and 4-second series", "30 + 30 shots", "40 shots"]
+                - ["Pistol", "<strong>25m Pistol</strong> (women) — precision and rapid fire", "30 + 30 shots", "50 shots"]
+                - ["Shotgun", "<strong>Trap</strong> (men, women)", "125 targets", "Up to 30 targets"]
+                - ["Shotgun", "<strong>Skeet</strong> (men, women)", "125 targets", "Up to 36 targets"]
+            source: issf-rules
+          - p: "With the <strong>mixed-team</strong> events (one man and one woman from the same country), shooting has <strong>15 Olympic events</strong>. Every Olympic event has a qualification round and a final."
+            source: issf-rules
+          - list:
+              - "<strong>Air rifle and air pistol</strong>: 4.5 mm (.177\") calibre."
+              - "<strong>25m pistol events</strong>: 5.6 mm (.22\") rimfire, long-rifle cartridges."
+              - "<strong>Shotgun</strong>: any smoothbore up to <strong>12 gauge</strong> — but <strong>no semi-automatic or pump-action</strong> guns and no camouflage finish; the shot charge may not exceed <strong>24.0 g</strong> (+0.5 g tolerance)."
+              - "In shotgun, everyone near the firing line must wear <strong>ear protection</strong> and every athlete must wear <strong>shatterproof shooting glasses</strong> — a shooter found on station without hearing protection loses the first target hit in that round."
+            source: issf-rules
+          - list:
+              - "A shooter remains a <strong>Junior until 31 December of the year they turn 21</strong>, and juniors may shoot in all ISSF Championships and the Olympics as part of the national team."
+              - "World Championships for <strong>all events</strong> are held every four years, two years after the Olympics; in other non-Olympic years shotgun and rifle-pistol have separate World Championships. Junior World Championships are held every year."
+            source: issf-rules
+      - id: recognition
+        nav: "Recognition"
+        eyebrow: "Institutional &amp; global recognition"
+        heading: "Olympics, World Championships — and India's own league"
+        parts:
+          - table:
+              caption: "Government cash award for a senior shooting medal (₹ lakh)"
+              head: ["Event", "Gold", "Silver", "Bronze"]
+              rows:
+                - ["<strong>Olympic Games</strong>", "75", "50", "30"]
+                - ["World Championships, all events (every 4 years)", "40", "25", "15"]
+                - ["Asian Games / Commonwealth Games", "30", "20", "10"]
+                - ["Asian Championships, all events (every 4 years)", "15", "10", "5"]
+            source: myas-cash
+          - note: "Team events pay each member 75% of the individual amount; the coach of an individual medallist gets 50%. Apply on the DBT-MIS portal within six months."
+            source: myas-cash
+          - list:
+              - "The <strong>Shooting League of India (SLI)</strong> is NRAI's franchise league for Olympic events — 'India's first professional shooting league' — with ISSF support but <strong>not an ISSF competition</strong>."
+              - "Format announced in April 2025: <strong>6–8 city franchises</strong>, 12 shooters a team (6 men, 6 women), up to 4 foreigners and at least 2 juniors (U21); players chosen at an <strong>auction</strong> and paid a tournament fee of <strong>€5,000–10,000</strong>, with franchises covering travel and stay."
+              - "Indian shooters could apply as Olympic or World medallists, World Cup medallists, top-10 ISSF-ranked shooters, National Championship medallists, national-squad members or junior world medallists."
+            source: "nrai-sli,nrai-sli-eoi"
+          - note: "SLI dates have moved: the eligibility notice set it for the Karni Singh ranges, 20 Nov–2 Dec 2025, while NRAI's December 2025 tender points to an SLI 2026 event in Delhi/Bhopal. Check NRAI's notice board before planning around it."
+            source: "nrai-sli-eoi,nrai-sli-rfq"
+      - id: eligibility
+        nav: "Licence &amp; age"
+        eyebrow: "Physical benchmarks &amp; anti-doping"
+        heading: "Arms licences, age checks, safety and clean sport"
+        parts:
+          - list:
+              - "NRAI <strong>certifies</strong> shooters' applications for a <strong>new arms licence</strong>, an extra weapon or a higher ammunition quota (under MHA notification S.O. 665(E), 12 Feb 2020). Processing fee: <strong>₹1,770</strong> for a new licence or extra weapon, ₹1,180 for other recommendations."
+              - "For a <strong>junior shooter</strong>, a parent signs an undertaking: the child <strong>may not carry the firearm alone until age 21</strong>; the gun stays locked in a steel almirah, and a parent (or an authorised coach or adult) carries it and hands it over only at the range."
+            source: nrai-licence
+          - list:
+              - "Under the national code against age fraud, NRAI requires <strong>all age-category athletes to undergo a medical examination</strong> to verify age before tournaments or camps, and punishes intentional age fraud harshly."
+            source: nrai-age
+          - list:
+              - "Pointing a gun at any person — even unloaded, even for a moment — can mean <strong>disqualification and debarment</strong>. All guns must be treated as loaded."
+              - "Any WADA/NADA violation keeps a shooter out of selection and counts as a suspension pending appeal."
+            source: nrai-sel26
+          - list:
+              - "Check every medicine against the <strong>Prohibited List</strong> and apply to NADA for a <strong>TUE</strong> if no permitted treatment exists."
+            source: nada-rr
+      - id: roadmap
+        nav: "Roadmap"
+        eyebrow: "Grassroots-to-elite residential pipeline"
+        heading: "From the state championship to India colours"
+        parts:
+          - table:
+              caption: "NRAI's selection ladder (Selection Criteria 2026)"
+              head: ["Step", "What happens"]
+              rows:
+                - ["1. Ranking competitions", "Scores from NRAI ranking competitions (RCs) and the Nationals feed your average"]
+                - ["2. National Shooting Championship Competitions (NSCC)", "Shoot the event's <strong>MQS</strong> at the 68th NSCC — this also makes you a 'renowned shooter' for imports"]
+                - ["3. Group B selection trials", "Open to seniors, juniors and youth who shot the MQS at the NSCC, or whose best three scores of the year beat it"]
+                - ["4. Group A selection trials", "Top-ranked <strong>seniors</strong> in Olympic events only; finals are shot only in Group A"]
+                - ["5. National Squad", "Picked from Group A after the 2nd trial of 2026 and reviewed after the 4th"]
+                - ["6. India team", "<strong>Three shooters per event</strong>; mixed teams pair the top-ranked man and woman"]
+            source: nrai-sel26
+          - table:
+              caption: "Qualifying scores (MQS) for 2026 selection trials — Olympic events"
+              head: ["Event", "Senior", "Junior", "Youth"]
+              rows:
+                - ["10m Air Rifle men", "615", "610", "605"]
+                - ["10m Air Rifle women", "612", "607", "602"]
+                - ["50m Rifle 3 Positions men / women", "565 / 560", "545 / 540", "—"]
+                - ["10m Air Pistol men", "565", "560", "555"]
+                - ["10m Air Pistol women", "550", "540", "530"]
+                - ["25m Rapid-Fire Pistol men", "550", "535", "—"]
+                - ["25m Pistol women", "545", "525", "—"]
+            source: nrai-sel26
+          - note: "Air rifle MQS are decimal scores. Ranking uses the <strong>Moving Average Method</strong>: the average of your <strong>best four of the latest five scores within 180 days</strong> — no score may be skipped. Shotgun ranking restarted from zero at the 68th NSCC."
+            source: nrai-sel26
+          - p: "Medals at the <strong>Khelo India Youth Games (above 18)</strong>, Junior Nationals and SGFI school games also count for central sports-quota jobs."
+            source: dopt-2024
+      - id: academies
+        nav: "Ranges"
+        eyebrow: "Top elite academies &amp; cities"
+        heading: "Where India's shooters train"
+        parts:
+          - list:
+              - "<strong>Dr. Karni Singh Shooting Range, New Delhi</strong> is SAI's National Centre of Excellence for shooting — one of SAI's 13 priority disciplines, with residential training, coaches, sports science and nutritionist-set diets."
+            source: sai-schemes
+          - list:
+              - "The same Karni Singh ranges were named as the venue for NRAI's Shooting League of India."
+            source: nrai-sli-eoi
+          - note: "Education Margdarshan lists only ranges whose role is confirmed by SAI or NRAI's own files. Private academies are not listed until we can verify them from their own notices."
+            source: sai-schemes
+      - id: costs
+        nav: "Guns &amp; cost"
+        eyebrow: "Equipment costs &amp; who pays"
+        heading: "Guns, ammunition, import permits — and who pays"
+        parts:
+          - table:
+              caption: "NRAI import rules for renowned shooters (approved 10 Oct 2022, amended 12 Aug 2023)"
+              head: ["Rule", "What it says"]
+              rows:
+                - ["Who is 'renowned'", "Shot an Open event at the National Shooting Championship and reached NRAI's <strong>MQS</strong>"]
+                - ["Weapons", "<strong>One weapon + one extra barrel</strong> per event in which you are renowned (Arjuna awardees: two); <strong>no magnum</strong> weapons"]
+                - ["Ammunition", "Up to <strong>15,000 rounds a year</strong>; .22 rifle and pistol ammunition must be lead, <strong>not jacketed</strong>; shotgun cartridges at most 24.5 g of shot"]
+                - ["Permit", "Fee <strong>₹5,000 + GST</strong>; valid <strong>24 months</strong>, extendable by 6"]
+                - ["Duty", "NRAI issues customs <strong>duty-exemption certificates</strong> for listed shooting items under a Finance Ministry notification"]
+                - ["Licence", "The shooter must hold a valid arms licence covering the weapon and the ammunition quantity"]
+            source: nrai-import
+          - list:
+              - "Education Margdarshan does not print gun or ammunition prices: neither ISSF nor NRAI publishes them, and they depend on the model and the import route."
+            source: nrai-import
+          - table:
+              caption: "Who pays — shooting"
+              head: ["Stage", "Paid by", "What you get"]
+              rows:
+                - ["SAI NCOE trainee", "Sports Authority of India", "Coaching, boarding, sports science at Karni Singh"]
+                - ["Khelo India athlete", "Ministry of Youth Affairs &amp; Sports", "<strong>₹6.28 lakh a year</strong> incl. ₹1.20 lakh cash"]
+                - ["Junior medal prospect", "TOPS Development Group", "₹25,000 a month"]
+                - ["Olympic prospect", "TOPS Core Group", "<strong>₹50,000 a month</strong> + approved training plan"]
+                - ["Athlete in hardship", "PDU National Welfare Fund", "Up to ₹2.50 lakh"]
+            source: "sai-schemes,pib-support"
+      - id: earnings
+        nav: "Earnings &amp; jobs"
+        eyebrow: "Earning channels &amp; central job quotas"
+        heading: "Awards, league fees and sports-quota jobs"
+        parts:
+          - list:
+              - "Shooting is one of the <strong>65 sports</strong> in the central sports quota for <strong>Group C</strong> posts, with up to 5 years' age relaxation (10 for SC/ST)."
+              - "Medals at the Olympics, Asian Games, Commonwealth Games or World Championships can bring up to <strong>three out-of-turn promotions</strong>."
+            source: dopt-2022
+          - list:
+              - "<strong>SLI tournament fee</strong> of €5,000–10,000 per shooter, set by the auction (per NRAI's 2025 fact sheet)."
+            source: nrai-sli
+          - p: "Retired champions can receive the <strong>Pension to Meritorious Sportspersons</strong> of ₹12,000–20,000 a month."
+            source: pib-support
+      - id: traps
+        nav: "Red flags"
+        eyebrow: "Disqualification traps"
+        heading: "Mistakes that cost shooters their ranking"
+        parts:
+          - list:
+              - "<strong>Withdrawing mid-competition</strong> — once you have started (even sighters), your score so far, or zero, goes into your average."
+              - "<strong>Not replying in 3 days</strong> — if you cannot go to an international event, email NRAI within 3 days of the team announcement or face a penalty."
+              - "<strong>Breaking dress code or range safety</strong> — penalties up to disqualification and debarment."
+            source: nrai-sel26
+          - list:
+              - "<strong>Letting an import permit lapse</strong> — no extension after expiry unless an advance was paid, and no new permit until the old one is used or surrendered."
+            source: nrai-import
+          - list:
+              - "<strong>A junior carrying the gun alone</strong> — breaking the parents' undertaking can get the licence cancelled."
+            source: nrai-licence
+    sources:
+      - id: issf-rules
+        name: "ISSF Rule Book — 2025 edition, second print (effective 1 July 2026)"
+        url: "https://backoffice.issf-sports.org/getfile.aspx?mod=docf&pane=1&inst=455&file=ISSF-Rule-Book-2026-Edition-2025-Second-Print-07-2026-Effective-1-July-2026.pdf"
+        covers: "Olympic events and shot counts, 15 Olympic events, calibres, shotgun and cartridge rules, eye and ear protection, junior age, World Championship cycle"
+        checked: 2026-10-16
+      - id: nrai-sel26
+        name: "NRAI — National Team Selection Criteria 2026, Rifle, Pistol and Shotgun (approved 24 Oct 2025)"
+        url: "https://www.thenrai.in/PDF/e71d053a-4d53-4423-9c35-20292b228b86.pdf"
+        covers: "Moving Average Method, Group A/B trials, National Squad, MQS table, withdrawal, safety, WADA/NADA rules"
+        checked: 2026-10-16
+      - id: nrai-import
+        name: "NRAI — Rules for issue of import permits to renowned shooters (10 Oct 2022, amended 12 Aug 2023)"
+        url: "https://www.thenrai.in/Downloads/c3ef723d-e730-4075-9441-ac0a77805087.pdf"
+        covers: "Renowned-shooter definition, weapons and ammunition limits, 15,000 rounds, permit fee and validity, duty exemption"
+        checked: 2026-10-16
+      - id: nrai-licence
+        name: "NRAI — Application for certification (arms licence) and junior-shooter undertaking"
+        url: "https://www.thenrai.in/Downloads/36b0b055-7921-4dba-a40d-c91484a35d5e.pdf"
+        covers: "MHA S.O. 665(E) 2020, fees, parents' undertaking for junior shooters (no carrying until 21)"
+        checked: 2026-10-16
+      - id: nrai-age
+        name: "NRAI — Age Fraud Policy"
+        url: "https://www.thenrai.in/PDF/15bfd26a-8232-41e6-8397-8ba8f75540c1.pdf"
+        covers: "Medical age verification for all age-category athletes, penalties"
+        checked: 2026-10-16
+      - id: nrai-sli
+        name: "NRAI — Shooting League of India fact sheet (April 2025)"
+        url: "https://www.thenrai.in/PDF/c1850356-fca7-40c0-ba9f-c201e4d0702b.pdf"
+        covers: "Franchise format, team make-up, auction, €5,000–10,000 fee, ISSF support"
+        checked: 2026-10-16
+      - id: nrai-sli-eoi
+        name: "NRAI — Eligibility for Indian athletes to apply for the Shooting League of India"
+        url: "https://www.thenrai.in/PDF/e18f6e79-75c3-4c67-ae02-ad9e171e637b.pdf"
+        covers: "Eligible categories, Dr. Karni Singh Shooting Ranges venue, 20 Nov–2 Dec 2025 dates"
+        checked: 2026-10-16
+      - id: nrai-sli-rfq
+        name: "NRAI / SLI — Request for Quote SLI/10/2025: SLI VR Championship (18 Dec 2025)"
+        url: "https://www.thenrai.in/PDF/31a2203c-d808-49e1-8405-04c2dbe7c36c.pdf"
+        covers: "SLI 2026 Grand Finale planned in Delhi/Bhopal, February 2026"
+        checked: 2026-10-16
+      - id: myas-cash
+        name: "MYAS — Scheme of Cash Incentive to Medal Winners (amended 1 Feb 2025)"
+        url: "https://yas.gov.in/sites/default/files/Scheme%20of%20Cash%20Incentive%20to%20Medal%20Winners%20in%20International%20Sports%20Events%20and%20their%20Coaches%20amended%20as%20on%2001.02.2025.pdf"
+        covers: "Award amounts, shooting World and Asian Championships (all events, quadrennial), team and coach shares"
+        checked: 2026-10-16
+      - id: sai-schemes
+        name: "SAI — Brief on Sports Promotional Schemes 2024-25"
+        url: "https://www.sportsauthorityofindia.gov.in/sai/public/assets/pdfs/schemes/NCOE_Brief.pdf"
+        covers: "Dr. Karni Singh Shooting Range NCOE, priority disciplines, NCOE support"
+        checked: 2026-10-16
+      - id: nada-rr
+        name: "NADA India — Athlete's Rights &amp; Responsibilities"
+        url: "https://nadaindia.yas.gov.in/wp-content/uploads/AthleteRR.pdf"
+        covers: "Prohibited List, TUE"
+        checked: 2026-10-16
+      - id: pib-support
+        name: "PIB — Financial Support to Athletes (5 Aug 2024)"
+        url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2041702"
+        covers: "Khelo India, TOPS, welfare fund, pension"
+        checked: 2026-10-16
+      - id: dopt-2022
+        name: "DoPT — Instructions on Recruitment/Promotion for Sportspersons (18 Nov 2022)"
+        url: "https://yas.gov.in/sites/default/files/Compendium%20dated%2018.11.2022.pdf"
+        covers: "Shooting in the 65-sport list, Group C, out-of-turn promotion"
+        checked: 2026-10-16
+      - id: dopt-2024
+        name: "DoPT Office Memorandum, 4 March 2024 — Incentive for Sportspersons"
+        url: "https://dopt.gov.in/sites/default/files/Incentive%20for%20Sportpersons.pdf"
+        covers: "Khelo India Games, Junior Nationals and SGFI medallists added"
+        checked: 2026-10-16
+  # ------------------------------------------------------------------------------------------------ Swimming
+  - slug: swimming
+    short: "Swimming"
+    domain: solo
+    checked: 2026-10-16
+    body: "World Aquatics · Swimming Federation of India (SFI)"
+    card: "World Aquatics stroke and swimsuit rules, the LA28 programme, SFI's new 2026 age groups and qualifying times, the National Talent Pool, SAI pools, awards and jobs."
+    card_facts: ["New 50m back/breast/fly at LA28", "15 m underwater limit", "SFI juniors 15–18"]
+    eyebrow: "Sports Cockpit · Solo, Track &amp; Pool · World Aquatics rules Feb 2026 · SFI 2026"
+    title: "Swimming — stroke rules, approved swimsuits &amp; SFI's age-group ladder"
+    lede: "Education Margdarshan's swimming map for India: the Olympic programme under the 2026 World Aquatics rules, how each stroke must be swum, which swimsuits are legal, the minimum ages, SFI's new sub-junior and junior groups, qualifying times and entry rules for the Nationals, the National Talent Pool that leads to TOPS, the SAI and corporate pools, who pays, and the awards and jobs after a medal."
+    official:
+      - { label: "World Aquatics Competition Regulations, Feb 2026 (PDF)", url: "https://resources.fina.org/fina/document/2026/02/18/e6815ecc-06d9-4f0b-98e9-4c441cf5e6a3/2026-02-18_World-Aquatics_CR-Final.pdf" }
+      - { label: "swimming.org.in", url: "https://www.swimming.org.in/" }
+    facts:
+      - { label: "Olympic sprint events", value: "<strong>50m in all four strokes</strong>", source: wa-cr }
+      - { label: "Underwater after start/turn", value: "<strong>Max 15 m</strong> (free, back, fly)", source: wa-cr }
+      - { label: "Min. age, Olympics &amp; Worlds", value: "<strong>14 on 31 Dec</strong> — younger only with a 'B' time", source: wa-cr }
+      - { label: "SFI junior groups (2026)", value: "<strong>15–16 &amp; 17–18</strong> · sub-junior 11–12 &amp; 13–14", source: sfi-age }
+    sections:
+      - id: rules
+        nav: "Strokes &amp; events"
+        eyebrow: "Core rules &amp; selection formats"
+        heading: "The Olympic programme and how each stroke must be swum"
+        parts:
+          - table:
+              caption: "Olympic swimming programme (World Aquatics rules, February 2026) — same for men and women"
+              head: ["Stroke", "Events"]
+              rows:
+                - ["Freestyle", "50m, 100m, 200m, 400m, 800m, 1500m"]
+                - ["Backstroke", "<strong>50m</strong>, 100m, 200m"]
+                - ["Breaststroke", "<strong>50m</strong>, 100m, 200m"]
+                - ["Butterfly", "<strong>50m</strong>, 100m, 200m"]
+                - ["Individual medley", "200m, 400m"]
+                - ["Relays", "4×100m and 4×200m freestyle · 4×100m medley · mixed 4×100m medley"]
+            source: wa-cr
+          - list:
+              - "Freestyle, breaststroke, butterfly and individual medley start with a <strong>dive</strong>; backstroke and medley relays start <strong>in the water</strong>. The command is 'take your marks'."
+              - "Any swimmer who <strong>starts before the signal may be disqualified</strong> — if the signal has already gone, the race continues and the swimmer is disqualified at the end."
+              - "In freestyle, backstroke and butterfly a swimmer may be fully underwater for <strong>no more than 15 m</strong> after the start and each turn; the head must break the surface by the 15 m mark."
+              - "Breaststroke: one arm stroke and one leg kick per cycle, arms moving together — never rolling onto the back except at the turn."
+              - "Individual medley order: <strong>butterfly, backstroke, breaststroke, freestyle</strong>. Medley relay order: <strong>backstroke, breaststroke, butterfly, freestyle</strong>."
+            source: "wa-cr,wa-commentary"
+          - list:
+              - "India's <strong>79th Senior National Aquatic Championships</strong> (Ahmedabad, 16–21 June 2026) used this full programme in a 50 m pool under the 2026 World Aquatics rules: heats and finals, the <strong>fastest eight</strong> reaching the final, and 800m/1500m freestyle as timed finals."
+            source: sfi-sr26
+      - id: recognition
+        nav: "Recognition"
+        eyebrow: "Institutional &amp; global recognition"
+        heading: "Olympics, World Championships, Asian Games — and the cash award"
+        parts:
+          - table:
+              caption: "Government cash award for a senior swimming medal (₹ lakh)"
+              head: ["Event", "Gold", "Silver", "Bronze"]
+              rows:
+                - ["<strong>Olympic Games</strong>", "75", "50", "30"]
+                - ["Asian Games / Commonwealth Games", "30", "20", "10"]
+                - ["World Championships, long course (every 2 years)", "20", "14", "8"]
+                - ["Asian Championships, long course (every 4 years)", "15", "10", "5"]
+            source: myas-cash
+          - note: "Relay swimmers get 75% of the individual amount; the coach of an individual medallist gets 50%. Apply on the DBT-MIS portal within six months."
+            source: myas-cash
+          - list:
+              - "SFI publishes its own <strong>qualification systems</strong> for the 2026 Asian Games, the 2026 Commonwealth Games and the Asian Aquatics Championships, and selection policies for the World Championships and World Junior Championships."
+            source: sfi-qual
+      - id: eligibility
+        nav: "Swimsuits &amp; age"
+        eyebrow: "Physical benchmarks &amp; anti-doping"
+        heading: "Legal swimsuits, minimum ages and doping control"
+        parts:
+          - list:
+              - "Swimsuits must be on World Aquatics' <strong>List of Approved Swimwear</strong> at the time of the competition — a suit off the list is illegal at Olympic and World Aquatics events."
+              - "<strong>Men</strong>: suit no higher than the navel and no lower than the knee, in one piece. <strong>Women</strong>: may not cover the neck or go past the shoulders or below the knee; one or two pieces."
+              - "Material must be <strong>textile fabric</strong>, at most two layers, with no shapes or structures on the surface; nothing else may be worn on the body besides suit, cap and goggles."
+            source: wa-cr
+          - list:
+              - "Olympic Games, World Championships and the 25 m World Championships: a swimmer must be <strong>at least 14 on 31 December</strong> of the competition year, or younger with at least the <strong>'B' entry time</strong>."
+              - "World Junior Championships: aged <strong>14 to 18</strong> on 31 December of the competition year."
+            source: wa-cr
+          - list:
+              - "NADA tests at the Senior Nationals; a swimmer called for testing must stay with the NADA escort, even between events."
+              - "Every swimmer entered needs a valid <strong>SFI UID for 2026-27</strong>."
+            source: sfi-sr26
+          - list:
+              - "Check every medicine against the <strong>Prohibited List</strong> and apply to NADA for a <strong>TUE</strong> if no permitted treatment exists."
+            source: nada-rr
+      - id: roadmap
+        nav: "Roadmap"
+        eyebrow: "Grassroots-to-elite residential pipeline"
+        heading: "From sub-junior nationals to the National Talent Pool"
+        parts:
+          - table:
+              caption: "SFI national championships, 2026 (new age groups adopted 18 May 2026)"
+              head: ["Championship", "Groups", "Dates &amp; venue"]
+              rows:
+                - ["42nd Sub-Junior National", "Group III <strong>11–12</strong> (born 2014–15) · Group II <strong>13–14</strong> (born 2012–13)", "6–9 Aug 2026, Jaipur"]
+                - ["52nd Junior National", "Group I(B) <strong>15–16</strong> (born 2010–11) · Group I(A) <strong>17–18</strong> (born 2008–09)", "18–23 Aug 2026, Bhubaneswar"]
+                - ["79th Senior National", "Open", "16–21 June 2026, Ahmedabad"]
+            source: "sfi-age,sfi-subjr26,sfi-jr26,sfi-sr26"
+          - list:
+              - "Entries go through the state unit on SFI's GMS portal. A swimmer may enter at most <strong>5 individual events</strong> with at least one qualifying time; a state may enter <strong>2 swimmers per event</strong> with the two-entry time."
+              - "A state with fewer than 6 qualified swimmers per gender may fill up to 6 without times, in at most 2 events each."
+            source: sfi-sr26
+          - table:
+              caption: "SFI National Talent Pool &amp; Development Pool (2026)"
+              head: ["Pool", "Who", "What it gives"]
+              rows:
+                - ["<strong>National Talent Pool Athlete</strong>", "Age 13+ who meets SFI's age-specific time standards, electronically timed", "Eligibility for <strong>government-funded</strong> international exposure meets and national camps; SFI recommends NTPA swimmers for TOPS"]
+                - ["Development Pool Athlete", "Ages 9–12, or scouted talent", "Regional camps and a long-term development plan"]
+            source: sfi-ntpd
+          - note: "TOPS selection itself is decided by SAI's <strong>Mission Olympic Cell</strong>. A swimmer who breaks the pool conditions for 6 months in a row, or stops training for more than 6 months, is dropped."
+            source: sfi-ntpd
+      - id: academies
+        nav: "Pools"
+        eyebrow: "Top elite academies &amp; cities"
+        heading: "Where India's swimmers train"
+        parts:
+          - table:
+              caption: "Verified swimming centres"
+              head: ["Centre", "City", "What it is"]
+              rows:
+                - ["SAI NCOE — Dr SPM Swimming Pool Complex", "New Delhi", "SAI's residential centre for swimming (a priority discipline)"]
+                - ["SAI NCOE Gandhinagar", "Gandhinagar, Gujarat", "Swimming for para athletes, with other sports"]
+                - ["Inspire Institute of Sport — <strong>Mizuho High Performance Swimming Programme</strong>", "Vijayanagar, Karnataka", "Corporate-backed high-performance swimming at IIS"]
+            source: "sai-schemes,iis-programmes"
+          - warn: "We could not find a 'SAI Glenmark Aquatic Academy' in SAI's list of National Centres of Excellence, so Education Margdarshan does not list it. Ask any academy for its SAI or SFI recognition letter before paying fees."
+            source: sai-schemes
+      - id: costs
+        nav: "Suits &amp; cost"
+        eyebrow: "Equipment costs &amp; who pays"
+        heading: "Tech suits, entry fees and who pays"
+        parts:
+          - list:
+              - "A racing 'tech suit' is legal only if its model is on the <strong>approved list</strong>; check the label before buying. Education Margdarshan does not print suit prices — World Aquatics and SFI do not publish them."
+            source: wa-cr
+          - list:
+              - "Senior Nationals entry: <strong>₹40 per event</strong> per swimmer and <strong>₹200 per relay team</strong>, paid by the state unit."
+              - "A swimmer entered on a qualifying time who fails to swim the single-entry time in at least one event pays a <strong>₹1,000 penalty</strong> and gets no participation certificate."
+            source: sfi-sr26
+          - table:
+              caption: "Who pays — swimming"
+              head: ["Stage", "Paid by", "What you get"]
+              rows:
+                - ["National Talent Pool", "Government schemes via SFI", "International exposure meets, national camps"]
+                - ["Khelo India athlete", "Ministry of Youth Affairs &amp; Sports", "<strong>₹6.28 lakh a year</strong> incl. ₹1.20 lakh cash"]
+                - ["Junior medal prospect", "TOPS Development Group", "₹25,000 a month"]
+                - ["Olympic prospect", "TOPS Core Group", "<strong>₹50,000 a month</strong> + approved training plan"]
+                - ["Athlete in hardship", "PDU National Welfare Fund", "Up to ₹2.50 lakh"]
+            source: "sfi-ntpd,pib-support"
+          - list:
+              - "<strong>Food first</strong> — no supplement is 100% safe and strict liability applies; NTPA swimmers also sign SFI's clean-sport and supplement declaration."
+            source: "nada-supp,sfi-ntpd"
+      - id: earnings
+        nav: "Earnings &amp; jobs"
+        eyebrow: "Earning channels &amp; central job quotas"
+        heading: "Awards, admissions and sports-quota jobs"
+        parts:
+          - p: "SFI's own development plan says it plainly: in India a medal at the Nationals, the Khelo India Games or the National Games is the road to a <strong>college admission or a government job</strong>."
+            source: sfi-ntpd
+          - list:
+              - "Swimming is one of the <strong>65 sports</strong> in the central sports quota for <strong>Group C</strong> posts, with up to 5 years' age relaxation (10 for SC/ST)."
+              - "Medals at the Olympics, Asian Games, Commonwealth Games or World Championships can bring up to <strong>three out-of-turn promotions</strong>."
+            source: dopt-2022
+          - p: "Since <strong>4 March 2024</strong>, medals at Junior Nationals, the <strong>Khelo India Youth Games (above 18)</strong> and SGFI school games also count."
+            source: dopt-2024
+          - p: "Retired champions can receive the <strong>Pension to Meritorious Sportspersons</strong> of ₹12,000–20,000 a month."
+            source: pib-support
+      - id: traps
+        nav: "Red flags"
+        eyebrow: "Disqualification traps"
+        heading: "Mistakes that cost swimmers a race"
+        parts:
+          - list:
+              - "<strong>Moving before the signal</strong> — disqualification, even if the race is allowed to finish."
+              - "<strong>Staying under past 15 m</strong> off the start or a turn."
+              - "<strong>Racing in an unapproved suit</strong>, or wearing anything besides suit, cap and goggles."
+            source: wa-cr
+          - list:
+              - "<strong>Late scratch from a final</strong> — withdraw within 30 minutes of the heats, or face a ₹1,000 fine or removal from the rest of the day's events."
+              - "<strong>Relay names not handed in</strong> one hour before the session — the team is excluded."
+              - "<strong>No valid SFI UID</strong> — no entry."
+            source: sfi-sr26
+    sources:
+      - id: wa-cr
+        name: "World Aquatics — Competition Regulations (in force February 2026)"
+        url: "https://resources.fina.org/fina/document/2026/02/18/e6815ecc-06d9-4f0b-98e9-4c441cf5e6a3/2026-02-18_World-Aquatics_CR-Final.pdf"
+        covers: "Olympic programme, starts, stroke rules, 15 m rule, medley order, swimwear approval and design, age eligibility"
+        checked: 2026-10-16
+      - id: wa-commentary
+        name: "World Aquatics Technical Swimming Committee — Commentary on the Competition Regulations (6 Aug 2026)"
+        url: "https://resources.fina.org/fina/document/2026/08/10/869f46eb-cde1-4c11-8a5f-3d78735a21cf/Commentary-on-the-World-Aquatics-Competition-Regulations.pdf"
+        covers: "Clarifications on early starts, breaststroke and butterfly body position"
+        checked: 2026-10-16
+      - id: sfi-age
+        name: "SFI — Sub Junior / Junior National Aquatic Championship age groups, 2026 onwards (18 May 2026)"
+        url: "https://www.swimming.org.in/management/upload/circular/Circular%20%20Age%20Groups%20for%20Sub%20Junior%20%26%20Junior%20National%20Aquatic%20Championship.pdf"
+        covers: "Swimming junior 15–16 and 17–18, sub-junior 11–12 and 13–14"
+        checked: 2026-10-16
+      - id: sfi-sr26
+        name: "SFI — Circular: 79th Senior National Aquatic Championships 2026 (2 May 2026)"
+        url: "https://www.swimming.org.in/management/upload/circular/Circular%20Seniors%202026.pdf"
+        covers: "Ahmedabad 16–21 June 2026, events, heats/finals, entry rules, fees, penalties, NADA testing, SFI UID"
+        checked: 2026-10-16
+      - id: sfi-jr26
+        name: "SFI — Circular: 52nd Junior National Aquatic Championships 2026, swimming (27 June 2026)"
+        url: "https://www.swimming.org.in/management/upload/circular/Circular%2052nd%20Junior%20National%20Aquatic%202026%20SW.pdf"
+        covers: "Bhubaneswar 18–23 Aug 2026, Groups I(A) and I(B) by birth year"
+        checked: 2026-10-16
+      - id: sfi-subjr26
+        name: "SFI — Circular: 42nd Sub Junior National Aquatic Championships 2026, swimming (23 June 2026)"
+        url: "https://www.swimming.org.in/management/upload/circular/Ciruclar%2042nd%20Sub%20Junior%202026%20SW.pdf"
+        covers: "Jaipur 6–9 Aug 2026, Groups II and III by birth year"
+        checked: 2026-10-16
+      - id: sfi-ntpd
+        name: "SFI — National Talent Pool Development Program, 2026 edition"
+        url: "https://www.swimming.org.in/wp-content/uploads/2026/07/2026-NTPD-document.pdf"
+        covers: "NTPA and DPA criteria, benefits, TOPS recommendation, weeding out, clean-sport declaration"
+        checked: 2026-10-16
+      - id: sfi-qual
+        name: "SFI — Qualification Guidelines"
+        url: "https://www.swimming.org.in/qualification-guidelines/"
+        covers: "Qualification systems for Asian Games 2026, Commonwealth Games 2026, AAGC 2026; selection policies"
+        checked: 2026-10-16
+      - id: myas-cash
+        name: "MYAS — Scheme of Cash Incentive to Medal Winners (amended 1 Feb 2025)"
+        url: "https://yas.gov.in/sites/default/files/Scheme%20of%20Cash%20Incentive%20to%20Medal%20Winners%20in%20International%20Sports%20Events%20and%20their%20Coaches%20amended%20as%20on%2001.02.2025.pdf"
+        covers: "Award amounts, swimming World (biennial) and Asian (quadrennial) long-course championships, team and coach shares"
+        checked: 2026-10-16
+      - id: sai-schemes
+        name: "SAI — Brief on Sports Promotional Schemes 2024-25"
+        url: "https://www.sportsauthorityofindia.gov.in/sai/public/assets/pdfs/schemes/NCOE_Brief.pdf"
+        covers: "Swimming NCOEs (Dr SPM Swimming Pool Complex Delhi; Gandhinagar para), priority disciplines"
+        checked: 2026-10-16
+      - id: iis-programmes
+        name: "Inspire Institute of Sport, Vijayanagar — Programmes"
+        url: "https://inspireinstituteofsport.com/programmes/"
+        covers: "Mizuho High Performance Swimming Programme"
+        checked: 2026-10-16
+      - id: nada-rr
+        name: "NADA India — Athlete's Rights &amp; Responsibilities"
+        url: "https://nadaindia.yas.gov.in/wp-content/uploads/AthleteRR.pdf"
+        covers: "Prohibited List, TUE"
+        checked: 2026-10-16
+      - id: nada-supp
+        name: "NADA India — Managing the Risk of Nutritional Supplements"
+        url: "https://nadaindia.yas.gov.in/wp-content/uploads/Managing-the-Risk-of-Nutritional-Supplements_1.pdf"
+        covers: "Food first, strict liability"
+        checked: 2026-10-16
+      - id: pib-support
+        name: "PIB — Financial Support to Athletes (5 Aug 2024)"
+        url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2041702"
+        covers: "Khelo India, TOPS, welfare fund, pension"
+        checked: 2026-10-16
+      - id: dopt-2022
+        name: "DoPT — Instructions on Recruitment/Promotion for Sportspersons (18 Nov 2022)"
+        url: "https://yas.gov.in/sites/default/files/Compendium%20dated%2018.11.2022.pdf"
+        covers: "Swimming in the 65-sport list, Group C, out-of-turn promotion"
+        checked: 2026-10-16
+      - id: dopt-2024
+        name: "DoPT Office Memorandum, 4 March 2024 — Incentive for Sportspersons"
+        url: "https://dopt.gov.in/sites/default/files/Incentive%20for%20Sportpersons.pdf"
+        covers: "Khelo India Games, Junior Nationals and SGFI medallists added"
+        checked: 2026-10-16

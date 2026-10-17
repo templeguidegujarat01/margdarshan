@@ -247,6 +247,9 @@ if (fs.existsSync(nxFile)) {
 // sports slugs, and each sport must sit in a known domain and be listed by it.
 const spFile = path.join(root, '_data', 'in', 'sports.yml');
 const SP_BLOCKS = ['rules', 'recognition', 'eligibility', 'roadmap', 'academies', 'costs', 'earnings', 'traps'];
+// Optional last block: player doubts. Besides the usual parts it takes `qa: { q, a }` (question + answer, also
+// emitted as FAQPage JSON-LD); a qa needs a source like any fact.
+const SP_DOUBTS = 'doubts';
 let spSports = 0;
 if (fs.existsSync(spFile)) {
   const err = (m) => errors.push(`sports.yml: ${m}`);
@@ -318,14 +321,17 @@ if (fs.existsSync(spFile)) {
     if ((E.facts || []).length !== 4) ex('the hero console needs exactly 4 facts (2 x 2)');
     for (const o of E.official || []) if (!/^https:\/\//.test(o.url || '')) ex(`official link ${o.label}: url must start with https://`);
     const secIds = (E.sections || []).map((s) => s.id);
-    if (secIds.join() !== SP_BLOCKS.join()) ex(`sections must be ${SP_BLOCKS.join(', ')} in that order (found ${secIds.join(', ')})`);
+    const coreIds = secIds[secIds.length - 1] === SP_DOUBTS ? secIds.slice(0, -1) : secIds;
+    if (coreIds.join() !== SP_BLOCKS.join()) ex(`sections must be ${SP_BLOCKS.join(', ')} in that order, optionally followed by ${SP_DOUBTS} (found ${secIds.join(', ')})`);
     for (const S of E.sections || []) {
       for (const k of ['nav', 'eyebrow', 'heading']) if (!S[k]) ex(`section ${S.id}: ${k} is required`);
+      const okKinds = S.id === SP_DOUBTS ? [...SC_KINDS, 'qa'] : SC_KINDS;
       for (const [i, p] of (S.parts || []).entries()) {
         const kinds = Object.keys(p).filter((k) => k !== 'source');
         const where = `section ${S.id} part ${i + 1}`;
-        if (kinds.length !== 1 || !SC_KINDS.includes(kinds[0])) { ex(`${where}: unknown part ${JSON.stringify(kinds)}`); continue; }
-        cite(where, p.source, FACT_KINDS.includes(kinds[0]));
+        if (kinds.length !== 1 || !okKinds.includes(kinds[0])) { ex(`${where}: unknown part ${JSON.stringify(kinds)}`); continue; }
+        cite(where, p.source, FACT_KINDS.includes(kinds[0]) || kinds[0] === 'qa');
+        if (p.qa && (!p.qa.q || !p.qa.a)) ex(`${where}: qa needs q and a`);
         if (p.table) {
           const w = (p.table.head || []).length;
           if (!w) ex(`${where}: table needs head`);

@@ -8,7 +8,8 @@
 
   Everything else comes from _data/in/sports.yml → sports[] (the entry whose slug = sport): hero (eyebrow, title,
   lede, body — shown after body_label, default "Governed by"), the 2 x 2 fact console (facts[] with source), official buttons, eight fixed blocks (rules,
-  recognition, eligibility, roadmap, academies, costs, earnings, traps) and the numbered sources — 9 blocks in all.
+  recognition, eligibility, roadmap, academies, costs, earnings, traps), an optional ninth "doubts" block (player
+  questions as qa: { q, a } parts, also emitted as FAQPage JSON-LD) and the numbered sources.
   Part kinds and markup are the exam console's (national-exam.html: .sc-*, .mb, 760px console), so the sports
   pages and exam pages read as one system. scripts/check-in-data.mjs validates the sheet. Classical-arts entries
   (domain arts) set body_label, rules_note and sources_note so the hero and Sources text speak of art forms, not sports.
@@ -40,6 +41,22 @@
   "dateModified": "{{ CK | date: '%Y-%m-%d' }}"
 }
 </script>
+{%- assign DQ = E.sections | where: "id", "doubts" | first %}
+{%- if DQ %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {%- assign qn = 0 %}
+    {%- for p in DQ.parts %}{% if p.qa %}
+    {% if qn > 0 %},{% endif %}{ "@type": "Question", "name": {{ p.qa.q | strip_html | replace: "&amp;", "&" | jsonify }}, "acceptedAnswer": { "@type": "Answer", "text": {{ p.qa.a | strip_html | replace: "&amp;", "&" | jsonify }} } }
+    {%- assign qn = qn | plus: 1 %}{% endif %}
+    {%- endfor %}
+  ]
+}
+</script>
+{%- endif %}
 
 <main id="main" class="sc-page nx-page sp-page" data-no-page-nav>
   <section class="page-hero career-hero sc-hero" aria-labelledby="hero-heading">
@@ -114,6 +131,9 @@
       <p class="table-note sc-note">{{ p.note }}{% if p.source %} {% include sport-src-refs.html ids=p.source %}{% endif %}</p>
       {%- elsif p.warn %}
       <div class="sc-warn" role="note"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/></svg><p>{{ p.warn }}{% if p.source %} {% include sport-src-refs.html ids=p.source %}{% endif %}</p></div>
+      {%- elsif p.qa %}
+      <h3 class="block-subhead sc-q">{{ p.qa.q }}</h3>
+      <p class="sc-p">{{ p.qa.a }}{% if p.source %} {% include sport-src-refs.html ids=p.source %}{% endif %}</p>
       {%- elsif p.links %}
       <div class="chip-links sc-links">
         {%- for l in p.links %}

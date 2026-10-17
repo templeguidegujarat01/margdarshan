@@ -3207,6 +3207,25 @@ main.sc-page > section.mb .section-head{margin-bottom:1.1rem;}
 .sp-next span:not(.sp-next-k){padding:.12rem .5rem;border:1px dashed var(--line);border-radius:999px;font-size:.74rem;color:var(--text-muted);}
 .sp-page .sc-p strong,.sp-page .sc-list strong,.sp-page td strong,.sp-hub .sc-list strong{color:var(--text);font-weight:750;}
 @media (prefers-reduced-motion:reduce){.sp-go{transition:none;}}
+/* Every-sport directory (all-sports.html, _includes/sports-atlas.html): one row per sport with "Played at" tags.
+   Olympic / Paralympic tags carry the accent border; the rest stay neutral so the row reads at a glance. */
+.sa-table th[scope="row"]{min-width:9rem;}
+.sa-table th[scope="row"] a{font-weight:700;}
+.sa-guide{display:block;margin-top:.15rem;font-size:.72rem;font-weight:600;color:var(--text-muted);}
+.sa-tags{display:flex;flex-wrap:wrap;gap:.25rem;min-width:9rem;}
+.sa-tag{display:inline-block;padding:.1rem .5rem;border:1px solid var(--line);border-radius:999px;background:var(--surface);font-size:.72rem;font-weight:600;line-height:1.5;white-space:nowrap;color:var(--text);}
+.sa-tag.sa-o,.sa-tag.sa-p{border-color:var(--accent-on-surface);}
+.sa-tag.sa-q{border-style:dashed;}
+.sa-games th[scope="row"]{white-space:nowrap;}
+.sa-table th[scope="row"] a{color:var(--accent-on-surface);}
+/* Phones: each sport row becomes a small card (name, line, tags) instead of a 3-column table that scrolls sideways. */
+@media (max-width:639px){
+  .sa-table thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);}
+  .sa-table,.sa-table tbody,.sa-table tr,.sa-table th[scope="row"],.sa-table td{display:block;width:auto;min-width:0;}
+  .sa-table tr{padding:.65rem .75rem;border-bottom:1px solid var(--line);}
+  .sa-table th[scope="row"],.sa-table td{padding:.15rem 0;border:0;}
+  .sa-tags{min-width:0;margin-top:.3rem;}
+}
 /* ===================== POINTER FORM (site.js Block 0) =====================
    .auto-points = a long paragraph split into one point per sentence; .auto-marked = a list that had no
    visible marker (incl. data lists like .sc-list, whose ::marker the global ul/ol reset hid). Every point

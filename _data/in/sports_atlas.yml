@@ -1,0 +1,326 @@
+# Every-sport directory (India edition) -> all-sports.html, rendered by _includes/sports-atlas.html and validated by
+# scripts/check-in-data.mjs.
+# games[]: the multi-sport events and lists a student meets, each with a `code` used in the sports rows below.
+# families[]: groups of sports. Each sport row: name, what (one plain-English line), at (codes from games[] where the
+# sport — or a version of it — is on the official programme/list named by that game's source), and slug when an
+# Education Margdarshan deep page exists (the page must be in _data/in/sports.yml). Sports without a slug are printed
+# as plain names, never links. A code may only be used when that game's source lists the sport.
+checked: 2026-10-17
+
+hero:
+  eyebrow: "Sports Cockpit · Every sport · A–Z"
+  title: "Every sport that is really played — and where"
+  lede: "Education Margdarshan's full list of sports played at the Olympics, Paralympics, Asian Games, Commonwealth Games, World Games and Khelo India Games, and the 65 sports that count for central government sports-quota jobs. One line on what each sport is, and the big events it is played at."
+
+facts:
+  - { label: "Olympic sports at LA28", value: "<strong>36 sports</strong> · 351 medal events", source: "la28-oly,ioc-la28" }
+  - { label: "Paralympic sports at LA28", value: "<strong>23 sports</strong> · 560 medal events", source: ipc-la28 }
+  - { label: "Asian Games 2026 (Japan)", value: "<strong>41 sports</strong> incl. kabaddi, cricket, esports", source: oca26 }
+  - { label: "Sports that count for central jobs", value: "<strong>65 sports</strong> (Group C posts)", source: dopt-2022 }
+
+ladder:
+  intro: "Almost every sport climbs the same steps. You start in school or a club and go up one level at a time. A medal at one level is your ticket to the next."
+  head: ["Level", "Main events in India and abroad", "Who runs it"]
+  rows:
+    - ["1. School &amp; club", "School games, district championships", "School, district sports office, district association"]
+    - ["2. State", "State championships, state school games", "State association of that sport"]
+    - ["3. National", "Junior and Senior <strong>National Championships</strong>, <strong>National Games</strong>, <strong>Khelo India</strong> Youth, University and Winter Games, all-India inter-university and school nationals", "National federation recognised by the Sports Ministry, Indian Olympic Association, SAI"]
+    - ["4. Asia", "Asian Championships, <strong>Asian Games</strong>", "Asian federation, Olympic Council of Asia"]
+    - ["5. Commonwealth", "<strong>Commonwealth Games</strong>", "Commonwealth Games Federation"]
+    - ["6. World", "World Cups, <strong>World Championships</strong>, <strong>World Games</strong> (for sports not in the Olympics)", "World federation of that sport, IWGA"]
+    - ["7. Top", "<strong>Olympic Games</strong> and <strong>Paralympic Games</strong>", "IOC, IPC"]
+  note: "For a government sports-quota job, the order of preference is: played for India first; then a medal (top 3) for your state at Senior or Junior Nationals or the National Games; then a university medal; then a school-games medal."
+  source: "dopt-2022,dopt-2024"
+
+games:
+  - code: O
+    label: "Olympics"
+    name: "Olympic Games — Los Angeles 2028 (LA28)"
+    when: "Starts 14 July 2028; held every 4 years"
+    what: "36 sports, 351 medal events. Cricket (T20), flag football, lacrosse, squash and baseball/softball are added for LA28."
+    source: "la28-oly,la28-new,ioc-la28"
+  - code: P
+    label: "Paralympics"
+    name: "Paralympic Games — LA28"
+    when: "15–27 August 2028"
+    what: "23 sports for athletes with an impairment, 560 medal events. Para climbing is new."
+    source: "ipc-la28,la28-para"
+  - code: AG
+    label: "Asian Games"
+    name: "Asian Games — Aichi-Nagoya 2026 (Japan)"
+    when: "The 20th Asian Games, 2026"
+    what: "41 sports decided by the Olympic Council of Asia, including kabaddi, cricket (T20), sepaktakraw, wushu, kurash and esports."
+    source: "oca26,ag26"
+  - code: CWG
+    label: "Commonwealth Games"
+    name: "Commonwealth Games — Glasgow 2026"
+    when: "2026"
+    what: "Only 10 sports this time, with para events inside six of them."
+    source: cwg26
+  - code: WG
+    label: "World Games"
+    name: "The World Games — Chengdu 2025"
+    when: "Next: Karlsruhe 2029"
+    what: "34 sports that are mostly not in the Olympics — korfball, tug of war, kickboxing, life saving and more."
+    source: twg25
+  - code: KI
+    label: "Khelo India"
+    name: "Khelo India Youth Games 2025 (Bihar)"
+    when: "Yearly national games for under-18s"
+    what: "27 sports including Indian sports — gatka, kalaripayattu, mallakhamb, thang-ta, yogasana, kho-kho."
+    source: kiyg25
+  - code: KW
+    label: "Khelo India Winter"
+    name: "Khelo India Winter Games 2026 (Leh &amp; Gulmarg)"
+    when: "Leh (ice) from 20 Jan 2026; Gulmarg (snow) after"
+    what: "6 sports: ice hockey, ice skating, ski mountaineering, alpine skiing, snowboard, Nordic skiing."
+    source: kiwg26
+  - code: Q
+    label: "Govt job quota"
+    name: "Central government sports-quota list (DoPT)"
+    when: "In force"
+    what: "65 sports whose players can get Group C central government jobs on sports quota."
+    source: dopt-2022
+
+families:
+  - id: team
+    icon: "⚽"
+    label: "Team ball games"
+    intro: "Two teams, one ball. You need a squad, so clubs, schools and state teams are the way in."
+    source: "la28-oly,ag26,cwg26,twg25,kiyg25,dopt-2022"
+    sports:
+      - { name: "Football", slug: football, what: "11 a side; kick the ball into the other goal. Hands only for the goalkeeper.", at: [O, AG, KI, Q] }
+      - { name: "Cricket", slug: cricket, what: "11 a side, bat and ball; score runs, take 10 wickets. LA28 and Asian Games play T20.", at: [O, AG, Q] }
+      - { name: "Hockey", slug: hockey, what: "11 a side; hit the ball with a stick into the goal from inside the circle.", at: [O, AG, KI, Q] }
+      - { name: "Kabaddi", slug: kabaddi, what: "7 a side; a raider touches defenders and returns in one breath-length raid; defenders try to hold him.", at: [AG, KI, Q] }
+      - { name: "Basketball &amp; 3x3", slug: basketball, what: "5 a side (or 3 a side on a half court); shoot the ball through a ring 3.05 m high.", at: [O, AG, CWG, KI, Q] }
+      - { name: "Volleyball &amp; beach volleyball", slug: volleyball, what: "6 a side (2 on sand); hit the ball over a high net, at most three touches a side.", at: [O, AG, KI, Q] }
+      - { name: "Handball", what: "7 a side; pass with the hands and throw into the goal. Beach handball at the World Games.", at: [O, AG, WG, Q] }
+      - { name: "Rugby sevens", what: "7 a side; run with an oval ball and ground it over the line. No forward passes.", at: [O, AG, KI, Q] }
+      - { name: "Baseball &amp; softball", what: "9 a side bat-and-ball games; hit, then run round four bases. Softball uses a bigger ball.", at: [O, AG, WG, Q] }
+      - { name: "Kho-Kho", what: "Indian chase game; chasers sit in a line, and one at a time they run and tag the runners.", at: [KI, Q] }
+      - { name: "Sepaktakraw", what: "Volleyball with the feet, knees and head — 3 a side, rattan or plastic ball.", at: [AG, KI, Q] }
+      - { name: "Netball", what: "7 a side; pass by hand and shoot into a ring with no backboard. No running with the ball.", at: [CWG, Q] }
+      - { name: "Water polo", what: "7 a side in a deep pool; swim and throw the ball into the goal.", at: [O, AG] }
+      - { name: "Flag football", what: "American football without tackling — pull the flag off the runner's belt. 5 a side.", at: [O, WG] }
+      - { name: "Lacrosse (sixes)", what: "6 a side; catch and throw a ball with a net on a stick.", at: [O, WG] }
+      - { name: "Korfball", what: "Mixed team of men and women; shoot a ball into a basket on a tall pole.", at: [WG] }
+      - { name: "Floorball", what: "Indoor hockey with a light plastic stick and a ball with holes.", at: [WG] }
+      - { name: "Fistball", what: "Hit the ball over a low tape with the fist or arm; 5 a side.", at: [WG] }
+      - { name: "Ultimate &amp; disc golf (flying disc)", what: "Throw and catch a flying disc to score (ultimate), or throw it into baskets (disc golf).", at: [WG] }
+      - { name: "Teqball", what: "Football skills on a curved table — hit the ball over the net with any body part except the hands.", at: [AG] }
+      - { name: "Tug of war", what: "Two teams of 8 pull a rope; pull the other team over the line.", at: [WG, Q] }
+      - { name: "Ball badminton", what: "Indian game; 5 a side hit a light wool ball over a net with rackets.", at: [Q] }
+      - { name: "Atya-patya, roll ball, shooting ball &amp; tenni-koit", what: "Smaller Indian team games that are on the central job-quota list.", at: [Q] }
+      - { name: "Tennis-ball cricket", what: "Cricket played with a taped tennis ball — on the job-quota list.", at: [Q] }
+      - { name: "Polo &amp; cycle polo", what: "Hit a ball into the goal with a long mallet while riding a horse (polo) or a bicycle (cycle polo).", at: [Q] }
+
+  - id: racket
+    icon: "🏸"
+    label: "Racket &amp; table games"
+    intro: "One against one, or two against two. Rankings come from tournament points, so you must keep playing events."
+    source: "la28-oly,ag26,twg25,kiyg25,dopt-2022"
+    sports:
+      - { name: "Badminton", slug: badminton, what: "Hit a shuttle over a 1.55 m net with a racket; it must not touch the floor on your side.", at: [O, AG, KI, Q] }
+      - { name: "Table tennis", slug: table-tennis, what: "Hit a small 40 mm ball over a net on a table; the ball must bounce once on each side.", at: [O, AG, KI, Q] }
+      - { name: "Tennis", what: "Hit a ball over the net with a racket on a big court; one bounce allowed.", at: [O, AG, KI, Q] }
+      - { name: "Squash", what: "Two players in a closed court hit a ball against the front wall in turns.", at: [O, AG, WG, Q] }
+      - { name: "Soft tennis", what: "Tennis with a soft rubber ball, very popular in East Asia.", at: [AG, Q] }
+      - { name: "Padel", what: "Doubles game in a small walled court; a mix of tennis and squash.", at: [AG] }
+      - { name: "Racquetball", what: "Like squash, but every wall, floor and roof can be used.", at: [WG] }
+
+  - id: combat
+    icon: "🥊"
+    label: "Combat &amp; strength sports"
+    intro: "One against one in a weight class. The scale matters as much as the fight — make weight or you cannot play."
+    source: "la28-oly,ag26,cwg26,twg25,kiyg25,dopt-2022"
+    sports:
+      - { name: "Wrestling", slug: wrestling, what: "Throw or pin the opponent's back to the mat. Freestyle and Greco-Roman (no holds below the waist).", at: [O, AG, KI, Q] }
+      - { name: "Boxing", slug: boxing, what: "Punch with gloves above the belt for three rounds; judges score, or a knockout ends it.", at: [O, AG, CWG, KI, Q] }
+      - { name: "Weightlifting", slug: weightlifting, what: "Lift the heaviest bar overhead in two lifts — snatch and clean &amp; jerk.", at: [O, AG, CWG, KI, Q] }
+      - { name: "Judo", what: "Japanese sport; throw the opponent flat on the back or hold them down. Uses a jacket (judogi).", at: [O, AG, CWG, KI, Q] }
+      - { name: "Taekwondo", what: "Korean kicking sport; points for kicks and punches to the body protector and head.", at: [O, AG, Q] }
+      - { name: "Fencing", what: "Sword fight with electric scoring — foil, épée and sabre.", at: [O, AG, KI, Q] }
+      - { name: "Karate", what: "Japanese striking art; kata (set moves, judged) and kumite (point fighting).", at: [AG, WG, Q] }
+      - { name: "Wushu", what: "Chinese martial art; taolu (set routines, judged) and sanda (kick-boxing style fights).", at: [AG, WG, Q] }
+      - { name: "Ju-jitsu / jiu-jitsu", what: "Grappling art; win by holds, joint locks and chokes on the ground.", at: [AG, WG] }
+      - { name: "Kurash", what: "Central Asian standing wrestling in jackets; throw the opponent on the back.", at: [AG] }
+      - { name: "Mixed martial arts (MMA)", what: "Striking plus wrestling and ground holds in one bout.", at: [AG] }
+      - { name: "Kickboxing &amp; Muaythai", what: "Punches and kicks (Muaythai also uses knees and elbows).", at: [WG] }
+      - { name: "Sambo", what: "Russian wrestling and self-defence style with jackets.", at: [WG] }
+      - { name: "Powerlifting", what: "Lift the most in three lifts — squat, bench press and deadlift.", at: [WG, Q] }
+      - { name: "Gatka", what: "Sikh martial art with wooden sticks and shields.", at: [KI] }
+      - { name: "Kalaripayattu", what: "Kerala's martial art — strikes, kicks, weapons and flexibility drills.", at: [KI] }
+      - { name: "Thang-Ta", what: "Manipur's martial art with sword (thang) and spear (ta).", at: [KI] }
+      - { name: "Pencak silat, kudo and body-building", what: "Other strength and fighting sports on the central job-quota list.", at: [Q] }
+
+  - id: track
+    icon: "🏃"
+    label: "Athletics, gym &amp; endurance"
+    intro: "Run, jump, throw, flip or climb — judged by the clock, the tape or the judges."
+    source: "la28-oly,ag26,cwg26,twg25,kiyg25,dopt-2022"
+    sports:
+      - { name: "Athletics", slug: athletics, what: "Running, jumping and throwing — 100 m to marathon, high and long jump, shot put, discus, javelin, hammer, race walk.", at: [O, AG, CWG, KI, Q] }
+      - { name: "Gymnastics", what: "Artistic (vault, bars, beam, floor), rhythmic (with ribbon, ball, hoop) and trampoline routines scored by judges.", at: [O, AG, CWG, WG, KI, Q] }
+      - { name: "Cycling", what: "Road races, track races in a velodrome, BMX and mountain bike.", at: [O, AG, CWG, KI, Q] }
+      - { name: "Triathlon", what: "Swim, then cycle, then run, without stopping. The World Games hold duathlon (run-cycle-run).", at: [O, AG, WG, Q] }
+      - { name: "Modern pentathlon", what: "One athlete, many sports in a day: fencing, swimming, obstacle course, then a run with laser shooting.", at: [O, AG] }
+      - { name: "Sport climbing", what: "Climb a wall fast (speed), solve short walls (boulder) or climb as high as you can (lead).", at: [O, AG, WG] }
+      - { name: "Skateboarding", what: "Tricks on a skateboard in a street course or a bowl park, scored by judges.", at: [O, AG] }
+      - { name: "Breaking", what: "Competitive break-dancing battles judged on skill and style.", at: [AG, WG] }
+      - { name: "Mallakhamb", what: "Indian sport; yoga and gym moves on a wooden pole or a hanging rope.", at: [KI, Q] }
+      - { name: "Yogasana", what: "Yoga poses done as a sport and scored by judges.", at: [KI, Q] }
+      - { name: "Roller sports", what: "Speed skating, inline freestyle and inline hockey on wheels.", at: [WG, Q] }
+      - { name: "Cheerleading &amp; DanceSport", what: "Team cheer routines and ballroom and Latin dance, scored by judges.", at: [WG] }
+      - { name: "Orienteering", what: "Run through a forest with a map and compass to find checkpoints fastest.", at: [WG] }
+
+  - id: target
+    icon: "🎯"
+    label: "Target &amp; precision"
+    intro: "Steady hands and a calm mind. Scores, not strength, decide the winner."
+    source: "la28-oly,ag26,cwg26,twg25,kiyg25,dopt-2022"
+    sports:
+      - { name: "Shooting", slug: shooting, what: "Rifle, pistol and shotgun events at paper or electronic targets and flying clay targets.", at: [O, AG, KI, Q] }
+      - { name: "Archery", slug: archery, what: "Shoot arrows at a target 70 m away (recurve) or 50 m (compound).", at: [O, AG, WG, KI, Q] }
+      - { name: "Golf", what: "Hit a ball into 18 holes in the fewest strokes.", at: [O, AG, Q] }
+      - { name: "Billiards &amp; snooker", what: "Cue sports on a cloth table — pot the balls in the right order.", at: [WG, Q] }
+      - { name: "Bowls", what: "Roll a heavy ball (bowl) on grass as close as you can to a small white ball (jack).", at: [CWG] }
+      - { name: "Tenpin bowling", what: "Roll a ball down a lane to knock over 10 pins.", at: [Q] }
+      - { name: "Boules (pétanque)", what: "Throw metal balls as close as possible to a small target ball.", at: [WG] }
+
+  - id: water
+    icon: "🏊"
+    label: "Water sports"
+    intro: "Pool, river, lake or sea. Learn to swim well first — it is the gate to every water sport."
+    source: "la28-oly,ag26,cwg26,twg25,kiyg25,dopt-2022"
+    sports:
+      - { name: "Swimming", slug: swimming, what: "Race in a pool in freestyle, backstroke, breaststroke, butterfly or medley.", at: [O, AG, CWG, KI, Q] }
+      - { name: "Diving", what: "Jump from a 3 m springboard or 10 m platform with twists and somersaults; judges score.", at: [O, AG] }
+      - { name: "Artistic swimming", what: "Dance-like routines to music in water, scored by judges.", at: [O, AG] }
+      - { name: "Open-water swimming", what: "Long swim races (10 km) in lakes, rivers or the sea.", at: [O] }
+      - { name: "Rowing", what: "Row a boat backwards with oars; races over 2,000 m. Coastal beach sprints are new at LA28.", at: [O, AG, Q] }
+      - { name: "Canoe &amp; kayak", what: "Paddle forwards in a canoe or kayak — sprint on flat water or slalom through gates on a fast river.", at: [O, AG, WG, Q] }
+      - { name: "Sailing", what: "Race boats and windsurf boards using the wind.", at: [O, AG, Q] }
+      - { name: "Surfing", what: "Ride sea waves on a board; judges score each wave.", at: [O, AG] }
+      - { name: "Life saving, underwater sports, waterski &amp; powerboating", what: "Rescue races, finswimming and freediving, waterski and wakeboard, motor-surf — World Games sports.", at: [WG] }
+
+  - id: horse
+    icon: "🏇"
+    label: "Horse, motor &amp; air"
+    intro: "You ride or drive a horse, car or drone. Costly to start — clubs, the Army and federations run most training."
+    source: "la28-oly,ag26,twg25,dopt-2022"
+    sports:
+      - { name: "Equestrian", what: "Horse riding events — dressage, jumping and eventing.", at: [O, AG, Q] }
+      - { name: "Motor sports", what: "Car and bike racing — on the central job-quota list.", at: [Q] }
+      - { name: "Air sports (drone racing)", what: "Fly a drone through a race course.", at: [WG] }
+
+  - id: mind
+    icon: "♟️"
+    label: "Mind &amp; screen games"
+    intro: "No weight or height rule — ratings, rankings and titles show your level."
+    source: "ag26,dopt-2022"
+    sports:
+      - { name: "Chess", slug: chess, what: "Board game of strategy; win by checkmating the king.", at: [Q] }
+      - { name: "Bridge", what: "Card game for two pairs; bid and win tricks.", at: [Q] }
+      - { name: "Carrom", what: "Flick a striker to pocket wooden pieces on a square board.", at: [Q] }
+      - { name: "Esports", what: "Video games played as a competition.", at: [AG] }
+
+  - id: winter
+    icon: "⛷️"
+    label: "Winter sports (ice &amp; snow)"
+    intro: "Played in India mainly in Ladakh, Kashmir and Himachal. Khelo India Winter Games are the national stage."
+    source: "kiwg26,dopt-2022"
+    sports:
+      - { name: "Ice hockey", what: "Hockey on ice with skates, sticks and a rubber puck; 6 a side.", at: [KW, Q] }
+      - { name: "Ice skating", what: "Speed skating (races) and figure skating (jumps and spins scored by judges).", at: [KW, Q] }
+      - { name: "Skiing &amp; snowboarding", what: "Alpine skiing (downhill through gates), Nordic (cross-country), ski mountaineering, and snowboard.", at: [KW, Q] }
+
+  - id: para
+    icon: "♿"
+    label: "Para sports (athletes with an impairment)"
+    intro: "Athletes are put in classes by their impairment, so they compete fairly. All Paralympic and Para Asian Games sports count for the job quota."
+    source: "ipc-la28,la28-para,cwg26,dopt-2022"
+    sports:
+      - { name: "Para athletics", what: "Running, jumping and throwing in classes for vision, limb, intellectual and other impairments; wheelchair racing.", at: [P, CWG, Q] }
+      - { name: "Para swimming", what: "Swimming races in impairment classes.", at: [P, CWG, Q] }
+      - { name: "Para badminton &amp; para table tennis", what: "Standing and wheelchair classes.", at: [P, Q] }
+      - { name: "Para archery &amp; shooting para sport", what: "Archery and rifle/pistol shooting, standing or seated.", at: [P, Q] }
+      - { name: "Para powerlifting", what: "Bench press only, lying on a bench.", at: [P, CWG, Q] }
+      - { name: "Para cycling", what: "Road and track, on bicycles, tandems (with a sighted pilot), tricycles and handbikes.", at: [P, CWG, Q] }
+      - { name: "Para judo &amp; para taekwondo", what: "Judo for vision-impaired athletes; taekwondo for limb impairments.", at: [P, Q] }
+      - { name: "Para canoe, para rowing &amp; para triathlon", what: "Paddling, rowing and triathlon with adapted equipment.", at: [P, Q] }
+      - { name: "Para equestrian &amp; para climbing", what: "Dressage on horseback; climbing (new at LA28).", at: [P, Q] }
+      - { name: "Wheelchair basketball, rugby, tennis &amp; fencing", what: "Team and racket sports played from a sports wheelchair. 3x3 wheelchair basketball is in the Commonwealth Games.", at: [P, CWG, Q] }
+      - { name: "Boccia", what: "Throw or roll balls close to a white jack — for athletes with severe impairments.", at: [P, Q] }
+      - { name: "Goalball", what: "3 a side for blind and vision-impaired players; roll a ball with bells into the goal.", at: [P, Q] }
+      - { name: "Blind football", what: "5 a side football with a ball that makes sound; sighted goalkeeper.", at: [P, Q] }
+      - { name: "Sitting volleyball", what: "Volleyball played sitting on the floor with a low net.", at: [P, Q] }
+      - { name: "Para bowls", what: "Lawn bowls for athletes with an impairment.", at: [CWG] }
+      - { name: "Deaf sports", what: "Sports for deaf athletes (the Deaflympics) — on the central job-quota list.", at: [Q] }
+
+sources:
+  - id: la28-oly
+    name: "LA28 — 2028 Olympic Games Plan (sports list)"
+    url: "https://la28.org/en/games-plan/olympics.html"
+    covers: "Every Olympic sport and discipline at LA28; Games start 14 July 2028; held every four years"
+    checked: 2026-10-17
+  - id: ioc-la28
+    name: "IOC — LA28 event programme marks strong commitment towards innovation and gender equality (3 June 2025, IOC release as published by 3BL Media)"
+    url: "https://www.3blmedia.com/news/la28-event-programme-marks-strong-commitment-towards-innovation-and-gender-equality"
+    covers: "31 sports + 5 added by LA28, 351 medal events (Paris 2024: 329), 10,500 + 698 athlete places"
+    checked: 2026-10-17
+  - id: la28-new
+    name: "LA28 — Five new sports confirmed for the LA28 Olympic programme (16 Oct 2023)"
+    url: "https://la28.org/en/newsroom/LA28_Olympic_Sport_Program.html"
+    covers: "Baseball/softball, cricket (T20), flag football, lacrosse (sixes), squash added at the 141st IOC Session"
+    checked: 2026-10-17
+  - id: la28-para
+    name: "LA28 — 2028 Paralympic Games Plan (sports list)"
+    url: "https://la28.org/en/games-plan/paralympics.html"
+    covers: "Every Paralympic sport at LA28"
+    checked: 2026-10-17
+  - id: ipc-la28
+    name: "International Paralympic Committee — LA28 Paralympic medal event programme and athlete quotas (3 June 2025)"
+    url: "https://www.paralympic.org/news/la28-paralympic-medal-event-programme-athlete-quotas"
+    covers: "23 sports, 560 medal events (with para climbing), 15–27 August 2028"
+    checked: 2026-10-17
+  - id: oca26
+    name: "Olympic Council of Asia — Executive Board approves sports programme for 20th Asian Games in Aichi-Nagoya (15 July 2025)"
+    url: "https://oca.asia/news/6421-oca-executive-board-approves-sports-programme-for-20th-asian-games-in-aichi-nagoya.html"
+    covers: "The 41 sports of the 2026 Asian Games"
+    checked: 2026-10-17
+  - id: ag26
+    name: "Aichi-Nagoya 2026 Asian Games — Sports"
+    url: "https://www.aichi-nagoya2026.org/en/sports/"
+    covers: "Every sport and discipline page of the 2026 Asian Games (incl. padel, soft tennis, teqball, water polo, diving)"
+    checked: 2026-10-17
+  - id: cwg26
+    name: "Glasgow 2026 Commonwealth Games — Sports"
+    url: "https://www.glasgow2026.com/sports"
+    covers: "The 10 sports and their para events"
+    checked: 2026-10-17
+  - id: twg25
+    name: "International World Games Association — The World Games 2025, Chengdu"
+    url: "https://www.theworldgames.org/editions/Chengdu-CHN-2025-14"
+    covers: "34 sports, 60 disciplines, 256 medal events; next edition Karlsruhe 2029"
+    checked: 2026-10-17
+  - id: kiyg25
+    name: "Khelo India Youth Games 2025 (Bihar) — official site"
+    url: "https://youth.kheloindia.gov.in/"
+    covers: "The 27 sports of KIYG 2025 and their venues"
+    checked: 2026-10-17
+  - id: kiwg26
+    name: "Khelo India Winter Games 2026 — About"
+    url: "https://winter.kheloindia.gov.in/about-winter-games"
+    covers: "Ice sports at Leh (from 20 Jan 2026) and snow sports at Gulmarg; 136 medals"
+    checked: 2026-10-17
+  - id: dopt-2022
+    name: "DoPT — Instructions on Recruitment/Promotion for Sportspersons (consolidated, 18 Nov 2022)"
+    url: "https://yas.gov.in/sites/default/files/Compendium%20dated%2018.11.2022.pdf"
+    covers: "List of 65 sports for sports-quota jobs (incl. para sports and deaf sports), order of preference"
+    checked: 2026-10-17
+  - id: dopt-2024
+    name: "DoPT Office Memorandum 14034/1/2020-Pers. Policy (D), 4 March 2024 — Incentive for Sportspersons"
+    url: "https://dopt.gov.in/sites/default/files/Incentive%20for%20Sportpersons.pdf"
+    covers: "Khelo India Games, Junior Nationals and school-games medallists added; order of preference"
+    checked: 2026-10-17

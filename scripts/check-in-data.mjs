@@ -344,6 +344,54 @@ if (fs.existsSync(spFile)) {
   }
 }
 
+// ---- Every-sport directory (_data/in/sports_atlas.yml -> all-sports.html) ----
+// Each sport row names the events it is played at by game code; a code must exist in games[], every family and fact
+// cites listed sources, and a slug (deep-page link) must be a sport in sports.yml with its page on disk.
+const saFile = path.join(root, '_data', 'in', 'sports_atlas.yml');
+let saSports = 0;
+if (fs.existsSync(saFile)) {
+  const err = (m) => errors.push(`sports_atlas.yml: ${m}`);
+  let A;
+  try { A = yaml.load(fs.readFileSync(saFile, 'utf8')); } catch (e) { err('YAML error: ' + e.message.split('\n')[0]); A = {}; }
+  if (!isDay(A.checked)) err('checked must be a date (YYYY-MM-DD)');
+  const page = path.join(root, 'all-sports.html');
+  if (!fs.existsSync(page) || !fs.readFileSync(page, 'utf8').includes('{% include sports-atlas.html %}')) err('all-sports.html missing or does not include sports-atlas.html');
+  const srcIds = new Set();
+  for (const s of A.sources || []) {
+    if (!s.id || !s.name || !/^https:\/\//.test(s.url || '') || !s.covers || !isDay(s.checked)) err(`source ${JSON.stringify(s.id)} needs id, name, https url, covers, checked date`);
+    if (srcIds.has(s.id)) err(`duplicate source id ${s.id}`);
+    srcIds.add(s.id);
+  }
+  const cited = new Set();
+  const cite = (where, src) => { const list = String(src || '').split(',').map((x) => x.trim()).filter(Boolean); if (!list.length) err(`${where}: no source`); for (const i of list) { cited.add(i); if (!srcIds.has(i)) err(`${where}: unknown source '${i}'`); } };
+  if ((A.facts || []).length !== 4) err('the hero console needs exactly 4 facts (2 x 2)');
+  for (const q of A.facts || []) cite(`fact '${q.label}'`, q.source);
+  if (A.ladder) { cite('ladder', A.ladder.source); const w = (A.ladder.head || []).length; for (const [r, row] of (A.ladder.rows || []).entries()) if (row.length !== w) err(`ladder row ${r + 1} has ${row.length} cells, head has ${w}`); }
+  const codes = new Set();
+  for (const g of A.games || []) { if (!g.code || !g.label || !g.name || !g.what) err(`game ${JSON.stringify(g.code)} needs code, label, name, what`); codes.add(g.code); cite(`game ${g.code}`, g.source); }
+  let spSlugs = [];
+  try { spSlugs = (yaml.load(fs.readFileSync(spFile, 'utf8')).sports || []).map((e) => e.slug); } catch (e) { /* reported above */ }
+  const famIds = new Set(); const names = new Set();
+  for (const f of A.families || []) {
+    if (!f.id || !f.label || !f.intro) err(`family ${JSON.stringify(f.id)} needs id, label, intro`);
+    if (famIds.has(f.id)) err(`duplicate family id ${f.id}`); famIds.add(f.id);
+    cite(`family ${f.id}`, f.source);
+    for (const s of f.sports || []) {
+      saSports++;
+      if (!s.name || !s.what || !(s.at || []).length) err(`${f.id}: sport ${JSON.stringify(s.name)} needs name, what and at[]`);
+      if (names.has(s.name)) err(`duplicate sport name ${s.name}`); names.add(s.name);
+      for (const c of s.at || []) if (!codes.has(c)) err(`${s.name}: unknown game code '${c}'`);
+      if (s.slug && !spSlugs.includes(s.slug)) err(`${s.name}: slug '${s.slug}' is not a sport page in sports.yml`);
+    }
+  }
+  for (const sl of spSlugs) {
+    const arts = ['kathak', 'bharatanatyam', 'hindustani-music', 'carnatic-music'];
+    if (arts.includes(sl)) continue;
+    if (![...(A.families || [])].some((f) => (f.sports || []).some((s) => s.slug === sl))) err(`sport page '${sl}' has no row in the directory`);
+  }
+  for (const i of srcIds) if (!cited.has(i)) err(`source '${i}' is listed but never cited`);
+}
+
 // ---- India top menu (_data/nav.yml topnav): every menu link, node heading and flyout link must exist ----
 const navFile = path.join(root, '_data', 'nav.yml');
 let navLinks = 0;
@@ -367,6 +415,6 @@ if (fs.existsSync(navFile)) {
 console.log(`checked ${sheets} India data sheets`);
 console.log(`checked ${nxExams} national exam console(s), ${navLinks} top-menu link(s)`);
 console.log(`checked ${stateSheets} state cockpit sheet(s), ${stateExams} exam page(s)`);
-console.log(`checked ${spSports} sports cockpit page(s)`);
+console.log(`checked ${spSports} sports cockpit page(s), ${saSports} directory row(s)`);
 if (errors.length) { console.log('ERRORS:\n' + errors.join('\n')); process.exit(1); }
 console.log('OK');

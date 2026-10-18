@@ -50,7 +50,7 @@
                     <p class="hh-col-head">{% if col.icon %}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{{ col.icon }}</svg>{% endif %}{{ col.label | replace: "&", "&amp;" }}</p>
                     <ul>
                       {%- for c in col.links %}
-                      <li><a class="hh-link" href="{{ c.href }}"{% if c.desc %} title="{{ c.desc | replace: '&', '&amp;' | replace: '"', '&quot;' }}"{% endif %}{% if hh_cur == c.href %} aria-current="page"{% endif %}>{{ c.label | replace: "&", "&amp;" }}</a></li>
+                      <li><a class="hh-link" href="{{ c.href }}"{% if c.desc %} title="{{ c.desc | replace: '&', '&amp;' | replace: '"', '&quot;' }}"{% endif %}{% if hh_cur == c.href %} aria-current="page"{% endif %}><span>{{ c.label | replace: "&", "&amp;" }}</span></a></li>
                       {%- endfor %}
                     </ul>
                   </div>

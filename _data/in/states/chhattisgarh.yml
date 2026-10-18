@@ -1,0 +1,543 @@
+# Chhattisgarh State Exam & Career Cockpit — one data sheet for the cockpit (state/chhattisgarh/index.html) and
+# every exam page under state/chhattisgarh/. Rendered by _includes/state-cockpit.html and _includes/state-exam.html;
+# checked by scripts/check-in-data.mjs (state sheets block).
+#
+# Rules for this sheet (same as the other state sheets):
+#   - Every fact part carries `source: <id>`; the id must be listed under that exam's `sources`.
+#   - Sources are the official files themselves (read 2026-10-18): the CGPSC advertisement for the State
+#     Service Examination 2025 with its two corrigenda, prelim and mains results and the interview
+#     postponement notice; the CGPSC advertisement for the Subedar / Sub-Inspector / Platoon Commander
+#     recruitment 2024 of the Home (Police) Department with its 2026 result and postponement notices; the
+#     detailed advertisement and exam instructions for the Assistant Teacher exam (LSAT26) of the
+#     Chhattisgarh Karmachari Chayan Mandal (formerly CG Vyapam) and its 2026 notices; and the Pre Polytechnic
+#     Test 2026 instructions with the 2023 polytechnic admission rules. Most are Hindi PDFs read page by page.
+#     Nothing comes from coaching or news sites.
+#   - No Patwari recruitment was listed among the Mandal's 2026 exams, so the Mandal page follows its largest
+#     2026 recruitment (Assistant Teacher).
+#   - Section ids are the same on every exam page: overview, eligibility, scheme, fees, reservation,
+#     documents, pay, posting (+ sources, drawn automatically).
+state:
+  id: chhattisgarh
+  name: Chhattisgarh
+  checked: 2026-10-18
+
+cockpit:
+  eyebrow: "State Exam &amp; Career Cockpit · Chhattisgarh"
+  title: "Chhattisgarh Exam &amp; Career Cockpit"
+  intro:
+    - "Every major Chhattisgarh recruitment and admission route on one screen: the State Service Examination of the Chhattisgarh Public Service Commission (CGPSC), police Sub-Inspector, Subedar and Platoon Commander recruitment (also run by CGPSC), Class III recruitment through the Chhattisgarh Karmachari Chayan Mandal (formerly CG Vyapam), and the Pre Polytechnic Test for diplomas after Class 10. Each page is built only from the official advertisement or notice, and every fact links back to that file."
+    - "Chhattisgarh ties most benefits to being a local resident (mool niwasi): reservation and age relaxation are for the state's own SC, ST and OBC; women's 30% reservation is for local women; and local candidates who sit an exam get their fee back. The prelim of the State Service Exam even tests Chhattisgarhi language, without translation."
+  facts:
+    - { label: "Recruitment nodes", value: "CGPSC SSE · Police SI · CGSSB (Vyapam)" }
+    - { label: "Admission nodes", value: "Pre Polytechnic Test" }
+    - { label: "Next exam", value: "Asst Teacher (LSAT26) 6 Dec 2026" }
+    - { label: "Last checked", value: "18 Oct 2026" }
+  groups:
+    - id: civil
+      eyebrow: "Civil recruitment &amp; administrative"
+      heading: "Government recruitment exams"
+      intro: "Deputy Collector, DSP and other state services through the State Service Examination, police Sub-Inspector-cadre recruitment (both conducted by CGPSC), and Class III posts such as teachers through the Chhattisgarh Karmachari Chayan Mandal."
+      exams: [cgpsc, police, vyapam]
+    - id: academic
+      eyebrow: "Academic admissions"
+      heading: "Admission routes after Class 10"
+      intro: "Polytechnic diplomas through the Pre Polytechnic Test (PPT) conducted by the Mandal, with seats allotted under the Technical Education Department's admission rules."
+      exams: [ppt]
+  compare_note: "Fees, age limits and dates are from the latest advertisement of each body. They change every cycle, so always open the current notice before applying."
+  portals_note: "CGPSC advertisements, results and notices are on psc.cg.gov.in (applications at online.ecgpsconline.in); the Chhattisgarh Karmachari Chayan Mandal (formerly Vyapam) is on vyapamcg.cgstate.gov.in; police information on cgpolice.gov.in. Only use these official addresses."
+  portals:
+    - { label: "Chhattisgarh Public Service Commission (CGPSC)", url: "https://psc.cg.gov.in/" }
+    - { label: "Chhattisgarh Karmachari Chayan Mandal (formerly CG Vyapam)", url: "https://vyapamcg.cgstate.gov.in/" }
+    - { label: "Chhattisgarh Police", url: "https://cgpolice.gov.in/" }
+
+exams:
+  # ------------------------------------------------------------------ CGPSC — STATE SERVICE EXAMINATION
+  - slug: cgpsc
+    group: civil
+    short: "CGPSC State Service Exam 2025"
+    body: "Chhattisgarh Public Service Commission"
+    card: "Chhattisgarh's Deputy Collector, DSP, State Tax, Naib Tahsildar and 16 other services in one exam. SSE 2025 has 265 posts; its mains were held in June 2026, 608 candidates were called for interview, and the interviews set for September 2026 were postponed."
+    card_facts: ["265 posts · 608 for interview", "Interviews postponed (16 Sep)", "Chhattisgarhi in prelim Paper 2"]
+    eyebrow: "CGPSC · State Service Examination"
+    title: "CGPSC State Service Exam 2025 — 265 Posts, Age, Chhattisgarhi Paper, Scheme, Pay Levels, Status"
+    lede: "The Chhattisgarh Public Service Commission recruits the state's administrative, police and finance officers through the State Service Examination. This page follows the SSE 2025 advertisement (No. 06/2025, 26 November 2025), its corrigenda of 3 and 12 December 2025, the prelim and mains results, and the notice of 16 September 2026."
+    facts:
+      - { label: "Posts", value: "265 in 20 services", source: cg-c2 }
+      - { label: "Status", value: "Interviews postponed, new dates awaited", source: cg-int }
+      - { label: "Age (1 Jan 2025)", value: "21 – 30 (35 for CG locals)", source: cg-advt }
+      - { label: "Prelim marking", value: "−⅓ per wrong answer", source: cg-advt }
+    official:
+      - { label: "CGPSC website", url: "https://psc.cg.gov.in/" }
+      - { label: "CGPSC advertisements", url: "https://psc.cg.gov.in/Advertisement.php" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "Twenty services, 265 posts"
+        parts:
+          - table:
+              caption: "SSE 2025 posts by pay level (after the corrigendum of 12 Dec 2025)"
+              head: ["Pay level (starting ₹)", "Posts"]
+              rows:
+                - ["Level 12 (₹56,100)", "Deputy Collector 14, DSP 28, State Tax Asst. Commissioner 10, CMO 'B' 18, Asst. Registrar 7, Employment Officer 4, Asst. Director / District WCD Officer 4, District Registrar 3, State Finance Service 2, Labour Officer 2, Asst. Director (Social Welfare) 1"]
+                - ["Level 9 (₹38,100)", "CMO 'C' 33, Subordinate Accounts Service 16, CDPO 5"]
+                - ["Level 8 (₹35,400)", "Naib Tahsildar 53"]
+                - ["Level 7 (₹28,700)", "State Tax Inspector 17, Co-operative Inspector 19, Sub-Registrar 12, Excise Sub-Inspector 11"]
+                - ["Level 6 (₹25,300)", "Assistant Jail Superintendent 6"]
+            source: cg-c2
+          - p: "The advertisement of 26 November 2025 was amended twice: on 3 December 2025 (one more Assistant Director, Social Welfare) and on 12 December 2025 (19 Co-operative Inspector / Extension Officer and 7 Assistant Registrar posts added), making 265 posts — 111 unreserved, 30 SC, 88 ST and 36 OBC."
+            source: cg-c2
+          - table:
+              caption: "SSE 2025 timeline"
+              head: ["Stage", "Date"]
+              rows:
+                - ["Online applications", "1 – 30 Dec 2025"]
+                - ["Preliminary exam", "22 Feb 2026"]
+                - ["Prelim result", "25 Mar 2026 — 3,921 to mains"]
+                - ["Mains", "6 – 9 Jun 2026"]
+                - ["Mains result", "31 Aug 2026 — 608 to interview"]
+            source: cg-mains
+          - warn: "The document verification and interviews fixed for 20 September – 1 October 2026 were postponed by the Commission's notice of 16 September 2026; new dates are to be announced."
+            source: cg-int
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "A degree; age 21 to 30, more for locals"
+        parts:
+          - list:
+              - "<strong>Qualification:</strong> a bachelor's degree from a recognised university (final-year students may sit the prelim, but must prove the degree for the mains)."
+              - "<strong>Age on 1 January 2025:</strong> 21 to 30 for most posts; 35 for Chhattisgarh local residents, who get a further 5 years under the 18 January 2024 circular. DSP: 21 to 28 (SC / ST / OBC +5)."
+              - "<strong>Relaxation:</strong> SC, ST and OBC of Chhattisgarh +5; local women +10; local widows / divorced women +5; government employees up to 38; persons with disabilities +5. With all relaxations, the maximum is 45."
+            source: cg-advt
+          - list:
+              - "<strong>Physical standards:</strong> DSP — height 168 cm (men) / 155 cm (women), chest 84 / 89 cm for men; Excise Sub-Inspector 165 / 152.4 cm; Assistant Jail Superintendent 165 cm (158 cm ST) / 155 cm."
+            source: cg-advt
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme &amp; marking"
+        heading: "Two-paper prelim, seven-paper mains, interview"
+        parts:
+          - list:
+              - "<strong>Prelim Paper 1 — General Studies:</strong> 100 questions, 200 marks, 2 hours (General Studies and General Knowledge of Chhattisgarh, 50 questions each). Merit for the mains comes from this paper; about 15 times the vacancies are called."
+              - "<strong>Prelim Paper 2 — Aptitude Test:</strong> 100 questions, 200 marks, 2 hours, qualifying only. It includes Hindi (Class X level) and <strong>Chhattisgarhi language</strong>, tested in Hindi and Chhattisgarhi without translation."
+              - "<strong>Negative marking:</strong> 2 marks per correct answer; one-third of a question's marks deducted for each wrong answer. Each prelim paper needs 33% (unreserved) or 23% (reserved)."
+            source: cg-advt
+          - table:
+              caption: "Mains (written, descriptive) and interview"
+              head: ["Paper", "Marks"]
+              rows:
+                - ["Paper 1 — Language (Hindi, General English, Chhattisgarhi)", "200"]
+                - ["Paper 2 — Essay (national / international and Chhattisgarh issues)", "200"]
+                - ["Papers 3 – 7 — General Studies I to V", "200 each"]
+                - ["Mains total", "1,400"]
+                - ["Interview (about 3× vacancies)", "100"]
+                - ["Grand total", "1,500"]
+            source: cg-advt
+          - p: "All seven mains papers are compulsory; except Paper 1, they may be answered in Hindi or English, but not mixed within a paper."
+            source: cg-advt
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "₹300 – ₹400, refunded to locals who appear"
+        parts:
+          - table:
+              head: ["Candidate", "Exam fee"]
+              rows:
+                - ["SC, ST, OBC (non-creamy) and PwD of Chhattisgarh", "₹300"]
+                - ["All others, and candidates from other states", "₹400"]
+            source: cg-advt
+          - note: "Portal fee and GST are extra. Chhattisgarh local candidates who appear in the exam can claim a refund of the exam fee; a paid correction of the online form costs ₹500."
+            source: cg-advt
+      - id: reservation
+        nav: "Reservation &amp; Local Status"
+        eyebrow: "Reservation &amp; local status"
+        heading: "Benefits only for Chhattisgarh's own"
+        parts:
+          - list:
+              - "Reservation and age relaxation go only to local (mool niwasi) SC, ST and OBC of Chhattisgarh; such candidates from other states are treated as unreserved."
+              - "Posts for women are reserved only for local women of Chhattisgarh (horizontally, within each category); ex-servicemen and PwD reservation are also for locals."
+              - "OBC candidates need a non-creamy-layer certificate issued within three years before the interview."
+            source: cg-advt
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Shown before the interview"
+        parts:
+          - list:
+              - "Degree certificate and mark sheets."
+              - "Permanent caste certificate (SC / ST / OBC) and local residence (mool niwas) proof issued in Chhattisgarh."
+              - "OBC non-creamy-layer certificate dated within three years before the interview."
+              - "Proof for any age relaxation, disability or ex-servicemen claim."
+            source: cg-advt
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Pay levels 6 to 12"
+        parts:
+          - list:
+              - "Level 12 (₹56,100) for Deputy Collector, DSP, State Tax Assistant Commissioner and the other senior posts; Level 9 (₹38,100) for CMO 'C', CDPO and Subordinate Accounts; Level 8 (₹35,400) for Naib Tahsildar; Level 7 (₹28,700) for inspectors and Sub-Registrar; Level 6 (₹25,300) for Assistant Jail Superintendent."
+              - "Every selected candidate is on probation for 3 years; DSP appointees sign a 3-year bond."
+            source: cg-advt
+          - note: "The advertisement gives starting pay levels only; in-hand pay adds dearness allowance and other allowances and subtracts deductions, so no in-hand figure is shown."
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Post preferences after the mains"
+        parts:
+          - p: "Candidates called for interview filled their post preferences online from 7 to 15 September 2026. The final merit list adds mains and interview marks, and posts are given in order of merit and preference."
+            source: cg-int
+    sources:
+      - { id: cg-advt, name: "CGPSC — Advertisement No. 06/2025/Pariksha, State Service Examination-2025 (26 Nov 2025)", url: "https://psc.cg.gov.in/PDFs/advertisement/STATE_SERVICE_EXAMINATION-2025_ADVERTISEMENT%20(26-11-2025).pdf", covers: "services, pay levels, age and relaxations, physical standards, scheme, Chhattisgarhi paper, negative marking, qualifying marks, fee and refund, local-resident rules, OBC certificate, probation, DSP bond", checked: 2026-10-18 }
+      - { id: cg-c2, name: "CGPSC — Corrigenda 05/2025 (3 Dec 2025) and 06/2025 (12 Dec 2025) to the SSE 2025 advertisement", url: "https://psc.cg.gov.in/PDFs/advertisement/STATE_SERVICE_EXAMINATION-2025_CORRIGENDUM%20(12-12-2025).pdf", covers: "added posts, final 265 posts and category totals", checked: 2026-10-18 }
+      - { id: cg-mains, name: "CGPSC — SSE 2025 prelim result (25 Mar 2026) and mains written result (31 Aug 2026)", url: "https://psc.cg.gov.in/PDFs/Result/STATE_SERVICE_EXAMINATION-2025_MAINS_WRITTEN_EXAM_RESULT%20(31-08-2026).pdf", covers: "prelim date, number to mains, mains dates, 608 for interview", checked: 2026-10-18 }
+      - { id: cg-int, name: "CGPSC — SSE 2025 document verification and interview postponement notification (16 Sep 2026) and notifications list", url: "https://psc.cg.gov.in/PDFs/Notifications/STATE_SERVICE_EXAMINATION-2025_DOCUMENT_VERIFICATION_INTERVIEW_POSTPONEMENT_NOTIFICATION%20(16-09-2026).pdf", covers: "interview postponement, post-preference window", checked: 2026-10-18 }
+
+  # ------------------------------------------------------------------ CG POLICE — SI / SUBEDAR / PLATOON COMMANDER
+  - slug: police
+    group: civil
+    short: "Chhattisgarh Police SI, Subedar &amp; Platoon Commander"
+    body: "Home (Police) Department, through the Chhattisgarh Public Service Commission"
+    card: "341 Sub-Inspector-cadre posts of the Home (Police) Department — SI, Subedar, Platoon Commander and specialist SIs — recruited by CGPSC. The prelim was held on 12 July 2026; the mains set for 2–4 November 2026 have been postponed."
+    card_facts: ["341 posts · Level 8", "7,301 qualified for mains", "Mains (2–4 Nov) postponed"]
+    eyebrow: "Chhattisgarh Police · Sub-Inspector cadre"
+    title: "Chhattisgarh Police SI, Subedar & Platoon Commander Recruitment 2024 — 341 Posts, Physical Test, Scheme, Status"
+    lede: "Sub-Inspector-cadre posts of the Chhattisgarh Home (Police) Department are filled by the Chhattisgarh Public Service Commission. This page follows CGPSC Advertisement No. 02/2024 (21 October 2024), its corrigendum of 10 December 2024, the prelim result press note of 4 August 2026 and the mains postponement notice of 13 October 2026."
+    facts:
+      - { label: "Posts", value: "341 (SI 278 · Subedar 19)", source: si-advt }
+      - { label: "Prelims", value: "Held 12 Jul 2026 · 7,301 to mains", source: si-pre }
+      - { label: "Mains", value: "2–4 Nov 2026 postponed", source: si-post }
+      - { label: "Height", value: "168 cm men · 153 cm women", source: si-advt }
+    official:
+      - { label: "CGPSC website", url: "https://psc.cg.gov.in/" }
+      - { label: "Chhattisgarh Police", url: "https://cgpolice.gov.in/" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "341 posts in eight cadres"
+        parts:
+          - table:
+              caption: "Posts advertised (Home — Police — Department)"
+              head: ["Post", "Posts"]
+              rows:
+                - ["Subedar", "19"]
+                - ["Sub-Inspector", "278"]
+                - ["Sub-Inspector (Special Branch)", "11"]
+                - ["Platoon Commander", "14"]
+                - ["Sub-Inspector (Fingerprint)", "4"]
+                - ["Sub-Inspector (Questioned Documents)", "1"]
+                - ["Sub-Inspector (Computer)", "5"]
+                - ["Sub-Inspector (Cyber Crime)", "9"]
+                - ["Total", "341"]
+            source: si-advt
+          - p: "Online applications ran from 23 October to 21 November 2024. The prelim was held on 12 July 2026 at 183 centres in all 33 districts. Mains were to be called at 20 times the posts (6,820), but because of category-wise availability 7,301 candidates were shortlisted."
+            source: si-pre
+          - warn: "The mains of 2, 3 and 4 November 2026 were postponed by CGPSC on 13 October 2026; the new date will be announced on psc.cg.gov.in."
+            source: si-post
+      - id: eligibility
+        nav: "Eligibility &amp; Physical"
+        eyebrow: "Eligibility, age &amp; physical standards"
+        heading: "Graduate, Chhattisgarh resident, 21 to 28"
+        parts:
+          - list:
+              - "<strong>Residence:</strong> applicants must be local residents of Chhattisgarh."
+              - "<strong>Qualification:</strong> a graduate degree (Subedar, SI, SI Special Branch, Platoon Commander); a science degree with Mathematics, Physics and Chemistry (SI Fingerprint and Questioned Documents); a degree in computer science / applications such as BE, B.Sc (Computer) or BCA (SI Computer and Cyber Crime)."
+              - "<strong>Age on 1 January 2024:</strong> 21 to 28. SC / ST / OBC of Chhattisgarh +5; a one-time extra 5 years for this recruitment (Home Department order of 30 September 2024), with an overall maximum of 45; local women +10."
+              - "<strong>Physical:</strong> height 168 cm (men) and 153 cm (women); men's chest 81 cm unexpanded and 86 cm expanded. No knock-knee or flat foot; vision 6/6 and 6/9."
+            source: si-advt
+      - id: scheme
+        nav: "Exam Scheme &amp; PET"
+        eyebrow: "Exam scheme &amp; physical tests"
+        heading: "Prelim, mains, physical efficiency test, interview"
+        parts:
+          - list:
+              - "<strong>Physical measurement</strong> first, by the Home (Police) Department."
+              - "<strong>Prelim:</strong> 100 OMR questions, 300 marks, 2 hours — General Studies 35, General Knowledge of Chhattisgarh 25, Computer 5, Mental Ability 10, Mathematics 10, Hindi 10, English 5."
+              - "<strong>Mains (OMR):</strong> Hindi / English language 200 (Hindi 125, English 75), General Knowledge &amp; General Studies 200, Aptitude 200, plus Science 200 (Fingerprint and Questioned Documents) or Computer Science 200 (Computer and Cyber Crime), 2 hours each. About 5 times the posts go to stage two."
+              - "<strong>Physical Efficiency Test (300):</strong> long jump, high jump, shot put, 100 m and 1,500 m — 60 marks each; at least 30% needed (qualifying only for SI Computer and Cyber Crime)."
+              - "<strong>Interview:</strong> 100 marks; 10 bonus marks for national / international sportspersons. Final merit adds mains, PET and interview."
+            source: si-advt
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "No exam fee for Chhattisgarh residents"
+        parts:
+          - p: "Chhattisgarh local residents pay no exam fee — only the portal fee and GST. A paid correction of the online form costs ₹500."
+            source: si-advt
+      - id: reservation
+        nav: "Reservation"
+        eyebrow: "Reservation"
+        heading: "State rules for SC, ST, OBC, women and ex-servicemen"
+        parts:
+          - list:
+              - "Posts are reserved for SC, ST, OBC, women and ex-servicemen as the state government prescribes; the advertisement's table shows separate columns for women and ex-servicemen in each category."
+              - "Reservation and age benefits are only for natives of Chhattisgarh; OBC candidates must be non-creamy layer."
+              - "Married women must show a caste certificate in their father's name."
+            source: si-advt
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Before the interview"
+        parts:
+          - list:
+              - "High school certificate (proof of age), degree certificate and mark sheets."
+              - "Permanent caste certificate from Chhattisgarh's competent authority; OBC non-creamy-layer certificate."
+              - "Certificates for any age relaxation, ex-servicemen status or sports bonus."
+            source: si-advt
+      - id: pay
+        nav: "Pay &amp; Training"
+        eyebrow: "Salary &amp; probation"
+        heading: "Pay matrix Level 8"
+        parts:
+          - list:
+              - "All posts are non-gazetted Class III in pay matrix <strong>Level 8</strong>, plus allowances admissible from time to time."
+              - "Appointees serve 3 years on probation."
+            source: si-advt
+          - note: "The advertisement does not print an in-hand figure or a training stipend, so none is shown."
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Selection by combined merit"
+        parts:
+          - p: "Separate merit lists are made for each cadre. The final list adds marks of the mains, the physical efficiency test and the interview (with sports bonus where earned); candidates who applied for more than one cadre are considered in their order of preference."
+            source: si-advt
+    sources:
+      - { id: si-advt, name: "CGPSC — Advertisement No. 02/2024/Pariksha, Subedar / Sub-Inspector cadre / Platoon Commander (Home — Police — Dept) (21 Oct 2024) with Corrigendum 01/2024 (10 Dec 2024)", url: "https://psc.cg.gov.in/PDFs/advertisement/SUBEDAR%2C_SUB_INSPECTOR_CADRE_%26_PLATOON_COMMANDER_RECRUITMENT-2024_ADVERTISEMENT%20(21-10-2024).pdf", covers: "posts, pay level, residence rule, qualification, age, physical standards, scheme, PET, interview, bonus, fee, reservation, documents, probation", checked: 2026-10-18 }
+      - { id: si-pre, name: "CGPSC — Press note No. 158 with prelim result, Subedar / SI / Platoon Commander 2024 (4 Aug 2026)", url: "https://psc.cg.gov.in/PDFs/Result/SUBEDAR_SUB_INSPECTOR_CADRE_%26_PLATOON_COMMANDER_RECRUITMENT-2024_PRELIMS_WRITTEN_EXAM_RESULT%20(04-08-2026).pdf", covers: "application window, prelim date and centres, 7,301 shortlisted", checked: 2026-10-18 }
+      - { id: si-post, name: "CGPSC — Notice No. 1490: postponement of Subedar / SI / Platoon Commander (Mains) Exam-2024 (13 Oct 2026)", url: "https://psc.cg.gov.in/PDFs/Notifications/SUBEDAR_SUB_INSPECTOR_CADRE_%26_PLATOON_COMMANDER_RECRUITMENT-2024_POSTPONEMENT_OF_MAINS_EXAMINATION%20(13-10-2026).pdf", covers: "mains of 2–4 Nov 2026 postponed", checked: 2026-10-18 }
+
+  # ------------------------------------------------------------------ CGSSB (FORMERLY CG VYAPAM) — ASSISTANT TEACHER
+  - slug: vyapam
+    group: civil
+    short: "CG Vyapam / Karmachari Chayan Mandal — Assistant Teacher 2026"
+    body: "Chhattisgarh Karmachari Chayan Mandal (formerly Chhattisgarh Vyavsayik Pariksha Mandal)"
+    card: "The Mandal (formerly CG Vyapam) runs Chhattisgarh's Class III recruitment tests. Its biggest 2026 recruitment is 2,292 Assistant Teacher posts (LSAT26) for the E- and T-cadre schools; after a High Court order the exam moved to 6 December 2026."
+    card_facts: ["2,292 Asst Teacher posts · Level 6", "Exam 6 Dec 2026", "Fee ₹350 / ₹250 / ₹200"]
+    eyebrow: "CGSSB (formerly Vyapam) · Assistant Teacher"
+    title: "CG Vyapam (Karmachari Chayan Mandal) Assistant Teacher Recruitment 2026 — Posts, Eligibility, Age, Fees, Exam"
+    lede: "The Chhattisgarh Karmachari Chayan Mandal — the new name of the Chhattisgarh Vyavsayik Pariksha Mandal (Vyapam) — conducts written tests for Class III posts. This page follows the Directorate of Public Instruction's detailed advertisement for Assistant Teacher posts, the Mandal's exam instructions for LSAT26 (24 July 2026) and its notices of 9 and 14 October 2026."
+    facts:
+      - { label: "Posts", value: "2,292 (E-cadre 795 · T-cadre 1,497)", source: ls-advt }
+      - { label: "Exam", value: "6 Dec 2026 (moved from 11 Oct)", source: ls-oct }
+      - { label: "Age (1 Jan 2026)", value: "21 – 35", source: ls-advt }
+      - { label: "Marking", value: "1 mark · −¼ per wrong", source: ls-nir }
+    official:
+      - { label: "Mandal website (vyapamcg)", url: "https://vyapamcg.cgstate.gov.in/" }
+      - { label: "LSAT26 page", url: "https://vyapamcg.cgstate.gov.in/Post?PostID=LSAT26ONLINE" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "2,292 Assistant Teacher posts"
+        parts:
+          - table:
+              caption: "Assistant Teacher (non-gazetted Class III, pay matrix Level 6)"
+              head: ["Cadre", "Districts", "Posts"]
+              rows:
+                - ["E-cadre", "12 districts (Balodabazar-Bhatapara, Raipur, Mahasamund, Durg, Balod, Bemetara, Rajnandgaon, Kabirdham, Janjgir-Champa, Mungeli, Raigarh, Bilaspur)", "795"]
+                - ["T-cadre", "16 districts (Bastar, Bijapur, Dantewada, Kondagaon, Kanker, Narayanpur, Sukma, Surguja, Surajpur, Balrampur-Ramanujganj, Korea, Jashpur, Korba, Raigarh, Gariaband, Balod)", "1,497"]
+            source: ls-advt
+          - p: "The short advertisement was issued by the Directorate of Public Instruction on 16 April 2026. Applications ran from 24 July to 21 August 2026 and the exam was set for 11 October 2026 at 16 district headquarters."
+            source: ls-nir
+          - warn: "The 11 October 2026 exam was not held, following a Chhattisgarh High Court order of 9 October 2026 (WPS No. 6783 of 2026). Applications were reopened for blind, deaf and cerebral-palsy candidates from 15 to 30 October 2026, and LSAT26 will now be held on 6 December 2026 for all candidates."
+            source: ls-oct
+          - note: "The Mandal's 2026 list also includes Teacher (LST26) and Lecturer (LSL26) exams, Firemen, Mandi Board Sub-Inspector, Transport Constable and others. No Patwari exam appears for 2026."
+            source: ls-list
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "Higher Secondary + D.El.Ed, and TET"
+        parts:
+          - list:
+              - "<strong>Qualification (any one):</strong> Higher Secondary with 50% and the 2-year D.El.Ed; or Higher Secondary with 45% and the 2-year D.El.Ed under NCTE's 2002 regulations; or Higher Secondary with 50% and the 4-year B.El.Ed; or Higher Secondary with 50% and the 2-year D.Ed (Special Education); or graduation and the 2-year D.El.Ed."
+              - "<strong>And</strong> a pass in the Teacher Eligibility Test (TET) held by the appropriate government under NCTE guidelines."
+              - "<strong>Age on 1 January 2026:</strong> 21 to 35. SC / ST / OBC (non-creamy) of Chhattisgarh +5; women +10; government servants up to 38; ex-servicemen may deduct their service (result not more than 3 years above the limit). With all relaxations the maximum is 45."
+            source: ls-advt
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme &amp; marking"
+        heading: "100 questions, 2 hours, quarter-mark penalty"
+        parts:
+          - list:
+              - "One OMR paper of 100 objective questions, 1 mark each, in 2 hours (10:00 am to 12:15 pm session)."
+              - "<strong>Negative marking:</strong> one-fourth of the question's mark is cut for a wrong answer or for marking more than one option; unanswered questions get zero."
+              - "Objections to the model answers cost ₹50 per question, filed online with proof."
+            source: ls-nir
+          - p: "A selection list is valid for six months; a waiting list of up to 25% of posts in each category is valid for nine months."
+            source: ls-advt
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "₹350 / ₹250 / ₹200, refunded to locals"
+        parts:
+          - table:
+              head: ["Category", "Exam fee"]
+              rows:
+                - ["General", "₹350"]
+                - ["Other Backward Classes", "₹250"]
+                - ["SC / ST / persons with disabilities", "₹200"]
+            source: ls-nir
+          - note: "Under the General Administration Department's order of 21 April 2025, Chhattisgarh local candidates who sit the exam get their fee refunded to the same bank account after the result."
+            source: ls-nir
+      - id: reservation
+        nav: "Reservation"
+        eyebrow: "Reservation"
+        heading: "1994 Act, 30% women, 7% disabled"
+        parts:
+          - list:
+              - "Reservation follows the Chhattisgarh Lok Seva (SC, ST and OBC Reservation) Act, 1994 and GAD instructions."
+              - "30% of posts are reserved for women (horizontally and compartment-wise); widows and divorced women get preference."
+              - "7% reservation for persons with disabilities under the RPwD Act, 2016; hearing-impaired candidates are eligible only if they can hear with a hearing aid."
+              - "District tables reserve separate posts for local women, Chhattisgarh ex-servicemen and local disabled candidates."
+            source: ls-advt
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Verified by the appointing authority"
+        parts:
+          - list:
+              - "Caste, date of birth, local residence, educational, disability and ex-servicemen certificates are not uploaded with the form — the appointing authority checks them; you are responsible for what you enter."
+              - "At the exam: the admit card and an original photo ID (voter card, driving licence, PAN or Aadhaar); entry closes 30 minutes before the start."
+            source: ls-nir
+          - p: "Selected candidates also undergo a medical examination and police character verification."
+            source: ls-advt
+      - id: pay
+        nav: "Pay &amp; Probation"
+        eyebrow: "Salary &amp; probation"
+        heading: "Pay matrix Level 6"
+        parts:
+          - list:
+              - "Assistant Teacher is a non-gazetted Class III post in pay matrix <strong>Level 6</strong>."
+              - "Probation is 3 years, extendable by up to one year."
+            source: ls-advt
+          - note: "The advertisement does not print a rupee scale or in-hand figure, so none is shown."
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "District-wise appointment"
+        parts:
+          - p: "Posts are filled district-wise in merit order. Under a GAD instruction of 9 February 2026, the 70 posts advertised for Janjgir-Champa will be filled in Sakti district, and 50 of Korea's 100 posts in Manendragarh-Chirmiri-Bharatpur district."
+            source: ls-advt
+    sources:
+      - { id: ls-advt, name: "Directorate of Public Instruction, Chhattisgarh — Detailed advertisement for Assistant Teacher direct recruitment 2026 (E- and T-cadre)", url: "https://vyapamcg.cgstate.gov.in/uploads/pdfs/1a0b7f2b-18dc-4847-90c6-5523634bfbec.pdf", covers: "posts by district, pay level, qualification, TET, age and relaxations, reservation, list validity, probation, medical and police verification, district transfers of posts", checked: 2026-10-18 }
+      - { id: ls-nir, name: "Chhattisgarh Karmachari Chayan Mandal — Exam instructions No. 3202, Assistant Teacher exam LSAT26 (24 Jul 2026)", url: "https://vyapamcg.cgstate.gov.in/uploads/pdfs/612a82f7-0cf1-4d68-bccc-dd7bac0f04a4.pdf", covers: "dates, fee, refund rule, exam pattern, negative marking, objection fee, exam-day rules", checked: 2026-10-18 }
+      - { id: ls-oct, name: "Chhattisgarh Karmachari Chayan Mandal — Notices No. 4101 (9 Oct 2026, exam not held) and No. 4139 (14 Oct 2026, reopened applications and new exam date)", url: "https://vyapamcg.cgstate.gov.in/uploads/pdfs/3ab969b3-c3ce-4dc4-9001-e022f4f66021_39-41.2.pdf", covers: "High Court order, reopened window for blind / deaf / CP candidates, exam on 6 Dec 2026", checked: 2026-10-18 }
+      - { id: ls-list, name: "Chhattisgarh Karmachari Chayan Mandal — Recruitment exams 2026 list", url: "https://vyapamcg.cgstate.gov.in/Posts?tag=RECEXAM26", covers: "all 2026 recruitment exams; no Patwari exam", checked: 2026-10-18 }
+
+  # ------------------------------------------------------------------ PRE POLYTECHNIC TEST
+  - slug: ppt
+    group: academic
+    short: "CG PPT — Pre Polytechnic Test &amp; Diploma Admission"
+    body: "Chhattisgarh Vyavsayik Pariksha Mandal (test) and the Technical Education Department (admission rules)"
+    card: "The Pre Polytechnic Test (PPT) ranks Class 10 students for engineering and architecture diplomas in Chhattisgarh's polytechnics. PPT-2026 was held on 7 May 2026 with no negative marking; seats are allotted under the 2023 diploma admission rules."
+    card_facts: ["PPT 7 May 2026 · no negative", "Fee ₹200 / ₹150 / ₹100", "Naxal-area districts get first claim"]
+    eyebrow: "CG PPT · Diploma admission"
+    title: "CG PPT 2026 — Pre Polytechnic Test, Eligibility, Fees, Merit Lists & Seat Allotment Rules"
+    lede: "Chhattisgarh fills polytechnic diploma seats using the Pre Polytechnic Test (PPT) run by Vyapam and the Technical Education Department's admission rules of 2023. This page follows the PPT-2026 exam instructions (25 March 2026), the syllabus and the gazetted 'Chhattisgarh polytechnic diploma admission rules, 2023'."
+    facts:
+      - { label: "2026 exam", value: "7 May 2026, 10:00 – 1:15", source: ppt-nir }
+      - { label: "Marking", value: "1 mark · no negative", source: ppt-nir }
+      - { label: "Eligibility", value: "Class 10 with Maths &amp; Science", source: ppt-rules }
+      - { label: "Fee", value: "₹200 · ₹150 OBC · ₹100 SC/ST/PwD", source: ppt-nir }
+    official:
+      - { label: "Mandal website (vyapamcg)", url: "https://vyapamcg.cgstate.gov.in/" }
+      - { label: "PPT26 page", url: "https://vyapamcg.cgstate.gov.in/Post?PostID=PPT26ONLINE" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "A state test for diploma merit"
+        parts:
+          - table:
+              caption: "PPT-2026 calendar"
+              head: ["Event", "Date"]
+              rows:
+                - ["Online application", "25 Mar – 17 Apr 2026 (5 pm)"]
+                - ["Correction window", "18 – 20 Apr 2026"]
+                - ["Admit card", "27 Apr 2026"]
+                - ["Exam", "7 May 2026, 10:00 am – 1:15 pm"]
+                - ["Centres", "33 district headquarters"]
+            source: ppt-nir
+          - p: "The admission rules define PPT as the state-level test held by Vyapam to fix merit for admission to diploma engineering courses; admission is by online counselling run by a committee formed by the government."
+            source: ppt-rules
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Academic eligibility"
+        heading: "Class 10 with Maths and Science"
+        parts:
+          - table:
+              head: ["Course", "Qualification"]
+              rows:
+                - ["Diploma Engineering and Diploma Architecture", "Class 10 pass with Mathematics and Science"]
+                - ["Diploma Costume Design &amp; Dress Making, Interior Decoration", "Class 10 pass"]
+                - ["Diploma Modern Office Management, Hotel Management &amp; Catering Technology", "Class 12 pass"]
+                - ["Diploma Engineering lateral entry (2nd year)", "Class 12 with AICTE-prescribed subjects, or Class 10 plus a 2-year ITI (NCVT / SCVT)"]
+            source: ppt-rules
+      - id: scheme
+        nav: "Exam Scheme &amp; Merit"
+        eyebrow: "Exam scheme &amp; merit lists"
+        heading: "No negative marking; five merit lists"
+        parts:
+          - list:
+              - "Each question has four options; 1 mark for the correct (or most suitable) answer, zero for a wrong, multiple or blank answer — <strong>no negative marking</strong>."
+              - "Wrong questions are scrapped and their marks given to all as bonus; questions with more than one correct option accept all of them."
+              - "Objections to model answers cost ₹50 per question."
+            source: ppt-nir
+          - list:
+              - "Merit lists: PPT merit; a Class 10 (Maths + Science) list for candidates of the Naxal-affected districts; Class 10 percentage; Class 12 percentage; lateral entry (ITI or Class 12 percentage)."
+              - "Equal marks are ranked by age — the older candidate first."
+            source: ppt-rules
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "₹100 to ₹200, refunded to locals"
+        parts:
+          - table:
+              head: ["Category", "Exam fee"]
+              rows:
+                - ["General", "₹200"]
+                - ["Other Backward Classes", "₹150"]
+                - ["SC / ST / persons with disabilities", "₹100"]
+            source: ppt-nir
+          - note: "Chhattisgarh local candidates who appear get the exam fee refunded to the bank account used. Counselling has its own non-refundable fee fixed by the government."
+            source: ppt-nir
+      - id: reservation
+        nav: "Reservation &amp; Seat Order"
+        eyebrow: "Reservation &amp; seat allotment"
+        heading: "Local and Naxal-area candidates first"
+        parts:
+          - list:
+              - "Reservation follows Chhattisgarh's reservation law in force at the time of admission."
+              - "Private institutions have a 15% management quota; minority institutions keep 50% of seats for minority candidates."
+              - "<strong>Polytechnics in Naxal-affected districts</strong> (Surguja, Bastar, Bijapur, Narayanpur, Kanker, Korea, Jashpur, Sukma, Rajnandgaon, Kondagaon, Surajpur, Dantewada): seats go first to natives of those districts from the PPT list, then from the Class 10 (Maths + Science) list, then to natives of the same division, then the rest of Chhattisgarh, then outside candidates."
+              - "<strong>Other polytechnics:</strong> PPT merit for Chhattisgarh natives first; any seats left go to candidates from outside the state."
+            source: ppt-rules
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Verified at counselling"
+        parts:
+          - list:
+              - "No certificates are uploaded with the form; caste, date of birth, residence, education, disability and ex-servicemen certificates are checked during counselling."
+              - "Keep the admit card safe — it is needed at counselling; it is downloaded from your Vyapam profile, not posted."
+            source: ppt-nir
+      - id: pay
+        nav: "Costs"
+        eyebrow: "Costs"
+        heading: "Test fee and counselling fee"
+        parts:
+          - p: "The instructions set only the test fee (₹100 – ₹200, refunded to locals who appear). Polytechnic tuition fees are not printed in these documents."
+            source: ppt-nir
+      - id: posting
+        nav: "After PPT"
+        eyebrow: "After the test"
+        heading: "Online counselling"
+        parts:
+          - p: "Seats are allotted through online counselling by a committee formed by the state government, following the seat-allotment order above; candidates pay the government-fixed counselling fee online."
+            source: ppt-rules
+          - links:
+              - { label: "Diploma after Class 10", url: "diploma.html" }
+              - { label: "Diploma college finder", url: "colleges-diploma.html" }
+    sources:
+      - { id: ppt-nir, name: "Chhattisgarh Vyavsayik Pariksha Mandal — Exam instructions No. 1241, Pre Polytechnic Test (PPT26) 2026 (25 Mar 2026)", url: "https://vyapamcg.cgstate.gov.in/uploads/pdfs/970389b9-aeb3-4032-898c-50ee90e499d3.pdf", covers: "dates, centres, fee, refund rule, marking, no negative marking, bonus rule, objection fee, documents, admit card", checked: 2026-10-18 }
+      - { id: ppt-rules, name: "Technical Education Department, Chhattisgarh — Notification F-9-5/2023/Tak.Shi./42: Chhattisgarh polytechnic diploma admission rules, 2023 (Gazette, 11 May 2023)", url: "https://vyapamcg.cgstate.gov.in/uploads/pdfs/b335de72-334a-4fa2-91e0-ce2b9d363b10.pdf", covers: "PPT definition, eligibility by course, reservation, management and minority quotas, merit lists, tie rule, Naxal-district seat order, counselling", checked: 2026-10-18 }

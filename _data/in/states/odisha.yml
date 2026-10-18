@@ -1,0 +1,672 @@
+# Odisha State Exam & Career Cockpit — one data sheet for the cockpit (state/odisha/index.html) and every
+# exam page under state/odisha/. Rendered by _includes/state-cockpit.html and _includes/state-exam.html;
+# checked by scripts/check-in-data.mjs (state sheets block).
+#
+# Rules for this sheet (same as the other state sheets):
+#   - Every fact part carries `source: <id>`; the id must be listed under that exam's `sources`.
+#   - Sources are the official files themselves (read 2026-10-18): the OPSC advertisement for Odisha Civil
+#     Services 2025 (Advt. 05 of 2025-26) with its three addenda, prelim result, mains programme and the OCS 2024
+#     recommendation notice; the OSSSC Combined Recruitment Examination-2025 advertisement and its later
+#     notices; the OJEE-2026 information brochure, counselling brochure and 2nd OJEE pattern; and the SAMS
+#     Odisha diploma information brochure 2026-27 with its advertisement and allotment guidelines.
+#     Nothing comes from coaching or news sites.
+#   - OPSC and OSSSC serve their files only through page buttons (no direct file address), so those sources
+#     link to the official list page and name the file.
+#   - Odisha Police (odishapolice.gov.in) could not be reached on 18 Oct 2026, so it has no page yet.
+#   - Section ids are the same on every exam page: overview, eligibility, scheme, fees, reservation,
+#     documents, pay, posting (+ sources, drawn automatically).
+state:
+  id: odisha
+  name: Odisha
+  checked: 2026-10-18
+
+cockpit:
+  eyebrow: "State Exam &amp; Career Cockpit · Odisha"
+  title: "Odisha Exam &amp; Career Cockpit"
+  intro:
+    - "Every major Odisha government recruitment and admission route on one screen: the Odisha Civil Services exam of the Odisha Public Service Commission (OPSC), the Combined Recruitment Examination of the Odisha Sub-ordinate Staff Selection Commission (OSSSC) for Revenue Inspector, Junior Assistant, Amin and other district posts, OJEE for pharmacy, MBA, MCA and lateral-entry B.Tech, and SAMS for polytechnic diplomas after Class 10. Each page is built only from the official advertisement or brochure, and every fact links back to that file."
+    - "Odisha recruitment has one rule that catches many outside candidates: you must read, write and speak Odia and have passed Odia at least at Middle School (Class VII) level, or the special Odia test. In admissions, reservations go only to natives of Odisha who hold an online nativity or caste certificate from an Odisha Tahsildar. Odisha Police recruitment is not covered yet because its website could not be reached when we checked."
+  facts:
+    - { label: "Recruitment nodes", value: "OPSC Civil Services · OSSSC CRE" }
+    - { label: "Admission nodes", value: "OJEE · SAMS diploma" }
+    - { label: "Next exam", value: "OCS 2025 mains 29 Oct – 7 Nov 2026" }
+    - { label: "Last checked", value: "18 Oct 2026" }
+  groups:
+    - id: civil
+      eyebrow: "Civil recruitment &amp; administrative"
+      heading: "Government recruitment exams"
+      intro: "Group-A and Group-B state services through the Odisha Public Service Commission (OPSC), and district-cadre posts such as Revenue Inspector, Junior Assistant, Amin and ICDS Supervisor through the Odisha Sub-ordinate Staff Selection Commission (OSSSC)."
+      exams: [opsc, osssc]
+    - id: academic
+      eyebrow: "Academic admissions"
+      heading: "Admission routes after Class 10, 12 and graduation"
+      intro: "B.Pharm, Integrated MBA, B.CAT, lateral-entry B.Tech, MBA, MCA, M.Tech and nursing through the Odisha Joint Entrance Examination (OJEE), and polytechnic diplomas through the Student Academic Management System (SAMS) of the Directorate of Technical Education &amp; Training."
+      exams: [ojee, sams]
+  compare_note: "Fees, age limits and dates are from the latest advertisement of each body. They change every cycle, so always open the current notice before applying."
+  portals_note: "OPSC advertisements and notices are on opsc.gov.in (online applications at opscechayan.in); OSSSC on osssc.gov.in; OJEE on ojee.nic.in; polytechnic admissions on skill.samsodisha.gov.in. Only use these official addresses."
+  portals:
+    - { label: "Odisha Public Service Commission (OPSC)", url: "https://www.opsc.gov.in/" }
+    - { label: "Odisha Sub-ordinate Staff Selection Commission (OSSSC)", url: "https://www.osssc.gov.in/" }
+    - { label: "OJEE — Odisha Joint Entrance Examination", url: "https://ojee.nic.in/" }
+    - { label: "SAMS Odisha — Diploma admissions", url: "https://skill.samsodisha.gov.in/Website/diploma/Diphome.aspx" }
+
+exams:
+  # ------------------------------------------------------------------ OPSC — ODISHA CIVIL SERVICES
+  - slug: opsc
+    group: civil
+    short: "OPSC Odisha Civil Services (OAS / OPS &amp; Group-B)"
+    body: "Odisha Public Service Commission"
+    card: "The Odisha Civil Services exam fills the Odisha Administrative Service (OAS), Odisha Police Service (OPS) and nine Group-B services. The 2025 cycle (Advt. 05 of 2025-26) has 465 posts after an addendum, and its mains run from 29 October to 7 November 2026."
+    card_facts: ["OCS 2025: 465 posts", "Mains 29 Oct – 7 Nov 2026", "Odia pass at Class VII level needed"]
+    eyebrow: "OPSC · Odisha Civil Services"
+    title: "OPSC Odisha Civil Services 2025 — 465 Posts, Odia Rule, Age, Prelims & Mains Scheme, Pay"
+    lede: "The Odisha Public Service Commission recruits Odisha's administrative, police and Group-B officers through one combined exam. This page follows the advertisement for Odisha Civil Services 2025 (Advt. No. 05 of 2025-26, 31 December 2025), its three addenda, the prelim result of 10 July 2026 and the mains programme of 29 August 2026."
+    facts:
+      - { label: "Posts", value: "465 (154 for women) after 1st addendum", source: ocs-ad1 }
+      - { label: "Mains", value: "29 Oct – 7 Nov 2026", source: ocs-mains }
+      - { label: "Age (1 Jan 2025)", value: "21 – 42 (+5 SC/ST/SEBC/women)", source: ocs-advt }
+      - { label: "Fee", value: "₹700 · SC/ST/PwD exempt", source: ocs-advt }
+    official:
+      - { label: "OPSC website", url: "https://www.opsc.gov.in/" }
+      - { label: "OPSC advertisements list", url: "https://www.opsc.gov.in/Public/Pages/View_Content.aspx?id=MeNGKau42B9VX4Nn6oZfXA==" }
+      - { label: "Online application (OPSC eChayan)", url: "https://opscechayan.in/" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "Eleven services, one exam"
+        parts:
+          - p: "OCS 2025 was advertised on 31 December 2025 for 314 posts (104 for women) in the Odisha Administrative Service, Odisha Police Service and the Group-B services. The first addendum of 3 January 2026 added 151 posts (50 for women) — 14 OAS, 113 Revenue, 16 Welfare and 8 Transport — taking the total to 465."
+            source: ocs-ad1
+          - table:
+              caption: "Services in OCS 2025 and their pay level (ORSP Rules, 2017)"
+              head: ["Service", "Group", "Starting pay"]
+              rows:
+                - ["Odisha Administrative Service (OAS), Junior Branch", "A", "Level 12 · ₹56,100"]
+                - ["Odisha Police Service (OPS), Junior Branch", "A", "Level 12 · ₹56,100"]
+                - ["Odisha Revenue Service", "B", "Level 10 · ₹44,900"]
+                - ["Odisha Taxation &amp; Accounts Service", "B", "Level 10 · ₹44,900"]
+                - ["Odisha Co-operative Service", "B", "Level 10 · ₹44,900"]
+                - ["Odisha Skill Development &amp; Employment Service", "B", "Level 10 · ₹44,900"]
+                - ["Odisha Labour Service", "B", "Level 10 · ₹44,900"]
+                - ["Odisha Excise Service", "B", "Level 10 · ₹44,900"]
+                - ["Odisha Tourism Service", "B", "Level 10 · ₹44,900"]
+                - ["Odisha Welfare Service", "B", "Level 10 · ₹44,900"]
+                - ["Odisha Transport Service", "B", "Level 10 · ₹44,900"]
+            source: ocs-advt
+          - table:
+              caption: "OCS 2025 timeline"
+              head: ["Stage", "Date"]
+              rows:
+                - ["Advertisement", "31 Dec 2025"]
+                - ["Last date (after the 3rd addendum)", "12 Mar 2026, 5 pm"]
+                - ["Preliminary exam", "7 Jun 2026"]
+                - ["Prelim result", "10 Jul 2026 — 5,690 qualified (1,905 women)"]
+                - ["Main written exam", "29 Oct – 7 Nov 2026"]
+            source: ocs-pre
+          - p: "The previous cycle, OCS 2024 (Advt. 07 of 2024-25), ended on 26 May 2026 with 200 candidates (78 women) recommended for appointment after the personality test of 14–20 May 2026."
+            source: ocs-rec
+      - id: eligibility
+        nav: "Eligibility &amp; Odia rule"
+        eyebrow: "Eligibility, age &amp; the Odia requirement"
+        heading: "A degree, age 21 to 42, and proven Odia"
+        parts:
+          - list:
+              - "<strong>Qualification:</strong> a bachelor's degree from a recognised university; Indian citizenship."
+              - "<strong>Age on 1 January 2025:</strong> 21 to 42 (born between 2 January 1983 and 1 January 2004)."
+              - "<strong>Relaxation:</strong> 5 years for SC, ST, SEBC, women and ex-servicemen; 10 years for persons with disabilities (40% or more); PwD candidates of SC/ST/SEBC get both."
+              - "<strong>Attempts:</strong> 6 for general candidates, 9 for SEBC, no limit for SC and ST."
+            source: ocs-advt
+          - p: "<strong>Compulsory Odia:</strong> you must be able to read, write and speak Odia and have passed one of: the Middle English School exam with Odia as a language; HSC (Class 10) with Odia as the medium in a non-language subject; Odia as a language subject in the Class VII final exam or above; or the ME-standard Odia test held by the School &amp; Mass Education Department. A candidate who lacks this is rejected."
+            source: ocs-advt
+          - note: "The second addendum (19 Feb 2026) allowed transgender persons to apply as well."
+            source: ocs-ad2
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme &amp; marking"
+        heading: "Prelims, a 1,750-mark mains and a 250-mark interview"
+        parts:
+          - list:
+              - "<strong>Preliminary:</strong> General Studies Paper I (200 marks) and Paper II (200 marks), objective, 2 hours each. Paper II is qualifying at 33%; you must sit both papers."
+              - "<strong>Negative marking:</strong> one-third (0.33) of the marks of a question is deducted for each wrong answer; blank answers carry no penalty."
+              - "Up to 12 times the vacancies are called to the mains."
+            source: ocs-advt
+          - table:
+              caption: "Main written exam and personality test"
+              head: ["Paper", "Marks", "Counted"]
+              rows:
+                - ["Odia (qualifying)", "250", "No — 25% needed"]
+                - ["English (qualifying)", "250", "No — 25% needed"]
+                - ["Essay", "250", "Yes"]
+                - ["General Studies I – IV", "250 each", "Yes"]
+                - ["Optional subject Papers I &amp; II", "250 each", "Yes"]
+                - ["Main written total", "1,750", ""]
+                - ["Personality test (about 2× vacancies)", "250", "Yes, no minimum"]
+                - ["Grand total", "2,000", ""]
+            source: ocs-advt
+          - p: "Exam papers are set in Odia and English under the Odia medium rules of 2022. The 2025 mains are held from 9 am to 12 noon and 2 to 5 pm: Odia and English on 29 October, Essay on 30 October, GS I–II on 2 November, GS III–IV on 4 November and the optional papers on 7 November 2026; PwD candidates get an extra hour."
+            source: ocs-mains
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "₹700, refunded if you sit both prelim papers"
+        parts:
+          - table:
+              head: ["Candidate", "Exam fee"]
+              rows:
+                - ["General, SEBC and others", "₹700"]
+                - ["SC, ST and persons with disabilities", "Exempt"]
+            source: ocs-advt
+          - note: "Under the Odisha recruitment exam fee and refund rules of 2025, the fee is refunded only to candidates who appear in both papers of the preliminary exam."
+            source: ocs-advt
+      - id: reservation
+        nav: "Reservation &amp; Zones"
+        eyebrow: "Reservation &amp; Odisha-only rules"
+        heading: "Only Odisha's SC, ST and SEBC get reservation"
+        parts:
+          - table:
+              caption: "Category split of the original 314 posts"
+              head: ["Category", "Posts", "Of which women"]
+              rows:
+                - ["Unreserved", "155", "49"]
+                - ["SEBC", "18", "5"]
+                - ["SC", "49", "18"]
+                - ["ST", "92", "32"]
+            source: ocs-advt
+          - list:
+              - "Reservation is only for SC and ST by birth and SEBC of Odisha. The SEBC certificate must be no more than three years old; an OBC certificate is not accepted in its place."
+              - "A woman's caste certificate must show her as the daughter of her father, not by marriage."
+              - "Persons with disabilities: 12 posts; ex-servicemen: 7; sportspersons: 3. Sports claims need the identity card issued by the Director of Sports, Odisha; ex-servicemen already in government service get no reservation."
+              - "Candidates choose two exam zones from Balasore, Berhampur, Bhubaneswar, Cuttack, Jeypore and Sambalpur."
+            source: ocs-advt
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Originals asked for at verification"
+        parts:
+          - list:
+              - "HSC certificate (proof of age), +2 and degree certificates with all mark sheets."
+              - "Caste certificate (SC / ST / SEBC) from Odisha authorities."
+              - "Certificate of passing Odia (Class VII or higher, or the ME-standard Odia test)."
+              - "Disability certificate, sports identity card, or ex-servicemen release certificate with affidavit, where claimed."
+              - "Character certificate, four photographs, no-objection certificate if employed, and a photo ID (Aadhaar, voter ID, driving licence, passport or PAN)."
+            source: ocs-advt
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Level 12 for OAS / OPS, Level 10 for Group-B"
+        parts:
+          - list:
+              - "<strong>OAS and OPS (Group-A, Junior Branch):</strong> Level 12 of the Odisha Revised Scales of Pay Rules, 2017 — ₹56,100 at the first cell."
+              - "<strong>All nine Group-B services:</strong> Level 10 — ₹44,900 at the first cell."
+              - "Appointees after 1 January 2005 are under the defined-contribution National Pension System; probation follows each service's rules."
+            source: ocs-advt
+          - note: "The advertisement gives pay levels only. In-hand pay adds dearness and other allowances and subtracts NPS and other deductions, so no in-hand figure is shown."
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Service allotted by merit and preference"
+        parts:
+          - p: "Candidates who list the Odisha Police Service among their preferences must clear the physical standard test laid down by the Home Department (notification of 4 July 2011). Final allotment of services follows the combined merit of the main written exam and the personality test."
+            source: ocs-advt
+    sources:
+      - { id: ocs-advt, name: "OPSC — Advertisement for Odisha Civil Services 2025, Advt. No. 05 of 2025-26 (31 Dec 2025), file 052526_OCS_2025_Advt.pdf on the Advertisements page", url: "https://www.opsc.gov.in/Public/Pages/View_Content.aspx?id=MeNGKau42B9VX4Nn6oZfXA==", covers: "services, pay levels, original vacancies, age, attempts, Odia rule, fee and refund, scheme, negative marking, reservation rules, zones, documents, OPS physical test, NPS", checked: 2026-10-18 }
+      - { id: ocs-ad1, name: "OPSC — 1st Addendum to OCS 2025 advertisement (3 Jan 2026), file 052526_OCS_25_1st_Addendum.pdf", url: "https://www.opsc.gov.in/Public/Pages/View_Content.aspx?id=MeNGKau42B9VX4Nn6oZfXA==", covers: "151 added posts, total 465", checked: 2026-10-18 }
+      - { id: ocs-ad2, name: "OPSC — 2nd Addendum to OCS 2025 advertisement (19 Feb 2026), file 052526_OCS25_2nd_Addendum.pdf", url: "https://www.opsc.gov.in/Public/Pages/View_Content.aspx?id=MeNGKau42B9VX4Nn6oZfXA==", covers: "transgender candidates allowed, extended dates", checked: 2026-10-18 }
+      - { id: ocs-pre, name: "OPSC — 3rd Addendum (5 Mar 2026) and Result of Preliminary Written Examination, OCS 2025 (10 Jul 2026), files 052526_OCS_3rd_Corrigendum.pdf and 052526_OCS25_Pre_Result.pdf", url: "https://www.opsc.gov.in/Public/Pages/View_Content.aspx?id=MeNGKau42B9VX4Nn6oZfXA==", covers: "final last date, prelim date, number qualified", checked: 2026-10-18 }
+      - { id: ocs-mains, name: "OPSC — OCS 2025 Main Written Examination Programme Notice (29 Aug 2026), file 052526_OCS-2025_Main_WrittenExam.pdf", url: "https://www.opsc.gov.in/Public/Pages/View_Content.aspx?id=MeNGKau42B9VX4Nn6oZfXA==", covers: "mains dates, sessions, extra time for PwD", checked: 2026-10-18 }
+      - { id: ocs-rec, name: "OPSC — OCS 2024 (Advt. 07 of 2024-25) Final Result &amp; Recommendation (26 May 2026), file 072425_OCS_recommendation.pdf", url: "https://www.opsc.gov.in/Public/Pages/View_Content.aspx?id=MeNGKau42B9VX4Nn6oZfXA==", covers: "200 recommended, personality test dates", checked: 2026-10-18 }
+
+  # ------------------------------------------------------------------ OSSSC — COMBINED RECRUITMENT EXAMINATION
+  - slug: osssc
+    group: civil
+    short: "OSSSC Combined Recruitment Exam (RI / ARI / Amin / Junior Assistant)"
+    body: "Odisha Sub-ordinate Staff Selection Commission"
+    card: "One written test for seven district-cadre posts — Revenue Inspector, ICDS Supervisor, Village Agricultural Worker, Junior Assistant, Assistant Revenue Inspector, Amin and Statistical Field Surveyor. CRE-2025 has 4,881 vacancies; its written test ran from 22 May to 28 June 2026."
+    card_facts: ["CRE-2025: 4,881 posts", "100-mark test · −0.25 per wrong", "Fee ₹500 · SC/ST/PwD exempt"]
+    eyebrow: "OSSSC · Combined Recruitment Examination"
+    title: "OSSSC CRE-2025 — RI, ARI, Amin, Junior Assistant & More: 4,881 Posts, Age, Odia Rule, Scheme, Pay"
+    lede: "The Odisha Sub-ordinate Staff Selection Commission fills district and range-cadre posts through its Combined Recruitment Examination (CRE). This page follows the CRE-2025 advertisement (No. IIE-120/2025-3219/OSSSC, 30 December 2025), the revised vacancies of 7 March 2026 and the written-test notices up to 17 October 2026."
+    facts:
+      - { label: "Vacancies", value: "4,881 across 7 posts", source: cre-741 }
+      - { label: "Written test", value: "22 May – 28 Jun 2026 (held)", source: cre-3116 }
+      - { label: "Age (1 Jan 2025)", value: "21 / 20 – 42", source: cre-advt }
+      - { label: "Fee", value: "₹500 · SC/ST/PwD exempt", source: cre-advt }
+    official:
+      - { label: "OSSSC website", url: "https://www.osssc.gov.in/" }
+      - { label: "OSSSC notifications list", url: "https://www.osssc.gov.in/Public/Pages/Notification.aspx" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "Seven district-cadre posts, one test"
+        parts:
+          - table:
+              caption: "CRE-2025 posts after the revision of 7 March 2026"
+              head: ["Post", "Department", "Group", "Vacancies"]
+              rows:
+                - ["Revenue Inspector (RI)", "Revenue &amp; Disaster Management", "B", "211"]
+                - ["ICDS Supervisor (women only)", "Women &amp; Child Development", "B", "286"]
+                - ["Village Agricultural Worker (VAW)", "Agriculture &amp; Farmers' Empowerment", "C", "1,856"]
+                - ["Junior Assistant (JA)", "Finance, R&amp;DM, A&amp;FE, W&amp;CD", "C", "1,239"]
+                - ["Assistant Revenue Inspector (ARI)", "Revenue &amp; Disaster Management", "C", "564"]
+                - ["Amin", "Revenue &amp; Disaster Management", "C", "483"]
+                - ["Statistical Field Surveyor (SFS)", "Planning &amp; Convergence", "C", "242"]
+                - ["Total", "", "", "4,881"]
+            source: cre-741
+          - p: "The vacancies were first advertised on 30 December 2025, raised by an addendum on 2 March 2026 and revised again on 7 March 2026, when Balasore district's RI, ARI and Amin posts were cut from 176 to 45. The last date for applications became 8 March 2026."
+            source: cre-741
+          - p: "The written test was held in several sittings from 22 May to 28 June 2026; the sitting of 20 June was moved to 28 June because of NEET (UG) 2026. Revised answer keys and response sheets were published on 17 October 2026."
+            source: cre-3116
+          - note: "Posts are district or range cadre: a selected candidate is posted within that district or range."
+            source: cre-advt
+      - id: eligibility
+        nav: "Eligibility &amp; Odia rule"
+        eyebrow: "Eligibility, age &amp; the Odia requirement"
+        heading: "Post-wise qualification, age up to 42, Odia compulsory"
+        parts:
+          - table:
+              caption: "Qualification and age (on 1 January 2025)"
+              head: ["Post", "Minimum qualification", "Age"]
+              rows:
+                - ["Revenue Inspector", "Bachelor's degree in any discipline, with computer knowledge", "Over 20, below 42"]
+                - ["ICDS Supervisor", "Bachelor's degree in Arts, Science or Commerce (women only)", "21 – 42"]
+                - ["Village Agricultural Worker", "+2 Science, or +2 vocational in an agriculture subject", "21 – 42"]
+                - ["Junior Assistant", "+3 degree with computer skill", "21 – 42"]
+                - ["Asst. Revenue Inspector / Amin", "+2 (CHSE Odisha) or equivalent, or engineering diploma (SCTE&amp;VT), with computer knowledge", "Over 20, below 42"]
+                - ["Statistical Field Surveyor", "+2 from CHSE, CBSE, CISCE or equivalent", "21 – 42"]
+            source: cre-advt
+          - list:
+              - "<strong>Relaxation:</strong> 5 years for SC, ST and SEBC; 5 years for women (except ICDS Supervisor, which is for women only); 5 more years for Anganwadi workers applying for ICDS Supervisor; 10 years for persons with disabilities; up to 5 years for RI / ARI / Amin applicants with settlement or consolidation experience."
+              - "<strong>Compulsory Odia:</strong> read, write and speak Odia, and have passed the ME school exam with Odia, or HSC with Odia as the medium in non-language subjects, or Odia as a language in Class VII or higher, or the ME-standard Odia test of the School &amp; Mass Education Department."
+              - "<strong>Junior Assistant only:</strong> you must be registered with the employment exchange of the district you apply for (or with a state / special exchange plus a resident certificate of that district). Selection lists are made district by district."
+              - "A diploma from an agriculture polytechnic of OUAT adds 5% of the written marks for the VAW merit list."
+            source: cre-advt
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme &amp; marking"
+        heading: "100-mark written test, then a computer skill test"
+        parts:
+          - table:
+              caption: "Stage I — written test (OMR / CBRE), 1½ hours, HSC standard"
+              head: ["Subject", "Questions", "Marks"]
+              rows:
+                - ["Mathematics", "20", "20"]
+                - ["General Studies", "20", "20"]
+                - ["English", "20", "20"]
+                - ["Odia", "15", "15"]
+                - ["Computer", "15", "15"]
+                - ["Logical Reasoning", "10", "10"]
+                - ["Total", "100", "100"]
+            source: cre-advt
+          - list:
+              - "<strong>Negative marking:</strong> one-fourth (0.25) of a question's marks for each wrong answer, or for marking more than one option; blanks carry no penalty."
+              - "<strong>Pass mark:</strong> 35%; 30% for ST, SC, PwD, ex-servicemen and sportspersons. Marks across CBRE sittings are normalised."
+              - "<strong>Ties:</strong> fewer wrong answers first, then the older candidate."
+              - "<strong>Stage II — Practical Skill Test in Basic Computer Skills:</strong> 50 marks, 1 hour, qualifying at 40%; at least 3 times the vacancies are called."
+              - "Document verification (at least 1.25 times the vacancies) and counselling for post and district on merit-cum-choice follow."
+            source: cre-advt
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "₹500, refunded if you appear"
+        parts:
+          - table:
+              head: ["Candidate", "Exam fee"]
+              rows:
+                - ["General, SEBC and others", "₹500"]
+                - ["SC, ST and persons with disabilities", "Exempt"]
+            source: cre-advt
+          - note: "Under the Odisha recruitment exam fee and refund rules of 2025, the ₹500 is refunded to the bank account or payment method used, but only to candidates who actually sit the exam."
+            source: cre-advt
+      - id: reservation
+        nav: "Reservation"
+        eyebrow: "Reservation &amp; special categories"
+        heading: "Odisha's SC, ST, SEBC, women and special quotas"
+        parts:
+          - list:
+              - "Vacancies are reserved for SC, ST, SEBC, women, sportspersons, ex-servicemen and persons with disabilities under Odisha's acts and rules; district and category tables are in Annexures I to VII of the advertisement."
+              - "Sportspersons need the Sportsperson Identity Card of the Sports &amp; Youth Services Department, Odisha."
+              - "Persons with disabilities need a permanent disability certificate of 40% or more (UDID card); temporary disability does not count. Benchmark-disabled candidates get 20 minutes extra per hour."
+              - "Ex-servicemen must not have taken re-employment under the Odisha government using that category."
+            source: cre-advt
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Originals for document verification"
+        parts:
+          - list:
+              - "Caste certificate (SC / ST / SEBC) and UDID card or disability certificate, where claimed."
+              - "HSC, +2 and +3 certificates and mark sheets."
+              - "Certificate of passing Odia in Class VII or above, or the ME-standard Odia test."
+              - "Ex-servicemen discharge certificate and undertaking; sportsperson ID card."
+              - "Junior Assistant: employment registration certificate of the district, or resident certificate of the district."
+              - "Settlement / consolidation experience certificate if claiming that age relaxation."
+            source: cre-advt
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Pay matrix levels 3 to 9"
+        parts:
+          - table:
+              head: ["Post", "Pay scale (₹)", "Level"]
+              rows:
+                - ["Revenue Inspector, ICDS Supervisor", "35,400 – 1,12,400", "9"]
+                - ["Village Agricultural Worker", "21,700 – 69,100", "5"]
+                - ["Junior Assistant, Asst. Revenue Inspector", "19,900 – 63,200", "4"]
+                - ["Amin, Statistical Field Surveyor", "18,000 – 56,900", "3"]
+            source: cre-advt
+          - note: "The advertisement prints pay scales only; in-hand pay depends on allowances and deductions, so no in-hand figure is shown."
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "District allotment by merit and choice"
+        parts:
+          - p: "For every post except Junior Assistant, selected candidates give their order of preference for districts at counselling, and post and district are allotted by merit, availability and choice. Junior Assistant lists are made department- and district-wise from candidates of that district only. Document checks are done by a District Level Board at the Collector's office."
+            source: cre-advt
+    sources:
+      - { id: cre-advt, name: "OSSSC — Advertisement No. IIE-120/2025-3219/OSSSC, Combined Recruitment Examination-2025 (30 Dec 2025), file CRE-2025-3219.pdf on the Notifications page", url: "https://www.osssc.gov.in/Public/Pages/Notification.aspx", covers: "posts, pay, qualification, age, relaxations, Odia rule, Junior Assistant district rule, fee and refund, scheme, negative marking, pass marks, skill test, reservation, documents, counselling", checked: 2026-10-18 }
+      - { id: cre-741, name: "OSSSC — Notice No. IIE-120/2025-741/OSSSC, Revision of vacancies for CRE-2025 (7 Mar 2026), file CRE-2025-Revised-Vacancy-741.pdf", url: "https://www.osssc.gov.in/Public/Pages/Notification.aspx", covers: "revised post-wise vacancies (4,881), Balasore cut, last date 8 Mar 2026", checked: 2026-10-18 }
+      - { id: cre-3116, name: "OSSSC — Notices No. 2038 (18 Jun 2026, postponement of the 20 June sitting) and No. 3116 (17 Oct 2026, revised answer keys) for CRE-2025", url: "https://www.osssc.gov.in/Public/Pages/Notification.aspx", covers: "written test window 22 May – 28 Jun 2026, NEET-related postponement, revised answer keys", checked: 2026-10-18 }
+
+  # ------------------------------------------------------------------ OJEE
+  - slug: ojee
+    group: academic
+    short: "OJEE — Pharmacy, MBA, MCA, Lateral B.Tech &amp; Nursing"
+    body: "Odisha Joint Entrance Examination Committee"
+    card: "Odisha's computer-based entrance test for B.Pharm, Integrated MBA, B.CAT, lateral-entry B.Tech and B.Pharm, MBA, MCA, M.Tech and nursing. B.Tech, B.Arch and medicine seats are filled through JEE Main and NEET instead."
+    card_facts: ["+4 / −1 marking · CBT", "Fee ₹1,000 (+₹500 per extra course)", "B.Tech via JEE Main, not OJEE"]
+    eyebrow: "OJEE · State entrance"
+    title: "OJEE 2026 — Courses, Eligibility, Exam Pattern, Marking, Reservation & Odisha Domicile"
+    lede: "The Odisha Joint Entrance Examination (OJEE) is the state's entrance test for professional courses other than B.Tech and medicine. This page follows the OJEE-2026 information brochure, the revised counselling brochure and the rules for the 2nd / special OJEE 2026."
+    facts:
+      - { label: "2026 exam", value: "4 – 9 May 2026 (CBT)", source: oj-ib }
+      - { label: "Marking", value: "+4 correct · −1 wrong", source: oj-ib }
+      - { label: "Fee", value: "₹1,000 · +₹500 per extra course", source: oj-ib }
+      - { label: "B.Tech", value: "Through JEE Main 2026 merit", source: oj-ib }
+    official:
+      - { label: "OJEE website", url: "https://ojee.nic.in/" }
+      - { label: "OJEE-2026 information brochure (PDF)", url: "https://cdnbbsr.s3waas.gov.in/s36832a7b24bc06775d02b7406880b93fc/uploads/2026/01/202601281538483605.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "One CBT for many courses — but not B.Tech"
+        parts:
+          - p: "OJEE-2026 admits students to B.Pharm, B.CAT (Cinematography and Sound Recording &amp; Design; Film Editing), Integrated MBA (5 years), lateral entry to B.Tech and B.Pharm, MCA / M.Sc (Computer Science), MBA, M.Tech, M.Pharm, M.Arch, M.Plan and nursing courses in Odisha."
+            source: oj-ib
+          - warn: "For B.Tech, B.Arch, B.Plan and Integrated M.Sc you must take JEE Main 2026; for MBBS, BDS, BAMS and BHMS, NEET (UG) 2026. GATE and GPAT holders join counselling directly without OJEE."
+            source: oj-ib
+          - table:
+              caption: "OJEE-2026 calendar"
+              head: ["Event", "Date"]
+              rows:
+                - ["Online application opens", "28 Jan 2026"]
+                - ["Last date to apply", "22 Mar 2026"]
+                - ["Admit cards from", "25 Apr 2026"]
+                - ["Exam (tentative)", "4, 5, 7, 8 and 9 May 2026"]
+                - ["Results (probable)", "First week of June 2026"]
+            source: oj-ib
+          - p: "A 2nd / special OJEE 2026 (B.Tech section: 60 questions — 20 each in Physics, Chemistry and Mathematics, 1 hour, JEE Main syllabus) fills only the seats left after two counselling rounds on the first OJEE / JEE Main merit."
+            source: oj-2nd
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Academic eligibility"
+        heading: "Course-wise qualifying exams"
+        parts:
+          - table:
+              caption: "Minimum eligibility (Table 4 of the brochure)"
+              head: ["Course", "Qualifying exam and marks"]
+              rows:
+                - ["B.Pharm", "10+2 with Physics and Chemistry plus Mathematics or Biology"]
+                - ["Integrated MBA (5 years)", "10+2 with at least 45% (40% reserved categories)"]
+                - ["B.CAT", "10+2 in any stream, D.Voc, or a 3-year diploma (2026 appearing allowed)"]
+                - ["Lateral entry B.Tech", "3-year engineering diploma with 45% (40% reserved), or B.Sc with 45% and Maths at 10+2, or D.Voc"]
+                - ["Lateral entry B.Pharm", "Diploma in Pharmacy with 45% (40% reserved)"]
+                - ["MBA", "3-year bachelor's degree with 50% (45% reserved)"]
+                - ["MCA", "BCA / B.Sc / B.Com / B.A with Mathematics at 10+2 or degree level, 50% (45% reserved)"]
+            source: oj-ib
+          - list:
+              - "<strong>Odisha (S) category:</strong> passed 10+2 (or the bachelor's degree, for master's courses) in Odisha, OR parents are natives of Odisha with a Tahsildar's resident / nativity certificate, OR child or spouse of a central / Odisha government or PSU employee serving in Odisha (employer's certificate issued in or after January 2026)."
+              - "Outside-state (ZZ) candidates can be admitted only in private colleges."
+            source: oj-ib
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme &amp; marking"
+        heading: "+4 / −1, and at least one answer in every section"
+        parts:
+          - table:
+              caption: "Selected OJEE-2026 papers"
+              head: ["Course", "Questions · time", "Sections"]
+              rows:
+                - ["B.Pharm", "120 · 2 h", "Physics 40, Chemistry 40, Mathematics or Biology 40 (PCM or PCB)"]
+                - ["LE B.Tech (diploma)", "120 · 2 h", "Engg Maths 40, Engg Mechanics 40, Basic Electrical &amp; Electronics 40"]
+                - ["LE B.Tech (B.Sc)", "60 · 1 h", "Maths 30, Physics 15, Chemistry 15"]
+                - ["MCA", "120 · 2 h", "Computer Awareness 60, Mathematics 60"]
+                - ["MBA", "120 · 2 h", "Analytical &amp; Logical Reasoning, Quantitative Techniques, Verbal Reasoning, General Awareness — 30 each"]
+                - ["Integrated MBA", "60 · 1 h", "Same four areas, 15 each"]
+                - ["M.Tech", "90 · 2 h", "Branch 60, Engg Maths 20, Reasoning 10"]
+                - ["B.CAT", "60 · 1 h", "English, Everyday Science, GK, Reasoning — 15 each"]
+            source: oj-ib
+          - list:
+              - "<strong>Marking:</strong> 4 marks for each correct answer, minus 1 for each wrong answer, zero for unattempted questions."
+              - "There is no qualifying mark (except nursing), but you must attempt at least one question in every section to get a rank."
+              - "<strong>Basic B.Sc Nursing:</strong> 100 questions (Physics, Chemistry, Biology, English, Nursing aptitude — 20 each), 2 hours, no negative marking; qualifying percentile 50 (general), 45 (general PwD), 40 (SC / ST / OBC / SEBC)."
+            source: oj-ib
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Application &amp; counselling fees"
+        heading: "₹1,000 for one course"
+        parts:
+          - table:
+              head: ["Fee", "Amount"]
+              rows:
+                - ["Application, one course", "₹1,000"]
+                - ["Each additional course", "₹500"]
+            source: oj-ib
+          - table:
+              caption: "Counselling (revised counselling brochure)"
+              head: ["Fee", "Amount"]
+              rows:
+                - ["Counselling / registration fee", "₹450 (₹1,000 for MBBS / BDS / BAMS / BHMS)"]
+                - ["Part admission-cum-seat acceptance fee", "₹10,000 general · ₹5,000 SC / ST / PwD"]
+            source: oj-cb
+          - note: "The application fee is non-refundable. College fees are fixed by the government and published during counselling."
+            source: oj-ib
+      - id: reservation
+        nav: "Reservation &amp; Domicile"
+        eyebrow: "Reservation &amp; Odisha domicile"
+        heading: "Only natives of Odisha get reservation"
+        parts:
+          - table:
+              caption: "Main reservations for B.Tech (indicative, from 2025-26)"
+              head: ["Category", "Share"]
+              rows:
+                - ["Scheduled Caste (by birth)", "8%"]
+                - ["Scheduled Tribe (by birth)", "12%"]
+                - ["EWS", "10%"]
+                - ["Green Card holders' children", "5%"]
+                - ["Persons with disabilities", "5%"]
+                - ["Wards of ex-servicemen (natives of Odisha)", "3%"]
+                - ["Women (horizontal)", "30%"]
+                - ["SGS — Class 10 and 12 from Odisha government schools", "15% (B.Tech, MBBS / BDS)"]
+                - ["Tuition Fee Waiver (supernumerary)", "5%"]
+            source: oj-ib
+          - list:
+              - "All reservations are for natives of Odisha holding an online resident / nativity certificate from Odisha's competent authority; offline certificates are not accepted."
+              - "SC / ST candidates who moved from another state are SC / ST only of their home state."
+              - "Persons with disabilities are certified by a medical board at SCB Medical College, Cuttack; Tuition Fee Waiver needs family income below ₹8 lakh."
+              - "For MBBS / BDS / BAMS / BHMS, all state-quota seats are for state domiciles only."
+            source: oj-ib
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Proof is shown at counselling, not uploaded"
+        parts:
+          - list:
+              - "Nothing is uploaded to claim a category during the application; you prove it with originals at document verification."
+              - "Online nativity / resident certificate, SC / ST certificate from the Tahsildar of the place of birth in Odisha, EWS and income certificates (2025-26)."
+              - "Green Card of parents (Family Welfare Department), employer's certificate (Appendix-III) for S-category via parents' service."
+              - "Two copies of the admit card signed by the invigilator — keep one until final admission."
+            source: oj-ib
+      - id: pay
+        nav: "Costs"
+        eyebrow: "Costs &amp; support"
+        heading: "Tuition Fee Waiver seats"
+        parts:
+          - p: "Up to 5% of seats per course in B.Tech, B.Pharm, MBA, MCA and lateral entry are supernumerary Tuition Fee Waiver (TFW) seats for students whose family income from all sources is below ₹8 lakh a year."
+            source: oj-ib
+      - id: posting
+        nav: "After OJEE"
+        eyebrow: "After the test"
+        heading: "Online counselling"
+        parts:
+          - p: "Merit lists are published course-wise, then candidates register, pay the counselling fee and fill choices online; seats are allotted in rounds, with the seat-acceptance fee paid after allotment."
+            source: oj-cb
+          - links:
+              - { label: "JEE Main console (B.Tech route)", url: "jee-main.html" }
+              - { label: "B.Tech college finder", url: "colleges-btech.html" }
+    sources:
+      - { id: oj-ib, name: "OJEE Committee — Information Brochure for OJEE-2026", url: "https://cdnbbsr.s3waas.gov.in/s36832a7b24bc06775d02b7406880b93fc/uploads/2026/01/202601281538483605.pdf", covers: "courses, JEE Main / NEET note, dates, fee, eligibility table, patterns, marking, nursing scheme, reservation table, S-category rules, documents, TFW", checked: 2026-10-18 }
+      - { id: oj-cb, name: "OJEE Committee — Revised Counselling Brochure, OJEE-2026", url: "https://cdnbbsr.s3waas.gov.in/s36832a7b24bc06775d02b7406880b93fc/uploads/2026/06/202606181156372451.pdf", covers: "counselling fee, seat acceptance fee, counselling steps", checked: 2026-10-18 }
+      - { id: oj-2nd, name: "OJEE Committee — Instructions and Pattern of Examination for 2nd OJEE, 2026", url: "https://cdnbbsr.s3waas.gov.in/s36832a7b24bc06775d02b7406880b93fc/uploads/2026/06/202606161888862187.pdf", covers: "2nd / special OJEE B.Tech pattern and use of its merit list", checked: 2026-10-18 }
+
+  # ------------------------------------------------------------------ SAMS — POLYTECHNIC DIPLOMA
+  - slug: sams
+    group: academic
+    short: "SAMS Odisha — Polytechnic Diploma Admission"
+    body: "Directorate of Technical Education &amp; Training, Odisha (through SAMS)"
+    card: "Admission to engineering and non-engineering diplomas in Odisha's government and private polytechnics on Class 10 marks — no entrance test — through e-counselling on the SAMS portal."
+    card_facts: ["Merit on Class 10 marks", "Apply fee ₹300 · ₹200 SC/ST/girls", "Govt fee ₹5,800 / year"]
+    eyebrow: "SAMS · Diploma admission"
+    title: "SAMS Odisha Diploma Admission 2026-27 — Eligibility, Merit, Reservation, Fees"
+    lede: "Odisha admits students to polytechnic diplomas on the marks of the qualifying exam, through web-based e-counselling run by the Directorate of Technical Education &amp; Training on the Student Academic Management System (SAMS). This page follows the diploma information brochure 2026-27, the advertisement for diploma admission 2026 and the seat-allotment guidelines."
+    facts:
+      - { label: "Entrance test", value: "None — Class 10 marks", source: sams-ib }
+      - { label: "Applications", value: "Online from 1 Apr 2026", source: sams-adv }
+      - { label: "Age", value: "14+ on 1 Jul 2026 · no upper limit", source: sams-ib }
+      - { label: "Govt fee", value: "₹5,800 / year (₹3,300 SC/ST/TFW/EWS)", source: sams-ib }
+    official:
+      - { label: "SAMS diploma portal", url: "https://skill.samsodisha.gov.in/Website/diploma/Diphome.aspx" }
+      - { label: "Diploma information brochure 2026 (PDF)", url: "https://skill.samsodisha.gov.in/cp/DIPLOMACP2026.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "Merit on marks, choices online"
+        parts:
+          - p: "Admission to the first semester of engineering and non-engineering diplomas, the third semester (lateral entry) and post-diploma courses in Odisha is made on a merit rank drawn from the marks of the qualifying exam, through web-based e-counselling. Applications for 2026-27 opened online on 1 April 2026."
+            source: sams-ib
+          - p: "Diplomas are awarded by the State Council for Technical Education &amp; Vocational Training (SCTE&amp;VT), Odisha after semester exams."
+            source: sams-ib
+          - note: "After Round I, candidates download an intimation letter, pay a part admission fee of ₹300 online (unless exempt) and then download the Provisional Seat Allotment Letter to report at the institute; they can freeze the seat or wait for upgradation."
+            source: sams-gl
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Academic eligibility"
+        heading: "Pass Class 10 — that is all"
+        parts:
+          - table:
+              head: ["Course", "Entry qualification", "Age on 1 Jul 2026"]
+              rows:
+                - ["1st semester engineering diploma (3 years)", "Pass HSC (BSE Odisha) or an equivalent Class 10 exam", "At least 14, no upper limit"]
+                - ["Hotel Management &amp; Catering Technology", "Pass +2 (any stream) from CHSE Odisha or equivalent", "At least 16, no upper limit"]
+                - ["3rd semester lateral entry", "+2 Science with PCM, +2 vocational, or other listed routes", "At least 16, no upper limit"]
+            source: sams-ib
+          - p: "Aggregate marks are calculated from every subject in the mark sheet, including any additional subject."
+            source: sams-agg
+      - id: scheme
+        nav: "Merit &amp; Selection"
+        eyebrow: "Merit &amp; selection"
+        heading: "No exam — weightage for sport and NCC"
+        parts:
+          - list:
+              - "There is no entrance test: candidates are ranked on aggregate marks of the qualifying exam."
+              - "<strong>Sports:</strong> 10% weightage over aggregate marks (up to 100) for those who represented Odisha at national level, with certificates countersigned by the Director of Sports, Odisha."
+              - "<strong>NCC:</strong> 5% weightage for NCC 'A' or 'B' certificate holders."
+            source: sams-ib
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Application &amp; course fees"
+        heading: "₹300 application, ₹5,800 a year in government"
+        parts:
+          - table:
+              caption: "Application fee"
+              head: ["Candidate", "Fee"]
+              rows:
+                - ["Male candidates (other categories)", "₹300"]
+                - ["SC, ST and female candidates", "₹200"]
+                - ["PwD, transgender, PVTG, Green Passage orphans", "Exempt"]
+            source: sams-ib
+          - table:
+              caption: "First-year admission fee"
+              head: ["Institution", "General", "TFW / EWS / SC / ST"]
+              rows:
+                - ["Government institutions (and Textile Technology at ITT Choudwar)", "₹5,800", "₹3,300"]
+                - ["Private institutions and self-financing branches of ITT Choudwar", "₹26,500 (some higher)", "₹6,500 (TFW / EWS)"]
+            source: sams-ib
+          - note: "Women, PVTG students and Green Passage orphans pay no admission fee in government polytechnics. Every student also pays ₹100 for SCTE&amp;VT registration and migration."
+            source: sams-ib
+      - id: reservation
+        nav: "Reservation &amp; Domicile"
+        eyebrow: "Reservation &amp; domicile"
+        heading: "SC 16.25%, ST 22.5%, SEBC 11.25%"
+        parts:
+          - table:
+              caption: "Reservation for S-domicile (Odisha) candidates"
+              head: ["Category", "Share"]
+              rows:
+                - ["Scheduled Caste", "16.25%"]
+                - ["Scheduled Tribe", "22.50%"]
+                - ["SEBC", "11.25%"]
+                - ["Green Passage (orphans)", "1%"]
+                - ["Wards of ex-servicemen", "2%"]
+                - ["Persons with disabilities", "5%"]
+                - ["Women (within each category)", "30%"]
+            source: sams-ib
+          - list:
+              - "<strong>S-domicile:</strong> Class 10 passed from a board in Odisha, OR parents are permanent residents / natives with a nativity certificate issued in or after April 2022, OR child / spouse of a government or PSU employee serving in Odisha, OR ward of an All India Service officer serving in Odisha."
+              - "<strong>Z-domicile (outside Odisha):</strong> 15% of first-semester seats in private polytechnics only."
+              - "<strong>L-domicile:</strong> 0.5% for Odia students of the outlying Odia-speaking tracts."
+              - "Tuition Fee Waiver (5%, family income below ₹8 lakh) and EWS (10%) seats are supernumerary. All reservations are for permanent residents / natives of Odisha only."
+            source: sams-ib
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Verified when you report"
+        parts:
+          - list:
+              - "Class 10 (and Class 12 where needed) mark sheets and certificates."
+              - "Nativity certificate (issued in or after April 2022) if you passed Class 10 outside Odisha but claim S-domicile."
+              - "Disability, ex-servicemen, Green Passage, sports (countersigned by the Director of Sports) or NCC certificates where claimed."
+            source: sams-ib
+          - list:
+              - "SC / ST / SEBC certificate; income certificate for TFW; income-cum-asset certificate for EWS."
+              - "Provisional Seat Allotment Letter — no admission update is made without it."
+            source: sams-gl
+      - id: pay
+        nav: "Costs &amp; support"
+        eyebrow: "Costs &amp; support"
+        heading: "Scholarships listed in the brochure"
+        parts:
+          - list:
+              - "AICTE Pragati scholarship for girls and AICTE Saksham for students with disabilities — ₹50,000 a year, family income up to ₹8 lakh."
+              - "Green Passage orphans in government polytechnics pay no fees and get ₹2,000 a month (hostellers) or ₹1,000 (day scholars)."
+              - "₹6,000 one-time awards for semester toppers and girl toppers; merit-cum-poverty scholarships for 10% of students in each government institute."
+            source: sams-ib
+      - id: posting
+        nav: "After admission"
+        eyebrow: "After admission"
+        heading: "Spot rounds for leftover seats"
+        parts:
+          - p: "Seats left after the counselling rounds are filled through spot admission phases with their own SOPs; for 2026-27 the SAMS notice list shows SOPs for a fresh spot round (30 July), Phase-II (10 August) and Phase-III (29 August 2026)."
+            source: sams-nl
+          - links:
+              - { label: "Diploma after Class 10", url: "diploma.html" }
+              - { label: "Diploma college finder", url: "colleges-diploma.html" }
+    sources:
+      - { id: sams-ib, name: "DTE&amp;T Odisha — Information Brochure for Diploma (Engineering / Non-Engineering / Lateral Entry / PDIS) Admission 2026-27", url: "https://skill.samsodisha.gov.in/cp/DIPLOMACP2026.pdf", covers: "merit rule, application fee, eligibility and age, weightages, reservation, domicile rules, fee structure, scholarships", checked: 2026-10-18 }
+      - { id: sams-adv, name: "DTE&amp;T Odisha — Advertisement for Diploma Admission 2026 (Odia, 31 Mar 2026)", url: "https://skill.samsodisha.gov.in/DocumentDownload.ashx?clsid=1&id=Diploma_Document_31-Mar-2026_09_40.pdf", covers: "online application from 1 Apr 2026", checked: 2026-10-18 }
+      - { id: sams-agg, name: "DTE&amp;T Odisha — Calculation of aggregate marks for Diploma admission 2026-27", url: "https://skill.samsodisha.gov.in/DocumentDownload.ashx?clsid=1&id=Diploma_Document_01-Apr-2026_12_11.pdf", covers: "all subjects including additional ones count", checked: 2026-10-18 }
+      - { id: sams-gl, name: "DTE&amp;T Odisha — Guidelines for seat allotment and reporting, Diploma Fresh (1st year) admissions 2026-27 (13 Jul 2026)", url: "https://skill.samsodisha.gov.in/DocumentDownload.ashx?clsid=1&id=Diploma_Document_13-Jul-2026_03_47.pdf", covers: "intimation letter, ₹300 part admission fee, freeze / upgrade, certificates at reporting", checked: 2026-10-18 }
+      - { id: sams-nl, name: "SAMS Odisha — Diploma notices list (spot admission SOPs 2026-27)", url: "https://skill.samsodisha.gov.in/Website/diploma/dipNotice.aspx", covers: "spot admission rounds and their dates", checked: 2026-10-18 }

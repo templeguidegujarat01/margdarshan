@@ -1,0 +1,454 @@
+# Jharkhand State Exam & Career Cockpit — one data sheet for the cockpit (state/jharkhand/index.html) and every
+# exam page under state/jharkhand/. Rendered by _includes/state-cockpit.html and _includes/state-exam.html;
+# checked by scripts/check-in-data.mjs (state sheets block).
+#
+# Rules for this sheet (same as the other state sheets):
+#   - Every fact part carries `source: <id>`; the id must be listed under that exam's `sources`.
+#   - Sources are the official files themselves (read 2026-10-18): the JPSC advertisement for the Jharkhand
+#     Combined Civil Services Examination-2025 (Advt. 01/2026) and its press releases and notices; the JSSC
+#     brochure and notices for the Jharkhand Intermediate Level Combined Competitive Examination-2026
+#     (Advt. 03/2026); and the JCECEB notices for the Polytechnic Entrance Competitive Examination-2026 and the
+#     JEE (Main)-based B.E./B.Tech counselling. Most are Hindi PDFs, read page by page.
+#     Nothing comes from coaching or news sites.
+#   - Jharkhand Police's recruitment page listed only contract posts, and no current constable or graduate-level
+#     (CGL) JSSC advertisement was on the JSSC site, so those have no page yet.
+#   - Section ids are the same on every exam page: overview, eligibility, scheme, fees, reservation,
+#     documents, pay, posting (+ sources, drawn automatically).
+state:
+  id: jharkhand
+  name: Jharkhand
+  checked: 2026-10-18
+
+cockpit:
+  eyebrow: "State Exam &amp; Career Cockpit · Jharkhand"
+  title: "Jharkhand Exam &amp; Career Cockpit"
+  intro:
+    - "Every major Jharkhand recruitment and admission route we could verify on one screen: the Combined Civil Services exam of the Jharkhand Public Service Commission (JPSC), the Intermediate-level combined exam of the Jharkhand Staff Selection Commission (JSSC), and the Jharkhand Combined Entrance Competitive Examination Board (JCECEB) for polytechnic diplomas and JEE Main-based B.Tech counselling. Each page is built only from the official advertisement or notice, and every fact links back to that file."
+    - "Jharkhand gives reservation only to its permanent residents, and only on certificates in the state's own formats — a local resident certificate and a caste certificate from Jharkhand officers. A central OBC certificate is not accepted, and women who moved to Jharkhand by marriage get no reservation. Both JPSC and JSSC mains include a paper in a regional or tribal language, from a list of about fifteen. Jharkhand Police constable and JSSC graduate-level (CGL) pages will follow once a current advertisement is published."
+  facts:
+    - { label: "Recruitment nodes", value: "JPSC CCE · JSSC Inter-level" }
+    - { label: "Admission nodes", value: "JCECEB polytechnic · B.Tech" }
+    - { label: "Watch", value: "JPSC 2025 mains postponed (Jul 2026)" }
+    - { label: "Last checked", value: "18 Oct 2026" }
+  groups:
+    - id: civil
+      eyebrow: "Civil recruitment &amp; administrative"
+      heading: "Government recruitment exams"
+      intro: "Deputy Collector, DSP and other state services through the Jharkhand Public Service Commission (JPSC), and Intermediate-level posts such as Health Supervisor and Junior Field Investigator through the Jharkhand Staff Selection Commission (JSSC)."
+      exams: [jpsc, jssc]
+    - id: academic
+      eyebrow: "Academic admissions"
+      heading: "Admission routes after Class 10 and 12"
+      intro: "Polytechnic diplomas through the Polytechnic Entrance Competitive Examination, and state B.E. / B.Tech seats through a JEE (Main)-based state merit list — both run by the Jharkhand Combined Entrance Competitive Examination Board (JCECEB)."
+      exams: [jceceb]
+  compare_note: "Fees, age limits and dates are from the latest notice of each body. They change every cycle, so always open the current notice before applying."
+  portals_note: "JPSC notices are on jpsc.gov.in (applications at jpscotr.com); JSSC on jssc.jharkhand.gov.in; JCECEB on jceceb.jharkhand.gov.in. Only use these official addresses."
+  portals:
+    - { label: "Jharkhand Public Service Commission (JPSC)", url: "https://www.jpsc.gov.in/" }
+    - { label: "Jharkhand Staff Selection Commission (JSSC)", url: "https://jssc.jharkhand.gov.in/" }
+    - { label: "Jharkhand Combined Entrance Competitive Examination Board (JCECEB)", url: "https://jceceb.jharkhand.gov.in/" }
+
+exams:
+  # ------------------------------------------------------------------ JPSC — COMBINED CIVIL SERVICES
+  - slug: jpsc
+    group: civil
+    short: "JPSC Combined Civil Services Exam 2025"
+    body: "Jharkhand Public Service Commission"
+    card: "Jharkhand's Deputy Collector, DSP and seven other state services. The 2025 exam (Advt. 01/2026) has 103 posts; the prelim was held on 19 April 2026, but the mains set for July 2026 were postponed until further orders while the CID investigates complaints."
+    card_facts: ["103 posts · prelim 19 Apr 2026", "Mains postponed (22 Jul 2026)", "Fee ₹100 · ₹50 SC/ST"]
+    eyebrow: "JPSC · Combined Civil Services"
+    title: "JPSC Combined Civil Services Exam 2025 — 103 Posts, Age, Tribal Language Paper, Scheme, Status"
+    lede: "The Jharkhand Public Service Commission recruits Deputy Collectors, DSPs and other state officers through the Jharkhand Combined Civil Services Examination. This page follows the 2025 exam (Advertisement No. 01/2026, 29 January 2026) and the Commission's press releases and notices up to 29 July 2026."
+    facts:
+      - { label: "Posts", value: "103 (Dy Collector 28 · DSP 42)", source: jp-advt }
+      - { label: "Status", value: "Mains postponed, CID probe", source: jp-post }
+      - { label: "Age (1 Aug 2026)", value: "21 – 35 (UR) · 40 SC/ST", source: jp-advt }
+      - { label: "Prelims", value: "No negative marking", source: jp-advt }
+    official:
+      - { label: "JPSC website", url: "https://www.jpsc.gov.in/" }
+      - { label: "CCE 2025 files (Advt. 01/2026)", url: "https://www.jpsc.gov.in/exam_files.php?id=13039" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "103 posts across nine services"
+        parts:
+          - table:
+              caption: "Posts in the 2025 exam"
+              head: ["Post", "Posts", "Pay (unrevised)"]
+              rows:
+                - ["Deputy Collector", "28", "₹9,300 – 34,800 + GP ₹5,400"]
+                - ["Deputy Superintendent of Police", "42", "₹9,300 – 34,800 + GP ₹5,400"]
+                - ["District Commandant (Home Guard)", "2", "₹9,300 – 34,800 + GP ₹5,400"]
+                - ["Probation Officer", "4", "₹9,300 – 34,800 + GP ₹4,800"]
+                - ["Assistant Director (Women, Child &amp; Social Security)", "3", "₹9,300 – 34,800 + GP ₹4,800"]
+                - ["Assistant Registrar (Co-operatives)", "2", "₹9,300 – 34,800 + GP ₹5,400"]
+                - ["Asst. Municipal Commissioner / Executive Officer", "10", "₹9,300 – 34,800 + GP ₹5,400"]
+                - ["Jail Superintendent", "2", "₹9,300 – 34,800 + GP ₹5,400"]
+                - ["Asst. Director-cum-District Public Relations Officer", "10", "₹9,300 – 34,800 + GP ₹5,400"]
+                - ["Total", "103", ""]
+            source: jp-advt
+          - table:
+              caption: "2025 exam timeline"
+              head: ["Stage", "Date"]
+              rows:
+                - ["Advertisement", "29 Jan 2026"]
+                - ["Last date to apply", "14 Feb 2026"]
+                - ["Preliminary exam", "19 Apr 2026"]
+                - ["Prelim result (issued under a High Court order)", "2 Jul 2026"]
+                - ["Mains (rescheduled)", "25 – 27 Jul 2026"]
+            source: jp-pt
+          - warn: "On 22 July 2026 the Commission postponed the Combined Civil Services mains of 25–27 July 2026 — and the rest of its 2026 exam calendar — until further orders. A public notice of 29 July 2026 says the Jharkhand CID is investigating alleged irregularities in JPSC exams (CID case 16/2026) and asks every prelim-qualified candidate to send a copy of their OMR carbon sheets."
+            source: jp-post
+          - note: "Separate backlog exams for 2023 (Advt. 06/2026) and 2025 (Advt. 05/2026) run alongside the regular exam."
+            source: jp-pt
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "A degree; age 21 to 35–40 by category"
+        parts:
+          - table:
+              caption: "Maximum age on 1 August 2026 (minimum 21)"
+              head: ["Category", "Maximum age"]
+              rows:
+                - ["Unreserved, EWS", "35"]
+                - ["BC-I (Most Backward), BC-II (Backward) — men", "37"]
+                - ["Women (UR, EWS, BC-I, BC-II)", "38"]
+                - ["SC, ST (men and women)", "40"]
+            source: jp-advt
+          - list:
+              - "<strong>Qualification:</strong> a bachelor's degree from a recognised university."
+              - "Persons with disabilities get 10 more years, ex-servicemen 5 years; Jharkhand government servants with three years' regular service get 5 years. There is no limit on attempts."
+              - "<strong>Physical standards</strong> for DSP, District Commandant, Jail Superintendent and Probation Officer: height 165 cm for men (162 cm SC / ST) and 155 cm for women (152 cm SC / ST); chest 81 cm unexpanded for men (79 cm SC / ST)."
+            source: jp-advt
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme &amp; marking"
+        heading: "No negative marking in prelims; a tribal / regional language paper in mains"
+        parts:
+          - list:
+              - "<strong>Preliminary:</strong> General Studies Paper I (200 marks) and Paper II (200 marks), 2 hours each, 100 questions of 2 marks each, in Hindi and English. There is <strong>no negative marking</strong>. About 15 times the vacancies go to the mains."
+              - "<strong>Prelim qualifying marks:</strong> 40% (UR, EWS), 36.5% (BC-II), 34% (BC-I), 32% (SC, ST and all women)."
+            source: jp-advt
+          - table:
+              caption: "Main written exam and interview"
+              head: ["Paper", "Marks", "Counted"]
+              rows:
+                - ["I — General Hindi (50) + General English (50)", "100", "No — 30 needed"]
+                - ["II — Language &amp; Literature (one of 15 languages)", "150", "Yes"]
+                - ["III — Social Sciences (History &amp; Geography)", "200", "Yes"]
+                - ["IV — Indian Constitution, Polity, Public Administration &amp; Good Governance", "200", "Yes"]
+                - ["V — Indian Economy, Globalisation &amp; Sustainable Development", "200", "Yes"]
+                - ["VI — General Science, Environment &amp; Technology Development", "200", "Yes"]
+                - ["Interview (about 2.5× vacancies)", "100", "Yes, no minimum"]
+                - ["Total for merit", "1,050", ""]
+            source: jp-advt
+          - p: "<strong>Paper II languages:</strong> Odia, Bangla, Urdu, Sanskrit, English, Hindi, Santhali, Panchpargania, Nagpuri, Mundari, Kurux (Oraon), Kurmali, Khortha, Kharia and Ho. Equal totals are broken by higher mains written marks, then by age (older first)."
+            source: jp-advt
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "₹100, or ₹50 for Jharkhand's SC / ST"
+        parts:
+          - table:
+              head: ["Candidate", "Exam fee"]
+              rows:
+                - ["Unreserved, EWS, BC-I, BC-II", "₹100"]
+                - ["SC / ST of Jharkhand (including PVTG)", "₹50"]
+                - ["Persons with disabilities (40% or more)", "Exempt"]
+            source: jp-advt
+          - note: "Fees are non-refundable. Candidates register first through the Commission's One Time Registration."
+            source: jp-advt
+      - id: reservation
+        nav: "Reservation &amp; Local Status"
+        eyebrow: "Reservation &amp; local status"
+        heading: "Only Jharkhand's permanent residents"
+        parts:
+          - table:
+              caption: "Category split of the 103 posts"
+              head: ["Category", "Posts"]
+              rows:
+                - ["Unreserved", "50"]
+                - ["Scheduled Tribe", "26"]
+                - ["Scheduled Caste", "7"]
+                - ["BC-I (Most Backward Class)", "6"]
+                - ["BC-II (Backward Class)", "8"]
+                - ["EWS", "6"]
+            source: jp-advt
+          - list:
+              - "Reservation is only for permanent residents of Jharkhand holding caste certificates in the prescribed formats from the Deputy Commissioner, Additional Collector, Sub-Divisional Officer or Circle Officer."
+              - "BC-I / BC-II candidates need a non-creamy-layer certificate; EWS candidates an income-and-asset certificate (Appendix I)."
+              - "Women's horizontal reservation and PwD reservation also need a local resident certificate. Certificates issued for education purposes are not accepted."
+            source: jp-advt
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Formats matter"
+        parts:
+          - list:
+              - "Caste certificate in Jharkhand's prescribed form (SC / ST Form-5; BC-I / BC-II non-creamy-layer Form-11); EWS income-and-asset certificate (Appendix I)."
+              - "Local resident certificate (needed for women's and PwD reservation as well)."
+              - "Disability certificate (40% or more) where claimed."
+              - "Certificates issued for educational purposes are not accepted for reservation."
+            source: jp-advt
+          - p: "For the 2025 mains, prelim-qualified candidates filled the online form from 3 to 9 July 2026 and sent the hard copy with documents by 14 July 2026."
+            source: jp-pt
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Pay band 2 with grade pay ₹5,400 or ₹4,800"
+        parts:
+          - list:
+              - "Seven of the nine services (including Deputy Collector and DSP) are in pay band ₹9,300 – 34,800 with grade pay ₹5,400; Probation Officer and Assistant Director (Women, Child &amp; Social Security) have grade pay ₹4,800."
+            source: jp-advt
+          - note: "The advertisement prints only these unrevised pay bands; it does not give a revised pay-matrix level or in-hand figure, so none is shown."
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Selection on mains plus interview"
+        parts:
+          - p: "Final selection is on the total of the main written papers counted for merit (950) and the interview (100), category by category; equal totals go to the candidate with more mains written marks, then to the older candidate."
+            source: jp-advt
+    sources:
+      - { id: jp-advt, name: "JPSC — Advertisement No. 01/2026, Jharkhand Combined Civil Services Examination-2025 (29 Jan 2026)", url: "https://www.jpsc.gov.in/data/Advertisement_01_26_dated_29_01_2026-1.pdf", covers: "posts, pay, category split, qualification, age, relaxations, physical standards, prelim and mains scheme, languages, qualifying marks, fee, reservation and certificate rules", checked: 2026-10-18 }
+      - { id: jp-pt, name: "JPSC — Press release with prelim result (2 Jul 2026) and exam calendar (9 Jul 2026), CCE 2025", url: "https://www.jpsc.gov.in/data/Press_Release_and_P.T_Result_01_26_dated_02_07_2026.pdf", covers: "prelim date, result under HC order, mains form dates, mains dates, backlog exams", checked: 2026-10-18 }
+      - { id: jp-post, name: "JPSC — Press release No. 2399 (22 Jul 2026, mains postponed) and public notice on the CID investigation (29 Jul 2026)", url: "https://www.jpsc.gov.in/data/Press_Release_01_26_dated_22_07_2026.pdf", covers: "postponement until further orders, CID case 16/2026, OMR carbon copies", checked: 2026-10-18 }
+
+  # ------------------------------------------------------------------ JSSC — INTERMEDIATE LEVEL
+  - slug: jssc
+    group: civil
+    short: "JSSC Intermediate-Level Combined Exam (JILCCE-2026)"
+    body: "Jharkhand Staff Selection Commission"
+    card: "JSSC's Intermediate-level combined exam for 326 posts — Health Supervisor, Multipurpose Health Worker, Junior Field Investigator, Fisheries Technical Assistant and others. Its mains include a regional / tribal language paper; applications were reopened until 29 September 2026."
+    card_facts: ["326 posts (Advt. 03/2026)", "+3 / −1 marking", "Regional / tribal language paper"]
+    eyebrow: "JSSC · Intermediate-level exam"
+    title: "JSSC JILCCE-2026 — Intermediate-Level Posts, Age, Regional Language Paper, Scheme, Fees"
+    lede: "The Jharkhand Staff Selection Commission fills Class III posts open to Intermediate (10+2) pass candidates through the Jharkhand Intermediate Level Combined Competitive Examination (JILCCE). This page follows the JILCCE-2026 brochure (Advertisement No. 03/2026, regular vacancy) and its date-extension notice of 18 September 2026."
+    facts:
+      - { label: "Posts", value: "326 regular vacancies", source: jil-bro }
+      - { label: "Applications", value: "Reopened till 29 Sep 2026", source: jil-ext }
+      - { label: "Marking", value: "+3 correct · −1 wrong", source: jil-bro }
+      - { label: "Fee", value: "₹100 · ₹50 SC/ST · PwD free", source: jil-bro }
+    official:
+      - { label: "JSSC website", url: "https://jssc.jharkhand.gov.in/" }
+      - { label: "JSSC advertisements", url: "https://jssc.jharkhand.gov.in/notices/advertisements" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "Six Intermediate-level posts"
+        parts:
+          - table:
+              caption: "JILCCE-2026 (regular vacancy) posts"
+              head: ["Post", "Department", "Posts", "Pay band 1 (₹5,200 – 20,200)"]
+              rows:
+                - ["Health Supervisor", "Health, Medical Education &amp; Family Welfare", "137", "GP ₹2,400"]
+                - ["Multipurpose Health Worker", "Health, Medical Education &amp; Family Welfare", "62", "GP ₹1,900"]
+                - ["Junior Field Investigator", "Planning &amp; Development (Economics &amp; Statistics)", "27", "GP ₹2,000"]
+                - ["Veterinary / Medical Assistant", "Urban Development &amp; Housing", "27", "GP ₹1,900"]
+                - ["Insect Collector", "Health, Medical Education &amp; Family Welfare", "32", "GP ₹1,800"]
+                - ["Fisheries Technical Assistant", "Agriculture, Animal Husbandry &amp; Co-operation (Fisheries)", "41", "GP ₹1,800"]
+                - ["Total", "", "326", ""]
+            source: jil-bro
+          - p: "Online registration first ran from 20 July to 19 August 2026 and then from 5 August to 4 September 2026. On 18 September 2026 the Commission reopened it: registration 19–29 September, fee payment and upload until 30 September, and corrections 1–3 October 2026."
+            source: jil-ext
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "Intermediate, age 18 to 35–40"
+        parts:
+          - list:
+              - "<strong>Qualification:</strong> Intermediate / 10+2 in the stream each post needs — science for the health posts, mathematics for Junior Field Investigator, biology for Insect Collector and Fisheries Technical Assistant — by the last date of application."
+              - "<strong>Age:</strong> minimum 18; maximum 35 (UR, EWS), 37 (BC-I and BC-II men), 38 (women of UR, EWS, BC-I, BC-II), 40 (SC, ST). Persons with disabilities get 10 more years and ex-servicemen 5 — only one of these two."
+              - "The reference date for age differs by post (1 August 2023, 2024 or 2025, as printed for each post)."
+            source: jil-bro
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme &amp; marking"
+        heading: "Prelim if needed, then three mains papers"
+        parts:
+          - list:
+              - "Exams are computer-based or OMR, and marks of different shifts are normalised. All questions are objective: <strong>3 marks for a correct answer, 1 mark deducted for a wrong one</strong>."
+              - "<strong>Preliminary</strong> (held only if 50,000 or more apply): 120 questions in 2 hours — General Studies 30, Jharkhand knowledge 60, Mathematics 10, Science 10, Mental Ability 10. Minimum marks: 40% UR / EWS, 36.5% BC-II, 34% BC-I, 32% SC / ST / women, 30% PVTG. About 15 times the vacancies go to the mains."
+            source: jil-bro
+          - table:
+              caption: "Main exam — three papers of 2 hours"
+              head: ["Paper", "Content", "Role"]
+              rows:
+                - ["1 — Language knowledge", "Hindi (60 Q) and English (60 Q)", "Qualifying, 30% needed; not in merit"]
+                - ["2 — Regional / tribal language", "100 questions in one chosen language", "Counted; 30% needed"]
+                - ["3 — General knowledge", "120 Q: GS 30, Jharkhand 40, Science 20, Maths 10, Mental ability 10, Computer 10", "Counted; 30% needed"]
+            source: jil-bro
+          - p: "<strong>Paper 2 languages:</strong> Hindi, English, Urdu, Santhali, Bangla, Mundari, Ho, Kharia, Kurukh (Oraon), Kurmali, Khortha, Nagpuri, Panchpargania, Odia and Sanskrit. The merit list is made on Papers 2 and 3 together."
+            source: jil-bro
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "₹100 exam fee"
+        parts:
+          - table:
+              head: ["Candidate", "Exam fee"]
+              rows:
+                - ["All candidates", "₹100"]
+                - ["SC / ST of Jharkhand", "₹50"]
+                - ["Persons with disabilities of Jharkhand (40% or more)", "Exempt"]
+            source: jil-bro
+          - note: "The fee is non-refundable. A candidate who switches from SC / ST to another category during correction must pay the difference."
+            source: jil-bro
+      - id: reservation
+        nav: "Reservation &amp; Local Status"
+        eyebrow: "Reservation &amp; local status"
+        heading: "Local resident certificate in Jharkhand's format"
+        parts:
+          - list:
+              - "Every candidate claiming reservation needs a Jharkhand local resident certificate in the prescribed form — from the SDO (issued on or after 2 June 2016) or the Circle Officer (issued on or after 19 July 2019). Certificates made on the father's or husband's basis are accepted."
+              - "SC / ST certificates from the DC / SDO, or from the Circle Officer in the 2019 / 2023 formats; BC-I / BC-II non-creamy-layer certificates; EWS income-and-asset certificate (Appendix VII)."
+              - "A central OBC certificate is not accepted. Certificates issued for education or army admission are not accepted."
+              - "Women who migrated to Jharkhand by marriage get no reservation (Personnel Department letter 235 of 10 January 2019)."
+              - "Sportspersons are reserved posts under the 2007 sports resolution; women, PwD and sports quotas are shown per post."
+            source: jil-bro
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Checked at certificate verification"
+        parts:
+          - list:
+              - "Matriculation certificate (name and date of birth must match the application) and Intermediate certificate and mark sheets."
+              - "Local resident certificate and caste / non-creamy-layer / EWS certificate in the appendix formats."
+              - "Disability certificate, ex-servicemen papers, sports certificates where claimed."
+              - "Without the original documents at verification, reservation is refused and candidature can be cancelled."
+            source: jil-bro
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Pay band 1 with grade pay ₹1,800 – ₹2,400"
+        parts:
+          - list:
+              - "All six posts are in pay band 1 (₹5,200 – 20,200): Health Supervisor GP ₹2,400; Junior Field Investigator GP ₹2,000; Multipurpose Health Worker and Veterinary / Medical Assistant GP ₹1,900; Insect Collector and Fisheries Technical Assistant GP ₹1,800."
+            source: jil-bro
+          - note: "The brochure prints unrevised pay bands only; no revised level or in-hand figure is given, so none is shown."
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Merit within each post"
+        parts:
+          - p: "Separate merit lists are drawn post by post and category by category from the counted mains papers; candidates who clear the written stage go to document verification before the list is sent to the department."
+            source: jil-bro
+    sources:
+      - { id: jil-bro, name: "JSSC — Brochure, Advertisement No. 03/2026, Jharkhand Intermediate Level Combined Competitive Examination-2026 (Regular Vacancy)", url: "https://jssc.jharkhand.gov.in/sites/default/files/Brochure%20JILCCE-2026.pdf", covers: "posts, pay, qualification, age, fee, reservation and certificate rules, exam scheme, languages, marking, qualifying marks, documents", checked: 2026-10-18 }
+      - { id: jil-ext, name: "JSSC — JILCCE-2026 Essential Notice No. 02: extension of application dates (18 Sep 2026)", url: "https://jssc.jharkhand.gov.in/sites/default/files/Notice%20for%20JILCCE-2026.pdf", covers: "earlier and extended application windows", checked: 2026-10-18 }
+
+  # ------------------------------------------------------------------ JCECEB — POLYTECHNIC & B.TECH
+  - slug: jceceb
+    group: academic
+    short: "JCECEB Polytechnic Entrance &amp; B.Tech Counselling"
+    body: "Jharkhand Combined Entrance Competitive Examination Board"
+    card: "JCECEB runs the Polytechnic Entrance Competitive Examination for engineering diplomas after Class 10 (held 12 July 2026) and builds the JEE (Main)-based state merit list for B.E. / B.Tech seats in Jharkhand."
+    card_facts: ["Polytechnic test 12 Jul 2026", "Fee ₹650 · ₹325 SC/ST/women", "B.Tech on JEE Main merit"]
+    eyebrow: "JCECEB · Diploma &amp; B.Tech admission"
+    title: "JCECEB Polytechnic Entrance 2026 & JEE Main-Based B.Tech Counselling — Eligibility, Fees, Dates"
+    lede: "The Jharkhand Combined Entrance Competitive Examination Board conducts Jharkhand's state admission tests and counselling. This page follows the Polytechnic Entrance Competitive Examination-2026 notices (16 May and 9 June 2026) and the B.E. / B.Tech counselling notice of 8 August 2026."
+    facts:
+      - { label: "Polytechnic test", value: "12 Jul 2026 · OMR", source: pe-ext }
+      - { label: "Eligibility", value: "Class 10 pass (appearing allowed)", source: pe-advt }
+      - { label: "Fee", value: "₹650 · ₹325 SC/ST/women", source: pe-advt }
+      - { label: "B.Tech", value: "State merit on JEE (Main)-2026", source: bt-54 }
+    official:
+      - { label: "JCECEB website", url: "https://jceceb.jharkhand.gov.in/" }
+      - { label: "JCECEB exam notices", url: "https://jceceb.jharkhand.gov.in/Links/exam_notice.aspx" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "Two routes run by one board"
+        parts:
+          - p: "The Polytechnic Entrance Competitive Examination-2026 fills first-semester engineering diploma seats for 2026-27 in Jharkhand's government polytechnics (including women's polytechnics), PPP-mode and private polytechnics, and Mechanical Engineering (Tool &amp; Die) at the Mini Tool Room &amp; Training Centre, Ranchi and the Government Tool Room &amp; Training Centre, Dumka."
+            source: pe-advt
+          - table:
+              caption: "Polytechnic Entrance 2026 — dates after the extension of 9 June 2026"
+              head: ["Event", "Date"]
+              rows:
+                - ["Online application opens", "19 May 2026"]
+                - ["Last date (extended from 17 June)", "22 Jun 2026"]
+                - ["Correction window", "23 – 24 Jun 2026"]
+                - ["Admit card", "4 days before the exam"]
+                - ["Exam (moved from 5 July)", "12 Jul 2026"]
+            source: pe-ext
+          - p: "<strong>B.E. / B.Tech:</strong> JCECEB prepares a state merit list from JEE (Main)-2026 results for counselling to Jharkhand's B.E. / B.Tech seats. Merit lists for 2026 were published on 5 July, 20 July and 1 August, and the fourth round ran 10–13 August 2026."
+            source: bt-54
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Academic eligibility"
+        heading: "Class 10 pass and Jharkhand residence"
+        parts:
+          - list:
+              - "Indian citizens who are permanent / local residents of Jharkhand."
+              - "<strong>Qualification:</strong> Class 10 (Matric) or equivalent pass. Students appearing in Class 10 in 2026 may apply but must show the pass certificate at admission."
+              - "<strong>Age:</strong> only Mining Engineering needs a minimum age of 17 on 1 July 2026; no other branch has a minimum or maximum age."
+            source: pe-advt
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme"
+        heading: "One OMR paper in Hindi and English"
+        parts:
+          - list:
+              - "The test is held offline on OMR sheets, 10:30 am to 1 pm, with multiple-choice questions printed in both Hindi and English."
+              - "Exam centres: Ranchi, Dhanbad, Jamshedpur, Bokaro, Dumka, Palamu, Hazaribagh and Chaibasa."
+            source: pe-ext
+          - note: "The notice does not print the number of questions, subject split or negative marking; those are in the board's guide (margdarshika) on its website, which we have not used here."
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "₹650, half for SC / ST and women"
+        parts:
+          - table:
+              head: ["Candidate", "Fee"]
+              rows:
+                - ["General (other than EWS), BC-I, BC-II", "₹650"]
+                - ["SC, ST and women of all categories", "₹325"]
+                - ["Persons with disabilities", "No fee"]
+            source: pe-advt
+          - note: "The fee is non-refundable, and bank charges are extra."
+            source: pe-advt
+      - id: reservation
+        nav: "Reservation"
+        eyebrow: "Reservation"
+        heading: "State reservation policy, Jharkhand certificates"
+        parts:
+          - p: "The latest reservation policy of the state government applies to polytechnic admission."
+            source: pe-advt
+          - p: "For B.E. / B.Tech counselling, ST, SC, BC-I (non-creamy layer), BC-II (non-creamy layer) and EWS certificates are accepted only if issued by an officer not below the Sub-Divisional Officer (Civil) of Jharkhand."
+            source: bt-54
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Keep these ready"
+        parts:
+          - list:
+              - "Class 10 pass certificate (compulsory at admission if you applied while appearing)."
+              - "Proof that you are a permanent / local resident of Jharkhand."
+            source: pe-advt
+          - list:
+              - "Category certificates (ST, SC, BC-I / BC-II non-creamy layer, EWS) from an SDO (Civil) or higher officer of Jharkhand, for B.Tech counselling."
+            source: bt-54
+      - id: pay
+        nav: "Costs"
+        eyebrow: "Costs"
+        heading: "Test fee only"
+        parts:
+          - p: "The notices set only the test fee (₹650 / ₹325). College fees are published with the counselling notices."
+            source: pe-advt
+      - id: posting
+        nav: "After the test"
+        eyebrow: "After the test"
+        heading: "Online counselling"
+        parts:
+          - p: "B.Tech seats are allotted in online counselling rounds: new candidates apply online, the vacant seat matrix and state merit list are published, candidates fill choices, provisional seat allotment letters are issued, and certificates are verified at the allotted institute. In the fourth round of 2026 choices were filled on 10–11 August and admissions done on 12–13 August."
+            source: bt-54
+          - links:
+              - { label: "Diploma after Class 10", url: "diploma.html" }
+              - { label: "JEE Main console", url: "jee-main.html" }
+    sources:
+      - { id: pe-advt, name: "JCECEB — Advt. No. JCECEB/02/26-18, Polytechnic Entrance Competitive Examination-2026 (16 May 2026)", url: "https://jceceb.jharkhand.gov.in/exm_notice/179.pdf", covers: "institutions, residence rule, qualification, age, original dates, fee, OMR mode, languages, reservation", checked: 2026-10-18 }
+      - { id: pe-ext, name: "JCECEB — Advt. No. JCECEB/02/26-29, extension of last date and exam date, Polytechnic Entrance 2026 (9 Jun 2026)", url: "https://jceceb.jharkhand.gov.in/exm_notice/182.pdf", covers: "new last date, correction window, exam 12 Jul 2026, centres", checked: 2026-10-18 }
+      - { id: bt-54, name: "JCECEB — Advt. No. 54 (JCECEB/40/26-54), correction in State Merit List based on JEE (Main)-2026 and 4th round schedule (8 Aug 2026)", url: "https://jceceb.jharkhand.gov.in/con_notice/760.pdf", covers: "JEE Main-based merit lists, round dates, certificate-issuing authority", checked: 2026-10-18 }

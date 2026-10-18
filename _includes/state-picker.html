@@ -2,11 +2,12 @@
   Universal state selector (state-pathways.html). A no-JavaScript dropdown (<details>) listing every state in
   _data/state_exams.json. A state with an exam cockpit sheet (_data/in/states/<id>.yml) opens its cockpit at
   state/<id>/index.html; the others open their admissions guide (state-pathways/<id>.html) or their card below.
+  Cockpit sheets for states not in state_exams.json (Rajasthan, Odisha, …) are listed live from the sheet itself.
   The panel opens and closes by clicking the summary; it sits in the page flow (not absolute), so the
   hero's overflow never clips it.
 {%- endcomment -%}
 {%- assign live_n = 0 -%}
-{%- for s in site.data.state_exams.states %}{% if site.data.in.states[s.id] %}{% assign live_n = live_n | plus: 1 %}{% endif %}{% endfor -%}
+{%- for pair in site.data.in.states %}{% assign live_n = live_n | plus: 1 %}{% endfor -%}
 <section class="sc-picker-bar" aria-labelledby="sc-picker-heading">
   <div class="container sc-picker-inner">
     <div class="sc-picker-copy">
@@ -20,6 +21,12 @@
         {%- for s in site.data.state_exams.states %}
         {%- if site.data.in.states[s.id] %}
         <li><a class="sc-opt is-live" href="state/{{ s.id }}/index.html"><span>{{ s.name }}</span><span class="sc-opt-tag">Exam cockpit · live</span></a></li>
+        {%- endif %}
+        {%- endfor %}
+        {%- for pair in site.data.in.states %}
+        {%- assign known = site.data.state_exams.states | where: "id", pair[0] | size %}
+        {%- if known == 0 %}
+        <li><a class="sc-opt is-live" href="state/{{ pair[0] }}/index.html"><span>{{ pair[1].state.name }}</span><span class="sc-opt-tag">Exam cockpit · live</span></a></li>
         {%- endif %}
         {%- endfor %}
         {%- for s in site.data.state_exams.states %}

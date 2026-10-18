@@ -1,0 +1,605 @@
+# Rajasthan State Exam & Career Cockpit — one data sheet for the cockpit (state/rajasthan/index.html) and every
+# exam page under state/rajasthan/. Rendered by _includes/state-cockpit.html and _includes/state-exam.html;
+# checked by scripts/check-in-data.mjs (state sheets block).
+#
+# Rules for this sheet (same as the other state sheets):
+#   - Every fact part carries `source: <id>`; the id must be listed under that exam's `sources`.
+#   - Sources are the official files themselves (read 2026-10-18): the RPSC RAS/RTS 2026 detailed advertisement
+#     and prelim scheme, RPSC press notes, the RPSC Sub-Inspector 2025 advertisement and corrigendum, the RSSB
+#     CET (Graduation Level) 2026 and LDC 2026 detailed advertisements, the Rajasthan Police "Join the Force"
+#     page and constable 2025 result page, the BSER REET-2024 notice and the BSER Secondary 2026 time table.
+#     Nothing comes from coaching or news sites. No official Rajasthan Police constable advertisement for a
+#     2026 drive and no REET 2026 notice could be found; the pages say so instead of guessing.
+#   - Section ids are the same on every exam page: overview, eligibility, scheme, fees, reservation,
+#     documents, pay, posting (+ sources, drawn automatically).
+state:
+  id: rajasthan
+  name: Rajasthan
+  checked: 2026-10-18
+
+cockpit:
+  eyebrow: "State Exam &amp; Career Cockpit · Rajasthan"
+  title: "Rajasthan Exam &amp; Career Cockpit"
+  intro:
+    - "Every major Rajasthan government recruitment route and the teacher-eligibility and board exams on one screen: the RPSC State and Subordinate Services Combined Competitive Exam (RAS/RTS), the RSSB Common Eligibility Test and the jobs it opens (Patwari, LDC / Junior Assistant and more), Rajasthan Police constable and RPSC Sub-Inspector recruitment, and BSER's REET and Secondary board exams. Each page is built only from the official advertisement or notice, and every fact links back to that file."
+    - "Three Rajasthan rules decide more results than any other. One-Time Registration (OTR) on the SSO portal is compulsory and its fee is paid once (₹600, or ₹400 for Rajasthan's reserved categories and persons with disabilities) — but missing two exams in a financial year blocks the OTR until a ₹750 penalty is paid. SC, ST, OBC, MBC and EWS benefits go only to Rajasthan's original residents; others apply as General. And women get a 30% horizontal reservation, with 8% of it for widows and 2% for divorced women."
+  facts:
+    - { label: "Recruitment nodes", value: "RPSC RAS · RSSB CET &amp; LDC · Police &amp; SI" }
+    - { label: "Teacher &amp; board node", value: "REET · BSER Secondary" }
+    - { label: "Coming up", value: "RAS prelim 6 Dec 2026 · CET Graduate 1–3 Dec 2026" }
+    - { label: "Last checked", value: "18 Oct 2026" }
+  groups:
+    - id: civil
+      eyebrow: "Civil recruitment &amp; administrative"
+      heading: "Government recruitment exams"
+      intro: "State and subordinate service officers and Police Sub-Inspectors through the Rajasthan Public Service Commission (RPSC, Ajmer), Group-C posts through the Rajasthan Staff Selection Board (RSSB, Jaipur), and district-wise constable recruitment by Rajasthan Police."
+      exams: [rpsc-ras, rsmssb, police]
+    - id: academic
+      eyebrow: "Teacher eligibility &amp; board"
+      heading: "REET and the board behind it"
+      intro: "The Rajasthan Eligibility Examination for Teachers (REET) and the Secondary and Senior Secondary exams, both conducted by the Board of Secondary Education, Rajasthan (BSER, Ajmer)."
+      exams: [reet]
+  compare_note: "Fees, age limits and dates are from the latest notice of each body. They change every cycle, so always open the current notice before applying."
+  portals_note: "RPSC and RSSB applications run only through the Recruitment Portal inside the SSO Rajasthan portal (sso.rajasthan.gov.in) after One-Time Registration; notices are on rpsc.rajasthan.gov.in and rssb.rajasthan.gov.in. Police recruitment notices are on police.rajasthan.gov.in, and BSER / REET notices on rajeduboard.rajasthan.gov.in. Only use these official addresses."
+  portals:
+    - { label: "Rajasthan Public Service Commission (RPSC)", url: "https://rpsc.rajasthan.gov.in/" }
+    - { label: "Rajasthan Staff Selection Board (RSSB)", url: "https://rssb.rajasthan.gov.in/" }
+    - { label: "SSO Rajasthan (OTR and applications)", url: "https://sso.rajasthan.gov.in/" }
+    - { label: "Rajasthan Police", url: "https://police.rajasthan.gov.in/" }
+    - { label: "Board of Secondary Education, Rajasthan", url: "https://rajeduboard.rajasthan.gov.in/" }
+
+exams:
+  # ------------------------------------------------------------------ RPSC RAS/RTS 2026
+  - slug: rpsc-ras
+    group: civil
+    short: "RPSC RAS / RTS Combined Competitive Exam"
+    body: "Rajasthan Public Service Commission"
+    card: "Rajasthan's state civil services exam: Rajasthan Administrative Service, Rajasthan Police Service, Rajasthan Accounts Service, Tehsildar and 40-plus other state and subordinate services, through a prelim, a four-paper mains and a 100-mark interview."
+    card_facts: ["2026: 607 posts", "Age 21–40 (on 1 Jan 2027)", "Prelim 6 Dec 2026"]
+    eyebrow: "RPSC · State &amp; subordinate services"
+    title: "RPSC RAS/RTS 2026 — 607 Posts, Age 21–40, Prelim 6 Dec 2026"
+    lede: "The Rajasthan State and Subordinate Services Combined Competitive Examination (RAS/RTS) fills Rajasthan's administrative posts. This page follows RPSC Advertisement 02/2026-27 of 27 May 2026 for 607 posts (192 state services, 415 subordinate services), the prelim scheme of 9 January 2026 and RPSC press notes."
+    facts:
+      - { label: "Posts", value: "607 (State 192 · Subordinate 415)", source: ras-advt }
+      - { label: "Qualification", value: "Any bachelor's degree", source: ras-advt }
+      - { label: "Age", value: "21 to 40 on 1 Jan 2027", source: ras-advt }
+      - { label: "Prelim", value: "6 Dec 2026 (proposed)", source: ras-press }
+    official:
+      - { label: "RPSC website", url: "https://rpsc.rajasthan.gov.in/" }
+      - { label: "RAS 2026 advertisement (PDF)", url: "https://rpsc.rajasthan.gov.in/Static/RecruitmentAdvertisements/76C02A7D61A54708AFFCDD7A2A60DBB2.pdf" }
+      - { label: "Apply via SSO Rajasthan", url: "https://sso.rajasthan.gov.in/" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "Advertisement 02/2026-27"
+        parts:
+          - p: "RPSC advertisement No. 02/Exam/RAS&amp;RTS/RPSC/EP-I/2026-27 of 27 May 2026 invites applications for 607 posts of the Rajasthan State and Subordinate Services Combined Competitive Examination 2026 under the 1999 rules (non-scheduled area) and the 2014 scheduled-area rules. Online applications ran from 4 June to 3 July 2026."
+            source: ras-advt
+          - table:
+              caption: "Largest services (pay matrix level in brackets)"
+              head: ["Service", "Pay level", "Posts"]
+              rows:
+                - ["Rajasthan Administrative Service", "L-14", "57"]
+                - ["Rajasthan Accounts Service", "L-14", "36"]
+                - ["Rajasthan Police Service", "L-14", "26"]
+                - ["Rajasthan Industries Service", "L-12", "12"]
+                - ["Rajasthan State Insurance Service", "L-14", "11"]
+                - ["Rajasthan Tehsildar Service (non-scheduled area)", "L-11", "136"]
+                - ["Rajasthan Co-operative Subordinate Service (NSA)", "L-10", "109"]
+                - ["Rajasthan Labour Welfare Subordinate Service (NSA)", "L-10", "34"]
+                - ["Rajasthan Planning Subordinate Service", "L-10", "20"]
+                - ["Social Security Officer (NSA)", "L-11", "20"]
+            source: ras-advt
+          - p: "On 23 September 2026 RPSC announced that the prelim is proposed for 6 December 2026, and opened an online edit-and-withdraw window from 24 to 30 September 2026 (₹500 per edit)."
+            source: ras-press
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "Degree, age and relaxations"
+        parts:
+          - list:
+              - "<strong>Qualification:</strong> a degree from a university established by law or recognised under the UGC Act. Final-year students may sit the prelim but must have the degree before applying for the mains."
+              - "<strong>Age:</strong> at least 21 and not over 40 on 1 January 2027. Ministerial non-gazetted employees applying against reserved posts: 25 to 45."
+              - "Because the previous advertisement used 1 January 2025 as the age date, candidates over-age under this one get one more year of relaxation."
+            source: ras-advt
+          - table:
+              caption: "Upper-age relaxations (not cumulative — only the most favourable one applies)"
+              head: ["Candidate", "Relaxation"]
+              rows:
+                - ["Men of Rajasthan's SC, ST, OBC, MBC, EWS", "5 years"]
+                - ["Women of Rajasthan's SC, ST, OBC, MBC, EWS", "10 years"]
+                - ["General-category women", "5 years"]
+                - ["Widows and divorced women", "No upper limit"]
+                - ["Ex-servicemen", "10 years (state services) / 15 years (subordinate), up to 50"]
+                - ["Persons with benchmark disabilities", "5 years"]
+                - ["Rajasthan government / panchayat employees", "Upper limit 45"]
+            source: ras-advt
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme"
+        heading: "Prelim, four-paper mains, interview"
+        parts:
+          - list:
+              - "<strong>Prelim:</strong> one objective paper on General Knowledge and General Science, 200 marks, 3 hours, 150 questions of equal marks, Bachelor's-degree standard. It only screens; its marks are not counted in final merit."
+              - "<strong>Negative marking:</strong> one-third of a question's marks for each wrong answer."
+              - "Each question has five options; the fifth means 'not attempted'. Leaving all five blank also costs one-third mark, and anyone who leaves more than 10% of questions with no circle darkened is disqualified."
+            source: ras-scheme
+          - table:
+              caption: "Mains — descriptive, 3 hours per paper"
+              head: ["Paper", "Subject", "Marks"]
+              rows:
+                - ["I", "General Studies I", "200"]
+                - ["II", "General Studies II", "200"]
+                - ["III", "General Studies III", "200"]
+                - ["IV", "General Hindi and General English", "200"]
+                - ["", "Personality &amp; viva-voce", "100"]
+            source: ras-advt
+          - list:
+              - "About 15 times the vacancies are admitted to the mains."
+              - "Mains minimum: 10% in each paper and 15% in aggregate (5% relaxation for SC / ST) to be called for interview."
+              - "At the interview, knowledge of Rajasthani culture is also assessed; for the Rajasthan Police Service, NCC 'C' certificate holders get preference."
+            source: ras-advt
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "One-Time Registration fee"
+        parts:
+          - table:
+              caption: "OTR fee, paid once (Personnel Dept. circular of 19 Apr 2023)"
+              head: ["Candidate", "Fee"]
+              rows:
+                - ["General; creamy-layer OBC / MBC", "₹600"]
+                - ["Rajasthan's non-creamy-layer OBC / MBC, EWS, SC, ST, Sahariya", "₹400"]
+                - ["Persons with disabilities", "₹400"]
+            source: ras-advt
+          - list:
+              - "Reserved-category candidates of other states pay the General fee."
+              - "Candidates who already paid the OTR fee do not pay again."
+              - "Missing two exams in a financial year blocks the OTR; unblocking costs ₹750 the first time and ₹1,500 the second time."
+              - "Editing the online form after the last date (within 10 days) costs ₹500."
+            source: ras-advt
+      - id: reservation
+        nav: "Reservation &amp; Certificates"
+        eyebrow: "Reservation &amp; certificates"
+        heading: "Who gets reservation"
+        parts:
+          - list:
+              - "SC, ST, OBC, MBC, EWS and ex-servicemen reservation goes only to original residents of Rajasthan; a woman from another state who marries a Rajasthan resident does not get SC / ST / OBC / MBC reservation (Supreme Court and High Court rulings cited in the advertisement)."
+              - "Creamy-layer OBC / MBC candidates and reserved candidates of other states apply as General."
+              - "Reservation for women, persons with disabilities and ex-servicemen is horizontal; unfilled widow / divorcee posts pass between those two groups, then to other women of that category."
+              - "Reserved candidates who used no concession other than the fee can be counted on General merit."
+              - "Scheduled-area posts can be applied for only by residents of Rajasthan's scheduled area."
+            source: ras-advt
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "OTR and application"
+        parts:
+          - list:
+              - "SSO ID and One-Time Registration with Aadhaar / Jan Aadhaar; the name, father's name, date of birth and gender come from Aadhaar."
+              - "Live photo captured during the online form; signature and left-thumb impression uploaded."
+              - "Degree, category, disability, ex-servicemen and scheduled-area certificates — all valid by the last date of the form."
+            source: ras-advt
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Pay matrix levels"
+        parts:
+          - table:
+              head: ["Services", "Pay level"]
+              rows:
+                - ["RAS, RPS, Rajasthan Accounts, State Insurance, Rural Development, Women Development, Integrated Child Development Services", "L-14"]
+                - ["Co-operative, Planning, Jail, Industries, Commercial Taxes, Transport, Devasthan and similar", "L-12"]
+                - ["Tehsildar Service, Social Security Officer, ICDS Subordinate", "L-11"]
+                - ["Co-operative, Excise, Labour Welfare, Planning and Food Subordinate Services", "L-10"]
+            source: ras-advt
+          - note: "The advertisement gives pay matrix levels only, not rupee amounts or in-hand salary. Under Rajasthan rules, direct recruits are paid a fixed remuneration during probation (see the LDC and SI notices on this cockpit); the RAS advertisement does not state the amount."
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Allotment"
+        parts:
+          - p: "Selection is by written exam and interview; RPSC recommends names in merit order to the government or appointing authority under rule 17 of the service rules, and posts are allotted by merit and the service preference given in the form."
+            source: ras-advt
+    sources:
+      - { id: ras-advt, name: "RPSC — Detailed advertisement No. 02/Exam/RAS&amp;RTS/RPSC/EP-I/2026-27, Raj. State and Subordinate Services Comb. Comp. Exam 2026 (27 May 2026)", url: "https://rpsc.rajasthan.gov.in/Static/RecruitmentAdvertisements/76C02A7D61A54708AFFCDD7A2A60DBB2.pdf", covers: "607 posts and pay levels, qualification, age and relaxations, OTR fee, reservation, mains and interview scheme, application", checked: 2026-10-18 }
+      - { id: ras-scheme, name: "RPSC — Scheme &amp; syllabus, RAS/RTS Preliminary Examination (9 Jan 2026)", url: "https://rpsc.rajasthan.gov.in/Static/Syllabus/7D943B35-2D9E-4E50-BC3E-3726268AE18B.pdf", covers: "prelim: 150 questions, 200 marks, 3 hours, 1/3 negative marking", checked: 2026-10-18 }
+      - { id: ras-press, name: "RPSC — Press note on online edit / withdraw for RAS 2026 and proposed prelim date (23 Sep 2026)", url: "https://rpsc.rajasthan.gov.in/Static/PressNotes/490A21A9-492A-49C9-9F96-565C621B53EE.pdf", covers: "prelim proposed 6 Dec 2026; edit 24–30 Sep 2026", checked: 2026-10-18 }
+
+  # ------------------------------------------------------------------ RSSB CET + LDC
+  - slug: rsmssb
+    group: civil
+    short: "RSSB CET, Patwari &amp; LDC / Junior Assistant"
+    body: "Rajasthan Staff Selection Board (formerly RSMSSB)"
+    card: "Rajasthan's Group-C route: first pass the Common Eligibility Test (CET) — Graduation Level for Patwari, Gram Vikas Adhikari, Junior Accountant and others, Senior Secondary Level for LDC — then sit the main exam for the post. 2026: CET Graduate (1–3 Dec) and 10,644 LDC posts."
+    card_facts: ["CET: 150 Q · 300 marks · −1/3", "40% to qualify (35% SC/ST)", "LDC 2026: 10,644 posts"]
+    eyebrow: "RSSB · Group-C recruitment"
+    title: "RSSB CET (Graduation Level) 2026, Patwari and LDC 2026 — Eligibility, Pattern, Fees"
+    lede: "The Rajasthan Staff Selection Board recruits Group-C staff in two steps: the Common Eligibility Test (CET) and a separate main exam for each post. This page follows RSSB Advertisement 09/2026 for CET (Graduation Level) 2026 and Advertisement 04/2026 for Clerk Grade-II / Junior Assistant."
+    facts:
+      - { label: "CET Graduate 2026", value: "Exam 1–3 Dec 2026 (OMR)", source: cet-advt }
+      - { label: "CET score", value: "Valid 3 years · no attempt limit", source: cet-advt }
+      - { label: "LDC 2026", value: "10,644 posts · Level-5", source: ldc-advt }
+      - { label: "Age", value: "18 to 40 on 1 Jan 2027 (CET)", source: cet-advt }
+    official:
+      - { label: "RSSB website", url: "https://rssb.rajasthan.gov.in/" }
+      - { label: "CET Graduate 2026 advertisement (PDF)", url: "https://rssb.rajasthan.gov.in/storage/advertisement_item/1782966142.pdf" }
+      - { label: "LDC 2026 advertisement (PDF)", url: "https://rssb.rajasthan.gov.in/storage/advertisement_item/1768228435.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "CET first, then the post exam"
+        parts:
+          - p: "CET (Graduation Level) 2026 — Advertisement 09/2026 — is only an eligibility test under the Rajasthan Subordinate and Ministerial Services (Common Eligibility Test) Rules, 2022. A CET score does not guarantee a job: each post holds its own main exam, and the number of vacancies is shown in that post's advertisement. Online forms ran from 4 July to 2 August 2026; the exam is set for 1 to 3 December 2026."
+            source: cet-advt
+          - table:
+              caption: "Posts recruited through CET (Graduation Level) 2026"
+              head: ["Service", "Post"]
+              rows:
+                - ["Rajasthan Revenue (Land Records) Subordinate Service; Irrigation Subordinate Service", "Patwari"]
+                - ["Rajasthan Panchayati Raj", "Gram Vikas Adhikari"]
+                - ["Subordinate Accounts Service; State Agricultural Marketing Board", "Junior Accountant"]
+                - ["Revenue Accounts Subordinate Service", "Tehsil Revenue Accountant"]
+                - ["Home Guard Subordinate Service", "Platoon Commander"]
+                - ["Jail Subordinate Service", "Deputy Jailor"]
+                - ["Women Empowerment; Integrated Child Development", "Supervisor"]
+                - ["Social Welfare; Tribal Area Development", "Hostel Superintendent Grade-II"]
+            source: cet-advt
+          - p: "Clerk Grade-II / Junior Assistant Combined Direct Recruitment 2026 — Advertisement 04/2026 — offers 10,644 posts (9,642 non-scheduled area, 1,002 scheduled area; 9,806 of them in the secretariat's subordinate offices) and is open only to candidates who qualified in CET (Senior Secondary Level) 2024. Forms ran from 15 January to 13 February 2026 and the written exam was proposed for 5–6 July 2026."
+            source: ldc-advt
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "Age and qualification"
+        parts:
+          - list:
+              - "<strong>CET age:</strong> at least 18 and not over 40 on 1 January 2027. Qualification and age for each post follow that post's service rules."
+              - "<strong>Nationality:</strong> citizen of India (or a subject of Nepal / Bhutan, or a person of the listed categories with an eligibility certificate)."
+            source: cet-advt
+          - table:
+              caption: "CET upper-age relaxations (one only, not cumulative)"
+              head: ["Candidate", "Relaxation"]
+              rows:
+                - ["General-category women", "5 years"]
+                - ["Men of Rajasthan's SC, ST, OBC, MBC, EWS", "5 years"]
+                - ["Women of Rajasthan's SC, ST, OBC, MBC, EWS", "10 years"]
+                - ["Widows and divorced women", "No upper limit (below retirement age)"]
+                - ["Ex-servicemen", "15 years, up to 50 (55 where experience is required)"]
+                - ["Persons with disabilities", "5 years"]
+                - ["Rajasthan government / local-body employees", "Upper limit 40"]
+            source: cet-advt
+          - list:
+              - "<strong>LDC / Junior Assistant:</strong> Senior Secondary pass, plus a computer qualification — DOEACC 'O' level or higher, COPA / DPCS, a computer science degree / diploma / certificate, Senior Secondary with computer science, or RS-CIT — and working knowledge of Hindi in Devanagari and Rajasthani culture."
+            source: ldc-advt
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme"
+        heading: "One OMR paper, 300 marks"
+        parts:
+          - table:
+              caption: "CET (Graduation Level) 2026 — 3 hours"
+              head: ["Subjects", "Questions", "Marks"]
+              rows:
+                - ["History of India and Rajasthan, art and culture of Rajasthan, geography, polity, economy, science &amp; technology, reasoning and mathematics, current affairs, public health, computers, General Hindi, General English", "150", "300"]
+            source: cet-advt
+          - list:
+              - "All questions are MCQs of equal marks; one-third of a question's marks is deducted for each wrong answer."
+              - "Each question has five options (A–E); E means 'not attempted'. Blank questions up to 10% cost one-third mark each; leaving more than 10% fully blank disqualifies the candidate."
+              - "Minimum to qualify: 40% (5% relaxation for SC / ST)."
+              - "The score is valid for three years from the result (Personnel Dept. notification of 16 Jan 2025); there is no limit on attempts and the best valid score counts. CET Graduate 2024 scores expired on 11 February 2026, so those candidates must apply again."
+            source: cet-advt
+          - note: "The LDC written exam is followed by a second-phase typing test; candidates must hold the qualification by the first date of that typing test."
+            source: ldc-advt
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "One-Time Registration fee"
+        parts:
+          - table:
+              head: ["Candidate", "OTR fee"]
+              rows:
+                - ["General; creamy-layer OBC / MBC", "₹600"]
+                - ["Rajasthan's non-creamy-layer OBC / MBC, EWS, SC, ST", "₹400"]
+                - ["All persons with disabilities", "₹400"]
+            source: cet-advt
+          - note: "Paid once through e-Mitra, CSC, net banking or cards; reserved candidates of other states pay ₹600. Missing two exams in a financial year blocks the OTR until a ₹750 penalty (₹1,500 the second time) is paid."
+            source: cet-advt
+      - id: reservation
+        nav: "Reservation &amp; Certificates"
+        eyebrow: "Reservation &amp; certificates"
+        heading: "Vertical and horizontal reservation"
+        parts:
+          - list:
+              - "MBC (non-creamy layer): 5%; EWS of Rajasthan: 10% (state notifications of 2019)."
+              - "Women: 30% horizontal in each category, of which 8% for widows and 2% for divorced women. Married OBC / MBC women need a non-creamy-layer certificate based on their father's name, residence and income; EWS certificates for women may be on the father's or husband's income."
+              - "Ex-servicemen: 12.5% (category-wise horizontal), only for original residents of Rajasthan."
+              - "Outstanding sportspersons: 2% of vacancies (horizontal), only for the listed international and national achievements."
+              - "Persons with benchmark disabilities (40% or more), with a permanent disability certificate."
+              - "Reserved candidates of other states, and women from other states who married into Rajasthan, apply as General (they may claim EWS with a Rajasthan EWS certificate)."
+            source: cet-advt
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "What to keep ready"
+        parts:
+          - list:
+              - "SSO ID and completed OTR with category, disability status and home state."
+              - "Qualification documents uploaded in the 'Document details' section of the OTR dashboard."
+              - "Category, EWS, widow / divorce, ex-servicemen, sports and disability certificates dated before the last date of the form."
+              - "Scheduled-area residents: mark the scheduled-area column; the home of the candidate or parents must be in the area since before 1 January 1970."
+            source: cet-advt
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "LDC pay and the probation fixed pay"
+        parts:
+          - p: "<strong>Clerk Grade-II / Junior Assistant:</strong> pay matrix Level-5 under the 7th Pay Commission. During the two-year probation, direct recruits get only a fixed monthly remuneration set by the government — no pay scale, HRA, dearness allowance, city compensatory allowance or special pay. The pay scale and allowances start after probation is completed and the training test passed."
+            source: ldc-advt
+          - note: "The CET advertisement does not give pay; each post's main-exam advertisement does."
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Where the posts are"
+        parts:
+          - p: "LDC / Junior Assistant posts are in the Rajasthan Public Service Commission, the state's subordinate offices under the Administrative Reforms Department, the Agricultural Marketing Directorate and mandi committees, the State Agricultural Marketing Board, the State Pollution Control Board and the Board of Secondary Education."
+            source: ldc-advt
+    sources:
+      - { id: cet-advt, name: "RSSB — Detailed advertisement 09/2026, Common Eligibility Test (Graduation Level) 2026 (1 Jul 2026, Hindi)", url: "https://rssb.rajasthan.gov.in/storage/advertisement_item/1782966142.pdf", covers: "posts covered, score validity, 40% minimum, OTR fee, reservation, age and relaxations, dates, exam scheme and negative marking", checked: 2026-10-18 }
+      - { id: ldc-advt, name: "RSSB — Detailed advertisement 04/2026, Clerk Grade-II / Junior Assistant Combined Direct Recruitment 2026 (12 Jan 2026, Hindi)", url: "https://rssb.rajasthan.gov.in/storage/advertisement_item/1768228435.pdf", covers: "10,644 posts, CET 2024 eligibility, qualification, pay Level-5 and probation fixed pay, dates, offices", checked: 2026-10-18 }
+
+  # ------------------------------------------------------------------ RAJASTHAN POLICE
+  - slug: police
+    group: civil
+    short: "Rajasthan Police Constable &amp; RPSC Sub-Inspector"
+    body: "Rajasthan Police (constables) · Rajasthan Public Service Commission (SI)"
+    card: "Constables are recruited district by district by Rajasthan Police (12th pass for General, 10th for RAC); Sub-Inspectors and RAC Platoon Commanders through RPSC — 1,076 posts in the SI 2025 exam, now at the interview stage."
+    card_facts: ["Constable: 12th · 168 cm · 18–23", "SI 2025: 1,076 posts · L-11", "SI interviews Sep–Oct 2026"]
+    eyebrow: "Rajasthan Police · Constable &amp; Sub-Inspector"
+    title: "Rajasthan Police Constable and RPSC Sub-Inspector 2025 — Eligibility, Exams, Physical Tests"
+    lede: "Rajasthan Police has four entry levels: constable (recruited separately in each district), Sub-Inspector and Deputy Superintendent (through RPSC) and IPS (through UPSC). This page covers the constable route and the RPSC Sub-Inspector / Platoon Commander Exam 2025 (Advertisement 05/2025-26)."
+    facts:
+      - { label: "Constable (General)", value: "12th pass · 168 cm · age 18–23", source: pol-jtf }
+      - { label: "SI 2025 posts", value: "1,076 (after corrigendum 06/2026-27)", source: si-cor }
+      - { label: "SI age", value: "20–25 on 1 Jan 2026 (+3 one-time)", source: si-advt }
+      - { label: "SI pay", value: "Pay matrix L-11", source: si-advt }
+    official:
+      - { label: "Rajasthan Police — Join the force", url: "https://police.rajasthan.gov.in/portal/JoinTheForce" }
+      - { label: "RPSC SI 2025 advertisement (PDF)", url: "https://rpsc.rajasthan.gov.in/Static/RecruitmentAdvertisements/B87284F000614D55999928D873BD8B3E.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "Who recruits whom"
+        parts:
+          - p: "Rajasthan Police states that each district runs its own constable recruitment; Sub-Inspectors and Deputy Superintendents of Police are recruited by RPSC, and IPS officers by UPSC."
+            source: pol-jtf
+          - p: "The latest constable drive is Constable Recruitment 2025 (Constable General / Driver). Rajasthan Police has published district-wise written-exam results and final results, with the most recent press note dated 2 January 2026 (Jaipur Commissionerate, absentee candidates). No new constable advertisement was on the police website when we checked."
+            source: ct-result
+          - table:
+              caption: "RPSC Sub-Inspector / Platoon Commander Exam 2025 — Advt 05/2025-26 (17 Jul 2025)"
+              head: ["Post", "Posts"]
+              rows:
+                - ["Sub-Inspector (AP), non-scheduled area", "896 → 957 after corrigendum"]
+                - ["Sub-Inspector (AP), Sahariya", "4"]
+                - ["Sub-Inspector (AP), scheduled area", "25"]
+                - ["Sub-Inspector (Intelligence Bureau)", "26"]
+                - ["Platoon Commander (RAC)", "64"]
+                - ["Total", "1,015 → 1,076"]
+            source: si-cor
+          - p: "SI applications ran from 10 August to 8 September 2025. RPSC issued interview schedules for the first phase (press note of 22 September 2026) and the second phase (press note of 7 October 2026)."
+            source: si-int
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "Qualification, age and physical standards"
+        parts:
+          - table:
+              caption: "Entry-level requirements published by Rajasthan Police"
+              head: ["Post", "Qualification", "Physical standard", "Age"]
+              rows:
+                - ["Constable (General)", "12th", "Height 168 cm; chest 81 cm (5 cm expansion)", "18 to 23 (relaxation as per rules)"]
+                - ["Constable (RAC)", "10th", "Height 168 cm; chest 81 cm (5 cm expansion)", "18 to 23 (relaxation as per rules)"]
+                - ["Sub-Inspector", "Graduate degree", "Height 168 cm; chest 81 cm (5 cm expansion)", "20 to 25 (relaxation as per rules)"]
+            source: pol-jtf
+          - note: "Rajasthan Police notes that the latest standards and procedure are those printed in each recruitment advertisement when vacancies are announced."
+            source: pol-jtf
+          - list:
+              - "<strong>SI qualification:</strong> a degree from a recognised university, and working knowledge of Hindi in Devanagari and of Rajasthani culture."
+              - "<strong>SI age:</strong> 20 to 25 on 1 January 2026. Because no SI exam was advertised after 2021, candidates over-age on 1 January 2026 get three extra years."
+              - "<strong>Relaxations:</strong> men of Rajasthan's SC / ST / OBC / MBC / EWS 5 years; women of those categories 10 years; general women 5 years; ex-servicemen and reservists up to 40; dependents of police personnel killed on duty 3 years. Relaxations are not cumulative."
+            source: si-advt
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme &amp; physical tests"
+        heading: "Written exam, PET, then interview"
+        parts:
+          - p: "<strong>Constable process:</strong> written exam (by Police Headquarters), physical and medical examination, and physical efficiency test."
+            source: pol-jtf
+          - table:
+              caption: "SI / Platoon Commander written exam"
+              head: ["Paper", "Duration", "Marks"]
+              rows:
+                - ["General Hindi", "2 hours", "200"]
+                - ["General Knowledge &amp; General Science", "2 hours", "200"]
+            source: si-advt
+          - list:
+              - "Pass mark: 36% in each paper and 40% in aggregate (5% relaxation for SC / ST); 20 times the vacancies go to the physical efficiency test."
+              - "PET: 100 marks, conducted by a board headed by an Inspector General of Police; 50% needed to qualify, and PET marks do not count in merit."
+              - "About three times the vacancies (by written marks) are called for the aptitude test and interview, which carry 50 marks; degree or diploma in criminology or NCC 'C' certificate earn extra weight."
+              - "To be recommended a candidate needs 36% in the interview and 45% in aggregate (30% and 40% for women, BC, MBC, SC, ST and EWS candidates)."
+              - "Five options per question; not darkening any option costs one-third mark, and leaving more than 10% of questions blank disqualifies."
+            source: si-advt
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "Application fee"
+        parts:
+          - p: "RPSC exams, including SI 2025, use the One-Time Registration fee on the SSO portal: ₹600 for General and creamy-layer OBC / MBC candidates, ₹400 for Rajasthan's non-creamy-layer OBC / MBC, EWS, SC, ST, Sahariya and persons with disabilities, paid once."
+            source: ras-otr
+          - note: "No constable advertisement was open, so no constable fee is shown here."
+      - id: reservation
+        nav: "Reservation &amp; Certificates"
+        eyebrow: "Reservation &amp; certificates"
+        heading: "SI reservation"
+        parts:
+          - table:
+              caption: "SI (AP), non-scheduled area — 957 posts after corrigendum 06/2026-27"
+              head: ["Category", "General", "Women", "Widows", "Divorced", "Total"]
+              rows:
+                - ["UR", "234", "79", "28", "7", "348"]
+                - ["SC", "103", "35", "12", "3", "153"]
+                - ["ST", "77", "26", "9", "2", "114"]
+                - ["OBC", "134", "46", "16", "4", "200"]
+                - ["MBC", "32", "10", "4", "1", "47"]
+                - ["EWS", "64", "21", "8", "2", "95"]
+            source: si-cor
+          - list:
+              - "Ex-servicemen horizontal reservation within these: UR 42, SC 18, ST 13, OBC 24, MBC 5, EWS 11."
+              - "SC, ST, OBC, MBC, EWS and ex-servicemen benefits go only to original residents of Rajasthan."
+            source: si-cor
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "What to keep ready"
+        parts:
+          - list:
+              - "SSO ID and RPSC One-Time Registration (Aadhaar / Jan Aadhaar details)."
+              - "Degree, category and other certificates valid by the last date; all are checked at the interview."
+              - "NCC 'C' certificate or criminology degree / diploma, if held (extra weight at interview)."
+            source: si-advt
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Pay and probation"
+        parts:
+          - p: "<strong>Sub-Inspector / Platoon Commander:</strong> pay matrix Level-11 (Grade Pay ₹4,200). During probation a fixed monthly remuneration set by the state government is paid instead of the pay scale."
+            source: si-advt
+          - note: "Neither the SI advertisement nor the police website prints a rupee figure for the probation pay or in-hand salary."
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Branches"
+        parts:
+          - p: "SI candidates give their order of preference between the Armed Police / Intelligence Bureau branch and the Platoon Commander post of the Rajasthan Armed Constabulary; scheduled-area residents also choose between scheduled and non-scheduled posts."
+            source: si-advt
+    sources:
+      - { id: pol-jtf, name: "Rajasthan Police — Join the force (entry levels, qualifications, physical standards)", url: "https://police.rajasthan.gov.in/portal/JoinTheForce", covers: "constable and SI qualification, height, chest, age, process", checked: 2026-10-18 }
+      - { id: ct-result, name: "Rajasthan Police — Constable Recruitment 2025 (General / Driver) final result page", url: "https://police.rajasthan.gov.in/uploads/PET_PST_CT_Result2025_3be6baad91.html", covers: "district-wise final results and press notes, latest 2 Jan 2026", checked: 2026-10-18 }
+      - { id: si-advt, name: "RPSC — Advertisement 05/Exam/SI-PC/RPSC/EP-I/2025-26, Sub-Inspector / Platoon Commander 2025 (17 Jul 2025)", url: "https://rpsc.rajasthan.gov.in/Static/RecruitmentAdvertisements/B87284F000614D55999928D873BD8B3E.pdf", covers: "posts, qualification, age, relaxations, pay level, dates, written exam, PET, interview, recommendation minimums", checked: 2026-10-18 }
+      - { id: si-cor, name: "RPSC — Corrigendum 06/2026-27, Sub-Inspector / Platoon Commander 2025 (2 Jun 2026)", url: "https://rpsc.rajasthan.gov.in/Static/RecruitmentAdvertisements/28B6E635D7114CC786750C2BFB239F80.pdf", covers: "61 more SI (AP) NSA posts; 957 posts by category", checked: 2026-10-18 }
+      - { id: si-int, name: "RPSC — Press notes on interview dates, Sub Inspector Comb. Comp. Exam 2025 (22 Sep 2026 and 7 Oct 2026)", url: "https://rpsc.rajasthan.gov.in/Static/PressNotes/75277D99-B5B0-46DE-B568-E2D3D13DDD95.pdf", covers: "first- and second-phase interview schedules", checked: 2026-10-18 }
+      - { id: ras-otr, name: "RPSC — RAS 2026 advertisement (OTR fee rules for RPSC exams)", url: "https://rpsc.rajasthan.gov.in/Static/RecruitmentAdvertisements/76C02A7D61A54708AFFCDD7A2A60DBB2.pdf", covers: "One-Time Registration fee", checked: 2026-10-18 }
+
+  # ------------------------------------------------------------------ REET + BSER
+  - slug: reet
+    group: academic
+    short: "REET &amp; BSER Board Exams"
+    body: "Board of Secondary Education, Rajasthan"
+    card: "BSER conducts REET, the eligibility test for teachers of Classes 1–8 in Rajasthan, and the Secondary (Class 10) and Senior Secondary (Class 12) board exams. The last REET was REET-2024 (exam 27 Feb 2025); no REET 2026 notice had appeared when we checked."
+    card_facts: ["REET-2024 fee ₹550 / ₹750", "Class 10 exams 12–28 Feb 2026", "REET 2026: not yet notified"]
+    eyebrow: "BSER · Teacher eligibility &amp; board"
+    title: "REET and BSER Board Exams — Latest Notice, Fees, Exam Timings and Class 10 Time Table"
+    lede: "The Board of Secondary Education, Rajasthan (Ajmer) runs both the Rajasthan Eligibility Examination for Teachers (REET) and the state's school board exams. This page follows the REET-2024 notice (Vigyapti 01/2024 of 12 December 2024) and the Secondary Exam 2026 time table."
+    facts:
+      - { label: "Last REET", value: "REET-2024 · exam 27 Feb 2025", source: reet-24 }
+      - { label: "REET fee", value: "₹550 one level · ₹750 both", source: reet-24 }
+      - { label: "Class 10 exams 2026", value: "12 – 28 Feb 2026, 8.30–11.45 am", source: bser-tt }
+      - { label: "REET 2026", value: "No notice yet", source: bser-site }
+    official:
+      - { label: "BSER website", url: "https://rajeduboard.rajasthan.gov.in/" }
+      - { label: "REET-2024 site", url: "https://reet2024.co.in/" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "Two jobs for one board"
+        parts:
+          - p: "REET-2024 was notified by BSER on 12 December 2024 (Vigyapti 01/2024). Online applications and fee payment ran from 16 December 2024 to 15 January 2025, admit cards were due from 19 February 2025 and the exam was held on 27 February 2025."
+            source: reet-24
+          - p: "When we checked, BSER's website still pointed to the REET-2024 site and listed results, scrutiny and supplementary exams for 2026 and a portal for the 2027 main board exam — no REET 2026 notice."
+            source: bser-site
+          - table:
+              caption: "BSER Secondary (Class 10) exam 2026 — main subjects"
+              head: ["Date", "Subject"]
+              rows:
+                - ["12 Feb 2026", "English"]
+                - ["17 Feb 2026", "Social Science"]
+                - ["19 Feb 2026", "Hindi"]
+                - ["21 Feb 2026", "Science"]
+                - ["24 Feb 2026", "Mathematics"]
+                - ["26 – 28 Feb 2026", "Sanskrit and third languages"]
+            source: bser-tt
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Eligibility"
+        heading: "Who sits REET"
+        parts:
+          - p: "REET has two levels — Level 1 and Level 2 — and candidates may apply for one or both; the required educational qualification for each level must be held. The detailed eligibility, content and syllabus are in the detailed notice on the REET website."
+            source: reet-24
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam timings"
+        heading: "Shifts"
+        parts:
+          - table:
+              caption: "REET-2024 shift timings"
+              head: ["Shift", "Time"]
+              rows:
+                - ["First shift", "10.00 am – 12.30 pm"]
+                - ["Second shift", "3.00 pm – 5.30 pm"]
+            source: reet-24
+          - list:
+              - "Dates and shifts for each level are announced separately; candidates who applied for both levels sit both papers."
+              - "Admit cards are only downloaded from the website; none are posted."
+            source: reet-24
+          - note: "BSER Class 10 papers in 2026 ran from 8.30 am to 11.45 am."
+            source: bser-tt
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "REET-2024 fee"
+        parts:
+          - table:
+              head: ["Applying for", "Fee"]
+              rows:
+                - ["Level 1 only", "₹550"]
+                - ["Level 2 only", "₹550"]
+                - ["Both levels", "₹750"]
+            source: reet-24
+          - note: "Paid by challan at listed banks, debit card, net banking or e-Mitra; the form can be filled only after the fee is verified."
+            source: reet-24
+      - id: reservation
+        nav: "Concessions"
+        eyebrow: "Concessions"
+        heading: "Disability concessions in board exams"
+        parts:
+          - p: "In BSER board exams, candidates with disabilities listed in the RPwD Act 2016 (40% or more) get one extra hour or a scribe on producing the certificate; for children with mild learning disabilities one extra hour, and a scribe for moderate and severe cases."
+            source: bser-tt
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Keep these safe"
+        parts:
+          - list:
+              - "REET application form and fee challan copy (needed to download the admit card)."
+              - "Mobile number and challan number used at registration."
+            source: reet-24
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "REET is an eligibility test"
+        parts:
+          - note: "REET only certifies eligibility; teacher posts, pay and vacancies are announced in separate recruitment advertisements, so no pay is shown here."
+      - id: posting
+        nav: "After REET"
+        eyebrow: "After the test"
+        heading: "Results and certificates"
+        parts:
+          - p: "BSER publishes REET results, the scaling formula, final answer keys and question booklets, and issues REET-2024 certificates online on the REET website."
+            source: bser-site
+    sources:
+      - { id: reet-24, name: "BSER — REET-2024 short notice, Vigyapti 01/2024 (12 Dec 2024, Hindi)", url: "https://reet-bucket.blr1.cdn.digitaloceanspaces.com/REET2024-Prod/docs/REET-2024ShortVigyapti111224.pdf", covers: "dates, levels, fee, shift timings, admit cards", checked: 2026-10-18 }
+      - { id: bser-site, name: "BSER — Main page and REET-2024 website (links checked)", url: "https://reet2024.co.in/", covers: "no REET 2026 notice; REET-2024 results, scaling formula, certificates", checked: 2026-10-18 }
+      - { id: bser-tt, name: "BSER — Secondary, Secondary Vocational &amp; Praveshika Exam 2026 time table", url: "https://rajeduboard.rajasthan.gov.in/TIMETABLE_2026.PDF", covers: "Class 10 exam dates, timings, disability concessions", checked: 2026-10-18 }

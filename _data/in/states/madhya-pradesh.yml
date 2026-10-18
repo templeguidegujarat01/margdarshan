@@ -1,0 +1,699 @@
+# Madhya Pradesh State Exam & Career Cockpit — one data sheet for the cockpit (state/madhya-pradesh/index.html)
+# and every exam page under state/madhya-pradesh/. Rendered by _includes/state-cockpit.html and
+# _includes/state-exam.html; checked by scripts/check-in-data.mjs (state sheets block).
+#
+# Rules for this sheet (same as the other state sheets):
+#   - Every fact part carries `source: <id>`; the id must be listed under that exam's `sources`.
+#   - Sources are the official files themselves (read 2026-10-18): the MPPSC State Service Exam 2026
+#     advertisement 29/2025 and the prelim result notice of 22 May 2026; the MPESB rule books for Group-2
+#     Sub-Group-4 (Patwari) 2026 and Police Constable (GD) 2026; and the DTE MP admission rule book 2026-27
+#     (one rule book for all technical courses). All are Hindi PDFs. esb.mp.gov.in did not answer from our
+#     network, so its rule books were read from Internet Archive copies of the same official URLs (cited
+#     below as the official URLs). Nothing comes from coaching or news sites. Where no file states a value
+#     (MPPSC prelim marks per paper, Patwari exam scheme, counselling fees), the page says so.
+#   - Section ids are the same on every exam page: overview, eligibility, scheme, fees, reservation,
+#     documents, pay, posting (+ sources, drawn automatically).
+state:
+  id: madhya-pradesh
+  name: Madhya Pradesh
+  checked: 2026-10-18
+
+cockpit:
+  eyebrow: "State Exam &amp; Career Cockpit · Madhya Pradesh"
+  title: "Madhya Pradesh Exam &amp; Career Cockpit"
+  intro:
+    - "Every major Madhya Pradesh government recruitment and technical-admission route on one screen: the MPPSC State Service Examination, MPESB recruitment for Patwari and Police Constable, polytechnic diploma admission (the old 'PPT' route, now merit-based) and DTE MP's online counselling for B.E. / B.Tech and other technical courses. Each page is built only from the official advertisement or rule book, and every fact links back to that file."
+    - "Three MP rules decide more results than any other. All reservation and age relaxation go only to MP's domiciles (mool niwasi) — others compete as Unreserved. MPPSC results are declared in two parts: 87% of posts now and 13% kept provisional (OBC and Unreserved) until the courts decide the OBC-reservation cases. And women get 35% horizontal reservation in state recruitment."
+  facts:
+    - { label: "Recruitment nodes", value: "MPPSC SSE · MPESB Patwari · Police Constable" }
+    - { label: "Admission nodes", value: "Polytechnic diploma · DTE MP counselling" }
+    - { label: "Coming up", value: "Police Constable (GD) exam from 19 Nov 2026" }
+    - { label: "Last checked", value: "18 Oct 2026" }
+  groups:
+    - id: civil
+      eyebrow: "Civil recruitment &amp; administrative"
+      heading: "Government recruitment exams"
+      intro: "State service officers through the Madhya Pradesh Public Service Commission (MPPSC, Indore), and Patwari and Police Constable posts through the Madhya Pradesh Employees Selection Board (MPESB, formerly Vyapam, Bhopal)."
+      exams: [mppsc, mpesb, police]
+    - id: academic
+      eyebrow: "Technical admissions"
+      heading: "Diploma and degree admissions"
+      intro: "Polytechnic diplomas after Class 10 and B.E. / B.Tech, B.Arch, MBA, MCA, M.Tech and pharmacy seats through the online counselling of the Directorate of Technical Education, Madhya Pradesh (DTE MP)."
+      exams: [mp-ppt, dte-mp]
+  compare_note: "Fees, age limits and dates are from the latest notice of each body. They change every cycle, so always open the current notice before applying."
+  portals_note: "MPPSC and MPESB applications are filled on MP Online (mponline.gov.in) from the links on mppsc.mp.gov.in and esb.mp.gov.in; DTE counselling registration is on dte.mponline.gov.in. Only use these official addresses."
+  portals:
+    - { label: "MP Public Service Commission (MPPSC)", url: "https://mppsc.mp.gov.in/" }
+    - { label: "MP Employees Selection Board (MPESB)", url: "https://esb.mp.gov.in/" }
+    - { label: "MP Online (application portal)", url: "https://www.mponline.gov.in/" }
+    - { label: "DTE MP online counselling", url: "https://dte.mponline.gov.in/portal/services/onlinecounselling/counshomepage/home.aspx" }
+
+exams:
+  # ------------------------------------------------------------------ MPPSC SSE 2026
+  - slug: mppsc
+    group: civil
+    short: "MPPSC State Service Examination"
+    body: "Madhya Pradesh Public Service Commission"
+    card: "MP's state civil services exam: Deputy Collector, Deputy Superintendent of Police, Commercial Tax Officer, Naib Tehsildar, Block Women Empowerment Officer and other posts — prelim, descriptive mains and interview, with results split 87% / 13%."
+    card_facts: ["SSE 2026: 155 posts", "Age 21–40 (uniformed 33)", "Prelim held 26 Apr 2026"]
+    eyebrow: "MPPSC · State services"
+    title: "MPPSC State Service Exam 2026 — 155 Posts, Age 21–40, 87:13 Result Rule"
+    lede: "The State Service Examination fills Madhya Pradesh's Group A and B administrative posts. This page follows MPPSC Advertisement 29/2025 of 31 December 2025 and the prelim result notice of 22 May 2026."
+    facts:
+      - { label: "Posts", value: "155 advertised (156 after corrigenda)", source: sse-res }
+      - { label: "Qualification", value: "Any bachelor's degree", source: sse-advt }
+      - { label: "Age (1 Jan 2026)", value: "21 to 40 · uniformed posts 21 to 33", source: sse-advt }
+      - { label: "Fee", value: "₹500 · ₹250 MP SC/ST/OBC/EWS/PwD", source: sse-advt }
+    official:
+      - { label: "MPPSC website", url: "https://mppsc.mp.gov.in/" }
+      - { label: "SSE 2026 advertisement (PDF)", url: "https://mppsc.mp.gov.in/uploads/advertisement/Advt_State_Service_Exam_2026_Dated_31_12_2025.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "State Service Examination 2026"
+        parts:
+          - table:
+              caption: "SSE 2026 calendar"
+              head: ["Event", "Date"]
+              rows:
+                - ["Advertisement", "31 Dec 2025"]
+                - ["Online application", "10 Jan – 9 Feb 2026"]
+                - ["Late application (₹3,000 / ₹25,000 late fee)", "Till 16 Feb / 1 Apr 2026"]
+                - ["Correction window", "15 Jan – 11 Feb 2026"]
+                - ["Admit card", "16 Apr 2026"]
+                - ["Prelim (Paper I General Studies 10–12; Paper II General Aptitude 2.15–4.15)", "26 Apr 2026"]
+            source: sse-advt
+          - table:
+              caption: "Selected posts (pay scale as printed)"
+              head: ["Post", "Posts", "Pay"]
+              rows:
+                - ["Deputy Collector (State Administrative Service)", "17", "₹15,600–39,100 + GP ₹5,400"]
+                - ["Deputy Superintendent of Police", "18", "₹15,600–39,100 + GP ₹5,400"]
+                - ["Commercial Tax Officer", "3", "₹15,600–39,100 + GP ₹5,400"]
+                - ["Additional Assistant Development Commissioner (CEO, Janpad)", "15", "₹9,300–34,800 + GP ₹4,200"]
+                - ["Block Women Empowerment Officer", "39", "₹9,300–34,800 + GP ₹3,600"]
+                - ["Excise Sub-Inspector", "10", "₹9,300–34,800 + GP ₹3,600"]
+                - ["Co-operative Inspector / Extension Officer", "16", "₹36,200–1,14,800 (7th pay)"]
+                - ["Naib Tehsildar", "4", "₹9,300–34,800 + GP ₹3,600"]
+                - ["Total (all 21 posts)", "155", ""]
+            source: sse-advt
+          - p: "The prelim was held on 26 April 2026 at 54 district headquarters. On 22 May 2026 MPPSC published the list of candidates short-listed for the mains, against 156 posts after corrigenda: UR 41, SC 20, ST 33, OBC 42, EWS 20 (6 for persons with disabilities)."
+            source: sse-res
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "Degree, age and the MP-domicile rule"
+        parts:
+          - list:
+              - "<strong>Qualification:</strong> a bachelor's degree from a university recognised under central or state law or the UGC Act. Those awaiting results may take the prelim but must pass before the mains application closes."
+              - "<strong>Age on 1 January 2026:</strong> 21 to 40 for non-uniformed posts; 21 to 33 for uniformed posts (police, excise, jail, transport)."
+              - "<strong>Date of birth:</strong> as on the Class 10 (High School) marks sheet."
+            source: sse-advt
+          - list:
+              - "<strong>5 years more</strong> for MP's SC, ST, OBC, government / corporation employees, Nagar Sainik, persons with disabilities and women (non-uniformed posts); for uniformed posts the 5 years go to women (unreserved) and SC / ST / OBC men and women, employees and Nagar Sainik."
+              - "Ex-servicemen deduct their defence service from their age, up to 3 years beyond the limit."
+              - "Incentive relaxations (inter-caste marriage award couples, Vikram award winners): 5 years."
+              - "<strong>Cap:</strong> with all relaxations no one may be over 45 (38 for uniformed posts)."
+              - "All reservation and age relaxation is only for MP domiciles; candidates of other states are treated as Unreserved."
+            source: sse-advt
+          - table:
+              caption: "Physical standards for uniformed posts"
+              head: ["", "Height", "Chest (normal / expanded)"]
+              rows:
+                - ["Men", "168 cm", "84 / 89 cm"]
+                - ["Women", "155 cm", "Not required"]
+            source: sse-advt
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme"
+        heading: "Three stages"
+        parts:
+          - list:
+              - "<strong>Prelim:</strong> objective OMR test (Paper I General Studies, Paper II General Aptitude) to short-list for the mains. Negative marking applies."
+              - "<strong>Mains:</strong> written, descriptive, to select for the different services and posts."
+              - "<strong>Interview and personality test.</strong>"
+              - "Final merit adds written and interview marks; ties go to the higher written score, then the older candidate."
+              - "Provisional answer keys are published after the prelim; objections within 5 days cost ₹150 per question plus a ₹40 portal fee."
+            source: sse-advt
+          - note: "The detailed exam plan and syllabus are published separately on mppsc.mp.gov.in; the advertisement itself does not print marks per paper, so none are shown here."
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "Application and exam fee"
+        parts:
+          - table:
+              head: ["Candidate", "Fee"]
+              rows:
+                - ["MP domicile SC, ST, OBC, EWS and persons with disabilities", "₹250"]
+                - ["All others, and candidates from outside MP", "₹500"]
+                - ["Portal fee (all)", "₹40 extra"]
+                - ["Late application till 16 Feb / 1 Apr 2026", "₹3,000 / ₹25,000"]
+                - ["Each correction session", "₹50"]
+            source: sse-advt
+          - note: "Candidates who pass the prelim pay the mains fee separately."
+            source: sse-advt
+      - id: reservation
+        nav: "Reservation &amp; Certificates"
+        eyebrow: "Reservation &amp; certificates"
+        heading: "The 87% / 13% result system"
+        parts:
+          - warn: "Because the OBC-reservation cases are pending, results are declared on the General Administration Department's letter of 29 September 2022: a main part with 87% of posts (calculated on 14% OBC) and a provisional part with 13% of posts. Candidates in the provisional part move through each stage provisionally and are finally selected only against the 13% posts held back for their category after the court's final decision."
+            source: sse-advt
+          - list:
+              - "Reservation follows the MP Lok Seva (Reservation for SC, ST and OBC) Act 1994 and state orders on EWS."
+              - "Only MP domiciles get reservation; OBC creamy-layer candidates are treated as Unreserved and must give a non-creamy-layer declaration before the interview."
+              - "EWS and other reserved-category certificates must be issued by the competent authority and valid for 2025-26 on the last date of the form."
+              - "Horizontal reservation for women, persons with disabilities and ex-servicemen is adjusted within each vertical category; posts left vacant for women go to men of the same category, not carried forward."
+            source: sse-advt
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "What to keep ready"
+        parts:
+          - list:
+              - "Class 10 marks sheet (name, father's name, date of birth)."
+              - "Degree, domicile, caste, non-creamy-layer and EWS certificates."
+              - "Disability, ex-servicemen, government-employee and incentive (inter-caste marriage, Vikram award) certificates, if claimed."
+              - "Self-attested copies are matched with originals at the interview."
+            source: sse-advt
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Pay scales and probation"
+        parts:
+          - p: "Pay scales range from ₹9,300–34,800 + GP ₹3,600 (Naib Tehsildar, Excise SI, Block officers) to ₹15,600–39,100 + GP ₹5,400 (Deputy Collector, DSP and other Group-A posts), with dearness and other allowances as approved by the state. Selected candidates serve two years' probation."
+            source: sse-advt
+          - note: "The advertisement prints pay scales, not in-hand salary."
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "From result to appointment"
+        parts:
+          - p: "MPPSC sends the main and supplementary lists to the departments, which verify documents and issue appointments; service preferences given online at the mains stage decide which post a candidate gets in merit order."
+            source: sse-advt
+    sources:
+      - { id: sse-advt, name: "MPPSC — Advertisement 29/2025, State Service Examination 2026 (31 Dec 2025, Hindi)", url: "https://mppsc.mp.gov.in/uploads/advertisement/Advt_State_Service_Exam_2026_Dated_31_12_2025.pdf", covers: "posts and pay scales, dates, qualification, age and relaxations, physical standards, scheme, fee, 87/13 rule, reservation, documents", checked: 2026-10-18 }
+      - { id: sse-res, name: "MPPSC — State Service Prelim 2026 result: candidates short-listed for the mains (22 May 2026)", url: "https://mppsc.mp.gov.in/uploads/files/Result_State_Service_Preliminary_Exam_2026_Dated_22_05_2026.pdf", covers: "prelim held 26 Apr 2026; 156 posts by category", checked: 2026-10-18 }
+
+  # ------------------------------------------------------------------ MPESB PATWARI
+  - slug: mpesb
+    group: civil
+    short: "MPESB Patwari &amp; Group-2 Sub-Group-4 Exam"
+    body: "Madhya Pradesh Employees Selection Board (formerly Vyapam)"
+    card: "MPESB conducts most of MP's Group-C recruitment — Patwari, Jail Prahari, Van Rakshak, Police Constable and more. The Group-2 Sub-Group-4 Combined Recruitment Test 2026 includes a special 200-post Patwari drive for persons with disabilities."
+    card_facts: ["Patwari 2026: 200 posts (PwD)", "Graduate + CPCT", "Age 18–45 (MP domicile)"]
+    eyebrow: "MPESB · Group-2 Sub-Group-4"
+    title: "MPESB Group-2 Sub-Group-4 Combined Recruitment Test 2026 — Patwari (Divyang) 200 Posts"
+    lede: "The Madhya Pradesh Employees Selection Board's Group-2 Sub-Group-4 Combined Recruitment Test 2026 includes a special Patwari selection exam for persons with disabilities. This page follows the MPESB rule book of 4 August 2026."
+    facts:
+      - { label: "Patwari posts", value: "200 (all for persons with disabilities)", source: pat-rb }
+      - { label: "Qualification", value: "Graduation + CPCT", source: pat-rb }
+      - { label: "Age", value: "18 to 45 on 1 Jan 2026", source: pat-rb }
+      - { label: "Exam", value: "From 22 Sep 2026 (online, 3 hours)", source: pat-rb }
+    official:
+      - { label: "MPESB website", url: "https://esb.mp.gov.in/" }
+      - { label: "MPESB rule books", url: "https://esb.mp.gov.in/rulebooks/rule_books.htm" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "Group-2 Sub-Group-4, 2026"
+        parts:
+          - table:
+              caption: "Key dates"
+              head: ["Event", "Date"]
+              rows:
+                - ["Online application", "4 Aug – 18 Aug 2026"]
+                - ["Correction", "4 Aug – 23 Aug 2026"]
+                - ["Exam begins", "22 Sep 2026 (two shifts: 9–12 and 2.30–5.30)"]
+            source: pat-rb
+          - p: "All 200 Patwari posts in this drive (Revenue Department, Land Resources Management) are reserved for persons with disabilities and are spread district-wise: 94 for hearing disability (EH), 45 for locomotor disability (LD — including cerebral palsy, leprosy-cured, dwarfism, acid-attack victims, muscular dystrophy) and 61 for autism, intellectual, specific-learning, mental-illness and multiple disabilities (MD)."
+            source: pat-rb
+          - note: "The same Group-2 Sub-Group-4 rule book also covers other departments' posts; check the post codes in the rule book before applying."
+            source: pat-rb
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "Who can apply for Patwari"
+        parts:
+          - list:
+              - "Citizen of India and a domicile of Madhya Pradesh."
+              - "Graduation from a recognised university."
+              - "CPCT score card (Hindi typing and computer proficiency). Those selected without CPCT must pass it within the 3-year probation, or the appointment is cancelled."
+              - "Disability certificate from the competent authority (visually impaired candidates are not eligible for Patwari, under a Revenue Department letter of 11 May 2009)."
+              - "Age 18 to 45 for MP domiciles, counted on 1 January 2026."
+            source: pat-rb
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme"
+        heading: "Online test, district choice, merit"
+        parts:
+          - list:
+              - "Online computer-based test of 3 hours in each shift."
+              - "Only candidates scoring at least 40% of the total marks are placed on the list of successful candidates."
+              - "Patwari is a district-level cadre: candidates list the districts they want in order of preference in the form; districts are allotted by merit and that preference, and a candidate who leaves a district out cannot be posted there."
+            source: pat-rb
+          - note: "The rule book's syllabus chapter lists the subjects; the marks per section are not repeated here."
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "Examination fee"
+        parts:
+          - table:
+              head: ["Candidate", "Fee"]
+              rows:
+                - ["Unreserved", "₹500"]
+                - ["MP domicile SC / ST / OBC / EWS and persons with disabilities", "₹250"]
+                - ["MP Online kiosk portal fee / registered citizen user", "₹60 / ₹20"]
+            source: pat-rb
+      - id: reservation
+        nav: "Reservation &amp; Certificates"
+        eyebrow: "Reservation &amp; certificates"
+        heading: "District roster and disability categories"
+        parts:
+          - list:
+              - "Patwari is a district cadre, so reservation and roster are applied at district level."
+              - "Persons with disabilities: 6% horizontal reservation in state recruitment, split 1.5% each among visual (VH), hearing (EH), locomotor (LD) and the autism / intellectual / learning / mental-illness / multiple (MD) groups; Patwari posts are not identified for the visually impaired."
+              - "The disability certificate is checked at counselling by the document-verification committee and the district medical board."
+            source: pat-rb
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Bring to the exam and verification"
+        parts:
+          - list:
+              - "Aadhaar registration (biometric verification at the centre) and an original photo ID — voter ID, PAN, Aadhaar / e-Aadhaar, driving licence or passport."
+              - "Admit card downloaded from the MPESB website."
+              - "Graduation, domicile, CPCT, disability and caste certificates for verification in the allotted district."
+            source: pat-rb
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Pay and the stipend years"
+        parts:
+          - p: "Patwari pay scale is ₹5,200–20,200 + Grade Pay ₹2,100. For the first three years, direct recruits are paid under the General Administration Department circular of 12 December 2019 (a stipend at a share of the pay rather than full pay)."
+            source: pat-rb
+          - note: "The rule book does not print an in-hand figure."
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "District posting"
+        parts:
+          - p: "MPESB allots districts by merit and the order of districts in the form, and sends the selection list district-wise and category-wise according to the vacancies reported; documents are verified before appointment. Probation is three years, within which CPCT must be passed if not already held."
+            source: pat-rb
+    sources:
+      - { id: pat-rb, name: "MPESB — Rule book, Group-2 Sub-Group-4 Combined Recruitment Test 2026, incl. Patwari special recruitment (Divyang) (4 Aug 2026, Hindi)", url: "https://esb.mp.gov.in/Rulebooks/RB_2026/Group2_SG4_Patwari_rect_test_2026_Rulebook_04082026_v2.pdf", covers: "dates, fee, 200 Patwari posts by district and disability, eligibility, CPCT, age, pay, reservation, selection", checked: 2026-10-18 }
+
+  # ------------------------------------------------------------------ MP POLICE CONSTABLE
+  - slug: police
+    group: civil
+    short: "MP Police Constable (GD) — MPESB"
+    body: "MP Police Headquarters (exam by MPESB)"
+    card: "7,500 Constable (General Duty) posts for 2026 — 700 in the Special Armed Force and 6,800 in district and other units — through an MPESB online test from 19 November 2026 and a 100-mark physical efficiency test."
+    card_facts: ["2026: 7,500 posts", "10th pass (ST 8th) · age 18–33", "Exam from 19 Nov 2026"]
+    eyebrow: "MP Police · Constable (GD)"
+    title: "MP Police Constable (GD) Recruitment 2026 — 7,500 Posts, Exam from 19 Nov 2026"
+    lede: "Madhya Pradesh Police recruits Constables (General Duty) through a test conducted by MPESB. This page follows the MPESB rule book for the Constable (GD) Selection Test 2026, issued on the Police Headquarters letter of 30 July 2026."
+    facts:
+      - { label: "Posts", value: "7,500 (SAF 700 · others 6,800)", source: pc-rb }
+      - { label: "Qualification", value: "Class 10 (ST: Class 8)", source: pc-rb }
+      - { label: "Age", value: "18 to 33 (MP women &amp; reserved: 38)", source: pc-rb }
+      - { label: "Pay", value: "₹19,500–62,000", source: pc-rb }
+    official:
+      - { label: "MPESB website", url: "https://esb.mp.gov.in/" }
+      - { label: "Constable (GD) 2026 rule book (PDF)", url: "https://esb.mp.gov.in/Rulebooks/RB_2026/PCRT_GD_2026_RuleBook_09092026.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "Constable (GD) 2026"
+        parts:
+          - table:
+              caption: "Key dates"
+              head: ["Event", "Date"]
+              rows:
+                - ["Online application", "22 Sep – 6 Oct 2026"]
+                - ["Correction", "22 Sep – 11 Oct 2026"]
+                - ["Online exam begins (two shifts: 10–12 and 3–5)", "19 Nov 2026"]
+            source: pc-rb
+          - table:
+              caption: "Posts — main part (87%) by category, plus the 13% provisional part"
+              head: ["Unit", "UR", "SC", "ST", "OBC", "EWS", "13% provisional (UR / OBC)", "Total"]
+              rows:
+                - ["Special Armed Force", "189", "112", "140", "98", "70", "91", "700"]
+                - ["All other units", "1,836", "1,088", "1,360", "952", "680", "884", "6,800"]
+            source: pc-rb
+          - note: "The 13% provisional posts are held back under the OBC-reservation litigation and will finally go to either Unreserved or OBC candidates after the court's decision. Within these totals, 35% of posts are for women, 15% for home guards and 10% for ex-servicemen (horizontal)."
+            source: pc-rb
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "Qualification and age"
+        parts:
+          - list:
+              - "<strong>Qualification:</strong> Class 10 under the 10+2 system, Higher Secondary or equivalent; Scheduled Tribe candidates need Class 8."
+              - "<strong>Age:</strong> at least 18 on 6 October 2026."
+              - "Candidates who are not MP domiciles can apply only for Unreserved posts, with no age relaxation, and must be under 33."
+              - "Registration with the MP employment exchange (live) is compulsory."
+            source: pc-rb
+          - table:
+              caption: "Maximum age"
+              head: ["Candidate", "Maximum age"]
+              rows:
+                - ["Unreserved men; EWS men; all candidates of other states", "33"]
+                - ["Women of all categories (MP)", "38"]
+                - ["Reserved men — SC, ST, OBC (MP)", "38"]
+                - ["Government / corporation employees and Nagar Sainik (MP)", "38"]
+                - ["Inter-caste marriage award or Vikram award (women / reserved)", "43"]
+            source: pc-rb
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme &amp; physical tests"
+        heading: "Online test, then PET"
+        parts:
+          - table:
+              caption: "First stage — online MCQ test in Hindi, 2 hours, 100 questions"
+              head: ["Section", "Marks"]
+              rows:
+                - ["General knowledge &amp; reasoning", "40"]
+                - ["Intellectual ability &amp; mental aptitude", "30"]
+                - ["Science &amp; simple arithmetic", "30"]
+            source: pc-rb
+          - list:
+              - "+1 for a correct answer; no marks are deducted for wrong or unattempted questions."
+              - "Candidates are short-listed for the physical efficiency test category-wise on their percentile scores."
+              - "PET is 100 marks — 800 m run (40), long jump (30) and shot put (30), each scored on a sliding scale printed in the rule book; at least 30 of 100 is needed."
+              - "Final merit is made on the total of the marks obtained; ties go first to the proportionate score, then to the older candidate."
+            source: pc-rb
+          - table:
+              caption: "Physical standards (no relaxation)"
+              head: ["Candidate", "Height", "Chest (men: normal / expanded)"]
+              rows:
+                - ["Men — UR, SC, OBC (other units)", "168 cm", "81 / 86 cm"]
+                - ["Men — ST (other units)", "160 cm", "76 / 81 cm"]
+                - ["Women — UR, SC, OBC / ST", "155 cm", "—"]
+                - ["SAF men — UR, OBC", "168 cm", "79 / 84 cm"]
+                - ["SAF men — Gorkha, Garhwali, Kumaoni", "157 cm", "79 / 84 cm"]
+                - ["SAF men — Maratha, SC, ST", "165 cm", "79 / 84 cm"]
+            source: pc-rb
+          - note: "Medical: distant vision at least 6/9 in one eye and 6/12 in the other without glasses, no colour blindness, no knock-knees or flat feet."
+            source: pc-rb
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "Board fee plus police departmental fee"
+        parts:
+          - table:
+              head: ["Candidate", "MPESB fee", "Police departmental fee"]
+              rows:
+                - ["Unreserved", "₹500", "₹200"]
+                - ["MP domicile SC / ST / OBC / EWS", "₹250", "₹100"]
+            source: pc-rb
+          - note: "MP Online kiosk portal fee ₹60 (₹20 for registered citizen users)."
+            source: pc-rb
+      - id: reservation
+        nav: "Reservation &amp; Certificates"
+        eyebrow: "Reservation &amp; certificates"
+        heading: "Vertical and horizontal quotas"
+        parts:
+          - table:
+              caption: "Vertical reservation"
+              head: ["UR", "OBC", "SC", "ST", "EWS"]
+              rows:
+                - ["27%", "27%", "16%", "20%", "10%"]
+            source: pc-rb
+          - list:
+              - "Horizontal: women 35% (GAD order of 3 October 2023), home guards 15% (constable posts only), ex-servicemen 10%."
+              - "All reservation and age relaxation are for MP domiciles only."
+              - "Persons with disabilities: the police department is exempt from disability reservation."
+            source: pc-rb
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Bring to the exam and PET"
+        parts:
+          - list:
+              - "Aadhaar registration (biometric check at entry) and an original photo ID — voter ID, PAN, Aadhaar / e-Aadhaar, driving licence or passport."
+              - "Admit card from the MPESB website, black / blue ball pen."
+              - "Originals at the PET document check: age, education, domicile, caste, home-guard / ex-servicemen certificates (all dated by 6 October 2026). A candidate who fails document verification is not selected even after passing the exam."
+            source: pc-rb
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Pay and the three stipend years"
+        parts:
+          - p: "<strong>Pay scale:</strong> ₹19,500 – ₹62,000. Under the GAD circular of 12 December 2019, a stipend of 70% of the minimum of the scale is paid in the first year, 80% in the second and 90% in the third, plus allowances approved by the state. The contributory (new) pension system applies."
+            source: pc-rb
+          - note: "The rule book does not print an in-hand amount."
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Units and posting rules"
+        parts:
+          - list:
+              - "Units are allotted by merit and the unit preference given in the form, keeping the home district in view."
+              - "Selected constables are not posted in their home district and must serve at least 5 years in the allotted unit before a transfer."
+              - "Appointment is on three years' probation, and the prescribed training must be passed."
+            source: pc-rb
+    sources:
+      - { id: pc-rb, name: "MPESB — Rule book, Police Constable (G.D.) Selection Test 2026 (PHQ letter of 30 Jul 2026; uploaded 9 Sep 2026, Hindi)", url: "https://esb.mp.gov.in/Rulebooks/RB_2026/PCRT_GD_2026_RuleBook_09092026.pdf", covers: "posts, dates, fee, qualification, age, pay and stipend, exam scheme, PET marks, physical standards, medical, reservation, posting", checked: 2026-10-18 }
+
+  # ------------------------------------------------------------------ MP POLYTECHNIC (PPT route)
+  - slug: mp-ppt
+    group: academic
+    short: "MP Polytechnic Diploma Admission (PPT route)"
+    body: "Directorate of Technical Education, Madhya Pradesh"
+    card: "Admission to 3-year engineering diplomas in MP's government, aided and private polytechnics after Class 10. Under the 2026-27 DTE rule book, diploma seats are filled on the merit of the qualifying-exam marks through DTE's online counselling."
+    card_facts: ["Class 10 pass", "Merit on qualifying marks", "Ambedkar / Eklavya: ₹1,000 a month"]
+    eyebrow: "DTE MP · Diploma admissions"
+    title: "MP Polytechnic Diploma Admission 2026-27 (PPT Route) — Eligibility, Merit, Reservation"
+    lede: "Engineering diploma admission in Madhya Pradesh — once through the Pre-Polytechnic Test (PPT) — is run by the Directorate of Technical Education's online counselling. This page follows the DTE MP admission rule book for 2026-27, which the counselling portal publishes under the PPT link."
+    facts:
+      - { label: "Qualification", value: "Class 10 (MPBSE or equivalent)", source: dte-rb }
+      - { label: "Admission basis", value: "Merit of qualifying-exam marks", source: dte-rb }
+      - { label: "MP reservation", value: "SC 16 · ST 20 · OBC 14 · EWS 10%", source: dte-rb }
+      - { label: "Lateral entry", value: "10th + 2-year ITI → diploma 2nd year", source: dte-rb }
+    official:
+      - { label: "DTE MP online counselling", url: "https://dte.mponline.gov.in/portal/services/onlinecounselling/counshomepage/home.aspx" }
+      - { label: "Admission rule book 2026-27 (PDF)", url: "https://dte.mponline.gov.in/Quick%20Links/OnlineCounselling/2026/RuleBook/PPT.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "Diploma courses under DTE"
+        parts:
+          - table:
+              caption: "AICTE-approved diploma courses in the 2026-27 rule book"
+              head: ["Course", "Duration", "Entry year"]
+              rows:
+                - ["Diploma", "3 years", "First year"]
+                - ["Diploma (Dr. Baba Saheb Ambedkar / Eklavya scheme)", "3 years", "First year"]
+                - ["Diploma — lateral entry", "2 years", "Second year"]
+                - ["Diploma — working professionals", "2 years", "Second year"]
+            source: dte-rb
+          - p: "Institutions covered: government, autonomous, aided private, aided deemed-university, self-financed university and private institutions. Admission is through DTE's centralised online counselling under the MP private professional institutions (admission and fee) act and the 2008 admission rules."
+            source: dte-rb
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Eligibility"
+        heading: "Class 10 and the lateral route"
+        parts:
+          - list:
+              - "<strong>Diploma:</strong> Class 10 (10+2 system) of the MP Board of Secondary Education or any recognised board, SSC or equivalent. Admission is on a merit list made from the marks of that qualifying exam."
+              - "<strong>Lateral entry (2nd year):</strong> Class 10 plus a 2-year (or longer) ITI course in any trade; such candidates may enter any diploma branch."
+              - "<strong>Diploma architecture:</strong> Class 10; admission on qualifying-exam merit."
+              - "Candidates must be Indian citizens."
+            source: dte-rb
+          - note: "Candidates with a national-level sports gold medal from MP get a 10% weightage on their qualifying marks; on equal marks they are placed below candidates without the weightage."
+            source: dte-rb
+      - id: scheme
+        nav: "Merit &amp; Counselling"
+        eyebrow: "Merit &amp; counselling"
+        heading: "How seats are filled"
+        parts:
+          - list:
+              - "No separate entrance test is listed for diplomas in the 2026-27 rule book: merit is made from qualifying-exam marks."
+              - "In the first counselling round, a reserved-category candidate with enough merit gets an Unreserved seat first; unfilled reserved seats move ST → SC, SC → ST, then to OBC, and finally to Unreserved."
+              - "If seats stay vacant after the merit rounds, further rounds can be held on qualifying marks with all seats treated as Unreserved, as notified by the competent authority."
+            source: dte-rb
+      - id: fees
+        nav: "Fees &amp; support"
+        eyebrow: "Fees &amp; scholarships"
+        heading: "Ambedkar / Eklavya scheme benefits"
+        parts:
+          - table:
+              caption: "Facilities on Dr. Baba Saheb Ambedkar / Eklavya scheme diploma seats"
+              head: ["Benefit", "Amount"]
+              rows:
+                - ["Scholarship", "₹1,000 a month"]
+                - ["Free stationery, drawing and other material", "Up to ₹2,000 a semester"]
+                - ["Free textbooks", "Up to ₹2,000 a semester"]
+                - ["Hostel and food", "Free"]
+                - ["Exam fee", "Actual RGPV fee paid"]
+            source: dte-rb
+          - note: "The rule book does not print counselling registration fees or institution tuition fees; fees of private institutions are set by the Admission and Fee Regulatory Committee."
+            source: dte-rb
+      - id: reservation
+        nav: "Reservation &amp; Certificates"
+        eyebrow: "Reservation &amp; certificates"
+        heading: "Seats for MP's original residents"
+        parts:
+          - list:
+              - "In government, aided and university institutions: 5% NRI seats (where approved) and 5% All-India seats; the rest are for MP's original residents."
+              - "In private institutions: 10% Institutional Preference Seats in diploma and degree courses, 5% NRI; the rest form the General Pool."
+              - "Among MP residents' seats: SC 16%, ST 20%, OBC (non-creamy layer) 14% in all courses; women's reservation by category and branch."
+              - "EWS: 10% of approved intake for MP's original residents holding an EWS certificate."
+              - "Tuition Fee Waiver: 5% supernumerary seats for MP residents whose parents earn up to ₹8 lakh a year; only tuition is waived and branch / institute cannot be changed later."
+              - "NCC 'B' certificate holders: 2% of seats in diploma / degree courses."
+              - "Unfilled Unreserved seats in the final round may go to candidates from other states."
+            source: dte-rb
+          - list:
+              - "<strong>SC / ST:</strong> caste certificate in Form-1 from the competent officer."
+              - "<strong>OBC:</strong> certificate in the prescribed form; if issued more than 3 years before 30 April of the admission year, also a fresh income certificate or a self-declaration in Form-10."
+            source: dte-rb
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Upload at registration, show at reporting"
+        parts:
+          - list:
+              - "Class 10 marks sheet (and ITI certificate for lateral entry)."
+              - "MP domicile certificate."
+              - "Caste (Form-1), OBC non-creamy-layer / income, EWS certificates."
+              - "Sainik, freedom-fighter, NCC, disability and Jammu &amp; Kashmir migrant certificates where claimed."
+              - "The category certificate must be uploaded at registration and shown at the institution when reporting."
+            source: dte-rb
+      - id: pay
+        nav: "Costs &amp; support"
+        eyebrow: "Costs &amp; support"
+        heading: "Fee waiver"
+        parts:
+          - p: "Under the Tuition Fee Waiver scheme, MP students with family income up to ₹8 lakh a year pay no tuition on the 5% supernumerary seats; all other fees are paid by the student."
+            source: dte-rb
+      - id: posting
+        nav: "After counselling"
+        eyebrow: "After the counselling"
+        heading: "Admission"
+        parts:
+          - p: "Allotted candidates report to the institution with original documents; any later finding of ineligibility cancels the provisional admission (DTE notices of September–October 2026 deal with such cases and with candidates admitted in more than one place)."
+            source: dte-portal
+          - links:
+              - { label: "Diploma courses guide", url: "diploma.html" }
+    sources:
+      - { id: dte-rb, name: "DTE MP — Admission rule book 2026-27 for technical courses (published under the PPT and B.E. links, Hindi)", url: "https://dte.mponline.gov.in/Quick%20Links/OnlineCounselling/2026/RuleBook/PPT.pdf", covers: "courses, institution types, seat types, reservation, EWS, TFW, NCC, eligibility, merit basis, counselling order, Ambedkar / Eklavya benefits, certificates", checked: 2026-10-18 }
+      - { id: dte-portal, name: "DTE MP — Online counselling home page (notices of Sep–Oct 2026)", url: "https://dte.mponline.gov.in/portal/services/onlinecounselling/counshomepage/home.aspx", covers: "rule books, notices on ineligible and duplicate admissions", checked: 2026-10-18 }
+
+  # ------------------------------------------------------------------ DTE MP COUNSELLING (B.E. etc.)
+  - slug: dte-mp
+    group: academic
+    short: "DTE MP Counselling — B.E. / B.Tech, B.Arch, MBA, MCA"
+    body: "Directorate of Technical Education, Madhya Pradesh"
+    card: "DTE MP's online counselling fills state seats in B.E. / B.Tech (on JEE Main rank), B.Arch (NATA / JEE Paper-2 + qualifying marks), MBA (CMAT), MCA, M.Tech (GATE), pharmacy and other technical courses."
+    card_facts: ["B.E.: JEE Main rank", "45% in 3 subjects (40% MP reserved)", "AICTE admissions closed 14 Sep 2026"]
+    eyebrow: "DTE MP · Technical counselling"
+    title: "DTE MP Counselling 2026-27 — B.E. / B.Tech on JEE Main, B.Arch, MBA, MCA, M.Tech Rules"
+    lede: "The Directorate of Technical Education, Madhya Pradesh, runs one online counselling for state seats in engineering, architecture, management, computer applications and pharmacy. This page follows the DTE MP admission rule book 2026-27 and the counselling notices of 2026."
+    facts:
+      - { label: "B.E. / B.Tech merit", value: "JEE Main common merit list", source: dte-rb }
+      - { label: "B.E. eligibility", value: "12th with PCM-type subjects, 45% (40% MP reserved)", source: dte-rb }
+      - { label: "B.Arch merit", value: "50% NATA / JEE Paper-2 + 50% qualifying marks", source: dte-rb }
+      - { label: "2026 AICTE deadline", value: "Admissions closed 14 Sep 2026", source: dte-portal }
+    official:
+      - { label: "DTE MP online counselling", url: "https://dte.mponline.gov.in/portal/services/onlinecounselling/counshomepage/home.aspx" }
+      - { label: "B.E. rule book 2026-27 (PDF)", url: "https://dte.mponline.gov.in/Quick%20Links/OnlineCounselling/2026/RuleBook/BE.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "One counselling, many courses"
+        parts:
+          - table:
+              caption: "Merit basis by course"
+              head: ["Course", "Merit basis"]
+              rows:
+                - ["B.E. / B.Tech", "JEE (Main) common merit list; then qualifying-exam marks if seats remain"]
+                - ["B.Arch", "50% NATA / JEE Main Paper-2 score + 50% qualifying-exam marks"]
+                - ["MBA", "CMAT common merit list / qualifying exam"]
+                - ["M.Tech / M.E.", "Valid GATE score / qualifying exam"]
+                - ["M.Pharm", "GPAT score / qualifying exam"]
+                - ["M.Plan / M.Arch", "GATE / NET score; PGETA for M.Arch"]
+                - ["Other courses", "Marks of the qualifying exam"]
+            source: dte-rb
+          - p: "DTE kept all institutes and help centres open on 14 September 2026, the last date for admission to AICTE courses, and later issued revised institution-level counselling schedules for pharmacy (10 October 2026) and COA courses."
+            source: dte-portal
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Eligibility"
+        heading: "B.E. / B.Tech and lateral entry"
+        parts:
+          - list:
+              - "<strong>B.E. / B.Tech:</strong> Class 12 with physics and mathematics together with one of chemistry, computer science, electronics, IT, biology, informatics practices, biotechnology, technical vocational subject, agriculture, engineering graphics, business studies or entrepreneurship — at least 45% in the three subjects (40% for MP's SC, ST and non-creamy-layer OBC)."
+              - "Agriculture engineering also admits Class 12 agriculture-stream students (three agriculture subjects)."
+              - "Only candidates with a positive composite JEE (Main) score from NTA are eligible on JEE rank."
+              - "Branch-wise subject rules apply: core branches such as civil, mechanical, chemical, mining and aeronautical need physics, chemistry and maths; computer and AI branches need physics and maths plus one listed subject."
+              - "<strong>Lateral entry (B.E. 2nd year):</strong> a regular engineering / architecture diploma, among other routes."
+            source: dte-rb
+      - id: scheme
+        nav: "Counselling"
+        eyebrow: "Counselling process"
+        heading: "Order of allotment"
+        parts:
+          - list:
+              - "First, 5% NRI seats (where approved); unfilled NRI seats join the MP residents' seats."
+              - "MP residents' seats: a reserved candidate with Unreserved-level merit gets an Unreserved seat first; unfilled reserved seats move ST ↔ SC, then to OBC, then to Unreserved."
+              - "After the merit round, further rounds on entrance rank and / or qualifying marks may be held separately or together."
+              - "Technical Stream (TS): MP residents with a 3-year engineering diploma from an MP university, who also passed Class 12 with physics and maths, are eligible for B.E. / B.Tech TS seats."
+            source: dte-rb
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fees"
+        heading: "Fees and waivers"
+        parts:
+          - list:
+              - "Tuition Fee Waiver: 5% supernumerary seats in every course for MP residents with family income up to ₹8 lakh a year; only tuition is waived."
+              - "Private-institution fees are regulated by the Admission and Fee Regulatory Committee (AFRC)."
+            source: dte-rb
+          - note: "The rule book does not print the counselling registration fee, so none is shown here."
+      - id: reservation
+        nav: "Reservation &amp; Certificates"
+        eyebrow: "Reservation &amp; certificates"
+        heading: "Seat categories"
+        parts:
+          - list:
+              - "Government and aided institutions: 5% All-India seats and up to 5% NRI seats; the rest for MP's original residents."
+              - "Private institutions: 10% Institutional Preference Seats, 5% NRI; the rest in the General Pool, where Unreserved seats are open to other states' candidates too."
+              - "MP residents: SC 16%, ST 20%, OBC (non-creamy layer) 14%; EWS 10% (AICTE, PCI and COA courses; COA only for B.Arch)."
+              - "Special seats: University Institute of Technology RGPV Shivpuri keeps 5% of seats for NTPC employees and wards; Jammu &amp; Kashmir migrant and J&amp;K resident seats; NCC 'C' certificate 1% in PG and Pharm-D, NCC 'B' 2% in diploma / UG."
+              - "OBC certificates more than 3 years older than 30 April of the admission year need a fresh income certificate or a Form-10 self-declaration."
+            source: dte-rb
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "What to upload"
+        parts:
+          - list:
+              - "JEE Main score card (or NATA / CMAT / GATE / GPAT as relevant)."
+              - "Class 10 and Class 12 (or diploma) marks sheets."
+              - "MP domicile, caste (Form-1), OBC (with income proof), EWS and TFW income certificates."
+              - "Category certificates are uploaded at registration and shown at the institution on reporting."
+            source: dte-rb
+      - id: pay
+        nav: "Costs &amp; support"
+        eyebrow: "Costs &amp; support"
+        heading: "Tuition fee waiver"
+        parts:
+          - p: "TFW students (MP residents, family income up to ₹8 lakh) study without paying tuition for the whole course but cannot change branch or institute during the course."
+            source: dte-rb
+      - id: posting
+        nav: "After counselling"
+        eyebrow: "After the counselling"
+        heading: "Reporting and cancellations"
+        parts:
+          - p: "In 2026 DTE published notices on candidates found ineligible after provisional institution-level admission and on candidates admitted at more than one place in the off-campus counselling; such admissions are cancelled."
+            source: dte-portal
+          - links:
+              - { label: "JEE Main guide", url: "jee-main.html" }
+    sources:
+      - { id: dte-rb, name: "DTE MP — Admission rule book 2026-27 for technical courses (B.E. link, Hindi)", url: "https://dte.mponline.gov.in/Quick%20Links/OnlineCounselling/2026/RuleBook/BE.pdf", covers: "merit basis by course, B.E. eligibility, subject equivalence, counselling order, TS, seat types, reservation, EWS, TFW, special seats, certificates", checked: 2026-10-18 }
+      - { id: dte-portal, name: "DTE MP — Online counselling home page (notices of Aug–Oct 2026)", url: "https://dte.mponline.gov.in/portal/services/onlinecounselling/counshomepage/home.aspx", covers: "AICTE admission last date 14 Sep 2026; revised schedules; ineligible / duplicate admissions", checked: 2026-10-18 }

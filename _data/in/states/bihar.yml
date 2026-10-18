@@ -1,0 +1,700 @@
+# Bihar State Exam & Career Cockpit — one data sheet for the cockpit (state/bihar/index.html) and every exam
+# page under state/bihar/. Rendered by _includes/state-cockpit.html and _includes/state-exam.html; checked by
+# scripts/check-in-data.mjs (state sheets block).
+#
+# Rules for this sheet (same as the other state sheets):
+#   - Every fact part carries `source: <id>`; the id must be listed under that exam's `sources`.
+#   - Sources are the official files themselves (read 2026-10-18): the BPSC Integrated 72nd CCE advertisement,
+#     its notices and corrigenda; the BSSC 4th Graduate Level advertisement 05/25 and its corrigenda; the CSBC
+#     constable advertisement 01/2025 and final-result notice; the BPSSC Sub-Inspector advertisement 05/2025 and
+#     its notices; and the BCECEB DCECE-2026 prospectus. All are Hindi PDFs (most of them scans, read page by page).
+#     Nothing comes from coaching or news sites. Where no file we opened states a value (in-hand pay, BSSC exam
+#     dates, the new 72nd CCE prelim date), the page says so instead of guessing.
+#   - Section ids are the same on every exam page: overview, eligibility, scheme, fees, reservation,
+#     documents, pay, posting (+ sources, drawn automatically).
+state:
+  id: bihar
+  name: Bihar
+  checked: 2026-10-18
+
+cockpit:
+  eyebrow: "State Exam &amp; Career Cockpit · Bihar"
+  title: "Bihar Exam &amp; Career Cockpit"
+  intro:
+    - "Every major Bihar government recruitment and diploma-admission route on one screen: the BPSC Integrated Combined Competitive Examination (72nd CCE), the BSSC Graduate Level Combined Competitive Examination, Bihar Police constable (CSBC) and Sub-Inspector (BPSSC) recruitment, and BCECEB's DCECE for polytechnic and para-medical diplomas. Each page is built only from the official advertisement or prospectus, and every fact links back to that file."
+    - "Three Bihar rules decide more results than any other. Caste reservation, the 35% horizontal reservation for women and the 4% reservation for persons with disabilities are given only to permanent residents (mool niwasi) of Bihar — candidates from other states compete as Unreserved. BC and EBC candidates need a non-creamy-layer certificate from their home circle officer. And a married woman's caste and non-creamy-layer certificates must be issued in her father's name, not her husband's."
+  facts:
+    - { label: "Recruitment nodes", value: "BPSC 72nd CCE · BSSC CGL · Bihar Police" }
+    - { label: "Admission node", value: "BCECEB DCECE (polytechnic, para-medical)" }
+    - { label: "Watch", value: "72nd CCE prelim postponed twice — new date awaited" }
+    - { label: "Last checked", value: "18 Oct 2026" }
+  groups:
+    - id: civil
+      eyebrow: "Civil recruitment &amp; administrative"
+      heading: "Government recruitment exams"
+      intro: "Senior administrative and police officer posts through the Bihar Public Service Commission (BPSC), graduate-level Group-C posts through the Bihar Staff Selection Commission (BSSC), and Bihar Police constables and Sub-Inspectors through the Central Selection Board of Constable (CSBC) and the Bihar Police Subordinate Services Commission (BPSSC)."
+      exams: [bpsc, bssc, police]
+    - id: academic
+      eyebrow: "Academic &amp; diploma admissions"
+      heading: "Admission routes after Class 10 and 12"
+      intro: "Government polytechnic engineering diplomas and para-medical courses through the Diploma-Certificate Entrance Competitive Examination (DCECE) run by the Bihar Combined Entrance Competitive Examination Board (BCECEB)."
+      exams: [bceceb]
+  compare_note: "Fees, age limits and dates are from the latest notice of each body. They change every cycle, so always open the current notice before applying."
+  portals_note: "BPSC applications run on its own portal linked from bpsc.bihar.gov.in; BSSC applications on onlinebssc.com (linked from bssc.bihar.gov.in); constable and Sub-Inspector applications on apply-csbc.com and apply-bpssc.com, linked from csbc.bihar.gov.in and bpssc.bihar.gov.in; DCECE forms on the BCECEB portal at admissions.nic.in, linked from bceceboard.bihar.gov.in. Only use these official addresses."
+  portals:
+    - { label: "Bihar Public Service Commission (BPSC)", url: "https://bpsc.bihar.gov.in/" }
+    - { label: "Bihar Staff Selection Commission (BSSC)", url: "https://bssc.bihar.gov.in/" }
+    - { label: "Central Selection Board of Constable (CSBC)", url: "https://csbc.bihar.gov.in/" }
+    - { label: "Bihar Police Subordinate Services Commission (BPSSC)", url: "https://bpssc.bihar.gov.in/" }
+    - { label: "BCECE Board", url: "https://bceceboard.bihar.gov.in/" }
+
+exams:
+  # ------------------------------------------------------------------ BPSC 72nd CCE
+  - slug: bpsc
+    group: civil
+    short: "BPSC Integrated 72nd Combined Competitive Exam"
+    body: "Bihar Public Service Commission"
+    card: "Bihar's state civil services exam: Bihar Administrative Service, Deputy Superintendent of Police, State Tax Assistant Commissioner, Revenue Officer and 18 other services, plus CDPO, Financial Administrative Officer and Sub-divisional Protection Officer — through one prelim, a mains and a 120-mark interview."
+    card_facts: ["1,230 posts notified", "Age 20/21/22 to 37 (40 / 42 reserved)", "Prelim postponed — date awaited"]
+    eyebrow: "BPSC · State civil services"
+    title: "BPSC Integrated 72nd CCE 2026 — 1,230 Posts, Prelim Postponed"
+    lede: "The Integrated 72nd Combined (Preliminary) Competitive Examination fills Bihar's senior administrative posts. This page follows the BPSC advertisement of 5 May 2026, its corrigenda, and the two postponement notices of July and October 2026."
+    facts:
+      - { label: "Posts", value: "1,230 (1,077 in Table-I + 153 in Table-II)", source: cce-notice }
+      - { label: "Qualification", value: "Any bachelor's degree", source: cce-advt }
+      - { label: "Age (1 Aug 2026)", value: "Up to 37 UR men · 40 UR women, BC, EBC · 42 SC/ST", source: cce-advt }
+      - { label: "Fee", value: "₹100 per exam, all categories", source: cce-advt }
+    official:
+      - { label: "BPSC website", url: "https://bpsc.bihar.gov.in/" }
+      - { label: "72nd CCE advertisement (PDF)", url: "https://bpsc.bihar.gov.in/wp-content/uploads/BPSC_content/Notices/Advertisement-Integrated-72th-CCE-PT_BPSC-20260505-p1euvo.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "The integrated 72nd CCE"
+        parts:
+          - p: "BPSC received requisitions for 1,230 posts from the General Administration Department and other departments and advertised them together as the Integrated 72nd Combined (Preliminary) Competitive Examination. Online applications ran from 7 May to 31 May 2026."
+            source: cce-notice
+          - table:
+              caption: "Largest services in Table-I (pay level in brackets)"
+              head: ["Post and department", "Pay level", "Posts"]
+              rows:
+                - ["Revenue Officer (Bihar Revenue Service), Revenue &amp; Land Reforms", "Level-7", "365"]
+                - ["Co-operative Extension Officer, Co-operative Dept.", "Level-7", "130"]
+                - ["Sub-Divisional Officer / Senior Deputy Collector (Bihar Administrative Service)", "Level-9", "100"]
+                - ["State Tax Assistant Commissioner (Bihar Finance Service)", "Level-9", "76"]
+                - ["Block Panchayat Raj Officer (Bihar Panchayat Service)", "Level-7", "70"]
+                - ["Rural Development Officer (Bihar Rural Development Service)", "Level-7", "65"]
+                - ["Labour Enforcement Officer", "Level-7", "56"]
+                - ["Municipal Executive Officer", "Level-7", "54"]
+                - ["Supply Inspector (Bihar Supply Service)", "Level-7", "31"]
+                - ["Deputy Superintendent of Police, Home (Police) Dept.", "Level-9", "22"]
+                - ["Total Table-I (22 services)", "", "1,077"]
+            source: cce-advt
+          - table:
+              caption: "Table-II posts (same prelim, separate optional subject in mains)"
+              head: ["Post", "Pay level", "Posts"]
+              rows:
+                - ["Child Development Project Officer, Social Welfare Dept.", "Level-9", "20"]
+                - ["Financial Administrative Officer (Bihar Financial Administration Service)", "Level-9", "32"]
+                - ["Sub-divisional Protection Officer, Social Welfare Dept. (women only)", "Level-9", "101"]
+            source: cce-advt
+          - p: "Two corrigenda later cut the numbers: all 44 Sugarcane Officer vacancies were deleted (6 May 2026) and two Deputy Superintendent of Police (BPS) vacancies were removed (3 September 2026)."
+            source: cce-cor
+          - warn: "The prelim was first set for 26 July 2026 and postponed by a notice of 18 July 2026; it was then set for 25 October 2026 and postponed again by a notice of 12 October 2026. No new date had been announced when we checked."
+            source: cce-post
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "Degree, age and the five-attempt rule for government servants"
+        parts:
+          - list:
+              - "<strong>Qualification (72nd CCE):</strong> a bachelor's degree or equivalent from a recognised university."
+              - "<strong>CDPO:</strong> a degree in one of home science, psychology, sociology or labour &amp; social welfare (the same subject is taken as the mains optional). <strong>Financial Administrative Officer:</strong> a degree in commerce, economics, mathematics or statistics. <strong>Sub-divisional Protection Officer:</strong> a degree in psychology or law."
+              - "<strong>Minimum age on 1 August 2026:</strong> 20 years for DSP, 21 for most Level-7 services and 22 for the Level-9 services (as listed in the advertisement)."
+              - "<strong>Date of birth:</strong> only the Matriculation or equivalent certificate is accepted."
+            source: cce-advt
+          - table:
+              caption: "Maximum age on 1 August 2026"
+              head: ["Category", "Maximum age"]
+              rows:
+                - ["Unreserved men", "37"]
+                - ["Unreserved women; BC and EBC men and women", "40"]
+                - ["SC and ST men and women", "42"]
+            source: cce-advt
+          - list:
+              - "<strong>Persons with disabilities:</strong> 10 years more."
+              - "<strong>Ex-servicemen:</strong> 3 years plus the period of defence service, provided the actual age is not above 57."
+              - "<strong>Bihar government servants:</strong> 5 years more, but only up to a total of five attempts at BPSC exams after joining service (counted from 12 December 2022)."
+              - "There is no attempt limit for other candidates (limit removed in 2003)."
+            source: cce-advt
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme"
+        heading: "Prelim with five options, mains, then a 120-mark interview"
+        parts:
+          - list:
+              - "<strong>Prelim:</strong> one General Studies paper, 150 marks, 2 hours, objective with five options (A to E). Option E means 'not attempted'."
+              - "<strong>Negative marking:</strong> one-third mark is deducted for each wrong answer, and also for each question where none of the five options is marked."
+              - "<strong>Prelim qualifying marks:</strong> 40% general, 36.5% BC, 34% EBC, 32% SC/ST, women and persons with disabilities."
+              - "Ten times the number of vacancies are called to the mains, category-wise."
+            source: cce-advt
+          - table:
+              caption: "Mains (written) for the 72nd CCE services"
+              head: ["Paper", "Marks", "Time", "Counted in merit?"]
+              rows:
+                - ["General Hindi", "100", "3 h", "No — 30% needed to qualify"]
+                - ["General Studies Paper I", "300", "3 h", "Yes"]
+                - ["General Studies Paper II", "300", "3 h", "Yes"]
+                - ["Essay", "300", "3 h", "Yes"]
+                - ["One optional subject (100 MCQs)", "100", "2 h", "No — qualifying only"]
+                - ["Personality test (interview)", "120", "", "Yes"]
+            source: cce-advt
+          - note: "Final merit = 900 mains marks + 120 interview marks = 1,020. For CDPO, FAO and Sub-divisional Protection Officer there is no essay; instead a 300-mark descriptive optional is counted — home science, psychology, sociology or labour &amp; social welfare (CDPO), commerce, economics, mathematics or statistics (FAO), psychology or law (Sub-divisional Protection Officer). Candidates are called for interview at 2.5 times the vacancies."
+            source: cce-advt
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "Application fee"
+        parts:
+          - table:
+              head: ["Candidate", "Fee"]
+              rows:
+                - ["Every candidate, every exam (72nd CCE / CDPO / FAO / Sub-divisional Protection Officer)", "₹100"]
+                - ["Extra biometric fee if no Aadhaar number is entered", "₹200 per exam"]
+            source: cce-advt
+          - note: "A separate application and fee are collected later from candidates who pass the prelim. A ₹16 fee is paid in cash at the medical examination."
+            source: cce-advt
+      - id: reservation
+        nav: "Reservation &amp; Certificates"
+        eyebrow: "Reservation &amp; certificates"
+        heading: "Domicile, NCL, EWS and women's reservation"
+        parts:
+          - list:
+              - "<strong>Only for Bihar's permanent residents:</strong> candidates from other states get no reservation; the permanent address given in the form is treated as the domicile."
+              - "<strong>SC / ST:</strong> caste certificate and permanent residence (domicile) certificate."
+              - "<strong>BC / EBC:</strong> non-creamy-layer certificate issued by the circle officer / revenue officer of the home circle, plus a permanent residence certificate."
+              - "<strong>Married women:</strong> caste and non-creamy-layer certificates must be issued in the father's name and address, not the husband's."
+              - "<strong>EWS (10%):</strong> income and asset certificate in Annexure-I (Prapatra-I) of GAD notification 2622 (26 Feb 2019), valid for one year from issue."
+              - "<strong>Women (35%, horizontal):</strong> only for women who are permanent residents of Bihar (GAD resolution 12575, 9 July 2025)."
+              - "<strong>Persons with disabilities (4%):</strong> only for Bihar's permanent residents with a benchmark disability."
+              - "<strong>Freedom fighters' grandchildren (2%, horizontal):</strong> certificate from the District Magistrate in the prescribed form; a successor identity card is not accepted."
+            source: cce-advt
+          - note: "Every certificate must be dated on or before the last date of the online application; certificates issued later are not accepted."
+            source: cce-advt
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "What to upload with the prelim form"
+        parts:
+          - list:
+              - "Matriculation certificate (date of birth)."
+              - "Graduation degree or provisional certificate."
+              - "Caste certificate, non-creamy-layer certificate, EWS income and asset certificate and permanent residence certificate, as applicable."
+              - "Freedom-fighter grandchild certificate, disability certificate, age-relaxation certificate and no-objection certificate, if claimed."
+              - "Originals of every uploaded certificate at the interview."
+            source: cce-advt
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Pay levels"
+        parts:
+          - table:
+              head: ["Posts", "Pay level (7th CPC matrix)"]
+              rows:
+                - ["BAS, DSP, State Tax Asst. Commissioner, CDPO, FAO and other Group-A/B services", "Level-9"]
+                - ["Revenue Officer, Block Panchayat Raj Officer, Rural Development Officer, Supply Inspector and similar", "Level-7"]
+                - ["Block Minority Welfare Officer", "Level-6"]
+            source: cce-advt
+          - note: "The advertisement prints only the pay level of each post, not a rupee figure or in-hand salary, so none is shown here. In-hand pay adds dearness allowance and HRA and subtracts deductions."
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Choosing a service"
+        parts:
+          - p: "Candidates rank the services they want in the mains form; a post not listed there cannot be claimed later. Allotment follows final merit, the service preference and the vacancies available, after a medical examination by the Commission's medical board."
+            source: cce-advt
+    sources:
+      - { id: cce-advt, name: "BPSC — Advertisement, Integrated 72nd Combined (Preliminary) Competitive Examination (5 May 2026, Hindi)", url: "https://bpsc.bihar.gov.in/wp-content/uploads/BPSC_content/Notices/Advertisement-Integrated-72th-CCE-PT_BPSC-20260505-p1euvo.pdf", covers: "posts and pay levels, qualification, age, relaxations, reservation and certificates, fee, prelim and mains scheme, merit", checked: 2026-10-18 }
+      - { id: cce-notice, name: "BPSC — Important notice, Integrated 72nd CCE (5 May 2026)", url: "https://bpsc.bihar.gov.in/wp-content/uploads/BPSC_content/Notices/Important-Notice-Integrated-72th-CCE-PT_BPSC-20260505-tc547k.pdf", covers: "1,230 posts; application 7–31 May 2026", checked: 2026-10-18 }
+      - { id: cce-cor, name: "BPSC — Corrigenda, Integrated 72nd CCE: 44 Sugarcane Officer vacancies deleted (6 May 2026); 2 DSP vacancies reduced (3 Sep 2026)", url: "https://bpsc.bihar.gov.in/wp-content/uploads/BPSC_content/Notices/Corrigendum-72nd-CCE-Reduction-of-2-posts-of-BPS_BPSC-20260903-23e57k.pdf", covers: "vacancy reductions", checked: 2026-10-18 }
+      - { id: cce-post, name: "BPSC — Notices postponing the 72nd CCE prelim (18 Jul 2026 and 12 Oct 2026)", url: "https://bpsc.bihar.gov.in/wp-content/uploads/BPSC_content/Notices/Important-Notice-Integrated-72nd-CCE-Pre-Postponed_BPSC-20261012-cbw85x.pdf", covers: "prelim of 26 Jul and 25 Oct 2026 postponed", checked: 2026-10-18 }
+
+  # ------------------------------------------------------------------ BSSC GRADUATE LEVEL
+  - slug: bssc
+    group: civil
+    short: "BSSC 4th Graduate Level Combined Exam (CGL)"
+    body: "Bihar Staff Selection Commission"
+    card: "Graduate-level Group-C posts of the Bihar government — Assistant Section Officer, Planning Assistant, Junior Statistical Assistant, Data Entry Operator and Auditor — through an open-book prelim and a mains with a qualifying Hindi paper."
+    card_facts: ["Advt 05/25: 1,823 posts", "Age 21–37 (40 / 42 reserved)", "Open-book prelim, +4 / −1"]
+    eyebrow: "BSSC · Graduate level"
+    title: "BSSC 4th Graduate Level Combined Competitive Exam (Advt 05/25) — 1,823 Posts"
+    lede: "The Bihar Staff Selection Commission's 4th Graduate Level Combined Competitive Examination fills graduate-level posts across Bihar government departments. This page follows Advertisement 05/25 (4 August 2025) and its corrigenda of 27 September and 21 November 2025."
+    facts:
+      - { label: "Posts", value: "1,481 + 342 added = 1,823", source: bssc-cor2 }
+      - { label: "Qualification", value: "Graduation (subject rules for some posts)", source: bssc-advt }
+      - { label: "Age (1 Aug 2025)", value: "21 to 37 UR men · 40 UR women, BC, EBC · 42 SC/ST", source: bssc-advt }
+      - { label: "Fee", value: "₹540 · ₹135 Bihar SC/ST, Bihar women, PwD", source: bssc-advt }
+    official:
+      - { label: "BSSC website", url: "https://bssc.bihar.gov.in/" }
+      - { label: "Advertisement 05/25 (PDF)", url: "https://bssc.bihar.gov.in/Advertisement/0525_ADVT.pdf" }
+      - { label: "BSSC online application", url: "https://www.onlinebssc.com/" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "Advertisement 05/25"
+        parts:
+          - table:
+              caption: "Posts in Advertisement 05/25 (as first published)"
+              head: ["Post", "Department", "Pay level", "Posts"]
+              rows:
+                - ["Assistant Section Officer", "General Administration Dept.", "Level-7", "1,064"]
+                - ["Planning Assistant (Yojana Sahayak)", "Planning &amp; Development Dept.", "Level-7", "88"]
+                - ["Junior Statistical Assistant", "Labour Resources Dept.", "Level-7", "5"]
+                - ["Data Entry Operator Grade-C", "Finance Dept.", "Level-6", "1"]
+                - ["Auditor", "Audit Directorate, Finance Dept.", "Level-5", "125"]
+                - ["Auditor (Co-operative Societies)", "Co-operative Dept.", "Level-5", "198"]
+                - ["Total", "", "", "1,481"]
+            source: bssc-advt
+          - p: "On 21 November 2025 the Commission added 342 more Assistant Section Officer posts received from the General Administration Department, taking that post to 1,406 and the advertisement to 1,823 posts."
+            source: bssc-cor2
+          - p: "Online registration ran from 18 August 2025. The fee deadline was finally extended to 21 November 2025 and the application deadline to 24 November 2025, with an edit window from 31 October to 24 November 2025."
+            source: bssc-ext
+          - note: "The files we read do not give a prelim date; it will be announced on bssc.bihar.gov.in."
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "Graduation and the age table"
+        parts:
+          - list:
+              - "<strong>Assistant Section Officer, Planning Assistant:</strong> graduation from a recognised university."
+              - "<strong>Junior Statistical Assistant:</strong> graduation with mathematics, economics, commerce or statistics."
+              - "<strong>Data Entry Operator:</strong> graduation plus PGDCA, BCA / B.Sc (IT) or equivalent; B.Tech / B.E. in computer science or IT also accepted."
+              - "<strong>Auditor (Audit Directorate):</strong> graduation in commerce, economics, statistics or mathematics. <strong>Auditor (Co-operative):</strong> graduation with mathematics, or commerce graduation."
+            source: bssc-advt
+          - table:
+              caption: "Age on 1 August 2025 (minimum 21 for everyone)"
+              head: ["Category", "Maximum age"]
+              rows:
+                - ["Unreserved men", "37"]
+                - ["BC and EBC men and women", "40"]
+                - ["Unreserved women", "40"]
+                - ["SC and ST men and women", "42"]
+                - ["Persons with disabilities (all categories)", "10 years more"]
+            source: bssc-advt
+          - list:
+              - "Candidates who were within the age limit on 1 August 2022 may also apply."
+              - "Ex-servicemen: 3 years plus defence service, actual age not above 53."
+              - "Contract employees: the period of contract service is relaxed from the upper age limit (corrigendum of 27 September 2025)."
+            source: bssc-cor1
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme"
+        heading: "Open-book prelim, then mains with qualifying Hindi"
+        parts:
+          - list:
+              - "<strong>Prelim</strong> (held if more than 40,000 apply): one general knowledge paper of 150 MCQs, 2 hours 15 minutes, in Hindi and English — general studies, general science &amp; mathematics, and mental ability."
+              - "<strong>Marking:</strong> +4 for each correct answer and −1 for each wrong answer."
+              - "<strong>Open book:</strong> candidates may take one textbook per section (general studies, mathematics, general science); only NCERT, BSEB, ICSE and other board textbooks are allowed — no guides, photocopies or notes."
+              - "Five times the category-wise vacancies go to the mains; a separate advertisement is issued for the mains."
+              - "<strong>Mains:</strong> a General Hindi paper (only candidates scoring 30% or more have the second paper evaluated) and a main paper on general studies, general science &amp; mathematics and mental ability."
+            source: bssc-advt
+          - table:
+              caption: "Minimum qualifying marks (prelim and mains)"
+              head: ["Category", "Minimum"]
+              rows:
+                - ["Unreserved", "40%"]
+                - ["Backward Class", "36.5%"]
+                - ["Extremely Backward Class", "34%"]
+                - ["SC / ST, women, persons with disabilities", "32%"]
+            source: bssc-advt
+          - note: "Contract employees regularly appointed through Bihar's contract-employment orders get weightage of 5 marks per year of satisfactory contract service, up to 25 marks, for the same post."
+            source: bssc-cor1
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "Examination fee"
+        parts:
+          - table:
+              head: ["Candidate", "Fee"]
+              rows:
+                - ["General, BC and EBC men", "₹540"]
+                - ["SC / ST (Bihar permanent residents)", "₹135"]
+                - ["Persons with disabilities (all categories)", "₹135"]
+                - ["Women of all categories (Bihar permanent residents only)", "₹135"]
+                - ["Candidates from outside Bihar (men and women)", "₹540"]
+            source: bssc-advt
+          - note: "Processing charge and tax are extra; the fee is paid online only and never refunded."
+            source: bssc-advt
+      - id: reservation
+        nav: "Reservation &amp; Certificates"
+        eyebrow: "Reservation &amp; certificates"
+        heading: "Bihar domicile decides every reservation"
+        parts:
+          - list:
+              - "Caste and gender reservation is given only to permanent residents of Bihar; others are treated as Unreserved."
+              - "SC / ST candidates upload a caste certificate and a permanent residence (domicile) certificate with the mains application."
+              - "BC / EBC candidates upload a non-creamy-layer certificate from the home-circle officer, and a permanent residence certificate."
+              - "35% horizontal reservation for women applies only to women who are permanent residents of Bihar; benchmark-disability reservation only to Bihar's permanent residents."
+            source: bssc-advt
+          - table:
+              caption: "Assistant Section Officer — 1,406 posts after the November 2025 corrigendum"
+              head: ["UR", "SC", "ST", "EBC", "BC", "BC women", "EWS", "Total"]
+              rows:
+                - ["676", "203", "20", "163", "187", "25", "132", "1,406"]
+            source: bssc-cor2
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "What to keep ready"
+        parts:
+          - list:
+              - "Matriculation certificate (date of birth) and graduation marks sheets / degree."
+              - "Caste, non-creamy-layer, EWS and permanent residence certificates."
+              - "PGDCA / BCA / B.Sc (IT) certificate for Data Entry Operator."
+              - "Contract-service experience certificate in the prescribed format, signed by the department head / secretary / director / District Magistrate, plus the contract agreement (if claiming weightage)."
+            source: bssc-cor1
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Pay levels"
+        parts:
+          - table:
+              head: ["Post", "Pay level"]
+              rows:
+                - ["Assistant Section Officer, Planning Assistant, Junior Statistical Assistant", "Level-7"]
+                - ["Data Entry Operator Grade-C", "Level-6"]
+                - ["Auditor (both departments)", "Level-5"]
+            source: bssc-advt
+          - note: "The advertisement gives only pay levels; no rupee figure or in-hand amount is printed, so none is shown here."
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Where the posts are"
+        parts:
+          - p: "Assistant Section Officers work in the Bihar secretariat and attached offices under the General Administration Department; Auditors serve the Finance Department's Audit Directorate and the Co-operative Department; Planning Assistants serve the Planning &amp; Development Department."
+            source: bssc-advt
+    sources:
+      - { id: bssc-advt, name: "BSSC — Advertisement 05/25, 4th Graduate Level Combined Competitive Examination (4 Aug 2025, Hindi)", url: "https://bssc.bihar.gov.in/Advertisement/0525_ADVT.pdf", covers: "posts, pay levels, qualification, age, exam nature, open-book prelim, mains, qualifying marks, fee, reservation", checked: 2026-10-18 }
+      - { id: bssc-cor1, name: "BSSC — Corrigendum, Advt 05/25 (27 Sep 2025)", url: "https://bssc.bihar.gov.in/Advertisement/3926_CGL_notice.pdf", covers: "contract-employee weightage and age relaxation; ASO category table", checked: 2026-10-18 }
+      - { id: bssc-cor2, name: "BSSC — Corrigendum, Advt 05/25 (21 Nov 2025)", url: "https://bssc.bihar.gov.in/Advertisement/05_25_4792.pdf", covers: "342 ASO posts added; 1,406 ASO posts by category", checked: 2026-10-18 }
+      - { id: bssc-ext, name: "BSSC — Notice extending fee and application dates for Advt 05/25 and 06/25 (14 Oct 2025)", url: "https://bssc.bihar.gov.in/Advertisement/4248_notice.pdf", covers: "fee till 21 Nov 2025; application till 24 Nov 2025; edit window", checked: 2026-10-18 }
+
+  # ------------------------------------------------------------------ BIHAR POLICE
+  - slug: police
+    group: civil
+    short: "Bihar Police Constable (CSBC) &amp; Sub-Inspector (BPSSC)"
+    body: "Central Selection Board of Constable · Bihar Police Subordinate Services Commission"
+    card: "Constables for district police and the Bihar Special Armed Police through CSBC (19,838 posts in Advt 01/2025), and Police Sub-Inspectors through BPSSC (1,799 posts in Advt 05/2025) — written tests, physical tests and a Bihar-domicile reservation system."
+    card_facts: ["Constable: 19,838 posts · 12th pass", "SI: 1,799 posts · graduate", "Women 155 cm · 48 kg"]
+    eyebrow: "Bihar Police · Constable &amp; Sub-Inspector"
+    title: "Bihar Police Constable (CSBC 01/2025) and Sub-Inspector (BPSSC 05/2025) — Eligibility, Physical Tests, Fees"
+    lede: "Bihar Police recruits constables through the Central Selection Board of Constable (CSBC) and Sub-Inspectors through the Bihar Police Subordinate Services Commission (BPSSC). This page follows CSBC Advertisement 01/2025 (final result 27 May 2026) and BPSSC Advertisement 05/2025, whose mains of 27 May 2026 was cancelled on 23 September 2026."
+    facts:
+      - { label: "Constable posts", value: "19,838 (Level-3)", source: csbc-advt }
+      - { label: "SI posts", value: "1,799 (Level-6)", source: si-advt }
+      - { label: "Constable age", value: "18–25 (BC/EBC 27–28 · SC/ST 30)", source: csbc-advt }
+      - { label: "SI status", value: "Mains cancelled 23 Sep 2026 — new date awaited", source: si-cancel }
+    official:
+      - { label: "CSBC website", url: "https://csbc.bihar.gov.in/" }
+      - { label: "Constable Advt 01/2025 (PDF)", url: "https://csbc.bihar.gov.in/Advt/Advt-01-2025-Constables.pdf" }
+      - { label: "BPSSC website", url: "https://bpssc.bihar.gov.in/" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "Two recruitments, two boards"
+        parts:
+          - table:
+              caption: "Constable, Bihar Police &amp; BSAP — Advt 01/2025 (posts; women's share in brackets)"
+              head: ["UR", "EWS", "SC", "ST", "EBC", "BC", "BC women", "Total"]
+              rows:
+                - ["7,935 (2,777)", "1,983 (694)", "3,174 (1,111)", "199 (70)", "3,571 (1,250)", "2,381 (815)", "595", "19,838 (6,717)"]
+            source: csbc-advt
+          - p: "Constable applications ran from 18 March to 18 April 2025; the BC count includes 53 transgender posts and 397 posts are for grandchildren of freedom fighters. CSBC published the final selection list on 27 May 2026."
+            source: csbc-final
+          - table:
+              caption: "Police Sub-Inspector — Advt 05/2025 (posts; women's share in brackets)"
+              head: ["UR", "EWS", "SC", "ST", "EBC", "BC", "BC women", "Transgender", "Total"]
+              rows:
+                - ["850 (298)", "180 (63)", "210 (74)", "15 (5)", "273 (96)", "222 (78)", "42", "7", "1,799 (614)"]
+            source: si-advt
+          - warn: "Sub-Inspector status: applications closed on 26 October 2025. The physical test and document verification planned for September–October 2026 were postponed until further orders (notice of 28 August 2026), and on 23 September 2026 BPSSC cancelled the mains written exam held in two shifts on 27 May 2026. A new date will be notified."
+            source: si-cancel
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "Qualification, age and physical standards"
+        parts:
+          - table:
+              caption: "Qualification and age"
+              head: ["", "Constable (CSBC 01/2025)", "Sub-Inspector (BPSSC 05/2025)"]
+              rows:
+                - ["Qualification", "Intermediate (10+2), or Bihar Madrasa Board Maulvi, or Sanskrit Board Shastri, or equivalent", "Graduation by 1 Aug 2025"]
+                - ["Unreserved men", "18–25", "20–37"]
+                - ["Unreserved women", "18–25", "20–40"]
+                - ["BC / EBC men", "18–27", "20–40"]
+                - ["BC / EBC women", "18–28", "20–40"]
+                - ["SC / ST (men, women) and transgender", "18–30", "20–42"]
+            source: si-advt
+          - note: "Constable age: minimum on 1 August 2025, maximum on 1 August 2023 (because the previous advertisement used 1 August 2022); home guards get 5 years more. SI age: minimum on 1 August 2025, maximum on 1 August 2024; Bihar government servants get 5 years more."
+            source: csbc-advt
+          - table:
+              caption: "Physical standards (both posts)"
+              head: ["Candidate", "Height", "Chest (unexpanded / expanded)"]
+              rows:
+                - ["UR and BC men", "165 cm", "81 / 86 cm"]
+                - ["EBC men", "160 cm", "81 / 86 cm"]
+                - ["SC and ST men", "160 cm", "79 / 84 cm"]
+                - ["Women (all categories)", "155 cm, weight 48 kg", "—"]
+            source: csbc-advt
+          - note: "Chest expansion must be at least 5 cm. Transgender candidates follow the standards for women (for SI, those of BC women)."
+            source: si-advt
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme &amp; physical tests"
+        heading: "Written test, then PET"
+        parts:
+          - list:
+              - "<strong>Constable written test:</strong> 100 one-mark MCQs in 2 hours on OMR, Matric level — Hindi, English, mathematics, social science, science, general knowledge and current affairs. At least 30% is needed, and five times the vacancies (category-wise) go to the PET. The written marks are qualifying only."
+              - "<strong>Constable merit:</strong> made only from the 100-mark PET; each of the three events must be passed separately."
+            source: csbc-advt
+          - table:
+              caption: "Constable PET — 100 marks"
+              head: ["Event", "Men", "Women"]
+              rows:
+                - ["Run (50 marks)", "1 mile in 6 min max — under 5 min = 50", "1 km in 5 min max — under 4 min = 50"]
+                - ["Shot put (25 marks)", "16 lb, at least 16 ft — over 20 ft = 25", "12 lb, at least 12 ft — over 16 ft = 25"]
+                - ["High jump (25 marks)", "At least 4 ft — 5 ft = 25", "At least 3 ft — 4 ft = 25"]
+            source: csbc-advt
+          - list:
+              - "<strong>SI prelim:</strong> one 200-mark paper of 100 questions on general knowledge and current affairs, 2 hours; at least 30% to pass, and 20 times the vacancies go to the mains."
+              - "<strong>SI mains:</strong> Paper 1 General Hindi (200 marks, 100 questions, 2 hours) — 30% needed, not counted in merit; Paper 2 general studies, general science, civics, Indian history and geography, mathematics and mental ability (200 marks, 100 questions, 2 hours)."
+              - "<strong>Negative marking (SI):</strong> 0.2 mark deducted for each wrong answer in both stages."
+              - "<strong>SI PET</strong> (qualifying only, 6 times the vacancies): run — men 1 mile in 6 min 30 s, women 1 km in 6 min; high jump 4 ft / 3 ft; long jump 12 ft / 9 ft; shot put 16 lb to 16 ft / 12 lb to 10 ft."
+              - "<strong>SI merit</strong> is on mains marks, with minimums of 40% UR, 36.5% BC, 34% EBC and 32% SC / ST / women."
+            source: si-advt
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "Application fees"
+        parts:
+          - table:
+              head: ["Candidate", "Constable (CSBC)", "Sub-Inspector (BPSSC)"]
+              rows:
+                - ["SC / ST; women who are Bihar permanent residents; transgender", "₹180", "₹100"]
+                - ["All others", "₹675", "₹100"]
+            source: csbc-advt
+          - note: "BPSSC charges the same ₹100 to every Sub-Inspector applicant — men, women and third gender of all categories. Bank charges are extra for both."
+            source: si-advt
+      - id: reservation
+        nav: "Reservation &amp; Certificates"
+        eyebrow: "Reservation &amp; certificates"
+        heading: "Bihar domicile, NCL and women's quota"
+        parts:
+          - list:
+              - "Caste-based reservation goes only to permanent residents of Bihar; candidates from other states apply as Unreserved and can claim only the women's horizontal reservation within Unreserved (constable)."
+              - "35% of posts in every category are reserved for women (horizontal); for SI the 35% applies only to women who are permanent residents of Bihar (GAD resolution 12575, 9 July 2025)."
+              - "Grandchildren of freedom fighters with central pension: 2% horizontal, with a District Magistrate certificate."
+              - "BC / EBC need a non-creamy-layer certificate from the home circle officer; if it is more than a year old, a declaration in Form-XVIIIB must be attached."
+              - "Married women's caste and non-creamy-layer certificates must be in the father's name."
+              - "EWS: income and asset certificate in Annexure-I; transgender candidates get BC reservation with an identity certificate in Form-3 / Form-4."
+              - "Persons-with-disability reservation does not apply to constable recruitment."
+              - "30% of BSAP-17 (Bodh Gaya) vacancies go to candidates from left-wing-extremism-affected districts: Rohtas, Kaimur, Gaya, Aurangabad, Nawada, Banka, Munger, Jamui, Lakhisarai and West Champaran."
+            source: csbc-advt
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "What to bring to the PET and verification"
+        parts:
+          - list:
+              - "Valid photo ID (Aadhaar, driving licence, voter ID)."
+              - "Matriculation certificate and marks sheet (date of birth)."
+              - "Intermediate (constable) or graduation (SI) pass certificate and marks sheet."
+              - "Caste and permanent residence certificates; non-creamy-layer certificate (BC / EBC); EWS certificate; freedom-fighter, transgender or home-guard certificates, if claimed."
+              - "Women must give a declaration that they are not pregnant at the PET."
+            source: si-pet
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Pay levels"
+        parts:
+          - p: "<strong>Constable:</strong> pay Level-3 (₹21,700 – ₹69,100). <strong>Sub-Inspector:</strong> pay Level-6."
+            source: csbc-advt
+          - note: "The SI advertisement prints only the pay level. In-hand salary adds dearness allowance and other allowances and subtracts deductions; neither advertisement gives an in-hand figure."
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Districts and battalions"
+        parts:
+          - p: "Constable selection for district police and Bihar Special Armed Police battalions runs together; candidates rank their preference in the form and are allotted by merit and preference. Appointing authorities are district Superintendents of Police and battalion commandants; selected candidates go through a medical (Bihar Police Manual form 103) and character verification."
+            source: csbc-advt
+          - p: "The appointing authority for Police Sub-Inspectors is the Deputy Inspector General of Police."
+            source: si-advt
+    sources:
+      - { id: csbc-advt, name: "CSBC — Advertisement 01/2025, Constable in Bihar Police and BSAP (Hindi)", url: "https://csbc.bihar.gov.in/Advt/Advt-01-2025-Constables.pdf", covers: "19,838 posts by category, pay, qualification, age, physical standards, written test, PET, reservation, fee, documents, appointment", checked: 2026-10-18 }
+      - { id: csbc-final, name: "CSBC — Final selection list, Constable in Bihar Police (27 May 2026)", url: "https://csbc.bihar.gov.in/Advt/Results-01-2025-Final-27-05-2026.pdf", covers: "final result of Advt 01/2025", checked: 2026-10-18 }
+      - { id: si-advt, name: "BPSSC — Advertisement 05/2025, Police Sub-Inspector, Home (Police) Dept. (Hindi)", url: "https://bpssc.bihar.gov.in/Notices/Advt.%2005-2025.pdf", covers: "1,799 posts by category, pay level, qualification, age, physical standards, prelim, mains, negative marking, PET, merit minimums, reservation, fee", checked: 2026-10-18 }
+      - { id: si-pet, name: "BPSSC — Notice on PET, e-admit card and document verification, Advt 05/2025, 01/2026, 02/2026", url: "https://bpssc.bihar.gov.in/Notices/Important%20Notice%20for%20PET.pdf", covers: "documents for PET and verification", checked: 2026-10-18 }
+      - { id: si-cancel, name: "BPSSC — Notices: PET postponed (28 Aug 2026) and mains of 27 May 2026 cancelled (23 Sep 2026)", url: "https://bpssc.bihar.gov.in/Notices/Exam%20Cancel%20Pdf.pdf", covers: "SI mains cancelled; PET and verification postponed", checked: 2026-10-18 }
+
+  # ------------------------------------------------------------------ BCECEB DCECE
+  - slug: bceceb
+    group: academic
+    short: "BCECEB DCECE — Polytechnic &amp; Para-medical"
+    body: "Bihar Combined Entrance Competitive Examination Board"
+    card: "One entrance test with three groups: PE for engineering diplomas in government polytechnics after Class 10, PMM for Matric-level para-medical courses and PM for Intermediate-level para-medical courses (D.Pharm, GNM, ANM and others)."
+    card_facts: ["PE: Class 10 · no age limit", "90 questions · 450 marks", "Fee from ₹750 (₹480 SC/ST)"]
+    eyebrow: "BCECEB · Diploma admissions"
+    title: "BCECEB DCECE 2026 — Polytechnic (PE) and Para-medical (PMM, PM) Eligibility, Pattern, Reservation"
+    lede: "The Diploma-Certificate Entrance Competitive Examination (DCECE) decides admission to engineering diplomas in Bihar's government polytechnics and to para-medical courses. This page follows the BCECEB DCECE (PE/PMM/PM)-2026 prospectus."
+    facts:
+      - { label: "Groups", value: "PE (polytechnic) · PMM · PM", source: dcece-pros }
+      - { label: "Paper", value: "90 MCQs · 450 marks · 2 h 15 min", source: dcece-pros }
+      - { label: "2026 exam", value: "PE 23 May · PM &amp; PMM 24 May", source: dcece-pros }
+      - { label: "Reservation", value: "SC 16 · ST 1 · EBC 18 · BC 12 · RCG 3 · EWS 10%", source: dcece-pros }
+    official:
+      - { label: "BCECE Board", url: "https://bceceboard.bihar.gov.in/" }
+      - { label: "DCECE-2026 prospectus (PDF)", url: "https://bceceboard.bihar.gov.in/pdf_Pros/PROS_DCECE26.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "Three course groups, one board"
+        parts:
+          - table:
+              caption: "DCECE-2026 course groups"
+              head: ["Group", "Courses", "Level"]
+              rows:
+                - ["PE — Polytechnic (Engineering)", "All 3-year engineering diplomas in polytechnic institutions", "Matric"]
+                - ["PMM — Para-medical (Matric level)", "Dresser and other Matric-level para-medical courses", "Matric"]
+                - ["PM — Para-medical (Intermediate level)", "D.Pharm, Sanitary Inspector, Ophthalmic Assistant, OT Assistant, Lab Technician, X-ray Technician, Orthotic &amp; Prosthetic Assistant, GNM, ANM, Dental Mechanics, Dental Hygienist", "Intermediate"]
+            source: dcece-pros
+          - table:
+              caption: "2026 calendar"
+              head: ["Event", "Date"]
+              rows:
+                - ["Online registration", "19 Mar – 21 Apr 2026"]
+                - ["Last date for fee", "22 Apr 2026 (11.59 pm)"]
+                - ["Editing of the form", "23 – 24 Apr 2026"]
+                - ["Admit card", "15 May 2026"]
+                - ["Exam — PE", "23 May 2026"]
+                - ["Exam — PM and PMM", "24 May 2026"]
+            source: dcece-pros
+          - note: "Through DCECE, 50% of GNM / ANM seats in recognised private para-medical institutions are also filled."
+            source: dcece-pros
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "Who can apply to each group"
+        parts:
+          - table:
+              head: ["Group", "Qualification", "Age"]
+              rows:
+                - ["PE", "Class 10 (BSEB Matric or equivalent); 2026 appearing candidates may apply but must pass before the first counselling", "No minimum or maximum age"]
+                - ["PMM", "Class 10 with science and English (BSEB, CBSE, ICSE or equivalent)", "15 to 30 on 31 Dec 2026"]
+                - ["PM", "Intermediate science with physics, chemistry, biology and English (D.Pharm: PCE + maths or biology; GNM: 40% in 10+2 science with English, 5% less for SC/ST; ANM: 40% in 10+2 with English)", "17 to 32 on 31 Dec 2026 (GNM and ANM: up to 35)"]
+            source: dcece-pros
+          - list:
+              - "<strong>Residence:</strong> the applicant must be an Indian citizen whose parent or spouse is a permanent resident of Bihar, a registered refugee in Bihar, a Bihar government employee, a central government / PSU employee posted in Bihar, or a UN employee posted in Bihar."
+              - "Government women's polytechnics admit only women. GNM and ANM are for women only."
+              - "A medical examination is held before admission."
+            source: dcece-pros
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme"
+        heading: "One OMR paper per group"
+        parts:
+          - table:
+              caption: "PE (polytechnic) paper — 2 h 15 min, Matric level"
+              head: ["Subject", "Questions", "Marks"]
+              rows:
+                - ["Physics", "30", "150"]
+                - ["Chemistry", "30", "150"]
+                - ["Mathematics", "30", "150"]
+                - ["Total", "90", "450"]
+            source: dcece-pros
+          - table:
+              caption: "PM and PMM papers — 90 questions, 450 marks, 2 h 15 min each"
+              head: ["PM (Intermediate level)", "PMM (Matric level)"]
+              rows:
+                - ["General science 25 Q (125)", "Physics 20 Q (100)"]
+                - ["Arithmetic 15 Q (75)", "Chemistry 20 Q (100)"]
+                - ["Hindi 15 Q (75)", "Mathematics 10 Q (50)"]
+                - ["English 15 Q (75)", "Biology 10 Q (50)"]
+                - ["General knowledge 20 Q (100)", "Hindi, English, GK 10 Q (50) each"]
+            source: dcece-pros
+          - list:
+              - "Question papers are in English and Hindi; answers are marked on OMR."
+              - "Merit lists are made group-wise and category-wise. Ties in PE are broken by the mathematics score, then physics, then the older candidate."
+            source: dcece-pros
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "Examination / counselling fee"
+        parts:
+          - table:
+              head: ["Groups applied for", "General / BC / EBC", "SC / ST / persons with disabilities"]
+              rows:
+                - ["Any one group", "₹750", "₹480"]
+                - ["Any two groups", "₹850", "₹530"]
+                - ["All three groups", "₹950", "₹630"]
+            source: dcece-pros
+          - note: "The fee is paid online and is not refunded; a failed payment must be repeated before the deadline."
+            source: dcece-pros
+      - id: reservation
+        nav: "Reservation &amp; Certificates"
+        eyebrow: "Reservation &amp; certificates"
+        heading: "Bihar reservation under the 2003 admission act"
+        parts:
+          - table:
+              caption: "Seats for permanent residents of Bihar"
+              head: ["Category", "Share"]
+              rows:
+                - ["Scheduled Caste", "16%"]
+                - ["Scheduled Tribe", "1%"]
+                - ["Extremely Backward Class", "18%"]
+                - ["Backward Class", "12%"]
+                - ["Reserved-category girls (RCG)", "3%"]
+                - ["EWS", "10%"]
+                - ["Unreserved", "40%"]
+            source: dcece-pros
+          - list:
+              - "Candidates who are not permanent residents of Bihar can take only Unreserved seats."
+              - "In PMM / PM courses, one-third of seats in every category are reserved for women who are permanent residents of Bihar (horizontal)."
+              - "Persons with disabilities: 5% of seats in all institutions, with a disability certificate from a listed medical college."
+              - "Tuition Fee Waiver: 5% supernumerary diploma seats for students whose parents' income is below ₹8 lakh a year (AICTE scheme)."
+              - "Servicemen's quota (SMQ): one seat in every branch of each polytechnic for children of serving or retired soldiers of Bihar."
+            source: dcece-pros
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Enclosures for counselling"
+        parts:
+          - list:
+              - "Matric pass certificate, marks sheet and admit card (Intermediate too for PM)."
+              - "Caste certificate and permanent residence certificate from the circle officer / revenue officer."
+              - "EWS income and asset certificate from the DM / SDM / CO in the prescribed form."
+              - "Character certificate from the last institution, and an income certificate if needed."
+              - "Application form Part-A with photo, Aadhaar card, and SMQ / disability / refugee / parent-employment certificates where applicable."
+            source: dcece-pros
+      - id: pay
+        nav: "Costs &amp; support"
+        eyebrow: "Costs &amp; support"
+        heading: "Fee waiver"
+        parts:
+          - p: "Under the AICTE Tuition Fee Waiver scheme, diploma students whose parents earn under ₹8 lakh a year can take one of the 5% supernumerary seats and pay no tuition fee."
+            source: dcece-pros
+          - note: "The prospectus does not print institution tuition fees, so none are shown here."
+      - id: posting
+        nav: "After DCECE"
+        eyebrow: "After the test"
+        heading: "Counselling and seat allotment"
+        parts:
+          - p: "Seats are allotted on group-wise, category-wise merit and the candidate's choices; institution or branch change requests are decided only by the Board."
+            source: dcece-pros
+          - links:
+              - { label: "Diploma courses guide", url: "diploma.html" }
+    sources:
+      - { id: dcece-pros, name: "BCECEB — Prospectus, DCECE (PE/PMM/PM)-2026 (Hindi)", url: "https://bceceboard.bihar.gov.in/pdf_Pros/PROS_DCECE26.pdf", covers: "course groups, eligibility, age, residence, exam pattern, fee, dates, reservation, PwD, TFW, SMQ, documents", checked: 2026-10-18 }

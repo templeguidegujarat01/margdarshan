@@ -65,6 +65,7 @@
     <div class="container">
       <nav class="quicknav" aria-label="On this page">
         <span class="sc-otp" aria-hidden="true">On this page</span>
+        <a href="#start">Start here</a>
         {%- for d in SP.domains %}<a href="#{{ d.id }}">{{ d.label }}</a>{% endfor %}
         <a href="#ladder">Who pays</a>
         <a href="#quota">Sports-quota jobs</a>
@@ -72,6 +73,22 @@
       </nav>
     </div>
   </div>
+
+  {%- assign SG = site.data.in.sports_guides %}
+  <section class="block mb sc-block" id="start" aria-labelledby="start-heading">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Start here · How sport works</span>
+        <h2 id="start-heading">New to sport careers? Read these {{ SG.guides.size }} simple guides first</h2>
+        <p>How the Olympics and other big Games work, who runs Indian sport and pays the players, every career beyond playing, and straight answers to the doubts students ask most.</p>
+      </div>
+      <div class="chip-links sc-links">
+        {%- for g in SG.guides %}
+        <a href="{{ g.slug }}.html">{{ g.short }}</a>
+        {%- endfor %}
+      </div>
+    </div>
+  </section>
 
   <section class="block mb sc-block" id="domains" aria-labelledby="domains-heading">
     <div class="container">

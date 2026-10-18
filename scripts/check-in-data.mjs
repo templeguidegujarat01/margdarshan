@@ -393,6 +393,63 @@ if (fs.existsSync(saFile)) {
   for (const i of srcIds) if (!cited.has(i)) err(`source '${i}' is listed but never cited`);
 }
 
+// ---- Sports system guides (_data/in/sports_guides.yml -> <slug>.html via sports-guide.html) ----
+// Free-form sections, but the sport pages' part rules: every p / list / table / qa and hero fact cites its guide's
+// sources, links resolve, every listed source is cited, and the page file includes this guide.
+const sgFile = path.join(root, '_data', 'in', 'sports_guides.yml');
+let sgGuides = 0;
+if (fs.existsSync(sgFile)) {
+  const err = (m) => errors.push(`sports_guides.yml: ${m}`);
+  let GS;
+  try { GS = yaml.load(fs.readFileSync(sgFile, 'utf8')); } catch (e) { err('YAML error: ' + e.message.split('\n')[0]); GS = {}; }
+  if (!isDay(GS.checked)) err('checked must be a date (YYYY-MM-DD)');
+  const ids = (list) => (String(list || '')).split(',').map((x) => x.trim()).filter(Boolean);
+  const slugs = new Set();
+  for (const G of GS.guides || []) {
+    sgGuides++;
+    const ex = (m) => err(`${G.slug}: ${m}`);
+    for (const k of ['slug', 'short', 'eyebrow', 'title', 'lede', 'meta']) if (!G[k]) ex(`${k} is required`);
+    if (slugs.has(G.slug)) ex('duplicate slug'); slugs.add(G.slug);
+    const page = path.join(root, G.slug + '.html');
+    if (!fs.existsSync(page)) ex(`page ${G.slug}.html missing`);
+    else if (!fs.readFileSync(page, 'utf8').includes(`{% include sports-guide.html guide="${G.slug}" %}`)) ex('page does not include sports-guide.html for this guide');
+    const sIds = new Set();
+    for (const s of G.sources || []) {
+      if (!s.id || !s.name || !/^https:\/\//.test(s.url || '') || !s.covers || !isDay(s.checked)) ex(`source ${JSON.stringify(s.id)} needs id, name, https url, covers, checked date`);
+      if (sIds.has(s.id)) ex(`duplicate source id ${s.id}`);
+      sIds.add(s.id);
+    }
+    const cited = new Set();
+    const cite = (where, src, required) => {
+      if (src) for (const i of ids(src)) { cited.add(i); if (!sIds.has(i)) ex(`${where}: source "${i}" is not listed under sources`); }
+      else if (required) ex(`${where}: fact without source`);
+    };
+    if ((G.facts || []).length !== 4) ex('the hero console needs exactly 4 facts (2 x 2)');
+    for (const q of G.facts || []) { if (!q.label || !q.value) ex('every fact needs label and value'); cite(`fact "${q.label}"`, q.source, true); }
+    for (const o of G.official || []) if (!/^https:\/\//.test(o.url || '')) ex(`official link ${o.label}: url must start with https://`);
+    const secIds = new Set();
+    for (const S of G.sections || []) {
+      if (!S.id || secIds.has(S.id)) ex(`section id missing or duplicate: ${S.id}`); secIds.add(S.id);
+      for (const k of ['nav', 'eyebrow', 'heading']) if (!S[k]) ex(`section ${S.id}: ${k} is required`);
+      for (const [i, p] of (S.parts || []).entries()) {
+        const kinds = Object.keys(p).filter((k) => k !== 'source');
+        const where = `section ${S.id} part ${i + 1}`;
+        if (kinds.length !== 1 || ![...SC_KINDS, 'qa'].includes(kinds[0])) { ex(`${where}: unknown part ${JSON.stringify(kinds)}`); continue; }
+        cite(where, p.source, FACT_KINDS.includes(kinds[0]) || kinds[0] === 'qa');
+        if (p.qa && (!p.qa.q || !p.qa.a)) ex(`${where}: qa needs q and a`);
+        if (p.table) {
+          const w = (p.table.head || []).length;
+          if (!w) ex(`${where}: table needs head`);
+          for (const [r, row] of (p.table.rows || []).entries()) if (row.length !== w) ex(`${where}: table row ${r + 1} has ${row.length} cells, head has ${w}`);
+        }
+        for (const l of p.links || []) if (!l.label || !l.url || !(l.url.startsWith('https://') || linkOk(l.url))) ex(`${where}: bad link ${JSON.stringify(l)}`);
+      }
+    }
+    if (!secIds.size) ex('needs at least one section');
+    for (const sid of sIds) if (!cited.has(sid)) ex(`source "${sid}" is listed but never cited`);
+  }
+}
+
 // ---- India top menu (_data/nav.yml topnav): every menu link, node heading and flyout link must exist ----
 const navFile = path.join(root, '_data', 'nav.yml');
 let navLinks = 0;
@@ -418,7 +475,12 @@ if (fs.existsSync(navFile)) {
       if (!cols.length) errors.push(`nav.yml topnav ${it.label} > ${n.label}: node has no cols`);
       for (const col of cols) {
         if (!col.label || !(col.links || []).length) errors.push(`nav.yml topnav ${n.label}: every column needs a label and links`);
-        for (const c of col.links || []) chk(`${n.label} > ${col.label} > ${c.label}`, c.href);
+        for (const c of col.links || []) {
+          chk(`${n.label} > ${col.label} > ${c.label}`, c.href);
+          // An unquoted label with a comma splits a YAML flow mapping into stray keys — catch it.
+          const extra = Object.keys(c).filter((k) => !["label", "href", "desc"].includes(k));
+          if (extra.length || typeof c.label !== "string") errors.push(`nav.yml topnav ${n.label} > ${col.label}: bad link keys ${JSON.stringify(extra)} (quote labels that contain commas)`);
+        }
       }
     }
   }
@@ -428,5 +490,6 @@ console.log(`checked ${sheets} India data sheets`);
 console.log(`checked ${nxExams} national exam console(s), ${navLinks} top-menu link(s)`);
 console.log(`checked ${stateSheets} state cockpit sheet(s), ${stateExams} exam page(s)`);
 console.log(`checked ${spSports} sports cockpit page(s), ${saSports} directory row(s)`);
+console.log(`checked ${sgGuides} sports system guide(s)`);
 if (errors.length) { console.log('ERRORS:\n' + errors.join('\n')); process.exit(1); }
 console.log('OK');

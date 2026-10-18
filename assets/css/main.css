@@ -3254,3 +3254,87 @@ ol.auto-marked > li{position:relative;padding-left:1.75rem;line-height:1.6;count
 ol.auto-marked > li::before{content:counter(automark) ".";position:absolute;left:0;top:0;min-width:1.4rem;font-weight:700;color:var(--gold-strong,var(--gold));font-variant-numeric:tabular-nums;}
 [data-theme="dark"] ol.auto-marked > li::before{color:var(--gold);}
 ul.auto-points > li::first-letter{text-transform:uppercase;}
+
+/* ============================================================
+   Edition dashboard + career flowchart (2026-10-19)
+   .ed-dash  — open panel of both edition switchers (_includes/edition-menu.html): one card per
+               edition with flag, tagline, counted guides, Beta badge, check on the current one.
+               Absolutely positioned under its <details>, so opening it never shifts the page.
+   .cflow    — India career roadmap steps as connected nodes (_includes/career-flow.html).
+               Kind tokens: start (prerequisite) / stage (study) / exam (gate) / licence / goal.
+               Every node carries a visible text badge, so colour is never the only signal.
+   ============================================================ */
+:root{
+  --k-start:#3D5A80;--k-stage:#1F6F5C;--k-exam:#8B4B6B;--k-licence:#96590A;--k-goal:#96590A;
+  --k-on:#FFFFFF;--k-on-gold:#241703;
+}
+[data-theme="dark"]{
+  --k-start:#8FB0DA;--k-stage:#5FC2A6;--k-exam:#D98DB0;--k-licence:#F0B65A;--k-goal:#F0B65A;
+  --k-on:#0B1A22;--k-on-gold:#241703;
+}
+
+/* ---- Edition dashboard ---- */
+.ed-dash{padding:.5rem;border-radius:14px;}
+.hd-ed-menu.ed-dash{width:340px;min-width:0;}
+.ed-dash-head{display:block;padding:.35rem .6rem .5rem;font-family:var(--font-mono);font-size:.64rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);}
+.ed-dash-list{gap:4px;}
+.region-opt.ed-card{position:relative;align-items:center;gap:.75rem;min-height:64px;padding:.6rem .7rem;border:1px solid transparent;border-radius:11px;transition:background .15s var(--ease),border-color .15s var(--ease),transform .15s var(--ease);}
+.region-opt.ed-card:hover{border-color:var(--line);background:rgba(var(--hl-rgb),.045);transform:translateX(2px);}
+.ed-flag{flex-shrink:0;display:grid;place-items:center;width:42px;height:42px;border:1px solid var(--line);border-radius:10px;background:var(--paper);}
+.ed-flag .region-flag{width:26px;height:26px;}
+.ed-text{gap:.1rem;}
+.ed-text .region-name{font-size:.94rem;font-weight:700;line-height:1.2;}
+.ed-tag{font-size:.78rem;font-weight:500;line-height:1.3;color:var(--text-muted);}
+.ed-count{margin-top:.15rem;font-family:var(--font-mono);font-size:.68rem;font-weight:600;letter-spacing:.02em;color:var(--text-muted);}
+.ed-count b{color:var(--gold-strong);font-weight:700;}
+[data-theme="dark"] .ed-count b{color:var(--gold);}
+.ed-card .region-beta{align-self:flex-start;margin-top:.15rem;border-color:var(--gold);color:var(--gold-strong);}
+[data-theme="dark"] .ed-card .region-beta{color:var(--gold);}
+/* Current edition: gold rail + border, plus the check mark and bold name from the .region-opt rules. */
+.region-opt.ed-card[aria-current="true"],
+html[data-region-neutral][data-region="in"] .ed-card[data-region-set="in"],
+html[data-region-neutral][data-region="us"] .ed-card[data-region-set="us"],
+html[data-region-neutral][data-region="uk"] .ed-card[data-region-set="uk"]{border-color:rgba(201,127,30,.45);box-shadow:inset 3px 0 0 var(--gold);}
+details[open] > .ed-dash{animation:edDashIn .16s var(--ease);}
+@keyframes edDashIn{from{opacity:0;transform:translateY(-4px);}to{opacity:1;transform:none;}}
+@media (prefers-reduced-motion:reduce){details[open] > .ed-dash{animation:none;}.region-opt.ed-card,.region-opt.ed-card:hover{transition:none;transform:none;}}
+
+/* ---- Career flowchart ---- */
+.cflow-wrap{margin-top:.25rem;}
+.cflow{--kc:var(--k-stage);list-style:none;margin:0;padding:0;display:grid;gap:0;}
+.cflow-node{--kc:var(--k-stage);--kon:var(--k-on);position:relative;display:grid;grid-template-columns:2.25rem minmax(0,1fr);column-gap:.85rem;padding-bottom:.85rem;}
+.cflow-node[data-kind="start"]{--kc:var(--k-start);}
+.cflow-node[data-kind="exam"]{--kc:var(--k-exam);}
+.cflow-node[data-kind="licence"]{--kc:var(--k-licence);--kon:var(--k-on-gold);}
+.cflow-node[data-kind="goal"]{--kc:var(--k-goal);--kon:var(--k-on-gold);}
+[data-theme="dark"] .cflow-node[data-kind="licence"],[data-theme="dark"] .cflow-node[data-kind="goal"]{--kon:#241703;}
+.cflow-node:last-child{padding-bottom:0;}
+/* Rail: from this node's dot down to the next one. */
+.cflow-node:not(:last-child)::before{content:"";position:absolute;left:calc(1.125rem - 1px);top:2.25rem;bottom:0;width:2px;background:linear-gradient(var(--kc),var(--line));}
+.cflow-dot{position:relative;z-index:1;display:grid;place-items:center;width:2.25rem;height:2.25rem;border-radius:50%;background:var(--kc);color:var(--kon);font-family:var(--font-mono);font-size:.82rem;font-weight:700;box-shadow:0 0 0 4px var(--paper);}
+.cflow-node[data-kind="exam"] .cflow-dot{border-radius:9px;}
+.cflow-node[data-kind="stage"] .cflow-dot{background:var(--surface);color:var(--text);border:2px solid var(--kc);}
+.cflow-card{position:relative;min-width:0;padding:.7rem .9rem .8rem;border:1px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden;transition:transform .18s var(--ease),border-color .18s var(--ease),box-shadow .18s var(--ease);}
+.cflow-card::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:var(--kc);}
+.cflow-node:hover .cflow-card{transform:translateY(-3px);border-color:var(--kc);box-shadow:var(--shadow-md);}
+.cflow-kind{display:inline-block;margin-bottom:.3rem;padding:.12rem .45rem;border:1px solid var(--kc);border-radius:999px;font-family:var(--font-mono);font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;color:var(--kc);}
+.cflow-node[data-kind="stage"] .cflow-kind{border-color:var(--line);color:var(--text-muted);}
+.cflow-card h3{margin:0;font-size:.98rem;line-height:1.3;}
+.cflow-card p{margin:.3rem 0 0;font-size:.85rem;line-height:1.5;color:var(--text-muted);}
+.cflow-legend{display:flex;flex-wrap:wrap;gap:.35rem 1rem;margin:1rem 0 0;font-family:var(--font-mono);font-size:.66rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--text-muted);}
+.cflow-legend span{display:inline-flex;align-items:center;gap:.4rem;}
+.cflow-legend span::before{content:"";width:.6rem;height:.6rem;border-radius:50%;background:var(--kc,var(--k-stage));}
+.cflow-legend [data-kind="start"]{--kc:var(--k-start);}
+.cflow-legend [data-kind="stage"]{--kc:var(--k-stage);}
+.cflow-legend [data-kind="exam"]{--kc:var(--k-exam);}
+.cflow-legend [data-kind="exam"]::before{border-radius:2px;}
+.cflow-legend [data-kind="licence"],.cflow-legend [data-kind="goal"]{--kc:var(--k-goal);}
+/* One horizontal track: dots on a line, cards hang below, arrowhead into the next dot. */
+@media (min-width:900px){
+  .cflow{grid-template-columns:repeat(var(--n),minmax(0,1fr));column-gap:.9rem;}
+  .cflow-node{grid-template-columns:1fr;row-gap:.75rem;padding-bottom:0;align-content:start;}
+  .cflow-node:not(:last-child)::before{left:2.75rem;right:-.4rem;top:calc(1.125rem - 1px);bottom:auto;width:auto;height:2px;background:linear-gradient(90deg,var(--kc),var(--line));}
+  .cflow-node:not(:last-child)::after{content:"";position:absolute;right:-.45rem;top:calc(1.125rem - 4px);border:4px solid transparent;border-left:6px solid var(--line);border-right:0;}
+  .cflow-card{height:100%;}
+}
+@media (prefers-reduced-motion:reduce){.cflow-card{transition:none;}.cflow-node:hover .cflow-card{transform:none;}}

@@ -1,0 +1,58 @@
+{%- comment -%}
+  Career flowchart: an ordered list of steps drawn as connected nodes (pure CSS, see .cflow in
+  assets/css/main.css). Vertical rail on phones, one horizontal track from 900px.
+  Used by in-career.html for a section part with `steps:` ({title, text}).
+
+  Node kinds are read from the step title only, so a node is never labelled with something the
+  data does not say. Words are matched as written (Liquid `contains` is case-sensitive):
+    start    first step whose title names a Class ("Class 12", "Class 11–12, PCB")
+    exam     title names an exam: "xam" (Exam/exam), "ntrance", CLAT, JEE, NEET, CUET, AIBE, NATA, NIFT, GATE, UPSC
+    licence  title names registration, membership or a licence: "egist", "Membership", "icen" —
+             never the first step (ACCA "Register" = student sign-up)
+    goal     the last step, unless it is a single licence step (no " or ", no "consider")
+    stage    everything else (study, training, practice) — shown as "Step N", no kind badge
+  Titles with "prep", "course" or "Part I" stay stages ("GATE prep", "Pre-registration course",
+  FRM "Register Part I" = exam sign-up, not a gate or a licence).
+  Every badge is visible text, so the colour is never the only signal.
+
+  Params: steps (array of {title, text}), class (optional extra class on the list).
+{%- endcomment -%}
+{%- assign cf_exam = "xam,ntrance,CLAT,JEE,NEET,CUET,AIBE,NATA,NIFT,GATE,UPSC" | split: "," -%}
+{%- assign cf_lic = "egist,Membership,icen" | split: "," -%}
+{%- assign cf_skip = "prep,course,Part I" | split: "," -%}
+{%- assign cf_seen = "" -%}
+<div class="cflow-wrap reveal" data-no-points>
+  <ol class="cflow{% if include.class %} {{ include.class }}{% endif %}" style="--n:{{ include.steps.size }}">
+    {%- for s in include.steps %}
+    {%- assign kind = "stage" -%}
+    {%- if forloop.first and s.title contains "Class" %}{%- assign kind = "start" -%}{%- endif -%}
+    {%- assign cf_plain = false -%}
+    {%- for w in cf_skip %}{% if s.title contains w %}{% assign cf_plain = true %}{% endif %}{% endfor -%}
+    {%- if kind == "stage" and cf_plain == false -%}
+      {%- for w in cf_exam %}{% if s.title contains w %}{% assign kind = "exam" %}{% endif %}{% endfor -%}
+      {%- unless forloop.first -%}
+      {%- for w in cf_lic %}{% if s.title contains w %}{% assign kind = "licence" %}{% endif %}{% endfor -%}
+      {%- endunless -%}
+    {%- endif -%}
+    {%- if forloop.last -%}
+      {%- if kind != "licence" or s.title contains " or " or s.title contains "consider" %}{%- assign kind = "goal" -%}{%- endif -%}
+    {%- endif -%}
+    {%- assign cf_seen = cf_seen | append: kind | append: " " %}
+    <li class="cflow-node" data-kind="{{ kind }}">
+      <span class="cflow-dot" aria-hidden="true">{% if forloop.last %}★{% else %}{{ forloop.index }}{% endif %}</span>
+      <div class="cflow-card">
+        <span class="cflow-kind">{% case kind %}{% when "start" %}Start here{% when "exam" %}Exam gate{% when "licence" %}Licence{% when "goal" %}Goal{% else %}Step {{ forloop.index }}{% endcase %}</span>
+        <h3>{{ s.title }}</h3>
+        {%- if s.text %}<p>{{ s.text }}</p>{% endif %}
+      </div>
+    </li>
+    {%- endfor %}
+  </ol>
+  <p class="cflow-legend" aria-hidden="true">
+    {%- if cf_seen contains "start" %}<span data-kind="start">Start</span>{% endif -%}
+    {%- if cf_seen contains "stage" %}<span data-kind="stage">Study / training</span>{% endif -%}
+    {%- if cf_seen contains "exam" %}<span data-kind="exam">Exam gate</span>{% endif -%}
+    {%- if cf_seen contains "licence" %}<span data-kind="licence">Licence</span>{% endif -%}
+    {%- if cf_seen contains "goal" %}<span data-kind="goal">Goal</span>{% endif -%}
+  </p>
+</div>

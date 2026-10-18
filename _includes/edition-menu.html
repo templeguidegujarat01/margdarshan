@@ -1,0 +1,61 @@
+{%- comment -%}
+  Edition dashboard: the open panel of both edition switchers (header-edition.html on desktop,
+  region-switcher.html in the sidebar / mobile drawer). One card per edition in
+  _data/regions.yml → list: SVG flag (emoji flags do not render on Windows), name, tagline,
+  a live guide count, Beta badge, check mark on the current edition (never colour alone).
+
+  Counts are counted from the data at build time, never typed in:
+    in → files in _data/in/careers (each is one career page via in-career.html)
+    us → _data/us/pathways.yml entries with live: true
+    uk → files in _data/uk/careers
+  A new edition shows no count until a line is added to the case below.
+
+  Destination: the same-field page in the other edition only when a real mapping exists
+  (_data/us/pathways.yml: live + in_page), otherwise that edition's home. Never a guessed URL.
+  The panel is absolutely positioned under its <details>, so opening it never moves the page (no CLS).
+
+  Params: variant ("hd" = header, default sidebar), labelledby (id of a visible label, optional).
+{%- endcomment -%}
+{%- assign em_here = page.url | remove_first: "/" -%}
+{%- assign em_to_us = "" -%}
+{%- assign em_to_in = "" -%}
+{%- assign em_n_us = 0 -%}
+{%- for p in site.data.us.pathways.list -%}
+  {%- if p.live -%}
+    {%- assign em_n_us = em_n_us | plus: 1 -%}
+    {%- if p.in_page -%}
+      {%- assign p_url = "us/careers/" | append: p.slug | append: "/" -%}
+      {%- if em_here == p.in_page %}{%- assign em_to_us = p_url -%}{%- endif -%}
+      {%- if em_here == p_url %}{%- assign em_to_in = p.in_page -%}{%- endif -%}
+    {%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- assign em_n_in = 0 -%}{%- for c in site.data.in.careers %}{%- assign em_n_in = em_n_in | plus: 1 -%}{%- endfor -%}
+{%- assign em_n_uk = 0 -%}{%- for c in site.data.uk.careers %}{%- assign em_n_uk = em_n_uk | plus: 1 -%}{%- endfor -%}
+<div class="region-menu ed-dash{% if include.variant == 'hd' %} hd-ed-menu{% endif %}">
+  <span class="ed-dash-head" aria-hidden="true">Choose your country edition</span>
+  <ul class="region-menu-list ed-dash-list"{% if include.labelledby %} aria-labelledby="{{ include.labelledby }}"{% endif %}>
+    {%- for rid in site.data.regions.list %}
+    {%- assign r = site.data.regions[rid] -%}
+    {%- assign dest = r.home -%}
+    {%- if rid == "us" and em_to_us != "" %}{%- assign dest = em_to_us -%}{%- endif -%}
+    {%- if rid == "in" and em_to_in != "" %}{%- assign dest = em_to_in -%}{%- endif -%}
+    {%- assign em_n = 0 -%}{%- assign em_unit = "career guides" -%}
+    {%- case rid -%}
+      {%- when "in" -%}{%- assign em_n = em_n_in -%}
+      {%- when "us" -%}{%- assign em_n = em_n_us -%}{%- assign em_unit = "career pathways" -%}
+      {%- when "uk" -%}{%- assign em_n = em_n_uk -%}
+    {%- endcase %}
+    <li><a class="region-opt ed-card" href="{{ dest }}" hreflang="{{ r.lang }}" data-region-set="{{ rid }}"{% if rid == region_id and region_neutral == false %} aria-current="true"{% endif %}>
+      <span class="ed-flag"><svg class="region-flag" width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">{{ r.flag_svg }}</svg></span>
+      <span class="region-opt-text ed-text">
+        <span class="region-name">{{ r.name }}{% if r.status == "beta" %}<span class="sr-only"> (beta)</span>{% endif %}</span>
+        {%- if r.tagline %}<span class="ed-tag">{{ r.tagline }}</span>{% endif %}
+        {%- if em_n > 0 %}<span class="ed-count"><b>{{ em_n }}</b> {{ em_unit }}</span>{% endif %}
+      </span>
+      {%- if r.status == "beta" %}<span class="region-beta" aria-hidden="true">Beta</span>{% endif %}
+      <svg class="region-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+    </a></li>
+    {%- endfor %}
+  </ul>
+</div>

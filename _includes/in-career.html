@@ -288,11 +288,7 @@
         </table>
       </div>
       {%- elsif p.steps %}
-      <ol class="{{ p.class | default: 'journey-list step-path-flow reveal' }}">
-        {%- for s in p.steps %}
-        <li class="journey-item"><span class="journey-node" aria-hidden="true">{{ forloop.index }}</span><h3>{{ s.title }}</h3><p>{{ s.text }}</p></li>
-        {%- endfor %}
-      </ol>
+      {% include career-flow.html steps=p.steps class=p.class %}
       {%- elsif p.roadmap_card %}
       <div class="{{ p.class | default: 'rm-link-card reveal' }}"><div><strong>Want the exact step-by-step journey?</strong><p>Eligibility, exams and cycles, training and final qualification for {{ p.roadmap_card }}, in order, with official links.</p></div><a href="{{ C.roadmap }}" class="btn btn-journey btn-page-link">📍 See The Journey / Full Roadmap</a></div>
       {%- elsif p.chips %}

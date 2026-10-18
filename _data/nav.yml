@@ -170,21 +170,27 @@ topnav:
     children:
       - { label: Find My Fit, href: career-fit.html, desc: "A short quiz that suggests directions" }
       - { label: Career Comparison, href: career-comparison.html, desc: "Compare 2 to 4 careers side by side" }
+  # Menus with `nodes` open as a mega panel: a rail of node names on the left, and the hovered node's
+  # columns on the right. `mega: <key>` takes the columns from _data/nav_mega.yml, which
+  # scripts/build-nav-mega.mjs builds from the hub pages and data (rerun it after adding a career).
   - type: menu
     label: After Class 10th
     children:
-      - { label: Science, href: science.html, desc: "PCM / PCB — engineering, medicine, research" }
-      - { label: Commerce, href: commerce.html, desc: "CA, B.Com, BBA, finance & business" }
-      - { label: Arts, href: arts.html, desc: "Humanities, law, media & design" }
-      - { label: Diploma, href: diploma.html, desc: "Polytechnic & skill-first courses" }
-      - { label: ITI, href: iti.html, desc: "Trade training after Class 10" }
+      - { label: Compare all 5 pathways, href: after-10th.html }
+    nodes:
+      - { label: Science, href: science.html, mega: science }
+      - { label: Commerce, href: commerce.html, mega: commerce }
+      - { label: Arts, href: arts.html, mega: arts }
+      - { label: Diploma, href: diploma.html, mega: diploma }
+      - { label: ITI, href: iti.html, mega: iti }
   - type: menu
     label: Career Hubs
-    children:
-      - { label: High-Paying Careers, href: high-paying-careers.html, desc: "Ranked by realistic salary" }
-      - { label: Fast-Track Jobs, href: fast-track-jobs.html, desc: "Start earning after 10th / 12th" }
-      - { label: Professional Courses, href: professional-courses.html, desc: "CA, CS, law, medicine" }
-      - { label: Specialised Careers, href: "specialised-careers.html", desc: "Pilot, loco pilot, patent agent, perfusionist & more" }
+    nodes:
+      - { label: High-Paying Careers, href: high-paying-careers.html, mega: high-paying }
+      - { label: Fast-Track Jobs, href: fast-track-jobs.html, mega: fast-track }
+      - { label: Professional Courses, href: professional-courses.html, mega: professional }
+      - { label: Specialised Careers, href: specialised-careers.html, mega: specialised }
+      - { label: Government Jobs, href: govt-exams.html, mega: govt-careers }
   - type: menu
     label: Entrance & Competitive Exams
     # Three tiers: menu button -> 5 stream nodes -> flyout columns (cols). Desktop with a mouse opens a
@@ -296,108 +302,19 @@ topnav:
               - { label: State & Local Board Exams, href: state-psc.html }
   - type: menu
     label: Sports & Performing Arts
-    # Same three-tier matrix as the Entrance menu: hub link, then one node per strategic domain of sports-hub.html
-    # (_data/in/sports.yml domains). Only pages that exist are linked; disciplines not built yet stay off the menu.
+    # Layer 1 = the games / bodies a sport is played under; layer 2 = every sport guide on that programme
+    # (from _data/in/sports_atlas.yml `at` codes, one column per family). One page per sport covers all of them.
     children:
-      - { label: Sports & Performing Arts Cockpit, href: sports-hub.html, desc: "All 5 domains · who pays · sports-quota jobs" }
-      - { label: Every Sport A–Z, href: all-sports.html, desc: "Olympic, Asian Games, Khelo India & job-quota sports" }
+      - { label: Sports & Performing Arts Cockpit, href: sports-hub.html }
+      - { label: Every Sport A–Z, href: all-sports.html }
     nodes:
-      - label: Ball & Team Games
-        href: "sports-hub.html#ball"
-        desc: "Cricket, football, hockey, kabaddi, basketball, volleyball, kho-kho, handball, sepaktakraw, rugby, water polo, baseball, flag football, lacrosse"
-        cols:
-          - label: Team Sports
-            icon: '<circle cx="12" cy="12" r="9"/><path d="M12 7l4 3-1.5 5h-5L8 10z"/><path d="M12 3v4M16 10l4.5-1.5M14.5 15l2.5 4M9.5 15L7 19M8 10L3.5 8.5"/>'
-            links:
-              - { label: Cricket, href: cricket.html, desc: "ICC formats · BCCI U16 to Ranji · IPL rules" }
-              - { label: Football, href: football.html, desc: "Laws 2026/27 · AIFF contracts · Blue Cubs to ISL" }
-              - { label: Hockey, href: hockey.html, desc: "FIH rules Nov 2026 · national camps · HIL" }
-              - { label: Kabaddi, href: kabaddi.html, desc: "AKFI weight limits · Nationals · PKL auction" }
-              - { label: Basketball, href: basketball.html, desc: "FIBA rules 2026 · ring & ball specs · BFI ladder" }
-              - { label: Volleyball, href: volleyball.html, desc: "Net heights · VFI age screening · PVL" }
-              - { label: Kho-Kho, href: kho-kho.html, desc: "Rules of the chase · World Cup · KKFI · jobs" }
-              - { label: Handball, href: handball.html, desc: "3 steps · 3 seconds · ball sizes · jobs" }
-              - { label: Sepaktakraw, href: sepaktakraw.html, desc: "Regu of 3 · net heights · 21-point sets" }
-              - { label: Rugby Sevens, href: rugby.html, desc: "7 a side · LA28 Asia place · junior nationals" }
-              - { label: Water Polo, href: water-polo.html, desc: "7 a side · shot clock · fouls · jobs" }
-              - { label: Baseball & Softball, href: baseball-softball.html, desc: "Innings · pitch clock · LA28 · jobs" }
-              - { label: Flag Football, href: flag-football.html, desc: "5 a side · no contact · LA28 debut" }
-              - { label: Lacrosse, href: lacrosse.html, desc: "Sixes · shot clock · no body check · LA28" }
-      - label: Combat & Mat Sports
-        href: "sports-hub.html#combat"
-        desc: "Wrestling, boxing, weightlifting, judo, taekwondo, wushu, fencing, karate"
-        cols:
-          - label: Weight-Class Sports
-            icon: '<path d="M6.5 6.5h11M6.5 17.5h11M4 9v6M20 9v6M2 11v2M22 11v2"/>'
-            links:
-              - { label: Wrestling, href: wrestling.html, desc: "UWW weight classes · weigh-in · SAI & IIS camps" }
-              - { label: Boxing, href: boxing.html, desc: "World Boxing classes · LA28 · KO rules · SAI NCOEs" }
-              - { label: Weightlifting, href: weightlifting.html, desc: "New IWF categories Aug 2026 · 20 kg rule · LA28" }
-          - label: Martial Arts & Swords
-            icon: '<path d="M14.5 17.5L3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2"/>'
-            links:
-              - { label: Judo, href: judo.html, desc: "IJF scores · weight classes · weigh-in · LA28" }
-              - { label: Taekwondo, href: taekwondo.html, desc: "WT points · Olympic classes · Kukkiwon Dan · LA28" }
-              - { label: Wushu, href: wushu.html, desc: "Sanda points · taolu 10-point score · SAI centres" }
-              - { label: Fencing, href: fencing.html, desc: "Foil, épée, sabre · targets · 15-touch bouts" }
-              - { label: Karate, href: karate.html, desc: "Yuko · waza-ari · ippon · weights · federation" }
-      - label: Solo, Track & Pool
-        href: "sports-hub.html#solo"
-        desc: "Athletics, archery, badminton, shooting, swimming, table tennis, tennis, squash, golf, gymnastics, cycling, rowing, canoe & kayak"
-        cols:
-          - label: Individual Sports
-            icon: '<circle cx="13" cy="4" r="2"/><path d="M4 22l4-7 3 2 2-5 4 3h3M10 10l-2 5"/>'
-            links:
-              - { label: Athletics, href: athletics.html, desc: "Every event · javelin & shot weights · AFI · SAI" }
-              - { label: Badminton, href: badminton.html, desc: "15-point scoring · World Tour points · BAI ladder" }
-              - { label: Shooting, href: shooting.html, desc: "ISSF events · NRAI MQS & trials · licence & imports" }
-              - { label: Swimming, href: swimming.html, desc: "Stroke & suit rules · SFI age groups · Talent Pool" }
-              - { label: Archery, href: archery.html, desc: "Bow rules · 70 m / 50 m · LA28 minimum scores" }
-              - { label: Table Tennis, href: table-tennis.html, desc: "ITTF laws · TTFI selection points · Nationals" }
-              - { label: "SAI, NIS & sports-quota guide", href: niche-careers/sports.html, desc: "SAI academies, NIS coaching, quota jobs" }
-              - { label: Tennis, href: tennis.html, desc: "ITF rules · AITA junior circuit · ACE 2032 · LA28" }
-              - { label: Squash, href: squash.html, desc: "11-point games · let & stroke · LA28 debut" }
-              - { label: Golf, href: golf.html, desc: "Rules of Golf · Olympic ranking · Asian Games gold" }
-          - label: Gym, Wheels & Water
-            icon: '<circle cx="12" cy="5" r="2"/><path d="M12 7v6M8 21l4-8 4 8M5 10h14"/>'
-            links:
-              - { label: Gymnastics, href: gymnastics.html, desc: "Apparatus · D + E scoring · FIG ages · LA28" }
-              - { label: Cycling, href: cycling.html, desc: "Track, road, MTB, BMX · UCI ages · LA28" }
-              - { label: Rowing, href: rowing.html, desc: "Boat classes · 2,000 m · U19/U23 · LA28" }
-              - { label: Canoe & Kayak, href: canoe-kayak.html, desc: "Sprint & slalom · gate penalties · LA28" }
-              - { label: Indian traditional sports, href: indian-traditional-sports.html, desc: "Mallakhamb · yogasana · gatka · kalari · thang-ta" }
-              - { label: Equestrian, href: equestrian.html, desc: "Jumping · dressage · eventing · LA28 MER" }
-              - { label: Sailing, href: sailing.html, desc: "Windsurf · kite · dinghy · skiff · LA28" }
-              - { label: Triathlon, href: triathlon.html, desc: "Distances · drafting · age groups · LA28" }
-              - { label: Sport Climbing, href: sport-climbing.html, desc: "Boulder · lead · speed · LA28 Asia qualifier" }
-              - { label: Surfing, href: surfing.html, desc: "Shortboard · Asian Games route · LA28" }
-              - { label: Skateboarding, href: skateboarding.html, desc: "Park · street · world ranking · LA28" }
-              - { label: Modern Pentathlon, href: modern-pentathlon.html, desc: "Fence · swim · obstacle · laser run" }
-              - { label: Diving, href: diving.html, desc: "Springboard · platform · judges · LA28" }
-              - { label: Artistic Swimming, href: artistic-swimming.html, desc: "Routines · judging · team & duet · LA28" }
-              - { label: Breaking, href: breaking.html, desc: "Battles · 5 criteria · age groups · AG" }
-      - label: Mind & Strategy
-        href: "sports-hub.html#mind"
-        desc: "Chess — FIDE ratings, titles, AICF nationals"
-        cols:
-          - label: Board Sports
-            icon: '<path d="M8 22h8M7 18h10l-1-4H8zM9 14l-1-6h8l-1 6M10 8V5h4v3M12 2v3"/>'
-            links:
-              - { label: Chess, href: chess.html, desc: "FIDE rating · GM norms · GM/IM job clause" }
-      - label: Classical Performing Arts
-        href: "sports-hub.html#arts"
-        desc: "Kathak, Bharatanatyam, Hindustani, Carnatic"
-        cols:
-          - label: Classical Dance
-            icon: '<circle cx="12" cy="4" r="2"/><path d="M12 6v6l-4 4M12 12l4 4M6 9l6 1 6-1M9 20l3-4 3 4"/>'
-            links:
-              - { label: Kathak, href: kathak.html, desc: "Kathak Kendra ages · DD grades · gharanas" }
-              - { label: Bharatanatyam, href: bharatanatyam.html, desc: "Kalakshetra diploma · Pratama · DD grades" }
-          - label: Classical Music
-            icon: '<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>'
-            links:
-              - { label: Hindustani Music, href: hindustani-music.html, desc: "AIR grades · raga lists · Gandharva levels" }
-              - { label: Carnatic Music, href: carnatic-music.html, desc: "AIR raga groups · Kalakshetra · scholarships" }
+      - { label: Olympic Games (LA28), href: "all-sports.html#games", mega: sport-olympic }
+      - { label: Paralympic Games (LA28), href: "all-sports.html#para", mega: sport-para }
+      - { label: Asian Games, href: "all-sports.html#games", mega: sport-asian }
+      - { label: World Cups & Federations, href: sports-hub.html, mega: sport-all }
+      - { label: Khelo India Games, href: "all-sports.html#games", mega: sport-khelo }
+      - { label: Sports-Quota Govt Jobs, href: niche-careers/sports.html, mega: sport-quota }
+      - { label: Classical Performing Arts, href: "sports-hub.html#arts", mega: sport-arts }
   - type: menu
     label: Colleges & Coaching
     children:
@@ -405,7 +322,8 @@ topnav:
       - { label: Find Verified Coaching Centers, href: "coaching.html", desc: "Coaching finder by exam and state" }
   - type: menu
     label: Global & Regional
-    children:
-      - { label: State-Level Pathways, href: state-pathways.html, desc: "State exams, boards and routes" }
-      - { label: Study Abroad, href: study-abroad.html, desc: "7 countries for Indian students" }
-      - { label: Niche & Sports Careers, href: niche-careers.html, desc: "Pilot, merchant navy, sports, creative arts" }
+    nodes:
+      - { label: State Exam Cockpits, href: state-pathways.html, mega: states }
+      - { label: State Admission Guides, href: state-pathways.html, mega: state-admissions }
+      - { label: Study Abroad, href: study-abroad.html, mega: abroad }
+      - { label: Niche Careers, href: niche-careers.html, mega: niche }

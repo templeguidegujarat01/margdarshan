@@ -1631,13 +1631,10 @@ try {
   function place(d){
     var panel = d.querySelector('.hh-panel');
     var nr = nav.getBoundingClientRect(), br = d.querySelector('summary').getBoundingClientRect();
-    var gutter = 20, x = br.left - nr.left, fly = 0;
-    // A flyout matrix opens to the RIGHT of the panel: reserve room for its widest flyout, so the panel
-    // slides left just enough instead of the flyout flipping over to the left side.
-    panel.querySelectorAll('.hh-grid').forEach(function(g){
-      if(getComputedStyle(g).position === 'absolute') fly = Math.max(fly, g.offsetWidth + 8);
-    });
-    x = Math.max(gutter, Math.min(x, nr.width - panel.offsetWidth - fly - gutter));
+    var gutter = 20, x = br.left - nr.left;
+    // (On desktop a mega panel spans the content width from CSS, so --hh-x only matters for plain menus
+    // and for the narrow accordion layout.)
+    x = Math.max(gutter, Math.min(x, nr.width - panel.offsetWidth - gutter));
     nav.style.setProperty('--hh-x', Math.round(x) + 'px');
   }
   function more(){ nav.classList.toggle('hh-more', row.scrollLeft + row.clientWidth < row.scrollWidth - 2); }
@@ -1661,17 +1658,39 @@ try {
     e.preventDefault();
     row.scrollLeft += e.deltaY;
   }, { passive: false });
-  // Flyout matrix nodes (.hh-sub / .hh-node): a node's columns open to the right of the panel; flip them
-  // left when the right side has no room (desktop hover layout only — elsewhere they swipe inside the panel).
-  nav.querySelectorAll('.hh-sub').forEach(function(sub){
-    var fly = sub.querySelector('.hh-fly');
-    function side(){
-      if(!fly || getComputedStyle(fly).position !== 'absolute') return;
-      var r = sub.getBoundingClientRect(), w = fly.offsetWidth + 12, vw = document.documentElement.clientWidth;
-      sub.classList.toggle('hh-flip', r.right + w > vw - 8 && r.left - w >= 8);
-    }
-    sub.addEventListener('mouseenter', side);
-    sub.addEventListener('focusin', side);
+  // Mega menus (.hh-mega): one node is "on" at a time and its list fills the right pane.
+  // Desktop with a mouse: hovering or focusing a rail name switches at once (a 70 ms pause on mouse
+  // entry only, so a diagonal move from a name to its list does not flick through the names in between).
+  // Touch / narrow: tapping a name opens or closes its list under it (the hub link sits inside the list).
+  var wide = window.matchMedia('(min-width:1024px) and (hover:hover)');
+  nav.querySelectorAll('.hh-mega').forEach(function(panel){
+    var nodes = panel.querySelectorAll('.hh-node'), timer = 0;
+    function on(n){ nodes.forEach(function(o){ o.classList.toggle('is-on', o === n); }); }
+    nodes.forEach(function(n){
+      var btn = n.querySelector('.hh-sub-btn');
+      btn.addEventListener('mouseenter', function(){
+        if(!wide.matches) return;
+        clearTimeout(timer); timer = setTimeout(function(){ on(n); }, 70);
+      });
+      btn.addEventListener('mouseleave', function(){ clearTimeout(timer); });
+      btn.addEventListener('focus', function(){ if(wide.matches) on(n); });
+      btn.addEventListener('click', function(e){
+        if(wide.matches) return;
+        e.preventDefault();
+        if(n.classList.contains('is-on')) n.classList.remove('is-on'); else on(n);
+      });
+    });
+    // Each time the menu opens: desktop starts on the first node (or the one holding this page);
+    // narrow starts with every list closed except the one holding this page.
+    var dd = panel.closest('.hh-dd');
+    dd.addEventListener('toggle', function(){
+      if(!dd.open) return;
+      var cur = null;
+      nodes.forEach(function(n){ if(!cur && n.querySelector('[aria-current="page"]')) cur = n; });
+      if(wide.matches) on(cur || nodes[0]);
+      else if(cur) on(cur); else nodes.forEach(function(o){ o.classList.remove('is-on'); });
+      place(dd);
+    });
   });
   window.addEventListener('resize', function(){ more(); drops.forEach(function(d){ if(d.open) place(d); }); });
   more();

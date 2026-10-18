@@ -9,6 +9,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
+import { spawnSync } from 'node:child_process';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const yaml = createRequire(path.join(process.env.VERIFY_DEPS || root, 'x.js'))('js-yaml');
@@ -397,14 +398,25 @@ const navFile = path.join(root, '_data', 'nav.yml');
 let navLinks = 0;
 if (fs.existsSync(navFile)) {
   const N = yaml.load(fs.readFileSync(navFile, 'utf8')) || {};
+  const megaFile = path.join(root, '_data', 'nav_mega.yml');
+  const mega = fs.existsSync(megaFile) ? (yaml.load(fs.readFileSync(megaFile, 'utf8')) || {}) : {};
+  // The generated flyout lists must match the hub pages and data they are built from.
+  const megaRun = spawnSync(process.execPath, [path.join(root, 'scripts', 'build-nav-mega.mjs'), '--check'], { encoding: 'utf8', env: process.env });
+  if (megaRun.status !== 0) errors.push('nav_mega: ' + ((megaRun.stderr || megaRun.stdout || '').trim().split('\n').join(' / ') || 'build-nav-mega --check failed'));
   const chk = (where, h) => { navLinks++; if (!h || !linkOk(String(h).replace(/&amp;/g, '&'))) errors.push(`nav.yml topnav ${where}: missing page ${h}`); };
   for (const it of N.topnav || []) {
     if (it.href) chk(it.label, it.href);
     for (const c of it.children || []) chk(`${it.label} > ${c.label}`, c.href);
     for (const n of it.nodes || []) {
       chk(`${it.label} > ${n.label}`, n.href);
-      if (!(n.cols || []).length) errors.push(`nav.yml topnav ${it.label} > ${n.label}: node has no cols`);
-      for (const col of n.cols || []) {
+      // A node lists either its own cols or `mega: <key>` (generated columns in _data/nav_mega.yml), never both.
+      if (n.mega && n.cols) errors.push(`nav.yml topnav ${it.label} > ${n.label}: use cols or mega, not both`);
+      const M = n.mega ? (mega[n.mega] || {}) : null;
+      if (n.mega && !M.cols) errors.push(`nav.yml topnav ${it.label} > ${n.label}: mega key '${n.mega}' is not in _data/nav_mega.yml`);
+      if (M && M.head) chk(`${n.label} > flyout head`, M.head.href);
+      const cols = M ? (M.cols || []) : (n.cols || []);
+      if (!cols.length) errors.push(`nav.yml topnav ${it.label} > ${n.label}: node has no cols`);
+      for (const col of cols) {
         if (!col.label || !(col.links || []).length) errors.push(`nav.yml topnav ${n.label}: every column needs a label and links`);
         for (const c of col.links || []) chk(`${n.label} > ${col.label} > ${c.label}`, c.href);
       }

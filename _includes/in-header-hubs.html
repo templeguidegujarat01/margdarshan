@@ -6,11 +6,14 @@
   closes it on outside click and Escape.
   The row is one line at every width and scrolls sideways when it does not fit; panels hang off the nav itself
   (not the scrolling strip), so the strip's overflow never clips them.
-  `nodes` (three-tier matrix, used by Entrance & Competitive Exams): the panel lists stream nodes and each
-  node owns a flyout of columns (cols[] {label, icon, links[]}). Desktop with a mouse (>=1024px, hover): the
-  flyout opens to the RIGHT of the panel, top-aligned with it, on hover or keyboard focus (site.js flips it
-  left when there is no room). Touch and below 1024px: the columns sit under the node as a strip that
-  swipes sideways inside the panel. A node's heading links to its stream hub page.
+  Plain menus (children only) are a short list of links with a one-line description.
+  Mega menus (a menu with `nodes`): the panel is a two-pane matrix. Left: a rail with the node names only
+  (plus any `children` links under a rule). Right: the active node's columns — every guide in that
+  category, names only, flowed into as many columns as fit, so nothing needs scrolling. A node's columns
+  come from its own `cols` or, with `mega: <key>`, from _data/nav_mega.yml (built by
+  scripts/build-nav-mega.mjs from the hub pages). Desktop with a mouse (>=1024px, hover): hovering or
+  focusing a rail name swaps the right pane at once (site.js moves .is-on; the first node starts on).
+  Touch and below 1024px: each rail name is an accordion that opens its list under it.
 {%- endcomment -%}
 {%- assign hh_cur = page.url | remove_first: "/" -%}
 <nav class="in-header-hubs" aria-label="India menu">
@@ -23,6 +26,45 @@
       <li><a class="hh-home" href="{{ it.href }}" aria-label="{{ it_label }}" title="{{ it_label }}"{% if hh_cur == it.href %} aria-current="page"{% endif %}>{{ it_icon }}</a></li>
       {%- elsif it.type == "tile" %}
       <li><a class="hh-tile" href="{{ it.href }}">{{ it_icon }}{{ it_label }}</a></li>
+      {%- elsif it.nodes %}
+      {%- assign hh_rows = it.children | size | plus: it.nodes.size %}
+      <li>
+        <details class="hh-dd">
+          <summary class="hh-btn">{{ it_label }}<svg class="hh-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+          <ul class="hh-panel hh-mega" style="--hh-rows:{{ hh_rows }}">
+            {%- for n in it.nodes %}
+            {%- assign n_label = n.label | replace: "&", "&amp;" %}
+            {%- assign M = site.data.nav_mega[n.mega] %}
+            {%- assign n_cols = n.cols %}
+            {%- if M %}{% assign n_cols = M.cols %}{% endif %}
+            <li class="hh-sub hh-node{% if forloop.first %} is-on{% endif %}">
+              <a class="hh-sub-btn" href="{{ n.href }}" aria-haspopup="true"{% if hh_cur == n.href %} aria-current="page"{% endif %}><span class="hh-node-txt">{{ n_label }}</span><svg class="hh-sub-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+              <div class="hh-fly hh-grid" role="group" aria-label="{{ n_label }}">
+                <div class="hh-fly-head">
+                  <p class="hh-fly-title">{{ n_label }}{% if M.note %}<span>{{ M.note | replace: "&", "&amp;" }}</span>{% endif %}</p>
+                  <a class="hh-link hh-fly-all" href="{% if M.head %}{{ M.head.href }}{% else %}{{ n.href }}{% endif %}">{% if M.head %}{{ M.head.label | replace: "&", "&amp;" }}{% else %}Open {{ n_label }}{% endif %} <span aria-hidden="true">→</span></a>
+                </div>
+                <div class="hh-cols">
+                  {%- for col in n_cols %}
+                  <div class="hh-col{% if col.links.size < 9 %} hh-col-keep{% endif %}">
+                    <p class="hh-col-head">{% if col.icon %}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{{ col.icon }}</svg>{% endif %}{{ col.label | replace: "&", "&amp;" }}</p>
+                    <ul>
+                      {%- for c in col.links %}
+                      <li><a class="hh-link" href="{{ c.href }}"{% if c.desc %} title="{{ c.desc | replace: '&', '&amp;' | replace: '"', '&quot;' }}"{% endif %}{% if hh_cur == c.href %} aria-current="page"{% endif %}>{{ c.label | replace: "&", "&amp;" }}</a></li>
+                      {%- endfor %}
+                    </ul>
+                  </div>
+                  {%- endfor %}
+                </div>
+              </div>
+            </li>
+            {%- endfor %}
+            {%- for c in it.children %}
+            <li class="hh-rail-link{% if forloop.first %} hh-rail-first{% endif %}"><a class="hh-link" href="{{ c.href }}"{% if hh_cur == c.href %} aria-current="page"{% endif %}>{{ c.label | replace: "&", "&amp;" }} <span aria-hidden="true">→</span></a></li>
+            {%- endfor %}
+          </ul>
+        </details>
+      </li>
       {%- else %}
       <li>
         <details class="hh-dd">
@@ -30,24 +72,6 @@
           <ul class="hh-panel">
             {%- for c in it.children %}
             <li><a class="hh-link" href="{{ c.href }}"{% if hh_cur == c.href %} aria-current="page"{% endif %}><strong>{{ c.label | replace: "&", "&amp;" }}</strong>{% if c.desc %}<span>{{ c.desc | replace: "&", "&amp;" }}</span>{% endif %}</a></li>
-            {%- endfor %}
-            {%- for n in it.nodes %}
-            {%- assign n_label = n.label | replace: "&", "&amp;" %}
-            <li class="hh-sub hh-node">
-              <a class="hh-sub-btn" href="{{ n.href }}" aria-haspopup="true"{% if hh_cur == n.href %} aria-current="page"{% endif %}><span class="hh-node-txt"><strong>{{ n_label }}</strong>{% if n.desc %}<span>{{ n.desc | replace: "&", "&amp;" }}</span>{% endif %}</span><svg class="hh-sub-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
-              <div class="hh-fly hh-grid{% if n.cols.size > 2 %} hh-grid-2 hh-grid-3{% elsif n.cols.size > 1 %} hh-grid-2{% endif %}" role="group" aria-label="{{ n_label }}">
-                {%- for col in n.cols %}
-                <div class="hh-col">
-                  <p class="hh-col-head">{% if col.icon %}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{{ col.icon }}</svg>{% endif %}{{ col.label | replace: "&", "&amp;" }}</p>
-                  <ul>
-                    {%- for c in col.links %}
-                    <li><a class="hh-link" href="{{ c.href }}"{% if hh_cur == c.href %} aria-current="page"{% endif %}><strong>{{ c.label | replace: "&", "&amp;" }}</strong>{% if c.desc %}<span>{{ c.desc | replace: "&", "&amp;" }}</span>{% endif %}</a></li>
-                    {%- endfor %}
-                  </ul>
-                </div>
-                {%- endfor %}
-              </div>
-            </li>
             {%- endfor %}
           </ul>
         </details>

@@ -6,7 +6,12 @@
   Node kinds are read from the step title only, so a node is never labelled with something the
   data does not say. Words are matched as written (Liquid `contains` is case-sensitive):
     start    first step whose title names a Class ("Class 12", "Class 11–12, PCB")
-    exam     title names an exam: "xam" (Exam/exam), "ntrance", CLAT, JEE, NEET, CUET, AIBE, NATA, NIFT, GATE, UPSC
+    exam     title names an exam: "xam" (Exam/exam), "ntrance", CLAT, JEE, NEET, CUET, AIBE, NATA, NIFT, GATE, UPSC,
+             or the WHOLE title is a professional-body exam level: Foundation, Intermediate, Final (CA, CMA),
+             CSEET, Executive, Professional (CS), Applied Knowledge, Applied Skills, Strategic Professional (ACCA).
+             Whole-title only, so "Foundation training & posting" (UPSC) and "Foundational certification"
+             stay stages. Articleship, Practical Training and EPSM are training / an ethics module, not
+             exams, so they stay stages as well.
     licence  title names registration, membership or a licence: "egist", "Membership", "icen" —
              never the first step (ACCA "Register" = student sign-up)
     goal     the last step, unless it is a single licence step (no " or ", no "consider")
@@ -15,9 +20,12 @@
   FRM "Register Part I" = exam sign-up, not a gate or a licence).
   Every badge is visible text, so the colour is never the only signal.
 
-  Params: steps (array of {title, text}), class (optional extra class on the list).
+  Params: steps (array of {title, text}), class (optional extra class on the list),
+          plain (true = a numbered process, not a career path: every node is "Step N", no ★, no legend;
+          about.html "How we work").
 {%- endcomment -%}
 {%- assign cf_exam = "xam,ntrance,CLAT,JEE,NEET,CUET,AIBE,NATA,NIFT,GATE,UPSC" | split: "," -%}
+{%- assign cf_level = "Foundation|Intermediate|Final|CSEET|Executive|Professional|Applied Knowledge|Applied Skills|Strategic Professional" | split: "|" -%}
 {%- assign cf_lic = "egist,Membership,icen" | split: "," -%}
 {%- assign cf_skip = "prep,course,Part I" | split: "," -%}
 {%- assign cf_seen = "" -%}
@@ -30,6 +38,7 @@
     {%- for w in cf_skip %}{% if s.title contains w %}{% assign cf_plain = true %}{% endif %}{% endfor -%}
     {%- if kind == "stage" and cf_plain == false -%}
       {%- for w in cf_exam %}{% if s.title contains w %}{% assign kind = "exam" %}{% endif %}{% endfor -%}
+      {%- if cf_level contains s.title %}{% assign kind = "exam" %}{% endif -%}
       {%- unless forloop.first -%}
       {%- for w in cf_lic %}{% if s.title contains w %}{% assign kind = "licence" %}{% endif %}{% endfor -%}
       {%- endunless -%}
@@ -37,9 +46,10 @@
     {%- if forloop.last -%}
       {%- if kind != "licence" or s.title contains " or " or s.title contains "consider" %}{%- assign kind = "goal" -%}{%- endif -%}
     {%- endif -%}
+    {%- if include.plain %}{% assign kind = "stage" %}{% endif -%}
     {%- assign cf_seen = cf_seen | append: kind | append: " " %}
     <li class="cflow-node" data-kind="{{ kind }}">
-      <span class="cflow-dot" aria-hidden="true">{% if forloop.last %}★{% else %}{{ forloop.index }}{% endif %}</span>
+      <span class="cflow-dot" aria-hidden="true">{% if forloop.last and include.plain != true %}★{% else %}{{ forloop.index }}{% endif %}</span>
       <div class="cflow-card">
         <span class="cflow-kind">{% case kind %}{% when "start" %}Start here{% when "exam" %}Exam gate{% when "licence" %}Licence{% when "goal" %}Goal{% else %}Step {{ forloop.index }}{% endcase %}</span>
         <h3>{{ s.title }}</h3>
@@ -48,6 +58,7 @@
     </li>
     {%- endfor %}
   </ol>
+  {%- unless include.plain %}
   <p class="cflow-legend" aria-hidden="true">
     {%- if cf_seen contains "start" %}<span data-kind="start">Start</span>{% endif -%}
     {%- if cf_seen contains "stage" %}<span data-kind="stage">Study / training</span>{% endif -%}
@@ -55,4 +66,5 @@
     {%- if cf_seen contains "licence" %}<span data-kind="licence">Licence</span>{% endif -%}
     {%- if cf_seen contains "goal" %}<span data-kind="goal">Goal</span>{% endif -%}
   </p>
+  {%- endunless %}
 </div>

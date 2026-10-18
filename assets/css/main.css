@@ -2099,7 +2099,8 @@ html[data-region="uk"] .sb-group[data-region-nav]:not([data-region-nav="uk"]){di
   html[data-sidebar="collapsed"] .region-dd-caret{display:none;}
   html[data-sidebar="collapsed"] .region-dd-btn{justify-content:center;min-height:40px;padding:.35rem;}
   html[data-sidebar="collapsed"] .region-cur{flex:0 0 auto;}
-  html[data-sidebar="collapsed"] .region-menu{top:0;left:calc(100% + 10px);right:auto;width:260px;}
+  /* Scoped to the sidebar switcher: the header panel shares .region-menu and must stay under its button. */
+  html[data-sidebar="collapsed"] .region-dd > .region-menu{top:0;left:calc(100% + 10px);right:auto;width:260px;}
 }
 
 /* USA Edition pages: static (non-link) data cards reuse .trend-card; source list. */

@@ -1,0 +1,526 @@
+# Andhra Pradesh State Exam & Career Cockpit — one data sheet for the cockpit (state/andhra-pradesh/index.html)
+# and every exam page under state/andhra-pradesh/. Rendered by _includes/state-cockpit.html and
+# _includes/state-exam.html; checked by scripts/check-in-data.mjs (state sheets block).
+#
+# Rules for this sheet (same as the other state sheets):
+#   - Every fact part carries `source: <id>`; the id must be listed under that exam's `sources`.
+#   - Sources are the official files themselves (read 2026-10-18): APPSC Notification 07/2026 (Group-I, detailed)
+#     and Brief Notification 37/2026 (Group-II); the AP State Level Police Recruitment Board's constable and
+#     Sub-Inspector notifications of 16 Sep 2026; and the AP EAPCET-2026 instruction booklet and the local-status
+#     G.O. posted on the APSCHE CETs site. Nothing comes from coaching or news sites.
+#   - AP POLYCET is left out on purpose: its official site (polycetap.ap.gov.in) says "Website is Closed for the
+#     Year - 2026" and no 2026 notification or brochure could be opened, so no page is built from it.
+#   - Section ids are the same on every exam page: overview, eligibility, scheme, fees, reservation,
+#     documents, pay, posting (+ sources, drawn automatically).
+state:
+  id: andhra-pradesh
+  name: Andhra Pradesh
+  checked: 2026-10-18
+
+cockpit:
+  eyebrow: "State Exam &amp; Career Cockpit · Andhra Pradesh"
+  title: "Andhra Pradesh Exam &amp; Career Cockpit"
+  intro:
+    - "Every major Andhra Pradesh government recruitment and admission route on one screen: APPSC Group-I and Group-II services, police constables and Sub-Inspectors through the State Level Police Recruitment Board (SLPRB), and engineering, agriculture and pharmacy admission through AP EAPCET. Each page is built only from the official notification or instruction booklet, and every fact links back to that file."
+    - "Andhra Pradesh recruits under a new local-cadre system. The Andhra Pradesh Public Employment (Organisation of Local Cadres and Regulation of Direct Recruitment) Order, 2025 (G.O.Ms.No.45, 20 April 2026) reserves 95% of zonal and multi-zonal posts for local candidates — decided by where you studied in Classes I to VII — and the 2026 notifications divide the state's 26 districts into six zones and two multi-zones. BC, SC, ST and EWS candidates from other states get no reservation, and SC candidates now need certificates under the 2025 SC sub-classification (Groups I, II and III)."
+  facts:
+    - { label: "Recruitment nodes", value: "APPSC Group-I &amp; II · AP Police" }
+    - { label: "Admission node", value: "AP EAPCET (engineering, agri, pharmacy)" }
+    - { label: "Open now", value: "Group-I till 27 Oct · Group-II from 10 Nov 2026" }
+    - { label: "Last checked", value: "18 Oct 2026" }
+  groups:
+    - id: civil
+      eyebrow: "Civil recruitment &amp; administrative"
+      heading: "Government recruitment exams"
+      intro: "Group-I and Group-II services through the Andhra Pradesh Public Service Commission (APPSC), and police constables, Sub-Inspectors, firemen and warders through the State Level Police Recruitment Board (SLPRB)."
+      exams: [appsc, police]
+    - id: academic
+      eyebrow: "Academic admissions"
+      heading: "Admission routes after Class 12"
+      intro: "B.Tech, B.Pharmacy, agriculture and allied degrees through the Engineering, Agriculture and Pharmacy Common Entrance Test (AP EAPCET), held by JNTU Kakinada for the AP State Council of Higher Education. AP POLYCET (diploma after Class 10) is not covered: its official site was closed for 2026 when we checked."
+      exams: [eapcet]
+  compare_note: "Fees, age limits and dates are from the latest notification of each body. They change every cycle, so always open the current notification before applying."
+  portals_note: "APPSC notifications and applications are on psc.ap.gov.in (portal-psc.ap.gov.in, with One Time Profile Registration at otpr-psc.ap.gov.in); police recruitment on slprb.ap.gov.in; AP EAPCET on cets.apsche.ap.gov.in. The AP POLYCET site, polycetap.ap.gov.in, was closed for 2026. Only use these official addresses."
+  portals:
+    - { label: "Andhra Pradesh Public Service Commission (APPSC)", url: "https://psc.ap.gov.in/" }
+    - { label: "State Level Police Recruitment Board, AP (SLPRB)", url: "https://slprb.ap.gov.in/" }
+    - { label: "APSCHE Common Entrance Tests (AP EAPCET)", url: "https://cets.apsche.ap.gov.in/" }
+    - { label: "AP POLYCET (SBTET AP)", url: "https://polycetap.ap.gov.in/" }
+
+exams:
+  # ------------------------------------------------------------------ APPSC GROUP-I & GROUP-II
+  - slug: appsc
+    group: civil
+    short: "APPSC Group-I &amp; Group-II Services"
+    body: "Andhra Pradesh Public Service Commission"
+    card: "Andhra Pradesh's state services: Deputy Collector, DSP, Asst. Commissioner of State Tax and ten other Group-I posts (Notification 07/2026, 166 posts), and Deputy Tahsildar, ASO, GST Officer and other Group-II posts (Notification 37/2026, 686 posts)."
+    card_facts: ["Group-I: 166 posts · apply till 27 Oct 2026", "Group-II: 686 posts · apply 10–30 Nov 2026", "Screening test 24 Jan 2027 (Group-I)"]
+    eyebrow: "APPSC · Group-I &amp; Group-II"
+    title: "APPSC Group-I (07/2026) &amp; Group-II (37/2026) — 852 Posts: Eligibility, Local Zones, Scheme, Pay"
+    lede: "The Andhra Pradesh Public Service Commission notified Group-I Services on 6 October 2026 (Notification 07/2026, 166 posts) and Group-II Services on 13 October 2026 (Brief Notification 37/2026, 686 posts). This page follows both notifications."
+    facts:
+      - { label: "Group-I", value: "166 posts · screening test 24 Jan 2027", source: g1 }
+      - { label: "Group-II", value: "686 posts · apply 10–30 Nov 2026", source: g2 }
+      - { label: "Age (Group-I)", value: "18–44 on 1 Jul 2026 (DSP 21/18–30)", source: g1 }
+      - { label: "Fee (Group-I)", value: "₹250 + ₹120 exam fee (many exempt)", source: g1 }
+    official:
+      - { label: "APPSC website", url: "https://psc.ap.gov.in/" }
+      - { label: "Group-I Notification 07/2026 (PDF)", url: "https://psc.ap.gov.in/Documents/NotificationDocuments/Group_I_07_2026.pdf" }
+      - { label: "Group-II Brief Notification 37/2026 (PDF)", url: "https://psc.ap.gov.in/Documents/NotificationDocuments/Group_II_372026.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "Two fresh notifications in October 2026"
+        parts:
+          - table:
+              caption: "Group-I Services — Notification 07/2026 (6 Oct 2026)"
+              head: ["Post", "Posts", "Age (1 Jul 2026)", "Scale of pay (₹)"]
+              rows:
+                - ["Deputy Collector (AP Civil Service, Executive)", "12", "18–44", "61,960 – 1,51,370"]
+                - ["Asst. Commissioner of State Tax", "14", "18–44", "61,960 – 1,51,370"]
+                - ["Deputy Supdt. of Police (Civil) Cat-2", "36 (3 carried forward)", "21–30", "61,960 – 1,51,370"]
+                - ["DSP (Communications)", "3", "18–30", "61,960 – 1,51,370"]
+                - ["District Educational Officer", "14", "18–44", "61,960 – 1,51,370"]
+                - ["Regional Transport Officer", "3", "18–44", "57,100 – 1,47,760"]
+                - ["District Tribal Welfare Officer", "1", "18–44", "57,100 – 1,47,760"]
+                - ["Deputy Registrar (Co-operative)", "16 (1 CF)", "18–44", "57,100 – 1,47,760"]
+                - ["Municipal Commissioner Grade-II", "12", "18–44", "54,060 – 1,40,540"]
+                - ["Asst. Treasury Officer / Asst. Accounts Officer", "2", "18–44", "54,060 – 1,40,540"]
+                - ["District Employment Officer", "3 (1 CF)", "18–44", "54,060 – 1,40,540"]
+                - ["Assistant Audit Officer", "15", "18–44", "54,060 – 1,40,540"]
+                - ["Divisional Development Officer (Panchayat Raj)", "35", "18–44", "65,360 – 1,54,980"]
+                - ["Total", "166", "", ""]
+            source: g1
+          - p: "Group-I applications run online from 6 October to 27 October 2026 (11:59 pm). The screening test (objective, OMR, offline) is on <strong>24 January 2027</strong>; the descriptive mains dates will be announced later."
+            source: g1
+          - table:
+              caption: "Group-II Services — Brief Notification 37/2026 (13 Oct 2026)"
+              head: ["Post", "Posts", "Scale of pay (₹)"]
+              rows:
+                - ["Municipal Commissioner Grade-III", "6", "45,830 – 1,30,580"]
+                - ["Sub-Registrar Grade-II", "7", "44,570 – 1,27,480"]
+                - ["Deputy Tahsildar (AP Revenue Service)", "200", "44,570 – 1,27,480"]
+                - ["Goods and Service Tax Officer (erstwhile ACTO)", "40", "45,830 – 1,30,580"]
+                - ["Asst. Registrar of Co-operative Societies", "10", "45,830 – 1,30,580"]
+                - ["Deputy Mandal Parishad Development Officer", "176", "45,830 – 1,30,580"]
+                - ["Prohibition &amp; Excise Sub-Inspector", "29", "40,970 – 1,24,380"]
+                - ["Assistant Section Officer (GAD / Finance / Law)", "71 / 5 / 4", "40,970 – 1,24,380"]
+                - ["Senior Accountant (Treasuries)", "90", "34,580 – 1,07,210"]
+                - ["Junior Accountant (various departments)", "48", "25,220 – 80,910"]
+                - ["Total", "686", ""]
+            source: g2
+          - p: "Group-II applications run from 10 November to 30 November 2026. The detailed notification — with the vacancy break-up, age, community rules and the screening-test date — will be on the Commission's website on or before 10 November 2026."
+            source: g2
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "A degree, age 18–44, and DSP standards"
+        parts:
+          - list:
+              - "<strong>Group-I qualification:</strong> a bachelor's degree from a recognised university for every post except DSP (Communications), which needs a B.E. / B.Tech in Electronics &amp; Communication, Electronics &amp; Telecommunication or Radio Engineering. Qualifications are counted as on the date of the detailed notification."
+              - "<strong>Group-I age:</strong> 18 to 44 on 1 July 2026; DSP (Civil) 21 to 30 and DSP (Communications) 18 to 30."
+              - "<strong>Age relaxation:</strong> 5 years for SC, ST, BC and EWS; 10 years for persons with benchmark disabilities; ex-servicemen and NCC instructors 3 years plus service; regular AP government employees up to 5 years of service; retrenched census employees 3 years."
+              - "<strong>DSP physical standards:</strong> men at least 167.6 cm with chest 86.3 cm and 5 cm expansion (ST 164 cm and 83.8 cm); women at least 152.5 cm and 45.5 kg; set vision standards without contact lenses."
+            source: g1
+          - list:
+              - "<strong>Group-II qualification:</strong> a bachelor's degree for most posts; ASO (Finance) needs a degree in Mathematics, Economics or Commerce; ASO (Law) a law degree; Sub-Registrar gives preference to law graduates."
+              - "<strong>Senior and Junior Accountant:</strong> a degree (Commerce, Economics or Maths, or any degree under the 1979 rule) plus a BTET computer certificate (Office Automation, PC Maintenance or Web Designing) or a computer degree such as BCA, B.Sc / B.Com (Computers) or B.Tech in CS / IT."
+            source: g2
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme &amp; marking"
+        heading: "Screening test, descriptive mains and a 75-mark interview"
+        parts:
+          - table:
+              caption: "Group-I screening test (objective, degree standard)"
+              head: ["Paper", "Questions", "Time", "Marks"]
+              rows:
+                - ["I — General Studies (history &amp; culture; polity, social justice &amp; IR; Indian &amp; AP economy; geography)", "120", "120 min", "120"]
+                - ["II — General Aptitude (mental ability; science &amp; technology; current events)", "120", "120 min", "120"]
+            source: g1
+          - table:
+              caption: "Group-I mains (descriptive) and interview"
+              head: ["Paper", "Time", "Marks"]
+              rows:
+                - ["Telugu (qualifying)", "180 min", "150"]
+                - ["English (qualifying)", "180 min", "150"]
+                - ["I — General Essay", "180 min", "150"]
+                - ["II — History, Culture and Geography of India and AP", "180 min", "150"]
+                - ["III — Polity, Constitution, Governance, Law and Ethics", "180 min", "150"]
+                - ["IV — Economy and Development of India and AP", "180 min", "150"]
+                - ["V — Science, Technology and Environmental Issues", "180 min", "150"]
+                - ["Interview", "", "75"]
+                - ["Total counted for merit", "", "825"]
+            source: g1
+          - list:
+              - "<strong>Negative marking:</strong> one-third of a question's marks is deducted for each wrong answer in objective papers."
+              - "50 times the number of vacancies are admitted to the mains, irrespective of community. All screening and mains papers are compulsory."
+              - "<strong>Minimum aggregate for selection:</strong> 40% for OC, sportspersons and EWS; 35% for BC; 30% for SC, ST and persons with benchmark disabilities."
+              - "Ties are broken by age (older first), then by the earlier date of the qualification."
+            source: g1
+          - p: "<strong>Group-II:</strong> a screening test of 150 objective questions in 150 minutes (General Studies &amp; Mental Ability, 150 marks), then a mains of two objective papers of 150 questions each — Paper I Social history of AP and the Indian Constitution, Paper II Indian and AP economy and Science &amp; Technology — for 300 marks. One-third mark is deducted per wrong answer."
+            source: g2
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "₹250 processing + ₹120 exam fee"
+        parts:
+          - table:
+              caption: "Group-I (Notification 07/2026)"
+              head: ["Candidate", "Processing fee", "Exam fee"]
+              rows:
+                - ["General", "₹250", "₹120"]
+                - ["SC, ST, BC, PBD, ex-servicemen; AP white-card families; unemployed youth", "₹250", "Exempt"]
+                - ["Candidates from other states (except PBD and ex-servicemen)", "₹250", "₹120"]
+            source: g1
+          - note: "Corrections after submission are allowed for 7 days at ₹100 per correction; name, fee and age-relaxation fields cannot be changed. Fees are not refunded. Group-II fees will be in its detailed notification."
+            source: g1
+      - id: reservation
+        nav: "Reservation &amp; Local Zones"
+        eyebrow: "Reservation, local status &amp; multi-zones"
+        heading: "95% local reservation under the Presidential Order 2025"
+        parts:
+          - list:
+              - "<strong>Local reservation:</strong> 95% of each multi-zone's posts go to its local candidates under the Presidential Order 2025 (G.O.Ms.No.45, 20 April 2026). DSP (Communications) is a state cadre with no local reservation; Assistant Audit Officer is a zonal post."
+              - "<strong>Local candidate:</strong> someone who studied in that area for at least four consecutive years up to and including Class VII (or the seven-year rule if not), proved by study certificates for Classes I to VII; a residence certificate is accepted only for those who never attended school up to Class VII."
+              - "Candidates who moved from Telangana to AP between 2 June 2014 and 1 June 2024 need a local status certificate."
+            source: g1
+          - table:
+              caption: "Multi-zones in the 2026 notification"
+              head: ["Multi-zone", "Zones", "Districts"]
+              rows:
+                - ["Multi-Zone-I", "I, II, III", "Srikakulam, Vizianagaram, Parvathipuram Manyam, Visakhapatnam, Anakapalli, Alluri Sitarama Raju, East Godavari, Kakinada, Konaseema, West Godavari, Eluru, NTR, Krishna"]
+                - ["Multi-Zone-II", "IV, V, VI", "Guntur, Palnadu, Bapatla, Prakasam, Nellore, Tirupati, Chittoor, Annamayya, YSR Kadapa, Nandyal, Ananthapuramu, Kurnool, Sri Sathya Sai"]
+            source: g1
+          - list:
+              - "<strong>Horizontal reservation:</strong> women 33⅓%, meritorious sportspersons 3% (G.O.Ms.No.56 of 15 May 2026) and persons with benchmark disabilities (not for the DSP posts)."
+              - "<strong>BC:</strong> non-creamy-layer certificate from the Tahsildar issued on or after 1 April 2026 and by the closing date; BC-E reservation stays subject to the Supreme Court case."
+              - "<strong>EWS:</strong> family income below ₹8 lakh; digital certificate from the Tahsildar for FY 2025-26, issued on or after 1 April 2026."
+              - "BCs, SCs, STs and EWS of other states get no reservation."
+            source: g1
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "What you will need"
+        parts:
+          - list:
+              - "One Time Profile Registration (OTPR) on the APPSC website before applying."
+              - "Degree certificate (as on the date of the detailed notification)."
+              - "Study certificates for Classes I to VII (or residence certificate) to prove local status."
+              - "Community certificate, BC non-creamy-layer certificate and EWS certificate issued on or after 1 April 2026, in the candidate's name with the father's / mother's name."
+              - "Disability, sports, ex-servicemen and white-card / unemployment declarations where claimed."
+            source: g1
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Scales of pay"
+        parts:
+          - table:
+              head: ["Posts", "Scale of pay (₹)"]
+              rows:
+                - ["Divisional Development Officer", "65,360 – 1,54,980"]
+                - ["Deputy Collector, Asst. Commissioner of State Tax, DSP, DEO", "61,960 – 1,51,370"]
+                - ["RTO, District Tribal Welfare Officer, Deputy Registrar", "57,100 – 1,47,760"]
+                - ["Municipal Commissioner Gr-II, Asst. Treasury Officer, DEmpO, Asst. Audit Officer", "54,060 – 1,40,540"]
+            source: g1
+          - p: "Group-II scales run from ₹25,220 – 80,910 (Junior Accountant) to ₹45,830 – 1,30,580 (GST Officer, Deputy MPDO, Municipal Commissioner Gr-III)."
+            source: g2
+          - note: "The notifications print pay scales only; in-hand pay adds dearness allowance and HRA and subtracts deductions, so no in-hand figure is shown."
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Post and zone preferences"
+        parts:
+          - p: "Group-I candidates give post and multi-zone / zone preferences online before the mains and again at certificate verification, where the choice becomes final. Preferences are indicative: the Commission can assign any notified post for which the candidate qualifies. Appointment depends on medical fitness."
+            source: g1
+    sources:
+      - { id: g1, name: "APPSC — Notification No. 07/2026, Direct Recruitment to Group-I Services (6 Oct 2026)", url: "https://psc.ap.gov.in/Documents/NotificationDocuments/Group_I_07_2026.pdf", covers: "166 posts, ages, pay, qualifications, DSP standards, reservation, local status and multi-zones, fee, scheme, negative marking, selection, preferences", checked: 2026-10-18 }
+      - { id: g2, name: "APPSC — Brief Notification No. 37/2026, Direct Recruitment to Group-II Services (13 Oct 2026)", url: "https://psc.ap.gov.in/Documents/NotificationDocuments/Group_II_372026.pdf", covers: "686 posts, pay, qualifications, dates, screening and mains scheme", checked: 2026-10-18 }
+
+  # ------------------------------------------------------------------ AP POLICE (SLPRB)
+  - slug: police
+    group: civil
+    short: "AP Police Constable &amp; Sub-Inspector (SLPRB)"
+    body: "State Level Police Recruitment Board, Andhra Pradesh"
+    card: "Stipendiary Cadet Trainee constables (civil and AR), firemen and warders (1,156 posts) and Sub-Inspectors (378 posts), notified on 16 September 2026 — preliminary test, PMT/PET and a final written exam."
+    card_facts: ["PC level: 1,156 posts · Intermediate", "SI level: 378 posts · degree", "Fee ₹300 / ₹600 · AP SC/ST half"]
+    eyebrow: "SLPRB AP · Constable &amp; Sub-Inspector"
+    title: "AP Police Constable &amp; SI Recruitment 2026 (SLPRB) — Eligibility, PMT/PET, Scheme, Pay"
+    lede: "The State Level Police Recruitment Board, Andhra Pradesh notified two recruitments on 16 September 2026: constables (civil and armed reserve), firemen and warders (Rc.No.91/SLPRB/Rect.2/2026) and Sub-Inspectors (Rc.No.81/SLPRB/Rect.1/2026). Application and test dates are to be announced by press release."
+    facts:
+      - { label: "Constable level", value: "1,156 posts (PC Civil 542, AR 285)", source: pc }
+      - { label: "SI level", value: "378 posts (Civil 253, AR 116, SPF 9)", source: si }
+      - { label: "Constable age", value: "18–24 on 1 Jul 2026 (+5 reserved)", source: pc }
+      - { label: "Status", value: "Application dates awaited", source: pc }
+    official:
+      - { label: "SLPRB AP website", url: "https://slprb.ap.gov.in/" }
+      - { label: "Constable notification 2026 (PDF)", url: "https://slprb.ap.gov.in/2026_PDFS/SLPRB_AP_PC_Notification_2026.pdf" }
+      - { label: "SI notification 2026 (PDF)", url: "https://slprb.ap.gov.in/2026_PDFS/SLPRB_AP_SI_Notification_2026.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "Two 2026 notifications"
+        parts:
+          - table:
+              caption: "Constable-level posts (direct recruitment)"
+              head: ["Post", "Posts"]
+              rows:
+                - ["SCT Police Constable (Civil), men / women", "542"]
+                - ["SCT Police Constable (AR), men / women", "285"]
+                - ["Firemen, Disaster Response &amp; Fire Services", "158"]
+                - ["Warders (men), Prisons", "150"]
+                - ["Warders (women), Prisons", "21"]
+                - ["Total", "1,156"]
+            source: pc
+          - note: "Separately, 71 PC (Civil), 21 PC (AR) and 7 Firemen backlog vacancies (BC-C, BC-D, BC-E) are filled by limited recruitment from local candidates of the district. SCT means Stipendiary Cadet Trainee."
+            source: pc
+          - table:
+              caption: "Sub-Inspector-level posts"
+              head: ["Post", "Posts"]
+              rows:
+                - ["SCT Sub-Inspector of Police (Civil), men / women", "253"]
+                - ["SCT Reserve Sub-Inspector (AR), men / women", "116"]
+                - ["Sub-Inspector (men), Special Protection Force", "9"]
+                - ["Total", "378"]
+            source: si
+          - warn: "Both notifications say the exact dates for the online application and the preliminary written test will be announced separately by press release on slprb.ap.gov.in."
+            source: pc
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility, age &amp; physical standards"
+        heading: "Intermediate for constables, a degree for SIs"
+        parts:
+          - list:
+              - "<strong>Constable, AR and Firemen:</strong> Intermediate or equivalent by 1 July 2026; SC / ST candidates may apply with SSC if they studied Intermediate and appeared for both years. Warders need Intermediate."
+              - "<strong>Constable age:</strong> 18 to 24 on 1 July 2026 (born 2 July 2002 – 1 July 2008); Firemen and Warders 18 to 32; AP Home Guards with 360 days' duty in two years 18 to 32."
+              - "<strong>Relaxation:</strong> 5 years for EWS, BC (non-creamy layer), SC and ST; AP government employees up to 5 years of service; ex-servicemen and NCC instructors 3 years plus service; widowed / divorced women up to 42 (SC / ST) or 37 (others)."
+              - "Only the SSC / Matriculation certificate counts for date of birth."
+            source: pc
+          - list:
+              - "<strong>Sub-Inspector:</strong> a degree from a recognised university by 1 July 2026 (SC / ST candidates who studied a degree may apply under the special rule); age 21 to 27 on 1 July 2026 (born 2 July 1999 – 1 July 2005)."
+            source: si
+          - table:
+              caption: "Physical measurement (constable and SI)"
+              head: ["Candidate", "Height", "Chest / weight"]
+              rows:
+                - ["Men", "167.6 cm", "Chest 86.3 cm, 5 cm expansion"]
+                - ["Women", "152.5 cm", "40 kg"]
+                - ["Aboriginal ST men, listed agency districts", "160 cm", "Chest 80 cm, 3 cm expansion"]
+                - ["Aboriginal ST women, listed agency districts", "150 cm", "38 kg"]
+            source: pc
+          - note: "Vision: 6/6 distant and 0/5 near in each eye without glasses; colour blindness, squint, knock-knees, flat feet, varicose veins and stammering disqualify."
+            source: pc
+      - id: scheme
+        nav: "Exam Scheme &amp; PET"
+        eyebrow: "Exam scheme &amp; physical tests"
+        heading: "Preliminary test, PMT/PET, final written exam"
+        parts:
+          - list:
+              - "<strong>Constable preliminary test:</strong> one paper of 200 objective questions, 200 marks, 3 hours, in English, Telugu and Urdu. Minimum 40% OC (and EWS), 35% BC, 30% SC / ST; marks not counted in final selection."
+              - "<strong>PET (Civil PC, Firemen, Warders):</strong> pass the 1,600 m run plus one of the 100 m run or long jump. <strong>AR:</strong> all three events, marked out of 100 (1,600 m 40, 100 m 30, long jump 30)."
+              - "<strong>Final written exam:</strong> 200 questions in 3 hours — counted out of 200 for Civil PC, Firemen and Warders and out of 100 for AR (AR merit = written 100 + PET 100). Same 40 / 35 / 30% minimums."
+              - "Events are timed electronically, spike shoes are not allowed and there is no second chance."
+            source: pc
+          - table:
+              caption: "PET qualifying standards"
+              head: ["Event", "General", "Ex-servicemen", "Women"]
+              rows:
+                - ["1,600 m run", "8 min", "9 min 30 s", "10 min 30 s"]
+                - ["100 m run", "15 s", "16.5 s", "18 s"]
+                - ["Long jump", "3.80 m", "3.65 m", "2.75 m"]
+            source: pc
+          - list:
+              - "<strong>SI preliminary test:</strong> two objective papers of 100 marks each — Arithmetic &amp; Reasoning / Mental Ability (SSC standard) and General Studies (degree standard); 40 / 35 / 30% needed in each paper."
+              - "<strong>SI final written exam:</strong> four 3-hour papers — Paper I English and Paper II Telugu or Urdu (each 100 marks: 25 MCQ + 75 descriptive, qualifying only), Paper III Arithmetic &amp; Reasoning and Paper IV General Studies (200 marks each for Civil SI; 100 each for AR and SPF)."
+            source: si
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "One fee covers all stages"
+        parts:
+          - table:
+              caption: "Constable level (PC Civil / AR, Firemen, Warders)"
+              head: ["Candidate", "Fee"]
+              rows:
+                - ["OC (including EWS) and BC with AP local status", "₹300"]
+                - ["SC and ST with AP local status", "₹150"]
+                - ["Non-local candidates (treated as OC)", "₹300"]
+            source: pc
+          - table:
+              caption: "Sub-Inspector level"
+              head: ["Candidate", "Fee"]
+              rows:
+                - ["OC (including EWS) and BC with AP local status", "₹600"]
+                - ["SC and ST with AP local status", "₹300"]
+                - ["Non-local candidates (treated as OC)", "₹600"]
+            source: si
+          - note: "One application covers all constable-level posts applied for. The fee pays for processing, PMT / PET and the written exams and is not refunded."
+            source: pc
+      - id: reservation
+        nav: "Reservation &amp; Local Status"
+        eyebrow: "Reservation &amp; local status"
+        heading: "First 5% open, then 95% for locals"
+        parts:
+          - list:
+              - "Under G.O.Ms.No.172 (2 September 2026), the first 5% of posts are filled on open merit from locals and non-locals, and the remaining 95% only from local candidates."
+              - "Local status follows the Presidential Order 2025 (G.O.Ms.No.45): study certificates for Classes I to VII, or a Tahsildar's residence certificate only if the candidate never studied in a recognised school in that period."
+              - "<strong>Women:</strong> 33⅓% of each category in Civil PC and 20% in AR (horizontal)."
+              - "75% of PC (Civil) men vacancies in Scheduled Areas go to Scheduled Tribes domiciled in the agency areas of six listed districts."
+              - "Special categories (Home Guards, children of police personnel, sportspersons, NCC, ex-servicemen and others) are open only to AP local candidates (G.O.Ms.No.173, 16 September 2026)."
+              - "BC candidates need an AP non-creamy-layer certificate issued on or after 1 April 2026; SC candidates need a certificate under the SC sub-classification (Groups I–III, Ordinance 2 of 2025); EWS needs an AP certificate issued on or after 1 April 2026 (income under ₹8 lakh)."
+            source: pc
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Uploads in two stages"
+        parts:
+          - list:
+              - "<strong>Stage I application:</strong> photo, signature, SSC certificate, community certificate (BC / SC / ST), EWS and non-creamy-layer certificates."
+              - "<strong>Stage II</strong> (after the preliminary test, before PMT / PET): scanned originals of all certificates."
+              - "Study certificates for Classes I to VII (Annexure III-A) or residence certificate (Annexure III-B); widow / divorce papers if claiming age relaxation."
+            source: pc
+      - id: pay
+        nav: "Pay &amp; Stipend"
+        eyebrow: "Salary &amp; training stipend"
+        heading: "Stipend in training, then the regular scale"
+        parts:
+          - list:
+              - "<strong>During institutional training</strong> (regular and extended), Stipendiary Cadet Trainee constables are paid a stipend fixed by the government from time to time."
+              - "<strong>After training:</strong> constables, firemen and warders join the regular scale of ₹25,220 – 80,910 (Revised Pay Scales 2022)."
+              - "Employees appointed after 1 September 2004 are under the Contributory Pension Scheme."
+            source: pc
+          - p: "Sub-Inspectors (Civil, AR, SPF) also train on a stipend and then join the scale of <strong>₹44,570 – 1,27,480</strong> (RPS 2022)."
+            source: si
+          - note: "The stipend amount is not printed in the notifications, so it is not shown here."
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Selection by merit, appointment after training"
+        parts:
+          - p: "Civil constables are selected on final-exam merit and AR constables on written + PET marks, under the local-cadre order. Candidates must pass antecedent verification and a medical; equal marks are broken in favour of the older candidate."
+            source: pc
+    sources:
+      - { id: pc, name: "SLPRB AP — Notification Rc.No.91/SLPRB/Rect.2/2026: SCT PC (Civil, AR), Firemen, Warders (16 Sep 2026)", url: "https://slprb.ap.gov.in/2026_PDFS/SLPRB_AP_PC_Notification_2026.pdf", covers: "vacancies, eligibility, age, physical and medical standards, fee, scheme, PET, local status, reservation, documents, stipend and pay", checked: 2026-10-18 }
+      - { id: si, name: "SLPRB AP — Notification Rc.No.81/SLPRB/Rect.1/2026: SCT SI (Civil), RSI (AR), SI (SPF) (16 Sep 2026)", url: "https://slprb.ap.gov.in/2026_PDFS/SLPRB_AP_SI_Notification_2026.pdf", covers: "SI vacancies, qualification, age, fee, preliminary and final exam scheme, pay", checked: 2026-10-18 }
+
+  # ------------------------------------------------------------------ AP EAPCET
+  - slug: eapcet
+    group: academic
+    short: "AP EAPCET — Engineering, Agriculture &amp; Pharmacy"
+    body: "JNTU Kakinada for the AP State Council of Higher Education"
+    card: "Andhra Pradesh's entrance test for B.Tech, B.Pharmacy, Pharm.D, agriculture, horticulture, veterinary and fisheries degrees. Rank = 75% EAPCET score + 25% Intermediate marks."
+    card_facts: ["160 questions · 3 hours · no negative", "Rank 75% test + 25% Inter", "Fee ₹800 / ₹750 BC / ₹700 SC-ST"]
+    eyebrow: "AP EAPCET · State entrance"
+    title: "AP EAPCET 2026 — Eligibility, Pattern, 75:25 Ranking, Local Quota, Fees"
+    lede: "The Engineering, Agriculture and Pharmacy Common Entrance Test (AP EAPCET) is conducted by JNTU Kakinada on behalf of the Andhra Pradesh State Council of Higher Education. This page follows the AP EAPCET-2026 instruction booklet (engineering) and the local-status G.O. posted on the APSCHE CETs site."
+    facts:
+      - { label: "2026 exam", value: "Engineering 12–15 &amp; 18 May · AP stream 19–20 May", source: eap-ib }
+      - { label: "Paper", value: "80 Maths + 40 Physics + 40 Chemistry", source: eap-ib }
+      - { label: "Eligibility", value: "Inter MPC 45% (40% reserved) or diploma", source: eap-ib }
+      - { label: "Local quota", value: "85% local · 15% unreserved", source: eap-local }
+    official:
+      - { label: "AP EAPCET (APSCHE CETs)", url: "https://cets.apsche.ap.gov.in/EAPCET/" }
+      - { label: "Instruction booklet — Engineering 2026 (PDF)", url: "https://cets.apsche.ap.gov.in/EAPCET/PDF/APEAPCET2026_Instruction_Booklet_Engineering_V4.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "One CBT for engineering, agriculture and pharmacy"
+        parts:
+          - p: "AP EAPCET-2026 admits students to the first year of B.E. / B.Tech (including Biotechnology, Dairy Technology, Agricultural Engineering and Food Science &amp; Technology), B.Sc. (Ag) / (Hort), B.V.Sc. &amp; A.H., B.F.Sc., B.Pharmacy and Pharm.D for 2026-27."
+            source: eap-ib
+          - table:
+              caption: "AP EAPCET-2026 calendar"
+              head: ["Event", "Date"]
+              rows:
+                - ["Notification and applications open", "4 Feb 2026"]
+                - ["Last date without late fee", "24 Mar 2026"]
+                - ["Last date with late fee (₹1,000 to ₹10,000)", "28 Mar – 10 Apr 2026"]
+                - ["Hall tickets", "28 Apr 2026"]
+                - ["Engineering exam", "12–15 May and 18 May 2026"]
+                - ["Agriculture &amp; Pharmacy exam", "19–20 May 2026"]
+                - ["Preliminary key / objections till", "23 May / 25 May 2026"]
+                - ["Results (tentative)", "1 Jun 2026"]
+            source: eap-ib
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Academic eligibility"
+        heading: "Intermediate MPC with 45%, or an engineering diploma"
+        parts:
+          - list:
+              - "Indian nationals, PIO or OCI card holders who meet Andhra Pradesh's local / non-local status rules for 2026-27."
+              - "<strong>Marks:</strong> at least 45% (40% for reserved categories) in the qualifying subjects taken together."
+              - "<strong>Engineering:</strong> Intermediate (10+2) with Mathematics, Physics and Chemistry (or related vocational courses with the bridge course), or a diploma in engineering from SBTET AP or equivalent. Appearing candidates may sit the test; the rank counts only if they pass."
+              - "<strong>Age:</strong> B.Tech (Dairy, Agricultural Engineering, Food Science) — at least 17 and at most 22 (25 for SC / ST) on 31 Dec 2026; Pharm.D — at least 17."
+            source: eap-ib
+      - id: scheme
+        nav: "Exam Scheme &amp; Rank"
+        eyebrow: "Exam scheme &amp; ranking"
+        heading: "160 questions, no negative marking, 75:25 rank"
+        parts:
+          - list:
+              - "<strong>Engineering paper:</strong> 160 one-mark MCQs — 80 Mathematics, 40 Physics, 40 Chemistry — in 3 hours, computer-based, two sessions a day (9 am – 12 noon and 2 – 5 pm)."
+              - "<strong>No negative marking</strong> and nothing deducted for unanswered questions."
+              - "<strong>Medium:</strong> English and Telugu; Urdu-medium candidates who want translation help are given a centre at Kurnool. The English version prevails if a Telugu question is ambiguous."
+              - "<strong>Qualifying mark:</strong> 25% of the maximum marks considered for ranking; no minimum for SC / ST, but their admission is limited to reserved seats."
+              - "<strong>Rank:</strong> 75% weightage to the normalised EAPCET marks and 25% to the Maths, Physics and Chemistry marks of the qualifying exam. Ties go to the EAPCET total, then Mathematics, then Physics, then the older candidate."
+            source: eap-ib
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Registration fee"
+        heading: "₹800 for open category"
+        parts:
+          - table:
+              head: ["Category", "Registration fee"]
+              rows:
+                - ["Open category", "₹800"]
+                - ["BC", "₹750"]
+                - ["SC / ST", "₹700"]
+            source: eap-ib
+          - note: "Late fees of ₹1,000, ₹2,000, ₹4,000 and ₹10,000 applied in steps up to 10 April 2026. Each objection to the preliminary key costs ₹300, refunded only if valid."
+            source: eap-ib
+      - id: reservation
+        nav: "Local Quota"
+        eyebrow: "Reservation &amp; local quota"
+        heading: "85% local seats in AU and SVU areas"
+        parts:
+          - list:
+              - "85% of the seats in each course are reserved for local candidates of Andhra Pradesh; the remaining 15% are unreserved seats open to local and eligible non-local candidates."
+              - "<strong>Local areas:</strong> the Andhra University area (erstwhile Srikakulam, Vizianagaram, Visakhapatnam, East and West Godavari, Krishna, Guntur, Prakasam districts) and the Sri Venkateswara University area (erstwhile Anantapur, Kurnool, Chittoor, Kadapa, Nellore)."
+              - "<strong>Local candidate:</strong> studied in the area for four consecutive academic years ending with the qualifying exam (or resided there for four years if not in school), otherwise by the seven-year rule."
+            source: eap-local
+          - note: "The G.O. (G.O.Ms.No.20, 12 May 2025) is the one posted on the AP EAPCET-2026 site. Category-wise reservation percentages are given in the counselling booklet, which is released after the results."
+            source: eap-ib
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Keep these ready for the application"
+        parts:
+          - list:
+              - "Qualifying-exam and SSC hall ticket numbers, date of birth and Aadhaar number."
+              - "Caste certificate (SC / ST / BC) and income certificate (up to ₹1 lakh, up to ₹2 lakh or above)."
+              - "Ration card; PH, NCC and sports certificates if claimed."
+              - "Study or residence certificates for the last 12 years to prove local status."
+            source: eap-ib
+      - id: pay
+        nav: "Costs"
+        eyebrow: "Costs"
+        heading: "What the test costs"
+        parts:
+          - p: "The only fee set by the instruction booklet is the registration fee (₹700–₹800) and late fees. College tuition and counselling fees are announced in the counselling notification."
+            source: eap-ib
+      - id: posting
+        nav: "After the test"
+        eyebrow: "After the test"
+        heading: "Counselling"
+        parts:
+          - p: "Seats under the Convener's quota are filled through counselling on the AP EAPCET rank; details of seats and reservations are released in the counselling information booklet on cets.apsche.ap.gov.in. The rank is valid only for 2026-27."
+            source: eap-ib
+          - links:
+              - { label: "B.Tech college finder", url: "colleges-btech.html" }
+              - { label: "JEE Main console", url: "jee-main.html" }
+    sources:
+      - { id: eap-ib, name: "JNTU Kakinada / APSCHE — AP EAPCET-2026 Instruction Booklet, Engineering (V4)", url: "https://cets.apsche.ap.gov.in/EAPCET/PDF/APEAPCET2026_Instruction_Booklet_Engineering_V4.pdf", covers: "dates, courses, eligibility, age, pattern, medium, no negative marking, qualifying marks, 75:25 ranking, fees, documents", checked: 2026-10-18 }
+      - { id: eap-local, name: "Government of AP, Higher Education Dept — G.O.Ms.No.20 (12 May 2025), local and non-local reservation (posted on the APSCHE CETs site for 2026)", url: "https://cets.apsche.ap.gov.in/apsche/PDF/2026_LocalNonlocalReservation.pdf", covers: "85% local / 15% unreserved, AU and SVU areas, local-candidate definition", checked: 2026-10-18 }

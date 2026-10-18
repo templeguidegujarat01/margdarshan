@@ -1,0 +1,744 @@
+# West Bengal State Exam & Career Cockpit — one data sheet for the cockpit (state/west-bengal/index.html) and
+# every exam page under state/west-bengal/. Rendered by _includes/state-cockpit.html and
+# _includes/state-exam.html; checked by scripts/check-in-data.mjs (state sheets block).
+#
+# Rules for this sheet (same as the other state sheets):
+#   - Every fact part carries `source: <id>`; the id must be listed under that exam's `sources`.
+#   - Sources are the official files themselves (read 2026-10-18): WBPSC advertisements, scheme and notices on
+#     psc.wb.gov.in; the WBPRB constable and Sub-Inspector 2024 notices and "Information to Applicants"; the West
+#     Bengal Central School Service Commission's 2nd SLST (AT) 2025 advertisement, Rules 2025, vacancy lists and
+#     1st SLST (NTS) 2025 notification; and the WBSCTVESD 2026-27 polytechnic brochures (read 2026-10-14 for
+#     jexpo.html). Scanned notices were read page by page as images. Nothing comes from coaching or news sites.
+#   - WBCS: the detailed advertisement of WBCS 2024 (Advt 08/2024) returns an error on the WBPSC site, so the
+#     eligibility, fee and pay rules come from the last detailed advertisement that opens (Advt 01/2023) and the
+#     page says so. In-hand pay is not printed anywhere, so no in-hand figure is shown.
+#   - Section ids are the same on every exam page: overview, eligibility, scheme, fees, reservation,
+#     documents, pay, posting (+ sources, drawn automatically).
+state:
+  id: west-bengal
+  name: West Bengal
+  checked: 2026-10-18
+
+cockpit:
+  eyebrow: "State Exam &amp; Career Cockpit · West Bengal"
+  title: "West Bengal Exam &amp; Career Cockpit"
+  intro:
+    - "Every major West Bengal government recruitment and diploma-admission route on one screen: the West Bengal Civil Service (Executive) etc. Examination of the Public Service Commission (WBPSC), West Bengal Police constable and Sub-Inspector recruitment by the West Bengal Police Recruitment Board (WBPRB), the School Service Commission's teacher and Clerk / Group-D selection tests, and polytechnic admission through the State Council (the old JEXPO and VOCLET route). Each page is built only from the official advertisement or notice, and every fact links back to that file."
+    - "Three West Bengal rules decide more results than any other. You must be able to read, write and speak Bengali (people whose mother tongue is Nepali, or permanent residents of the Darjeeling and Kalimpong hill sub-divisions, follow separate rules). SC, ST and OBC reservation and fee concessions are only for certificates of West Bengal — candidates from other states compete as Unreserved. And the state's OBC list changed in 2026: on 18 May 2026 the Backward Classes Welfare Department withdrew the 2025 lists and notified 66 classes with 7% reservation, so every recruiting body opened edit windows for OBC candidates."
+  facts:
+    - { label: "Recruitment nodes", value: "WBCS · WB Police · WBSSC teachers &amp; NTS" }
+    - { label: "Admission node", value: "Polytechnic (JEXPO / VOCLET route)" }
+    - { label: "Watch", value: "OBC list revised 2026 — 66 classes, 7%" }
+    - { label: "Last checked", value: "18 Oct 2026" }
+  groups:
+    - id: civil
+      eyebrow: "Civil recruitment &amp; administrative"
+      heading: "Government recruitment exams"
+      intro: "State civil service posts through the Public Service Commission, West Bengal (WBPSC), constables and Sub-Inspectors through the West Bengal Police Recruitment Board (WBPRB), and school teachers, Clerks and Group-D staff through the West Bengal Central School Service Commission (WBSSC)."
+      exams: [wbcs, police, wbssc]
+    - id: academic
+      eyebrow: "Academic &amp; diploma admissions"
+      heading: "Admission routes after Class 10 and 12"
+      intro: "Diplomas in engineering and technology in West Bengal's polytechnics, admitted by the West Bengal State Council of Technical and Vocational Education and Skill Development (WBSCTVESD) — the body behind the JEXPO (first year) and VOCLET (lateral entry) tests."
+      exams: [jexpo]
+  compare_note: "Fees, age limits and dates are from the latest notice of each body that we could open. They change every cycle, so always open the current notice before applying."
+  portals_note: "WBPSC notices and applications are on psc.wb.gov.in (the application portal is wbpsc.ucanapply.com); police recruitment on prb.wb.gov.in; School Service Commission tests on westbengalssc.com (notices also on old.westbengalssc.com); polytechnic admission on the Common Admission Portal admission-tetsd.wb.gov.in. Only use these official addresses."
+  portals:
+    - { label: "Public Service Commission, West Bengal (WBPSC)", url: "https://psc.wb.gov.in/" }
+    - { label: "West Bengal Police Recruitment Board (WBPRB)", url: "https://prb.wb.gov.in/" }
+    - { label: "West Bengal School Service Commission (WBSSC)", url: "https://www.westbengalssc.com/" }
+    - { label: "WBSCTVESD Common Admission Portal (polytechnic)", url: "https://admission-tetsd.wb.gov.in/" }
+
+exams:
+  # ------------------------------------------------------------------ WBCS (EXE.) ETC.
+  - slug: wbcs
+    group: civil
+    short: "WBCS (Exe.) etc. Examination — WBPSC"
+    body: "Public Service Commission, West Bengal"
+    card: "West Bengal's state civil service exam: WBCS (Executive), West Bengal Police Service, Revenue, Co-operative, Labour and other services in four groups (A to D) through one prelim, a mains and a personality test."
+    card_facts: ["WBCS 2024 prelim held 14 Jun 2026", "Age 21–36 (A, C) · 20–36 (WBPS) · 21–39 (D)", "Fee ₹210 · WB SC/ST, PwBD free"]
+    eyebrow: "WBPSC · State civil service"
+    title: "WBCS (Exe.) etc. Examination — 2024 Prelim Held, 2025 Announced: Eligibility, Bengali Rule, Scheme, Pay"
+    lede: "The West Bengal Civil Service (Executive) etc. Examination recruits to WBCS (Executive) and about twenty other state services in four groups. This page follows WBPSC's notices for the 2024 examination (Advt 08/2024), the indicative advertisement for 2025 (Advt 03/2025), the 2024 scheme and syllabus, and the last detailed advertisement that opens on the Commission's site (Advt 01/2023)."
+    facts:
+      - { label: "WBCS 2024 prelim", value: "Held 14 Jun 2026 · final key 27 Aug 2026", source: wbcs-key }
+      - { label: "Qualification", value: "Any degree + Bengali (read, write, speak)", source: wbcs-advt }
+      - { label: "Prelim", value: "200 MCQs · 200 marks · 2½ hours", source: wbcs-scheme }
+      - { label: "Fee", value: "₹210 · WB SC/ST and PwBD exempt", source: wbcs-advt }
+    official:
+      - { label: "WBPSC website", url: "https://psc.wb.gov.in/" }
+      - { label: "WBCS 2024 scheme &amp; syllabus (PDF)", url: "https://psc.wb.gov.in/Download?param1=20251114121739_SCHEME_SYLLABUS-2024_Final.pdf&param2=advertisement" }
+      - { label: "WBPSC application portal", url: "https://wbpsc.ucanapply.com/" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "One exam, four groups of services"
+        parts:
+          - p: "WBPSC treats the WBCS (Exe.) etc. Examination as one combined competitive exam for four groups of services and posts — A, B, C and D — with a graduated syllabus. A candidate can compete for one or more groups with a single application, and has to name the groups in the form. The written exam has two stages (a prelim and a mains), followed by a personality test in Kolkata."
+            source: wbcs-advt
+          - table:
+              caption: "Services by group and pay level (as listed in Advt 01/2023)"
+              head: ["Group", "Services and posts", "Pay level"]
+              rows:
+                - ["A", "WBCS (Executive), Asst. Commissioner of Revenue, WB Co-operative Service, WB Labour Service, WB Food &amp; Supplies Service, WB Employment Service", "Level 16"]
+                - ["B", "West Bengal Police Service", "Level 16"]
+                - ["C", "Superintendent of District Correctional Home and others", "Level 15"]
+                - ["C", "Joint BDO, Asst. Commercial Tax Officer, WB Sub-ordinate Land Revenue Service Grade-I, Junior Social Welfare Service and others", "Level 14"]
+                - ["C", "Asst. Canal Revenue Officer, Chief Controller of Correctional Services", "Level 12"]
+                - ["D", "Inspector of Co-operative Societies, Panchayat Development Officer, Rehabilitation Officer", "Level 10"]
+            source: wbcs-advt
+          - table:
+              caption: "WBCS (Exe.) etc. Examination, 2024 (Advt 08/2024)"
+              head: ["Event", "Date"]
+              rows:
+                - ["Online application closed", "17 Dec 2025 (extended from 9 Dec)"]
+                - ["Edit window and certificate upload", "22 Dec 2025 – 7 Jan 2026"]
+                - ["Prelim (Kolkata + 25 district centres)", "14 Jun 2026, 12:00 noon – 2:30 pm"]
+                - ["Final answer key published", "27 Aug 2026"]
+                - ["Edit window for OBC sub-category / UR details", "6–14 Sep, 20–23 Sep and 28 Sep – 1 Oct 2026"]
+            source: wbcs-dates
+          - note: "No WBCS 2024 prelim result was on the Commission's site when we checked on 18 October 2026."
+            source: wbcs-key
+          - p: "WBPSC has also announced the <strong>WBCS (Exe.) etc. Examination, 2025</strong> (indicative advertisement 03/2025, 29 November 2025). Age, qualification, pay, fees and the scheme will come in the detailed advertisement on psc.wb.gov.in."
+            source: wbcs-2025
+          - warn: "The 2024 exam follows the old scheme of 2014. A new pattern and syllabus (notifications of 15 March 2023 and 24 July 2024) applies from the 2025 exam onwards, so the scheme below may change for 2025."
+            source: wbcs-pattern
+      - id: eligibility
+        nav: "Eligibility &amp; Bengali rule"
+        eyebrow: "Eligibility, language &amp; age"
+        heading: "A degree, Bengali, and age by group"
+        parts:
+          - warn: "The detailed advertisement of WBCS 2024 does not open on the WBPSC site (the link returns an error). The rules below are from the last detailed advertisement that opens — Advt 01/2023 — so check the current one before you apply."
+          - list:
+              - "<strong>Qualification:</strong> a degree of a recognised university, held by the closing date of the application."
+              - "<strong>Bengali:</strong> you must be able to read, write and speak Bengali. This is not required of candidates whose mother tongue is Nepali (Finance Department notification 1243-F(P), 2 March 2016)."
+              - "<strong>Citizenship:</strong> a citizen of India, or another national declared eligible by the Government of India."
+              - "Only the Madhyamik or equivalent certificate is accepted for date of birth."
+            source: wbcs-advt
+          - table:
+              caption: "Age on 1 January of the exam year"
+              head: ["Group", "Minimum", "Maximum"]
+              rows:
+                - ["A and C", "21", "36"]
+                - ["B (West Bengal Police Service)", "20", "36"]
+                - ["D", "21", "39"]
+            source: wbcs-advt
+          - list:
+              - "<strong>Relaxation:</strong> 5 years for SC and ST, 3 years for OBC (non-creamy layer) — only for West Bengal candidates; persons with benchmark disabilities up to 45 years."
+              - "<strong>West Bengal Police Service:</strong> minimum height 1.65 m for men and 1.50 m for women (relaxable for Gorkhas, Garhwalis, Assamese tribals and similar groups)."
+              - "<strong>Sub-ordinate Land Revenue Service Grade-I:</strong> a good working knowledge of written and spoken Bengali is compulsory; candidates whose mother tongue is Nepali are exempt but must pass a departmental Bengali exam within two years."
+            source: wbcs-advt
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme &amp; marking"
+        heading: "Screening prelim, 1,200-mark compulsory mains, personality test"
+        parts:
+          - table:
+              caption: "Prelim — one General Studies paper, 200 MCQs, 200 marks, 2½ hours"
+              head: ["Section", "Marks"]
+              rows:
+                - ["English Composition", "25"]
+                - ["General Science", "25"]
+                - ["Current events of national &amp; international importance", "25"]
+                - ["History of India", "25"]
+                - ["Geography of India with special reference to West Bengal", "25"]
+                - ["Indian Polity and Economy", "25"]
+                - ["Indian National Movement", "25"]
+                - ["General Mental Ability", "25"]
+            source: wbcs-scheme
+          - p: "The prelim is only a screening test; its marks are not counted in the final merit list, which is made from the mains and the personality test together."
+            source: wbcs-scheme
+          - table:
+              caption: "Mains — every paper 200 marks, 3 hours"
+              head: ["Paper", "Type", "Who writes it"]
+              rows:
+                - ["I — Bengali / Hindi / Urdu / Nepali / Santali (letter or report, précis, composition, translation from English)", "Conventional", "All groups"]
+                - ["II — English (letter or report, précis, composition, translation into English)", "Conventional", "All groups"]
+                - ["III — General Studies I (Indian history, national movement, geography of India with West Bengal)", "MCQ on OMR", "All groups"]
+                - ["IV — General Studies II (science, environment, GK, current affairs)", "MCQ on OMR", "All groups"]
+                - ["V — Constitution of India and Indian Economy including the RBI", "MCQ on OMR", "All groups"]
+                - ["VI — Arithmetic and Test of Reasoning (Madhyamik-level arithmetic)", "MCQ on OMR", "All groups"]
+                - ["Optional subject — two papers of 200 marks each (38 subjects)", "Conventional", "Groups A and B only"]
+            source: wbcs-scheme
+          - list:
+              - "<strong>Personality test:</strong> 200 marks for Groups A and B, 150 for Group C and 100 for Group D — one interview per candidate, marked against each group's full marks. WBPS candidates are tested specially for police work."
+              - "<strong>Negative marking:</strong> there is negative marking for every wrong MCQ answer (the scheme does not print the fraction)."
+              - "Answers (except language papers) can be written in English or Bengali; Political Science and Botany optionals may also be answered in Nepali."
+              - "10% of a paper's full marks is deducted if a candidate writes their name or roll number or any identifying mark in the answer script."
+            source: wbcs-scheme
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "Application fee"
+        parts:
+          - table:
+              head: ["Candidate", "Fee"]
+              rows:
+                - ["General and OBC (including OBC of West Bengal)", "₹210 + service charge"]
+                - ["SC / ST of West Bengal", "Nil"]
+                - ["Persons with benchmark disability (40% or more)", "Nil"]
+                - ["SC / ST / OBC of other states", "₹210 (no exemption)"]
+            source: wbcs-advt
+          - note: "Service charge is 1% (minimum ₹5) for card payments, ₹5 for net banking or ₹20 at a bank counter. The fee is never refunded or held over for another exam. Figures are from Advt 01/2023."
+            source: wbcs-advt
+      - id: reservation
+        nav: "Reservation &amp; Certificates"
+        eyebrow: "Reservation &amp; certificates"
+        heading: "West Bengal certificates only — and the 2026 OBC change"
+        parts:
+          - list:
+              - "Vacancies may be reserved for SC, ST and OBC (non-creamy layer) candidates of West Bengal and for persons with benchmark disabilities (40% and above). SC, ST and OBC candidates of other states are considered for Unreserved posts only."
+              - "Reservation for meritorious sportspersons applies only to Group D posts (20 listed sports, from athletics to archery)."
+              - "<strong>Who issues certificates:</strong> the Sub-Divisional Officer in the districts; in Kolkata the District Magistrate (or an authorised Additional DM) of South 24-Parganas, or the District Welfare Officer, Kolkata."
+              - "OBC candidates must submit a renewed or revalidated non-creamy-layer certificate before the interview and at appointment."
+              - "Every certificate must be issued on or before the closing date of the application."
+            source: wbcs-advt
+          - p: "Following Backward Classes Welfare Department memos of 18 May 2026 and 7 August 2026, WBPSC opened an edit window for WBCS 2024 candidates to update their OBC sub-category or switch to Unreserved, entering the number, issuing authority and date of their latest state non-creamy-layer certificate."
+            source: wbcs-obc
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "What to keep ready"
+        parts:
+          - list:
+              - "One photo ID named in the form (Madhyamik certificate with photo, passport, PAN card, voter ID, driving licence or another government ID) — carry the original to the exam."
+              - "Madhyamik or equivalent certificate (date of birth) and degree certificate."
+              - "SC / ST / OBC (non-creamy layer) certificate from a West Bengal authority; disability certificate from a medical board; sportsperson certificate (Group D)."
+              - "Appendix-I certificate from a government Chief Medical Officer if a scribe or compensatory time (20 minutes per hour) is needed."
+            source: wbcs-advt
+          - note: "For WBCS 2024, category certificates (SC, ST, OBC-A, OBC-B, EWS, PwBD and others) had to be merged into one PDF of at most 100 kb and uploaded in the edit window."
+            source: wbcs-dates
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Pay levels from the advertisement"
+        parts:
+          - table:
+              caption: "Pay band by level (besides DA, medical allowance and HRA)"
+              head: ["Pay level", "Pay range", "Examples"]
+              rows:
+                - ["Level 16", "₹56,100 – ₹1,44,300", "WBCS (Executive), WB Police Service, Revenue, Co-operative, Labour"]
+                - ["Level 15", "₹42,600 – ₹1,09,800", "Superintendent, District Correctional Home"]
+                - ["Level 14", "₹39,900 – ₹1,02,800", "Joint BDO, Asst. Commercial Tax Officer, Land Revenue Grade-I"]
+                - ["Level 12", "₹35,800 – ₹92,100", "Asst. Canal Revenue Officer"]
+                - ["Level 10", "₹32,100 – ₹82,900", "Inspector of Co-operative Societies, Panchayat Development Officer"]
+            source: wbcs-advt
+          - p: "<strong>Training term:</strong> selected Land Revenue Grade-I officers are appointed provisionally and do six months of in-service training on the initial pay of the scale; those who fail the end-of-training exam can be discharged."
+            source: wbcs-advt
+          - note: "The advertisement prints pay bands only. In-hand salary depends on DA, HRA and deductions, so no in-hand figure is shown."
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Preferences decide your service"
+        parts:
+          - p: "Candidates called to the personality test list their preferred services within the groups they applied for; that choice is final. Allotment follows merit, vacancies and preferences, but you will not be recommended for a service you did not list. All appointments are temporary at first."
+            source: wbcs-advt
+    sources:
+      - { id: wbcs-advt, name: "WBPSC — Advertisement No. 01/2023, West Bengal Civil Service (Executive) etc. Examination, 2023 (latest detailed advertisement that opens)", url: "https://psc.wb.gov.in/Download?param1=Cur_20230225140434_Advt.pdf&param2=advertisement", covers: "groups and pay levels, qualification, Bengali rule, age, relaxations, WBPS height, fee, reservation, certificates, preferences, training", checked: 2026-10-18 }
+      - { id: wbcs-scheme, name: "WBPSC — Scheme and Syllabus, WBCS (Exe.) etc. Examination, 2024 (Advt 08/2024), 14 Nov 2025", url: "https://psc.wb.gov.in/Download?param1=20251114121739_SCHEME_SYLLABUS-2024_Final.pdf&param2=advertisement", covers: "prelim sections, mains papers, optional subjects, personality test marks, negative marking, answer language", checked: 2026-10-18 }
+      - { id: wbcs-dates, name: "WBPSC — Important announcements, WBCS 2024 (5, 16 and 18 Dec 2025; 2 Jan 2026)", url: "https://psc.wb.gov.in/Download?param1=An_20260102181636_WBCS24_Notice.pdf&param2=advertisement", covers: "application deadline extensions, edit window, certificate upload rules", checked: 2026-10-18 }
+      - { id: wbcs-key, name: "WBPSC — Exam announcement (14 May 2026) and Final Answer Key, WBCS (Exe.) etc. (Preli) Examination 2024 (27 Aug 2026)", url: "https://psc.wb.gov.in/Download?param1=202608271742_FINAL_ANSWER_KEY_WBCS_2024_PRELI.pdf&param2=advertisement", covers: "prelim date 14 Jun 2026, centres, final key", checked: 2026-10-18 }
+      - { id: wbcs-obc, name: "WBPSC — Edit option for updating OBC sub-category / UR category details (3 Sep 2026)", url: "https://psc.wb.gov.in/Download?param1=An_20260903165957_EDIT_Category_OBC.pdf&param2=advertisement", covers: "OBC edit windows for WBCS 2024 after BCW memos of 18 May and 7 Aug 2026", checked: 2026-10-18 }
+      - { id: wbcs-2025, name: "WBPSC — Indicative Advertisement No. 03/2025, WBCS (Exe.) etc. Examination, 2025 (29 Nov 2025)", url: "https://psc.wb.gov.in/Download?param1=An_20251129151248_Indwbcs25.pdf&param2=advertisement", covers: "2025 examination announced; details to follow", checked: 2026-10-18 }
+      - { id: wbcs-pattern, name: "WBPSC — Important announcement on the scheme for WBCS 2024 and the new pattern from 2025 (Aug 2024)", url: "https://psc.wb.gov.in/Download?param1=An_20240820145254_WBCS24.pdf&param2=advertisement", covers: "2024 on old scheme; new pattern from the 2025 exam", checked: 2026-10-18 }
+
+  # ------------------------------------------------------------------ WEST BENGAL POLICE
+  - slug: police
+    group: civil
+    short: "West Bengal Police Constable &amp; Sub-Inspector (WBPRB)"
+    body: "West Bengal Police Recruitment Board"
+    card: "Constables (11,749 posts) and Sub-Inspectors (1,131 posts) for West Bengal Police, recruited by the WBPRB through a written test, physical measurement and efficiency tests and an interview, with a compulsory Bengali language rule."
+    card_facts: ["Constable 2024: 11,749 posts · Madhyamik", "SI 2024: 1,131 posts · graduate", "Age 18–30 (constable) · 20–30 (SI)"]
+    eyebrow: "WBPRB · Constable &amp; Sub-Inspector"
+    title: "West Bengal Police Constable &amp; Sub-Inspector 2024 — Eligibility, PMT/PET, Scheme, OBC Changes"
+    lede: "The West Bengal Police Recruitment Board (WBPRB) recruits constables and Sub-Inspectors for West Bengal Police. This page follows the 2024 recruitment notices and the Board's 'Information to Applicants', the 2025–26 exam and result notices, and the August–October 2026 notices revising vacancies under the new OBC list."
+    facts:
+      - { label: "Constable posts", value: "11,749 (8,212 men · 3,537 women)", source: wbp-pc-vac }
+      - { label: "Constable final list", value: "Published 24 Sep 2026", source: wbp-pc-final }
+      - { label: "SI posts", value: "1,131 (revised 6 Oct 2026)", source: wbp-si-vac }
+      - { label: "Constable fee", value: "₹170 · WB SC/ST ₹20", source: wbp-pc-info }
+    official:
+      - { label: "WBPRB website", url: "https://prb.wb.gov.in/" }
+      - { label: "Constable 2024 — Information to Applicants (PDF)", url: "https://prb.wb.gov.in/uploads/recruitment/170973908876971.pdf" }
+      - { label: "West Bengal Police", url: "https://www.wbpolice.gov.in/" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "Two 2024 recruitments, both at the final stage"
+        parts:
+          - table:
+              caption: "Constable in West Bengal Police — 2024"
+              head: ["Step", "Date"]
+              rows:
+                - ["Online applications", "7 Mar – 5 Apr 2024"]
+                - ["Written exam", "30 Nov 2025"]
+                - ["Written result; PMT &amp; PET from", "29 Dec 2025; 8 Jan 2026"]
+                - ["Final merit list", "24 Sep 2026"]
+            source: wbp-pc-dates
+          - p: "After the Backward Classes Welfare Department's new OBC list (May 2026), the Board republished the constable vacancy table on 12 August 2026: the total stayed at 11,749 (8,212 men, 3,537 women), but the separate OBC-A and OBC-B lines became a single OBC line and the Unreserved lines grew."
+            source: wbp-pc-vac
+          - warn: "On 14 October 2026 the Board said that all appointments made under horizontal reservation in the constable recruitment will abide by the result of writ petitions pending before the Calcutta High Court."
+            source: wbp-pc-hc
+          - table:
+              caption: "Sub-Inspector (Unarmed &amp; Armed Branch), West Bengal Police — 2024 (revised 6 Oct 2026)"
+              head: ["Category", "Unarmed — men", "Unarmed — women", "Armed — men", "Total"]
+              rows:
+                - ["Unreserved", "310", "137", "176", "623"]
+                - ["EWS", "56", "25", "32", "113"]
+                - ["SC", "124", "54", "70", "248"]
+                - ["ST", "34", "15", "19", "68"]
+                - ["OBC", "40", "17", "22", "79"]
+                - ["Total", "564", "248", "319", "1,131"]
+            source: wbp-si-vac
+          - p: "Sub-Inspector timeline: preliminary result and PMT/PET from 17 November 2025; Final Combined Competitive Examination on 22 February 2026."
+            source: wbp-si-fcce
+      - id: eligibility
+        nav: "Eligibility &amp; Bengali rule"
+        eyebrow: "Eligibility, language &amp; physical standards"
+        heading: "Madhyamik or a degree, Bengali, and body standards"
+        parts:
+          - list:
+              - "<strong>Constable:</strong> Madhyamik (WBBSE) or equivalent; age 18 to 30 on 1 Jan 2024."
+              - "<strong>Relaxation (constable):</strong> SC / ST 5 years; OBC-A / OBC-B 3 years; third gender 3 years; Civic / Village Police Volunteers 5 years; ex-servicemen by their years of service (up to age 40); NVF / Home Guards as per rules."
+            source: wbp-pc-info
+          - list:
+              - "<strong>Sub-Inspector:</strong> a bachelor's degree in any discipline; age 20 to 30 on 1 Jan 2024."
+              - "<strong>Relaxation (SI):</strong> SC / ST 5 years, OBC 3 years, transgender 3 years; departmental candidates of West Bengal Police up to 35, plus the same caste relaxations."
+            source: wbp-si-notice
+          - list:
+              - "<strong>Bengali:</strong> the applicant must be able to speak, read and write Bengali. This does not apply to permanent residents of the hill sub-divisions of Darjeeling and Kalimpong, for whom the West Bengal Official Language Act, 1961 applies."
+              - "For constables, Bengali / Nepali reading, writing and speaking is tested specifically at the interview."
+              - "NVF / Home Guards and Civic / Village Police Volunteers need three years of service (on 1 Jan 2024) to apply in their quota."
+            source: wbp-pc-info
+          - table:
+              caption: "Constable — minimum physical measurement"
+              head: ["Candidate", "Height", "Weight", "Chest (men)"]
+              rows:
+                - ["Men — all except Gorkha, Garhwali, Rajbanshi, ST", "167 cm", "57 kg", "78 cm (83 cm expanded)"]
+                - ["Men — Gorkha, Garhwali, Rajbanshi, ST", "160 cm", "53 kg", "76 cm (81 cm expanded)"]
+                - ["Women — all except the above groups", "160 cm", "49 kg", "—"]
+                - ["Women — Gorkha, Garhwali, Rajbanshi, ST", "152 cm", "45 kg", "—"]
+                - ["Third gender — all / listed groups", "163 / 155 cm", "52 / 48 kg", "—"]
+            source: wbp-pc-info
+          - table:
+              caption: "Sub-Inspector — minimum physical measurement"
+              head: ["Candidate", "Height", "Weight"]
+              rows:
+                - ["Men, Unarmed Branch — all / Gorkha, Rajbansi, Garhwali, ST", "167 / 160 cm", "56 / 52 kg"]
+                - ["Men, Armed Branch — all / listed groups", "173 / 163 cm", "60 / 54 kg"]
+                - ["Women, Unarmed Branch — all / listed groups", "160 / 155 cm", "48 / 45 kg"]
+            source: wbp-si-info
+      - id: scheme
+        nav: "Exam Scheme &amp; PET"
+        eyebrow: "Exam scheme &amp; physical tests"
+        heading: "Written test, PMT, PET, then interview"
+        parts:
+          - list:
+              - "<strong>Constable written exam:</strong> 85 one-mark MCQs (four options), 1 hour, OMR — General Awareness &amp; GK 25, English 10, Elementary Mathematics (Madhyamik standard) 25, Reasoning 25. Question paper in Bengali and Nepali."
+              - "<strong>Negative marking:</strong> ¼ of the marks of a question is deducted for each wrong answer."
+              - "<strong>PMT and PET</strong> are qualifying; running time is taken by RFID chip and only one chance is given."
+              - "<strong>Interview:</strong> 15 marks. Merit = written marks + interview marks (100)."
+            source: wbp-pc-info
+          - table:
+              caption: "Constable PET (qualifying)"
+              head: ["Candidate", "Run"]
+              rows:
+                - ["Men", "1,600 m in 6 min 30 s"]
+                - ["Women", "800 m in 4 min"]
+                - ["Third gender", "800 m in 3 min 30 s"]
+                - ["Ex-servicemen over 35", "800 m in 3 min 30 s (men) · 4 min 30 s (women / third gender)"]
+            source: wbp-pc-info
+          - table:
+              caption: "Sub-Inspector PET (qualifying)"
+              head: ["Candidate", "Run"]
+              rows:
+                - ["Men (Unarmed and Armed)", "800 m in 3 min"]
+                - ["Women (Unarmed)", "400 m in 2 min"]
+                - ["Transgender", "400 m in 1 min 40 s"]
+            source: wbp-si-info
+          - list:
+              - "<strong>SI prelim:</strong> 200 marks in 90 minutes, OMR, English and Bengali — General Studies 50 questions (100 marks), Logical &amp; Analytical Reasoning 25 (50), Arithmetic 25 (50). ¼ of a question's marks is deducted per wrong answer; prelim marks are not counted in merit."
+              - "<strong>SI Final Combined Competitive Exam</strong> (conventional, same day): Paper I General Studies &amp; Arithmetic 100 marks (2 h), Paper II English 50 marks (1 h), Paper III Bengali / Hindi / Urdu / Nepali 50 marks (1 h)."
+              - "<strong>SI personality test:</strong> 30 marks with a pass mark of 8. Final merit = Final Combined Exam + personality test."
+            source: wbp-si-info
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "Application and processing fees"
+        parts:
+          - table:
+              caption: "Constable"
+              head: ["Candidate", "Application + processing fee"]
+              rows:
+                - ["All except SC / ST of West Bengal", "₹150 + ₹20 = ₹170"]
+                - ["SC / ST of West Bengal", "₹20 (processing only)"]
+            source: wbp-pc-info
+          - table:
+              caption: "Sub-Inspector"
+              head: ["Candidate", "Application + processing fee"]
+              rows:
+                - ["All except SC / ST of West Bengal", "₹250 + ₹20 = ₹270"]
+                - ["SC / ST of West Bengal", "₹20 (processing only)"]
+            source: wbp-si-info
+          - note: "SC / ST candidates of other states get no fee exemption, and EWS candidates of other states are treated as Unreserved. Fees are not refunded."
+            source: wbp-pc-info
+      - id: reservation
+        nav: "Reservation &amp; Certificates"
+        eyebrow: "Reservation &amp; certificates"
+        heading: "Horizontal quotas and the new OBC list"
+        parts:
+          - list:
+              - "Constable vacancies carry horizontal quotas inside each category: Exempted Category (land losers' families, ex-census employees, election workers), NVF &amp; Home Guards, ex-servicemen, Civic / Village Police Volunteers and sports quota. Unfilled horizontal seats go to other candidates of the same category."
+              - "EWS candidates need an Income and Asset Certificate valid for 2023-24 or later; certificates from other states are not accepted."
+              - "OBC certificates must name OBC-A or OBC-B (as per the 2024 rules) and be issued within the year before 1 Jan 2024, or be revalidated."
+              - "Hill-area candidates (Darjeeling, Kalimpong) must produce domicile certificates; Gorkhas, Garhwalis and Rajbanshis need a community certificate to claim relaxed physical standards."
+            source: wbp-pc-info
+          - p: "On 18 May 2026 the Backward Classes Welfare Department withdrew all its 2025 OBC notifications and notified a State List of <strong>66 OBC classes with 7% reservation</strong> in state services, following the Calcutta High Court judgment of 22 May 2024. WBPRB says OBC certificates naming any class outside this list are invalid and such candidates are treated as Unreserved; candidates dropped from the list who hold a valid EWS certificate can be treated as EWS."
+            source: wbp-obc
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Documents the Board asks you to keep ready"
+        parts:
+          - list:
+              - "Original Aadhaar card (the same number given when downloading the admit card)."
+              - "Madhyamik admit card or pass certificate (age proof) and the pass certificate obtained on or before 5 Apr 2024."
+              - "OBC certificate (fresh or revalidated) and EWS Income &amp; Asset Certificate; OBC / EWS candidates whose class changed must get certificates issued on or after 14 Jun 2025; SC / ST certificate."
+              - "Domicile certificate for hill sub-divisions of Darjeeling and Kalimpong."
+              - "Exempted Category, NVF / Home Guard and Civic Volunteer enrolment certificates; third-gender identity certificate; community certificate (Gorkha / Garhwali / Rajbanshi); ex-servicemen discharge order / PPO; sports certificate; NOC for government employees."
+            source: wbp-pc-docs
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Pay"
+        parts:
+          - p: "The constable and Sub-Inspector 'Information to Applicants' both state the pay scale only as \"as per existing rules\"."
+            source: wbp-pc-info
+          - note: "No pay level, rupee figure or in-hand salary is printed in the 2024 recruitment documents, so none is shown here."
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Verification, medical, then appointment"
+        parts:
+          - p: "Provisionally selected constables fill in a verification roll for a character and antecedents check and are sent for a medical examination before appointment."
+            source: wbp-pc-info
+          - p: "Sub-Inspector candidates choose between the Unarmed and Armed Branch in order of preference in the application, and that choice is final."
+            source: wbp-si-info
+    sources:
+      - { id: wbp-pc-info, name: "WBPRB — Information to Applicants, Recruitment to the post of Constables in West Bengal Police - 2024 (Mar 2024)", url: "https://prb.wb.gov.in/uploads/recruitment/170973908876971.pdf", covers: "eligibility, Bengali rule, age, PMT, PET, written exam, negative marking, interview, fees, reservation, certificates, pay", checked: 2026-10-18 }
+      - { id: wbp-pc-dates, name: "WBPRB — Constable 2024 notices: application window (Notice 2024/13), written exam 30 Nov 2025 (6 Nov 2025), written result and PMT/PET (29 Dec 2025), final merit list (24 Sep 2026)", url: "https://prb.wb.gov.in/uploads/recruitment/176242789778076.pdf", covers: "constable timeline", checked: 2026-10-18 }
+      - { id: wbp-pc-vac, name: "WBPRB — Notice 2026/06, revised vacancy position, Constables WBP 2024 (12 Aug 2026)", url: "https://prb.wb.gov.in/uploads/recruitment/178653139221861.pdf", covers: "11,749 posts by category after the new OBC list", checked: 2026-10-18 }
+      - { id: wbp-pc-final, name: "WBPRB — Notice 2026/13, final merit list, Constables WBP 2024 (24 Sep 2026)", url: "https://prb.wb.gov.in/uploads/recruitment/179019345164792.pdf", covers: "final selection list published", checked: 2026-10-18 }
+      - { id: wbp-pc-hc, name: "WBPRB — Notice 2026/19 on WPA 6594, 9537, 9538 and 9541 of 2026 (14 Oct 2026)", url: "https://prb.wb.gov.in/uploads/recruitment/179197076186884.pdf", covers: "horizontal-reservation appointments subject to High Court cases", checked: 2026-10-18 }
+      - { id: wbp-pc-docs, name: "WBPRB — Notice 2025/22, important documents to be kept ready, Constables WBP 2024 (17 Nov 2025)", url: "https://prb.wb.gov.in/uploads/recruitment/176338508035115.pdf", covers: "document checklist", checked: 2026-10-18 }
+      - { id: wbp-obc, name: "WBPRB — Notice 2026/04 on the revised State List of OBCs and Notice 2026/05 on category updates (12 Aug 2026)", url: "https://prb.wb.gov.in/uploads/recruitment/178653118670413.pdf", covers: "66 OBC classes, 7% reservation, invalid certificates, EWS switch", checked: 2026-10-18 }
+      - { id: wbp-si-notice, name: "WBPRB — Notice 2024/14, Sub-Inspector (Unarmed &amp; Armed Branch) in West Bengal Police - 2024", url: "https://prb.wb.gov.in/uploads/recruitment/170963630181971.pdf", covers: "SI age, relaxations, qualification, Bengali rule", checked: 2026-10-18 }
+      - { id: wbp-si-info, name: "WBPRB — Information to Applicants, Sub-Inspector in West Bengal Police - 2024", url: "https://prb.wb.gov.in/uploads/recruitment/170973964879105.pdf", covers: "SI physical standards, PET, prelim, final exam, personality test, fees, branch preference", checked: 2026-10-18 }
+      - { id: wbp-si-vac, name: "WBPRB — Notice 2026/14, revised vacancy position, SI WBP 2024 (6 Oct 2026)", url: "https://prb.wb.gov.in/uploads/recruitment/179128725821725.pdf", covers: "1,131 SI posts by category and branch", checked: 2026-10-18 }
+      - { id: wbp-si-fcce, name: "WBPRB — SI 2024 notices: prelim result and PMT/PET (7 Nov 2025); Final Combined Competitive Examination on 22 Feb 2026 (6 Feb 2026)", url: "https://prb.wb.gov.in/uploads/recruitment/177036127126040.pdf", covers: "SI timeline", checked: 2026-10-18 }
+
+  # ------------------------------------------------------------------ WBSSC (SCHOOL SERVICE COMMISSION)
+  - slug: wbssc
+    group: civil
+    short: "WBSSC — 2nd SLST Teachers &amp; 1st SLST Clerk / Group-D"
+    body: "West Bengal Central School Service Commission"
+    card: "The School Service Commission's fresh selection tests ordered by the Supreme Court in April 2025: the 2nd SLST for Assistant Teachers of Classes IX–X and XI–XII, and the 1st SLST for non-teaching Clerk (Group C) and Group-D posts in aided schools."
+    card_facts: ["Teachers: 23,209 (IX–X) + 12,445 (XI–XII)", "NTS: Clerk 2,989 · Group-D 5,488", "Fee ₹500 / ₹400 · SC/ST/PH less"]
+    eyebrow: "WBSSC · School teachers &amp; non-teaching staff"
+    title: "WBSSC 2nd SLST (Assistant Teachers) 2025 &amp; 1st SLST (Clerk, Group-D) 2025 — Eligibility, Marks, Status"
+    lede: "The West Bengal Central School Service Commission runs State Level Selection Tests (SLST) for government-aided and sponsored schools. After the Supreme Court's judgment of 3 April 2025 (Civil Appeal 4800 of 2024), it began fresh selections: the 2nd SLST (AT) 2025 for teachers and the 1st SLST (NTS) 2025 for Clerks and Group-D staff. This page follows those notifications, the Rules 2025, the vacancy lists and the Commission's 2026 notices."
+    facts:
+      - { label: "Teacher vacancies", value: "23,209 (IX–X) · 12,445 (XI–XII)", source: ssc-vac }
+      - { label: "NTS vacancies", value: "Clerk 2,989 · Group-D 5,488", source: ssc-nts }
+      - { label: "Teacher age", value: "21–40 on 1 Jan 2025 (+5 SC/ST, +3 OBC)", source: ssc-at }
+      - { label: "Teacher selection", value: "Written 60 + academic 10 + experience 10 + interview 10 + lecture 10", source: ssc-rules }
+    official:
+      - { label: "WBSSC website", url: "https://www.westbengalssc.com/" }
+      - { label: "2nd SLST (AT) 2025 advertisement (PDF)", url: "https://old.westbengalssc.com/sscorg/wbssc/download/notice/Advertisement_2nd_SLST_AT_2025_30_MAY25.pdf" }
+      - { label: "1st SLST (NTS) 2025 notification (PDF)", url: "https://old.westbengalssc.com/sscorg/wbssc/download/notice/Notification_1stSLST_2025_NTS_09_October_2025.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "Fresh selections after the Supreme Court judgment"
+        parts:
+          - p: "The Supreme Court's judgment of 3 April 2025 in Civil Appeal 4800 of 2024 directed the School Service Commission to start a fresh selection for Assistant Teachers of Classes IX–X and XI–XII. The Commission notified the 2nd SLST (AT) 2025 on 30 May 2025, stating that the process runs subject to the pending review petitions."
+            source: ssc-at
+          - p: "The same judgment led to the 1st SLST (NTS) 2025 for Clerks and Group-D staff of aided schools, notified on 9 October 2025. Candidates identified as 'tainted' under the judgment are not eligible to apply."
+            source: ssc-nts
+          - table:
+              caption: "Vacancies (as received from the West Bengal Board of Secondary Education)"
+              head: ["Post", "Vacancies"]
+              rows:
+                - ["Assistant Teacher, Classes IX–X", "23,209"]
+                - ["Assistant Teacher, Classes XI–XII", "12,445"]
+                - ["Clerk (Group C), aided schools", "2,989 (indicative)"]
+                - ["Group-D, aided schools", "5,488 (indicative)"]
+            source: ssc-vac
+          - p: "<strong>2nd SLST (AT) 2025:</strong> applications 16 June – 14 July 2025; written test planned for the first week of September 2025."
+            source: ssc-at
+          - p: "<strong>1st SLST (NTS) 2025:</strong> applications 3 November – 3 December 2025; written exam planned for January 2026."
+            source: ssc-nts
+          - p: "Status on the Commission's notice board (18 Oct 2026): counselling of empanelled Classes XI–XII teachers due from 14 August 2026 was adjourned on 11 August 2026; a revised preliminary interview list for Classes IX–X was published on 12 October 2026 and a second interview schedule for XI–XII on 13 October 2026."
+            source: ssc-status
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "Degree + B.Ed for teachers, Madhyamik or Class VIII for NTS"
+        parts:
+          - table:
+              caption: "Assistant Teachers — 2nd SLST (AT) 2025"
+              head: ["Post", "Qualification", "Age (1 Jan 2025)"]
+              rows:
+                - ["Assistant Teacher, IX–X", "Graduate or PG with 50% in either, plus B.Ed from an NCTE-recognised institution; or a 4-year B.A.Ed / B.Sc.Ed", "21 – 40"]
+                - ["Assistant Teacher, XI–XII", "Post-graduate with 50% plus B.Ed, or PG with 50% plus B.A.Ed / B.Sc.Ed", "21 – 40"]
+            source: ssc-at
+          - list:
+              - "<strong>Relaxation:</strong> 5 years for SC / ST, 3 years for OBC and 8 years for physically handicapped candidates, plus 5% relaxation in qualifying marks for reserved categories. Candidates given age relaxation by the Supreme Court's order of 3 April 2025 also get it."
+              - "<strong>Medium:</strong> to teach in a Bengali, English, Hindi, Nepali, Oriya, Santhali, Telugu or Urdu medium school, you must have passed that language at the level set in the Rules."
+              - "Male candidates are not eligible for appointment in girls' schools."
+            source: ssc-at
+          - table:
+              caption: "Non-teaching staff — 1st SLST (NTS) 2025"
+              head: ["Post", "Qualification", "Age (1 Jan 2025)"]
+              rows:
+                - ["Clerk (Group C)", "Madhyamik / School Final or equivalent (or old HS)", "18 – 40"]
+                - ["Group-D", "Class VIII from a recognised school", "18 – 40"]
+            source: ssc-nts
+          - note: "NTS age relaxation is the same (SC / ST 5, OBC 3, physically handicapped 8 years). Non-teaching staff must have passed the school's medium language as a first, second or third language."
+            source: ssc-nts
+      - id: scheme
+        nav: "Selection &amp; Marks"
+        eyebrow: "Selection scheme &amp; marks"
+        heading: "Written test plus academics, experience, interview and lecture"
+        parts:
+          - table:
+              caption: "Assistant Teacher (IX–X and XI–XII) — 100 marks"
+              head: ["Component", "Marks"]
+              rows:
+                - ["Written examination (OMR)", "60"]
+                - ["Educational qualification (60%+ = 10, 50–60% = 8, below 50% = 6)", "10"]
+                - ["Prior teaching experience (2 marks per year in a substantive post)", "10"]
+                - ["Oral interview", "10"]
+                - ["Lecture demonstration", "10"]
+            source: ssc-rules
+          - list:
+              - "Candidates are called for interview category-wise at 1.6 times the final vacancies, on the preliminary merit score (written test + academic score)."
+              - "Ties are broken by the written-test marks, then the academic score."
+            source: ssc-rules
+          - list:
+              - "Each question has four options with one correct answer carrying one mark. Teacher papers are set in English and Bengali (language papers in the same language; Sanskrit in Bengali)."
+              - "Panels and waiting lists are drawn subject-wise, medium-wise, gender-wise and category-wise and stay valid for one year from the first counselling."
+            source: ssc-at
+          - p: "<strong>Clerk and Group-D:</strong> Clerks are selected on a written exam, academic score, prior similar experience and an interview including a typing-cum-computer proficiency test; Group-D on the written exam, experience and interview. Papers are in English and Bengali, and there is <strong>no negative marking</strong>."
+            source: ssc-nts
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "Examination fees"
+        parts:
+          - table:
+              caption: "2nd SLST (AT) 2025"
+              head: ["Post", "General &amp; OBC", "SC / ST / PH"]
+              rows:
+                - ["Assistant Teacher (IX–X or XI–XII)", "₹500", "₹200"]
+            source: ssc-at
+          - table:
+              caption: "1st SLST (NTS) 2025"
+              head: ["Post", "General, OBC &amp; EWS", "SC / ST / PH"]
+              rows:
+                - ["Clerk (Group C) or Group-D", "₹400", "₹150"]
+            source: ssc-nts
+          - note: "Bank and payment charges are extra. Reserved-category candidates of other states pay the general fee."
+            source: ssc-at
+      - id: reservation
+        nav: "Reservation &amp; Certificates"
+        eyebrow: "Reservation &amp; certificates"
+        heading: "Only West Bengal certificates count"
+        parts:
+          - list:
+              - "Reserved-category certificates are valid only if issued by competent authorities of the Government of West Bengal on or before the last date of the online application."
+              - "Candidates of reserved categories from other states appear as General candidates, with no relaxation in age, fees or qualifying marks."
+            source: ssc-at
+          - p: "After the Backward Classes Welfare Department memo of 7 August 2026, the Commission opened an edit window (1–8 September 2026) for 1st SLST (NTS) candidates to update their OBC sub-category or Unreserved status; candidates who did not do so were treated as Unreserved."
+            source: ssc-obc
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "What the Commission asks for"
+        parts:
+          - list:
+              - "Name, parent's name and date of birth exactly as on the Madhyamik or equivalent certificate."
+              - "Degree, PG and B.Ed / B.A.Ed / B.Sc.Ed marksheets and certificates, with qualifications obtained by the last date of the online application."
+              - "West Bengal caste / category certificates and disability certificate, if claimed."
+            source: ssc-at
+          - p: "For the NTS exam the Commission told candidates whose uploaded photo or signature was blank or unclear to bring the original Aadhaar and PAN card, self-attested copies and a self-attested photograph to the venue by 10 am."
+            source: ssc-nts-exam
+          - note: "Admit cards are provisional: eligibility is checked online or physically right up to counselling, and ineligible candidates are removed at any stage."
+            source: ssc-prov
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Pay as per state norms"
+        parts:
+          - p: "Both notifications state the scale of pay only as \"as per extant State Government norms\"."
+            source: ssc-nts
+          - note: "No rupee pay scale or in-hand salary is printed, so none is shown here."
+      - id: posting
+        nav: "Counselling &amp; Posting"
+        eyebrow: "Counselling &amp; posting"
+        heading: "Panels, counselling and recommendation"
+        parts:
+          - p: "After interviews the Commission publishes merit-based panels equal to the vacancies and a waiting list. Empanelled candidates attend counselling, choose a school against notified final vacancies and are recommended for appointment; no one is recommended against a post they did not apply for."
+            source: ssc-at
+          - links:
+              - { label: "B.Ed and teaching careers", url: "bed.html" }
+    sources:
+      - { id: ssc-at, name: "WB Central School Service Commission — Notification, 2nd SLST for Assistant Teachers (IX–X and XI–XII), 2025, Memo 1092 (30 May 2025)", url: "https://old.westbengalssc.com/sscorg/wbssc/download/notice/Advertisement_2nd_SLST_AT_2025_30_MAY25.pdf", covers: "Supreme Court background, dates, fees, qualification, age, medium, reservation rule, panels, documents", checked: 2026-10-18 }
+      - { id: ssc-rules, name: "WBSSC (Selection for Appointment to the Posts of Assistant Teachers ...) Rules, 2025 (29 May 2025)", url: "https://old.westbengalssc.com/sscorg/wbssc/download/notice/RULES_2025_FOR_APPOINTMENT_29_May_2025.pdf", covers: "100-mark selection scheme, 1.6:1 interview ratio, tie-break", checked: 2026-10-18 }
+      - { id: ssc-vac, name: "WBSSC / WBBSE — Final vacancy lists, Assistant Teacher IX–X (21 Nov 2025) and XI–XII category-wise (25 Sep 2026)", url: "https://old.westbengalssc.com/sscorg/wbssc/download/notice/CategorywiseVacancy_2ndSLST_AT_25_September_2026.pdf", covers: "23,209 IX–X and 12,445 XI–XII vacancies; NTS indicative vacancies from the NTS notification", checked: 2026-10-18 }
+      - { id: ssc-nts, name: "WBSSC — Notice (29 Aug 2025) and Notification, 1st SLST 2025 for Non-Teaching Staff (Clerk &amp; Group D), Memo 1803 (9 Oct 2025)", url: "https://old.westbengalssc.com/sscorg/wbssc/download/notice/Notification_1stSLST_2025_NTS_09_October_2025.pdf", covers: "NTS vacancies, dates, fees, selection, no negative marking, qualification, age, medium, pay rule", checked: 2026-10-18 }
+      - { id: ssc-nts-exam, name: "WBSSC — Public notice on photo and signature, 1st SLST (NTS) 2025 (23 Feb 2026)", url: "https://old.westbengalssc.com/sscorg/wbssc/download/notice/Notice_1stSLST_NTS_2025_23_February_2026.pdf", covers: "documents to carry to the NTS exam", checked: 2026-10-18 }
+      - { id: ssc-prov, name: "WBSSC — Notice on provisional admit cards, 2nd SLST (AT) 2025 (25 Aug 2025)", url: "https://old.westbengalssc.com/sscorg/wbssc/download/notice/Important_Notice_2ND_SLST_AT2025_25_August_2025.pdf", covers: "provisional candidature, post-exam verification", checked: 2026-10-18 }
+      - { id: ssc-obc, name: "WBSSC — Notification on OBC sub-category / UR edit option, 1st SLST (NTS) 2025 (25 Aug 2026)", url: "https://old.westbengalssc.com/sscorg/wbssc/download/notice/Notice_OBC_Edit%20Option_1stSLSTNTS2025_25_Aug_2026.pdf", covers: "OBC edit window 1–8 Sep 2026", checked: 2026-10-18 }
+      - { id: ssc-status, name: "WBSSC — Notice adjourning XI–XII counselling (11 Aug 2026) and notice board entries of 12–13 Oct 2026", url: "https://old.westbengalssc.com/sscorg/wbssc/download/notice/Notice_CancelletionCounselling2ndSLSTAT2025_11_August_2026.pdf", covers: "counselling adjourned; revised IX–X interview list; second XI–XII interview schedule", checked: 2026-10-18 }
+
+  # ------------------------------------------------------------------ POLYTECHNIC (JEXPO / VOCLET)
+  - slug: jexpo
+    group: academic
+    short: "WB Polytechnic Admission — JEXPO &amp; VOCLET route"
+    body: "West Bengal State Council of Technical and Vocational Education and Skill Development"
+    card: "First-year (old JEXPO route) and lateral-entry second-year (old VOCLET route) admission to diplomas in engineering and technology. For 2026-27 the Council held no entrance test: merit came from qualifying-exam marks."
+    card_facts: ["2026-27: no test — merit on marks", "Year 1: Madhyamik with Science &amp; Maths", "Fee ₹450 · ₹225 Kanyashree"]
+    eyebrow: "WBSCTVESD · Polytechnic admission"
+    title: "West Bengal Polytechnic Admission 2026-27 (JEXPO / VOCLET) — Merit, Eligibility, Reservation, Fees"
+    lede: "JEXPO (first year) and VOCLET (second-year lateral entry) were the State Council's entrance tests for polytechnic diplomas. For the 2026-27 session the Council admitted on a merit list made from qualifying-exam marks, with online counselling on its Common Admission Portal. This page follows the 2026-27 information brochures and counselling notices."
+    facts:
+      - { label: "Admitting body", value: "WBSCTVESD (Technical Education Division)", source: wb-ib1 }
+      - { label: "Entrance test 2026-27", value: "None — merit on qualifying-exam marks", source: wb-ib1 }
+      - { label: "Year-1 eligibility", value: "Madhyamik / Class 10 with Science and Maths", source: wb-ib1 }
+      - { label: "Application fee", value: "₹450 · ₹225 Kanyashree", source: wb-ib1 }
+    official:
+      - { label: "Common Admission Portal", url: "https://admission-tetsd.wb.gov.in/" }
+      - { label: "WBSCTVESD (Technical Education)", url: "https://webscte.co.in/" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; governing authority"
+        heading: "A merit list, not an exam, for 2026-27"
+        parts:
+          - p: "Polytechnic admission is run by the <strong>West Bengal State Council of Technical and Vocational Education and Skill Development</strong> (Technical Education Division), a statutory body under West Bengal Act XXVI of 2013. The Council prepares merit lists either through entrance tests — <strong>JEXPO</strong> for the first year and <strong>VOCLET</strong> for the second year — or on the marks of the qualifying exam. For 2026-27 both the first-year and lateral-entry brochures use qualifying-exam marks."
+            source: wb-ib1
+          - table:
+              caption: "First-year counselling 2026-27 (revised schedule of 4 Aug 2026)"
+              head: ["Step", "Date"]
+              rows:
+                - ["Counselling fee and choice filling", "29 – 30 Jul 2026"]
+                - ["Phase 1 allotment / admission", "1 Aug / 1 – 5 Aug 2026"]
+                - ["Phase 2 allotment / admission", "7 Aug / 7 – 10 Aug 2026"]
+                - ["Phase 3 allotment / admission", "12 Aug / 13 – 17 Aug 2026"]
+            source: wb-cs
+          - note: "Mop-up, online spot and a physical spot round (9 Oct 2026) followed for vacant seats. The Council can bring a test back for 2027-28 — watch the portal."
+            source: wb-spot
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Academic eligibility"
+        heading: "Madhyamik for year one, Class 12 or ITI for year two"
+        parts:
+          - list:
+              - "<strong>First year (3-year diploma):</strong> passed or appearing Madhyamik / Class 10 or equivalent with Science or Physical Science and Mathematics; no minimum percentage."
+              - "<strong>Age:</strong> born on or before 1 July 2011; no upper limit."
+              - "<strong>Domicile:</strong> Indian citizens only; a West Bengal domicile certificate (10 years' continuous residence as on 31 Dec 2025) at admission."
+              - "<strong>Medical:</strong> no colour blindness; a registered doctor's fitness certificate at admission."
+            source: wb-ib1
+          - list:
+              - "<strong>Second year (lateral entry, old VOCLET route):</strong> passed or appearing 10+2 with the subjects in AICTE table 8.4, or Higher Secondary (Vocational) of the Council, or 10th + 2-year ITI; no age limit."
+              - "Branch subjects: Civil and Chemical need Physics, Chemistry and Maths; Computer, IT, Electrical and Electronics branches need Physics and Maths plus one listed subject."
+              - "Candidates still appearing in ITI cannot take lateral entry."
+            source: wb-ib2
+      - id: scheme
+        nav: "Merit scheme"
+        eyebrow: "Exam scheme &amp; merit"
+        heading: "No paper to sit for 2026-27"
+        parts:
+          - list:
+              - "There is no JEXPO or VOCLET question paper, mode or marking scheme for 2026-27: applicants are ranked on the marks of their eligibility exam."
+              - "Seats are allotted through online counselling on the Common Admission Portal; take admission by the date on the allotment letter or the seat moves on."
+              - "Eligibility documents are checked physically at the institute; any mismatch cancels the candidature."
+              - "The first-year brochure lists 45 disciplines, from Civil, Mechanical and Electrical to Artificial Intelligence, Cyber Forensics and Electric Vehicle Technology."
+            source: wb-ib1
+          - warn: "Websites still describing a JEXPO OMR or CBT test, its syllabus or section marks are out of date for 2026-27."
+            source: wb-ib1
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "₹450 application, low government tuition"
+        parts:
+          - table:
+              head: ["Item", "Amount"]
+              rows:
+                - ["Application fee", "₹450 (₹225 for Kanyashree enrollees)"]
+                - ["Tuition — government polytechnic", "₹50 a month"]
+                - ["Tuition — self-financed, counselling seat", "₹1,500 a month"]
+                - ["Tuition — self-financed, management quota", "₹2,500 a month"]
+            source: wb-ib1
+          - note: "Kanyashree enrollees get 50% off the form, registration and counselling fees and hostel priority in government polytechnics."
+            source: wb-ib1
+      - id: reservation
+        nav: "Reservation"
+        eyebrow: "Reservation &amp; quotas"
+        heading: "West Bengal quotas and the district quota"
+        parts:
+          - table:
+              caption: "Seats in government and government-sponsored polytechnics"
+              head: ["Quota", "Share"]
+              rows:
+                - ["SC (West Bengal certificates)", "22%"]
+                - ["ST (West Bengal certificates)", "6%"]
+                - ["OBC", "As per government norms, subject to income"]
+                - ["EWS", "10%"]
+                - ["Persons with disability (40%+)", "Up to 5%"]
+                - ["Women (all categories)", "20%"]
+                - ["Land losers", "2%"]
+                - ["District quota (Madhyamik from a school in the district)", "50% — not in Kolkata, North &amp; South 24-Parganas, Howrah and some sub-divisions"]
+                - ["Tuition Fee Waiver (income up to ₹8 lakh)", "Up to 5%, over the intake"]
+            source: wb-ib1
+          - note: "On 18 May 2026 the state withdrew its 2025 OBC notifications, so check the portal for the current OBC rules before claiming the quota."
+            source: wb-obc
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Originals at the institute"
+        parts:
+          - list:
+              - "Madhyamik / Class 10 (or 10+2 / ITI for lateral entry) marksheet and certificate."
+              - "West Bengal domicile certificate (Proforma A, B or C)."
+              - "Caste, EWS, Tuition-Fee-Waiver income, disability and land-loser certificates, if claimed."
+              - "Medical fitness certificate from a registered doctor; Kanyashree ID if claiming the waiver."
+            source: wb-ib1
+      - id: pay
+        nav: "Costs &amp; support"
+        eyebrow: "Costs &amp; support"
+        heading: "Tuition Fee Waiver"
+        parts:
+          - p: "Students from West Bengal whose family income is up to ₹8 lakh a year can take a Tuition Fee Waiver seat (up to 5%, over and above the intake) and pay no tuition fee."
+            source: wb-ib1
+      - id: posting
+        nav: "After admission"
+        eyebrow: "After admission"
+        heading: "Register with the Council"
+        parts:
+          - p: "After taking admission, students must register with the Council in time, or the admission is cancelled. Women's Polytechnics at Kolkata and Chandannagar admit only women; Darjeeling, Kalimpong and Mirik polytechnics prefer hill-area candidates."
+            source: wb-ib1
+          - links:
+              - { label: "Polytechnic colleges in West Bengal", url: "colleges/west-bengal/diploma.html" }
+              - { label: "JEXPO console (national view)", url: "jexpo.html" }
+              - { label: "Diploma after Class 10", url: "diploma.html" }
+    sources:
+      - { id: wb-ib1, name: "WBSCTVESD — Information Brochure, admission to 1st year Diploma in Engineering &amp; Technology, 2026-27 (portal notice board, 19 May 2026)", url: "https://admission-tetsd.wb.gov.in/", covers: "council status, merit-list admission, eligibility, age, domicile, disciplines, fees, Kanyashree, reservation, district quota, TFW, documents, registration", checked: 2026-10-14 }
+      - { id: wb-ib2, name: "WBSCTVESD — Revised Information Brochure, 2nd year (lateral entry) diploma admission, 2026-27 (17 Jun 2026)", url: "https://admission-tetsd.wb.gov.in/", covers: "lateral-entry eligibility and branch subjects", checked: 2026-10-14 }
+      - { id: wb-cs, name: "WBSCTVESD — Revised counselling schedule, 1st year diploma 2026-27 (4 Aug 2026)", url: "https://admission-tetsd.wb.gov.in/", covers: "choice filling, allotment and admission dates", checked: 2026-10-14 }
+      - { id: wb-spot, name: "WBSCTVESD — Notification for physical spot counselling 2026-27 (7 Oct 2026)", url: "https://admission-tetsd.wb.gov.in/", covers: "mop-up and spot rounds", checked: 2026-10-14 }
+      - { id: wb-obc, name: "Government of West Bengal, BCW Dept — Notification 944-BCW/MR-23/2026 (18 May 2026), on the portal notice board", url: "https://admission-tetsd.wb.gov.in/", covers: "withdrawal of the 2025 OBC notifications", checked: 2026-10-14 }

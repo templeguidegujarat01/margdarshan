@@ -1,0 +1,620 @@
+# Telangana State Exam & Career Cockpit — one data sheet for the cockpit (state/telangana/index.html) and every
+# exam page under state/telangana/. Rendered by _includes/state-cockpit.html and _includes/state-exam.html;
+# checked by scripts/check-in-data.mjs (state sheets block).
+#
+# Rules for this sheet (same as the other state sheets):
+#   - Every fact part carries `source: <id>`; the id must be listed under that exam's `sources`.
+#   - Sources are the official files themselves (read 2026-10-18): TGPSC Group-I Notification 02/2024 and Group-II
+#     Notification 28/2022 with their provisional selection notifications of September 2025; the TSLPRB police
+#     notifications of 29 Jul 2026, the supplementary notifications of 15 Aug and 10 Sep 2026 and the press note of
+#     17 Sep 2026; the TG EAPCET-2026 notification and instruction booklet; and the POLYCET-2026 notification and
+#     instruction booklet of SBTET Telangana. Nothing comes from coaching or news sites.
+#   - The Commission still uses its old TSPSC file names; the body is now the Telangana Public Service Commission
+#     (TGPSC). No new Group-I or Group-II notification had been issued when we checked.
+#   - Section ids are the same on every exam page: overview, eligibility, scheme, fees, reservation,
+#     documents, pay, posting (+ sources, drawn automatically).
+state:
+  id: telangana
+  name: Telangana
+  checked: 2026-10-18
+
+cockpit:
+  eyebrow: "State Exam &amp; Career Cockpit · Telangana"
+  title: "Telangana Exam &amp; Career Cockpit"
+  intro:
+    - "Every major Telangana government recruitment and admission route on one screen: TGPSC Group-I and Group-II services, police constables and Sub-Inspectors through the Telangana State Level Police Recruitment Board (TSLPRB), TG EAPCET for engineering, agriculture and pharmacy, and TG POLYCET for diplomas after Class 10. Each page is built only from the official notification or instruction booklet, and every fact links back to that file."
+    - "Telangana fills 95% of its zonal and multi-zonal posts with local candidates under the Presidential Order 2018 (G.O.Ms.No.124), where 'local' depends on where you studied from Class I to VII. In admissions, 85% of seats are for local candidates of the Osmania University area. SC candidates now need certificates under the 2025 sub-classification (SC Group I, II and III), and ST reservation in jobs is 10%."
+  facts:
+    - { label: "Recruitment nodes", value: "TGPSC Group-I &amp; II · TG Police" }
+    - { label: "Admission nodes", value: "TG EAPCET · TG POLYCET" }
+    - { label: "Next exam", value: "Police SI prelim 29 Nov · PC 20 Dec 2026" }
+    - { label: "Last checked", value: "18 Oct 2026" }
+  groups:
+    - id: civil
+      eyebrow: "Civil recruitment &amp; administrative"
+      heading: "Government recruitment exams"
+      intro: "Group-I and Group-II services through the Telangana Public Service Commission (TGPSC), and police constables, Sub-Inspectors, fire and prison staff through the Telangana State Level Police Recruitment Board (TSLPRB)."
+      exams: [tspsc, police]
+    - id: academic
+      eyebrow: "Academic admissions"
+      heading: "Admission routes after Class 10 and 12"
+      intro: "B.Tech, B.Pharmacy, agriculture and allied degrees through TG EAPCET (JNTU Hyderabad for the Telangana Council of Higher Education), and polytechnic, agriculture and veterinary diplomas through TG POLYCET (State Board of Technical Education and Training)."
+      exams: [eapcet, polycet]
+  compare_note: "Fees, age limits and dates are from the latest notification of each body. They change every cycle, so always open the current notification before applying."
+  portals_note: "TGPSC notifications are on websitenew.tgpsc.gov.in (One Time Registration at otr.tgpsc.gov.in); police recruitment on tgprb.in; TG EAPCET on eapcet.tgche.ac.in; TG POLYCET on polycet.sbtet.telangana.gov.in. Only use these official addresses."
+  portals:
+    - { label: "Telangana Public Service Commission (TGPSC)", url: "https://websitenew.tgpsc.gov.in/" }
+    - { label: "Telangana State Level Police Recruitment Board (TSLPRB)", url: "https://www.tgprb.in/" }
+    - { label: "TG EAPCET (JNTU Hyderabad)", url: "https://eapcet.tgche.ac.in/" }
+    - { label: "TG POLYCET (SBTET Telangana)", url: "https://polycet.sbtet.telangana.gov.in/" }
+
+exams:
+  # ------------------------------------------------------------------ TGPSC GROUP-I & GROUP-II
+  - slug: tspsc
+    group: civil
+    short: "TGPSC (TSPSC) Group-I &amp; Group-II Services"
+    body: "Telangana Public Service Commission"
+    card: "Telangana's state services: Deputy Collector, DSP, Commercial Tax Officer and fifteen other Group-I posts (Notification 02/2024, 563 posts), and Naib Tahsildar, ASO, Mandal Panchayat Officer and other Group-II posts (Notification 28/2022, 783 posts)."
+    card_facts: ["Group-I 02/2024: 563 posts · selection Sep 2025", "Group-II 28/2022: 783 posts", "No new Group-I/II notice yet"]
+    eyebrow: "TGPSC · Group-I &amp; Group-II"
+    title: "TGPSC (TSPSC) Group-I 02/2024 &amp; Group-II 28/2022 — Posts, Age, Scheme, Local Zones, Status"
+    lede: "The Telangana Public Service Commission (TGPSC, formerly TSPSC) fills its senior state services through Group-I and its middle-level posts through Group-II. This page follows the latest notifications of both — Group-I 02/2024 (563 posts) and Group-II 28/2022 (783 posts) — and their provisional selection notifications of September 2025."
+    facts:
+      - { label: "Group-I", value: "563 posts · mains 21–27 Oct 2024", source: tg1sel }
+      - { label: "Group-II", value: "783 posts · exam 15–16 Dec 2024", source: tg2sel }
+      - { label: "Group-I age", value: "18–46 (DSP, Jails, Excise 21/18–35)", source: tg1 }
+      - { label: "Fee", value: "₹200 + ₹120 exam fee (unemployed exempt)", source: tg1 }
+    official:
+      - { label: "TGPSC website", url: "https://websitenew.tgpsc.gov.in/" }
+      - { label: "All direct-recruitment notifications", url: "https://websitenew.tgpsc.gov.in/directRecruitment" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "Both cycles at provisional selection"
+        parts:
+          - table:
+              caption: "Group-I Services — Notification 02/2024 (19 Feb 2024)"
+              head: ["Post", "Posts", "Age (1 Jul 2024)", "Scale of pay (₹)"]
+              rows:
+                - ["Deputy Collector", "45", "18–46", "58,850 – 1,37,050"]
+                - ["Deputy Superintendent of Police Cat-II", "115", "21–35", "58,850 – 1,37,050"]
+                - ["Commercial Tax Officer", "48", "18–46", "58,850 – 1,37,050"]
+                - ["Regional Transport Officer", "4", "21–46", "54,220 – 1,33,630"]
+                - ["District Panchayat Officer", "7", "18–46", "54,220 – 1,33,630"]
+                - ["District Registrar", "6", "18–46", "54,220 – 1,33,630"]
+                - ["Deputy Superintendent of Jails (Men)", "5", "18–35", "54,220 – 1,33,630"]
+                - ["Assistant Commissioner of Labour", "8", "18–46", "54,220 – 1,33,630"]
+                - ["Assistant Excise Superintendent", "30", "21–35", "51,320 – 1,27,310"]
+                - ["Municipal Commissioner Grade-II", "41", "18–46", "51,320 – 1,27,310"]
+                - ["District Social / BC / Tribal Welfare Officers", "3 / 5 / 2", "18–46", "54,220 – 1,33,630"]
+                - ["District Employment Officer", "5", "18–46", "51,320 – 1,27,310"]
+                - ["Administrative Officer (Medical &amp; Health)", "20", "18–46", "51,320 – 1,27,310"]
+                - ["Asst. Treasury Officer / Asst. Accounts Officer", "38", "18–46", "51,320 – 1,27,310"]
+                - ["Assistant Audit Officer", "41", "18–46", "51,320 – 1,27,310"]
+                - ["Mandal Parishad Development Officer", "140", "18–46", "51,320 – 1,27,310"]
+                - ["Total", "563", "", ""]
+            source: tg1
+          - p: "Group-I 02/2024 replaced the cancelled Notification 04/2022. TGPSC issued the provisional selection list on the basis of the mains held 21–27 October 2024 and the General Ranking List of 30 March 2025."
+            source: tg1sel
+          - warn: "The Group-I selection list says it is subject to the outcome of Writ Appeal No. 1066 of 2025 and batch cases, and will be changed if court orders require it."
+            source: tg1sel
+          - p: "<strong>Group-II 28/2022</strong> (783 posts) was selected on the written exam of 15–16 December 2024 and the General Ranking List of 11 March 2025; TGPSC published the provisional selection notification in September 2025."
+            source: tg2sel
+          - note: "When we checked on 18 October 2026, TGPSC's list of direct-recruitment notifications showed 2026 notices for individual departments but no new Group-I or Group-II notification."
+            source: tglist
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "A degree and age up to 46 (Group-I)"
+        parts:
+          - list:
+              - "<strong>Qualification:</strong> a bachelor's degree for most Group-I posts (some need a specific degree as per the service rules), held on the date of notification."
+              - "<strong>Group-I age (1 Jul 2024):</strong> minimum 18 (21 for DSP, RTO and Assistant Excise Superintendent); maximum 46, but 35 for DSP, Deputy Superintendent of Jails and Assistant Excise Superintendent. The general limit was raised from 44 to 46 by G.O.Ms.No.30 of 8 Feb 2024."
+              - "<strong>Relaxation:</strong> 5 years for SC, ST, BC and EWS; 10 years for persons with disabilities; Telangana government employees up to 5 years of service; ex-servicemen and NCC instructors 3 years plus service."
+            source: tg1
+          - list:
+              - "<strong>Group-II age (1 Jul 2022):</strong> 18 to 44 (raised from 34 by G.O.Ms.No.42 of 2022); Prohibition &amp; Excise Sub-Inspector 21 to 30. A degree is needed for the posts."
+            source: tg2
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme &amp; marking"
+        heading: "Group-I: 900-mark mains, no interview in the scheme"
+        parts:
+          - table:
+              caption: "Group-I scheme (G.O.Ms.No.55 of 2022 as amended in 2024)"
+              head: ["Stage / paper", "Time", "Marks"]
+              rows:
+                - ["Preliminary: General Studies &amp; Mental Ability, 150 MCQs", "2½ h", "150"]
+                - ["Mains: General English (qualifying, SSC standard)", "3 h", "150"]
+                - ["Paper I — General Essay", "3 h", "150"]
+                - ["Paper II — History, Culture and Geography", "3 h", "150"]
+                - ["Paper III — Indian Society, Constitution and Governance", "3 h", "150"]
+                - ["Paper IV — Economy and Development", "3 h", "150"]
+                - ["Paper V — Science &amp; Technology and Data Interpretation", "3 h", "150"]
+                - ["Paper VI — Telangana Movement and State Formation", "3 h", "150"]
+                - ["Total counted for merit", "", "900"]
+            source: tg1
+          - list:
+              - "The prelim shortlists 50 times the vacancies in each multi-zone for the mains; it is in English, Telugu and Urdu (OMR or computer-based)."
+              - "Mains papers (except General English) are answered wholly in English, Telugu or Urdu. General English needs 40% (OC, sportsmen, EWS), 35% (BC) or 30% (SC, ST, PH) and is not counted in the rank."
+              - "Equal prelim marks are ranked by local status (Telangana candidates first), then age (older first)."
+            source: tg1
+          - p: "<strong>Group-II:</strong> four objective papers of 150 questions and 150 marks each (2½ hours) — General Studies &amp; General Abilities; History, Polity and Society; Economy and Development; Telangana Movement and State Formation — 600 marks in all, in English, Telugu and Urdu."
+            source: tg2
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "₹200 processing + ₹120 exam fee"
+        parts:
+          - table:
+              head: ["Fee", "Amount", "Who pays"]
+              rows:
+                - ["Application processing fee", "₹200", "Every applicant"]
+                - ["Examination fee", "₹120", "Employed candidates (government, PSU, corporations); unemployed candidates are exempt"]
+            source: tg1
+          - note: "Group-II 28/2022 charged the same ₹200 + ₹120 with the same unemployed exemption. Fees are not refunded."
+            source: tg2
+      - id: reservation
+        nav: "Reservation &amp; Local Zones"
+        eyebrow: "Reservation, local status &amp; multi-zones"
+        heading: "95% local reservation in two multi-zones"
+        parts:
+          - list:
+              - "<strong>Local reservation (95%)</strong> applies to all posts notified under Multi-Zone I and II (G.O.Ms.No.124, 30 Aug 2018). A local candidate studied for four consecutive years in the area up to the qualifying exam or Class VII (whichever is lower), or qualifies by the seven-year rule."
+              - "<strong>Multi-Zone I:</strong> Asifabad, Mancherial, Peddapalli, Bhupalapalli, Mulugu, Adilabad, Nirmal, Nizamabad, Jagtial, Karimnagar, Sircilla, Siddipet, Medak, Kamareddy, Kothagudem, Khammam, Mahabubabad, Hanumakonda and Warangal. <strong>Multi-Zone II:</strong> Suryapet, Nalgonda, Bhongir, Jangaon, Medchal-Malkajgiri, Hyderabad, Ranga Reddy, Sangareddy, Vikarabad, Mahabubnagar, Narayanpet, Gadwal, Wanaparthy and Nagarkurnool."
+              - "<strong>ST reservation</strong> is 10% (raised from 6% by G.O.Ms.No.130 of 2022); EWS as per G.O.Ms.No.243 and 244 of 2021; women and meritorious sportspersons (2%) horizontally."
+              - "BC candidates need a non-creamy-layer certificate (Form VII-B) from a Telangana Tahsildar; otherwise they are considered under open competition."
+              - "Applicants from other states get no reservation."
+            source: tg1
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Keep these ready"
+        parts:
+          - list:
+              - "Photo ID — Aadhaar, voter ID, passport, driving licence, service ID, bank passbook with photo or PAN card."
+              - "SSC, Intermediate, degree and PG certificates."
+              - "Study (bonafide) or residence certificates for Classes I to VII."
+              - "SC / ST / BC community certificate and BC non-creamy-layer certificate from Telangana authorities; EWS income certificate for the previous financial year."
+              - "Sports, disability and ex-servicemen certificates where claimed."
+            source: tg2
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Scales of pay"
+        parts:
+          - table:
+              caption: "Group-I (Notification 02/2024)"
+              head: ["Posts", "Scale of pay (₹)"]
+              rows:
+                - ["Deputy Collector, DSP, Commercial Tax Officer", "58,850 – 1,37,050"]
+                - ["RTO, DPO, District Registrar, Dy. Supdt. of Jails, ACL, welfare officers", "54,220 – 1,33,630"]
+                - ["Asst. Excise Supdt., Municipal Commissioner Gr-II, MPDO, AAO, ATO and others", "51,320 – 1,27,310"]
+            source: tg1
+          - table:
+              caption: "Group-II (Notification 28/2022)"
+              head: ["Posts", "Scale of pay (₹)"]
+              rows:
+                - ["Asst. BC / Tribal / Social Welfare Officers", "45,960 – 1,24,150"]
+                - ["Municipal Commissioner Gr-III, Asst. Registrar, Mandal Panchayat Officer", "43,490 – 1,18,230"]
+                - ["Asst. Commercial Tax Officer, Naib Tahsildar, Sub-Registrar Gr-II, Asst. Labour Officer", "42,300 – 1,15,270"]
+                - ["Assistant Section Officer, Excise SI, Asst. Development Officer", "38,890 – 1,12,510"]
+            source: tg2
+          - note: "Notifications print pay scales only; in-hand pay adds dearness allowance and HRA and subtracts deductions, so no in-hand figure is shown."
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Allotment by multi-zone"
+        parts:
+          - p: "Group-I selections are made post-wise and multi-zone-wise: the provisional list gives each selected candidate's post code and multi-zone. Selection does not confer a right to appointment until the appointing authority completes character, antecedent and medical checks."
+            source: tg1sel
+    sources:
+      - { id: tg1, name: "TSPSC / TGPSC — Notification No. 02/2024, Group-I Services (19 Feb 2024)", url: "https://websitenew.tgpsc.gov.in/preview/RElSRUNUUkVDUlVJVE1FTlROT1RJL05PVElGSUNBVElPTl9OT18wMi0yMDI0X0dyb3VwLUlfU2VydmljZXMgKDEpMjAyNDAyMjAxNDA3MzcucGRmr95v17a0y2d8i13v", covers: "563 posts, ages, pay, reservation, local status, multi-zones, fee, scheme, General English rule, tie-break", checked: 2026-10-18 }
+      - { id: tg1sel, name: "TGPSC — Group-I Services, Notification 02/2024: provisional selection notification (Sep 2025)", url: "https://websitenew.tgpsc.gov.in/preview/UFJFU1NOT1RFL0dSMS0wMjI0LVNFTC1OT1RJRk4yMDI1MDkyNTAwMTMwMC5wZGY=r95v17a0y2d8i13v", covers: "mains dates, general ranking list, provisional selection, writ appeal condition", checked: 2026-10-18 }
+      - { id: tg2, name: "TSPSC / TGPSC — Notification No. 28/2022, Group-II Services (29 Dec 2022)", url: "https://websitenew.tgpsc.gov.in/preview/RElSRUNUUkVDUlVJVE1FTlROT1RJLzIwMjItR1JPVVAtSUlfMjBTRVJWSUNFUy1OT1RJRk5fMjBGSU5BTDIwMjIxMjI5MjM0NzQxMjAyMzAxMTgxMDI2MjgucGRmr95v17a0y2d8i13v", covers: "783 posts, pay, age, fee, documents, four-paper scheme", checked: 2026-10-18 }
+      - { id: tg2sel, name: "TGPSC — Group-II Services, Notification 28/2022: provisional selection notification (Sep 2025)", url: "https://websitenew.tgpsc.gov.in/preview/UFJFU1NOT1RFL0dSMi0yODIwMjItU0VMLU5PVElGTjIwMjUwOTI4MTU0MDMxLnBkZg==r95v17a0y2d8i13v", covers: "exam dates, general ranking list, provisional selection", checked: 2026-10-18 }
+      - { id: tglist, name: "TGPSC — Notifications for all recruitments (website list)", url: "https://websitenew.tgpsc.gov.in/directRecruitment", covers: "no new Group-I / Group-II notification as of 18 Oct 2026", checked: 2026-10-18 }
+
+  # ------------------------------------------------------------------ TELANGANA POLICE (TSLPRB)
+  - slug: police
+    group: civil
+    short: "Telangana Police Constable &amp; SI 2026 (TSLPRB)"
+    body: "Telangana State Level Police Recruitment Board"
+    card: "7,437 posts notified on 29 July 2026 — 7,139 constable-level posts (Civil, AR, SPF, Fire Fighter, Warder) and 298 SI / ASI-level posts — with extra age relaxation of 7 to 10 years for this round."
+    card_facts: ["7,437 posts · applications closed 16 Sep", "SI prelim 29 Nov · PC prelim 20 Dec 2026", "Age relaxation +10 (PC) / +7 (SI)"]
+    eyebrow: "TSLPRB · Constable &amp; Sub-Inspector"
+    title: "Telangana Police Recruitment 2026 — 7,437 Posts: Eligibility, Age Relaxation, PET, Scheme, Pay"
+    lede: "The Telangana State Level Police Recruitment Board issued four notifications on 29 July 2026 for the Police, Special Protection Force, Fire and Prisons departments. This page follows the constable and Sub-Inspector notifications, the supplementary notifications of 15 August and 10 September 2026, and the press note of 17 September 2026."
+    facts:
+      - { label: "Posts", value: "7,437 (PC level 7,139 · SI level 298)", source: tg-pn }
+      - { label: "Prelims", value: "SI 29 Nov · PC 20 Dec 2026 (tentative)", source: tg-pn }
+      - { label: "Qualification", value: "PC: Intermediate · SI: degree", source: tg-pc }
+      - { label: "Applications", value: "5,77,064 from about 4.29 lakh people", source: tg-pn }
+    official:
+      - { label: "TSLPRB website", url: "https://www.tgprb.in/" }
+      - { label: "PC (Civil et al) notification 2026 (PDF)", url: "https://doc.tgprb.in/PC+(Civil+et+al)+2026+Notification+dated+29-07-2026.pdf" }
+      - { label: "SI (Civil et al) notification 2026 (PDF)", url: "https://doc.tgprb.in/SI+(Civil+et+al)+2026+Notification+dated+29-07-2026.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "7,437 posts across four departments"
+        parts:
+          - table:
+              caption: "Vacancies notified on 29 July 2026"
+              head: ["Department", "SI / ASI level", "PC level", "Total"]
+              rows:
+                - ["Police", "200", "4,800", "5,000"]
+                - ["Special Protection Force", "44", "1,380", "1,424"]
+                - ["Fire, Disaster Response, Emergency &amp; Civil Defence", "39", "751", "790"]
+                - ["Prisons &amp; Correctional Services", "15", "208", "223"]
+                - ["Total", "298", "7,139", "7,437"]
+            source: tg-pn
+          - p: "Online applications ran from 19 August to 16 September 2026. The Board received 5,77,064 applications from about 4,29,000 candidates. The preliminary written tests are tentatively on <strong>29 November 2026 (SI)</strong> and <strong>20 December 2026 (PC)</strong>."
+            source: tg-pn
+          - table:
+              caption: "Constable-level posts in the PC (Civil et al) notification"
+              head: ["Post", "Posts", "Pay scale (₹)"]
+              rows:
+                - ["SCT Police Constable (Civil)", "3,697", "24,280 – 72,850"]
+                - ["SCT Police Constable (AR)", "1,052", "24,280 – 72,850"]
+                - ["SCT Police Constable (SAR CPL), men", "24", "24,280 – 72,850"]
+                - ["SCT Constable, Special Protection Force", "1,380", "24,280 – 72,850"]
+                - ["Fire Fighter", "751", "24,280 – 72,850"]
+                - ["Warder (male / female)", "196 / 12", "24,280 – 72,850"]
+                - ["Total", "7,112", ""]
+            source: tg-pc
+          - table:
+              caption: "SI-level posts in the SI (Civil et al) notification"
+              head: ["Post", "Posts", "Pay scale (₹)"]
+              rows:
+                - ["SCT Sub-Inspector of Police (Civil)", "148", "42,300 – 1,15,270"]
+                - ["SCT Reserve SI (AR / SAR CPL / TGSP)", "14 / 3 / 12", "42,300 – 1,15,270"]
+                - ["SCT Sub-Inspector, Special Protection Force", "44", "42,300 – 1,15,270"]
+                - ["Station Fire Officer", "39", "38,890 – 1,12,510"]
+                - ["Deputy Jailor (men / women)", "14 / 1", "38,890 – 1,12,510"]
+                - ["Total", "275", ""]
+            source: tg-si
+          - note: "The other posts in the 7,437 are PC Driver / Mechanic and ASI (Finger Print Bureau), notified separately the same day."
+            source: tg-pn
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility, age &amp; medical standards"
+        heading: "Intermediate or degree, and a much higher age limit this year"
+        parts:
+          - list:
+              - "<strong>Constable qualification:</strong> Intermediate or equivalent passed by 29 July 2026; Fire Fighters also need a valid LMV driving licence."
+              - "<strong>Constable age:</strong> 18 to 22 on 1 July 2026 in the notification; Home Guards with 360 days' duty in two years up to 40; widowed / divorced women up to 40 (SC / ST) or 35 (others)."
+              - "<strong>Category relaxation:</strong> 5 years for SC, ST, BC and EWS; Telangana government employees up to 5 years; ex-servicemen and NCC instructors 3 years plus service."
+              - "<strong>Medical:</strong> 6/6 distant and 0/5 near vision in each eye; colour blindness, squint, knock-knees, flat feet, varicose veins and stammering disqualify."
+            source: tg-pc
+          - p: "<strong>Extra relaxation for this recruitment:</strong> the government raised the upper age limit for uniformed services by 5 years (G.O.Ms.No.87, 18 May 2026), then 2 more (G.O.Ms.No.122, 14 Aug 2026) and, for constable-level posts except PC Driver, 3 more (G.O.Ms.No.129, 9 Sep 2026) — 10 years in all for PC-level posts and 7 years for SI / ASI-level posts and PC Driver."
+            source: tg-sup
+          - list:
+              - "<strong>Sub-Inspector:</strong> a degree from a recognised university; age 21 to 25 on 1 July 2026 before the extra 7-year relaxation."
+            source: tg-si
+      - id: scheme
+        nav: "Exam Scheme &amp; PET"
+        eyebrow: "Exam scheme &amp; physical tests"
+        heading: "Prelim, run and measurements, final written exam"
+        parts:
+          - list:
+              - "<strong>PC preliminary test:</strong> 200 questions, 200 marks, 3 hours, OMR, English-Telugu and English-Urdu. Pass marks 30% (OC, EWS), 25% (BC), 20% (SC, ST, ex-servicemen, Home Guards)."
+              - "<strong>Negative marking:</strong> 20% of the question's marks for each wrong answer (more than one bubble or a wrong one); unanswered questions get zero."
+              - "<strong>Run first:</strong> men 1,600 m in 7 min 15 s (ex-servicemen 9 min 30 s), women 800 m in 5 min 20 s — qualifying for Civil PC, Fire Fighter and Warders; marked (and gender-normalised) for AR, SAR CPL and SPF."
+              - "<strong>Then measurements:</strong> height 167.6 cm (men) / 152.5 cm (women); 160 / 150 cm for STs and aboriginal tribes of the listed agency districts."
+              - "<strong>Then long jump and shot put</strong> (qualifying): men 4 m and 6 m (7.26 kg shot), women 2.5 m and 4 m (4 kg)."
+              - "<strong>Final written exam:</strong> one 3-hour paper — 200 marks for Civil PC, Fire Fighter and Warders, 100 marks for AR, SAR CPL and SPF (plus run marks). Pass marks 40% / 35% / 30%."
+            source: tg-pc
+          - list:
+              - "<strong>SI preliminary test:</strong> 200 marks — Arithmetic &amp; Reasoning (100 questions) and General Studies (100 questions); same 30 / 25 / 20% pass marks and 20% negative marking."
+              - "<strong>SI final written exam:</strong> four 3-hour papers — English and Telugu / Urdu (100 each, 25 objective + 75 descriptive, qualifying only), Arithmetic &amp; Reasoning and General Studies (200 each for SI Civil, SFO and Deputy Jailor; 100 each for AR, TGSP and SPF)."
+            source: tg-si
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "Fee shown in the online application"
+        parts:
+          - p: "The notification does not print rupee amounts: OC and BC candidates with Telangana local status pay the fee designated in the online application, SC and ST local candidates pay a concessional fee, and all others pay the full fee. It covers registration, processing, the tests and certificate verification."
+            source: tg-pc
+          - p: "Candidates who applied for more than one post were given a rebate, because a single PMT / PET is held for all their posts."
+            source: tg-pn
+      - id: reservation
+        nav: "Reservation &amp; Local Status"
+        eyebrow: "Reservation &amp; local status"
+        heading: "95% local, SC sub-classification, special quotas"
+        parts:
+          - list:
+              - "95% of PC (Civil) and PC (AR) vacancies in each police district / commissionerate go to local candidates under the Presidential Order 2018 (G.O.Ms.No.124); SAR CPL is outside that order but reservation still needs Telangana local status."
+              - "Local status is proved by study certificates for Classes I to VII, or a Tahsildar's residence certificate for years not spent in a recognised school."
+              - "<strong>SC</strong> candidates need a community certificate under Act No. 15 of 2025 (SC Group I, II, III); <strong>BC</strong> a Telangana non-creamy-layer certificate issued on or after 1 April 2026; <strong>EWS</strong> a certificate issued on or after 1 April 2026."
+              - "<strong>Special quotas:</strong> PC Civil / AR — Home Guards 15%, children of police personnel 4%, NCC 3%, CDI 2%; SPF constable — Home Guards 25%, children of SPF personnel 5%, NCC 2%; Fire Fighter — Home Guards 5%, children of fire staff 5%."
+            source: tg-pc
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "What to keep ready"
+        parts:
+          - list:
+              - "Latest SC community certificate with sub-classification (SC Group I, II or III) from Telangana authorities."
+              - "EWS certificate and BC non-creamy-layer certificate issued on or after 1 April 2026."
+              - "Bonafide certificates from Class I to VII, or residence certificate."
+              - "Special-category certificates (Home Guard, children of police personnel and others)."
+              - "Intermediate pass certificate (degree for SI) dated on or before 29 July 2026, produced at certificate verification."
+            source: tg-pc
+      - id: pay
+        nav: "Pay &amp; Training"
+        eyebrow: "Salary &amp; training"
+        heading: "Stipendiary cadet training, then the scale"
+        parts:
+          - list:
+              - "<strong>Constable-level posts</strong> (PC Civil, AR, SAR CPL, SPF, Fire Fighter, Warder): ₹24,280 – 72,850."
+              - "Police posts are Stipendiary Cadet Trainee (SCT) posts: selected candidates are appointed to the regular posts only after completing induction training."
+            source: tg-pc
+          - list:
+              - "<strong>SI (Civil, AR, SAR CPL, TGSP, SPF):</strong> ₹42,300 – 1,15,270. <strong>Station Fire Officer, Deputy Jailor:</strong> ₹38,890 – 1,12,510."
+            source: tg-si
+          - note: "The stipend during training and in-hand pay are not printed in the notifications, so they are not shown."
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Selection by merit within each unit"
+        parts:
+          - p: "Civil constables are selected on final-exam merit within each police district or commissionerate; AR constables on final exam plus normalised run marks. Candidates rank their post preferences in the Part-II application. Selection is provisional until certificates and medical fitness are checked."
+            source: tg-pc
+    sources:
+      - { id: tg-pc, name: "TSLPRB — Notification Rc No. 189/Rect./Rect.-2/2026, SCT PC (Civil) and equivalent posts (29 Jul 2026)", url: "https://doc.tgprb.in/PC+(Civil+et+al)+2026+Notification+dated+29-07-2026.pdf", covers: "PC vacancies, pay, fee rule, qualification, age, medical, PWT, negative marking, run, measurements, PET, FWE, local reservation, special quotas, documents, training", checked: 2026-10-18 }
+      - { id: tg-si, name: "TSLPRB — Notification Rc No. 225/Rect./Rect.-1/2026, SCT SI (Civil) and equivalent posts (29 Jul 2026)", url: "https://doc.tgprb.in/SI+(Civil+et+al)+2026+Notification+dated+29-07-2026.pdf", covers: "SI vacancies, pay, qualification, age, prelim and final exam scheme", checked: 2026-10-18 }
+      - { id: tg-sup, name: "TSLPRB — Supplementary notifications on age relaxation (15 Aug 2026 and 10 Sep 2026)", url: "https://www.tgprb.in/SI_PC_2026/Second%20Supplementary%20Notification%202026%20%20dated10%20Sep%202026.pdf", covers: "G.O.Ms.No.87, 122 and 129 — extra age relaxation", checked: 2026-10-18 }
+      - { id: tg-pn, name: "TSLPRB — Press note: preliminary written tests and application statistics (17 Sep 2026)", url: "https://www.tgprb.in/SI_PC_2026/Press%20Note%20dated%2017-09-2026.pdf", covers: "7,437 posts by department, application window, applications received, prelim dates, multi-post rebate", checked: 2026-10-18 }
+
+  # ------------------------------------------------------------------ TG EAPCET
+  - slug: eapcet
+    group: academic
+    short: "TG EAPCET — Engineering, Agriculture &amp; Pharmacy"
+    body: "JNTU Hyderabad for the Telangana Council of Higher Education"
+    card: "Telangana's entrance test for B.E. / B.Tech, B.Pharmacy, Pharm-D, B.Sc. (Hons) Agriculture and Horticulture, B.V.Sc., B.F.Sc. and B.Sc. Nursing. Ranks come purely from normalised TG EAPCET marks."
+    card_facts: ["160 questions · 3 hours · no negative", "Rank on normalised test marks only", "Fee ₹900 (₹500 SC/ST/PH)"]
+    eyebrow: "TG EAPCET · State entrance"
+    title: "TG EAPCET 2026 — Eligibility, Pattern, Normalised Ranking, Local Quota, Fees"
+    lede: "The Telangana Engineering, Agriculture and Pharmacy Common Entrance Test (TG EAPCET) is conducted by JNTU Hyderabad on behalf of the Telangana Council of Higher Education. This page follows the TG EAPCET-2026 notification and the engineering instruction booklet."
+    facts:
+      - { label: "2026 exam", value: "AP stream 4–5 May · Engineering 9–11 May", source: tg-eap-dn }
+      - { label: "Paper", value: "80 Maths + 40 Physics + 40 Chemistry", source: tg-eap-ib }
+      - { label: "Rank", value: "Normalised EAPCET marks only", source: tg-eap-dn }
+      - { label: "Fee", value: "₹900 · ₹500 SC/ST/PH (one stream)", source: tg-eap-dn }
+    official:
+      - { label: "TG EAPCET website", url: "https://eapcet.tgche.ac.in/" }
+      - { label: "Detailed notification 2026 (PDF)", url: "https://eapcet.tgche.ac.in/TGEAPCET/Doc2026/Detailed%20Notification-2026.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "One CBT, two streams"
+        parts:
+          - p: "TG EAPCET-2026 admits students for 2026-27 to B.E. / B.Tech (including Biotechnology, Dairy, Agricultural Engineering, Food Technology, Biomedical and Pharmaceutical Engineering), B.Pharmacy, Pharm-D, B.Sc. (Hons) Agriculture and Horticulture, B.V.Sc. &amp; A.H., B.F.Sc. and B.Sc. (Nursing) in Telangana's universities and private colleges."
+            source: tg-eap-dn
+          - table:
+              caption: "TG EAPCET-2026 calendar"
+              head: ["Event", "Date"]
+              rows:
+                - ["Online applications open", "19 Feb 2026"]
+                - ["Last date without late fee", "4 Apr 2026"]
+                - ["Late fee ₹250 / ₹500 / ₹2,500 / ₹5,000", "10 / 15 / 20 / 24 Apr 2026"]
+                - ["Late fee ₹10,000", "Till 2 May 2026"]
+                - ["Agriculture &amp; Pharmacy (AP) exam", "4 – 5 May 2026"]
+                - ["Engineering (E) exam", "9 – 11 May 2026"]
+            source: tg-eap-dn
+          - note: "Candidates for B.Arch in Telangana must take NATA instead; a separate counselling notification is issued for B.Arch."
+            source: tg-eap-dn
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Academic eligibility"
+        heading: "Intermediate MPC with 45%, or a diploma"
+        parts:
+          - list:
+              - "Indian nationals, PIO or OCI card holders who meet Telangana's local / non-local status rules (Educational Institutions (Regulation of Admissions) Order, 1974)."
+              - "<strong>Engineering:</strong> Intermediate (10+2) with Mathematics, Physics and Chemistry / Biotechnology / Biology, or a diploma in engineering from SBTET Telangana or equivalent; appearing candidates may apply."
+              - "<strong>Marks:</strong> at least 45% (40% for reserved categories) in MPC / BiPC taken together."
+              - "<strong>Age:</strong> engineering and pharmacy at least 16 on 31 Dec 2026, no upper limit; Dairy, Agricultural Engineering and Food Technology 17 to 22 (25 for SC / ST); agriculture-stream courses 17 to 22 (25 for SC / ST)."
+              - "<strong>B.V.Sc.:</strong> 50% in English, Physics, Chemistry and Biology (10% less for SC / ST)."
+            source: tg-eap-dn
+      - id: scheme
+        nav: "Exam Scheme &amp; Rank"
+        eyebrow: "Exam scheme &amp; ranking"
+        heading: "160 questions, no negative marks, normalised rank"
+        parts:
+          - list:
+              - "<strong>Paper:</strong> 3 hours, 160 MCQs — 80 Mathematics, 40 Physics, 40 Chemistry (engineering stream), computer-based in multiple sessions."
+              - "<strong>No negative marking</strong> for incorrect answers."
+              - "<strong>Medium:</strong> questions on screen in English with Telugu, or English with Urdu — the candidate picks one."
+              - "<strong>Qualifying:</strong> 25% of the maximum normalised marks; no minimum for SC / ST, whose admission is limited to their reserved seats."
+            source: tg-eap-ib
+          - p: "Because sessions have different papers, marks are <strong>normalised</strong> across sessions using session and global averages, standard deviations and top-0.1% averages. TG EAPCET-2026 ranks are allotted <strong>purely on normalised TG EAPCET marks</strong>."
+            source: tg-eap-dn
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Registration fee"
+        heading: "Fee by stream"
+        parts:
+          - table:
+              head: ["Applying for", "SC / ST / PH", "Others"]
+              rows:
+                - ["One stream (E or AP)", "₹500", "₹900"]
+                - ["Both streams (E and AP)", "₹1,000", "₹1,800"]
+            source: tg-eap-dn
+          - note: "Candidates who registered with the ₹2,500, ₹5,000 or ₹10,000 late fee were given a test centre in Hyderabad West zone. Fees are paid online or at TGOnline centres."
+            source: tg-eap-dn
+      - id: reservation
+        nav: "Local Quota"
+        eyebrow: "Reservation &amp; local quota"
+        heading: "85% for local candidates of the OU area"
+        parts:
+          - list:
+              - "85% of the seats in each course are reserved for local candidates of the Osmania University area; the remaining 15% are unreserved."
+              - "Unreserved seats are open to OU-area locals and to candidates who have lived in the state for ten years (excluding study outside), or whose parent has, among other listed groups."
+              - "Local status needs study or residence certificates for the last 12 years."
+            source: tg-eap-ib
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Keep these ready for the application"
+        parts:
+          - list:
+              - "Latest Intermediate 2nd-year / 10+2 hall ticket number, SSC hall ticket number and date of birth."
+              - "Personal e-mail ID (compulsory) and mobile number."
+              - "Caste for SC / ST / BC candidates (SC / ST: caste certificate application number); PH, CAP, NCC, sports and EWS details; family income band."
+              - "Study or residence certificates for the last 12 years (local status) — the certificates themselves are submitted at counselling."
+            source: tg-eap-ib
+      - id: pay
+        nav: "Costs"
+        eyebrow: "Costs"
+        heading: "What the test costs"
+        parts:
+          - p: "The notification sets only the registration fee (₹500 – ₹1,800) and late fees. College tuition and counselling fees come with the admission notification."
+            source: tg-eap-dn
+      - id: posting
+        nav: "After the test"
+        eyebrow: "After the test"
+        heading: "Counselling"
+        parts:
+          - p: "Seat allocation by reservation is explained in the counselling information booklet released after the results. Candidates must meet the eligibility rules in the G.O.s in force at admission."
+            source: tg-eap-ib
+          - links:
+              - { label: "B.Tech college finder", url: "colleges-btech.html" }
+              - { label: "NATA console (B.Arch)", url: "nata.html" }
+    sources:
+      - { id: tg-eap-dn, name: "JNTU Hyderabad / TGCHE — TG EAPCET-2026 Detailed Notification", url: "https://eapcet.tgche.ac.in/TGEAPCET/Doc2026/Detailed%20Notification-2026.pdf", covers: "courses, eligibility, age, normalisation, ranking rule, streams, exam dates, fees, late fees, B.Arch note", checked: 2026-10-18 }
+      - { id: tg-eap-ib, name: "JNTU Hyderabad / TGCHE — TG EAPCET-2026 Instruction Booklet, Engineering (E) stream", url: "https://eapcet.tgche.ac.in/TGEAPCET/Doc2026/05%20I%20Booklet%20-%20E%20-%202026.pdf", covers: "pattern, medium, no negative marking, qualifying marks, 85% local reservation, documents, counselling", checked: 2026-10-18 }
+
+  # ------------------------------------------------------------------ TG POLYCET
+  - slug: polycet
+    group: academic
+    short: "TG POLYCET — Polytechnic &amp; Agri / Vet Diplomas"
+    body: "State Board of Technical Education and Training, Telangana"
+    card: "One OMR test after Class 10 for engineering and non-engineering diplomas in Telangana's polytechnics and for agriculture, horticulture and veterinary diplomas of the state universities."
+    card_facts: ["150 marks · 2½ hours · no negative", "Pass 36/120 (SC/ST: 1 mark)", "Fee ₹500 · ₹250 SC/ST"]
+    eyebrow: "TG POLYCET · Diploma admission"
+    title: "TG POLYCET 2026 — Eligibility, Pattern, Qualifying Marks, Reservation, Fees"
+    lede: "The Polytechnic Common Entrance Test (POLYCET) of the State Board of Technical Education and Training, Telangana fills diploma seats in polytechnics and the agriculture, horticulture and veterinary diplomas of PJTAU, SKLTGHU and PVNRTVU. This page follows the POLYCET-2026 detailed notification and instruction booklet."
+    facts:
+      - { label: "2026 exam", value: "13 May 2026, 11 am – 1:30 pm", source: poly-dn }
+      - { label: "Paper", value: "Maths 60 · Physics 30 · Chemistry 30 · Biology 30", source: poly-ib }
+      - { label: "Eligibility", value: "SSC with 35% (appearing allowed)", source: poly-ib }
+      - { label: "Fee", value: "₹500 · ₹250 SC/ST", source: poly-dn }
+    official:
+      - { label: "TG POLYCET website", url: "https://polycet.sbtet.telangana.gov.in/" }
+      - { label: "POLYCET-2026 instruction booklet (PDF)", url: "https://polycet.sbtet.telangana.gov.in/Downloads/polycet2026.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "One test for polytechnic, agri and vet diplomas"
+        parts:
+          - p: "POLYCET-2026 admits SSC-passed (or 2026-appearing) students to engineering and non-engineering / technology diplomas in government, aided and private polytechnics in Telangana, to agriculture courses of Professor Jayashankar Telangana State Agricultural University, horticulture diplomas of Sri Konda Laxman Telangana State Horticultural University, and animal husbandry and fisheries courses of PV Narasimha Rao Telangana Veterinary University."
+            source: poly-dn
+          - table:
+              caption: "POLYCET-2026 calendar"
+              head: ["Event", "Date"]
+              rows:
+                - ["Online registration opens", "2 Feb 2026"]
+                - ["Last date with normal fee", "20 Apr 2026"]
+                - ["With late fee ₹100 / Tatkal ₹300", "21 Apr / 22 Apr 2026"]
+                - ["Exam", "13 May 2026"]
+                - ["Results", "12 days after the exam"]
+            source: poly-dn
+          - note: "D.Pharmacy and Hotel Management &amp; Catering Technology diplomas are not filled through POLYCET; they go through DOST with Intermediate as the entry qualification."
+            source: poly-ib
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Academic eligibility"
+        heading: "SSC with Maths and 35%"
+        parts:
+          - list:
+              - "Indian nationals belonging to Telangana who meet the local / non-local rules of the 1974 admissions order."
+              - "SSC of the Telangana Board, or CBSE, ICSE, NIOS, TOSS or another state board, with Mathematics and at least 35% marks; NIOS / TOSS / CBSE / ICSE / other boards must have passed all subjects including Maths, Physics and Chemistry with 35% in each."
+              - "Students appearing for SSC in March / April 2026 may take POLYCET-2026."
+              - "<strong>No age limit</strong> to sit the test; agriculture and veterinary diplomas need age 15 to 22 at admission."
+            source: poly-ib
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme &amp; qualifying marks"
+        heading: "150 marks, two ranks"
+        parts:
+          - table:
+              caption: "One OMR paper, 2½ hours (11:00 am – 1:30 pm), SSC 2025-26 syllabus"
+              head: ["Section", "Questions", "Marks"]
+              rows:
+                - ["Mathematics", "60", "60"]
+                - ["Physics", "30", "30"]
+                - ["Chemistry", "30", "30"]
+                - ["Biology (for agri / vet diplomas)", "30", "30"]
+                - ["Total", "150", "150"]
+            source: poly-ib
+          - list:
+              - "Two ranks are made: <strong>MPC</strong> (out of 120) for polytechnics and <strong>MBiPC</strong> for agriculture and veterinary diplomas, with Maths scaled down to 30."
+              - "<strong>Pass mark:</strong> 30% — 36 of 120. SC and ST candidates get a rank with a minimum of one mark and compete for their category seats."
+              - "<strong>No negative marking.</strong> Ties (MPC) go to Maths, then Physics, then the older candidate."
+              - "No revaluation or re-totalling."
+            source: poly-ib
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "₹500 exam fee"
+        parts:
+          - table:
+              head: ["Candidate", "Fee"]
+              rows:
+                - ["General", "₹500"]
+                - ["SC / ST", "₹250"]
+                - ["Late fee / Tatkal fee", "+₹100 / +₹300"]
+            source: poly-dn
+          - note: "Applications are filed online through co-ordinating centres or the payment gateway on the POLYCET website."
+            source: poly-dn
+      - id: reservation
+        nav: "Reservation"
+        eyebrow: "Reservation &amp; local quota"
+        heading: "85% local, SC sub-groups, 33% girls"
+        parts:
+          - list:
+              - "85% of seats in each course are reserved for local candidates of the Osmania University area; 15% are unreserved (G.O.Ms.No.16, Higher Education (TE), 17 Mar 2025, effective 2026-27)."
+              - "<strong>Category reservation</strong> in non-minority institutions: SC 15% (SC-I 1%, SC-II 9%, SC-III 5%), ST 10%, BC 29% (BC-A 7%, BC-B 10%, BC-C 1%, BC-D 7%, BC-E 4%); EWS as per G.O.Ms.No.244 of 2021."
+              - "33.33% of seats in co-educational non-minority institutions are reserved for girls in each category."
+              - "NCC 1% and sports 0.5%, plus quotas for physically challenged candidates and children of armed forces personnel; two seats for Anglo-Indians."
+              - "Residential polytechnics at Gajwel, Karimnagar and Utnoor have their own SC / ST-heavy quotas."
+            source: poly-ib
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "For the exam and counselling"
+        parts:
+          - list:
+              - "POLYCET hall ticket — keep it safe until admission."
+              - "At the exam: black / blue ballpoint pen, writing pad, HB pencils, eraser, sharpener; no calculators or phones; no entry after 11 am."
+            source: poly-dn
+          - list:
+              - "Study certificates from the heads of institutions (or residence certificates in the booklet's formats) for local status."
+              - "Caste certificate in the specimen form, PH medical certificate, NCC, sports or CAP (armed forces) certificates if claiming a quota; non-municipal area certificate where asked."
+            source: poly-ib
+      - id: pay
+        nav: "Costs &amp; support"
+        eyebrow: "Costs &amp; support"
+        heading: "Scholarship age rules"
+        parts:
+          - p: "There is no age limit for the test, but the instruction booklet notes that a maximum age applies for scholarships under the government's guidelines."
+            source: poly-ib
+          - note: "The booklet does not print polytechnic tuition fees, so none are shown here."
+      - id: posting
+        nav: "After POLYCET"
+        eyebrow: "After POLYCET"
+        heading: "Web counselling"
+        parts:
+          - p: "Admissions for 2026-27 are made through web counselling: candidates give options for courses and polytechnics in order of priority and are allotted their best choice by merit and the admission rules. The schedule is notified after the results."
+            source: poly-dn
+          - links:
+              - { label: "Diploma after Class 10", url: "diploma.html" }
+              - { label: "Diploma college finder", url: "colleges-diploma.html" }
+    sources:
+      - { id: poly-dn, name: "SBTET Telangana — POLYCET-2026 Detailed Notification", url: "https://polycet.sbtet.telangana.gov.in/Downloads/Notifications/DetailNotification.pdf", covers: "courses and universities, eligibility summary, fees, dates, counselling, exam-day rules", checked: 2026-10-18 }
+      - { id: poly-ib, name: "SBTET Telangana — POLYCET-2026 Instruction Booklet", url: "https://polycet.sbtet.telangana.gov.in/Downloads/polycet2026.pdf", covers: "eligibility, age, pattern, qualifying marks, ranking, no negative marking, 85% local quota, category reservation, DOST note", checked: 2026-10-18 }

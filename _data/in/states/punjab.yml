@@ -1,0 +1,472 @@
+# Punjab State Exam & Career Cockpit — one data sheet for the cockpit (state/punjab/index.html) and every
+# exam page under state/punjab/. Rendered by _includes/state-cockpit.html and _includes/state-exam.html;
+# checked by scripts/check-in-data.mjs (state sheets block).
+#
+# Rules for this sheet (same as the other state sheets):
+#   - Every fact part carries `source: <id>`; the id must be listed under that exam's `sources`.
+#   - Sources are the official files themselves (read 2026-10-19): the PPSC General Information / advertisement
+#     for the Punjab State Civil Services Combined Competitive Examination-2025 (Advt. 20251) with its addendum
+#     and public notices; the PSSSB advertisement for Clerk (Advt. 02/2026, Punjabi, read page by page from
+#     rendered images) and its exam notices; and the Punjab Department of Technical Education notification for
+#     B.Tech 1st-year admission 2026-27 with the IKGPTU counselling schedule. Nothing comes from coaching or
+#     news sites.
+#   - PPSC files are session-bound downloads (usermanual.ashx); the source links below open the advertisement
+#     page or the PPSC website, from which each file is listed.
+#   - Punjab Police constable recruitment has no page yet: the punjabpolice.gov.in recruitment page renders
+#     no advertisement list without a browser session we could not complete.
+#   - Section ids are the same on every exam page: overview, eligibility, scheme, fees, reservation,
+#     documents, pay, posting (+ sources, drawn automatically).
+state:
+  id: punjab
+  name: Punjab
+  checked: 2026-10-19
+
+cockpit:
+  eyebrow: "State Exam &amp; Career Cockpit · Punjab"
+  title: "Punjab Exam &amp; Career Cockpit"
+  intro:
+    - "Every major Punjab recruitment and admission route we could verify on one screen: the Punjab State Civil Services Combined Competitive Examination of the Punjab Public Service Commission (PPSC), the Clerk recruitment of the Subordinate Services Selection Board (PSSSB), and the centralised B.Tech counselling that IKGPTU runs for the Punjab Government. Each page is built only from the official advertisement or notification, and every fact links back to that file."
+    - "Punjab has one rule that catches outsiders: no one can be appointed to a state post by direct recruitment unless they passed Matriculation with Punjabi as a subject, and Group-C recruits must also clear a Matric-level Punjabi test with 50%. Reservation is only for residents of Punjab with a recent residence certificate. Punjab B.Tech seats are filled on Class 12 marks, not on an entrance test."
+  facts:
+    - { label: "Recruitment nodes", value: "PPSC Civil Services · PSSSB Clerk" }
+    - { label: "Admission node", value: "B.Tech on Class 12 merit" }
+    - { label: "Watch", value: "PCS 2025 mains result due (Oct 2026)" }
+    - { label: "Last checked", value: "19 Oct 2026" }
+  groups:
+    - id: civil
+      eyebrow: "Civil recruitment &amp; administrative"
+      heading: "Government recruitment exams"
+      intro: "PCS (Executive), DSP, Tehsildar, ETO and other state officers through the Punjab Public Service Commission (PPSC), and Clerk posts across departments through the Subordinate Services Selection Board (PSSSB)."
+      exams: [ppsc, psssb]
+    - id: academic
+      eyebrow: "Academic admissions"
+      heading: "Admission routes after Class 12"
+      intro: "B.E. / B.Tech first-year seats in Punjab's engineering colleges through one online counselling run by I.K. Gujral Punjab Technical University for the State Government — on Class 12 marks."
+      exams: [btech]
+  compare_note: "Fees, age limits and dates are from the latest notice of each body. They change every cycle, so always open the current notice before applying."
+  portals_note: "PPSC notices are on ppsc.gov.in; PSSSB on sssb.punjab.gov.in; B.Tech counselling on ptu.ac.in. Only use these official addresses."
+  portals:
+    - { label: "Punjab Public Service Commission (PPSC)", url: "https://ppsc.gov.in/" }
+    - { label: "Subordinate Services Selection Board, Punjab (PSSSB)", url: "https://sssb.punjab.gov.in/" }
+    - { label: "IKGPTU — Centralised Online Counselling 2026-27", url: "https://ptu.ac.in/admission-2026-27/centralized-online-counseling/" }
+
+exams:
+  # ------------------------------------------------------------------ PPSC — PUNJAB CIVIL SERVICES
+  - slug: ppsc
+    group: civil
+    short: "PPSC Punjab Civil Services Exam 2025"
+    body: "Punjab Public Service Commission"
+    card: "Punjab's PCS (Executive), DSP, Tehsildar, ETO and six other services in one exam. The 2025 cycle has 331 posts; the prelim was moved to 7 December 2025 after the floods, the mains ran on 1–10 April 2026, and the Commission expects the mains result around October 2026."
+    card_facts: ["331 posts (322 + 9)", "Matric Punjabi needed", "Prelim: no negative marking"]
+    eyebrow: "PPSC · Punjab Civil Services"
+    title: "PPSC Punjab Civil Services Exam 2025 — 331 Posts, Punjabi Rule, Age, Scheme, Pay, Status"
+    lede: "The Punjab Public Service Commission recruits PCS (Executive Branch) officers, DSPs, Tehsildars, Excise &amp; Taxation Officers and other state officers through the Punjab State Civil Services Combined Competitive Examination. This page follows the 2025 advertisement (Advt. No. 20251), its addendum of 3 September 2025 and the Commission's public notices up to 14 October 2026."
+    facts:
+      - { label: "Posts", value: "331 (ETO 121 · PCS 49)", source: pp-add }
+      - { label: "Status", value: "Mains evaluation; result due ~Oct 2026", source: pp-oct }
+      - { label: "Age (1 Jan 2025)", value: "21 – 37 · DSP 21 – 28", source: pp-gi }
+      - { label: "Prelims", value: "No negative marking", source: pp-gi }
+    official:
+      - { label: "PPSC website", url: "https://ppsc.gov.in/" }
+      - { label: "PSCSCCE-2025 advertisement page", url: "https://ppsc.gov.in/Advertisement/detailadv.aspx?advno=20251&postid=263" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "331 posts across ten services"
+        parts:
+          - table:
+              caption: "Posts after the addendum of 3 September 2025"
+              head: ["Post", "Posts"]
+              rows:
+                - ["Punjab Civil Service (Executive Branch)", "49"]
+                - ["Deputy Superintendent of Police", "17"]
+                - ["Tehsildar", "33"]
+                - ["Excise &amp; Taxation Officer", "121"]
+                - ["Food &amp; Civil Supply Officer", "13"]
+                - ["Block Development &amp; Panchayat Officer", "49"]
+                - ["Assistant Registrar, Co-operative Societies", "21"]
+                - ["Labour-cum-Conciliation Officer", "3"]
+                - ["Employment Generation, Skill Development &amp; Training Officer", "12"]
+                - ["Deputy Superintendent Jails Gr-II / District Probation Officer", "13"]
+                - ["Total", "331"]
+            source: pp-add
+          - p: "The advertisement first listed 322 posts; on 3 September 2025 the Government added 3 PCS (Executive) and 6 Tehsildar posts, taking the total to 331."
+            source: pp-add
+          - table:
+              caption: "2025 exam timeline"
+              head: ["Stage", "Date"]
+              rows:
+                - ["Last date to apply and pay the fee", "31 Jan 2025"]
+                - ["Preliminary exam (moved from 26 Oct 2025 after the floods)", "7 Dec 2025"]
+                - ["Main exam (1, 2, 4, 6, 7, 9 and 10 April)", "1 – 10 Apr 2026"]
+                - ["Mains result (Commission's estimate)", "Around Oct 2026"]
+            source: pp-sched
+          - warn: "On 15 July 2026 the Commission said about four to five times more candidates sat this mains than in earlier cycles and that it expects the written result around October 2026. On 14 October 2026 it said evaluation of about 4,000 candidates' answer books was still under way, and that physical tests (DSP / DSP Jails only) and interviews may be called at short notice."
+            source: pp-oct
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "A degree, Matric Punjabi, age 21 to 37"
+        parts:
+          - list:
+              - "<strong>Qualification:</strong> a bachelor's degree in any discipline. You may sit the prelim while studying, but you must show the degree before the main exam."
+              - "<strong>Punjabi:</strong> no candidate may sit the prelim unless he or she passed Matriculation with Punjabi as a compulsory or elective subject (or an equivalent Punjabi examination). Wards of defence personnel who are bona fide residents of Punjab must pass Matric-standard Punjabi within two years of appointment."
+              - "<strong>Attempts:</strong> General six, Backward Classes nine, Scheduled Castes unlimited; a prelim attempt counts."
+            source: pp-gi
+          - table:
+              caption: "Age on 1 January 2025"
+              head: ["Candidate", "Other services", "DSP and DSP Jails / DPO"]
+              rows:
+                - ["General", "21 – 37", "21 – 28"]
+                - ["SC and Backward Classes of Punjab", "up to 42", "up to 33"]
+                - ["Punjab / other State / Central government employees", "up to 45", "No relaxation for Punjab Police Service"]
+                - ["Widows, divorced women and certain other women", "up to 42", "No relaxation"]
+                - ["Persons with disabilities of Punjab", "up to 47", "No relaxation"]
+            source: pp-gi
+          - p: "<strong>Physical standards</strong> for DSP and DSP Jails / District Probation Officer: height 5 ft 7 in for men and 5 ft 3 in for women; men's chest 33 in, 34.5 in expanded. Men must run 1,600 m in 7 min 30 s and women 800 m in 4 min 45 s, and pass two of three further events (long jump, high jump, rope climb or shuttle run)."
+            source: pp-gi
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme &amp; marking"
+        heading: "Objective prelim with no negative marking; seven descriptive mains papers"
+        parts:
+          - list:
+              - "<strong>Prelim Paper I — General Studies:</strong> 100 questions × 2 marks = 200, 2 hours. Prelim merit is on this paper alone."
+              - "<strong>Prelim Paper II — CSAT:</strong> 80 questions × 2.5 marks = 200, 2 hours, qualifying only — 40% needed."
+              - "There is <strong>no negative marking</strong> in the prelim. Papers are printed in English and Punjabi (Gurmukhi). About 12 to 13 times the vacancies in each category go to the mains."
+            source: pp-gi
+          - table:
+              caption: "Main exam — all papers descriptive, 3 hours each"
+              head: ["Paper", "Marks"]
+              rows:
+                - ["Punjabi (Gurmukhi, 10+2 standard)", "100"]
+                - ["English (10+2 standard)", "100"]
+                - ["Essay", "150"]
+                - ["General Studies I — History, Geography &amp; Society", "250"]
+                - ["General Studies II — Constitution, Polity, Governance &amp; International Relations", "250"]
+                - ["General Studies III — Economy, Statistics &amp; Security", "250"]
+                - ["General Studies IV — Science &amp; Technology, Environment, Problem Solving", "250"]
+                - ["Interview", "150"]
+                - ["Grand total", "1,500"]
+            source: pp-gi
+          - p: "To reach the interview you need 45% of the aggregate (40% for SC / ST) with at least 25% in every paper; the Commission may lower the aggregate to 40% (35%). Up to three times the vacancies per category are interviewed, and the final list is on written plus interview marks. The General Studies papers carry special emphasis on Punjab's history, culture, economy and geography."
+            source: pp-gi
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "₹1,500 general, ₹750 SC / BC, ₹500 for ESM, EWS and PwD of Punjab"
+        parts:
+          - table:
+              head: ["Candidate", "Application", "Exam fee", "Total"]
+              rows:
+                - ["Ex-servicemen, EWS, PwD and lineal descendants of ESM — of Punjab only", "₹500", "Nil", "₹500"]
+                - ["SC / ST of all states and Backward Classes of Punjab", "₹500", "₹250", "₹750"]
+                - ["All other candidates", "₹500", "₹1,000", "₹1,500"]
+            source: pp-gi
+          - note: "Fees are paid online only and are non-refundable. Anyone claiming a concession must upload the certificate that proves it."
+            source: pp-gi
+      - id: reservation
+        nav: "Reservation &amp; Local Status"
+        eyebrow: "Reservation &amp; local status"
+        heading: "Punjab categories, a 33% women's quota and strict certificate rules"
+        parts:
+          - list:
+              - "Every reserved category is a <strong>Punjab</strong> category — SC (Balmiki / Mazhbi Sikh and others), Backward Classes, EWS, ex-servicemen and their lineal descendants, wards of freedom fighters, sportspersons and persons with disabilities of Punjab."
+              - "<strong>Women:</strong> 33% of posts are reserved for women of Punjab under the Punjab Civil Services (Reservation of Posts for Women) Rules, 2020."
+              - "<strong>Sports:</strong> only a sports gradation certificate under the notification of 20 July 2020 counts; school, university and district-level gradations do not. A candidate found ineligible in the sports or PwD category is rejected outright, not moved to the basic category."
+              - "<strong>Disability:</strong> PwD reservation needs a benchmark disability of at least 40%."
+              - "The category chosen in the form can never be changed."
+            source: pp-gi
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Keep these ready at short notice"
+        parts:
+          - list:
+              - "Matriculation or Higher Secondary certificate (proof of date of birth)."
+              - "Proof of having passed Punjabi."
+              - "Degree and detailed marks cards."
+              - "Reserved-category certificate and the latest <strong>Punjab residence certificate</strong> (all reserved categories)."
+              - "EWS certificate valid for the financial year in which the cut-off date falls."
+              - "Ex-servicemen papers (enrolment, release date and reason), age-relaxation and fee-concession proofs, government-employee proof where claimed."
+            source: pp-gi
+          - note: "Applications are scrutinised only after the mains; originals are checked at the interview. On 14 October 2026 the Commission again asked candidates to keep every certificate ready."
+            source: pp-oct
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Level 9 for PCS and DSP — but only minimum pay during probation"
+        parts:
+          - table:
+              caption: "Minimum pay under the Finance Department notification of 5 December 2020"
+              head: ["Post", "Level", "Minimum pay"]
+              rows:
+                - ["PCS (Executive Branch)", "Level 9", "₹53,100"]
+                - ["DSP", "Level 9", "₹53,100"]
+                - ["ETO, Tehsildar, Food &amp; Supply Officer, BDPO, Assistant Registrar, Labour Officer, Employment Generation &amp; Training Officer", "Level 7", "₹44,900"]
+                - ["Deputy Superintendent Jails", "Level 6", "₹35,400"]
+            source: pp-gi
+          - list:
+              - "During the <strong>three-year probation</strong> you get a fixed emolument equal to the minimum pay, without any allowance."
+              - "PCS career steps: Level 10 (₹56,100) after 4 years; Selection Grade Level 11 (₹67,700) after 8; Junior Administrative Grade II Level 12 (₹78,800) after 13; JAG-I Level 13 (₹1,23,100) after 18 years."
+            source: pp-gi
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Service by merit and preference"
+        parts:
+          - p: "Candidates rank their services in the main-exam application form, and posts are given in merit order against those preferences. Equal totals go to higher written marks, then higher General Studies marks, then the older candidate. DSP and DSP Jails candidates must also clear the physical test."
+            source: pp-gi
+    sources:
+      - { id: pp-gi, name: "PPSC — General Information, Punjab State Civil Services Combined Competitive Examination-2025 (Advt. No. 20251)", url: "https://ppsc.gov.in/Advertisement/detailadv.aspx?advno=20251&postid=263", covers: "posts, category break-up, qualification, Punjabi rule, age and relaxations, physical standards, attempts, prelim and mains scheme, qualifying marks, fee, reservation rules, documents, pay levels and probation (Appendix I)", checked: 2026-10-19 }
+      - { id: pp-add, name: "PPSC — Addendum regarding addition of posts, PSCSCCE-2025 (3 Sep 2025)", url: "https://ppsc.gov.in/Advertisement/detailadv.aspx?advno=20251&postid=263", covers: "increase from 322 to 331 posts and post-wise numbers", checked: 2026-10-19 }
+      - { id: pp-sched, name: "PPSC — Public notices: prelim rescheduled to 7 Dec 2025 (12 Sep 2025) and mains schedule 1–10 Apr 2026 (2 Feb 2026)", url: "https://ppsc.gov.in/Advertisement/detailadv.aspx?advno=20251&postid=263", covers: "prelim date and sessions, mains dates, last date to apply", checked: 2026-10-19 }
+      - { id: pp-oct, name: "PPSC — Public notices on the PSCSCCE-2025 mains (15 Jul 2026 and 14 Oct 2026)", url: "https://ppsc.gov.in/", covers: "expected result timing, evaluation status, physical test and interview at short notice", checked: 2026-10-19 }
+
+  # ------------------------------------------------------------------ PSSSB — CLERK
+  - slug: psssb
+    group: civil
+    short: "PSSSB Clerk Recruitment (Advt. 02/2026)"
+    body: "Subordinate Services Selection Board, Punjab"
+    card: "PSSSB's Clerk recruitment for Punjab government departments: a graduate post at Level 2 (₹19,900) with a qualifying Punjabi paper, a negative-marked main paper and an English + Punjabi typing test. The written exam was held on 11 October 2026."
+    card_facts: ["Written exam 11 Oct 2026", "−¼ per wrong (Part B)", "Fee ₹1,000 · ₹250 SC/BC/EWS"]
+    eyebrow: "PSSSB · Clerk"
+    title: "PSSSB Clerk 2026 (Advt. 02/2026) — Eligibility, Punjabi Test, Scheme, Typing, Fees, Pay"
+    lede: "The Subordinate Services Selection Board, Punjab fills Group-B, C and D posts in Punjab government departments. This page follows Advertisement No. 02 of 2026 for Clerk (4 February 2026, in Punjabi) and the Board's exam notices of September and October 2026."
+    facts:
+      - { label: "Exam", value: "Written test 11 Oct 2026", source: ps-sch }
+      - { label: "Pay", value: "Level 2 · ₹19,900", source: ps-advt }
+      - { label: "Age (1 Jan 2026)", value: "18 – 37 (General)", source: ps-advt }
+      - { label: "Marking", value: "1 mark · −¼ wrong (Part B)", source: ps-advt }
+    official:
+      - { label: "PSSSB website", url: "https://sssb.punjab.gov.in/" }
+      - { label: "Advertisement No. 02/2026 (Clerk)", url: "https://sssb.punjab.gov.in/wp-content/uploads/2026/02/Advertisement-No.-02-of-2026.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "One Clerk list for many departments"
+        parts:
+          - p: "Advertisement 02/2026 invites applications for Group-C Clerk posts against the demand letters the Board receives from Punjab government departments up to 30 September 2026, so the advertisement itself does not fix a number of posts. The merit list is valid only for demands received by that date."
+            source: ps-advt
+          - table:
+              caption: "Clerk (Advt. 02/2026) timeline"
+              head: ["Stage", "Date"]
+              rows:
+                - ["Advertisement published", "4 Feb 2026"]
+                - ["Online applications", "13 Feb – 6 Mar 2026"]
+                - ["Correction portal", "14 – 16 Sep 2026"]
+                - ["Written exam", "11 Oct 2026"]
+                - ["Objections to the provisional answer key", "13 – 15 Oct 2026 (5 pm)"]
+            source: ps-sch
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "A degree, a computer course and Matric Punjabi"
+        parts:
+          - list:
+              - "<strong>Qualification:</strong> a bachelor's degree in any discipline, plus a computer course of at least 120 hours (office productivity or desktop publishing) from a government-recognised or ISO 9001 institution — or a DOEACC 'O' level-equivalent course."
+              - "<strong>Punjabi:</strong> Matriculation with Punjabi as a compulsory or elective subject (rule 17 of the 1994 service rules), and a pass with at least 50% in the Board's Matric-level Punjabi test (notification of 28 October 2022)."
+              - "Qualifications must be held by the last date of application (notification of 21 January 2026)."
+            source: ps-advt
+          - table:
+              caption: "Age on 1 January 2026 (minimum 18)"
+              head: ["Candidate", "Maximum age"]
+              rows:
+                - ["General", "37"]
+                - ["SC and Backward Classes resident in Punjab", "42"]
+                - ["State and Central government employees", "45"]
+                - ["Persons with disabilities resident in Punjab", "47"]
+                - ["Widows, divorcees and certain married women", "40"]
+                - ["Ex-servicemen of Punjab", "Service period deducted; may exceed the limit by up to 3 years"]
+            source: ps-advt
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme &amp; marking"
+        heading: "A qualifying Punjabi part, a negative-marked merit part, then typing"
+        parts:
+          - list:
+              - "<strong>Part A — Punjabi (Matric standard):</strong> qualifying only; you need at least 50%."
+              - "<strong>Part B — merit paper:</strong> objective MCQs, 1 mark each, with <strong>¼ mark deducted for every wrong answer</strong>. The merit list uses Part B marks only."
+              - "<strong>Typing test:</strong> 30 words per minute in English and in Punjabi on a computer (Punjabi in the Unicode font Raavi); qualifying, but compulsory."
+              - "Then counselling to verify documents; names go to departments from the common merit list. Equal marks go to the older candidate, then higher marks in the required qualification, then higher Matric marks."
+            source: ps-advt
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "₹1,000 general, ₹250 SC / BC / EWS"
+        parts:
+          - table:
+              head: ["Candidate", "Fee"]
+              rows:
+                - ["General, freedom fighter, sportsperson", "₹1,000"]
+                - ["SC, BC, EWS", "₹250"]
+                - ["Ex-servicemen and dependants", "₹200"]
+                - ["Persons with disabilities", "₹500"]
+            source: ps-advt
+          - note: "The fee is not refunded in any circumstances."
+            source: ps-advt
+      - id: reservation
+        nav: "Reservation &amp; Local Status"
+        eyebrow: "Reservation &amp; local status"
+        heading: "Only residents of Punjab, with a residence certificate under 5 years old"
+        parts:
+          - list:
+              - "Reservation is only for residents of Punjab, who must show a latest domicile / residence certificate — not more than five years old at counselling."
+              - "Categories: General, EWS, SC (Mazhbi &amp; Balmiki), SC (Ramdasia &amp; others), BC, ex-servicemen (self or dependant, by caste), sportspersons (General, SC M&amp;B, SC R&amp;O), persons with disabilities (orthopaedic, visual, hearing, ID / MD) and freedom fighters."
+              - "The category and code chosen online can never be changed, and SC / BC / ESM / PwD / sports / EWS certificates must follow Punjab Government instructions."
+            source: ps-advt
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Checked at counselling"
+        parts:
+          - list:
+              - "Degree and computer-course certificate; Matric certificate with Punjabi."
+              - "Punjab domicile / residence certificate (not older than 5 years) for any reservation."
+              - "Category certificate as per Punjab Government instructions; EWS certificate; ESM, sports or disability certificates where claimed."
+              - "NOC from your department if you claim the employee age relaxation."
+            source: ps-advt
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Pay Level 2, ₹19,900"
+        parts:
+          - p: "The advertisement fixes the Clerk's pay at Level 2, pay ₹19,900."
+            source: ps-advt
+          - note: "The advertisement prints only the pay level and figure; allowances and in-hand pay are not given, so none are shown."
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Allotment to departments from one merit list"
+        parts:
+          - p: "Candidates who clear the written test and typing test are called to counselling; those found eligible are recommended to departments in order of the common merit list. Admit cards, results and every notice come only through the Board's website."
+            source: ps-advt
+    sources:
+      - { id: ps-advt, name: "PSSSB — Advertisement No. 02 of 2026, Clerk (4 Feb 2026, Punjabi)", url: "https://sssb.punjab.gov.in/wp-content/uploads/2026/02/Advertisement-No.-02-of-2026.pdf", covers: "dates, demand-based vacancies, categories, reservation and residence rule, qualification, Punjabi rules, pay, age, fee, selection scheme, typing test, tie rules", checked: 2026-10-19 }
+      - { id: ps-sch, name: "PSSSB — Schedule of written exams (Sep 2026), correction portal notice and notice inviting answer-key objections for Clerk (Oct 2026)", url: "https://sssb.punjab.gov.in/wp-content/uploads/2026/10/Objections-Regarding-Exam-11.10.2026.pdf", covers: "exam date 11 Oct 2026, correction window, objection window", checked: 2026-10-19 }
+
+  # ------------------------------------------------------------------ PUNJAB B.TECH COUNSELLING
+  - slug: btech
+    group: academic
+    short: "Punjab B.Tech Admission 2026-27 (IKGPTU counselling)"
+    body: "I.K. Gujral Punjab Technical University for the Department of Technical Education, Punjab"
+    card: "B.E. / B.Tech first-year seats in colleges of IKGPTU and MRSPTU through one online counselling — on Class 12 marks, with 85% of seats for Punjab residents. Three rounds ran from 15 June to 28 July 2026."
+    card_facts: ["Merit on Class 12 marks", "85% Punjab · 15% outside", "Counselling fee ₹2,000"]
+    eyebrow: "IKGPTU · B.Tech counselling"
+    title: "Punjab B.Tech Admission 2026-27 — Class 12 Merit, 85% State Quota, Reservation, Documents"
+    lede: "Punjab fills B.E. / B.Tech first-year seats in the colleges of I.K. Gujral Punjab Technical University and Maharaja Ranjit Singh Punjab Technical University through a single online counselling. This page follows the Department of Technical Education notification of 5 May 2026 for B.Tech 1st year and the IKGPTU counselling schedule for 2026-27."
+    facts:
+      - { label: "Basis", value: "Class 12 marks (no entrance)", source: bt-noti }
+      - { label: "Seats", value: "85% Punjab · 15% outside", source: bt-noti }
+      - { label: "Minimum", value: "45% (40% reserved)", source: bt-noti }
+      - { label: "Fee", value: "Counselling ₹2,000", source: bt-noti }
+    official:
+      - { label: "IKGPTU centralised counselling", url: "https://ptu.ac.in/admission-2026-27/centralized-online-counseling/" }
+      - { label: "Information Brochure 2026-27 (Part D)", url: "https://ptu.ac.in/wp-content/uploads/2026/06/Information-Brochure-2026-27-Part-D.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "One counselling for two state universities"
+        parts:
+          - p: "The Governor of Punjab appointed IKGPTU, Kapurthala to run online centralised counselling for degree engineering seats in institutions and universities in Punjab for 2026-27, jointly with MRSPTU, Bathinda. Admission is on the inter-se merit of the qualifying examination."
+            source: bt-noti
+          - table:
+              caption: "UG counselling 2026-27"
+              head: ["Round", "Registration &amp; choices", "Result", "Reporting"]
+              rows:
+                - ["1", "15 – 18 Jun 2026", "19 – 21 Jun", "26 – 30 Jun"]
+                - ["2", "2 – 5 Jul 2026", "6 – 8 Jul", "14 – 16 Jul"]
+                - ["3", "18 – 20 Jul 2026", "21 – 22 Jul", "24 – 28 Jul"]
+            source: bt-sched
+          - note: "After three rounds, remaining seats are filled at the college level; no separate notice is issued."
+            source: bt-sched
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Academic eligibility"
+        heading: "Class 12 with 45% in the qualifying subjects"
+        parts:
+          - list:
+              - "<strong>Class 12</strong> with Physics, Mathematics, Chemistry, Computer Science or the other subjects in table 8.4 of the AICTE handbook for the branch, with at least <strong>45%</strong> (40% for reserved categories) in those subjects together; or D.Voc in the same or allied sector."
+              - "A three-year diploma with 45% (40% reserved) may also take first-year seats if lateral-entry vacancies are exhausted."
+              - "Candidates whose result is pending may join counselling; the admission stays provisional until they prove eligibility."
+            source: bt-noti
+      - id: scheme
+        nav: "Admission Basis"
+        eyebrow: "How merit is made"
+        heading: "Class 12 marks — not an entrance test"
+        parts:
+          - p: "The notification orders admission on the <strong>inter-se merit of the qualifying examination</strong> for both the 85% Punjab quota and the 15% outside quota, counselled together. Reserved candidates are first considered in the general category, then in their own."
+            source: bt-noti
+          - note: "This is different from most states: Punjab's B.Tech counselling does not use JEE Main or a state test for ranking. B.Arch, by contrast, needs NATA."
+            source: bt-docs
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "₹2,000 counselling fee"
+        parts:
+          - list:
+              - "A non-refundable counselling fee of ₹2,000 is collected once; anyone who already paid the registration fee on admissions.ptu.ac.in need not pay again."
+              - "If you change college during counselling, the earlier college refunds your fee minus ₹1,000; on upgradation in a later round, nothing is deducted. A seat surrendered within 7 days of the end of counselling is also refunded minus ₹1,000."
+              - "Tuition Fee Waiver seats exist only in B.Tech, BCA and B.Pharmacy, for Punjab residents with family income below ₹8 lakh."
+            source: bt-noti
+      - id: reservation
+        nav: "Reservation &amp; Local Status"
+        eyebrow: "Reservation &amp; state quota"
+        heading: "85% for Punjab residents"
+        parts:
+          - p: "To claim an 85% seat you must be a resident of Punjab under the Department of Personnel letters of 1996 and 1999, or have passed both 10+1 and 10+2 as a regular student from institutions in Punjab. Children of defence personnel posted in Punjab need only have passed 10+2 in Punjab; children of Punjab government employees posted outside the state are exempt."
+            source: bt-noti
+          - table:
+              caption: "Reservation of seats (memo of 2 July 2013)"
+              head: ["Category", "Seats"]
+              rows:
+                - ["Scheduled Castes / Scheduled Tribes", "25%"]
+                - ["Backward Classes", "5%"]
+                - ["Border areas / backward areas (2% each)", "4%"]
+                - ["Sportspersons", "2%"]
+                - ["Children / grandchildren of freedom fighters", "1%"]
+                - ["Persons with disabilities (blind, deaf, others 1% each)", "3%"]
+                - ["Children / widows of defence personnel, ESM", "2%"]
+                - ["Wards of para-military, Punjab Police, PAP, Home Guards killed or disabled", "2%"]
+                - ["1984 riot-affected, terror-affected families", "2%"]
+                - ["Single girl child", "1%"]
+                - ["Tsunami-affected / cancer, AIDS, thalassemia", "1%"]
+            source: bt-noti
+          - note: "Only certificates produced at admission count; reservation must be claimed at registration, or you are treated as General."
+            source: bt-noti
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Upload for counselling, originals at the college"
+        parts:
+          - list:
+              - "Class 10 detailed marks card and Class 12 marks card / result."
+              - "Residential certificate (domicile or another valid address proof) and Aadhaar."
+              - "Reserved-category certificate; income certificate from the Suvidha Kendra for the current year if you claim the fee waiver or post-matric scholarship."
+              - "Migration certificate, gap affidavit and AIU equivalence where they apply; seat allotment letter and six photographs at reporting."
+              - "At the college: medical fitness certificate and anti-ragging and anti-drug affidavits by student and parents."
+            source: bt-docs
+      - id: pay
+        nav: "Costs"
+        eyebrow: "Costs"
+        heading: "College fees as fixed by the Government"
+        parts:
+          - p: "Students pay the fee, development fee and other charges to the college at the rates fixed by the Government of Punjab, AICTE or the university."
+            source: bt-noti
+      - id: posting
+        nav: "After counselling"
+        eyebrow: "After counselling"
+        heading: "Report with originals or lose the seat"
+        parts:
+          - p: "Carry every document on which you claimed the seat when you report; otherwise the provisionally allotted seat is cancelled. A confirmed seat can be surrendered after a round's result so you can try the next round."
+            source: bt-sched
+          - links:
+              - { label: "JEE Main console", url: "jee-main.html" }
+              - { label: "State-level pathways", url: "state-pathways.html" }
+    sources:
+      - { id: bt-noti, name: "Punjab Department of Technical Education &amp; Industrial Training — Notification TECH-TE-208/2/2024-4TE2/184, B.Tech 1st Year admission 2026-27 (5 May 2026), with reservation memo of 2 July 2013 (IKGPTU Information Brochure 2026-27, Part D)", url: "https://ptu.ac.in/wp-content/uploads/2026/06/Information-Brochure-2026-27-Part-D.pdf", covers: "counselling authority, merit basis, eligibility, 85/15 rule and residence, reservation percentages, fees and refunds, TFW", checked: 2026-10-19 }
+      - { id: bt-sched, name: "IKGPTU — Centralised Online Counselling Schedule, UG courses 2026-27 (11 Jun 2026)", url: "https://ptu.ac.in/wp-content/uploads/2026/06/2026-06-11-Counselling-Schedule-UG-Courses-2026-27.pdf", covers: "round dates, college-level admission, reporting rules, seat surrender", checked: 2026-10-19 }
+      - { id: bt-docs, name: "IKGPTU — List of documents required at counselling / admission", url: "https://ptu.ac.in/wp-content/uploads/2025/06/Documents-required-during-Counselling-Admission.pdf", covers: "upload list, originals at reporting, course-wise documents (NATA for B.Arch)", checked: 2026-10-19 }

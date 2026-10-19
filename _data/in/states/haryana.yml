@@ -1,0 +1,448 @@
+# Haryana State Exam & Career Cockpit — one data sheet for the cockpit (state/haryana/index.html) and every
+# exam page under state/haryana/. Rendered by _includes/state-cockpit.html and _includes/state-exam.html;
+# checked by scripts/check-in-data.mjs (state sheets block).
+#
+# Rules for this sheet (same as the other state sheets):
+#   - Every fact part carries `source: <id>`; the id must be listed under that exam's `sources`.
+#   - Sources are the official files themselves (read 2026-10-19): the HPSC advertisement for the HCS (Executive
+#     Branch) & Other Allied Services Examination-2025 (Advt. 22/2026), its corrigendum and the final result of
+#     17 October 2026; the HSSC advertisement for CET Phase-II Group-C posts (Advt. 06/2026), which carries the
+#     CET Policy of 31 December 2024; and the HSTES Diploma Prospectus 2026. Nothing comes from coaching or
+#     news sites.
+#   - The HCS advertisement prints no pay scale, so the HCS pay block says so instead of quoting one.
+#   - Section ids are the same on every exam page: overview, eligibility, scheme, fees, reservation,
+#     documents, pay, posting (+ sources, drawn automatically).
+state:
+  id: haryana
+  name: Haryana
+  checked: 2026-10-19
+
+cockpit:
+  eyebrow: "State Exam &amp; Career Cockpit · Haryana"
+  title: "Haryana Exam &amp; Career Cockpit"
+  intro:
+    - "Every major Haryana recruitment and admission route we could verify on one screen: the HCS (Executive Branch) &amp; Allied Services exam of the Haryana Public Service Commission (HPSC), the two-stage Common Eligibility Test (CET) route of the Haryana Staff Selection Commission (HSSC) for Group-C posts, and polytechnic diploma admission through the Haryana State Technical Education Society (HSTES). Each page is built only from the official advertisement or prospectus, and every fact links back to that file."
+    - "Haryana splits its Scheduled Castes into Deprived SC (DSC) and Other SC (OSC), and its Backward Classes into BC-A and BC-B — each with its own certificate format and date window. A central OBC or EWS certificate is not accepted, and women must take the caste certificate from the father's side. Most Group-C and D jobs also need Hindi or Sanskrit in Matric."
+  facts:
+    - { label: "Recruitment nodes", value: "HPSC HCS · HSSC CET Group-C" }
+    - { label: "Admission node", value: "HSTES polytechnic diploma" }
+    - { label: "Watch", value: "HCS 2025 final result out (17 Oct 2026)" }
+    - { label: "Last checked", value: "19 Oct 2026" }
+  groups:
+    - id: civil
+      eyebrow: "Civil recruitment &amp; administrative"
+      heading: "Government recruitment exams"
+      intro: "HCS (Executive), DSP, ETO and other state officers through the Haryana Public Service Commission (HPSC), and Group-C posts through the Haryana Staff Selection Commission's CET route."
+      exams: [hpsc, hssc]
+    - id: academic
+      eyebrow: "Academic admissions"
+      heading: "Admission routes after Class 10"
+      intro: "Three-year engineering diplomas in Haryana's government, aided and private polytechnics through HSTES online counselling — on Class 10 marks, with no entrance test."
+      exams: [diploma]
+  compare_note: "Fees, age limits and dates are from the latest notice of each body. They change every cycle, so always open the current notice before applying."
+  portals_note: "HPSC notices are on hpsc.gov.in; HSSC on hssc.gov.in; polytechnic admissions on hstes.org.in and techadmissionshry.gov.in. Only use these official addresses."
+  portals:
+    - { label: "Haryana Public Service Commission (HPSC)", url: "https://www.hpsc.gov.in/" }
+    - { label: "Haryana Staff Selection Commission (HSSC)", url: "https://hssc.gov.in/" }
+    - { label: "Haryana State Technical Education Society (HSTES)", url: "https://hstes.org.in/" }
+
+exams:
+  # ------------------------------------------------------------------ HPSC — HCS & ALLIED
+  - slug: hpsc
+    group: civil
+    short: "HPSC HCS (Executive Branch) &amp; Allied Services Exam 2025"
+    body: "Haryana Public Service Commission"
+    card: "Haryana's HCS (Executive), DSP, ETO, AETO and six other services. The 2025 exam (Advt. 22/2026) had 102 posts; interviews ran 3–8 October 2026 and the final result of 17 October 2026 recommends 101 candidates."
+    card_facts: ["102 posts · 101 recommended", "−0.25 per wrong in prelim", "Fee ₹1,000 · ₹250 reserved / women"]
+    eyebrow: "HPSC · HCS &amp; Allied Services"
+    title: "HPSC HCS 2025 (Advt. 22/2026) — 102 Posts, Age, Prelim Negative Marking, Mains, Result"
+    lede: "The Haryana Public Service Commission recruits Haryana Civil Services (Executive Branch) officers, DSPs and other Group-A and B officers through one combined exam. This page follows Advertisement No. 22/2026 (30 January 2026), its corrigendum of 5 February 2026 and the final result of 17 October 2026."
+    facts:
+      - { label: "Posts", value: "102 (ETO 27 · HCS 24 · AETO 22)", source: hc-advt }
+      - { label: "Status", value: "Final result 17 Oct 2026", source: hc-res }
+      - { label: "Age (1 Jan 2026)", value: "18 – 42 · DSP 18 – 27", source: hc-advt }
+      - { label: "Prelims", value: "−0.25 per wrong answer", source: hc-advt }
+    official:
+      - { label: "HPSC website", url: "https://www.hpsc.gov.in/" }
+      - { label: "HPSC advertisements", url: "https://www.hpsc.gov.in/en-us/Instructions" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "102 posts across ten services"
+        parts:
+          - table:
+              caption: "Posts in the 2025 exam"
+              head: ["Post", "Posts"]
+              rows:
+                - ["HCS (Executive Branch) — Group A", "24"]
+                - ["Deputy Superintendent of Police", "8"]
+                - ["Excise &amp; Taxation Officer", "27"]
+                - ["District Food &amp; Supplies Controller", "2"]
+                - ["Assistant Registrar, Co-operative Societies", "3"]
+                - ["District Food &amp; Supplies Officer", "1"]
+                - ["Assistant Excise &amp; Taxation Officer", "22"]
+                - ["Traffic Manager", "7"]
+                - ["'A' Class Tehsildar (Apprentice)", "3"]
+                - ["'A' Class Naib Tehsildar (Apprentice)", "5"]
+                - ["Total", "102"]
+            source: hc-advt
+          - table:
+              caption: "2025 exam timeline"
+              head: ["Stage", "Date"]
+              rows:
+                - ["Advertisement", "30 Jan 2026"]
+                - ["Online applications", "6 – 26 Feb 2026"]
+                - ["Preliminary exam (tentative schedule)", "26 Apr 2026"]
+                - ["Main written exam (tentative schedule)", "27 – 29 Jun 2026"]
+            source: hc-advt
+          - p: "The personality test was held from 3 to 8 October 2026, and the final result with allocation of services was declared on 17 October 2026: 101 candidates were recommended against the 102 posts."
+            source: hc-res
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "A BA, BSc or BCom; age 18 to 42"
+        parts:
+          - list:
+              - "<strong>Qualification:</strong> a degree of Bachelor of Arts, Science or Commerce (or equivalent) from a recognised university (rule 12(2)(b), HCS (Executive Branch) Rules 2008), held by the closing date. No certificate issued after the closing date is accepted."
+              - "<strong>Age on 1 January 2026:</strong> 18 to 42; for DSP 18 to 27. Only the Matriculation certificate proves age."
+              - "<strong>DSP physical standard:</strong> men 5 ft 7 in (170.19 cm), chest 33 in with 1.5 in expansion compulsory; women 5 ft 2 in (157.50 cm)."
+            source: hc-advt
+          - table:
+              caption: "Upper-age relaxation (instructions of 25 March 2022)"
+              head: ["Category", "Relaxation"]
+              rows:
+                - ["SC and BC of Haryana (only where a post is reserved for them)", "5 years"]
+                - ["Persons with benchmark disabilities", "5 years (+5 more if SC / BC / EWS), up to 52"]
+                - ["Widowed, divorced, judicially separated or unmarried women", "5 years"]
+                - ["Ex-servicemen", "Military service + 3 years"]
+                - ["Ad-hoc / contract / daily-wage staff of the Haryana Government", "Years served, up to 52"]
+            source: hc-advt
+          - p: "The corrigendum of 5 February 2026 adds one more: employees of the Haryana Government or the High Court and its subordinate courts with at least 4 years' service by 1 January 2026 may apply up to age 45, subject to 3 chances, through their head of office."
+            source: hc-corr
+          - note: "No one other than an ex-serviceman can go above 52 by stacking relaxations."
+            source: hc-advt
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme &amp; marking"
+        heading: "Negative-marked prelim; six essay papers; interview of 75"
+        parts:
+          - list:
+              - "<strong>Prelim:</strong> Paper I General Studies (100 marks) and Paper II CSAT (100 marks, qualifying at 33%), 2 hours each, in English and Hindi. Prelim merit is on Paper I only; about 12 times the vacancies go to the mains."
+              - "<strong>Negative marking:</strong> 0.25 mark is cut for every wrong answer. Each question has five circles — A to D, and E for 'not attempting'. Leaving all five blank also costs 0.25, and anyone who leaves all five blank in more than 10% of questions is disqualified."
+            source: hc-advt
+          - table:
+              caption: "Main written exam (3 hours each) and personality test"
+              head: ["Paper", "Marks"]
+              rows:
+                - ["English (including English essay)", "100"]
+                - ["Hindi (including Hindi essay), Devanagari", "100"]
+                - ["General Studies I", "100"]
+                - ["General Studies II", "100"]
+                - ["General Studies III", "100"]
+                - ["General Studies IV", "100"]
+                - ["Personality test / viva-voce (3× posts)", "75"]
+                - ["Total for merit", "675"]
+            source: hc-advt
+          - p: "To reach the interview you need 45% of the written aggregate and at least 33% in both English and Hindi. GS papers can be answered in Hindi or English, but not mixed in one paper. Equal totals go to higher written marks, then the older candidate."
+            source: hc-advt
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "₹1,000, or ₹250 for Haryana's reserved categories and women"
+        parts:
+          - table:
+              head: ["Candidate", "Fee"]
+              rows:
+                - ["Persons with benchmark disabilities of Haryana (40%+)", "Nil"]
+                - ["DSC, OSC, BC-A (NCL), BC-B (NCL), ESM, EWS and women of Haryana", "₹250"]
+                - ["Dependants of ESM of Haryana in a reserved vertical category", "₹250"]
+                - ["Dependants of ESM of Haryana, unreserved", "₹1,000"]
+                - ["All other candidates", "₹1,000"]
+            source: hc-advt
+          - note: "Fees are paid online and never refunded or carried over to another exam."
+            source: hc-advt
+      - id: reservation
+        nav: "Reservation &amp; Local Status"
+        eyebrow: "Reservation &amp; local status"
+        heading: "Only Haryana domiciles, on Haryana's own certificates"
+        parts:
+          - table:
+              caption: "Category split of the 102 posts"
+              head: ["Category", "Posts"]
+              rows:
+                - ["General / Unreserved", "46"]
+                - ["Deprived Scheduled Castes (DSC) of Haryana", "13"]
+                - ["Other Scheduled Castes (OSC) of Haryana", "10"]
+                - ["Backward Classes (A) of Haryana", "15"]
+                - ["Backward Classes (B) of Haryana", "7"]
+                - ["EWS of Haryana", "11"]
+                - ["Ex-servicemen (horizontal)", "5"]
+                - ["Persons with benchmark disabilities (horizontal)", "7"]
+            source: hc-advt
+          - list:
+              - "Reservation is only for DSC / OSC / BC-A / BC-B (non-creamy layer) / EWS / PwBD candidates who are residents or domiciles of Haryana. Reserved candidates of other states compete as General."
+              - "SC candidates must upload the latest DSC or OSC certificate under the notification of 13 November 2024."
+              - "BC-A / BC-B certificates must be issued in 2025-26 (April 2025 – March 2026) under the creamy-layer notification of 16 July 2024. An OBC certificate is accepted only if it names BC-A or BC-B."
+              - "Women must use a caste certificate from the father's side; one from the husband's side is not accepted."
+            source: hc-advt
+          - p: "EWS candidates of Haryana must attach the certificate under the Government instructions of 25 February 2019 / 14 January 2026."
+            source: hc-corr
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Upload with the online form"
+        parts:
+          - list:
+              - "Photo, signature, degrees and mark sheets."
+              - "DSC / OSC certificate (13 November 2024 format); BC-A / BC-B non-creamy-layer certificate for 2025-26; EWS certificate for 2025-26; dependant-of-ESM certificate for 2025-26."
+              - "Haryana resident / domicile certificate if claiming reservation; Aadhaar."
+              - "PwBD certificate; ESM / freedom-fighter dependant certificate; experience certificate for age relaxation; NOC for Haryana Government employees under bond."
+            source: hc-advt
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Group A and Group B posts"
+        parts:
+          - p: "HCS (Executive Branch) is a Group-A post; the other nine allied services are Group-B."
+            source: hc-advt
+          - note: "The advertisement does not print a pay level or pay scale for any of the posts, so none is shown here."
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Allocation of service by merit and preference"
+        parts:
+          - p: "Candidates submit their preference of services online with the application, and it cannot be changed. A candidate who opts for only one service is considered only for that service. The final list is out of 675 marks, and services are allotted in merit order against those preferences."
+            source: hc-advt
+    sources:
+      - { id: hc-advt, name: "HPSC — Advertisement No. 22/2026, HCS (Ex. Br.) &amp; Other Allied Services Examination-2025 (30 Jan 2026)", url: "https://www.hpsc.gov.in/Portals/0/Advt_22_2026_HCS_Ex_Br_30_01_2026_1.pdf", covers: "posts, category split, qualification, DSP physical standard, closing-date rules, fee, age and relaxations, prelim and mains scheme, negative marking, qualifying marks, tentative schedule, preferences, reservation and certificate rules, documents", checked: 2026-10-19 }
+      - { id: hc-corr, name: "HPSC — Corrigendum to Advt. No. 22/2026 (5 Feb 2026)", url: "https://www.hpsc.gov.in/Portals/0/Corr_HCS_Ex_Br_2025_05_02_2026.pdf", covers: "age relaxation to 45 for Haryana Government / court employees, EWS certificate instructions", checked: 2026-10-19 }
+      - { id: hc-res, name: "HPSC — Final result (allocation of service), HCS (Ex. Br.) &amp; Other Allied Services Exam-2025 (17 Oct 2026)", url: "https://www.hpsc.gov.in/Portals/0/HCS_ALLOCATION_17_10_26.pdf", covers: "interview dates, 101 candidates recommended, category break-up", checked: 2026-10-19 }
+
+  # ------------------------------------------------------------------ HSSC — CET GROUP C
+  - slug: hssc
+    group: civil
+    short: "HSSC CET Group-C Route (Phase-II, Advt. 06/2026)"
+    body: "Haryana Staff Selection Commission"
+    card: "Haryana fills Group-C posts in two steps: a Common Eligibility Test (CET) whose marks stay valid for three years, then a post-wise Phase-II exam. Advt. 06/2026 used this route for 1,205 Jail Warders and 33 Assistant Superintendents of Jail."
+    card_facts: ["CET marks valid 3 years", "No fee for Phase-II", "Blank answer = −1"]
+    eyebrow: "HSSC · CET &amp; Group-C"
+    title: "HSSC CET Group-C 2026 — CET Validity, Phase-II Scheme, Jail Warder Posts, Reservation Rules"
+    lede: "The Haryana Staff Selection Commission recruits Group-C staff through the Common Eligibility Test (CET) and a second, post-specific exam. This page follows Advertisement No. 06/2026 (22 June 2026) for CET Phase-II Group-C posts in the Prisons Department, which reprints the CET Policy of 31 December 2024 and its amendment of 11 July 2025."
+    facts:
+      - { label: "Posts", value: "1,238 (Warder 1,205)", source: hs-advt }
+      - { label: "Who can apply", value: "CET 01/2025 Group-C qualified", source: hs-advt }
+      - { label: "CET marks", value: "Valid 3 years", source: hs-advt }
+      - { label: "Fee", value: "Nil for Phase-II", source: hs-advt }
+    official:
+      - { label: "HSSC website", url: "https://hssc.gov.in/" }
+      - { label: "HSSC advertisements", url: "https://hssc.gov.in/advertisement" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "CET first, then a Phase-II exam for each group of posts"
+        parts:
+          - p: "Only candidates who qualified the Common Eligibility Test (CET) Advt. No. 01/2025 Group-C could apply for Advt. 06/2026, online at adv062026.hryssc.com from 24 to 30 June 2026, with corrections on 1–2 July 2026. The exam date was to be announced separately."
+            source: hs-advt
+          - table:
+              caption: "Posts in Advt. 06/2026 (Prisons Department)"
+              head: ["Post", "Pay level", "Posts", "Age"]
+              rows:
+                - ["Assistant Superintendent Jail", "FPL-6", "33", "21 – 27"]
+                - ["Warder (Female)", "FPL-2", "112", "18 – 25"]
+                - ["Warder (Male)", "FPL-2", "1,093", "18 – 25"]
+            source: hs-advt
+          - note: "HSSC also advertised Group-D posts under its CET Group-D route (Advt. 05/2026, 18 June 2026)."
+            source: hs-advt
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "CET-qualified, Class 12, Hindi or Sanskrit"
+        parts:
+          - list:
+              - "<strong>CET:</strong> Group-C CET needs at least Class 12 (or Matric with an additional qualification); Group-D CET needs Matric with Hindi or Sanskrit. You must score 50% in CET (40% reserved) to be eligible for Phase-II. Attempts are unlimited, and a better score replaces the old one."
+              - "<strong>Warder:</strong> Class 12 and Hindi or Sanskrit as a subject in Matric or higher. Height 170 cm for men (168 reserved) with chest 83 / 87 cm (81 / 85 reserved); 158 cm for women (156 reserved). Men run 2.5 km in 12 min (ex-servicemen 1 km in 5 min); women 1 km in 6 min."
+              - "<strong>Age:</strong> Warder 18–25 and Assistant Superintendent Jail 21–27, with 5 years' relaxation for DSC / OSC, BC-A / BC-B and EWS; other relaxations follow the instructions of 25 March 2022."
+            source: hs-advt
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme &amp; marking"
+        heading: "100 MCQs, no penalty for a wrong answer — but −1 for leaving a question blank"
+        parts:
+          - list:
+              - "Phase-II written exam: 100 multiple-choice questions, 100 marks, 1 hour 45 minutes, offline on OMR, in English and Hindi."
+              - "<strong>Marking:</strong> no negative mark for a wrong option, but if you leave a question you must fill the fifth bubble; failing to do so costs one mark."
+              - "<strong>Qualifying:</strong> 50% for general and 40% for reserved candidates (vertical or horizontal)."
+              - "At most 10 times the posts are called to the written / skill exam (police and teaching posts excepted). Merit is on the Phase-II marks (plus any score such as NCC for police posts). Equal marks go to the older candidate, then to higher CET marks."
+            source: hs-advt
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "No fee for Phase-II"
+        parts:
+          - p: "No fee is required from any candidate for applying against any post in Advt. 06/2026."
+            source: hs-advt
+      - id: reservation
+        nav: "Reservation &amp; Local Status"
+        eyebrow: "Reservation &amp; local status"
+        heading: "Bona fide residents of Haryana, with fresh certificates"
+        parts:
+          - list:
+              - "Reservation is only for DSC / OSC / BC-A / BC-B / EWS and ESM candidates who are bona fide residents of Haryana; reserved candidates of other states compete as General."
+              - "BC-A / BC-B (non-creamy layer) and EWS certificates must be issued on or after 1 April 2026 and by the closing date; DSC / OSC certificates after 13 November 2024; ESM family eligibility certificates renewed after 25 June 2025."
+              - "Central-government OBC and EWS certificates, and BC certificates made for Panchayat elections, are not accepted."
+              - "Not having Hindi or Sanskrit as prescribed is listed as a ground for rejection."
+            source: hs-advt
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Only what you upload is checked"
+        parts:
+          - list:
+              - "Signed application with every document uploaded; documents not uploaded are not considered later."
+              - "BC-A / BC-B certificate (Annexure I), EWS certificate (Annexure II A or II B), ESM family eligibility certificate (Annexure III), ESM undertaking, twins undertaking where relevant."
+              - "Qualification certificates; Hindi / Sanskrit proof; Parivar Pehchan Patra details where asked."
+            source: hs-advt
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Pay levels FPL-2 and FPL-6"
+        parts:
+          - p: "Warder (male and female) is placed at FPL-2 and Assistant Superintendent Jail at FPL-6 in Appendix A of the advertisement."
+            source: hs-advt
+          - note: "Appendix A names only the level; it does not print a rupee figure, so none is shown."
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Department preference decides the posting"
+        parts:
+          - p: "Because one exam covers several posts and departments, you fill detailed post and department preferences online; they cannot be changed later, and you are not considered for a post you did not choose. Documents are verified by the indenting department before appointment."
+            source: hs-advt
+    sources:
+      - { id: hs-advt, name: "HSSC — Advertisement No. 06/2026, CET Phase-II for Group-C posts, with CET Policy of 31 Dec 2024 and amendment of 11 Jul 2025 (22 Jun 2026)", url: "https://hssc.gov.in/file/ac1f23cd-9d9c-1328-819e-ef25fa0a0061/advertisements", covers: "eligibility to apply, dates, posts, pay levels, ages, physical standards, Phase-II scheme and marking, CET rules and validity, fee, reservation and certificate dates, documents, preferences, tie rules", checked: 2026-10-19 }
+
+  # ------------------------------------------------------------------ HSTES — DIPLOMA
+  - slug: diploma
+    group: academic
+    short: "HSTES Polytechnic Diploma Admission 2026-27"
+    body: "Haryana State Technical Education Society"
+    card: "Three-year engineering diplomas in Haryana's polytechnics after Class 10 — merit on Class 10 marks, two online counsellings and then institute-level rounds. Girls pay no tuition in government polytechnics."
+    card_facts: ["Merit on Class 10 %", "85% Haryana state quota", "Registration ₹1,000 · ₹700 reserved"]
+    eyebrow: "HSTES · Diploma admission"
+    title: "Haryana Polytechnic Diploma Admission 2026-27 — Class 10 Merit, Reservation, PPP ID, Key Dates"
+    lede: "The Haryana State Technical Education Society runs online admission to diploma courses in Haryana's government, aided and private polytechnics. This page follows the HSTES Diploma Prospectus 2026 for the 2026-27 session."
+    facts:
+      - { label: "Basis", value: "Class 10 aggregate %", source: dp-pros }
+      - { label: "Seats", value: "85% state · 15% All India", source: dp-pros }
+      - { label: "Fee", value: "₹1,000 · ₹700 reserved", source: dp-pros }
+      - { label: "Last admission date", value: "17 Aug 2026", source: dp-pros }
+    official:
+      - { label: "HSTES website", url: "https://hstes.org.in/" }
+      - { label: "Online admission portal", url: "https://techadmissionshry.gov.in/" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "Two online counsellings, then institute level"
+        parts:
+          - table:
+              caption: "Diploma Engineering 2026-27 (all seats of govt / aided polytechnics, 75% of private seats)"
+              head: ["Event", "Date"]
+              rows:
+                - ["Online registration and fee", "From 13 Apr 2026"]
+                - ["Online verification of marks and details", "21 Apr – 10 Jun 2026"]
+                - ["Choice filling and locking", "Till 15 Jun 2026, 5 pm"]
+                - ["1st counselling seat allotment", "16 Jun 2026"]
+                - ["2nd counselling seat allotment", "26 Jun 2026"]
+                - ["Final cut-off for all admissions", "17 Aug 2026"]
+            source: dp-pros
+          - note: "The schedule is tentative; HSTES asks candidates to watch hstes.org.in and techadmissionshry.gov.in."
+            source: dp-pros
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Academic eligibility"
+        heading: "Class 10 pass"
+        parts:
+          - list:
+              - "<strong>Diploma Engineering:</strong> passed Class 10 / SSC from a recognised board."
+              - "Lateral entry and Diploma Pharmacy have their own qualifying exams; their merit is on the percentage of that exam."
+              - "Mark sheets in a language other than English or Hindi need a board-issued transcript in English or Hindi."
+            source: dp-pros
+      - id: scheme
+        nav: "Admission Basis"
+        eyebrow: "How merit is made"
+        heading: "Class 10 percentage — no entrance test"
+        parts:
+          - list:
+              - "Merit is on the <strong>percentage of aggregate marks in Class 10</strong>, rounded to four decimals; where a board gives only CGPA, its conversion factor is used."
+              - "Ties are broken by higher Mathematics marks, then higher Science marks."
+              - "Merit is prepared only for candidates whose online form was verified by the chosen designated centre."
+            source: dp-pros
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "₹1,000 registration, ₹700 for reserved categories of Haryana"
+        parts:
+          - table:
+              head: ["Candidate", "Registration fee (non-refundable)"]
+              rows:
+                - ["General category", "₹1,000"]
+                - ["Reserved categories of Haryana (SC / DSC / BC / PH / FF / ESM / EWS / KM / HGST / girls)", "₹700"]
+            source: dp-pros
+          - list:
+              - "An admission data-management fee of ₹200 is charged once per admission."
+              - "Girls pay no tuition fee in government and government-aided polytechnics, and SC students' tuition fees are reimbursed."
+              - "The last date to withdraw an admission for a fee refund is 31 July 2026."
+            source: dp-pros
+      - id: reservation
+        nav: "Reservation &amp; Local Status"
+        eyebrow: "Reservation &amp; state quota"
+        heading: "85% state quota with Haryana's own categories"
+        parts:
+          - table:
+              caption: "Reservation of seats, 2026-27"
+              head: ["Category", "Share"]
+              rows:
+                - ["All India category", "15% of intake"]
+                - ["Haryana state quota", "85% of intake"]
+                - ["— Haryana open general", "50% of state quota"]
+                - ["— Scheduled Castes (half OSC, half DSC in govt / aided)", "20% of state quota"]
+                - ["— Backward Classes (A)", "16% of state quota"]
+                - ["— Backward Classes (B)", "11% of state quota"]
+                - ["— Physically handicapped", "3% of state quota"]
+            source: dp-pros
+          - list:
+              - "Girls get 25% horizontal reservation in every category; ESM / freedom fighters' dependants 3% horizontal."
+              - "Supernumerary seats: EWS up to 10%, Tuition Fee Waiver up to 5%, Kashmiri migrants up to 5%; one seat per branch per polytechnic for Haryana Government school toppers."
+              - "Special quotas: 50% at Govt. Polytechnic Uttawar for Mewat residents, 50% at Govt. Polytechnic Morni for Shivalik areas, and 2 seats per branch for villages that gave land for six polytechnics."
+              - "In private unaided polytechnics, 25% of seats are filled by the institute and 75% through HSTES."
+            source: dp-pros
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "PPP ID is compulsory for Haryana residents"
+        parts:
+          - list:
+              - "The Parivar Pehchan Patra (PPP ID) is mandatory for Haryana residents; category, domicile and income are fetched from it, so keep it updated and verified."
+              - "Anyone who passed the qualifying exam from a school in Haryana is treated as a Haryana resident; those who studied outside but have parental address in Haryana use the PPP ID."
+              - "At reporting: original Class 10 / 12 mark sheet, character certificate (from the school, or a First-Class Magistrate for private candidates), employer certificate for wards of Haryana employees posted outside, and category certificates."
+            source: dp-pros
+      - id: pay
+        nav: "Costs"
+        eyebrow: "Costs"
+        heading: "One semester's fee at reporting"
+        parts:
+          - p: "At the allotted institute you deposit one semester's fee; fee structures of the private institutions are in the prospectus appendix and on techeduhry.gov.in."
+            source: dp-pros
+      - id: posting
+        nav: "After counselling"
+        eyebrow: "After counselling"
+        heading: "Report or lose the seat"
+        parts:
+          - p: "After each allotment you print the provisional seat-allotment letter and report at the institute with originals and the fee. A seat not reported in time is cancelled, though you may join the next round."
+            source: dp-pros
+          - links:
+              - { label: "Diploma after Class 10", url: "diploma.html" }
+    sources:
+      - { id: dp-pros, name: "HSTES — Diploma Prospectus 2026 (session 2026-27)", url: "https://hstes.org.in/Documents/2026/Prospectus/Diploma-Prospectus-2026.pdf", covers: "admission basis, eligibility, merit and tie rules, registration fee, reservation and special quotas, PPP ID and resident rule, key dates, reporting documents, refunds", checked: 2026-10-19 }

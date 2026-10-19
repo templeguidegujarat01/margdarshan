@@ -1,0 +1,300 @@
+# Kerala State Exam & Career Cockpit — one data sheet for the cockpit (state/kerala/index.html) and every
+# exam page under state/kerala/. Rendered by _includes/state-cockpit.html and _includes/state-exam.html;
+# checked by scripts/check-in-data.mjs (state sheets block).
+#
+# Rules for this sheet (same as the other state sheets):
+#   - Every fact part carries `source: <id>`; the id must be listed under that exam's `sources`.
+#   - Sources are the official files themselves (read 2026-10-19): the Kerala PSC notifications for Police
+#     Constable (Trainee) (Armed Police Battalion) Cat. No. 563/2025 and Village Field Assistant Cat. No.
+#     571/2025 (Extraordinary Gazette of 15 December 2025); and the CEE Kerala notification of 5 January 2026
+#     and Prospectus for KEAM 2026. Nothing comes from coaching or news sites.
+#   - Kerala PSC's General Conditions (Part II of the gazette) are published in Malayalam with a font that does
+#     not extract; only what the post notifications themselves state is used here.
+#   - The Kerala PSC notifications do not print the OMR test pattern, so the scheme block says so.
+#   - Section ids are the same on every exam page: overview, eligibility, scheme, fees, reservation,
+#     documents, pay, posting (+ sources, drawn automatically).
+state:
+  id: kerala
+  name: Kerala
+  checked: 2026-10-19
+
+cockpit:
+  eyebrow: "State Exam &amp; Career Cockpit · Kerala"
+  title: "Kerala Exam &amp; Career Cockpit"
+  intro:
+    - "Every major Kerala recruitment and admission route we could verify on one screen: Kerala Public Service Commission recruitment (shown here through two 2025 notifications — Police Constable in the Armed Police Battalions and Village Field Assistant), and KEAM 2026, the Commissioner for Entrance Examinations' route to engineering, pharmacy, architecture and medical seats. Each page is built only from the official notification or prospectus, and every fact links back to that file."
+    - "Kerala PSC charges no application fee at all — you apply through a free One Time Registration profile and must 'confirm' before each test. For KEAM, only candidates of Kerala origin ('Keralites') get communal reservation or fee concessions, and the engineering rank mixes the entrance score and Class 12 marks 50:50."
+  facts:
+    - { label: "Recruitment node", value: "Kerala PSC (no fee)" }
+    - { label: "Admission node", value: "KEAM 2026 (CEE)" }
+    - { label: "Watch", value: "KEAM: +4 / −1 · 50:50 index" }
+    - { label: "Last checked", value: "19 Oct 2026" }
+  groups:
+    - id: civil
+      eyebrow: "Civil recruitment &amp; administrative"
+      heading: "Government recruitment exams"
+      intro: "Kerala Public Service Commission recruitment — Police Constable (Armed Police Battalion) for Plus Two holders and Village Field Assistant for SSLC holders, both notified in December 2025."
+      exams: [kerala-psc]
+    - id: academic
+      eyebrow: "Academic admissions"
+      heading: "Admission routes after Class 12"
+      intro: "KEAM 2026: the CEE's own computer-based test for engineering and pharmacy, NEET-UG ranks for medical and allied courses, and NATA for architecture."
+      exams: [keam]
+  compare_note: "Fees, age limits and dates are from the latest notice of each body. They change every cycle, so always open the current notice before applying."
+  portals_note: "Kerala PSC notifications are on keralapsc.gov.in; KEAM notices and the prospectus on cee.kerala.gov.in. Only use these official addresses."
+  portals:
+    - { label: "Kerala Public Service Commission", url: "https://www.keralapsc.gov.in/" }
+    - { label: "Commissioner for Entrance Examinations, Kerala (KEAM)", url: "https://cee.kerala.gov.in/" }
+
+exams:
+  # ------------------------------------------------------------------ KERALA PSC
+  - slug: kerala-psc
+    group: civil
+    short: "Kerala PSC — Police Constable (APB) &amp; Village Field Assistant"
+    body: "Kerala Public Service Commission"
+    card: "Two Kerala PSC notifications of December 2025: Police Constable (Trainee) in the Armed Police Battalions (Plus Two, men only, battalion-wise lists) and Village Field Assistant in the Revenue Department (SSLC, district-wise lists). No application fee; both closed on 14 January 2026."
+    card_facts: ["No application fee", "PC: ₹31,100 – 66,800", "VFA: ₹23,700 – 52,600"]
+    eyebrow: "Kerala PSC · Police Constable &amp; Village Field Assistant"
+    title: "Kerala PSC Police Constable (Cat. 563/2025) &amp; Village Field Assistant (Cat. 571/2025) — Age, Physical Test, Pay"
+    lede: "The Kerala Public Service Commission recruits for Kerala Government service through One Time Registration. This page follows two notifications in the Extraordinary Gazette of 15 December 2025: Police Constable (Trainee) (Armed Police Battalion), Category No. 563/2025, and Village Field Assistant (Revenue), Category No. 571/2025."
+    facts:
+      - { label: "Fee", value: "No application fee", source: kp-pc }
+      - { label: "Last date", value: "14 Jan 2026", source: kp-pc }
+      - { label: "PC age", value: "18 – 26 (OBC 29 · SC/ST 31)", source: kp-pc }
+      - { label: "VFA age", value: "18 – 36 (max 50 with relaxations)", source: kp-vfa }
+    official:
+      - { label: "Kerala PSC website", url: "https://www.keralapsc.gov.in/" }
+      - { label: "Kerala PSC notifications", url: "https://www.keralapsc.gov.in/notifications" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "Two posts, two very different routes"
+        parts:
+          - list:
+              - "<strong>Police Constable (Trainee) (Armed Police Battalion)</strong>, Category No. 563/2025 — Kerala Police; anticipated vacancies; Plus Two; last date 14 January 2026, midnight."
+            source: kp-pc
+          - list:
+              - "<strong>Village Field Assistant</strong>, Category No. 571/2025 — Revenue Department; anticipated vacancies; SSLC; last date 14 January 2026, midnight."
+            source: kp-vfa
+          - p: "Police Constable selection is battalion-wise — SAP (Thiruvananthapuram), KAP III, KAP V, KAP I, KAP II, MSP and KAP IV — and a candidate may apply to only one battalion. Each battalion's ranked list stays in force for one year."
+            source: kp-pc
+          - p: "Village Field Assistant lists are district-wise for all 14 districts; apply to one district only. A ranked list stays in force for at least one year and at most three."
+            source: kp-vfa
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "Plus Two for Police, SSLC for VFA"
+        parts:
+          - list:
+              - "<strong>Police Constable:</strong> men only (women and differently abled candidates are not eligible). Age 18–26 — born between 2 January 1999 and 1 January 2007 — relaxed to 29 for OBC, 31 for SC / ST and 41 for ex-servicemen; no other relaxation applies. Qualification: Plus Two (HSE) or equivalent; SC / ST candidates who failed Plus Two are considered if not enough qualified candidates are available."
+              - "<strong>Physical standards:</strong> height 168 cm and chest 81 cm with 5 cm expansion (SC / ST: 160 cm and 76 cm, same expansion). Vision 6/6 distant and 0.5 near in each eye without glasses; colour blindness, squint, knock-knee, flat foot, varicose veins and similar defects disqualify."
+            source: kp-pc
+          - list:
+              - "<strong>Village Field Assistant:</strong> age 18–36 — born between 2 January 1989 and 1 January 2007 — with the usual relaxation for OBC and SC / ST, but never above 50. Qualification: a pass in SSLC or equivalent. 4% of vacancies are reserved for differently abled candidates."
+            source: kp-vfa
+      - id: scheme
+        nav: "Selection Process"
+        eyebrow: "Selection process"
+        heading: "Confirm first; Police adds a five-of-eight physical test"
+        parts:
+          - list:
+              - "If a written, OMR or online test is held, you must submit a confirmation through your One Time Registration profile within the notified window; only confirmed candidates can download the admission ticket in the last 15 days, and unconfirmed applications are rejected."
+              - "<strong>Police Constable physical efficiency test</strong> (National Physical Efficiency One Star standard) — pass any five of eight: 100 m in 14 s; high jump 132.20 cm; long jump 457.20 cm; shot put (7.264 kg) 609.60 cm; cricket-ball throw 6,096 cm; rope climb 365.80 cm (hands only); 8 pull-ups; 1,500 m in 5 min 44 s. Measurements are taken first; an injury during the test gets no second chance."
+              - "<strong>Weightage:</strong> NCC 'A', 'B' and 'C' certificates add 2%, 3% and 5%; Student Police Cadet certificates and meritorious sportspersons also get weightage or extra marks."
+            source: kp-pc
+          - note: "The notifications do not print the number of questions, marks or negative-marking rule of the OMR test; the Commission publishes the syllabus and exam calendar separately."
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "No application fee"
+        parts:
+          - p: "No application fee is required. You register once through One Time Registration; a photograph uploaded to the profile stays valid for 10 years."
+            source: kp-pc
+      - id: reservation
+        nav: "Reservation &amp; Local Status"
+        eyebrow: "Reservation &amp; local status"
+        heading: "Community as recorded in the SSLC book"
+        parts:
+          - list:
+              - "If the caste or community you claim differs from the entry in your SSLC book, you must produce a gazette notification of the change along with a non-creamy-layer certificate at certificate verification."
+              - "OBC and SC / ST candidates get the age relaxations shown above; other General Conditions relaxations do not apply to the Police Constable post."
+            source: kp-pc
+          - p: "For Village Field Assistant, 4% of vacancies go to differently abled candidates under G.O.(P) No. 05/2023/SJD of 1 October 2023 (Section 34 of the RPwD Act, 2016)."
+            source: kp-vfa
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Originals only when called"
+        parts:
+          - list:
+              - "Original documents proving qualification, experience, age and community, produced when the Commission calls for them."
+              - "For Police: a medical certificate in the prescribed form from a government Medical Officer not below Assistant Surgeon / Junior Consultant, certifying fitness and eyesight without glasses, at the physical test or One Time Verification."
+              - "Government orders for any equivalent or higher qualification you rely on."
+            source: kp-pc
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "₹31,100 – 66,800 and ₹23,700 – 52,600"
+        parts:
+          - p: "Police Constable (Trainee) (Armed Police Battalion) is in the scale ₹31,100 – 66,800."
+            source: kp-pc
+          - p: "Village Field Assistant is in the scale ₹23,700 – 52,600."
+            source: kp-vfa
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Battalion-wise and district-wise postings"
+        parts:
+          - p: "Police Constables appointed to a battalion may transfer only to the District Armed Reserve linked to that battalion."
+            source: kp-pc
+          - p: "A Village Field Assistant advised in one revenue district cannot transfer to another district until five years of continuous service there; staff already holding the post may not apply again but can apply for higher posts."
+            source: kp-vfa
+    sources:
+      - { id: kp-pc, name: "Kerala PSC — Notification, Police Constable (Trainee) (Armed Police Battalion), Category No. 563/2025 (Extraordinary Gazette, 15 Dec 2025)", url: "https://www.keralapsc.gov.in/sites/default/files/2025-12/noti-563-25.pdf", covers: "pay, battalions, eligibility, age and relaxations, qualification, physical and vision standards, PET events, weightage, OTR application, no fee, confirmation, last date, community rule, medical certificate", checked: 2026-10-19 }
+      - { id: kp-vfa, name: "Kerala PSC — Notification, Village Field Assistant (Revenue), Category No. 571/2025 (Extraordinary Gazette, 15 Dec 2025)", url: "https://www.keralapsc.gov.in/sites/default/files/2025-12/noti-571-25.pdf", covers: "pay, district-wise lists, ranked-list validity, age, qualification, PwD reservation, transfer rule, last date", checked: 2026-10-19 }
+
+  # ------------------------------------------------------------------ KEAM
+  - slug: keam
+    group: academic
+    short: "KEAM 2026 — Engineering, Pharmacy, Architecture &amp; Medical"
+    body: "Commissioner for Entrance Examinations, Kerala"
+    card: "Kerala's single application for professional degrees. The CEE's own CBT (17–23 April 2026) ranks engineering and B.Pharm; NEET-UG ranks medical seats; NATA ranks B.Arch. Engineering rank = 50% entrance + 50% Class 12 Maths, Physics, Chemistry."
+    card_facts: ["+4 / −1 marking", "Rank: 50:50 entrance + Class 12", "Fee ₹925 · ₹400 SC · ST nil"]
+    eyebrow: "CEE Kerala · KEAM 2026"
+    title: "KEAM 2026 — Nativity Rules, Exam Pattern, +4/−1 Marking, 50:50 Rank Formula, Reservation, Fees"
+    lede: "The Commissioner for Entrance Examinations, Kerala conducts KEAM for admission to engineering, architecture, pharmacy and medical &amp; allied degree courses in Kerala. This page follows the KEAM 2026 notification of 5 January 2026 and the KEAM 2026 Prospectus."
+    facts:
+      - { label: "CBT", value: "17 – 23 Apr 2026", source: ke-noti }
+      - { label: "Marking", value: "+4 correct · −1 wrong", source: ke-pros }
+      - { label: "Engineering rank", value: "50% CBT + 50% Class 12", source: ke-pros }
+      - { label: "Fee", value: "₹925 · ₹400 SC · ST nil", source: ke-noti }
+    official:
+      - { label: "CEE Kerala website", url: "https://cee.kerala.gov.in/" }
+      - { label: "KEAM 2026 portal", url: "https://cee.kerala.gov.in/keam2026/" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "One application, three ranking routes"
+        parts:
+          - table:
+              caption: "How each course is ranked"
+              head: ["Course", "Ranked on"]
+              rows:
+                - ["B.Tech (incl. KAU, KVASU, KUFOS)", "KEAM engineering CBT + Class 12 marks"]
+                - ["B.Pharm", "Kerala Pharmacy Entrance Examination"]
+                - ["B.Arch", "NATA 2025 or 2026 + qualifying-exam marks"]
+                - ["MBBS, BDS, BAMS, BHMS, BSMS, BUMS", "NEET-UG 2026 (Kerala State Rank List)"]
+                - ["Agriculture, forestry, veterinary, fisheries and allied", "NEET-UG 2026"]
+            source: ke-noti
+          - table:
+              caption: "KEAM 2026 dates"
+              head: ["Stage", "Date"]
+              rows:
+                - ["Online application", "5 – 31 Jan 2026 (5 pm)"]
+                - ["Other certificates", "Till 7 Feb 2026"]
+                - ["Engineering / Pharmacy CBT (2 – 5 pm)", "17 – 23 Apr 2026"]
+                - ["Buffer days", "13, 16, 24, 25 Apr 2026"]
+            source: ke-noti
+          - p: "Candidates who sat the engineering exam had to submit their final-year Maths, Physics and Chemistry marks online by 7 June 2026; those who do not submit marks are left out of the engineering rank list."
+            source: ke-marks
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "Keralite, NK-I or NK-II — and 45% in Class 12 for B.Tech"
+        parts:
+          - list:
+              - "<strong>Keralite:</strong> a candidate of Kerala origin, proved by an SSLC, passport or birth certificate showing birth in Kerala (the candidate's or a parent's), or a Village Officer / Tahsildar certificate. Only Keralites get communal, special or PwD reservation and fee concessions."
+              - "<strong>Non-Keralite I:</strong> not of Kerala origin, but studied the qualifying course in Kerala as the child of a central government / defence employee posted in Kerala or a Kerala Government employee of two years; or lived in Kerala 5 of 12 study years; or studied Class VIII–XII in Kerala. Eligible for State Merit seats only."
+              - "<strong>Non-Keralite II:</strong> everyone else — engineering seats in private self-financing colleges, government cost-sharing colleges only after the second phase if no Keralite / NK-I is left, up to 10% management seats in private pharmacy colleges; not government medical, engineering, pharmacy or architecture seats."
+            source: ke-noti
+          - list:
+              - "<strong>Engineering:</strong> Class 12 with Physics and Mathematics compulsory and Chemistry (or Computer Science, then Biotechnology, then Biology) with at least 45% together; 40% for SC / ST / SEBC and PwD."
+              - "<strong>B.Pharm:</strong> Class 12 with English, Physics, Chemistry and Mathematics / Biology. <strong>MBBS / BDS:</strong> 50% in Physics, Chemistry and Biology (40% SC / ST / SEBC / PwD)."
+              - "<strong>Age:</strong> 17 completed by 31 December 2026; no upper limit for engineering, architecture, B.Pharm, BAMS, BSMS, BHMS and BUMS; MBBS / BDS follow NEET-UG."
+            source: ke-noti
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme &amp; marking"
+        heading: "150 questions in 3 hours; +4 / −1; then a 50:50 index"
+        parts:
+          - table:
+              caption: "Computer-based tests"
+              head: ["Paper", "Questions", "Time"]
+              rows:
+                - ["Engineering — Mathematics 75, Physics 45, Chemistry 30", "150", "180 min"]
+                - ["Pharmacy — Chemistry 45, Physics 30", "75", "90 min"]
+            source: ke-pros
+          - list:
+              - "Five options per question, one most appropriate. <strong>+4 for a correct answer, −1 for a wrong one</strong>, nothing for a blank. Answering no question at all disqualifies you."
+              - "Scores from different sessions are normalised (percentile-interpolated average method) to a score out of 300. You need a normalised score of at least 10 to enter the engineering rank list; SC / ST candidates are exempt from this minimum."
+              - "<strong>Engineering rank (G.O. of 26 December 2025):</strong> the normalised entrance score out of 300 plus the normalised final-year Class 12 marks in Maths : Physics : Chemistry in the ratio 5 : 3 : 2 (150 + 90 + 60 = 300) — an index out of 600. Board marks are normalised against the highest mark in that board for that subject and year."
+              - "Ties are broken by entrance Maths, then entrance Physics, then Class 12 Maths and Physics, then the number of correct answers, then age (older first)."
+              - "B.Pharm is ranked on the pharmacy entrance score alone (out of 300)."
+            source: ke-pros
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "₹925 for engineering or pharmacy; ST free"
+        parts:
+          - table:
+              head: ["Courses chosen", "General", "SC", "ST"]
+              rows:
+                - ["Engineering", "₹925", "₹400", "Nil"]
+                - ["B.Pharm", "₹925", "₹400", "Nil"]
+                - ["Architecture", "₹650", "₹260", "Nil"]
+                - ["Medical &amp; allied", "₹650", "₹260", "Nil"]
+            source: ke-noti
+          - note: "Choosing the UAE exam centre costs ₹16,000 extra. Fees are paid online and never refunded."
+            source: ke-noti
+      - id: reservation
+        nav: "Reservation &amp; Local Status"
+        eyebrow: "Reservation &amp; local status"
+        heading: "50% merit, 30% SEBC split nine ways, 10% SC / ST, 10% EWS"
+        parts:
+          - table:
+              caption: "Mandatory reservation in government seats"
+              head: ["Category", "Seats"]
+              rows:
+                - ["State Merit", "50%"]
+                - ["EWS (general category)", "10%"]
+                - ["SEBC — Ezhava 9, Muslim 8, Other Backward Hindu 3, Latin Catholic &amp; Anglo-Indian 3, Dheevara 2, Viswakarma 2, Kusavan 1, Other Backward Christian 1, Kudumbi 1", "30%"]
+                - ["Scheduled Castes", "8%"]
+                - ["Scheduled Tribes", "2%"]
+            source: ke-pros
+          - p: "These shares apply to the government seats left after All India quota, Government of India nominees, special reservations, PwD, supernumerary seats and management quota."
+            source: ke-pros
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Village Officer and Tahsildar certificates"
+        parts:
+          - list:
+              - "SSLC (or equivalent) certificate, nativity proof and date-of-birth proof — uploaded with the application."
+              - "SEBC / OEC: non-creamy-layer certificate for state education purposes from the Village Officer (Annexure XXVII)."
+              - "SC / ST: community certificate from the Tahsildar (Annexure XXIX); inter-caste marriage certificate where one parent is SC / ST."
+              - "EWS: certificate from the Village Officer (Annexure XXVI a or b); income certificate (Annexure XXXI) for any income-based fee concession."
+              - "PwD: UDID card or disability certificate; NRI quota: sponsor's passport / visa, relationship certificate and a notarised affidavit on ₹200 stamp paper."
+            source: ke-noti
+      - id: pay
+        nav: "Costs"
+        eyebrow: "Costs"
+        heading: "Application fee only here"
+        parts:
+          - p: "The notification sets only the application fee (₹925 / ₹650, with SC and ST concessions); tuition fees depend on the college and are published with the allotment notices."
+            source: ke-noti
+      - id: posting
+        nav: "After the test"
+        eyebrow: "After the test"
+        heading: "Centralised allotment in phases"
+        parts:
+          - p: "Rank lists are published by the CEE, and seats are allotted centrally in phases through option registration on the CEE website; only rank lists published by the CEE may be used for admission, and only Keralites are considered for communal and special reservation."
+            source: ke-pros
+          - links:
+              - { label: "NEET-UG console", url: "neet-ug.html" }
+              - { label: "JEE Main console", url: "jee-main.html" }
+    sources:
+      - { id: ke-noti, name: "CEE Kerala — Notification, KEAM-2026, applications invited (5 Jan 2026)", url: "https://cee.kerala.gov.in/keam2026/noti_view/3/Upload1", covers: "courses and ranking routes, dates, nativity categories, academic eligibility, relaxations, age, CBT schedule, centres, fee, documents", checked: 2026-10-19 }
+      - { id: ke-pros, name: "CEE Kerala — KEAM 2026 Prospectus", url: "https://cee.kerala.gov.in/keam2026/pdf/Prospectus.pdf", covers: "papers, questions and time, marking, normalisation, minimum score, engineering rank formula, tie rules, mandatory reservation", checked: 2026-10-19 }
+      - { id: ke-marks, name: "CEE Kerala — Notification, online submission of marks data for engineering rank 2026", url: "https://cee.kerala.gov.in/keam2026/noti_view/50/Upload1", covers: "Class 12 marks submission deadline (7 Jun 2026)", checked: 2026-10-19 }

@@ -45,7 +45,9 @@
       <h1 id="hero-heading">{{ K.title }}</h1>
       <div class="meta-row">
         <span>{{ civil_n }} recruitment nodes</span>
+        {%- if acad_n > 0 %}
         <span>·</span><span>{{ acad_n }} admission nodes</span>
+        {%- endif %}
         <span>·</span><span>Every fact linked to an official file</span>
       </div>
       {%- for p in K.intro %}
@@ -53,7 +55,9 @@
       {%- endfor %}
       <div class="page-hero-ctas">
         <a href="#civil" class="btn btn-primary btn-inpage-jump">Government recruitment</a>
+        {%- if acad_n > 0 %}
         <a href="#academic" class="btn btn-ghost btn-inpage-jump">Admissions</a>
+        {%- endif %}
       </div>
       <dl class="quickfacts qf-micro">
         {%- for q in K.facts %}

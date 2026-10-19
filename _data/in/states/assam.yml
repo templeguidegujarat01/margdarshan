@@ -1,0 +1,332 @@
+# Assam State Exam & Career Cockpit — one data sheet for the cockpit (state/assam/index.html) and every
+# exam page under state/assam/. Rendered by _includes/state-cockpit.html and _includes/state-exam.html;
+# checked by scripts/check-in-data.mjs (state sheets block).
+#
+# Rules for this sheet (same as the other state sheets):
+#   - Every fact part carries `source: <id>`; the id must be listed under that exam's `sources`.
+#   - Sources are the official files themselves (read 2026-10-19): the APSC advertisement for the Combined
+#     Competitive Examination, 2025 (Advt. No. 01/2026, a scanned PDF read page by page), its prelim result of
+#     30 July 2026 and mains schedule of 5 September 2026; and the SLPRB Assam advertisement for Constable (UB)
+#     and Constable (AB) of 5 December 2025 with its extension, corrigendum and edit-window notices.
+#     Nothing comes from coaching or news sites.
+#   - Assam CEE (engineering entrance, ASTU) has no page yet: no 2026 brochure was found on astu.ac.in.
+#   - Section ids are the same on every exam page: overview, eligibility, scheme, fees, reservation,
+#     documents, pay, posting (+ sources, drawn automatically).
+state:
+  id: assam
+  name: Assam
+  checked: 2026-10-19
+
+cockpit:
+  eyebrow: "State Exam &amp; Career Cockpit · Assam"
+  title: "Assam Exam &amp; Career Cockpit"
+  intro:
+    - "Every major Assam recruitment route we could verify on one screen: the Combined Competitive Examination of the Assam Public Service Commission (APSC) for Assam Civil Service, Assam Police Service and nine other services, and the State Level Police Recruitment Board (SLPRB) recruitment of Unarmed and Armed Branch Constables. Each page is built only from the official advertisement, and every fact links back to that file."
+    - "Both routes ask for more than a certificate of age and education: you must be an inhabitant / permanent resident of Assam, registered with an Assam employment exchange, and able to speak Assamese or another language of the state. Assam reserves separately for Plains (ST-P) and Hills (ST-H) Scheduled Tribes, and its OBC list includes a share for tea-garden tribes. An engineering-admission page (Assam CEE) will follow once its 2026 brochure is published."
+  facts:
+    - { label: "Recruitment nodes", value: "APSC CCE · SLPRB Constable" }
+    - { label: "Watch", value: "APSC CCE 2025 mains held 9–11 Oct 2026" }
+    - { label: "Local rule", value: "Employment-exchange registration" }
+    - { label: "Last checked", value: "19 Oct 2026" }
+  groups:
+    - id: civil
+      eyebrow: "Civil recruitment &amp; police"
+      heading: "Government recruitment exams"
+      intro: "Assam Civil Service, Assam Police Service and other Group-A / B posts through the APSC Combined Competitive Examination, and Constable (UB / AB) through SLPRB Assam."
+      exams: [apsc, police]
+  compare_note: "Fees, age limits and dates are from the latest notice of each body. They change every cycle, so always open the current notice before applying."
+  portals_note: "APSC notices are on apsc.nic.in (applications at apscrecruitment.in); SLPRB notices on slprbassam.in. Only use these official addresses."
+  portals:
+    - { label: "Assam Public Service Commission (APSC)", url: "https://apsc.nic.in/" }
+    - { label: "APSC online applications", url: "https://apscrecruitment.in/" }
+    - { label: "State Level Police Recruitment Board, Assam (SLPRB)", url: "https://slprbassam.in/" }
+
+exams:
+  # ------------------------------------------------------------------ APSC — CCE
+  - slug: apsc
+    group: civil
+    short: "APSC Combined Competitive Exam 2025"
+    body: "Assam Public Service Commission"
+    card: "Assam Civil Service, Assam Police Service and nine other services. The 2025 exam (Advt. 01/2026) has 78 posts; the prelim was held on 5 July 2026, its result came on 30 July 2026, and the mains ran in Guwahati on 9–11 October 2026."
+    card_facts: ["78 posts (ACS 45 · APS 6)", "−¼ per wrong in prelim", "Fee ₹297.20 · women free (₹47.20)"]
+    eyebrow: "APSC · Combined Competitive Exam"
+    title: "APSC CCE 2025 (Advt. 01/2026) — 78 Posts, Age, Prelim & Mains Scheme, Fees, Pay, Status"
+    lede: "The Assam Public Service Commission recruits Assam Civil Service, Assam Police Service and other state officers through the Combined Competitive Examination. This page follows Advertisement No. 01/2026 (10 April 2026) for the CCE 2025, the prelim result of 30 July 2026 and the mains schedule of 5 September 2026."
+    facts:
+      - { label: "Posts", value: "78 (ACS 45 · APS 6)", source: ap-advt }
+      - { label: "Status", value: "Mains 9 – 11 Oct 2026", source: ap-main }
+      - { label: "Age (1 Jan 2025)", value: "21 – 38 · SC/ST 43", source: ap-advt }
+      - { label: "Prelims", value: "−¼ per wrong answer", source: ap-advt }
+    official:
+      - { label: "APSC website", url: "https://apsc.nic.in/" }
+      - { label: "APSC advertisements 2026", url: "https://apsc.nic.in/advt_2026.php" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "78 posts across eleven services"
+        parts:
+          - table:
+              caption: "Posts in the CCE 2025"
+              head: ["Service / post", "Posts", "Pay"]
+              rows:
+                - ["Assam Civil Service (Jr. Grade)", "45", "PB-4 ₹30,000 – 1,10,000 + GP ₹13,300"]
+                - ["Assam Police Service (Jr. Grade)", "6", "PB-4 ₹30,000 – 1,10,000 + GP ₹13,300"]
+                - ["District Transport Officer", "3", "PB-4 + GP ₹12,700"]
+                - ["Superintendent of Excise", "1", "PB-4 + GP ₹12,700"]
+                - ["Assistant Registrar of Co-operative Societies", "2", "PB-4 + GP ₹12,700"]
+                - ["Assam Urban Administrative Service (EO Jr. Gr. II)", "2", "PB-4 + GP ₹12,700"]
+                - ["Inspector of Labour", "5", "PB-3 ₹22,000 – 97,000 + GP ₹9,400"]
+                - ["Inspector of Excise", "1", "PB-3 + GP ₹9,400"]
+                - ["Assistant Employment Officer", "8", "PB-3 + GP ₹9,400"]
+                - ["Sub-Registrar", "4", "PB-3 + GP ₹9,400"]
+                - ["Research Assistant (Border Protection &amp; Development)", "1", "PB-3 + GP ₹9,400"]
+                - ["Total", "78", ""]
+            source: ap-advt
+          - table:
+              caption: "CCE 2025 timeline"
+              head: ["Stage", "Date"]
+              rows:
+                - ["Advertisement", "10 Apr 2026"]
+                - ["Online applications", "13 Apr – 3 May 2026 (fee by 5 May)"]
+                - ["Preliminary exam", "5 Jul 2026"]
+            source: ap-advt
+          - p: "The prelim result was declared on 30 July 2026 and the main exam was held at Guwahati on 9, 10 and 11 October 2026 (Essay and GS-I on 9 October, GS-II and III on 10 October, GS-IV and V on 11 October)."
+            source: ap-main
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "A degree, Assam origin, an Assamese-speaking candidate"
+        parts:
+          - list:
+              - "<strong>Qualification:</strong> a degree from a recognised university, held on the date of application."
+              - "<strong>Age:</strong> 21 to 38 on 1 January 2025. Relaxation: SC / ST(P) / ST(H) +5 (to 43), OBC / MOBC +3 (to 41), persons with benchmark disabilities +10. Ex-servicemen get relaxation only where a post is reserved for them — none is in this exam. Age is proved only by the HSLC / HSSLC admit card, certificate or mark sheet."
+              - "<strong>Local conditions:</strong> an Indian citizen and an original inhabitant of Assam; able to speak Assamese or another official / associate official language or a tribal language of the state; registered in a District Employment Exchange of Assam."
+              - "<strong>Small Family Norms:</strong> a declaration in Form-A with the prelim application (notification of 6 November 2019)."
+            source: ap-advt
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme &amp; marking"
+        heading: "Negative-marked prelim; six essay papers and a 180-mark interview"
+        parts:
+          - list:
+              - "<strong>Prelim:</strong> General Studies I (200 marks) and General Studies II (200 marks, qualifying at 33%), 2 hours each, objective with four options. It is a screening test; its marks do not count in the final merit."
+              - "<strong>Negative marking:</strong> one-fourth of a question's marks is deducted for each wrong answer; marking more than one answer counts as wrong."
+              - "11 to 12 times the vacancies in each category are admitted to the mains."
+            source: ap-advt
+          - table:
+              caption: "Main exam (Guwahati only)"
+              head: ["Paper", "Marks", "Time"]
+              rows:
+                - ["Paper 1 — Essay", "250", "3 hours"]
+                - ["Papers 2 – 6 — General Studies (5 papers)", "250 each", "3 hours each"]
+                - ["Interview / personality test (1:3, no qualifying marks)", "180", ""]
+                - ["Total", "1,680", ""]
+            source: ap-advt
+          - p: "Answers may be written in English or Assamese. Services are allotted on merit-cum-preference, and the Commission recommends exactly as many candidates as posts notified."
+            source: ap-advt
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "₹250 + ₹47.20; women, SC / ST, BPL and PwBD pay only the ₹47.20"
+        parts:
+          - table:
+              head: ["Candidate", "Application fee", "Processing (CSC-SPV)", "Total"]
+              rows:
+                - ["General", "₹250", "₹47.20", "₹297.20"]
+                - ["OBC / MOBC", "₹150", "₹47.20", "₹197.20"]
+                - ["SC / ST", "Nil", "₹47.20", "₹47.20"]
+                - ["BPL candidates of all categories", "Nil", "₹47.20", "₹47.20"]
+                - ["Persons with benchmark disabilities", "Nil", "₹47.20", "₹47.20"]
+                - ["Women of all categories", "Nil", "₹47.20", "₹47.20"]
+            source: ap-advt
+          - note: "Fees are not refunded; the main-exam fee is notified separately."
+            source: ap-advt
+      - id: reservation
+        nav: "Reservation &amp; Local Status"
+        eyebrow: "Reservation &amp; local status"
+        heading: "OBC / MOBC with community sub-quotas, ST(P) and ST(H)"
+        parts:
+          - table:
+              caption: "Category split of the 78 posts"
+              head: ["Category", "Posts"]
+              rows:
+                - ["Open", "42 (9 for women)"]
+                - ["OBC / MOBC", "14 (incl. 1 each for Moran, Matak, Chutia and Tea Tribes &amp; Adivasi communities)"]
+                - ["Scheduled Castes", "8"]
+                - ["Scheduled Tribes (Plains)", "7"]
+                - ["Scheduled Tribes (Hills)", "7"]
+                - ["Women (within categories)", "14 in all"]
+                - ["Persons with benchmark disabilities", "3 (locomotor)"]
+            source: ap-advt
+          - p: "Reservation follows the draft received from the Government; vacancies may be changed by the Government and will be notified. Women are encouraged to apply under the CCE Amendment Rules, 2019 and pay no application fee."
+            source: ap-advt
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Eligibility is checked only after the written mains"
+        parts:
+          - list:
+              - "HSLC / HSSLC admit card, certificate or mark sheet as the only proof of age."
+              - "Degree certificate; employment-exchange registration; category certificate; Small Family Norms declaration (Form-A)."
+              - "Government employees: an undertaking that the employer was informed, and the NOC / forwarding letter at the interview."
+              - "PwBD candidates needing a scribe: certificate from the Chief Medical Officer / Civil Surgeon / Medical Superintendent (Appendix II)."
+              - "Photo ID in the exam hall: PAN, driving licence, voter ID, passport, institution or government ID, or a bank passbook with photo."
+            source: ap-advt
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Pay Band 4 with grade pay ₹13,300 for ACS and APS"
+        parts:
+          - list:
+              - "Assam Civil Service and Assam Police Service (Jr. Grade): PB-4, ₹30,000 – 1,10,000, grade pay ₹13,300."
+              - "DTO, Superintendent of Excise, Assistant Registrar and AUAS: PB-4, grade pay ₹12,700."
+              - "Inspector of Labour, Inspector of Excise, Assistant Employment Officer, Sub-Registrar and Research Assistant: PB-3, ₹22,000 – 97,000, grade pay ₹9,400 — plus other allowances."
+            source: ap-advt
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Merit-cum-preference"
+        parts:
+          - p: "Final ranking is on the written mains plus the interview. Candidates are allotted services by rank and by the preference they gave in the main-exam application; no one is recommended for a post they did not opt for."
+            source: ap-advt
+    sources:
+      - { id: ap-advt, name: "APSC — Advertisement No. 01/2026, Combined Competitive (Preliminary) Examination, 2025 (10 Apr 2026)", url: "https://apsc.nic.in/advt_2026/Advt_CCE-2025.pdf", covers: "posts and category split, pay, dates, centres, fee, age and relaxations, local conditions, prelim and mains scheme, negative marking, interview, allotment, documents", checked: 2026-10-19 }
+      - { id: ap-main, name: "APSC — Prelim result (30 Jul 2026) and notification on the schedule of the Combined Competitive (Main) Examination, 2025 (5 Sep 2026)", url: "https://apsc.nic.in/notif_2026/CCE_Mains_2025_Schedule_01_2026.pdf", covers: "prelim result date, mains dates and paper order, Guwahati centre", checked: 2026-10-19 }
+
+  # ------------------------------------------------------------------ SLPRB — CONSTABLE
+  - slug: police
+    group: civil
+    short: "SLPRB Assam Constable (UB &amp; AB) Recruitment"
+    body: "State Level Police Recruitment Board, Assam"
+    card: "1,052 Unarmed Branch and 663 Armed Branch Constables for Assam Police. No fee; applications closed on 22 February 2026. Selection starts with a scored physical efficiency test, then a 50-mark written test with no negative marking."
+    card_facts: ["1,715 posts", "No application fee", "Written: no negative marking"]
+    eyebrow: "SLPRB Assam · Constable (UB / AB)"
+    title: "Assam Police Constable (UB &amp; AB) 2025-26 — Age, Height, PET Marks, Written Test, Reservation"
+    lede: "The State Level Police Recruitment Board, Assam recruits Constables for the Assam Police. This page follows the advertisement of 5 December 2025 for 1,052 Constable (UB) and 663 Constable (AB) posts, and the Board's notices of 16 January, 19 January and 26 February 2026."
+    facts:
+      - { label: "Posts", value: "1,052 UB + 663 AB", source: sl-advt }
+      - { label: "Applications", value: "Closed 22 Feb 2026", source: sl-ext }
+      - { label: "Age (1 Jan 2026)", value: "18 – 26 (unreserved, this cycle)", source: sl-corr }
+      - { label: "Fee", value: "No application fee", source: sl-advt }
+    official:
+      - { label: "SLPRB Assam website", url: "https://slprbassam.in/" }
+      - { label: "Advertisement (5 Dec 2025)", url: "https://slprbassam.in/pdf/Notice2025/05122025/Advertisement-Constable-(AB-UB).pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "1,715 Constable posts in two branches"
+        parts:
+          - p: "Online applications were invited for 1,052 posts of Constable (Unarmed Branch) and 663 posts of Constable (Armed Branch) in the Assam Police, in the pay scale ₹14,000 – 70,000 with grade pay ₹5,600. The numbers are tentative, subject to final clearance by the Government."
+            source: sl-advt
+          - table:
+              caption: "Timeline"
+              head: ["Stage", "Date"]
+              rows:
+                - ["Advertisement", "5 Dec 2025"]
+                - ["First application window", "16 Dec 2025 – 16 Jan 2026"]
+                - ["Extended window", "22 Jan – 22 Feb 2026"]
+            source: sl-ext
+          - p: "A further edit window for correcting typing mistakes was opened from 1 to 5 March 2026, for this and the Board's other 2025-26 advertisements (Sub-Inspector, Driver Constable and others)."
+            source: sl-edit
+          - note: "The Board's website says the dates and venues of the PST / PET will be intimated later; none had been announced when we checked."
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "Permanent resident of Assam, Class 10 or 12"
+        parts:
+          - list:
+              - "Citizen of India and <strong>permanent resident of Assam</strong> (proof of residence after the final select list; SC, ST and OBC / MOBC candidates are exempt from submitting it)."
+              - "Registered with a local employment exchange in Assam, and able to speak Assamese or another state language fluently."
+              - "<strong>Qualification:</strong> Constable (UB) — Class 12 / HS pass; Constable (AB) — Class 10 / HSLC pass. HS holders may apply for both, stating their preference."
+              - "<strong>Age:</strong> 18–25 on 1 January 2026 (born between 1 January 2001 and 1 January 2008). Relaxation: SC / ST(P) / ST(H) +5, OBC / MOBC +3, Home Guards / VDP / Civil Defence volunteers with 3+ years +3, former members of militant organisations and SPOs +10. Only the HSLC admit card or certificate proves age."
+            source: sl-advt
+          - p: "For this cycle the Government raised the unreserved upper age limit from 25 to 26, so General candidates born in the year 2000 (1 January – 31 December) may also apply; the limits for reserved categories rise in the same way."
+            source: sl-corr
+          - table:
+              caption: "Physical standards"
+              head: ["Category", "Men", "Women"]
+              rows:
+                - ["Height — General / OBC / MOBC / SC", "162.5 cm", "154 cm"]
+                - ["Height — ST(P) / ST(H)", "160 cm", "152 cm"]
+                - ["Chest (men) — General / OBC / MOBC / SC / ST(P)", "80 cm + 5 cm", "—"]
+                - ["Chest (men) — ST(H)", "78 cm + 5 cm", "—"]
+            source: sl-advt
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme &amp; marking"
+        heading: "Scored PET first, then a 50-mark written test without negative marking"
+        parts:
+          - list:
+              - "<strong>Order:</strong> physical efficiency test (PET) and medical examination, then the physical standard test (PST, no marks), then the written test, then viva-voce."
+              - "<strong>PET (men):</strong> 3,200 m race — 20 marks for 10 min or less, disqualified above 14 min; long jump — minimum 335 cm (10 marks) up to 500 cm (20 marks); Armed Branch men also do chin-ups — minimum 4 (10 marks) up to 14 (20 marks)."
+              - "<strong>PET (women):</strong> 1,600 m race — 20 marks for 5 min 30 s or less, disqualified above 8 min; long jump — minimum 244 cm (10 marks) up to 389 cm (20 marks)."
+              - "<strong>Written test:</strong> five times the posts in each category, on PET marks. 100 MCQs of half a mark each (50 marks), Class IX–X level, <strong>no negative marking</strong> — arithmetic, English, reasoning, Assam's history, geography, polity and economy, and general awareness; paper in Assamese, Bodo, Bengali or English."
+              - "<strong>Viva-voce:</strong> 5 marks, twice the vacancies. <strong>Academic weightage</strong> (UB only, Class 12 %): 45–59.99% → 2, 60–74.99% → 3, 75% and above → 5."
+            source: sl-advt
+          - table:
+              caption: "Final merit"
+              head: ["Component", "Constable (UB)", "Constable (AB) men"]
+              rows:
+                - ["PET", "40", "60"]
+                - ["Written test", "50", "50"]
+                - ["Viva-voce", "5", "5"]
+                - ["Academic weightage", "5", "—"]
+                - ["Total", "100", "115"]
+            source: sl-advt
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "No application fee"
+        parts:
+          - p: "There is no application fee."
+            source: sl-advt
+      - id: reservation
+        nav: "Reservation &amp; Local Status"
+        eyebrow: "Reservation &amp; local status"
+        heading: "Assam's categories and special quotas"
+        parts:
+          - table:
+              caption: "Social categories (UB and AB)"
+              head: ["Category", "Share"]
+              rows:
+                - ["OBC / MOBC", "27% (tea and ex-tea garden tribes 3% within it)"]
+                - ["Scheduled Castes", "7%"]
+                - ["Scheduled Tribes (Plains)", "10%"]
+                - ["Scheduled Tribes (Hills)", "5%"]
+            source: sl-advt
+          - list:
+              - "Women: 30% in UB and 10% in AB, within each category."
+              - "Militancy-affected areas 5%; former members of militant organisations 5% (Special Branch certificate); Home Guards / VDP / Civil Defence volunteers 1% (one year's service); SPOs 1%; sportspersons (at least a district-level medal) or NCC certificate holders 1%."
+              - "Caste certificates are accepted only from authorities empowered by the Government of Assam; certificates of other states or authorities are not accepted."
+            source: sl-advt
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Show the originals on PET / PST day"
+        parts:
+          - list:
+              - "Photo, signature, HSLC admit card / certificate (age), HSLC and HS mark sheets, employment-exchange card, caste certificate."
+              - "Home Guard / VDP / Civil Defence (1 year for quota, 3 years for age relaxation), SPO, FMMO, sports and NCC certificates where claimed."
+              - "All originals must be shown at the PET / PST venue; a candidate without the original caste certificate is treated as General. Every document must be dated on or before 16 January 2026."
+            source: sl-advt
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "₹14,000 – 70,000 with grade pay ₹5,600"
+        parts:
+          - p: "Constable (UB) and Constable (AB) are in the pay scale ₹14,000 – 70,000 with grade pay ₹5,600 and other allowances admissible under the rules."
+            source: sl-advt
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Final select list, then residence proof"
+        parts:
+          - p: "The final merit lists are made category-wise from the PET, written, viva and (for UB) academic marks. Selected candidates then submit proof of residence, except SC, ST and OBC / MOBC candidates."
+            source: sl-advt
+    sources:
+      - { id: sl-advt, name: "SLPRB Assam — Advertisement No. SLPRB/REC/CONST (AB &amp; UB)/727/2025/94, Constable (UB) &amp; Constable (AB) in Assam Police (5 Dec 2025)", url: "https://slprbassam.in/pdf/Notice2025/05122025/Advertisement-Constable-(AB-UB).pdf", covers: "posts, pay, dates, no fee, reservation and special quotas, residence and language rules, age and relaxations, qualification, physical and medical standards, documents, PET marks, written test, viva, academic weightage, final merit", checked: 2026-10-19 }
+      - { id: sl-ext, name: "SLPRB Assam — Notice extending online applications to 22 Feb 2026 (16 Jan 2026)", url: "https://slprbassam.in/pdf/Notice2026/16012026/extension_notice-16012026.pdf", covers: "original and extended application windows", checked: 2026-10-19 }
+      - { id: sl-corr, name: "SLPRB Assam — Notice / corrigendum raising the upper age limit to 26 for this cycle (19 Jan 2026)", url: "https://slprbassam.in/pdf/Notice2026/19012026/Notice_and_Corrigendum.pdf", covers: "unreserved age 26, birth window, reserved limits raised correspondingly", checked: 2026-10-19 }
+      - { id: sl-edit, name: "SLPRB Assam — Notice opening the edit option 1–5 Mar 2026 (26 Feb 2026)", url: "https://slprbassam.in/pdf/Notice2026/26022026/notice_reg_edit_option.pdf", covers: "edit window and the advertisements it covers", checked: 2026-10-19 }

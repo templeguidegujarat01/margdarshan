@@ -1,0 +1,336 @@
+# Tamil Nadu State Exam & Career Cockpit — one data sheet for the cockpit (state/tamil-nadu/index.html) and
+# every exam page under state/tamil-nadu/. Rendered by _includes/state-cockpit.html and _includes/state-exam.html;
+# checked by scripts/check-in-data.mjs (state sheets block).
+#
+# Rules for this sheet (same as the other state sheets):
+#   - Every fact part carries `source: <id>`; the id must be listed under that exam's `sources`.
+#   - Sources are the official files themselves (read 2026-10-19): the TNPSC notification for the Combined Civil
+#     Services Examination-IV (Group IV Services), Notification No. 11/2026; and the TNUSRB notification for the
+#     Common Recruitment 2025 of Grade II Police Constables, Grade II Jail Warders and Firemen (Notification
+#     02/2025, Tamil — read page by page from rendered images) with its provisional list for CV / PMT / ET / PET.
+#     Nothing comes from coaching or news sites.
+#   - TNEA (engineering admission on Class 12 marks) has no page yet: tneaonline.org refused every automated
+#     request (HTTP 403) and no information brochure could be read. TNEA has no entrance test, so it has no
+#     negative-marking rule to document.
+#   - Section ids are the same on every exam page: overview, eligibility, scheme, fees, reservation,
+#     documents, pay, posting (+ sources, drawn automatically).
+state:
+  id: tamil-nadu
+  name: Tamil Nadu
+  checked: 2026-10-19
+
+cockpit:
+  eyebrow: "State Exam &amp; Career Cockpit · Tamil Nadu"
+  title: "Tamil Nadu Exam &amp; Career Cockpit"
+  intro:
+    - "Every major Tamil Nadu recruitment route we could verify on one screen: the Combined Civil Services Examination-IV (Group IV) of the Tamil Nadu Public Service Commission (TNPSC) — 6,574 posts in the 2026 notification — and the Common Recruitment of the Tamil Nadu Uniformed Services Recruitment Board (TNUSRB) for Grade II Police Constables, Jail Warders and Firemen. Each page is built only from the official notification, and every fact links back to that file."
+    - "Tamil is the gate in both: Group IV opens with a 150-mark Tamil eligibility-cum-scoring part that you must clear before the rest of your paper is even marked, and TNUSRB has a qualifying Tamil test. 20% of posts go to Persons Studied in Tamil Medium (PSTM), and only Tamil Nadu's own communities count as SC / ST / BC / MBC. The engineering admission route (TNEA) will be added once its brochure can be read."
+  facts:
+    - { label: "Recruitment nodes", value: "TNPSC Group IV · TNUSRB CR" }
+    - { label: "Watch", value: "Group IV exam 10 Jan 2027" }
+    - { label: "Tamil rule", value: "Tamil test + 20% PSTM" }
+    - { label: "Last checked", value: "19 Oct 2026" }
+  groups:
+    - id: civil
+      eyebrow: "Civil recruitment &amp; uniformed services"
+      heading: "Government recruitment exams"
+      intro: "Village Administrative Officer, Junior Assistant, Typist and other Group IV posts through TNPSC, and Grade II Police Constable, Jail Warder and Fireman posts through TNUSRB."
+      exams: [tnpsc-group4, tnusrb]
+  compare_note: "Fees, age limits and dates are from the latest notice of each body. They change every cycle, so always open the current notice before applying."
+  portals_note: "TNPSC notifications are on tnpsc.gov.in (applications at tnpscexams.in); TNUSRB on tnusrb.tn.gov.in. Only use these official addresses."
+  portals:
+    - { label: "Tamil Nadu Public Service Commission (TNPSC)", url: "https://www.tnpsc.gov.in/" }
+    - { label: "TNPSC online applications", url: "https://www.tnpscexams.in/" }
+    - { label: "Tamil Nadu Uniformed Services Recruitment Board (TNUSRB)", url: "https://tnusrb.tn.gov.in/" }
+
+exams:
+  # ------------------------------------------------------------------ TNPSC GROUP IV
+  - slug: tnpsc-group4
+    group: civil
+    short: "TNPSC Group IV (CCSE-IV) 2026"
+    body: "Tamil Nadu Public Service Commission"
+    card: "TNPSC's biggest recruitment: 6,574 posts — Village Administrative Officer, Junior Assistant, Bill Collector, Typist, Steno-Typist, Forest Guard and more — through one SSLC-level OMR paper on 10 January 2027. Applications close on 5 November 2026."
+    card_facts: ["6,574 posts", "Exam 10 Jan 2027", "Fee ₹100 (+ ₹150 OTR)"]
+    eyebrow: "TNPSC · Group IV Services"
+    title: "TNPSC Group IV 2026 (Notification 11/2026) — 6,574 Posts, Age, Tamil Test, Scheme, Reservation"
+    lede: "The Tamil Nadu Public Service Commission fills Group IV posts — Village Administrative Officer, Junior Assistant, Typist, Steno-Typist and others — through the Combined Civil Services Examination-IV. This page follows Notification No. 11/2026 (Advertisement No. 747) of 6 October 2026."
+    facts:
+      - { label: "Posts", value: "6,574 (tentative)", source: g4-noti }
+      - { label: "Apply by", value: "5 Nov 2026, 11:59 pm", source: g4-noti }
+      - { label: "Exam", value: "10 Jan 2027 · OMR", source: g4-noti }
+      - { label: "Tamil part", value: "40% needed to be marked", source: g4-noti }
+    official:
+      - { label: "TNPSC website", url: "https://www.tnpsc.gov.in/" }
+      - { label: "Notification 11/2026 (English)", url: "https://tnpsc.gov.in/document/english/group_english.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "6,574 posts in one exam"
+        parts:
+          - table:
+              caption: "Group IV 2026 timeline"
+              head: ["Stage", "Date"]
+              rows:
+                - ["Notification and start of applications", "6 Oct 2026"]
+                - ["Last date (online)", "5 Nov 2026, 11:59 pm"]
+                - ["Application correction window", "9 – 11 Nov 2026"]
+                - ["Written exam (9:30 am – 12:30 pm)", "10 Jan 2027"]
+            source: g4-noti
+          - list:
+              - "The 6,574 vacancies are tentative and may change before counselling; their department / unit-wise distribution will be announced later."
+              - "Among them: Village Administrative Officer 291 (Level 8); Junior Administrative Assistant in the Tamil Nadu Power Distribution Corporation 422; Typist and Steno-Typist posts in the Ministerial, Judicial and Secretariat services; Junior Assistant, Bill Collector and Tax Collector posts in many services and corporations; and Forest Guard with Driving Licence and Forest Watcher."
+              - "Applicants choose whether to be considered for the Forest Guard / Forest Watcher posts as well, or only for the other posts."
+            source: g4-noti
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "SSLC, knowledge of Tamil, age 18 (VAO 21) to 30 or more"
+        parts:
+          - table:
+              caption: "Age on 1 July 2026 — main posts"
+              head: ["Post", "Others", "SC / SC(A) / ST", "BC / BCM / MBC / DC"]
+              rows:
+                - ["Village Administrative Officer", "21 – 30", "21 – 40", "21 – 40"]
+                - ["Junior Assistant, Bill Collector, Typist, Steno-Typist (most units)", "18 – 30", "18 – 35", "18 – 32"]
+                - ["Executive Officer Grade IV", "25 – 35", "25 – 40", "25 – 37"]
+            source: g4-noti
+          - list:
+              - "Forest Guard with Driving Licence and Forest Watcher: 21 – 30 for 'Others'; persons with disabilities cannot apply for these posts."
+              - "Persons with benchmark disability: up to 40 for 'Others' (reserved categories 42–45, VAO 50); ex-servicemen up to 48 ('Others') or 53; destitute widows have their own limits. For several corporation posts reserved-category candidates have no maximum age (meaning under 60)."
+              - "Reserved-category candidates with a general qualification higher than the minimum have no maximum age for the posts marked so in the notification."
+              - "<strong>Qualification:</strong> SSLC pass (VAO: the minimum general educational qualification). Typist and Steno-Typist also need the Government Technical Examinations in typewriting / shorthand and a computer office automation certificate."
+              - "<strong>Knowledge of Tamil:</strong> SSLC / HSC / degree with Tamil as a language, or high-school study in Tamil medium, or the Second Class Language Test (Full Test) in Tamil conducted by TNPSC."
+            source: g4-noti
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme &amp; marking"
+        heading: "One 300-mark OMR paper; the Tamil part decides whether the rest is marked"
+        parts:
+          - table:
+              caption: "Single paper, SSLC standard, 3 hours, OMR"
+              head: ["Part", "Subject", "Questions", "Marks"]
+              rows:
+                - ["A", "Tamil Eligibility-cum-Scoring Test", "100", "150"]
+                - ["B", "General Studies", "75", "150 (B + C)"]
+                - ["C", "Aptitude and Mental Ability", "25", "(with B)"]
+                - ["", "Total", "200", "300"]
+            source: g4-noti
+          - list:
+              - "Parts B and C are evaluated <strong>only if you score at least 60 marks (40%) in Part A</strong>. The rank is on the total of Parts A, B and C, and the minimum qualifying mark is 90 for all communities."
+              - "Part A is set in Tamil only; Parts B and C in Tamil and English. Differently abled candidates who studied only English may take General English (SSLC) in place of Part A, with the same 40% minimum."
+              - "Shortlisting for on-screen certificate verification is 1:3 (General) and 1:2 (reserved) for VAO, Junior Assistant, Typist and Steno-Typist; 1:6 for the forest posts, which also have a physical standards test and an endurance walk (25 km for men, 16 km for women and third gender, in four hours) in Chennai."
+            source: g4-noti
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "₹100 exam fee, ₹150 one-time registration"
+        parts:
+          - table:
+              head: ["Item / candidate", "Amount"]
+              rows:
+                - ["One Time Registration (valid 5 years)", "₹150"]
+                - ["Examination fee", "₹100"]
+                - ["SC, SC(A), ST; persons with benchmark disability; destitute widows", "Full exemption"]
+                - ["BC, BCM, MBC / DC", "Three free chances"]
+                - ["Ex-servicemen", "Two free chances"]
+            source: g4-noti
+          - note: "Each application that claims a concession uses up one free chance, whatever the post; a false claim leads to rejection and a one-year debarment."
+            source: g4-noti
+      - id: reservation
+        nav: "Reservation &amp; Local Status"
+        eyebrow: "Reservation &amp; local status"
+        heading: "Tamil Nadu communities, women 30%, PSTM 20%"
+        parts:
+          - table:
+              caption: "Communal reservation"
+              head: ["Category", "Share"]
+              rows:
+                - ["Backward Classes (other than Muslims)", "26.5%"]
+                - ["Backward Class Muslims", "3.5%"]
+                - ["Most Backward Classes / Denotified Communities", "20%"]
+                - ["Scheduled Castes", "15%"]
+                - ["Scheduled Castes (Arunthathiyars)", "3%"]
+                - ["Scheduled Tribes", "1%"]
+            source: g4-noti
+          - list:
+              - "Only persons belonging to Tamil Nadu and to a community on the state's lists are treated as SC / ST / BC / MBC; others compete as General."
+              - "30% of direct-recruitment vacancies are for women, and 10% of those for destitute widows. 4% of identified posts are for persons with benchmark disabilities."
+              - "<strong>PSTM:</strong> 20% priority for Persons Studied in Tamil Medium — through Tamil medium up to the qualification prescribed (from Class 1 if a degree is required), under the PSTM Act 2010 as amended in 2026. Passing as a private candidate without attending school does not count."
+            source: g4-noti
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Community certificates must name a parent, not a spouse"
+        parts:
+          - list:
+              - "Date of birth: SSLC or HSC mark sheet of the Tamil Nadu boards; otherwise a birth certificate, transfer certificate or degree mark sheet."
+              - "SC / SC(A): community certificate from the Taluk Tahsildar; ST: from the RDO / Sub-Collector / Assistant Collector or as listed; BC / BCM / MBC / DC: from a Tahsildar or the deputy tahsildars named — all citing the father's or mother's name. A certificate citing the spouse is rejected, and certificates based only on SSLC or TC entries are not accepted."
+              - "Proof of Tamil knowledge (SSLC / HSC / degree mark sheets or the language-test pass) and PSTM proof covering every year of study."
+              - "Disability certificate (Annexure V), sports or experience certificates where claimed."
+            source: g4-noti
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "Level 8 for most posts, Level 10 for Steno-Typist"
+        parts:
+          - p: "Village Administrative Officer, Junior Assistant, Typist and most posts are at pay Level 8, and Steno-Typist Grade III mostly at Level 10; corporation posts carry their own scales, such as Level 3 (₹19,500 – 62,000) for the Junior Administrative Assistant in the power-distribution corporation."
+            source: g4-noti
+          - note: "The notification prints levels, not rupee figures, for the government posts, so no in-hand pay is shown."
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Rank, counselling, then posting"
+        parts:
+          - p: "Candidates are called to physical certificate verification and counselling in merit order — 1:3 for General and 1:1.5 for reserved categories for VAO, Junior Assistant and Steno-Typist; 1:3 and 1:2 for Typist — and choose posts by rank. Equal marks go to the older candidate, then to the earlier application number."
+            source: g4-noti
+    sources:
+      - { id: g4-noti, name: "TNPSC — Notification No. 11/2026 (Advt. No. 747), Combined Civil Services Examination-IV (Group IV Services) (6 Oct 2026)", url: "https://tnpsc.gov.in/document/english/group_english.pdf", covers: "dates, posts and vacancies, pay levels, age limits and concessions, qualifications, Tamil knowledge, scheme, evaluation rule, shortlisting ratios, fees and concessions, communal reservation, women and PSTM quotas, certificates, tie rules", checked: 2026-10-19 }
+
+  # ------------------------------------------------------------------ TNUSRB — COMMON RECRUITMENT
+  - slug: tnusrb
+    group: civil
+    short: "TNUSRB Common Recruitment 2025 — Police Constable, Jail Warder, Fireman"
+    body: "Tamil Nadu Uniformed Services Recruitment Board"
+    card: "TNUSRB's combined exam for 2,833 Grade II Police Constables, 180 Grade II Jail Warders and 631 Firemen (plus 21 ST shortfall posts). The written exam was held on 9 November 2025; 18,689 candidates were shortlisted for certificate verification and physical tests."
+    card_facts: ["3,644 + 21 posts", "Class 10 · ₹18,200 – 67,100", "Fee ₹250"]
+    eyebrow: "TNUSRB · Common Recruitment"
+    title: "TNUSRB Common Recruitment 2025 — Grade II Police Constable, Jail Warder, Fireman: Age, Tamil Test, PMT, Scheme"
+    lede: "The Tamil Nadu Uniformed Services Recruitment Board recruits Grade II Police Constables, Grade II Jail Warders and Firemen through one Common Recruitment. This page follows Notification No. 02/2025 (21 August 2025, in Tamil) and the Board's provisional list for certificate verification and physical tests."
+    facts:
+      - { label: "Posts", value: "3,644 + 21 ST shortfall", source: cr-noti }
+      - { label: "Status", value: "18,689 called for CV / PMT / ET / PET", source: cr-cv }
+      - { label: "Age (1 Jul 2025)", value: "18 – 26 (OC)", source: cr-noti }
+      - { label: "Merit", value: "100 marks (written 70)", source: cr-noti }
+    official:
+      - { label: "TNUSRB website", url: "https://tnusrb.tn.gov.in/" }
+      - { label: "Common Recruitment page", url: "https://tnusrb.tn.gov.in/commonrecruitment-tnusrb.php" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "Three uniformed posts in one recruitment"
+        parts:
+          - table:
+              caption: "Posts in Common Recruitment 2025"
+              head: ["Department", "Post", "Men", "Women", "Total"]
+              rows:
+                - ["Police", "Grade II Police Constable", "2,833 (common)", "", "2,833"]
+                - ["Prisons &amp; Correctional Services", "Grade II Jail Warder", "142", "38", "180"]
+                - ["Fire &amp; Rescue Services", "Fireman", "631", "—", "631"]
+                - ["Police (ST shortfall)", "Grade II Police Constable", "", "", "21"]
+            source: cr-noti
+          - table:
+              caption: "Timeline"
+              head: ["Stage", "Date"]
+              rows:
+                - ["Notification", "21 Aug 2025"]
+                - ["Online applications", "22 Aug – 21 Sep 2025"]
+                - ["Correction of applications", "Till 25 Sep 2025"]
+                - ["Written exam", "9 Nov 2025"]
+            source: cr-noti
+          - p: "The Board has published a provisional list of 18,689 candidates (including 649 tied at the cut-off) for certificate verification, physical measurement, endurance and physical efficiency tests, drawn at five times the vacancies under the rule of reservation. Certificate verification had not yet been held when the list was made."
+            source: cr-cv
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age limits"
+        heading: "Class 10 pass; age 18 to 26 for OC"
+        parts:
+          - table:
+              caption: "Age on 1 July 2025 (minimum 18)"
+              head: ["Category", "Maximum age"]
+              rows:
+                - ["General (OC)", "26"]
+                - ["BC, BC (Muslim), MBC / DNC", "28"]
+                - ["SC, SC (Arunthathiyar), ST", "31"]
+                - ["Transgender", "31"]
+                - ["Destitute widow", "37"]
+                - ["Ex-servicemen / ex-CAPF personnel", "47"]
+            source: cr-noti
+          - list:
+              - "<strong>Qualification:</strong> at least a pass in Class 10 or equivalent."
+              - "Women may opt only for Police Constable and Jail Warder (Fireman is not open to women); transgender candidates only for Police Constable."
+            source: cr-noti
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme &amp; marking"
+        heading: "A qualifying Tamil test, a 70-mark written exam, physical tests and special marks"
+        parts:
+          - table:
+              caption: "Stages and marks"
+              head: ["Stage", "Marks", "Nature"]
+              rows:
+                - ["Tamil language eligibility test — 80 Q, 80 min", "80", "Qualifying: 32 marks (40%); not counted"]
+                - ["Main written exam — GK 45 + Psychology 25, 80 min", "70", "Minimum 25 marks (35%)"]
+                - ["Certificate verification", "—", "—"]
+                - ["Physical measurement test", "—", "Qualifying"]
+                - ["Endurance test", "—", "Qualifying"]
+                - ["Physical efficiency tests", "24", "Counted"]
+                - ["Special marks — NCC 2, NSS 2, sports 2", "6", "Counted"]
+            source: cr-noti
+          - list:
+              - "The main written paper is marked only for those who pass the Tamil test. Candidates are called to the next stages at 1:5 by category."
+              - "<strong>PMT:</strong> height 170 cm for men and 159 cm for women (SC / SC(A) / ST: 167 cm and 157 cm); men's chest 81 cm with 5 cm expansion. Ex-servicemen and ex-CAPF candidates are exempt from PMT. <strong>Endurance:</strong> men run 1,500 m in 7 minutes."
+            source: cr-noti
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "₹250, online only"
+        parts:
+          - p: "The examination fee is ₹250, paid online by net banking, credit / debit card (RuPay) or UPI."
+            source: cr-noti
+      - id: reservation
+        nav: "Reservation &amp; Local Status"
+        eyebrow: "Reservation &amp; local status"
+        heading: "Communal reservation plus special quotas"
+        parts:
+          - table:
+              caption: "Communal reservation"
+              head: ["Category", "Share"]
+              rows:
+                - ["General (OC)", "31%"]
+                - ["BC", "26.5%"]
+                - ["BC (Muslim)", "3.5%"]
+                - ["MBC / DNC", "20%"]
+                - ["SC", "15%"]
+                - ["SC (Arunthathiyar)", "3%"]
+                - ["ST", "1%"]
+            source: cr-noti
+          - table:
+              caption: "Special quotas"
+              head: ["Quota", "Police Constable", "Jail Warder", "Fireman"]
+              rows:
+                - ["Wards-cum-dependants", "10% (9+1)", "10% (9+1)", "10% (9+1)"]
+                - ["Sportspersons", "7%", "10%", "10%"]
+                - ["Meritorious sportspersons (through SDAT)", "3%", "—", "—"]
+                - ["Ex-servicemen", "5%", "5%", "5%"]
+                - ["Destitute widows", "3%", "3%", "—"]
+                - ["Persons Studied in Tamil Medium (priority)", "20%", "20%", "20%"]
+            source: cr-noti
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Only certificates uploaded online are accepted"
+        parts:
+          - list:
+              - "At certificate verification you must show the originals of every certificate uploaded online; no new certificate is accepted then."
+              - "Failing to produce a certificate costs you the claim it supports — qualification, age relaxation, communal reservation, priority, special quota or special marks."
+              - "Height and chest certificates from hospitals or other agencies are not accepted; measurement is done only by the Board."
+            source: cr-noti
+      - id: pay
+        nav: "Pay &amp; Salary"
+        eyebrow: "Salary"
+        heading: "₹18,200 – 67,100"
+        parts:
+          - p: "All three posts are in the pay scale ₹18,200 – 67,100."
+            source: cr-noti
+      - id: posting
+        nav: "Job &amp; Posting"
+        eyebrow: "Job profile &amp; posting"
+        heading: "Post preference decides where you land"
+        parts:
+          - p: "Applicants list one or more posts in order of preference in the online form; if they qualify for more than one, they are selected for the higher preference only, and preference cannot be changed later. Wards-cum-dependants are considered only under their parent's department. Police Constables are posted as laid down in G.O. (Ms) No. 388 Home (Police-IX) of 4 August 2025."
+            source: cr-noti
+    sources:
+      - { id: cr-noti, name: "TNUSRB — Notification No. 02/2025, Common Recruitment 2025 for Grade II Police Constable, Grade II Jail Warder and Fireman (21 Aug 2025, Tamil)", url: "https://tnusrb.tn.gov.in/pdfs/Notification_CR_2025.pdf", covers: "dates, vacancies, special quotas, pay, qualification, age, communal reservation, women and transgender rules, post preference, exam stages and marks, Tamil test, PMT, endurance test, fee, certificate rules", checked: 2026-10-19 }
+      - { id: cr-cv, name: "TNUSRB — Provisional list of candidates eligible for CV, PMT, ET and PET, Common Recruitment 2025", url: "https://tnusrb.tn.gov.in/pdfs/CR2025_Candidates_Eligible_for_CV-PMT-ET-PET_en.pdf", covers: "1:5 shortlisting, 18,689 candidates including 649 tied", checked: 2026-10-19 }

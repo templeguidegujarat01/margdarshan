@@ -1,31 +1,18 @@
 /* Margdarshan — shared stylesheet. Edit this file once; every page updates automatically. */
 
-/* ===================== FONT FALLBACKS (no layout shift when web fonts arrive) =====================
-   The Google fonts load without blocking (display=swap), so text first paints in a system font and
-   then re-flows when Fraunces/Hind arrive. On a 390px phone that moved the hero by CLS 0.17.
-   These faces make the system font take up the same width as the web font, so lines wrap the same
-   before and after. size-adjust = measured width of real page text (headings / paragraphs from
-   llb, bcom, ca, mbbs, index and USA law) in the web font divided by the same text in the fallback,
-   measured in Edge on 2026-10-08. ascent/descent = the web font hhea metrics divided by size-adjust.
-   Georgia / Arial / Courier New: Windows, macOS, iOS. Roboto / Noto Serif: Android. A local() that is
-   not installed is skipped and the next family in the stack is tried. Re-measure if the fonts change. */
-@font-face{font-family:"Fraunces Fallback";src:local("Georgia");font-weight:100 549;size-adjust:106.45%;ascent-override:91.87%;descent-override:23.95%;line-gap-override:0%;}
-@font-face{font-family:"Fraunces Fallback";src:local("Georgia Bold"),local("Georgia-Bold");font-weight:550 649;size-adjust:91.81%;ascent-override:106.52%;descent-override:27.77%;line-gap-override:0%;}
-@font-face{font-family:"Fraunces Fallback";src:local("Georgia Bold"),local("Georgia-Bold");font-weight:650 900;size-adjust:94.73%;ascent-override:103.24%;descent-override:26.92%;line-gap-override:0%;}
-@font-face{font-family:"Fraunces Fallback Android";src:local("Noto Serif Bold"),local("NotoSerif-Bold");font-weight:550 900;size-adjust:95.78%;ascent-override:102.11%;descent-override:26.62%;line-gap-override:0%;}
-@font-face{font-family:"Hind Fallback";src:local("Arial"),local("ArialMT");font-weight:100 549;size-adjust:95.52%;ascent-override:110.45%;descent-override:57.16%;line-gap-override:0%;}
-@font-face{font-family:"Hind Fallback";src:local("Arial Bold"),local("Arial-BoldMT");font-weight:550 900;size-adjust:92.23%;ascent-override:114.39%;descent-override:59.20%;line-gap-override:0%;}
-@font-face{font-family:"Hind Fallback Android";src:local("Roboto"),local("Roboto-Regular");font-weight:100 549;size-adjust:96.14%;ascent-override:109.74%;descent-override:56.79%;line-gap-override:0%;}
-@font-face{font-family:"Hind Fallback Android";src:local("Roboto Bold"),local("Roboto-Bold");font-weight:550 900;size-adjust:98.16%;ascent-override:107.48%;descent-override:55.62%;line-gap-override:0%;}
-/* JetBrains Mono and Courier New are both 0.6em per character, so only the vertical metrics differ. */
-@font-face{font-family:"JetBrains Mono Fallback";src:local("Courier New"),local("CourierNewPSMT");font-weight:100 549;size-adjust:100%;ascent-override:102%;descent-override:30%;line-gap-override:0%;}
-@font-face{font-family:"JetBrains Mono Fallback";src:local("Courier New Bold"),local("CourierNewPS-BoldMT");font-weight:550 900;size-adjust:100%;ascent-override:102%;descent-override:30%;line-gap-override:0%;}
+/* ===================== TYPE: SYSTEM STACK =====================
+   No web fonts. Pages use the fonts already on the device (San Francisco on Apple, Segoe UI on Windows,
+   Roboto on Android), so nothing downloads, text paints once in its final font and there is no
+   font-swap layout shift. Sans is used everywhere (body, nav, tables, dashboards, stats); only page and
+   section titles (h1, h2) use the serif stack. --font-body / --font-display stay as aliases for old rules. */
 
 /* ===================== TOKENS ===================== */
 :root{
-  --font-display:'Fraunces',"Fraunces Fallback","Fraunces Fallback Android",Georgia,serif;
-  --font-body:'Hind',"Hind Fallback","Hind Fallback Android",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-  --font-mono:'JetBrains Mono',"JetBrains Mono Fallback",ui-monospace,Menlo,monospace;
+  --font-sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --font-serif:Georgia,Cambria,"Times New Roman",Times,serif;
+  --font-mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Monaco,Consolas,monospace;
+  --font-body:var(--font-sans);
+  --font-display:var(--font-sans);
 
   --ink:#0F2A3D;
   --ink-soft:#16394F;
@@ -130,6 +117,7 @@ img,svg{display:block;max-width:100%;}
 a{color:inherit;text-decoration:none;}
 ul{margin:0;padding:0;list-style:none;}
 h1,h2,h3,h4{font-family:var(--font-display);font-weight:600;line-height:1.15;margin:0;color:var(--text);}
+h1,h2{font-family:var(--font-serif);}
 p{margin:0;}
 button{font-family:inherit;}
 :focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:4px;}
@@ -2092,10 +2080,10 @@ html[data-region="uk"] .sb-group[data-region-nav]:not([data-region-nav="uk"]){di
   /* Type scale (7 steps) */
   --fs-display:clamp(2rem,1.45rem + 2.4vw,2.75rem);
   --fs-h2:clamp(1.5rem,1.25rem + 1.1vw,2rem);
-  --fs-h3:1.1875rem;
-  --fs-body:1.0625rem;
-  --fs-small:.9375rem;
-  --fs-label:.8125rem;
+  --fs-h3:1.125rem;
+  --fs-body:1rem;
+  --fs-small:.875rem;
+  --fs-label:.78125rem;
   --fs-stat:clamp(1.5rem,1.25rem + 1vw,1.875rem);
   /* Spacing scale (4-based) and section rhythm */
   --sp-1:.25rem;--sp-2:.5rem;--sp-3:.75rem;--sp-4:1rem;--sp-5:1.5rem;--sp-6:2rem;--sp-7:3rem;--sp-8:4rem;
@@ -2871,9 +2859,14 @@ p,li,dd,figcaption{text-wrap:pretty;}
 :is(main,.page-nav-content) > section.mb:last-child{padding-bottom:clamp(2.5rem,2rem + 2vw,4rem);}
 :is(main,.page-nav-content) > section.mb > .container{
   width:calc(100% - 2.5rem);max-width:calc(var(--container) - 2.5rem);
-  border:1px solid var(--border-color);background:var(--card-bg);
-  padding:clamp(1.15rem,.6rem + 2.4vw,2rem);
+  border:1px solid var(--border-color);background:var(--card-bg);box-shadow:none;
+  padding:20px;
 }
+@media (min-width:900px){:is(main,.page-nav-content) > section.mb > .container{padding:28px;}}
+/* Dashboard-widget density: compact table cells and tighter heading-to-content gaps inside cards. */
+:is(main,.page-nav-content) > section.mb :is(.table-simple,.md-table,.cmp-table,.md-cmp) :is(th,td){padding:8px 12px;font-size:var(--fs-small);line-height:1.45;}
+:is(main,.page-nav-content) > section.mb .section-head{margin-bottom:1rem;}
+:is(main,.page-nav-content) > section.mb .container > :is(p,ul,ol){margin-bottom:.75rem;}
 :is(main,.page-nav-content) > section.mb > .container > :last-child{margin-bottom:0;}
 @media (max-width:599.98px){:is(main,.page-nav-content) > section.mb > .container{width:calc(100% - 2rem);}}
 :is(main,.page-nav-content) > section.mb:nth-of-type(odd) > .container{border-radius:0 !important;}

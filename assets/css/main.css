@@ -3379,3 +3379,42 @@ html.js #sources:not(.is-open) :is(.cite-list,.us-sources) > li:nth-child(n+4),
 html.js #sources:not(.is-open) .section-head > :not(.eyebrow):not(h2),
 html.js #sources:not(.is-open) :is(.cite-md,.cite-report){display:none;}
 @media (prefers-reduced-motion:reduce){html.js #sources .src-more,html.js #sources .src-more::after{transition:none;}}
+
+/* ===================== USA HOME ROUTES (us/index.html, _data/us/home.yml, 2026-10-20) =====================
+   .usv-grid   five route cards under the hero (anchor links to the five sections); 1 col → 2 → 5.
+   .usv-facts  short dt/dd fact rows under each route's .cflow rail.
+   .usv-boards licensing-board cards (CPA, PE, RN); .usv-split two cards side by side (federal | state & local).
+   Colours are theme tokens only, so light and dark both work; the sections carry data-no-points, so site.js
+   Block 0 does not rewrite their text after load (no layout shift). Hover only paints, never resizes. */
+.usv-routes{padding-top:1.5rem;padding-bottom:1.5rem;}
+.usv-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:minmax(0,1fr);gap:.6rem;counter-reset:none;}
+.usv-card{display:grid;grid-template-columns:2.4rem minmax(0,1fr);column-gap:.7rem;align-items:start;align-content:start;height:100%;padding:.8rem .9rem;border:1px solid var(--line);border-radius:var(--radius-md);background:var(--surface);color:var(--text);text-decoration:none;transition:border-color .18s var(--ease),box-shadow .18s var(--ease);}
+.usv-card:hover,.usv-card:focus-visible{border-color:var(--gold);box-shadow:var(--shadow-md);}
+.usv-n{grid-row:span 2;display:grid;place-items:center;width:2.4rem;height:2.4rem;border-radius:10px;background:var(--k-start);color:var(--k-on);font-family:var(--font-mono);font-size:.82rem;font-weight:700;}
+.usv-card strong{font-size:.95rem;line-height:1.3;}
+.usv-card span:last-child{font-size:.82rem;line-height:1.4;color:var(--text-muted);}
+@media (min-width:600px){.usv-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media (min-width:1100px){
+  .usv-grid{grid-template-columns:repeat(5,minmax(0,1fr));}
+  .usv-card{grid-template-columns:1fr;row-gap:.45rem;}
+  .usv-n{grid-row:auto;}
+}
+.usv-facts{display:grid;gap:0;margin:1.2rem 0 0;border:1px solid var(--line);border-radius:var(--radius-md);background:var(--surface);overflow:hidden;}
+.usv-facts > div{display:grid;grid-template-columns:minmax(0,1fr);gap:.2rem;padding:.75rem 1rem;border-top:1px solid var(--line);}
+.usv-facts > div:first-child{border-top:0;}
+.usv-facts dt{font-family:var(--font-mono);font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);}
+.usv-facts dd{margin:0;font-size:.9rem;line-height:1.55;color:var(--text);}
+@media (min-width:700px){.usv-facts > div{grid-template-columns:11rem minmax(0,1fr);gap:1rem;}}
+.usv-boards,.usv-split{display:grid;grid-template-columns:minmax(0,1fr);gap:.9rem;}
+@media (min-width:760px){.usv-split{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media (min-width:900px){.usv-boards{grid-template-columns:repeat(3,minmax(0,1fr));}}
+.usv-board{display:flex;flex-direction:column;gap:.7rem;min-width:0;padding:1rem 1.1rem;border:1px solid var(--line);border-top:3px solid var(--k-licence);border-radius:var(--radius-md);background:var(--surface);}
+.usv-split .usv-board{border-top-color:var(--k-start);}
+.usv-board h3{margin:0;font-size:1.02rem;line-height:1.3;}
+.usv-board p{margin:0;font-size:.9rem;line-height:1.55;color:var(--text-muted);}
+.usv-board dl{display:grid;gap:.55rem;margin:0;}
+.usv-board dt{font-family:var(--font-mono);font-size:.66rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);}
+.usv-board dd{margin:.1rem 0 0;font-size:.88rem;line-height:1.5;color:var(--text);}
+.usv-board .btn{align-self:flex-start;margin-top:auto;}
+.usv-flag{padding:.55rem .7rem;border-left:3px solid var(--gold);border-radius:6px;background:rgba(var(--hl-rgb),.06);}
+@media (prefers-reduced-motion:reduce){.usv-card{transition:none;}}

@@ -1,0 +1,88 @@
+# USA Edition home (us/index.html) — the five routes ("vectors") and the facts only the home shows.
+# High school, degrees, tests and licences come from degrees.yml / guides.yml / tests.yml / licenses.yml;
+# this file holds the trade (CTE) and public-sector facts. Same rules as every _data/us file: each
+# record has a source id from sources.yml, values are copied from the source (never computed), and
+# pay/outlook use the BLS vintage in sources.yml (bls_vintage). Checked by scripts/check-us-data.mjs.
+
+# The five routes, in page order. id = section anchor on us/index.html (search.yml links to us/#<id>).
+vectors:
+  - { id: k12, n: "01", title: "K-12 & high school planning", line: "Grades 9–12, credits, GPA and the SAT/ACT" }
+  - { id: college, n: "02", title: "Colleges & universities", line: "Bachelor's, graduate school, medical and law school" }
+  - { id: cte, n: "03", title: "Career & technical education", line: "Community college and the skilled trades" }
+  - { id: licensure, n: "04", title: "State licensing boards", line: "CPA, Professional Engineer, Registered Nurse" }
+  - { id: public-sector, n: "05", title: "Federal & state civil service", line: "USAJOBS, police, fire and state exams" }
+
+# Skilled trades. "license" is BLS's own wording; welders and machinists are NOT mainly licensed trades.
+trades:
+  - name: "Electrician"
+    entry: "High school diploma or equivalent"
+    training: "Usually a 4- or 5-year apprenticeship"
+    license: "Most states require electricians to pass a test and be licensed."
+    pay: 63190
+    outlook: 9
+    source: ooh_electricians
+  - name: "Plumber, pipefitter, steamfitter"
+    entry: "High school diploma or equivalent"
+    training: "Usually a 4- or 5-year apprenticeship"
+    license: "Most states and some localities require plumbers to be licensed."
+    pay: 63800
+    outlook: 7
+    source: ooh_plumbers
+  - name: "HVAC technician"
+    entry: "Postsecondary nondegree award (certificate)"
+    training: "Long on-the-job training after hire"
+    license: "Some states and localities require a license; the EPA requires nearly all HVAC technicians to be certified in refrigerant handling."
+    pay: 61010
+    outlook: 11
+    source: ooh_hvac
+  - name: "Welder"
+    entry: "High school diploma plus technical and on-the-job training"
+    training: "Technical school courses and on-the-job training"
+    license: "Licensed only in some states and localities; professional bodies offer general certification."
+    pay: 53750
+    outlook: 2
+    source: ooh_welders
+  - name: "Machinist (precision machining)"
+    entry: "High school diploma or equivalent"
+    training: "On-the-job training or an apprenticeship"
+    license: "No license; optional certification (for example CNC operation, CAD/CAM) shows competency."
+    pay: 59620
+    pay_note: "machinists and tool and die makers together"
+    outlook: -1
+    source: ooh_machinists
+trades_note: "\"Licensed trade\" is not one national rule: each state, and sometimes each city or county, decides which trades need a license and how to get one."
+
+public_sector:
+  federal:
+    portal: "USAJOBS"
+    url: "https://www.usajobs.gov/"
+    summary: "The federal government's official employment site, run by the U.S. Office of Personnel Management (OPM). You create a profile with an email address and apply to agency job announcements there."
+    source: usajobs_about
+    facts:
+      - { label: "Competitive service", text: "Most executive-branch civil service jobs. When agencies hire from outside their own workforce for jobs lasting more than 120 days, the law requires them to post the vacancy with OPM.", source: opm_fed_overview }
+      - { label: "Excepted service", text: "Jobs excepted from the competitive hiring rules. Some agencies post these on USAJOBS voluntarily; others recruit on their own websites.", source: opm_fed_overview }
+  state_local:
+    summary: "Federal rules stop at federal agencies. Each state, county and city runs its own hiring system, often with its own civil service exams, so check the government you want to work for."
+    example: "Example: New York State fills jobs by \"merit and fitness\" under its constitution, through civil service exams and eligible lists, plus non-competitive roles."
+    source: nys_civil_service
+  jobs:
+    - name: "Police officer"
+      entry: "High school diploma to a college degree, depending on the agency"
+      steps: "Written exams and physical tests (vision, hearing, strength, agility), then the agency's training academy"
+      rules: "Usually at least 21; most states and local jurisdictions require U.S. citizenship"
+      pay: 77310
+      pay_title: "police and detectives"
+      outlook: 3
+      source: ooh_police
+    - name: "Firefighter"
+      entry: "High school diploma or equivalent"
+      steps: "Written and physical tests and interviews, then fire academy training"
+      rules: "Departments may also require EMT certification"
+      pay: 59280
+      outlook: 4
+      source: ooh_firefighters
+
+# Corrections to common claims, shown on the home so students are not misled.
+corrections:
+  cpa_150: "The 150-hour rule is no longer the only CPA route: the 2025 NASBA/AICPA model also allows a 120-hour bachelor's plus 2 years of experience, in states whose law has adopted it."
+last_verified: 2026-10-20

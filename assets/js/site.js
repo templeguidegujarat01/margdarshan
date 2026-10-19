@@ -372,7 +372,7 @@ try {
        ed  edition (0 India, 1 USA, 2 UK) from the category;  st  state number from the url
        (state/<s>/, colleges/<s>/, coaching/<s>/) or a state name in the title;  f  a bitmask of facets
        (exam, college, coaching, license, govt, class 10, class 12, medical, law, engineering, commerce, arts,
-       technology, roadmap) read from the category, url and words.
+       technology, roadmap, high school / K-12, trades & CTE) read from the category, url and words.
      A query is parsed into the same attributes: edition and state words are HARD filters (only matching pages
      stay), facet words ("government", "exam", "class 10", "licensing") are SOFT (each match adds rank; with no
      other words at least one must match), small words ("path", "for", "how") are ignored, and every other
@@ -382,10 +382,11 @@ try {
      are created per entry, so typing stays smooth on low-end phones. */
   var MdSearch = (function(){
     var F = { exam: 1, college: 2, coaching: 4, license: 8, govt: 16, c10: 32, c12: 64, medical: 128, law: 256,
-              eng: 512, commerce: 1024, arts: 2048, tech: 4096, roadmap: 8192 };
+              eng: 512, commerce: 1024, arts: 2048, tech: 4096, roadmap: 8192, hs: 16384, trade: 32768 };
     var F_LABEL = [[F.c10, 'Class 10'], [F.c12, 'Class 12'], [F.govt, 'Govt'], [F.exam, 'Exam'], [F.college, 'College'],
                    [F.coaching, 'Coaching'], [F.license, 'Licensing'], [F.medical, 'Medical'], [F.law, 'Law'],
-                   [F.eng, 'Engineering'], [F.commerce, 'Commerce'], [F.arts, 'Arts & design'], [F.tech, 'Technology'], [F.roadmap, 'Roadmap']];
+                   [F.eng, 'Engineering'], [F.commerce, 'Commerce'], [F.arts, 'Arts & design'], [F.tech, 'Technology'], [F.roadmap, 'Roadmap'],
+                   [F.hs, 'High school'], [F.trade, 'Trades & CTE']];
     var ED_LABEL = ['India', 'USA', 'UK'];
     var CAT_ED = { usa: 1, uk: 2 };
     var CAT_F = { exams: F.exam, govt: F.govt | F.exam, colleges: F.college, coaching: F.coaching, medical: F.medical,
@@ -396,7 +397,7 @@ try {
       [F.college, /\b(college|colleges|university|universities)\b/],
       [F.coaching, /\b(coaching)\b/],
       [F.license, /\b(licen[cs]e\w*|licensing|certification|bar admission|admitted|practising certificate)\b/],
-      [F.govt, /\b(govt|government|sarkari|psc|upsc|ssc|sssb|dsssb|police|constable|railway|railways|defence|army|navy|clerk|talathi|patwari|ias|ips)\b/],
+      [F.govt, /\b(govt|government|sarkari|psc|upsc|ssc|sssb|dsssb|police|constable|railway|railways|defence|army|navy|clerk|talathi|patwari|ias|ips|usajobs|federal|civil service|firefighter|firefighting|law enforcement)\b/],
       [F.c10, /\b(class 10|10th|matric|matriculation|sslc|after 10th|10 pass)\b/],
       [F.c12, /\b(class 12|12th|after 12th|hsc|intermediate|puc|12 pass)\b/],
       [F.medical, /\b(medical|medicine|mbbs|neet|doctor|physician|nursing|pharmacy|dental|dentistry|usmle|ecfmg|bams|bhms|physiotherapy|paramedical)\b/],
@@ -405,7 +406,9 @@ try {
       [F.commerce, /\b(commerce|accounting|accountant|accountancy|cpa|acca|aca|icai|finance|bcom|b com|cma|banking)\b/],
       [F.arts, /\b(arts|design|humanities|fashion|fine arts)\b/],
       [F.tech, /\b(computer|software|data|cyber|cybersecurity|bca|mca)\b/],
-      [F.roadmap, /\b(roadmap)\b/]
+      [F.roadmap, /\b(roadmap)\b/],
+      [F.hs, /\b(high school|k 12|gpa|freshman|sophomore|psat|grades 9 12)\b/],
+      [F.trade, /\b(trade|trades|vocational|cte|apprentice|apprenticeship|electrician|plumber|plumbing|hvac|welder|welding|machinist|community college|iti)\b/]
     ];
     // Query words: edition (hard), facet (soft), ignored.
     var Q_ED = { us: 1, usa: 1, america: 1, american: 1, uk: 2, britain: 2, british: 2, england: 2 };
@@ -419,12 +422,16 @@ try {
                 engineering: F.eng, engineer: F.eng,
                 commerce: F.commerce, accounting: F.commerce, accountancy: F.commerce, finance: F.commerce,
                 arts: F.arts, design: F.arts, technology: F.tech, roadmap: F.roadmap,
+                usajobs: F.govt, federal: F.govt, firefighter: F.govt,
+                trade: F.trade, trades: F.trade, vocational: F.trade, cte: F.trade, apprenticeship: F.trade, apprenticeships: F.trade,
+                '~hs': F.hs,
                 '~c10': F.c10, '~c12': F.c12 };
     var Q_STOP = { a: 1, an: 1, the: 1, of: 1, for: 1, in: 1, to: 1, and: 1, or: 1, after: 1, how: 1, what: 1, is: 1, my: 1, me: 1,
                    with: 1, become: 1, becoming: 1, path: 1, paths: 1, pathway: 1, pathways: 1, route: 1, routes: 1, career: 1, careers: 1,
                    job: 1, jobs: 1, guide: 1, best: 1, top: 1, list: 1, india: 1, indian: 1 };
     var Q_PHRASE = [[/\b(class|std|standard) ?(10|x)\b|\b10th\b|\btenth\b|\bmatric\b|\bsslc\b/g, ' ~c10 '],
                     [/\b(class|std|standard) ?(12|xii)\b|\b12th\b|\btwelfth\b/g, ' ~c12 '],
+                    [/\bhigh school\b|\bk ?12\b/g, ' ~hs '],
                     [/\bunited states( of america)?\b/g, ' us '], [/\bunited kingdom\b|\bgreat britain\b/g, ' uk ']];
 
     // "B.Com (Hons)" -> "b com hons"; dots dropped so "bcom" also matches.

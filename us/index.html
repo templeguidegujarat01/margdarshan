@@ -1,13 +1,22 @@
 ---
-title: "Education Margdarshan USA — Career Guidance for U.S. High School and College Students"
-description: "Free, source-backed career guidance for U.S. students: grades 9–12, SAT, ACT and AP, associate to doctoral degrees, licensed professions and 20 career pathways with BLS pay and job outlook."
+title: "Education Margdarshan USA — High School, College, Trades, Licensing and Civil Service"
+description: "Free, source-backed U.S. career guide in five routes: grades 9–12, college and professional school, community college and skilled trades, state licensing boards (CPA, PE, RN) and federal or state civil service."
 og_type: "website"
-og_title: "Education Margdarshan USA — High School, College and Career, Explained"
-og_description: "How U.S. high school, tests, degrees and professional licenses fit together, with BLS pay and job outlook for 20 career pathways."
+og_title: "Education Margdarshan USA — Five Routes from High School to a Career"
+og_description: "High school planning, college and professional school, trades, state licenses and public-sector jobs in the U.S., with BLS pay and every fact linked to its source."
 ---
+{%- comment -%} USA home = a router over five routes (_data/us/home.yml vectors). Each route is one section with a
+.cflow rail and a short fact block, built only from _data/us files; deep detail lives on the linked pages.
+Sections carry data-no-points so site.js Block 0 leaves the rendered text as it is (no reflow after load). {%- endcomment -%}
 {%- assign US = site.data.us -%}
+{%- assign H = US.home -%}
 {%- assign V = US.sources.bls_vintage -%}
 {%- assign SRC = US.sources.list -%}
+{%- assign L = US.degrees.levels -%}
+{%- assign T = US.tests -%}
+{%- assign P89 = T.high_school['psat-8-9'] -%}
+{%- assign P10 = T.high_school['psat-10'] -%}
+{%- assign PN = T.high_school['psat-nmsqt'] -%}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -21,7 +30,7 @@ og_description: "How U.S. high school, tests, degrees and professional licenses 
 </script>
 <main id="main" data-no-page-nav>
 
-  <!-- ===================== HERO ===================== -->
+  <!-- ===================== HERO + FIVE ROUTES ===================== -->
   <section class="hero" aria-labelledby="hero-heading">
     <svg class="hero-bg" viewBox="0 0 1200 500" preserveAspectRatio="none" aria-hidden="true">
       <path d="M-50 420 C 200 380, 300 460, 480 380 S 760 260, 950 320 1150 200 1300 250" stroke="#E8A33D" stroke-width="1.4" fill="none" opacity=".35"/>
@@ -30,11 +39,8 @@ og_description: "How U.S. high school, tests, degrees and professional licenses 
     <div class="container hero-inner">
       <div>
         <span class="eyebrow">USA Edition · Beta</span>
-        <h1 id="hero-heading">Plan your path through high school, college and career.</h1>
-        <p class="hero-sub">How grades 9–12, tests, degrees and professional licenses fit together in the U.S., with pay and job outlook from the Bureau of Labor Statistics and every figure linked to its source.</p>
-        <div class="hero-ctas">
-          <a href="#careers" class="btn btn-primary btn-inpage-jump btn-hub-jump">Explore career pathways</a>
-        </div>
+        <h1 id="hero-heading">Five routes from high school to a U.S. career.</h1>
+        <p class="hero-sub">Pick the route you are on. Each one shows the steps in order, who sets the rules, and links to the official source behind every fact.</p>
         <div class="trust-strip">
           <span class="trust-chip"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Official sources only</span>
           <span class="trust-chip"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>BLS pay ({{ V.wage_ref }}) &amp; outlook ({{ V.projection_period }})</span>
@@ -44,181 +50,238 @@ og_description: "How U.S. high school, tests, degrees and professional licenses 
     </div>
   </section>
 
-  <!-- ===================== EDUCATION LADDER ===================== -->
-  <section class="block" id="ladder" aria-labelledby="ladder-heading">
+  <nav class="block usv-routes" aria-label="Five U.S. routes" data-no-points>
+    <div class="container">
+      <ol class="usv-grid">
+        {%- for v in H.vectors %}
+        <li><a class="usv-card" href="#{{ v.id }}"><span class="usv-n">{{ v.n }}</span><strong>{{ v.title }}</strong><span>{{ v.line }}</span></a></li>
+        {%- endfor %}
+      </ol>
+    </div>
+  </nav>
+
+  <!-- ===================== 01 · K-12 ===================== -->
+  {%- assign hs = US.degrees.high_school %}
+  <section class="block block-alt usv-sec" id="k12" aria-labelledby="k12-heading" data-no-points>
     <div class="container">
       <div class="section-head reveal">
-        <span class="eyebrow">How it works</span>
-        <h2 id="ladder-heading">The U.S. education ladder</h2>
-        <p>There is no national exam at the end of grade 10 or grade 12. Students finish high school, then choose a college route that fits the career they want — and some careers add a professional school and a state license on top.</p>
+        <span class="eyebrow">Route 01 · K-12</span>
+        <h2 id="k12-heading">High school planning, grades 9–12</h2>
+        <p>There is no national exam at the end of grade 10 or 12. You earn course credits toward a {{ hs.credential | downcase }}, build a GPA, and take admission tests only if the colleges on your list use them.</p>
       </div>
-      {%- assign L = US.degrees.levels %}
-      <div class="cflow-wrap reveal" data-no-points>
+      <div class="cflow-wrap reveal">
+        <ol class="cflow" style="--n:4">
+          <li class="cflow-node" data-kind="start">
+            <span class="cflow-dot" aria-hidden="true">9</span>
+            <div class="cflow-card"><span class="cflow-kind">Freshman · grade 9</span><h3>Credits start counting</h3><p>Courses earn the credits your state and district require to graduate. {{ P89.name }} is offered in grades {{ P89.grades }}.</p></div>
+          </li>
+          <li class="cflow-node" data-kind="stage">
+            <span class="cflow-dot" aria-hidden="true">10</span>
+            <div class="cflow-card"><span class="cflow-kind">Sophomore · grade 10</span><h3>Course rigor</h3><p>Honors, AP, IB or dual-enrollment classes, where offered. {{ P10.name }} in grade {{ P10.grades }}.</p></div>
+          </li>
+          <li class="cflow-node" data-kind="exam">
+            <span class="cflow-dot" aria-hidden="true">11</span>
+            <div class="cflow-card"><span class="cflow-kind">Junior · grade 11</span><h3>Tests, if needed</h3><p>{{ PN.name }} (grade {{ PN.grades }}); {{ T.high_school.sat.name }} and {{ T.high_school.act.name }} usually in grades 11–12.</p></div>
+          </li>
+          <li class="cflow-node" data-kind="goal">
+            <span class="cflow-dot" aria-hidden="true">12</span>
+            <div class="cflow-card"><span class="cflow-kind">Senior · grade 12</span><h3>Apply, then graduate</h3><p>{{ US.guides.admissions.plans_timing }}</p></div>
+          </li>
+        </ol>
+      </div>
+      <dl class="usv-facts reveal">
+        <div><dt>Graduation credits</dt><dd>{{ hs.requirements_note }} <a class="source-link" href="{{ SRC.nces_hs_credits.url }}">NCES</a></dd></div>
+        <div><dt>GPA</dt><dd>{{ US.guides.admissions.gpa.text }} <a class="source-link" href="{{ SRC[US.guides.admissions.gpa.source].url }}">{{ SRC[US.guides.admissions.gpa.source].short }}</a></dd></div>
+        <div><dt>SAT / ACT</dt><dd>Each college sets its own policy: required, recommended, optional, test-optional or test-blind. Check every college on your list.</dd></div>
+      </dl>
+      <div class="trend-more"><a class="btn btn-primary btn-page-link" href="us/high-school/">High school guide: GPA, AP, IB</a><a class="btn btn-primary btn-page-link" href="us/tests/">SAT, ACT, PSAT &amp; AP</a></div>
+    </div>
+  </section>
+
+  <!-- ===================== 02 · COLLEGE ===================== -->
+  {%- assign law_t = T.professional_admission['law-admission'] %}
+  <section class="block usv-sec" id="college" aria-labelledby="college-heading" data-no-points>
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Route 02 · Higher education</span>
+        <h2 id="college-heading">Colleges, graduate school and professional school</h2>
+        <p>A bachelor's degree mixes general-education courses with a declared major; each college sets when you must declare. Medicine and law are graduate-entry in the U.S.: you apply after (or late in) a bachelor's, with an admission test.</p>
+      </div>
+      <div class="cflow-wrap reveal">
         <ol class="cflow" style="--n:5">
           <li class="cflow-node" data-kind="start">
             <span class="cflow-dot" aria-hidden="true">1</span>
-            <div class="cflow-card"><span class="cflow-kind">Start here</span><h3>High school · grades 9–12</h3><p>Ends with a {{ US.degrees.high_school.credential | downcase }}. Requirements are set by each state and often each district.</p></div>
+            <div class="cflow-card"><span class="cflow-kind">Start</span><h3>High school diploma</h3><p>Plus the courses and tests your colleges ask for.</p></div>
           </li>
           <li class="cflow-node" data-kind="stage">
             <span class="cflow-dot" aria-hidden="true">2</span>
-            <div class="cflow-card"><span class="cflow-kind">Step 2</span><h3>{{ L.associate.name }}</h3><p>{{ L.associate.definition }} Mostly at community and technical colleges; can lead to a job or a transfer.</p></div>
+            <div class="cflow-card"><span class="cflow-kind">4 years</span><h3>{{ L.bachelor.name }}</h3><p>{{ L.bachelor.definition }}</p></div>
           </li>
           <li class="cflow-node" data-kind="stage">
             <span class="cflow-dot" aria-hidden="true">3</span>
-            <div class="cflow-card"><span class="cflow-kind">Step 3</span><h3>{{ L.bachelor.name }}</h3><p>{{ L.bachelor.definition }}</p></div>
+            <div class="cflow-card"><span class="cflow-kind">Graduate school</span><h3>Master's &amp; Ph.D.</h3><p>{{ L.master.examples | join: ", " }}; research doctorates ({{ L.doctor_research.examples | join: ", " }}). {{ L.doctor_research.definition }}</p></div>
           </li>
-          <li class="cflow-node" data-kind="stage">
+          <li class="cflow-node" data-kind="exam">
             <span class="cflow-dot" aria-hidden="true">4</span>
-            <div class="cflow-card"><span class="cflow-kind">Step 4</span><h3>{{ L.master.name }}</h3><p>Graduate study after a bachelor's degree, for example {{ L.master.examples | join: ", " }}.</p></div>
+            <div class="cflow-card"><span class="cflow-kind">Entry test</span><h3>{{ T.professional_admission.mcat.name }} · {{ law_t.name }}</h3><p>{{ T.professional_admission.mcat.name }} ({{ T.professional_admission.mcat.total }}) for {{ T.professional_admission.mcat.for | downcase }}; {{ law_t.name }} for {{ law_t.for | downcase }}.</p></div>
           </li>
           <li class="cflow-node" data-kind="goal">
             <span class="cflow-dot" aria-hidden="true">★</span>
-            <div class="cflow-card"><span class="cflow-kind">Highest level</span><h3>Doctorate &amp; professional degrees</h3><p>Research doctorates ({{ L.doctor_research.examples | join: ", " }}) and professional-practice doctorates ({{ L.doctor_professional.examples | join: ", " }}). {{ L.doctor_professional.note }}</p></div>
+            <div class="cflow-card"><span class="cflow-kind">Professional school</span><h3>M.D. / D.O. · J.D.</h3><p>{{ L.doctor_professional.definition }}</p></div>
           </li>
         </ol>
-        <p class="cflow-legend" aria-hidden="true"><span data-kind="start">Start</span><span data-kind="stage">Study</span><span data-kind="goal">Highest level</span></p>
       </div>
+      <dl class="usv-facts reveal">
+        <div><dt>Law school test</dt><dd>{{ law_t.notes | join: " " }} <a class="source-link" href="{{ SRC[law_t.source].url }}">{{ SRC[law_t.source].short }}</a></dd></div>
+        <div><dt>After the degree</dt><dd>Doctors and lawyers still need a state license (residency and USMLE/COMLEX; bar exam) before they practice. <a class="source-link" href="us/professional-licenses/">Licensing routes</a></dd></div>
+      </dl>
+      <div class="trend-more"><a class="btn btn-primary btn-page-link" href="us/college/">College, costs &amp; financial aid</a><a class="btn btn-primary btn-page-link" href="us/careers/">All {{ US.pathways.list.size }} career pathways</a></div>
+    </div>
+  </section>
 
-      <h3 class="block-subhead">What colleges look at</h3>
-      <div class="chip-grid reveal">
-        {%- for f in US.degrees.high_school.admissions_factors %}
-        <div class="item"><strong>{{ f }}</strong></div>
+  <!-- ===================== 03 · CTE ===================== -->
+  {%- assign tr = US.guides.transfer %}
+  <section class="block block-alt usv-sec" id="cte" aria-labelledby="cte-heading" data-no-points>
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Route 03 · Career &amp; technical education</span>
+        <h2 id="cte-heading">Community college and the skilled trades</h2>
+        <p>Two-year colleges lead straight to work or transfer into a bachelor's. The skilled trades are mostly learned on paid apprenticeships, and the state (sometimes the city) decides which trades need a license.</p>
+      </div>
+      <div class="cflow-wrap reveal">
+        <ol class="cflow" style="--n:4">
+          <li class="cflow-node" data-kind="start">
+            <span class="cflow-dot" aria-hidden="true">1</span>
+            <div class="cflow-card"><span class="cflow-kind">Start</span><h3>High school diploma</h3><p>The usual entry point for an apprenticeship or a community college.</p></div>
+          </li>
+          <li class="cflow-node" data-kind="stage">
+            <span class="cflow-dot" aria-hidden="true">2</span>
+            <div class="cflow-card"><span class="cflow-kind">About 2 years</span><h3>{{ L.associate.name }} ({{ L.associate.examples | join: ", " }})</h3><p>{{ L.associate.definition }}</p></div>
+          </li>
+          <li class="cflow-node" data-kind="stage">
+            <span class="cflow-dot" aria-hidden="true">3</span>
+            <div class="cflow-card"><span class="cflow-kind">Optional</span><h3>Transfer to a 4-year college</h3><p>{{ tr.text }} <a class="source-link" href="{{ SRC[tr.source].url }}">{{ SRC[tr.source].short }}</a></p></div>
+          </li>
+          <li class="cflow-node" data-kind="licence">
+            <span class="cflow-dot" aria-hidden="true">✓</span>
+            <div class="cflow-card"><span class="cflow-kind">Trades</span><h3>Apprenticeship → state license</h3><p>Electricians and plumbers usually train 4–5 years as apprentices, then most states test and license them.</p></div>
+          </li>
+        </ol>
+      </div>
+      <h3 class="block-subhead">Trade rails</h3>
+      <div class="table-wrap reveal">
+        <table class="table-simple">
+          <thead><tr><th>Trade</th><th>Entry &amp; training</th><th>License or certification</th><th>Median pay</th><th>Outlook {{ V.projection_period }}</th></tr></thead>
+          <tbody>
+            {%- for t in H.trades %}
+            <tr>
+              <td><strong>{{ t.name }}</strong></td>
+              <td>{{ t.entry }}. {{ t.training }}.</td>
+              <td>{{ t.license }} <a href="{{ SRC[t.source].url }}">{{ SRC[t.source].short }}</a></td>
+              <td>{% include fmt-num.html n=t.pay prefix="$" %}{% if t.pay_note %}<br><span class="us-by">{{ t.pay_note }}</span>{% endif %}</td>
+              <td>{% include fmt-num.html n=t.outlook sign=true %}%</td>
+            </tr>
+            {%- endfor %}
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">{{ H.trades_note }} Median annual pay, {{ V.wage_ref }}. For comparison, BLS projects total U.S. employment to grow {{ V.all_occupations_growth_pct }}% over {{ V.projection_period }}.</p>
+      <div class="trend-more"><a class="btn btn-primary btn-page-link" href="us/college/">Community college, costs &amp; transfer</a></div>
+    </div>
+  </section>
+
+  <!-- ===================== 04 · LICENSURE ===================== -->
+  <section class="block usv-sec" id="licensure" aria-labelledby="licensure-heading" data-no-points>
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Route 04 · State occupational licensure</span>
+        <h2 id="licensure-heading">State licensing boards</h2>
+        <p>Licenses are granted by each state, not the federal government. A national body writes the exam; the state board sets education, experience and everything else.</p>
+      </div>
+      <div class="usv-boards reveal">
+        {%- assign board_ids = "cpa,pe,nursing" | split: "," %}
+        {%- for id in board_ids %}
+        {%- assign d = US.licenses[id] %}
+        <article class="usv-board" aria-labelledby="board-{{ id }}">
+          <h3 id="board-{{ id }}">{{ d.name }}</h3>
+          <dl>
+            <div><dt>Granted by</dt><dd>{{ d.authority }}</dd></div>
+            <div><dt>National exam</dt><dd>{{ d.exams | map: "name" | join: " → " }}</dd></div>
+            <div><dt>Education</dt><dd>{{ d.education }}</dd></div>
+            {%- if d.experience %}<div><dt>Experience</dt><dd>{{ d.experience }}</dd></div>{% endif %}
+          </dl>
+          {%- if id == "cpa" %}<p class="usv-flag">{{ H.corrections.cpa_150 }} <a class="source-link" href="{{ SRC.nasba_pathways.url }}">NASBA</a></p>{% endif %}
+          <a class="btn btn-primary btn-page-link" href="us/professional-licenses/{{ id }}/">{{ d.short }} steps</a>
+        </article>
         {%- endfor %}
       </div>
-      <p class="table-note">{{ US.degrees.high_school.admissions_note }} {{ US.degrees.high_school.requirements_note }} <a class="source-link" href="{{ SRC.nces_hs_credits.url }}">NCES state requirements</a></p>
-
-      <div class="note reveal" style="margin-top:1.4rem;">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
-        <span><strong>Community college → transfer:</strong> {{ US.degrees.transfer.summary }} {{ US.degrees.transfer.note }}</span>
-      </div>
-      <a class="source-link" href="{{ SRC.nces_ipeds_glossary.url }}">Degree definitions: {{ SRC.nces_ipeds_glossary.publisher }} (IPEDS)</a>
-      <div class="trend-more"><a class="btn btn-primary btn-page-link" href="us/high-school/">High school guide: GPA, AP, IB →</a><a class="btn btn-primary btn-page-link" href="us/college/">College, costs &amp; financial aid →</a></div>
+      <div class="trend-more"><a class="btn btn-primary btn-page-link" href="us/professional-licenses/">All licensing routes</a></div>
     </div>
   </section>
 
-  <!-- ===================== TESTS ===================== -->
-  <section class="block block-alt" id="tests" aria-labelledby="tests-heading">
+  <!-- ===================== 05 · PUBLIC SECTOR ===================== -->
+  {%- assign PS = H.public_sector %}
+  <section class="block block-alt usv-sec" id="public-sector" aria-labelledby="public-heading" data-no-points>
     <div class="container">
       <div class="section-head reveal">
-        <span class="eyebrow">Testing</span>
-        <h2 id="tests-heading">Tests you may take in high school</h2>
-        <p>Each college sets its own testing policy: a test can be required, recommended, optional, test-optional or test-blind depending on the school. Always check the colleges on your list.</p>
+        <span class="eyebrow">Route 05 · Public sector</span>
+        <h2 id="public-heading">Federal and state civil service</h2>
+        <p>Federal agencies hire through job announcements, mostly on USAJOBS. States, counties and cities run separate systems with their own exams and lists.</p>
       </div>
-      <div class="table-wrap">
+      <div class="usv-split reveal">
+        <article class="usv-board">
+          <h3>Federal agencies · {{ PS.federal.portal }}</h3>
+          <p>{{ PS.federal.summary }} <a class="source-link" href="{{ SRC[PS.federal.source].url }}">{{ SRC[PS.federal.source].short }}</a></p>
+          <dl>
+            {%- for f in PS.federal.facts %}
+            <div><dt>{{ f.label }}</dt><dd>{{ f.text }} <a class="source-link" href="{{ SRC[f.source].url }}">{{ SRC[f.source].short }}</a></dd></div>
+            {%- endfor %}
+          </dl>
+          <a class="btn btn-primary btn-page-link" href="{{ PS.federal.url }}" rel="noopener">Open USAJOBS.gov</a>
+        </article>
+        <article class="usv-board">
+          <h3>States, counties &amp; cities</h3>
+          <p>{{ PS.state_local.summary }}</p>
+          <p>{{ PS.state_local.example }} <a class="source-link" href="{{ SRC[PS.state_local.source].url }}">{{ SRC[PS.state_local.source].short }}</a></p>
+        </article>
+      </div>
+      <h3 class="block-subhead">Law enforcement and firefighting</h3>
+      <div class="table-wrap reveal">
         <table class="table-simple">
-          <thead><tr><th>Test</th><th>Typical grade</th><th>Score range</th><th>What to know</th></tr></thead>
+          <thead><tr><th>Job</th><th>Education</th><th>Selection</th><th>Rules</th><th>Median pay</th><th>Outlook {{ V.projection_period }}</th></tr></thead>
           <tbody>
-            {%- for t in US.tests.high_school %}
-            {%- assign d = t[1] %}
+            {%- for j in PS.jobs %}
             <tr>
-              <td><strong>{{ d.name }}</strong><br><span class="us-by">{{ d.by }}</span></td>
-              <td>{{ d.grades }}</td>
-              <td>{{ d.total }}{% if d.sections %}<br><span class="us-by">{{ d.sections }}</span>{% endif %}</td>
-              <td>{% if d.scale %}{{ d.scale | join: "; " }}. {% endif %}{{ d.notes | join: " " }}{% if d.admissions_role %} {{ d.admissions_role }}{% endif %} <a href="{{ SRC[d.source].url }}">Source</a></td>
+              <td><strong>{{ j.name }}</strong></td>
+              <td>{{ j.entry }}</td>
+              <td>{{ j.steps }}</td>
+              <td>{{ j.rules }} <a href="{{ SRC[j.source].url }}">{{ SRC[j.source].short }}</a></td>
+              <td>{% include fmt-num.html n=j.pay prefix="$" %}{% if j.pay_title %}<br><span class="us-by">{{ j.pay_title }}</span>{% endif %}</td>
+              <td>{% include fmt-num.html n=j.outlook sign=true %}%</td>
             </tr>
             {%- endfor %}
           </tbody>
         </table>
       </div>
-
-      <h3 class="block-subhead">Admission tests for professional school</h3>
-      <div class="table-wrap">
-        <table class="table-simple">
-          <thead><tr><th>Test</th><th>For</th><th>What to know</th></tr></thead>
-          <tbody>
-            {%- for t in US.tests.professional_admission %}
-            {%- assign d = t[1] %}
-            <tr>
-              <td><strong>{{ d.name }}</strong><br><span class="us-by">{{ d.by }}</span></td>
-              <td>{{ d.for }}</td>
-              <td>{% if d.total %}Total {{ d.total }}. {% endif %}{% if d.sections %}{{ d.sections }}. {% endif %}{{ d.notes | join: " " }} <a href="{{ SRC[d.source].url }}">Source</a></td>
-            </tr>
-            {%- endfor %}
-          </tbody>
-        </table>
-      </div>
-      <div class="trend-more"><a class="btn btn-primary btn-page-link" href="us/tests/">All tests and real college policies →</a></div>
+      <p class="table-note">Median annual pay, {{ V.wage_ref }}. Hiring steps differ by agency and department.</p>
     </div>
   </section>
 
-  <!-- ===================== CAREER PATHWAYS ===================== -->
-  <section class="block" id="careers" aria-labelledby="careers-heading">
+  <!-- ===================== ALSO IN THIS EDITION ===================== -->
+  <section class="block" id="more" aria-labelledby="more-heading" data-no-points>
     <div class="container">
       <div class="section-head reveal">
-        <span class="eyebrow">Career pathways</span>
-        <h2 id="careers-heading">20 career pathways, with real labor-market data</h2>
-        <p>A pathway is what you study; it can lead to several occupations. Each card shows BLS figures for one representative occupation: median annual pay ({{ V.wage_ref }}) and projected change in employment ({{ V.projection_period }}). For comparison, BLS projects total U.S. employment to grow {{ V.all_occupations_growth_pct }}% over the same period.</p>
-      </div>
-      {% include us-pathway-cards.html %}
-      <div class="trend-more"><a class="btn btn-primary btn-page-link" href="us/careers/">All career pathways →</a></div>
-    </div>
-  </section>
-
-  <!-- ===================== LICENSES ===================== -->
-  <section class="block block-alt" id="licenses" aria-labelledby="licenses-heading">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">Licensing</span>
-        <h2 id="licenses-heading">Licensed professions: who decides</h2>
-        <p>Professional licenses in the U.S. are granted by each state or jurisdiction, not by the federal government. National bodies write the exams; state boards set the rest, so requirements differ from state to state.</p>
-      </div>
-      <div class="table-wrap">
-        <table class="table-simple">
-          <thead><tr><th>License</th><th>Granted by</th><th>National exam(s)</th><th>What varies</th></tr></thead>
-          <tbody>
-            {%- for l in US.licenses %}
-            {%- assign d = l[1] %}
-            <tr>
-              <td><strong>{{ d.name }}</strong></td>
-              <td>{{ d.authority }}</td>
-              <td>{{ d.exams | map: "name" | join: "; " }}</td>
-              <td>{{ d.jurisdiction_note }}</td>
-            </tr>
-            {%- endfor %}
-          </tbody>
-        </table>
-      </div>
-      <p class="table-note">Not every job in these fields needs a license. BLS notes that entry-level civil engineers do not need a PE license, and many accounting jobs do not require a CPA (though anyone filing reports with the SEC must be one).</p>
-
-      <h3 class="block-subhead">Changes to watch</h3>
-      <ul class="us-sources">
-        {%- for l in US.licenses %}{%- for w in l[1].watch %}
-        <li><strong>{{ l[1].name }}:</strong> {{ w }}</li>
-        {%- endfor %}{%- endfor %}
-      </ul>
-      <div class="trend-more"><a class="btn btn-primary btn-page-link" href="us/professional-licenses/">Step-by-step licensing routes →</a></div>
-    </div>
-  </section>
-
-  <!-- ===================== INTERNATIONAL ===================== -->
-  {%- assign IM = US.immigration %}
-  <section class="block" id="international" aria-labelledby="international-heading">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">International students</span>
-        <h2 id="international-heading">Coming to the U.S. to study</h2>
-        <p>What you study (your education pathway) and your permission to study and work (your immigration pathway) are separate. A degree does not guarantee OPT, STEM OPT or an H-1B.</p>
+        <span class="eyebrow">Also in the USA Edition</span>
+        <h2 id="more-heading">More guides</h2>
       </div>
       <div class="chip-grid us-links">
-        {%- assign im_keys = "f1,opt,stem_opt,h1b" | split: "," %}
-        {%- for k in im_keys %}
-        {%- assign d = IM[k] %}
-        <div class="item"><strong>{{ d.name }}</strong>{{ d.summary }}{% if d.facts %} {{ d.facts | first }}{% endif %} <a href="{{ SRC[d.source].url }}">USCIS</a></div>
-        {%- endfor %}
-      </div>
-      <h3 class="block-subhead">H-1B changes since 2025</h3>
-      <ul class="us-sources">
-        {%- for c in IM.h1b.changes %}
-        <li><span class="us-asof">{{ c.date | date: "%Y-%m-%d" }}</span> — {{ c.text }} <a href="{{ SRC[c.source].url }}">Source</a></li>
-        {%- endfor %}
-      </ul>
-      <div class="note" style="margin-top:1.4rem;">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
-        <span>{{ IM.disclaimer }} Checked {{ IM.h1b.as_of | date: "%Y-%m-%d" }}. Planning to study in the U.S. from India? See the India Edition's <a href="study-abroad/usa.html">Study in the USA guide</a>.</span>
+        <div class="item"><strong><a href="us/careers/">{{ US.pathways.list.size }} career pathways</a></strong>BLS pay and outlook by occupation, with colleges for each.</div>
+        <div class="item"><strong><a href="us/compare/">Compare two careers</a></strong>Side-by-side tables built from the same data.</div>
+        <div class="item"><strong><a href="us/international-students/">International students</a></strong>F-1, OPT, STEM OPT and H-1B, kept separate from your degree.</div>
+        <div class="item"><strong><a href="us/new-york-city/">New York City hub</a></strong>Local pay and colleges for two NYC career tracks.</div>
       </div>
       <h3 class="block-subhead">Already trained abroad?</h3>
       {% include intl-roadmap-card.html ed="us" key="all" bare=true %}
-      <div class="trend-more"><a class="btn btn-primary btn-page-link" href="us/international-students/">Full international student guide →</a></div>
     </div>
   </section>
 
@@ -235,20 +298,20 @@ og_description: "How U.S. high school, tests, degrees and professional licenses 
           <div class="faq-a">It depends on the college. Each school decides whether tests are required, recommended, optional, test-optional or test-blind, so check the admissions page of every college on your list.</div>
         </div>
         <div class="faq-item" data-open="false">
-          <button type="button" class="faq-q" aria-expanded="false">Is there a national exam at the end of high school?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="faq-a">No. States and local districts set the requirements for a high school diploma. Some states use end-of-course or exit exams, but there is no single national graduation exam.</div>
+          <button type="button" class="faq-q" aria-expanded="false">Can I go to medical or law school straight from high school?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="faq-a">{{ L.doctor_professional.note }}</div>
         </div>
         <div class="faq-item" data-open="false">
-          <button type="button" class="faq-q" aria-expanded="false">Why does one pathway list several jobs?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="faq-a">Because a field of study is not a job. Computer science, for example, leads to software development, data science, security and research roles, and BLS reports pay and outlook for each occupation separately. We show the occupation-level figures rather than inventing one number for the whole field.</div>
+          <button type="button" class="faq-q" aria-expanded="false">Is a trade license valid in every state?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="faq-a">No single national trade license exists. {{ H.trades_note }}</div>
+        </div>
+        <div class="faq-item" data-open="false">
+          <button type="button" class="faq-q" aria-expanded="false">Are all federal jobs on USAJOBS?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="faq-a">Most outside hiring for competitive-service jobs is, because the law requires those vacancies to be posted with OPM. Excepted-service jobs may be posted on USAJOBS or only on the agency's own website.</div>
         </div>
         <div class="faq-item" data-open="false">
           <button type="button" class="faq-q" aria-expanded="false">How current are the pay and job outlook figures?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="faq-a">They come from the BLS Occupational Outlook Handbook: median pay for {{ V.wage_ref }} and projections for {{ V.projection_period }}, checked on {{ SRC.bls_ooh.accessed | date: "%Y-%m-%d" }}. Median pay means half of workers earned more and half earned less.</div>
-        </div>
-        <div class="faq-item" data-open="false">
-          <button type="button" class="faq-q" aria-expanded="false">How is this different from the India Edition's "Study in the USA" guide?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="faq-a">That guide is for students in India planning to study in the U.S. The USA Edition explains the U.S. system itself, from high school through college, licensing and careers.</div>
+          <div class="faq-a">They come from the BLS Occupational Outlook Handbook: median pay for {{ V.wage_ref }} and projections for {{ V.projection_period }}. Median pay means half of workers earned more and half earned less.</div>
         </div>
       </div>
     </div>
@@ -260,7 +323,7 @@ og_description: "How U.S. high school, tests, degrees and professional licenses 
       <div class="section-head reveal">
         <span class="eyebrow">Sources</span>
         <h2 id="sources-heading">Where these facts come from</h2>
-        <p>Only official and primary sources are used. Each was last checked on the date shown; rules on testing, licensing and immigration change, so confirm with the source before you rely on a detail.</p>
+        <p>Only official and primary sources are used. Each was last checked on the date shown; rules on testing, licensing and hiring change, so confirm with the source before you rely on a detail.</p>
       </div>
       <ul class="us-sources">
         {%- for s in SRC %}

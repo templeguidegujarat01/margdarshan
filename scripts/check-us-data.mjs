@@ -272,6 +272,24 @@ for (const [id, h] of Object.entries(hubs)) {
   });
 }
 
+// USA home routes (2026-10-20): home.yml facts need known sources and whole-number pay/outlook; every route id
+// must be a section id on us/index.html (search.yml links to us/#<id>).
+const home = load('home');
+const homeHtml = fs.readFileSync(path.join(root, 'us/index.html'), 'utf8');
+if ((home.vectors || []).length !== 5) err('home.vectors', 'expected exactly 5 routes');
+for (const v of home.vectors || []) if (!homeHtml.includes(`id="${v.id}"`)) err(`home.vectors.${v.id}`, 'no section with this id on us/index.html');
+const homeRows = [...(home.trades || []).map((t, i) => [`home.trades[${i}]`, t]), ...((home.public_sector || {}).jobs || []).map((t, i) => [`home.public_sector.jobs[${i}]`, t])];
+for (const [w, t] of homeRows) {
+  needSrc(w, t.source);
+  if (!Number.isInteger(t.pay) || t.pay < 10000) err(w, 'pay must be a whole annual dollar figure');
+  if (!Number.isInteger(t.outlook)) err(w, 'outlook must be a whole percent');
+}
+const ps = home.public_sector || {};
+needSrc('home.public_sector.federal', ps.federal?.source);
+(ps.federal?.facts || []).forEach((f, i) => needSrc(`home.public_sector.federal.facts[${i}]`, f.source));
+needSrc('home.public_sector.state_local', ps.state_local?.source);
+if (!isDate(home.last_verified)) err('home', 'missing last_verified date');
+
 // Cross-border tracks (2026-10-19): roadmap stubs us/roadmaps/<slug>.html, kinds, sources, review_by; each
 // track belongs to a live pathway (its page shows the link card).
 const cbSeen = new Set();

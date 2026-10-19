@@ -89,6 +89,10 @@ else {
     ['cpa exam india', null, (r) => (has(r, 'us/roadmaps/cpa-international.html', 3) ? '' : 'expected the CPA cross-border roadmap')],
     ['bcom', 'india', (r) => (r.total > 0 ? '' : 'plain word search broke')],
     ['usa', 'india', (r) => (r.top.length && r.top.every((d) => d.c === 'usa' || /\b(usa|u\.s\.)/i.test(d.t)) && r.top.some((d) => d.u === 'us/') ? '' : 'edition word should keep only USA pages (or India pages about the USA)')],
+    ['usa high school gpa', null, (r) => (r.top.length && r.top.every((d) => d.c === 'usa') && has(r, 'us/#k12', 3) ? '' : 'expected the USA K-12 route in top 3')],
+    ['us electrician trade', null, (r) => (has(r, 'us/#cte', 2) ? '' : 'expected the USA trades route in top 2')],
+    ['us federal government jobs', null, (r) => (r.top.length && r.top.every((d) => d.c === 'usa') && has(r, 'us/#public-sector', 2) ? '' : 'expected the USA civil service route in top 2')],
+    ['usa nclex license', null, (r) => (has(r, 'us/professional-licenses/nursing/', 3) ? '' : 'expected the RN license page')],
     ['zzzz qqqq', null, (r) => (r.total === 0 ? '' : 'nonsense should return nothing')],
   ];
   for (const [q, home, t] of cases) {

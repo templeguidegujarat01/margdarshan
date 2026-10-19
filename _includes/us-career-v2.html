@@ -311,6 +311,9 @@
   {%- comment -%} 5b. Moving between countries (_data/mobility.yml; renders nothing without routes) {%- endcomment -%}
   {% include mobility-strip.html ed="us" key=P.slug %}
 
+  {%- comment -%} 5c. Trained outside the U.S.? cross-border roadmap card(s) (pathways.yml crossborder) {%- endcomment -%}
+  {% include intl-roadmap-card.html ed="us" key=P.slug %}
+
   {%- comment -%} 6. Real work life (O*NET) {%- endcomment -%}
   {%- if D.onet %}
   {%- assign W = D.onet %}

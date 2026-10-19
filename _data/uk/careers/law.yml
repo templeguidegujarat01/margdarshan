@@ -51,3 +51,41 @@ tracks:
       - { tag: "Goal", title: "Practising barrister", text: "With a practising certificate.", kind: license, source: bsb_becoming }
     facts:
       - { k: "Already a solicitor?", v: "You can apply to switch with <strong>BSB approval</strong> and a <strong>Bar Transfer Test</strong>.", source: ncs_barrister }
+
+# Cross-border track (2026-10-19): standalone roadmap uk/roadmaps/<slug>.html (stub `track: <slug>`,
+# `sheet: law`, rendered by _includes/intl-roadmap.html). Same shape as `crossborder` in
+# _data/us/pathways.yml: routes[].steps kind = start | stage | exam | licence | goal; review_by enforced.
+crossborder:
+  - slug: sqe-overseas-lawyer
+    title: "Indian LLB or lawyer to solicitor in England and Wales"
+    eyebrow: "UK · Cross-border · Law"
+    lede: "The <strong>SQE</strong> is the one route to becoming a solicitor in England and Wales, for UK and overseas candidates alike. You can sit SQE1 in India. If you are already a qualified lawyer, the 2-year work rule does not apply to you."
+    for: "LLB students and graduates, and lawyers already qualified in India or elsewhere."
+    checked: 2026-10-19
+    review_by: 2027-04-19
+    routes:
+      - id: qualified-lawyer
+        title: "Already a qualified lawyer"
+        tag: "SRA"
+        who: "For lawyers qualified outside England and Wales (for example, enrolled with a State Bar Council in India)."
+        steps:
+          - { tag: "Start", title: "A degree (any subject) or equivalent", text: "Plus your existing qualification as a lawyer.", kind: start, source: sra_qualified_lawyers }
+          - { tag: "Exam", title: "SQE1", text: "Delivered at Pearson VUE test centres in the UK and abroad; the SQE lists Bangalore, Chennai, Gurugram, Hyderabad, Mumbai and New Delhi.", kind: exam, source: sqe_written_locations }
+          - { tag: "Exam", title: "SQE2, unless the SRA exempts you", text: "Qualified lawyers can apply for an SQE2 exemption. SQE2 Oral is held in person in England and Wales only.", kind: exam, source: sra_qualified_lawyers }
+          - { tag: "Goal", title: "Admitted as a solicitor", text: "After the SRA's character and suitability checks. <strong>No</strong> 2 years of qualifying work experience needed.", kind: goal, source: sra_qualified_lawyers }
+      - id: law-graduate
+        title: "LLB student or graduate (not yet qualified)"
+        tag: "SRA"
+        who: "The same SQE route as UK candidates."
+        steps:
+          - { tag: "Start", title: "A degree (any subject) or equivalent", text: "Law is not required, or an equivalent level 6 qualification.", kind: start, source: sra_sqe }
+          - { tag: "Exam", title: "SQE1", text: "Can be taken at a Pearson VUE centre in India.", kind: exam, source: sqe_written_locations }
+          - { tag: "Exam", title: "SQE2", text: "Written part at Pearson VUE centres; Oral part in person in England and Wales.", kind: exam, source: sqe_locations }
+          - { tag: "Work", title: "2 years of qualifying work experience", text: "Full time, or the same amount part time.", kind: stage, source: sra_sqe }
+          - { tag: "Goal", title: "Admitted as a solicitor", text: "After the SRA's character and suitability checks.", kind: goal, source: sra_sqe }
+        facts:
+          - { k: "Is the SQE for me?", v: "Yes, unless you started training by September 2021: everyone else must pass the SQE to qualify, whatever the route.", source: sqe_who }
+          - { k: "Not offered", v: "SQE2 Written is not offered in the USA, Canada, New Zealand or Central and South America; no SQE assessments in Ukraine, Belarus or Russia.", source: sqe_locations }
+          - { k: "Centres", v: "A centre on the list is not guaranteed for every sitting; you see the real choices when booking opens.", source: sqe_written_locations }
+    watch:
+      - { text: "SQE locations can change by sitting: check when booking opens.", source: sqe_locations }

@@ -1,0 +1,31 @@
+{%- comment -%}
+  "Trained abroad?" link card(s) to the cross-border roadmaps (us/roadmaps/, uk/roadmaps/), one per
+  `crossborder` track: _data/us/pathways.yml crossborder[] (matched by `pathway`), or a UK sheet's own
+  crossborder list. Renders nothing when there is no track.
+  Params: ed (us | uk), key (pathway slug / UK sheet slug, or "all" = every track of that edition: home pages),
+          bare (true = cards only, no section wrapper: for a section that already has its own heading).
+{%- endcomment -%}
+{%- assign ic_list = "" | split: "" -%}
+{%- if include.ed == "uk" -%}
+  {%- for ic_sheet in site.data.uk.careers -%}
+    {%- if include.key == "all" or include.key == ic_sheet[0] -%}{%- if ic_sheet[1].crossborder -%}{%- assign ic_list = ic_list | concat: ic_sheet[1].crossborder -%}{%- endif -%}{%- endif -%}
+  {%- endfor -%}
+{%- elsif include.key == "all" -%}
+  {%- assign ic_list = site.data.us.pathways.crossborder -%}
+{%- else -%}
+  {%- assign ic_list = site.data.us.pathways.crossborder | where: "pathway", include.key -%}
+{%- endif -%}
+{%- if ic_list.size > 0 %}
+{%- unless include.bare %}
+<section class="md-sec" id="abroad" aria-labelledby="abroad-h">
+  <div class="container">
+    <div class="md-sec-head"><h2 id="abroad-h">Trained outside the {% if include.ed == "uk" %}UK{% else %}U.S.{% endif %}?</h2>{% if include.key == "all" %}<p>Step-by-step routes for people who studied or qualified in India or elsewhere, from the official rules only.</p>{% endif %}</div>
+{%- endunless %}
+    {%- for T in ic_list %}
+    <div class="rm-link-card" data-no-points><div><strong>{{ T.title }}</strong><p>{{ T.for }} Every step, exam and deadline in order, with official links.</p></div><a href="{{ include.ed }}/roadmaps/{{ T.slug }}.html" class="btn btn-journey btn-page-link">📍 See The Journey / Full Roadmap</a></div>
+    {%- endfor %}
+{%- unless include.bare %}
+  </div>
+</section>
+{%- endunless %}
+{%- endif %}

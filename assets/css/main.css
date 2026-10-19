@@ -471,16 +471,8 @@ html.nav-locked{overflow:hidden;}
 .trust-strip{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:2.2rem;}
 .trust-chip{display:flex;align-items:center;gap:.45rem;font-size:.82rem;font-weight:600;color:var(--on-ink);background:rgba(var(--hl-rgb),.07);border:1px solid rgba(var(--hl-rgb),.14);border-radius:999px;padding:.5rem .9rem;}
 .trust-chip svg{color:var(--gold);flex-shrink:0;}
-/* Journey / roadmap */
-.journey{display:grid;gap:1rem;position:relative;}
-.journey-item{position:relative;display:flex;gap:1rem;background:rgba(var(--hl-rgb),.05);border:1px solid rgba(var(--hl-rgb),.12);border-radius:var(--radius-md);padding:1.1rem 1.2rem;}
-.journey-node{flex-shrink:0;width:38px;height:38px;border-radius:999px;background:var(--gold);color:#241703;display:grid;place-items:center;font-family:var(--font-mono);font-weight:700;font-size:.95rem;}
-.journey-item h3{color:var(--on-ink-strong);font-size:1.02rem;font-family:var(--font-body);font-weight:700;}
-.journey-item p{color:var(--on-ink-muted);font-size:.9rem;margin-top:.25rem;}
 @media (min-width:1024px){
   .hero-inner{grid-template-columns:1.1fr 1fr;align-items:center;}
-  .journey-list{grid-template-columns:1fr;position:relative;}
-  .journey-list::before{content:"";position:absolute;left:19px;top:38px;bottom:38px;width:2px;background:repeating-linear-gradient(to bottom,rgba(232,163,61,.55) 0 6px,transparent 6px 12px);}
 }
 /* ===================== STREAMS ===================== */
 .streams{padding:5rem 0;}
@@ -663,16 +655,6 @@ ul,ol{margin:0;padding:0;list-style:none;}
 .career-item a{display:flex;flex-direction:column;gap:.2rem;padding:1rem 1.1rem;border-radius:var(--radius-sm);border:1px solid var(--line);background:var(--paper);height:100%;transition:border-color .15s,transform .15s;}
 .career-item strong{font-size:.97rem;font-weight:700;}
 .career-item span{font-size:.8rem;color:var(--text-muted);}
-/* Journey / roadmap */
-.journey-list{display:grid;gap:1rem;position:relative;}
-.journey-item{position:relative;display:flex;gap:1rem;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);padding:1.2rem 1.3rem;}
-.journey-item h3{font-size:1.02rem;font-family:var(--font-body);font-weight:700;}
-.journey-item p{color:var(--text-muted);font-size:.92rem;margin-top:.25rem;}
-@media (min-width:1024px){
-  .journey-list{grid-template-columns:repeat(4,1fr);}
-  .journey-list::before{content:"";position:absolute;left:0;right:0;top:19px;height:2px;background:repeating-linear-gradient(to right,var(--line) 0 8px,transparent 8px 16px);z-index:0;}
-  .journey-item{flex-direction:column;position:relative;z-index:1;}
-}
 /* Pros & cons */
 @media (min-width:768px){.proscons{grid-template-columns:1fr 1fr;}}
 .pc-card{border-radius:var(--radius-lg);padding:1.8rem;border:1px solid var(--line);}
@@ -726,12 +708,6 @@ table{border-collapse:collapse;width:100%;}
 .subject-chips{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1.2rem;}
 .eligibility-grid{display:grid;gap:1.4rem;grid-template-columns:1fr;}
 .elig-card h3{font-size:1.12rem;margin-bottom:.9rem;}
-.journey-list{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));position:relative;}
-.journey-item{position:relative;display:flex;flex-direction:column;gap:.7rem;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);padding:1.2rem 1.3rem;z-index:1;}
-.journey-node{flex-shrink:0;width:36px;height:36px;border-radius:999px;background:var(--gold);color:#241703;display:grid;place-items:center;font-family:var(--font-mono);font-weight:700;font-size:.9rem;}
-.journey-item h3{font-size:.98rem;font-family:var(--font-body);font-weight:700;}
-.journey-item p{color:var(--text-muted);font-size:.88rem;}
-@media (min-width:1024px){.journey-list::before{content:"";position:absolute;left:0;right:0;top:18px;height:2px;background:repeating-linear-gradient(to right,var(--line) 0 8px,transparent 8px 16px);z-index:0;}}
 /* Tables — the single definition used by every page. Cells wrap (with a
    minimum width) so long text stays readable; .table-wrap scrolls
    sideways on narrow screens when a table is wider than the viewport. */
@@ -801,7 +777,6 @@ table{border-collapse:collapse;width:100%;}
 .note svg{flex-shrink:0;color:var(--teal);margin-top:.15rem;}
 .warn{display:flex;gap:.75rem;background:rgba(196,67,46,.07);border:1px solid rgba(196,67,46,.25);border-radius:var(--radius-md);padding:1.1rem 1.3rem;font-size:.92rem;color:var(--text-muted);max-width:780px;}
 .warn svg{flex-shrink:0;color:var(--rust);margin-top:.15rem;}
-.journey-list{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));position:relative;}
 .faq-list{display:grid;gap:.7rem;max-width:780px;}
 .page-hero{position:relative;background:var(--bg-hero);color:var(--on-ink);overflow:hidden;padding:3.4rem 0 3rem;}
 .page-hero h1{color:var(--on-ink-strong);font-size:clamp(2rem,4.4vw,2.9rem);margin-top:.8rem;}
@@ -870,19 +845,8 @@ table{border-collapse:collapse;width:100%;}
 .report-note{margin-top:2.5rem;font-size:.85rem;color:var(--on-ink-muted);}
 .report-note a{color:var(--link);font-weight:600;text-decoration:underline;text-underline-offset:2px;}
 
-/* Scoped override: index.html's hero journey component uses a dark, semi-
-   transparent variant of .journey-item/.journey-list/.journey-node, distinct
-   from the light "roadmap" variant used on career pages. Both share class
-   names by historical accident, so this scopes the hero's version by its
-   .hero ancestor without needing any HTML changes. */
-.hero .journey-list{display:grid;gap:1rem;position:relative;grid-template-columns:1fr;}
-.hero .journey-item{position:relative;display:flex;flex-direction:row;gap:1rem;background:rgba(var(--hl-rgb),.05);border:1px solid rgba(var(--hl-rgb),.12);border-radius:var(--radius-md);padding:1.1rem 1.2rem;}
-.hero .journey-node{width:38px;height:38px;font-size:.95rem;}
-.hero .journey-item h3{color:var(--on-ink-strong);font-size:1.02rem;}
-.hero .journey-item p{color:var(--on-ink-muted);font-size:.9rem;}
 @media (min-width:1024px){
   .hero-inner{grid-template-columns:1.1fr 1fr;align-items:center;}
-  .hero .journey-list::before{content:"";position:absolute;left:19px;top:38px;bottom:38px;width:2px;background:repeating-linear-gradient(to bottom,rgba(232,163,61,.55) 0 6px,transparent 6px 12px);}
 }
 
 /* Dark-mode contrast boost for tinted info/warning/pros/cons boxes.
@@ -2486,7 +2450,7 @@ html[data-region="uk"] .hd-ed-cur:not([data-region-cur="uk"]){display:none;}
    2. (Floating Feedback button removed 2026-10-14; the feedback email stays in the footer and citation blocks.)
    3. Cards get 1rem padding on phones; tablet/desktop keep their own (larger) values.
    4. Home page "Select your country edition" block (index.html). */
-.stream-card,.trend-card,.goal-card,.feature-card,.spec-card,.journey-item,.after10-card,.cta-card,
+.stream-card,.trend-card,.goal-card,.feature-card,.spec-card,.after10-card,.cta-card,
 .elig-card,.fit-card,.pc-card,.related-card,.qf-card,.salary-card,.stat-card,.contact-card,.exam-card,
 .info-card,.fit-result-card,.cx-card,.cx-college-card,.examx-card,.goalx-card,.decision-card,.hub-card,
 .rm-link-card,.ed-card,.faq-q,.faq-a,.section-head,.page-hero-inner,.hero-inner{word-break:break-word;overflow-wrap:anywhere;min-width:0;}
@@ -2494,7 +2458,7 @@ html[data-region="uk"] .hd-ed-cur:not([data-region-cur="uk"]){display:none;}
 
 
 @media (max-width:639px){
-  .stream-card,.trend-card,.goal-card,.feature-card,.spec-card,.journey-item,.after10-card,.cta-card,
+  .stream-card,.trend-card,.goal-card,.feature-card,.spec-card,.after10-card,.cta-card,
   .elig-card,.fit-card,.pc-card,.related-card,.qf-card,.salary-card,.stat-card,.contact-card,.exam-card,
   .info-card,.fit-result-card,.cx-card,.cx-college-card,.examx-card,.goalx-card,.decision-card,.hub-card,
   .rm-link-card,.ed-card{padding:1rem;}
@@ -3272,12 +3236,15 @@ details[open] > .ed-dash{animation:edDashIn .16s var(--ease);}
 .cflow-legend [data-kind="exam"]::before{border-radius:2px;}
 .cflow-legend [data-kind="licence"],.cflow-legend [data-kind="goal"]{--kc:var(--k-goal);}
 /* One horizontal track: dots on a line, cards hang below, arrowhead into the next dot. */
+/* .cflow.is-long (more than 6 steps, e.g. cross-border roadmaps, _includes/intl-roadmap.html) keeps the vertical rail
+   on every width: 7+ cards in one row would be too narrow to read. */
 @media (min-width:900px){
-  .cflow{grid-template-columns:repeat(var(--n),minmax(0,1fr));column-gap:.9rem;}
-  .cflow-node{grid-template-columns:1fr;row-gap:.75rem;padding-bottom:0;align-content:start;}
-  .cflow-node:not(:last-child)::before{left:2.75rem;right:-.4rem;top:calc(1.125rem - 1px);bottom:auto;width:auto;height:2px;background:linear-gradient(90deg,var(--kc),var(--line));}
-  .cflow-node:not(:last-child)::after{content:"";position:absolute;right:-.45rem;top:calc(1.125rem - 4px);border:4px solid transparent;border-left:6px solid var(--line);border-right:0;}
-  .cflow-card{height:100%;}
+  .cflow:not(.is-long){grid-template-columns:repeat(var(--n),minmax(0,1fr));column-gap:.9rem;}
+  .cflow:not(.is-long) .cflow-node{grid-template-columns:1fr;row-gap:.75rem;padding-bottom:0;align-content:start;}
+  .cflow:not(.is-long) .cflow-node:not(:last-child)::before{left:2.75rem;right:-.4rem;top:calc(1.125rem - 1px);bottom:auto;width:auto;height:2px;background:linear-gradient(90deg,var(--kc),var(--line));}
+  .cflow:not(.is-long) .cflow-node:not(:last-child)::after{content:"";position:absolute;right:-.45rem;top:calc(1.125rem - 4px);border:4px solid transparent;border-left:6px solid var(--line);border-right:0;}
+  .cflow:not(.is-long) .cflow-card{height:100%;}
+  .cflow.is-long{max-width:760px;}
 }
 @media (prefers-reduced-motion:reduce){.cflow-card{transition:none;}.cflow-node:hover .cflow-card{transform:none;}}
 

@@ -1,0 +1,116 @@
+{%- comment -%}
+  Cross-border roadmap page (USA / UK editions): one standalone page per `crossborder` track, the
+  international twin of the India roadmaps/<slug>.html pages.
+  Stubs: us/roadmaps/<slug>.html with `track: <slug>`            → _data/us/pathways.yml crossborder
+         uk/roadmaps/<slug>.html with `track: <slug>` + `sheet:`   → _data/uk/careers/<sheet>.yml crossborder
+  The edition comes from page.region (_config.yml defaults: us/ → us, uk/ → uk).
+  Each route's steps are drawn with the .cflow flowchart (same node kinds and legend as India career
+  pages, _includes/career-flow.html), but the kind is read from the data (`kind:`), never guessed from
+  the title. Every step, fact and watch line carries its own source chip.
+  Checked by scripts/check-us-data.mjs and scripts/check-uk-data.mjs (stub ↔ track, kinds, sources, review_by).
+{%- endcomment -%}
+{%- assign ED = page.region -%}
+{%- if ED == "uk" -%}
+  {%- assign UKC = site.data.uk.careers[page.sheet] -%}
+  {%- assign X = UKC.crossborder | where: "slug", page.track | first -%}
+  {%- assign back_href = "uk/careers/" | append: page.sheet | append: "/" -%}
+  {%- assign back_label = UKC.title -%}
+  {%- assign home_href = "uk/" -%}
+  {%- assign home_label = "UK Home" -%}
+  {%- assign careers_href = "uk/careers/" -%}
+{%- else -%}
+  {%- assign X = site.data.us.pathways.crossborder | where: "slug", page.track | first -%}
+  {%- assign XP = site.data.us.pathways.list | where: "slug", X.pathway | first -%}
+  {%- assign back_href = "us/careers/" | append: X.pathway | append: "/" -%}
+  {%- assign back_label = XP.title -%}
+  {%- assign home_href = "us/" -%}
+  {%- assign home_label = "USA Home" -%}
+  {%- assign careers_href = "us/careers/" -%}
+{%- endif -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "{{ home_label }}", "item": "{{ site.url }}{{ site.baseurl }}/{{ home_href }}" },
+    { "@type": "ListItem", "position": 2, "name": {{ back_label | jsonify }}, "item": "{{ site.url }}{{ site.baseurl }}/{{ back_href }}" },
+    { "@type": "ListItem", "position": 3, "name": {{ X.title | jsonify }}, "item": "{{ page.url | absolute_url }}" }
+  ]
+}
+</script>
+<main id="main" class="md-page">
+
+  <div class="container md-page-top">
+    <header class="md-answer">
+      <span class="eyebrow">{{ X.eyebrow }}</span>
+      <h1>{{ X.title }}</h1>
+      <p class="md-answer-lede">{{ X.lede }}</p>
+      <p class="md-tile-note"><strong>For:</strong> {{ X.for }}</p>
+      <div class="md-answer-actions">
+        {%- assign R0 = X.routes | first %}
+        <a href="#{{ R0.id }}" class="btn btn-primary">See the roadmap</a>
+        <a href="{{ back_href }}" class="md-textlink">{{ back_label }} guide</a>
+        {%- if X.watch %}<a href="#watch" class="md-textlink">Dates to watch</a>{% endif %}
+      </div>
+    </header>
+  </div>
+
+  {%- for R in X.routes %}
+  <section class="md-sec{% if forloop.index0 == 1 or forloop.index0 == 3 %} md-sec-alt{% endif %}" id="{{ R.id }}" aria-labelledby="{{ R.id }}-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="{{ R.id }}-h">{% if X.routes.size > 1 %}Route {{ forloop.index }}: {% endif %}{{ R.title }} <span class="mob-badge">{{ R.tag }}</span></h2><p>{{ R.who }}</p></div>
+      {%- assign ir_seen = "" %}
+      <div class="cflow-wrap" data-no-points>
+        <ol class="cflow{% if R.steps.size > 6 %} is-long{% endif %}" style="--n:{{ R.steps.size }}">
+          {%- for s in R.steps %}
+          {%- assign ir_seen = ir_seen | append: s.kind | append: " " %}
+          <li class="cflow-node" data-kind="{{ s.kind }}">
+            <span class="cflow-dot" aria-hidden="true">{% if s.kind == "goal" %}★{% else %}{{ forloop.index }}{% endif %}</span>
+            <div class="cflow-card">
+              <span class="cflow-kind">{% case s.kind %}{% when "start" %}Start here{% when "exam" %}Exam gate{% when "licence" %}{% if ED == "us" %}Certificate{% else %}Licence{% endif %}{% when "goal" %}Goal{% else %}{{ s.tag }}{% endcase %}</span>
+              <h3>{{ s.title }}</h3>
+              <p>{% if s.text != "" %}{{ s.text }} {% endif %}{% include intl-src-chip.html ed=ED id=s.source %}</p>
+            </div>
+          </li>
+          {%- endfor %}
+        </ol>
+        <p class="cflow-legend" aria-hidden="true">
+          {%- if ir_seen contains "start" %}<span data-kind="start">Start</span>{% endif -%}
+          {%- if ir_seen contains "stage" %}<span data-kind="stage">Study / work</span>{% endif -%}
+          {%- if ir_seen contains "exam" %}<span data-kind="exam">Exam gate</span>{% endif -%}
+          {%- if ir_seen contains "licence" %}<span data-kind="licence">{% if ED == "us" %}Certificate{% else %}Licence{% endif %}</span>{% endif -%}
+          {%- if ir_seen contains "goal" %}<span data-kind="goal">Goal</span>{% endif -%}
+        </p>
+      </div>
+      {%- if R.facts %}
+      <dl class="md-kv">
+        {%- for f in R.facts %}
+        <div><dt>{{ f.k }}</dt><dd>{{ f.v }} {% include intl-src-chip.html ed=ED id=f.source %}</dd></div>
+        {%- endfor %}
+      </dl>
+      {%- endif %}
+    </div>
+  </section>
+  {%- endfor %}
+
+  {%- if X.watch %}
+  <section class="md-sec md-sec-alt" id="watch" aria-labelledby="watch-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="watch-h">Dates and rules to re-check</h2><p>These change by season or by law. Checked {{ X.checked | date: "%-d %b %Y" }}.</p></div>
+      <ul class="md-list">
+        {%- for w in X.watch %}
+        <li>{{ w.text }} {% include intl-src-chip.html ed=ED id=w.source %}</li>
+        {%- endfor %}
+      </ul>
+    </div>
+  </section>
+  {%- endif %}
+
+  <section class="md-sec" aria-labelledby="related-h">
+    <div class="container">
+      <div class="rm-link-card" data-no-points><div><strong>Back to the full {{ back_label }} guide</strong><p>The home-grown route, pay and what the work is like.</p></div><a href="{{ back_href }}" class="btn btn-journey">← {{ back_label }}</a></div>
+      <div class="md-datanote">Every step links to the official page it came from (regulators, licensing boards, the law), checked {{ X.checked | date: "%-d %b %Y" }}. Rules for people trained abroad change often: confirm with the official body before you pay any fee. Education Margdarshan does not recommend paid courses. <a href="{{ careers_href }}">All careers →</a></div>
+    </div>
+  </section>
+
+</main>

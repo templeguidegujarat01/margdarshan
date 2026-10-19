@@ -1,0 +1,5 @@
+{%- comment -%}
+  Source chip for either international edition: us → us-src-chip.html, uk → uk-src-chip.html.
+  Params: ed (us | uk), id (source id in that edition's sources.yml), align (optional, passed through).
+{%- endcomment -%}
+{%- if include.ed == "uk" -%}{% include uk-src-chip.html id=include.id align=include.align %}{%- else -%}{% include us-src-chip.html id=include.id align=include.align %}{%- endif -%}

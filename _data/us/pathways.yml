@@ -431,3 +431,122 @@ list:
     salary: true
     salary_soc: "19-3033"     # the lead occupation is a BLS group; salary page uses this published SOC
     salary_title: "Clinical and counseling psychologists"
+
+# ---------------------------------------------------------------------------------------------
+# CROSS-BORDER TRACKS (2026-10-19): for people trained OUTSIDE the U.S. (India first) who want to
+# qualify here. Each one is a standalone roadmap page us/roadmaps/<slug>.html (stub with
+# `track: <slug>`, rendered by _includes/intl-roadmap.html) and is linked from its pathway page.
+#
+#   slug        roadmap URL us/roadmaps/<slug>.html
+#   pathway     the U.S. pathway (list above) this track belongs to; its page links the roadmap
+#   for         who the track is for (one line)
+#   checked     the date every source below was re-read
+#   review_by   rules and season dates change; scripts/check-us-data.mjs fails after this date
+#   routes      one or more routes, each { id, title, tag, who, steps, facts }
+#     steps     { tag, title, text, kind, source }: kind = start | stage | exam | licence | goal
+#               (same node kinds as the India .cflow flowchart, see _includes/career-flow.html)
+#     facts     { k, v, source }
+#   watch       { text, source }: dated rules a reader must re-check
+# Only facts read on the official page named by `source` (ids in sources.yml). No gap is filled with
+# a guess: fees, timelines and pass rates that the source does not state are left out.
+crossborder:
+  - slug: img-usmle
+    pathway: medicine
+    title: "Foreign medical graduate to U.S. doctor: ECFMG and the USMLE"
+    eyebrow: "USA · Cross-border · Medicine"
+    lede: "If your medical degree is from outside the U.S. (an Indian MBBS, for example), you are an <strong>international medical graduate (IMG)</strong>. To train and work as a doctor here you need <strong>ECFMG Certification</strong> first, then a U.S. residency, then a state license."
+    for: "MBBS students and graduates of medical schools outside the U.S."
+    checked: 2026-10-19
+    review_by: 2027-01-31
+    routes:
+      - id: ecfmg
+        title: "ECFMG Certification, residency, license"
+        tag: "ECFMG"
+        who: "ECFMG decides who counts as an IMG: it is the <strong>location of your medical school</strong>, not your citizenship."
+        steps:
+          - { tag: "Check", title: "Is your medical school eligible?", text: "It must be listed in the World Directory of Medical Schools with an <strong>ECFMG Sponsor Note</strong> that covers your graduation year. No note = not eligible.", kind: start, source: ecfmg_cert }
+          - { tag: "Apply", title: "Application for ECFMG Certification", text: "Through the MyIntealth portal. Students can start while still in medical school; graduates need their credentials verified with the school first.", kind: stage, source: ecfmg_usmle_elig }
+          - { tag: "Exam", title: "USMLE Step 1", text: "IMGs apply through the FSMB. From 14 May 2026 it is one 8-hour day: fourteen 30-minute blocks.", kind: exam, source: usmle_step1 }
+          - { tag: "Exam", title: "USMLE Step 2 CK", text: "Passing Step 1 and Step 2 CK meets ECFMG's medical science exam requirement.", kind: exam, source: ecfmg_cert }
+          - { tag: "Exam", title: "OET Medicine + an ECFMG Pathway", text: "Score at least <strong>350</strong> in Listening, Reading and Speaking and <strong>300</strong> in Writing, in one sitting. Required of everyone, even native English speakers.", kind: exam, source: ecfmg_oet }
+          - { tag: "Certificate", title: "ECFMG Certificate", text: "Needs all the exams plus your final medical diploma verified by ECFMG with your school, so it can only finish after you graduate.", kind: licence, source: ecfmg_cert }
+          - { tag: "Training", title: "Residency (the Match) + a visa", text: "ACGME-accredited residency programs require ECFMG Certification. For the NRMP Match, all exam requirements must be met by the Rank Order List deadline.", kind: stage, source: ecfmg_cert }
+          - { tag: "Exam", title: "USMLE Step 3", text: "Needs passes in Step 1 and Step 2 CK and a <strong>valid, unexpired</strong> ECFMG Certificate. USMLE recommends finishing (or nearly finishing) one year of U.S. residency first.", kind: exam, source: usmle_eligibility }
+          - { tag: "Goal", title: "State medical license", text: "State medical boards require ECFMG Certification, among other things, for an unrestricted license.", kind: goal, source: ecfmg_cert }
+        facts:
+          - { k: "7-year time limit", v: "From the date of the <strong>first exam you pass</strong>, you have exactly 7 years to meet the other exam requirements (including your Pathway). ECFMG will not remind you.", source: ecfmg_pathways_2027 }
+          - { k: "Which Pathway?", v: "Pathway 1 if you already hold a licence to practise medicine (for example in India). Pathways 2 to 5 depend on your school's accreditation or exams. Pathway 6 (clinical encounters rated by licensed physicians) is for everyone else.", source: ecfmg_pathways_2027 }
+          - { k: "Certificate expiry", v: "A 2027 Pathway expires on <strong>31 Dec 2029</strong>, and a certificate based on it expires with it. It becomes valid for good after 12 months of ACGME residency, or with an unrestricted U.S. state license.", source: ecfmg_expiration }
+          - { k: "Step results", v: "Typically 2 to 4 weeks after the test; USMLE says to allow up to 8 weeks.", source: usmle_scoring }
+          - { k: "J-1 visa", v: "ECFMG is the <strong>only sponsor</strong> of J-1 physicians in clinical training programs.", source: ecfmg_evsp }
+          - { k: "J-1 two-year rule", v: "A J-1 doctor who came for graduate medical training must live in their home country for 2 years in total after leaving the U.S. before getting an H or L visa or a green card, unless the rule is waived.", source: usc_1182e }
+          - { k: "H-1B instead", v: "For patient care, the doctor must have passed the licensing exam the rules name (FLEX, or an exam HHS treats as equivalent) and show English skill through ECFMG's test, plus any state license the job needs.", source: cfr_h1b_physicians }
+    watch:
+      - { text: "2027 Match: take OET Medicine by the last December 2026 test date; ECFMG must receive your scores and your Pathways application by <strong>31 Jan 2027</strong>.", source: ecfmg_pathways_2027 }
+      - { text: "2024 Pathways expire on 31 Dec 2026: revalidate by the March 2027 Rank Order List deadline to enter the 2027 Match.", source: ecfmg_expiration }
+
+  - slug: cpa-international
+    pathway: accounting
+    title: "Indian graduate or CA to U.S. CPA"
+    eyebrow: "USA · Cross-border · Accounting"
+    lede: "There is <strong>no shortcut</strong> for Indian qualifications: you take the full <strong>Uniform CPA Exam</strong>, which you can sit in India. Each U.S. state board decides if your degree has enough credit hours."
+    for: "B.Com graduates, Indian CAs and other accountants educated outside the U.S."
+    checked: 2026-10-19
+    review_by: 2027-04-19
+    routes:
+      - id: cpa
+        title: "Evaluate, pick a state, pass the exam, get licensed"
+        tag: "NASBA"
+        who: "The CPA license comes from a <strong>state board of accountancy</strong>. NASBA and the AICPA run the exam."
+        steps:
+          - { tag: "Start", title: "Your degree, evaluated", text: "A foreign degree must be evaluated for U.S. credit. NASBA International Evaluation Services (NIES) is the only approved evaluator in some states, such as Illinois, Alabama and Washington, D.C.", kind: start, source: nasba_nies }
+          - { tag: "Apply", title: "Pick one U.S. state and apply to its board", text: "You apply to that state's Board of Accountancy; its rules decide if you may sit the exam.", kind: stage, source: nasba_intl_exam }
+          - { tag: "Credits", title: "150 hours, or the 120-hour route", text: "The model law has 3 routes: graduate degree + 1 year of experience; bachelor's + 30 more credits (150 total) + 1 year; or bachelor's (120 credits) + 2 years. A state offers a route only once its own law adopts it.", kind: stage, source: nasba_pathways }
+          - { tag: "Exam", title: "Uniform CPA Exam", text: "Three Core sections (AUD, FAR, REG) + one Discipline you choose (BAR, ISC or TCP).", kind: exam, source: aicpa_disciplines }
+          - { tag: "Work", title: "1 or 2 years of experience", text: "Depends on the route; each board defines what counts.", kind: stage, source: nasba_pathways }
+          - { tag: "Goal", title: "CPA license from your state board", text: "", kind: goal, source: nasba_pathways }
+        facts:
+          - { k: "ICAI agreement?", v: "<strong>None.</strong> NASBA/AICPA mutual recognition agreements cover only SAICA, CPA Australia, CA ANZ, CPA Canada, Chartered Accountants Ireland, CPA Ireland and IMCP (Mexico).", source: nasba_mra }
+          - { k: "IQEX shortcut?", v: "Only for members of those seven bodies. NASBA says everyone else must take the full Uniform CPA Exam.", source: nasba_iqex }
+          - { k: "Test in India", v: "Yes. After your state board sends a Notice to Schedule, you pay an international fee: <strong>$460 per section</strong> in India (non-refundable).", source: nasba_intl_exam }
+          - { k: "States that don't test abroad", v: "Alabama, Idaho, North Carolina and the U.S. Virgin Islands do not take part in international testing.", source: nasba_intl_exam }
+    watch:
+      - { text: "State adoption of the 120-hour route is still moving: check your board before counting credits.", source: nasba_pathways }
+
+  - slug: foreign-lawyer-us-bar
+    pathway: law
+    title: "Indian LLB to the New York or California bar"
+    eyebrow: "USA · Cross-border · Law"
+    lede: "Most U.S. states require a U.S. J.D. <strong>New York</strong> and <strong>California</strong> are two that let people with a foreign law degree sit their bar exam, each with its own rules."
+    for: "LLB students, graduates and lawyers from India and other countries."
+    checked: 2026-10-19
+    review_by: 2027-04-19
+    routes:
+      - id: new-york
+        title: "New York (Rule 520.6)"
+        tag: "NY BOLE"
+        who: "Run by the <strong>New York State Board of Law Examiners</strong> under Court of Appeals Rule 520.6."
+        steps:
+          - { tag: "Start", title: "A law degree from a common-law country", text: "It must qualify you to practise at home, from a recognised school. New York measures its length against a U.S. J.D.: 83 credit hours, 64 of them in class.", kind: start, source: nybole_foreign }
+          - { tag: "Apply", title: "Advance evaluation by the Board", text: "Every first-time foreign applicant must ask for it <strong>before</strong> applying for the exam. It can take up to 6 months once all papers arrive.", kind: stage, source: nybole_foreign }
+          - { tag: "Study", title: "U.S. LL.M., if you need a cure", text: "At an ABA-approved school: at least 24 credits over 2 or more semesters, finished within 24 months, including professional responsibility, legal writing, American legal studies and 6 credits of bar subjects. It fixes a length gap <strong>or</strong> a content gap, not both.", kind: stage, source: nycrr_520_6 }
+          - { tag: "Exam", title: "New York bar exam", text: "Plus the New York Law Course, the New York Law Exam and the MPRE ethics exam.", kind: exam, source: nycrr_520_9 }
+          - { tag: "Goal", title: "Admitted in New York", text: "After 50 hours of pro bono work, the skills competency requirement and a character and fitness interview.", kind: goal, source: nybole_admission }
+        facts:
+          - { k: "LL.M. deadlines", v: "If you need an LL.M., send the evaluation and all papers by <strong>1 May</strong> (for next February's exam) or <strong>1 Oct</strong> (for next July's) of the year before.", source: nybole_foreign }
+          - { k: "Exam fee", v: "<strong>$750</strong>. New York advises LL.M. applicants to wait for the eligibility decision before paying: the fee is not refunded if you turn out to be ineligible.", source: nybole_foreign }
+          - { k: "UK conversion route", v: "GDL + LPC (or the Bar course) does not meet Rule 520.6(b)(1), even if a school calls it an LL.B.; those applicants use 520.6(b)(2).", source: nybole_foreign }
+      - id: california
+        title: "California (Rule 4.30)"
+        tag: "State Bar of CA"
+        who: "Run by the <strong>State Bar of California</strong>, Office of Admissions."
+        steps:
+          - { tag: "Start", title: "Already admitted as a lawyer abroad?", text: "If you are fully admitted to practise law in any U.S. or foreign jurisdiction, you can take the California Bar Exam <strong>without more study</strong>.", kind: start, source: calbar_foreign }
+          - { tag: "Check", title: "Not admitted: get your law degree evaluated", text: "A State Bar-approved agency must show your first law degree equals a U.S. J.D., or meets the rules for practising law in the country that gave it (course-by-course report).", kind: stage, source: calbar_foreign }
+          - { tag: "Study", title: "One year of law study in the U.S.", text: "At an ABA-approved or California-accredited law school (an LL.M.), as the State Bar's guidelines set out. Register as a law student first.", kind: stage, source: calbar_foreign }
+          - { tag: "Exam", title: "California Bar Exam", text: "Mail a sealed official transcript once the LL.M. is done so the State Bar can confirm you are eligible.", kind: exam, source: calbar_foreign }
+          - { tag: "Goal", title: "Licensed in California", text: "", kind: goal, source: calbar_foreign }
+        facts:
+          - { k: "No law degree?", v: "If your foreign law study did not end in a degree: show 2 years of undergraduate study, pass the First-Year Law Students' Examination (or be exempt), then a J.D. or 4 years of registered law study in the U.S.", source: calbar_foreign }
+    watch:
+      - { text: "New York's bar exam changes to NextGen from July 2028.", source: nybole_home }

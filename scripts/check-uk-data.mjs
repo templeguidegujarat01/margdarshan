@@ -8,6 +8,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
+import { checkCrossborder, checkOrphanRoadmaps } from './lib/crossborder.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const yaml = createRequire(path.join(process.env.VERIFY_DEPS || root, 'x.js'))('js-yaml');
@@ -48,6 +49,7 @@ if (ashe.provisional && !/provisional/i.test(sources.ashe.label || '')) err('sou
 const usPaths = readYaml('_data/us/pathways.yml').list;
 const dir = path.join(root, '_data/uk/careers');
 const careers = {};
+const cbSeen = new Set();
 for (const f of fs.readdirSync(dir).filter((x) => x.endsWith('.yml'))) {
   const slug = f.replace(/\.yml$/, '');
   const C = (careers[slug] = readYaml(`_data/uk/careers/${f}`));
@@ -79,9 +81,11 @@ for (const f of fs.readdirSync(dir).filter((x) => x.endsWith('.yml'))) {
   for (const f2 of C.school || []) if (!f2.source) err(w, `school "${f2.k}" has no source`);
   for (const b of C.badges || []) if (!b.source) err(w, `badge "${b.label}" has no source`);
   walkSources(w, C);
+  checkCrossborder({ root, ed: 'uk', tracks: C.crossborder, where: w, hasSrc: (id) => src.has(id), err, sheet: slug, seen: cbSeen });
   if (C.in_page && !exists(C.in_page)) err(w, `in_page ${C.in_page} does not exist`);
   if (C.us_pathway) { const P = usPaths.find((x) => x.slug === C.us_pathway); if (!P || !P.live) err(w, `us_pathway "${C.us_pathway}" is not a live USA pathway`); }
 }
+checkOrphanRoadmaps({ root, ed: 'uk', seen: cbSeen, err });
 for (const id of src) if (!used.has(id) && !['ons_ashe', 'ons_ashe_region'].includes(id)) {
   // uk/index.html also cites sources directly; count those as used.
   if (!fs.readFileSync(path.join(root, 'uk/index.html'), 'utf8').includes(`id="${id}"`)) err(`sources.${id}`, 'not used by any page');
@@ -125,6 +129,6 @@ for (const g of nav.sidebar) for (const it of g.items) for (const h of [it.href,
 }
 if (!regions.list.includes('uk') || !regions.uk) err('regions.yml', 'uk edition missing');
 
-console.log(`checked ${src.size} UK sources, ${Object.keys(careers).length} UK careers, ${Object.keys(ashe.occupations).length} ASHE occupations, ${Object.keys(M.routes || {}).length} mobility routes`);
+console.log(`checked ${src.size} UK sources, ${Object.keys(careers).length} UK careers, ${cbSeen.size} cross-border tracks, ${Object.keys(ashe.occupations).length} ASHE occupations, ${Object.keys(M.routes || {}).length} mobility routes`);
 if (errors.length) { console.log(errors.join('\n')); console.log(`\n${errors.length} problem(s)`); process.exit(1); }
 console.log('OK: 0 problems');

@@ -53,12 +53,30 @@ og_description: "How U.S. high school, tests, degrees and professional licenses 
         <p>There is no national exam at the end of grade 10 or grade 12. Students finish high school, then choose a college route that fits the career they want — and some careers add a professional school and a state license on top.</p>
       </div>
       {%- assign L = US.degrees.levels %}
-      <div class="journey-list reveal">
-        <div class="journey-item"><span class="journey-node">1</span><div><h3>High school · grades 9–12</h3><p>Ends with a {{ US.degrees.high_school.credential | downcase }}. Requirements are set by each state and often each district.</p></div></div>
-        <div class="journey-item"><span class="journey-node">2</span><div><h3>{{ L.associate.name }}</h3><p>{{ L.associate.definition }} Mostly at community and technical colleges; can lead to a job or a transfer.</p></div></div>
-        <div class="journey-item"><span class="journey-node">3</span><div><h3>{{ L.bachelor.name }}</h3><p>{{ L.bachelor.definition }}</p></div></div>
-        <div class="journey-item"><span class="journey-node">4</span><div><h3>{{ L.master.name }}</h3><p>Graduate study after a bachelor's degree, for example {{ L.master.examples | join: ", " }}.</p></div></div>
-        <div class="journey-item"><span class="journey-node">5</span><div><h3>Doctorate &amp; professional degrees</h3><p>Research doctorates ({{ L.doctor_research.examples | join: ", " }}) and professional-practice doctorates ({{ L.doctor_professional.examples | join: ", " }}). {{ L.doctor_professional.note }}</p></div></div>
+      <div class="cflow-wrap reveal" data-no-points>
+        <ol class="cflow" style="--n:5">
+          <li class="cflow-node" data-kind="start">
+            <span class="cflow-dot" aria-hidden="true">1</span>
+            <div class="cflow-card"><span class="cflow-kind">Start here</span><h3>High school · grades 9–12</h3><p>Ends with a {{ US.degrees.high_school.credential | downcase }}. Requirements are set by each state and often each district.</p></div>
+          </li>
+          <li class="cflow-node" data-kind="stage">
+            <span class="cflow-dot" aria-hidden="true">2</span>
+            <div class="cflow-card"><span class="cflow-kind">Step 2</span><h3>{{ L.associate.name }}</h3><p>{{ L.associate.definition }} Mostly at community and technical colleges; can lead to a job or a transfer.</p></div>
+          </li>
+          <li class="cflow-node" data-kind="stage">
+            <span class="cflow-dot" aria-hidden="true">3</span>
+            <div class="cflow-card"><span class="cflow-kind">Step 3</span><h3>{{ L.bachelor.name }}</h3><p>{{ L.bachelor.definition }}</p></div>
+          </li>
+          <li class="cflow-node" data-kind="stage">
+            <span class="cflow-dot" aria-hidden="true">4</span>
+            <div class="cflow-card"><span class="cflow-kind">Step 4</span><h3>{{ L.master.name }}</h3><p>Graduate study after a bachelor's degree, for example {{ L.master.examples | join: ", " }}.</p></div>
+          </li>
+          <li class="cflow-node" data-kind="goal">
+            <span class="cflow-dot" aria-hidden="true">★</span>
+            <div class="cflow-card"><span class="cflow-kind">Highest level</span><h3>Doctorate &amp; professional degrees</h3><p>Research doctorates ({{ L.doctor_research.examples | join: ", " }}) and professional-practice doctorates ({{ L.doctor_professional.examples | join: ", " }}). {{ L.doctor_professional.note }}</p></div>
+          </li>
+        </ol>
+        <p class="cflow-legend" aria-hidden="true"><span data-kind="start">Start</span><span data-kind="stage">Study</span><span data-kind="goal">Highest level</span></p>
       </div>
 
       <h3 class="block-subhead">What colleges look at</h3>
@@ -198,6 +216,8 @@ og_description: "How U.S. high school, tests, degrees and professional licenses 
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
         <span>{{ IM.disclaimer }} Checked {{ IM.h1b.as_of | date: "%Y-%m-%d" }}. Planning to study in the U.S. from India? See the India Edition's <a href="study-abroad/usa.html">Study in the USA guide</a>.</span>
       </div>
+      <h3 class="block-subhead">Already trained abroad?</h3>
+      {% include intl-roadmap-card.html ed="us" key="all" bare=true %}
       <div class="trend-more"><a class="btn btn-primary btn-page-link" href="us/international-students/">Full international student guide →</a></div>
     </div>
   </section>

@@ -8,6 +8,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
+import { checkCrossborder, checkOrphanRoadmaps } from './lib/crossborder.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const yaml = createRequire(path.join(process.env.VERIFY_DEPS || root, 'x.js'))('js-yaml');
@@ -271,6 +272,16 @@ for (const [id, h] of Object.entries(hubs)) {
   });
 }
 
-console.log(`checked ${Object.keys(sources.list).length} sources, ${Object.keys(occ).length} occupations, ${Object.keys(lic).length} licenses, ${testIds.size} tests, ${paths.list.length} pathways`);
+// Cross-border tracks (2026-10-19): roadmap stubs us/roadmaps/<slug>.html, kinds, sources, review_by; each
+// track belongs to a live pathway (its page shows the link card).
+const cbSeen = new Set();
+checkCrossborder({ root, ed: 'us', tracks: paths.crossborder, where: 'pathways', hasSrc: (id) => src.has(id), err, seen: cbSeen });
+for (const X of paths.crossborder || []) {
+  const P = paths.list.find((x) => x.slug === X.pathway);
+  if (!P || !P.live || P.template !== 'v2') err(`pathways.crossborder[${X.slug}]`, `pathway "${X.pathway}" is not a live v2 pathway`);
+}
+checkOrphanRoadmaps({ root, ed: 'us', seen: cbSeen, err });
+
+console.log(`checked ${Object.keys(sources.list).length} sources, ${Object.keys(occ).length} occupations, ${Object.keys(lic).length} licenses, ${testIds.size} tests, ${paths.list.length} pathways, ${(paths.crossborder || []).length} cross-border tracks`);
 if (errors.length) { console.log(errors.join('\n')); console.log(`\n${errors.length} problem(s)`); process.exit(1); }
 console.log('OK: 0 problems');

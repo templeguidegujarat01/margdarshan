@@ -10,7 +10,8 @@
     sections[] {id, nav, eyebrow, heading, parts[]}
                                         one bordered block (.mb) each; `nav` is its chip in the sticky
                                         "On this page" bar. Part kinds: p, list, table {caption, head, rows},
-                                        note, warn, links [{label, url}]; a part's `source:` prints [n].
+                                        note, warn, links [{label, url}], formula (score build + tie-break
+                                        chain card, _includes/exam-formula-card.html); a part's `source:` prints [n].
     sources[] {id, name, url, covers, checked}
                                         the numbered citation block at the bottom (id="sources").
   The page opts out of the auto sidebar (data-no-page-nav): the sticky horizontal quicknav bar is the
@@ -117,6 +118,8 @@
       {%- endif %}
       {%- elsif p.note %}
       <p class="table-note sc-note">{{ p.note }}{% if p.source %} {% include state-src-ref.html id=p.source %}{% endif %}</p>
+      {%- elsif p.formula %}
+      {% include exam-formula-card.html f=p.formula source=p.source %}
       {%- elsif p.warn %}
       <div class="sc-warn" role="note"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/></svg><p>{{ p.warn }}{% if p.source %} {% include state-src-ref.html id=p.source %}{% endif %}</p></div>
       {%- elsif p.links %}

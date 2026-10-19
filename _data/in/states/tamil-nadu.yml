@@ -409,21 +409,27 @@ exams:
         eyebrow: "Cut-off &amp; ranking"
         heading: "Your cut-off out of 200 decides everything"
         parts:
-          - table:
-              caption: "How the cut-off mark is built"
-              head: ["Subject", "Class 12 mark out of", "Counted out of"]
-              rows:
-                - ["Mathematics", "100", "100"]
-                - ["Physics", "100", "50 (half)"]
-                - ["Chemistry", "100", "50 (half)"]
-                - ["Cut-off", "", "200"]
-            source: tn-ib
-          - p: "Worked example: Maths 95, Physics 88, Chemistry 90 gives 95 + 44 + 45 = <strong>184 out of 200</strong>."
+          - formula:
+              caption: "How the cut-off and the rank are built"
+              build_label: "Cut-off out of 200"
+              terms:
+                - { name: "Mathematics", rule: "100 as is", value: "100" }
+                - { name: "Physics", rule: "100 ÷ 2", value: "50" }
+                - { name: "Chemistry", rule: "100 ÷ 2", value: "50" }
+              total: { name: "Cut-off", value: "200" }
+              example: "Maths 95, Physics 88, Chemistry 90 → 95 + 44 + 45 = <strong>184 / 200</strong>"
+              chain_label: "Same cut-off? Compare in this order"
+              chain:
+                - "Maths percentage"
+                - "Physics percentage"
+                - "Optional-subject percentage"
+                - "Total Class 12 percentage"
+                - "Date of birth — older candidate first"
+                - "Random number assigned to you — higher first"
             source: tn-ib
           - list:
               - "Marks from other boards are normalised to the Tamil Nadu State Board: each board's subject topper is set equal to the State Board topper. The brochure's example: if another board's Physics topper has 90, a student with 60 there is counted as 66.66."
               - "For CBSE and CISCE, the national-level highest mark in the subject is used for normalisation."
-              - "<strong>Tie-break order:</strong> (1) Maths percentage, (2) Physics percentage, (3) optional-subject percentage, (4) total Class 12 percentage, (5) date of birth — the older candidate first, (6) the random number assigned to you — higher first."
               - "Vocational candidates have their own rank list: Maths / Physics / Chemistry (100) + vocational theory and practicals (100) = 200. They compete for 2% of the government seats."
               - "Overall and community ranks are published on tneaonline.org and dte.tn.gov.in (no newspaper notice). Grievances about the rank list go to the nearest TNEA Facilitation Centre within 5 days."
             source: tn-ib

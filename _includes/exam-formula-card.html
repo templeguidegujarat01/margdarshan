@@ -1,0 +1,47 @@
+{%- comment -%}
+  Exam formula card ("Score Matrix Board"). Image-free; styles in main.css → EXAM FORMULA CARD.
+  Used by state-exam.html for a `formula:` part:
+
+    - formula:
+        caption: "How the cut-off and rank are built"
+        build_label: "Cut-off build"                 (optional; left column heading)
+        terms:                                       one row each, added top to bottom
+          - { name: "Mathematics", rule: "100 as is", value: "100" }
+          - { name: "Physics", rule: "100 ÷ 2", value: "50" }
+        total: { name: "Cut-off", value: "200" }
+        example: "Maths 95, Physics 88, Chemistry 90 → …"   (optional)
+        chain_label: "If two candidates tie"         (optional; right column heading)
+        chain: ["Maths percentage", "Physics percentage", …] (optional; the tie-break order)
+      source: tn-ib
+
+  {% include exam-formula-card.html f=p.formula source=p.source %}
+  The wrapper carries data-no-points so site.js Block 0 never rewrites it (no reflow after load).
+{%- endcomment -%}
+{%- assign F = include.f -%}
+<figure class="xfc{% unless F.chain %} xfc-solo{% endunless %}" data-no-points>
+  <figcaption class="xfc-cap">{{ F.caption }}{% if include.source %} {% include state-src-ref.html id=include.source %}{% endif %}</figcaption>
+  <div class="xfc-grid">
+    <div class="xfc-engine">
+      <p class="xfc-head" aria-hidden="true">{{ F.build_label | default: "Score build" }}</p>
+      <ol class="xfc-terms" aria-label="{{ F.build_label | default: 'Score build' }}">
+        {%- for t in F.terms %}
+        <li class="xfc-row"><span class="xfc-op" aria-hidden="true">{% if forloop.first %}&nbsp;{% else %}+{% endif %}</span><span class="xfc-name">{{ t.name }}</span>{% if t.rule %}<span class="xfc-rule">{{ t.rule }}</span>{% endif %}<span class="xfc-val">{{ t.value }}</span></li>
+        {%- endfor %}
+      </ol>
+      <p class="xfc-row xfc-total"><span class="xfc-op" aria-hidden="true">=</span><span class="xfc-name">{{ F.total.name }}</span><span class="xfc-val">{{ F.total.value }}</span></p>
+      {%- if F.example %}
+      <p class="xfc-eg"><span class="xfc-eg-tag">Example</span> {{ F.example }}</p>
+      {%- endif %}
+    </div>
+    {%- if F.chain %}
+    <div class="xfc-chain">
+      <p class="xfc-head" aria-hidden="true">{{ F.chain_label | default: "Tie-break order" }}</p>
+      <ol class="xfc-steps" aria-label="{{ F.chain_label | default: 'Tie-break order' }}">
+        {%- for s in F.chain %}
+        <li class="xfc-step"><span class="xfc-dot" aria-hidden="true">{{ forloop.index }}</span><span class="xfc-step-text">{{ s }}</span></li>
+        {%- endfor %}
+      </ol>
+    </div>
+    {%- endif %}
+  </div>
+</figure>

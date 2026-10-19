@@ -406,22 +406,28 @@ exams:
         eyebrow: "Exam scheme &amp; marking"
         heading: "120 questions, 480 marks, +4 / −1"
         parts:
-          - table:
+          - formula:
               caption: "Single paper, 3 hours, OMR, Assam State School Education Board (HS) syllabus"
-              head: ["Subject", "Questions", "Marks"]
-              rows:
-                - ["Mathematics", "40", "160"]
-                - ["Physics", "40", "160"]
-                - ["Chemistry", "40", "160"]
-                - ["Total", "120", "480"]
+              build_label: "Marks out of 480"
+              terms:
+                - { name: "Mathematics", rule: "40 Q × 4", value: "160" }
+                - { name: "Physics", rule: "40 Q × 4", value: "160" }
+                - { name: "Chemistry", rule: "40 Q × 4", value: "160" }
+              total: { name: "120 questions", value: "480" }
+              example: "80 right, 20 wrong (100 attempted) → 80 × 4 − 20 × 1 = <strong>300 / 480</strong>"
+              chain_label: "Same total? Compare in this order"
+              chain:
+                - "Higher Maths mark"
+                - "Higher Physics mark"
+                - "Higher Chemistry mark"
+                - "Date of birth"
+                - "Alphabetical order of name"
             source: ce-ib
           - list:
               - "<strong>+4</strong> for a correct answer, <strong>−1</strong> for a wrong one; marking more than one answer counts as wrong."
               - "Questions are printed in English and Assamese. Answers go on an OMR sheet in black ball-point pen; it is machine-read and there is no manual re-checking or re-evaluation."
-              - "<strong>Rank:</strong> total marks in Maths, Physics and Chemistry. Ties are broken by the higher Maths mark, then Physics, then Chemistry, then date of birth, then alphabetical order of name."
+              - "<strong>Rank:</strong> total marks in Maths, Physics and Chemistry, with the tie-break order shown above."
               - "No entry to the hall after 11 am. Calculators, log tables, phones and smart watches are not allowed."
-            source: ce-ib
-          - p: "Worked example: 80 right and 20 wrong out of 100 attempted gives 80 × 4 − 20 × 1 = <strong>300 out of 480</strong>."
             source: ce-ib
       - id: fees
         nav: "Fees"

@@ -102,7 +102,8 @@ for (const f of fs.readdirSync(dir).filter((x) => x.endsWith('.yml'))) {
 
 // ---- State Exam & Career Cockpit sheets (_data/in/states/<state>.yml -> state/<state>/*.html) ----
 // Fails on: page missing or not including its template, a section list that is not the 8 fixed blocks,
-// unknown part kinds, a fact part (p / list / table) or hero fact without `source:`, a cited id that is
+// unknown part kinds (these sheets also allow `formula`, see _includes/exam-formula-card.html), a fact
+// part (p / list / table / formula) or hero fact without `source:`, a cited id that is
 // not in that exam's sources, a source never cited, non-https or unchecked sources, broken local links,
 // and cockpit groups that miss an exam or name one that does not exist.
 const stateDir = path.join(root, '_data', 'in', 'states');
@@ -168,12 +169,19 @@ if (fs.existsSync(stateDir)) for (const f of fs.readdirSync(stateDir).filter((x)
       for (const [i, p] of (S.parts || []).entries()) {
         const kinds = Object.keys(p).filter((k) => k !== 'source');
         const where = `section ${S.id} part ${i + 1}`;
-        if (kinds.length !== 1 || !SC_KINDS.includes(kinds[0])) { ex(`${where}: unknown part ${JSON.stringify(kinds)}`); continue; }
-        cite(where, p.source, FACT_KINDS.includes(kinds[0]));
+        if (kinds.length !== 1 || ![...SC_KINDS, 'formula'].includes(kinds[0])) { ex(`${where}: unknown part ${JSON.stringify(kinds)}`); continue; }
+        cite(where, p.source, FACT_KINDS.includes(kinds[0]) || kinds[0] === 'formula');
         if (p.table) {
           const w = (p.table.head || []).length;
           if (!w) ex(`${where}: table needs head`);
           for (const [r, row] of (p.table.rows || []).entries()) if (row.length !== w) ex(`${where}: table row ${r + 1} has ${row.length} cells, head has ${w}`);
+        }
+        if (p.formula) {
+          const F = p.formula;
+          if (!F.caption) ex(`${where}: formula needs caption`);
+          if (!(F.terms || []).length || F.terms.some((t) => !t.name || t.value === undefined)) ex(`${where}: formula terms need name and value`);
+          if (!F.total || !F.total.name || F.total.value === undefined) ex(`${where}: formula needs total {name, value}`);
+          if (F.chain !== undefined && (!Array.isArray(F.chain) || F.chain.some((c) => typeof c !== 'string' || !c))) ex(`${where}: formula chain must be a list of text steps`);
         }
         for (const l of p.links || []) if (!l.label || !l.url || !linkOk(l.url)) ex(`${where}: bad link ${JSON.stringify(l)}`);
       }

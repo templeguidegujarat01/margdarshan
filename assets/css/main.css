@@ -3339,3 +3339,66 @@ details[open] > .ed-dash{animation:edDashIn .16s var(--ease);}
   .cflow-card{height:100%;}
 }
 @media (prefers-reduced-motion:reduce){.cflow-card{transition:none;}.cflow-node:hover .cflow-card{transform:none;}}
+
+/* ===================== EXAM FORMULA CARD ("Score Matrix Board", _includes/exam-formula-card.html, 2026-10-19) =====================
+   A `formula:` part on state exam pages (state-exam.html): the score build on the left (sharp 1px rows, mono numbers,
+   alternating nodes) and the tie-break order on the right as a numbered step rail. Image-free. The figure carries
+   data-no-points, so site.js Block 0 leaves it as rendered: nothing reflows after load. Hover states only paint
+   (inset shadow / background), never change size. Below 640px the two columns stack. */
+.xfc{
+  --xfc-max:760px;
+  --xfc-cols:minmax(0,1.15fr) minmax(0,1fr);
+  --xfc-pad:1rem;
+  --xfc-line:var(--line);
+  --xfc-hi:var(--gold);
+  --xfc-hi-text:var(--accent-on-surface);
+  --xfc-node-a:var(--surface);
+  --xfc-node-b:var(--paper);
+  --xfc-total-bg:var(--stream-soft);
+  --xfc-dot:1.75rem;
+  max-width:var(--xfc-max);margin:.4rem 0 1.25rem;border:1px solid var(--xfc-line);border-radius:var(--radius-sm);background:var(--surface);overflow:hidden;
+}
+.xfc-cap{display:flex;flex-wrap:wrap;align-items:baseline;gap:.35rem;padding:.6rem var(--xfc-pad);border-bottom:1px solid var(--xfc-line);background:var(--xfc-node-b);font-family:var(--font-display);font-size:.98rem;font-weight:600;line-height:1.35;color:var(--text);}
+.xfc-grid{display:grid;grid-template-columns:minmax(0,1fr);}
+.xfc-engine,.xfc-chain{min-width:0;padding:var(--xfc-pad);}
+.xfc-chain{border-top:1px solid var(--xfc-line);}
+.xfc-head{margin:0 0 .6rem;font-family:var(--font-mono);font-size:.66rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);}
+/* Scaling engine: op | subject | rule | value */
+.xfc-terms{margin:0;padding:0;list-style:none;border:1px solid var(--xfc-line);border-bottom:0;}
+.xfc-row{display:grid;grid-template-columns:1.1rem minmax(0,1fr) auto 4ch;align-items:baseline;column-gap:.55rem;margin:0;padding:.5rem .65rem;background:var(--xfc-node-a);border-top:1px solid var(--xfc-line);transition:box-shadow .15s var(--ease);}
+.xfc-terms .xfc-row:first-child{border-top:0;}
+.xfc-terms .xfc-row:nth-child(even){background:var(--xfc-node-b);}
+.xfc-row:hover{box-shadow:inset 3px 0 0 var(--xfc-hi);}
+.xfc-op{font-family:var(--font-mono);font-weight:700;color:var(--xfc-hi-text);text-align:center;}
+.xfc-name{font-weight:600;font-size:.93rem;line-height:1.35;overflow-wrap:anywhere;}
+.xfc-rule{font-family:var(--font-mono);font-size:.74rem;color:var(--text-muted);white-space:nowrap;}
+.xfc-val{grid-column:4;font-family:var(--font-mono);font-variant-numeric:tabular-nums;font-weight:700;text-align:right;}
+.xfc-total{border:1px solid var(--xfc-line);border-top:2px solid var(--xfc-hi);background:var(--xfc-total-bg);}
+.xfc-total .xfc-val{font-size:1.15rem;color:var(--xfc-hi-text);}
+.xfc-eg{margin:.75rem 0 0;font-size:.86rem;line-height:1.5;color:var(--text-muted);}
+.xfc-eg strong{font-family:var(--font-mono);color:var(--text);white-space:nowrap;}
+.xfc-eg-tag{display:inline-block;margin-right:.3rem;padding:0 .35rem;border:1px solid var(--xfc-line);font-family:var(--font-mono);font-size:.6rem;font-weight:700;letter-spacing:.08em;line-height:1.6;text-transform:uppercase;vertical-align:.1em;color:var(--text-muted);}
+/* Priority chain: numbered dots on a 1px rail, arrowhead into the next step */
+.xfc-steps{margin:0;padding:0;list-style:none;}
+.xfc-step{position:relative;display:grid;grid-template-columns:var(--xfc-dot) minmax(0,1fr);column-gap:.7rem;align-items:start;padding-bottom:.75rem;}
+.xfc-step:last-child{padding-bottom:0;}
+.xfc-step:not(:last-child)::before{content:"";position:absolute;left:calc(var(--xfc-dot) / 2 - .5px);top:var(--xfc-dot);bottom:0;width:1px;background:var(--xfc-line);}
+.xfc-step:not(:last-child)::after{content:"";position:absolute;left:calc(var(--xfc-dot) / 2 - 4px);bottom:0;border:4px solid transparent;border-top:5px solid var(--xfc-line);border-bottom:0;}
+.xfc-dot{display:grid;place-items:center;width:var(--xfc-dot);height:var(--xfc-dot);border:1px solid var(--xfc-hi);border-radius:4px;background:var(--surface);font-family:var(--font-mono);font-size:.76rem;font-weight:700;font-variant-numeric:tabular-nums;color:var(--xfc-hi-text);transition:background .15s var(--ease);}
+.xfc-step:first-child .xfc-dot{background:var(--xfc-hi);color:#241703;}
+.xfc-step:hover .xfc-dot{background:var(--xfc-total-bg);}
+.xfc-step:first-child:hover .xfc-dot{background:var(--xfc-hi);}
+.xfc-step-text{padding-top:.2rem;font-size:.92rem;line-height:1.45;overflow-wrap:anywhere;}
+@media (min-width:640px){
+  .xfc-grid{grid-template-columns:var(--xfc-cols);}
+  .xfc-solo .xfc-grid{grid-template-columns:minmax(0,1fr);}
+  .xfc-chain{border-top:0;border-left:1px solid var(--xfc-line);}
+}
+/* Very narrow phones: the rule drops under the subject so numbers keep their column. */
+@media (max-width:379px){
+  .xfc{--xfc-pad:.8rem;}
+  .xfc-row{grid-template-columns:1.1rem minmax(0,1fr) 4ch;}
+  .xfc-val{grid-column:3;grid-row:1;}
+  .xfc-rule{grid-column:2;grid-row:2;}
+}
+@media (prefers-reduced-motion:reduce){.xfc-row,.xfc-dot{transition:none;}}

@@ -8,9 +8,14 @@
 #     Constable (Trainee) (Armed Police Battalion) Cat. No. 563/2025 and Village Field Assistant Cat. No.
 #     571/2025 (Extraordinary Gazette of 15 December 2025); and the CEE Kerala notification of 5 January 2026
 #     and Prospectus for KEAM 2026. Nothing comes from coaching or news sites.
-#   - Kerala PSC's General Conditions (Part II of the gazette) are published in Malayalam with a font that does
-#     not extract; only what the post notifications themselves state is used here.
-#   - The Kerala PSC notifications do not print the OMR test pattern, so the scheme block says so.
+#   - Kerala PSC's General Conditions (Part II, general_conditions_added_latest.pdf) are in Malayalam with a
+#     font that does not extract as text. On 2026-10-19 its pages 1–7 were rendered to images and read; the
+#     plain-English summary below covers only those pages (nationality, age relaxations, qualification
+#     concessions, weightage, photo rules). A post's own notification overrides them (e.g. Police Constable
+#     allows no relaxation beyond OBC / SC / ST / ex-servicemen).
+#   - OMR marking (+1 / −1/3) comes from Kerala PSC's English "Special instructions to candidates appearing
+#     for objective type (OMR valuation) test". The number of questions and duration are set per test in the
+#     syllabus / exam calendar, so they are not given here.
 #   - Section ids are the same on every exam page: overview, eligibility, scheme, fees, reservation,
 #     documents, pay, posting (+ sources, drawn automatically).
 state:
@@ -53,7 +58,7 @@ exams:
     short: "Kerala PSC — Police Constable (APB) &amp; Village Field Assistant"
     body: "Kerala Public Service Commission"
     card: "Two Kerala PSC notifications of December 2025: Police Constable (Trainee) in the Armed Police Battalions (Plus Two, men only, battalion-wise lists) and Village Field Assistant in the Revenue Department (SSLC, district-wise lists). No application fee; both closed on 14 January 2026."
-    card_facts: ["No application fee", "PC: ₹31,100 – 66,800", "VFA: ₹23,700 – 52,600"]
+    card_facts: ["No application fee", "OMR: +1 / −1/3", "PC: ₹31,100 – 66,800 · VFA: ₹23,700 – 52,600"]
     eyebrow: "Kerala PSC · Police Constable &amp; Village Field Assistant"
     title: "Kerala PSC Police Constable (Cat. 563/2025) &amp; Village Field Assistant (Cat. 571/2025) — Age, Physical Test, Pay"
     lede: "The Kerala Public Service Commission recruits for Kerala Government service through One Time Registration. This page follows two notifications in the Extraordinary Gazette of 15 December 2025: Police Constable (Trainee) (Armed Police Battalion), Category No. 563/2025, and Village Field Assistant (Revenue), Category No. 571/2025."
@@ -93,6 +98,35 @@ exams:
           - list:
               - "<strong>Village Field Assistant:</strong> age 18–36 — born between 2 January 1989 and 1 January 2007 — with the usual relaxation for OBC and SC / ST, but never above 50. Qualification: a pass in SSLC or equivalent. 4% of vacancies are reserved for differently abled candidates."
             source: kp-vfa
+          - table:
+              caption: "General Conditions — upper-age relaxations (unless the post's notification says otherwise; never beyond 50)"
+              head: ["Group", "Extra years"]
+              rows:
+                - ["OBC", "3"]
+                - ["SC / ST (also people who left SC for another religion as adults, and their children; ST keeps it after conversion)", "5"]
+                - ["Ex-servicemen", "Length of defence service + up to 5 years of unemployment after discharge"]
+                - ["Blind / low vision, deaf / hard of hearing (benchmark disability, 40%+)", "15"]
+                - ["Locomotor disability, cerebral palsy, dwarfism, acid-attack victims, other listed disabilities", "10"]
+                - ["Former inmates of approved orphanages, rescue, juvenile and special homes", "Up to 10"]
+                - ["Ex-Home Guards with 3+ years' service", "Service + unemployment, up to 7"]
+                - ["Widows", "5"]
+                - ["Provisional / temporary government service of 1+ year", "Length of that service, up to 5"]
+            source: kp-gc
+          - list:
+              - "<strong>Nationality:</strong> an Indian citizen, a subject of Nepal or Bhutan, a Tibetan refugee who came before 1 January 1962, or a person of Indian origin who migrated from Pakistan, Burma, Sri Lanka or East African countries to settle in India. All but Indian citizens need an eligibility certificate from the Government of India."
+              - "<strong>Character and marriage:</strong> good character is required; unless the Government has exempted it, a man may not have more than one living wife and a woman may not marry a man who already has a wife."
+              - "SC / ST candidates (and SC converts and their children) who are otherwise qualified are not barred by the upper age limit when the post needs less than a degree and they hold a higher qualification, or when the post needs a degree and they hold at least that."
+              - "SC / ST candidates may be accepted with a third class in a degree or diploma where the post asks for first or second class (except college teaching posts)."
+            source: kp-gc
+          - table:
+              caption: "General Conditions — weightage and extra marks"
+              head: ["Who", "Benefit"]
+              rows:
+                - ["NCC 'A', 'B', 'C' certificate — uniformed-force posts (Police, Jail, Excise, Forest, Fire &amp; Rescue)", "2%, 3%, 5% weightage"]
+                - ["Student Police Cadet (completed) — uniformed-force posts", "Weightage (G.O. of 1 Mar 2025)"]
+                - ["Meritorious sportspersons — Class III and IV posts", "Extra marks, with certificates countersigned by the Kerala Sports Council secretary"]
+                - ["Ex-servicemen", "Weightage marks by length of service"]
+            source: kp-gc
       - id: scheme
         nav: "Selection Process"
         eyebrow: "Selection process"
@@ -103,7 +137,23 @@ exams:
               - "<strong>Police Constable physical efficiency test</strong> (National Physical Efficiency One Star standard) — pass any five of eight: 100 m in 14 s; high jump 132.20 cm; long jump 457.20 cm; shot put (7.264 kg) 609.60 cm; cricket-ball throw 6,096 cm; rope climb 365.80 cm (hands only); 8 pull-ups; 1,500 m in 5 min 44 s. Measurements are taken first; an injury during the test gets no second chance."
               - "<strong>Weightage:</strong> NCC 'A', 'B' and 'C' certificates add 2%, 3% and 5%; Student Police Cadet certificates and meritorious sportspersons also get weightage or extra marks."
             source: kp-pc
-          - note: "The notifications do not print the number of questions, marks or negative-marking rule of the OMR test; the Commission publishes the syllabus and exam calendar separately."
+          - table:
+              caption: "Kerala PSC OMR test — marking"
+              head: ["Response", "Marks"]
+              rows:
+                - ["Correct answer", "+1"]
+                - ["Wrong answer", "−1/3"]
+                - ["More than one bubble, or an altered answer", "Treated as wrong (−1/3)"]
+                - ["Not a single question answered", "OMR sheet invalidated"]
+            source: kp-omr
+          - p: "Worked example: 60 correct and 15 wrong gives 60 − 15 × 1/3 = 60 − 5 = <strong>55 marks</strong>. Three wrong answers cancel one right answer, so a blind guess among four options does not pay on average."
+            source: kp-omr
+          - list:
+              - "You get an OMR sheet and question booklet with the same alpha code (A / B / C / D) as on your seat; a mismatch invalidates your paper. Write your register number, date of birth, post and date in Part A; answers go in Part B with a blue or black ball-point pen."
+              - "Sheets are replaced only for a printing defect. Do not touch the barcode; separate Part A and Part B along the dotted line only when told, and hand in both."
+              - "After the test, Kerala PSC publishes the A-code question paper and provisional answer keys of all versions; complaints go only through the answer-key link in your profile, within the deadline."
+            source: kp-omr
+          - note: "The number of questions and time for each test are set in that test's syllabus and exam calendar, not in the notification."
       - id: fees
         nav: "Fees"
         eyebrow: "Fee structure"
@@ -153,6 +203,8 @@ exams:
     sources:
       - { id: kp-pc, name: "Kerala PSC — Notification, Police Constable (Trainee) (Armed Police Battalion), Category No. 563/2025 (Extraordinary Gazette, 15 Dec 2025)", url: "https://www.keralapsc.gov.in/sites/default/files/2025-12/noti-563-25.pdf", covers: "pay, battalions, eligibility, age and relaxations, qualification, physical and vision standards, PET events, weightage, OTR application, no fee, confirmation, last date, community rule, medical certificate", checked: 2026-10-19 }
       - { id: kp-vfa, name: "Kerala PSC — Notification, Village Field Assistant (Revenue), Category No. 571/2025 (Extraordinary Gazette, 15 Dec 2025)", url: "https://www.keralapsc.gov.in/sites/default/files/2025-12/noti-571-25.pdf", covers: "pay, district-wise lists, ranked-list validity, age, qualification, PwD reservation, transfer rule, last date", checked: 2026-10-19 }
+      - { id: kp-gc, name: "Kerala PSC — General Conditions, Part II (Malayalam; pages 1–7 read from rendered images)", url: "https://www.keralapsc.gov.in/sites/default/files/inline-files/general_conditions_added_latest.pdf", covers: "nationality, character and marriage rule, age-relaxation groups and years, 50-year cap, higher-qualification rule, third-class concession, NCC / SPC / sports / ex-servicemen weightage", checked: 2026-10-19 }
+      - { id: kp-omr, name: "Kerala PSC — Special instructions to candidates appearing for objective type (OMR valuation) test (English)", url: "https://www.keralapsc.gov.in/sites/default/files/inline-files/spl_omr_eng.pdf", covers: "+1 / −1/3 marking, multiple marking, invalidation rules, alpha code, Part A / Part B, answer-key complaints", checked: 2026-10-19 }
 
   # ------------------------------------------------------------------ KEAM
   - slug: keam

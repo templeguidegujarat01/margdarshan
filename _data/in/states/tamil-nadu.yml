@@ -9,9 +9,11 @@
 #     Common Recruitment 2025 of Grade II Police Constables, Grade II Jail Warders and Firemen (Notification
 #     02/2025, Tamil — read page by page from rendered images) with its provisional list for CV / PMT / ET / PET.
 #     Nothing comes from coaching or news sites.
-#   - TNEA (engineering admission on Class 12 marks) has no page yet: tneaonline.org refused every automated
-#     request (HTTP 403) and no information brochure could be read. TNEA has no entrance test, so it has no
-#     negative-marking rule to document.
+#   - TNEA (engineering admission on Class 12 marks) was added on 2026-10-19 from the DoTE's own files: the TNEA
+#     2026 Information Brochure and the SCA-to-SC conversion counselling schedule on static.tneaonline.org
+#     (tneaonline.org answers a browser user-agent; plain bots get HTTP 403). TNEA has no entrance test, so it
+#     has no negative-marking rule; college-wise closing cut-offs are not copied here because they change
+#     every round.
 #   - Section ids are the same on every exam page: overview, eligibility, scheme, fees, reservation,
 #     documents, pay, posting (+ sources, drawn automatically).
 state:
@@ -24,11 +26,11 @@ cockpit:
   title: "Tamil Nadu Exam &amp; Career Cockpit"
   intro:
     - "Every major Tamil Nadu recruitment route we could verify on one screen: the Combined Civil Services Examination-IV (Group IV) of the Tamil Nadu Public Service Commission (TNPSC) — 6,574 posts in the 2026 notification — and the Common Recruitment of the Tamil Nadu Uniformed Services Recruitment Board (TNUSRB) for Grade II Police Constables, Jail Warders and Firemen. Each page is built only from the official notification, and every fact links back to that file."
-    - "Tamil is the gate in both: Group IV opens with a 150-mark Tamil eligibility-cum-scoring part that you must clear before the rest of your paper is even marked, and TNUSRB has a qualifying Tamil test. 20% of posts go to Persons Studied in Tamil Medium (PSTM), and only Tamil Nadu's own communities count as SC / ST / BC / MBC. The engineering admission route (TNEA) will be added once its brochure can be read."
+    - "Tamil is the gate in both: Group IV opens with a 150-mark Tamil eligibility-cum-scoring part that you must clear before the rest of your paper is even marked, and TNUSRB has a qualifying Tamil test. 20% of posts go to Persons Studied in Tamil Medium (PSTM), and only Tamil Nadu's own communities count as SC / ST / BC / MBC. For engineering, TNEA has no entrance test at all: the rank comes from a Class 12 cut-off out of 200, and 7.5% of seats are kept for government-school students."
   facts:
     - { label: "Recruitment nodes", value: "TNPSC Group IV · TNUSRB CR" }
-    - { label: "Watch", value: "Group IV exam 10 Jan 2027" }
-    - { label: "Tamil rule", value: "Tamil test + 20% PSTM" }
+    - { label: "Admission node", value: "TNEA (cut-off out of 200)" }
+    - { label: "Watch", value: "Group IV exam 10 Jan 2027 · Tamil test + 20% PSTM" }
     - { label: "Last checked", value: "19 Oct 2026" }
   groups:
     - id: civil
@@ -36,12 +38,18 @@ cockpit:
       heading: "Government recruitment exams"
       intro: "Village Administrative Officer, Junior Assistant, Typist and other Group IV posts through TNPSC, and Grade II Police Constable, Jail Warder and Fireman posts through TNUSRB."
       exams: [tnpsc-group4, tnusrb]
+    - id: academic
+      eyebrow: "Academic admissions"
+      heading: "Admission routes after Class 12"
+      intro: "TNEA 2026: the Directorate of Technical Education's single-window B.E. / B.Tech admission, ranked on Class 12 Maths, Physics and Chemistry."
+      exams: [tnea]
   compare_note: "Fees, age limits and dates are from the latest notice of each body. They change every cycle, so always open the current notice before applying."
-  portals_note: "TNPSC notifications are on tnpsc.gov.in (applications at tnpscexams.in); TNUSRB on tnusrb.tn.gov.in. Only use these official addresses."
+  portals_note: "TNPSC notifications are on tnpsc.gov.in (applications at tnpscexams.in); TNUSRB on tnusrb.tn.gov.in; TNEA on tneaonline.org and dte.tn.gov.in. Only use these official addresses."
   portals:
     - { label: "Tamil Nadu Public Service Commission (TNPSC)", url: "https://www.tnpsc.gov.in/" }
     - { label: "TNPSC online applications", url: "https://www.tnpscexams.in/" }
     - { label: "Tamil Nadu Uniformed Services Recruitment Board (TNUSRB)", url: "https://tnusrb.tn.gov.in/" }
+    - { label: "Tamil Nadu Engineering Admissions (TNEA)", url: "https://www.tneaonline.org/" }
 
 exams:
   # ------------------------------------------------------------------ TNPSC GROUP IV
@@ -334,3 +342,172 @@ exams:
     sources:
       - { id: cr-noti, name: "TNUSRB — Notification No. 02/2025, Common Recruitment 2025 for Grade II Police Constable, Grade II Jail Warder and Fireman (21 Aug 2025, Tamil)", url: "https://tnusrb.tn.gov.in/pdfs/Notification_CR_2025.pdf", covers: "dates, vacancies, special quotas, pay, qualification, age, communal reservation, women and transgender rules, post preference, exam stages and marks, Tamil test, PMT, endurance test, fee, certificate rules", checked: 2026-10-19 }
       - { id: cr-cv, name: "TNUSRB — Provisional list of candidates eligible for CV, PMT, ET and PET, Common Recruitment 2025", url: "https://tnusrb.tn.gov.in/pdfs/CR2025_Candidates_Eligible_for_CV-PMT-ET-PET_en.pdf", covers: "1:5 shortlisting, 18,689 candidates including 649 tied", checked: 2026-10-19 }
+
+  # ------------------------------------------------------------------ TNEA
+  - slug: tnea
+    group: academic
+    short: "TNEA 2026 — Engineering Admission on Class 12 Marks"
+    body: "Directorate of Technical Education, Tamil Nadu"
+    card: "Tamil Nadu's single-window B.E. / B.Tech admission. There is no entrance test: your rank comes from Class 12 Maths (100) + Physics (50) + Chemistry (50) = a cut-off out of 200, then online counselling in rounds. 7.5% of seats go to government-school students, whose fees the government pays."
+    card_facts: ["No entrance test", "Cut-off = M + P/2 + C/2 (out of 200)", "Fee ₹500 · SC/SCA/ST ₹250"]
+    eyebrow: "DoTE Tamil Nadu · TNEA 2026"
+    title: "TNEA 2026 — Cut-off Formula, Tie-break Order, 69% Reservation, 7.5% Government School Quota, Counselling Rounds"
+    lede: "The Directorate of Technical Education, Chennai runs Tamil Nadu Engineering Admissions (TNEA) — one online application for government, aided, Anna University, Annamalai University and surrendered self-financing engineering seats. This page follows the TNEA 2026 Information Brochure and the DoTE schedule for the 2026 SCA-to-SC conversion counselling."
+    facts:
+      - { label: "Entrance test", value: "None — Class 12 marks", source: tn-ib }
+      - { label: "Cut-off", value: "Maths 100 + Phy 50 + Chem 50 = 200", source: tn-ib }
+      - { label: "Govt-school quota", value: "7.5% · fees paid by govt", source: tn-ib }
+      - { label: "Registration fee", value: "₹500 · SC/SCA/ST ₹250", source: tn-ib }
+    official:
+      - { label: "TNEA portal", url: "https://www.tneaonline.org/" }
+      - { label: "Directorate of Technical Education", url: "https://www.dte.tn.gov.in/" }
+      - { label: "TNEA 2026 Information Brochure", url: "https://static.tneaonline.org/docs/2_Information_Brochure_2026.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "One application, no entrance test"
+        parts:
+          - list:
+              - "One online application covers seats in Government engineering colleges; aided and self-supporting courses in Government-aided colleges; seats surrendered by CECRI Karaikudi, CIPET Chennai and IIHT Salem; Anna University departments and constituent colleges (including Tamil-medium Mechanical and Civil); Annamalai University; and seats surrendered by self-financing colleges."
+              - "Register only one application. Special-reservation claims (ex-servicemen's wards, disability, sports, 7.5% government school) are chosen inside the same application."
+              - "Courses: B.E. / B.Tech (4 years, 8 semesters), B.E. Sandwich (5 years, 10 semesters) and integrated M.Tech Computer Science and Engineering (5 years)."
+            source: tn-ib
+          - table:
+              caption: "2026 SCA-to-SC conversion counselling (Academic, 7.5% government school and Vocational)"
+              head: ["Stage", "Date"]
+              rows:
+                - ["Choice filling", "10 Sep 2026, 10 am – 5 pm"]
+                - ["Tentative allotment", "11 Sep 2026, 10 am"]
+                - ["Confirmation of tentative allotment", "11 Sep 2026, 10 am – 5 pm"]
+                - ["Provisional allotment", "12 Sep 2026"]
+            source: tn-sca
+          - note: "In October 2026 the TNEA portal showed registration, certificate verification, the rank list and three general counselling rounds as completed. The 2027 cycle has not been announced yet."
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Eligibility &amp; nativity"
+        heading: "Class 12 with Maths, Physics and Chemistry — 45% (40% reserved)"
+        parts:
+          - table:
+              caption: "Minimum average of Maths, Physics and Chemistry in Class 12 (academic stream)"
+              head: ["Community", "Minimum"]
+              rows:
+                - ["General category", "45%"]
+                - ["BC, including BC Muslim", "40%"]
+                - ["MBC &amp; DNC", "40%"]
+                - ["SC / SCA / ST", "40%"]
+            source: tn-ib
+          - list:
+              - "You must pass both +1 and +2. The vocational stream also qualifies: one of Maths, Physics or Chemistry plus a listed vocational subject (Basic Mechanical, Electrical, Electronics, Civil or Automobile Engineering, or Textile Technology), theory and practicals together — 45% general, 40% for others."
+              - "For the minimum, marks are not rounded and normalised marks are not used. Improvement-exam marks are not counted."
+              - "<strong>Nativity:</strong> anyone who studied Classes VIII–XII in Tamil Nadu may apply without a nativity certificate. Tamil Nadu natives who studied outside the state need an electronic / digitally signed nativity certificate. Children of central government, PSU or recognised-institution employees serving in Tamil Nadu for the past five years, and of Tamil Nadu-cadre All India Service officers, may also apply — but only under Open Competition."
+              - "Sri Lankan Tamil refugees who studied in Tamil Nadu, and OCI / PIO cardholders who are Tamil Nadu natives, are considered under Open Competition."
+              - "<strong>Marine Engineering</strong> needs 60% in PCM, 50% in English (Class 10 or 12), the IMU Common Entrance Test, age 25 or under, height 157 cm and weight 48 kg."
+            source: tn-ib
+      - id: scheme
+        nav: "Cut-off &amp; Rank"
+        eyebrow: "Cut-off &amp; ranking"
+        heading: "Your cut-off out of 200 decides everything"
+        parts:
+          - table:
+              caption: "How the cut-off mark is built"
+              head: ["Subject", "Class 12 mark out of", "Counted out of"]
+              rows:
+                - ["Mathematics", "100", "100"]
+                - ["Physics", "100", "50 (half)"]
+                - ["Chemistry", "100", "50 (half)"]
+                - ["Cut-off", "", "200"]
+            source: tn-ib
+          - p: "Worked example: Maths 95, Physics 88, Chemistry 90 gives 95 + 44 + 45 = <strong>184 out of 200</strong>."
+            source: tn-ib
+          - list:
+              - "Marks from other boards are normalised to the Tamil Nadu State Board: each board's subject topper is set equal to the State Board topper. The brochure's example: if another board's Physics topper has 90, a student with 60 there is counted as 66.66."
+              - "For CBSE and CISCE, the national-level highest mark in the subject is used for normalisation."
+              - "<strong>Tie-break order:</strong> (1) Maths percentage, (2) Physics percentage, (3) optional-subject percentage, (4) total Class 12 percentage, (5) date of birth — the older candidate first, (6) the random number assigned to you — higher first."
+              - "Vocational candidates have their own rank list: Maths / Physics / Chemistry (100) + vocational theory and practicals (100) = 200. They compete for 2% of the government seats."
+              - "Overall and community ranks are published on tneaonline.org and dte.tn.gov.in (no newspaper notice). Grievances about the rank list go to the nearest TNEA Facilitation Centre within 5 days."
+            source: tn-ib
+          - note: "College-wise closing cut-offs change every year and every round. Use the cut-offs published on tneaonline.org for the current year; this page does not predict them."
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "₹500 registration; ₹250 for SC / SCA / ST"
+        parts:
+          - table:
+              head: ["Community", "Registration fee"]
+              rows:
+                - ["OC / BC / BCM / MBC &amp; DNC", "₹500"]
+                - ["SC / SCA / ST", "₹250"]
+            source: tn-ib
+          - p: "Candidates who choose 'Accept and Upward' pay the tuition fee at a TNEA Facilitation Centre to hold their seat. If they later decide not to join, 75% of the fee paid at the centre is refunded after approval."
+            source: tn-ib
+      - id: reservation
+        nav: "Reservation"
+        eyebrow: "Reservation &amp; special quotas"
+        heading: "69% communal reservation for Tamil Nadu natives"
+        parts:
+          - table:
+              caption: "Rule of reservation"
+              head: ["Category", "Share"]
+              rows:
+                - ["Open Competition", "31%"]
+                - ["Backward Class", "26.5%"]
+                - ["Backward Class Muslim", "3.5%"]
+                - ["Most Backward Class &amp; Denotified Communities", "20%"]
+                - ["Scheduled Caste", "15%"]
+                - ["Scheduled Caste Arunthathiyar", "3%"]
+                - ["Scheduled Tribe", "1%"]
+            source: tn-ib
+          - list:
+              - "<strong>7.5% for government-school students</strong> who studied Classes 6–12 in state government schools (government, corporation, municipal, Adi Dravidar &amp; Tribal Welfare, Kallar Reclamation, forest-department and other department-run schools), taken out of every community share including General (G.O. (Ms) No. 167, 31.08.2021)."
+              - "Only Tamil Nadu natives get communal reservation, and only with a permanent community certificate (card, electronic or digitally signed) issued in Tamil Nadu before the last date. Other states' certificates are not accepted; without a valid certificate you are treated as OC."
+              - "Reserved-category candidates are also considered under Open Competition."
+            source: tn-ib
+          - table:
+              caption: "Special reservation (Tamil Nadu natives only)"
+              head: ["Category", "Seats"]
+              rows:
+                - ["Sons / daughters of ex-servicemen", "150 (University 8 · Govt / aided 34 · self-financing 108)"]
+                - ["Persons with benchmark disabilities", "5%"]
+                - ["Eminent sportspersons", "500 (University 12 · other colleges 488)"]
+            source: tn-ib
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Upload copies of the originals"
+        parts:
+          - list:
+              - "Class 10 mark sheet; +1 and +2 (or equivalent) mark sheets; transfer certificate."
+              - "Government-school study details for Classes 6–12 (for the 7.5% quota)."
+              - "Permanent community certificate (ST, SC, SCA, MBC &amp; DNC, BC, BCM); nativity certificate if you studied outside Tamil Nadu (electronic only)."
+              - "Income certificate and first-graduate certificate with joint declaration, if you claim those concessions; Sri Lankan Tamil refugee certificate if applicable."
+              - "Special reservation: ex-servicemen's dependency certificate with the parent's discharge certificate and ID card; disability certificate from a District Medical Board of three doctors; sports certificates with the prescribed forms."
+            source: tn-ib
+      - id: pay
+        nav: "Costs &amp; Concessions"
+        eyebrow: "Fee concessions"
+        heading: "Four ways the fee can come down"
+        parts:
+          - list:
+              - "<strong>7.5% government-school quota:</strong> the government pays tuition, hostel and development fees (G.O. 221, 15.11.2021)."
+              - "<strong>First Graduate concession:</strong> tuition fee concession if you will be the first graduate in the family and were admitted through counselling; not available if a brother or sister has already used it for a professional course."
+              - "<strong>AICTE Tuition Fee Waiver:</strong> up to 5% of intake per course in self-financing colleges and self-supporting courses, for family income below ₹8 lakh a year; you cannot change college or course afterwards."
+              - "<strong>Post-Matric Scholarship:</strong> SC / SCA / ST and SC / SCA converted Christians with parental income below ₹2.5 lakh a year."
+            source: tn-ib
+      - id: posting
+        nav: "Counselling"
+        eyebrow: "Online counselling"
+        heading: "Rounds by rank, four stages each"
+        parts:
+          - list:
+              - "Candidates are grouped by rank and called round by round. Each round has four stages: choice filling (three days, any number of choices, order matters), tentative allotment, confirmation (within two days) and reporting."
+              - "<strong>Accept and Join</strong> — download the allotment order and report to the college within 5 days, or lose the seat and all later rounds."
+              - "<strong>Accept and Upward</strong> — keep the seat but wait for a higher choice; report to a facilitation centre, pay the fee and deposit originals."
+              - "<strong>Decline and Upward</strong>, <strong>Decline and move to next round</strong>, <strong>Decline and Quit</strong>, and — when no seat is allotted — <strong>Upward or move to next round</strong>."
+              - "Counselling for sports, disability, ex-servicemen's wards, vocational candidates, supplementary rounds and vacant SCA seats is also online only."
+            source: tn-ib
+          - links:
+              - { label: "JEE Main console", url: "jee-main.html" }
+    sources:
+      - { id: tn-ib, name: "DoTE Tamil Nadu — TNEA 2026 Information Brochure (Information and Instructions to Candidates)", url: "https://static.tneaonline.org/docs/2_Information_Brochure_2026.pdf", covers: "seat types, eligibility and minimum marks, nativity, marine engineering norms, reservation, 7.5% quota, special reservation, cut-off out of 200, normalisation, tie-break, vocational stream, fee concessions, registration fee, documents, counselling stages and options", checked: 2026-10-19 }
+      - { id: tn-sca, name: "DoTE Tamil Nadu — TNEA 2026 SCA to SC Conversion Counselling Schedule", url: "https://static.tneaonline.org/docs/TNEA-2026-Supplementary-Schedule.pdf", covers: "choice filling, tentative and provisional allotment dates (10–12 Sep 2026)", checked: 2026-10-19 }

@@ -9,7 +9,10 @@
 #     30 July 2026 and mains schedule of 5 September 2026; and the SLPRB Assam advertisement for Constable (UB)
 #     and Constable (AB) of 5 December 2025 with its extension, corrigendum and edit-window notices.
 #     Nothing comes from coaching or news sites.
-#   - Assam CEE (engineering entrance, ASTU) has no page yet: no 2026 brochure was found on astu.ac.in.
+#   - Assam CEE (engineering entrance, ASTU) was added on 2026-10-19 from the CEE-2026 Information Brochure,
+#     which ASTU hosts on its application portal astu.formsrec.in (not on astu.ac.in itself), and ASTU's CEE-2026
+#     notice page. The extension notice's new last date sits in an embedded viewer that could not be read, so
+#     only the brochure's original window is shown.
 #   - Section ids are the same on every exam page: overview, eligibility, scheme, fees, reservation,
 #     documents, pay, posting (+ sources, drawn automatically).
 state:
@@ -22,11 +25,11 @@ cockpit:
   title: "Assam Exam &amp; Career Cockpit"
   intro:
     - "Every major Assam recruitment route we could verify on one screen: the Combined Competitive Examination of the Assam Public Service Commission (APSC) for Assam Civil Service, Assam Police Service and nine other services, and the State Level Police Recruitment Board (SLPRB) recruitment of Unarmed and Armed Branch Constables. Each page is built only from the official advertisement, and every fact links back to that file."
-    - "Both routes ask for more than a certificate of age and education: you must be an inhabitant / permanent resident of Assam, registered with an Assam employment exchange, and able to speak Assamese or another language of the state. Assam reserves separately for Plains (ST-P) and Hills (ST-H) Scheduled Tribes, and its OBC list includes a share for tea-garden tribes. An engineering-admission page (Assam CEE) will follow once its 2026 brochure is published."
+    - "Both routes ask for more than a certificate of age and education: you must be an inhabitant / permanent resident of Assam, registered with an Assam employment exchange, and able to speak Assamese or another language of the state. Assam reserves separately for Plains (ST-P) and Hills (ST-H) Scheduled Tribes, and its OBC list includes a share for tea-garden tribes. For B.Tech, the Assam CEE (run by ASTU) is a 120-question OMR test with +4 / −1 marking, open only to holders of an Assam Permanent Residence Certificate (plus a central-employee quota)."
   facts:
     - { label: "Recruitment nodes", value: "APSC CCE · SLPRB Constable" }
+    - { label: "Admission node", value: "Assam CEE 2026 (ASTU)" }
     - { label: "Watch", value: "APSC CCE 2025 mains held 9–11 Oct 2026" }
-    - { label: "Local rule", value: "Employment-exchange registration" }
     - { label: "Last checked", value: "19 Oct 2026" }
   groups:
     - id: civil
@@ -34,12 +37,19 @@ cockpit:
       heading: "Government recruitment exams"
       intro: "Assam Civil Service, Assam Police Service and other Group-A / B posts through the APSC Combined Competitive Examination, and Constable (UB / AB) through SLPRB Assam."
       exams: [apsc, police]
+    - id: academic
+      eyebrow: "Academic admissions"
+      heading: "Admission routes after Class 12"
+      intro: "Assam CEE 2026: Assam Science and Technology University's entrance test for B.Tech seats, with counselling by the Directorate of Technical Education, Assam."
+      exams: [cee]
   compare_note: "Fees, age limits and dates are from the latest notice of each body. They change every cycle, so always open the current notice before applying."
-  portals_note: "APSC notices are on apsc.nic.in (applications at apscrecruitment.in); SLPRB notices on slprbassam.in. Only use these official addresses."
+  portals_note: "APSC notices are on apsc.nic.in (applications at apscrecruitment.in); SLPRB notices on slprbassam.in; Assam CEE on astu.ac.in, with counselling on dte.assam.gov.in. Only use these official addresses."
   portals:
     - { label: "Assam Public Service Commission (APSC)", url: "https://apsc.nic.in/" }
     - { label: "APSC online applications", url: "https://apscrecruitment.in/" }
     - { label: "State Level Police Recruitment Board, Assam (SLPRB)", url: "https://slprbassam.in/" }
+    - { label: "Assam Science and Technology University (CEE)", url: "https://astu.ac.in/" }
+    - { label: "Directorate of Technical Education, Assam", url: "https://dte.assam.gov.in/" }
 
 exams:
   # ------------------------------------------------------------------ APSC — CCE
@@ -330,3 +340,140 @@ exams:
       - { id: sl-ext, name: "SLPRB Assam — Notice extending online applications to 22 Feb 2026 (16 Jan 2026)", url: "https://slprbassam.in/pdf/Notice2026/16012026/extension_notice-16012026.pdf", covers: "original and extended application windows", checked: 2026-10-19 }
       - { id: sl-corr, name: "SLPRB Assam — Notice / corrigendum raising the upper age limit to 26 for this cycle (19 Jan 2026)", url: "https://slprbassam.in/pdf/Notice2026/19012026/Notice_and_Corrigendum.pdf", covers: "unreserved age 26, birth window, reserved limits raised correspondingly", checked: 2026-10-19 }
       - { id: sl-edit, name: "SLPRB Assam — Notice opening the edit option 1–5 Mar 2026 (26 Feb 2026)", url: "https://slprbassam.in/pdf/Notice2026/26022026/notice_reg_edit_option.pdf", covers: "edit window and the advertisements it covers", checked: 2026-10-19 }
+
+  # ------------------------------------------------------------------ ASSAM CEE (ASTU)
+  - slug: cee
+    group: academic
+    short: "Assam CEE 2026 — B.Tech Entrance (ASTU)"
+    body: "Assam Science and Technology University"
+    card: "The Combined Entrance Examination for B.Tech seats in Assam's colleges: one 3-hour OMR paper of 120 questions (Maths, Physics, Chemistry — 40 each), +4 / −1, held on 14 June 2026. ASTU only runs the test; DTE Assam runs counselling and checks your Assam permanent residence."
+    card_facts: ["120 Q · 3 h · OMR", "+4 / −1 marking", "Fee ₹1,500"]
+    eyebrow: "ASTU · Combined Entrance Examination"
+    title: "Assam CEE 2026 — Exam Pattern, +4/−1 Marking, Eligibility, PRC Rule, Tie-break, Fee, Counselling"
+    lede: "Assam Science and Technology University conducts the Combined Entrance Examination (CEE) for admission to four-year B.Tech programmes in Assam. This page follows the CEE-2026 Information Brochure (academic session 2026-27) and ASTU's CEE-2026 notice page."
+    facts:
+      - { label: "Exam", value: "14 Jun 2026 · 11 am – 2 pm", source: ce-ib }
+      - { label: "Paper", value: "120 MCQs · 3 hours · OMR", source: ce-ib }
+      - { label: "Marking", value: "+4 correct · −1 wrong", source: ce-ib }
+      - { label: "Fee", value: "₹1,500 (non-refundable)", source: ce-ib }
+    official:
+      - { label: "ASTU website", url: "https://astu.ac.in/" }
+      - { label: "CEE 2026 news and notifications", url: "https://astu.ac.in/?page_id=40088" }
+      - { label: "DTE Assam (counselling)", url: "https://dte.assam.gov.in/" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "ASTU sets the test; DTE Assam fills the seats"
+        parts:
+          - table:
+              caption: "CEE-2026 dates"
+              head: ["Stage", "Date"]
+              rows:
+                - ["Online application (brochure)", "16 – 31 Mar 2026"]
+                - ["Admit cards online", "26 May – 4 Jun 2026"]
+                - ["Examination", "14 Jun 2026 (Sunday), 11 am – 2 pm"]
+                - ["Provisional answer key", "After 6 pm on the exam day"]
+            source: ce-ib
+          - list:
+              - "Exam centres: Bongaigaon, Dibrugarh, Guwahati, Jorhat, Lakhimpur, Nagaon, Nalbari, Silchar and Tezpur. The centre cannot be changed after you pay."
+              - "ASTU conducts only the examination. Counselling, seat matrix, eligibility checks and reservation are handled by the State Council for Technical Education Assam, Directorate of Technical Education (DTE), Kahilipara, under its Counselling Guidelines-2026."
+              - "Rank and score cards are only downloadable from astu.ac.in; nothing is posted."
+            source: ce-ib
+          - p: "ASTU later posted a notice extending the online application window, followed by the provisional and final answer keys, the answer-key challenge link and the CEE-2026 rank card with a photocopy of each candidate's OMR sheet."
+            source: ce-page
+      - id: eligibility
+        nav: "Eligibility &amp; Age"
+        eyebrow: "Eligibility &amp; age"
+        heading: "Assam PRC, PCM in Class 12, 45% (40% reserved), age 17+"
+        parts:
+          - list:
+              - "<strong>Citizenship and residence:</strong> an Indian citizen and a permanent resident of Assam with a valid Permanent Residence Certificate (PRC). Central Government Employee (CGE) quota: children of central government / central PSU employees posted in Assam for less than 20 years who are not Assam residents, with proof of permanent residence in their home state."
+              - "<strong>Qualifying exam:</strong> Class 12 (HS) passed in a single sitting, without grace marks, passing theory and practical separately in each mandatory subject, with at least 45% (40% for reserved categories) in the relevant subjects together."
+              - "<strong>Other routes:</strong> a 3-year Diploma in Engineering &amp; Technology from SCTE Assam, or a B.Sc. with Mathematics at Class 12 — each with 45% (40% reserved)."
+              - "<strong>Age:</strong> at least 17 on 31 December 2026; no upper age limit."
+              - "Good moral character (certificate from the last institution) and physical and mental fitness (medical certificate) are also required."
+            source: ce-ib
+          - table:
+              caption: "Class 12 subjects and branches"
+              head: ["Branches", "Mandatory subjects"]
+              rows:
+                - ["Civil, Mechanical, Chemical, Industrial &amp; Production, Instrumentation Engineering", "Physics, Chemistry, Mathematics"]
+                - ["Electrical, Computer Science, Power Electronics &amp; Instrumentation, Electronics &amp; Telecommunication Engineering", "Physics and Mathematics + one other relevant subject"]
+            source: ce-ib
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme &amp; marking"
+        heading: "120 questions, 480 marks, +4 / −1"
+        parts:
+          - table:
+              caption: "Single paper, 3 hours, OMR, Assam State School Education Board (HS) syllabus"
+              head: ["Subject", "Questions", "Marks"]
+              rows:
+                - ["Mathematics", "40", "160"]
+                - ["Physics", "40", "160"]
+                - ["Chemistry", "40", "160"]
+                - ["Total", "120", "480"]
+            source: ce-ib
+          - list:
+              - "<strong>+4</strong> for a correct answer, <strong>−1</strong> for a wrong one; marking more than one answer counts as wrong."
+              - "Questions are printed in English and Assamese. Answers go on an OMR sheet in black ball-point pen; it is machine-read and there is no manual re-checking or re-evaluation."
+              - "<strong>Rank:</strong> total marks in Maths, Physics and Chemistry. Ties are broken by the higher Maths mark, then Physics, then Chemistry, then date of birth, then alphabetical order of name."
+              - "No entry to the hall after 11 am. Calculators, log tables, phones and smart watches are not allowed."
+            source: ce-ib
+          - p: "Worked example: 80 right and 20 wrong out of 100 attempted gives 80 × 4 − 20 × 1 = <strong>300 out of 480</strong>."
+            source: ce-ib
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "₹1,500, paid online"
+        parts:
+          - table:
+              head: ["Item", "Amount"]
+              rows:
+                - ["Application fee (all candidates)", "₹1,500 — not refundable"]
+                - ["Answer-key challenge", "₹500 per question — refunded if the challenge is upheld"]
+            source: ce-ib
+          - note: "The brochure lists no fee concession for any category."
+            source: ce-ib
+      - id: reservation
+        nav: "Reservation &amp; Local Status"
+        eyebrow: "Reservation &amp; local status"
+        heading: "Reserved categories, NCL, and a 5% government-school quota"
+        parts:
+          - list:
+              - "Reserved categories for the 40% relaxation are OBC / MOBC, SC, ST(P) and ST(H). OBC / MOBC candidates need a valid non-creamy-layer certificate issued in Assam. Candidates with disabilities follow the percentage of their original category."
+              - "<strong>5% of B.Tech seats</strong> in government engineering colleges go to students who studied Classes VII–X in government schools under SEBA and Classes XI–XII in state government or provincialised schools / colleges under AHSEC (now ASSEB) — from any category (Govt. letter eFile No. 418252/1, 12 December 2023). A certificate from the head of the institution countersigned by the Inspector of Schools is needed."
+              - "Seat numbers and the full reservation roster are published by DTE Assam in its Counselling Guidelines, not by ASTU."
+            source: ce-ib
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Photo, signature, ID — and certificates at counselling"
+        parts:
+          - list:
+              - "Photograph: JPG, 25–35 KB, 250–350 px high and 150–220 px wide, taken within two months. Signature: JPG, 15–30 KB, 100–180 px high, 150–220 px wide."
+              - "On exam day: admit card, black ball-point pen and one original photo ID (PAN, driving licence, voter ID, Class 12 admit or registration card, passport, Aadhaar / e-Aadhaar, ration card)."
+              - "At counselling: printout of the application form, Class 12 (or diploma / degree) marks, PRC, category and NCL certificates, character certificate and medical certificate. ASTU does not verify any certificate; DTE does."
+            source: ce-ib
+      - id: pay
+        nav: "Costs"
+        eyebrow: "Costs"
+        heading: "Application fee only here"
+        parts:
+          - p: "The brochure sets only the ₹1,500 application fee. College fees and seat details come from DTE Assam with the counselling notice."
+            source: ce-ib
+      - id: posting
+        nav: "After the test"
+        eyebrow: "After the test"
+        heading: "Answer key, rank card, then DTE counselling"
+        parts:
+          - list:
+              - "Challenges to the provisional key are accepted online within 48 hours of the link opening; experts decide and the result is compiled on the final key."
+              - "Counselling is run by DTE Assam (dte.assam.gov.in). Keep the same mobile number and email until counselling is over."
+            source: ce-ib
+          - links:
+              - { label: "JEE Main console", url: "jee-main.html" }
+    sources:
+      - { id: ce-ib, name: "ASTU — Information Brochure, Combined Entrance Examination (CEE)-2026 for B.Tech, academic session 2026-27", url: "https://astu.formsrec.in/pdf/Final%20Brochure%20CEE-2026.pdf", covers: "exam date and time, centres, paper pattern, marking, medium, OMR rules, eligibility, PRC and CGE quota, age, branch subjects, 5% government-school quota, fee, answer-key challenge, ranking and tie-break, documents, counselling by DTE, dates", checked: 2026-10-19 }
+      - { id: ce-page, name: "ASTU — CEE 2026 News and Notifications page", url: "https://astu.ac.in/?page_id=40088", covers: "application-date extension notice, provisional and final answer keys, answer-key challenge, rank card and OMR photocopy", checked: 2026-10-19 }

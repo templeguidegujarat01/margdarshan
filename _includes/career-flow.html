@@ -20,7 +20,9 @@
   FRM "Register Part I" = exam sign-up, not a gate or a licence).
   Every badge is visible text, so the colour is never the only signal.
 
-  Params: steps (array of {title, text}), class (optional extra class on the list),
+  Params: steps (array of {title, text}; optional age = a small label under the title, optional source = source ids
+          printed after the text through sport-src-refs.html when refs=true — sport pages' chronicle_path),
+          class (optional extra class on the list),
           plain (true = a numbered process, not a career path: every node is "Step N", no ★, no legend;
           about.html "How we work").
 {%- endcomment -%}
@@ -53,7 +55,8 @@
       <div class="cflow-card">
         <span class="cflow-kind">{% case kind %}{% when "start" %}Start here{% when "exam" %}Exam gate{% when "licence" %}Licence{% when "goal" %}Goal{% else %}Step {{ forloop.index }}{% endcase %}</span>
         <h3>{{ s.title }}</h3>
-        {%- if s.text %}<p>{{ s.text }}</p>{% endif %}
+        {%- if s.age %}<span class="cflow-age">{{ s.age }}</span>{% endif %}
+        {%- if s.text %}<p>{{ s.text }}{% if include.refs and s.source %} {% include sport-src-refs.html ids=s.source %}{% endif %}</p>{% endif %}
       </div>
     </li>
     {%- endfor %}

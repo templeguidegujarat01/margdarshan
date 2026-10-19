@@ -8,7 +8,8 @@
 
   Everything else comes from _data/in/sports.yml → sports[] (the entry whose slug = sport): hero (eyebrow, title,
   lede, body — shown after body_label, default "Governed by"), the 2 x 2 fact console (facts[] with source), official buttons, eight fixed blocks (rules,
-  recognition, eligibility, roadmap, academies, costs, earnings, traps), an optional "By age" block after the roadmap (ages: → _includes/sport-ages.html), an optional last "doubts" block (player
+  recognition, eligibility, roadmap, academies, costs, earnings, traps), an optional four-stage "Zero to podium" flow at the top of the roadmap (chronicle_path: → career-flow.html, with the shared
+  chronicle.fuel line), an optional "By age" block after the roadmap (ages: → _includes/sport-ages.html), an optional last "doubts" block (player
   questions as qa: { q, a } parts, also emitted as FAQPage JSON-LD) and the numbered sources.
   Part kinds and markup are the exam console's (national-exam.html: .sc-*, .mb, 760px console), so the sports
   pages and exam pages read as one system. scripts/check-in-data.mjs validates the sheet. Classical-arts entries
@@ -104,6 +105,11 @@
         <span class="eyebrow"><span class="sc-step">{{ sn | prepend: "0" | slice: -2, 2 }}</span> {{ S.eyebrow }}</span>
         <h2 id="{{ S.id }}-heading">{{ S.heading }}</h2>
       </div>
+      {%- if S.id == "roadmap" and E.chronicle_path %}
+      <h3 class="block-subhead sc-cap">{{ SP.chronicle.heading }}</h3>
+      {% include career-flow.html steps=E.chronicle_path class="cflow-cp" refs=true %}
+      <p class="table-note sc-note cp-fuel" data-no-points>{{ SP.chronicle.fuel }} {% include sport-src-refs.html ids=SP.chronicle.fuel_source %}</p>
+      {%- endif %}
       {%- for p in S.parts %}
       {%- if p.p %}
       <p class="sc-p">{{ p.p }}{% if p.source %} {% include sport-src-refs.html ids=p.source %}{% endif %}</p>

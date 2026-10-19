@@ -263,6 +263,11 @@ const SP_DOUBTS = 'doubts';
 const AG_KEYS = ['nav', 'heading', 'lede', 'lede_source', 'bands', 'note', 'note_source'];
 const AG_BAND_KEYS = ['from', 'to', 'label', 'name', 'kind', 'text', 'source'];
 const AG_KINDS = ['kids', 'youth', 'junior', 'senior', 'masters', 'coach', 'job'];
+// Optional "Zero to podium" flow at the top of the roadmap (chronicle_path: -> career-flow.html): exactly four stages
+// (grassroots, state-to-national, national camp, international), each short and sourced; the shared chronicle.fuel
+// line under it cites ids every such sport must list.
+const CP_KEYS = ['title', 'age', 'text', 'source'];
+const CP_MAX = 240; // characters of text without tags — the nodes must stay scannable
 let spSports = 0;
 if (fs.existsSync(spFile)) {
   const err = (m) => errors.push(`sports.yml: ${m}`);
@@ -374,6 +379,21 @@ if (fs.existsSync(spFile)) {
         prev = b.from;
         cite(w, b.source, true);
       }
+    }
+    if (E.chronicle_path) {
+      const C = Array.isArray(E.chronicle_path) ? E.chronicle_path : [];
+      if (C.length !== 4) ex('chronicle_path needs exactly 4 stages');
+      for (const [i, s] of C.entries()) {
+        const w = `chronicle_path stage ${i + 1}`;
+        for (const k of Object.keys(s)) if (!CP_KEYS.includes(k)) ex(`${w}: unknown key "${k}"`);
+        for (const k of ['title', 'text']) if (!s[k]) ex(`${w}: ${k} is required`);
+        const len = String(s.text || '').replace(/<[^>]+>/g, '').length;
+        if (len > CP_MAX) ex(`${w}: text is ${len} characters, keep it under ${CP_MAX}`);
+        cite(w, s.source, true);
+      }
+      const CH = D.chronicle || {};
+      if (!CH.heading || !CH.fuel) err('chronicle.heading and chronicle.fuel are required when a sport has chronicle_path');
+      cite('chronicle fuel line', CH.fuel_source, true);
     }
     for (const sid of sIds) if (!cited.has(sid)) ex(`source "${sid}" is listed but never cited`);
   }

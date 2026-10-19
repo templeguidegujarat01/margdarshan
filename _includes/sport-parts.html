@@ -1,0 +1,50 @@
+{%- comment -%}
+  The body parts of one sports-cockpit section (p / list / table / note / warn / qa / links), shared by the sport page
+  (_includes/sport-page.html) and its standalone roadmap (_includes/sport-roadmap.html). SRC must be set by the caller.
+  Param: parts (the section's parts[]). Under roadmaps/ the layout prefixes relative links with "../" itself.
+{%- endcomment -%}
+{%- for p in include.parts %}
+{%- if p.p %}
+<p class="sc-p">{{ p.p }}{% if p.source %} {% include sport-src-refs.html ids=p.source %}{% endif %}</p>
+{%- elsif p.list %}
+<ul class="sc-list">
+  {%- for i in p.list %}
+  <li>{{ i }}{% if forloop.last and p.source %} {% include sport-src-refs.html ids=p.source %}{% endif %}</li>
+  {%- endfor %}
+</ul>
+{%- elsif p.table %}
+{%- if p.table.caption %}
+<h3 class="block-subhead sc-cap">{{ p.table.caption }}{% if p.source %} {% include sport-src-refs.html ids=p.source %}{% endif %}</h3>
+{%- endif %}
+<div class="table-wrap sc-table"><table class="table-simple">
+  {%- if p.table.caption %}<caption class="sr-only">{{ p.table.caption }}</caption>{% endif %}
+  <thead><tr>{% for h in p.table.head %}<th scope="col">{{ h }}</th>{% endfor %}</tr></thead>
+  <tbody>
+    {%- for r in p.table.rows %}
+    <tr>{% for c in r %}{% if forloop.first %}<th scope="row">{{ c }}</th>{% else %}<td>{{ c }}</td>{% endif %}{% endfor %}</tr>
+    {%- endfor %}
+  </tbody>
+</table></div>
+{%- if p.table.caption == nil and p.source %}
+<p class="sc-cite">Source {% include sport-src-refs.html ids=p.source %}</p>
+{%- endif %}
+{%- elsif p.note %}
+<p class="table-note sc-note">{{ p.note }}{% if p.source %} {% include sport-src-refs.html ids=p.source %}{% endif %}</p>
+{%- elsif p.warn %}
+<div class="sc-warn" role="note"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/></svg><p>{{ p.warn }}{% if p.source %} {% include sport-src-refs.html ids=p.source %}{% endif %}</p></div>
+{%- elsif p.qa %}
+<h3 class="block-subhead sc-q">{{ p.qa.q }}</h3>
+<p class="sc-p">{{ p.qa.a }}{% if p.source %} {% include sport-src-refs.html ids=p.source %}{% endif %}</p>
+{%- elsif p.links %}
+<div class="chip-links sc-links">
+  {%- for l in p.links %}
+  {%- if l.url contains "://" %}
+  <a href="{{ l.url }}" target="_blank" rel="noopener noreferrer">{{ l.label }}<span class="sr-only"> (opens in a new tab)</span></a>
+  {%- else %}
+  <a href="{{ l.url }}">{{ l.label }}</a>
+  {%- endif %}
+  {%- endfor %}
+  {%- if p.source %}<span class="sc-cite-inline">{% include sport-src-refs.html ids=p.source %}</span>{% endif %}
+</div>
+{%- endif %}
+{%- endfor %}

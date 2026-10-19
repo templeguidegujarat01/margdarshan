@@ -1,0 +1,172 @@
+{%- comment -%}
+  Standalone "See The Journey" roadmap of one sport / art form: roadmaps/<slug>.html, written by
+  scripts/build-sport-roadmaps.mjs for every entry of _data/in/sports.yml. The sport page itself (sport-page.html)
+  shows the hero button and a link card in place of its roadmap block; the journey lives only here:
+    · the four stages (chronicle_path: → phase panels, plus the shared chronicle.fuel line), when the sport has them
+    · then the journey sections of the sheet in JOURNEY order, through sport-parts.html: who can start (eligibility),
+      the detailed route (roadmap), the "By age" ladder with the age box (ages: → sport-ages.html), where to train
+      (academies), who pays (costs) and the jobs and money after (earnings). The sport page keeps all of them too.
+    · the sources cited on this page, numbered as on the sport page (same SRC order)
+  Param: sport (slug). Links stay site-relative: the layout adds "../" for pages under roadmaps/.
+  data-no-points on <main> keeps the pointer-form script (site.js Block 0) off the whole roadmap.
+{%- endcomment -%}
+{%- assign SP = site.data.in.sports -%}
+{%- assign E = SP.sports | where: "slug", include.sport | first -%}
+{%- assign SRC = E.sources -%}
+{%- assign CK = E.checked | default: SP.checked -%}
+{%- assign JOURNEY = "eligibility,roadmap,ages,academies,costs,earnings" | split: "," -%}
+{%- assign ext = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>' -%}
+{%- comment -%} Every source id cited on this page, as ",id1,id2," for a contains test. {%- endcomment -%}
+{%- assign cited = "," -%}
+{%- if E.chronicle_path %}{% for c in E.chronicle_path %}{% assign cited = cited | append: c.source | append: "," %}{% endfor %}{% assign cited = cited | append: SP.chronicle.fuel_source | append: "," %}{% endif -%}
+{%- for S in E.sections %}{% if JOURNEY contains S.id %}{% for p in S.parts %}{% if p.source %}{% assign cited = cited | append: p.source | append: "," %}{% endif %}{% endfor %}{% endif %}{% endfor -%}
+{%- if E.ages %}{% assign cited = cited | append: E.ages.lede_source | append: "," | append: E.ages.note_source | append: "," %}{% for b in E.ages.bands %}{% assign cited = cited | append: b.source | append: "," %}{% endfor %}{% endif -%}
+{%- assign cited = cited | remove: " " -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site.url }}{{ site.baseurl }}/" },
+    { "@type": "ListItem", "position": 2, "name": "Sports & Performing Arts Cockpit", "item": "{{ site.url }}{{ site.baseurl }}/sports-hub.html" },
+    { "@type": "ListItem", "position": 3, "name": {{ E.short | jsonify }}, "item": "{{ site.url }}{{ site.baseurl }}/{{ E.slug }}.html" },
+    { "@type": "ListItem", "position": 4, "name": "Full roadmap", "item": "{{ page.url | absolute_url }}" }
+  ]
+}
+</script>
+{%- if E.chronicle_path %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": {{ E.short | append: " — step-by-step roadmap" | jsonify }},
+  "description": {{ page.description | jsonify }},
+  "step": [
+    {%- for c in E.chronicle_path %}
+    { "@type": "HowToStep", "position": {{ forloop.index }}, "name": {{ c.title | replace: "&amp;", "&" | jsonify }}, "text": {{ c.text | strip_html | replace: "&amp;", "&" | jsonify }}, "url": "{{ page.url | absolute_url }}#stage-{{ forloop.index }}" }{% unless forloop.last %},{% endunless %}
+    {%- endfor %}
+  ]
+}
+</script>
+{%- endif %}
+
+<main id="main" class="sc-page nx-page sp-page sp-roadmap" data-no-points>
+  <section class="page-hero career-hero sc-hero" aria-labelledby="hero-heading">
+    <div class="container page-hero-inner">
+      <span class="eyebrow">Sports Cockpit · Full roadmap · {{ E.short }}</span>
+      <h1 id="hero-heading">{{ E.short }} — Step-by-Step Roadmap</h1>
+      <div class="meta-row">
+        <span>{{ E.body_label | default: "Governed by" }} {{ E.body }}</span>
+        <span>·</span><span>Last checked {{ CK | date: "%-d %b %Y" }}</span>
+      </div>
+      <p>The whole {{ E.short }} journey, 0 to 100, in order: {% if E.chronicle_path %}the four stages from a local club to the international level, {% endif %}who can start, the detailed route{% unless E.domain == "arts" %} with trials and selection rules{% endunless %}{% if E.ages %}, what is open at every age{% endif %}, where to train, who pays, and the jobs and money after. Every step is taken from the same official sources as the main {{ E.short }} guide.</p>
+      <div class="page-hero-ctas">
+        <a href="{{ E.slug }}.html" class="btn btn-ghost">← Full {{ E.short }} guide</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="quicknav-bar sc-quicknav">
+    <div class="container">
+      <nav class="quicknav" aria-label="On this page">
+        <span class="sc-otp" aria-hidden="true">On this page</span>
+        {%- if E.chronicle_path %}<a href="#stages">{{ E.short }} in 4 stages</a>{% endif %}
+        {%- for j in JOURNEY %}{% if j == "ages" %}{% if E.ages %}<a href="#ages">{{ E.ages.nav | default: "By age" }}</a>{% endif %}{% else %}{% assign S = E.sections | where: "id", j | first %}{% if S %}<a href="#{{ S.id }}">{{ S.nav }}</a>{% endif %}{% endif %}{% endfor %}
+        <a href="#sources">Sources</a>
+      </nav>
+    </div>
+  </div>
+
+  {%- assign sn = 0 %}
+  {%- if E.chronicle_path %}
+  {%- assign sn = sn | plus: 1 %}
+  <section class="block mb sc-block" id="stages" aria-labelledby="stages-heading">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow"><span class="sc-step">{{ sn | prepend: "0" | slice: -2, 2 }}</span> Four stages, in order</span>
+        <h2 id="stages-heading">{{ SP.chronicle.heading }}</h2>
+      </div>
+      <nav class="rm-chips" aria-label="Jump to stage" style="--rm-rows:2">
+        {%- for c in E.chronicle_path %}
+        <a href="#stage-{{ forloop.index }}"><b>{{ forloop.index }}</b><span>{{ c.title }}</span></a>
+        {%- endfor %}
+      </nav>
+      <div class="rm-tools"><button type="button" class="table-reset" id="rmExpand">Expand all</button><button type="button" class="table-reset" id="rmCollapse">Collapse all</button></div>
+      <ol class="rm-timeline">
+        {%- for c in E.chronicle_path %}
+        <li class="rm-phase{% if forloop.last %} is-goal{% endif %}" id="stage-{{ forloop.index }}">
+          <span class="rm-node" aria-hidden="true">{% if forloop.last %}★{% else %}{{ forloop.index }}{% endif %}</span>
+          <details class="rm-card" open>
+            <summary>
+              <span class="rm-tag">Stage {{ forloop.index }}{% if c.age %} · {{ c.age }}{% endif %}</span>
+              <span class="rm-title">{{ c.title }}</span>
+              <svg class="rm-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </summary>
+            <div class="rm-body">
+              <p class="sc-p">{{ c.text }}{% if c.source %} {% include sport-src-refs.html ids=c.source %}{% endif %}</p>
+            </div>
+          </details>
+        </li>
+        {%- endfor %}
+      </ol>
+      <p class="table-note sc-note cp-fuel">{{ SP.chronicle.fuel }} {% include sport-src-refs.html ids=SP.chronicle.fuel_source %}</p>
+    </div>
+  </section>
+  {%- endif %}
+
+  {%- for j in JOURNEY %}
+  {%- if j == "ages" %}
+  {%- if E.ages %}{% assign sn = sn | plus: 1 %}{% if E.domain == "arts" %}{% include sport-ages.html ages=E.ages step=sn arts=true %}{% else %}{% include sport-ages.html ages=E.ages step=sn %}{% endif %}{% endif %}
+  {%- else %}
+  {%- assign S = E.sections | where: "id", j | first %}
+  {%- if S %}
+  {%- assign sn = sn | plus: 1 %}
+  <section class="block mb sc-block" id="{{ S.id }}" aria-labelledby="{{ S.id }}-heading">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow"><span class="sc-step">{{ sn | prepend: "0" | slice: -2, 2 }}</span> {{ S.eyebrow }}</span>
+        <h2 id="{{ S.id }}-heading">{{ S.heading }}</h2>
+      </div>
+      {% include sport-parts.html parts=S.parts %}
+    </div>
+  </section>
+  {%- endif %}
+  {%- endif %}
+  {%- endfor %}
+
+  <section class="block mb sc-block" id="sources" aria-labelledby="sources-heading">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow"><span class="sc-step">{{ sn | plus: 1 | prepend: "0" | slice: -2, 2 }}</span> Official sources &amp; verification</span>
+        <h2 id="sources-heading">Where this roadmap comes from</h2>
+        <p>The sources cited on this page, numbered as on the main {{ E.short }} guide, read on {{ CK | date: "%-d %B %Y" }}. Trials, age rules and scheme amounts change — open the current file before you act on it.</p>
+      </div>
+      <ol class="cite-list">
+        {%- for s in SRC %}
+        {%- assign key = s.id | prepend: "," | append: "," %}
+        {%- if cited contains key %}
+        <li id="src-{{ s.id }}" value="{{ forloop.index }}">
+          <a class="source-link" href="{{ s.url }}" target="_blank" rel="noopener noreferrer">
+            {{ ext }}
+            {{ s.name }}<span class="sr-only"> (opens in a new tab)</span>
+          </a>
+          <span class="cite-covers">{{ s.covers }}{% if s.checked %} · Last checked {{ s.checked | date: "%-d %b %Y" }}{% endif %}</span>
+        </li>
+        {%- endif %}
+        {%- endfor %}
+      </ol>
+      <div class="rm-link-card" data-no-points><div><strong>Back to the full {{ E.short }} guide</strong><p>{% if E.domain == "arts" %}How the art form is taught and judged, recognition and the traps to avoid.{% else %}The rules and scoring, recognition, the traps to avoid{% assign DQ = E.sections | where: "id", "doubts" | first %}{% if DQ %} and player doubts{% endif %}.{% endif %}</p></div><a href="{{ E.slug }}.html" class="btn btn-journey">← Full {{ E.short }} guide</a></div>
+    </div>
+  </section>
+</main>
+{%- if E.chronicle_path %}
+<script>
+(function(){
+  var cards=document.querySelectorAll('.rm-card');
+  var ex=document.getElementById('rmExpand'),co=document.getElementById('rmCollapse');
+  if(ex)ex.addEventListener('click',function(){cards.forEach(function(d){d.open=true;});});
+  if(co)co.addEventListener('click',function(){cards.forEach(function(d){d.open=false;});});
+  document.querySelectorAll('.rm-chips a').forEach(function(a){a.addEventListener('click',function(){var li=document.querySelector(a.getAttribute('href')+' .rm-card');if(li)li.open=true;});});
+})();
+</script>
+{%- endif %}

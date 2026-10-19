@@ -8,9 +8,11 @@
 
   Everything else comes from _data/in/sports.yml → sports[] (the entry whose slug = sport): hero (eyebrow, title,
   lede, body — shown after body_label, default "Governed by"), the 2 x 2 fact console (facts[] with source), official buttons, eight fixed blocks (rules,
-  recognition, eligibility, roadmap, academies, costs, earnings, traps), an optional four-stage "Zero to podium" flow at the top of the roadmap (chronicle_path: → career-flow.html, with the shared
-  chronicle.fuel line), an optional "By age" block after the roadmap (ages: → _includes/sport-ages.html), an optional last "doubts" block (player
-  questions as qa: { q, a } parts, also emitted as FAQPage JSON-LD) and the numbered sources.
+  recognition, eligibility, roadmap, academies, costs, earnings, traps), an optional last "doubts" block (player
+  questions as qa: { q, a } parts, also emitted as FAQPage JSON-LD) and the numbered sources. The journey itself lives on its own page,
+  roadmaps/<slug>.html (_includes/sport-roadmap.html, built by scripts/build-sport-roadmaps.mjs): here the roadmap block shows only the
+  four chronicle_path stage names and a link card, and the hero carries the "See The Journey / Full Roadmap" button. The section
+  parts render through _includes/sport-parts.html, shared with the roadmap page.
   Part kinds and markup are the exam console's (national-exam.html: .sc-*, .mb, 760px console), so the sports
   pages and exam pages read as one system. scripts/check-in-data.mjs validates the sheet. Classical-arts entries
   (domain arts) set body_label, rules_note and sources_note so the hero and Sources text speak of art forms, not sports.
@@ -74,6 +76,7 @@
       </div>
       <p>{{ E.lede }}</p>
       <div class="page-hero-ctas">
+        <a href="roadmaps/{{ E.slug }}.html" class="btn btn-journey btn-page-link">📍 See The Journey / Full Roadmap</a>
         {%- for o in E.official %}
         <a href="{{ o.url }}" class="btn {% if forloop.first %}btn-primary{% else %}btn-ghost{% endif %} btn-page-link" target="_blank" rel="noopener noreferrer">{{ o.label }}<span class="sr-only"> (opens in a new tab)</span></a>
         {%- endfor %}
@@ -90,7 +93,7 @@
     <div class="container">
       <nav class="quicknav" aria-label="On this page">
         <span class="sc-otp" aria-hidden="true">On this page</span>
-        {%- for S in E.sections %}<a href="#{{ S.id }}">{{ S.nav }}</a>{% if S.id == "roadmap" and E.ages %}<a href="#ages">{{ E.ages.nav | default: "By age" }}</a>{% endif %}{% endfor %}
+        {%- for S in E.sections %}<a href="#{{ S.id }}">{{ S.nav }}</a>{% endfor %}
         <a href="#sources">Sources</a>
       </nav>
     </div>
@@ -105,59 +108,18 @@
         <span class="eyebrow"><span class="sc-step">{{ sn | prepend: "0" | slice: -2, 2 }}</span> {{ S.eyebrow }}</span>
         <h2 id="{{ S.id }}-heading">{{ S.heading }}</h2>
       </div>
-      {%- if S.id == "roadmap" and E.chronicle_path %}
-      <h3 class="block-subhead sc-cap">{{ SP.chronicle.heading }}</h3>
-      {% include career-flow.html steps=E.chronicle_path class="cflow-cp" refs=true %}
-      <p class="table-note sc-note cp-fuel" data-no-points>{{ SP.chronicle.fuel }} {% include sport-src-refs.html ids=SP.chronicle.fuel_source %}</p>
+      {%- if S.id == "roadmap" %}
+      {%- if E.chronicle_path %}
+      <ol class="sp-rm-teaser" aria-label="The four stages">
+        {%- for c in E.chronicle_path %}<li><b>{{ forloop.index }}</b><span>{{ c.title }}{% if c.age %} <small>{{ c.age }}</small>{% endif %}</span></li>{% endfor %}
+      </ol>
       {%- endif %}
-      {%- for p in S.parts %}
-      {%- if p.p %}
-      <p class="sc-p">{{ p.p }}{% if p.source %} {% include sport-src-refs.html ids=p.source %}{% endif %}</p>
-      {%- elsif p.list %}
-      <ul class="sc-list">
-        {%- for i in p.list %}
-        <li>{{ i }}{% if forloop.last and p.source %} {% include sport-src-refs.html ids=p.source %}{% endif %}</li>
-        {%- endfor %}
-      </ul>
-      {%- elsif p.table %}
-      {%- if p.table.caption %}
-      <h3 class="block-subhead sc-cap">{{ p.table.caption }}{% if p.source %} {% include sport-src-refs.html ids=p.source %}{% endif %}</h3>
+      <div class="rm-link-card sp-rm-card" data-no-points><div><strong>The full {{ E.short }} roadmap has its own page</strong><p>{% if E.chronicle_path %}Every stage from first club to the international level, {% else %}Every step from first teacher to the national stage, {% endif %}the detailed route{% if E.ages %}, the age-by-age ladder{% endif %}{% if E.chronicle_path %} and what to eat from stage 1{% endif %}, with sources.</p></div><a href="roadmaps/{{ E.slug }}.html" class="btn btn-journey btn-page-link">📍 See The Journey / Full Roadmap</a></div>
+      {%- else %}
+      {% include sport-parts.html parts=S.parts %}
       {%- endif %}
-      <div class="table-wrap sc-table"><table class="table-simple">
-        {%- if p.table.caption %}<caption class="sr-only">{{ p.table.caption }}</caption>{% endif %}
-        <thead><tr>{% for h in p.table.head %}<th scope="col">{{ h }}</th>{% endfor %}</tr></thead>
-        <tbody>
-          {%- for r in p.table.rows %}
-          <tr>{% for c in r %}{% if forloop.first %}<th scope="row">{{ c }}</th>{% else %}<td>{{ c }}</td>{% endif %}{% endfor %}</tr>
-          {%- endfor %}
-        </tbody>
-      </table></div>
-      {%- if p.table.caption == nil and p.source %}
-      <p class="sc-cite">Source {% include sport-src-refs.html ids=p.source %}</p>
-      {%- endif %}
-      {%- elsif p.note %}
-      <p class="table-note sc-note">{{ p.note }}{% if p.source %} {% include sport-src-refs.html ids=p.source %}{% endif %}</p>
-      {%- elsif p.warn %}
-      <div class="sc-warn" role="note"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/></svg><p>{{ p.warn }}{% if p.source %} {% include sport-src-refs.html ids=p.source %}{% endif %}</p></div>
-      {%- elsif p.qa %}
-      <h3 class="block-subhead sc-q">{{ p.qa.q }}</h3>
-      <p class="sc-p">{{ p.qa.a }}{% if p.source %} {% include sport-src-refs.html ids=p.source %}{% endif %}</p>
-      {%- elsif p.links %}
-      <div class="chip-links sc-links">
-        {%- for l in p.links %}
-        {%- if l.url contains "://" %}
-        <a href="{{ l.url }}" target="_blank" rel="noopener noreferrer">{{ l.label }}<span class="sr-only"> (opens in a new tab)</span></a>
-        {%- else %}
-        <a href="{{ l.url }}">{{ l.label }}</a>
-        {%- endif %}
-        {%- endfor %}
-        {%- if p.source %}<span class="sc-cite-inline">{% include sport-src-refs.html ids=p.source %}</span>{% endif %}
-      </div>
-      {%- endif %}
-      {%- endfor %}
     </div>
   </section>
-  {%- if S.id == "roadmap" and E.ages %}{% assign sn = sn | plus: 1 %}{% if E.domain == "arts" %}{% include sport-ages.html ages=E.ages step=sn arts=true %}{% else %}{% include sport-ages.html ages=E.ages step=sn %}{% endif %}{% endif %}
   {%- endfor %}
 
   <section class="block mb sc-block" id="sources" aria-labelledby="sources-heading">

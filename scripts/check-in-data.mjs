@@ -329,6 +329,10 @@ if (fs.existsSync(spFile)) {
     const page = path.join(root, E.slug + '.html');
     if (!fs.existsSync(page)) ex(`page ${E.slug}.html missing`);
     else if (!fs.readFileSync(page, 'utf8').includes(`{% include sport-page.html sport="${E.slug}" %}`)) ex('page does not include sport-page.html for this sport');
+    // Standalone journey page (scripts/build-sport-roadmaps.mjs → roadmaps/<slug>.html via sport-roadmap.html)
+    const rmPage = path.join(root, 'roadmaps', E.slug + '.html');
+    if (!fs.existsSync(rmPage)) ex(`roadmaps/${E.slug}.html missing (run scripts/build-sport-roadmaps.mjs)`);
+    else if (!fs.readFileSync(rmPage, 'utf8').includes(`{% include sport-roadmap.html sport="${E.slug}" %}`)) ex(`roadmaps/${E.slug}.html does not include sport-roadmap.html for this sport`);
     const sIds = checkSources(E.slug, E.sources);
     const cited = new Set();
     const cite = (where, src, required) => {

@@ -14,8 +14,8 @@
                                         chain card, _includes/exam-formula-card.html); a part's `source:` prints [n].
     sources[] {id, name, url, covers, checked}
                                         the numbered citation block at the bottom (id="sources").
-  The page opts out of the auto sidebar (data-no-page-nav): the sticky horizontal quicknav bar is the
-  only "On this page" navigation, as the cockpit design asks. scripts/check-in-data.mjs validates the sheet.
+  "On this page": the sticky horizontal quicknav bar below 900px; from 900px up site.js swaps it for the
+  right-hand rail built from the h2[id] headings (2026-10-19 dual-device nav). scripts/check-in-data.mjs validates the sheet.
 {%- endcomment -%}
 {%- assign SD = site.data.in.states[include.state] -%}
 {%- assign E = SD.exams | where: "slug", include.exam | first -%}
@@ -46,7 +46,7 @@
 }
 </script>
 
-<main id="main" class="sc-page" data-no-page-nav>
+<main id="main" class="sc-page">
   <section class="page-hero career-hero sc-hero" aria-labelledby="hero-heading">
     <svg class="page-hero-bg" viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
       <path d="M-50 340 C 220 300, 320 380, 500 300 S 780 200, 980 260 1150 160 1300 200" stroke="#E8A33D" stroke-width="1.4" fill="none" opacity=".3"/>

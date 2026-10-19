@@ -1027,7 +1027,7 @@ try {
   var reduceMotion = (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) || false;
   var rootEl = document.documentElement;
 
-  // Sticky .quicknav-bar sits under the header below 1200px; publish its
+  // Sticky .quicknav-bar sits under the header below 900px; publish its
   // real height so --scroll-offset clears it exactly.
   var quicknavBar = document.querySelector('.quicknav-bar');
   function measureQuicknav(){
@@ -1153,7 +1153,23 @@ try {
   // sidebar (fewer than 4 headings) leave .quicknav-bar untouched.
   if(quicknavBar) quicknavBar.classList.add('has-sidebar-nav');
 
-  var items = headingEls.map(function(h){ return { id: h.id, text: h.textContent.trim() }; });
+  // Rail labels: the page's own chip label for that section when it has one
+  // ("Eligibility" rather than the full sentence-style heading), else the heading.
+  var chipLabels = [];
+  if(quicknavBar){
+    quicknavBar.querySelectorAll('a[href^="#"]').forEach(function(a){
+      var t = targetFromHash(a.getAttribute('href'));
+      if(t) chipLabels.push({ target: t, text: a.textContent.trim() });
+    });
+  }
+  var items = headingEls.map(function(h){
+    var full = h.textContent.trim(), text = full;
+    for(var i = 0; i < chipLabels.length; i++){
+      var c = chipLabels[i];
+      if(c.text && (c.target === h || (c.target.tagName === 'SECTION' && c.target.contains(h) && c.target.querySelector('h2[id]') === h))){ text = c.text; break; }
+    }
+    return { id: h.id, text: text, full: full };
+  });
 
   function buildList(){
     var ol = document.createElement('ol');
@@ -1162,6 +1178,7 @@ try {
       var a = document.createElement('a');
       a.href = '#' + item.id;
       a.textContent = item.text;
+      a.title = item.full;   // labels are short / cut to one line; the full heading shows on hover
       li.appendChild(a);
       ol.appendChild(li);
     });
@@ -1172,7 +1189,7 @@ try {
   // .page-nav-content wrapper, then rebuild that plus a .page-nav sidebar
   // as a real two-column grid (.page-nav-layout). This keeps the nav a
   // proper grid column — never a floating box that can drift over content
-  // — and lets the grid collapse to a single column below 1200px.
+  // — and lets the grid collapse to a single column below 900px.
   var heroEl = main.firstElementChild;
   var contentWrap = document.createElement('div');
   contentWrap.className = 'page-nav-content';
@@ -1199,26 +1216,38 @@ try {
 
   main.appendChild(layout);
 
-  // Mobile compact toggle — only added when this page has no existing
-  // .quicknav-bar. Pages that already have one keep using it at every
-  // width below the sidebar breakpoint, so mobile never shows two nav
-  // systems at once; the sidebar (desktop-only) is the only new UI those
-  // pages gain.
+  // Gold indicator that slides along the rail to the active item (moved by setActive).
+  var navInd = document.createElement('span');
+  navInd.className = 'page-nav-ind';
+  navInd.setAttribute('aria-hidden', 'true');
+  nav.querySelector('ol').appendChild(navInd);
+
+  // Phones and tablets (below 900px): a sticky, swipeable chip rail under
+  // the header — only built when the page has no .quicknav-bar of its own,
+  // so a page never shows two chip rails. It reuses the .quicknav-bar
+  // styles, sticky offset and scroll-spy; CSS hides it from 900px up
+  // (.has-sidebar-nav), where the right-hand rail takes over.
+  var chipBar = null;
   if(!quicknavBar){
-    var mWrap = document.createElement('div');
-    mWrap.className = 'page-nav-mobile';
-    mWrap.innerHTML = '<button type="button" class="page-nav-mobile-toggle" aria-expanded="false" aria-controls="pageNavMobilePanel">' +
-      '<span>On this page</span>' +
-      '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>' +
-      '</button><div class="page-nav-mobile-panel" id="pageNavMobilePanel"></div>';
-    contentWrap.insertBefore(mWrap, contentWrap.firstChild);
-    var mPanel = mWrap.querySelector('.page-nav-mobile-panel');
-    mPanel.appendChild(buildList());
-    var mBtn = mWrap.querySelector('.page-nav-mobile-toggle');
-    mBtn.addEventListener('click', function(){
-      var open = mPanel.classList.toggle('is-open');
-      mBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    chipBar = document.createElement('div');
+    chipBar.className = 'quicknav-bar page-nav-chips has-sidebar-nav';
+    var chipWrap = document.createElement('div');
+    chipWrap.className = 'container';
+    var chipNav = document.createElement('nav');
+    chipNav.className = 'quicknav';
+    chipNav.setAttribute('aria-label', 'On this page');
+    items.forEach(function(item){
+      var a = document.createElement('a');
+      a.href = '#' + item.id;
+      a.textContent = item.text;
+      a.title = item.full;
+      chipNav.appendChild(a);
     });
+    chipWrap.appendChild(chipNav);
+    chipBar.appendChild(chipWrap);
+    main.insertBefore(chipBar, layout);
+    quicknavBar = chipBar;
+    measureQuicknav();
   }
 
   function handleNavClick(e){
@@ -1227,10 +1256,6 @@ try {
     var target = targetFromHash(a.getAttribute('href'));
     if(!target) return;
     e.preventDefault();
-    // Close the mobile panel first: it sits above the content, so the
-    // target's position is only final once the panel has collapsed.
-    if(mPanel) mPanel.classList.remove('is-open');
-    if(mBtn) mBtn.setAttribute('aria-expanded', 'false');
     if(history.pushState) history.pushState(null, '', a.getAttribute('href'));
     // Land on the START of the section (its top edge), not mid-way at the heading.
     var pi = headingEls.indexOf(target);
@@ -1240,16 +1265,15 @@ try {
     scrollToTarget(dest, true);
   }
   nav.addEventListener('click', handleNavClick);
-  if(mPanel) mPanel.addEventListener('click', handleNavClick);
+  if(chipBar) chipBar.addEventListener('click', handleNavClick);
 
-  /* Active-section highlight (scroll-spy) — sidebar, mobile panel and,
-     below 1200px, the quicknav chips. The active section is the last
+  /* Active-section highlight (scroll-spy) — the right-hand rail and,
+     below 900px, the quicknav chips. The active section is the last
      heading whose top has passed the sticky-header line; at the very
      bottom of the page the last visible heading wins, so short final
      sections still light up. */
-  var spyLinks = [];   // { a, id } for sidebar + mobile panel
+  var spyLinks = [];   // { a, id } for the right-hand rail
   nav.querySelectorAll('a').forEach(function(a){ spyLinks.push({ a: a, id: a.getAttribute('href').slice(1) }); });
-  if(mPanel) mPanel.querySelectorAll('a').forEach(function(a){ spyLinks.push({ a: a, id: a.getAttribute('href').slice(1) }); });
   // Quicknav chips usually point at the <section>, not the heading.
   var chipLinks = [];
   if(quicknavBar){
@@ -1276,16 +1300,26 @@ try {
     }
   }
 
+  function moveInd(a){
+    if(!a || !a.offsetParent){ navInd.style.opacity = '0'; return; }
+    navInd.style.transform = 'translateY(' + a.offsetTop + 'px)';
+    navInd.style.height = a.offsetHeight + 'px';
+    navInd.style.opacity = '1';
+  }
+  window.addEventListener('resize', function(){ moveInd(nav.querySelector('a.is-active')); }, {passive:true});
+
   function setActive(id){
     if(id === activeId) return;
     activeId = id;
     var heading = id ? document.getElementById(id) : null;
+    var lit = null;
     spyLinks.forEach(function(s){
       var on = s.id === id;
       s.a.classList.toggle('is-active', on);
-      if(on){ s.a.setAttribute('aria-current', 'location'); if(nav.contains(s.a)) keepVisible(nav, s.a, false); }
+      if(on){ lit = s.a; s.a.setAttribute('aria-current', 'location'); keepVisible(nav, s.a, false); }
       else s.a.removeAttribute('aria-current');
     });
+    moveInd(lit);
     // Chip for the active section, or the nearest one before it when that
     // section has no chip of its own (e.g. Myths, category bars).
     var chipOn = null;
@@ -1311,7 +1345,7 @@ try {
     return (sec && sec.querySelector('h2[id]') === h) ? sec : h;
   });
   // Each point's own scroll-margin (career-group bars sit 1rem lower),
-  // re-read on resize since --scroll-offset changes at 1200px.
+  // re-read on resize since --scroll-offset changes at 900px.
   var spyMargins = [];
   function readSpyMargins(){
     spyMargins = spyPoints.map(function(p){ return parseFloat(getComputedStyle(p).scrollMarginTop) || 0; });
@@ -1510,13 +1544,13 @@ try {
     return ((chip && chip.textContent) || (h && h.textContent) || s.id).trim();
   }
   function esc(t){ return String(t).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
-  // "On this page" links (sidebar, mobile panel, quicknav chips) that point at a section or its heading.
+  // "On this page" links (right-hand rail, quicknav chips) that point at a section or its heading.
   function linksFor(s){
     var ids = [s.id], h = s.querySelector('h2[id]');
     if(h) ids.push(h.id);
     var found = [];
     ids.forEach(function(id){
-      document.querySelectorAll('.page-nav a[href="#' + id + '"], .page-nav-mobile a[href="#' + id + '"], .quicknav a[href="#' + id + '"]').forEach(function(a){ found.push(a); });
+      document.querySelectorAll('.page-nav a[href="#' + id + '"], .quicknav a[href="#' + id + '"]').forEach(function(a){ found.push(a); });
     });
     return found;
   }

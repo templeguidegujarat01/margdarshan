@@ -155,6 +155,7 @@
         {%- endif %}
         {%- endfor %}
       </ol>
+      {% include src-more.html %}
       <div class="rm-link-card" data-no-points><div><strong>Back to the full {{ E.short }} guide</strong><p>{% if E.domain == "arts" %}How the art form is taught and judged, recognition and the traps to avoid.{% else %}The rules and scoring, recognition, the traps to avoid{% assign DQ = E.sections | where: "id", "doubts" | first %}{% if DQ %} and player doubts{% endif %}.{% endif %}</p></div><a href="{{ E.slug }}.html" class="btn btn-journey">← Full {{ E.short }} guide</a></div>
     </div>
   </section>

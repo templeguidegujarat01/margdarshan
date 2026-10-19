@@ -1964,3 +1964,49 @@ try {
   });
 })();
 } catch (e) { if (window.console) console.error(e); }
+
+/* ===== Sources fold ("Where these facts come from", 2026-10-20) =====
+   main.css folds every section#sources (heading + first 3 sources visible from the first paint). Here: the "Read more" button (_includes/src-more.html) gets the hidden-source count and opens /
+   closes the section; a citation link or URL hash pointing at a folded source (#src-…) opens it first. */
+try {
+(function(){
+  "use strict";
+  var sec = document.getElementById('sources');
+  if(!sec) return;
+  var btn = sec.querySelector('.src-more');
+  var list = sec.querySelector('.cite-list, .us-sources');
+  if(!btn || !list) return;
+  var n = list.children.length;
+  // Stale cached main.css without the fold rules: nothing is hidden, so no button.
+  var intro = sec.querySelector('.section-head > :not(.eyebrow):not(h2)');
+  if(!intro || getComputedStyle(intro).display !== 'none'){ btn.remove(); return; }
+  var closedLabel = n > 3 ? 'Read more: ' + (n - 3) + ' more source' + (n - 3 === 1 ? '' : 's') + ' and notes' : 'Read more: how these sources are checked';
+  btn.textContent = closedLabel;
+  function setOpen(open){
+    sec.classList.toggle('is-open', open);
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? 'Show less' : closedLabel;
+    // Content that was display:none never ran its scroll-reveal; show it now.
+    if(open) sec.querySelectorAll('.reveal:not(.is-visible)').forEach(function(r){ r.classList.add('is-visible'); });
+  }
+  btn.addEventListener('click', function(){
+    var open = !sec.classList.contains('is-open');
+    setOpen(open);
+    if(!open && sec.getBoundingClientRect().top < 0) sec.scrollIntoView({ block: 'start' });
+  });
+  function openFor(hash){
+    var id = (hash || '').slice(1), el = null;
+    try { el = id && document.getElementById(decodeURIComponent(id)); } catch(e){}
+    if(el && sec.contains(el) && !sec.classList.contains('is-open')){
+      setOpen(true);
+      el.scrollIntoView({ block: 'center' });
+    }
+  }
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a[href^="#"]');
+    if(a) openFor(a.getAttribute('href'));
+  }, true);
+  window.addEventListener('hashchange', function(){ openFor(window.location.hash); });
+  if(window.location.hash) openFor(window.location.hash);
+})();
+} catch (e) { if (window.console) console.error(e); }

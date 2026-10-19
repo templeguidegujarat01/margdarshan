@@ -3363,3 +3363,19 @@ details[open] > .ed-dash{animation:edDashIn .16s var(--ease);}
   .ag-card{padding:.6rem .75rem .7rem;}
 }
 @media (prefers-reduced-motion:reduce){.ag-band,.ag-card,.ag-chip{transition:none;}}
+
+/* ===================== SOURCES FOLD ("Where these facts come from", 2026-10-20) =====================
+   Every section#sources shows its heading and the first 3 sources only; the intro, the other sources, the
+   Markdown copy box and the correction line open with the "Read more" button
+   (_includes/src-more.html, site.js block "Sources fold"). Gated by html.js, which the layout sets in <head>,
+   so the section is folded from the first paint (no layout shift) and fully visible without JS. A citation
+   link to a folded source ([5] → #src-…) opens the section first. */
+.src-more{display:none;}
+html.js #sources .src-more{display:inline-flex;align-items:center;gap:.4rem;margin-top:.9rem;padding:.5rem 1rem;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--text);font:inherit;font-size:.86rem;font-weight:600;cursor:pointer;transition:border-color .15s var(--ease),background .15s var(--ease);}
+html.js #sources .src-more:hover,html.js #sources .src-more:focus-visible{border-color:var(--gold);background:rgba(var(--hl-rgb),.05);}
+html.js #sources .src-more::after{content:"";width:.45rem;height:.45rem;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:translateY(-2px) rotate(45deg);transition:transform .15s var(--ease);}
+html.js #sources.is-open .src-more::after{transform:translateY(1px) rotate(-135deg);}
+html.js #sources:not(.is-open) :is(.cite-list,.us-sources) > li:nth-child(n+4),
+html.js #sources:not(.is-open) .section-head > :not(.eyebrow):not(h2),
+html.js #sources:not(.is-open) :is(.cite-md,.cite-report){display:none;}
+@media (prefers-reduced-motion:reduce){html.js #sources .src-more,html.js #sources .src-more::after{transition:none;}}

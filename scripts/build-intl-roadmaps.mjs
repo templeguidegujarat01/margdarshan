@@ -1,6 +1,7 @@
 // Writes the standalone cross-border roadmap page of every `crossborder` track in the USA and UK editions.
 //   VERIFY_DEPS=<dir containing node_modules with js-yaml> node scripts/build-intl-roadmaps.mjs [--check]
 // Sources: _data/us/pathways.yml crossborder[]   → us/roadmaps/<slug>.html (track: <slug>)
+//          _data/us/cte_careers.yml list[]       → us/roadmaps/<slug>.html (track: <slug>, cte: true)
 //          _data/uk/careers/<sheet>.yml crossborder[] → uk/roadmaps/<slug>.html (track: <slug>, sheet: <sheet>)
 // Each stub is front matter around {% include intl-roadmap.html %}; the page content comes from the data.
 // Rerun after adding a track or changing its title / lede; --check only reports stubs that are missing or
@@ -25,6 +26,10 @@ for (const X of US.crossborder || []) {
   const P = US.list.find((p) => p.slug === X.pathway) || { title: X.pathway };
   jobs.push({ ed: 'us', X, brand: 'Education Margdarshan USA', parent_href: `us/careers/${X.pathway}/`, parent_label: P.title, extra: '' });
 }
+// Trades & CTE (2026-10-20): same page engine, data from _data/us/cte_careers.yml; `cte: true` picks it.
+for (const X of load('_data/us/cte_careers.yml').list || []) {
+  jobs.push({ ed: 'us', X, brand: 'Education Margdarshan USA', parent_href: 'us/#cte', parent_label: 'Trades & CTE', extra: 'cte: true\n', current: 'Roadmap' });
+}
 const ukDir = path.join(root, '_data/uk/careers');
 for (const f of fs.readdirSync(ukDir).filter((x) => x.endsWith('.yml')).sort()) {
   const C = load(`_data/uk/careers/${f}`);
@@ -45,7 +50,7 @@ track: ${X.slug}
 ${J.extra}breadcrumb:
   parent_href: "${J.parent_href}"
   parent_label: "${esc(J.parent_label)}"
-  current: "Trained abroad: roadmap"
+  current: "${J.current || 'Trained abroad: roadmap'}"
 ---
 {% include intl-roadmap.html %}
 `;
@@ -59,5 +64,5 @@ ${J.extra}breadcrumb:
   wrote++;
 }
 for (const s of stale) console.error('  ' + s);
-console.log(check ? `checked ${jobs.length} cross-border roadmap page(s), ${stale.length} problem(s)` : `wrote ${wrote} cross-border roadmap page(s)`);
+console.log(check ? `checked ${jobs.length} cross-border + trades roadmap page(s), ${stale.length} problem(s)` : `wrote ${wrote} cross-border + trades roadmap page(s)`);
 if (stale.length) process.exit(1);

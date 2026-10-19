@@ -1,0 +1,239 @@
+# USA Edition — Trades & CTE (career and technical education) roadmaps. One record per trade; each is a
+# standalone page us/roadmaps/<slug>.html (stub `track: <slug>` + `cte: true`, written by
+# scripts/build-intl-roadmaps.mjs) rendered by _includes/intl-roadmap.html, the same engine as the
+# cross-border tracks in pathways.yml. Checked by scripts/check-us-data.mjs.
+#
+# Same rules as every _data/us file: each value is copied from the page named by its source id
+# (sources.yml), never computed. BLS figures are the OOH 2025–35 edition (May 2025 pay), the vintage in
+# sources.yml bls_vintage; check-us-data.mjs fails if pay/outlook differ from the home trades table.
+#
+# Fields per trade (route/step/fact/watch fields as in pathways.yml crossborder):
+#   metrics   BLS Quick Facts: pay (annual median, whole dollars), pay_hour, jobs, outlook (% 2025–35),
+#             outlook_words (BLS's own wording), change (jobs added), entry, training, source
+#   states    state (or city) licensing matrix rows: { place, body, rule, sources: [ids] }. Only places whose
+#             own board/statute was read; every other state has its own rules.
+#   states_note  one line shown above the matrix
+#   certs     national certifications / federal rules: { name, who, text, source }
+#   tools     what the official source says about tools and gear: { text, source }; BLS publishes no
+#             dollar cost for a starter tool set, so none is shown.
+#   home_trade  `name` of the matching row in home.yml trades (pay/outlook must match)
+checked: 2026-10-20
+review_by: 2027-04-20
+
+list:
+  - slug: electrician
+    home_trade: "Electrician"
+    title: "Electrician: apprenticeship to state license"
+    short: "Electrician"
+    eyebrow: "USA · Trades & CTE · Construction"
+    lede: "Most electricians learn the trade in a paid <strong>4- or 5-year apprenticeship</strong>, then pass a state or local licensing test on the National Electrical Code. A technical school first is optional and usually earns credit toward the apprenticeship."
+    for: "High school students and graduates who want a licensed construction trade, residential or commercial."
+    checked: 2026-10-20
+    review_by: 2027-04-20
+    metrics: { pay: 63190, pay_hour: "30.38", jobs: 821000, outlook: 9, outlook_words: "Much faster than average", change: 75900, entry: "High school diploma or equivalent", training: "Apprenticeship", source: ooh_qf_electricians }
+    routes:
+      - id: apprenticeship
+        title: "Registered apprenticeship, then the license exam"
+        tag: "Most common"
+        who: "Unions and contractor associations sponsor apprenticeship programs; requirements vary by state and locality."
+        steps:
+          - { tag: "Start", title: "High school diploma or equivalent", text: "The typical entry-level education BLS lists for electricians.", kind: start, source: ooh_qf_electricians }
+          - { tag: "Find a program", title: "A Registered Apprenticeship", text: "\"Registered\" means the program has been validated by the U.S. Department of Labor or a State Apprenticeship Agency.", kind: stage, source: dol_rap }
+          - { tag: "4–5 years", title: "Paid training on the job + classroom", text: "For each year of the program, apprentices typically get <strong>2,000 hours</strong> of paid on-the-job training plus technical instruction.", kind: stage, source: ooh_electricians }
+          - { tag: "Exam", title: "State or local licensing test", text: "Most states require electricians to pass a test and be licensed. Questions cover the National Electrical Code and state and local electrical codes.", kind: exam, source: ooh_electricians }
+          - { tag: "License", title: "Journey worker (journeyman)", text: "After completing an apprenticeship program, electricians are considered journey workers.", kind: licence, source: ooh_electricians }
+          - { tag: "Goal", title: "Master electrician", text: "With experience, journey workers may advance to master electrician. The rules are state by state (see the matrix below).", kind: goal, source: ooh_electricians }
+        facts:
+          - { k: "Pay while you train", v: "Apprentices earn a wage from day one, with a guaranteed raise as their skills grow, and finish with a nationally portable credential.", source: dol_apprentice_seekers }
+          - { k: "Keeping the license", v: "Electricians may have to take continuing education courses to keep their licenses.", source: ooh_electricians }
+      - id: school-first
+        title: "Technical school or community college first"
+        tag: "Optional head start"
+        who: "For students who want classroom basics before an employer takes them on."
+        steps:
+          - { tag: "Start", title: "High school diploma or equivalent", text: "", kind: start, source: ooh_qf_electricians }
+          - { tag: "School", title: "Technical school program", text: "Covers circuitry, safety practices and basic electrical information. Graduates usually receive <strong>credit toward their apprenticeship</strong>.", kind: stage, source: ooh_electricians }
+          - { tag: "Optional", title: "Or an associate degree (A.A.S.)", text: "An associate degree normally takes at least 2 but less than 4 years of full-time college work.", kind: stage, source: nces_ipeds_glossary }
+          - { tag: "Apprenticeship", title: "Apprenticeship with school credit", text: "Paid on-the-job training plus technical instruction, as in route 1.", kind: stage, source: ooh_electricians }
+          - { tag: "Exam", title: "State or local licensing test", text: "", kind: exam, source: ooh_electricians }
+          - { tag: "Goal", title: "Licensed journey-level electrician", text: "", kind: goal, source: ooh_electricians }
+    states_note: "There is no national electrician license. These are the rules of five large states and cities, read on their own boards' pages; every other state and many cities set their own."
+    states:
+      - { place: "Texas", body: "Texas Department of Licensing and Regulation (TDLR)", rule: "Statewide licenses from apprentice to master. <strong>Apprentice</strong>: no experience or exam. <strong>Journeyman</strong>: 8,000 hours of on-the-job training under a Texas master electrician (you may take the exam at 7,000). <strong>Master</strong>: 2 years as a journeyman and 12,000 hours. Licenses renew every year.", sources: [tx_elec_apprentice, tx_elec_journeyman, tx_elec_master] }
+      - { place: "California", body: "Department of Industrial Relations, Electrician Certification Unit", rule: "Anyone working as an electrician for a C-10 licensed contractor must be <strong>state-certified</strong>; registered apprentices in a state-approved program may work while training. The General Electrician exam needs 8,000 hours of work for an electrical contractor, in two or more areas of work.", sources: [ca_ecu_who, ca_ecu_general] }
+      - { place: "Florida", body: "Counties and cities (Fla. Stat. s. 489.5335)", rule: "<strong>No state journeyman license</strong>: counties and cities issue it. The law requires a proctored exam (75% to pass) and a registered, state-approved apprenticeship or 12,000 hours of on-the-job training. Every Florida county and city must recognize a journeyman license issued by another.", sources: [fl_489_5335] }
+      - { place: "Washington", body: "Department of Labor & Industries (L&I)", rule: "You start as an electrical trainee. The journey level (01) exam needs 8,000 hours (no more than 4,000 in specialty work) and 96 hours of basic classroom instruction. Certificates renew every 3 years with 24 hours of continuing education.", sources: [wa_lni_electrician] }
+      - { place: "New York City", body: "NYC Department of Buildings (DOB)", rule: "City <strong>Master/Special Electrician</strong> license: 7 years of experience within the last 10 under a licensed master or special electrician, at least 2 in NYC (or 5 years after an apprenticeship registered with the NYS Department of Labor). Written exam ($585, 70% to pass) and practical exam ($530).", sources: [nyc_dob_electrician] }
+    tools:
+      - { text: "Electricians repair or replace wiring, equipment and fixtures with hand tools and power tools.", source: ooh_qf_electricians }
+
+  - slug: plumber
+    home_trade: "Plumber, pipefitter, steamfitter"
+    title: "Plumber: apprenticeship to journey level and master"
+    short: "Plumber"
+    eyebrow: "USA · Trades & CTE · Construction"
+    lede: "Most plumbers, pipefitters and steamfitters train in a paid <strong>4- or 5-year apprenticeship</strong>, then pass a licensing exam to become journey-level workers. Most states and some cities require plumbers to be licensed."
+    for: "Students who want a licensed trade in commercial and residential piping systems."
+    checked: 2026-10-20
+    review_by: 2027-04-20
+    metrics: { pay: 63800, pay_hour: "30.67", jobs: 510600, outlook: 7, outlook_words: "Much faster than average", change: 34500, entry: "High school diploma or equivalent", training: "Apprenticeship", source: ooh_qf_plumbers }
+    routes:
+      - id: apprenticeship
+        title: "Apprenticeship, exam, journey level"
+        tag: "Most common"
+        who: "Apprenticeship programs are sponsored by unions, trade associations and businesses."
+        steps:
+          - { tag: "Start", title: "High school diploma or equivalent", text: "", kind: start, source: ooh_qf_plumbers }
+          - { tag: "Find a program", title: "A Registered Apprenticeship", text: "Validated by the U.S. Department of Labor or a State Apprenticeship Agency.", kind: stage, source: dol_rap }
+          - { tag: "4–5 years", title: "Paid training + technical instruction", text: "Apprentices typically get <strong>2,000 hours</strong> of paid on-the-job training each year, plus some technical instruction.", kind: stage, source: ooh_plumbers }
+          - { tag: "Exam", title: "Licensing exam", text: "States and localities often require 2 to 5 years of experience and an exam before plumbers may work independently.", kind: exam, source: ooh_plumbers }
+          - { tag: "License", title: "Journey-level plumber", text: "Qualified to perform tasks independently.", kind: licence, source: ooh_plumbers }
+          - { tag: "Goal", title: "Master plumber", text: "Several years of experience and another exam. Some states require master status for a plumbing contractor's license.", kind: goal, source: ooh_plumbers }
+        facts:
+          - { k: "Pipefitters & gas lines", v: "Some states require pipefitters and steamfitters to be licensed, and some require a special license to work on gas lines.", source: ooh_plumbers }
+          - { k: "Driver's license", v: "Most employers require plumbers to have one.", source: ooh_plumbers }
+          - { k: "Optional certification", v: "For example in plumbing design, to broaden career options.", source: ooh_plumbers }
+      - id: school-first
+        title: "Vocational-technical school first"
+        tag: "Optional head start"
+        who: "Some plumbers also attend a vocational-technical school before or during the apprenticeship."
+        steps:
+          - { tag: "Start", title: "High school diploma or equivalent", text: "", kind: start, source: ooh_qf_plumbers }
+          - { tag: "School", title: "Vocational-technical school", text: "These schools also offer the welding courses that some pipefitter and steamfitter apprenticeships require.", kind: stage, source: ooh_plumbers }
+          - { tag: "Apprenticeship", title: "Apprenticeship", text: "", kind: stage, source: ooh_plumbers }
+          - { tag: "Exam", title: "Licensing exam", text: "", kind: exam, source: ooh_plumbers }
+          - { tag: "Goal", title: "Journey-level plumber", text: "", kind: goal, source: ooh_plumbers }
+    states_note: "Plumbing licenses are issued by states, and in some places by counties and cities. Five examples, each from the official board or statute:"
+    states:
+      - { place: "Texas", body: "Texas State Board of Plumbing Examiners (TSBPE)", rule: "<strong>Journeyman Plumber</strong>: at least 8,000 hours in the plumbing trade plus a board-approved 48-hour course, or enrollment in a U.S. Department of Labor Office of Apprenticeship program. A journeyman or master license from another state replaces the course. Exam fee $40.", sources: [tx_tsbpe_journeyman] }
+      - { place: "California", body: "Contractors State License Board (CSLB)", rule: "<strong>No state journeyman plumber license</strong>: CSLB says a journey-level worker does not have a license and cannot contract jobs that need a permit or exceed $1,000. To get the C-36 Plumbing contractor license you must show 4 full years of journey-level plumbing; a plumbing apprenticeship is normally 5 years.", sources: [ca_cslb_journey] }
+      - { place: "Florida", body: "Counties and cities (Fla. Stat. s. 489.1455)", rule: "Counties and cities issue journeyman licenses in plumbing, pipe fitting, mechanical and HVAC: a proctored exam (75% to pass) and a registered, state-approved apprenticeship or 12,000 hours of on-the-job training. Other Florida counties and cities must recognize it.", sources: [fl_489_1455] }
+      - { place: "Washington", body: "Department of Labor & Industries (L&I)", rule: "<strong>Journey level plumber (PL01)</strong>: 4 years or more (at least 8,000 hours) as a plumber trainee under a certified journey level plumber, of which at least 4,000 hours in commercial or industrial installations.", sources: [wa_lni_plumber] }
+      - { place: "New York City", body: "NYC Department of Buildings (DOB)", rule: "<strong>Master Plumber</strong>: 7 years of experience within the last 10 under a Licensed Master Plumber in the U.S., including 2 years as a registered journeyman plumber; written and practical exams; you must own or run a business with a place of business in NYC.", sources: [nyc_dob_plumber] }
+    tools:
+      - { text: "Plumbers' tools include drills, saws, welding torches, press fitting tools and drain cleaning tools.", source: ooh_qf_plumbers }
+
+  - slug: hvac-technician
+    home_trade: "HVAC technician"
+    title: "HVAC technician: school or apprenticeship, EPA 608, state license"
+    short: "HVAC technician"
+    eyebrow: "USA · Trades & CTE · Installation & repair"
+    lede: "HVAC technicians usually take a <strong>6-month to 2-year program</strong> at a technical school or community college, or train in an apprenticeship. Federal law requires nearly all of them to hold <strong>EPA Section 608</strong> refrigerant certification; some states and cities also license them."
+    for: "Students who like hands-on repair work on heating, air conditioning and refrigeration systems."
+    checked: 2026-10-20
+    review_by: 2027-04-20
+    metrics: { pay: 61010, pay_hour: "29.33", jobs: 440900, outlook: 11, outlook_words: "Much faster than average", change: 48200, entry: "Postsecondary nondegree award", training: "Long-term on-the-job training", source: ooh_qf_hvac }
+    routes:
+      - id: school
+        title: "Certificate or associate degree, then on the job"
+        tag: "Most common"
+        who: "BLS: HVAC technicians typically need postsecondary instruction from technical and trade schools or community colleges."
+        steps:
+          - { tag: "Start", title: "After high school", text: "", kind: start, source: ooh_qf_hvac }
+          - { tag: "6 months–2 years", title: "HVAC program: certificate or associate degree", text: "Programs in heating, air conditioning and refrigeration at technical and trade schools or community colleges.", kind: stage, source: ooh_hvac }
+          - { tag: "Certificate", title: "EPA Section 608 certification", text: "Passing the exam is typically part of completing a postsecondary HVACR program.", kind: licence, source: ooh_hvac }
+          - { tag: "On the job", title: "Long-term training after hire", text: "", kind: stage, source: ooh_qf_hvac }
+          - { tag: "Where required", title: "State or local license", text: "Some states and localities require HVAC technicians to be licensed: check yours (matrix below).", kind: exam, source: ooh_hvac }
+          - { tag: "Goal", title: "Working HVAC technician", text: "", kind: goal, source: ooh_qf_hvac }
+      - id: apprenticeship
+        title: "Apprenticeship"
+        tag: "Earn while you learn"
+        who: "An apprenticeship usually lasts several years: paid on-the-job training plus some technical instruction each year."
+        steps:
+          - { tag: "Start", title: "After high school", text: "", kind: start, source: ooh_qf_hvac }
+          - { tag: "Several years", title: "Apprenticeship", text: "Paid on-the-job training and technical instruction each year; apprentices also learn to use a variety of tools.", kind: stage, source: ooh_hvac }
+          - { tag: "Rule", title: "Supervised apprentices are exempt", text: "Apprentices do not need Section 608 certification while closely and continually supervised by a certified technician.", kind: stage, source: epa_608 }
+          - { tag: "Certificate", title: "EPA Section 608 certification", text: "An EPA-approved test, given by an EPA-approved certifying organization.", kind: licence, source: epa_608 }
+          - { tag: "Goal", title: "Working HVAC technician", text: "", kind: goal, source: ooh_qf_hvac }
+    certs:
+      - { name: "EPA Section 608", who: "Federal law · everyone who services refrigerant equipment", text: "Type I: small appliances. Type II: high- or very high-pressure appliances. Type III: low-pressure appliances. Universal: all types. The credential <strong>does not expire</strong>; a core test taken open-book cannot count toward Universal.", source: epa_608 }
+      - { name: "Manufacturer or industry certification", who: "Optional", text: "Many certifications are optional, although some employers prefer or require specific ones.", source: ooh_hvac }
+    states_note: "HVAC licensing is split between technicians and contractors, and each state draws the line differently. Four examples:"
+    states:
+      - { place: "Texas", body: "Texas Department of Licensing and Regulation (TDLR)", rule: "Anyone who helps a licensed ACR contractor with maintenance or repair must <strong>register as a technician</strong> ($20) and work under that contractor. A <strong>contractor license</strong> (Class A: any size; Class B: cooling up to 25 tons, heating up to 1.5 million BTU/hour) needs 48 months of supervised experience within 72 months, or 36 within 48 after 12 months as a certified technician.", sources: [tx_acr_tech, tx_acr_contractor] }
+      - { place: "California", body: "Contractors State License Board (CSLB)", rule: "The state licenses HVAC <strong>contractors</strong> as C-20 (warm-air heating, ventilating and air-conditioning). A contractor license needs 4 years of journey-level experience; training or an apprenticeship can replace up to 3 of them.", sources: [ca_cslb_c20, ca_cslb_journey] }
+      - { place: "Florida", body: "Construction Industry Licensing Board; counties and cities", rule: "The state certifies <strong>Class A</strong> (unlimited) and <strong>Class B</strong> (up to 25 tons of cooling and 500,000 Btu of heating per system) air-conditioning contractors. Counties and cities issue HVAC journeyman licenses (exam + apprenticeship or 12,000 hours).", sources: [fl_489_105, fl_489_1455] }
+      - { place: "Washington", body: "Department of Labor & Industries (L&I)", rule: "Electrical work on HVAC/R systems needs a specialty electrician certificate: <strong>HVAC/refrigeration (06A)</strong> needs 4,000 hours of work experience; the restricted <strong>06B</strong> needs 2,000, which can count toward 06A.", sources: [wa_wac_296_46b_945] }
+    tools:
+      - { text: "Apprentices learn to use a variety of tools as part of their training.", source: ooh_hvac }
+
+  - slug: welder
+    home_trade: "Welder"
+    title: "Welder: training, AWS certification, on the job"
+    short: "Welder"
+    eyebrow: "USA · Trades & CTE · Production"
+    lede: "Welders typically need a <strong>high school diploma plus technical and on-the-job training</strong>. Licensing is not universal: some states and localities license welders, and employers often ask for a certification such as the <strong>AWS Certified Welder</strong> test."
+    for: "Students who want industrial, structural or pipeline welding work."
+    checked: 2026-10-20
+    review_by: 2027-04-20
+    metrics: { pay: 53750, pay_hour: "25.84", jobs: 437700, outlook: 2, outlook_words: "Slower than average", change: 10300, entry: "High school diploma or equivalent", training: "Moderate-term on-the-job training", source: ooh_qf_welders }
+    routes:
+      - id: school
+        title: "Technical training, certification test, on the job"
+        tag: "Most common"
+        who: "Many employers prefer to hire workers who have completed training or credentialing programs."
+        steps:
+          - { tag: "Start", title: "High school diploma or equivalent", text: "Employers often prefer or require it, plus technical training.", kind: start, source: ooh_welders }
+          - { tag: "School", title: "Welding training", text: "High school technical education classes, vocational-technical institutes, community colleges or private welding schools.", kind: stage, source: ooh_welders }
+          - { tag: "Exam", title: "AWS Certified Welder test", text: "Tests welders on procedures used in structural steel, petroleum pipelines and sheet metal, at an AWS Accredited Testing Facility. No prerequisite courses or certifications.", kind: exam, source: aws_cw_faq }
+          - { tag: "On the job", title: "Several months of on-the-job training", text: "Even entry-level workers with formal technical training still get several months of it.", kind: stage, source: ooh_welders }
+          - { tag: "Goal", title: "Working welder", text: "", kind: goal, source: ooh_qf_welders }
+      - id: apprenticeship
+        title: "Employer-based apprenticeship"
+        tag: "Earn while you learn"
+        who: "Some apprenticeships are open to entry-level workers with no prior experience or training."
+        steps:
+          - { tag: "Start", title: "High school diploma or equivalent", text: "", kind: start, source: ooh_welders }
+          - { tag: "Apprenticeship", title: "Employer-based apprenticeship", text: "", kind: stage, source: ooh_welders }
+          - { tag: "Required", title: "OSHA electrical safety training", text: "OSHA requires welders to complete training on electrical safety.", kind: stage, source: ooh_welders }
+          - { tag: "Goal", title: "Working welder", text: "", kind: goal, source: ooh_qf_welders }
+        facts:
+          - { k: "Military", v: "The U.S. Armed Forces also offer welding-related training.", source: ooh_welders }
+          - { k: "Who pays for tests", v: "Some employers require certification for particular jobs and may pay for the training and testing.", source: ooh_welders }
+    certs:
+      - { name: "AWS Certified Welder (CW)", who: "American Welding Society · optional, often asked by employers", text: "Tests welders on procedures used in structural steel, petroleum pipelines, sheet metal and chemical refinery work. To stay certified, send maintenance documentation <strong>every six months</strong> showing you still use the process; otherwise you must requalify by testing.", source: aws_cw_faq }
+    states_note: "Welders must be licensed in some states and localities, and the requirements vary. There is no single state rule to show here: ask the state or city where you will work."
+    states_source: ooh_welders
+    tools:
+      - { text: "Welders use hand-held or remotely controlled equipment to join or cut metal, and wear protective clothing and welding helmets.", source: ooh_welders_env }
+
+  - slug: automotive-service-technician
+    home_trade: "Automotive service technician"
+    title: "Automotive service technician: training to ASE Master"
+    short: "Automotive service technician"
+    eyebrow: "USA · Trades & CTE · Installation & repair"
+    lede: "Auto technicians usually complete a <strong>certificate or associate degree</strong> program in automotive service technology, then work toward voluntary <strong>ASE certification</strong>, which needs documented work experience and a test per area."
+    for: "Students who want to diagnose and repair cars and light trucks."
+    checked: 2026-10-20
+    review_by: 2027-04-20
+    metrics: { pay: 50620, pay_hour: "24.34", jobs: 825800, outlook: 5, outlook_words: "Faster than average", change: 40900, entry: "Postsecondary nondegree award", training: "Short-term on-the-job training", source: ooh_qf_auto }
+    routes:
+      - id: school
+        title: "Program, experience, ASE tests"
+        tag: "Most common"
+        who: "High schools, community colleges and technical institutes offer programs in automotive service technology."
+        steps:
+          - { tag: "Start", title: "High school courses", text: "Automotive repair, electronics, computers and mathematics help.", kind: start, source: ooh_auto }
+          - { tag: "School", title: "Certificate or associate degree", text: "A program in automotive service technology.", kind: stage, source: ooh_auto }
+          - { tag: "Certificate", title: "EPA Section 609 (vehicle A/C)", text: "Anyone paid to repair or service a motor vehicle air conditioning system must be trained and certified by an EPA-approved program, such as ASE's.", kind: licence, source: epa_609 }
+          - { tag: "1–3 years", title: "Documented work experience", text: "ASE needs 1 year for the G1 test, 3 for the advanced L tests and 2 for all others; up to <strong>half</strong> can be met with vocational training.", kind: stage, source: ase_need_to_know }
+          - { tag: "Exam", title: "ASE certification tests", text: "Multiple-choice, one test per area (A1–A9 for automobiles), at a test center; the score report is emailed right away.", kind: exam, source: ase_need_to_know }
+          - { tag: "Goal", title: "ASE Master Technician", text: "Pass the specified tests of a series (4 to 8, depending on the series) and meet the experience requirement.", kind: goal, source: ase_need_to_know }
+      - id: apprenticeship
+        title: "Apprenticeship"
+        tag: "Earn while you learn"
+        who: "Some technicians complete an apprenticeship: paid on-the-job training combined with technical instruction."
+        steps:
+          - { tag: "Start", title: "After high school", text: "", kind: start, source: ooh_qf_auto }
+          - { tag: "Apprenticeship", title: "Paid training + technical instruction", text: "", kind: stage, source: ooh_auto }
+          - { tag: "Exam", title: "ASE certification tests", text: "", kind: exam, source: ase_need_to_know }
+          - { tag: "Goal", title: "ASE-certified technician", text: "", kind: goal, source: ase_need_to_know }
+    certs:
+      - { name: "ASE certification", who: "National Institute for Automotive Service Excellence · voluntary", text: "Valid for <strong>5 years</strong>, then you recertify. Fees: $34 registration per order, $62 per general test, $124 per advanced (L1–L4) test.", source: ase_become }
+      - { name: "EPA refrigerant certification", who: "Federal law", text: "The EPA requires all technicians who buy or work with refrigerants to be certified in proper refrigerant handling.", source: ooh_auto }
+    states_note: "Most states do not license general auto mechanics. Two states that do regulate the work, from their own pages:"
+    states:
+      - { place: "California", body: "Bureau of Automotive Repair (BAR)", rule: "A BAR license is <strong>not required</strong> to work as a general automotive repair mechanic. Smog Check inspectors, Smog Check repair technicians and vehicle safety systems technicians do need an individual BAR license, with a separate exam for each.", sources: [ca_bar_apply] }
+      - { place: "Michigan", body: "Michigan Department of State", rule: "State <strong>mechanic certification</strong>: you must pass a mechanic test for every category of repair you plan to do before applying. Tests are at any Secretary of State office, $18 each (from 1 July 2026).", sources: [mi_sos_mechanic] }
+    tools:
+      - { text: "Technicians typically own their common hand tools; power tools usually belong to the employer.", source: ooh_auto_work }

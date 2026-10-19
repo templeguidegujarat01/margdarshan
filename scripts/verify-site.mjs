@@ -6,6 +6,7 @@
 //   - every internal href/src (page, asset, #anchor) resolves
 //   - duplicate ids, unbalanced <details>/<section>/<div>
 //   - no "coming soon" placeholder text
+//   - no typed arrow inside a .btn-page-link button (the CSS draws one; 2026-10-20)
 import fs from 'node:fs';
 import path from 'node:path';
 import { createRequire } from 'node:module';
@@ -107,6 +108,10 @@ for (const f of targets) {
   try { html = await render(f); } catch (e) { err(f, 'render error: ' + e.message.split('\n')[0]); continue; }
   if (/\{\{|\{%/.test(html)) err(f, 'unresolved liquid tags');
   if (/coming soon/i.test(html)) err(f, '"coming soon" text');
+  // .btn-page-link draws its own "→" (main.css ::after), so a typed arrow in its text shows "→ →".
+  for (const a of html.matchAll(/<a\b[^>]*class="[^"]*\bbtn-page-link\b[^"]*"[^>]*>([\s\S]*?)<\/a>/g)) {
+    if (/→|&rarr;|&#8594;|&#x2192;|»|&raquo;/i.test(a[1])) err(f, `typed arrow inside .btn-page-link (CSS already adds one): "${a[1].replace(/<[^>]+>/g, '').trim().slice(0, 60)}"`);
+  }
   for (const b of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
     try { JSON.parse(b[1]); } catch (e) { err(f, 'invalid JSON-LD: ' + e.message); }
   }

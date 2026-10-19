@@ -408,7 +408,7 @@ try {
       [F.tech, /\b(computer|software|data|cyber|cybersecurity|bca|mca)\b/],
       [F.roadmap, /\b(roadmap)\b/],
       [F.hs, /\b(high school|k 12|gpa|freshman|sophomore|psat|grades 9 12)\b/],
-      [F.trade, /\b(trade|trades|vocational|cte|apprentice|apprenticeship|electrician|plumber|plumbing|hvac|welder|welding|machinist|community college|iti)\b/]
+      [F.trade, /\b(trade|trades|vocational|cte|apprentice|apprenticeship|electrician|plumber|plumbing|hvac|welder|welding|machinist|mechanic|mechanics|automotive|community college|iti)\b/]
     ];
     // Query words: edition (hard), facet (soft), ignored.
     var Q_ED = { us: 1, usa: 1, america: 1, american: 1, uk: 2, britain: 2, british: 2, england: 2 };

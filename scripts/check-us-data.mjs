@@ -298,8 +298,41 @@ for (const X of paths.crossborder || []) {
   const P = paths.list.find((x) => x.slug === X.pathway);
   if (!P || !P.live || P.template !== 'v2') err(`pathways.crossborder[${X.slug}]`, `pathway "${X.pathway}" is not a live v2 pathway`);
 }
+// Trades & CTE roadmaps (2026-10-20): cte_careers.yml tracks share the cross-border route/step/stub checks
+// (their stubs also say `cte: true`); BLS metrics must be whole numbers that match the home trades table;
+// every state row, certification and tools line needs a known source.
+const cte = load('cte_careers');
+if (!isDate(cte.checked) || !isDate(cte.review_by)) err('cte_careers', 'missing checked / review_by date');
+checkCrossborder({ root, ed: 'us', tracks: cte.list, where: 'cte_careers', hasSrc: (id) => src.has(id), err, seen: cbSeen });
+for (const X of cte.list || []) {
+  const w = `cte_careers[${X.slug}]`;
+  const stub = path.join(root, 'us/roadmaps', `${X.slug}.html`);
+  if (fs.existsSync(stub) && !/^cte:\s*true\s*$/m.test(fs.readFileSync(stub, 'utf8'))) err(w, `us/roadmaps/${X.slug}.html must say cte: true`);
+  const M = X.metrics || {};
+  for (const k of ['pay', 'jobs', 'outlook', 'change']) if (!Number.isInteger(M[k])) err(`${w}.metrics`, `${k} must be a whole number`);
+  if (!/^\d+\.\d{2}$/.test(M.pay_hour || '')) err(`${w}.metrics`, 'pay_hour must look like "30.38"');
+  for (const k of ['outlook_words', 'entry', 'training']) if (!M[k]) err(`${w}.metrics`, `missing ${k}`);
+  needSrc(`${w}.metrics`, M.source);
+  const H = (home.trades || []).find((t) => t.name === X.home_trade);
+  if (!H) err(w, `home_trade "${X.home_trade}" is not a row of home.yml trades`);
+  else {
+    if (H.pay !== M.pay) err(w, `pay ${M.pay} != home.yml ${H.pay}`);
+    if (H.outlook !== M.outlook) err(w, `outlook ${M.outlook} != home.yml ${H.outlook}`);
+    if (H.roadmap !== X.slug) err(w, `home.yml trade "${H.name}" needs roadmap: ${X.slug}`);
+  }
+  if (!X.states_note) err(w, 'missing states_note');
+  if (!(X.states || []).length && !X.states_source) err(w, 'no state rows: states_note needs a states_source');
+  if (X.states_source) needSrc(`${w}.states_source`, X.states_source);
+  (X.states || []).forEach((r, i) => {
+    for (const k of ['place', 'body', 'rule']) if (!r[k]) err(`${w}.states[${i}]`, `missing ${k}`);
+    if (!(r.sources || []).length) err(`${w}.states[${i}]`, 'needs sources: [ids]');
+    (r.sources || []).forEach((s) => needSrc(`${w}.states[${i}]`, s));
+  });
+  (X.certs || []).forEach((c, i) => { for (const k of ['name', 'who', 'text']) if (!c[k]) err(`${w}.certs[${i}]`, `missing ${k}`); needSrc(`${w}.certs[${i}]`, c.source); });
+  (X.tools || []).forEach((t, i) => { if (!t.text) err(`${w}.tools[${i}]`, 'missing text'); needSrc(`${w}.tools[${i}]`, t.source); });
+}
 checkOrphanRoadmaps({ root, ed: 'us', seen: cbSeen, err });
 
-console.log(`checked ${Object.keys(sources.list).length} sources, ${Object.keys(occ).length} occupations, ${Object.keys(lic).length} licenses, ${testIds.size} tests, ${paths.list.length} pathways, ${(paths.crossborder || []).length} cross-border tracks`);
+console.log(`checked ${Object.keys(sources.list).length} sources, ${Object.keys(occ).length} occupations, ${Object.keys(lic).length} licenses, ${testIds.size} tests, ${paths.list.length} pathways, ${(paths.crossborder || []).length} cross-border tracks, ${(cte.list || []).length} trades roadmaps`);
 if (errors.length) { console.log(errors.join('\n')); console.log(`\n${errors.length} problem(s)`); process.exit(1); }
 console.log('OK: 0 problems');

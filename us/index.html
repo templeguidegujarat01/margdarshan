@@ -175,7 +175,7 @@ Sections carry data-no-points so site.js Block 0 leaves the rendered text as it 
           <tbody>
             {%- for t in H.trades %}
             <tr>
-              <td><strong>{{ t.name }}</strong></td>
+              <td><strong>{{ t.name }}</strong>{% if t.roadmap %}<br><a href="us/roadmaps/{{ t.roadmap }}.html">Full roadmap<span class="sr-only">: {{ t.name }}</span></a>{% endif %}</td>
               <td>{{ t.entry }}. {{ t.training }}.</td>
               <td>{{ t.license }} <a href="{{ SRC[t.source].url }}">{{ SRC[t.source].short }}</a></td>
               <td>{% include fmt-num.html n=t.pay prefix="$" %}{% if t.pay_note %}<br><span class="us-by">{{ t.pay_note }}</span>{% endif %}</td>

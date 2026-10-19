@@ -366,27 +366,210 @@ try {
      Ctrl/Cmd+K focuses the box. This replaced the full-screen search overlay (former career-search.html, deleted) on
      2026-10-10; every old opener (data-search-open buttons, #search, "Search all careers" links, the India
      home hub box) now focuses this box instead. */
-  /* Search helpers shared by the overlay below and the global home's inline header search. */
-  // "B.Com (Hons)" -> "b com hons"; dots dropped so "bcom" also matches.
-  function norm(s){ return (s || '').toLowerCase().replace(/&/g, ' and ').replace(/\./g, '').replace(/[^a-z0-9+]+/g, ' ').trim(); }
+  /* @search-engine:start — multi-attribute search engine. Pure functions: no DOM, no Liquid, no globals, so
+     scripts/check-search.mjs runs this exact block in Node against the real index.
+     Every entry of assets/search.json gets its attributes ONCE, when the index loads:
+       ed  edition (0 India, 1 USA, 2 UK) from the category;  st  state number from the url
+       (state/<s>/, colleges/<s>/, coaching/<s>/) or a state name in the title;  f  a bitmask of facets
+       (exam, college, coaching, license, govt, class 10, class 12, medical, law, engineering, commerce, arts,
+       technology, roadmap) read from the category, url and words.
+     A query is parsed into the same attributes: edition and state words are HARD filters (only matching pages
+     stay), facet words ("government", "exam", "class 10", "licensing") are SOFT (each match adds rank; with no
+     other words at least one must match), small words ("path", "for", "how") are ignored, and every other
+     word must appear in the page's title / subtitle / keywords (if none of the pages has them all, pages with
+     most of them are shown instead). The per-keystroke loop only does integer tests and string indexOf on
+     precomputed lower-case text, and keeps the best results in two fixed typed arrays: no objects or arrays
+     are created per entry, so typing stays smooth on low-end phones. */
+  var MdSearch = (function(){
+    var F = { exam: 1, college: 2, coaching: 4, license: 8, govt: 16, c10: 32, c12: 64, medical: 128, law: 256,
+              eng: 512, commerce: 1024, arts: 2048, tech: 4096, roadmap: 8192 };
+    var F_LABEL = [[F.c10, 'Class 10'], [F.c12, 'Class 12'], [F.govt, 'Govt'], [F.exam, 'Exam'], [F.college, 'College'],
+                   [F.coaching, 'Coaching'], [F.license, 'Licensing'], [F.medical, 'Medical'], [F.law, 'Law'],
+                   [F.eng, 'Engineering'], [F.commerce, 'Commerce'], [F.arts, 'Arts & design'], [F.tech, 'Technology'], [F.roadmap, 'Roadmap']];
+    var ED_LABEL = ['India', 'USA', 'UK'];
+    var CAT_ED = { usa: 1, uk: 2 };
+    var CAT_F = { exams: F.exam, govt: F.govt | F.exam, colleges: F.college, coaching: F.coaching, medical: F.medical,
+                  commerce: F.commerce, 'engineering-science': F.eng, technology: F.tech, arts: F.arts };
+    // Words in an entry's text that set a facet (matched on normalised text, whole words).
+    var TEXT_F = [
+      [F.exam, /\b(exam|exams|entrance|cet|test|tests|neet|jee|cuet|clat|usmle|sqe1?|sqe2|sat|act|gate|upsc|psc|recruitment)\b/],
+      [F.college, /\b(college|colleges|university|universities)\b/],
+      [F.coaching, /\b(coaching)\b/],
+      [F.license, /\b(licen[cs]e\w*|licensing|certification|bar admission|admitted|practising certificate)\b/],
+      [F.govt, /\b(govt|government|sarkari|psc|upsc|ssc|sssb|dsssb|police|constable|railway|railways|defence|army|navy|clerk|talathi|patwari|ias|ips)\b/],
+      [F.c10, /\b(class 10|10th|matric|matriculation|sslc|after 10th|10 pass)\b/],
+      [F.c12, /\b(class 12|12th|after 12th|hsc|intermediate|puc|12 pass)\b/],
+      [F.medical, /\b(medical|medicine|mbbs|neet|doctor|physician|nursing|pharmacy|dental|dentistry|usmle|ecfmg|bams|bhms|physiotherapy|paramedical)\b/],
+      [F.law, /\b(law|llb|lawyer|solicitor|barrister|clat|judiciary|legal|ailet|bar exam)\b/],
+      [F.eng, /\b(engineering|engineer|b tech|btech|polytechnic|jee|gate)\b/],
+      [F.commerce, /\b(commerce|accounting|accountant|accountancy|cpa|acca|aca|icai|finance|bcom|b com|cma|banking)\b/],
+      [F.arts, /\b(arts|design|humanities|fashion|fine arts)\b/],
+      [F.tech, /\b(computer|software|data|cyber|cybersecurity|bca|mca)\b/],
+      [F.roadmap, /\b(roadmap)\b/]
+    ];
+    // Query words: edition (hard), facet (soft), ignored.
+    var Q_ED = { us: 1, usa: 1, america: 1, american: 1, uk: 2, britain: 2, british: 2, england: 2 };
+    var Q_F = { exam: F.exam, exams: F.exam, entrance: F.exam, test: F.exam, tests: F.exam,
+                government: F.govt, govt: F.govt, sarkari: F.govt, public: F.govt,
+                college: F.college, colleges: F.college, university: F.college, universities: F.college,
+                coaching: F.coaching, classes: F.coaching, institute: F.coaching,
+                license: F.license, licence: F.license, licensing: F.license, licensed: F.license, licenses: F.license, licences: F.license, certification: F.license,
+                medical: F.medical, medicine: F.medical, doctor: F.medical, health: F.medical,
+                law: F.law, legal: F.law, lawyer: F.law,
+                engineering: F.eng, engineer: F.eng,
+                commerce: F.commerce, accounting: F.commerce, accountancy: F.commerce, finance: F.commerce,
+                arts: F.arts, design: F.arts, technology: F.tech, roadmap: F.roadmap,
+                '~c10': F.c10, '~c12': F.c12 };
+    var Q_STOP = { a: 1, an: 1, the: 1, of: 1, for: 1, in: 1, to: 1, and: 1, or: 1, after: 1, how: 1, what: 1, is: 1, my: 1, me: 1,
+                   with: 1, become: 1, becoming: 1, path: 1, paths: 1, pathway: 1, pathways: 1, route: 1, routes: 1, career: 1, careers: 1,
+                   job: 1, jobs: 1, guide: 1, best: 1, top: 1, list: 1, india: 1, indian: 1 };
+    var Q_PHRASE = [[/\b(class|std|standard) ?(10|x)\b|\b10th\b|\btenth\b|\bmatric\b|\bsslc\b/g, ' ~c10 '],
+                    [/\b(class|std|standard) ?(12|xii)\b|\b12th\b|\btwelfth\b/g, ' ~c12 '],
+                    [/\bunited states( of america)?\b/g, ' us '], [/\bunited kingdom\b|\bgreat britain\b/g, ' uk ']];
 
-  function score(e, q, words){
-    var total = 0;
-    for(var i = 0; i < words.length; i++){
-      var w = words[i], best = 0;
-      if((' ' + e.t).indexOf(' ' + w) !== -1) best = 30;
-      else if(w.length > 2 && e.t.indexOf(w) !== -1) best = 18;
-      else if((' ' + e.k).indexOf(' ' + w) !== -1) best = e.k.indexOf(w) === 0 ? 18 : 14;
-      else if((' ' + e.s).indexOf(' ' + w) !== -1) best = 8;
-      else if(w.length > 2 && (e.k + ' ' + e.s).indexOf(w) !== -1) best = 4;
-      if(!best) return 0;          // every word has to match somewhere
-      total += best;
+    // "B.Com (Hons)" -> "b com hons"; dots dropped so "bcom" also matches.
+    function norm(s){ return (s || '').toLowerCase().replace(/&/g, ' and ').replace(/\./g, '').replace(/[^a-z0-9+~]+/g, ' ').trim(); }
+
+    // Text score of one entry for the free words: every word has to match somewhere (title > keywords > subtitle).
+    function score(e, q, words, n){
+      var total = 0;
+      for(var i = 0; i < n; i++){
+        var w = words[i], best = 0;
+        if((' ' + e.t).indexOf(' ' + w) !== -1) best = 30;
+        else if(w.length > 2 && e.t.indexOf(w) !== -1) best = 18;
+        else if((' ' + e.k).indexOf(' ' + w) !== -1) best = e.k.indexOf(w) === 0 ? 18 : 14;
+        else if((' ' + e.s).indexOf(' ' + w) !== -1) best = 8;
+        else if(w.length > 2 && (e.k + ' ' + e.s).indexOf(w) !== -1) best = 4;
+        if(!best) return 0;
+        total += best;
+      }
+      if(e.t === q) total += 100;
+      else if(e.t.indexOf(q) === 0) total += 50;
+      else if(e.t.replace(/ /g, '').indexOf(q.replace(/ /g, '')) === 0) total += 40;
+      return total;
     }
-    if(e.t === q) total += 100;
-    else if(e.t.indexOf(q) === 0) total += 50;
-    else if(e.t.replace(/ /g, '').indexOf(q.replace(/ /g, '')) === 0) total += 40;
-    return total;
-  }
+    // Loose score: how many of the free words appear anywhere (used only when no entry has all of them).
+    function looseCount(e, words, n){
+      var c = 0, all = ' ' + e.t + ' ' + e.k + ' ' + e.s;
+      for(var i = 0; i < n; i++) if(all.indexOf(' ' + words[i]) !== -1) c++;
+      return c;
+    }
+    function bits(x){ var c = 0; while(x){ x &= x - 1; c++; } return c; }
+
+    // Build the index once: data = search.json rows, cats = { id: label }.
+    function build(data, cats){
+      var states = [], stateIdx = {};
+      var addState = function(slug){
+        if(!stateIdx[slug]){ states.push({ slug: slug, name: slug.replace(/-/g, ' ') }); stateIdx[slug] = states.length; }
+        return stateIdx[slug];
+      };
+      var rx = /^(?:state|colleges|coaching)\/([a-z-]+)\//;
+      data.forEach(function(d){ var m = rx.exec(d.u || ''); if(m) addState(m[1]); });
+      states.sort(function(a, b){ return b.name.length - a.name.length; });   // "andhra pradesh" before "pradesh"-like overlaps
+      var entries = data.map(function(d, i){
+        var t = norm(d.t), s = norm(d.s), k = norm(d.k) + ' ' + norm(cats[d.c]);
+        var m = rx.exec(d.u || ''), st = m ? stateIdx[m[1]] : 0;
+        if(!st) for(var j = 0; j < states.length; j++) if((' ' + t + ' ').indexOf(' ' + states[j].name + ' ') !== -1){ st = stateIdx[states[j].slug]; break; }
+        var f = CAT_F[d.c] || 0, ft = 0, all = t + ' ' + s + ' ' + k, u = d.u || '';
+        for(var x = 0; x < TEXT_F.length; x++){ if(TEXT_F[x][1].test(all)) f |= TEXT_F[x][0]; if(TEXT_F[x][1].test(t)) ft |= TEXT_F[x][0]; }
+        if(/(^|\/)colleges\//.test(u)) f |= F.college;
+        if(/(^|\/)coaching\//.test(u)) f |= F.coaching;
+        if(/professional-licenses\//.test(u)) f |= F.license;
+        if(/(^|\/)roadmaps\//.test(u)) f |= F.roadmap;
+        if(/(^|\/)state\//.test(u) && /\b(psc|sssb|police|constable|clerk|talathi|recruitment|board)\b/.test(all)) f |= F.govt;
+        // edm: editions the TITLE is about (India's "Study in USA" page still answers "study in usa").
+        var edm = (/\b(usa|us|america|american|united states)\b/.test(t) ? 2 : 0) | (/\b(uk|britain|british|england|united kingdom)\b/.test(t) ? 4 : 0);
+        return { i: i, t: t, s: s, k: k, ed: CAT_ED[d.c] || 0, edm: edm, st: st, f: f | ft, ft: ft, nf: bits(f | ft) };
+      });
+      entries.states = states;               // longest name first, for parsing
+      entries.stateNo = stateIdx;            // slug -> the number stored in entry.st
+      entries.top = new Int32Array(64);      // reused result buffers (indexes + scores)
+      entries.topSc = new Int32Array(64);
+      return entries;
+    }
+
+    // Parse a raw query against an index: { q, words, n, ed (-1 any), st (0 any), soft, sw (facet words, for highlight), stName }.
+    function parse(raw, index){
+      var q = norm(raw), x;
+      for(x = 0; x < Q_PHRASE.length; x++) q = q.replace(Q_PHRASE[x][0], Q_PHRASE[x][1]);
+      q = ' ' + q.replace(/\s+/g, ' ').trim() + ' ';
+      var P = { q: '', words: [], n: 0, ed: -1, st: 0, soft: 0, sw: [], stName: '' };
+      var states = index.states || [];
+      for(x = 0; x < states.length; x++){
+        var at = q.indexOf(' ' + states[x].name + ' ');
+        if(at !== -1){ P.st = index.stateNo[states[x].slug]; P.stName = states[x].name; P.sw.push(states[x].name); q = q.slice(0, at) + ' ' + q.slice(at + states[x].name.length + 1); break; }
+      }
+      var toks = q.trim().split(' ');
+      var free = [], dropped = [];
+      for(x = 0; x < toks.length; x++){
+        var w = toks[x];
+        if(!w) continue;
+        if(Q_ED[w]){ P.ed = Q_ED[w]; continue; }
+        // A facet word alone ("medical", "exam") is also searched as text, like before the facet engine.
+        if(Q_F[w]){ P.soft |= Q_F[w]; if(w.charAt(0) !== '~'){ P.sw.push(w); if(toks.length === 1) free.push(w); } continue; }
+        if(Q_STOP[w] && toks.length > 1){ dropped.push(w); continue; }
+        free.push(w);
+      }
+      // Only small words left ("U.S. career pathways"): search them after all.
+      if(!free.length && !P.soft) free = dropped;
+      P.words = free; P.n = free.length; P.q = free.join(' ');
+      return P;
+    }
+
+    // Run a parsed query. home = 'india' | 'usa' | 'uk' | null (edition pages rank their own edition first).
+    // Returns { total, top: [entry indexes] } with at most max results.
+    function search(index, P, max, home){
+      var top = index.top, topSc = index.topSc, n = 0, total = 0, x, e, sc;
+      if(max > top.length) max = top.length;
+      var st = P.st;
+      var homeEd = home === 'india' ? 0 : home === 'usa' ? 1 : home === 'uk' ? 2 : -1;
+      for(var pass = 0; pass < 2 && !total; pass++){
+        var need = pass === 0 ? P.n : Math.max(1, Math.ceil(P.n / 2));
+        if(pass === 1 && P.n < 2) break;      // loose pass only helps multi-word queries
+        for(x = 0; x < index.length; x++){
+          e = index[x];
+          if(P.ed !== -1 && e.ed !== P.ed && !(e.edm & (1 << P.ed))) continue;
+          if(st && e.st !== st) continue;
+          var hit = bits(e.f & P.soft);
+          if(P.n){
+            if(pass === 0){ sc = score(e, P.q, P.words, P.n); if(!sc) continue; }
+            else { var c = looseCount(e, P.words, P.n); if(c < need) continue; sc = c * 12; }
+          } else {
+            if(P.soft && !hit) continue;
+            if(!P.soft && P.ed === -1 && !st) continue;
+            sc = 10;
+          }
+          // facet matches rank up (more if the title itself says it); with no free words, broad hub pages
+          // (many facets the query did not ask for) rank below specific ones.
+          sc += hit * 25 + bits(e.ft & P.soft) * 8;
+          if(!P.n && P.soft) sc -= e.nf - hit;
+          for(var y = 0; y < P.sw.length; y++){ if((' ' + e.t).indexOf(' ' + P.sw[y]) !== -1) sc += 20; else if((' ' + e.k).indexOf(' ' + P.sw[y]) !== -1) sc += 6; }
+          if(homeEd !== -1 && e.ed === homeEd) sc += 100;
+          total++;
+          // keep the best `max` in the fixed buffers (insertion; ties keep index order)
+          var pos = n < max ? n : max;
+          while(pos > 0 && topSc[pos - 1] < sc){ if(pos < max){ top[pos] = top[pos - 1]; topSc[pos] = topSc[pos - 1]; } pos--; }
+          if(pos < max){ top[pos] = e.i; topSc[pos] = sc; if(n < max) n++; }
+        }
+      }
+      var out = new Array(n);
+      for(x = 0; x < n; x++) out[x] = top[x];
+      return { total: total, top: out };
+    }
+
+    // Human label of the parsed filters, e.g. "USA · Punjab · Class 10 · Govt".
+    function describe(P){
+      var parts = [];
+      if(P.ed !== -1) parts.push(ED_LABEL[P.ed]);
+      if(P.stName) parts.push(P.stName.replace(/\b[a-z]/g, function(c){ return c.toUpperCase(); }));
+      for(var x = 0; x < F_LABEL.length; x++) if(P.soft & F_LABEL[x][0]) parts.push(F_LABEL[x][1]);
+      return parts.join(' · ');
+    }
+
+    return { F: F, norm: norm, build: build, parse: parse, search: search, describe: describe };
+  })();
+  /* @search-engine:end */
+  var norm = MdSearch.norm;
 
   function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
   function mark(text, words){
@@ -410,7 +593,8 @@ try {
     {{ site.data.search.categories | jsonify }}.forEach(function(c){ NS_CATS[c.id] = c.label; });
     var NS_ED = { usa: 'USA', uk: 'UK' };                         // search.yml category -> edition tag; anything else is India
     var NS_HOME_CAT = { 'in': 'india', us: 'usa', uk: 'uk' }[root.getAttribute('data-region')] || null;   // null on the global home
-    var nsIndex = null, nsLoading = false, nsFailed = false, nsActive = -1;
+    var nsIndex = null, nsData = null, nsLoading = false, nsFailed = false, nsActive = -1;
+    var nsFacets = document.getElementById('navSearchFacets');
     var RECENT_KEY = 'md-recent-search';
     var getRecent = function(){ try { return JSON.parse(localStorage.getItem(RECENT_KEY)) || []; } catch(err){ return []; } };
     var rememberResult = function(a){
@@ -431,7 +615,8 @@ try {
       if(nsIndex || nsLoading) return;
       nsLoading = true;
       fetch(MD_ROOT + 'assets/search.json').then(function(r){ if(!r.ok) throw r; return r.json(); }).then(function(data){
-        nsIndex = data.map(function(d){ return { d: d, t: norm(d.t), s: norm(d.s), k: norm(d.k) + ' ' + norm(NS_CATS[d.c]) }; });
+        nsData = data;
+        nsIndex = MdSearch.build(data, NS_CATS);
         nsLoading = false;
         if(document.activeElement === nsInput) nsRender();
       }).catch(function(){ nsLoading = false; nsFailed = true; if(document.activeElement === nsInput) nsRender(); });
@@ -455,6 +640,7 @@ try {
         // Empty box: recently viewed pages (this browser only), else nothing.
         var recent = getRecent();
         nsHead.hidden = !recent.length;
+        if(nsFacets) nsFacets.hidden = true;
         nsList.innerHTML = recent.map(function(r, j){ return optionHtml({ t: r.t, u: r.u, c: r.c }, j, []); }).join('');
         nsNote.textContent = '';
         nsShow(recent.length > 0);
@@ -469,21 +655,18 @@ try {
         if(!nsFailed) nsLoad();
         return;
       }
-      var words = q.split(' ');
-      var hits = [];
-      nsIndex.forEach(function(e, i){
-        var sc = score(e, q, words);
-        if(!sc) return;
-        // Edition pages rank their own edition first (India = every category that is not usa / uk).
-        if(NS_HOME_CAT && (NS_HOME_CAT === 'india' ? !NS_ED[e.d.c] : e.d.c === NS_HOME_CAT)) sc += 100;
-        hits.push({ e: e, sc: sc, i: i });
-      });
-      hits.sort(function(a, b){ return b.sc - a.sc || a.i - b.i; });
-      nsList.innerHTML = hits.slice(0, NS_MAX).map(function(h, j){ return optionHtml(h.e.d, j, words); }).join('');
-      nsNote.textContent = !hits.length ? 'No match for “' + nsInput.value.trim() + '”. Try a shorter word, a course (BCA), an exam (NEET, SAT) or a job (doctor, solicitor).'
-        : hits.length > NS_MAX ? 'Top ' + NS_MAX + ' of ' + hits.length + ' results. Type more to narrow it down.'
-        : hits.length + (hits.length === 1 ? ' result' : ' results');
-      nsSetActive(hits.length ? 0 : -1);
+      // Compound queries ("Punjab class 10 government exam", "US medical licensing path") are parsed into
+      // edition / state / facet filters by MdSearch; edition pages rank their own edition first.
+      var P = MdSearch.parse(nsInput.value, nsIndex);
+      var res = MdSearch.search(nsIndex, P, NS_MAX, NS_HOME_CAT);
+      var words = P.words.concat(P.sw);
+      var filters = MdSearch.describe(P);
+      if(nsFacets){ nsFacets.textContent = filters ? 'Filters: ' + filters : ''; nsFacets.hidden = !filters; }
+      nsList.innerHTML = res.top.map(function(i, j){ return optionHtml(nsData[i], j, words); }).join('');
+      nsNote.textContent = !res.total ? 'No match for “' + nsInput.value.trim() + '”. Try a shorter word, a course (BCA), an exam (NEET, SAT) or a job (doctor, solicitor).'
+        : res.total > NS_MAX ? 'Top ' + NS_MAX + ' of ' + res.total + ' results. Type more to narrow it down.'
+        : res.total + (res.total === 1 ? ' result' : ' results');
+      nsSetActive(res.total ? 0 : -1);
     };
     // Any other "search" control on a page (buttons with data-search-open, "Search all careers" links, the
     // India home hub box) now just puts the caret in this box. Closing the menu drawer first keeps it visible.

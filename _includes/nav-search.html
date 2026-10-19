@@ -3,6 +3,8 @@
   the global home). The visitor types straight into the bar; results drop down under it with an
   India / USA / UK tag (site.js block "Inline navbar search", index assets/search.json built from
   _data/search.yml). On an edition page that edition's results rank first; the global home boosts none.
+  Compound queries are split into filters (edition, state, class 10/12, govt, exam, licensing…) shown in
+  #navSearchFacets inside the dropdown, which is absolutely positioned, so nothing on the page moves (0 CLS).
   Empty box + focus shows "Recently viewed" (this browser only). "/" or Ctrl/Cmd+K focuses it from anywhere.
   Reads region_id from _layouts/default.html.
 {%- endcomment -%}
@@ -15,6 +17,7 @@
   <button type="submit" class="nav-search-go">Search</button>
   <div class="nav-search-pop" id="navSearchPop" hidden>
     <p class="nav-search-head" id="navSearchHead" hidden>Recently viewed</p>
+    <p class="nav-search-facets" id="navSearchFacets" aria-live="polite" hidden></p>
     <ul class="nav-search-list" id="navSearchList" role="listbox" aria-label="Search results"></ul>
     <p class="nav-search-note" id="navSearchNote" aria-live="polite"></p>
   </div>

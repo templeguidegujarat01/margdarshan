@@ -259,6 +259,10 @@ const SP_BLOCKS = ['rules', 'recognition', 'eligibility', 'roadmap', 'academies'
 // Optional last block: player doubts. Besides the usual parts it takes `qa: { q, a }` (question + answer, also
 // emitted as FAQPage JSON-LD); a qa needs a source like any fact.
 const SP_DOUBTS = 'doubts';
+// Optional "By age" ladder after the roadmap.
+const AG_KEYS = ['nav', 'heading', 'lede', 'lede_source', 'bands', 'note', 'note_source'];
+const AG_BAND_KEYS = ['from', 'to', 'label', 'name', 'kind', 'text', 'source'];
+const AG_KINDS = ['kids', 'youth', 'junior', 'senior', 'masters', 'coach', 'job'];
 let spSports = 0;
 if (fs.existsSync(spFile)) {
   const err = (m) => errors.push(`sports.yml: ${m}`);
@@ -347,6 +351,28 @@ if (fs.existsSync(spFile)) {
           for (const [r, row] of (p.table.rows || []).entries()) if (row.length !== w) ex(`${where}: table row ${r + 1} has ${row.length} cells, head has ${w}`);
         }
         for (const l of p.links || []) if (!l.label || !l.url || !linkOk(l.url)) ex(`${where}: bad link ${JSON.stringify(l)}`);
+      }
+    }
+    // Optional "By age" ladder (ages: -> _includes/sport-ages.html, after the roadmap): bands in order of `from`,
+    // each with a known kind and a source; `to` left out = no upper age limit.
+    if (E.ages) {
+      const A = E.ages;
+      for (const k of Object.keys(A)) if (!AG_KEYS.includes(k)) ex(`ages: unknown key "${k}"`);
+      if (!A.heading) ex('ages.heading is required');
+      if (A.lede) cite('ages lede', A.lede_source, true);
+      if (A.note) cite('ages note', A.note_source, true);
+      if ((A.bands || []).length < 3) ex('ages needs at least 3 bands');
+      let prev = 0;
+      for (const [i, b] of (A.bands || []).entries()) {
+        const w = `ages band ${i + 1}`;
+        for (const k of Object.keys(b)) if (!AG_BAND_KEYS.includes(k)) ex(`${w}: unknown key "${k}"`);
+        for (const k of ['label', 'name', 'kind', 'text']) if (!b[k]) ex(`${w}: ${k} is required`);
+        if (!AG_KINDS.includes(b.kind)) ex(`${w}: unknown kind "${b.kind}" (use ${AG_KINDS.join(', ')})`);
+        if (!Number.isInteger(b.from) || b.from < 4 || b.from > 110) ex(`${w}: from must be a whole age from 4 to 110`);
+        if (b.to !== undefined && (!Number.isInteger(b.to) || b.to < b.from || b.to > 110)) ex(`${w}: to must be a whole age, not below from`);
+        if (b.from < prev) ex(`${w}: bands must be in order of from`);
+        prev = b.from;
+        cite(w, b.source, true);
       }
     }
     for (const sid of sIds) if (!cited.has(sid)) ex(`source "${sid}" is listed but never cited`);

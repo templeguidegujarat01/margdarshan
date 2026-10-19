@@ -1,0 +1,59 @@
+{%- comment -%}
+  "By age" block of a sport / art page (_includes/sport-page.html renders it right after the roadmap section).
+  Data: the sport's `ages:` in _data/in/sports.yml —
+    nav      chip label (default "By age")
+    heading  section heading
+    lede     one-paragraph summary, with source
+    bands[]  { from, to, label, name, kind, text, source } in order of `from`. `to` left out = no upper limit.
+             kind: kids · youth · junior · senior · masters · coach · job (the visible badge, so colour is
+             never the only signal). Every band cites the sport's own sources[].
+    note     optional closing note, with note_source
+  The age box (assets/js/site.js "Age ladder" block) highlights every band that holds the age typed in; it is
+  hidden until the script runs, so without JS the full ladder still reads top to bottom. data-no-points keeps the
+  pointer-form script off the cards.
+  Params: ages (the sport's ages hash), step (section number), arts (true on classical-arts pages: art-form badge words).
+{%- endcomment -%}
+{%- assign A = include.ages -%}
+<section class="block mb sc-block sp-ages" id="ages" aria-labelledby="ages-heading">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow"><span class="sc-step">{{ include.step | prepend: "0" | slice: -2, 2 }}</span> {% if include.arts %}Every age window, child to veteran artist{% else %}Every age group, child to masters{% endif %}</span>
+      <h2 id="ages-heading">{{ A.heading }}</h2>
+    </div>
+    {%- if A.lede %}
+    <p class="sc-p">{{ A.lede }}{% if A.lede_source %} {% include sport-src-refs.html ids=A.lede_source %}{% endif %}</p>
+    {%- endif %}
+    <div class="ag-wrap" data-no-points data-ag>
+      <div class="ag-pick" hidden>
+        <label class="ag-label" for="ag-age">Type your age</label>
+        <div class="ag-row">
+          <input id="ag-age" class="ag-input" type="number" inputmode="numeric" min="4" max="110" step="1" placeholder="e.g. 14" aria-describedby="ag-out">
+          <div class="ag-chips" role="group" aria-label="Quick ages">
+            {%- assign ag_quick = "10,14,17,21,30,40,55,70,90" | split: "," -%}
+            {%- for q in ag_quick %}<button type="button" class="ag-chip" data-age="{{ q }}">{{ q }}</button>{% endfor %}
+          </div>
+        </div>
+        <p class="ag-out" id="ag-out" aria-live="polite">Type an age to light up every group you can enter.</p>
+      </div>
+      <ol class="ag-rail">
+        {%- for b in A.bands %}
+        <li class="ag-band" data-kind="{{ b.kind }}" data-from="{{ b.from }}" data-to="{{ b.to | default: 130 }}" data-name="{{ b.name | strip_html | escape }}">
+          <span class="ag-age"><b>{{ b.label }}</b><small>years</small></span>
+          <div class="ag-card">
+            {%- if include.arts %}
+            <span class="ag-kind">{% case b.kind %}{% when "kids" %}Child{% when "youth" %}Student{% when "junior" %}Young artiste{% when "senior" %}Early career{% when "masters" %}Senior artiste{% when "coach" %}Teacher · guru{% when "job" %}Job window{% endcase %}</span>
+            {%- else %}
+            <span class="ag-kind">{% case b.kind %}{% when "kids" %}Child{% when "youth" %}Youth{% when "junior" %}Junior{% when "senior" %}Senior · open{% when "masters" %}Masters · veterans{% when "coach" %}Coach · official{% when "job" %}Job window{% endcase %}</span>
+            {%- endif %}
+            <h3>{{ b.name }}</h3>
+            <p>{{ b.text }}{% if b.source %} {% include sport-src-refs.html ids=b.source %}{% endif %}</p>
+          </div>
+        </li>
+        {%- endfor %}
+      </ol>
+    </div>
+    {%- if A.note %}
+    <p class="table-note sc-note">{{ A.note }}{% if A.note_source %} {% include sport-src-refs.html ids=A.note_source %}{% endif %}</p>
+    {%- endif %}
+  </div>
+</section>

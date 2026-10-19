@@ -1733,3 +1733,51 @@ try {
   if(document.fonts && document.fonts.ready) document.fonts.ready.then(more);
 })();
 } catch (e) { if (window.console) console.error(e); }
+
+/* ===== Age ladder: "By age" block on sport and art pages (_includes/sport-ages.html) =====
+   Shows the age box and lights every band whose [data-from, data-to] holds the age typed in; the other
+   bands fade. The age is remembered (per browser) so every sport page opens on the same age. */
+try {
+(function(){
+  var KEY = 'mg-age';
+  document.querySelectorAll('[data-ag]').forEach(function(wrap){
+    var pick = wrap.querySelector('.ag-pick'), input = wrap.querySelector('.ag-input'), out = wrap.querySelector('.ag-out');
+    var bands = [].slice.call(wrap.querySelectorAll('.ag-band')), chips = [].slice.call(wrap.querySelectorAll('.ag-chip'));
+    if(!pick || !input || !bands.length) return;
+    var hint = out.textContent;
+    pick.hidden = false;
+    function show(v){
+      var age = parseInt(v, 10);
+      chips.forEach(function(c){ c.setAttribute('aria-pressed', String(c.getAttribute('data-age') === String(age))); });
+      if(isNaN(age) || age < 4 || age > 110){
+        wrap.classList.remove('is-active');
+        bands.forEach(function(b){ b.classList.remove('is-match'); });
+        out.textContent = hint;
+        return;
+      }
+      var names = [];
+      bands.forEach(function(b){
+        var hit = age >= +b.getAttribute('data-from') && age <= +b.getAttribute('data-to');
+        b.classList.toggle('is-match', hit);
+        if(hit) names.push(b.getAttribute('data-name'));
+      });
+      wrap.classList.add('is-active');
+      out.textContent = '';
+      var lead = document.createElement('b');
+      lead.textContent = 'At ' + age + ': ';
+      out.appendChild(lead);
+      out.appendChild(document.createTextNode(names.length
+        ? names.join(' · ') + ' (' + names.length + (names.length === 1 ? ' match' : ' matches') + ', highlighted below).'
+        : 'no official group in this sport fits this age. The closest groups are shown below.'));
+    }
+    function save(v){ try { if(v) localStorage.setItem(KEY, v); else localStorage.removeItem(KEY); } catch(e){} }
+    input.addEventListener('input', function(){ show(input.value); save(input.value); });
+    chips.forEach(function(c){
+      c.addEventListener('click', function(){ input.value = c.getAttribute('data-age'); show(input.value); save(input.value); });
+    });
+    var saved = null;
+    try { saved = localStorage.getItem(KEY); } catch(e){}
+    if(saved){ input.value = saved; show(saved); }
+  });
+})();
+} catch (e) { if (window.console) console.error(e); }

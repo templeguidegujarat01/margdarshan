@@ -8,7 +8,7 @@
 
   Everything else comes from _data/in/sports.yml → sports[] (the entry whose slug = sport): hero (eyebrow, title,
   lede, body — shown after body_label, default "Governed by"), the 2 x 2 fact console (facts[] with source), official buttons, eight fixed blocks (rules,
-  recognition, eligibility, roadmap, academies, costs, earnings, traps), an optional ninth "doubts" block (player
+  recognition, eligibility, roadmap, academies, costs, earnings, traps), an optional "By age" block after the roadmap (ages: → _includes/sport-ages.html), an optional last "doubts" block (player
   questions as qa: { q, a } parts, also emitted as FAQPage JSON-LD) and the numbered sources.
   Part kinds and markup are the exam console's (national-exam.html: .sc-*, .mb, 760px console), so the sports
   pages and exam pages read as one system. scripts/check-in-data.mjs validates the sheet. Classical-arts entries
@@ -89,17 +89,19 @@
     <div class="container">
       <nav class="quicknav" aria-label="On this page">
         <span class="sc-otp" aria-hidden="true">On this page</span>
-        {%- for S in E.sections %}<a href="#{{ S.id }}">{{ S.nav }}</a>{% endfor %}
+        {%- for S in E.sections %}<a href="#{{ S.id }}">{{ S.nav }}</a>{% if S.id == "roadmap" and E.ages %}<a href="#ages">{{ E.ages.nav | default: "By age" }}</a>{% endif %}{% endfor %}
         <a href="#sources">Sources</a>
       </nav>
     </div>
   </div>
 
+  {%- assign sn = 0 %}
   {%- for S in E.sections %}
+  {%- assign sn = sn | plus: 1 %}
   <section class="block mb sc-block" id="{{ S.id }}" aria-labelledby="{{ S.id }}-heading">
     <div class="container">
       <div class="section-head">
-        <span class="eyebrow"><span class="sc-step">{{ forloop.index | prepend: "0" | slice: -2, 2 }}</span> {{ S.eyebrow }}</span>
+        <span class="eyebrow"><span class="sc-step">{{ sn | prepend: "0" | slice: -2, 2 }}</span> {{ S.eyebrow }}</span>
         <h2 id="{{ S.id }}-heading">{{ S.heading }}</h2>
       </div>
       {%- for p in S.parts %}
@@ -149,12 +151,13 @@
       {%- endfor %}
     </div>
   </section>
+  {%- if S.id == "roadmap" and E.ages %}{% assign sn = sn | plus: 1 %}{% if E.domain == "arts" %}{% include sport-ages.html ages=E.ages step=sn arts=true %}{% else %}{% include sport-ages.html ages=E.ages step=sn %}{% endif %}{% endif %}
   {%- endfor %}
 
   <section class="block mb sc-block" id="sources" aria-labelledby="sources-heading">
     <div class="container">
       <div class="section-head">
-        <span class="eyebrow"><span class="sc-step">{{ E.sections.size | plus: 1 | prepend: "0" | slice: -2, 2 }}</span> Official sources &amp; verification</span>
+        <span class="eyebrow"><span class="sc-step">{{ sn | plus: 1 | prepend: "0" | slice: -2, 2 }}</span> Official sources &amp; verification</span>
         <h2 id="sources-heading">Where these facts come from</h2>
         {%- if E.sources_note %}
         <p>{{ E.sources_note }} Read on {{ CK | date: "%-d %B %Y" }}.</p>

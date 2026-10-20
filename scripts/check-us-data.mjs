@@ -46,6 +46,17 @@ for (const [id, l] of Object.entries(lic)) {
   (l.exams || []).forEach((e, i) => needSrc(`${w}.exams[${i}]`, e.source));
   (l.sources || []).forEach((s) => needSrc(w, s));
   if (!isDate(l.last_verified)) err(w, 'missing last_verified');
+  // Phase 2: state board rows (each copied from that board's page) and generated page stubs.
+  (l.boards || []).forEach((b, i) => {
+    if (!b.place || !b.body || !b.rule) err(`${w}.boards[${i}]`, 'needs place, body and rule');
+    if (!(b.sources || []).length) err(`${w}.boards[${i}]`, 'needs sources (the board page it was copied from)');
+    (b.sources || []).forEach((s) => needSrc(`${w}.boards[${i}]`, s));
+  });
+  if (l.page) {
+    for (const k of ['title', 'description', 'current']) if (!l.page[k]) err(`${w}.page`, `missing ${k}`);
+    const stub = path.join(root, 'us/professional-licenses', id, 'index.html');
+    if (!fs.existsSync(stub) || !new RegExp(`^license:\\s*${id}\\s*$`, 'm').test(fs.readFileSync(stub, 'utf8'))) err(w, `us/professional-licenses/${id}/index.html must exist and say license: ${id} (run scripts/build-us-clusters.mjs)`);
+  }
 }
 
 const testIds = new Set();
@@ -485,6 +496,10 @@ for (const [cslug, D] of Object.entries(careerData)) {
     if (X.license && !pageExists(`us/professional-licenses/${X.license}/`)) err(w, `no license page us/professional-licenses/${X.license}/`);
     for (const x of X.exams || []) if (!x.name || !x.href || !pageExists(x.href)) err(w, `exam button "${x.name}" needs an href to a page that exists`);
     if (X.colleges && !pageExists(X.colleges)) err(w, `colleges "${X.colleges}" is not a page`);
+    if (X.states_from && !(lic[X.states_from]?.boards || []).length) err(w, `states_from "${X.states_from}" needs a license with boards`);
+    if (X.states_source) needSrc(`${w}.states_source`, X.states_source);
+    if (!X.license && !X.license_text) err(w, 'needs license (an id) or license_text');
+    for (const c of X.certs || []) { if (!c.name || !c.text) err(`${w}.certs`, 'needs name and text'); needSrc(`${w}.certs`, c.source); }
     const ov = path.join(root, 'us/careers', X.slug, 'index.html');
     if (!fs.existsSync(ov) || !new RegExp(`^career:\\s*${X.slug}\\s*$`, 'm').test(fs.readFileSync(ov, 'utf8'))) err(w, `us/careers/${X.slug}/index.html must exist and say career: ${X.slug} (run scripts/build-us-clusters.mjs)`);
     if ((X.routes || []).length && !/^career:\s*true\s*$/m.test(fs.existsSync(path.join(root, 'us/roadmaps', `${X.slug}.html`)) ? fs.readFileSync(path.join(root, 'us/roadmaps', `${X.slug}.html`), 'utf8') : '')) err(w, `us/roadmaps/${X.slug}.html must say career: true`);

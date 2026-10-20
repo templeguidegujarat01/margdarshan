@@ -71,7 +71,7 @@ A hub goes live by setting `live: true` in `clusters.yml` (needs at least one ca
 | URL | Status | Template | Data |
 |-----|--------|----------|------|
 | `us/careers/<pathway>/` (21) | live | `us-career-v2.html` (+ `/colleges/`, `/salary/`) | `pathways.yml`, `pathway_pages.yml`, `occupations.yml` |
-| `us/careers/<slug>/` (new careers) | P2–P8 | `us-career-overview.html` | `_data/us/careers/<cluster>.yml` |
+| `us/careers/<slug>/` (new careers) | P2–P8 (12 live after P2 batch 1) | `us-career-overview.html` | `_data/us/careers/<cluster>.yml` |
 | `us/roadmaps/<slug>.html` (every career) | P2–P8 | `intl-roadmap.html` with `career: true` | `_data/us/careers/<cluster>.yml` (`routes`, `certs`, `states`) |
 | `us/roadmaps/{img-usmle,cpa-international,foreign-lawyer-us-bar}.html` | live | `intl-roadmap.html` | `pathways.yml` `crossborder` |
 | `us/cte/` | live (+ `#route` moved from home) | hand-written | `home.yml` trades, `cte_careers.yml` |
@@ -103,7 +103,7 @@ Planned careers per cluster (examples from the Master Plan; the final list comes
 | Exams | `us/exams/` + `us/exams/<exam>/` (~130) | P9 (school, admission, equivalency, English, military), P10 (graduate, licensing, government) | Until then the home card links `us/tests/` (live). If `us/tests/` moves, it becomes a redirect stub. Data: `_data/us/exams.yml` (extends `tests.yml`) |
 | States | `us/states/` + `us/states/<state>/` (51) | P11 | `_data/us/states/<state>.yml`, one file per state; `us/new-york-city/` stays and is linked from New York |
 | State licensing & jobs | `us/states/<state>/licenses.html` (+ civil service) | P12 | matrix rows only from the state's own board |
-| Licensing | `us/professional-licenses/` + `<id>/` (9 live) | live; new licenses P2–P8, state matrices P12 | `licenses.yml`, `compacts.yml` |
+| Licensing | `us/professional-licenses/` + `<id>/` (13 live; the 4 added in P2 have `page:` + `boards:` in `licenses.yml` and generated stubs) | live; new licenses P2–P8, state matrices P12 | `licenses.yml`, `compacts.yml` |
 | Colleges & training | `us/colleges/<state>/`, `us/colleges/<state>/<city>/` (≥3 institutions per city) | P13 | IPEDS + College Scorecard via `scripts/build-ipeds.mjs`; apprenticeship.gov links |
 | High school | `us/high-school/` | live | `#plan` holds the grade 9–12 route (home anchor `#k12` forwards there) |
 | Paying for college | `us/college/` | live | `#degrees` holds the degree route (home anchor `#college` forwards there) |
@@ -186,3 +186,9 @@ GitHub Pages build.
   (tie); data scientists → Digital Technology, Financial Services and Marketing & Sales (tie).
 - BLS broad SOC codes (29-1210 physicians, 29-1240 surgeons, 29-1020 dentists) are matched to the crosswalk's
   detailed codes (29-1211 …) by their first five digits.
+
+## 9. Phase 2 (2026-10-20)
+
+Healthcare & Human Services batch 1: 12 new career pages, 16 roadmaps (4 on existing pathways), 4 license pages
+(LPN/LVN, social work, counseling, EMT) with state-board tables. Full BLS list, corrections, fetch tricks and the queue:
+`docs/us-edition/PHASE-2-HEALTHCARE.md`.

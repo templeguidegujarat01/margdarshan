@@ -1,0 +1,635 @@
+# Healthcare & Human Services careers (USA Master Plan Phase 2). Schema: comment at the top of
+# _includes/us-career-overview.html. Every fact is copied from the page its `source` names, opened 2026-10-20:
+# BLS Occupational Outlook Handbook (pay May 2025, jobs 2025, outlook 2025–35; the BLS pages were last modified
+# 27 Aug 2026), the exam owners, federal rules and the state boards in _data/us/sources.yml.
+# Batch 1 = the 16 largest BLS occupations placed in this cluster (by 2025 employment); the queue for later batches is
+# in docs/us-edition/PHASE-2-HEALTHCARE.md. A `pathway:` entry keeps its existing us/careers/<pathway>/ page and only
+# gets a roadmap here. `states_from: <license id>` draws the roadmap's state matrix from that license's `boards`.
+checked: 2026-10-20
+review_by: 2027-04-20
+list:
+
+  # 1 — 4,677,100 jobs
+  - slug: home-health-aide
+    short: "Home Health & Personal Care Aide"
+    title: "Home health or personal care aide: training to first job"
+    eyebrow: "Healthcare & Human Services · Personal Care Services"
+    lede: "Most aides start with a high school diploma (some jobs need none) and learn on the job. Aides in home health or hospice agencies paid by Medicare must finish at least 75 hours of training and a competency evaluation."
+    for: "People who want to start working in care quickly, are patient and dependable, and are comfortable with physical work such as lifting or turning clients."
+    soc: ["31-1120"]
+    does: { text: "Home health and personal care aides monitor the condition of people with disabilities or chronic illnesses and help them with daily living activities.", source: ooh_qf_hha }
+    work: { text: "Home health and personal care aides work in a variety of settings, including clients’ homes, group homes, and day services programs. Most aides work full time, although part-time work is common. Work schedules may vary.", source: ooh_qf_hha }
+    become: { text: "Home health and personal care aides typically need a high school diploma or equivalent, but some positions do not require it. Those working in certified home health or hospice agencies may need to complete formal training or pass a standardized test.", source: ooh_qf_hha }
+    metrics: { pay: 35800, pay_hour: "17.21", pay_by: "Home health and personal care aides", jobs: 4677100, outlook: 18, outlook_words: "Much faster than average", change: 847300, entry: "High school diploma or equivalent", training: "Short-term on-the-job training", source: ooh_qf_hha }
+    license_text: "Some states"
+    routes:
+      - id: agency
+        title: "Certified home health or hospice agency"
+        tag: "Federal training rule"
+        who: "For aides hired by home health agencies that take Medicare or other federal payments."
+        steps:
+          - { tag: "Start", title: "High school diploma or equivalent", text: "Typical, though some positions do not require it.", kind: start, source: ooh_hha }
+          - { tag: "75+ hours", title: "Home health aide training", text: "Classroom and supervised practical training of at least 75 hours; at least 16 hours of classroom training come before at least 16 hours of supervised practical training.", kind: stage, source: cfr_484_80 }
+          - { tag: "Evaluation", title: "Competency evaluation", text: "A qualified home health aide has completed a training and competency evaluation program, a competency evaluation program, or a state-approved nurse aide program and is listed on the state nurse aide registry.", kind: exam, source: cfr_484_80 }
+          - { tag: "State rules", title: "State license or certification, where required", text: "Some states require home health aides to have a license or certification, which may involve training, a background check and a competency exam. Check with your state board of health.", kind: licence, source: ooh_hha }
+          - { tag: "Goal", title: "Home health aide", text: "", kind: goal, source: ooh_qf_hha }
+      - id: private
+        title: "Personal care aide with a private agency or family"
+        tag: "Fastest start"
+        who: "For private care agencies that do not receive federal funds; their requirements vary by state."
+        steps:
+          - { tag: "Start", title: "High school diploma (often)", text: "Some positions do not require a formal educational credential.", kind: start, source: ooh_hha }
+          - { tag: "On the job", title: "Training on the job or in a program", text: "Personal hygiene, reading and recording vital signs, infection control and basic nutrition.", kind: stage, source: ooh_hha }
+          - { tag: "Often asked", title: "First aid and CPR certification", text: "Aides also may be required to get first aid and CPR certification.", kind: stage, source: ooh_hha }
+          - { tag: "Goal", title: "Personal care aide", text: "", kind: goal, source: ooh_qf_hha }
+    states_note: "Home health aide rules vary by state: some states license or certify aides. Ask your state board of health, and ask the agency whether it is Medicare-certified (then the federal 75-hour rule applies)."
+    states_source: ooh_hha
+
+  # 2 — 3,465,400 jobs (existing pathway page us/careers/nursing/)
+  - slug: registered-nurse
+    pathway: nursing
+    short: "Registered Nurse"
+    title: "Registered nurse (RN): every route to the RN license"
+    eyebrow: "Healthcare & Human Services · Physical Health"
+    lede: "Three education paths lead to the same NCLEX-RN and state license: a bachelor's in nursing (BSN), an associate's degree (ADN/ASN) or a hospital diploma. Many nurses also climb the ladder from nursing assistant or LPN."
+    for: "Students who like science and want direct patient care, can handle stress and long shifts, and may later want advanced practice (NP, midwife, anesthetist)."
+    routes:
+      - id: bsn
+        title: "Bachelor of Science in Nursing (BSN)"
+        tag: "Hospitals may require it"
+        who: "Straight from high school; employers, particularly hospitals, may require a bachelor's degree."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_rn }
+          - { tag: "About 4 years", title: "BSN program", text: "Courses in anatomy, physiology, microbiology, psychology and social sciences, plus supervised clinical experience.", kind: stage, source: ooh_rn }
+          - { tag: "Exam", title: "NCLEX-RN", text: "The national licensure exam used by U.S. boards of nursing.", kind: exam, source: ncsbn_nclex, href: "us/professional-licenses/nursing/#exams", link: "NCLEX-RN details" }
+          - { tag: "License", title: "State RN license", text: "Issued by the state where you work; other rules, such as a criminal background check, vary by state.", kind: licence, source: ooh_rn, href: "us/professional-licenses/nursing/", link: "RN license steps" }
+          - { tag: "Goal", title: "Registered nurse", text: "", kind: goal, source: ooh_qf_rn }
+      - id: adn
+        title: "Associate's degree (ADN/ASN) or hospital diploma"
+        tag: "Also qualifies"
+        who: "Licensed graduates of any of the three program types qualify for entry-level staff nurse jobs."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_rn }
+          - { tag: "Program", title: "ADN, ASN or diploma program", text: "Diploma programs, usually offered by hospitals or medical centers, typically take 2 to 3 years; there are far fewer of them than BSN and ADN programs.", kind: stage, source: ooh_rn }
+          - { tag: "Exam", title: "NCLEX-RN", text: "", kind: exam, source: ncsbn_nclex, href: "us/professional-licenses/nursing/#exams", link: "NCLEX-RN details" }
+          - { tag: "License", title: "State RN license", text: "", kind: licence, source: ooh_rn, href: "us/professional-licenses/nursing/", link: "RN license steps" }
+          - { tag: "Optional", title: "RN-to-BSN program", text: "Nurses with an ADN, ASN or diploma may go back to school for a bachelor's degree; some employers offer tuition reimbursement.", kind: stage, source: ooh_rn }
+          - { tag: "Goal", title: "Registered nurse", text: "", kind: goal, source: ooh_qf_rn }
+      - id: ladder
+        title: "The nursing ladder: CNA → LPN → RN → NP"
+        tag: "Earn while you climb"
+        who: "Start working in a few months, then add one license at a time."
+        steps:
+          - { tag: "Start", title: "Nursing assistant (CNA)", text: "A state-approved program and the state competency exam put you on the nurse aide registry.", kind: start, source: ooh_cna, href: "us/careers/nursing-assistant/", link: "Nursing assistant" }
+          - { tag: "About 1 year", title: "Practical nursing program", text: "", kind: stage, source: ooh_lpn }
+          - { tag: "Exam", title: "NCLEX-PN", text: "", kind: exam, source: ncsbn_exams, href: "us/professional-licenses/practical-nursing/#exams", link: "NCLEX-PN details" }
+          - { tag: "License", title: "LPN or LVN license", text: "", kind: licence, source: ooh_lpn, href: "us/professional-licenses/practical-nursing/", link: "LPN license steps" }
+          - { tag: "Bridge", title: "LPN-to-RN program", text: "", kind: stage, source: ooh_lpn }
+          - { tag: "Exam", title: "NCLEX-RN", text: "", kind: exam, source: ncsbn_nclex, href: "us/professional-licenses/nursing/#exams", link: "NCLEX-RN details" }
+          - { tag: "License", title: "RN license", text: "", kind: licence, source: ooh_rn, href: "us/professional-licenses/nursing/", link: "RN license steps" }
+          - { tag: "Master's", title: "APRN graduate program", text: "An RN license comes first; most APRN programs prefer a BSN, and some offer bridge programs for nurses with an associate's degree or diploma.", kind: stage, source: ooh_aprn }
+          - { tag: "Goal", title: "Nurse practitioner, midwife or anesthetist", text: "National certification exam and a state APRN license.", kind: goal, source: ooh_aprn, href: "us/careers/nurse-practitioner/", link: "APRN career page" }
+    states_note: "Each state's board of nursing sets the RN licensing rules. Other requirements, such as a criminal background check, vary by state. The RN license page lists the Nurse Licensure Compact states."
+    states_source: ooh_rn
+    certs:
+      - { name: "Specialty certification", who: "Professional associations", text: "Usually voluntary, in areas such as ambulatory care, gerontology or pediatrics; some employers require it. Jobs may also ask for CPR, BLS or ACLS certification.", source: ooh_rn }
+
+  # 3 — 1,558,700 jobs
+  - slug: nursing-assistant
+    short: "Nursing Assistant (CNA) & Orderly"
+    title: "Nursing assistant (CNA): program, competency exam and state registry"
+    eyebrow: "Healthcare & Human Services · Physical Health"
+    lede: "Nursing assistants usually finish a state-approved program (at least 75 hours under federal rules for nursing homes), pass the state competency exam and go on the state registry. Orderlies typically need a high school diploma and short on-the-job training."
+    for: "People who want a fast start in patient care and a first step on the nursing ladder; the work is physical and needs patience."
+    soc: ["31-1131", "31-1132"]
+    does: { text: "Nursing assistants provide basic care and help patients with activities of daily living. Orderlies transport patients and clean treatment areas.", source: ooh_qf_cna }
+    work: { text: "Most nursing assistants and orderlies work in nursing and residential care facilities and in hospitals. They are physically active and may need to help lift or move patients.", source: ooh_qf_cna }
+    become: { text: "Nursing assistants often need to complete a state-approved education program and pass their state’s competency exam to become licensed or certified. Orderlies typically have at least a high school diploma.", source: ooh_qf_cna }
+    metrics: { pay: 41870, pay_hour: "20.13", pay_by: "Nursing assistants and orderlies", jobs: 1558700, outlook: 3, outlook_words: "As fast as average", change: 41100, entry: "State-approved program (nursing assistants); high school diploma (orderlies)", training: "Brief on-the-job training", source: ooh_qf_cna }
+    license_text: "State certification and registry"
+    routes:
+      - id: cna
+        title: "Certified nursing assistant (CNA)"
+        tag: "Most common"
+        who: "Programs are offered in high schools, community colleges, vocational and technical schools, hospitals and nursing homes."
+        steps:
+          - { tag: "Start", title: "Find a state-approved program", text: "", kind: start, source: ooh_cna }
+          - { tag: "75+ hours", title: "Nurse aide training", text: "A state-approved program has at least 75 clock hours of training, including at least 16 hours of supervised practical training.", kind: stage, source: cfr_483_152 }
+          - { tag: "Exam", title: "State competency exam", text: "Passing it lets you use state-specific titles; in some states the title is Certified Nursing Assistant (CNA).", kind: exam, source: ooh_cna }
+          - { tag: "Registry", title: "State nurse aide registry", text: "Nursing assistants who pass are placed on the state registry; you must be on it to work in a nursing home. Some states add continuing education or a background check.", kind: licence, source: ooh_cna }
+          - { tag: "Goal", title: "Nursing assistant", text: "Some states offer extra credentials, such as Certified Medication Assistant (CMA).", kind: goal, source: ooh_cna }
+      - id: ladder
+        title: "Keep climbing: CNA → LPN → RN"
+        tag: "Next steps"
+        who: "Many nurses start as nursing assistants."
+        steps:
+          - { tag: "Start", title: "Working as a CNA", text: "", kind: start, source: ooh_cna }
+          - { tag: "About 1 year", title: "Practical nursing program", text: "", kind: stage, source: ooh_lpn }
+          - { tag: "Exam", title: "NCLEX-PN", text: "", kind: exam, source: ncsbn_exams, href: "us/professional-licenses/practical-nursing/#exams", link: "NCLEX-PN details" }
+          - { tag: "License", title: "LPN or LVN license", text: "", kind: licence, source: ooh_lpn, href: "us/professional-licenses/practical-nursing/", link: "LPN license steps" }
+          - { tag: "Goal", title: "Licensed practical nurse, then RN", text: "An LPN may complete an LPN-to-RN program to become a registered nurse.", kind: goal, source: ooh_lpn, href: "us/roadmaps/registered-nurse.html", link: "RN roadmap" }
+      - id: orderly
+        title: "Orderly"
+        tag: "No license"
+        who: "Orderlies do not need a license."
+        steps:
+          - { tag: "Start", title: "High school diploma or equivalent", text: "", kind: start, source: ooh_cna }
+          - { tag: "On the job", title: "Short on-the-job training", text: "", kind: stage, source: ooh_cna }
+          - { tag: "Often asked", title: "CPR or basic life support certification", text: "Jobs might require it.", kind: stage, source: ooh_cna }
+          - { tag: "Goal", title: "Orderly", text: "", kind: goal, source: ooh_qf_cna }
+    states_note: "Specific requirements for nursing assistants vary by state, including the title, continuing education and background checks. Check with your state's certifying agency."
+    states_source: ooh_cna
+
+  # 4 — 862,800 jobs (existing pathway page us/careers/medicine/)
+  - slug: physician
+    pathway: medicine
+    short: "Physician"
+    title: "Physician (M.D. or D.O.): pre-med to residency and license"
+    eyebrow: "Healthcare & Human Services · Physical Health"
+    lede: "A bachelor's degree with science courses, the MCAT, 4 years of medical school (M.D. or D.O.), national licensing exams, 3 to 9 years of residency and a state medical license."
+    for: "Students ready for a long route of study and residency after high school, who like science and want to diagnose and treat patients."
+    routes:
+      - id: md
+        title: "Pre-med → MCAT → M.D. → USMLE → residency"
+        tag: "M.D."
+        who: "No specific undergraduate major is required; applicants usually studied biology, physical science or a health field."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_physicians }
+          - { tag: "4 years", title: "Bachelor's degree with pre-med courses", text: "", kind: stage, source: ooh_physicians }
+          - { tag: "Exam", title: "MCAT", text: "Medical schools ask for transcripts, MCAT scores and letters of recommendation; most also interview.", kind: exam, source: ooh_physicians, href: "us/tests/#grad-tests", link: "MCAT on the tests page" }
+          - { tag: "4 years", title: "Medical school (M.D.)", text: "Classroom and lab study first, then clinical rotations in areas such as internal medicine, pediatrics and surgery.", kind: stage, source: ooh_physicians }
+          - { tag: "Exam", title: "USMLE Step 1, Step 2 CK, Step 3", text: "Taken at different points of M.D. education and training; results go to state medical boards.", kind: exam, source: usmle, href: "us/professional-licenses/medicine/#exams", link: "USMLE details" }
+          - { tag: "3–9 years", title: "Residency", text: "Almost all graduates enter a residency in their specialty; a fellowship adds 1 to 3 years.", kind: stage, source: ooh_physicians }
+          - { tag: "License", title: "State medical license", text: "All states require physicians to be licensed; requirements vary by state.", kind: licence, source: ooh_physicians, href: "us/professional-licenses/medicine/", link: "Medical license steps" }
+          - { tag: "Goal", title: "Physician", text: "Board certification is not required but may increase job opportunities.", kind: goal, source: ooh_physicians }
+      - id: do
+        title: "Pre-med → MCAT → D.O. → COMLEX-USA → residency"
+        tag: "D.O."
+        who: "Osteopathic medical schools award the D.O.; the licensing exam is COMLEX-USA."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_physicians }
+          - { tag: "4 years", title: "Bachelor's degree with pre-med courses", text: "", kind: stage, source: ooh_physicians }
+          - { tag: "Exam", title: "MCAT", text: "", kind: exam, source: ooh_physicians, href: "us/tests/#grad-tests", link: "MCAT on the tests page" }
+          - { tag: "4 years", title: "Medical school (D.O.)", text: "", kind: stage, source: ooh_physicians }
+          - { tag: "Exam", title: "COMLEX-USA Level 1, Level 2-CE, Level 3", text: "Levels 1 and 2-CE are required to graduate from accredited D.O. programs.", kind: exam, source: nbome_comlex, href: "us/professional-licenses/medicine/#exams", link: "COMLEX details" }
+          - { tag: "3–9 years", title: "Residency", text: "", kind: stage, source: ooh_physicians }
+          - { tag: "License", title: "State medical license", text: "", kind: licence, source: ooh_physicians, href: "us/professional-licenses/medicine/", link: "Medical license steps" }
+          - { tag: "Goal", title: "Physician (D.O.)", text: "", kind: goal, source: ooh_physicians }
+      - id: combined
+        title: "Combined bachelor's + M.D. program"
+        tag: "6–8 years"
+        who: "Some medical schools offer combined undergraduate and medical school programs; schools may also offer M.D.-Ph.D., M.D.-MBA or M.D.-MPH."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_physicians }
+          - { tag: "6–8 years", title: "Combined undergraduate and medical school program", text: "", kind: stage, source: ooh_physicians }
+          - { tag: "Exam", title: "USMLE or COMLEX-USA", text: "", kind: exam, source: usmle, href: "us/professional-licenses/medicine/#exams", link: "Licensing exams" }
+          - { tag: "3–9 years", title: "Residency", text: "", kind: stage, source: ooh_physicians }
+          - { tag: "License", title: "State medical license", text: "", kind: licence, source: ooh_physicians, href: "us/professional-licenses/medicine/", link: "Medical license steps" }
+          - { tag: "Goal", title: "Physician", text: "", kind: goal, source: ooh_physicians }
+    states_note: "Each state medical board sets its own licensing rules; passing USMLE or COMLEX-USA alone does not grant a license. The Interstate Medical Licensure Compact list is on the medical license page."
+    states_source: ooh_physicians
+
+  # 5 — 833,900 jobs
+  - slug: medical-assistant
+    short: "Medical Assistant"
+    title: "Medical assistant: certificate or on-the-job route"
+    eyebrow: "Healthcare & Human Services · Health Data & Administration"
+    lede: "Most medical assistants finish a 1- to 2-year certificate or associate's program with a practicum; some start with a high school diploma and learn on the job. Most states do not require certification, but employers may prefer it."
+    for: "People who like both office work and patient contact: scheduling, records and taking vital signs."
+    soc: ["31-9092"]
+    does: { text: "Medical assistants complete administrative and clinical tasks, such as scheduling appointments and taking patients’ vital signs.", source: ooh_qf_medasst }
+    work: { text: "Most medical assistants work full time. They are employed in physicians’ offices, hospitals, outpatient clinics, and other healthcare facilities.", source: ooh_qf_medasst }
+    become: { text: "Medical assistants typically need postsecondary education, such as a certificate. Some enter the occupation with a high school diploma and learn through on-the-job training.", source: ooh_qf_medasst }
+    metrics: { pay: 45690, pay_hour: "21.97", pay_by: "Medical assistants", jobs: 833900, outlook: 13, outlook_words: "Much faster than average", change: 107600, entry: "Postsecondary nondegree award", training: "None", source: ooh_qf_medasst }
+    license_text: "Some states"
+    routes:
+      - id: program
+        title: "Certificate or associate's program"
+        tag: "Most common"
+        who: "Programs at community colleges, vocational and technical schools and universities."
+        steps:
+          - { tag: "Start", title: "High school diploma (biology, chemistry)", text: "", kind: start, source: ooh_medasst }
+          - { tag: "1–2 years", title: "Medical assistant program", text: "Medical terminology, anatomy and pharmacology, with supervised experience such as a practicum or internship.", kind: stage, source: ooh_medasst }
+          - { tag: "Optional exam", title: "Certification exam", text: "Most states do not require it, but employers may prefer or require certification; it is available from a number of organizations.", kind: exam, source: ooh_medasst }
+          - { tag: "State rules", title: "State requirements, where they exist", text: "Some states require graduation from an accredited program, a license or certification.", kind: licence, source: ooh_medasst }
+          - { tag: "Goal", title: "Medical assistant", text: "", kind: goal, source: ooh_qf_medasst }
+      - id: ojt
+        title: "On-the-job training or apprenticeship"
+        tag: "Earn while you learn"
+        who: "Some employers hire high school graduates and train them."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_medasst }
+          - { tag: "Several months", title: "On-the-job training or apprenticeship", text: "Physicians or other medical assistants teach tasks such as taking vital signs.", kind: stage, source: ooh_medasst }
+          - { tag: "Often asked", title: "Basic Life Support (BLS) certification", text: "", kind: stage, source: ooh_medasst }
+          - { tag: "Goal", title: "Medical assistant", text: "", kind: goal, source: ooh_qf_medasst }
+    certs:
+      - { name: "CMA (AAMA)", who: "American Association of Medical Assistants", text: "One of the medical assisting certifications employers may ask for.", source: aama_cma }
+    states_note: "Some states require medical assistants to graduate from an accredited program, be licensed or certified, or meet other prerequisites. Contact your state licensing agency."
+    states_source: ooh_medasst
+
+  # 6 — 816,100 jobs
+  - slug: social-worker
+    short: "Social Worker"
+    title: "Social worker: BSW, MSW, ASWB exams and the clinical license"
+    eyebrow: "Healthcare & Human Services · Community & Social Services"
+    lede: "A bachelor's in social work (BSW) is the usual entry for nonclinical jobs. Clinical social workers need a master's (MSW), supervised clinical experience, the ASWB Clinical exam and a state license."
+    for: "People who want to help families, children and patients solve everyday problems, and who can stay calm and organised in hard situations."
+    soc: ["21-1020"]
+    does: { text: "Social workers help people prevent and cope with problems in their everyday lives.", source: ooh_qf_socialwork }
+    work: { text: "Social workers are employed in a variety of settings, including child welfare and human service agencies, healthcare providers, and schools. Most work full time, and some work evenings, weekends, and holidays.", source: ooh_qf_socialwork }
+    become: { text: "Social workers typically need a bachelor’s or master’s degree in social work. They also may need a license; specific requirements vary by state.", source: ooh_qf_socialwork }
+    metrics: { pay: 61780, pay_hour: "29.70", pay_by: "Social workers", jobs: 816100, outlook: 6, outlook_words: "Faster than average", change: 50400, entry: "Bachelor's or master's degree in social work", training: "Clinical: supervised experience after the MSW", source: ooh_qf_socialwork }
+    license: social-work
+    exams:
+      - { name: "ASWB exams", href: "us/professional-licenses/social-work/#exams" }
+    routes:
+      - id: bsw
+        title: "BSW → nonclinical social work"
+        tag: "Entry level"
+        who: "A BSW is the most common requirement for entry-level nonclinical jobs."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_socialwork }
+          - { tag: "4 years", title: "Bachelor of Social Work (BSW)", text: "Includes supervised fieldwork or an internship.", kind: stage, source: ooh_socialwork }
+          - { tag: "Exam", title: "ASWB Bachelors exam, where the state licenses BSWs", text: "Texas, for example, requires it for the LBSW.", kind: exam, source: tx_bhec_lbsw, href: "us/professional-licenses/social-work/#exams", link: "ASWB exams" }
+          - { tag: "License", title: "Bachelor's-level license (some states)", text: "Some states also require nonclinical social workers to have a license or credential.", kind: licence, source: ooh_socialwork, href: "us/professional-licenses/social-work/", link: "License steps" }
+          - { tag: "Goal", title: "Social worker (nonclinical)", text: "", kind: goal, source: ooh_qf_socialwork }
+      - id: clinical
+        title: "MSW → supervised hours → LCSW"
+        tag: "Clinical"
+        who: "For counseling and mental health work. The bachelor's can be in almost any field; a BSW may shorten the MSW."
+        steps:
+          - { tag: "Start", title: "Bachelor's degree", text: "Common majors include psychology, social science and public policy.", kind: start, source: ooh_socialwork }
+          - { tag: "About 2 years", title: "Master of Social Work (MSW)", text: "From an accredited program, with a supervised practicum or internship.", kind: stage, source: ooh_socialwork }
+          - { tag: "Exam", title: "ASWB Masters exam (LMSW, where offered)", text: "New York, for example, requires it for the LMSW.", kind: exam, source: ny_op_lmsw, href: "us/professional-licenses/social-work/#exams", link: "ASWB exams" }
+          - { tag: "Years", title: "Supervised clinical experience", text: "The length varies by state and may take several years.", kind: stage, source: ooh_socialwork }
+          - { tag: "Exam", title: "ASWB Clinical exam", text: "", kind: exam, source: aswb_exam, href: "us/professional-licenses/social-work/#exams", link: "ASWB exams" }
+          - { tag: "License", title: "Licensed clinical social worker (LCSW)", text: "All states require clinical social workers to be licensed.", kind: licence, source: ooh_socialwork, href: "us/professional-licenses/social-work/", link: "License steps" }
+          - { tag: "Goal", title: "Clinical social worker", text: "", kind: goal, source: ooh_qf_socialwork }
+    states_note: "Social work licenses are issued state by state, and the license levels differ. What four state boards publish:"
+    states_source: aswb_license
+    states_from: social-work
+
+  # 7 — 666,900 jobs
+  - slug: licensed-practical-nurse
+    short: "Licensed Practical Nurse (LPN/LVN)"
+    title: "Licensed practical or vocational nurse: 1-year program to license"
+    eyebrow: "Healthcare & Human Services · Physical Health"
+    lede: "A state-approved practical nursing program of about 1 year, the NCLEX-PN and a state license. With experience, an LPN-to-RN program leads to the RN license."
+    for: "People who want to become a nurse in about a year, often while working, and may move up to RN later."
+    soc: ["29-2061"]
+    does: { text: "Licensed practical nurses (LPNs) and licensed vocational nurses (LVNs) provide basic medical care.", source: ooh_qf_lpn }
+    work: { text: "Licensed practical and licensed vocational nurses work in a variety of settings, including nursing and residential care facilities, hospitals, physicians’ offices, and private homes. Most work full time.", source: ooh_qf_lpn }
+    become: { text: "Licensed practical and licensed vocational nurses must complete a state-approved educational program, which typically takes about 1 year. They must be licensed.", source: ooh_qf_lpn }
+    metrics: { pay: 64400, pay_hour: "30.96", pay_by: "Licensed practical and licensed vocational nurses", jobs: 666900, outlook: 3, outlook_words: "As fast as average", change: 19700, entry: "Postsecondary nondegree award", training: "None", source: ooh_qf_lpn }
+    license: practical-nursing
+    exams:
+      - { name: "NCLEX-PN", href: "us/professional-licenses/practical-nursing/#exams" }
+    routes:
+      - id: pn
+        title: "Practical nursing program → NCLEX-PN"
+        tag: "About 1 year"
+        who: "Certificate and diploma programs at community colleges and technical schools, including some high schools."
+        steps:
+          - { tag: "Start", title: "High school diploma or equivalent", text: "", kind: start, source: ny_op_lpn }
+          - { tag: "About 1 year", title: "State-approved practical nursing program", text: "Nursing fundamentals, anatomy and physiology and pharmacology, with supervised clinical experience. Your state board of nursing lists approved programs.", kind: stage, source: ooh_lpn }
+          - { tag: "Exam", title: "NCLEX-PN", text: "Apply to the state board first, then register with Pearson VUE.", kind: exam, source: ncsbn_exams, href: "us/professional-licenses/practical-nursing/#exams", link: "NCLEX-PN details" }
+          - { tag: "License", title: "State LPN or LVN license", text: "", kind: licence, source: ooh_lpn, href: "us/professional-licenses/practical-nursing/", link: "LPN license steps" }
+          - { tag: "Goal", title: "Licensed practical nurse", text: "", kind: goal, source: ooh_qf_lpn }
+      - id: to-rn
+        title: "LPN → RN"
+        tag: "Move up"
+        who: "With experience, LPNs may advance to supervisory jobs or another healthcare occupation."
+        steps:
+          - { tag: "Start", title: "Working LPN", text: "", kind: start, source: ooh_lpn }
+          - { tag: "Bridge", title: "LPN-to-RN education program", text: "", kind: stage, source: ooh_lpn }
+          - { tag: "Exam", title: "NCLEX-RN", text: "", kind: exam, source: ncsbn_nclex, href: "us/professional-licenses/nursing/#exams", link: "NCLEX-RN details" }
+          - { tag: "License", title: "RN license", text: "", kind: licence, source: ooh_rn, href: "us/professional-licenses/nursing/", link: "RN license steps" }
+          - { tag: "Goal", title: "Registered nurse", text: "", kind: goal, source: ooh_qf_rn, href: "us/roadmaps/registered-nurse.html", link: "RN roadmap" }
+    states_note: "Each state board of nursing approves programs and issues the license. What four state boards publish:"
+    states_source: ooh_lpn
+    states_from: practical-nursing
+    watch:
+      - { text: "From 1 February 2027 the NCLEX registration fee is $350 in the United States.", source: nclex_fees }
+
+  # 8 — 533,400 jobs
+  - slug: mental-health-counselor
+    short: "Substance Abuse & Mental Health Counselor"
+    title: "Mental health or substance abuse counselor: master's, exam and license"
+    eyebrow: "Healthcare & Human Services · Behavioral & Mental Health"
+    lede: "Mental health counselors typically need a master's degree with a supervised internship, a national exam (NCE or NCMHCE), supervised clinical hours and a state license. Substance abuse counselors often start with a bachelor's."
+    for: "Good listeners who stay calm with distressed clients and want to help people with addiction, depression and other problems."
+    soc: ["21-1018"]
+    does: { text: "Substance abuse, behavioral disorder, and mental health counselors advise people on a range of issues, such as those relating to alcoholism, addictions, or depression.", source: ooh_qf_counselors }
+    work: { text: "Substance abuse, behavioral disorder, and mental health counselors work in a variety of settings, such as mental health centers, community health centers, and private practice. Most work full time, although part-time work is common.", source: ooh_qf_counselors }
+    become: { text: "Education and training requirements vary for entering these occupations. Substance abuse and behavioral disorder counselors typically need at least a bachelor’s degree, whereas mental health counselors typically need a master’s degree and an internship. Some counselors need a state-issued license.", source: ooh_qf_counselors }
+    metrics: { pay: 59350, pay_hour: "28.53", pay_by: "Substance abuse, behavioral disorder, and mental health counselors", jobs: 533400, outlook: 18, outlook_words: "Much faster than average", change: 98000, entry: "Master's degree", training: "Internship/residency", source: ooh_qf_counselors }
+    license: counseling
+    exams:
+      - { name: "NCE and NCMHCE", href: "us/professional-licenses/counseling/#exams" }
+    routes:
+      - id: lpc
+        title: "Licensed mental health counselor (LPC / LMHC)"
+        tag: "All states license"
+        who: "All states require mental health counselors to be licensed."
+        steps:
+          - { tag: "Start", title: "Bachelor's degree", text: "Common fields: psychology, public policy and social services, social science.", kind: start, source: ooh_counselors }
+          - { tag: "Master's", title: "Master's in counseling with a supervised internship", text: "Master's programs often include a clinically supervised internship.", kind: stage, source: ooh_counselors }
+          - { tag: "Exam", title: "NCE or NCMHCE", text: "The national exam the state requires.", kind: exam, source: nbcc_exams, href: "us/professional-licenses/counseling/#exams", link: "Counselor exams" }
+          - { tag: "Supervised", title: "Supervised clinical work", text: "Under the supervision of a licensed counselor.", kind: stage, source: ooh_counselors }
+          - { tag: "License", title: "State counselor license", text: "", kind: licence, source: ooh_counselors, href: "us/professional-licenses/counseling/", link: "License steps" }
+          - { tag: "Goal", title: "Mental health counselor", text: "", kind: goal, source: ooh_qf_counselors }
+      - id: substance
+        title: "Substance abuse or behavioral disorder counselor"
+        tag: "Bachelor's typical"
+        who: "Requirements range from a high school diploma to a master's, depending on the position, state and employer."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_counselors }
+          - { tag: "Typical", title: "Bachelor's degree", text: "", kind: stage, source: ooh_counselors }
+          - { tag: "State rules", title: "State requirements outside private practice", text: "They vary: not all states require a specific degree, but some require an exam.", kind: licence, source: ooh_counselors }
+          - { tag: "Goal", title: "Substance abuse counselor", text: "Private practice needs a master's degree, supervised clinical hours, an exam and a state license.", kind: goal, source: ooh_counselors }
+    states_note: "The license title, exam and supervised hours differ by state. What four state boards publish:"
+    states_source: ooh_counselors
+    states_from: counseling
+    watch:
+      - { text: "NBCC is preparing a 2027 version of the NCE.", source: nbcc_nce }
+
+  # 9 — 471,200 jobs
+  - slug: pharmacy-technician
+    short: "Pharmacy Technician"
+    title: "Pharmacy technician: on-the-job or program route"
+    eyebrow: "Healthcare & Human Services · Physical Health"
+    lede: "Most pharmacy technicians have a high school diploma and learn on the job; others finish a pharmacy technology certificate (1 year or less) or associate's degree. Most states regulate technicians."
+    for: "Detail-minded people who are good with numbers and customers and want to work in a pharmacy without years of college."
+    soc: ["29-2052"]
+    does: { text: "Pharmacy technicians help pharmacists dispense prescription medication to patients or health professionals.", source: ooh_qf_pharmtech }
+    work: { text: "Pharmacy technicians work in pharmacies, including those found in drug, general merchandise, and grocery stores, as well as hospitals. Most work full time, but part-time work is common.", source: ooh_qf_pharmtech }
+    become: { text: "Pharmacy technicians typically need a high school diploma or equivalent and learn their duties through on-the-job training, or they may complete a postsecondary education program in pharmacy technology. Most states regulate pharmacy technicians, which is a process that may require passing an exam or completing a formal education or training program.", source: ooh_qf_pharmtech }
+    metrics: { pay: 45750, pay_hour: "22.00", pay_by: "Pharmacy technicians", jobs: 471200, outlook: 6, outlook_words: "Faster than average", change: 30100, entry: "High school diploma or equivalent", training: "Moderate-term on-the-job training", source: ooh_qf_pharmtech }
+    license_text: "Most states regulate"
+    routes:
+      - id: ojt
+        title: "On-the-job training"
+        tag: "Most common"
+        who: "Training usually lasts less than 1 year, often alongside experienced technicians."
+        steps:
+          - { tag: "Start", title: "High school diploma or equivalent", text: "", kind: start, source: ooh_pharmtech }
+          - { tag: "Under 1 year", title: "On-the-job training", text: "", kind: stage, source: ooh_pharmtech }
+          - { tag: "State rules", title: "State registration or license", text: "Where the state regulates technicians it may ask for some or all of: a diploma, a training program, an exam, fees, continuing education, a criminal background check and a minimum age.", kind: licence, source: ooh_pharmtech }
+          - { tag: "Optional exam", title: "PTCB certification (PTCE)", text: "PTCB's CPhT needs a PTCB-recognized education or training program, or equivalent work experience, and a passing PTCE score.", kind: exam, source: ptcb_cpht }
+          - { tag: "Goal", title: "Pharmacy technician", text: "", kind: goal, source: ooh_qf_pharmtech }
+      - id: program
+        title: "Pharmacy technology program"
+        tag: "Certificate or associate's"
+        who: "Vocational schools and community colleges; many certificates take 1 year or less."
+        steps:
+          - { tag: "Start", title: "High school diploma or equivalent", text: "", kind: start, source: ooh_pharmtech }
+          - { tag: "1 year or less", title: "Certificate (or associate's degree)", text: "Pharmacy math, recordkeeping, dispensing and pharmacy law and ethics, usually with clinical experience in a pharmacy.", kind: stage, source: ooh_pharmtech }
+          - { tag: "Exam", title: "Certification exam (PTCE)", text: "", kind: exam, source: ptcb_cpht }
+          - { tag: "State rules", title: "State registration or license", text: "", kind: licence, source: ooh_pharmtech }
+          - { tag: "Goal", title: "Pharmacy technician", text: "With more training: sterile compounding, nuclear pharmacy or medication history roles.", kind: goal, source: ooh_pharmtech }
+    states_note: "Most states regulate pharmacy technicians in some way; the state board of pharmacy sets the rules and the technician's legal scope of practice."
+    states_source: ptcb_cpht
+
+  # 10 — 463,400 jobs
+  - slug: social-human-service-assistant
+    short: "Social & Human Service Assistant"
+    title: "Social and human service assistant: start with a diploma, grow with a degree"
+    eyebrow: "Healthcare & Human Services · Community & Social Services"
+    lede: "A high school diploma is typical for entry-level jobs, with training on the job. Case management or social work jobs later need a bachelor's or master's degree."
+    for: "People who want to help clients find services right away and may study social work later."
+    soc: ["21-1093"]
+    does: { text: "Social and human service assistants provide client services in a variety of fields, such as psychology, rehabilitation, and social work.", source: ooh_qf_humanservice }
+    work: { text: "Many social and human service assistants work for nonprofit organizations, for-profit social service agencies, and state and local governments. Most work full time, and some work evenings and weekends.", source: ooh_qf_humanservice }
+    become: { text: "Social and human service assistants typically need at least a high school diploma, although specific requirements may vary. Training is usually provided on the job.", source: ooh_qf_humanservice }
+    metrics: { pay: 45930, pay_hour: "22.08", pay_by: "Social and human service assistants", jobs: 463400, outlook: 7, outlook_words: "Much faster than average", change: 34200, entry: "High school diploma or equivalent", training: "Short-term on-the-job training", source: ooh_qf_humanservice }
+    license_text: "Not required"
+    routes:
+      - id: entry
+        title: "High school diploma → on-the-job training"
+        tag: "Entry level"
+        who: "Some employers also run a criminal background check or ask for a driver's license."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_humanservice }
+          - { tag: "On the job", title: "Case management training", text: "", kind: stage, source: ooh_humanservice }
+          - { tag: "Goal", title: "Social and human service assistant", text: "", kind: goal, source: ooh_qf_humanservice }
+      - id: degree
+        title: "Degree → case manager or social worker"
+        tag: "Move up"
+        who: "Some employers prefer an associate's or bachelor's degree in human services or a related field."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_humanservice }
+          - { tag: "2–4 years", title: "Associate's or bachelor's in human services", text: "Programs include fieldwork.", kind: stage, source: ooh_humanservice }
+          - { tag: "More study", title: "Bachelor's or master's in social work or counseling", text: "Advancement to case management or social work jobs requires one.", kind: stage, source: ooh_humanservice }
+          - { tag: "Goal", title: "Case manager or social worker", text: "", kind: goal, source: ooh_humanservice, href: "us/careers/social-worker/", link: "Social worker" }
+
+  # 11 — 399,000 jobs
+  - slug: nurse-practitioner
+    short: "Nurse Practitioner, Midwife & Anesthetist (APRN)"
+    title: "Advanced practice nurse (NP, CNM, CRNA): RN to APRN license"
+    eyebrow: "Healthcare & Human Services · Physical Health"
+    lede: "APRNs are registered nurses with at least a master's degree in their role, a national certification exam and a state APRN license. Nurse anesthetist programs also ask for 1 year of critical-care RN experience."
+    for: "Registered nurses who want to diagnose, treat and, in many states, prescribe: a long route that starts with the RN license."
+    soc: ["29-1151", "29-1161", "29-1171"]
+    does: { text: "Nurse anesthetists, nurse midwives, and nurse practitioners coordinate patient care and may provide primary and specialty healthcare.", source: ooh_qf_aprn }
+    work: { text: "Nurse anesthetists, nurse midwives, and nurse practitioners work in a variety of healthcare settings, including hospitals, physicians' offices, and clinics. Most advanced practice registered nurses (APRNs) work full time.", source: ooh_qf_aprn }
+    become: { text: "Nurse anesthetists, nurse midwives, and nurse practitioners must earn at least a master’s degree in one of the APRN roles. They must also be licensed in their state and pass a national certification exam.", source: ooh_qf_aprn }
+    metrics: { pay: 134920, pay_hour: "64.87", pay_by: "Nurse anesthetists, nurse midwives, and nurse practitioners", jobs: 399000, outlook: 36, outlook_words: "Much faster than average", change: 144000, entry: "Master's degree", training: "None", source: ooh_qf_aprn }
+    license: nursing
+    routes:
+      - id: np
+        title: "BSN → RN → master's → NP or nurse midwife"
+        tag: "NP / CNM"
+        who: "Most APRN programs prefer a BSN; bridge programs exist for RNs with an associate's degree or diploma."
+        steps:
+          - { tag: "Start", title: "BSN (or ADN/diploma + bridge)", text: "", kind: start, source: ooh_aprn, href: "us/roadmaps/registered-nurse.html", link: "RN roadmap" }
+          - { tag: "Exam", title: "NCLEX-RN", text: "", kind: exam, source: ncsbn_nclex, href: "us/professional-licenses/nursing/#exams", link: "NCLEX-RN details" }
+          - { tag: "License", title: "RN license", text: "An RN license comes before APRN education.", kind: licence, source: ooh_aprn, href: "us/professional-licenses/nursing/", link: "RN license steps" }
+          - { tag: "Master's+", title: "Accredited APRN graduate program", text: "Advanced health assessment, pathophysiology and pharmacology plus clinical experience; some earn a DNP or Ph.D.", kind: stage, source: ooh_aprn }
+          - { tag: "Exam", title: "National certification exam", text: "Most states require national certification to be licensed and use an APRN title.", kind: exam, source: ooh_aprn }
+          - { tag: "License", title: "State APRN license", text: "Details come from each state's board of nursing.", kind: licence, source: ooh_aprn }
+          - { tag: "Goal", title: "Nurse practitioner or nurse midwife", text: "", kind: goal, source: ncsbn_aprn }
+      - id: crna
+        title: "RN → critical care → nurse anesthesia program → CRNA"
+        tag: "CRNA"
+        who: "Nurse anesthetist programs require 1 year of RN experience in a critical care setting."
+        steps:
+          - { tag: "Start", title: "RN license", text: "", kind: start, source: ooh_aprn, href: "us/professional-licenses/nursing/", link: "RN license steps" }
+          - { tag: "1 year", title: "Critical care RN experience", text: "", kind: stage, source: ooh_aprn }
+          - { tag: "Graduate", title: "Accredited nurse anesthesia program", text: "", kind: stage, source: ooh_aprn }
+          - { tag: "Exam", title: "NBCRNA National Certification Examination (NCE)", text: "Sometimes called the boards.", kind: exam, source: nbcrna_nce }
+          - { tag: "License", title: "State APRN license", text: "", kind: licence, source: ooh_aprn }
+          - { tag: "Goal", title: "Certified registered nurse anesthetist", text: "", kind: goal, source: ncsbn_aprn }
+    states_note: "States' APRN requirements vary. The APRN Consensus Model (four roles: CNM, CNP, CRNA and CNS) guides states toward uniform rules, but not every state has adopted all of it."
+    states_source: ncsbn_aprn
+
+  # 12 — 388,600 jobs
+  - slug: dental-assistant
+    short: "Dental Assistant"
+    title: "Dental assistant: program or on-the-job route"
+    eyebrow: "Healthcare & Human Services · Physical Health"
+    lede: "Some states require an accredited program (often 1 year) and an exam; in others dental assistants learn on the job. Expanded duties and x-rays need state registration, license or certification."
+    for: "People who are good with their hands, organised and calm with nervous patients."
+    soc: ["31-9091"]
+    does: { text: "Dental assistants provide patient care, take x rays, keep records, and schedule appointments.", source: ooh_qf_dentalasst }
+    work: { text: "Almost all dental assistants work in dentists’ offices. Most work full time.", source: ooh_qf_dentalasst }
+    become: { text: "There are several possible paths to becoming a dental assistant. Some states require assistants to graduate from an accredited program and pass an exam. In other states, there are no formal educational requirements, and dental assistants learn through on-the-job training.", source: ooh_qf_dentalasst }
+    metrics: { pay: 48070, pay_hour: "23.11", pay_by: "Dental assistants", jobs: 388600, outlook: 7, outlook_words: "Much faster than average", change: 28800, entry: "Postsecondary nondegree award", training: "None", source: ooh_qf_dentalasst }
+    license_text: "Some states"
+    routes:
+      - id: program
+        title: "Accredited dental assisting program"
+        tag: "Required in some states"
+        who: "Mostly at community colleges; about 1 year for a certificate or diploma, 2 years for an associate's."
+        steps:
+          - { tag: "Start", title: "High school (anatomy, biology, chemistry)", text: "", kind: start, source: ooh_dentalasst }
+          - { tag: "About 1 year", title: "Dental assisting program", text: "Classroom and lab work with supervised practical experience.", kind: stage, source: ooh_dentalasst }
+          - { tag: "Exam", title: "Certification exam", text: "Needed where states allow expanded duties. Applicants must have graduated from an accredited program or have a high school diploma and the required work experience, plus current CPR certification.", kind: exam, source: ooh_dentalasst }
+          - { tag: "State rules", title: "State registration, license or certification", text: "Needed in some states for radiography, infection control or expanded duties such as coronal polishing.", kind: licence, source: ooh_dentalasst }
+          - { tag: "Goal", title: "Dental assistant", text: "", kind: goal, source: ooh_qf_dentalasst }
+      - id: ojt
+        title: "On-the-job training"
+        tag: "Where states allow"
+        who: "A dental hygienist, dentist or experienced assistant teaches the new assistant."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_dentalasst }
+          - { tag: "On the job", title: "Training in the dental office", text: "Terminology, instruments, daily tasks and patient care.", kind: stage, source: ooh_dentalasst }
+          - { tag: "Goal", title: "Dental assistant", text: "States typically do not require licenses for entry-level dental assistants.", kind: goal, source: ooh_dentalasst }
+    certs:
+      - { name: "DANB NELDA and CDA", who: "Dental Assisting National Board", text: "The National Entry Level Dental Assistant (NELDA) certification has three exams and puts you on the path to the Certified Dental Assistant (CDA).", source: danb_cert }
+    states_note: "Contact your state's Board of Dental Examiners: states differ on whether assistants must register, be licensed or be certified, and for which duties."
+    states_source: ooh_dentalasst
+
+  # 13 — 343,000 jobs
+  - slug: clinical-lab-technologist
+    short: "Clinical Laboratory Technologist & Technician"
+    title: "Clinical lab technologist or technician: degree, certification, state license"
+    eyebrow: "Healthcare & Human Services · Physical Health"
+    lede: "Technologists typically need a bachelor's in medical technology or a life science; technicians sometimes qualify with an associate's. Some states license lab staff, and employers may prefer certification."
+    for: "Students who like chemistry and biology, careful lab work and helping with diagnosis behind the scenes."
+    soc: ["29-2010"]
+    does: { text: "Clinical laboratory technologists and technicians perform medical laboratory tests for the diagnosis, treatment, and prevention of disease.", source: ooh_qf_clinlab }
+    work: { text: "Most clinical laboratory technologists and technicians work in healthcare settings such as hospitals, medical and diagnostic laboratories, and doctor’s offices. Most work full time.", source: ooh_qf_clinlab }
+    become: { text: "Clinical laboratory technologists and technicians typically need a bachelor’s degree to enter the occupation. Technicians sometimes qualify for jobs with an associate’s degree. Some states require technologists and technicians to be licensed.", source: ooh_qf_clinlab }
+    metrics: { pay: 62930, pay_hour: "30.26", pay_by: "Clinical laboratory technologists and technicians", jobs: 343000, outlook: 3, outlook_words: "As fast as average", change: 9400, entry: "Bachelor's degree", training: "None", source: ooh_qf_clinlab }
+    license_text: "Some states"
+    routes:
+      - id: mls
+        title: "Medical laboratory scientist (technologist)"
+        tag: "Bachelor's"
+        who: "A bachelor's in medical technology (medical laboratory science) or a life science such as biology or chemistry."
+        steps:
+          - { tag: "Start", title: "High school (chemistry, biology, math)", text: "", kind: start, source: ooh_clinlab }
+          - { tag: "4 years", title: "Bachelor's in medical laboratory science", text: "Chemistry, biology, hematology and hands-on training in a clinical setting.", kind: stage, source: ooh_clinlab }
+          - { tag: "Exam", title: "Certification exam", text: "Completing an accredited program is typically required to sit for it; in some states licensure requires certification.", kind: exam, source: ooh_clinlab }
+          - { tag: "State rules", title: "State license, where required", text: "Some states require lab personnel to be licensed or registered; rules vary by state and specialty.", kind: licence, source: ooh_clinlab }
+          - { tag: "Goal", title: "Clinical laboratory technologist", text: "", kind: goal, source: ooh_qf_clinlab }
+      - id: mlt
+        title: "Medical laboratory technician"
+        tag: "Associate's"
+        who: "An associate's in clinical laboratory science; the Armed Forces and vocational schools also offer certificates."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_clinlab }
+          - { tag: "2 years", title: "Associate's in clinical laboratory science", text: "", kind: stage, source: ooh_clinlab }
+          - { tag: "Exam", title: "Certification exam", text: "", kind: exam, source: ooh_clinlab }
+          - { tag: "State rules", title: "State license, where required", text: "", kind: licence, source: ooh_clinlab }
+          - { tag: "Goal", title: "Clinical laboratory technician", text: "Some technicians advance to technologist with experience and more education.", kind: goal, source: ooh_clinlab }
+    certs:
+      - { name: "ASCP BOC MLS and MLT", who: "American Society for Clinical Pathology Board of Certification", text: "Credentials for medical laboratory scientists (MLS) and medical laboratory technicians (MLT).", source: ascp_boc }
+    states_note: "For licensing rules, contact your state department of health or state board of occupational licensing; requirements vary by state and specialty."
+    states_source: ooh_clinlab
+
+  # 14 — 325,200 jobs (existing pathway page us/careers/pharmacy/)
+  - slug: pharmacist
+    pathway: pharmacy
+    short: "Pharmacist"
+    title: "Pharmacist: prerequisites to Pharm.D. and state license"
+    eyebrow: "Healthcare & Human Services · Physical Health"
+    lede: "At least 2 years of prerequisite college courses (or a 6-year program straight from high school), a 4-year Pharm.D., two licensing exams, state intern hours and a state license."
+    for: "Students strong in chemistry and biology who like explaining medicines to people."
+    routes:
+      - id: pharmd
+        title: "Prerequisites → Pharm.D. → NAPLEX + MPJE"
+        tag: "Most common"
+        who: "Some Pharm.D. programs require or prefer a bachelor's degree in biology, chemistry or a health field."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_pharmacists }
+          - { tag: "2+ years", title: "Prerequisite college courses", text: "Such as anatomy and physiology, physics and statistics.", kind: stage, source: ooh_pharmacists }
+          - { tag: "4 years", title: "Doctor of Pharmacy (Pharm.D.)", text: "Some programs offer a 3-year option; supervised work experiences (internships) are part of it.", kind: stage, source: ooh_pharmacists }
+          - { tag: "Exam", title: "NAPLEX and MPJE (or Uniform MPJE)", text: "Prospective pharmacists typically must pass two exams.", kind: exam, source: nabp_exams, href: "us/professional-licenses/pharmacy/#exams", link: "Pharmacy exams" }
+          - { tag: "License", title: "State pharmacist license", text: "Applicants also complete a state-specified number of intern hours.", kind: licence, source: ooh_pharmacists, href: "us/professional-licenses/pharmacy/", link: "Pharmacist license steps" }
+          - { tag: "Goal", title: "Pharmacist", text: "Clinical jobs may ask for a 1- to 2-year residency or fellowship.", kind: goal, source: ooh_pharmacists }
+      - id: six-year
+        title: "6-year program from high school"
+        tag: "Early admit"
+        who: "Some Pharm.D. programs admit high school graduates."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_pharmacists }
+          - { tag: "6 years", title: "Combined Pharm.D. program", text: "", kind: stage, source: ooh_pharmacists }
+          - { tag: "Exam", title: "NAPLEX and MPJE (or Uniform MPJE)", text: "", kind: exam, source: nabp_exams, href: "us/professional-licenses/pharmacy/#exams", link: "Pharmacy exams" }
+          - { tag: "License", title: "State pharmacist license", text: "", kind: licence, source: ooh_pharmacists, href: "us/professional-licenses/pharmacy/", link: "Pharmacist license steps" }
+          - { tag: "Goal", title: "Pharmacist", text: "", kind: goal, source: ooh_pharmacists }
+    states_note: "All states require pharmacists to be licensed, but licensure requirements vary; in most states pharmacists must be certified to give vaccinations."
+    states_source: ooh_pharmacists
+
+  # 15 — 284,100 jobs
+  - slug: emt-paramedic
+    short: "EMT & Paramedic"
+    title: "EMT or paramedic: course, NREMT exam and state license"
+    eyebrow: "Healthcare & Human Services · Physical Health"
+    lede: "An EMT course takes less than a year; paramedic programs come after EMT work and take up to 2 years. All states require EMTs and paramedics to be licensed, usually after the NREMT exam."
+    for: "People who stay calm in emergencies, are physically fit and are ready for nights, weekends and stressful calls."
+    soc: ["29-2040"]
+    does: { text: "Emergency medical technicians (EMTs) and paramedics assess injuries and illnesses, provide emergency medical care, and may transport patients to medical facilities.", source: ooh_qf_emt }
+    work: { text: "Most EMTs and paramedics work full time, and some work more than 40 hours per week. Schedules may vary to include nights, weekends, and holidays. Their work may be physically strenuous and stressful, sometimes involving life-or-death situations.", source: ooh_qf_emt }
+    become: { text: "Emergency medical technicians (EMTs) and paramedics typically complete a postsecondary educational program. All states require EMTs and paramedics to be licensed in the state in which they work; requirements vary by state.", source: ooh_qf_emt }
+    metrics: { pay: 48150, pay_hour: "23.15", pay_by: "EMTs and paramedics", jobs: 284100, outlook: 6, outlook_words: "Faster than average", change: 16400, entry: "Postsecondary nondegree award", experience: "Paramedics: work as an EMT first", training: "None", source: ooh_qf_emt }
+    license: emt
+    exams:
+      - { name: "NREMT exams", href: "us/professional-licenses/emt/#exams" }
+    routes:
+      - id: emt
+        title: "EMT"
+        tag: "Under 1 year"
+        who: "Program applicants usually need a high school diploma and CPR / basic life support certification; some high schools offer EMT training."
+        steps:
+          - { tag: "Start", title: "High school diploma + CPR", text: "", kind: start, source: ooh_emt }
+          - { tag: "Under 1 year", title: "State-approved EMT program", text: "Patient assessment, handling emergencies and field equipment, partly in a hospital or ambulance.", kind: stage, source: ooh_emt }
+          - { tag: "Exam", title: "NREMT EMT exam, or the state exam", text: "New York, for example, gives its own state written exam.", kind: exam, source: nremt_emt, href: "us/professional-licenses/emt/#exams", link: "EMT exams" }
+          - { tag: "License", title: "State EMT license or certification", text: "States may also set a minimum age and a background check.", kind: licence, source: ooh_emt, href: "us/professional-licenses/emt/", link: "EMT license steps" }
+          - { tag: "Goal", title: "EMT", text: "Employers typically ask for a driver's license.", kind: goal, source: ooh_emt }
+      - id: paramedic
+        title: "EMT → paramedic"
+        tag: "Up to 2 years more"
+        who: "Paramedic programs require EMT-Intermediate certification, and paramedics typically need EMT work experience first."
+        steps:
+          - { tag: "Start", title: "EMT certification and work experience", text: "", kind: start, source: ooh_emt }
+          - { tag: "Program", title: "Paramedic program", text: "A nondegree award or associate's degree at community colleges, or a bachelor's at universities; anatomy and physiology, EKG interpretation and supervised field experience.", kind: stage, source: ooh_emt }
+          - { tag: "Exam", title: "NREMT Paramedic exam", text: "", kind: exam, source: nremt_paramedic, href: "us/professional-licenses/emt/#exams", link: "Paramedic exam" }
+          - { tag: "License", title: "State paramedic license or certification", text: "", kind: licence, source: ooh_emt, href: "us/professional-licenses/emt/", link: "Paramedic license steps" }
+          - { tag: "Goal", title: "Paramedic", text: "Paramedic-to-RN programs offer an accelerated path to registered nursing.", kind: goal, source: ooh_emt }
+    states_note: "State EMS offices license EMTs and paramedics; many call it certification. What three state EMS offices publish:"
+    states_source: nremt_licensure
+    states_from: emt
+
+  # 16 — 283,700 jobs (existing pathway page us/careers/physical-therapy/)
+  - slug: physical-therapist
+    pathway: physical-therapy
+    short: "Physical Therapist"
+    title: "Physical therapist: bachelor's to DPT and state license"
+    eyebrow: "Healthcare & Human Services · Physical Health"
+    lede: "A bachelor's degree with anatomy, chemistry and physics prerequisites, a 3-year Doctor of Physical Therapy (DPT), the national exam and a state license."
+    for: "Active, patient people who like science and helping others recover movement after injury or illness."
+    routes:
+      - id: dpt
+        title: "Bachelor's → DPT → NPTE"
+        tag: "Only route"
+        who: "Entrants need a DPT from an accredited program."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_pt }
+          - { tag: "4 years", title: "Bachelor's degree with prerequisites", text: "Often in recreation and fitness or a health field; anatomy, chemistry and physics.", kind: stage, source: ooh_pt }
+          - { tag: "3 years", title: "Doctor of Physical Therapy (DPT)", text: "Biomechanics, neuroscience and pharmacology plus supervised clinical work.", kind: stage, source: ooh_pt }
+          - { tag: "Exam", title: "National Physical Therapy Examination (NPTE)", text: "", kind: exam, source: fsbpt_npte, href: "us/professional-licenses/physical-therapy/#exams", link: "NPTE details" }
+          - { tag: "License", title: "State physical therapist license", text: "Some states also require a law exam and a criminal background check.", kind: licence, source: ooh_pt, href: "us/professional-licenses/physical-therapy/", link: "PT license steps" }
+          - { tag: "Goal", title: "Physical therapist", text: "Optional: a clinical residency (about 1 year), then board-certified specialist status.", kind: goal, source: ooh_pt }
+    states_note: "All states require physical therapists to be licensed; other requirements vary, and continuing education is typically needed to keep the license."
+    states_source: ooh_pt

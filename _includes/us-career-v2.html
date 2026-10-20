@@ -107,8 +107,13 @@
         </div>
       </div>
       <p class="qf-note md-money-note">{{ site.data.regions.us.vocab.money_note }}</p>
+      {%- comment -%} Career Clusters roadmap (USA Master Plan Phase 2+): a `pathway: <slug>` entry in _data/us/careers/<cluster>.yml
+        gives this pathway a standalone roadmap at us/roadmaps/<entry slug>.html {%- endcomment -%}
+      {%- assign v2_rm = nil -%}
+      {%- for cf in site.data.us.careers -%}{%- assign v2_hit = cf[1].list | where: "pathway", P.slug | first -%}{%- if v2_hit -%}{%- assign v2_rm = v2_hit -%}{%- endif -%}{%- endfor %}
       <div class="md-answer-actions">
         <a href="#path" class="btn btn-primary btn-compact">See the path</a>
+        {%- if v2_rm %}<a href="us/roadmaps/{{ v2_rm.slug }}.html" class="md-textlink">Step-by-step roadmap</a>{% endif %}
         {%- if has_salary %}<a href="us/careers/{{ salary_slug }}/salary/" class="md-textlink">Salary by state and city</a>
         {%- elsif D.industries %}<a href="#pay" class="md-textlink">{{ D.breakdown_label | default: "Pay by industry" }}</a>{% endif %}
       </div>
@@ -233,6 +238,9 @@
       </details>
       {%- endif %}
 
+      {%- if v2_rm %}
+      <div class="rm-link-card" data-no-points><div><strong>{{ v2_rm.title }}</strong><p>{% for R in v2_rm.routes %}Route {{ forloop.index }}: {{ R.title }}{% unless forloop.last %} · {% endunless %}{% endfor %}</p></div><a href="us/roadmaps/{{ v2_rm.slug }}.html" class="btn btn-primary btn-page-link">See the roadmap</a></div>
+      {%- endif %}
       <div class="md-tiles3 md-folds">
         <details class="md-fold">
           <summary><strong>In high school</strong><span>{{ PP.hs.size }} things to focus on</span></summary>

@@ -2,6 +2,8 @@
   USA licence page (global-platform Phase 12). Page stub: us/professional-licenses/<id>/index.html →
   `license: <id>`. Built from _data/us/licenses.yml (route, exams, experience, state note, watch list),
   _data/us/compacts.yml (interstate status by state) and pathways.yml (careers that need it).
+  Phase 2 (2026-10-20): optional `boards` (what named state boards publish, each row with its own source) render as a
+  table under "State rules"; careers from _data/us/careers/<cluster>.yml with `license: <id>` join the careers list.
 {%- endcomment -%}
 {%- assign US = site.data.us -%}
 {%- assign SRC = US.sources.list -%}
@@ -27,7 +29,7 @@
     <header class="md-answer">
       <span class="eyebrow">USA · Professional license</span>
       <h1>{{ LIC.name }}</h1>
-      <p class="md-answer-lede">Granted by {{ LIC.authority | downcase }}, not by a national exam alone. {{ LIC.education }}.</p>
+      <p class="md-answer-lede">Granted by {% if LIC.authority_lede %}{{ LIC.authority_lede }}{% else %}{{ LIC.authority | downcase }}{% endif %}, not by a national exam alone. {{ LIC.education }}.</p>
       <div class="md-stats">
         <div class="md-stat"><span class="md-stat-label">Granted by</span><span class="md-stat-value is-text">{{ LIC.authority }}</span></div>
         <div class="md-stat"><span class="md-stat-label">National exams</span><span class="md-stat-value">{{ LIC.exams.size }}</span><span class="md-stat-note">{{ LIC.exams | map: "name" | join: " · " | truncate: 90 }}</span></div>
@@ -66,6 +68,20 @@
     <div class="container">
       <div class="md-sec-head"><h2 id="states-h">State rules and other states</h2><p>{{ LIC.jurisdiction_note }}</p></div>
       {% include us-compact.html license=page.license %}
+      {%- if LIC.boards %}
+      <h3 class="md-pay-sub">What {{ LIC.boards.size }} state boards publish</h3>
+      <div class="table-wrap" data-no-points>
+        <table class="md-table">
+          <thead><tr><th scope="col">State</th><th scope="col">What the board asks for</th></tr></thead>
+          <tbody>
+            {%- for r in LIC.boards %}
+            <tr><td><strong>{{ r.place }}</strong><br><span class="us-by">{{ r.body }}</span></td><td>{{ r.rule }}{% for s in r.sources %} {% include us-src-chip.html id=s %}{% endfor %}</td></tr>
+            {%- endfor %}
+          </tbody>
+        </table>
+      </div>
+      <p class="md-tile-note">Copied from each board's own page on {{ LIC.last_verified | date: "%-d %b %Y" }}. Other states have their own rules: check the board where you will work.</p>
+      {%- endif %}
     </div>
   </section>
 
@@ -92,7 +108,10 @@
         {%- for p in careers %}{%- assign po = US.occupations[p.lead] %}
         <li><a href="us/careers/{{ p.slug }}/"><strong>{{ p.title }}</strong><span>{% if p.license_required %}License required{% else %}License for some roles{% endif %} · median {% include fmt-num.html n=po.pay prefix="$" %}</span></a></li>
         {%- endfor %}
-        <li><a href="us/professional-licenses/"><strong>All professional licenses</strong><span>Compare the nine licenses</span></a></li>
+        {%- for cf in US.careers %}{%- assign lc_list = cf[1].list | where: "license", page.license %}{%- for x in lc_list %}
+        <li><a href="us/careers/{{ x.slug }}/"><strong>{{ x.short }}</strong><span>License required · median {% include fmt-num.html n=x.metrics.pay prefix="$" %}</span></a></li>
+        {%- endfor %}{%- endfor %}
+        <li><a href="us/professional-licenses/"><strong>All professional licenses</strong><span>Compare every license on this site</span></a></li>
       </ul>
       <div class="md-datanote">Sources:{% for s in LIC.sources %} <a href="{{ SRC[s].url }}">{{ SRC[s].short | default: SRC[s].publisher }}</a>{% unless forloop.last %} ·{% endunless %}{% endfor %}. Checked {{ LIC.last_verified | date: "%-d %b %Y" }}.</div>
     </div>

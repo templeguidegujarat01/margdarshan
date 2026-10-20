@@ -3,6 +3,8 @@
 //   us/clusters/<slug>/index.html              one hub per `live` cluster  (_includes/us-cluster-hub.html)
 //   us/careers/<slug>/index.html               generic career overview     (_includes/us-career-overview.html)
 //   us/roadmaps/<slug>.html                    generic career roadmap      (_includes/intl-roadmap.html, `career: true`)
+//   us/professional-licenses/<id>/index.html   license page for every _data/us/licenses.yml entry with a `page` block
+//                                              (Phase 2 onward; the nine older license stubs are hand-written)
 // from _data/us/clusters.yml and _data/us/careers/<cluster>.yml (one file per cluster, `list:` of careers; an
 // entry with `pathway: <slug>` reuses the existing us/careers/<slug>/ pathway page and only gets a roadmap).
 //   VERIFY_DEPS=<dir containing node_modules with js-yaml> node scripts/build-us-clusters.mjs [--check]
@@ -136,8 +138,25 @@ breadcrumb:
   }
 }
 
+let licPages = 0;
+for (const [id, L] of Object.entries(load('_data/us/licenses.yml'))) {
+  if (!L.page) continue;
+  licPages++;
+  put(`us/professional-licenses/${id}/index.html`, `---
+title: "${esc(L.page.title)}"
+description: "${esc(L.page.description)}"
+license: ${id}
+breadcrumb:
+  parent_href: "us/professional-licenses/"
+  parent_label: "Professional Licenses"
+  current: "${esc(L.page.current)}"
+---
+{% include us-license-page.html %}
+`);
+}
+
 for (const s of stale) console.error('  ' + s);
 console.log(check
-  ? `checked clusters index + ${hubs} cluster hub(s), ${overviews} career overview(s), ${roadmaps} career roadmap(s): ${stale.length} problem(s)`
-  : `wrote ${wrote} stub(s): clusters index + ${hubs} hub(s), ${overviews} career overview(s), ${roadmaps} roadmap(s)`);
+  ? `checked clusters index + ${hubs} cluster hub(s), ${overviews} career overview(s), ${roadmaps} career roadmap(s), ${licPages} license page(s): ${stale.length} problem(s)`
+  : `wrote ${wrote} stub(s): clusters index + ${hubs} hub(s), ${overviews} career overview(s), ${roadmaps} roadmap(s), ${licPages} license page(s)`);
 if (stale.length) process.exit(1);

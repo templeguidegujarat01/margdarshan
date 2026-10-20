@@ -12,16 +12,18 @@
     work      { text, source }   BLS OOH Summary, "Work environment" (verbatim)
     become    { text, source }   BLS OOH Summary, "How to become one" (verbatim)
     metrics   { pay, pay_hour, pay_by?, jobs, outlook, outlook_words, change, entry, experience?, training, source }
-    license   id in _data/us/licenses.yml (button to us/professional-licenses/<id>/) or license_text (plain words)
+    license   id in _data/us/licenses.yml (button to us/professional-licenses/<id>/) or license_text (short words for the
+              hub matrix, e.g. "Some states"; the page adds states_note after it)
     exams     [{ name, href }]  only exam pages that exist (verify-site fails on a dead href)
     colleges  optional href of a verified colleges list (Master Plan Phase 13)
-    routes, certs, states_note, states, watch   roadmap content (_includes/intl-roadmap.html, `career: true`)
+    routes, certs, states_note, states_source, states | states_from, watch   roadmap content (_includes/intl-roadmap.html, `career: true`)
   Five h2[id] sections, so site.js builds the right rail (>=900px) and the chip rail (<900px).
 {%- endcomment -%}
 {%- assign US = site.data.us -%}
 {%- assign C = US.clusters.clusters | where: "slug", page.cluster | first -%}
 {%- assign X = US.careers[page.cluster].list | where: "slug", page.career | first -%}
 {%- assign XM = X.metrics -%}
+{%- assign X_checked = X.checked | default: US.careers[page.cluster].checked -%}
 {%- assign LIC = US.licenses[X.license] -%}
 {%- assign V = US.sources.bls_vintage -%}
 {%- assign hub_href = "us/clusters/" | append: C.slug | append: "/" -%}
@@ -110,7 +112,7 @@
         {%- if LIC %}
         <div><dt>License</dt><dd>{{ LIC.authority }}. <a href="us/professional-licenses/{{ X.license }}/">{{ LIC.short }} license steps</a></dd></div>
         {%- elsif X.license_text %}
-        <div><dt>License</dt><dd>{{ X.license_text }}</dd></div>
+        <div><dt>License</dt><dd>{{ X.license_text }}{% if X.states_note %}. {{ X.states_note }}{% endif %}</dd></div>
         {%- endif %}
       </dl>
     </div>
@@ -126,7 +128,7 @@
       </div>
       {%- endif %}
       <div class="rm-link-card" data-no-points><div><strong>More careers in {{ C.name }}</strong><p>Every career page in this cluster, with entry, license, pay and outlook side by side.</p></div><a href="{{ hub_href }}" class="btn btn-primary btn-page-link">Open the cluster hub</a></div>
-      <div class="md-datanote">Every number links to the BLS page it came from, checked {{ X.checked | date: "%-d %b %Y" }}. Education Margdarshan does not recommend paid courses.</div>
+      <div class="md-datanote">Every number links to the BLS page it came from, checked {{ X_checked | date: "%-d %b %Y" }}. Education Margdarshan does not recommend paid courses.</div>
     </div>
   </section>
 

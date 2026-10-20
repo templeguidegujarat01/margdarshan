@@ -102,6 +102,12 @@ else {
     ['healthcare careers usa', null, (r) => (r.top.length && r.top.every((d) => d.c === 'usa') && has(r, 'us/clusters/healthcare-human-services/', 3) ? '' : 'expected the Healthcare & Human Services hub in top 3')],
     ['usa construction cluster', null, (r) => (has(r, 'us/clusters/construction/', 2) ? '' : 'expected the Construction hub in top 2')],
     ['manufacturing careers usa', null, (r) => (has(r, 'us/clusters/advanced-manufacturing/', 3) ? '' : 'expected the Advanced Manufacturing hub in top 3')],
+    ['cna to lpn to rn', null, (r) => (has(r, 'us/roadmaps/registered-nurse.html', 3) || has(r, 'us/roadmaps/nursing-assistant.html', 3) ? '' : 'expected the RN or CNA roadmap in top 3')],
+    ['usa social worker license', null, (r) => (r.top.length && r.top.every((d) => d.c === 'usa') && has(r, 'us/professional-licenses/social-work/', 3) ? '' : 'expected the social work license page in top 3')],
+    ['nremt paramedic', null, (r) => (has(r, 'us/professional-licenses/emt/', 3) || has(r, 'us/roadmaps/emt-paramedic.html', 3) ? '' : 'expected the EMT license page or roadmap in top 3')],
+    ['nclex-pn lpn', null, (r) => (has(r, 'us/professional-licenses/practical-nursing/', 3) || has(r, 'us/careers/licensed-practical-nurse/', 3) ? '' : 'expected the LPN license or career page in top 3')],
+    ['usa nurse practitioner', null, (r) => (has(r, 'us/careers/nurse-practitioner/', 3) ? '' : 'expected the APRN career page in top 3')],
+    ['pre-med mcat residency usa', null, (r) => (has(r, 'us/roadmaps/physician.html', 3) ? '' : 'expected the physician roadmap in top 3')],
     ['usa nclex license', null, (r) => (has(r, 'us/professional-licenses/nursing/', 3) ? '' : 'expected the RN license page')],
     ['zzzz qqqq', null, (r) => (r.total === 0 ? '' : 'nonsense should return nothing')],
   ];

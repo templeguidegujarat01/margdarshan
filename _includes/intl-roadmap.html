@@ -8,7 +8,8 @@
          us/roadmaps/<slug>.html with `track: <slug>` + `cluster: <c>` + `career: true` → _data/us/careers/<c>.yml (any Career
            Cluster, USA Master Plan Phase 2 onward; level 3 of cluster hub → career page → roadmap: routes with exam gates and
            the state license step, certifications, state matrix; numbers live on the career page, us-career-overview.html.
-           A step may carry href + link (its label) to an exam or license page that exists; verify-site fails on a dead link.)
+           A step may carry href + link (its label) to an exam or license page that exists; verify-site fails on a dead link.
+           `states_from: <license id>` fills the state matrix from that license's `boards` in _data/us/licenses.yml.)
          uk/roadmaps/<slug>.html with `track: <slug>` + `sheet:`   → _data/uk/careers/<sheet>.yml crossborder
   The edition comes from page.region (_config.yml defaults: us/ → us, uk/ → uk).
   Each route's steps are drawn with the .cflow flowchart (same node kinds and legend as India career
@@ -28,6 +29,7 @@
 {%- elsif page.career -%}
   {%- assign XC = site.data.us.clusters.clusters | where: "slug", page.cluster | first -%}
   {%- assign X = site.data.us.careers[page.cluster].list | where: "slug", page.track | first -%}
+  {%- assign X_checked = X.checked | default: site.data.us.careers[page.cluster].checked -%}
   {%- if X.pathway -%}
     {%- assign back_href = "us/careers/" | append: X.pathway | append: "/" -%}
   {%- else -%}
@@ -91,7 +93,7 @@
         {%- assign R0 = X.routes | first %}
         <a href="#{{ R0.id }}" class="btn btn-primary">See the roadmap</a>
         <a href="{{ back_href }}" class="md-textlink">{{ back_label }} guide</a>
-        {%- if X.states %}<a href="#states" class="md-textlink">State rules</a>{% endif %}
+        {%- if X.states or X.states_note %}<a href="#states" class="md-textlink">State rules</a>{% endif %}
         {%- if X.watch %}<a href="#watch" class="md-textlink">Dates to watch</a>{% endif %}
       </div>
     </header>
@@ -164,16 +166,18 @@
   </section>
   {%- endif %}
 
+  {%- assign ST = X.states -%}
+  {%- if X.states_from %}{% assign ST = site.data.us.licenses[X.states_from].boards %}{% endif -%}
   {%- if X.states_note %}
   <section class="md-sec{% if X.certs %} md-sec-alt{% endif %}" id="states" aria-labelledby="states-h">
     <div class="container">
-      <div class="md-sec-head"><h2 id="states-h">State licensing matrix</h2><p>{{ X.states_note }}{% if X.states_source %} {% include us-src-chip.html id=X.states_source %}{% endif %}</p></div>
-      {%- if X.states %}
+      <div class="md-sec-head"><h2 id="states-h">{% if ST %}State licensing matrix{% else %}State rules{% endif %}</h2><p>{{ X.states_note }}{% if X.states_source %} {% include us-src-chip.html id=X.states_source %}{% endif %}</p></div>
+      {%- if ST %}
       <div class="table-wrap" data-no-points>
         <table class="table-simple">
           <thead><tr><th>State or city</th><th>What you need</th></tr></thead>
           <tbody>
-            {%- for r in X.states %}
+            {%- for r in ST %}
             <tr>
               <td><strong>{{ r.place }}</strong><br><span class="us-by">{{ r.body }}</span></td>
               <td>{{ r.rule }}{% for s in r.sources %} {% include us-src-chip.html id=s %}{% endfor %}</td>
@@ -203,7 +207,7 @@
   {%- if X.watch %}
   <section class="md-sec md-sec-alt" id="watch" aria-labelledby="watch-h">
     <div class="container">
-      <div class="md-sec-head"><h2 id="watch-h">Dates and rules to re-check</h2><p>These change by season or by law. Checked {{ X.checked | date: "%-d %b %Y" }}.</p></div>
+      <div class="md-sec-head"><h2 id="watch-h">Dates and rules to re-check</h2><p>These change by season or by law. Checked {{ X_checked | default: X.checked | date: "%-d %b %Y" }}.</p></div>
       <ul class="md-list" data-no-points>
         {%- for w in X.watch %}
         <li>{{ w.text }} {% include intl-src-chip.html ed=ED id=w.source %}</li>
@@ -223,7 +227,7 @@
       <div class="rm-link-card" data-no-points><div><strong>All trades</strong><p>Every trade on one matrix: entry, license, BLS pay and outlook.</p></div><a href="us/cte/" class="btn btn-primary btn-page-link">Trades &amp; CTE hub</a></div>
       {%- endif %}
       <div class="rm-link-card" data-no-points><div><strong>Back to the full {{ back_label }} guide</strong><p>{{ back_note | default: "The home-grown route, pay and what the work is like." }}</p></div><a href="{{ back_href }}" class="btn btn-journey">← {{ back_label }}</a></div>
-      <div class="md-datanote">Every step links to the official page it came from (regulators, licensing boards, the law), checked {{ X.checked | date: "%-d %b %Y" }}. {% if page.cte or page.career %}State and city licensing rules change: confirm with the board where you will work before you pay any fee.{% else %}Rules for people trained abroad change often: confirm with the official body before you pay any fee.{% endif %} Education Margdarshan does not recommend paid courses. <a href="{{ careers_href }}">All careers →</a></div>
+      <div class="md-datanote">Every step links to the official page it came from (regulators, licensing boards, the law), checked {{ X_checked | default: X.checked | date: "%-d %b %Y" }}. {% if page.cte or page.career %}State and city licensing rules change: confirm with the board where you will work before you pay any fee.{% else %}Rules for people trained abroad change often: confirm with the official body before you pay any fee.{% endif %} Education Margdarshan does not recommend paid courses. <a href="{{ careers_href }}">All careers →</a></div>
     </div>
   </section>
 

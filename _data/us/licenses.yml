@@ -288,3 +288,209 @@ psychology:
     - "Integrated EPPP takes effect in Q4 2027."
   sources: [bls_ooh, asppb_eppp]
   last_verified: 2026-10-07
+
+# USA Master Plan Phase 2 (2026-10-20): four Healthcare & Human Services licenses. Extra fields used here:
+#   page     { title, description, current }  the stub us/professional-licenses/<id>/index.html is written from
+#            this by scripts/build-us-clusters.mjs (the nine older pages are hand-written and have no `page`)
+#   boards   [{ place, body, rule, sources }]  what named state boards publish, copied from each board's own page;
+#            shown on the license page and, through `states_from`, on the career roadmaps
+practical-nursing:
+  short: "LPN / LVN"
+  name: "Licensed Practical Nurse (LPN) or Licensed Vocational Nurse (LVN) license"
+  authority: "State boards of nursing"
+  national_bodies:
+    - "NCSBN — writes the NCLEX-PN"
+  education: "A state-approved practical nursing program, typically about 1 year (certificate or diploma)"
+  exams:
+    - name: "NCLEX-PN"
+      by: "NCSBN"
+      what: "National licensure exam for practical nurses, given by computerized adaptive testing. Candidates first meet the requirements of the nursing regulatory body where they plan to practice, then register with Pearson VUE."
+      source: ncsbn_exams
+  experience: "Supervised clinical experience is part of every approved program (BLS)."
+  steps:
+    - "High school diploma or equivalent"
+    - "State-approved practical nursing program (about 1 year)"
+    - "Apply to your state board of nursing, then register with Pearson VUE"
+    - "NCLEX-PN"
+    - "State LPN or LVN license"
+    - "Optional: LPN-to-RN program, then the NCLEX-RN"
+  jurisdiction_note: "Each state board of nursing approves programs and sets its own licensing rules, such as minimum age, background checks and extra state courses. Texas and California call the license LVN; most other states call it LPN."
+  not_required_for:
+    - "Optional certifications in areas such as gerontology, wound care and IV therapy come from professional associations, not the state (BLS)."
+  watch:
+    - "NCSBN: from 1 February 2027 the NCLEX registration fee is $350 in the United States."
+  boards:
+    - place: "Texas"
+      body: "Texas Board of Nursing"
+      rule: "Apply in the Texas Nurse Portal (NCLEX-PN application), register with Pearson VUE ($200), pass the Texas Nursing Jurisprudence Exam and have the program submit an Affidavit of Graduation before an Authorization to Test is issued. The license is called LVN."
+      sources: [tx_bon_exam]
+    - place: "California"
+      body: "Board of Vocational Nursing and Psychiatric Technicians"
+      rule: "12th grade or equivalent, DOJ and FBI fingerprints, and the NCLEX-PN (a passing RN exam does not count). Besides an approved school, the board accepts 51 months of paid bedside nursing experience plus a 54-hour pharmacology course, or 12 months of military medical-corps bedside care."
+      sources: [ca_bvnpt_vn]
+    - place: "New York"
+      body: "NYSED Office of the Professions"
+      rule: "At least 17, high school graduate, an acceptable nursing program, infection control coursework and the NCLEX-PN. The license is for life; registration is renewed every 3 years. Licensure and first registration fee $143."
+      sources: [ny_op_lpn]
+    - place: "Florida"
+      body: "Florida Board of Nursing"
+      rule: "Apply for licensure by examination, then sit the NCLEX. Electronic fingerprinting is required under House Bill 975 (2024). Florida joined the Nurse Licensure Compact on 19 January 2018 and offers a multistate upgrade."
+      sources: [fl_bon_rn_lpn]
+  sources: [bls_ooh, ooh_lpn, ncsbn_exams, nclex_about, nclex_fees]
+  last_verified: 2026-10-20
+  page:
+    title: "How to Get an LPN or LVN License: Program, NCLEX-PN and State Boards | Education Margdarshan USA"
+    description: "Becoming a licensed practical or vocational nurse: a state-approved program of about a year, the NCLEX-PN and a state board of nursing license, with Texas, California, New York and Florida rules."
+    current: "LPN / LVN license"
+
+social-work:
+  short: "Social Work"
+  name: "Social work license (LBSW, LMSW, LCSW)"
+  authority: "State social work boards"
+  national_bodies:
+    - "ASWB — writes the Social Work Licensing Exams (Associate, Bachelors, Masters, Advanced Generalist, Clinical)"
+    - "CSWE — accredits BSW and MSW programs (state boards name it as the accreditor)"
+  education: "A bachelor's (BSW) or master's (MSW) degree in social work; clinical licenses need an MSW from an accredited program"
+  exams:
+    - name: "ASWB Bachelors, Masters, Advanced Generalist or Clinical exam"
+      by: "ASWB"
+      what: "122 questions (110 scored), 4-hour limit, based on the 2026 blueprint. Apply to the state board first, then register with ASWB and test at a Pearson center. Fees: Associate, Bachelors or Masters US$230; Advanced Generalist or Clinical US$260."
+      source: aswb_exam
+  experience: "Clinical licenses need supervised clinical experience after the MSW; the length is set by each state (for example 3,000 hours over at least 24 months in Texas, 3 years in New York, 2 years and 1,500 hours in Florida)."
+  steps:
+    - "High school diploma"
+    - "BSW, or a bachelor's in any field before an MSW"
+    - "ASWB Bachelors exam, where the state requires it for BSWs"
+    - "MSW (generally 2 years, with a supervised practicum)"
+    - "ASWB Masters exam, then the LMSW where a state offers it"
+    - "Supervised clinical experience (state-set hours)"
+    - "ASWB Clinical exam"
+    - "Clinical social work license (LCSW)"
+  jurisdiction_note: "A social work license is issued by each state, and states differ in the categories they license. All states require clinical social workers to be licensed; some also license nonclinical social workers (BLS, ASWB)."
+  not_required_for:
+    - "Some nonclinical social work jobs do not need a license; that depends on the state (BLS)."
+  boards:
+    - place: "Texas"
+      body: "Behavioral Health Executive Council — State Board of Social Worker Examiners"
+      rule: "Three licenses. LBSW: CSWE-accredited BSW + ASWB Bachelors. LMSW: CSWE-accredited master's or doctorate + ASWB Masters. LCSW: master's or doctorate, 3,000 hours of supervised clinical experience over at least 24 months with 100 hours of supervision, and ASWB Clinical. All three also need the Texas jurisprudence exam and an NPDB self-query."
+      sources: [tx_bhec_lbsw, tx_bhec_lmsw, tx_bhec_lcsw]
+    - place: "California"
+      body: "Board of Behavioral Sciences"
+      rule: "Two exams for the LCSW: the LCSW California Law and Ethics Exam, then the ASWB Clinical exam, which must be taken within one year of approval."
+      sources: [ca_bbs_lcsw_exam]
+    - place: "New York"
+      body: "NYSED Office of the Professions"
+      rule: "LMSW: at least 21, an MSW and the ASWB Masters exam. LCSW: an MSW with 12 semester hours of clinical coursework, 3 years of supervised post-MSW experience in diagnosis and psychotherapy, and the ASWB Clinical exam. Both need child-abuse reporting training. Licensure fee $294."
+      sources: [ny_op_lmsw, ny_op_lcsw]
+    - place: "Florida"
+      body: "Board of Clinical Social Work, Marriage & Family Therapy and Mental Health Counseling"
+      rule: "Licensed clinical social worker: a CSWE-accredited MSW with 24 semester hours of clinical coursework, 2 years of post-master's supervision (100 hours of supervision, 1,500 hours of face-to-face psychotherapy), the ASWB clinical exam and an 8-hour Florida laws and rules course."
+      sources: [fl_lcsw]
+  sources: [bls_ooh, ooh_socialwork, aswb_exam, aswb_license]
+  last_verified: 2026-10-20
+  page:
+    title: "How to Get a Social Work License: BSW, MSW, ASWB Exams and LCSW | Education Margdarshan USA"
+    description: "Social work licensing in the U.S.: BSW or MSW, the ASWB Bachelors, Masters and Clinical exams, supervised clinical hours and the LCSW, with Texas, California, New York and Florida board rules."
+    current: "Social work license"
+
+counseling:
+  short: "Counseling"
+  name: "Professional counselor license (LPC, LMHC, LPCC)"
+  authority: "State counseling boards"
+  national_bodies:
+    - "NBCC — writes the National Counselor Examination (NCE) and the National Clinical Mental Health Counseling Examination (NCMHCE)"
+  education: "A master's degree in counseling with a supervised internship; some states name 60 semester hours"
+  exams:
+    - name: "NCE (National Counselor Examination)"
+      by: "NBCC"
+      what: "200-item multiple-choice exam; a requirement for counselor licensure in many states and one of two exam options for the National Certified Counselor (NCC) credential. A 2027 version is coming."
+      source: nbcc_nce
+    - name: "NCMHCE (National Clinical Mental Health Counseling Examination)"
+      by: "NBCC"
+      what: "Required for licensure in some states. NBCC says all 50 states, DC, Puerto Rico and Guam require one or more of its exams."
+      source: nbcc_exams
+  experience: "Supervised clinical work after the master's, set by each state (for example 3,000 hours in Texas and New York; 2 years and 1,500 hours of face-to-face psychotherapy in Florida)."
+  steps:
+    - "High school diploma"
+    - "Bachelor's degree (psychology, social science or a related field)"
+    - "Master's in counseling with a supervised internship"
+    - "NCE or NCMHCE, as the state requires"
+    - "Supervised clinical experience after the master's"
+    - "State counselor license (LPC, LMHC or LPCC)"
+  jurisdiction_note: "All states require mental health counselors to be licensed (BLS). The license title, required exam, coursework and supervised hours differ by state."
+  not_required_for:
+    - "Substance abuse and behavioral disorder counselors outside private practice: requirements vary by state, and not all states require a specific degree (BLS)."
+  watch:
+    - "NBCC is preparing a 2027 version of the NCE."
+  boards:
+    - place: "Texas"
+      body: "Behavioral Health Executive Council — State Board of Examiners of Professional Counselors"
+      rule: "Start as an LPC Associate (practice only under a board-approved supervisor) with NCE or NCMHCE scores, the Texas jurisprudence exam and fingerprints, then upgrade to a full LPC after at least 3,000 hours of supervised experience. Texas has no reciprocity or temporary license."
+      sources: [tx_bhec_lpc_associate, tx_bhec_lpc_full]
+    - place: "California"
+      body: "Board of Behavioral Sciences"
+      rule: "Licensed Professional Clinical Counselor (LPCC): pass the LPCC California Law and Ethics Exam, then the NCMHCE."
+      sources: [ca_bbs_lpcc_exam]
+    - place: "New York"
+      body: "NYSED Office of the Professions"
+      rule: "Licensed Mental Health Counselor: at least 21, a master's or doctorate in counseling (60 semester hours of clinical mental health counseling, or equivalent), at least 3,000 clock hours of supervised experience after the master's, the licensing exam and child-abuse reporting training."
+      sources: [ny_op_lmhc]
+    - place: "Florida"
+      body: "Board of Clinical Social Work, Marriage & Family Therapy and Mental Health Counseling"
+      rule: "Licensed Mental Health Counselor: from 1 July 2025 a 60-semester-hour master's in mental health counseling from a CACREP, MPCAC or equivalent program; 2 years of supervision (1,500 hours of face-to-face psychotherapy); the national exam; and Florida laws and rules (8 hours) and HIV/AIDS (3 hours) courses."
+      sources: [fl_lmhc]
+  sources: [bls_ooh, ooh_counselors, nbcc_exams, nbcc_nce]
+  last_verified: 2026-10-20
+  page:
+    title: "How to Get a Counselor License (LPC, LMHC): Master's, NCE or NCMHCE, Supervised Hours | Education Margdarshan USA"
+    description: "Becoming a licensed professional or mental health counselor: a counseling master's, the NBCC NCE or NCMHCE, supervised clinical hours and the state license, with Texas, California, New York and Florida rules."
+    current: "Counselor license"
+
+emt:
+  short: "EMT / Paramedic"
+  name: "EMT and paramedic state license or certification"
+  authority: "State EMS offices"
+  authority_lede: "state EMS offices"   # lede wording (the page lower-cases authority, which would give "ems")
+  national_bodies:
+    - "NREMT (National Registry of Emergency Medical Technicians) — national certification exams for EMR, EMT, AEMT and Paramedic"
+  education: "A state-approved EMT program (typically under 1 year); paramedic programs require EMT-Intermediate certification and lead to a nondegree award, an associate or a bachelor's degree (BLS)"
+  exams:
+    - name: "NREMT EMT, AEMT or Paramedic certification exam"
+      by: "NREMT"
+      what: "National certification used by many states as the licensing exam. NREMT says its certification by itself does not give the right to practice: the state EMS office grants that."
+      source: nremt_licensure
+    - name: "State EMS exam (some states)"
+      by: "State EMS office"
+      what: "Some states give their own exam instead. New York, for example, delivers a state written certification exam through PSI after an approved course (BLS: most states require certification, others an equivalent state exam)."
+      source: ny_doh_ems_exam
+  experience: "Paramedics typically need work experience as an EMT before a paramedic program (BLS)."
+  steps:
+    - "High school diploma and CPR / basic life support certification"
+    - "State-approved EMT course (under 1 year)"
+    - "NREMT EMT exam, or the state's own exam"
+    - "State EMT license or certification"
+    - "Work as an EMT, then a paramedic program (nondegree award, associate or bachelor's)"
+    - "NREMT Paramedic exam"
+    - "State paramedic license or certification"
+  jurisdiction_note: "All states require EMTs and paramedics to be licensed, and requirements vary by state; many states call the authorization a certification. States may add a minimum age and a background check (BLS, NREMT)."
+  not_required_for:
+    - "Ambulance driver certification is not a license; employers may prefer it, and typically require a driver's license (BLS)."
+  boards:
+    - place: "Texas"
+      body: "Department of State Health Services (DSHS)"
+      rule: "At least 18, high school diploma or GED, a DSHS-approved EMS course, the state application and fee, the National Registry exam and fingerprints. Paramedics: EMT-Paramedic certification after a paramedic course, or Paramedic Licensure with a two-year EMS degree or a four-year degree in any field."
+      sources: [tx_dshs_ems]
+    - place: "New York"
+      body: "Department of Health, Bureau of EMS and Trauma Systems"
+      rule: "After an approved course, students take the New York State written certification exam by computer through PSI (EMT students may use live remote proctoring). Reciprocity is possible with a current certification from another state, the military or the NREMT."
+      sources: [ny_doh_ems_exam, ny_doh_ems_reciprocity]
+    - place: "Florida"
+      body: "Department of Health, Division of Medical Quality Assurance"
+      rule: "Uses the NREMT exam. Florida-trained applicants must pass within 2 years of finishing the course or retake the course. Paramedic students must graduate from a CAAHEP-accredited program (or one with a CoAEMSP letter of review)."
+      sources: [fl_doh_ems]
+  sources: [bls_ooh, ooh_emt, nremt_home, nremt_licensure]
+  last_verified: 2026-10-20
+  page:
+    title: "How to Get an EMT or Paramedic License: Course, NREMT Exam and State EMS Office | Education Margdarshan USA"
+    description: "Becoming an EMT or paramedic: a state-approved course, the NREMT exam (or a state exam), and the state EMS license or certification, with Texas, New York and Florida rules."
+    current: "EMT / paramedic license"

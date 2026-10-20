@@ -1,0 +1,139 @@
+# Construction careers (USA Master Plan Phase 6). Schema: comment at the top of _includes/us-career-overview.html.
+# Every fact is copied from the page its `source` names, opened 2026-10-21: BLS Occupational Outlook Handbook (pay May
+# 2025, jobs 2025, outlook 2025–35; pages last modified 27 Aug 2026), NCARB, NAAB, NCEES and the state boards named
+# below (_data/us/sources.yml). The skilled trades of this cluster (carpenter, ironworker, elevator installer…) live in
+# _data/us/cte_careers.yml and the us/cte/ pages; this file holds the degree careers.
+# A `pathway:` entry keeps its existing us/careers/<pathway>/ page and only gets a roadmap here.
+# Batch notes: docs/us-edition/PHASE-6-CONSTRUCTION-MANUFACTURING.md.
+checked: 2026-10-21
+review_by: 2027-04-21
+list:
+
+  # 609,100 jobs (crosswalk: Construction 1, Management & Entrepreneurship 1 → tie, placed by the field's industry)
+  - slug: construction-manager
+    short: "Construction Manager"
+    title: "Construction manager: bachelor's degree, then on-the-job training"
+    eyebrow: "Construction · Construction Planning & Development"
+    lede: "Construction managers typically need a bachelor's degree in construction, business, engineering or a related field, then learn management on the job, often for up to a year as an assistant. Years in a trade can also lead there, but more often to running your own contracting business."
+    for: "Organized leaders who like budgets, schedules and solving problems on a busy site."
+    soc: ["11-9021"]
+    does: { text: "Construction managers plan, coordinate, budget, and supervise construction projects from start to finish.", source: ooh_qf_constmgr }
+    work: { text: "Construction managers may have a main office but spend most of their time in a field office onsite, where they monitor projects and make decisions about construction activities. Their schedules may vary.", source: ooh_qf_constmgr }
+    become: { text: "Construction managers typically need a bachelor’s degree, and they learn management techniques through on-the-job training. Large construction firms may prefer to hire candidates who have both construction experience and a bachelor’s degree in a construction-related field.", source: ooh_qf_constmgr }
+    metrics: { pay: 114990, pay_hour: "55.28", pay_by: "Construction managers", jobs: 609100, outlook: 9, outlook_words: "Much faster than average", change: 55200, entry: "Bachelor's degree", training: "Moderate-term on-the-job training", source: ooh_qf_constmgr }
+    license_text: "Some states"
+    routes:
+      - id: bachelor
+        title: "Bachelor's degree, then assistant manager"
+        tag: "Typical"
+        who: "Bachelor's programs in construction-related majors often include project control and management, design, construction methods and materials, and cost estimation."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_constmgr }
+          - { tag: "About 4 years", title: "Bachelor's in construction, business, engineering or a related field", text: "Internships and cooperative education programs give students construction experience.", kind: stage, source: ooh_constmgr }
+          - { tag: "Up to 1 year", title: "Assistant under an experienced manager", text: "On-the-job training may last several years, depending on the firm.", kind: stage, source: ooh_constmgr }
+          - { tag: "Goal", title: "Construction manager", text: "", kind: goal, source: ooh_qf_constmgr }
+      - id: associate
+        title: "Associate degree + work experience"
+        tag: "Smaller projects"
+        who: "An associate's degree combined with work experience may be typical for managers who supervise small projects."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_constmgr }
+          - { tag: "About 2 years", title: "Associate's in construction management or construction technology", text: "", kind: stage, source: ooh_constmgr }
+          - { tag: "Experience", title: "Construction work experience", text: "", kind: stage, source: ooh_constmgr }
+          - { tag: "Goal", title: "Construction manager (small projects)", text: "", kind: goal, source: ooh_constmgr }
+      - id: trade
+        title: "Years in a trade"
+        tag: "Experience route"
+        who: "To qualify solely through experience, construction managers must have worked many years in carpentry, masonry or another construction specialty; these people are more likely to work as self-employed general contractors."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_constmgr }
+          - { tag: "Many years", title: "Work in a construction trade", text: "", kind: stage, source: ooh_constmgr, href: "us/cte/carpenter.html", link: "Carpenter career" }
+          - { tag: "Goal", title: "Construction manager or general contractor", text: "", kind: goal, source: ooh_constmgr }
+    certs:
+      - { name: "Professional certification", who: "Voluntary", kind: "Voluntary", text: "Not required, but demonstrates a particular level of knowledge and experience.", source: ooh_constmgr }
+    states_note: "Some states require construction managers to be licensed; each state's licensing board sets the rule."
+    states_source: ooh_constmgr
+
+  # 380,600 jobs (civil engineers; existing pathway page us/careers/civil-engineering/)
+  - slug: civil-engineer
+    pathway: civil-engineering
+    short: "Civil Engineer"
+    title: "Civil engineer: ABET degree, FE exam, experience, PE license"
+    eyebrow: "Construction · Architecture & Civil Engineering"
+    lede: "Civil engineers typically need a bachelor's degree in civil engineering or a related field. Entry-level jobs need no license, but civil engineers usually must hold a state PE license to provide services directly to the public."
+    for: "Students strong in math and physics who want to design roads, bridges, water systems and buildings."
+    routes:
+      - id: bachelor
+        title: "Bachelor's in civil engineering"
+        tag: "Typical"
+        who: "Employers usually prefer graduates of accredited civil engineering programs."
+        steps:
+          - { tag: "Start", title: "High school: math and science", text: "", kind: start, source: ooh_civileng }
+          - { tag: "About 4 years", title: "Bachelor's in civil engineering", text: "Math, physics, engineering mechanics and construction systems, with lab work.", kind: stage, source: ooh_civileng }
+          - { tag: "During college", title: "Co-op or internship", text: "Practical experience while pursuing the degree.", kind: stage, source: ooh_civileng }
+          - { tag: "Goal", title: "Entry-level civil engineer", text: "Licensure is not required for entry-level civil engineers.", kind: goal, source: ooh_civileng }
+      - id: pe
+        title: "Professional Engineer (PE) license"
+        tag: "To serve the public"
+        who: "A PE may oversee other engineers, approve design plans, sign off on projects and provide services directly to the public."
+        steps:
+          - { tag: "Start", title: "Degree from an accredited engineering program", text: "", kind: start, source: ooh_civileng }
+          - { tag: "Exam", title: "FE exam", text: "Passing usually leads to Engineer in Training (EIT) or Engineer Intern (EI) status.", kind: exam, source: ncees_fe, href: "us/professional-licenses/pe/#exams", link: "FE and PE exams" }
+          - { tag: "Several years", title: "Relevant work experience", text: "", kind: stage, source: ooh_civileng }
+          - { tag: "Exam", title: "PE exam", text: "", kind: exam, source: ncees_pe }
+          - { tag: "Goal", title: "State PE license", text: "Each state issues its own; some require continuing education.", kind: goal, source: ooh_civileng, href: "us/professional-licenses/pe/", link: "PE license steps" }
+    certs:
+      - { name: "Specialty certification", who: "Optional", kind: "Voluntary", text: "May show competence in a civil engineering specialty and help PEs advance into senior technical or managerial roles.", source: ooh_civileng }
+
+  # 124,600 jobs
+  - slug: architect
+    short: "Architect"
+    title: "Architect: NAAB degree, AXP experience, ARE and a state license"
+    eyebrow: "Construction · Architecture & Civil Engineering"
+    lede: "All states require architects to be licensed. The usual path: a NAAB-accredited degree (5-year B.Arch or an M.Arch), about 3 years of paid experience documented in NCARB's AXP, the six-division ARE, then a license from your state board."
+    for: "Creative students who like drawing, design software, math and how buildings work."
+    soc: ["17-1011"]
+    does: { text: "Architects plan and design houses, factories, office buildings, and other structures.", source: ooh_qf_architects }
+    work: { text: "Architects spend much of their time in offices, where they develop plans, meet with clients, and consult with engineers and other architects. They also visit construction sites to prepare initial drawings and review the progress of projects to ensure that clients’ objectives are met.", source: ooh_qf_architects }
+    become: { text: "There are typically three main steps to becoming a licensed architect: completing a bachelor’s degree in architecture, gaining relevant experience through a paid internship, and passing an exam.", source: ooh_qf_architects }
+    metrics: { pay: 99280, pay_hour: "47.73", pay_by: "Architects, except landscape and naval", jobs: 124600, outlook: 4, outlook_words: "As fast as average", change: 5300, entry: "Bachelor's degree", training: "Internship/residency", source: ooh_qf_architects }
+    license: architecture
+    routes:
+      - id: naab
+        title: "NAAB degree → AXP → ARE → state license"
+        tag: "Typical"
+        who: "A NAAB-accredited professional degree meets the education requirement in all 55 U.S. jurisdictions."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_architects }
+          - { tag: "5 years", title: "B.Arch, or a 4-year pre-professional degree + M.Arch", text: "NAAB accredits three professional degrees: the 5-year B.Arch, the M.Arch (about 2 years after a pre-professional architecture degree, about 3 after any other subject) and the D.Arch.", kind: stage, source: naab_students }
+          - { tag: "Set up", title: "NCARB Record", text: "Used to document education, AXP hours and exams; $105 application, $105 a year to renew.", kind: stage, source: ncarb_fees }
+          - { tag: "3,740 hours", title: "Architectural Experience Program (AXP)", text: "Six experience areas. About half must be in an architecture firm under a U.S. or Canadian licensed architect; up to 1,860 hours can be gained outside a firm. You can report experience gained after high school.", kind: stage, source: ncarb_axp }
+          - { tag: "Exam", title: "Architect Registration Examination (ARE 5.0)", text: "Six divisions, each scheduled and paid separately: <strong>$263 per division</strong>, $1,578 for all six.", kind: exam, source: ncarb_fees }
+          - { tag: "State rules", title: "Extra state requirements", text: "Some boards require more experience or a state supplemental exam (California: the CSE).", kind: stage, source: ncarb_license }
+          - { tag: "Goal", title: "State architecture license", text: "Your NCARB Record is transmitted to the board where you want the license; NCARB itself does not issue licenses.", kind: goal, source: ncarb_license, href: "us/professional-licenses/architecture/", link: "Architecture license" }
+        facts:
+          - { k: "Internship length", v: "All state boards require graduates to complete a lengthy paid internship, generally lasting 3 years, before the registration exam.", source: ooh_architects }
+          - { k: "When the ARE can start", v: "Most of the 55 jurisdictions allow candidates to start the ARE before completing the AXP, and some while they are in school.", source: ncarb_are_format }
+          - { k: "Where you test", v: "Once your board makes you eligible, you can test online, at a test center, or both.", source: ncarb_are_eligibility }
+      - id: ipal
+        title: "Integrated Path (IPAL)"
+        tag: "License sooner"
+        who: "IPAL options at NAAB-accredited programs let students complete experience and exams while earning the degree."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ncarb_degree }
+          - { tag: "In school", title: "NAAB program with an IPAL option", text: "Experience and ARE divisions during the degree.", kind: stage, source: ncarb_degree }
+          - { tag: "Goal", title: "Licensed shortly after graduation", text: "", kind: goal, source: ncarb_degree }
+      - id: other-degree
+        title: "Without a NAAB degree"
+        tag: "17 jurisdictions"
+        who: "17 jurisdictions offer additional pathways to initial licensure for applicants with other (or no) college degrees; New York, for example, counts education and experience in units (12 needed)."
+        steps:
+          - { tag: "Start", title: "Another degree or none", text: "", kind: start, source: ncarb_degree }
+          - { tag: "Longer", title: "More documented experience (AXP + state rules)", text: "", kind: stage, source: ny_op_arch }
+          - { tag: "Exam", title: "ARE 5.0", text: "", kind: exam, source: ncarb_are }
+          - { tag: "Goal", title: "License in a jurisdiction that allows it", text: "", kind: goal, source: ncarb_license }
+    certs:
+      - { name: "NCARB Certificate", who: "NCARB · for licensed architects", kind: "Voluntary", text: "Eases licensure in another state: all 55 jurisdictions accept it and many require it. Candidates with an active NCARB Record get the first year of certification free; otherwise $1,415, then $300 a year.", source: ncarb_fees }
+    states_from: architecture
+    watch:
+      - { text: "NCARB updated the ARE on 27 April 2026 (12 of 91 exam objectives; division structure, items and testing time unchanged) and the AXP in November 2025 (experience up to a year old earns 100% credit, older experience 75%).", source: ncarb_updates }

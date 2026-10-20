@@ -19,11 +19,17 @@
 #             dollar cost for a starter tool set, so none is shown.
 #   does      BLS Summary "What they do" sentence, verbatim: { text, source } (career profile "What the job is")
 #   home_trade  `name` of the matching row in home.yml trades (pay/outlook must match)
-checked: 2026-10-20
+#   moved_from_roadmaps  true for the five trades whose roadmap lived at us/roadmaps/<slug>.html before the
+#             2026-10-20 split: that old URL keeps a redirect stub. Trades added later have no old URL.
+#   pay_by    when BLS gives Quick Facts only for a wider group (machinists AND tool and die makers), its name
+#   numbers_extra  extra "Key numbers" rows { k, v, source } copied from the same BLS profile (e.g. CNC tool
+#             operators' own row inside the metal and plastic machine workers profile)
+checked: 2026-10-21
 review_by: 2027-04-20
 
 list:
   - slug: electrician
+    moved_from_roadmaps: true
     home_trade: "Electrician"
     title: "Electrician: apprenticeship to state license"
     short: "Electrician"
@@ -71,6 +77,7 @@ list:
       - { text: "Electricians repair or replace wiring, equipment and fixtures with hand tools and power tools.", source: ooh_qf_electricians }
 
   - slug: plumber
+    moved_from_roadmaps: true
     home_trade: "Plumber, pipefitter, steamfitter"
     title: "Plumber: apprenticeship to journey level and master"
     short: "Plumber"
@@ -118,6 +125,7 @@ list:
       - { text: "Plumbers' tools include drills, saws, welding torches, press fitting tools and drain cleaning tools.", source: ooh_qf_plumbers }
 
   - slug: hvac-technician
+    moved_from_roadmaps: true
     home_trade: "HVAC technician"
     title: "HVAC technician: school or apprenticeship, EPA 608, state license"
     short: "HVAC technician"
@@ -163,6 +171,7 @@ list:
       - { text: "Apprentices learn to use a variety of tools as part of their training.", source: ooh_hvac }
 
   - slug: welder
+    moved_from_roadmaps: true
     home_trade: "Welder"
     title: "Welder: training, AWS certification, on the job"
     short: "Welder"
@@ -204,6 +213,7 @@ list:
       - { text: "Welders use hand-held or remotely controlled equipment to join or cut metal, and wear protective clothing and welding helmets.", source: ooh_welders_env }
 
   - slug: automotive-service-technician
+    moved_from_roadmaps: true
     home_trade: "Automotive service technician"
     title: "Automotive service technician: training to ASE Master"
     short: "Automotive service technician"
@@ -244,3 +254,364 @@ list:
       - { place: "Michigan", body: "Michigan Department of State", rule: "State <strong>mechanic certification</strong>: you must pass a mechanic test for every category of repair you plan to do before applying. Tests are at any Secretary of State office, $18 each (from 1 July 2026).", sources: [mi_sos_mechanic] }
     tools:
       - { text: "Technicians typically own their common hand tools; power tools usually belong to the employer.", source: ooh_auto_work }
+
+  # ---- USA Master Plan Phase 6 (2026-10-21): Construction and Advanced Manufacturing trades. BLS OOH pages last
+  # modified 27 Aug 2026 (metal and plastic machine workers 14 Sep 2026). "Registered Apprenticeship" steps quote the
+  # U.S. DOL approved-occupations spreadsheet (dol_occupations): RAPIDS code, title and the minimum term in hours.
+  - slug: carpenter
+    home_trade: "Carpenter"
+    title: "Carpenter: apprenticeship or on the job, OSHA 10, contractor license"
+    short: "Carpenter"
+    does: { text: "Carpenters construct, repair, and install building frameworks and structures made from wood and other materials.", source: ooh_qf_carpenters }
+    eyebrow: "USA · Trades & CTE · Construction"
+    lede: "Carpenters typically need a <strong>high school diploma</strong> and learn on the job or through an <strong>apprenticeship</strong>. BLS names no license for working as a carpenter (only a driver's license for some jobs); states license carpentry <strong>contractors</strong> who run their own business."
+    for: "Students who like building with their hands, measuring precisely and working on a team outdoors and indoors."
+    checked: 2026-10-21
+    review_by: 2027-04-21
+    metrics: { pay: 60580, pay_hour: "29.12", jobs: 889700, outlook: 4, outlook_words: "As fast as average", change: 35000, entry: "High school diploma or equivalent", training: "Apprenticeship", source: ooh_qf_carpenters }
+    routes:
+      - id: apprenticeship
+        title: "Registered Apprenticeship"
+        tag: "Earn while you learn"
+        who: "Several groups, such as unions and contractor associations, sponsor apprenticeship programs; requirements differ by type of program and by region."
+        steps:
+          - { tag: "Start", title: "High school diploma or equivalent", text: "Mathematics and mechanical drawing classes may be useful.", kind: start, source: ooh_carpenters }
+          - { tag: "Find a program", title: "A Registered Apprenticeship", text: "Validated by the U.S. Department of Labor or a State Apprenticeship Agency.", kind: stage, source: dol_rap }
+          - { tag: "8,000 hours", title: "Carpenter (RAPIDS 0067)", text: "The DOL's time-based standard is <strong>8,000 hours</strong> of on-the-job learning (a newer version: 7,328); each year also has technical training. Apprentices learn blueprint reading, math, building codes, safety and first aid.", kind: stage, source: dol_occupations }
+          - { tag: "Required", title: "OSHA 10-hour safety course", text: "All carpenters must pass the Occupational Safety and Health Administration (OSHA) 10-hour safety course.", kind: exam, source: ooh_carpenters }
+          - { tag: "Goal", title: "Journey-level carpenter", text: "With experience: first-line supervisor, lead carpenter, independent contractor or general construction supervisor.", kind: goal, source: ooh_carpenters }
+        facts:
+          - { k: "Apprentice pay", v: "The starting pay for apprentices is less than what fully trained carpenters make; it rises as they gain experience.", source: ooh_carpenters }
+          - { k: "Driver's license", v: "Carpenters may need one to travel to jobsites.", source: ooh_carpenters }
+      - id: school-first
+        title: "Vocational school or on-the-job start"
+        tag: "Other way in"
+        who: "Some vocational-technical schools offer associate's degrees in carpentry; many carpenters start as laborers or helpers."
+        steps:
+          - { tag: "Start", title: "High school diploma or equivalent", text: "", kind: start, source: ooh_qf_carpenters }
+          - { tag: "School", title: "Associate's degree in carpentry (optional)", text: "Programs vary in length and teach basics and specialties in carpentry.", kind: stage, source: ooh_carpenters }
+          - { tag: "On the job", title: "Laborer or helper, then simple carpentry tasks", text: "They often begin by measuring and cutting wood under experienced carpenters, then move to reading blueprints and building wooden structures.", kind: stage, source: ooh_carpenters }
+          - { tag: "Goal", title: "Carpenter", text: "", kind: goal, source: ooh_qf_carpenters }
+    certs:
+      - { name: "Specialty certification", who: "Optional", text: "Optional programs offer certification by specialty that may lead to more work or advancement.", source: ooh_carpenters }
+    states_note: "BLS names no license for carpenters who work for an employer. States license the carpentry business (contractor). Two examples from the state's own pages:"
+    states:
+      - { place: "California", body: "Contractors State License Board (CSLB)", rule: "Carpentry contractors hold a <strong>C-5 Framing and Rough Carpentry</strong> or <strong>C-6 Cabinet, Millwork and Finish Carpentry</strong> license. A journey-level worker has no license and cannot contract jobs that need a permit or exceed $1,000; a contractor license needs 4 full years of journey-level experience.", sources: [ca_cslb_c5, ca_cslb_c6, ca_cslb_journey] }
+      - { place: "Washington", body: "Department of Labor & Industries (L&I)", rule: "All construction contractors must <strong>register</strong> with L&I as a general or specialty contractor, with a $30,000 (general) or $15,000 (specialty) bond and liability insurance; application fee $150.20.", sources: [wa_lni_contractor] }
+    tools:
+      - { text: "Carpenters use many tools and need hand-eye coordination; they handle heavy tools and materials that weigh up to 100 pounds.", source: ooh_carpenters }
+
+  - slug: machinist
+    home_trade: "Machinist (precision machining)"
+    title: "Machinist: on-the-job training or apprenticeship, optional CNC certification"
+    short: "Machinist"
+    does: { text: "Machinists and tool and die makers set up and operate equipment to produce precision metal parts, instruments, and tools.", source: ooh_qf_machinists }
+    eyebrow: "USA · Trades & CTE · Advanced Manufacturing"
+    lede: "Machinists typically need a <strong>high school diploma</strong> and are trained on the job; some learn through an <strong>apprenticeship</strong>, a vocational school or a community college. BLS names <strong>no license</strong>; certification in CNC or CAD/CAM is optional."
+    for: "Precise, patient students who like math, computers and making metal parts to exact measurements."
+    checked: 2026-10-21
+    review_by: 2027-04-21
+    metrics: { pay: 59620, pay_hour: "28.66", pay_by: "machinists and tool and die makers together", jobs: 344900, outlook: -1, outlook_words: "Decline", change: -2200, entry: "High school diploma (machinists); tool and die makers may also need postsecondary courses", training: "Long-term on-the-job training", source: ooh_qf_machinists }
+    numbers_extra:
+      - { k: "Machinists alone", v: "Median pay $58,750 a year (May 2025); tool and die makers $64,050.", source: ooh_machinists_pay }
+    routes:
+      - id: apprenticeship
+        title: "Registered Apprenticeship"
+        tag: "Earn while you learn"
+        who: "Apprenticeship programs are typically sponsored by an employer; workers typically need a high school diploma or equivalent to enter one."
+        steps:
+          - { tag: "Start", title: "High school diploma or equivalent", text: "Math, blueprint reading, metalworking and CAD/CAM classes are useful.", kind: start, source: ooh_machinists }
+          - { tag: "Find a program", title: "A Registered Apprenticeship", text: "Validated by the U.S. Department of Labor or a State Apprenticeship Agency.", kind: stage, source: dol_rap }
+          - { tag: "Several years", title: "Machinist (RAPIDS 0296)", text: "The DOL lists time-based programs of <strong>8,000 hours</strong> (or 5,920 in a newer version) of on-the-job learning, plus related technical instruction, often with a community college.", kind: stage, source: dol_occupations }
+          - { tag: "Goal", title: "Machinist", text: "Some machinists become tool and die makers.", kind: goal, source: ooh_machinists }
+      - id: school
+        title: "Certificate or 2-year degree, then on the job"
+        tag: "School first"
+        who: "Some community colleges and technical schools have 2-year degree programs or shorter certificate programs for machinists."
+        steps:
+          - { tag: "Start", title: "High school diploma or equivalent", text: "", kind: start, source: ooh_machinists }
+          - { tag: "School", title: "Machining certificate or associate degree", text: "Reading engineering drawings, welding and cutting tools, and programming CNC machines.", kind: stage, source: ooh_machinists }
+          - { tag: "On the job", title: "Start as a machine operator", text: "Trainees often begin as machine operators and gradually take on harder work with CAD/CAM, CNC machine tools and computerized measuring machines.", kind: stage, source: ooh_machinists }
+          - { tag: "Goal", title: "Machinist", text: "", kind: goal, source: ooh_qf_machinists }
+    certs:
+      - { name: "CNC operation, CAD/CAM and other credentials", who: "Colleges and organizations · optional", text: "Completing a certification program, though optional, shows competency and may help with advancement.", source: ooh_machinists }
+    states_note: "BLS names no license for machinists, only optional certifications."
+    states_source: ooh_machinists
+    tools:
+      - { text: "Machinists may operate milling machines, lathes, grinders, laser and water jetting machines, wire electrical discharge machines and other machine tools, sometimes to within .0001 of an inch.", source: ooh_machinists }
+
+  - slug: cnc-operator
+    home_trade: "CNC tool operator"
+    title: "CNC operator: on-the-job training or a short apprenticeship"
+    short: "CNC tool operator"
+    does: { text: "Computer numerically controlled tool operators operate CNC equipment or robots to perform functions on metal or plastic workpieces.", source: ooh_metalplastic }
+    eyebrow: "USA · Trades & CTE · Advanced Manufacturing"
+    lede: "CNC tool operators usually need a <strong>high school diploma</strong> and may need <strong>up to 1 year</strong> of on-the-job training. Community colleges offer courses and certificates in CNC operation and programming. BLS names <strong>no license</strong>."
+    for: "Students who like computers and machines and want a factory job that can lead to setup, machinist or programming roles."
+    checked: 2026-10-21
+    review_by: 2027-04-21
+    metrics: { pay: 47700, pay_hour: "22.94", pay_by: "all metal and plastic machine workers (BLS counts CNC tool operators in this group)", jobs: 963000, outlook: -7, outlook_words: "Decline", change: -63000, entry: "High school diploma", training: "Moderate-term on-the-job training", source: ooh_qf_metalplastic }
+    numbers_extra:
+      - { k: "CNC tool operators: pay", v: "Median $50,690 a year (May 2025). CNC tool programmers: $68,120.", source: ooh_metalplastic_pay }
+      - { k: "CNC tool operators: jobs", v: "170,000 in 2025, projected 154,100 in 2035 (−9%, −15,900 jobs). Programmers: 28,600, projected +6%.", source: ooh_metalplastic_proj }
+    routes:
+      - id: onthejob
+        title: "Diploma, then training on the job"
+        tag: "Most common"
+        who: "Machine operator trainees usually begin by watching and helping experienced workers."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "Computer programming, math and vocational technology classes may be useful.", kind: start, source: ooh_metalplastic }
+          - { tag: "Up to 1 year", title: "On-the-job training", text: "Under supervision trainees supply materials, start and stop machines and remove finished products, then adjust feeds and speeds, replace tools and measure parts.", kind: stage, source: ooh_metalplastic }
+          - { tag: "Goal", title: "CNC tool operator", text: "Operators often move into setup or machinery maintenance; setup workers may become machinists or tool and die makers.", kind: goal, source: ooh_metalplastic }
+      - id: apprenticeship
+        title: "Registered Apprenticeship"
+        tag: "Earn while you learn"
+        who: "The DOL approves several CNC apprenticeship occupations; each employer sponsor picks one."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_metalplastic }
+          - { tag: "4,000–8,000 hours", title: "Numerical Control Machinist Operator (RAPIDS 0845)", text: "Time-based terms of <strong>4,000 or 8,000 hours</strong>. Shorter options: CNC Operator – Milling (RAPIDS 1097), 2,000 hours.", kind: stage, source: dol_occupations }
+          - { tag: "Next step", title: "CNC set-up programmer", text: "CNC Set-Up Programmer – Milling and Turning (RAPIDS 1100): 2,000 to 6,000 hours, depending on the version.", kind: stage, source: dol_occupations }
+          - { tag: "Goal", title: "CNC operator or programmer", text: "CNC tool programmers typically need postsecondary training.", kind: goal, source: ooh_metalplastic }
+      - id: school
+        title: "Community college CNC certificate"
+        tag: "School first"
+        who: "Some community colleges and other schools offer courses and certificate programs in operating metal and plastics machines, including CNC programming."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_metalplastic }
+          - { tag: "School", title: "CNC certificate (CAD, CAM, CNC)", text: "Training on computer-aided design, computer-aided manufacturing and CNC equipment may be helpful.", kind: stage, source: ooh_metalplastic }
+          - { tag: "Goal", title: "CNC tool operator", text: "", kind: goal, source: ooh_metalplastic }
+    certs:
+      - { name: "Certification", who: "Optional", text: "Certification can show competence and can be helpful for advancement.", source: ooh_metalplastic }
+    states_note: "BLS names no license for CNC operators, only optional certification."
+    states_source: ooh_metalplastic
+    tools:
+      - { text: "Operators must be able to use programmable devices, computers and robots on the factory floor, and secure and tighten heavy fixtures into place.", source: ooh_metalplastic }
+
+  - slug: sheet-metal-worker
+    home_trade: "Sheet metal worker"
+    title: "Sheet metal worker: 4- or 5-year apprenticeship, license in some states"
+    short: "Sheet metal worker"
+    does: { text: "Sheet metal workers fabricate or install products that are made from thin metal sheets.", source: ooh_qf_sheetmetal }
+    eyebrow: "USA · Trades & CTE · Construction"
+    lede: "Sheet metal workers in construction typically learn through a <strong>4- or 5-year apprenticeship</strong>; those in manufacturing learn on the job or at a technical school. <strong>Some states</strong> require a license."
+    for: "Students who like math, precise cutting and bending, and building ductwork and metal products."
+    checked: 2026-10-21
+    review_by: 2027-04-21
+    metrics: { pay: 61800, pay_hour: "29.71", jobs: 131100, outlook: 3, outlook_words: "As fast as average", change: 3300, entry: "High school diploma or equivalent", training: "Apprenticeship", source: ooh_qf_sheetmetal }
+    routes:
+      - id: apprenticeship
+        title: "Registered Apprenticeship (construction)"
+        tag: "Most common"
+        who: "Apprenticeship programs are sponsored by unions and businesses. The basic qualifications are being 18 and having a high school diploma or equivalent."
+        steps:
+          - { tag: "Start", title: "High school diploma, age 18", text: "Algebra, geometry, blueprint reading, mechanical drawing and welding classes help.", kind: start, source: ooh_sheetmetal }
+          - { tag: "Find a program", title: "A Registered Apprenticeship", text: "Validated by the U.S. Department of Labor or a State Apprenticeship Agency.", kind: stage, source: dol_rap }
+          - { tag: "4–5 years", title: "Sheet Metal Worker (RAPIDS 0510)", text: "Time-based term: <strong>8,000 hours</strong> of paid on-the-job training (hybrid programs 8,000–9,000), plus technical instruction in blueprints, math, building codes and safety.", kind: stage, source: dol_occupations }
+          - { tag: "Where required", title: "State license exam", text: "Some states require licenses for sheet metal workers (example below).", kind: exam, source: ooh_sheetmetal }
+          - { tag: "Goal", title: "Journey worker", text: "Qualified to perform tasks on their own.", kind: goal, source: ooh_sheetmetal }
+        facts:
+          - { k: "Helpers first", v: "Some workers start out as helpers before entering apprenticeships.", source: ooh_sheetmetal }
+      - id: school
+        title: "Technical school or on the job (manufacturing)"
+        tag: "Factory route"
+        who: "Those employed in manufacturing typically learn on the job or at a technical school; some manufacturers partner with local technical schools."
+        steps:
+          - { tag: "Start", title: "High school diploma or equivalent", text: "", kind: start, source: ooh_sheetmetal }
+          - { tag: "School", title: "Welding and metalworking program", text: "Basic welding and sheet metal fabrication knowledge.", kind: stage, source: ooh_sheetmetal }
+          - { tag: "Goal", title: "Sheet metal worker in manufacturing", text: "", kind: goal, source: ooh_sheetmetal }
+    certs:
+      - { name: "Welding and task certifications", who: "Optional", text: "Not required, but some sheet metal workers become certified in welding and other tasks.", source: ooh_sheetmetal }
+    states_note: "Only some states license sheet metal workers. One state that does, from its own board's pages:"
+    states:
+      - { place: "Massachusetts", body: "Board of Examiners of Sheet Metal Workers", rule: "<strong>Apprentice</strong> license: at least 16 and employed by a master sheet metal worker ($65). <strong>Journeyperson J-1</strong> (unrestricted): 8,000 hours of licensed apprentice training and 750 hours of Board-approved classes over at least 5 years, a high school diploma or GED, and an exam (PSI). <strong>J-2</strong> (restricted to small buildings): 4,800 hours and 450 class hours over at least 3 years.", sources: [ma_sheetmetal_a, ma_sheetmetal_j] }
+    tools:
+      - { text: "Sheet metal workers use saws, lasers, shears and presses, and must lift and move heavy ductwork (some jobs 50 pounds or more).", source: ooh_sheetmetal }
+
+  - slug: ironworker
+    home_trade: "Ironworker"
+    title: "Ironworker: 3- or 4-year apprenticeship, rigging and welding certifications"
+    short: "Ironworker"
+    does: { text: "Ironworkers install structural and reinforcing iron and steel to form and support buildings, bridges, and roads.", source: ooh_qf_ironworkers }
+    eyebrow: "USA · Trades & CTE · Construction"
+    lede: "Many ironworkers learn the trade through a <strong>3- or 4-year apprenticeship</strong>; others train on the job. BLS names no ironworker license: certifications in <strong>welding, rigging and crane signaling</strong> help with hiring."
+    for: "Strong, steady people with good balance who are not afraid of heights."
+    checked: 2026-10-21
+    review_by: 2027-04-21
+    metrics: { pay: 61910, pay_hour: "29.77", jobs: 84800, outlook: 1, outlook_words: "Slower than average", change: 1300, entry: "High school diploma or equivalent", training: "Apprenticeship", source: ooh_qf_ironworkers }
+    routes:
+      - id: apprenticeship
+        title: "Registered Apprenticeship"
+        tag: "Most common"
+        who: "Sponsors include unions and contractor associations; nearly all programs teach both reinforcing and structural ironworking."
+        steps:
+          - { tag: "Start", title: "High school diploma or equivalent", text: "Generally required to enter an apprenticeship. Math, blueprint reading and welding are useful.", kind: start, source: ooh_ironworkers }
+          - { tag: "Find a program", title: "A Registered Apprenticeship", text: "Validated by the U.S. Department of Labor or a State Apprenticeship Agency.", kind: stage, source: dol_rap }
+          - { tag: "3–4 years", title: "Paid training + instruction", text: "Each year: at least <strong>144 hours</strong> of related technical instruction and <strong>2,000 hours</strong> of paid on-the-job training. DOL titles: Structural Steel Worker (RAPIDS 0669) and Reinforcing Metal Worker (RAPIDS 0471).", kind: stage, source: ooh_ironworkers }
+          - { tag: "Goal", title: "Journey-level ironworker", text: "May perform tasks without direct supervision; with experience, supervisor or manager.", kind: goal, source: ooh_ironworkers }
+        facts:
+          - { k: "Apprentice pay", v: "Usually about 50 percent of what journey-level ironworkers make, rising as they learn more.", source: ooh_ironworkers }
+          - { k: "DOL terms", v: "Structural Steel Worker programs: 6,000 or 8,000 hours (time-based) or 4,200–8,000 (hybrid).", source: dol_occupations }
+      - id: onthejob
+        title: "On-the-job training"
+        tag: "Other way in"
+        who: "Other ironworkers receive on-the-job training that varies in length and is provided by the employer; they may not need a high school diploma."
+        steps:
+          - { tag: "Start", title: "Hired as a trainee", text: "", kind: start, source: ooh_ironworkers }
+          - { tag: "On the job", title: "Tools, rebar and metal frameworks", text: "Handle, measure, cut and lay rebar; construct metal frameworks; blueprint reading, safety and first aid.", kind: stage, source: ooh_ironworkers }
+          - { tag: "Goal", title: "Ironworker", text: "", kind: goal, source: ooh_qf_ironworkers }
+    certs:
+      - { name: "Welding, rigging and crane-signaling certifications", who: "Optional", text: "Certifications in welding, rigging and crane signaling may make ironworkers more attractive to employers.", source: ooh_ironworkers }
+    states_note: "BLS names no state ironworker license; the useful credentials are certifications (above). Crane and hoisting work has its own rules: see the heavy equipment operator roadmap."
+    states_source: ooh_ironworkers
+    tools:
+      - { text: "Ironworkers must wear safety equipment to reduce the risk of falls or other injuries.", source: ooh_qf_ironworkers }
+      - { text: "They must be strong enough to guide heavy beams into place and tighten bolts, and tie rebar quickly and precisely.", source: ooh_ironworkers }
+
+  - slug: construction-laborer
+    home_trade: "Construction laborer and helper"
+    title: "Construction laborer: learn on the job, safety training, apprenticeship option"
+    short: "Construction laborer and helper"
+    does: { text: "Construction laborers and helpers perform tasks, such as using, supplying, or holding materials or tools and cleaning work areas and equipment, on construction sites.", source: ooh_qf_laborers }
+    eyebrow: "USA · Trades & CTE · Construction"
+    lede: "Construction laborers and helpers <strong>learn on the job</strong>; formal education is not typically required, though some employers prefer a high school diploma. Employers often require <strong>OSHA-based safety training</strong>, and some cities set their own rule."
+    for: "Fit, reliable people who want to start working in construction right away and may move into a trade later."
+    checked: 2026-10-21
+    review_by: 2027-04-21
+    metrics: { pay: 46680, pay_hour: "22.44", jobs: 1674400, outlook: 6, outlook_words: "Faster than average", change: 108600, entry: "No formal credential (some employers prefer a high school diploma)", training: "Short-term on-the-job training", source: ooh_qf_laborers }
+    routes:
+      - id: onthejob
+        title: "Start on the job"
+        tag: "Most common"
+        who: "Laborers and helpers may start by shadowing experienced workers and performing tasks under their guidance."
+        steps:
+          - { tag: "Start", title: "High school (preferred by some employers)", text: "Algebra, geometry and career and technical education classes such as construction technology or welding may help.", kind: start, source: ooh_laborers }
+          - { tag: "Required by employers", title: "OSHA-based safety certification", text: "Employers often require safety certification that meets OSHA guidelines, before or after hiring.", kind: exam, source: ooh_laborers }
+          - { tag: "On the job", title: "Training on site", text: "", kind: stage, source: ooh_laborers }
+          - { tag: "Goal", title: "Construction laborer or helper", text: "Later: supervise staff, oversee jobsites or start a business; helpers sometimes move into construction trades.", kind: goal, source: ooh_laborers }
+      - id: apprenticeship
+        title: "Registered Apprenticeship"
+        tag: "Earn while you learn"
+        who: "Some construction laborers complete apprenticeship programs, usually sponsored by local unions or trade associations."
+        steps:
+          - { tag: "Start", title: "High school diploma or equivalent", text: "", kind: start, source: ooh_laborers }
+          - { tag: "4,000 hours", title: "Construction Craft Laborer (RAPIDS 0661)", text: "Time-based term: <strong>4,000 hours</strong> of on-the-job learning plus technical instruction (hybrid 4,000–5,100).", kind: stage, source: dol_occupations }
+          - { tag: "Goal", title: "Journey-level construction craft laborer", text: "", kind: goal, source: ooh_laborers }
+        facts:
+          - { k: "Into a trade", v: "For example, an electrician's helper might earn a high school equivalency to enter an electrician apprenticeship.", source: ooh_laborers }
+    certs:
+      - { name: "Rigging or scaffolding certification", who: "Optional", text: "Shows the knowledge to perform more complex tasks.", source: ooh_laborers }
+    states_note: "BLS names no laborer license. Some cities and states set safety-training rules for everyone on a site; one example read on the city's own page:"
+    states:
+      - { place: "New York City", body: "NYC Department of Buildings (DOB)", rule: "On sites that need a Site Safety Plan, workers must hold a <strong>Site Safety Training (SST) card</strong>: at least <strong>40 hours</strong> of safety training (62 for supervisors), valid 5 years. Workers with OSHA 10 or 30 in the past 5 years can get a 6-month temporary card while they finish.", sources: [nyc_dob_sst] }
+    tools:
+      - { text: "Laborers operate and maintain equipment such as jackhammers, and lift or move heavy materials.", source: ooh_laborers }
+
+  - slug: heavy-equipment-operator
+    home_trade: "Heavy equipment operator"
+    title: "Heavy equipment operator: on the job, apprenticeship or school; CDL and crane rules"
+    short: "Heavy equipment operator"
+    does: { text: "Construction equipment operators drive, maneuver, or control the heavy machinery used to construct roads, buildings, and other structures.", source: ooh_qf_equipops }
+    eyebrow: "USA · Trades & CTE · Construction"
+    lede: "Many operators learn on the job after a <strong>high school diploma</strong>; others train in a <strong>3- or 4-year apprenticeship</strong> or at a vocational school. Many need a <strong>CDL</strong>; a few states license backhoe, loader and bulldozer operators, and federal rules cover crane operators."
+    for: "Steady, coordinated people who like machines and outdoor work on roads and building sites."
+    checked: 2026-10-21
+    review_by: 2027-04-21
+    metrics: { pay: 59600, pay_hour: "28.66", jobs: 534100, outlook: 4, outlook_words: "As fast as average", change: 21800, entry: "High school diploma or equivalent", training: "Moderate-term on-the-job training", source: ooh_qf_equipops }
+    routes:
+      - id: apprenticeship
+        title: "Registered Apprenticeship (operating engineer)"
+        tag: "Earn while you learn"
+        who: "For each year, apprentices complete a set number of hours of technical instruction and paid on-the-job training; requirements differ by program and region."
+        steps:
+          - { tag: "Start", title: "High school diploma or equivalent", text: "Vocational training, math and automotive mechanics courses help.", kind: start, source: ooh_equipops }
+          - { tag: "Find a program", title: "A Registered Apprenticeship", text: "Validated by the U.S. Department of Labor or a State Apprenticeship Agency.", kind: stage, source: dol_rap }
+          - { tag: "3–4 years", title: "Operating Engineer (RAPIDS 0365)", text: "Time-based term: <strong>6,000 hours</strong> (hybrid 4,000–6,000). Apprentices learn operating procedures, safety, first aid, grading plans and GPS.", kind: stage, source: dol_occupations }
+          - { tag: "Goal", title: "Journey worker", text: "Performs tasks with less guidance.", kind: goal, source: ooh_equipops }
+      - id: onthejob
+        title: "On the job, or vocational school first"
+        tag: "Common"
+        who: "Many workers start on light equipment, such as a trench roller, under an experienced operator, then move to heavier machines such as bulldozers."
+        steps:
+          - { tag: "Start", title: "High school diploma or equivalent", text: "", kind: start, source: ooh_equipops }
+          - { tag: "Optional", title: "Vocational school", text: "Schools may specialize in a brand or type of equipment; some use simulators.", kind: stage, source: ooh_equipops }
+          - { tag: "Often required", title: "Commercial driver's license (CDL)", text: "To haul equipment to jobsites; state CDL laws vary.", kind: licence, source: ooh_equipops }
+          - { tag: "Goal", title: "Construction equipment operator", text: "", kind: goal, source: ooh_qf_equipops }
+    certs:
+      - { name: "Crane operator certification (federal)", who: "OSHA 29 CFR 1926.1427 · cranes in construction", text: "The employer must ensure each crane operator is trained, certified or licensed, and evaluated before operating. Routes: an accredited testing organization (valid 5 years), an audited employer program, U.S. military qualification, or a state or local license.", source: osha_1926_1427 }
+    states_note: "A few states license operators of backhoes, loaders and bulldozers, and some states and cities require pile driver operators to hold a crane license. One state's rule, from its own page:"
+    states:
+      - { place: "Massachusetts", body: "Office of Public Safety and Inspections (OPSI)", rule: "Anyone operating hoisting equipment needs a <strong>Hoisting Engineer License</strong>: at least 18, an application ($75 per restriction), a medical certificate and an exam on the machinery, safety, hand signals and inspection. Apprentice licenses also need a Division of Apprentice Standards ID. Renew every 2 years.", sources: [ma_hoisting] }
+    tools:
+      - { text: "Operators often do basic maintenance on their equipment, so they should know hand and power tools; some machines have computerized controls and GPS.", source: ooh_equipops }
+
+  - slug: elevator-installer
+    home_trade: "Elevator and escalator installer"
+    title: "Elevator installer: 4-year apprenticeship, then a state license"
+    short: "Elevator and escalator installer"
+    does: { text: "Elevator and escalator installers and repairers install, maintain, and fix elevators, escalators, moving walkways, and other lifts.", source: ooh_qf_elevator }
+    eyebrow: "USA · Trades & CTE · Construction"
+    lede: "Nearly all elevator installers learn through a <strong>4-year apprenticeship</strong> after a high school diploma, and <strong>most states</strong> require them to be licensed."
+    for: "Mechanically minded students who like electronics and physics and don't mind heights or tight spaces."
+    checked: 2026-10-21
+    review_by: 2027-04-21
+    metrics: { pay: 109910, pay_hour: "52.84", jobs: 24700, outlook: 6, outlook_words: "Faster than average", change: 1400, entry: "High school diploma or equivalent", training: "Apprenticeship", source: ooh_qf_elevator }
+    routes:
+      - id: apprenticeship
+        title: "Registered Apprenticeship, then the state license"
+        tag: "Nearly all"
+        who: "Programs are sponsored by a union, an industry association or an employer. Workers with documented experience may qualify for a shorter apprenticeship."
+        steps:
+          - { tag: "Start", title: "High school diploma or equivalent", text: "Math, mechanical drawing and physics classes may help.", kind: start, source: ooh_elevator }
+          - { tag: "Find a program", title: "A Registered Apprenticeship", text: "Validated by the U.S. Department of Labor or a State Apprenticeship Agency.", kind: stage, source: dol_rap }
+          - { tag: "4 years", title: "Elevator Constructor (RAPIDS 0173)", text: "Time-based term: <strong>8,000 hours</strong> (a newer version 6,800). Safety, blueprints, math, applied physics, electrical and digital theory, electronics.", kind: stage, source: dol_occupations }
+          - { tag: "License", title: "State license or certification", text: "Most states require it (examples below).", kind: licence, source: ooh_elevator }
+          - { tag: "Goal", title: "Elevator mechanic", text: "Later: mechanic-in-charge, adjuster or supervisor.", kind: goal, source: ooh_elevator }
+        facts:
+          - { k: "Apprentice pay", v: "Usually about 50 percent of what fully trained installers make, rising as they progress.", source: ooh_elevator }
+          - { k: "Keep learning", v: "Ongoing training is needed to keep up with technology.", source: ooh_elevator }
+    certs:
+      - { name: "Industry certification", who: "Optional", text: "Not required, but certification shows competence and proficiency.", source: ooh_elevator }
+    states_note: "Most states license elevator mechanics, each in its own way. Three examples from the state's own pages:"
+    states:
+      - { place: "California", body: "Department of Industrial Relations, Cal/OSHA Elevator Unit", rule: "Anyone employed by a C-11 licensed elevator company who works <strong>without direct supervision</strong> must be a Certified Competent Conveyance Mechanic (CCCM). Continuing education must come from a Division-approved provider within 12 months before renewal.", sources: [ca_dir_elevator] }
+      - { place: "Washington", body: "Department of Labor & Industries (L&I)", rule: "General (Category 01) license: typically <strong>3 years</strong> of verified conveyance work plus education, and either a registered apprenticeship, the NEIEP (or equivalent) exam, or the state exam (open book, 160 questions, 80% to pass, $296.50).", sources: [wa_lni_elevator] }
+      - { place: "Florida", body: "Division of Hotels and Restaurants (Fla. Stat. s. 399.01)", rule: "<strong>Elevator certificate of competency</strong>: 4 years of work experience on conveyances plus a state-approved written exam, a registered elevator apprenticeship, or a substantially equal license from another state. $50, valid 1 year, 8 hours of continuing education to renew.", sources: [fl_399_01] }
+    tools:
+      - { text: "Installers use power tools and hand tools and may lift parts weighing up to 200 pounds.", source: ooh_elevator }
+
+  - slug: industrial-maintenance-mechanic
+    home_trade: "Industrial machinery mechanic and millwright"
+    title: "Industrial maintenance mechanic: diploma, a year of training or an apprenticeship"
+    short: "Industrial machinery mechanic"
+    does: { text: "Industrial machinery mechanics, machinery maintenance workers, and millwrights install, maintain, and repair factory equipment and other industrial machinery.", source: ooh_qf_indmech }
+    eyebrow: "USA · Trades & CTE · Advanced Manufacturing"
+    lede: "Industrial machinery mechanics typically need a <strong>high school diploma</strong> and usually <strong>a year or more</strong> of training; millwrights mostly go through an apprenticeship of about <strong>4 years</strong>. Some take a 2-year associate degree in industrial maintenance. BLS names no license for this work."
+    for: "Problem-solvers who like fixing machines, reading manuals and working with welding, hydraulics and electronics."
+    checked: 2026-10-21
+    review_by: 2027-04-21
+    metrics: { pay: 64100, pay_hour: "30.82", jobs: 547300, outlook: 14, outlook_words: "Much faster than average", change: 78900, entry: "High school diploma or equivalent", training: "A year or more on the job (mechanics); about 4-year apprenticeship (millwrights)", source: ooh_qf_indmech }
+    routes:
+      - id: onthejob
+        title: "Diploma, then a year or more of training"
+        tag: "Mechanics"
+        who: "Training may be given by trainers the employer hires or by equipment manufacturers' representatives."
+        steps:
+          - { tag: "Start", title: "High school diploma or equivalent", text: "", kind: start, source: ooh_indmech }
+          - { tag: "Optional", title: "Associate degree in industrial maintenance", text: "About 2 years: welding, mathematics, hydraulics and pneumatics.", kind: stage, source: ooh_indmech }
+          - { tag: "1+ year", title: "On-the-job training", text: "Setting up, cleaning, lubricating and starting machinery; shop math, blueprints, welding, electronics and computer programming.", kind: stage, source: ooh_indmech }
+          - { tag: "Goal", title: "Industrial machinery mechanic", text: "", kind: goal, source: ooh_qf_indmech }
+      - id: apprenticeship
+        title: "Registered Apprenticeship"
+        tag: "Millwrights, and some mechanics"
+        who: "Employers, local unions, contractor associations and the state labor department sponsor programs. Basic qualifications: at least 18, a high school diploma, physically able to do the work."
+        steps:
+          - { tag: "Start", title: "Age 18 + high school diploma", text: "", kind: start, source: ooh_indmech }
+          - { tag: "Find a program", title: "A Registered Apprenticeship", text: "Validated by the U.S. Department of Labor or a State Apprenticeship Agency.", kind: stage, source: dol_rap }
+          - { tag: "3–4 years", title: "Millwright (RAPIDS 0335) or Industrial Maintenance Mechanic (RAPIDS 0308)", text: "Millwright: time-based <strong>8,000 hours</strong> (newer version 7,328). Industrial Maintenance Mechanic: 6,000 hours (time-based).", kind: stage, source: dol_occupations }
+          - { tag: "Each year", title: "144 hours of instruction + up to 2,000 hours paid", text: "", kind: stage, source: ooh_indmech }
+          - { tag: "Goal", title: "Millwright", text: "Fully qualified; can usually work with less guidance.", kind: goal, source: ooh_indmech }
+    states_note: "BLS names no state license for industrial machinery mechanics or millwrights; requirements come from the employer and the apprenticeship."
+    states_source: ooh_indmech
+    tools:
+      - { text: "Workers use technical manuals and sophisticated diagnostic equipment to figure out why machines are not working.", source: ooh_indmech }
+      - { text: "They must follow safety precautions and use protective equipment, such as hardhats, safety glasses and hearing protectors.", source: ooh_qf_indmech }

@@ -360,7 +360,7 @@ for (const X of cte.list || []) {
   if (!fs.existsSync(prof)) err(w, `us/cte/${X.slug}.html is missing (run scripts/build-intl-roadmaps.mjs)`);
   else if (!new RegExp(`^trade:\\s*${X.slug}\\s*$`, 'm').test(fs.readFileSync(prof, 'utf8'))) err(w, `us/cte/${X.slug}.html must say trade: ${X.slug}`);
   const old = path.join(root, 'us/roadmaps', `${X.slug}.html`);
-  if (!fs.existsSync(old) || !fs.readFileSync(old, 'utf8').includes(`redirect_to: "`) || !fs.readFileSync(old, 'utf8').includes(`/us/cte/roadmaps/${X.slug}.html"`)) err(w, `us/roadmaps/${X.slug}.html must redirect to us/cte/roadmaps/${X.slug}.html`);
+  if (X.moved_from_roadmaps && (!fs.existsSync(old) || !fs.readFileSync(old, 'utf8').includes(`redirect_to: "`) || !fs.readFileSync(old, 'utf8').includes(`/us/cte/roadmaps/${X.slug}.html"`))) err(w, `us/roadmaps/${X.slug}.html must redirect to us/cte/roadmaps/${X.slug}.html`);
   if (!X.short) err(w, 'missing short');
   if (!X.does || !X.does.text) err(w, 'missing does.text (BLS "What they do" sentence)');
   else needSrc(`${w}.does`, X.does.source);
@@ -386,6 +386,9 @@ for (const X of cte.list || []) {
   });
   (X.certs || []).forEach((c, i) => { for (const k of ['name', 'who', 'text']) if (!c[k]) err(`${w}.certs[${i}]`, `missing ${k}`); needSrc(`${w}.certs[${i}]`, c.source); });
   (X.tools || []).forEach((t, i) => { if (!t.text) err(`${w}.tools[${i}]`, 'missing text'); needSrc(`${w}.tools[${i}]`, t.source); });
+  // Phase 6: extra Key-numbers rows (e.g. CNC tool operators inside a wider BLS group) and the group name.
+  (X.numbers_extra || []).forEach((n, i) => { if (!n.k || !n.v) err(`${w}.numbers_extra[${i}]`, 'needs k and v'); needSrc(`${w}.numbers_extra[${i}]`, n.source); });
+  if (M.pay_by !== undefined && typeof M.pay_by !== 'string') err(`${w}.metrics`, 'pay_by must be text');
 }
 // Career Clusters (2026-10-20, USA Master Plan Phase 1): _data/us/clusters.yml = the 14 Advance CTE clusters and
 // 72 sub-clusters; a `live` cluster has its hub stub us/clusters/<slug>/index.html (scripts/build-us-clusters.mjs)

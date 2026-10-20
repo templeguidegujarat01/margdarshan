@@ -53,7 +53,8 @@ const put = (rel, stub) => {
   fs.writeFileSync(out, stub);
   wrote++;
 };
-// Trades & CTE career profiles (_includes/us-cte-career.html) and the redirect stubs at the old roadmap URLs.
+// Trades & CTE career profiles (_includes/us-cte-career.html) and, for the five trades that had a roadmap at
+// us/roadmaps/<slug>.html before the 2026-10-20 split (`moved_from_roadmaps: true`), a redirect stub at that old URL.
 const SITE_URL = (fs.readFileSync(path.join(root, '_config.yml'), 'utf8').match(/^url:\s*"([^"]+)"/m) || [])[1] || '';
 for (const X of CTE) {
   put(`us/cte/${X.slug}.html`, `---
@@ -68,7 +69,7 @@ breadcrumb:
 ---
 {% include us-cte-career.html %}
 `);
-  put(`us/roadmaps/${X.slug}.html`, `---
+  if (X.moved_from_roadmaps) put(`us/roadmaps/${X.slug}.html`, `---
 redirect_to: "${SITE_URL}/us/cte/roadmaps/${X.slug}.html"
 sitemap: false
 ---
@@ -91,5 +92,5 @@ ${J.grand ? `  grand_href: "${J.grand[0]}"\n  grand_label: "${esc(J.grand[1])}"\
   put(`${J.dir || J.ed + '/roadmaps'}/${X.slug}.html`, stub);
 }
 for (const s of stale) console.error('  ' + s);
-console.log(check ? `checked ${jobs.length} cross-border + trades roadmap page(s) and ${CTE.length * 2} trades profile/redirect stub(s), ${stale.length} problem(s)` : `wrote ${wrote} cross-border + trades roadmap / profile / redirect stub(s)`);
+console.log(check ? `checked ${jobs.length} cross-border + trades roadmap page(s) and ${CTE.length + CTE.filter((X) => X.moved_from_roadmaps).length} trades profile/redirect stub(s), ${stale.length} problem(s)` : `wrote ${wrote} cross-border + trades roadmap / profile / redirect stub(s)`);
 if (stale.length) process.exit(1);

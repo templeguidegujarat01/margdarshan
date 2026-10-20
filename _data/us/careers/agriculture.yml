@@ -1,0 +1,171 @@
+# Agriculture careers (USA Master Plan Phase 7). Schema: comment at the top of _includes/us-career-overview.html.
+# Every fact is copied from the page its `source` names, opened 2026-10-21: BLS Occupational Outlook Handbook (pay May
+# 2025, jobs 2025, outlook 2025–35; pages last modified 27 Aug 2026), USDA (farmers.gov, FSA, NIFA), the DOL RAPIDS
+# spreadsheet, ICVA, AVMA, AAVSB and the state boards named below (_data/us/sources.yml).
+# BLS publishes ONE profile for agricultural and food scientists, so they share one career page with two routes.
+# Batch notes: docs/us-edition/PHASE-7-TRANSPORT-ENERGY-AGRICULTURE.md.
+checked: 2026-10-21
+review_by: 2027-04-21
+list:
+
+  # 788,700 jobs (crosswalk: Agriculture 5)
+  - slug: farmer-rancher
+    short: "Farmer, Rancher & Agricultural Manager"
+    title: "Farmer or rancher: years of farm work or an agriculture degree; USDA help for beginning farmers"
+    eyebrow: "Agriculture · Agribusiness"
+    lede: "Farmers, ranchers and agricultural managers typically need at least a high school diploma and several years of farm work, often on a family farm. An associate's or bachelor's degree in agriculture, natural resources or business, for example at a state's land-grant university, can replace some of that experience. USDA has loans and coordinators for beginning farmers."
+    for: "Hard-working people who like the outdoors, animals or crops, and running their own business."
+    soc: ["11-9013"]
+    does: { text: "Farmers, ranchers, and other agricultural managers run establishments that produce crops, livestock, and dairy products.", source: ooh_qf_farmers }
+    work: { text: "Farmers, ranchers, and other agricultural managers typically work outdoors but also may spend time in an office. Their work is often physically demanding.", source: ooh_qf_farmers }
+    become: { text: "Farmers, ranchers, and other agricultural managers typically need at least a high school diploma and work experience in a related occupation.", source: ooh_qf_farmers }
+    metrics: { pay: 89900, pay_hour: "43.22", pay_by: "Farmers, ranchers, and other agricultural managers", jobs: 788700, outlook: -3, outlook_words: "Decline", change: -26500, entry: "High school diploma or equivalent", experience: "5 years or more", training: "None", source: ooh_qf_farmers }
+    license_text: "None"
+    routes:
+      - id: experience
+        title: "Farm work for several years → your own farm"
+        tag: "Typical"
+        who: "The experience needed depends on how complex the work is and how big the farm is; some gain it growing up on a family farm."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_farmers }
+          - { tag: "Several years", title: "Work as an agricultural worker", text: "", kind: stage, source: ooh_farmers }
+          - { tag: "First 10 years", title: "USDA beginning farmer help", text: "USDA counts anyone who has operated a farm or ranch for less than ten years as a beginning farmer: state coordinators, Service Centers, FSA loans.", kind: stage, source: usda_beginning_farmers }
+          - { tag: "Goal", title: "Farmer, rancher or farm manager", text: "", kind: goal, source: ooh_qf_farmers }
+      - id: degree
+        title: "Agriculture degree at a land-grant university"
+        tag: "May replace experience"
+        who: "Most state university systems have at least one land-grant college with a school of agriculture: agricultural economics and business, animal science, plant science. Graduates in agriculture may not need extra work experience."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_farmers }
+          - { tag: "2 or 4 years", title: "Associate's or bachelor's in agriculture, natural resources or business", text: "The land-grant system includes 1862 public universities, 1890 historically black colleges and universities plus Tuskegee University, and 1994 tribal colleges.", kind: stage, source: nifa_land_grant }
+          - { tag: "Goal", title: "Farmer, rancher or agricultural manager", text: "", kind: goal, source: ooh_farmers }
+      - id: apprenticeship
+        title: "Registered Apprenticeship"
+        tag: "Earn while you learn"
+        who: "DOL lists farming apprenticeships such as Farmer, General and Dairy Grazier."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_farmers }
+          - { tag: "Find a program", title: "A Registered Apprenticeship", text: "Validated by the U.S. Department of Labor or a State Apprenticeship Agency.", kind: stage, source: dol_rap }
+          - { tag: "8,000 hours", title: "Farmer, General (RAPIDS 0177)", text: "Time-based minimum term: <strong>8,000 hours</strong>; Dairy Grazier (RAPIDS 2019) 2,000 hours.", kind: stage, source: dol_occupations }
+          - { tag: "Goal", title: "Farmer", text: "", kind: goal, source: ooh_qf_farmers }
+    certs:
+      - { name: "Farm management certification", who: "Optional", kind: "Voluntary", text: "Requirements include relevant coursework, a bachelor's degree, farmland management experience and an exam.", source: ooh_farmers }
+    watch:
+      - { text: "FSA's Direct Farm Ownership Down Payment Loan is only for beginning farmers: the applicant puts down at least 5% of the price and FSA finances 45%, up to $300,150. A beginning farmer has not operated a farm for more than 10 years and owns no more than 30% of the county's average farm size.", source: fsa_beginning_loans }
+
+  # 37,400 jobs (agricultural and food scientists; crosswalk: Agriculture 4, Energy 1)
+  - slug: agricultural-food-scientist
+    short: "Agricultural & Food Scientist"
+    title: "Agricultural or food scientist: bachelor's in animal, food or plant science; master's or Ph.D. for research"
+    eyebrow: "Agriculture · Food Science & Processing"
+    lede: "Agricultural and food scientists typically need at least a bachelor's degree in animal science, food science, plant biology or a related field; some jobs need a master's or Ph.D. Every state has at least one land-grant college with agricultural science degrees. Plant and soil scientists may need a state license."
+    for: "Science students who want to make farming and food safer, healthier and more efficient."
+    soc: ["19-1010"]
+    does: { text: "Agricultural and food scientists research ways to improve the efficiency, quality, and safety of agricultural and food production establishments.", source: ooh_qf_agsci }
+    work: { text: "Agricultural and food scientists work in laboratories, in offices, and in the field. Most agricultural and food scientists work full time.", source: ooh_qf_agsci }
+    become: { text: "Agricultural and food scientists typically need at least a bachelor’s degree in animal science, food science, plant biology, or a related field. Employers may prefer or require a master’s or doctoral degree.", source: ooh_qf_agsci }
+    metrics: { pay: 81970, pay_hour: "39.41", pay_by: "Agricultural and food scientists", jobs: 37400, outlook: 6, outlook_words: "Faster than average", change: 2400, entry: "Bachelor's degree", training: "None", source: ooh_qf_agsci }
+    license_text: "Some states (plant and soil scientists)"
+    routes:
+      - id: agscience
+        title: "Agricultural science: animal, crop or soil"
+        tag: "Agricultural scientist"
+        who: "Common majors: biology, physical science or agriculture with a concentration such as animal or crop science; chemistry, physics or engineering degrees may also qualify."
+        steps:
+          - { tag: "Start", title: "High school: biology and chemistry", text: "", kind: start, source: ooh_agsci }
+          - { tag: "About 4 years", title: "Bachelor's in agriculture or a related science", text: "Every state has at least one land-grant college offering agricultural science degrees.", kind: stage, source: ooh_agsci }
+          - { tag: "Highly recommended", title: "Internships", text: "May lead to full-time jobs.", kind: stage, source: ooh_agsci }
+          - { tag: "For research", title: "Master's or Ph.D.", text: "Genetics, animal reproduction, agronomy, biotechnology; heavy statistics and experiment design.", kind: stage, source: ooh_agsci }
+          - { tag: "Goal", title: "Animal, soil or plant scientist", text: "", kind: goal, source: ooh_qf_agsci }
+      - id: foodscience
+        title: "Food science"
+        tag: "Food scientist"
+        who: "Students may choose a food science concentration within agriculture."
+        steps:
+          - { tag: "Start", title: "High school: biology and chemistry", text: "", kind: start, source: ooh_agsci }
+          - { tag: "About 4 years", title: "Bachelor's in food science", text: "", kind: stage, source: ooh_agsci }
+          - { tag: "Highly recommended", title: "Internships", text: "", kind: stage, source: ooh_agsci }
+          - { tag: "Goal", title: "Food scientist or technologist", text: "", kind: goal, source: ooh_qf_agsci }
+    certs:
+      - { name: "Plant or soil scientist license", who: "Some states", kind: "State license", text: "Generally a bachelor's with set credit hours in plant or soil science, years under a licensed scientist, and an exam.", source: ooh_agsci }
+      - { name: "Certifications", who: "Optional", kind: "Voluntary", text: "Generally not required but can help advance a career.", source: ooh_agsci }
+    states_note: "Licensing requirements for plant and soil scientists vary by state."
+    states_source: ooh_agsci
+
+  # 91,100 jobs (crosswalk: Agriculture 1)
+  - slug: veterinarian
+    short: "Veterinarian"
+    title: "Veterinarian: bachelor's, 4-year DVM at an AVMA-accredited college, NAVLE, state license"
+    eyebrow: "Agriculture · Animal Systems"
+    lede: "Veterinarians must earn a Doctor of Veterinary Medicine (DVM or VMD) from an accredited college of veterinary medicine, usually after a bachelor's degree, then pass the NAVLE and get a state license. Most states add their own exam on state laws, and few accept other states' licenses."
+    for: "Science-strong students who love animals and can handle long training and emotional cases."
+    soc: ["29-1131"]
+    does: { text: "Veterinarians care for the health of animals and work to protect public health.", source: ooh_qf_vets }
+    work: { text: "Most veterinarians work in private clinics and hospitals. Others travel to farms or work in settings such as laboratories, classrooms, or zoos.", source: ooh_qf_vets }
+    become: { text: "Veterinarians must have a Doctor of Veterinary Medicine degree from an accredited veterinary college, as well as a state license.", source: ooh_qf_vets }
+    metrics: { pay: 130100, pay_hour: "62.55", pay_by: "Veterinarians", jobs: 91100, outlook: 9, outlook_words: "Much faster than average", change: 8600, entry: "Doctoral or professional degree", training: "None", source: ooh_qf_vets }
+    license: veterinary
+    routes:
+      - id: dvm
+        title: "Bachelor's → DVM → NAVLE → state license"
+        tag: "Every state"
+        who: "Admission is competitive. Colleges require many science classes (biology, chemistry, animal science) and some prefer experience with animals on a farm, at a stable or in a shelter."
+        steps:
+          - { tag: "Start", title: "High school: biology and chemistry", text: "", kind: start, source: ooh_vets }
+          - { tag: "Usually 4 years", title: "Bachelor's degree, e.g. in biology", text: "", kind: stage, source: ooh_vets }
+          - { tag: "4 years", title: "DVM at an AVMA COE-accredited college", text: "About 3 years of classroom, lab and clinical work, then a final year of clinical rotations.", kind: stage, source: ooh_vets }
+          - { tag: "Exam", title: "NAVLE", text: "360 multiple-choice questions in about 7.5 hours; <strong>$825</strong> in the U.S. and Canada; three testing windows a year.", kind: exam, source: icva_navle_examday, href: "us/professional-licenses/veterinary/#exams", link: "NAVLE details" }
+          - { tag: "Most states", title: "State exam on veterinary law", text: "", kind: exam, source: ooh_vets }
+          - { tag: "Goal", title: "State veterinary license", text: "Vets working for state or federal government may not need one.", kind: goal, source: ooh_vets, href: "us/professional-licenses/veterinary/", link: "Veterinary license" }
+      - id: foreign
+        title: "Graduate of a non-accredited or foreign veterinary school"
+        tag: "ECFVG or PAVE"
+        who: "Graduates of non-accredited programs can sit the NAVLE through one of two equivalency programs."
+        steps:
+          - { tag: "Start", title: "Veterinary degree from a non-AVMA-accredited school", text: "", kind: start, source: icva_navle_apply }
+          - { tag: "Equivalency", title: "ECFVG (after the BCSE) or PAVE (after the QSE)", text: "", kind: stage, source: icva_navle_apply }
+          - { tag: "Exam", title: "NAVLE, approved by a licensing board", text: "$1,220 if tested outside the U.S., its territories and Canada.", kind: exam, source: icva_navle_apply }
+          - { tag: "Goal", title: "State veterinary license", text: "", kind: goal, source: ooh_vets }
+    certs:
+      - { name: "Specialty certification", who: "Optional", kind: "Voluntary", text: "Shows competency in areas such as animal husbandry, health and welfare, and facility administration.", source: ooh_vets }
+    states_from: veterinary
+
+  # 131,400 jobs (crosswalk: Agriculture 1, Healthcare & Human Services 1 → tie, placed by the field's animal focus)
+  - slug: veterinary-technician
+    short: "Veterinary Technologist & Technician"
+    title: "Vet tech: 2-year (technician) or 4-year (technologist) program, the VTNE, then a state credential"
+    eyebrow: "Agriculture · Animal Systems"
+    lede: "Veterinary technicians need a 2-year associate's degree and technologists usually a 4-year bachelor's in veterinary technology. Then most states require a passing score on the Veterinary Technician National Exam (VTNE) to be registered, licensed or certified."
+    for: "Caring, steady students who love animals and like hands-on medical and lab work."
+    soc: ["29-2056"]
+    does: { text: "Veterinary technologists and technicians do medical tests that help diagnose animals’ injuries and illnesses.", source: ooh_qf_vettech }
+    work: { text: "Veterinary technologists and technicians work in private clinics, laboratories, and animal hospitals. Their jobs may be physically or emotionally demanding. Many work evenings, weekends, or holidays.", source: ooh_qf_vettech }
+    become: { text: "Veterinary technologists and technicians must complete a postsecondary program in veterinary technology. Technologists usually need a 4-year bachelor’s degree, and technicians need a 2-year associate’s degree. Typically, both technologists and technicians must take a credentialing exam and become registered, licensed, or certified, depending on the requirements of the state in which they work.", source: ooh_qf_vettech }
+    metrics: { pay: 47380, pay_hour: "22.78", pay_by: "Veterinary technologists and technicians", jobs: 131400, outlook: 9, outlook_words: "Much faster than average", change: 12300, entry: "Associate's degree", training: "None", source: ooh_qf_vettech }
+    license_text: "Most states (VTNE)"
+    routes:
+      - id: associate
+        title: "Associate's in veterinary technology → VTNE → credential"
+        tag: "Technician"
+        who: "Biology and other science courses in high school help."
+        steps:
+          - { tag: "Start", title: "High school: biology and science", text: "", kind: start, source: ooh_vettech }
+          - { tag: "2 years", title: "Associate's in a veterinary technology program", text: "", kind: stage, source: ooh_vettech }
+          - { tag: "Exam", title: "Veterinary Technician National Exam (VTNE)", text: "170 multiple-choice questions in 3 hours (150 scored); <strong>$375</strong>; at a PSI center or by live remote proctoring.", kind: exam, source: aavsb_vtne_take }
+          - { tag: "State", title: "Registered, licensed or certified", text: "AAVSB sends your score; the state or province grants the credential.", kind: licence, source: aavsb_vtne }
+          - { tag: "Goal", title: "Veterinary technician", text: "", kind: goal, source: ooh_qf_vettech }
+      - id: bachelor
+        title: "Bachelor's in veterinary technology → technologist"
+        tag: "Technologist"
+        who: "Some programs offer a 4-year bachelor's degree for veterinary technologists."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_vettech }
+          - { tag: "4 years", title: "Bachelor's in veterinary technology", text: "", kind: stage, source: ooh_vettech }
+          - { tag: "Exam", title: "VTNE", text: "", kind: exam, source: aavsb_vtne_take }
+          - { tag: "Goal", title: "Veterinary technologist", text: "", kind: goal, source: ooh_qf_vettech }
+    certs:
+      - { name: "VTNE", who: "American Association of Veterinary State Boards (AAVSB)", kind: "Exam for a state license", text: "Most states and provinces require a passing score to credential a veterinary technician; AAVSB itself licenses no one. Reschedule once to the next window for $90.", source: aavsb_vtne_apply }
+    states_note: "Each state regulates veterinary technologists and technicians differently; most require an exam. Two states' rules, from their own boards:"
+    states:
+      - { place: "New York", body: "NYSED Office of the Professions", rule: "Using the title <strong>Veterinary Technician</strong> requires a license: good moral character, at least an 18-month (two academic years) diploma or degree from a NYSED-registered or AVMA CVTEA-accredited program, and the VTNE. Licensure fee $177.", sources: [ny_op_vettech] }
+      - { place: "California", body: "Veterinary Medical Board (VMB)", rule: "<strong>Registered Veterinary Technician (RVT)</strong>: $225 application fee and $225 license fee; first-time exam applicants must be fingerprinted.", sources: [ca_vmb_fees] }

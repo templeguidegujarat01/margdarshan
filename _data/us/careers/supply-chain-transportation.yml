@@ -124,3 +124,60 @@ list:
           - { tag: "Goal", title: "Purchasing manager", text: "With extensive experience, some become an organization's Chief Procurement Officer (CPO).", kind: goal, source: ooh_purchasing }
     certs:
       - { name: "Procurement or supply chain certification", who: "Professional associations", kind: "Voluntary", text: "Some workers choose optional certification in an area such as procurement or supply chain management.", source: ooh_purchasing }
+
+  # ---- Master Plan Phase 7 (2026-10-21): FAA rules copied from 14 CFR part 61 on eCFR ----
+
+  # 154,900 jobs (aircraft pilots and flight engineers: airline + commercial pilots)
+  - slug: airline-pilot
+    short: "Airline & Commercial Pilot"
+    title: "Pilot: FAA certificates from private to commercial, 250 hours, then 1,500 hours for the ATP"
+    eyebrow: "Supply Chain & Transportation · Air & Space Transportation"
+    lede: "Pilots climb a ladder of FAA certificates: student, private, instrument rating, commercial (at least 250 flight hours), multi-engine and finally the airline transport pilot (ATP) certificate, usually 1,500 hours and age 23. Airline pilots typically also have a bachelor's degree; an aviation degree or military flying can lower the ATP hours."
+    for: "Calm decision-makers with good vision, clear communication and a real love of flying."
+    soc: ["53-2010"]
+    does: { text: "Airline and commercial pilots fly and navigate airplanes, helicopters, and other aircraft.", source: ooh_qf_pilots }
+    work: { text: "Pilots usually have variable work schedules, with overnight layovers that are more common for airline pilots.", source: ooh_qf_pilots }
+    become: { text: "Airline pilots typically need a bachelor’s degree and experience as a commercial or military pilot. Commercial pilots typically need flight training. Both also must meet Federal Aviation Administration (FAA) requirements.", source: ooh_qf_pilots }
+    metrics: { pay: 210020, pay_hour: null, pay_by: "Aircraft pilots and flight engineers", jobs: 154900, outlook: 7, outlook_words: "Much faster than average", change: 11300, entry: "See How to Become One", experience: "See How to Become One", training: "Moderate-term on-the-job training", source: ooh_qf_pilots }
+    license_text: "FAA certificates (federal)"
+    routes:
+      - id: civilian
+        title: "Flight school: private → instrument → commercial → ATP"
+        tag: "Typical"
+        who: "The FAA certifies hundreds of civilian flight schools, from small fixed base operators to state universities. Each certificate and rating needs a knowledge test and a practical check ride."
+        steps:
+          - { tag: "Start", title: "Student pilot certificate", text: "", kind: start, source: ooh_pilots }
+          - { tag: "Age 17 · 40 hours", title: "Private pilot certificate", text: "At least 40 hours of flight time, including 20 with an instructor and 10 solo.", kind: licence, source: cfr_14_61_109 }
+          - { tag: "Rating", title: "Instrument rating", text: "At least 40 hours of instrument time and 50 hours of cross-country flight as pilot in command.", kind: licence, source: ooh_pilots }
+          - { tag: "Age 18 · 250 hours", title: "Commercial pilot certificate", text: "At least 250 hours as a pilot, including 100 as pilot in command; medical exam (vision correctable to 20/20).", kind: licence, source: cfr_14_61_129 }
+          - { tag: "Build hours", title: "Multi-engine rating; flight instructor or charter pilot", text: "Many pilots earn a flight instructor certificate to build flight time.", kind: stage, source: ooh_pilots }
+          - { tag: "Age 23 · 1,500 hours", title: "Airline transport pilot (ATP) certificate", text: "Including 500 hours cross-country, 100 night and 75 instrument; written and practical exams.", kind: exam, source: cfr_14_61_159 }
+          - { tag: "Goal", title: "Airline first officer", text: "Then aircraft type ratings through employer training; promotion follows seniority.", kind: goal, source: ooh_pilots }
+        facts:
+          - { k: "Private pilot age", v: "At least 17 for airplanes (16 for gliders or balloons).", source: cfr_14_61_103 }
+          - { k: "Commercial pilot age", v: "At least 18.", source: cfr_14_61_123 }
+          - { k: "ATP age", v: "At least 23 (21 with restricted privileges).", source: cfr_14_61_153 }
+      - id: aviation-degree
+        title: "Aviation degree → restricted ATP at 1,000 hours"
+        tag: "R-ATP"
+        who: "A bachelor's degree with an aviation major from a school the FAA has authorized, 60 credit hours of aviation coursework and a commercial certificate with instrument rating earned in its part 141 program."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_pilots }
+          - { tag: "4 years", title: "FAA-authorized bachelor's with an aviation major", text: "Some colleges offer pilot training within a 2- or 4-year aviation degree.", kind: stage, source: cfr_14_61_160 }
+          - { tag: "1,000 hours", title: "Restricted ATP (age 21)", text: "1,250 hours with an authorized associate degree.", kind: exam, source: cfr_14_61_160 }
+          - { tag: "Goal", title: "Airline first officer", text: "", kind: goal, source: ooh_pilots }
+      - id: military
+        title: "Military pilot → airline"
+        tag: "750 hours"
+        who: "Military pilots may transfer to civilian aviation and apply directly to airlines."
+        steps:
+          - { tag: "Start", title: "U.S. Armed Forces pilot training", text: "", kind: start, source: ooh_pilots }
+          - { tag: "750 hours", title: "Restricted ATP for U.S. military pilots", text: "With a DD-214 (or current service record) and proof of graduating from military undergraduate pilot training.", kind: exam, source: cfr_14_61_160 }
+          - { tag: "Goal", title: "Airline pilot", text: "", kind: goal, source: ooh_pilots }
+    certs:
+      - { name: "Aircraft type ratings", who: "FAA · usually through employer training", kind: "Federal license", text: "Needed to fly specific aircraft such as the Boeing 737; generally earned by pilots with at least a commercial certificate.", source: ooh_pilots }
+      - { name: "Flight instructor certificate", who: "FAA", kind: "Federal license", text: "Many commercial pilots get one to build flight time and experience at less personal expense.", source: ooh_pilots }
+    states_note: "Pilot certificates are federal: the FAA issues them, and the same rules apply in every state. Pilots also pass periodic medical and practical flight exams to keep flying."
+    states_source: ooh_pilots
+    watch:
+      - { text: "Pay differs a lot by type of flying: median $232,140 for airline pilots, copilots and flight engineers and $123,220 for commercial pilots (May 2025).", source: ooh_pilots_pay }

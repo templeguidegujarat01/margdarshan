@@ -615,3 +615,311 @@ list:
     tools:
       - { text: "Workers use technical manuals and sophisticated diagnostic equipment to figure out why machines are not working.", source: ooh_indmech }
       - { text: "They must follow safety precautions and use protective equipment, such as hardhats, safety glasses and hearing protectors.", source: ooh_qf_indmech }
+
+  # ---- Master Plan Phase 7 (2026-10-21): Supply Chain & Transportation and Energy & Natural Resources trades ----
+  # BLS OOH (pages last modified 27 Aug 2026), FMCSA and FAA rules from eCFR, NRC, NABCEP and the DOL RAPIDS spreadsheet.
+
+  - slug: truck-driver
+    home_trade: "Heavy and tractor-trailer truck driver"
+    title: "Truck driver: CLP, entry-level driver training, then the CDL skills test"
+    short: "Heavy and tractor-trailer truck driver"
+    does: { text: "Heavy and tractor-trailer truck drivers transport goods from one location to another.", source: ooh_qf_truck }
+    eyebrow: "USA · Trades & CTE · Supply Chain & Transportation"
+    lede: "Most drivers have a <strong>high school diploma</strong> and attend a professional truck driving school of <strong>3 to 6 months</strong>. Every long-haul driver needs a <strong>commercial driver's license (CDL)</strong>: a learner's permit first, then federal <strong>entry-level driver training</strong> with a registered provider, then the state skills test."
+    for: "Independent, patient drivers who are fine with long hours on the road and time away from home."
+    checked: 2026-10-21
+    review_by: 2027-04-21
+    metrics: { pay: 58640, pay_hour: "28.19", jobs: 2221200, outlook: 4, outlook_words: "As fast as average", change: 83800, entry: "Postsecondary nondegree award", training: "Short-term on-the-job training", source: ooh_qf_truck }
+    routes:
+      - id: cdl
+        title: "Truck driving school → CLP → ELDT → CDL"
+        tag: "Typical"
+        who: "Private truck-driving schools and community college programs teach how to maneuver large vehicles and the federal rules for interstate trucking."
+        steps:
+          - { tag: "Start", title: "High school diploma or equivalent", text: "Most companies require one.", kind: start, source: ooh_truck }
+          - { tag: "Age 18+", title: "Commercial learner's permit (CLP)", text: "Pass the general knowledge test; your driving record for the last 10 years is checked, and most commercial driving needs a DOT medical card. The CLP lets you practice on public roads with a CDL holder beside you.", kind: licence, source: fmcsa_get_cdl }
+          - { tag: "3–6 months", title: "Truck driving school + entry-level driver training", text: "First-time Class A or Class B applicants must train with a provider listed on FMCSA's Training Provider Registry (rule in force since 7 February 2022).", kind: stage, source: fmcsa_eldt }
+          - { tag: "After 14 days", title: "CDL skills test", text: "You must hold the CLP for 14 days. Three parts: vehicle inspection, basic controls and road test.", kind: exam, source: fmcsa_get_cdl }
+          - { tag: "State issues", title: "Commercial driver's license", text: "FMCSA does not issue CDLs; your state does.", kind: licence, source: fmcsa_get_cdl }
+          - { tag: "Several weeks", title: "On the job with a mentor driver", text: "", kind: stage, source: ooh_truck }
+          - { tag: "Goal", title: "Heavy or tractor-trailer truck driver", text: "", kind: goal, source: ooh_qf_truck }
+        facts:
+          - { k: "Interstate age", v: "A driver of a commercial motor vehicle in interstate commerce must be at least 21 (49 CFR 391.11); the CLP itself needs age 18.", source: cfr_49_391_11 }
+          - { k: "CLP validity", v: "No more than one year from first issue without retaking the knowledge tests.", source: cfr_49_383_25 }
+          - { k: "Health and record", v: "A physical exam every two years, a clean driving record and random drug and alcohol tests.", source: ooh_truck }
+      - id: apprenticeship
+        title: "Registered Apprenticeship"
+        tag: "Earn while you learn"
+        who: "Some carriers run DOL-registered apprenticeships; the CDL steps above still apply."
+        steps:
+          - { tag: "Start", title: "High school diploma or equivalent", text: "", kind: start, source: ooh_truck }
+          - { tag: "Find a program", title: "A Registered Apprenticeship", text: "Validated by the U.S. Department of Labor or a State Apprenticeship Agency.", kind: stage, source: dol_rap }
+          - { tag: "2,000 hours", title: "Truck Driver, Heavy (RAPIDS 0980)", text: "Time-based minimum term: <strong>2,000 hours</strong>.", kind: stage, source: dol_occupations }
+          - { tag: "Goal", title: "CDL truck driver", text: "", kind: goal, source: ooh_qf_truck }
+    certs:
+      - { name: "Hazardous materials endorsement (H)", who: "State CDL agency", text: "Needed to haul hazardous materials: an extra knowledge test and a background check; first-time applicants also complete entry-level training for it.", source: ooh_truck }
+      - { name: "Passenger (P) and school bus (S) endorsements", who: "State CDL agency", text: "First-time applicants complete the endorsement's entry-level training with a registered provider.", source: cfr_49_380_609 }
+    states_note: "Each state issues its own CDL and has its own CDL manual and processes; some states add training rules on top of the federal ones. Start with your state's CDL manual."
+    states_source: fmcsa_get_cdl
+    tools:
+      - { text: "Drivers keep a log of their working hours, following all federal and state regulations, and keep their trucks and equipment clean and in good working order.", source: ooh_truck_wtd }
+
+  - slug: aircraft-mechanic
+    home_trade: "Aircraft mechanic (A&P)"
+    title: "Aircraft mechanic: FAA Part 147 school or 18–30 months of experience, then the A&P tests"
+    short: "Aircraft mechanic (A&P)"
+    does: { text: "Aircraft and avionics equipment mechanics and technicians install, test, adjust, and repair equipment and systems in aircraft.", source: ooh_qf_aircraftmech }
+    eyebrow: "USA · Trades & CTE · Supply Chain & Transportation"
+    lede: "Most aircraft mechanics attend an <strong>FAA-approved aviation maintenance technician school</strong> (18 to 24 months) and then pass the FAA's written, oral and practical tests for the <strong>Airframe and Powerplant (A&P)</strong> ratings. Others document <strong>18 months</strong> (one rating) or <strong>30 months</strong> (both) of supervised experience, civilian or military."
+    for: "Careful, mechanical people who like engines, precise work and aviation safety."
+    checked: 2026-10-21
+    review_by: 2027-04-21
+    metrics: { pay: 80180, pay_hour: "38.55", jobs: 159800, outlook: 6, outlook_words: "Faster than average", change: 9400, entry: "Postsecondary nondegree award", training: "None", source: ooh_qf_aircraftmech }
+    pay_by: "Aircraft and avionics equipment mechanics and technicians"
+    routes:
+      - id: amts
+        title: "FAA-certificated school (Part 147) → A&P tests"
+        tag: "Most common"
+        who: "A graduation certificate from an AMTS replaces the experience requirement and makes you eligible to test. Programs tied to community colleges can also award an associate's degree."
+        steps:
+          - { tag: "Start", title: "High school diploma or GED", text: "Required to attend an AMTS.", kind: start, source: faa_amt_experience }
+          - { tag: "18–24 months", title: "Aviation Maintenance Technician School (14 CFR part 147)", text: "Airframe and/or Powerplant courses; some add avionics.", kind: stage, source: faa_amt_experience }
+          - { tag: "Exams", title: "Three knowledge tests", text: "General first, then Airframe and/or Powerplant.", kind: exam, source: faa_amt_tests }
+          - { tag: "Exams", title: "Oral and practical tests", text: "Given by a Designated Mechanic Examiner (DME).", kind: exam, source: faa_amt_tests }
+          - { tag: "Goal", title: "FAA mechanic certificate with A and/or P ratings", text: "At least 18, English, and all tests passed within 24 months.", kind: goal, source: cfr_14_65_71 }
+      - id: ojt
+        title: "On-the-job experience (civilian or military) → A&P tests"
+        tag: "Experience route"
+        who: "Usually the cheapest way to gain the experience. Work under a certificated A&P mechanic and log everything; military time counts only for time worked in the specialty, not time in training."
+        steps:
+          - { tag: "Start", title: "Job or volunteer role at a maintenance facility, or military aviation maintenance", text: "", kind: start, source: faa_amt_experience }
+          - { tag: "18 or 30 months", title: "Documented practical experience", text: "<strong>18 months</strong> for one rating, <strong>30 months</strong> for both at once. An FAA inspector reviews your documents.", kind: stage, source: faa_amt_tests }
+          - { tag: "Exams", title: "Knowledge, oral and practical tests", text: "", kind: exam, source: faa_amt_tests }
+          - { tag: "Goal", title: "A&P mechanic", text: "", kind: goal, source: ooh_aircraftmech }
+      - id: apprenticeship
+        title: "Registered Apprenticeship"
+        tag: "Earn while you learn"
+        who: "Apprentices log supervised experience under certificated mechanics."
+        steps:
+          - { tag: "Start", title: "High school diploma or equivalent", text: "", kind: start, source: ooh_aircraftmech }
+          - { tag: "Find a program", title: "A Registered Apprenticeship", text: "Validated by the U.S. Department of Labor or a State Apprenticeship Agency.", kind: stage, source: dol_rap }
+          - { tag: "5,000 hours", title: "Airframe & Powerplant Mechanic (RAPIDS 0005)", text: "Time-based minimum term: <strong>5,000 hours</strong> (an older version 8,000).", kind: stage, source: dol_occupations }
+          - { tag: "Goal", title: "A&P mechanic", text: "", kind: goal, source: ooh_aircraftmech }
+    certs:
+      - { name: "Inspection Authorization (IA)", who: "FAA · for A&P mechanics", text: "For A&P mechanics who meet experience and other requirements: lets them review and approve many major repairs and alterations, and opens the best advancement.", source: ooh_aircraftmech }
+      - { name: "FCC license (avionics)", who: "Federal Communications Commission", text: "Avionics technicians who work on communications equipment may need one.", source: ooh_aircraftmech }
+    states_note: "Mechanic certificates are federal: the FAA issues them, and BLS names no separate state license for aircraft mechanics."
+    states_source: ooh_aircraftmech
+    tools:
+      - { text: "Mechanics adjust aircraft parts to exact specifications, often using precision tools, for example to tighten wheel bolts to a specified tension.", source: ooh_aircraftmech }
+
+  - slug: diesel-technician
+    home_trade: "Diesel service technician"
+    title: "Diesel technician: on the job or a diesel program, then certification"
+    short: "Diesel service technician"
+    does: { text: "Diesel service technicians and mechanics inspect, repair, and overhaul buses, trucks, or any vehicle with a diesel engine.", source: ooh_qf_diesel }
+    eyebrow: "USA · Trades & CTE · Supply Chain & Transportation"
+    lede: "Most diesel technicians learn <strong>on the job</strong> after high school, but employers may prefer a <strong>certificate or degree in diesel engine repair</strong> from a community college or vocational school. Industry certification may be required, and some need a <strong>CDL</strong> to test-drive trucks and buses."
+    for: "Hands-on fixers who like engines, electronics and diagnosing problems."
+    checked: 2026-10-21
+    review_by: 2027-04-21
+    metrics: { pay: 61770, pay_hour: "29.70", jobs: 316000, outlook: 4, outlook_words: "As fast as average", change: 11400, entry: "High school diploma or equivalent", training: "Long-term on-the-job training", source: ooh_qf_diesel }
+    routes:
+      - id: school
+        title: "Diesel program → technician"
+        tag: "Employers may prefer"
+        who: "Programs mix classroom and hands-on training: diesel technology, repair techniques and equipment, technical manuals and electronic diagnostic reports."
+        steps:
+          - { tag: "Start", title: "High school diploma or equivalent", text: "Automotive repair, electronics and math courses help.", kind: start, source: ooh_diesel }
+          - { tag: "Certificate or degree", title: "Diesel engine repair program", text: "At a community college or vocational-technical school.", kind: stage, source: ooh_diesel }
+          - { tag: "Optional", title: "Industry certification", text: "May need previous experience and an exam.", kind: exam, source: ooh_diesel }
+          - { tag: "Goal", title: "Diesel service technician", text: "", kind: goal, source: ooh_qf_diesel }
+      - id: onthejob
+        title: "Trainee in a shop → technician"
+        tag: "Most common"
+        who: "Trainees start with cleaning parts, checking fuel and oil and moving vehicles, then move to diagnostics."
+        steps:
+          - { tag: "Start", title: "High school diploma or equivalent", text: "", kind: start, source: ooh_diesel }
+          - { tag: "Long-term", title: "Extensive on-the-job training", text: "", kind: stage, source: ooh_diesel }
+          - { tag: "Goal", title: "Diesel service technician", text: "", kind: goal, source: ooh_qf_diesel }
+      - id: apprenticeship
+        title: "Registered Apprenticeship"
+        tag: "Earn while you learn"
+        who: "Registered Apprenticeship programs combine paid work and instruction."
+        steps:
+          - { tag: "Start", title: "High school diploma or equivalent", text: "", kind: start, source: ooh_diesel }
+          - { tag: "Find a program", title: "A Registered Apprenticeship", text: "Validated by the U.S. Department of Labor or a State Apprenticeship Agency.", kind: stage, source: dol_rap }
+          - { tag: "6,000 hours", title: "Diesel Mechanic (RAPIDS 0124)", text: "Time-based minimum term: <strong>6,000 hours</strong> (current version).", kind: stage, source: dol_occupations }
+          - { tag: "Goal", title: "Diesel mechanic", text: "", kind: goal, source: ooh_qf_diesel }
+    certs:
+      - { name: "Industry certification", who: "Employer may require or prefer", text: "Shows competence and may bring higher pay; usually needs experience and an exam.", source: ooh_diesel }
+      - { name: "Commercial driver's license (CDL)", who: "State CDL agency", text: "Some technicians need one to test-drive buses and large trucks.", source: ooh_diesel }
+    states_note: "BLS names no state license for diesel technicians; certification and any CDL come from the employer's needs and the state CDL agency."
+    states_source: ooh_diesel
+    tools:
+      - { text: "In many shops, workers use computer diagnostic equipment, power and machine tools (pneumatic wrenches, lathes, grinders, welding equipment) and hand tools such as pliers, sockets and screwdrivers.", source: ooh_diesel_wtd }
+
+  - slug: lineworker
+    home_trade: "Electrical power-line installer (lineworker)"
+    title: "Lineworker: high school, then an apprenticeship of about 3–4 years"
+    short: "Electrical power-line installer and repairer"
+    does: { text: "Electrical power-line installers and repairers install or repair cables or wires used in electrical power or distribution systems.", source: ooh_qf_lineworker }
+    eyebrow: "USA · Trades & CTE · Energy & Natural Resources"
+    lede: "Lineworkers typically need a <strong>high school diploma</strong>, then <strong>technical instruction and on-the-job training</strong>; apprenticeships are common and reach journey level after <strong>3 or 4 years</strong>. Workers who drive heavy vehicles usually need a <strong>CDL</strong>."
+    for: "Strong, calm, safety-minded people who don't mind heights, weather and high voltage."
+    checked: 2026-10-21
+    review_by: 2027-04-21
+    metrics: { pay: 95320, pay_hour: "45.83", jobs: 131900, outlook: 10, outlook_words: "Much faster than average", change: 13600, entry: "High school diploma or equivalent", training: "Long-term on-the-job training", source: ooh_qf_lineworker }
+    routes:
+      - id: apprenticeship
+        title: "Apprenticeship → journey-level lineworker"
+        tag: "Common"
+        who: "Programs of up to 3 years combine on-the-job training with technical instruction, sometimes run jointly by the employer and the union."
+        steps:
+          - { tag: "Start", title: "High school diploma + 1 year of algebra", text: "Entry may also need an aptitude test score, a substance abuse screening and a fitness test.", kind: start, source: ooh_lineworker }
+          - { tag: "Find a program", title: "A Registered Apprenticeship", text: "Validated by the U.S. Department of Labor or a State Apprenticeship Agency.", kind: stage, source: dol_rap }
+          - { tag: "6,000–8,000 hours", title: "Line Erector (RAPIDS 0281) or Line Maintainer (RAPIDS 0283)", text: "Time-based minimum terms: Line Erector <strong>6,000 hours</strong>; Line Maintainer 8,000 (newer version 7,000).", kind: stage, source: dol_occupations }
+          - { tag: "Often", title: "Commercial driver's license (CDL)", text: "For heavy vehicles; crews that cross state lines need an interstate CDL.", kind: licence, source: ooh_lineworker }
+          - { tag: "Goal", title: "Journey-level lineworker", text: "After 3 or 4 years; can do most tasks without supervision.", kind: goal, source: ooh_lineworker }
+      - id: college
+        title: "Lineworker certificate or associate degree first"
+        tag: "Optional head start"
+        who: "Some community colleges teach electrical distribution, line construction and pole top and bucket rescue, sometimes with an internship."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_lineworker }
+          - { tag: "1–2 years", title: "1-year certificate or 2-year associate degree", text: "", kind: stage, source: ooh_lineworker }
+          - { tag: "Then", title: "Apprenticeship or employer training", text: "", kind: stage, source: ooh_lineworker }
+          - { tag: "Goal", title: "Electrical power-line installer and repairer", text: "", kind: goal, source: ooh_qf_lineworker }
+    certs:
+      - { name: "Lineworker certification", who: "Optional", text: "Available but not mandatory.", source: ooh_lineworker }
+    states_note: "Medical and other certifications and the minimum age vary by state; check with your state."
+    states_source: ooh_lineworker
+    tools:
+      - { text: "Lineworkers climb poles and towers or use truck-mounted buckets, and use trucks with augers and cranes to dig holes and set poles.", source: ooh_lineworker_wtd }
+
+  - slug: solar-installer
+    home_trade: "Solar photovoltaic installer"
+    title: "Solar PV installer: on the job up to a year, courses, optional NABCEP certification"
+    short: "Solar photovoltaic installer"
+    does: { text: "Solar photovoltaic (PV) installers assemble, set up, and maintain rooftop or other systems that convert sunlight into energy.", source: ooh_qf_solar }
+    eyebrow: "USA · Trades & CTE · Energy & Natural Resources"
+    lede: "PV installers typically need a <strong>high school diploma</strong> and learn <strong>on the job for 1 month to 1 year</strong>; some take short courses at a community college or technical school, and electrician and roofing apprentices can add PV modules. <strong>Some states</strong> require a license."
+    for: "Practical, fit people who like working outdoors, on roofs and with electrical systems."
+    checked: 2026-10-21
+    review_by: 2027-04-21
+    metrics: { pay: 53140, pay_hour: "25.55", jobs: 31100, outlook: 37, outlook_words: "Much faster than average", change: 11300, entry: "High school diploma or equivalent", training: "Moderate-term on-the-job training", source: ooh_qf_solar }
+    routes:
+      - id: onthejob
+        title: "On the job with experienced installers"
+        tag: "Most common"
+        who: "Construction experience (electrician, roofer, carpenter, laborer) can shorten training."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_solar }
+          - { tag: "Optional", title: "Solar courses: a few days to several months", text: "From basic safety and PV knowledge to system design; some take online courses.", kind: stage, source: ooh_solar }
+          - { tag: "1 month–1 year", title: "On-the-job training", text: "Safety, tools and PV installation techniques; manufacturers may train on their products.", kind: stage, source: ooh_solar }
+          - { tag: "Goal", title: "PV installer", text: "Later: project supervisor or manager, sales, or your own business.", kind: goal, source: ooh_solar }
+      - id: apprenticeship
+        title: "Electrician or roofing apprenticeship with PV modules"
+        tag: "Apprenticeship route"
+        who: "Electrician and roofing apprentices and journey workers may complete photovoltaic-specific training modules."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_solar }
+          - { tag: "Apprenticeship", title: "Electrician or roofer apprenticeship", text: "", kind: stage, source: ooh_solar, href: "us/cte/roadmaps/electrician.html", link: "Electrician roadmap" }
+          - { tag: "Modules", title: "PV-specific training modules", text: "", kind: stage, source: ooh_solar }
+          - { tag: "Goal", title: "PV installer", text: "", kind: goal, source: ooh_qf_solar }
+    certs:
+      - { name: "NABCEP PV Installation Professional (PVIP)", who: "North American Board of Certified Energy Practitioners · voluntary", text: "Earned by showing training and experience and passing an exam. Fees: $125 application, $375 exam ($275 re-exam). Some states require certified installers for a project to qualify for solar subsidies.", source: nabcep_fees }
+      - { name: "NABCEP PV Associate (PVA)", who: "NABCEP · entry-level credential", text: "$25 application and $125 exam.", source: nabcep_fees }
+      - { name: "Driver's license", who: "Employer may require", text: "Installers travel to jobsites.", source: ooh_solar }
+    states_note: "Some states require a license for PV installers; contact your state's licensing board."
+    states_source: ooh_solar
+    tools:
+      - { text: "PV installers use handtools and power tools, including drills, wrenches, saws and screwdrivers, to set up panels and connect them to frames, wires and support structures.", source: ooh_solar_wtd }
+
+  - slug: wind-turbine-technician
+    home_trade: "Wind turbine technician"
+    title: "Wind turbine technician: wind energy certificate, then employer training"
+    short: "Wind turbine service technician"
+    does: { text: "Wind turbine service technicians maintain and repair wind turbines.", source: ooh_qf_wind }
+    eyebrow: "USA · Trades & CTE · Energy & Natural Resources"
+    lede: "Windtechs typically complete a <strong>postsecondary certificate in wind energy technology</strong> (or an associate degree) at a technical school or community college, then get <strong>employer or manufacturer training</strong> on their turbines. Certification in electrical safety, tower climbing and self-rescue is common but not mandatory."
+    for: "Adventurous, mechanical people who are comfortable at great heights and in confined spaces."
+    checked: 2026-10-21
+    review_by: 2027-04-21
+    metrics: { pay: 64120, pay_hour: "30.83", jobs: 11800, outlook: 30, outlook_words: "Much faster than average", change: 3500, entry: "Postsecondary nondegree award", training: "Long-term on-the-job training", source: ooh_qf_wind }
+    routes:
+      - id: school
+        title: "Wind energy certificate → employer training"
+        tag: "Typical"
+        who: "Many schools have onsite turbines; coursework covers electrical, hydraulic, braking and mechanical systems, programmable logic controls, tower climbing, rescue, first aid and CPR."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_wind }
+          - { tag: "Certificate or associate", title: "Wind energy technology program", text: "", kind: stage, source: ooh_wind }
+          - { tag: "Once hired", title: "Employer or manufacturer training", text: "On the specific turbines you will maintain.", kind: stage, source: ooh_wind }
+          - { tag: "Goal", title: "Wind turbine service technician", text: "", kind: goal, source: ooh_qf_wind }
+      - id: apprenticeship
+        title: "Registered Apprenticeship"
+        tag: "Earn while you learn"
+        who: "Registered Apprenticeship programs combine paid work and instruction."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_wind }
+          - { tag: "Find a program", title: "A Registered Apprenticeship", text: "Validated by the U.S. Department of Labor or a State Apprenticeship Agency.", kind: stage, source: dol_rap }
+          - { tag: "4,000 hours", title: "Wind Turbine Technician (RAPIDS 2000)", text: "Time-based minimum term: <strong>4,000 hours</strong>.", kind: stage, source: dol_occupations }
+          - { tag: "Goal", title: "Wind turbine technician", text: "", kind: goal, source: ooh_qf_wind }
+    certs:
+      - { name: "Safety certifications", who: "Optional · employers often say which", text: "Workplace electrical safety, tower climbing and self-rescue.", source: ooh_wind }
+    states_note: "BLS names no state license for wind turbine technicians; employers direct workers to the certifications they need."
+    states_source: ooh_wind
+    tools:
+      - { text: "Windtechs climb towers that may be 200 feet or higher in a safety harness, use handtools and power tools, and use computers to diagnose electrical malfunctions.", source: ooh_wind_wtd }
+
+  - slug: power-plant-operator
+    home_trade: "Power plant operator"
+    title: "Power plant operator: high school, years of plant training; NRC license for nuclear"
+    short: "Power plant operator"
+    does: { text: "Power plant operators, distributors, and dispatchers control the systems that generate and distribute electric power.", source: ooh_qf_powerplant }
+    eyebrow: "USA · Trades & CTE · Energy & Natural Resources"
+    lede: "Operators typically need a <strong>high school diploma</strong> (employers may prefer a college or vocational degree), may take an <strong>aptitude exam</strong>, then train <strong>on site for several years</strong>. Nuclear reactor operators also need a license from the <strong>U.S. Nuclear Regulatory Commission (NRC)</strong>."
+    for: "Steady, focused people strong in math and science who can work rotating shifts."
+    checked: 2026-10-21
+    review_by: 2027-04-21
+    metrics: { pay: 105080, pay_hour: "50.52", jobs: 43700, outlook: -4, outlook_words: "Decline", change: -1700, entry: "High school diploma or equivalent", training: "Long-term on-the-job training", source: ooh_qf_powerplant }
+    pay_by: "Power plant operators, distributors, and dispatchers"
+    routes:
+      - id: plant
+        title: "Hired as a trainee → fully qualified operator"
+        tag: "Typical"
+        who: "Employers look for a strong background in science and math, especially algebra and trigonometry; the aptitude exam tests reading, mechanical concepts, spatial and math ability."
+        steps:
+          - { tag: "Start", title: "High school diploma or equivalent", text: "", kind: start, source: ooh_powerplant }
+          - { tag: "May be required", title: "Aptitude exam", text: "", kind: exam, source: ooh_powerplant }
+          - { tag: "Several years", title: "Onsite training and experience", text: "Regular training continues after you qualify.", kind: stage, source: ooh_powerplant }
+          - { tag: "Goal", title: "Power plant operator or dispatcher", text: "Later: shift supervisor, trainer or consultant.", kind: goal, source: ooh_powerplant }
+      - id: nuclear
+        title: "Nuclear reactor operator (NRC license)"
+        tag: "Federal license"
+        who: "Operators usually start unlicensed at a plant, or come from a nuclear equipment, technician or U.S. Navy role."
+        steps:
+          - { tag: "Start", title: "Unlicensed operator at a nuclear plant", text: "", kind: start, source: ooh_powerplant }
+          - { tag: "Training", title: "The plant's formal training program", text: "The facility certifies your training and startup and shutdown experience on NRC Form 398 and asks the NRC to examine you.", kind: stage, source: cfr_10_55_31 }
+          - { tag: "Exam", title: "NRC written exam and operating test", text: "Plus a medical exam.", kind: exam, source: nrc_operator_licensing }
+          - { tag: "License", title: "NRC reactor operator license", text: "Not transferable: a new license is needed for another plant; annual and periodic exams to keep it.", kind: licence, source: ooh_powerplant }
+          - { tag: "Goal", title: "Licensed reactor operator, then senior reactor operator", text: "", kind: goal, source: ooh_powerplant }
+        facts:
+          - { k: "How many", v: "About 3,600 active NRC-licensed power reactor operators in the United States.", source: nrc_operator_licensing }
+      - id: apprenticeship
+        title: "Registered Apprenticeship"
+        tag: "Earn while you learn"
+        who: "Registered Apprenticeship programs combine paid work and instruction."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_powerplant }
+          - { tag: "Find a program", title: "A Registered Apprenticeship", text: "Validated by the U.S. Department of Labor or a State Apprenticeship Agency.", kind: stage, source: dol_rap }
+          - { tag: "8,000 hours", title: "Power-Plant Operator (RAPIDS 0440)", text: "Time-based minimum term: <strong>8,000 hours</strong>.", kind: stage, source: dol_occupations }
+          - { tag: "Goal", title: "Power plant operator", text: "", kind: goal, source: ooh_qf_powerplant }
+    certs:
+      - { name: "Grid certification", who: "Employer may require", text: "Operators, distributors and dispatchers in positions that could affect the power grid may need to be certified.", source: ooh_powerplant }
+      - { name: "NRC operator license", who: "U.S. Nuclear Regulatory Commission · nuclear only", text: "The NRC licenses everyone who operates or supervises the controls of a commercial nuclear power reactor.", source: nrc_operator_licensing }
+    states_note: "Some power plant operators are licensed by state boards as stationary engineers, boiler operators or firefighters; the rules vary by state and by job duties."
+    states_source: ooh_powerplant
+    tools:
+      - { text: "Operators use control boards and other equipment to distribute power among generators, and monitor instruments to keep voltage and electricity flowing to meet demand.", source: ooh_powerplant_wtd }

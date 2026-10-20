@@ -76,6 +76,7 @@ list:
     work: { text: "Most insurance sales agents work in office settings, although they may spend time traveling to meet with clients.", source: ooh_qf_insagent }
     become: { text: "Although employers typically require that agents have a high school diploma, they may prefer to hire agents who have a bachelor’s degree. Agents must be licensed in the states where they work.", source: ooh_qf_insagent }
     metrics: { pay: 62280, pay_hour: "29.94", pay_by: "Insurance sales agents", jobs: 572600, outlook: 3, outlook_words: "As fast as average", change: 18800, entry: "High school diploma or equivalent", training: "Moderate-term on-the-job training", source: ooh_qf_insagent }
+    license: insurance-producer
     license_text: "State license, required"
     routes:
       - id: license
@@ -86,7 +87,7 @@ list:
           - { tag: "Start", title: "High school diploma", text: "Some employers prefer a bachelor's degree in a field such as business.", kind: start, source: ooh_insagent }
           - { tag: "Courses", title: "State-specified courses", text: "", kind: stage, source: ooh_insagent }
           - { tag: "Exam", title: "State licensing exam", text: "Life and health insurance and property and casualty insurance need separate licenses.", kind: exam, source: ooh_insagent }
-          - { tag: "License", title: "State insurance license", text: "Needed in every state where you work; most states also require continuing education.", kind: licence, source: ooh_insagent }
+          - { tag: "License", title: "State insurance license", text: "Needed in every state where you work; most states also require continuing education.", kind: licence, source: ooh_insagent, href: "us/professional-licenses/insurance-producer/", link: "License steps by state" }
           - { tag: "On the job", title: "Shadow an experienced agent", text: "Learn the products, the sales process and how to work with clients.", kind: stage, source: ooh_insagent }
           - { tag: "Goal", title: "Insurance sales agent", text: "", kind: goal, source: ooh_qf_insagent }
       - id: securities
@@ -100,6 +101,7 @@ list:
           - { tag: "Goal", title: "Agent who also sells securities", text: "FINRA representative exams need a sponsoring member firm.", kind: goal, source: finra_series7 }
     states_note: "Agents must be licensed in each state where they work. Most state licensing authorities also require continuing education on insurance laws, consumer protection, ethics and policy details."
     states_source: ooh_insagent
+    states_from: insurance-producer
     certs:
       - { name: "State insurance license", who: "State licensing authorities", kind: "State license", text: "Required. Separate licenses for life and health and for property and casualty insurance.", source: ooh_insagent }
       - { name: "FINRA Series 6 or Series 7", who: "FINRA, through a sponsoring firm", kind: "Registration through an employer", text: "Needed only to sell securities and other financial products.", source: ooh_insagent }
@@ -294,3 +296,420 @@ list:
       - { name: "ASA and FSA", who: "Society of Actuaries", kind: "Professional credential", text: "Exams, e-learning, VEE and professionalism courses. Since fall 2025 the FSA uses a flexible course pathway instead of separate tracks.", source: soa_fsa }
       - { name: "ACAS and FCAS", who: "Casualty Actuarial Society", kind: "Professional credential", text: "Exams and courses for property and casualty actuaries.", source: cas_credentials }
       - { name: "Enrolled actuary", who: "Joint Board for the Enrollment of Actuaries", kind: "Federal license", text: "For pension actuaries; experience and exams required.", source: ooh_actuary }
+
+  # ---- Phase 3 batch 2 (2026-10-20): Financial Services careers by BLS 2025 employment ----
+
+  # 1,532,400 jobs
+  - slug: bookkeeping-clerk
+    short: "Bookkeeping Clerk"
+    title: "Bookkeeping, accounting or auditing clerk: college courses, on-the-job training, then accountant"
+    eyebrow: "Financial Services · Accounting"
+    lede: "Entry requirements vary: some employers want college courses or a degree in accounting, others hire with a high school diploma. Clerks learn on the job; no license is required, and certification is optional."
+    for: "Careful, organised people who like numbers, spreadsheets and getting records exactly right."
+    soc: ["43-3031"]
+    does: { text: "Bookkeeping, accounting, and auditing clerks compute, classify, and record data to help organizations keep complete and accurate financial records.", source: ooh_qf_bookkeep }
+    work: { text: "Bookkeeping, accounting, and auditing clerks usually work in an office setting. Most work full time.", source: ooh_qf_bookkeep }
+    become: { text: "Entry requirements vary for bookkeeping, accounting, and auditing clerks. Some employers require or prefer that workers have taken college courses or have a degree in accounting or a related field. Others may hire workers who have a high school diploma. These workers also learn some of their skills on the job.", source: ooh_qf_bookkeep }
+    metrics: { pay: 50670, pay_hour: "24.36", pay_by: "Bookkeeping, accounting, and auditing clerks", jobs: 1532400, outlook: -6, outlook_words: "Decline", change: -85600, entry: "Some college, no degree", training: "Moderate-term on-the-job training", source: ooh_qf_bookkeep }
+    license_text: "None required; certification optional"
+    routes:
+      - id: clerk
+        title: "Diploma + accounting courses → on-the-job training"
+        tag: "Typical"
+        who: "Employers generally prefer a high school diploma plus college courses in subjects such as accounting."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_bookkeep }
+          - { tag: "College", title: "College courses in accounting or related subjects", text: "Some candidates get a bachelor's degree in a field such as business.", kind: stage, source: ooh_bookkeep }
+          - { tag: "On the job", title: "Work alongside an experienced clerk", text: "Formal training may cover specialized computer software.", kind: stage, source: ooh_bookkeep }
+          - { tag: "Goal", title: "Bookkeeping, accounting or auditing clerk", text: "", kind: goal, source: ooh_qf_bookkeep }
+      - id: to-accountant
+        title: "Clerk → accountant or auditor"
+        tag: "Moving up"
+        who: "With appropriate experience and additional education, some clerks become accountants or auditors."
+        steps:
+          - { tag: "Start", title: "Experienced clerk", text: "", kind: start, source: ooh_bookkeep }
+          - { tag: "Education", title: "Additional education", text: "Accountants typically need a bachelor's degree.", kind: stage, source: ooh_bookkeep, href: "us/roadmaps/accountant.html", link: "Accountant roadmap" }
+          - { tag: "Goal", title: "Accountant or auditor", text: "", kind: goal, source: ooh_bookkeep }
+    certs:
+      - { name: "Professional certification", who: "Professional organizations (listed by CareerOneStop)", kind: "Voluntary", text: "Not usually required; it can help demonstrate competency in the field.", source: ooh_bookkeep }
+
+  # 530,600 jobs
+  - slug: real-estate-agent
+    short: "Real Estate Agent"
+    title: "Real estate sales agent and broker: prelicensing courses, state exam, then a broker's license"
+    eyebrow: "Financial Services · Real Estate"
+    lede: "Agents typically need a high school diploma, state prelicensing courses and a state licensing exam; every state requires a license. A broker's license usually needs at least 2 years as a licensed agent."
+    for: "Self-starters who like people and negotiating, and can live with irregular hours and income that depends on sales."
+    soc: ["41-9020"]
+    does: { text: "Real estate brokers and sales agents help clients buy, sell, and rent properties.", source: ooh_qf_realestate }
+    work: { text: "Most real estate brokers and sales agents are self-employed. Although they often work irregular hours, many are able to set their own schedules.", source: ooh_qf_realestate }
+    become: { text: "Real estate brokers and sales agents typically need a high school diploma or equivalent to enter the occupation. Every state requires real estate brokers and agents to be licensed.", source: ooh_qf_realestate }
+    metrics: { pay: 57400, pay_hour: "27.59", pay_by: "Real estate brokers and sales agents", jobs: 530600, outlook: 2, outlook_words: "Slower than average", change: 8300, entry: "High school diploma or equivalent", experience: "See How to Become One", training: "See How to Become One", source: ooh_qf_realestate }
+    license: real-estate
+    routes:
+      - id: agent
+        title: "Prelicensing courses → state exam → sponsoring broker"
+        tag: "Required"
+        who: "Minimum requirements vary by state but typically include being at least 18, a high school diploma or equivalent, prelicensing courses and an exam."
+        steps:
+          - { tag: "Start", title: "High school diploma or equivalent; age 18", text: "", kind: start, source: ooh_realestate }
+          - { tag: "Courses", title: "State-accredited prelicensing courses", text: "Some states waive them for college courses in real estate.", kind: stage, source: ooh_realestate }
+          - { tag: "Exam", title: "State licensing exam", text: "Some states also require a background check.", kind: exam, source: ooh_realestate }
+          - { tag: "License", title: "State sales agent license", text: "In some states agents must be sponsored by a broker; licenses typically are not transferable between states.", kind: licence, source: ooh_realestate, href: "us/professional-licenses/real-estate/", link: "License steps by state" }
+          - { tag: "Goal", title: "Real estate sales agent", text: "", kind: goal, source: ooh_qf_realestate }
+      - id: broker
+        title: "Agent → broker's license"
+        tag: "Moving up"
+        who: "Most states require at least 2 years of experience as a licensed sales agent, plus additional formal training."
+        steps:
+          - { tag: "Start", title: "Licensed sales agent", text: "", kind: start, source: ooh_realestate }
+          - { tag: "Experience", title: "Usually at least 2 years as an agent", text: "In some states a bachelor's degree may substitute for some experience or training.", kind: stage, source: ooh_realestate }
+          - { tag: "Courses + exam", title: "Broker courses and exam", text: "", kind: exam, source: ooh_realestate }
+          - { tag: "Goal", title: "Real estate broker", text: "Brokers may open their own business or work as associate brokers.", kind: goal, source: ooh_realestate }
+    states_note: "All states require real estate brokers and sales agents to be licensed. Licenses typically must be renewed every 2 to 4 years, and most states require continuing education."
+    states_source: ooh_realestate
+    states_from: real-estate
+    certs:
+      - { name: "State real estate license", who: "State real estate licensing commission", kind: "State license", text: "Required in every state for sales agents and brokers.", source: ooh_realestate }
+      - { name: "Association courses and designations", who: "Real estate associations", kind: "Voluntary", text: "Courses and professional development on topics such as real estate fundamentals, law and mortgage financing.", source: ooh_realestate }
+
+  # 460,400 jobs
+  - slug: property-manager
+    short: "Property Manager"
+    title: "Property, real estate or community association manager: experience first, a state license in many states"
+    eyebrow: "Financial Services · Real Estate"
+    lede: "Entry-level positions typically need a high school diploma and several years of related work experience; employers may prefer college graduates for commercial roles. In most states property managers need a property management or real estate broker's license."
+    for: "Organised problem-solvers who like dealing with tenants, owners and contractors, and can handle money and contracts."
+    soc: ["11-9141"]
+    does: { text: "Property, real estate, and community association managers oversee many aspects of residential, commercial, or industrial properties.", source: ooh_qf_propmgr }
+    work: { text: "Most property, real estate, and community association managers work full time. They usually work in an office setting but may spend part of their workday on tasks away from the office, such as showing apartments, inspecting the grounds, or meeting with owners.", source: ooh_qf_propmgr }
+    become: { text: "Property, real estate, and community association managers typically need a high school diploma combined with several years of related work experience for entry-level positions, although employers may prefer to hire college graduates. Some managers also must have a state-issued license.", source: ooh_qf_propmgr }
+    metrics: { pay: 69990, pay_hour: "33.65", pay_by: "Property, real estate, and community association managers", jobs: 460400, outlook: 4, outlook_words: "As fast as average", change: 17100, entry: "High school diploma or equivalent", experience: "Less than 5 years", training: "Short-term on-the-job training", source: ooh_qf_propmgr }
+    license_text: "In most states"
+    routes:
+      - id: onsite
+        title: "Related work → onsite manager → property manager"
+        tag: "Typical"
+        who: "For example, real estate agents show commercial properties and customer service representatives deal with many types of people."
+        steps:
+          - { tag: "Start", title: "High school diploma or equivalent", text: "", kind: start, source: ooh_propmgr }
+          - { tag: "Experience", title: "Several years in a related occupation", text: "", kind: stage, source: ooh_propmgr }
+          - { tag: "License", title: "State license, where required", text: "In most states property managers need a property management license or a real estate broker's license; managers who buy or sell property need a real estate license.", kind: licence, source: ooh_propmgr, href: "us/professional-licenses/real-estate/", link: "Real estate license steps" }
+          - { tag: "Training", title: "Formal training through real estate associations", text: "Employers typically require it; with experience and an exam it may lead to a professional designation.", kind: stage, source: ooh_propmgr }
+          - { tag: "Goal", title: "Property manager", text: "Start as an onsite or assistant manager, then manage more and larger properties.", kind: goal, source: ooh_propmgr }
+      - id: commercial
+        title: "Degree → commercial property management"
+        tag: "Finance and contracts"
+        who: "Employers may prefer college graduates for commercial management positions that oversee a property's finances or contracts."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_propmgr }
+          - { tag: "Degree", title: "Bachelor's or master's", text: "Business administration, accounting, finance, real estate or public administration.", kind: stage, source: ooh_propmgr }
+          - { tag: "Goal", title: "Commercial property manager", text: "Experienced managers may open their own property management firms.", kind: goal, source: ooh_propmgr }
+    states_note: "Many states require professional credentials or licensure, and requirements vary; in some states community association managers also need a real estate license. Managers of federally subsidized public housing must hold certifications."
+    states_source: ooh_propmgr
+    certs:
+      - { name: "Property management or real estate broker's license", who: "State licensing agency", kind: "State license", text: "Required in most states.", source: ooh_propmgr }
+      - { name: "Association designations", who: "Professional and trade real estate associations", kind: "Voluntary", text: "Training programs plus a written exam can lead to a professional designation.", source: ooh_propmgr }
+
+  # 389,700 jobs
+  - slug: claims-adjuster
+    short: "Claims Adjuster"
+    title: "Claims adjuster, examiner or investigator: diploma, supervised small claims, a state license in many states"
+    eyebrow: "Financial Services · Insurance"
+    lede: "Entry-level adjusters, examiners and investigators typically need a high school diploma, though some positions need a bachelor's degree or insurance experience. Licensing varies by state: some require prelicensing education, an exam or both."
+    for: "Patient, careful people who can investigate, negotiate and judge evidence, often outside the office."
+    soc: ["13-1030"]
+    does: { text: "Claims adjusters, appraisers, examiners, and investigators evaluate insurance claims.", source: ooh_qf_claims }
+    work: { text: "Most claims adjusters, appraisers, examiners, and investigators work full time. They often work outside the office, inspecting properties on which insurance claims have been made, such as damaged automobiles and buildings.", source: ooh_qf_claims }
+    become: { text: "A high school diploma or equivalent is typically required for a person to work as an entry-level claims adjuster, examiner, or investigator, although some positions need a bachelor’s degree or insurance-related work experience. Auto damage appraisers typically have either a postsecondary nondegree award or work experience in identifying and estimating the cost of automotive repair.", source: ooh_qf_claims }
+    metrics: { pay: 78020, pay_hour: "37.51", pay_by: "Claims adjusters, appraisers, examiners, and investigators", jobs: 389700, outlook: -6, outlook_words: "Decline", change: -21800, entry: "See How to Become One", training: "See How to Become One", source: ooh_qf_claims }
+    license_text: "Varies by state"
+    routes:
+      - id: adjuster
+        title: "Diploma → small claims under supervision → larger claims"
+        tag: "Adjuster or examiner"
+        who: "Employers sometimes prefer a bachelor's degree or insurance-related work experience."
+        steps:
+          - { tag: "Start", title: "High school diploma or equivalent", text: "", kind: start, source: ooh_claims }
+          - { tag: "License", title: "State license, where required", text: "Some states require prelicensing education, an exam or both; in some states company adjusters work under the company license.", kind: licence, source: ooh_claims }
+          - { tag: "On the job", title: "Small claims under an experienced worker", text: "", kind: stage, source: ooh_claims }
+          - { tag: "Goal", title: "Claims adjuster or examiner", text: "Assigned larger, more complex claims with experience.", kind: goal, source: ooh_claims }
+      - id: auto-appraiser
+        title: "Autobody program or repair-shop work → auto damage appraiser"
+        tag: "Auto damage"
+        who: "Many vocational schools and some community colleges teach how to estimate the cost of repairing damaged vehicles."
+        steps:
+          - { tag: "Start", title: "Postsecondary nondegree award in autobody repair, or repair-shop experience", text: "", kind: start, source: ooh_claims }
+          - { tag: "On the job", title: "Several months estimating under an experienced appraiser", text: "", kind: stage, source: ooh_claims }
+          - { tag: "Goal", title: "Auto damage appraiser", text: "", kind: goal, source: ooh_claims }
+      - id: texas
+        title: "Example: Texas all-lines adjuster license"
+        tag: "One state's rule"
+        who: "The most common adjuster license in Texas; it covers catastrophe, property and casualty, workers' compensation and other types."
+        steps:
+          - { tag: "Exam", title: "State exam InsTX-ALAdj16", text: "Not needed after a TDI-approved adjusting course or training program completed in the last 12 months.", kind: exam, source: tdi_adjuster }
+          - { tag: "Background", title: "Fingerprints through IdentoGO", text: "", kind: stage, source: tdi_adjuster }
+          - { tag: "Apply", title: "Apply on Sircon within one year of passing", text: "Application fee $50.", kind: licence, source: tdi_adjuster }
+          - { tag: "Goal", title: "Texas all-lines adjuster", text: "", kind: goal, source: tdi_be_agent }
+    states_note: "Licensing requirements vary by state: some states have few requirements, others require prelicensing education, an exam or both, and some require continuing education to renew. Public adjusters may need to meet separate or additional requirements."
+    states_source: ooh_claims
+    certs:
+      - { name: "State adjuster license", who: "State insurance department", kind: "State license", text: "Required in some states; in some states company adjusters can work under the company license.", source: ooh_claims }
+
+  # 339,200 jobs
+  - slug: bank-teller
+    short: "Bank Teller"
+    title: "Bank teller: high school diploma, background check, training on the job"
+    eyebrow: "Financial Services · Accounting"
+    lede: "Tellers typically need a high school diploma and may need to pass a background check; a head teller or another experienced teller trains them after hiring. No license is needed."
+    for: "Friendly, patient, accurate people who are comfortable handling cash and helping customers."
+    soc: ["43-3071"]
+    does: { text: "Tellers process routine transactions, such as cashing checks and depositing money, at a bank or credit union.", source: ooh_qf_teller }
+    work: { text: "Tellers usually work in branches of banks or credit unions. Most work full time.", source: ooh_qf_teller }
+    become: { text: "To enter the occupation, tellers typically need a high school diploma; they also may need to pass a background check. Once hired, they receive training on the job.", source: ooh_qf_teller }
+    metrics: { pay: 43030, pay_hour: "20.69", pay_by: "Tellers", jobs: 339200, outlook: -13, outlook_words: "Decline", change: -44700, entry: "High school diploma or equivalent", training: "Short-term on-the-job training", source: ooh_qf_teller }
+    license_text: "None"
+    routes:
+      - id: teller
+        title: "Diploma → background check → on-the-job training"
+        tag: "Typical"
+        who: "Some tellers take college courses or have a degree, but this is not typically required."
+        steps:
+          - { tag: "Start", title: "High school diploma or equivalent", text: "", kind: start, source: ooh_teller }
+          - { tag: "Hiring", title: "Background check", text: "", kind: stage, source: ooh_teller }
+          - { tag: "On the job", title: "Training by a head teller or experienced teller", text: "Balancing cash drawers, verifying signatures, the bank's software and its products.", kind: stage, source: ooh_teller }
+          - { tag: "Goal", title: "Bank or credit union teller", text: "", kind: goal, source: ooh_qf_teller }
+      - id: next-step
+        title: "Teller → head teller, loan officer or sales"
+        tag: "Moving up"
+        who: "Experienced tellers may become head tellers or move to supervisory, managerial or sales positions."
+        steps:
+          - { tag: "Start", title: "Experienced teller", text: "", kind: start, source: ooh_teller }
+          - { tag: "Next", title: "Head teller, supervisory or managerial position", text: "", kind: stage, source: ooh_teller }
+          - { tag: "Goal", title: "Another occupation, such as loan officer, or sales", text: "", kind: goal, source: ooh_teller, href: "us/careers/loan-officer/", link: "Loan officer" }
+
+  # 283,000 jobs
+  - slug: loan-officer
+    short: "Loan Officer"
+    title: "Loan officer: business or finance degree, training, and an MLO license for mortgage work"
+    eyebrow: "Financial Services · Banking & Credit"
+    lede: "Loan officers typically need a bachelor's degree, usually in business or finance, and on-the-job training. Mortgage loan officers need a Mortgage Loan Originator (MLO) license: prelicensing courses, a national exam and background and credit checks."
+    for: "Detail-minded people who can read financial statements, judge risk and explain loan options to customers."
+    soc: ["13-2072"]
+    does: { text: "Loan officers evaluate, authorize, or recommend approval of loan applications.", source: ooh_qf_loanoff }
+    work: { text: "Most loan officers are employed by commercial banks, credit unions, mortgage companies, and other financial institutions. Most loan officers work full time, and some work more than 40 hours per week. Except for consumer loan officers, who spend most of their time in offices, these workers may travel to visit clients.", source: ooh_qf_loanoff }
+    become: { text: "Loan officers typically need a bachelor’s degree and on-the-job training. Mortgage loan officers must be licensed.", source: ooh_qf_loanoff }
+    metrics: { pay: 76690, pay_hour: "36.87", pay_by: "Loan officers", jobs: 283000, outlook: 1, outlook_words: "Slower than average", change: 3100, entry: "Bachelor's degree", experience: "Less than 5 years", training: "Moderate-term on-the-job training", source: ooh_qf_loanoff }
+    license: mortgage-loan-originator
+    license_text: "Mortgage loan officers"
+    routes:
+      - id: degree
+        title: "Business or finance degree → training → loan officer"
+        tag: "Typical"
+        who: "Some people enter without a bachelor's degree after related work in banking, customer service or sales."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_loanoff }
+          - { tag: "About 4 years", title: "Bachelor's in business or finance", text: "Commercial loan officers need to read financial statements.", kind: stage, source: ooh_loanoff }
+          - { tag: "On the job", title: "Company-sponsored and informal training", text: "Usually during the first few months.", kind: stage, source: ooh_loanoff }
+          - { tag: "Goal", title: "Commercial or consumer loan officer", text: "", kind: goal, source: ooh_qf_loanoff }
+      - id: mlo
+        title: "Mortgage loan originator (MLO) license"
+        tag: "Mortgage work"
+        who: "Required for state-licensed mortgage loan originators; loan originators at federally insured banks and credit unions register instead and do not have to take the national test."
+        steps:
+          - { tag: "Start", title: "Mortgage company job or offer", text: "Mortgage companies may prefer residential mortgage or real estate experience.", kind: start, source: ooh_loanoff }
+          - { tag: "20+ hours", title: "NMLS-approved pre-licensure education", text: "3 hours federal law, 3 hours ethics, 2 hours nontraditional mortgage lending, 12 hours electives; states may add their own hours.", kind: stage, source: nmls_pe_faq }
+          - { tag: "Exam", title: "SAFE MLO Test", text: "190 minutes; pass with at least 75%; $110; passing once counts for every state.", kind: exam, source: nmls_test_faq }
+          - { tag: "License", title: "State MLO license through NMLS", text: "Background and credit checks; renewed every year.", kind: licence, source: ooh_loanoff, href: "us/professional-licenses/mortgage-loan-originator/", link: "MLO license steps" }
+          - { tag: "Goal", title: "Mortgage loan officer", text: "", kind: goal, source: ooh_loanoff }
+    states_note: "Licenses must be renewed annually, and individual states may have additional requirements."
+    states_source: ooh_loanoff
+    states_from: mortgage-loan-originator
+    certs:
+      - { name: "MLO license", who: "State regulators, through NMLS", kind: "State license", text: "Required for mortgage loan officers: pre-licensure education, the SAFE MLO Test, background and credit checks.", source: ooh_loanoff }
+      - { name: "Loan officer certifications", who: "Professional organizations (listed by CareerOneStop)", kind: "Voluntary", text: "Not required, but may enhance employment opportunities.", source: ooh_loanoff }
+
+  # 160,200 jobs
+  - slug: bill-collector
+    short: "Bill & Account Collector"
+    title: "Bill and account collector: diploma, then training on debt-collection law"
+    eyebrow: "Financial Services · Accounting"
+    lede: "Collectors typically need at least a high school diploma; some employers prefer college courses. Training after hiring covers software, the federal Fair Debt Collection Practices Act and state debt-collection rules."
+    for: "Calm, persuasive people who can handle difficult phone calls and keep to the rules."
+    soc: ["43-3011"]
+    does: { text: "Bill and account collectors try to recover payment on overdue bills.", source: ooh_qf_collector }
+    work: { text: "Many bill and account collectors work in a call center for a third-party collection agency rather than for the original creditor. Most work full time.", source: ooh_qf_collector }
+    become: { text: "Bill and account collectors typically need at least a high school diploma to enter the occupation, and they receive training on the job.", source: ooh_qf_collector }
+    metrics: { pay: 47030, pay_hour: "22.61", pay_by: "Bill and account collectors", jobs: 160200, outlook: -10, outlook_words: "Decline", change: -16700, entry: "High school diploma or equivalent", training: "Moderate-term on-the-job training", source: ooh_qf_collector }
+    license_text: "None listed by BLS"
+    routes:
+      - id: collector
+        title: "Diploma → training on collection law → collector"
+        tag: "Typical"
+        who: "Communications, accounting and basic computer courses help."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "Some employers prefer applicants who have taken some college courses.", kind: start, source: ooh_collector }
+          - { tag: "On the job", title: "Training after hiring", text: "Computer software, the Fair Debt Collection Practices Act, state debt-collection regulations and negotiation.", kind: stage, source: ooh_collector }
+          - { tag: "Goal", title: "Bill and account collector", text: "", kind: goal, source: ooh_qf_collector }
+
+  # 125,600 jobs
+  - slug: insurance-underwriter
+    short: "Insurance Underwriter"
+    title: "Insurance underwriter: business degree, up to a year under senior underwriters, optional designations"
+    eyebrow: "Financial Services · Insurance"
+    lede: "Underwriters typically need a bachelor's degree, often in business; an associate's degree or diploma with insurance experience sometimes qualifies. Beginners work under senior underwriters for up to 12 months. Certification is not a license but may be expected."
+    for: "Analytical people who like weighing risk, reading applications closely and making yes-or-no decisions."
+    soc: ["13-2053"]
+    does: { text: "Insurance underwriters evaluate insurance applications and decide whether to approve them.", source: ooh_qf_underwriter }
+    work: { text: "Insurance underwriters work in an office setting during regular business hours. Most work full time.", source: ooh_qf_underwriter }
+    become: { text: "Insurance underwriters typically need a bachelor’s degree to enter the occupation. Certification may be beneficial.", source: ooh_qf_underwriter }
+    metrics: { pay: 81370, pay_hour: "39.12", pay_by: "Insurance underwriters", jobs: 125600, outlook: -4, outlook_words: "Decline", change: -4800, entry: "Bachelor's degree", training: "Moderate-term on-the-job training", source: ooh_qf_underwriter }
+    license_text: "No license; certification may be expected"
+    routes:
+      - id: degree
+        title: "Business degree → trainee under senior underwriters"
+        tag: "Typical"
+        who: "Coursework in finance, economics and mathematics is helpful; some colleges partner with businesses for internships."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_underwriter }
+          - { tag: "About 4 years", title: "Bachelor's degree, commonly in business", text: "", kind: stage, source: ooh_underwriter }
+          - { tag: "Up to 12 months", title: "Trainee under senior underwriters", text: "Basic applications and the most common risk factors first.", kind: stage, source: ooh_underwriter }
+          - { tag: "Goal", title: "Insurance underwriter", text: "", kind: goal, source: ooh_qf_underwriter }
+      - id: senior
+        title: "Underwriter → senior underwriter or manager"
+        tag: "Moving up"
+        who: "Underwriters may need certification to progress into these positions."
+        steps:
+          - { tag: "Start", title: "Experienced underwriter", text: "", kind: start, source: ooh_underwriter }
+          - { tag: "Certification", title: "Insurance specialty designation", text: "Coursework, exams or both; some need years of experience.", kind: exam, source: ooh_underwriter }
+          - { tag: "Goal", title: "Senior underwriter or underwriter manager", text: "", kind: goal, source: ooh_underwriter }
+    certs:
+      - { name: "Underwriting certifications and insurance specialty designations", who: "Many options (listed by CareerOneStop)", kind: "Employer may require", text: "Employers may expect underwriters to become certified through coursework.", source: ooh_underwriter }
+
+  # 118,100 jobs
+  - slug: compensation-benefits-specialist
+    short: "Compensation & Benefits Specialist"
+    title: "Compensation, benefits and job analysis specialist: degree plus human resources experience"
+    eyebrow: "Financial Services · Insurance"
+    lede: "Specialists typically need a bachelor's degree and experience in compensation analysis, benefits administration or general human resources work. Certification is not required but some employers prefer it."
+    for: "People who like both numbers and people: pay data, benefit plans and fair job descriptions."
+    soc: ["13-1141"]
+    does: { text: "Compensation, benefits, and job analysis specialists oversee wage and nonwage programs that an organization provides to its employees in return for their work. They also evaluate position descriptions to determine details such as classification and salary.", source: ooh_qf_compben }
+    work: { text: "Compensation, benefits, and job analysis specialists are employed in nearly every industry. They typically work in offices, and most are full time.", source: ooh_qf_compben }
+    become: { text: "Compensation, benefits, and job analysis specialists typically need a bachelor’s degree and related work experience to enter the occupation.", source: ooh_qf_compben }
+    metrics: { pay: 78210, pay_hour: "37.60", pay_by: "Compensation, benefits, and job analysis specialists", jobs: 118100, outlook: 6, outlook_words: "Faster than average", change: 7100, entry: "Bachelor's degree", experience: "Less than 5 years", training: "None", source: ooh_qf_compben }
+    license_text: "None; certification optional"
+    routes:
+      - id: hr
+        title: "Degree → HR work → specialist"
+        tag: "Typical"
+        who: "Common majors: business, social science, psychology and communications; some employers accept extra related experience instead of a degree."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_compben }
+          - { tag: "About 4 years", title: "Bachelor's degree", text: "Courses in human resources management, finance and accounting help.", kind: stage, source: ooh_compben }
+          - { tag: "Experience", title: "Compensation, benefits or general HR work", text: "For example as a human resources specialist, or through internships.", kind: stage, source: ooh_compben }
+          - { tag: "Job", title: "Compensation, benefits or job analysis specialist", text: "", kind: stage, source: ooh_qf_compben }
+          - { tag: "Goal", title: "Compensation and benefits manager or HR manager", text: "After several years of experience.", kind: goal, source: ooh_compben }
+    certs:
+      - { name: "Professional certification", who: "Certification programs (listed by CareerOneStop)", kind: "Voluntary", text: "Not required; often needs several years of related experience. Some employers prefer certified candidates.", source: ooh_compben }
+
+  # 70,000 jobs
+  - slug: financial-examiner
+    short: "Financial Examiner"
+    title: "Financial examiner: degree with accounting coursework, more than a year of training, CPA optional"
+    eyebrow: "Financial Services · Banking & Credit"
+    lede: "Financial examiners typically need a bachelor's degree with some accounting coursework; entry-level examiners train on the job under senior examiners, usually for more than a year. Some become CPAs."
+    for: "Methodical people who like rules, audits and checking that banks and insurers follow the law."
+    soc: ["13-2061"]
+    does: { text: "Financial examiners ensure compliance with laws that govern institutions handling monetary transactions.", source: ooh_qf_finexam }
+    work: { text: "Most financial examiners work for the finance and insurance industry, the federal government, or state governments. Most financial examiners work full time.", source: ooh_qf_finexam }
+    become: { text: "Financial examiners typically need a bachelor’s degree that includes some coursework in accounting. Entry-level examiners are trained on the job by senior examiners.", source: ooh_qf_finexam }
+    metrics: { pay: 94160, pay_hour: "45.27", pay_by: "Financial examiners", jobs: 70000, outlook: 9, outlook_words: "Much faster than average", change: 6500, entry: "Bachelor's degree", training: "Long-term on-the-job training", source: ooh_qf_finexam }
+    license_text: "None; some become CPAs"
+    routes:
+      - id: examiner
+        title: "Business degree with accounting → examiner trainee"
+        tag: "Typical"
+        who: "Coursework should include accounting, finance or related subjects."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_finexam }
+          - { tag: "About 4 years", title: "Bachelor's degree with accounting coursework", text: "A degree in business or a related field is common.", kind: stage, source: ooh_finexam }
+          - { tag: "1+ year", title: "Training under senior examiners", text: "", kind: stage, source: ooh_finexam }
+          - { tag: "Goal", title: "Financial examiner", text: "", kind: goal, source: ooh_qf_finexam }
+      - id: senior
+        title: "Examiner → senior examiner"
+        tag: "Moving up"
+        who: "Employers often prefer a master's in accounting or business administration, or a CPA."
+        steps:
+          - { tag: "Start", title: "Financial examiner with a few years of experience", text: "", kind: start, source: ooh_finexam }
+          - { tag: "Optional", title: "Master's degree or CPA license", text: "", kind: stage, source: ooh_finexam, href: "us/professional-licenses/cpa/", link: "CPA license steps" }
+          - { tag: "Goal", title: "Senior examiner leading examination teams", text: "", kind: goal, source: ooh_finexam }
+    certs:
+      - { name: "CPA license", who: "State boards of accountancy", kind: "State license", text: "Not required for examiners; some become CPAs by passing a national exam and meeting other state requirements.", source: ooh_finexam }
+      - { name: "Professional certification", who: "Certification bodies (listed by CareerOneStop)", kind: "Voluntary", text: "Not required; indicates competency.", source: ooh_finexam }
+
+  # 68,400 jobs
+  - slug: real-estate-appraiser
+    short: "Real Estate Appraiser"
+    title: "Real estate appraiser: trainee, licensed or certified — education hours, experience and the national exam"
+    eyebrow: "Financial Services · Real Estate"
+    lede: "Appraisers typically need a bachelor's degree, though requirements vary by state and credential. Appraisers of real estate must hold a state license or certification for federally related transactions: qualifying education, supervised experience and the AQB national exam."
+    for: "Independent, observant people who like site visits, data and writing careful reports."
+    soc: ["13-2020"]
+    does: { text: "Property appraisers and assessors provide a value estimate on real estate and on tangible personal and business property.", source: ooh_qf_appraiser }
+    work: { text: "Although property appraisers and assessors work in offices, they may spend a large part of their time conducting site visits. Most work full time, and some work more than 40 hours per week.", source: ooh_qf_appraiser }
+    become: { text: "Property appraisers and assessors typically need a bachelor’s degree, although educational requirements vary. Appraisers of real estate must meet state licensure or certification requirements.", source: ooh_qf_appraiser }
+    metrics: { pay: 67960, pay_hour: "32.67", pay_by: "Property appraisers and assessors", jobs: 68400, outlook: 3, outlook_words: "As fast as average", change: 2400, entry: "Bachelor's degree", training: "Long-term on-the-job training", source: ooh_qf_appraiser }
+    license: real-estate-appraiser
+    routes:
+      - id: supervised
+        title: "Trainee under a supervisor → licensed or certified appraiser"
+        tag: "Supervisor-trainee"
+        who: "Not every state offers the trainee or licensed residential level; certified residential and certified general exist in every state."
+        steps:
+          - { tag: "Start", title: "Qualifying education for a trainee", text: "For example 83 hours plus a 4-hour supervisor/trainee course in Texas.", kind: start, source: talcb_trainee }
+          - { tag: "Experience", title: "Work under a credentialed supervisory appraiser", text: "Log hours following USPAP.", kind: stage, source: taf_real_property }
+          - { tag: "Education", title: "Remaining qualifying education", text: "California: 150 hours for licensed residential, 200 for certified residential, 300 for certified general (Texas lists 158 for licensed residential).", kind: stage, source: brea_levels }
+          - { tag: "Exam", title: "AQB National Uniform exam for your credential", text: "After education and experience are verified by the state.", kind: exam, source: taf_real_property }
+          - { tag: "Goal", title: "State-licensed or certified appraiser", text: "", kind: goal, source: taf_real_property, href: "us/professional-licenses/real-estate-appraiser/", link: "Appraiser license steps" }
+      - id: parea
+        title: "PAREA or practicum instead of a supervisor"
+        tag: "No supervisor needed"
+        who: "PAREA is a mastery-based virtual training program; a practicum is a structured real-world simulation course."
+        steps:
+          - { tag: "Start", title: "Qualifying education", text: "", kind: start, source: taf_real_property }
+          - { tag: "Experience", title: "PAREA or an approved practicum", text: "PAREA may cover 100% of the experience for licensed and certified residential, 50% for certified general. Your state decides which options it accepts.", kind: stage, source: taf_real_property }
+          - { tag: "Exam", title: "AQB National Uniform exam", text: "", kind: exam, source: taf_real_property }
+          - { tag: "Goal", title: "Licensed or certified residential appraiser", text: "", kind: goal, source: taf_real_property }
+    states_note: "Federal law requires appraisers of real estate to have a state license or certification for federally related transactions, such as appraisals for loans made by federally insured banks. There is no such federal requirement for appraisers of personal and business property or for assessors, although some states require certification."
+    states_source: ooh_appraiser
+    states_from: real-estate-appraiser
+    certs:
+      - { name: "Licensed residential, certified residential or certified general appraiser", who: "State appraiser regulatory agency (AQB sets the minimum)", kind: "State license", text: "Required for federally related transactions.", source: ooh_appraiser }
+      - { name: "Assessor certification", who: "Some states or localities", kind: "State license", text: "No federal requirement for assessors; most states set education and experience requirements, and in a few states each locality sets them.", source: ooh_appraiser }
+
+  # 31,200 jobs
+  - slug: credit-counselor
+    short: "Credit Counselor"
+    title: "Credit counselor: degree in business, finance or psychology, months of on-the-job training"
+    eyebrow: "Financial Services · Banking & Credit"
+    lede: "Credit counselors typically need a bachelor's degree, usually in business, finance or psychology; a high school diploma qualifies for some jobs. New counselors need several months of on-the-job training. Employers may prefer or require certification."
+    for: "Empathetic people who can talk about money without judging and help others make a plan."
+    soc: ["13-2071"]
+    does: { text: "Credit counselors advise and educate individuals or organizations on acquiring and managing debt. They also may provide guidance on credit issues and on budgeting, mortgages, or student financial aid packages.", source: ooh_qf_creditc }
+    work: { text: "Most credit counselors work full time. They usually work standard business hours but may need to work in the evenings or on weekends to meet with clients.", source: ooh_qf_creditc }
+    become: { text: "Credit counselors typically need a bachelor’s degree to enter the occupation. Candidates with a high school diploma may qualify for some jobs. Once hired, workers typically need several months of on-the-job training to attain competency.", source: ooh_qf_creditc }
+    metrics: { pay: 52230, pay_hour: "25.11", pay_by: "Credit counselors", jobs: 31200, outlook: 3, outlook_words: "As fast as average", change: 1000, entry: "Bachelor's degree", training: "Moderate-term on-the-job training", source: ooh_qf_creditc }
+    license_text: "None; certification may be required"
+    routes:
+      - id: counselor
+        title: "Degree → months of training with experienced counselors"
+        tag: "Typical"
+        who: "High school English, mathematics and personal finance are a good start."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_creditc }
+          - { tag: "About 4 years", title: "Bachelor's in business, finance or psychology", text: "", kind: stage, source: ooh_creditc }
+          - { tag: "Several months", title: "On-the-job training", text: "Learning to build a rapport with clients.", kind: stage, source: ooh_creditc }
+          - { tag: "Goal", title: "Credit counselor", text: "", kind: goal, source: ooh_qf_creditc }
+    certs:
+      - { name: "Credit counselor certification", who: "Certification bodies (listed by CareerOneStop)", kind: "Employer may require", text: "Employers may prefer or require certification.", source: ooh_creditc }

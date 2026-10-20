@@ -109,7 +109,7 @@
         <li><a href="us/careers/{{ p.slug }}/"><strong>{{ p.title }}</strong><span>{% if p.license_required %}License required{% else %}License for some roles{% endif %} · median {% include fmt-num.html n=po.pay prefix="$" %}</span></a></li>
         {%- endfor %}
         {%- for cf in US.careers %}{%- assign lc_list = cf[1].list | where: "license", page.license %}{%- for x in lc_list %}
-        <li><a href="us/careers/{{ x.slug }}/"><strong>{{ x.short }}</strong><span>License required · median {% include fmt-num.html n=x.metrics.pay prefix="$" %}</span></a></li>
+        <li><a href="us/careers/{{ x.slug }}/"><strong>{{ x.short }}</strong><span>{{ x.license_text | default: "License required" }} · median {% include fmt-num.html n=x.metrics.pay prefix="$" %}</span></a></li>
         {%- endfor %}{%- endfor %}
         <li><a href="us/professional-licenses/"><strong>All professional licenses</strong><span>Compare every license on this site</span></a></li>
       </ul>

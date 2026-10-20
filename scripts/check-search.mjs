@@ -116,6 +116,14 @@ else {
     ['cfa charter', null, (r) => (has(r, 'us/roadmaps/financial-analyst.html', 3) ? '' : 'expected the financial analyst roadmap in top 3')],
     ['insurance agent license usa', null, (r) => (has(r, 'us/careers/insurance-sales-agent/', 3) || has(r, 'us/roadmaps/insurance-sales-agent.html', 3) ? '' : 'expected the insurance agent page or roadmap in top 3')],
     ['usa nclex license', null,(r) => (has(r, 'us/professional-licenses/nursing/', 3) ? '' : 'expected the RN license page')],
+    ['real estate license texas', null, (r) => (has(r, 'us/professional-licenses/real-estate/', 3) ? '' : 'expected the real estate license page in top 3')],
+    ['mlo license nmls', null, (r) => (has(r, 'us/professional-licenses/mortgage-loan-originator/', 3) ? '' : 'expected the MLO license page in top 3')],
+    ['mortgage loan officer usa', null, (r) => (has(r, 'us/careers/loan-officer/', 3) || has(r, 'us/roadmaps/loan-officer.html', 3) ? '' : 'expected the loan officer page or roadmap in top 3')],
+    ['appraiser parea', null, (r) => (has(r, 'us/professional-licenses/real-estate-appraiser/', 3) || has(r, 'us/roadmaps/real-estate-appraiser.html', 3) ? '' : 'expected the appraiser license or roadmap in top 3')],
+    ['bank teller usa', null, (r) => (has(r, 'us/careers/bank-teller/', 3) ? '' : 'expected the bank teller page in top 3')],
+    ['bookkeeper usa', null, (r) => (has(r, 'us/careers/bookkeeping-clerk/', 3) ? '' : 'expected the bookkeeping clerk page in top 3')],
+    ['claims adjuster license', null, (r) => (has(r, 'us/careers/claims-adjuster/', 3) || has(r, 'us/roadmaps/claims-adjuster.html', 3) ? '' : 'expected the claims adjuster page or roadmap in top 3')],
+    ['insurance producer license', null, (r) => (has(r, 'us/professional-licenses/insurance-producer/', 3) ? '' : 'expected the insurance producer license page in top 3')],
     ['zzzz qqqq', null, (r) => (r.total === 0 ? '' : 'nonsense should return nothing')],
   ];
   for (const [q, home, t] of cases) {

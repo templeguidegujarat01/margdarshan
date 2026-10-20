@@ -5,6 +5,10 @@
          us/cte/roadmaps/<slug>.html with `track: <slug>` + `cte: true` → _data/us/cte_careers.yml (Trades & CTE,
            level 3 of hub us/cte/ → profile us/cte/<slug>.html → roadmap: routes, national certifications and
            the state licensing matrix; BLS numbers and tools live on the profile page, _includes/us-cte-career.html)
+         us/roadmaps/<slug>.html with `track: <slug>` + `cluster: <c>` + `career: true` → _data/us/careers/<c>.yml (any Career
+           Cluster, USA Master Plan Phase 2 onward; level 3 of cluster hub → career page → roadmap: routes with exam gates and
+           the state license step, certifications, state matrix; numbers live on the career page, us-career-overview.html.
+           A step may carry href + link (its label) to an exam or license page that exists; verify-site fails on a dead link.)
          uk/roadmaps/<slug>.html with `track: <slug>` + `sheet:`   → _data/uk/careers/<sheet>.yml crossborder
   The edition comes from page.region (_config.yml defaults: us/ → us, uk/ → uk).
   Each route's steps are drawn with the .cflow flowchart (same node kinds and legend as India career
@@ -21,6 +25,21 @@
   {%- assign home_href = "uk/" -%}
   {%- assign home_label = "UK Home" -%}
   {%- assign careers_href = "uk/careers/" -%}
+{%- elsif page.career -%}
+  {%- assign XC = site.data.us.clusters.clusters | where: "slug", page.cluster | first -%}
+  {%- assign X = site.data.us.careers[page.cluster].list | where: "slug", page.track | first -%}
+  {%- if X.pathway -%}
+    {%- assign back_href = "us/careers/" | append: X.pathway | append: "/" -%}
+  {%- else -%}
+    {%- assign back_href = "us/careers/" | append: X.slug | append: "/" -%}
+  {%- endif -%}
+  {%- assign back_label = X.short -%}
+  {%- assign back_note = "What the job is, BLS pay and job outlook, and how to become one." -%}
+  {%- assign hub_href = "us/clusters/" | append: XC.slug | append: "/" -%}
+  {%- assign home_href = "us/" -%}
+  {%- assign home_label = "USA Home" -%}
+  {%- assign careers_href = hub_href -%}
+  {%- assign V = site.data.us.sources.bls_vintage -%}
 {%- elsif page.cte -%}
   {%- assign X = site.data.us.cte_careers.list | where: "slug", page.track | first -%}
   {%- assign back_href = "us/cte/" | append: X.slug | append: ".html" -%}
@@ -45,7 +64,11 @@
   "@type": "BreadcrumbList",
   "itemListElement": [
     { "@type": "ListItem", "position": 1, "name": "{{ home_label }}", "item": "{{ site.url }}{{ site.baseurl }}/{{ home_href }}" },
-    {%- if page.cte %}
+    {%- if page.career %}
+    { "@type": "ListItem", "position": 2, "name": {{ XC.name | jsonify }}, "item": "{{ site.url }}{{ site.baseurl }}/{{ hub_href }}" },
+    { "@type": "ListItem", "position": 3, "name": {{ back_label | jsonify }}, "item": "{{ site.url }}{{ site.baseurl }}/{{ back_href }}" },
+    { "@type": "ListItem", "position": 4, "name": {{ X.title | jsonify }}, "item": "{{ page.url | absolute_url }}" }
+    {%- elsif page.cte %}
     { "@type": "ListItem", "position": 2, "name": "Trades & CTE", "item": "{{ site.url }}{{ site.baseurl }}/us/cte/" },
     { "@type": "ListItem", "position": 3, "name": {{ back_label | jsonify }}, "item": "{{ site.url }}{{ site.baseurl }}/{{ back_href }}" },
     { "@type": "ListItem", "position": 4, "name": {{ X.title | jsonify }}, "item": "{{ page.url | absolute_url }}" }
@@ -74,7 +97,7 @@
     </header>
   </div>
 
-  {%- if X.metrics and page.cte == nil %}
+  {%- if X.metrics and page.cte == nil and page.career == nil %}
   {%- assign XM = X.metrics %}
   <section class="md-sec md-sec-alt" id="numbers" aria-labelledby="numbers-h">
     <div class="container">
@@ -102,9 +125,9 @@
           <li class="cflow-node" data-kind="{{ s.kind }}">
             <span class="cflow-dot" aria-hidden="true">{% if s.kind == "goal" %}★{% else %}{{ forloop.index }}{% endif %}</span>
             <div class="cflow-card">
-              <span class="cflow-kind">{% case s.kind %}{% when "start" %}Start here{% when "exam" %}Exam gate{% when "licence" %}{% if ED == "us" %}Certificate{% else %}Licence{% endif %}{% when "goal" %}Goal{% else %}{{ s.tag }}{% endcase %}</span>
+              <span class="cflow-kind">{% case s.kind %}{% when "start" %}Start here{% when "exam" %}Exam gate{% when "licence" %}{% if page.career %}License{% elsif ED == "us" %}Certificate{% else %}Licence{% endif %}{% when "goal" %}Goal{% else %}{{ s.tag }}{% endcase %}</span>
               <h3>{{ s.title }}</h3>
-              <p>{% if s.text != "" %}{{ s.text }} {% endif %}{% include intl-src-chip.html ed=ED id=s.source %}</p>
+              <p>{% if s.text != "" %}{{ s.text }} {% endif %}{% include intl-src-chip.html ed=ED id=s.source %}{% if s.href %} <a class="md-textlink" href="{{ s.href }}">{{ s.link | default: "Details" }}</a>{% endif %}</p>
             </div>
           </li>
           {%- endfor %}
@@ -113,7 +136,7 @@
           {%- if ir_seen contains "start" %}<span data-kind="start">Start</span>{% endif -%}
           {%- if ir_seen contains "stage" %}<span data-kind="stage">Study / work</span>{% endif -%}
           {%- if ir_seen contains "exam" %}<span data-kind="exam">Exam gate</span>{% endif -%}
-          {%- if ir_seen contains "licence" %}<span data-kind="licence">{% if ED == "us" %}Certificate{% else %}Licence{% endif %}</span>{% endif -%}
+          {%- if ir_seen contains "licence" %}<span data-kind="licence">{% if page.career %}License{% elsif ED == "us" %}Certificate{% else %}Licence{% endif %}</span>{% endif -%}
           {%- if ir_seen contains "goal" %}<span data-kind="goal">Goal</span>{% endif -%}
         </p>
       </div>
@@ -164,7 +187,7 @@
   </section>
   {%- endif %}
 
-  {%- if X.tools and page.cte == nil %}
+  {%- if X.tools and page.cte == nil and page.career == nil %}
   <section class="md-sec{% unless X.certs %} md-sec-alt{% endunless %}" id="tools" aria-labelledby="tools-h">
     <div class="container">
       <div class="md-sec-head"><h2 id="tools-h">Tools and gear</h2><p>BLS does not publish what a starter tool set costs. Ask the school or apprenticeship sponsor which tools you must buy before you enrol.</p></div>
@@ -190,14 +213,17 @@
   </section>
   {%- endif %}
 
-  <section class="md-sec"{% if page.cte %} id="next"{% endif %} aria-labelledby="related-h">
+  <section class="md-sec"{% if page.cte or page.career %} id="next"{% endif %} aria-labelledby="related-h">
     <div class="container">
-      {%- if page.cte %}
+      {%- if page.career %}
+      <div class="md-sec-head"><h2 id="related-h">Where to go next</h2></div>
+      <div class="rm-link-card" data-no-points><div><strong>More careers in {{ XC.name }}</strong><p>Every career page in this cluster: entry, license, BLS pay and outlook.</p></div><a href="{{ hub_href }}" class="btn btn-primary btn-page-link">Open the cluster hub</a></div>
+      {%- elsif page.cte %}
       <div class="md-sec-head"><h2 id="related-h">Where to go next</h2></div>
       <div class="rm-link-card" data-no-points><div><strong>All trades</strong><p>Every trade on one matrix: entry, license, BLS pay and outlook.</p></div><a href="us/cte/" class="btn btn-primary btn-page-link">Trades &amp; CTE hub</a></div>
       {%- endif %}
       <div class="rm-link-card" data-no-points><div><strong>Back to the full {{ back_label }} guide</strong><p>{{ back_note | default: "The home-grown route, pay and what the work is like." }}</p></div><a href="{{ back_href }}" class="btn btn-journey">← {{ back_label }}</a></div>
-      <div class="md-datanote">Every step links to the official page it came from (regulators, licensing boards, the law), checked {{ X.checked | date: "%-d %b %Y" }}. {% if page.cte %}State and city licensing rules change: confirm with the board where you will work before you pay any fee.{% else %}Rules for people trained abroad change often: confirm with the official body before you pay any fee.{% endif %} Education Margdarshan does not recommend paid courses. <a href="{{ careers_href }}">All careers →</a></div>
+      <div class="md-datanote">Every step links to the official page it came from (regulators, licensing boards, the law), checked {{ X.checked | date: "%-d %b %Y" }}. {% if page.cte or page.career %}State and city licensing rules change: confirm with the board where you will work before you pay any fee.{% else %}Rules for people trained abroad change often: confirm with the official body before you pay any fee.{% endif %} Education Margdarshan does not recommend paid courses. <a href="{{ careers_href }}">All careers →</a></div>
     </div>
   </section>
 

@@ -1,0 +1,25 @@
+{%- comment -%}
+  The 14 Career Cluster cards (_data/us/clusters.yml), shared by the USA Home (us/index.html) and us/clusters/.
+  A live cluster is a link to its hub us/clusters/<slug>/; any other cluster is a plain card that names the
+  Master Plan phase that builds it, so no card ever links to a page that does not exist.
+  The sub-cluster names are the card's description (clamped to two lines by CSS, full text for screen readers).
+{%- endcomment -%}
+<ul class="usc-grid">
+  {%- for C in site.data.us.clusters.clusters %}
+  <li>
+    {%- if C.live %}
+    <a class="usc-card" href="us/clusters/{{ C.slug }}/">
+    {%- else %}
+    <div class="usc-card is-next">
+    {%- endif %}
+      <strong>{{ C.name }}</strong>
+      <span class="usc-meta">{% if C.live %}{{ C.sub_clusters.size }} sub-clusters · {{ C.careers.size }} career page{% if C.careers.size != 1 %}s{% endif %}{% else %}{{ C.sub_clusters.size }} sub-clusters · <span class="usc-next">Next: Phase {{ C.phase }}</span>{% endif %}{% if C.cross_cutting %} · Cross-cutting{% endif %}</span>
+      <span class="usc-subs">{{ C.sub_clusters | map: "name" | join: " · " }}</span>
+    {%- if C.live %}
+    </a>
+    {%- else %}
+    </div>
+    {%- endif %}
+  </li>
+  {%- endfor %}
+</ul>

@@ -272,12 +272,26 @@ for (const [id, h] of Object.entries(hubs)) {
   });
 }
 
-// USA home routes (2026-10-20): home.yml facts need known sources and whole-number pay/outlook; every route id
-// must be a section id on us/index.html (search.yml links to us/#<id>).
+// USA home (2026-10-20, Master Plan Phase 1 gateway): the five routes are short cards whose detail moved to a hub
+// (`moved_to` must be a page that exists; verify-site checks the #anchor), and the home keeps a data-route card per
+// old anchor so us/#<id> still forwards. Six support hub cards: `href` only to a page that exists, else a phase.
+// home.yml facts need known sources and whole-number pay/outlook.
 const home = load('home');
 const homeHtml = fs.readFileSync(path.join(root, 'us/index.html'), 'utf8');
+const pageExists = (u) => { const p = String(u).split('#')[0]; return fs.existsSync(path.join(root, p.endsWith('/') ? p + 'index.html' : p)); };
 if ((home.vectors || []).length !== 5) err('home.vectors', 'expected exactly 5 routes');
-for (const v of home.vectors || []) if (!homeHtml.includes(`id="${v.id}"`)) err(`home.vectors.${v.id}`, 'no section with this id on us/index.html');
+for (const v of home.vectors || []) {
+  if (!v.moved_to || !pageExists(v.moved_to)) err(`home.vectors.${v.id}`, `moved_to "${v.moved_to}" is not a page`);
+  if (!homeHtml.includes('data-route="{{ v.id }}"')) err(`home.vectors.${v.id}`, 'us/index.html must render the route cards with data-route (old anchors forward through them)');
+}
+if ((home.support || []).length !== 6) err('home.support', 'expected the 6 support hubs');
+for (const s of home.support || []) {
+  const w = `home.support.${s.id}`;
+  if (!s.title || !s.line || !s.planned) err(w, 'needs title, line, planned');
+  if (!Number.isInteger(s.phase)) err(w, 'phase must be a Master Plan phase number');
+  if (s.href && !pageExists(s.href)) err(w, `href "${s.href}" is not a page: drop href until the hub exists`);
+  if (!s.href && pageExists(s.planned)) err(w, `${s.planned} exists now: give the card href`);
+}
 const homeRows = [...(home.trades || []).map((t, i) => [`home.trades[${i}]`, t]), ...((home.public_sector || {}).jobs || []).map((t, i) => [`home.public_sector.jobs[${i}]`, t])];
 for (const [w, t] of homeRows) {
   needSrc(w, t.source);
@@ -344,12 +358,145 @@ for (const X of cte.list || []) {
   (X.certs || []).forEach((c, i) => { for (const k of ['name', 'who', 'text']) if (!c[k]) err(`${w}.certs[${i}]`, `missing ${k}`); needSrc(`${w}.certs[${i}]`, c.source); });
   (X.tools || []).forEach((t, i) => { if (!t.text) err(`${w}.tools[${i}]`, 'missing text'); needSrc(`${w}.tools[${i}]`, t.source); });
 }
+// Career Clusters (2026-10-20, USA Master Plan Phase 1): _data/us/clusters.yml = the 14 Advance CTE clusters and
+// 72 sub-clusters; a `live` cluster has its hub stub us/clusters/<slug>/index.html (scripts/build-us-clusters.mjs)
+// and only live clusters may have one. Every live pathway and every trade sits in exactly one cluster, and that
+// placement must agree with Advance CTE's SOC crosswalk (scripts/data/acte-soc-crosswalk.json): the SOC has a row
+// for (cluster, sub), `also` lists exactly the crosswalk's other clusters for it, and the chosen cluster has the
+// most rows (tie: true when another cluster has as many). Generic careers (_data/us/careers/<cluster>.yml, Phase 2
+// onward) share the cross-border route checks; their roadmaps live in us/roadmaps/ next to the cross-border tracks.
+const CL = load('clusters');
+const XWF = path.join(root, 'scripts/data/acte-soc-crosswalk.json');
+const XWR = fs.existsSync(XWF) ? JSON.parse(fs.readFileSync(XWF, 'utf8')).rows : [];
+if (!XWR.length) err('scripts/data/acte-soc-crosswalk.json', 'missing or empty (run scripts/build-us-clusters.mjs --crosswalk <xlsx>)');
+const day = (d) => (d instanceof Date ? d.toISOString().slice(0, 10) : String(d));
+if (!isDate(CL.checked) || !isDate(CL.review_by)) err('clusters', 'missing checked / review_by date');
+else if (today > day(CL.review_by)) err('clusters', `review_by ${day(CL.review_by)} has passed: re-read the careertech.org pages, then move checked and review_by forward`);
+const F = CL.framework || {};
+needSrc('clusters.framework', F.source);
+needSrc('clusters.framework.used_by', F.used_by_source);
+const clusters = CL.clusters || [];
+if (clusters.length !== F.clusters || F.clusters !== 14) err('clusters', `expected the 14 clusters (framework.clusters = ${F.clusters}, list = ${clusters.length})`);
+const subTotal = clusters.reduce((n, c) => n + (c.sub_clusters || []).length, 0);
+if (subTotal !== F.sub_clusters) err('clusters', `sub-clusters add up to ${subTotal}, framework says ${F.sub_clusters}`);
+if (clusters.filter((c) => c.cross_cutting).length !== F.cross_cutting) err('clusters', `cross_cutting count != framework.cross_cutting (${F.cross_cutting})`);
+const cslugs = new Set(clusters.map((c) => c.slug));
+if (cslugs.size !== clusters.length) err('clusters', 'duplicate cluster slug');
+const lc = (s) => String(s).toLowerCase();
+const placed = new Map();   // "pathway:<slug>" / "trade:<slug>" / "career:<slug>" → cluster slug
+const careerData = {};      // cluster slug → _data/us/careers/<slug>.yml
+const careersDir = path.join(root, '_data/us/careers');
+if (fs.existsSync(careersDir)) for (const f of fs.readdirSync(careersDir).filter((x) => x.endsWith('.yml'))) careerData[f.replace(/\.yml$/, '')] = yaml.load(fs.readFileSync(path.join(careersDir, f), 'utf8'));
+for (const C of clusters) {
+  const w = `clusters.${C.slug}`;
+  if (!/^[a-z0-9-]+$/.test(C.slug || '')) err(w, 'bad slug');
+  for (const k of ['name', 'summary', 'definition']) if (!C[k]) err(w, `missing ${k}`);
+  if (C.definition && C.summary && !C.definition.startsWith(C.summary)) err(w, 'summary must be the first sentence of definition, unchanged');
+  if (C.source !== `acte_${C.slug.replace(/-/g, '_')}`) err(w, `source must be acte_${C.slug.replace(/-/g, '_')}`);
+  needSrc(w, C.source);
+  if (!SRC_URL_OK(C)) err(w, `source url must be https://careertech.org/career-clusters/${C.slug}/`);
+  if (!Number.isInteger(C.phase) || C.phase < 2 || C.phase > 8) err(w, 'phase must be 2–8 (the Master Plan cluster phases)');
+  for (const s of C.connected || []) if (!cslugs.has(s) || s === C.slug) err(w, `connected "${s}" is not another cluster`);
+  if (!C.cross_cutting && !(C.connected || []).length) err(w, 'a non-cross-cutting cluster lists its closely connected clusters');
+  const subNames = new Set();
+  for (const S of C.sub_clusters || []) {
+    if (!S.name || !S.line || !Array.isArray(S.programs) || !S.programs.length) err(`${w}.sub_clusters`, `"${S.name}" needs name, line and programs`);
+    if (subNames.has(S.name)) err(`${w}.sub_clusters`, `duplicate "${S.name}"`);
+    subNames.add(S.name);
+  }
+  const hub = path.join(root, 'us/clusters', C.slug, 'index.html');
+  if (C.live) {
+    if (!fs.existsSync(hub)) err(w, `live but us/clusters/${C.slug}/index.html is missing (run scripts/build-us-clusters.mjs)`);
+    else if (!new RegExp(`^cluster:\\s*${C.slug}\\s*$`, 'm').test(fs.readFileSync(hub, 'utf8'))) err(w, `us/clusters/${C.slug}/index.html must say cluster: ${C.slug}`);
+    if (!(C.careers || []).length) err(w, 'a live hub needs at least one career page');
+  } else if (fs.existsSync(hub)) err(w, `us/clusters/${C.slug}/ exists but the cluster is not live`);
+  if (C.public_sector && !(home.public_sector || {}).federal) err(w, 'public_sector: true needs home.yml public_sector');
+  for (const E of C.careers || []) {
+    const kinds = ['pathway', 'trade', 'career'].filter((k) => E[k]);
+    const ew = `${w}.careers[${E[kinds[0]] || '?'}]`;
+    if (kinds.length !== 1) { err(ew, 'needs exactly one of pathway / trade / career'); continue; }
+    const key = `${kinds[0]}:${E[kinds[0]]}`;
+    if (placed.has(key)) err(ew, `${key} is already placed in ${placed.get(key)}`);
+    placed.set(key, C.slug);
+    const sub = (C.sub_clusters || []).find((s) => s.name === E.sub);
+    if (!sub) { err(ew, `sub "${E.sub}" is not a sub-cluster of ${C.name}`); continue; }
+    let socs = [];
+    if (E.pathway) {
+      const P = paths.list.find((p) => p.slug === E.pathway);
+      if (!P || !P.live) { err(ew, `pathway "${E.pathway}" is not a live pathway`); continue; }
+      socs = (occ[P.lead] || {}).soc || [];
+    } else if (E.trade) {
+      if (!(cte.list || []).some((t) => t.slug === E.trade)) err(ew, `trade "${E.trade}" is not in cte_careers.yml`);
+      if (!(home.trades || []).some((t) => t.roadmap === E.trade)) err(ew, `trade "${E.trade}" has no home.yml trades row`);
+      socs = [E.soc];
+    } else {
+      const X = (careerData[C.slug]?.list || []).find((x) => x.slug === E.career);
+      if (!X) { err(ew, `career "${E.career}" is not in _data/us/careers/${C.slug}.yml`); continue; }
+      socs = [].concat(X.soc || []);
+    }
+    if (!socs.length || !socs.every((s) => /^\d{2}-\d{4}$/.test(s))) { err(ew, 'needs SOC code(s) like "47-2111"'); continue; }
+    // A BLS broad code ending in 0 (29-1210 Physicians) covers the crosswalk's detailed codes (29-1211 … 29-1219).
+    const rows = XWR.filter((r) => socs.some((s) => r[0] === s || (s.endsWith('0') && r[0].startsWith(s.slice(0, 6)))));
+    if (!rows.length) { err(ew, `SOC ${socs.join(', ')} is not in the Advance CTE crosswalk`); continue; }
+    if (!rows.some((r) => r[2] === C.name && lc(r[3]) === lc(sub.xw || sub.name))) err(ew, `crosswalk has no row for ${socs.join(', ')} in ${C.name} > ${sub.xw || sub.name}`);
+    const count = {};
+    for (const r of rows) count[r[2]] = (count[r[2]] || 0) + 1;
+    const nameToSlug = Object.fromEntries(clusters.map((c) => [c.name, c.slug]));
+    const others = Object.keys(count).filter((n) => n !== C.name).map((n) => nameToSlug[n] || `?${n}`).sort();
+    const also = [...(E.also || [])].sort();
+    if (others.join() !== also.join()) err(ew, `also must be [${others.join(', ')}] (the crosswalk's other clusters), got [${also.join(', ')}]`);
+    const best = Math.max(...Object.values(count));
+    if ((count[C.name] || 0) < best) err(ew, `${C.name} has ${count[C.name] || 0} crosswalk rows but another cluster has ${best}: place it there`);
+    const tied = Object.entries(count).filter(([n, k]) => k === best && n !== C.name).length > 0;
+    if (tied !== !!E.tie) err(ew, tied ? 'tied with another cluster: add tie: true' : 'not a tie: remove tie: true');
+  }
+}
+function SRC_URL_OK(C) { return (sources.list[C.source] || {}).url === `https://careertech.org/career-clusters/${C.slug}/`; }
+for (const P of paths.list) if (P.live && !placed.has(`pathway:${P.slug}`)) err(`pathways.${P.slug}`, 'live pathway is not placed in any cluster (clusters.yml careers)');
+for (const T of cte.list || []) if (!placed.has(`trade:${T.slug}`)) err(`cte_careers.${T.slug}`, 'trade is not placed in any cluster (clusters.yml careers)');
+const hubDir = path.join(root, 'us/clusters');
+if (!fs.existsSync(path.join(hubDir, 'index.html'))) err('us/clusters/index.html', 'clusters index page is missing');
+if (fs.existsSync(hubDir)) for (const d of fs.readdirSync(hubDir, { withFileTypes: true }).filter((x) => x.isDirectory())) if (!cslugs.has(d.name)) err(`us/clusters/${d.name}/`, 'no cluster with this slug');
+// USA sidebar (_data/nav_us.yml "Career Clusters"): one child per live hub, none for a cluster without a hub.
+const navUs = fs.readFileSync(path.join(root, '_data/nav_us.yml'), 'utf8');
+const navHubs = new Set([...navUs.matchAll(/href: "us\/clusters\/([a-z0-9-]+)\/"/g)].map((m) => m[1]));
+for (const C of clusters) if (!!C.live !== navHubs.has(C.slug)) err('_data/nav_us.yml', `Career Clusters menu ${C.live ? 'is missing the live hub' : 'links the unbuilt hub'} us/clusters/${C.slug}/`);
+// Generic careers: required facts, sources, stubs; routes share the cross-border checks (stubs in us/roadmaps/).
+for (const [cslug, D] of Object.entries(careerData)) {
+  const C = clusters.find((c) => c.slug === cslug);
+  if (!C) { err(`_data/us/careers/${cslug}.yml`, 'file name must be a cluster slug'); continue; }
+  if (!isDate(D.checked) || !isDate(D.review_by)) err(`careers.${cslug}`, 'missing checked / review_by date');
+  const withRoutes = (D.list || []).filter((X) => (X.routes || []).length);
+  for (const X of withRoutes) { X.checked = X.checked || D.checked; X.review_by = X.review_by || D.review_by; }
+  checkCrossborder({ root, ed: 'us', tracks: withRoutes, where: `careers.${cslug}`, hasSrc: (id) => src.has(id), err, seen: cbSeen });
+  for (const X of D.list || []) {
+    const w = `careers.${cslug}[${X.slug}]`;
+    if (!placed.has(`career:${X.slug}`) && !placed.has(`pathway:${X.pathway}`)) err(w, `not listed in clusters.yml ${cslug} careers`);
+    if (X.pathway) { if (!paths.list.some((p) => p.slug === X.pathway && p.live)) err(w, `pathway "${X.pathway}" is not live`); continue; }
+    for (const k of ['short', 'eyebrow', 'lede', 'for']) if (!X[k]) err(w, `missing ${k}`);
+    for (const k of ['does', 'become']) { if (!X[k]?.text) err(w, `missing ${k}.text (BLS OOH summary line)`); else needSrc(`${w}.${k}`, X[k].source); }
+    if (X.work) needSrc(`${w}.work`, X.work.source);
+    const M = X.metrics || {};
+    for (const k of ['pay', 'jobs', 'outlook', 'change']) if (!Number.isInteger(M[k])) err(`${w}.metrics`, `${k} must be a whole number`);
+    if (!/^\d+\.\d{2}$/.test(M.pay_hour || '')) err(`${w}.metrics`, 'pay_hour must look like "30.38"');
+    for (const k of ['outlook_words', 'entry', 'training']) if (!M[k]) err(`${w}.metrics`, `missing ${k}`);
+    needSrc(`${w}.metrics`, M.source);
+    if (X.license && !lic[X.license]) err(w, `unknown license "${X.license}"`);
+    if (X.license && !pageExists(`us/professional-licenses/${X.license}/`)) err(w, `no license page us/professional-licenses/${X.license}/`);
+    for (const x of X.exams || []) if (!x.name || !x.href || !pageExists(x.href)) err(w, `exam button "${x.name}" needs an href to a page that exists`);
+    if (X.colleges && !pageExists(X.colleges)) err(w, `colleges "${X.colleges}" is not a page`);
+    const ov = path.join(root, 'us/careers', X.slug, 'index.html');
+    if (!fs.existsSync(ov) || !new RegExp(`^career:\\s*${X.slug}\\s*$`, 'm').test(fs.readFileSync(ov, 'utf8'))) err(w, `us/careers/${X.slug}/index.html must exist and say career: ${X.slug} (run scripts/build-us-clusters.mjs)`);
+    if ((X.routes || []).length && !/^career:\s*true\s*$/m.test(fs.existsSync(path.join(root, 'us/roadmaps', `${X.slug}.html`)) ? fs.readFileSync(path.join(root, 'us/roadmaps', `${X.slug}.html`), 'utf8') : '')) err(w, `us/roadmaps/${X.slug}.html must say career: true`);
+  }
+}
+
 checkOrphanRoadmaps({ root, ed: 'us', seen: cbSeen, err });
 checkOrphanRoadmaps({ root, ed: 'us', seen: cteSeen, err, dir: 'us/cte/roadmaps' });
 for (const f of fs.readdirSync(path.join(root, 'us/cte')).filter((x) => x.endsWith('.html') && x !== 'index.html')) {
   if (!cteSeen.has(f.replace(/\.html$/, ''))) err(`us/cte/${f}`, 'no cte_careers trade with this slug');
 }
 
-console.log(`checked ${Object.keys(sources.list).length} sources, ${Object.keys(occ).length} occupations, ${Object.keys(lic).length} licenses, ${testIds.size} tests, ${paths.list.length} pathways, ${(paths.crossborder || []).length} cross-border tracks, ${(cte.list || []).length} trades roadmaps`);
+console.log(`checked ${Object.keys(sources.list).length} sources, ${Object.keys(occ).length} occupations, ${Object.keys(lic).length} licenses, ${testIds.size} tests, ${paths.list.length} pathways, ${(paths.crossborder || []).length} cross-border tracks, ${(cte.list || []).length} trades roadmaps, ${clusters.length} clusters (${subTotal} sub-clusters, ${placed.size} careers placed, ${clusters.filter((c) => c.live).length} hubs live)`);
 if (errors.length) { console.log(errors.join('\n')); console.log(`\n${errors.length} problem(s)`); process.exit(1); }
 console.log('OK: 0 problems');

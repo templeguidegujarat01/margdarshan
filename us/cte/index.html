@@ -51,6 +51,39 @@ links to its profile when it has `roadmap: <slug>`. Every block carries data-no-
     </div>
   </section>
 
+  {%- comment -%} Route rail moved here from the USA Home (#cte) on 2026-10-20; us/#cte forwards to this anchor. {%- endcomment -%}
+  {%- assign L = US.degrees.levels %}
+  {%- assign tr = US.guides.transfer %}
+  <section class="block block-alt" id="route" aria-labelledby="route-heading" data-no-points>
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">The route</span>
+        <h2 id="route-heading">Community college and the skilled trades</h2>
+        <p>Two-year colleges lead straight to work or transfer into a bachelor's. The skilled trades are mostly learned on paid apprenticeships, and the state (sometimes the city) decides which trades need a license.</p>
+      </div>
+      <div class="cflow-wrap reveal">
+        <ol class="cflow" style="--n:4">
+          <li class="cflow-node" data-kind="start">
+            <span class="cflow-dot" aria-hidden="true">1</span>
+            <div class="cflow-card"><span class="cflow-kind">Start</span><h3>High school diploma</h3><p>The usual entry point for an apprenticeship or a community college.</p></div>
+          </li>
+          <li class="cflow-node" data-kind="stage">
+            <span class="cflow-dot" aria-hidden="true">2</span>
+            <div class="cflow-card"><span class="cflow-kind">About 2 years</span><h3>{{ L.associate.name }} ({{ L.associate.examples | join: ", " }})</h3><p>{{ L.associate.definition }}</p></div>
+          </li>
+          <li class="cflow-node" data-kind="stage">
+            <span class="cflow-dot" aria-hidden="true">3</span>
+            <div class="cflow-card"><span class="cflow-kind">Optional</span><h3>Transfer to a 4-year college</h3><p>{{ tr.text }} <a class="source-link" href="{{ SRC[tr.source].url }}">{{ SRC[tr.source].short }}</a></p></div>
+          </li>
+          <li class="cflow-node" data-kind="licence">
+            <span class="cflow-dot" aria-hidden="true">✓</span>
+            <div class="cflow-card"><span class="cflow-kind">Trades</span><h3>Apprenticeship → state license</h3><p>Electricians and plumbers usually train 4–5 years as apprentices, then most states test and license them.</p></div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
   <section class="block" id="matrix" aria-labelledby="matrix-heading" data-no-points>
     <div class="container">
       <div class="section-head reveal">

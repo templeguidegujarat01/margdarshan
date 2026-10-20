@@ -1,0 +1,113 @@
+{%- comment -%}
+  All 14 Career Clusters: us/clusters/index.html (stub written by scripts/build-us-clusters.mjs).
+  Data: _data/us/clusters.yml (copied from careertech.org, Advance CTE's National Career Clusters Framework, 2024).
+  A cluster card links to its hub us/clusters/<slug>/ only when the cluster is `live` (the hub page exists);
+  otherwise it shows the Master Plan phase that builds it ("Next · Phase N"), with no link.
+  Four h2[id] sections, so site.js builds the right rail (>=900px) and the chip rail (<900px); every block
+  carries data-no-points so site.js Block 0 leaves the text as it is.
+{%- endcomment -%}
+{%- assign CL = site.data.us.clusters -%}
+{%- assign F = CL.framework -%}
+{%- assign SRC = site.data.us.sources.list -%}
+{%- assign live = CL.clusters | where: "live", true -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "USA Home", "item": "{{ site.url }}{{ site.baseurl }}/us/" },
+    { "@type": "ListItem", "position": 2, "name": "Career Clusters", "item": "{{ page.url | absolute_url }}" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "U.S. Career Clusters with a hub page",
+  "itemListElement": [
+    {%- for C in live %}
+    { "@type": "ListItem", "position": {{ forloop.index }}, "name": {{ C.name | jsonify }}, "url": "{{ site.url }}{{ site.baseurl }}/us/clusters/{{ C.slug }}/" }{% unless forloop.last %},{% endunless %}
+    {%- endfor %}
+  ]
+}
+</script>
+<main id="main">
+
+  <section class="page-hero" aria-labelledby="hero-heading">
+    <svg class="page-hero-bg" viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M-50 340 C 220 300, 320 380, 500 300 S 780 200, 980 260 1150 160 1300 200" stroke="#E8A33D" stroke-width="1.4" fill="none" opacity=".3"/>
+    </svg>
+    <div class="container page-hero-inner">
+      <span class="eyebrow">USA Edition · Career Clusters</span>
+      <h1 id="hero-heading">The {{ F.clusters }} Career Clusters</h1>
+      <div class="meta-row">
+        <span>{{ F.clusters }} clusters</span><span>·</span><span>{{ F.sub_clusters }} sub-clusters</span><span>·</span><span>{{ live.size }} hubs open</span>
+      </div>
+      <p>The U.S. has no Science, Commerce and Arts streams. Most states organise career and technical education (CTE) with the {{ F.clusters }} Career Clusters of the {{ F.name }} instead. Pick a field to see its sub-clusters and the careers in it.</p>
+    </div>
+  </section>
+
+  <section class="block" id="framework" aria-labelledby="framework-heading" data-no-points>
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">The framework</span>
+        <h2 id="framework-heading">What a Career Cluster is</h2>
+      </div>
+      <dl class="usv-facts">
+        <div><dt>Framework</dt><dd>{{ F.name }}, {{ F.version | downcase }}. {{ F.intro }} {% include us-src-chip.html id=F.source %}</dd></div>
+        <div><dt>Who uses it</dt><dd>{{ F.used_by }} {% include us-src-chip.html id=F.used_by_source %}</dd></div>
+        {%- for d in F.terms %}
+        <div><dt>{{ d.term }}</dt><dd>{{ d.text }} {% include us-src-chip.html id=F.source %}</dd></div>
+        {%- endfor %}
+      </dl>
+    </div>
+  </section>
+
+  <section class="block block-alt" id="clusters" aria-labelledby="clusters-heading" data-no-points>
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">All {{ F.clusters }}</span>
+        <h2 id="clusters-heading">Pick a cluster</h2>
+        <p>Open clusters have a hub page with their sub-clusters and the career pages on this site. The others are planned; the card shows the build phase.</p>
+      </div>
+      {% include us-cluster-cards.html %}
+    </div>
+  </section>
+
+  <section class="block" id="sub-clusters" aria-labelledby="sub-heading" data-no-points>
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">{{ F.sub_clusters }} sub-clusters</span>
+        <h2 id="sub-heading">Every sub-cluster at a glance</h2>
+        <p>{{ F.terms[1].text }}</p>
+      </div>
+      <dl class="usv-facts">
+        {%- for C in CL.clusters %}
+        <div><dt>{% if C.live %}<a href="us/clusters/{{ C.slug }}/">{{ C.name }}</a>{% else %}{{ C.name }}{% endif %}</dt><dd>{{ C.sub_clusters | map: "name" | join: " · " }}</dd></div>
+        {%- endfor %}
+      </dl>
+    </div>
+  </section>
+
+  <section class="block block-alt" id="sources" aria-labelledby="sources-heading">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Sources</span>
+        <h2 id="sources-heading">Where these facts come from</h2>
+        <p>Cluster names, definitions, sub-clusters and example programs are copied from each cluster's page on careertech.org. Which career sits in which cluster comes from Advance CTE's own SOC crosswalk. Example programs of study are illustrative and vary from state to state.</p>
+      </div>
+      <ul class="us-sources">
+        {%- assign ids = "acte_framework,acte_crosswalk" | split: "," %}
+        {%- for id in ids %}{% assign s = SRC[id] %}
+        <li><a href="{{ s.url }}">{{ s.name }}</a> · {{ s.publisher }} <span class="us-asof">checked {{ s.accessed | date: "%Y-%m-%d" }}</span></li>
+        {%- endfor %}
+        {%- for C in CL.clusters %}{% assign s = SRC[C.source] %}
+        <li><a href="{{ s.url }}">{{ s.name }}</a> · {{ s.publisher }} <span class="us-asof">checked {{ s.accessed | date: "%Y-%m-%d" }}</span></li>
+        {%- endfor %}
+      </ul>
+      {% include src-more.html %}
+    </div>
+  </section>
+
+</main>

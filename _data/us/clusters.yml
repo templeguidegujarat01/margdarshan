@@ -1,0 +1,444 @@
+# USA Edition — the 14 Career Clusters (hubs) of the National Career Clusters® Framework, modernized by
+# Advance CTE in 2024 (careertech.org/career-clusters). India groups careers by stream (Science, Commerce,
+# Arts…); U.S. schools group them by Career Cluster, so the USA Home and us/clusters/ use these 14 hubs.
+#
+# Every name, definition, sub-cluster, example program of study and "closely connected" cluster below is
+# copied from the cluster's own careertech.org page (source id acte_<slug>, read 2026-10-20). `summary` is the
+# first sentence of that definition and `line` the first sentence of each sub-cluster description, unchanged.
+#
+#   slug           URL us/clusters/<slug>/ (same slug as careertech.org/career-clusters/<slug>/)
+#   phase          Master Plan phase that builds this cluster's careers (docs/us-edition/ARCHITECTURE.md)
+#   live           true once the hub page us/clusters/<slug>/ exists (scripts/build-us-clusters.mjs writes it).
+#                  Only then do the USA Home and the clusters index link to it; otherwise the card says "Next".
+#   cross_cutting  Advance CTE: one of the three Cross-Cutting Clusters (skills used in every other cluster)
+#   connected      clusters the page calls "most closely connected" (from national labor market data)
+#   sub_clusters   name (as on the page) · xw (the crosswalk's spelling, when it differs) · line · programs
+#                  (Advance CTE: example programs of study are illustrative and vary by state)
+#   careers        career pages on this site that sit in this cluster (the hub's career matrix):
+#                    pathway: <slug>   _data/us/pathways.yml  → us/careers/<slug>/ (SOC from its lead occupation)
+#                    trade: <slug>     _data/us/cte_careers.yml → us/cte/<slug>.html (soc: given here)
+#                    career: <slug>    _data/us/careers/<cluster>.yml → us/careers/<slug>/ (Phase 2 onward)
+#                  sub   = the sub-cluster Advance CTE's SOC crosswalk gives that SOC in this cluster.
+#                  also  = other clusters the crosswalk also places that SOC in (shown on those hubs as
+#                          "Also in this cluster"). Each career is listed once, under the cluster with the most
+#                          crosswalk rows for its SOC(s); tie: true marks a tie, placed by the field's main industry.
+# The SOC → cluster mapping is checked against scripts/data/acte-soc-crosswalk.json (Advance CTE's official
+# "SOC – Career Clusters Crosswalk", written by scripts/build-us-clusters.mjs --crosswalk <xlsx>).
+# Checked by scripts/check-us-data.mjs; stubs written by scripts/build-us-clusters.mjs.
+#
+# Notes from the sources (2026-10-20): the crosswalk lists no SOC code for "Unmanned Vehicle Technology"
+# (Digital Technology) and spells four sub-clusters differently (see xw). The framework page says "five
+# Cluster Groupings" but names six; groupings are not used on this site.
+checked: 2026-10-20
+review_by: 2027-04-20
+framework:
+  name: "National Career Clusters® Framework"
+  steward: "Advance CTE"
+  version: "Modernized framework, released 2024"
+  clusters: 14
+  sub_clusters: 72
+  cross_cutting: 3
+  intro: "The Career Clusters Framework serves as the foundation for designing consistent, high-quality Career Technical Education (CTE) and career pathway programs."
+  source: acte_framework
+  used_by: "First introduced in 2002, a version of the Framework is used by the majority of states with Advance CTE as its steward."
+  used_by_source: acte_crosswalk
+  # "Structure Definitions" on the framework page, word for word.
+  terms:
+    - term: "Clusters"
+      text: "Industry sectors as defined by groupings from Standard Occupational Classification (SOC) and North American Industry Classification System (NAICS) codes."
+    - term: "Sub-Clusters"
+      text: "Major groupings of career areas within a given field that have similar skills as defined by industry area."
+    - term: "Cross-Cutting Clusters"
+      text: "Clusters that are based on both sector-specific and contextualized functions instead of purely discrete industry sectors. These Clusters have both Sub-Clusters and implications for courses taken in all other Career Clusters."
+  programs_note: "Examples intended to show potential alignment with currently existing state or local secondary or postsecondary programs of study and provide inspiration for the expansion and innovation of future programs."
+clusters:
+  - slug: healthcare-human-services
+    name: "Healthcare & Human Services"
+    phase: 2
+    live: true
+    summary: "The Healthcare & Human Services Career Cluster promotes whole health in individuals and communities through a diverse array of services."
+    definition: "The Healthcare & Human Services Career Cluster promotes whole health in individuals and communities through a diverse array of services. This sector includes technical, mental, and therapeutic services and personal care, supported by medical and social sciences. By addressing social determinants of health and leveraging health data and science, this Cluster aims to enhance the overall health and resilience of individuals, families, and communities."
+    source: acte_healthcare_human_services
+    connected: [advanced-manufacturing, education, financial-services, hospitality-events-tourism, public-service-safety]
+    sub_clusters:
+      - name: "Behavioral & Mental Health"
+        line: "Careers dedicated to mental and emotional well-being, including counseling, psychology, and psychiatric services aimed at supporting individuals through mental health challenges and promoting psychological health."
+        programs: ["Counseling & Mental Health Services"]
+      - name: "Biotechnology Research & Development"
+        line: "Careers focused on research and development in the medical field, including biotechnology, and scientific research."
+        programs: ["Biomedical Science", "Biotechnology Research & Development"]
+      - name: "Community & Social Services"
+        line: "Careers that address the societal and environmental factors affecting health such as access to healthy foods, income and poverty, adequate child care, and access to education."
+        programs: ["Community Health", "Human Services", "Social Work"]
+      - name: "Health Data & Administration"
+        line: "Careers centered on the management, analysis, and administration of health information and data."
+        programs: ["Health Informatics", "Medical Assisting", "Medical Record Keeping"]
+      - name: "Personal Care Services"
+        line: "Careers that encompass in-home and personal care support and offer esthetics and wellness services such as hairdressing, nail care, skincare, fitness, and massage therapy."
+        programs: ["Barbering", "Cosmetology", "Massage & Spa Services"]
+      - name: "Physical Health"
+        line: "Careers in healthcare that directly affect the physical well-being of individuals by providing medical care, conducting diagnostics, offering therapeutic services, administering pharmaceuticals, and supporting nutrition and dental health."
+        programs: ["Allied Health", "Nursing", "Pharmacy Tech", "Physical Therapy", "Radiology", "Sports Medicine"]
+    careers:
+      - { pathway: medicine, sub: "Physical Health" }
+      - { pathway: dentistry, sub: "Physical Health" }
+      - { pathway: pharmacy, sub: "Physical Health" }
+      - { pathway: nursing, sub: "Physical Health" }
+      - { pathway: physical-therapy, sub: "Physical Health" }
+      - { pathway: psychology, sub: "Behavioral & Mental Health", also: [management-entrepreneurship, education] }
+  - slug: digital-technology
+    name: "Digital Technology"
+    phase: 3
+    live: true
+    cross_cutting: true
+    summary: "The Digital Technology Career Cluster focuses on developing digital systems for communication and data storage using critical technologies such as artificial intelligence (AI), data analytics, and cybersecurity."
+    definition: "The Digital Technology Career Cluster focuses on developing digital systems for communication and data storage using critical technologies such as artificial intelligence (AI), data analytics, and cybersecurity. This Cluster builds skills necessary for all careers to navigate and lead in the constantly evolving tech landscape and drives innovation across all industries to tackle complex challenges and opportunities in communities and economies. This Career Cluster is also a Cross-Cutting Cluster as the skills gained through this Career Clusters area are applicable across all Career Clusters. Practitioners are encouraged to combine content from this Cluster across other CTE programs."
+    source: acte_digital_technology
+    connected: []
+    sub_clusters:
+      - name: "Data Science & Artificial Intelligence"
+        xw: "Data Science & AI"
+        line: "Careers combining the power of data analysis, machine learning, and artificial intelligence (AI), including key processes such as data modeling and natural language processing."
+        programs: ["Applied Data Science & Analytics"]
+      - name: "Information Technology (IT) Support & Services"
+        xw: "IT Support & Services"
+        line: "Careers focused on providing setup, assistance, and problem-solving solutions for software, hardware, and other technology-related issues to ensure smooth and efficient operation of communication and data systems for individuals and organizations."
+        programs: ["Information Support & Services"]
+      - name: "Network Systems & Cybersecurity"
+        line: "Careers focused on establishing and managing communication networks and protecting them against cyber threats."
+        programs: ["Computer Networking", "Cybersecurity", "IT Systems"]
+      - name: "Software Solutions"
+        line: "Careers involved in the development and maintenance of software solutions, built on computer science and encompassing programming, application development, and front-end and back-end software development."
+        programs: ["App Design", "Computer Simulation", "Game Development", "Programming"]
+      - name: "Unmanned Vehicle Technology"
+        line: "Careers related to the development, operation, and use of unmanned vehicles, such as unmanned aerial vehicles, drones, and autonomous ground vehicles, across various sectors."
+        programs: ["Drone Technology", "Unmanned Aircraft Systems"]
+      - name: "Web & Cloud"
+        line: "Careers focused on creating and managing websites and web applications, including front-end and back-end development and maintenance, as well as overseeing cloud services and infrastructure."
+        programs: ["Cloud Computing", "Web & Digital Communications", "Web Development"]
+    careers:
+      - { pathway: computer-science, sub: "Software Solutions", also: [arts-entertainment-design] }
+      - { pathway: software-engineering, sub: "Software Solutions", also: [arts-entertainment-design] }
+      - { pathway: artificial-intelligence, sub: "Data Science & Artificial Intelligence" }
+      - { pathway: data-science, sub: "Data Science & Artificial Intelligence", also: [financial-services, marketing-sales], tie: true }
+      - { pathway: cybersecurity, sub: "Network Systems & Cybersecurity" }
+      - { pathway: computer-engineering, sub: "Information Technology (IT) Support & Services" }
+  - slug: financial-services
+    name: "Financial Services"
+    phase: 3
+    live: true
+    summary: "The Financial Services Career Cluster encompasses careers in managing and advising financial transactions, including banking, lending, corporate finance, debt management, accounting, insurance, and real estate."
+    definition: "The Financial Services Career Cluster encompasses careers in managing and advising financial transactions, including banking, lending, corporate finance, debt management, accounting, insurance, and real estate. These careers contribute to economic stability and growth by supporting the financial health of individuals and organizations."
+    source: acte_financial_services
+    connected: [healthcare-human-services, public-service-safety]
+    sub_clusters:
+      - name: "Accounting"
+        line: "Careers focused on managing financial records for individuals and businesses and advising on individual and family financial planning and debt management."
+        programs: ["Accounting", "Business Finance", "Economics"]
+      - name: "Banking & Credit"
+        line: "Careers centered on money management, loans, microlending, and commercial and consumer credit across banks, credit unions, mortgage brokers, and finance companies."
+        programs: ["Banking", "Credit"]
+      - name: "Financial Strategy & Investments"
+        line: "Careers involved in managing a company’s capital structure and corporate financial strategies, operations, and investments, including venture capital and private equity."
+        programs: ["Business Administration", "Securities & Investments"]
+      - name: "Insurance"
+        line: "Careers rooted in assessing risk; providing financial protection against loss; and offering products including life, health, and property insurance."
+        programs: ["Insurance Operations"]
+      - name: "Real Estate"
+        line: "Careers focused on the buying, selling, leasing, and management of residential, commercial, and industrial properties."
+        programs: ["Real Estate"]
+    careers:
+      - { pathway: accounting, sub: "Accounting" }
+      - { pathway: finance, sub: "Financial Strategy & Investments" }
+      - { pathway: investment-banking, sub: "Financial Strategy & Investments" }
+  - slug: management-entrepreneurship
+    name: "Management & Entrepreneurship"
+    phase: 4
+    live: true
+    cross_cutting: true
+    summary: "The Management & Entrepreneurship Career Cluster involves skills and occupations that are essential across all industries, focusing on business administration, operations optimization, strategic planning, workforce management, and entrepreneurship."
+    definition: "The Management & Entrepreneurship Career Cluster involves skills and occupations that are essential across all industries, focusing on business administration, operations optimization, strategic planning, workforce management, and entrepreneurship. It merges key areas such as data management and analysis, human resources, general operations, administrative support, project management, and organizational leadership. This Cluster ensures that businesses across all industries efficiently meet their goals, adapt to market changes, and maintain competitive advantage. By emphasizing entrepreneurship, this Cluster supports the creation of new ventures, driving economic growth and innovation and making it a cornerstone of modern economies. This Career Cluster is also a Cross-Cutting Cluster as the skills gained through this Career Clusters area are applicable across all Career Clusters. Practitioners are encouraged to combine content from this Cluster across other CTE programs."
+    source: acte_management_entrepreneurship
+    connected: []
+    sub_clusters:
+      - name: "Business Information Management"
+        line: "Careers centered around using technology to collect information that supports and enhances business operations."
+        programs: ["Business Technology Applications"]
+      - name: "Entrepreneurship & Small Business"
+        line: "Careers focused on initiating and managing businesses, including startups, small businesses, gig economy work, and social enterprises."
+        programs: ["Entrepreneurship"]
+      - name: "Leadership & Operations"
+        line: "Careers involving the leadership of business activities, including strategic planning; resource forecasting and allocation; engaging with boards, shareholders, and other constituents; administrative support; and management consulting."
+        programs: ["Business Essentials", "Business Management", "Human Resources Management"]
+      - name: "Project Management"
+        line: "Careers focused on planning, leading, initiating, executing, controlling, and closing out projects to achieve specific goals within a set timeline and budget."
+        programs: ["Principles of Management"]
+      - name: "Regulation"
+        line: "Careers dedicated to corporate responsibility, ensuring that all industries adhere to health, safety, financial, and environmental regulations."
+        programs: ["Business Law"]
+    careers:
+      - { pathway: business, sub: "Business Information Management", also: [education, public-service-safety] }
+  - slug: marketing-sales
+    name: "Marketing & Sales"
+    phase: 4
+    live: false
+    cross_cutting: true
+    summary: "The Marketing & Sales Career Cluster focuses on promoting products, understanding consumer needs, engaging with communities, and driving sales."
+    definition: "The Marketing & Sales Career Cluster focuses on promoting products, understanding consumer needs, engaging with communities, and driving sales. It integrates digital marketing, data analysis, brand promotion, customer relationship management, strategic communications, human-centered design, and retail strategies to build strong customer connections and support business growth. This Cluster is essential in all industries for creating value, effectively reaching and engaging target audiences, and achieving commercial success in a competitive marketplace. This Career Cluster is also a Cross-Cutting Cluster as the skills gained through this Career Clusters area are applicable across all Career Clusters. Practitioners are encouraged to combine content from this Cluster across other CTE programs."
+    source: acte_marketing_sales
+    connected: []
+    sub_clusters:
+      - name: "Market Research, Analytics, & Ethics"
+        line: "Careers focused on gathering, analyzing, and interpreting market data and consumer behaviors to inform strategic decisions and enhance business relationships."
+        programs: ["Marketing Research", "Social Media & Analytics"]
+      - name: "Marketing & Advertising"
+        line: "Careers focused on using digital technologies and traditional strategies to promote products and services to engage customers and maintain brand identity."
+        programs: ["Marketing", "Marketing Management"]
+      - name: "Retail & Customer Experience"
+        line: "Careers focused on the essentials of retail operations and the delivery of outstanding customer experiences."
+        programs: ["Merchandising"]
+      - name: "Strategic Sales"
+        line: "Careers that help businesses grow and achieve goals."
+        programs: ["Business Communications"]
+    careers: []
+  - slug: public-service-safety
+    name: "Public Service & Safety"
+    phase: 5
+    live: true
+    summary: "The Public Service & Safety Career Cluster encompasses roles in local, state, and federal government; legal and justice systems; security; and military operations, all aimed at promoting civic responsibility and ensuring the well-being, security, functionality, and resilience of communities, states, and countries."
+    definition: "The Public Service & Safety Career Cluster encompasses roles in local, state, and federal government; legal and justice systems; security; and military operations, all aimed at promoting civic responsibility and ensuring the well-being, security, functionality, and resilience of communities, states, and countries."
+    source: acte_public_service_safety
+    public_sector: true      # hub shows the USAJOBS / state & city civil service block (home.yml public_sector), moved from the USA Home
+    connected: [education, energy-natural-resources, financial-services, healthcare-human-services]
+    sub_clusters:
+      - name: "Emergency Response"
+        line: "Careers focused on strategic actions taken to prepare for and manage crises and emergencies, including natural disasters, fires, accidents, and other urgent situations."
+        programs: ["Emergency & Fire Management Services", "Fire Science"]
+      - name: "Judicial Systems"
+        line: "Careers dedicated to maintaining the legal system, upholding justice, fairness, and the rule of law for both individuals and organizations."
+        programs: ["Legal Studies", "Paralegal & Legal Assistant Training"]
+      - name: "Local, State & Federal Services"
+        xw: "Local, State, & Federal Services"
+        line: "Careers in government agencies responsible for policy and economic development, ensuring democratic processes, access to public services, governance, public administration, public policy, urban and regional planning, and community development."
+        programs: ["Economics", "Public Management & Administration", "Regional & Urban Planning"]
+      - name: "Military & National Security"
+        line: "Careers centered on safeguarding countries through defense operations, strategic planning, intelligence gathering, and technological resilience."
+        programs: ["National Security"]
+      - name: "Public Safety"
+        line: "Careers in law enforcement, corrections, and both public and private security."
+        programs: ["Criminal Justice", "Law Enforcement Services", "Security & Protective Services"]
+    careers:
+      - { pathway: law, sub: "Judicial Systems" }
+  - slug: education
+    name: "Education"
+    phase: 5
+    live: false
+    summary: "The Education Career Cluster spans careers aimed at fostering learning from early childhood to adulthood, including teaching, instructional design, counseling services, community engagement, learner support, and educator training."
+    definition: "The Education Career Cluster spans careers aimed at fostering learning from early childhood to adulthood, including teaching, instructional design, counseling services, community engagement, learner support, and educator training. This Cluster emphasizes quality education standards and lifelong learning, preparing individuals for success through all life stages by nurturing knowledge, skills, and critical thinking and encouraging personal and societal growth in a constantly evolving world."
+    source: acte_education
+    connected: [healthcare-human-services, public-service-safety]
+    sub_clusters:
+      - name: "Early Childhood Development"
+        line: "Careers dedicated to nurturing the holistic growth of children from birth to 8 years old through education, care, and early intervention."
+        programs: ["Early Childhood Education", "Developmental Education"]
+      - name: "Education Administration & Leadership"
+        line: "Careers in managing and leading educational institutions, developing policies, curating and organizing knowledge, leading teams, and conducting research to improve education."
+        programs: ["Educational Leadership"]
+      - name: "Learner Support & Community Engagement"
+        line: "Careers focused on offering guidance and support to learners while building collaborative ties with families and communities."
+        programs: ["Professional Support Services", "Library Science"]
+      - name: "Teaching, Training & Facilitation"
+        xw: "Teaching, Training, & Facilitation"
+        line: "Careers encompassing teaching and instructional design roles across diverse educational levels, from kindergarten through Grade 12 (K-12) to adult learning."
+        programs: ["Principles of Teaching"]
+    careers: []
+  - slug: construction
+    name: "Construction"
+    phase: 6
+    live: true
+    summary: "The Construction Career Cluster focuses on professions involved in designing, planning, managing, and executing projects in the built environment."
+    definition: "The Construction Career Cluster focuses on professions involved in designing, planning, managing, and executing projects in the built environment. It emphasizes sustainable building practices to ensure that structures are both environmentally responsible and resilient. Careers in this Cluster are pivotal in creating durable infrastructure that meets present needs without compromising future generations’ ability to meet their own, covering a range of roles from architects and engineers to construction managers and skilled tradespeople."
+    source: acte_construction
+    connected: [advanced-manufacturing, agriculture, arts-entertainment-design, energy-natural-resources, supply-chain-transportation]
+    sub_clusters:
+      - name: "Architecture & Civil Engineering"
+        line: "Careers combining the planning, design, and drafting of infrastructure, structures, and landscapes with the application of technical expertise through architecture and civil and structural engineering."
+        programs: ["Architectural Design", "Drafting", "Landscape Architecture"]
+      - name: "Construction Planning & Development"
+        line: "Careers emphasizing the critical initial stages of construction and development projects, including preconstruction activities, property development, and land use planning."
+        programs: ["Construction Management", "Surveying"]
+      - name: "Equipment Operation & Maintenance"
+        line: "Careers skilled in managing and servicing the heavy equipment and machinery that are essential for building and infrastructure projects."
+        programs: ["Diesel Mechanics", "Heavy Machine Operation"]
+      - name: "Skilled Trades"
+        line: "Careers focused on skilled work that is essential to constructing, maintaining, and repairing buildings and infrastructure including carpentry; welding; masonry; electrical; plumbing; and heating, ventilation, air conditioning, and refrigeration (HVAC-R)."
+        programs: ["Carpentry", "Electrical Systems", "Green Construction", "HVAC-R", "Welding Technology"]
+    careers:
+      - { pathway: civil-engineering, sub: "Architecture & Civil Engineering", also: [public-service-safety], tie: true }
+      - { trade: electrician, soc: "47-2111", sub: "Skilled Trades" }
+      - { trade: plumber, soc: "47-2152", sub: "Skilled Trades" }
+      - { trade: hvac-technician, soc: "49-9021", sub: "Skilled Trades" }
+  - slug: advanced-manufacturing
+    name: "Advanced Manufacturing"
+    phase: 6
+    live: true
+    summary: "The Advanced Manufacturing Career Cluster blends innovative technologies and practices to enhance design and production."
+    definition: "The Advanced Manufacturing Career Cluster blends innovative technologies and practices to enhance design and production. It covers areas such as engineering, research and development, automation and artificial intelligence, equipment maintenance, safety protocols, and quality control. This Cluster aims to increase efficiency, reduce waste, ensure safety, and produce high-quality goods, driving the industry’s growth and adapting to modern demands."
+    source: acte_advanced_manufacturing
+    connected: [agriculture, arts-entertainment-design, construction, energy-natural-resources, healthcare-human-services, supply-chain-transportation]
+    sub_clusters:
+      - name: "Engineering"
+        line: "Careers that use engineering principles to develop and improve manufacturing processes and systems and to design products."
+        programs: ["Engineering & Technology", "Pre-Engineering", "Semiconductor Manufacturing", "Engineering Technology"]
+      - name: "Industrial Machinery"
+        line: "Careers focused on working with manual equipment, such as computer-numerical-controlled (CNC) machines, 3D printers, quality control equipment, material handling tools, maintenance and repair devices, specialized machining and surface treatment machines, fabrication equipment, and energy management systems."
+        programs: ["Industrial Machine Mechanics", "Precision Machining"]
+      - name: "Production & Automation"
+        line: "Careers centered on the hands-on management and execution of manufacturing processes."
+        programs: ["Apparel & Textile Production", "Manufacturing Production Process Development"]
+      - name: "Robotics"
+        line: "Careers involved in developing, implementing, and maintaining technologies that deploy robotics."
+        programs: ["Industry 4.0", "Robotics Technology"]
+      - name: "Safety & Quality Assurance"
+        line: "Careers dedicated to ensuring workplace safety, worker health, environmental compliance, and product quality."
+        programs: ["Safety & Environmental Assurance"]
+    careers:
+      - { pathway: mechanical-engineering, sub: "Engineering" }
+      - { pathway: electrical-engineering, sub: "Engineering", also: [energy-natural-resources] }
+      - { pathway: aerospace-engineering, sub: "Engineering" }
+      - { trade: welder, soc: "51-4121", sub: "Production & Automation", also: [construction], tie: true }
+  - slug: supply-chain-transportation
+    name: "Supply Chain & Transportation"
+    phase: 7
+    live: true
+    summary: "The Supply Chain & Transportation Career Cluster encompasses the transfer, coordination, and management of goods from production to consumption, ensuring efficient movement across various modes of transportation including air, ground, and water, as well as maintenance of the respective transport modes."
+    definition: "The Supply Chain & Transportation Career Cluster encompasses the transfer, coordination, and management of goods from production to consumption, ensuring efficient movement across various modes of transportation including air, ground, and water, as well as maintenance of the respective transport modes. This Cluster integrates logistics and distribution networks to facilitate the seamless flow of materials and products, playing a crucial role in global commerce, economic development, and community health."
+    source: acte_supply_chain_transportation
+    connected: [advanced-manufacturing, agriculture, construction, energy-natural-resources, hospitality-events-tourism]
+    sub_clusters:
+      - name: "Air & Space Transportation"
+        line: "Careers related to the design, operation, and management of both air and space transportation, including air cargo and passenger services, as well as space exploration and satellite operations."
+        programs: ["Aviation Technology", "Avionics", "“Your Place in Space” Department of Education Program"]
+      - name: "Ground & Rail Transportation"
+        line: "Careers related to the transportation of goods and passengers by road and rail."
+        programs: ["Commercial Driving", "Railroad Operations"]
+      - name: "Maintenance & Repair"
+        line: "Careers encompassing the repair and maintenance of transportation systems, including ground vehicles, rail vehicles, aircraft, and nautical vessels."
+        programs: ["Auto Body Technology", "Automotive Maintenance", "Diesel Mechanics", "Electric Vehicle Maintenance"]
+      - name: "Marine Transportation"
+        line: "Careers in the design, operation, and management of maritime vessels and infrastructure for the transportation of goods and passengers, and watercraft used in sports and leisure activities."
+        programs: ["Marine Transport", "Vessel Operations"]
+      - name: "Planning & Logistics"
+        line: "Careers focused on managing and optimizing the supply chain’s flow of goods and information."
+        programs: ["Transportation, Distribution, & Logistics Systems"]
+      - name: "Purchasing & Warehousing"
+        line: "Careers centered around procurement, warehousing, and facility maintenance."
+        programs: ["Business Administration", "Supply Chain Management"]
+    careers:
+      - { trade: automotive-service-technician, soc: "49-3023", sub: "Maintenance & Repair" }
+  - slug: energy-natural-resources
+    name: "Energy & Natural Resources"
+    phase: 7
+    live: false
+    summary: "The Energy & Natural Resources Career Cluster spans careers in traditional and renewable fuel production, power generation and energy conversion, utilities, environmental preservation, ecological research, and resource extraction."
+    definition: "The Energy & Natural Resources Career Cluster spans careers in traditional and renewable fuel production, power generation and energy conversion, utilities, environmental preservation, ecological research, and resource extraction. These industries focus on efficient and responsible resource management, including conservation, transmission, distribution and storage, to minimize environmental impacts and meet global energy needs. Careers in this Cluster are dedicated to creating a sustainable future, innovating cleaner energy solutions, and preserving our planet's natural resources for generations to come."
+    source: acte_energy_natural_resources
+    connected: [advanced-manufacturing, agriculture, construction, public-service-safety, supply-chain-transportation]
+    sub_clusters:
+      - name: "Clean & Alternative Energy"
+        line: "Careers focused on energy generation and infrastructure development from clean energy sources such as low carbon fuels, natural gas, nuclear, biofuels, hydrogen processes, and other alternative sources aimed at addressing climate change impacts."
+        programs: ["Renewable Energy", "Electric Vehicle Installation & Maintenance", "Solar System Design & Installation", "Wind Turbine Installation & Maintenance"]
+      - name: "Conservation & Land Management"
+        line: "Careers rooted in environmental and natural sciences, focusing on protecting and managing natural resources and landscapes."
+        programs: ["GIS Mapping", "Natural Resource Conservation", "Wildlife Management"]
+      - name: "Ecological Research & Development"
+        line: "Careers emphasizing the scientific study of and research in ecological, geological, electrical, chemical, nuclear, biological, environmental engineering, and other sciences as they relate to energy production, sustainability, and the management of natural resources."
+        programs: ["Environmental Engineering", "Environmental Management", "Environmental Science & Sustainability"]
+      - name: "Environmental Protection"
+        line: "Careers centered on regulating and managing the impacts of both natural processes and human activities, such as resource production and consumption."
+        programs: ["Climate Resilience", "Sustainable Communities"]
+      - name: "Resource Extraction"
+        line: "Careers focused on the efficient extraction of natural materials including fossil fuels, minerals, natural gas, and geothermal resources that are essential for fuel production in energy and manufacturing."
+        programs: ["Clean Energy System Design", "Energy Transfer", "Mining Technology"]
+      - name: "Utilities"
+        line: "Careers involving the transmission and maintenance of utility systems for clean and alternative energy, electricity, water, waste remediation, and telecom/broadband; distribution and infrastructure development; and storage."
+        programs: ["Telecommunications", "Water & Wastewater Systems", "Plant Operations", "Underground or Overhead Linework", "Utility Maintenance and Repair"]
+    careers: []
+  - slug: agriculture
+    name: "Agriculture"
+    phase: 7
+    live: false
+    summary: "The Agriculture Career Cluster concentrates on scientific advancement of agriscience, cultivation, processing, and distribution of agricultural products, employing advanced technologies and sustainable practices to optimize global food systems."
+    definition: "The Agriculture Career Cluster concentrates on scientific advancement of agriscience, cultivation, processing, and distribution of agricultural products, employing advanced technologies and sustainable practices to optimize global food systems. This Cluster also supports other plant- and animal-based industries including regenerative agriculture, sustainable logging, and fisheries. This Cluster has meaningful connections with the Energy and Natural Resources Cluster, highlighting a symbiotic relationship that emphasizes stewardship and resilient communities."
+    source: acte_agriculture
+    connected: [construction, energy-natural-resources, hospitality-events-tourism, supply-chain-transportation]
+    sub_clusters:
+      - name: "Agribusiness"
+        line: "Careers focused on the economic aspects of agriculture, encompassing farm and rangeland management, agribusiness finance, international relations, supply chain management, and other functions that are essential for agricultural profitability."
+        programs: ["Agribusiness", "Agricultural Policy", "Agricultural Finance"]
+      - name: "Agricultural Technology & Automation"
+        line: "Careers at the intersection of agriculture and technology, focusing on the design and operation of agricultural equipment and systems; repair and maintenance of agricultural equipment; and agricultural engineering, mechanics, and automation processes."
+        programs: ["Agricultural Technology", "Precision Agriculture", "Urban Farming", "Agricultural Mechanics"]
+      - name: "Animal Systems"
+        line: "Careers that both promote the health and well-being of animals, including companion, livestock, and exotic animals, and facilitate the efficient production of animal-related products within the food system."
+        programs: ["Animal Nutrition", "Livestock Management", "Veterinary Science"]
+      - name: "Food Science & Processing"
+        line: "Careers centered on applying scientific and technological principles to the development, enhancement, processing, and usability of agricultural food products."
+        programs: ["Food Science", "Meat Science", "Sustainable Food & Farming"]
+      - name: "Plant Systems"
+        line: "Careers involving the study and management of plant growth, soil health, and pest management, focusing on sustainable crop production for both food and goods."
+        programs: ["Horticulture", "Forestry", "Plant Science", "Floriculture"]
+      - name: "Water Systems"
+        line: "Careers centered on the effective management and use of water resources in agricultural settings, including precision irrigation, aquaculture, and fisheries."
+        programs: ["Aquaculture", "Marine Biology"]
+    careers: []
+  - slug: arts-entertainment-design
+    name: "Arts, Entertainment, & Design"
+    phase: 8
+    live: false
+    summary: "The Arts, Entertainment, & Design Career Cluster combines creative roles in visual and performing arts, film, journalism, fashion, interior design, and creative technologies."
+    definition: "The Arts, Entertainment, & Design Career Cluster combines creative roles in visual and performing arts, film, journalism, fashion, interior design, and creative technologies. This Cluster focuses on creating, producing, and sharing artistic and design work across multiple platforms, aiming to entertain, inform, beautify, and inspire."
+    source: acte_arts_entertainment_design
+    connected: [advanced-manufacturing, construction, hospitality-events-tourism]
+    sub_clusters:
+      - name: "Design & Digital Arts"
+        line: "Careers encompassing the creation and production of visually engaging digital content such as animation, visual marketing, graphic design, print media, augmented and virtual reality, web design, game design, and user interfaces/user experiences."
+        programs: ["Digital Animation", "Graphic Arts"]
+      - name: "Fashion & Interiors"
+        line: "Careers bridging the creative and commercial aspects of fashion design, production, marketing, and sales with the art and science of interior design and decoration."
+        programs: ["Apparel & Textiles", "Fashion Design", "Interior Design"]
+      - name: "Fine Arts"
+        line: "Careers focused on the technical and artistic skill needed for the creation, promotion, and sale of visual art forms including painting, sculpture, and pottery."
+        programs: ["Fine Arts", "Museum Studies"]
+      - name: "Lighting & Sound Technology"
+        line: "Careers specializing in sound engineering and lighting design, which are vital for both functional and artistic applications, including immersive experiences in film, music, performing arts, fine arts, and interiors."
+        programs: ["Audio & Visual Technology", "Lighting Design", "Sound Engineering"]
+      - name: "Media Production & Broadcasting"
+        line: "Careers encompassing film, television, radio, journalism, communications, writing, and broadcasting, focusing on content creation, production, and distribution."
+        programs: ["Broadcasting Technology", "Filmmaking: Production & Managerial Arts", "Journalism", "Video Production"]
+      - name: "Performing Arts"
+        line: "Careers focused on the technical and management elements of the performing arts and entertainment industry to produce and stage live artistic and athletic performances, including theater, music, dance, and sports."
+        programs: ["Performing Arts", "Stage Design & Management"]
+    careers: []
+  - slug: hospitality-events-tourism
+    name: "Hospitality, Events, & Tourism"
+    phase: 8
+    live: false
+    summary: "The Hospitality, Events, & Tourism Career Cluster encompasses a broad range of services and experiences related to food and beverage, lodging, travel, events, and conferences."
+    definition: "The Hospitality, Events, & Tourism Career Cluster encompasses a broad range of services and experiences related to food and beverage, lodging, travel, events, and conferences. This Cluster focuses on delivering quality customer service, memorable experiences, and seamless logistics to cater to the needs and preferences of guests, tourists, and event participants. The Cluster is characterized by its diversity, including everything from luxury hotels and international travel to local dining, cultural events, and business conferences, aiming to enhance the overall experience of visitors and attendees."
+    source: acte_hospitality_events_tourism
+    connected: [agriculture, arts-entertainment-design, healthcare-human-services, supply-chain-transportation]
+    sub_clusters:
+      - name: "Accommodations"
+        line: "Careers that support, operate, and manage businesses and services related to temporary lodging, including hotels, motels, resorts, short-term rentals, and bed-and-breakfast establishments, focusing on providing guests with a comfortable and safe stay."
+        programs: ["Hospitality Management", "Hotel & Resort Management"]
+      - name: "Conferences & Events"
+        line: "Careers encompassing the planning, coordination, and execution of various events and conferences."
+        programs: ["Conference Planning", "Event Management"]
+      - name: "Culinary & Food Services"
+        line: "Careers dedicated to the service, operation, and management of establishments involved in the preparation and serving of food and drinks with significant emphasis on providing exceptional culinary experiences and delivering high-quality customer service."
+        programs: ["Culinary Services", "Nutrition", "Pastry Arts", "Restaurant Management"]
+      - name: "Travel & Leisure"
+        line: "Careers focused on facilitating enjoyable travel, entertainment, and recreational activities."
+        programs: ["Outdoor Recreation", "Tourism Management"]
+    careers: []

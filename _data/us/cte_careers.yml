@@ -1,7 +1,8 @@
-# USA Edition — Trades & CTE (career and technical education) roadmaps. One record per trade; each is a
-# standalone page us/roadmaps/<slug>.html (stub `track: <slug>` + `cte: true`, written by
-# scripts/build-intl-roadmaps.mjs) rendered by _includes/intl-roadmap.html, the same engine as the
-# cross-border tracks in pathways.yml. Checked by scripts/check-us-data.mjs.
+# USA Edition — Trades & CTE (career and technical education). One record per trade, three levels of pages
+# (2026-10-20 split): hub us/cte/index.html → career profile us/cte/<slug>.html (_includes/us-cte-career.html:
+# what it is, BLS numbers, outlook, tools) → roadmap us/cte/roadmaps/<slug>.html (_includes/intl-roadmap.html
+# with `cte: true`: routes, certifications, state matrix). Stubs written by scripts/build-intl-roadmaps.mjs;
+# the old us/roadmaps/<slug>.html URLs are redirect stubs. Checked by scripts/check-us-data.mjs.
 #
 # Same rules as every _data/us file: each value is copied from the page named by its source id
 # (sources.yml), never computed. BLS figures are the OOH 2025–35 edition (May 2025 pay), the vintage in
@@ -16,6 +17,7 @@
 #   certs     national certifications / federal rules: { name, who, text, source }
 #   tools     what the official source says about tools and gear: { text, source }; BLS publishes no
 #             dollar cost for a starter tool set, so none is shown.
+#   does      BLS Summary "What they do" sentence, verbatim: { text, source } (career profile "What the job is")
 #   home_trade  `name` of the matching row in home.yml trades (pay/outlook must match)
 checked: 2026-10-20
 review_by: 2027-04-20
@@ -25,6 +27,7 @@ list:
     home_trade: "Electrician"
     title: "Electrician: apprenticeship to state license"
     short: "Electrician"
+    does: { text: "Electricians install, maintain, and repair electrical power, communications, lighting, and control systems.", source: ooh_qf_electricians }
     eyebrow: "USA · Trades & CTE · Construction"
     lede: "Most electricians learn the trade in a paid <strong>4- or 5-year apprenticeship</strong>, then pass a state or local licensing test on the National Electrical Code. A technical school first is optional and usually earns credit toward the apprenticeship."
     for: "High school students and graduates who want a licensed construction trade, residential or commercial."
@@ -71,6 +74,7 @@ list:
     home_trade: "Plumber, pipefitter, steamfitter"
     title: "Plumber: apprenticeship to journey level and master"
     short: "Plumber"
+    does: { text: "Plumbers, pipefitters, and steamfitters install and repair piping fixtures and systems.", source: ooh_qf_plumbers }
     eyebrow: "USA · Trades & CTE · Construction"
     lede: "Most plumbers, pipefitters and steamfitters train in a paid <strong>4- or 5-year apprenticeship</strong>, then pass a licensing exam to become journey-level workers. Most states and some cities require plumbers to be licensed."
     for: "Students who want a licensed trade in commercial and residential piping systems."
@@ -117,6 +121,7 @@ list:
     home_trade: "HVAC technician"
     title: "HVAC technician: school or apprenticeship, EPA 608, state license"
     short: "HVAC technician"
+    does: { text: "Heating, air conditioning, and refrigeration mechanics and installers work on heating, ventilation, cooling, and refrigeration systems.", source: ooh_qf_hvac }
     eyebrow: "USA · Trades & CTE · Installation & repair"
     lede: "HVAC technicians usually take a <strong>6-month to 2-year program</strong> at a technical school or community college, or train in an apprenticeship. Federal law requires nearly all of them to hold <strong>EPA Section 608</strong> refrigerant certification; some states and cities also license them."
     for: "Students who like hands-on repair work on heating, air conditioning and refrigeration systems."
@@ -161,6 +166,7 @@ list:
     home_trade: "Welder"
     title: "Welder: training, AWS certification, on the job"
     short: "Welder"
+    does: { text: "Welders, cutters, solderers, and brazers use hand-held or remotely controlled equipment to join, repair, or cut metal parts and products.", source: ooh_qf_welders }
     eyebrow: "USA · Trades & CTE · Production"
     lede: "Welders typically need a <strong>high school diploma plus technical and on-the-job training</strong>. Licensing is not universal: some states and localities license welders, and employers often ask for a certification such as the <strong>AWS Certified Welder</strong> test."
     for: "Students who want industrial, structural or pipeline welding work."
@@ -201,6 +207,7 @@ list:
     home_trade: "Automotive service technician"
     title: "Automotive service technician: training to ASE Master"
     short: "Automotive service technician"
+    does: { text: "Automotive service technicians and mechanics inspect, maintain, and repair cars and light trucks.", source: ooh_qf_auto }
     eyebrow: "USA · Trades & CTE · Installation & repair"
     lede: "Auto technicians usually complete a <strong>certificate or associate degree</strong> program in automotive service technology, then work toward voluntary <strong>ASE certification</strong>, which needs documented work experience and a test per area."
     for: "Students who want to diagnose and repair cars and light trucks."

@@ -168,24 +168,7 @@ Sections carry data-no-points so site.js Block 0 leaves the rendered text as it 
           </li>
         </ol>
       </div>
-      <h3 class="block-subhead">Trade rails</h3>
-      <div class="table-wrap reveal">
-        <table class="table-simple">
-          <thead><tr><th>Trade</th><th>Entry &amp; training</th><th>License or certification</th><th>Median pay</th><th>Outlook {{ V.projection_period }}</th></tr></thead>
-          <tbody>
-            {%- for t in H.trades %}
-            <tr>
-              <td><strong>{{ t.name }}</strong>{% if t.roadmap %}<br><a href="us/roadmaps/{{ t.roadmap }}.html">Full roadmap<span class="sr-only">: {{ t.name }}</span></a>{% endif %}</td>
-              <td>{{ t.entry }}. {{ t.training }}.</td>
-              <td>{{ t.license }} <a href="{{ SRC[t.source].url }}">{{ SRC[t.source].short }}</a></td>
-              <td>{% include fmt-num.html n=t.pay prefix="$" %}{% if t.pay_note %}<br><span class="us-by">{{ t.pay_note }}</span>{% endif %}</td>
-              <td>{% include fmt-num.html n=t.outlook sign=true %}%</td>
-            </tr>
-            {%- endfor %}
-          </tbody>
-        </table>
-      </div>
-      <p class="table-note">{{ H.trades_note }} Median annual pay, {{ V.wage_ref }}. For comparison, BLS projects total U.S. employment to grow {{ V.all_occupations_growth_pct }}% over {{ V.projection_period }}.</p>
+      <div class="rm-link-card" data-no-points><div><strong>Trades &amp; CTE hub</strong><p>Electrician, plumber, HVAC, welder, machinist and auto technician compared on entry, license, BLS pay and outlook. Five of them have a career page and a step-by-step roadmap.</p></div><a class="btn btn-primary btn-page-link" href="us/cte/">Open the Trades &amp; CTE hub</a></div>
       <div class="trend-more"><a class="btn btn-primary btn-page-link" href="us/college/">Community college, costs &amp; transfer</a></div>
     </div>
   </section>

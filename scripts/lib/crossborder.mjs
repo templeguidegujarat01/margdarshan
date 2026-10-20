@@ -9,9 +9,10 @@ const isDate = (d) => d instanceof Date || /^\d{4}-\d{2}-\d{2}$/.test(String(d))
 const day = (d) => (d instanceof Date ? d.toISOString().slice(0, 10) : String(d));
 
 /**
- * @param {object} o  { root, ed: 'us'|'uk', tracks, where, hasSrc(id) → bool, err(where, msg), sheet? (uk) , seen: Set of slugs across the edition }
+ * @param {object} o  { root, ed: 'us'|'uk', tracks, where, hasSrc(id) → bool, err(where, msg), sheet? (uk) , seen: Set of slugs across the edition,
+ *                     dir? (stub folder, default <ed>/roadmaps; USA trades use us/cte/roadmaps) }
  */
-export function checkCrossborder({ root, ed, tracks, where, hasSrc, err, sheet, seen }) {
+export function checkCrossborder({ root, ed, tracks, where, hasSrc, err, sheet, seen, dir }) {
   const today = new Date().toISOString().slice(0, 10);
   const src = (w, id) => { if (!id) err(w, 'missing source'); else if (!hasSrc(id)) err(w, `unknown source "${id}"`); };
   for (const [i, X] of (tracks || []).entries()) {
@@ -43,7 +44,7 @@ export function checkCrossborder({ root, ed, tracks, where, hasSrc, err, sheet, 
       (R.facts || []).forEach((f, j) => { if (!f.k || !f.v) err(`${rw}.facts[${j}]`, 'missing k/v'); src(`${rw}.facts[${j}]`, f.source); });
     }
     (X.watch || []).forEach((x, j) => { if (!x.text) err(`${w}.watch[${j}]`, 'missing text'); src(`${w}.watch[${j}]`, x.source); });
-    const stub = `${ed}/roadmaps/${X.slug}.html`;
+    const stub = `${dir || ed + '/roadmaps'}/${X.slug}.html`;
     const f = path.join(root, stub);
     if (!fs.existsSync(f)) { err(w, `${stub} is missing (run scripts/build-intl-roadmaps.mjs)`); continue; }
     const fm = fs.readFileSync(f, 'utf8');
@@ -53,11 +54,14 @@ export function checkCrossborder({ root, ed, tracks, where, hasSrc, err, sheet, 
   }
 }
 
-/** Every <ed>/roadmaps/*.html stub must belong to a track (no orphan pages). */
-export function checkOrphanRoadmaps({ root, ed, seen, err }) {
-  const dir = path.join(root, ed, 'roadmaps');
+/** Every <ed>/roadmaps/*.html stub (or one in `dir`) must belong to a track (no orphan pages). A `redirect_to` stub
+ *  (an old URL kept alive, e.g. us/roadmaps/<trade>.html after the 2026-10-20 Trades & CTE split) is not a page. */
+export function checkOrphanRoadmaps({ root, ed, seen, err, dir: rel }) {
+  rel = rel || `${ed}/roadmaps`;
+  const dir = path.join(root, rel);
   if (!fs.existsSync(dir)) return;
   for (const f of fs.readdirSync(dir).filter((x) => x.endsWith('.html'))) {
-    if (!seen.has(f.replace(/\.html$/, ''))) err(`${ed}/roadmaps/${f}`, 'no crossborder track with this slug');
+    if (/^redirect_to:/m.test(fs.readFileSync(path.join(dir, f), 'utf8'))) continue;
+    if (!seen.has(f.replace(/\.html$/, ''))) err(`${rel}/${f}`, 'no crossborder track with this slug');
   }
 }

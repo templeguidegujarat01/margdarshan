@@ -15,7 +15,7 @@
       careers_href, careers_label, faq_href, faq_label   "This page" links
       active_stream             highlights the sidebar item whose `key` matches
     breadcrumb:                 shown below the top bar, above the page content (omit on the homepage -> "Home")
-      parent_href, parent_label, current
+      parent_href, parent_label, current; optional grand_href, grand_label (a level above parent)
     footer:                     passed to _includes/footer.html
       col3_heading              heading of the optional third column
       col3_links                list of { href, label } for that column
@@ -139,7 +139,7 @@
 <div class="app-main">
 {% include header.html %}
 
-<div class="crumb-bar"><div class="container">{% include breadcrumb.html parent_href=page.breadcrumb.parent_href parent_label=page.breadcrumb.parent_label current=page.breadcrumb.current %}</div></div>
+<div class="crumb-bar"><div class="container">{% include breadcrumb.html grand_href=page.breadcrumb.grand_href grand_label=page.breadcrumb.grand_label parent_href=page.breadcrumb.parent_href parent_label=page.breadcrumb.parent_label current=page.breadcrumb.current %}</div></div>
 {%- if india_shell %}{% include in-header-hubs.html %}{% endif %}
 {%- endif %}
 

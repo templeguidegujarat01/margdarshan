@@ -483,6 +483,7 @@ try {
         if(/(^|\/)coaching\//.test(u)) f |= F.coaching;
         if(/professional-licenses\//.test(u)) f |= F.license;
         if(/(^|\/)roadmaps\//.test(u)) f |= F.roadmap;
+        if(/^us\/cte\//.test(u)) f |= F.trade;
         if(/(^|\/)state\//.test(u) && /\b(psc|sssb|police|constable|clerk|talathi|recruitment|board)\b/.test(all)) f |= F.govt;
         // edm: editions the TITLE is about (India's "Study in USA" page still answers "study in usa").
         var edm = (/\b(usa|us|america|american|united states)\b/.test(t) ? 2 : 0) | (/\b(uk|britain|british|england|united kingdom)\b/.test(t) ? 4 : 0);

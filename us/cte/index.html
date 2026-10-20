@@ -1,0 +1,104 @@
+---
+title: "Trades & CTE in the USA: Electrician, Plumber, HVAC, Welder, Auto Technician | Education Margdarshan USA"
+description: "U.S. skilled trades at a glance: how each trade is entered, which ones need a state license, BLS median pay and job outlook, with a career page and a step-by-step roadmap for five trades."
+og_type: "website"
+breadcrumb:
+  current: "Trades & CTE"
+---
+{%- comment -%} Trades & CTE hub (level 1 of hub → career profile us/cte/<slug>.html → roadmap us/cte/roadmaps/<slug>.html).
+Overview only: the entry matrix (_data/us/home.yml trades) and one card per trade in _data/us/cte_careers.yml. A matrix row
+links to its profile when it has `roadmap: <slug>`. Every block carries data-no-points. {%- endcomment -%}
+{%- assign US = site.data.us -%}
+{%- assign H = US.home -%}
+{%- assign V = US.sources.bls_vintage -%}
+{%- assign SRC = US.sources.list -%}
+{%- assign CTE = US.cte_careers.list -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "USA Home", "item": "{{ site.url }}{{ site.baseurl }}/us/" },
+    { "@type": "ListItem", "position": 2, "name": "Trades & CTE", "item": "{{ site.url }}{{ site.baseurl }}/us/cte/" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "U.S. skilled trades",
+  "itemListElement": [
+    {%- for X in CTE %}
+    { "@type": "ListItem", "position": {{ forloop.index }}, "name": {{ X.short | jsonify }}, "url": "{{ site.url }}{{ site.baseurl }}/us/cte/{{ X.slug }}.html" }{% unless forloop.last %},{% endunless %}
+    {%- endfor %}
+  ]
+}
+</script>
+<main id="main">
+
+  <section class="page-hero" aria-labelledby="hero-heading">
+    <svg class="page-hero-bg" viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M-50 340 C 220 300, 320 380, 500 300 S 780 200, 980 260 1150 160 1300 200" stroke="#E8A33D" stroke-width="1.4" fill="none" opacity=".3"/>
+    </svg>
+    <div class="container page-hero-inner">
+      <span class="eyebrow">USA Edition · Route 03 · Career &amp; technical education</span>
+      <h1 id="hero-heading">Trades &amp; technical careers</h1>
+      <div class="meta-row">
+        <span>{{ H.trades.size }} trades compared</span><span>·</span><span>{{ CTE.size }} step-by-step roadmaps</span><span>·</span><span>BLS pay {{ V.wage_ref }}, outlook {{ V.projection_period }}</span>
+      </div>
+      <p>Most skilled trades are learned on a paid apprenticeship or a short technical program, and the state (sometimes the city) decides which trades need a license. Compare the trades below, then open a career page for the detail and its full roadmap.</p>
+    </div>
+  </section>
+
+  <section class="block" id="matrix" aria-labelledby="matrix-heading" data-no-points>
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Entry matrix</span>
+        <h2 id="matrix-heading">How each trade is entered</h2>
+      </div>
+      <div class="table-wrap reveal" data-no-points>
+        <table class="table-simple">
+          <thead><tr><th>Trade</th><th>Entry &amp; training</th><th>License or certification</th><th>Median pay</th><th>Outlook {{ V.projection_period }}</th></tr></thead>
+          <tbody>
+            {%- for t in H.trades %}
+            <tr>
+              <td>{% if t.roadmap %}<a href="us/cte/{{ t.roadmap }}.html"><strong>{{ t.name }}</strong></a>{% else %}<strong>{{ t.name }}</strong>{% endif %}</td>
+              <td>{{ t.entry }}. {{ t.training }}.</td>
+              <td>{{ t.license }} <a href="{{ SRC[t.source].url }}">{{ SRC[t.source].short }}</a></td>
+              <td>{% include fmt-num.html n=t.pay prefix="$" %}{% if t.pay_note %}<br><span class="us-by">{{ t.pay_note }}</span>{% endif %}</td>
+              <td>{% include fmt-num.html n=t.outlook sign=true %}%</td>
+            </tr>
+            {%- endfor %}
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">{{ H.trades_note }} Median annual pay, {{ V.wage_ref }}. For comparison, BLS projects total U.S. employment to grow {{ V.all_occupations_growth_pct }}% over {{ V.projection_period }}.</p>
+    </div>
+  </section>
+
+  <section class="block block-alt" id="careers" aria-labelledby="careers-heading" data-no-points>
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Career pages</span>
+        <h2 id="careers-heading">Pick a trade</h2>
+        <p>Each career page shows what the job is, BLS pay and outlook, and the tools; its roadmap shows the routes step by step and the state licensing rules.</p>
+      </div>
+      <div class="usv-boards">
+        {%- for X in CTE %}
+        <article class="usv-board">
+          <h3>{{ X.short }}</h3>
+          <p>{{ X.does.text }}</p>
+          <dl>
+            <div><dt>Median pay, {{ V.wage_ref }}</dt><dd>{% include fmt-num.html n=X.metrics.pay prefix="$" %} a year</dd></div>
+            <div><dt>Outlook {{ V.projection_period }}</dt><dd>{% include fmt-num.html n=X.metrics.outlook sign=true %}% ({{ X.metrics.outlook_words | downcase }})</dd></div>
+          </dl>
+          <a class="btn btn-primary btn-page-link" href="us/cte/{{ X.slug }}.html">See career page<span class="sr-only">: {{ X.short }}</span></a>
+        </article>
+        {%- endfor %}
+      </div>
+      <div class="rm-link-card" data-no-points><div><strong>Community college first?</strong><p>Associate degrees, costs and transfer to a 4-year college.</p></div><a class="btn btn-primary btn-page-link" href="us/college/">Community college, costs &amp; transfer</a></div>
+    </div>
+  </section>
+
+</main>

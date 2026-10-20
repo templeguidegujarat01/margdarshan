@@ -1,0 +1,93 @@
+{%- comment -%}
+  USA Trades & CTE career profile (level 2 of hub → profile → roadmap): us/cte/<slug>.html with `trade: <slug>`,
+  data from _data/us/cte_careers.yml (stubs written by scripts/build-intl-roadmaps.mjs).
+  Only the overview lives here: what the job is, BLS key numbers, job outlook, tools. The routes, certifications
+  and state licensing matrix are on the roadmap page us/cte/roadmaps/<slug>.html (_includes/intl-roadmap.html).
+  Five h2[id] sections, so site.js builds the right rail (>=900px) and the chip rail (<900px) by itself; every
+  table/list block carries data-no-points so Block 0 leaves the text as it is.
+{%- endcomment -%}
+{%- assign X = site.data.us.cte_careers.list | where: "slug", page.trade | first -%}
+{%- assign XM = X.metrics -%}
+{%- assign V = site.data.us.sources.bls_vintage -%}
+{%- assign rm_href = "us/cte/roadmaps/" | append: X.slug | append: ".html" -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "USA Home", "item": "{{ site.url }}{{ site.baseurl }}/us/" },
+    { "@type": "ListItem", "position": 2, "name": "Trades & CTE", "item": "{{ site.url }}{{ site.baseurl }}/us/cte/" },
+    { "@type": "ListItem", "position": 3, "name": {{ X.short | jsonify }}, "item": "{{ page.url | absolute_url }}" }
+  ]
+}
+</script>
+<main id="main" class="md-page">
+
+  <div class="container md-page-top">
+    <header class="md-answer md-answer-career">
+      <span class="eyebrow">{{ X.eyebrow }}</span>
+      <h1>{{ X.short }}</h1>
+      <p class="md-answer-lede">{{ X.does.text }}</p>
+      <div class="md-answer-actions">
+        <a href="{{ rm_href }}" class="btn btn-primary btn-page-link">📍 See Full Journey / Step-by-Step Roadmap</a>
+      </div>
+    </header>
+  </div>
+
+  <section class="md-sec" id="what" aria-labelledby="what-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="what-h">What the job is</h2></div>
+      <dl class="md-kv" data-no-points>
+        <div><dt>The work</dt><dd>{{ X.does.text }} {% include us-src-chip.html id=X.does.source %}</dd></div>
+        <div><dt>How people get in</dt><dd>{{ X.lede }}</dd></div>
+        <div><dt>Good fit for</dt><dd>{{ X.for }}</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="md-sec md-sec-alt" id="numbers" aria-labelledby="numbers-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="numbers-h">Key numbers</h2><p>U.S. Bureau of Labor Statistics, Occupational Outlook Handbook, pay for {{ V.wage_ref }}.</p></div>
+      <dl class="md-kv" data-no-points>
+        <div><dt>Median pay</dt><dd>{% include fmt-num.html n=XM.pay prefix="$" %} a year (${{ XM.pay_hour }} an hour) {% include us-src-chip.html id=XM.source %}</dd></div>
+        <div><dt>Jobs in {{ V.wage_year }}</dt><dd>{% include fmt-num.html n=XM.jobs %}</dd></div>
+        <div><dt>Typical entry</dt><dd>{{ XM.entry }}</dd></div>
+        <div><dt>Training after hire</dt><dd>{{ XM.training }}</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="md-sec" id="outlook" aria-labelledby="outlook-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="outlook-h">Job outlook, {{ V.projection_period }}</h2></div>
+      <dl class="md-kv" data-no-points>
+        <div><dt>Projected growth</dt><dd><strong>{% include fmt-num.html n=XM.outlook sign=true %}%</strong>, which BLS calls "{{ XM.outlook_words | downcase }}" {% include us-src-chip.html id=XM.source %}</dd></div>
+        <div><dt>Jobs added</dt><dd>{% include fmt-num.html n=XM.change sign=true %} over {{ V.projection_period }}</dd></div>
+        <div><dt>All U.S. jobs</dt><dd>{{ V.all_occupations_growth_pct }}% over the same period, for comparison</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="md-sec md-sec-alt" id="tools" aria-labelledby="tools-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="tools-h">Tools overview</h2><p>BLS does not publish what a starter tool set costs. Ask the school or apprenticeship sponsor which tools you must buy before you enrol.</p></div>
+      <ul class="md-list" data-no-points>
+        {%- for t in X.tools %}
+        <li>{{ t.text }} {% include us-src-chip.html id=t.source %}</li>
+        {%- endfor %}
+      </ul>
+    </div>
+  </section>
+
+  <section class="md-sec" id="journey" aria-labelledby="journey-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="journey-h">Step-by-step roadmap</h2><p>The routes, step by step, {% if X.certs %}the national certifications {% endif %}and the state licensing rules are on one page.</p></div>
+      <div class="rm-link-card" data-no-points>
+        <div><strong>{{ X.title }}</strong><p>{% for R in X.routes %}Route {{ forloop.index }}: {{ R.title }}{% unless forloop.last %} · {% endunless %}{% endfor %}</p></div>
+        <a href="{{ rm_href }}" class="btn btn-primary btn-page-link">See the roadmap</a>
+      </div>
+      <div class="md-datanote">Every number links to the BLS page it came from, checked {{ X.checked | date: "%-d %b %Y" }}. Education Margdarshan does not recommend paid courses. <a href="us/cte/">All trades</a></div>
+    </div>
+  </section>
+
+</main>

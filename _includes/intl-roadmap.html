@@ -2,8 +2,9 @@
   Cross-border roadmap page (USA / UK editions): one standalone page per `crossborder` track, the
   international twin of the India roadmaps/<slug>.html pages.
   Stubs: us/roadmaps/<slug>.html with `track: <slug>`            → _data/us/pathways.yml crossborder
-         us/roadmaps/<slug>.html with `track: <slug>` + `cte: true` → _data/us/cte_careers.yml (Trades & CTE:
-           adds BLS key numbers, national certifications, a state licensing matrix and tools)
+         us/cte/roadmaps/<slug>.html with `track: <slug>` + `cte: true` → _data/us/cte_careers.yml (Trades & CTE,
+           level 3 of hub us/cte/ → profile us/cte/<slug>.html → roadmap: routes, national certifications and
+           the state licensing matrix; BLS numbers and tools live on the profile page, _includes/us-cte-career.html)
          uk/roadmaps/<slug>.html with `track: <slug>` + `sheet:`   → _data/uk/careers/<sheet>.yml crossborder
   The edition comes from page.region (_config.yml defaults: us/ → us, uk/ → uk).
   Each route's steps are drawn with the .cflow flowchart (same node kinds and legend as India career
@@ -22,9 +23,9 @@
   {%- assign careers_href = "uk/careers/" -%}
 {%- elsif page.cte -%}
   {%- assign X = site.data.us.cte_careers.list | where: "slug", page.track | first -%}
-  {%- assign back_href = "us/#cte" -%}
-  {%- assign back_label = "Trades & CTE" -%}
-  {%- assign back_note = "Community college, apprenticeships and every trade on one page, with BLS pay and outlook." -%}
+  {%- assign back_href = "us/cte/" | append: X.slug | append: ".html" -%}
+  {%- assign back_label = X.short -%}
+  {%- assign back_note = "What the job is, BLS pay and job outlook, and the tools of the trade." -%}
   {%- assign home_href = "us/" -%}
   {%- assign home_label = "USA Home" -%}
   {%- assign careers_href = "us/careers/" -%}
@@ -44,8 +45,14 @@
   "@type": "BreadcrumbList",
   "itemListElement": [
     { "@type": "ListItem", "position": 1, "name": "{{ home_label }}", "item": "{{ site.url }}{{ site.baseurl }}/{{ home_href }}" },
+    {%- if page.cte %}
+    { "@type": "ListItem", "position": 2, "name": "Trades & CTE", "item": "{{ site.url }}{{ site.baseurl }}/us/cte/" },
+    { "@type": "ListItem", "position": 3, "name": {{ back_label | jsonify }}, "item": "{{ site.url }}{{ site.baseurl }}/{{ back_href }}" },
+    { "@type": "ListItem", "position": 4, "name": {{ X.title | jsonify }}, "item": "{{ page.url | absolute_url }}" }
+    {%- else %}
     { "@type": "ListItem", "position": 2, "name": {{ back_label | jsonify }}, "item": "{{ site.url }}{{ site.baseurl }}/{{ back_href }}" },
     { "@type": "ListItem", "position": 3, "name": {{ X.title | jsonify }}, "item": "{{ page.url | absolute_url }}" }
+    {%- endif %}
   ]
 }
 </script>
@@ -67,12 +74,12 @@
     </header>
   </div>
 
-  {%- if X.metrics %}
+  {%- if X.metrics and page.cte == nil %}
   {%- assign XM = X.metrics %}
   <section class="md-sec md-sec-alt" id="numbers" aria-labelledby="numbers-h">
     <div class="container">
       <div class="md-sec-head"><h2 id="numbers-h">Key numbers</h2><p>U.S. Bureau of Labor Statistics, Occupational Outlook Handbook: pay for {{ V.wage_ref }}, outlook for {{ V.projection_period }}.</p></div>
-      <dl class="md-kv">
+      <dl class="md-kv" data-no-points>
         <div><dt>Median pay</dt><dd>{% include fmt-num.html n=XM.pay prefix="$" %} a year (${{ XM.pay_hour }} an hour) {% include us-src-chip.html id=XM.source %}</dd></div>
         <div><dt>Job outlook</dt><dd><strong>{% include fmt-num.html n=XM.outlook sign=true %}%</strong> ({{ XM.outlook_words }}), {% include fmt-num.html n=XM.change sign=true %} jobs. All U.S. jobs: {{ V.all_occupations_growth_pct }}%.</dd></div>
         <div><dt>Jobs in {{ V.wage_year }}</dt><dd>{% include fmt-num.html n=XM.jobs %}</dd></div>
@@ -111,7 +118,7 @@
         </p>
       </div>
       {%- if R.facts %}
-      <dl class="md-kv">
+      <dl class="md-kv" data-no-points>
         {%- for f in R.facts %}
         <div><dt>{{ f.k }}</dt><dd>{{ f.v }} {% include intl-src-chip.html ed=ED id=f.source %}</dd></div>
         {%- endfor %}
@@ -125,7 +132,7 @@
   <section class="md-sec" id="certs" aria-labelledby="certs-h">
     <div class="container">
       <div class="md-sec-head"><h2 id="certs-h">National certifications and federal rules</h2><p>Federal rules apply in every state; voluntary certifications are ones employers may ask for. State rules are in the matrix below.</p></div>
-      <dl class="md-kv">
+      <dl class="md-kv" data-no-points>
         {%- for c in X.certs %}
         <div><dt>{{ c.name }}<br><span class="us-by">{{ c.who }}</span></dt><dd>{{ c.text }} {% include us-src-chip.html id=c.source %}</dd></div>
         {%- endfor %}
@@ -139,7 +146,7 @@
     <div class="container">
       <div class="md-sec-head"><h2 id="states-h">State licensing matrix</h2><p>{{ X.states_note }}{% if X.states_source %} {% include us-src-chip.html id=X.states_source %}{% endif %}</p></div>
       {%- if X.states %}
-      <div class="table-wrap">
+      <div class="table-wrap" data-no-points>
         <table class="table-simple">
           <thead><tr><th>State or city</th><th>What you need</th></tr></thead>
           <tbody>
@@ -157,11 +164,11 @@
   </section>
   {%- endif %}
 
-  {%- if X.tools %}
+  {%- if X.tools and page.cte == nil %}
   <section class="md-sec{% unless X.certs %} md-sec-alt{% endunless %}" id="tools" aria-labelledby="tools-h">
     <div class="container">
       <div class="md-sec-head"><h2 id="tools-h">Tools and gear</h2><p>BLS does not publish what a starter tool set costs. Ask the school or apprenticeship sponsor which tools you must buy before you enrol.</p></div>
-      <ul class="md-list">
+      <ul class="md-list" data-no-points>
         {%- for t in X.tools %}
         <li>{{ t.text }} {% include us-src-chip.html id=t.source %}</li>
         {%- endfor %}
@@ -174,7 +181,7 @@
   <section class="md-sec md-sec-alt" id="watch" aria-labelledby="watch-h">
     <div class="container">
       <div class="md-sec-head"><h2 id="watch-h">Dates and rules to re-check</h2><p>These change by season or by law. Checked {{ X.checked | date: "%-d %b %Y" }}.</p></div>
-      <ul class="md-list">
+      <ul class="md-list" data-no-points>
         {%- for w in X.watch %}
         <li>{{ w.text }} {% include intl-src-chip.html ed=ED id=w.source %}</li>
         {%- endfor %}
@@ -183,8 +190,12 @@
   </section>
   {%- endif %}
 
-  <section class="md-sec" aria-labelledby="related-h">
+  <section class="md-sec"{% if page.cte %} id="next"{% endif %} aria-labelledby="related-h">
     <div class="container">
+      {%- if page.cte %}
+      <div class="md-sec-head"><h2 id="related-h">Where to go next</h2></div>
+      <div class="rm-link-card" data-no-points><div><strong>All trades</strong><p>Every trade on one matrix: entry, license, BLS pay and outlook.</p></div><a href="us/cte/" class="btn btn-primary btn-page-link">Trades &amp; CTE hub</a></div>
+      {%- endif %}
       <div class="rm-link-card" data-no-points><div><strong>Back to the full {{ back_label }} guide</strong><p>{{ back_note | default: "The home-grown route, pay and what the work is like." }}</p></div><a href="{{ back_href }}" class="btn btn-journey">← {{ back_label }}</a></div>
       <div class="md-datanote">Every step links to the official page it came from (regulators, licensing boards, the law), checked {{ X.checked | date: "%-d %b %Y" }}. {% if page.cte %}State and city licensing rules change: confirm with the board where you will work before you pay any fee.{% else %}Rules for people trained abroad change often: confirm with the official body before you pay any fee.{% endif %} Education Margdarshan does not recommend paid courses. <a href="{{ careers_href }}">All careers →</a></div>
     </div>

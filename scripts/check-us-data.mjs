@@ -298,16 +298,29 @@ for (const X of paths.crossborder || []) {
   const P = paths.list.find((x) => x.slug === X.pathway);
   if (!P || !P.live || P.template !== 'v2') err(`pathways.crossborder[${X.slug}]`, `pathway "${X.pathway}" is not a live v2 pathway`);
 }
-// Trades & CTE roadmaps (2026-10-20): cte_careers.yml tracks share the cross-border route/step/stub checks
-// (their stubs also say `cte: true`); BLS metrics must be whole numbers that match the home trades table;
-// every state row, certification and tools line needs a known source.
+// Trades & CTE (2026-10-20, split into hub → profile → roadmap): cte_careers.yml tracks share the cross-border
+// route/step/stub checks (stubs us/cte/roadmaps/<slug>.html also say `cte: true`); each trade needs its profile
+// stub us/cte/<slug>.html (trade: <slug>), a BLS `does` line and a redirect stub at the old us/roadmaps/<slug>.html;
+// BLS metrics must be whole numbers that match the home trades table (the hub's entry matrix); every state row,
+// certification and tools line needs a known source.
 const cte = load('cte_careers');
 if (!isDate(cte.checked) || !isDate(cte.review_by)) err('cte_careers', 'missing checked / review_by date');
-checkCrossborder({ root, ed: 'us', tracks: cte.list, where: 'cte_careers', hasSrc: (id) => src.has(id), err, seen: cbSeen });
+const cteSeen = new Set();
+checkCrossborder({ root, ed: 'us', tracks: cte.list, where: 'cte_careers', hasSrc: (id) => src.has(id), err, seen: cteSeen, dir: 'us/cte/roadmaps' });
+for (const s of cteSeen) { if (cbSeen.has(s)) err(`cte_careers[${s}]`, 'slug also used by a cross-border track'); }
+if (!fs.existsSync(path.join(root, 'us/cte/index.html'))) err('us/cte/index.html', 'Trades & CTE hub page is missing');
 for (const X of cte.list || []) {
   const w = `cte_careers[${X.slug}]`;
-  const stub = path.join(root, 'us/roadmaps', `${X.slug}.html`);
-  if (fs.existsSync(stub) && !/^cte:\s*true\s*$/m.test(fs.readFileSync(stub, 'utf8'))) err(w, `us/roadmaps/${X.slug}.html must say cte: true`);
+  const stub = path.join(root, 'us/cte/roadmaps', `${X.slug}.html`);
+  if (fs.existsSync(stub) && !/^cte:\s*true\s*$/m.test(fs.readFileSync(stub, 'utf8'))) err(w, `us/cte/roadmaps/${X.slug}.html must say cte: true`);
+  const prof = path.join(root, 'us/cte', `${X.slug}.html`);
+  if (!fs.existsSync(prof)) err(w, `us/cte/${X.slug}.html is missing (run scripts/build-intl-roadmaps.mjs)`);
+  else if (!new RegExp(`^trade:\\s*${X.slug}\\s*$`, 'm').test(fs.readFileSync(prof, 'utf8'))) err(w, `us/cte/${X.slug}.html must say trade: ${X.slug}`);
+  const old = path.join(root, 'us/roadmaps', `${X.slug}.html`);
+  if (!fs.existsSync(old) || !fs.readFileSync(old, 'utf8').includes(`redirect_to: "`) || !fs.readFileSync(old, 'utf8').includes(`/us/cte/roadmaps/${X.slug}.html"`)) err(w, `us/roadmaps/${X.slug}.html must redirect to us/cte/roadmaps/${X.slug}.html`);
+  if (!X.short) err(w, 'missing short');
+  if (!X.does || !X.does.text) err(w, 'missing does.text (BLS "What they do" sentence)');
+  else needSrc(`${w}.does`, X.does.source);
   const M = X.metrics || {};
   for (const k of ['pay', 'jobs', 'outlook', 'change']) if (!Number.isInteger(M[k])) err(`${w}.metrics`, `${k} must be a whole number`);
   if (!/^\d+\.\d{2}$/.test(M.pay_hour || '')) err(`${w}.metrics`, 'pay_hour must look like "30.38"');
@@ -332,6 +345,10 @@ for (const X of cte.list || []) {
   (X.tools || []).forEach((t, i) => { if (!t.text) err(`${w}.tools[${i}]`, 'missing text'); needSrc(`${w}.tools[${i}]`, t.source); });
 }
 checkOrphanRoadmaps({ root, ed: 'us', seen: cbSeen, err });
+checkOrphanRoadmaps({ root, ed: 'us', seen: cteSeen, err, dir: 'us/cte/roadmaps' });
+for (const f of fs.readdirSync(path.join(root, 'us/cte')).filter((x) => x.endsWith('.html') && x !== 'index.html')) {
+  if (!cteSeen.has(f.replace(/\.html$/, ''))) err(`us/cte/${f}`, 'no cte_careers trade with this slug');
+}
 
 console.log(`checked ${Object.keys(sources.list).length} sources, ${Object.keys(occ).length} occupations, ${Object.keys(lic).length} licenses, ${testIds.size} tests, ${paths.list.length} pathways, ${(paths.crossborder || []).length} cross-border tracks, ${(cte.list || []).length} trades roadmaps`);
 if (errors.length) { console.log(errors.join('\n')); console.log(`\n${errors.length} problem(s)`); process.exit(1); }

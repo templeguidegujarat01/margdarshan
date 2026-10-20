@@ -51,7 +51,7 @@
   {%- assign c_href = "us/careers/" | append: X.slug | append: "/" -%}
   {%- assign c_text = X.does.text -%}
   {%- assign c_entry = XM.entry -%}
-  {%- assign c_pay = XM.pay -%}{%- if XM.pay_by %}{% assign c_pay_by = XM.pay_by %}{% endif -%}
+  {%- assign c_pay = XM.pay -%}{%- assign c_pay_hour = XM.pay_hour -%}{%- if XM.pay_by %}{% assign c_pay_by = XM.pay_by %}{% endif -%}
   {%- assign c_out = XM.outlook -%}{%- assign c_out_words = XM.outlook_words -%}
   {%- assign c_src = XM.source -%}
   {%- if X.license_text -%}
@@ -68,7 +68,7 @@
               <td><a href="{{ c_href }}"><strong>{{ c_name }}</strong></a>{% if include.sub %}<br><span class="us-by">{{ e.sub }}</span>{% endif %}</td>
               <td>{{ c_entry }}</td>
               <td>{% if c_lic_href != "" %}<a href="{{ c_lic_href }}">{{ c_lic }}</a>{% else %}{{ c_lic }}{% endif %}{% if c_lic_note != "" %}<br><span class="us-by">{{ c_lic_note }}</span>{% endif %}</td>
-              <td>{% include fmt-num.html n=c_pay prefix="$" %}{% if c_pay_by != "" %}<br><span class="us-by">{{ c_pay_by }}</span>{% endif %}</td>
+              <td>{% if c_pay %}{% include fmt-num.html n=c_pay prefix="$" %}{% else %}${{ c_pay_hour }} an hour{% endif %}{% if c_pay_by != "" %}<br><span class="us-by">{{ c_pay_by }}</span>{% endif %}</td>
               <td>{% include fmt-num.html n=c_out sign=true %}% {% include us-src-chip.html id=c_src align="end" %}</td>
             </tr>
 {%- elsif include.mode == "link" %}
@@ -79,7 +79,7 @@
           <h3>{{ c_name }}</h3>
           <p>{{ c_text }}</p>
           <dl>
-            <div><dt>Median pay, {{ US.sources.bls_vintage.wage_ref }}</dt><dd>{% include fmt-num.html n=c_pay prefix="$" %} a year{% if c_pay_by != "" %} ({{ c_pay_by | downcase }}){% endif %}</dd></div>
+            <div><dt>Median pay, {{ US.sources.bls_vintage.wage_ref }}</dt><dd>{% if c_pay %}{% include fmt-num.html n=c_pay prefix="$" %} a year{% else %}${{ c_pay_hour }} an hour{% endif %}{% if c_pay_by != "" %} ({{ c_pay_by | downcase }}){% endif %}</dd></div>
             <div><dt>Outlook {{ US.sources.bls_vintage.projection_period }}</dt><dd>{% include fmt-num.html n=c_out sign=true %}%{% if c_out_words %} ({{ c_out_words | downcase }}){% endif %}</dd></div>
           </dl>
           <a class="btn btn-primary btn-page-link" href="{{ c_href }}">See career page<span class="sr-only">: {{ c_name }}</span></a>

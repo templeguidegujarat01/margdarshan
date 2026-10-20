@@ -633,3 +633,40 @@ list:
           - { tag: "Goal", title: "Physical therapist", text: "Optional: a clinical residency (about 1 year), then board-certified specialist status.", kind: goal, source: ooh_pt }
     states_note: "All states require physical therapists to be licensed; other requirements vary, and continuing education is typically needed to keep the license."
     states_source: ooh_pt
+
+  # Phase 8 (2026-10-21): 670,800 jobs (barbers + hairdressers, hairstylists and cosmetologists; crosswalk: Healthcare &
+  # Human Services 2, no other cluster, so it sits here although the Master Plan listed it under Hospitality)
+  - slug: cosmetologist-barber
+    checked: 2026-10-21
+    review_by: 2027-04-21
+    short: "Barber, Hairstylist & Cosmetologist"
+    title: "Barber or cosmetologist: a state-approved program (900 to 1,200 hours in the four states shown), the state exam, a state license"
+    eyebrow: "Healthcare & Human Services · Personal Care Services"
+    lede: "All states require barbers, hairstylists and cosmetologists to be licensed. Candidates typically graduate from a state-approved barber or cosmetology program and pass a state exam (written, and in many states practical). Required hours, minimum age and exams differ by state."
+    for: "Creative, people-friendly workers who like hands-on styling and can stand for long shifts."
+    soc: ["39-5011", "39-5012"]
+    does: { text: "Barbers, hairstylists, and cosmetologists provide haircutting, hairstyling, and other services related to personal appearance.", source: ooh_qf_cosmo }
+    work: { text: "Barbers, hairstylists, and cosmetologists work mostly in barbershops or salons. Most are full time, although part-time work is common. Work schedules may vary and often include evenings and weekends.", source: ooh_qf_cosmo }
+    become: { text: "All states require barbers, hairstylists, and cosmetologists to be licensed. To qualify for a license, candidates typically must graduate from a state-approved barber or cosmetology program and pass an exam.", source: ooh_qf_cosmo }
+    metrics: { pay: 35880, pay_hour: "17.25", pay_by: "Barbers, hairstylists, and cosmetologists", jobs: 670800, outlook: 7, outlook_words: "Much faster than average", change: 48400, entry: "Postsecondary nondegree award", training: "None", source: ooh_qf_cosmo }
+    license: cosmetology
+    routes:
+      - id: school
+        title: "State-approved school → state exam → license"
+        tag: "Every state"
+        who: "Admission varies by state; some programs require a high school diploma. In many states cosmetology training counts toward a barber license or the reverse."
+        steps:
+          - { tag: "Start", title: "High school (diploma or the state's minimum grade)", text: "", kind: start, source: ooh_cosmo }
+          - { tag: "900 to 1,200 hours", title: "State-approved barber or cosmetology program", text: "A mix of classroom studies and hands-on training, leading to a certificate or other postsecondary nondegree award; some states require health and safety training.", kind: stage, source: ooh_cosmo, href: "us/professional-licenses/cosmetology/#states", link: "Hours by state" }
+          - { tag: "Exam", title: "State licensing exam", text: "A written test and, in some states, a practical or oral exam.", kind: exam, source: ooh_cosmo }
+          - { tag: "Goal", title: "State barber or cosmetology license", text: "A fee is usually required; renewals may need continuing education.", kind: goal, source: ooh_cosmo, href: "us/professional-licenses/cosmetology/", link: "Cosmetology license" }
+      - id: apprenticeship
+        title: "Registered Apprenticeship (where the state accepts it)"
+        tag: "Earn while you learn"
+        who: "DOL lists Barber and Cosmetologist (Hair Stylist) as apprenticeable; California law, for example, accepts a board-approved barbering apprenticeship in place of school."
+        steps:
+          - { tag: "Start", title: "Meet the state's age and schooling minimum", text: "", kind: start, source: ca_bbc_requirements }
+          - { tag: "2,000 hours", title: "Barber (RAPIDS 0030) or Cosmetologist (RAPIDS 0096)", text: "Time-based minimum term: <strong>2,000 hours</strong> each.", kind: stage, source: dol_occupations }
+          - { tag: "Exam", title: "State licensing exam", text: "", kind: exam, source: ooh_cosmo }
+          - { tag: "Goal", title: "Licensed barber or cosmetologist", text: "", kind: goal, source: ooh_cosmo }
+    states_from: cosmetology

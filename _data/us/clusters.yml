@@ -87,6 +87,7 @@ clusters:
       - { pathway: medicine, sub: "Physical Health" }
       - { career: medical-assistant, sub: "Health Data & Administration" }
       - { career: social-worker, sub: "Community & Social Services", also: [education] }
+      - { career: cosmetologist-barber, sub: "Personal Care Services" }
       - { career: licensed-practical-nurse, sub: "Physical Health" }
       - { career: mental-health-counselor, sub: "Behavioral & Mental Health" }
       - { career: pharmacy-technician, sub: "Physical Health" }
@@ -562,7 +563,7 @@ clusters:
   - slug: arts-entertainment-design
     name: "Arts, Entertainment, & Design"
     phase: 8
-    live: false
+    live: true
     summary: "The Arts, Entertainment, & Design Career Cluster combines creative roles in visual and performing arts, film, journalism, fashion, interior design, and creative technologies."
     definition: "The Arts, Entertainment, & Design Career Cluster combines creative roles in visual and performing arts, film, journalism, fashion, interior design, and creative technologies. This Cluster focuses on creating, producing, and sharing artistic and design work across multiple platforms, aiming to entertain, inform, beautify, and inspire."
     source: acte_arts_entertainment_design
@@ -586,11 +587,27 @@ clusters:
       - name: "Performing Arts"
         line: "Careers focused on the technical and management elements of the performing arts and entertainment industry to produce and stage live artistic and athletic performances, including theater, music, dance, and sports."
         programs: ["Performing Arts", "Stage Design & Management"]
-    careers: []
+    # Phase 8 (2026-10-21): ordered by BLS 2025 employment (docs/us-edition/PHASE-8-ARTS-HOSPITALITY.md).
+    careers:
+      - { career: graphic-designer, sub: "Design & Digital Arts" }
+      - { career: musician-singer, sub: "Performing Arts" }
+      - { career: photographer, sub: "Design & Digital Arts", also: [marketing-sales] }
+      - { career: writer-author, sub: "Media Production & Broadcasting" }
+      - { career: interior-designer, sub: "Fashion & Interiors" }
+      - { career: film-video-editor, sub: "Media Production & Broadcasting" }
+      - { career: actor, sub: "Performing Arts" }
+      - { career: animator, sub: "Design & Digital Arts" }
+      - { career: journalist, sub: "Media Production & Broadcasting" }
+      - { career: dancer-choreographer, sub: "Performing Arts" }
+    credentials:
+      - { name: "NCIDQ Certificate", owner: "Council for Interior Design Qualification (CIDQ)", kind: "Exam for a state license", what: "Three exam sections (IDFX, IDIX, IDPX) after an interior design degree and 3,520 to 7,040 hours of work; required for registration in every regulated jurisdiction except California.", for: "Interior designer", href: "us/professional-licenses/interior-design/", source: cidq_jurisdictions }
+      - { name: "Architect license", owner: "State architecture boards (NCARB runs the AXP and ARE)", kind: "State license", what: "A NAAB-accredited degree, 3,740 AXP hours and the six-division ARE; architects have their career page in the Construction cluster.", for: "Architect", href: "us/careers/architect/", source: ncarb_license }
+      - { name: "FAA remote pilot certificate", owner: "Federal Aviation Administration", kind: "Federal license", what: "Needed to fly a drone commercially: age 16 and an initial aeronautical knowledge test.", for: "Photographer, camera operator", href: "us/careers/photographer/", source: ecfr_107_61 }
+      - { name: "Software certification", owner: "Software vendors", kind: "Voluntary", what: "Design and editing software certificates, earned by passing an exam; they can give a competitive advantage.", for: "Graphic designer, film and video editor", href: "us/careers/film-video-editor/", source: ooh_filmeditors }
   - slug: hospitality-events-tourism
     name: "Hospitality, Events, & Tourism"
     phase: 8
-    live: false
+    live: true
     summary: "The Hospitality, Events, & Tourism Career Cluster encompasses a broad range of services and experiences related to food and beverage, lodging, travel, events, and conferences."
     definition: "The Hospitality, Events, & Tourism Career Cluster encompasses a broad range of services and experiences related to food and beverage, lodging, travel, events, and conferences. This Cluster focuses on delivering quality customer service, memorable experiences, and seamless logistics to cater to the needs and preferences of guests, tourists, and event participants. The Cluster is characterized by its diversity, including everything from luxury hotels and international travel to local dining, cultural events, and business conferences, aiming to enhance the overall experience of visitors and attendees."
     source: acte_hospitality_events_tourism
@@ -608,4 +625,15 @@ clusters:
       - name: "Travel & Leisure"
         line: "Careers focused on facilitating enjoyable travel, entertainment, and recreational activities."
         programs: ["Outdoor Recreation", "Tourism Management"]
-    careers: []
+    # Phase 8 (2026-10-21): ordered by BLS 2025 employment. Barbers and cosmetologists are placed in Healthcare & Human Services (crosswalk).
+    careers:
+      - { career: food-service-manager, sub: "Culinary & Food Services" }
+      - { career: chef-head-cook, sub: "Culinary & Food Services", also: [management-entrepreneurship], tie: true }
+      - { career: event-planner, sub: "Conferences & Events" }
+      - { career: travel-agent, sub: "Travel & Leisure" }
+      - { career: lodging-manager, sub: "Accommodations" }
+    credentials:
+      - { name: "Certified Culinarian (CC)", owner: "American Culinary Federation (ACF)", kind: "Voluntary", what: "Education plus kitchen experience (or an ACFEF apprenticeship), three 30-hour courses, then written and practical exams; renewed every five years.", for: "Chef or head cook", href: "us/careers/chef-head-cook/", source: acf_cc }
+      - { name: "Food Protection Manager Certification", owner: "Food safety exam providers", kind: "Voluntary", what: "Earned by passing a food safety exam; not always required.", for: "Food service manager", href: "us/careers/food-service-manager/", source: ooh_foodmgr }
+      - { name: "Food handler card", owner: "Some states and localities", kind: "Employer may require", what: "Some states and localities require chefs, head cooks and cooks to have a food handler certification.", for: "Chef, cook", href: "us/careers/chef-head-cook/", source: ooh_chefs }
+      - { name: "Seller of travel registration", owner: "State agencies (e.g. California Attorney General, Florida FDACS)", kind: "State license", what: "Some states require travel businesses to register before selling travel; California charges $100 a year per location.", for: "Travel agent", href: "us/careers/travel-agent/", source: ca_oag_sot }

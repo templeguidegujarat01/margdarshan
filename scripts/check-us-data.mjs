@@ -540,7 +540,9 @@ for (const [cslug, D] of Object.entries(careerData)) {
     for (const k of ['does', 'become']) { if (!X[k]?.text) err(w, `missing ${k}.text (BLS OOH summary line)`); else needSrc(`${w}.${k}`, X[k].source); }
     if (X.work) needSrc(`${w}.work`, X.work.source);
     const M = X.metrics || {};
-    for (const k of ['pay', 'jobs', 'outlook', 'change']) if (!Number.isInteger(M[k])) err(`${w}.metrics`, `${k} must be a whole number`);
+    for (const k of ['jobs', 'outlook', 'change']) if (!Number.isInteger(M[k])) err(`${w}.metrics`, `${k} must be a whole number`);
+    // pay: null only where BLS publishes an hourly wage alone (actors, musicians, dancers); then pay_hour is required.
+    if (M.pay === null ? !M.pay_hour : !Number.isInteger(M.pay)) err(`${w}.metrics`, 'pay must be a whole number (or null with pay_hour when BLS gives only an hourly wage)');
     // pay_hour: null only where BLS publishes an annual wage alone (teachers); the key must still be there.
     if (!('pay_hour' in M) || (M.pay_hour !== null && !/^\d+\.\d{2}$/.test(M.pay_hour))) err(`${w}.metrics`, 'pay_hour must look like "30.38" (or null when BLS gives no hourly wage)');
     for (const k of ['outlook_words', 'entry', 'training']) if (!M[k]) err(`${w}.metrics`, `missing ${k}`);

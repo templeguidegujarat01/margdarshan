@@ -82,7 +82,7 @@
     <div class="container">
       <div class="md-sec-head"><h2 id="numbers-h">Key numbers</h2><p>U.S. Bureau of Labor Statistics, Occupational Outlook Handbook, pay for {{ V.wage_ref }}{% if XM.pay_by %} ({{ XM.pay_by | downcase }}){% endif %}.</p></div>
       <dl class="md-kv" data-no-points>
-        <div><dt>Median pay</dt><dd>{% include fmt-num.html n=XM.pay prefix="$" %} a year{% if XM.pay_hour %} (${{ XM.pay_hour }} an hour){% endif %} {% include us-src-chip.html id=XM.source %}</dd></div>
+        <div><dt>Median pay</dt><dd>{% if XM.pay %}{% include fmt-num.html n=XM.pay prefix="$" %} a year{% if XM.pay_hour %} (${{ XM.pay_hour }} an hour){% endif %}{% else %}${{ XM.pay_hour }} an hour (BLS publishes no annual wage for this job){% endif %} {% include us-src-chip.html id=XM.source %}</dd></div>
         <div><dt>Jobs in {{ V.wage_year }}</dt><dd>{% include fmt-num.html n=XM.jobs %}</dd></div>
         <div><dt>Typical entry</dt><dd>{{ XM.entry }}</dd></div>
         {%- if XM.experience %}

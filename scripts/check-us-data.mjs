@@ -377,6 +377,8 @@ for (const X of cte.list || []) {
 // most rows (tie: true when another cluster has as many). Generic careers (_data/us/careers/<cluster>.yml, Phase 2
 // onward) share the cross-border route checks; their roadmaps live in us/roadmaps/ next to the cross-border tracks.
 const CL = load('clusters');
+// Kinds of credential (Phase 3): what is the law, what comes with the job, what is optional. Pathway roadmap certs may use them too.
+const CRED_KINDS = ['State license', 'Federal license', 'Registration through an employer', 'Exam for a state license', 'Exam (no firm needed)', 'Professional credential', 'Voluntary', 'Employer may require'];
 const XWF = path.join(root, 'scripts/data/acte-soc-crosswalk.json');
 const XWR = fs.existsSync(XWF) ? JSON.parse(fs.readFileSync(XWF, 'utf8')).rows : [];
 if (!XWR.length) err('scripts/data/acte-soc-crosswalk.json', 'missing or empty (run scripts/build-us-clusters.mjs --crosswalk <xlsx>)');
@@ -422,6 +424,14 @@ for (const C of clusters) {
     if (!(C.careers || []).length) err(w, 'a live hub needs at least one career page');
   } else if (fs.existsSync(hub)) err(w, `us/clusters/${C.slug}/ exists but the cluster is not live`);
   if (C.public_sector && !(home.public_sector || {}).federal) err(w, 'public_sector: true needs home.yml public_sector');
+  // Phase 3: the hub's "Certifications and licenses" table: each row says what kind of credential it is and links a page.
+  (C.credentials || []).forEach((K, i) => {
+    const kw = `${w}.credentials[${i}]`;
+    for (const k of ['name', 'owner', 'kind', 'what', 'for', 'href']) if (!K[k]) err(kw, `missing ${k}`);
+    if (K.kind && !CRED_KINDS.includes(K.kind)) err(kw, `kind must be one of: ${CRED_KINDS.join(' | ')}`);
+    if (K.href && !pageExists(K.href)) err(kw, `href "${K.href}" is not a page`);
+    needSrc(kw, K.source);
+  });
   for (const E of C.careers || []) {
     const kinds = ['pathway', 'trade', 'career'].filter((k) => E[k]);
     const ew = `${w}.careers[${E[kinds[0]] || '?'}]`;
@@ -483,6 +493,10 @@ for (const [cslug, D] of Object.entries(careerData)) {
   for (const X of D.list || []) {
     const w = `careers.${cslug}[${X.slug}]`;
     if (!placed.has(`career:${X.slug}`) && !placed.has(`pathway:${X.pathway}`)) err(w, `not listed in clusters.yml ${cslug} careers`);
+    // A route id becomes an element id on the roadmap: it must not repeat a section id of intl-roadmap.html.
+    for (const R of X.routes || []) if (['main', 'numbers', 'tools', 'certs', 'states', 'watch', 'next', 'related'].includes(R.id)) err(`${w}.routes[${R.id}]`, 'route id is also a section id on the roadmap page: rename it');
+    // certs (pathway roadmaps included): name, text, source and an allowed kind
+    for (const c of X.certs || []) { if (!c.name || !c.text) err(`${w}.certs`, 'needs name and text'); needSrc(`${w}.certs`, c.source); if (c.kind && !CRED_KINDS.includes(c.kind)) err(`${w}.certs`, `"${c.name}": kind must be one of: ${CRED_KINDS.join(' | ')}`); }
     if (X.pathway) { if (!paths.list.some((p) => p.slug === X.pathway && p.live)) err(w, `pathway "${X.pathway}" is not live`); continue; }
     for (const k of ['short', 'eyebrow', 'lede', 'for']) if (!X[k]) err(w, `missing ${k}`);
     for (const k of ['does', 'become']) { if (!X[k]?.text) err(w, `missing ${k}.text (BLS OOH summary line)`); else needSrc(`${w}.${k}`, X[k].source); }
@@ -499,7 +513,6 @@ for (const [cslug, D] of Object.entries(careerData)) {
     if (X.states_from && !(lic[X.states_from]?.boards || []).length) err(w, `states_from "${X.states_from}" needs a license with boards`);
     if (X.states_source) needSrc(`${w}.states_source`, X.states_source);
     if (!X.license && !X.license_text) err(w, 'needs license (an id) or license_text');
-    for (const c of X.certs || []) { if (!c.name || !c.text) err(`${w}.certs`, 'needs name and text'); needSrc(`${w}.certs`, c.source); }
     const ov = path.join(root, 'us/careers', X.slug, 'index.html');
     if (!fs.existsSync(ov) || !new RegExp(`^career:\\s*${X.slug}\\s*$`, 'm').test(fs.readFileSync(ov, 'utf8'))) err(w, `us/careers/${X.slug}/index.html must exist and say career: ${X.slug} (run scripts/build-us-clusters.mjs)`);
     if ((X.routes || []).length && !/^career:\s*true\s*$/m.test(fs.existsSync(path.join(root, 'us/roadmaps', `${X.slug}.html`)) ? fs.readFileSync(path.join(root, 'us/roadmaps', `${X.slug}.html`), 'utf8') : '')) err(w, `us/roadmaps/${X.slug}.html must say career: true`);

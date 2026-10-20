@@ -3,7 +3,8 @@
   with `cluster: <slug>`, written by scripts/build-us-clusters.mjs for every `live` cluster in _data/us/clusters.yml.
   Sections: what the cluster covers (Advance CTE definition), the careers on this site (matrix + one card per
   career, _includes/us-cluster-career.html), careers placed in another cluster that the crosswalk also puts here,
-  the sub-clusters, an optional `public_sector` block (Public Service & Safety: USAJOBS and state/city hiring,
+  the sub-clusters, optional `credentials` (Phase 3: certifications and licenses with their kind, each row sourced;
+  kinds checked by scripts/check-us-data.mjs), an optional `public_sector` block (Public Service & Safety: USAJOBS and state/city hiring,
   moved here from the USA Home on 2026-10-20, data in _data/us/home.yml) and the closely connected clusters.
   4+ h2[id] sections, so site.js builds the right rail and the phone chip rail; every block has data-no-points.
 {%- endcomment -%}
@@ -122,6 +123,30 @@
       </ul>
     </div>
   </section>
+
+  {%- if C.credentials %}
+  {%- if alt == "" %}{% assign alt = " block-alt" %}{% else %}{% assign alt = "" %}{% endif %}
+  <section class="block{{ alt }}" id="credentials" aria-labelledby="credentials-heading" data-no-points>
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">License or not?</span>
+        <h2 id="credentials-heading">Certifications and licenses</h2>
+        <p>A state or federal license is the law; a registration through an employer comes with the job; a voluntary certification is something employers may ask for. Each card links the owner's own page.</p>
+      </div>
+      <ul class="usc-subgrid">
+        {%- for K in C.credentials %}
+        <li class="usc-subcard">
+          <span class="usc-sub">{{ K.kind }}</span>
+          <h3>{{ K.name }}</h3>
+          <p class="us-by">{{ K.owner }}</p>
+          <p>{{ K.what }} {% include us-src-chip.html id=K.source %}</p>
+          <p class="usc-programs"><span>Career</span> <a href="{{ K.href }}">{{ K.for }}</a></p>
+        </li>
+        {%- endfor %}
+      </ul>
+    </div>
+  </section>
+  {%- endif %}
 
   {%- if C.public_sector %}
   {%- assign PS = US.home.public_sector %}

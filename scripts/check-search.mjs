@@ -108,7 +108,14 @@ else {
     ['nclex-pn lpn', null, (r) => (has(r, 'us/professional-licenses/practical-nursing/', 3) || has(r, 'us/careers/licensed-practical-nurse/', 3) ? '' : 'expected the LPN license or career page in top 3')],
     ['usa nurse practitioner', null, (r) => (has(r, 'us/careers/nurse-practitioner/', 3) ? '' : 'expected the APRN career page in top 3')],
     ['pre-med mcat residency usa', null, (r) => (has(r, 'us/roadmaps/physician.html', 3) ? '' : 'expected the physician roadmap in top 3')],
-    ['usa nclex license', null, (r) => (has(r, 'us/professional-licenses/nursing/', 3) ? '' : 'expected the RN license page')],
+    ['actuary soa exams', null, (r) => (has(r, 'us/roadmaps/actuary.html', 3) || has(r, 'us/careers/actuary/', 3) ? '' : 'expected the actuary roadmap or career page in top 3')],
+    ['cissp security+', null, (r) => (has(r, 'us/roadmaps/information-security-analyst.html', 3) ? '' : 'expected the information security analyst roadmap in top 3')],
+    ['series 79 investment banking', null, (r) => (has(r, 'us/roadmaps/investment-banker.html', 3) ? '' : 'expected the investment banker roadmap in top 3')],
+    ['series 65 financial advisor', null, (r) => (has(r, 'us/careers/personal-financial-advisor/', 3) || has(r, 'us/roadmaps/personal-financial-advisor.html', 3) ? '' : 'expected the financial advisor page or roadmap in top 3')],
+    ['help desk it support usa', null, (r) => (r.top.length && r.top.every((d) => d.c === 'usa') && has(r, 'us/careers/computer-support-specialist/', 3) ? '' : 'expected the computer support specialist page in top 3')],
+    ['cfa charter', null, (r) => (has(r, 'us/roadmaps/financial-analyst.html', 3) ? '' : 'expected the financial analyst roadmap in top 3')],
+    ['insurance agent license usa', null, (r) => (has(r, 'us/careers/insurance-sales-agent/', 3) || has(r, 'us/roadmaps/insurance-sales-agent.html', 3) ? '' : 'expected the insurance agent page or roadmap in top 3')],
+    ['usa nclex license', null,(r) => (has(r, 'us/professional-licenses/nursing/', 3) ? '' : 'expected the RN license page')],
     ['zzzz qqqq', null, (r) => (r.total === 0 ? '' : 'nonsense should return nothing')],
   ];
   for (const [q, home, t] of cases) {

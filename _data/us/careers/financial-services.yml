@@ -1,0 +1,296 @@
+# Financial Services careers (USA Master Plan Phase 3). Schema: comment at the top of _includes/us-career-overview.html.
+# Every fact is copied from the page its `source` names, opened 2026-10-20: BLS Occupational Outlook Handbook (pay May
+# 2025, jobs 2025, outlook 2025–35; pages last modified 27 Aug 2026), NASBA/AICPA (CPA), FINRA and NASAA (securities
+# exams), CFA Institute, CFP Board, the Society of Actuaries and the Casualty Actuarial Society (_data/us/sources.yml).
+# `certs[].kind` marks what is a state license, what is a registration through an employer and what is voluntary.
+# finra.org (Cloudflare) and nasaa.org (blocked from India) were read from Internet Archive captures; see sources.yml.
+# A `pathway:` entry keeps its existing us/careers/<pathway>/ page and only gets a roadmap here.
+# Batch 1 and the queue: docs/us-edition/PHASE-3-DIGITAL-FINANCE.md.
+checked: 2026-10-20
+review_by: 2027-04-20
+list:
+
+  # 1,595,200 jobs (accountants and auditors; existing pathway page us/careers/accounting/)
+  - slug: accountant
+    pathway: accounting
+    short: "Accountant & CPA"
+    title: "Accountant and CPA: degree, credit hours, CPA Exam and state license"
+    eyebrow: "Financial Services · Accounting"
+    lede: "Accountants typically need a bachelor's degree in accounting or a related field. A CPA license is required only to file reports with the SEC; it comes from a state board of accountancy after the Uniform CPA Exam, the state's education route and experience."
+    for: "Students who like numbers, rules and detail, and who may want the CPA license for audit, tax or public accounting work."
+    routes:
+      - id: cpa-150
+        title: "Bachelor's + 30 more credits (150 hours) → CPA"
+        tag: "150-hour route"
+        who: "Bachelor's in accounting + 30 additional semester credits + 1 year of experience + the CPA Exam. Many schools offer a 5-year combined bachelor's and master's."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_acct }
+          - { tag: "About 4 years", title: "Bachelor's in accounting or a related field", text: "Internships with public accounting or business firms give practical experience.", kind: stage, source: ooh_acct }
+          - { tag: "150 hours", title: "30 more semester credits or a master's", text: "A graduate degree in accounting with 1 year of experience is a route of its own.", kind: stage, source: nasba_pathways }
+          - { tag: "Exam", title: "Uniform CPA Exam", text: "Three Core sections (AUD, FAR, REG) plus one Discipline you choose (BAR, ISC or TCP).", kind: exam, source: aicpa_disciplines, href: "us/professional-licenses/cpa/#exams", link: "CPA Exam details" }
+          - { tag: "1 year", title: "Qualifying experience", text: "Each board defines what counts.", kind: stage, source: nasba_pathways }
+          - { tag: "License", title: "State CPA license", text: "Issued by the state's board of accountancy.", kind: licence, source: nasba_pathways, href: "us/professional-licenses/cpa/", link: "CPA license steps" }
+          - { tag: "Goal", title: "Certified Public Accountant", text: "", kind: goal, source: ooh_acct }
+      - id: cpa-120
+        title: "Bachelor's (120 hours) + 2 years of experience → CPA"
+        tag: "Where the state allows it"
+        who: "The newer model route; a state offers it only after its own law adopts it."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_acct }
+          - { tag: "120 hours", title: "Bachelor's degree in accounting", text: "", kind: stage, source: nasba_pathways }
+          - { tag: "Exam", title: "Uniform CPA Exam", text: "", kind: exam, source: aicpa_disciplines, href: "us/professional-licenses/cpa/#exams", link: "CPA Exam details" }
+          - { tag: "2 years", title: "Qualifying experience", text: "", kind: stage, source: nasba_pathways }
+          - { tag: "License", title: "State CPA license", text: "", kind: licence, source: nasba_pathways, href: "us/professional-licenses/cpa/", link: "CPA license steps" }
+          - { tag: "Goal", title: "Certified Public Accountant", text: "", kind: goal, source: ooh_acct }
+      - id: no-cpa
+        title: "Accountant without a CPA license"
+        tag: "Many jobs"
+        who: "Only accountants who file reports with the SEC must be licensed CPAs; others become CPAs to improve job prospects or gain clients."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_acct }
+          - { tag: "About 4 years", title: "Bachelor's in accounting or business", text: "Some employers prefer a master's in accounting or an MBA with an accounting concentration.", kind: stage, source: ooh_acct }
+          - { tag: "Goal", title: "Accountant or auditor", text: "Management accountants often start as cost accountants, junior internal auditors or trainees.", kind: goal, source: ooh_acct }
+      - id: clerk
+        title: "Associate's degree or bookkeeper → junior accountant"
+        tag: "Work your way up"
+        who: "In some cases, people with an associate's degree, and bookkeeping, accounting and auditing clerks who meet employer requirements, get junior accounting positions."
+        steps:
+          - { tag: "Start", title: "Associate's degree or bookkeeping job", text: "", kind: start, source: ooh_acct }
+          - { tag: "On the job", title: "Show your accounting skills", text: "", kind: stage, source: ooh_acct }
+          - { tag: "Goal", title: "Junior accountant", text: "", kind: goal, source: ooh_acct }
+    states_note: "Education, experience and ethics-exam rules differ by state, and the 120-hour route exists only where a state's law has adopted it. Check your state board of accountancy before counting credits."
+    states_source: nasba_pathways
+    certs:
+      - { name: "CPA license", who: "State boards of accountancy", kind: "State license", text: "Required for accountants who file reports with the Securities and Exchange Commission; optional for many other accounting jobs. Employers may pay the CPA exam costs.", source: ooh_acct }
+      - { name: "Specialty certifications", who: "Professional societies", kind: "Voluntary", text: "Certification in a specialized field of accounting and auditing shows professional competence.", source: ooh_acct }
+
+  # 572,600 jobs
+  - slug: insurance-sales-agent
+    short: "Insurance Sales Agent"
+    title: "Insurance sales agent: state license, then on-the-job training"
+    eyebrow: "Financial Services · Insurance"
+    lede: "Agents typically need a high school diploma, though some employers prefer a bachelor's degree. Every agent needs a license in each state where they work, with separate licenses for life and health and for property and casualty; selling securities also takes FINRA exams."
+    for: "Confident, persistent people who like meeting clients and explaining options, and can handle rejection."
+    soc: ["41-3021"]
+    does: { text: "Insurance sales agents contact potential customers and sell one or more types of insurance.", source: ooh_qf_insagent }
+    work: { text: "Most insurance sales agents work in office settings, although they may spend time traveling to meet with clients.", source: ooh_qf_insagent }
+    become: { text: "Although employers typically require that agents have a high school diploma, they may prefer to hire agents who have a bachelor’s degree. Agents must be licensed in the states where they work.", source: ooh_qf_insagent }
+    metrics: { pay: 62280, pay_hour: "29.94", pay_by: "Insurance sales agents", jobs: 572600, outlook: 3, outlook_words: "As fast as average", change: 18800, entry: "High school diploma or equivalent", training: "Moderate-term on-the-job training", source: ooh_qf_insagent }
+    license_text: "State license, required"
+    routes:
+      - id: license
+        title: "Pre-licensing course → state exam → license"
+        tag: "Required"
+        who: "In most states, licenses are issued only to applicants who complete specified courses and pass state exams on insurance fundamentals and state insurance laws."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "Some employers prefer a bachelor's degree in a field such as business.", kind: start, source: ooh_insagent }
+          - { tag: "Courses", title: "State-specified courses", text: "", kind: stage, source: ooh_insagent }
+          - { tag: "Exam", title: "State licensing exam", text: "Life and health insurance and property and casualty insurance need separate licenses.", kind: exam, source: ooh_insagent }
+          - { tag: "License", title: "State insurance license", text: "Needed in every state where you work; most states also require continuing education.", kind: licence, source: ooh_insagent }
+          - { tag: "On the job", title: "Shadow an experienced agent", text: "Learn the products, the sales process and how to work with clients.", kind: stage, source: ooh_insagent }
+          - { tag: "Goal", title: "Insurance sales agent", text: "", kind: goal, source: ooh_qf_insagent }
+      - id: securities
+        title: "Adding securities: FINRA exams"
+        tag: "To sell financial products"
+        who: "Some agents also sell securities and other financial products."
+        steps:
+          - { tag: "Start", title: "Licensed insurance agent", text: "", kind: start, source: ooh_insagent }
+          - { tag: "Exam", title: "SIE", text: "Open to anyone 18 or older; no firm needed; valid for four years.", kind: exam, source: finra_sie }
+          - { tag: "Exam", title: "Series 6 or Series 7", text: "Series 6 is for agents who sell products such as mutual funds and variable annuities; Series 7 qualifies a general securities representative.", kind: exam, source: ooh_insagent }
+          - { tag: "Goal", title: "Agent who also sells securities", text: "FINRA representative exams need a sponsoring member firm.", kind: goal, source: finra_series7 }
+    states_note: "Agents must be licensed in each state where they work. Most state licensing authorities also require continuing education on insurance laws, consumer protection, ethics and policy details."
+    states_source: ooh_insagent
+    certs:
+      - { name: "State insurance license", who: "State licensing authorities", kind: "State license", text: "Required. Separate licenses for life and health and for property and casualty insurance.", source: ooh_insagent }
+      - { name: "FINRA Series 6 or Series 7", who: "FINRA, through a sponsoring firm", kind: "Registration through an employer", text: "Needed only to sell securities and other financial products.", source: ooh_insagent }
+      - { name: "Insurance specialty certifications", who: "Industry organizations", kind: "Voluntary", text: "Not required for employment, but may give candidates an advantage.", source: ooh_insagent }
+
+  # 531,000 jobs (securities, commodities and financial services sales agents; existing pathway page us/careers/investment-banking/)
+  - slug: investment-banker
+    pathway: investment-banking
+    short: "Investment Banker"
+    title: "Investment banker: degree, SIE, a sponsoring firm and the Series 79"
+    eyebrow: "Financial Services · Financial Strategy & Investments"
+    lede: "BLS counts investment bankers with securities, commodities and financial services sales agents, who typically need a bachelor's degree. Anyone 18 or older can take the SIE; the Series 79 that registers an investment banking representative needs a sponsoring FINRA member firm."
+    for: "Students who like finance, long hours on deals, and working with numbers and clients under pressure."
+    routes:
+      - id: banker
+        title: "Degree → SIE → hired → Series 79"
+        tag: "Investment banking representative"
+        who: "Candidates must pass the SIE and the Series 79 to get the Investment Banking Representative registration."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_secagent }
+          - { tag: "About 4 years", title: "Bachelor's degree, often in business", text: "Finance, accounting and economics courses; employers may prefer candidates who have worked as interns.", kind: stage, source: ooh_secagent }
+          - { tag: "Optional exam", title: "SIE (before you are hired)", text: "75 questions, 1 hour 45 minutes, passing score 70, $100. No firm needed; results are valid for four years.", kind: exam, source: finra_sie }
+          - { tag: "Hired", title: "Join a FINRA member firm", text: "The firm sponsors you for representative-level exams; firms do not expect licenses before you start.", kind: stage, source: ooh_secagent }
+          - { tag: "Exam", title: "Series 79", text: "75 items, 2 hours 30 minutes, passing score 73, $395. The SIE is a corequisite.", kind: exam, source: finra_series79 }
+          - { tag: "Goal", title: "Investment banking representative", text: "Advising on or facilitating debt or equity offerings and mergers and acquisitions.", kind: goal, source: finra_series79 }
+      - id: sales
+        title: "Degree → SIE → hired → Series 7"
+        tag: "Securities sales"
+        who: "Bankers who also market an offering to investors, such as on road shows, need the General Securities Representative registration (SIE + Series 7) or the Series 82 for private offerings."
+        steps:
+          - { tag: "Start", title: "Bachelor's degree", text: "", kind: start, source: ooh_secagent }
+          - { tag: "Exam", title: "SIE", text: "", kind: exam, source: finra_sie }
+          - { tag: "Exam", title: "Series 7 (sponsored by your firm)", text: "125 items, 3 hours 45 minutes, passing score 72, $395.", kind: exam, source: finra_series7 }
+          - { tag: "Goal", title: "General securities representative", text: "", kind: goal, source: finra_series79 }
+      - id: mba
+        title: "MBA for advancement"
+        tag: "Later"
+        who: "Some employers require or prefer an MBA; an MBA may help advancement."
+        steps:
+          - { tag: "Start", title: "Working in the industry", text: "", kind: start, source: ooh_secagent }
+          - { tag: "Graduate", title: "MBA", text: "", kind: stage, source: ooh_secagent }
+          - { tag: "Goal", title: "Senior role", text: "", kind: goal, source: ooh_secagent }
+    certs:
+      - { name: "SIE", who: "FINRA", kind: "Exam (no firm needed)", text: "Passing the SIE alone does not qualify anyone for registration; you also need a qualification exam, which needs a member firm.", source: finra_sie }
+      - { name: "Series 79 or Series 7", who: "FINRA, through a sponsoring member firm", kind: "Registration through an employer", text: "Required to do the regulated work; candidates must be associated with and sponsored by a FINRA member firm.", source: finra_series7 }
+      - { name: "Professional certifications", who: "Various", kind: "Voluntary", text: "Employers often recommend certification, which may improve the chances for advancement.", source: ooh_secagent }
+
+  # 443,100 jobs (financial analysts; existing pathway page us/careers/finance/)
+  - slug: financial-analyst
+    pathway: finance
+    short: "Financial Analyst"
+    title: "Financial analyst: finance degree, internships and the optional CFA charter"
+    eyebrow: "Financial Services · Financial Strategy & Investments"
+    lede: "Financial analysts typically need a bachelor's degree in finance or a related field such as business. FINRA registration, when a role needs it, is sponsored by the employer after hiring; the CFA charter is voluntary."
+    for: "Students who like markets, spreadsheets and making a case with numbers."
+    routes:
+      - id: bachelor
+        title: "Finance degree → internship → analyst"
+        tag: "Typical"
+        who: "Some employers prefer a master's degree."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_finanalyst }
+          - { tag: "About 4 years", title: "Bachelor's in finance or business", text: "", kind: stage, source: ooh_finanalyst }
+          - { tag: "During college", title: "Internship", text: "", kind: stage, source: ooh_finanalyst }
+          - { tag: "If the job needs it", title: "FINRA registration through the employer", text: "Most licenses need employer sponsorship, so companies do not expect them before you start.", kind: exam, source: ooh_finanalyst }
+          - { tag: "Goal", title: "Financial analyst", text: "", kind: goal, source: ooh_finanalyst }
+      - id: cfa
+        title: "CFA Program: three exams + 4,000 hours"
+        tag: "Voluntary charter"
+        who: "To register you need a bachelor's degree, or be an undergraduate within 23 months of graduation for Level I, or have 4,000 hours of work and/or higher education over at least three sequential years."
+        steps:
+          - { tag: "Start", title: "Bachelor's degree (or final years of one)", text: "", kind: start, source: cfa_requirements }
+          - { tag: "Exam", title: "CFA Level I, Level II, Level III", text: "About 300 study hours per level. Exam fees run USD 3,520 to 4,570 for all three levels, depending on early or standard registration.", kind: exam, source: cfa_fees }
+          - { tag: "4,000 hours", title: "Qualifying investment work experience", text: "Before, during or after the exams.", kind: stage, source: cfa_program }
+          - { tag: "Membership", title: "Apply to CFA Institute", text: "With two to three professional references.", kind: stage, source: cfa_program }
+          - { tag: "Goal", title: "CFA charterholder", text: "", kind: goal, source: cfa_program }
+      - id: advance
+        title: "Analyst → portfolio or fund manager"
+        tag: "Moving up"
+        who: "A master's in finance or an MBA may improve the chances of advancing."
+        steps:
+          - { tag: "Start", title: "Financial analyst", text: "", kind: start, source: ooh_finanalyst }
+          - { tag: "Graduate", title: "Master's in finance or MBA", text: "", kind: stage, source: ooh_finanalyst }
+          - { tag: "Goal", title: "Portfolio manager or fund manager", text: "", kind: goal, source: ooh_finanalyst }
+    certs:
+      - { name: "CFA charter", who: "CFA Institute", kind: "Voluntary", text: "Three exams, 4,000 hours of investment work experience and CFA Institute membership. Exams are in English only and every candidate needs a valid international travel passport.", source: cfa_requirements }
+      - { name: "FINRA registration", who: "FINRA, through the employer", kind: "Registration through an employer", text: "Some financial analyst positions require it; most of these licenses need sponsorship by an employer.", source: ooh_finanalyst }
+
+  # 299,400 jobs
+  - slug: personal-financial-advisor
+    short: "Personal Financial Advisor"
+    title: "Personal financial advisor: degree, licenses for what you sell, optional CFP"
+    eyebrow: "Financial Services · Financial Strategy & Investments"
+    lede: "Advisors typically need a bachelor's degree and more than a year of on-the-job training. Selling securities or insurance, or giving specific investment advice, takes licenses that depend on the products; CFP certification is voluntary."
+    for: "People who like numbers and people equally, can build trust, and are persistent about finding clients."
+    soc: ["13-2052"]
+    does: { text: "Personal financial advisors provide advice to help individuals manage their money and plan for their financial future.", source: ooh_qf_pfa }
+    work: { text: "Most personal financial advisors work in the finance and insurance industry or are self-employed. They typically work full time, and some work more than 40 hours per week. They also may meet with clients in the evenings or on weekends.", source: ooh_qf_pfa }
+    become: { text: "Personal financial advisors typically need a bachelor’s degree to enter the occupation. A master’s degree and certification may improve chances for advancement.", source: ooh_qf_pfa }
+    metrics: { pay: 105070, pay_hour: "50.51", pay_by: "Personal financial advisors", jobs: 299400, outlook: 1, outlook_words: "Slower than average", change: 4100, entry: "Bachelor's degree", training: "Long-term on-the-job training", source: ooh_qf_pfa }
+    license_text: "Depends on the products"
+    routes:
+      - id: advisor
+        title: "Degree → firm training → product licenses"
+        tag: "Typical"
+        who: "Employers usually do not require a specific major; business, social science and mathematics are common."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_pfa }
+          - { tag: "About 4 years", title: "Bachelor's degree", text: "Courses in investments, taxes, estate planning and risk management may help.", kind: stage, source: ooh_pfa }
+          - { tag: "1+ year", title: "On-the-job training under senior advisors", text: "", kind: stage, source: ooh_pfa }
+          - { tag: "Exam", title: "Licenses for the products you sell", text: "Advisors who directly buy or sell stocks, bonds or insurance policies, or give specific investment advice, may need a combination of licenses that varies with the products they sell.", kind: exam, source: ooh_pfa }
+          - { tag: "Registration", title: "State or SEC registration", text: "Advisors in small firms that manage clients' investments register with state regulators; in large firms, with the SEC.", kind: licence, source: ooh_pfa }
+          - { tag: "Goal", title: "Personal financial advisor", text: "", kind: goal, source: ooh_qf_pfa }
+      - id: adviser-rep
+        title: "Investment adviser representative: Series 65 or 66"
+        tag: "Giving investment advice"
+        who: "Passing a NASAA exam is normally a prerequisite for a state license before a broker-dealer agent or investment adviser representative can work with investors."
+        steps:
+          - { tag: "Start", title: "Working for an advisory firm", text: "", kind: start, source: nasaa_exams }
+          - { tag: "Exam", title: "Series 65 (investment adviser law)", text: "130 scored questions in 180 minutes; pass with 92 correct; $187.", kind: exam, source: finra_series65 }
+          - { tag: "Or", title: "Series 66 with the Series 7", text: "The Series 66 counts as the Series 63 and Series 65 together, but an adviser representative registering on it must also hold a valid Series 7.", kind: exam, source: nasaa_exams }
+          - { tag: "Goal", title: "Registered investment adviser representative", text: "", kind: goal, source: nasaa_exams }
+      - id: cfp
+        title: "CFP certification"
+        tag: "Voluntary, 18–24 months"
+        who: "CFP Board's four requirements: education, exam, experience and ethics."
+        steps:
+          - { tag: "Start", title: "CFP Board Registered Program coursework", text: "Average 12 to 18 months; it must come before the exam.", kind: start, source: cfp_process }
+          - { tag: "Exam", title: "CFP exam", text: "", kind: exam, source: cfp_process }
+          - { tag: "Degree", title: "Bachelor's degree in any discipline", text: "You have 5 years from passing the exam to finish it.", kind: stage, source: cfp_process }
+          - { tag: "Experience", title: "Qualifying financial planning work", text: "Before or after the exam.", kind: stage, source: cfp_process }
+          - { tag: "Ethics", title: "Ethics declaration and background check", text: "", kind: stage, source: cfp_process }
+          - { tag: "Goal", title: "CERTIFIED FINANCIAL PLANNER professional", text: "", kind: goal, source: cfp_process }
+    states_note: "Licenses depend on the products an advisor sells. Advisors in small firms that manage clients' investments register with state regulators; those in large firms register with the SEC."
+    states_source: ooh_pfa
+    certs:
+      - { name: "SIE + Series 7", who: "FINRA, through a sponsoring member firm", kind: "Registration through an employer", text: "The General Securities Representative registration, for selling securities such as corporate and municipal securities, investment company securities and variable annuities.", source: finra_series7 }
+      - { name: "Series 63", who: "NASAA exam, given by FINRA", kind: "Exam for a state license", text: "The state law test for broker-dealer agents: 60 scored questions in 75 minutes, 43 correct to pass, $147.", source: finra_series63 }
+      - { name: "Series 65 or Series 66", who: "NASAA exams, given by FINRA", kind: "Exam for a state license", text: "Series 65 is for investment adviser representatives. Passing the Series 66 counts as passing the 63 and 65, but registering as an adviser representative on it also needs a valid Series 7.", source: nasaa_exams }
+      - { name: "State insurance license", who: "State licensing authorities", kind: "State license", text: "Needed to sell insurance policies.", source: ooh_pfa }
+      - { name: "CFP certification", who: "CFP Board", kind: "Voluntary", text: "Coursework, exam, a bachelor's degree, experience and ethics. Certifications may enhance an advisor's reputation and help bring in clients.", source: cfp_process }
+    watch:
+      - { text: "From 4 January 2027 the wait after a third failed attempt at a NASAA exam (Series 63, 65 or 66) in two years drops from 180 to 60 days, for exam windows opened from that date.", source: nasaa_exam_faqs }
+
+  # 31,200 jobs
+  - slug: actuary
+    short: "Actuary"
+    title: "Actuary: degree, SOA or CAS exams, associate then fellow"
+    eyebrow: "Financial Services · Insurance"
+    lede: "Actuaries typically need a bachelor's degree in mathematics, actuarial science, statistics or another analytical field, and pass a series of professional exams. Employers often expect one or two exams passed before graduation; the associate level may take up to 7 years."
+    for: "Students who are very strong in calculus, probability and statistics, like programming and spreadsheets, and are ready for years of exams while working."
+    soc: ["15-2011"]
+    does: { text: "Actuaries use mathematics, statistics, and financial theory to analyze the economic costs of risk and uncertainty.", source: ooh_qf_actuary }
+    work: { text: "Most actuaries work for insurance companies. Although most work full time in an office setting, some actuaries who work as consultants travel to meet with clients.", source: ooh_qf_actuary }
+    become: { text: "Actuaries typically need a bachelor’s degree to enter the occupation and must pass a series of exams to become certified. They must have a strong background in mathematics, statistics, and business.", source: ooh_qf_actuary }
+    metrics: { pay: 130000, pay_hour: "62.50", pay_by: "Actuaries", jobs: 31200, outlook: 9, outlook_words: "Much faster than average", change: 2900, entry: "Bachelor's degree", training: "Long-term on-the-job training", source: ooh_qf_actuary }
+    license_text: "No state license; pension actuaries need federal enrollment"
+    routes:
+      - id: soa
+        title: "Society of Actuaries: ASA → FSA"
+        tag: "Life, health, pensions, investment"
+        who: "The SOA lets candidates complete the requirements in any order."
+        steps:
+          - { tag: "Start", title: "Bachelor's in math, actuarial science, statistics or another analytical field", text: "With coursework in economics, statistics and corporate finance.", kind: start, source: ooh_actuary }
+          - { tag: "Exams", title: "Exam P (Probability) and Exam FM (Financial Mathematics)", text: "", kind: exam, source: soa_asa }
+          - { tag: "VEE", title: "Economics, Accounting and Finance, Mathematical Statistics", text: "Validated from university or other coursework; you apply after passing two SOA, CAS or CIA exams.", kind: stage, source: soa_vee }
+          - { tag: "Exams", title: "FAM, ALTAM or ASTAM, SRM, PA and the ATPA assessment", text: "Plus the Pre-Actuarial Foundations and Actuarial Science Foundations modules.", kind: exam, source: soa_asa }
+          - { tag: "Courses", title: "Fundamentals of Actuarial Practice and the Associateship Professionalism Course", text: "", kind: stage, source: soa_asa }
+          - { tag: "ASA", title: "Associate of the Society of Actuaries", text: "May take up to 7 years. Most employers support candidates, for example by paying exam costs or giving paid study time.", kind: stage, source: ooh_actuary }
+          - { tag: "Fellowship", title: "Four technical courses, DMAC and the Fellowship Admissions Course", text: "Including a 101–201 course sequence in one practice area.", kind: stage, source: soa_fsa }
+          - { tag: "Goal", title: "Fellow of the Society of Actuaries (FSA)", text: "", kind: goal, source: soa_fsa }
+      - id: cas
+        title: "Casualty Actuarial Society: ACAS → FCAS"
+        tag: "Property and casualty insurance"
+        who: "The CAS credentials property and casualty actuaries."
+        steps:
+          - { tag: "Start", title: "Foundational requirements", text: "VEEs, Exam 1 (Probability), Exam 2 (Financial Mathematics) and the CAS DISCs. Exams 1 and 2 can be credited from SOA exams.", kind: start, source: cas_exams12 }
+          - { tag: "Exams", title: "MAS-I, MAS-II, Exam 5, the PCPA exam and project, Exam 6", text: "Plus the Course on Professionalism.", kind: exam, source: cas_credentials }
+          - { tag: "ACAS", title: "Associate of the Casualty Actuarial Society", text: "", kind: stage, source: cas_credentials }
+          - { tag: "Exams", title: "Exams 7, 8 and 9", text: "", kind: exam, source: cas_credentials }
+          - { tag: "Goal", title: "Fellow of the Casualty Actuarial Society (FCAS)", text: "", kind: goal, source: cas_credentials }
+      - id: pension
+        title: "Pension actuary: enrolled actuary"
+        tag: "Federal license"
+        who: "Pension actuaries typically must be licensed by the Joint Board for the Enrollment of Actuaries (U.S. Departments of Labor and the Treasury)."
+        steps:
+          - { tag: "Start", title: "Actuarial training", text: "", kind: start, source: ooh_actuary }
+          - { tag: "Experience", title: "Required experience", text: "", kind: stage, source: ooh_actuary }
+          - { tag: "Exam", title: "Joint Board exams", text: "", kind: exam, source: ooh_actuary }
+          - { tag: "Goal", title: "Enrolled actuary", text: "", kind: goal, source: ooh_actuary }
+    certs:
+      - { name: "ASA and FSA", who: "Society of Actuaries", kind: "Professional credential", text: "Exams, e-learning, VEE and professionalism courses. Since fall 2025 the FSA uses a flexible course pathway instead of separate tracks.", source: soa_fsa }
+      - { name: "ACAS and FCAS", who: "Casualty Actuarial Society", kind: "Professional credential", text: "Exams and courses for property and casualty actuaries.", source: cas_credentials }
+      - { name: "Enrolled actuary", who: "Joint Board for the Enrollment of Actuaries", kind: "Federal license", text: "For pension actuaries; experience and exams required.", source: ooh_actuary }

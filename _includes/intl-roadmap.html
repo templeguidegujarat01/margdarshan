@@ -156,10 +156,15 @@
   {%- if X.certs %}
   <section class="md-sec" id="certs" aria-labelledby="certs-h">
     <div class="container">
+      {%- assign certs_kinds = X.certs | map: "kind" | compact %}
+      {%- if certs_kinds.size > 0 %}
+      <div class="md-sec-head"><h2 id="certs-h">Licenses, registrations and certifications</h2><p>Each one is marked: a state or federal license is the law, a registration through an employer comes with the job, and a voluntary certification is one employers may ask for.</p></div>
+      {%- else %}
       <div class="md-sec-head"><h2 id="certs-h">National certifications and federal rules</h2><p>Federal rules apply in every state; voluntary certifications are ones employers may ask for. State rules are in the matrix below.</p></div>
+      {%- endif %}
       <dl class="md-kv" data-no-points>
         {%- for c in X.certs %}
-        <div><dt>{{ c.name }}<br><span class="us-by">{{ c.who }}</span></dt><dd>{{ c.text }} {% include us-src-chip.html id=c.source %}</dd></div>
+        <div><dt>{{ c.name }}<br><span class="us-by">{{ c.who }}{% if c.kind %} · {{ c.kind }}{% endif %}</span></dt><dd>{{ c.text }} {% include us-src-chip.html id=c.source %}</dd></div>
         {%- endfor %}
       </dl>
     </div>

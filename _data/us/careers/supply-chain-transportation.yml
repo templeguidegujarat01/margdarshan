@@ -3,7 +3,7 @@
 # names, opened 2026-10-20: BLS Occupational Outlook Handbook (pay May 2025, jobs 2025, outlook 2025–35; pages last
 # modified 27 Aug 2026) and ASCM (_data/us/sources.yml). The cluster's trades (automotive, diesel …) stay in
 # _data/us/cte_careers.yml; the rest of the cluster is Master Plan Phase 7.
-# Batch 1 and the queue: docs/us-edition/PHASE-4-MANAGEMENT-MARKETING.md.
+# Batches 1–2 and notes: docs/us-edition/PHASE-4-MANAGEMENT-MARKETING.md.
 checked: 2026-10-20
 review_by: 2027-04-20
 list:
@@ -88,3 +88,39 @@ list:
     certs:
       - { name: "Driver's license or CDL", who: "State driver licensing agency", kind: "State license", text: "Some managers need one to travel to warehouses and storage facilities or to assist with transportation operations.", source: ooh_logmgr }
       - { name: "Transportation, storage or distribution certifications", who: "Professional associations", kind: "Employer may require", text: "Some employers require or prefer specific certifications, licenses or both.", source: ooh_logmgr }
+
+  # ---- Phase 4 batch 2 (2026-10-20) ----
+
+  # 604,400 jobs (purchasing managers + buyers and purchasing agents)
+  - slug: purchasing-manager
+    short: "Purchasing Manager, Buyer & Purchasing Agent"
+    title: "Buyer, purchasing agent or purchasing manager: bachelor's degree, months of on-the-job training, years before manager"
+    eyebrow: "Supply Chain & Transportation · Purchasing & Warehousing"
+    lede: "Purchasing managers, buyers and purchasing agents typically need a bachelor's degree, although some employers hire candidates with a high school diploma. Buyers train on the job for a few months; purchasing managers also need several years of related work experience."
+    for: "Careful negotiators who like comparing suppliers, prices and quality and keeping stock on track."
+    soc: ["11-3061", "13-1020"]
+    does: { text: "Buyers and purchasing agents buy products and services for organizations. Purchasing managers oversee the work of buyers and purchasing agents.", source: ooh_qf_purchasing }
+    work: { text: "Purchasing managers and buyers and purchasing agents usually work in an office setting. Most work full time. Travel may be required.", source: ooh_qf_purchasing }
+    become: { text: "Purchasing managers, buyers, and purchasing agents typically need a bachelor’s degree, although some employers hire candidates who have a high school diploma. Purchasing managers also need several years of related work experience.", source: ooh_qf_purchasing }
+    metrics: { pay: 81670, pay_hour: "39.27", pay_by: "Purchasing managers, buyers, and purchasing agents", jobs: 604400, outlook: 6, outlook_words: "Faster than average", change: 34400, entry: "Bachelor's degree", training: "See How to Become One", source: ooh_qf_purchasing }
+    license_text: "None"
+    routes:
+      - id: buyer
+        title: "Degree → a few months of training → buyer or purchasing agent"
+        tag: "Typical"
+        who: "A degree in business, finance or supply management may help; for farm products, agriculture or animal science. A high school diploma may be enough for some positions."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_purchasing }
+          - { tag: "About 4 years", title: "Bachelor's in business, finance or supply management", text: "", kind: stage, source: ooh_purchasing }
+          - { tag: "A few months", title: "On-the-job training", text: "Monitoring inventory levels and negotiating with suppliers.", kind: stage, source: ooh_purchasing }
+          - { tag: "Goal", title: "Buyer or purchasing agent", text: "", kind: goal, source: ooh_purchasing }
+      - id: manager
+        title: "Buyer → assistant purchasing manager → purchasing manager"
+        tag: "Moving up"
+        who: "Purchasing managers typically need several years of work experience in a related occupation, often starting as buyers or purchasing agents."
+        steps:
+          - { tag: "Start", title: "Buyer or purchasing agent", text: "", kind: start, source: ooh_purchasing }
+          - { tag: "Several years", title: "Procurement experience; assistant purchasing manager", text: "", kind: stage, source: ooh_purchasing }
+          - { tag: "Goal", title: "Purchasing manager", text: "With extensive experience, some become an organization's Chief Procurement Officer (CPO).", kind: goal, source: ooh_purchasing }
+    certs:
+      - { name: "Procurement or supply chain certification", who: "Professional associations", kind: "Voluntary", text: "Some workers choose optional certification in an area such as procurement or supply chain management.", source: ooh_purchasing }

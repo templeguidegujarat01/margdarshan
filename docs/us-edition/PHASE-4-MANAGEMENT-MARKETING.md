@@ -1,4 +1,4 @@
-# USA Master Plan — Phase 4: Management & Entrepreneurship, Marketing & Sales (batch 1)
+# USA Master Plan — Phase 4: Management & Entrepreneurship, Marketing & Sales (batches 1–2)
 
 2026-10-20. Hubs: `us/clusters/management-entrepreneurship/`, `us/clusters/marketing-sales/` (now live). Data:
 `_data/us/careers/management-entrepreneurship.yml`, `marketing-sales.yml`, `supply-chain-transportation.yml` (new),
@@ -87,7 +87,35 @@ FREC). Not duplicated.
 | Compensation and Benefits Managers | 11-3111 | 23,700 | $149,230 | 1% | M&E 2 | Queue |
 | Secretaries and Administrative Assistants; Purchasing Managers, Buyers and Purchasing Agents | 43-6010; 13-1020 | — | — | — | M&E; M&S/SCT | Fetched but not parsed: queue |
 
-## 4. Queue (next: "continue Phase 4")
+## 4. Batch 2 (2026-10-20): done
+
+| Kind | Pages |
+|------|-------|
+| M&E (6) | secretary-administrative-assistant, training-development-specialist, administrative-services-manager, labor-relations-specialist, training-development-manager, compensation-benefits-manager |
+| Marketing & Sales (2) | customer-service-representative, sales-engineer |
+| Supply Chain & Transportation (1) | purchasing-manager (buyers, purchasing agents and purchasing managers) |
+
+9 career pages + 9 roadmaps, 18 BLS sources, 18 search entries, 5 search cases. All 9 BLS profiles re-opened this run
+(pages last modified 27 Aug 2026). Hubs now: M&E 14 careers, Marketing & Sales 8, SCT 4.
+
+Notes from the sources:
+- Purchasing goes to Supply Chain & Transportation: the crosswalk gives 11-3061 + 13-1020 two SCT rows (Purchasing &
+  Warehousing) against one each in M&E and Marketing & Sales.
+- Secretaries use the four detailed SOCs (43-6011…43-6014): M&E 2 rows, Public Service & Safety 1, Healthcare 1.
+- Administrative services and facilities managers: M&E 4 rows, Energy 1, Public Service & Safety 1.
+- MBA gate added only on training and development managers (BLS names an MBA); GMAC and ETS pages re-checked.
+- Customer service reps: BLS says finance and insurance reps may need a state license (usually an exam). No license
+  page is linked: the insurance producer license is a different license, so linking it would mislead.
+- No named certification for any batch 2 career: BLS points to CareerOneStop (403 from India); the pages say
+  "Professional associations" with BLS's sentence.
+
+## 5. Still open
+- Fundraisers sit in Hospitality (Phase 8). PRSA APR source when the site is readable; DAU line for logisticians;
+  GMAT/GRE `href` on the gate steps once Phase 10 builds those exam pages.
+- Phase 4 list from the brief is now complete (HR, project management, operations, logistics, marketing, sales,
+  advertising, PR, real estate in Phase 3, SBA small business, MBA gate).
+
+## 6. Old queue (batch 1 notes)
 
 Batch 2: customer service representatives (M&S), training and development specialists and managers, administrative
 services and facilities managers, labor relations specialists, compensation and benefits managers (M&E), sales
@@ -95,7 +123,7 @@ engineers (M&S), secretaries and administrative assistants (M&E), purchasing man
 crosswalk count). Also: PRSA APR source when the site is readable; DAU line for logisticians; GMAT/GRE `href` on the
 gate steps once Phase 10 builds those exam pages.
 
-## 5. How to add the next batch
+## 7. How to add the next batch
 
 1. Fetch BLS profiles with headless Edge (scratchpad `tools/fetch6.cjs`), parse with `tools/parse2.cjs`, read How to
    Become with `tools/htb.cjs` (file keys use underscores).

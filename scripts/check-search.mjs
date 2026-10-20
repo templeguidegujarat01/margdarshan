@@ -132,6 +132,11 @@ else {
     ['logistician supply chain usa', null, (r) => (has(r, 'us/careers/logistician/', 3) || has(r, 'us/roadmaps/logistician.html', 3) ? '' : 'expected the logistician page or roadmap in top 3')],
     ['pharmaceutical sales rep', null, (r) => (has(r, 'us/careers/wholesale-sales-representative/', 3) || has(r, 'us/roadmaps/wholesale-sales-representative.html', 3) ? '' : 'expected the sales representative page or roadmap in top 3')],
     ['public relations specialist usa', null, (r) => (has(r, 'us/careers/public-relations-specialist/', 3) ? '' : 'expected the PR specialist page in top 3')],
+    ['executive assistant usa', null, (r) => (has(r, 'us/careers/secretary-administrative-assistant/', 3) || has(r, 'us/roadmaps/secretary-administrative-assistant.html', 3) ? '' : 'expected the secretary page or roadmap in top 3')],
+    ['call center customer service usa', null, (r) => (has(r, 'us/careers/customer-service-representative/', 3) ? '' : 'expected the customer service representative page in top 3')],
+    ['procurement buyer usa', null, (r) => (has(r, 'us/careers/purchasing-manager/', 3) || has(r, 'us/roadmaps/purchasing-manager.html', 3) ? '' : 'expected the purchasing page or roadmap in top 3')],
+    ['corporate trainer usa', null, (r) => (has(r, 'us/careers/training-development-specialist/', 3) || has(r, 'us/roadmaps/training-development-specialist.html', 3) ? '' : 'expected the training specialist page or roadmap in top 3')],
+    ['sales engineer usa', null, (r) => (has(r, 'us/careers/sales-engineer/', 3) ? '' : 'expected the sales engineer page in top 3')],
     ['zzzz qqqq', null, (r) => (r.total === 0 ? '' : 'nonsense should return nothing')],
   ];
   for (const [q, home, t] of cases) {

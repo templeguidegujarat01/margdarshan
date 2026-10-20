@@ -432,6 +432,23 @@ for (const C of clusters) {
     if (K.href && !pageExists(K.href)) err(kw, `href "${K.href}" is not a page`);
     needSrc(kw, K.source);
   });
+  // Phase 4: the hub's "Start a small business" block: SBA's own guide (sba.gov links only), every step titled, each group sourced.
+  if (C.small_business) {
+    const SB = C.small_business, sw = `${w}.small_business`;
+    if (!SB.intro) err(sw, 'missing intro');
+    needSrc(sw, SB.source);
+    if (!(SB.groups || []).length) err(sw, 'needs groups');
+    (SB.groups || []).forEach((G, i) => {
+      if (!G.name || !(G.steps || []).length) err(`${sw}.groups[${i}]`, 'needs name and steps');
+      if (!/^https:\/\/www\.sba\.gov\//.test(G.href || '')) err(`${sw}.groups[${i}]`, 'href must be an https://www.sba.gov/ page');
+      needSrc(`${sw}.groups[${i}]`, G.source);
+      (G.steps || []).forEach((st, j) => { if (!st.title || typeof st.text !== 'string') err(`${sw}.groups[${i}].steps[${j}]`, 'needs title and text ("" for none)'); });
+    });
+    const H = SB.help || {};
+    if (!H.text || !(H.partners || []).length) err(`${sw}.help`, 'needs text and partners');
+    if (!/^https:\/\/www\.sba\.gov\//.test(H.href || '')) err(`${sw}.help`, 'href must be an https://www.sba.gov/ page');
+    needSrc(`${sw}.help`, H.source);
+  }
   for (const E of C.careers || []) {
     const kinds = ['pathway', 'trade', 'career'].filter((k) => E[k]);
     const ew = `${w}.careers[${E[kinds[0]] || '?'}]`;

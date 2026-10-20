@@ -232,12 +232,64 @@ clusters:
       - name: "Regulation"
         line: "Careers dedicated to corporate responsibility, ensuring that all industries adhere to health, safety, financial, and environmental regulations."
         programs: ["Business Law"]
+    # Phase 4 batch 1: ordered by the BLS 2025 employment of each career's occupation (docs/us-edition/PHASE-4-MANAGEMENT-MARKETING.md).
     careers:
+      - { career: top-executive, sub: "Leadership & Operations", also: [energy-natural-resources] }
+      - { career: project-management-specialist, sub: "Project Management" }
       - { pathway: business, sub: "Business Information Management", also: [education, public-service-safety] }
+      - { career: human-resources-specialist, sub: "Leadership & Operations" }
+      - { career: financial-manager, sub: "Business Information Management" }
+      - { career: public-relations-specialist, sub: "Leadership & Operations" }
+      - { career: human-resources-manager, sub: "Leadership & Operations", also: [public-service-safety] }
+      - { career: public-relations-manager, sub: "Leadership & Operations", also: [arts-entertainment-design, financial-services, hospitality-events-tourism] }
+    credentials:
+      - { name: "CAPM", owner: "Project Management Institute (PMI)", kind: "Voluntary", what: "No experience required: a secondary diploma, age 18 and 23 hours of project management education, then a 150-question exam.", for: "Project manager", href: "us/careers/project-management-specialist/", source: pmi_capm }
+      - { name: "PMP", owner: "Project Management Institute (PMI)", kind: "Voluntary", what: "2 to 5 years of experience managing projects (depending on education), 35 hours of training and a 180-question exam.", for: "Project manager", href: "us/roadmaps/project-management-specialist.html", source: pmi_pmp }
+      - { name: "aPHR, PHR", owner: "HR Certification Institute (HRCI)", kind: "Voluntary", what: "aPHR needs no HR experience; PHR needs 1 to 4 years of professional HR experience depending on education.", for: "HR specialist, HR manager", href: "us/roadmaps/human-resources-specialist.html", source: hrci_phr }
+      - { name: "SHRM-CP", owner: "Society for Human Resource Management (SHRM)", kind: "Voluntary", what: "For people who perform general HR duties or are pursuing an HR career; 134 questions at a Prometric test center.", for: "HR specialist, HR manager", href: "us/careers/human-resources-manager/", source: shrm_cp }
+      - { name: "CPA", owner: "State boards of accountancy (AICPA writes the exam)", kind: "State license", what: "Financial managers who are CPAs are licensed by their state's board of accountancy and must pass an exam.", for: "Financial manager", href: "us/professional-licenses/cpa/", source: ooh_finmgr }
+      - { name: "CGFM", owner: "AGA", kind: "Voluntary", what: "Government financial management: three exams, renewed every year with continuing education.", for: "Financial manager", href: "us/careers/financial-manager/", source: aga_cgfm }
+    # Starting your own business (hub section "Start a small business"): SBA's free business guide, step names and
+    # lines copied from sba.gov (redesigned 2026; the old "10 steps" page redirects to it). No paid courses.
+    small_business:
+      intro: "SBA's free business guide walks you through starting a small business: plan it first, then take care of the paperwork and processes before you can start doing business."
+      source: sba_counseling
+      groups:
+        - name: "Plan your business"
+          source: sba_plan
+          href: "https://www.sba.gov/counseling/plan-your-business/"
+          steps:
+            - { title: "Market research and competitive analysis", text: "Market research helps you find customers for your business. Competitive analysis helps you make your business unique." }
+            - { title: "Write your business plan", text: "Your business plan is the foundation of your business." }
+            - { title: "Calculate your startup costs", text: "So you can request funding, attract investors, and estimate when you’ll turn a profit." }
+            - { title: "Establish business credit", text: "Poor credit history is one of the main reasons why loan applications for small businesses are often declined." }
+            - { title: "Fund your business", text: "Once you know how much startup funding you’ll need, choose how to get it: loans, self-funding or investors." }
+            - { title: "Or buy an existing business or franchise", text: "" }
+        - name: "Launch your business"
+          source: sba_launch
+          href: "https://www.sba.gov/counseling/launch-your-business/"
+          steps:
+            - { title: "Pick your business location", text: "Your business location determines the taxes, zoning laws, and regulations your business will be subject to." }
+            - { title: "Choose a business structure", text: "It affects how much you pay in taxes, your ability to raise money, the paperwork you need to file, and your personal liability. Choose it before you register with the state." }
+            - { title: "Choose your business name", text: "Once you’ve picked your name, protect it by registering it with the right agencies." }
+            - { title: "Register your business", text: "How and where you need to register depends on your business structure and business location." }
+            - { title: "Get federal and state tax ID numbers", text: "The federal Employer Identification Number (EIN) is free from the IRS: do not apply on websites that charge a fee. State tax IDs depend on your state's income and employment taxes." }
+            - { title: "Apply for licenses and permits", text: "Most small businesses need a combination of licenses and permits from federal and state agencies; requirements and fees vary by activity and location." }
+            - { title: "Open a business bank account", text: "As soon as you start accepting or spending money as your business." }
+            - { title: "Get business insurance", text: "An LLC or corporation can protect your personal property from lawsuits, but that protection has limits." }
+      help:
+        text: "SBA and its resource partners offer free or low-cost counseling, training and mentoring; find the nearest one by ZIP code."
+        source: sba_partners
+        href: "https://www.sba.gov/counseling/local-assistance/resource-partners/"
+        partners:
+          - { name: "Small Business Development Centers (SBDC)", text: "Assistance and counseling in your area to start, run, or grow your business." }
+          - { name: "SCORE", text: "The nation’s largest network of small business mentors." }
+          - { name: "Women’s Business Centers", text: "Free to low-cost counseling and training, focused on women who want to start, grow, and expand a small business." }
+          - { name: "Veterans Business Outreach Centers", text: "For veterans, service members and military spouses starting or growing a small business." }
   - slug: marketing-sales
     name: "Marketing & Sales"
     phase: 4
-    live: false
+    live: true
     cross_cutting: true
     summary: "The Marketing & Sales Career Cluster focuses on promoting products, understanding consumer needs, engaging with communities, and driving sales."
     definition: "The Marketing & Sales Career Cluster focuses on promoting products, understanding consumer needs, engaging with communities, and driving sales. It integrates digital marketing, data analysis, brand promotion, customer relationship management, strategic communications, human-centered design, and retail strategies to build strong customer connections and support business growth. This Cluster is essential in all industries for creating value, effectively reaching and engaging target audiences, and achieving commercial success in a competitive marketplace. This Career Cluster is also a Cross-Cutting Cluster as the skills gained through this Career Clusters area are applicable across all Career Clusters. Practitioners are encouraged to combine content from this Cluster across other CTE programs."
@@ -256,7 +308,14 @@ clusters:
       - name: "Strategic Sales"
         line: "Careers that help businesses grow and achieve goals."
         programs: ["Business Communications"]
-    careers: []
+    # Phase 4 batch 1: ordered by the BLS 2025 employment of each career's occupation (docs/us-edition/PHASE-4-MANAGEMENT-MARKETING.md).
+    careers:
+      - { career: retail-sales-worker, sub: "Retail & Customer Experience" }
+      - { career: wholesale-sales-representative, sub: "Strategic Sales" }
+      - { career: market-research-analyst, sub: "Market Research, Analytics, & Ethics" }
+      - { career: sales-manager, sub: "Retail & Customer Experience" }
+      - { career: marketing-manager, sub: "Marketing & Advertising" }
+      - { career: advertising-sales-agent, sub: "Strategic Sales" }
   - slug: public-service-safety
     name: "Public Service & Safety"
     phase: 5
@@ -392,6 +451,8 @@ clusters:
         programs: ["Business Administration", "Supply Chain Management"]
     careers:
       - { trade: automotive-service-technician, soc: "49-3023", sub: "Maintenance & Repair" }
+      - { career: logistician, sub: "Planning & Logistics" }
+      - { career: logistics-manager, sub: "Planning & Logistics" }
   - slug: energy-natural-resources
     name: "Energy & Natural Resources"
     phase: 7

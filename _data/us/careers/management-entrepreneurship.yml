@@ -1,0 +1,329 @@
+# Management & Entrepreneurship careers (USA Master Plan Phase 4). Schema: comment at the top of _includes/us-career-overview.html.
+# Every fact is copied from the page its `source` names, opened 2026-10-20: BLS Occupational Outlook Handbook (pay May
+# 2025, jobs 2025, outlook 2025–35; pages last modified 27 Aug 2026), PMI, SHRM, HRCI, AGA, GMAC (GMAT) and ETS (GRE)
+# (_data/us/sources.yml). None of these careers needs a state license; `certs[].kind` says what is voluntary.
+# The MBA route shows the GMAT/GRE admission test as an exam gate only where BLS names an MBA for the career; it links
+# no exam page because the USA edition has no GMAT/GRE page yet (Master Plan Phase 10).
+# A `pathway:` entry keeps its existing us/careers/<pathway>/ page and only gets a roadmap here.
+# Batch 1 and the queue: docs/us-edition/PHASE-4-MANAGEMENT-MARKETING.md.
+checked: 2026-10-20
+review_by: 2027-04-20
+list:
+
+  # 3,890,600 jobs (chief executives + general and operations managers)
+  - slug: top-executive
+    short: "Top Executive & Operations Manager"
+    title: "Top executive and general and operations manager: degree, years of management experience, sometimes an MBA"
+    eyebrow: "Management & Entrepreneurship · Leadership & Operations"
+    lede: "Top executives typically need at least a bachelor's degree and considerable work experience. Most general and operations managers hired from outside need lower level supervisory or management experience; executives of large corporations may have an MBA."
+    for: "People who like leading teams, making decisions and running the day-to-day operations of an organization."
+    soc: ["11-1011", "11-1021"]
+    does: { text: "Top executives plan strategies and policies to ensure that an organization meets its goals.", source: ooh_qf_topexec }
+    work: { text: "Top executives work in nearly every industry, for both small and large organizations. They often have irregular schedules, which may include working evenings and weekends. Travel is common, particularly for chief executives.", source: ooh_qf_topexec }
+    become: { text: "Top executives typically need at least a bachelor’s degree and considerable work experience to enter the occupation.", source: ooh_qf_topexec }
+    metrics: { pay: 108780, pay_hour: "52.30", pay_by: "Top executives", jobs: 3890600, outlook: 5, outlook_words: "Faster than average", change: 190600, entry: "Bachelor's degree", experience: "5 years or more", training: "None", source: ooh_qf_topexec }
+    license_text: "None for most jobs"
+    routes:
+      - id: operations
+        title: "Degree → supervisor → general and operations manager"
+        tag: "Typical"
+        who: "Many top executives advance within their own organizations, moving up from lower level management or supervisory positions. Most general and operations managers hired from outside an organization need lower level supervisory or management experience in a related field."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_topexec }
+          - { tag: "About 4 years", title: "Bachelor's degree related to the field", text: "Such as business or engineering.", kind: stage, source: ooh_topexec }
+          - { tag: "Years of work", title: "Supervisory or lower level management job", text: "Those promoted from lower level positions may be able to substitute experience for education.", kind: stage, source: ooh_topexec }
+          - { tag: "Goal", title: "General and operations manager", text: "Some general managers move into higher level managerial or executive positions.", kind: goal, source: ooh_topexec }
+      - id: mba
+        title: "Bachelor's → work → MBA → executive"
+        tag: "Large corporations"
+        who: "Top executives of large corporations may have a master's degree in business administration (MBA). Chief executives typically need extensive managerial experience in the organization's area of specialty."
+        steps:
+          - { tag: "Start", title: "Bachelor's degree", text: "", kind: start, source: ooh_topexec }
+          - { tag: "Work", title: "Management experience", text: "", kind: stage, source: ooh_topexec }
+          - { tag: "Admission test", title: "GMAT or GRE for business school", text: "The GMAT has three sections (Quantitative Reasoning, Verbal Reasoning, Data Insights) and takes 2 hours 15 minutes.", kind: exam, source: gmac_structure }
+          - { tag: "Graduate", title: "MBA", text: "", kind: stage, source: ooh_topexec }
+          - { tag: "Goal", title: "Chief executive or other top executive", text: "Executive training and development programs often benefit managers or executives.", kind: goal, source: ooh_topexec }
+        facts:
+          - { k: "GRE instead of GMAT", v: "ETS calls the GRE General Test one test for graduate, business and law school, accepted at thousands of schools.", source: ets_gre_about }
+      - id: own-business
+        title: "Start and run your own small business"
+        tag: "Entrepreneur"
+        who: "The Small Business Administration's free business guide: plan the business, then do the paperwork before you open. The hub lists every step."
+        steps:
+          - { tag: "Plan", title: "Market research and a business plan", text: "Market research helps you find customers; competitive analysis helps you make your business unique.", kind: start, source: sba_plan }
+          - { tag: "Plan", title: "Calculate startup costs and fund the business", text: "", kind: stage, source: sba_plan }
+          - { tag: "Launch", title: "Choose a structure, then register with the state", text: "You need to choose a business structure before you register your business with the state.", kind: stage, source: sba_launch }
+          - { tag: "Launch", title: "Tax IDs, licenses and permits", text: "The federal EIN is free from the IRS: do not apply on websites that charge a fee.", kind: licence, source: sba_launch, href: "us/clusters/management-entrepreneurship/#small-business", link: "All SBA steps" }
+          - { tag: "Goal", title: "Small business owner", text: "", kind: goal, source: sba_launch }
+    certs:
+      - { name: "License or certification for the field", who: "Depends on the area managed", kind: "Employer may require", text: "Some top executive positions may require one relevant to their area of management; for example, some employers may require their chief executive officer to be a certified public accountant (CPA).", source: ooh_topexec }
+
+  # 1,094,300 jobs
+  - slug: project-management-specialist
+    short: "Project Manager"
+    title: "Project management specialist: bachelor's degree, experience, optional CAPM or PMP"
+    eyebrow: "Management & Entrepreneurship · Project Management"
+    lede: "Project management specialists typically need a bachelor's degree in business, project management or a related field; some employers prefer a technical degree for their industry. Certification is not always required but may be beneficial: PMI's CAPM needs no experience, the PMP needs 2 to 5 years of it."
+    for: "Organized people who like planning, deadlines, budgets and keeping a team on track."
+    soc: ["13-1082"]
+    does: { text: "Project management specialists coordinate the budget, schedule, staffing, and other details of a project.", source: ooh_qf_pmspec }
+    work: { text: "Project management specialists usually work in an office setting, but they occasionally travel to visit clients. Most work full time, and some work more than 40 hours per week.", source: ooh_qf_pmspec }
+    become: { text: "Project management specialists typically need a bachelor’s degree that may be in a variety of fields, including business or project management. Although not always required, certification may be beneficial.", source: ooh_qf_pmspec }
+    metrics: { pay: 102320, pay_hour: "49.19", pay_by: "Project management specialists", jobs: 1094300, outlook: 7, outlook_words: "Much faster than average", change: 73200, entry: "Bachelor's degree", training: "None", source: ooh_qf_pmspec }
+    license_text: "None"
+    routes:
+      - id: degree
+        title: "Degree → related job → small projects → large projects"
+        tag: "Typical"
+        who: "Some positions require relevant work experience, for example as a business analyst, information security analyst or training and development specialist."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_pmspec }
+          - { tag: "About 4 years", title: "Bachelor's in business, project management or a related field", text: "Some employers prefer a technical field such as computer and information technology or engineering.", kind: stage, source: ooh_pmspec }
+          - { tag: "Experience", title: "Related job or internship", text: "", kind: stage, source: ooh_pmspec }
+          - { tag: "Goal", title: "Project management specialist", text: "They may begin as trainees working on small projects and progress to large, complex projects.", kind: goal, source: ooh_pmspec }
+      - id: capm
+        title: "CAPM: the entry certification, no experience needed"
+        tag: "Voluntary"
+        who: "PMI's Certified Associate in Project Management needs a secondary diploma (such as a high school diploma or GED), age 18 and 23 hours of project management education."
+        steps:
+          - { tag: "Start", title: "High school diploma or GED, age 18+", text: "", kind: start, source: pmi_capm }
+          - { tag: "23 hours", title: "Project management education", text: "Completed before the exam.", kind: stage, source: pmi_capm }
+          - { tag: "Exam", title: "CAPM exam", text: "150 questions.", kind: exam, source: pmi_capm }
+          - { tag: "Goal", title: "CAPM holder", text: "15 professional development units in each 3-year cycle keep it active.", kind: goal, source: pmi_capm }
+      - id: pmp
+        title: "PMP: experience + 35 hours of training + exam"
+        tag: "Voluntary"
+        who: "PMI counts project management experience from the last 10 years; the years needed depend on your education."
+        steps:
+          - { tag: "Start", title: "Degree or diploma", text: "", kind: start, source: pmi_pmp }
+          - { tag: "2–5 years", title: "Experience managing projects", text: "High school diploma: 5 years. Associate's degree or vocational diploma: 4. Bachelor's or higher: 3. Degree from a PMI Global Accreditation Center program: 2.", kind: stage, source: pmi_pmp }
+          - { tag: "35 hours", title: "Project Professional training", text: "", kind: stage, source: pmi_pmp }
+          - { tag: "Exam", title: "PMP exam", text: "180 questions.", kind: exam, source: pmi_pmp }
+          - { tag: "Goal", title: "Project Management Professional (PMP)", text: "", kind: goal, source: pmi_pmp }
+    certs:
+      - { name: "CAPM", who: "Project Management Institute (PMI)", kind: "Voluntary", text: "No experience required: a secondary diploma, age 18 and 23 hours of project management education.", source: pmi_capm }
+      - { name: "PMP", who: "Project Management Institute (PMI)", kind: "Voluntary", text: "2 to 5 years of experience managing projects depending on education, plus 35 hours of training and a 180-question exam.", source: pmi_pmp }
+
+  # 1,077,100 jobs (management analysts; existing pathway page us/careers/business/)
+  - slug: management-analyst
+    pathway: business
+    short: "Management Analyst"
+    title: "Management analyst (consultant): bachelor's degree, related experience, MBA preferred by some employers"
+    eyebrow: "Management & Entrepreneurship · Business Information Management"
+    lede: "Management analysts typically need at least a bachelor's degree and several years of related work experience. Some employers prefer an MBA; certification is not required."
+    for: "Problem-solvers who like data, interviews and recommending how an organization can work better."
+    routes:
+      - id: bachelor
+        title: "Bachelor's → years in a related job → analyst"
+        tag: "Typical"
+        who: "Many fields of study suit the job, including business, social science and engineering. Firms that specialize in a field try to hire people with experience in it."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_mgmtanalyst }
+          - { tag: "About 4 years", title: "Bachelor's in business, social science, engineering or another field", text: "", kind: stage, source: ooh_mgmtanalyst }
+          - { tag: "Several years", title: "Work in a related occupation", text: "For example, tax preparation firms may prefer people who worked as accountants; software companies may seek computer systems analysts.", kind: stage, source: ooh_mgmtanalyst }
+          - { tag: "Goal", title: "Management analyst", text: "Senior analysts may supervise teams, become partners or move to management jobs.", kind: goal, source: ooh_mgmtanalyst }
+      - id: mba
+        title: "Bachelor's → GMAT or GRE → MBA → analyst"
+        tag: "Some employers prefer"
+        who: "Some employers prefer to hire candidates who have a master's degree in business administration (MBA)."
+        steps:
+          - { tag: "Start", title: "Bachelor's degree", text: "", kind: start, source: ooh_mgmtanalyst }
+          - { tag: "Admission test", title: "GMAT or GRE for business school", text: "The GMAT has three sections (Quantitative Reasoning, Verbal Reasoning, Data Insights) and takes 2 hours 15 minutes.", kind: exam, source: gmac_structure }
+          - { tag: "Graduate", title: "MBA", text: "", kind: stage, source: ooh_mgmtanalyst }
+          - { tag: "Goal", title: "Management analyst", text: "", kind: goal, source: ooh_mgmtanalyst }
+        facts:
+          - { k: "GRE instead of GMAT", v: "ETS calls the GRE General Test one test for graduate, business and law school, accepted at thousands of schools.", source: ets_gre_about }
+          - { k: "GRE sections", v: "Verbal Reasoning, Quantitative Reasoning and Analytical Writing.", source: ets_gre_content }
+    certs:
+      - { name: "Professional certification", who: "Professional associations", kind: "Voluntary", text: "Management analysts are not required to get certification, but having a credential may give jobseekers a competitive advantage.", source: ooh_mgmtanalyst }
+
+  # 939,700 jobs
+  - slug: human-resources-specialist
+    short: "Human Resources Specialist"
+    title: "Human resources specialist: bachelor's degree, internship, optional HR certification"
+    eyebrow: "Management & Entrepreneurship · Leadership & Operations"
+    lede: "Human resources specialists typically need a bachelor's degree in human resources, business, communications or a related field. Certification is usually voluntary, but some employers prefer or require it."
+    for: "People who like meeting people, solving workplace problems and keeping careful records."
+    soc: ["13-1071"]
+    does: { text: "Human resources specialists recruit, screen, and interview job applicants and place newly hired workers in jobs. They also may handle compensation and benefits, training, and employee relations.", source: ooh_qf_hrspec }
+    work: { text: "Human resources specialists generally work in office settings. Some, particularly recruitment specialists, travel to attend job fairs, visit college campuses, and meet with applicants. Most human resources specialists work full time during regular business hours. Some work more than 40 hours per week.", source: ooh_qf_hrspec }
+    become: { text: "To enter the occupation, human resources specialists typically need a bachelor’s degree in human resources, business, or a related field.", source: ooh_qf_hrspec }
+    metrics: { pay: 75940, pay_hour: "36.51", pay_by: "Human resources specialists", jobs: 939700, outlook: 6, outlook_words: "Faster than average", change: 60100, entry: "Bachelor's degree", training: "None", source: ooh_qf_hrspec }
+    license_text: "None"
+    routes:
+      - id: degree
+        title: "HR or business degree → internship → specialist"
+        tag: "Typical"
+        who: "Some positions require relevant work experience, for example as a human resources assistant or customer service representative."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_hrspec }
+          - { tag: "About 4 years", title: "Bachelor's in human resources, business or communications", text: "", kind: stage, source: ooh_hrspec }
+          - { tag: "During college", title: "Internship in an HR department", text: "", kind: stage, source: ooh_hrspec }
+          - { tag: "Goal", title: "Human resources specialist", text: "Specialists who know their organization well may advance to human resources manager.", kind: goal, source: ooh_hrspec, href: "us/careers/human-resources-manager/", link: "HR manager" }
+      - id: aphr
+        title: "aPHR: an HR certification with no experience needed"
+        tag: "Voluntary"
+        who: "HRCI's Associate Professional in Human Resources is for those starting an HR career; no HR experience is required."
+        steps:
+          - { tag: "Start", title: "Starting in HR", text: "", kind: start, source: hrci_aphr }
+          - { tag: "Exam", title: "aPHR exam", text: "65 scored questions in 1 hour 45 minutes; exam fee $300 plus a $100 application fee.", kind: exam, source: hrci_aphr }
+          - { tag: "Goal", title: "aPHR holder", text: "Valid for three years: 45 recertification credits or a retake keeps it.", kind: goal, source: hrci_aphr }
+      - id: phr
+        title: "PHR or SHRM-CP after a few years in HR"
+        tag: "Voluntary"
+        who: "HRCI's PHR needs professional-level HR experience: 1 year with a master's, 2 years with a bachelor's, or 4 years without a degree."
+        steps:
+          - { tag: "Start", title: "Professional-level HR job", text: "", kind: start, source: hrci_phr }
+          - { tag: "1–4 years", title: "HR experience", text: "", kind: stage, source: hrci_phr }
+          - { tag: "Exam", title: "PHR exam", text: "90 scored questions in 2 hours; exam fee $395 plus a $100 application fee.", kind: exam, source: hrci_phr }
+          - { tag: "Goal", title: "PHR holder", text: "Valid for three years: 60 recertification credits or a retake keeps it.", kind: goal, source: hrci_phr }
+        facts:
+          - { k: "SHRM-CP instead", v: "SHRM's credential for people who perform general HR duties or are pursuing an HR career: 134 questions, 3 hours 40 minutes of testing, at a Prometric center.", source: shrm_cp }
+    certs:
+      - { name: "aPHR, PHR", who: "HR Certification Institute (HRCI)", kind: "Voluntary", text: "aPHR needs no HR experience; PHR needs 1 to 4 years of professional HR experience depending on education.", source: hrci_phr }
+      - { name: "SHRM-CP", who: "Society for Human Resource Management (SHRM)", kind: "Voluntary", text: "For people who perform general HR duties or are pursuing an HR career; check SHRM's eligibility criteria.", source: shrm_cp }
+      - { name: "HR certification in general", who: "Professional associations", kind: "Employer may require", text: "Certification is usually voluntary, but some employers prefer or require it; HR generalists in particular may benefit.", source: ooh_hrspec }
+
+  # 879,700 jobs
+  - slug: financial-manager
+    short: "Financial Manager"
+    title: "Financial manager: bachelor's degree and 5+ years in accounting, analysis or another finance job"
+    eyebrow: "Management & Entrepreneurship · Business Information Management"
+    lede: "Financial managers typically need a bachelor's degree in business, economics or a related field and 5 years or more of experience in another business or financial occupation. CPAs are licensed by their state board; other certification is optional."
+    for: "People who are strong with numbers and detail and want to lead an organization's money decisions."
+    soc: ["11-3031"]
+    does: { text: "Financial managers create financial reports, direct investment activities, and develop plans for the long-term financial goals of their organization.", source: ooh_qf_finmgr }
+    work: { text: "Financial managers work in many industries, including banks, investment firms, and insurance companies. Most financial managers work full time, and some work more than 40 hours per week.", source: ooh_qf_finmgr }
+    become: { text: "Financial managers typically need a bachelor’s degree and 5 years or more of experience in another business or financial occupation, such as accountant, securities sales agent, or financial analyst.", source: ooh_qf_finmgr }
+    metrics: { pay: 166570, pay_hour: "80.08", pay_by: "Financial managers", jobs: 879700, outlook: 10, outlook_words: "Much faster than average", change: 84900, entry: "Bachelor's degree", experience: "5 years or more", training: "None", source: ooh_qf_finmgr }
+    license_text: "CPA only if the job needs it"
+    routes:
+      - id: finance-job
+        title: "Degree → 5+ years in a finance job → manager"
+        tag: "Typical"
+        who: "They may have worked as a loan officer, accountant, securities sales agent or financial analyst. Some companies provide management training."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_finmgr }
+          - { tag: "About 4 years", title: "Bachelor's in business, economics or a related field", text: "", kind: stage, source: ooh_finmgr }
+          - { tag: "5+ years", title: "Accountant, financial analyst or loan officer", text: "", kind: stage, source: ooh_finmgr, href: "us/roadmaps/financial-analyst.html", link: "Financial analyst roadmap" }
+          - { tag: "Goal", title: "Financial manager", text: "Experienced financial managers may advance to chief financial officer (CFO).", kind: goal, source: ooh_finmgr }
+      - id: cpa
+        title: "Accountant → CPA license → financial manager"
+        tag: "If the job needs a CPA"
+        who: "Certified public accountants are licensed by their state's board of accountancy and must pass an exam."
+        steps:
+          - { tag: "Start", title: "Bachelor's in accounting", text: "", kind: start, source: ooh_finmgr }
+          - { tag: "Exam", title: "Uniform CPA Exam", text: "", kind: exam, source: ooh_finmgr, href: "us/professional-licenses/cpa/#exams", link: "CPA Exam details" }
+          - { tag: "License", title: "State CPA license", text: "", kind: licence, source: ooh_finmgr, href: "us/professional-licenses/cpa/", link: "CPA license steps" }
+          - { tag: "Goal", title: "Financial manager", text: "", kind: goal, source: ooh_finmgr }
+    certs:
+      - { name: "CPA license", who: "State boards of accountancy", kind: "State license", text: "CPAs are licensed by their state's board of accountancy and must pass an exam.", source: ooh_finmgr }
+      - { name: "Certified Government Financial Manager (CGFM)", who: "AGA", kind: "Voluntary", text: "Covers governmental accounting, auditing, financial reporting, internal controls and budgeting; three exams, and holders renew every year with continuing education.", source: aga_cgfm }
+
+  # 314,500 jobs
+  - slug: public-relations-specialist
+    short: "Public Relations Specialist"
+    title: "Public relations specialist: bachelor's degree, a portfolio and internships"
+    eyebrow: "Management & Entrepreneurship · Leadership & Operations"
+    lede: "Public relations specialists typically need a bachelor's degree in public relations, another communications field, social science or business. Internships and a portfolio of work help; certification is preferred by some employers but not typically required."
+    for: "Strong writers and speakers who like the media, events and explaining an organization to the public."
+    soc: ["27-3031"]
+    does: { text: "Public relations specialists create and maintain a positive public image for the clients they represent.", source: ooh_qf_prspec }
+    work: { text: "Public relations specialists work for a variety of organizations, including schools, media buyers, and professional associations. They usually work in offices, but they also deliver speeches, attend meetings and community activities, and occasionally travel.", source: ooh_qf_prspec }
+    become: { text: "Public relations specialists typically need a bachelor's degree to enter the occupation.", source: ooh_qf_prspec }
+    metrics: { pay: 74750, pay_hour: "35.94", pay_by: "Public relations specialists", jobs: 314500, outlook: 2, outlook_words: "Slower than average", change: 5700, entry: "Bachelor's degree", training: "None", source: ooh_qf_prspec }
+    license_text: "None"
+    routes:
+      - id: degree
+        title: "Communications degree + portfolio + internship"
+        tag: "Typical"
+        who: "Some employers prefer experience from a school newspaper, social media platforms or blogs, or a leadership position in school or the community."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_prspec }
+          - { tag: "About 4 years", title: "Bachelor's in public relations, communications, social science or business", text: "Students may produce a portfolio of work to show employers.", kind: stage, source: ooh_prspec }
+          - { tag: "During college", title: "Internship at a PR firm or PR department", text: "", kind: stage, source: ooh_prspec }
+          - { tag: "Goal", title: "Public relations specialist", text: "", kind: goal, source: ooh_prspec }
+      - id: manager
+        title: "Specialist → public relations manager"
+        tag: "Moving up"
+        who: "Public relations managers need several years of experience in a related occupation such as public relations specialist."
+        steps:
+          - { tag: "Start", title: "Public relations specialist", text: "", kind: start, source: ooh_prmgr }
+          - { tag: "Years of work", title: "Several years of PR experience", text: "", kind: stage, source: ooh_prmgr }
+          - { tag: "Goal", title: "Public relations manager", text: "", kind: goal, source: ooh_prmgr, href: "us/careers/public-relations-manager/", link: "PR manager" }
+    certs:
+      - { name: "Public relations certification", who: "Professional associations", kind: "Voluntary", text: "Not typically required to enter the occupation, but preferred by some employers.", source: ooh_prspec }
+
+  # 224,900 jobs
+  - slug: human-resources-manager
+    short: "Human Resources Manager"
+    title: "Human resources manager: bachelor's degree, years as an HR specialist, sometimes a master's or MBA"
+    eyebrow: "Management & Entrepreneurship · Leadership & Operations"
+    lede: "Human resources managers typically need a bachelor's degree and several years of related work experience, often as human resources or labor relations specialists. Some jobs require a master's in human resources, labor relations or business administration (MBA)."
+    for: "Experienced HR people who want to lead a department and shape how an organization hires, pays and treats its staff."
+    soc: ["11-3121"]
+    does: { text: "Human resources managers plan, coordinate, and direct the administrative functions of an organization.", source: ooh_qf_hrmgr }
+    work: { text: "Human resources managers are employed in nearly every industry. They work in offices, and most work full time during regular business hours. Some travel to attend professional meetings or to recruit employees.", source: ooh_qf_hrmgr }
+    become: { text: "Candidates typically need a combination of education and several years of related work experience to become a human resources manager. Although positions typically require a bachelor’s degree, some require a master’s degree.", source: ooh_qf_hrmgr }
+    metrics: { pay: 149280, pay_hour: "71.77", pay_by: "Human resources managers", jobs: 224900, outlook: 6, outlook_words: "Faster than average", change: 12500, entry: "Bachelor's degree", experience: "5 years or more", training: "None", source: ooh_qf_hrmgr }
+    license_text: "None"
+    routes:
+      - id: specialist
+        title: "Degree → HR specialist → HR manager"
+        tag: "Typical"
+        who: "Management positions typically require an understanding of compensation and benefits plans, HR software and federal, state and local employment laws."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_hrmgr }
+          - { tag: "About 4 years", title: "Bachelor's in human resources, business, communications or psychology", text: "", kind: stage, source: ooh_hrmgr }
+          - { tag: "Years of work", title: "Human resources or labor relations specialist", text: "", kind: stage, source: ooh_hrmgr, href: "us/careers/human-resources-specialist/", link: "HR specialist" }
+          - { tag: "Goal", title: "Human resources manager", text: "", kind: goal, source: ooh_hrmgr }
+      - id: masters
+        title: "Master's in HR or an MBA"
+        tag: "Some jobs require it"
+        who: "Some jobs may require a master's degree in human resources, labor relations or business administration (MBA)."
+        steps:
+          - { tag: "Start", title: "Bachelor's degree", text: "", kind: start, source: ooh_hrmgr }
+          - { tag: "Admission test", title: "GMAT or GRE (for an MBA)", text: "The GMAT has three sections (Quantitative Reasoning, Verbal Reasoning, Data Insights) and takes 2 hours 15 minutes.", kind: exam, source: gmac_structure }
+          - { tag: "Graduate", title: "Master's in HR or labor relations, or an MBA", text: "", kind: stage, source: ooh_hrmgr }
+          - { tag: "Goal", title: "Human resources manager", text: "", kind: goal, source: ooh_hrmgr }
+        facts:
+          - { k: "GRE instead of GMAT", v: "ETS calls the GRE General Test one test for graduate, business and law school, accepted at thousands of schools.", source: ets_gre_about }
+    certs:
+      - { name: "PHR", who: "HR Certification Institute (HRCI)", kind: "Voluntary", text: "For HR professionals who implement programs: 1 to 4 years of professional HR experience depending on education.", source: hrci_phr }
+      - { name: "SHRM-CP", who: "Society for Human Resource Management (SHRM)", kind: "Voluntary", text: "For people who perform general HR duties; 134 questions at a Prometric center.", source: shrm_cp }
+      - { name: "HR certification in general", who: "Professional associations", kind: "Employer may require", text: "Voluntary, but employers may prefer candidates with certification, and some positions may require it.", source: ooh_hrmgr }
+
+  # 129,600 jobs (public relations and fundraising managers)
+  - slug: public-relations-manager
+    short: "Public Relations & Fundraising Manager"
+    title: "Public relations or fundraising manager: bachelor's degree and many years as a PR specialist or fundraiser"
+    eyebrow: "Management & Entrepreneurship · Leadership & Operations"
+    lede: "Public relations and fundraising managers typically need at least a bachelor's degree in public relations, communications or business, and many years of related work experience. Some employers prefer a master's degree; certification is not mandatory."
+    for: "Experienced communicators or fundraisers who want to lead campaigns and speak for an organization."
+    soc: ["11-2030"]
+    does: { text: "Public relations managers direct the creation of materials that will enhance the public image of their employer or client. Fundraising managers coordinate campaigns that bring in donations for their organization.", source: ooh_qf_prmgr }
+    work: { text: "Public relations and fundraising managers generally work in offices during regular business hours. However, many of these managers travel to give speeches and to attend meetings and community activities. Some work more than 40 hours per week.", source: ooh_qf_prmgr }
+    become: { text: "Public relations and fundraising managers typically need at least a bachelor’s degree, and some positions may require a master’s degree. Many years of related work experience are also necessary.", source: ooh_qf_prmgr }
+    metrics: { pay: 136470, pay_hour: "65.61", pay_by: "Public relations and fundraising managers", jobs: 129600, outlook: 6, outlook_words: "Faster than average", change: 7200, entry: "Bachelor's degree", experience: "5 years or more", training: "None", source: ooh_qf_prmgr }
+    license_text: "None"
+    routes:
+      - id: experience
+        title: "Degree → PR specialist or fundraiser → manager"
+        tag: "Typical"
+        who: "Courses in advertising, business administration, public affairs, public speaking and writing can help."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_prmgr }
+          - { tag: "About 4 years", title: "Bachelor's in public relations, communications or business", text: "", kind: stage, source: ooh_prmgr }
+          - { tag: "Several years", title: "Public relations specialist or fundraiser", text: "", kind: stage, source: ooh_prmgr, href: "us/careers/public-relations-specialist/", link: "PR specialist" }
+          - { tag: "Goal", title: "Public relations or fundraising manager", text: "", kind: goal, source: ooh_prmgr }
+      - id: masters
+        title: "Master's degree"
+        tag: "Some employers prefer"
+        who: "Particularly in public relations, journalism, fundraising or nonprofit management."
+        steps:
+          - { tag: "Start", title: "Bachelor's degree", text: "", kind: start, source: ooh_prmgr }
+          - { tag: "Graduate", title: "Master's in PR, journalism, fundraising or nonprofit management", text: "", kind: stage, source: ooh_prmgr }
+          - { tag: "Goal", title: "Public relations or fundraising manager", text: "", kind: goal, source: ooh_prmgr }
+    certs:
+      - { name: "Public relations certification", who: "Professional associations", kind: "Voluntary", text: "Not mandatory; candidates qualify on experience and education and must pass an exam.", source: ooh_prmgr }
+      - { name: "Fundraising certification", who: "Professional associations", kind: "Voluntary", text: "Needs education, professional practice and performance requirements and an exam; renewed every 3 years.", source: ooh_prmgr }

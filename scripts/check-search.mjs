@@ -124,6 +124,14 @@ else {
     ['bookkeeper usa', null, (r) => (has(r, 'us/careers/bookkeeping-clerk/', 3) ? '' : 'expected the bookkeeping clerk page in top 3')],
     ['claims adjuster license', null, (r) => (has(r, 'us/careers/claims-adjuster/', 3) || has(r, 'us/roadmaps/claims-adjuster.html', 3) ? '' : 'expected the claims adjuster page or roadmap in top 3')],
     ['insurance producer license', null, (r) => (has(r, 'us/professional-licenses/insurance-producer/', 3) ? '' : 'expected the insurance producer license page in top 3')],
+    ['pmp certification', null, (r) => (has(r, 'us/roadmaps/project-management-specialist.html', 3) || has(r, 'us/careers/project-management-specialist/', 3) ? '' : 'expected the project manager roadmap or page in top 3')],
+    ['shrm-cp phr', null, (r) => (has(r, 'us/roadmaps/human-resources-specialist.html', 3) || has(r, 'us/careers/human-resources-specialist/', 3) ? '' : 'expected the HR specialist roadmap or page in top 3')],
+    ['start a small business usa', null, (r) => (has(r, 'us/clusters/management-entrepreneurship/#small-business', 3) ? '' : 'expected the SBA small-business block in top 3')],
+    ['marketing careers usa', null, (r) => (r.top.length && r.top.every((d) => d.c === 'usa') && has(r, 'us/clusters/marketing-sales/', 3) ? '' : 'expected the Marketing & Sales hub in top 3')],
+    ['mba gmat gre management consultant', null, (r) => (has(r, 'us/roadmaps/management-analyst.html', 3) ? '' : 'expected the management analyst roadmap in top 3')],
+    ['logistician supply chain usa', null, (r) => (has(r, 'us/careers/logistician/', 3) || has(r, 'us/roadmaps/logistician.html', 3) ? '' : 'expected the logistician page or roadmap in top 3')],
+    ['pharmaceutical sales rep', null, (r) => (has(r, 'us/careers/wholesale-sales-representative/', 3) || has(r, 'us/roadmaps/wholesale-sales-representative.html', 3) ? '' : 'expected the sales representative page or roadmap in top 3')],
+    ['public relations specialist usa', null, (r) => (has(r, 'us/careers/public-relations-specialist/', 3) ? '' : 'expected the PR specialist page in top 3')],
     ['zzzz qqqq', null, (r) => (r.total === 0 ? '' : 'nonsense should return nothing')],
   ];
   for (const [q, home, t] of cases) {

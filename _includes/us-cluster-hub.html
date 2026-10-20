@@ -4,7 +4,8 @@
   Sections: what the cluster covers (Advance CTE definition), the careers on this site (matrix + one card per
   career, _includes/us-cluster-career.html), careers placed in another cluster that the crosswalk also puts here,
   the sub-clusters, optional `credentials` (Phase 3: certifications and licenses with their kind, each row sourced;
-  kinds checked by scripts/check-us-data.mjs), an optional `public_sector` block (Public Service & Safety: USAJOBS and state/city hiring,
+  kinds checked by scripts/check-us-data.mjs), an optional `small_business` block (Phase 4, Management &
+  Entrepreneurship: SBA's free business guide steps and resource partners, no paid courses), an optional `public_sector` block (Public Service & Safety: USAJOBS and state/city hiring,
   moved here from the USA Home on 2026-10-20, data in _data/us/home.yml) and the closely connected clusters.
   4+ h2[id] sections, so site.js builds the right rail and the phone chip rail; every block has data-no-points.
 {%- endcomment -%}
@@ -144,6 +145,44 @@
         </li>
         {%- endfor %}
       </ul>
+    </div>
+  </section>
+  {%- endif %}
+
+  {%- if C.small_business %}
+  {%- assign SB = C.small_business %}
+  {%- if alt == "" %}{% assign alt = " block-alt" %}{% else %}{% assign alt = "" %}{% endif %}
+  <section class="block{{ alt }}" id="small-business" aria-labelledby="small-business-heading" data-no-points>
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Entrepreneurship</span>
+        <h2 id="small-business-heading">Start a small business</h2>
+        <p>{{ SB.intro }} {% include us-src-chip.html id=SB.source %}</p>
+      </div>
+      <div class="usv-split">
+        {%- assign sb_n = 0 %}
+        {%- for G in SB.groups %}
+        <article class="usv-board">
+          <h3>{{ G.name }}</h3>
+          <ol class="usc-steps" start="{{ sb_n | plus: 1 }}">
+            {%- for st in G.steps %}
+            <li><strong>{{ st.title }}</strong>{% if st.text != "" %}<span>{{ st.text }}</span>{% endif %}</li>
+            {%- endfor %}
+          </ol>
+          {%- assign sb_n = sb_n | plus: G.steps.size %}
+          <p>{% include us-src-chip.html id=G.source %}</p>
+          <a class="btn btn-primary btn-page-link" href="{{ G.href }}" rel="noopener">Open the SBA guide</a>
+        </article>
+        {%- endfor %}
+      </div>
+      <h3 class="block-subhead">Free or low-cost help near you</h3>
+      <p>{{ SB.help.text }} {% include us-src-chip.html id=SB.help.source %}</p>
+      <ul class="usc-subgrid">
+        {%- for P in SB.help.partners %}
+        <li class="usc-subcard"><h3>{{ P.name }}</h3><p>{{ P.text }}</p></li>
+        {%- endfor %}
+      </ul>
+      <div class="rm-link-card"><div><strong>Find your nearest SBA partner</strong><p>SBDCs, SCORE mentors, Women’s Business Centers and Veterans Business Outreach Centers, searched by ZIP code on sba.gov.</p></div><a class="btn btn-primary btn-page-link" href="{{ SB.help.href }}" rel="noopener">SBA resource partners</a></div>
     </div>
   </section>
   {%- endif %}

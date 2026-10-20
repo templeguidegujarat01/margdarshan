@@ -350,12 +350,17 @@ clusters:
       - name: "Public Safety"
         line: "Careers in law enforcement, corrections, and both public and private security."
         programs: ["Criminal Justice", "Law Enforcement Services", "Security & Protective Services"]
+    # Phase 5 batch 1: ordered by the BLS 2025 employment of each career (docs/us-edition/PHASE-5-PUBLIC-SERVICE-EDUCATION.md).
     careers:
       - { pathway: law, sub: "Judicial Systems" }
+      - { career: police-officer, sub: "Public Safety", also: [energy-natural-resources] }
+      - { career: correctional-officer, sub: "Public Safety" }
+      - { career: paralegal, sub: "Judicial Systems" }
+      - { career: firefighter, sub: "Emergency Response", also: [energy-natural-resources], tie: true }
   - slug: education
     name: "Education"
     phase: 5
-    live: false
+    live: true
     summary: "The Education Career Cluster spans careers aimed at fostering learning from early childhood to adulthood, including teaching, instructional design, counseling services, community engagement, learner support, and educator training."
     definition: "The Education Career Cluster spans careers aimed at fostering learning from early childhood to adulthood, including teaching, instructional design, counseling services, community engagement, learner support, and educator training. This Cluster emphasizes quality education standards and lifelong learning, preparing individuals for success through all life stages by nurturing knowledge, skills, and critical thinking and encouraging personal and societal growth in a constantly evolving world."
     source: acte_education
@@ -374,7 +379,15 @@ clusters:
         xw: "Teaching, Training, & Facilitation"
         line: "Careers encompassing teaching and instructional design roles across diverse educational levels, from kindergarten through Grade 12 (K-12) to adult learning."
         programs: ["Principles of Teaching"]
-    careers: []
+    # Phase 5 batch 1: ordered by BLS 2025 employment.
+    careers:
+      - { career: elementary-school-teacher, sub: "Teaching, Training & Facilitation" }
+      - { career: postsecondary-teacher, sub: "Teaching, Training & Facilitation" }
+      - { career: high-school-teacher, sub: "Teaching, Training & Facilitation" }
+      - { career: middle-school-teacher, sub: "Teaching, Training & Facilitation" }
+      - { career: special-education-teacher, sub: "Teaching, Training & Facilitation" }
+      - { career: school-counselor, sub: "Learner Support & Community Engagement", also: [healthcare-human-services], tie: true }
+      - { career: librarian, sub: "Learner Support & Community Engagement" }
   - slug: construction
     name: "Construction"
     phase: 6

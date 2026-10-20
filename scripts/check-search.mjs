@@ -137,6 +137,12 @@ else {
     ['procurement buyer usa', null, (r) => (has(r, 'us/careers/purchasing-manager/', 3) || has(r, 'us/roadmaps/purchasing-manager.html', 3) ? '' : 'expected the purchasing page or roadmap in top 3')],
     ['corporate trainer usa', null, (r) => (has(r, 'us/careers/training-development-specialist/', 3) || has(r, 'us/roadmaps/training-development-specialist.html', 3) ? '' : 'expected the training specialist page or roadmap in top 3')],
     ['sales engineer usa', null, (r) => (has(r, 'us/careers/sales-engineer/', 3) ? '' : 'expected the sales engineer page in top 3')],
+    ['police officer usa', null, (r) => (has(r, 'us/careers/police-officer/', 3) || has(r, 'us/roadmaps/police-officer.html', 3) ? '' : 'expected the police officer page or roadmap in top 3')],
+    ['firefighter usa', null, (r) => (has(r, 'us/careers/firefighter/', 3) || has(r, 'us/roadmaps/firefighter.html', 3) ? '' : 'expected the firefighter page or roadmap in top 3')],
+    ['teaching license usa', null, (r) => (has(r, 'us/professional-licenses/teaching/', 3) ? '' : 'expected the teaching license page in top 3')],
+    ['college professor usa', null, (r) => (has(r, 'us/careers/postsecondary-teacher/', 3) || has(r, 'us/roadmaps/postsecondary-teacher.html', 3) ? '' : 'expected the professor page or roadmap in top 3')],
+    ['asvab enlist', null, (r) => (has(r, 'us/clusters/public-service-safety/#service-routes', 3) ? '' : 'expected the Foreign Service and military block in top 3')],
+    ['education careers usa', null, (r) => (has(r, 'us/clusters/education/', 3) ? '' : 'expected the Education hub in top 3')],
     ['zzzz qqqq', null, (r) => (r.total === 0 ? '' : 'nonsense should return nothing')],
   ];
   for (const [q, home, t] of cases) {

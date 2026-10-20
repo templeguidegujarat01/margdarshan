@@ -313,6 +313,24 @@ const ps = home.public_sector || {};
 needSrc('home.public_sector.federal', ps.federal?.source);
 (ps.federal?.facts || []).forEach((f, i) => needSrc(`home.public_sector.federal.facts[${i}]`, f.source));
 needSrc('home.public_sector.state_local', ps.state_local?.source);
+// Phase 5: Foreign Service + military routes (hub #service-routes). Every row needs its own source; links must exist.
+(ps.jobs || []).forEach((j, i) => { if (j.href && !fs.existsSync(path.join(root, j.href, 'index.html'))) err(`home.public_sector.jobs[${i}]`, `href "${j.href}" is not a page`); });
+if (ps.service_routes) {
+  const SR = ps.service_routes, sw = 'home.public_sector.service_routes';
+  const FSO = SR.foreign_service || {};
+  for (const k of ['name', 'by', 'summary', 'rules', 'tracks']) if (!FSO[k]) err(`${sw}.foreign_service`, `missing ${k}`);
+  if (!(FSO.steps || []).length) err(`${sw}.foreign_service`, 'needs steps');
+  if (!/^https:\/\/careers\.state\.gov\//.test(FSO.href || '')) err(`${sw}.foreign_service`, 'href must be a careers.state.gov page');
+  needSrc(`${sw}.foreign_service`, FSO.source);
+  const EN = SR.enlisted || {};
+  needSrc(`${sw}.enlisted.common`, EN.common_source); needSrc(`${sw}.enlisted.training`, EN.training_source);
+  (EN.asvab_sources || []).forEach((s) => needSrc(`${sw}.enlisted.asvab`, s));
+  if (!(EN.ages || []).length) err(`${sw}.enlisted`, 'needs ages rows');
+  (EN.ages || []).forEach((a, i) => { if (!a.service || !a.age) err(`${sw}.enlisted.ages[${i}]`, 'needs service and age'); needSrc(`${sw}.enlisted.ages[${i}]`, a.source); });
+  const OF = SR.officer || {};
+  needSrc(`${sw}.officer.common`, OF.common_source);
+  (OF.routes || []).forEach((r, i) => { if (!r.name || !r.text) err(`${sw}.officer.routes[${i}]`, 'needs name and text'); needSrc(`${sw}.officer.routes[${i}]`, r.source); });
+}
 if (!isDate(home.last_verified)) err('home', 'missing last_verified date');
 
 // Cross-border tracks (2026-10-19): roadmap stubs us/roadmaps/<slug>.html, kinds, sources, review_by; each
@@ -520,9 +538,11 @@ for (const [cslug, D] of Object.entries(careerData)) {
     if (X.work) needSrc(`${w}.work`, X.work.source);
     const M = X.metrics || {};
     for (const k of ['pay', 'jobs', 'outlook', 'change']) if (!Number.isInteger(M[k])) err(`${w}.metrics`, `${k} must be a whole number`);
-    if (!/^\d+\.\d{2}$/.test(M.pay_hour || '')) err(`${w}.metrics`, 'pay_hour must look like "30.38"');
+    // pay_hour: null only where BLS publishes an annual wage alone (teachers); the key must still be there.
+    if (!('pay_hour' in M) || (M.pay_hour !== null && !/^\d+\.\d{2}$/.test(M.pay_hour))) err(`${w}.metrics`, 'pay_hour must look like "30.38" (or null when BLS gives no hourly wage)');
     for (const k of ['outlook_words', 'entry', 'training']) if (!M[k]) err(`${w}.metrics`, `missing ${k}`);
     needSrc(`${w}.metrics`, M.source);
+    if ((X.states_title || X.states_col) && !(X.states || []).length) err(w, 'states_title / states_col need inline `states` rows');
     if (X.license && !lic[X.license]) err(w, `unknown license "${X.license}"`);
     if (X.license && !pageExists(`us/professional-licenses/${X.license}/`)) err(w, `no license page us/professional-licenses/${X.license}/`);
     for (const x of X.exams || []) if (!x.name || !x.href || !pageExists(x.href)) err(w, `exam button "${x.name}" needs an href to a page that exists`);

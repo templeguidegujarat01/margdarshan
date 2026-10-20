@@ -1,0 +1,249 @@
+# Public Service & Safety careers (USA Master Plan Phase 5). Schema: comment at the top of _includes/us-career-overview.html.
+# Every fact is copied from the page its `source` names, opened 2026-10-20: BLS Occupational Outlook Handbook (pay May
+# 2025, jobs 2025, outlook 2025–35; pages last modified 27 Aug 2026, firefighters 14 Sep 2026), NCBE, LSAC, and the
+# hiring pages of the police and fire departments named below (_data/us/sources.yml).
+# Police and fire hiring is run by each city, county and state, so these pages never give one "national" rule: the
+# `states` rows are real departments' own hiring pages, shown as examples (`states_title` / `states_col` rename the
+# matrix). Federal, Foreign Service and military routes live on the hub (home.yml public_sector).
+# A `pathway:` entry keeps its existing us/careers/<pathway>/ page and only gets a roadmap here.
+# Batch notes: docs/us-edition/PHASE-5-PUBLIC-SERVICE-EDUCATION.md.
+checked: 2026-10-20
+review_by: 2027-04-20
+list:
+
+  # 863,700 jobs (lawyers; existing pathway page us/careers/law/)
+  - slug: lawyer
+    pathway: law
+    short: "Lawyer"
+    title: "Lawyer: bachelor's, LSAT, J.D., MPRE and the bar exam"
+    eyebrow: "Public Service & Safety · Judicial Systems"
+    lede: "Becoming a lawyer usually takes 7 years of full-time study after high school: 4 years of college, then 3 years of law school, then the bar exam and admission in a state."
+    for: "Readers and writers who like building an argument, research and advising people."
+    routes:
+      - id: jd
+        title: "Bachelor's → LSAT → J.D. → MPRE + bar exam"
+        tag: "Typical"
+        who: "Most states and jurisdictions require a Juris Doctor (J.D.) from an accredited law school. Law schools do not ask for a specific major."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_lawyers }
+          - { tag: "About 4 years", title: "Bachelor's degree, any major", text: "Common fields include law and legal studies, history and social science.", kind: stage, source: ooh_lawyers }
+          - { tag: "Admission test", title: "LSAT", text: "From the August 2026 LSAT, almost all U.S. test takers sit it at a test center.", kind: exam, source: lsac_lsat }
+          - { tag: "3 years", title: "J.D. at an accredited law school", text: "Constitutional law, contracts, property law, civil procedure and legal writing. After year 1 or 2, summer jobs and internships in law firms or government.", kind: stage, source: ooh_lawyers }
+          - { tag: "Exam", title: "MPRE (ethics exam)", text: "A two-hour exam, required by most jurisdictions.", kind: exam, source: ncbe_mpre, href: "us/professional-licenses/law/#exams", link: "Bar exams" }
+          - { tag: "Exam", title: "Bar exam in your state", text: "Between July 2026 and July 2028 most jurisdictions move to the NextGen UBE.", kind: exam, source: ncbe_nextgen, href: "us/professional-licenses/law/#exams", link: "Bar exams" }
+          - { tag: "License", title: "Admission to the bar", text: "Each state's highest court sets the rules; an admitting board checks your character and fitness.", kind: licence, source: ooh_lawyers, href: "us/professional-licenses/law/", link: "Bar admission steps" }
+          - { tag: "Goal", title: "Lawyer", text: "New lawyers usually start as associates; some become partners, in-house counsel or, later, judges.", kind: goal, source: ooh_lawyers }
+        facts:
+          - { k: "Judicial clerkship", v: "Some graduates first clerk for a judge, usually for 1 or 2 years.", source: ooh_lawyers }
+          - { k: "More than one state", v: "You usually must meet each state's licensing rules; most states have reciprocity agreements.", source: ooh_lawyers }
+      - id: patent
+        title: "Science or engineering degree → J.D. → patent bar"
+        tag: "Patent law"
+        who: "Patent lawyers typically need a degree, specific credits or a background in science or engineering."
+        steps:
+          - { tag: "Start", title: "Science or engineering bachelor's", text: "", kind: start, source: ooh_lawyers }
+          - { tag: "3 years", title: "J.D. and state bar admission", text: "", kind: stage, source: ooh_lawyers, href: "us/professional-licenses/law/", link: "Bar admission steps" }
+          - { tag: "Exam", title: "USPTO exam (the patent bar)", text: "Given by the U.S. Patent and Trademark Office.", kind: exam, source: ooh_lawyers }
+          - { tag: "Goal", title: "Patent lawyer", text: "Tax lawyers may instead add a Master of Laws (LL.M.) in tax after the J.D.", kind: goal, source: ooh_lawyers }
+    states_note: "Bar admission is granted state by state. Which bar exam a state gives, and when it switches to the NextGen UBE, differ by jurisdiction."
+    states_source: ncbe_nextgen
+    watch:
+      - { text: "NCBE: most jurisdictions switch to the NextGen UBE between July 2026 and July 2028; check your state's date.", source: ncbe_nextgen }
+      - { text: "LSAC: in-center LSAT testing for almost all U.S. test takers from August 2026.", source: lsac_lsat }
+
+  # 824,200 jobs
+  - slug: police-officer
+    short: "Police Officer & Detective"
+    title: "Police officer or detective: department exam, academy and on-the-job training"
+    eyebrow: "Public Service & Safety · Public Safety"
+    lede: "Police officers usually need at least a high school diploma, must pass their agency's tests and graduate from its training academy. Every department sets its own age, education and residency rules."
+    for: "Fit, calm people with good judgment who want to protect their community and can work shifts."
+    soc: ["33-3021", "33-3031", "33-3051", "33-3052"]
+    does: { text: "Police officers protect lives and property. Detectives and criminal investigators gather facts and collect evidence of possible crimes.", source: ooh_qf_police }
+    work: { text: "Police and detective work can be physically demanding, stressful, and dangerous. Police and sheriff's patrol officers and transit and railroad police have some of the highest rates of injuries and illnesses of all occupations. Working around the clock in shifts is common.", source: ooh_qf_police }
+    become: { text: "The education typically required to enter the occupation ranges from a high school diploma to a college degree. Most police and detectives must graduate from their agency’s training academy before completing on-the-job training. Other requirements vary, but candidates usually must be at least 21 years old and able to meet rigorous physical and personal qualifications.", source: ooh_qf_police }
+    metrics: { pay: 77310, pay_hour: "37.17", pay_by: "Police and detectives", jobs: 824200, outlook: 3, outlook_words: "As fast as average", change: 24200, entry: "High school diploma to a college degree, depending on the agency", experience: "Detectives usually start as police officers", training: "Moderate-term on-the-job training", source: ooh_qf_police }
+    license_text: "Set by each agency"
+    routes:
+      - id: officer
+        title: "Diploma or college → department tests → academy → officer"
+        tag: "Typical"
+        who: "Some federal agencies and police departments want college coursework or a degree. A felony conviction or drug use may disqualify a candidate."
+        steps:
+          - { tag: "Start", title: "High school diploma or equivalent", text: "Many applicants have some college; common majors are security and protective service and social science.", kind: start, source: ooh_police }
+          - { tag: "Apply", title: "Meet the department's own rules", text: "Usually at least 21; most states and local jurisdictions require U.S. citizenship, federal agencies always do.", kind: stage, source: ooh_police }
+          - { tag: "Tests", title: "Written exam, physical tests, interviews", text: "Physical tests of vision, hearing, strength and agility; some agencies add a polygraph and a drug test.", kind: exam, source: ooh_police }
+          - { tag: "Academy", title: "The agency's training academy", text: "State and local laws, constitutional law, civil rights and ethics; patrol, traffic control, firearms, self-defense, first aid and emergency response.", kind: stage, source: ooh_police }
+          - { tag: "Goal", title: "Police officer", text: "After probation, promotion to corporal, sergeant, lieutenant and captain usually follows a written exam and job performance.", kind: goal, source: ooh_police }
+      - id: detective
+        title: "Police officer → detective, or a federal agent"
+        tag: "With experience"
+        who: "Because they need experience in law enforcement, detectives typically begin as police officers."
+        steps:
+          - { tag: "Start", title: "Police officer", text: "", kind: start, source: ooh_police }
+          - { tag: "Years", title: "Experience and promotion", text: "In large departments an officer may be promoted to detective.", kind: stage, source: ooh_police }
+          - { tag: "Goal", title: "Detective", text: "Federal agencies such as the FBI may require a bachelor's degree; FBI special agents need 2 years of full-time work, or 1 year plus a master's or higher.", kind: goal, source: ooh_police }
+      - id: cadet
+        title: "Too young to apply? Police cadet programs"
+        tag: "Age 18+"
+        who: "Some departments run cadet programs for people who do not yet meet the minimum age."
+        steps:
+          - { tag: "Start", title: "Age 18, driver's license", text: "", kind: start, source: ooh_police }
+          - { tag: "Cadet", title: "Clerical work and classes", text: "Until you reach the minimum age for the regular force.", kind: stage, source: ooh_police }
+          - { tag: "Goal", title: "Apply as an officer", text: "", kind: goal, source: ooh_police }
+    certs:
+      - { name: "Bachelor's degree for higher ranks", who: "Police departments", kind: "Employer may require", text: "Along with exam and performance scores, a bachelor's degree may be required for lieutenant or higher.", source: ooh_police }
+    states_title: "How three departments hire"
+    states_col: "Department"
+    states_note: "There is no national police exam: each city, county, state and federal agency hires on its own rules. Three large departments' own hiring pages, as examples only:"
+    states:
+      - place: "New York City"
+        body: "NYPD · exam run by NYC DCAS"
+        rule: "Multiple-choice exam from age 17 (70% to pass); appointed at 20½ or older and only if under 43 on the filing date (up to 6 years of military service can be deducted). By appointment: high school diploma plus 24 college credits with a 2.0 index, or 2 years of honorable full-time U.S. military service; U.S. citizen; New York State driver license; live in NYC or Nassau, Westchester, Suffolk, Orange, Rockland or Putnam County. Physical test, medical, psychological, drug and background checks. 2026–27 filing windows open every month, with no fee."
+        sources: [nypd_noe_7314]
+      - place: "Los Angeles"
+        body: "LAPD"
+        rule: "At least 20 to apply and 21 by academy graduation; no maximum age. U.S. high school diploma, GED or CHSPE (a 2- or 4-year degree can replace it). Legally authorized to work in the U.S.; you do not have to live in Los Angeles. Steps: application, multiple-choice test, physical abilities test, department interview, personal history statement, polygraph, medical, field investigation and psychological evaluation."
+        sources: [lapd_quals, lapd_home]
+      - place: "Chicago"
+        body: "Chicago Police Department"
+        rule: "Written exam from age 20 (Pearson VUE, at a test center or online); hired at 21 and before your 40th birthday. 60 semester hours of college, or 30 hours plus 1 year of active duty; 2 years of active duty or certain job experience can replace it. Illinois driver license with a Chicago address and a FOID card by the first academy day; no debts to the City. Then a history questionnaire, drug screen, Pre-POWER and final POWER fitness tests, background and polygraph, psychological and medical checks."
+        sources: [cpd_eligibility, cpd_process]
+
+  # 415,800 jobs
+  - slug: correctional-officer
+    short: "Correctional Officer & Bailiff"
+    title: "Correctional officer or bailiff: diploma, training academy, facility training"
+    eyebrow: "Public Service & Safety · Public Safety"
+    lede: "Correctional officers and bailiffs typically need a high school diploma and go through a training academy. Federal prisons ask for a bachelor's degree or years of related experience."
+    for: "Steady, disciplined people who stay calm under pressure and can work nights, weekends and holidays."
+    soc: ["33-3010"]
+    does: { text: "Correctional officers guard people in penal institutions and guard those in transit between jail, courtroom, prison, or other point. Bailiffs are law enforcement officers who maintain order in courtrooms.", source: ooh_qf_corrections }
+    work: { text: "Working in a correctional institution can be stressful and dangerous. Correctional officers work in shifts that cover all hours of the day and night, including weekends and holidays. Bailiffs usually work when court is in session.", source: ooh_qf_corrections }
+    become: { text: "Correctional officers and bailiffs typically need a high school diploma to enter their occupation. They typically go to a training academy and then are assigned to a facility, where they receive on-the-job training. Although qualifications vary by state and agency, many agencies have an age requirement for correctional officers. Some federal agencies also require officers to have a bachelor’s degree or related work experience.", source: ooh_qf_corrections }
+    metrics: { pay: 58850, pay_hour: "28.30", pay_by: "Bailiffs, correctional officers, and jailers", jobs: 415800, outlook: -7, outlook_words: "Decline", change: -29900, entry: "High school diploma or equivalent", training: "Moderate-term on-the-job training", source: ooh_qf_corrections }
+    license_text: "Some states"
+    routes:
+      - id: state
+        title: "State or local: diploma → academy → facility"
+        tag: "Typical"
+        who: "Many agencies set a minimum age for correctional officers, usually between 18 and 21."
+        steps:
+          - { tag: "Start", title: "High school diploma or equivalent", text: "", kind: start, source: ooh_corrections }
+          - { tag: "Academy", title: "Training academy", text: "Self-defense, institutional policies, regulations, operations and security procedures. Training varies by state.", kind: stage, source: ooh_corrections }
+          - { tag: "Certification", title: "State certification, in some states", text: "Check with your state's public safety or corrections agency.", kind: licence, source: ooh_corrections }
+          - { tag: "Goal", title: "Correctional officer", text: "Officers may shadow experienced officers at first, then advance to sergeant, lieutenant or captain, or join units such as hostage negotiation.", kind: goal, source: ooh_corrections }
+      - id: federal
+        title: "Federal Bureau of Prisons: degree or experience → USAJOBS"
+        tag: "Federal"
+        who: "The Federal Bureau of Prisons requires entry-level correctional officers to have a bachelor's degree or several years of experience in counseling, assistance or supervision. Federal agencies may set a maximum entry age."
+        steps:
+          - { tag: "Start", title: "Bachelor's degree, or several years of related experience", text: "", kind: start, source: ooh_corrections }
+          - { tag: "Apply", title: "Find the role on careers.bop.gov, apply through USAJOBS", text: "Upload your resume (2 pages at most), transcripts and any veterans' preference papers.", kind: stage, source: bop_hiring }
+          - { tag: "Checks", title: "Interview, background check, medical check", text: "BOP verifies U.S. citizenship and the age requirement; law enforcement positions also need a physical exam and drug test.", kind: exam, source: bop_hiring }
+          - { tag: "Goal", title: "Federal correctional officer", text: "", kind: goal, source: bop_hiring }
+    states_note: "Qualifications vary by state and agency. Some states require correctional officers to complete state certification: check with your state's public safety or corrections agency."
+    states_source: ooh_corrections
+
+  # 404,900 jobs
+  - slug: paralegal
+    short: "Paralegal & Legal Assistant"
+    title: "Paralegal or legal assistant: associate's degree or certificate in paralegal studies"
+    eyebrow: "Public Service & Safety · Judicial Systems"
+    lede: "Most paralegals have an associate's degree or a certificate in paralegal studies. Some employers prefer a bachelor's; others train people with a diploma and experience."
+    for: "Organized, detail-minded people who like research and writing and want to work in law without law school."
+    soc: ["23-2011"]
+    does: { text: "Paralegals and legal assistants support lawyers by performing a variety of tasks, such as maintaining and organizing files, conducting legal research, and drafting documents.", source: ooh_qf_paralegal }
+    work: { text: "Paralegals and legal assistants typically work in offices for a variety of employers, including law firms and government agencies. Most work full time.", source: ooh_qf_paralegal }
+    become: { text: "Paralegals and legal assistants typically need an associate’s degree or certificate in paralegal studies to enter the occupation. Some employers prefer to hire candidates who have a bachelor’s degree; others may consider candidates who have a high school diploma and experience.", source: ooh_qf_paralegal }
+    metrics: { pay: 62890, pay_hour: "30.24", pay_by: "Paralegals and legal assistants", jobs: 404900, outlook: 0, outlook_words: "Little or no change", change: -1100, entry: "Associate's degree", training: "None", source: ooh_qf_paralegal }
+    license_text: "None"
+    routes:
+      - id: associate
+        title: "Associate's degree in paralegal studies"
+        tag: "Common"
+        who: "Programs cover legal research, legal writing and the legal system, plus areas such as criminal, family or contract law."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_paralegal }
+          - { tag: "About 2 years", title: "Associate's in paralegal studies", text: "Programs are typically accredited by professional organizations.", kind: stage, source: ooh_paralegal }
+          - { tag: "Goal", title: "Paralegal or legal assistant", text: "", kind: goal, source: ooh_paralegal }
+      - id: certificate
+        title: "Bachelor's + paralegal certificate"
+        tag: "Some employers prefer"
+        who: "Many of these candidates major in social science or business and add a certificate in paralegal studies."
+        steps:
+          - { tag: "Start", title: "Bachelor's degree", text: "", kind: start, source: ooh_paralegal }
+          - { tag: "Certificate", title: "Paralegal studies certificate", text: "", kind: stage, source: ooh_paralegal }
+          - { tag: "Goal", title: "Paralegal", text: "", kind: goal, source: ooh_paralegal }
+      - id: onthejob
+        title: "Diploma and experience, trained on the job"
+        tag: "Some employers"
+        who: "Employers sometimes hire candidates with no legal experience or legal education and train them on the job."
+        steps:
+          - { tag: "Start", title: "High school diploma and work experience", text: "", kind: start, source: ooh_paralegal }
+          - { tag: "On the job", title: "Training from the employer", text: "", kind: stage, source: ooh_paralegal }
+          - { tag: "Goal", title: "Legal assistant", text: "", kind: goal, source: ooh_paralegal }
+    certs:
+      - { name: "Paralegal certification", who: "Professional associations", kind: "Voluntary", text: "Not required, but some employers prefer or require it. It usually means an exam with education and experience rules, and continuing education to keep it.", source: ooh_paralegal }
+
+  # 355,300 jobs
+  - slug: firefighter
+    short: "Firefighter"
+    title: "Firefighter: diploma, EMT, department tests and fire academy"
+    eyebrow: "Public Service & Safety · Emergency Response"
+    lede: "Firefighters typically need a high school diploma and emergency medical training, pass written and physical tests and train at a fire academy. Many departments want EMT certification."
+    for: "Fit, brave team players who stay calm in emergencies and can work 24-hour shifts."
+    soc: ["33-2011"]
+    does: { text: "Firefighters control and put out fires and respond to emergencies involving life, property, or the environment.", source: ooh_qf_firefighters }
+    work: { text: "On the scene of a fire or other emergency, firefighters’ work may be dangerous. On call at fire stations, firefighters sleep, eat, and perform other duties during shifts that often last 24 hours. Most paid firefighters work full time.", source: ooh_qf_firefighters }
+    become: { text: "Firefighters typically need a high school diploma and training in emergency medical services. Most firefighters receive training at a fire academy. Other credential requirements, such as emergency medical technician (EMT) certification, vary by state or locality.", source: ooh_qf_firefighters }
+    metrics: { pay: 59280, pay_hour: "28.50", pay_by: "Firefighters", jobs: 355300, outlook: 4, outlook_words: "As fast as average", change: 13100, entry: "Postsecondary nondegree award", training: "Long-term on-the-job training", source: ooh_qf_firefighters }
+    license_text: "EMT in many departments"
+    routes:
+      - id: career
+        title: "Diploma → EMT → department tests → fire academy"
+        tag: "Typical"
+        who: "Applicants typically must be at least 18 and have a valid driver's license, and pass a medical exam and drug screening to be hired."
+        steps:
+          - { tag: "Start", title: "High school diploma or equivalent", text: "", kind: start, source: ooh_firefighters }
+          - { tag: "Under 1 year", title: "EMT training", text: "Assessing patients, dealing with trauma and clearing airways. EMT rules vary by city and state.", kind: stage, source: ooh_firefighters, href: "us/careers/emt-paramedic/", link: "EMT career" }
+          - { tag: "License", title: "EMT certification, where the department asks for it", text: "", kind: licence, source: ooh_firefighters, href: "us/professional-licenses/emt/", link: "EMT license steps" }
+          - { tag: "Tests", title: "Written and physical tests, interviews", text: "", kind: exam, source: ooh_firefighters }
+          - { tag: "A few months", title: "Fire academy, then probation", text: "Firefighting and fire prevention, local building codes and emergency medical procedures.", kind: stage, source: ooh_firefighters }
+          - { tag: "Goal", title: "Firefighter", text: "Promotion runs engineer, lieutenant, captain, battalion chief, assistant chief, deputy chief and chief; above battalion chief many departments want a bachelor's in fire science or public administration.", kind: goal, source: ooh_firefighters }
+      - id: wildland
+        title: "Wildland firefighter apprenticeship"
+        tag: "Up to 4 years"
+        who: "Those who want to become wildland firefighters may attend apprenticeship programs that last up to 4 years."
+        steps:
+          - { tag: "Start", title: "High school diploma", text: "", kind: start, source: ooh_firefighters }
+          - { tag: "Up to 4 years", title: "Apprenticeship", text: "Instruction plus on-the-job training under experienced firefighters.", kind: stage, source: ooh_firefighters }
+          - { tag: "Goal", title: "Wildland firefighter", text: "", kind: goal, source: ooh_firefighters }
+      - id: volunteer
+        title: "Volunteer firefighter first"
+        tag: "Helps"
+        who: "Working as a volunteer firefighter may be helpful in getting a job as a career firefighter."
+        steps:
+          - { tag: "Start", title: "Volunteer firefighter", text: "", kind: start, source: ooh_firefighters }
+          - { tag: "Tests", title: "Written and physical tests, interviews, fire academy", text: "", kind: exam, source: ooh_firefighters }
+          - { tag: "Goal", title: "Career firefighter", text: "", kind: goal, source: ooh_firefighters }
+    certs:
+      - { name: "EMT or paramedic certification", who: "State EMS offices", kind: "Employer may require", text: "Fire departments may require EMT or paramedic certification; continuing education keeps it current.", source: ooh_firefighters }
+      - { name: "Commercial driver's license (CDL) or firefighter endorsement", who: "State driver licensing", kind: "State license", text: "Some states or localities require one to drive a fire truck.", source: ooh_firefighters }
+      - { name: "National Fire Academy courses", who: "Federal training sessions", kind: "Voluntary", text: "Anti-arson techniques, disaster preparedness, hazardous materials control and public fire safety.", source: ooh_firefighters }
+    states_title: "How three fire departments hire"
+    states_col: "Department"
+    states_note: "Fire departments hire on their own rules, so there is no single national standard. Three departments' own hiring pages, as examples only:"
+    states:
+      - place: "New York City"
+        body: "FDNY"
+        rule: "Apply for the written exam (offered about every four years) from 17½, before your 29th birthday at the start of the application period (military service can be subtracted, up to 7 years); 21 and a U.S. citizen by appointment; New York State driver's license; live in NYC or Nassau, Orange, Putnam, Rockland, Suffolk or Westchester County. Diploma plus 15 college credits, or honorable full-time military service, or 6 months of full-time paid work. Computer-based test, CPAT physical test, medical, psychological and background checks, then an 18-week Fire Academy; a CFR-D certificate by the end of probation."
+        sources: [fdny_ff]
+      - place: "Los Angeles"
+        body: "LAFD"
+        rule: "At least 18, no upper age limit; U.S. high school diploma, GED or CHSPE; legally allowed to work in the U.S. (LAFD does not sponsor visas). Pass the 4-hour Firefighter Candidate Assessment (FCA), then an interview; a current EMT or paramedic license and a Biddle Physical Agility Test (BPAT) result are needed for the pre-employment and background stages. California driver's license by appointment. 2026 applications ran 3 March to 30 April."
+        sources: [lafd_quals]
+      - place: "Houston"
+        body: "Houston Fire Department"
+        rule: "Two tracks. Non-certified cadets: 15 college hours or 2 years of active military service; about 9 months of academy, where Houston teaches basic fire and EMT certification. Certified cadets: Texas fire and/or EMT certification already, and a shorter academy. Both: 18 to apply, under 36 at the oath of office, 2 or fewer moving violations in 36 months."
+        sources: [hfd_reqs]

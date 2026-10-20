@@ -6,7 +6,8 @@
   the sub-clusters, optional `credentials` (Phase 3: certifications and licenses with their kind, each row sourced;
   kinds checked by scripts/check-us-data.mjs), an optional `small_business` block (Phase 4, Management &
   Entrepreneurship: SBA's free business guide steps and resource partners, no paid courses), an optional `public_sector` block (Public Service & Safety: USAJOBS and state/city hiring,
-  moved here from the USA Home on 2026-10-20, data in _data/us/home.yml) and the closely connected clusters.
+  moved here from the USA Home on 2026-10-20, data in _data/us/home.yml), its Phase 5 `service_routes` (Foreign Service,
+  enlisted age limits by service, officer routes; #service-routes) and the closely connected clusters.
   4+ h2[id] sections, so site.js builds the right rail and the phone chip rail; every block has data-no-points.
 {%- endcomment -%}
 {%- assign US = site.data.us -%}
@@ -221,7 +222,7 @@
           <tbody>
             {%- for j in PS.jobs %}
             <tr>
-              <td><strong>{{ j.name }}</strong></td>
+              <td><strong>{% if j.href %}<a href="{{ j.href }}">{{ j.name }}</a>{% else %}{{ j.name }}{% endif %}</strong></td>
               <td>{{ j.entry }}</td>
               <td>{{ j.steps }}</td>
               <td>{{ j.rules }} {% include us-src-chip.html id=j.source %}</td>
@@ -233,6 +234,65 @@
         </table>
       </div>
       <p class="table-note">Median annual pay, {{ V.wage_ref }}. Hiring steps differ by agency and department.</p>
+    </div>
+  </section>
+  {%- endif %}
+
+  {%- if C.public_sector and PS.service_routes %}
+  {%- assign SR = PS.service_routes %}
+  {%- if alt == "" %}{% assign alt = " block-alt" %}{% else %}{% assign alt = "" %}{% endif %}
+  <section class="block{{ alt }}" id="service-routes" aria-labelledby="service-heading" data-no-points>
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Serve the country</span>
+        <h2 id="service-heading">Foreign Service and the military</h2>
+        <p>The State Department and each armed service run their own selection, apart from USAJOBS. These are their entry routes as each one publishes them.</p>
+      </div>
+      <div class="usv-split">
+        <article class="usv-board">
+          <h3>{{ SR.foreign_service.name }} · {{ SR.foreign_service.by }}</h3>
+          <p>{{ SR.foreign_service.summary }} {% include us-src-chip.html id=SR.foreign_service.source %}</p>
+          <p class="usv-flag">{{ SR.foreign_service.rules }}</p>
+          <ol class="usc-steps">
+            {%- for st in SR.foreign_service.steps %}
+            <li><strong>{{ st.title }}.</strong> {{ st.text }}</li>
+            {%- endfor %}
+          </ol>
+          <p>{{ SR.foreign_service.tracks }}</p>
+          <a class="btn btn-primary btn-page-link" href="{{ SR.foreign_service.href }}" rel="noopener">Open careers.state.gov</a>
+        </article>
+        <article class="usv-board">
+          <h3>Enlisted member · all branches</h3>
+          <dl>
+            <div><dt>Who can join</dt><dd>{{ SR.enlisted.common }} {% include us-src-chip.html id=SR.enlisted.common_source %}</dd></div>
+            <div><dt>ASVAB</dt><dd>{{ SR.enlisted.asvab }}{% for s in SR.enlisted.asvab_sources %} {% include us-src-chip.html id=s %}{% endfor %}</dd></div>
+            <div><dt>Training</dt><dd>{{ SR.enlisted.training }} {% include us-src-chip.html id=SR.enlisted.training_source %}</dd></div>
+          </dl>
+        </article>
+      </div>
+      <h3 class="block-subhead">Enlisted age limits, from each service</h3>
+      <div class="table-wrap">
+        <table class="table-simple">
+          <thead><tr><th scope="col">Service</th><th scope="col">Age to enlist</th><th scope="col">Also</th></tr></thead>
+          <tbody>
+            {%- for a in SR.enlisted.ages %}
+            <tr><td><strong>{{ a.service }}</strong></td><td>{{ a.age }}</td><td>{{ a.note }} {% include us-src-chip.html id=a.source %}</td></tr>
+            {%- endfor %}
+          </tbody>
+        </table>
+      </div>
+      <h3 class="block-subhead">Ways to become an officer</h3>
+      <p class="table-note">{{ SR.officer.common }} {% include us-src-chip.html id=SR.officer.common_source %}</p>
+      <div class="table-wrap">
+        <table class="table-simple">
+          <thead><tr><th scope="col">Route</th><th scope="col">What it takes</th></tr></thead>
+          <tbody>
+            {%- for r in SR.officer.routes %}
+            <tr><td><strong>{{ r.name }}</strong></td><td>{{ r.text }} {% include us-src-chip.html id=r.source %}</td></tr>
+            {%- endfor %}
+          </tbody>
+        </table>
+      </div>
     </div>
   </section>
   {%- endif %}

@@ -94,6 +94,7 @@ public_sector:
     source: nys_civil_service
   jobs:
     - name: "Police officer"
+      href: "us/careers/police-officer/"
       entry: "High school diploma to a college degree, depending on the agency"
       steps: "Written exams and physical tests (vision, hearing, strength, agility), then the agency's training academy"
       rules: "Usually at least 21; most states and local jurisdictions require U.S. citizenship"
@@ -102,12 +103,56 @@ public_sector:
       outlook: 3
       source: ooh_police
     - name: "Firefighter"
+      href: "us/careers/firefighter/"
       entry: "High school diploma or equivalent"
       steps: "Written and physical tests and interviews, then fire academy training"
       rules: "Departments may also require EMT certification"
       pay: 59280
       outlook: 4
       source: ooh_firefighters
+  # Phase 5 (2026-10-20): Foreign Service and military entry routes, shown on the Public Service & Safety hub
+  # (#service-routes). Each fact is copied from the page its source names; enlisted age limits come from each
+  # service's own recruiting site (BLS's list is older: it still gives the Army 35).
+  service_routes:
+    foreign_service:
+      name: "Foreign Service Officer"
+      by: "U.S. Department of State"
+      summary: "As a U.S. Foreign Service Officer (FSO), you'll engage with foreign governments, advocate for U.S. interests, and shape global policy, at more than 270 embassies and consulates and in Washington, D.C."
+      source: state_fs
+      rules: "U.S. citizen, at least 20 and under 60, willing to serve anywhere in the world. No specific degree and no foreign language are required first."
+      steps:
+        - { title: "Foreign Service Officer Test (FSOT)", text: "Multiple choice: general knowledge, English grammar, U.S. history and foreign policy, and logical reasoning. In 2026 it is given quarterly; registration opens one month before each test." }
+        - { title: "Oral Assessment", text: "A two-part written and oral exam of general knowledge, analytical and negotiation skills." }
+        - { title: "Medical and security clearances", text: "Background and medical checks for service at high-risk posts." }
+        - { title: "Final review panel", text: "The Department decides final suitability." }
+      tracks: "Five career tracks: Consular, Economic, Management, Political and Public Diplomacy."
+      href: "https://careers.state.gov/fs/"
+    enlisted:
+      common: "Common to all branches: at least 17 (with a parent's consent at 17), a U.S. citizen or permanent resident, a high school diploma or equivalent, no felony conviction, and a medical exam."
+      common_source: ooh_military
+      asvab: "Enlisted recruits take the ASVAB. The AFQT score that decides eligibility comes from four subtests (Arithmetic Reasoning, Mathematics Knowledge, Paragraph Comprehension, Word Knowledge) and is a percentile from 1 to 99. A recruiter can schedule the ASVAB with no obligation to join, and many high schools offer it."
+      asvab_sources: [asvab_scores, ooh_military]
+      training: "Most first enlistments are 4 years. Basic training lasts 7 to 13 weeks, then technical school about 10 to 20 weeks for your military job."
+      training_source: ooh_military
+      ages:
+        - { service: "Army", age: "17 to 42", note: "Minimum score on the Army's entrance test.", source: army_reqs }
+        - { service: "Navy", age: "17 to 41", note: "Qualifying ASVAB score and the MEPS medical exam.", source: navy_reqs }
+        - { service: "Air Force", age: "17 until your 42nd birthday", note: "17 to 48 for healthcare or ministry professionals.", source: af_join }
+        - { service: "Marine Corps", age: "17 to 28", note: "High school diploma or GED; background check.", source: usmc_reqs }
+        - { service: "Space Force", age: "17 to 42", note: "U.S. citizen and a qualifying ASVAB score; apply through an Air Force recruiter.", source: ussf_enlisted }
+        - { service: "Coast Guard", age: "BLS lists 41", note: "The Coast Guard's own eligibility page did not load its enlisted tab for us; confirm with a recruiter.", source: ooh_military }
+    officer:
+      common: "Officers typically need at least a bachelor's degree, U.S. citizenship, a background check and the physical and age rules; they do not take the ASVAB."
+      common_source: ooh_military
+      routes:
+        - { name: "Service academy", text: "A free bachelor's degree with a commission and typically a 5-year active-duty obligation. Candidates must be unmarried with no dependents and, except at the Coast Guard Academy, nominated, usually by a member of Congress.", source: ooh_military }
+        - { name: "West Point (Army)", text: "U.S. citizen, 17 to 22 on 1 July of the admission year, unmarried, no legal duty to support children. SAT, ACT or CLT, a fitness assessment, a DoDMERB medical exam and a nomination from your Senators, Representative or the Vice President.", source: usma_steps }
+        - { name: "Naval Academy (Navy, Marine Corps)", text: "U.S. citizen by 1 July of the entry year, at least 17 and not past your 23rd birthday on 1 July, unmarried, no dependents; apply for a nomination.", source: usna_apply }
+        - { name: "Coast Guard Academy", text: "Admission is on merit; congressional nominations are not required or considered.", source: uscga_admissions }
+        - { name: "ROTC", text: "Regular college classes plus 3 to 5 hours of military instruction a week; competitive 2-, 3- and 4-year scholarships. Graduates serve on active duty or in the Reserves or National Guard.", source: ooh_military }
+        - { name: "OCS / OTS", text: "For college graduates: several weeks of academic, physical and leadership training.", source: ooh_military }
+        - { name: "Marine Corps officer", text: "A four-year college degree by commissioning, U.S. citizen, at least 20; talk to an Officer Selection Officer.", source: usmc_reqs }
+        - { name: "Direct appointment", text: "Lawyers (Judge Advocate General's Corps), chaplains and health professionals; the Uniformed Services University gives a free M.D. for at least 7 years of service.", source: ooh_military }
 
 # Corrections to common claims, shown on the home so students are not misled.
 corrections:

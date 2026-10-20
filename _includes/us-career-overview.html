@@ -11,12 +11,13 @@
     does      { text, source }   BLS OOH Summary, "What they do" (verbatim)
     work      { text, source }   BLS OOH Summary, "Work environment" (verbatim)
     become    { text, source }   BLS OOH Summary, "How to become one" (verbatim)
-    metrics   { pay, pay_hour, pay_by?, jobs, outlook, outlook_words, change, entry, experience?, training, source }
+    metrics   { pay, pay_hour (null when BLS gives only an annual wage, e.g. teachers), pay_by?, jobs, outlook, outlook_words, change, entry, experience?, training, source }
     license   id in _data/us/licenses.yml (button to us/professional-licenses/<id>/) or license_text (short words for the
               hub matrix, e.g. "Some states"; the page adds states_note after it)
     exams     [{ name, href }]  only exam pages that exist (verify-site fails on a dead href)
     colleges  optional href of a verified colleges list (Master Plan Phase 13)
-    routes, certs, states_note, states_source, states | states_from, watch   roadmap content (_includes/intl-roadmap.html, `career: true`)
+    routes, certs, states_note, states_source, states | states_from, states_title?, states_col?, watch   roadmap content
+              (states_title / states_col rename the matrix, e.g. police and fire: real departments' hiring pages as examples) (_includes/intl-roadmap.html, `career: true`)
   Five h2[id] sections, so site.js builds the right rail (>=900px) and the chip rail (<900px).
 {%- endcomment -%}
 {%- assign US = site.data.us -%}
@@ -81,7 +82,7 @@
     <div class="container">
       <div class="md-sec-head"><h2 id="numbers-h">Key numbers</h2><p>U.S. Bureau of Labor Statistics, Occupational Outlook Handbook, pay for {{ V.wage_ref }}{% if XM.pay_by %} ({{ XM.pay_by | downcase }}){% endif %}.</p></div>
       <dl class="md-kv" data-no-points>
-        <div><dt>Median pay</dt><dd>{% include fmt-num.html n=XM.pay prefix="$" %} a year (${{ XM.pay_hour }} an hour) {% include us-src-chip.html id=XM.source %}</dd></div>
+        <div><dt>Median pay</dt><dd>{% include fmt-num.html n=XM.pay prefix="$" %} a year{% if XM.pay_hour %} (${{ XM.pay_hour }} an hour){% endif %} {% include us-src-chip.html id=XM.source %}</dd></div>
         <div><dt>Jobs in {{ V.wage_year }}</dt><dd>{% include fmt-num.html n=XM.jobs %}</dd></div>
         <div><dt>Typical entry</dt><dd>{{ XM.entry }}</dd></div>
         {%- if XM.experience %}

@@ -19,9 +19,11 @@
   links only. A group is picked by click / tap / arrow keys, never by hover; site.js moves .is-on between
   .hh-tab and the .hh-col its aria-controls names. More than 10 groups (states) sit in two
   short columns in column 2 (.hh-tabbed-2). Narrow: the groups are a sideways pill line above the list.
+  Column 3 cells (.hh-cell, cascade nodes only): each link is a ruled cell in a grid — mono index, name, its
+  one-line desc shown (instead of a title tooltip), mono arrow — so a long group reads as a scannable board.
 {%- endcomment -%}
 {%- assign hh_cur = page.url | remove_first: "/" -%}
-<nav class="in-header-hubs" aria-label="India menu">
+<nav class="in-header-hubs" aria-label="India menu" data-no-points>
   <div class="container">
     <ul class="hh-row">
       {%- for it in site.data.nav.topnav %}
@@ -65,7 +67,11 @@
                     <p class="hh-col-head">{% if col.icon %}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{{ col.icon }}</svg>{% endif %}{{ col.label | replace: "&", "&amp;" }}</p>
                     <ul>
                       {%- for c in col.links %}
+                      {%- if n_tab %}
+                      <li><a class="hh-link hh-cell" href="{{ c.href }}"{% if hh_cur == c.href %} aria-current="page"{% endif %}><span class="hh-cell-txt"><span class="hh-cell-name">{{ c.label | replace: "&", "&amp;" }}</span>{% if c.desc %}<small class="hh-cell-desc">{{ c.desc | replace: "&", "&amp;" }}</small>{% endif %}</span></a></li>
+                      {%- else %}
                       <li><a class="hh-link" href="{{ c.href }}"{% if c.desc %} title="{{ c.desc | replace: '&', '&amp;' | replace: '"', '&quot;' }}"{% endif %}{% if hh_cur == c.href %} aria-current="page"{% endif %}><span>{{ c.label | replace: "&", "&amp;" }}</span></a></li>
+                      {%- endif %}
                       {%- endfor %}
                     </ul>
                   </div>

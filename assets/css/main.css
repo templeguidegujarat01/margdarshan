@@ -411,7 +411,7 @@ html.nav-locked{overflow:hidden;}
 }
 /* Touch / narrow: accordion inside a panel that scrolls itself (never the page sideways). */
 @media not all and (min-width:1024px) and (hover:hover){
-  .hh-panel.hh-mega{width:min(560px,calc(100% - 2.5rem));max-width:none;max-height:min(75vh,640px);overflow-y:auto;overscroll-behavior-y:contain;}
+  .hh-panel.hh-mega{grid-template-columns:minmax(0,1fr);width:min(560px,calc(100% - 2.5rem));max-width:none;max-height:min(75vh,640px);overflow-y:auto;overscroll-behavior-y:contain;}
   .hh-node + .hh-node{border-top:1px solid var(--line);}
   .hh-node.is-on > .hh-sub-btn .hh-sub-arrow{transform:rotate(90deg);}
   .hh-node.is-on > .hh-grid{padding:.25rem .25rem .5rem;}
@@ -432,10 +432,36 @@ html.nav-locked{overflow:hidden;}
 .hh-tab.is-on{border-color:var(--stream-border);background:var(--stream-soft);color:var(--link);box-shadow:inset 0 0 0 1px var(--stream-border);}
 .hh-tab.is-on .hh-tab-n{background:var(--gold);color:#241703;}
 .hh-tab:focus-visible{outline:2px solid var(--link);outline-offset:2px;}
-.hh-tabbed .hh-cols{columns:auto;display:grid;}
+.hh-tabbed .hh-cols{columns:auto;display:grid;grid-template-columns:minmax(0,1fr);}
 .hh-tabbed .hh-col{grid-area:1 / 1;margin:0;}
 .hh-tabbed .hh-col-head{display:none;}
-.hh-tabbed .hh-col ul{column-width:11rem;column-gap:.75rem;}
+/* Column 3 board: the picked group's links as ruled cells in an auto-fill grid. Each cell is mono index | name
+   over its one-line desc | mono arrow. Hover / focus only change colours and slide the arrow (transform), so the
+   cells never resize and nothing around them moves. The open page's cell carries a gold inset bar. */
+.hh-tabbed .hh-col ul{display:grid;grid-template-columns:repeat(auto-fill,minmax(11.5rem,1fr));gap:6px;counter-reset:hh-cell;}
+.hh-tabbed .hh-col li{display:flex;min-width:0;counter-increment:hh-cell;}
+.hh-panel .hh-col a.hh-cell{flex:1;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:start;column-gap:.6rem;min-height:44px;padding:.45rem .65rem .45rem .6rem;border:1px solid var(--line);border-radius:8px;background:var(--surface);font-family:var(--font-sans);font-size:.88rem;font-weight:600;line-height:1.3;color:var(--text);transition:background-color .15s var(--ease),border-color .15s var(--ease),color .15s var(--ease);}
+.hh-cell::before{content:counter(hh-cell,decimal-leading-zero);content:counter(hh-cell,decimal-leading-zero) / "";align-self:start;padding-top:.12rem;font-family:var(--font-mono);font-size:.68rem;font-weight:600;letter-spacing:.02em;color:var(--text-muted);font-variant-numeric:tabular-nums;transition:color .15s var(--ease);}
+.hh-cell::after{align-self:center;content:"→";content:"→" / "";font-family:var(--font-mono);font-size:.8rem;color:var(--text-muted);opacity:.55;transition:transform .15s var(--ease),color .15s var(--ease),opacity .15s var(--ease);}
+.hh-panel .hh-col a.hh-cell > .hh-cell-txt{display:grid;gap:.1rem;min-width:0;transform:none;}
+.hh-panel a.hh-cell span{font-size:inherit;color:inherit;}
+.hh-cell-name{overflow-wrap:anywhere;}
+.hh-panel .hh-cell-desc{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;font-size:.74rem;font-weight:500;line-height:1.3;color:var(--text-muted);}
+.hh-panel .hh-col a.hh-cell:hover,.hh-panel .hh-col a.hh-cell:focus-visible{background:rgba(201,127,30,.08);background:color-mix(in srgb,var(--gold) 9%,var(--surface));border-color:var(--stream-border);color:var(--link);}
+.hh-panel .hh-col a.hh-cell:hover > span,.hh-panel .hh-col a.hh-cell:focus-visible > span{transform:none;}
+.hh-cell:hover::before,.hh-cell:focus-visible::before,.hh-cell:hover::after,.hh-cell:focus-visible::after{color:var(--gold);opacity:1;}
+.hh-cell:hover::after,.hh-cell:focus-visible::after{transform:translateX(3px);}
+.hh-panel .hh-col a.hh-cell:focus-visible{outline:2px solid var(--link);outline-offset:1px;}
+.hh-panel .hh-col a.hh-cell[aria-current="page"]{border-color:var(--stream-border);background:var(--stream-soft);box-shadow:inset 3px 0 0 var(--gold);}
+/* A freshly picked group's cells fade up in a short cascade (opacity + transform only). */
+.hh-tabbed .hh-col.is-on li{animation:hh-cell-in .22s var(--ease) both;}
+.hh-tabbed .hh-col.is-on li:nth-child(2){animation-delay:.02s;}
+.hh-tabbed .hh-col.is-on li:nth-child(3){animation-delay:.04s;}
+.hh-tabbed .hh-col.is-on li:nth-child(4){animation-delay:.06s;}
+.hh-tabbed .hh-col.is-on li:nth-child(5){animation-delay:.08s;}
+.hh-tabbed .hh-col.is-on li:nth-child(n+6){animation-delay:.1s;}
+@keyframes hh-cell-in{from{opacity:0;transform:translateY(3px);}to{opacity:1;transform:none;}}
+@media (prefers-reduced-motion:reduce){.hh-tabbed .hh-col.is-on li{animation:none;}.hh-cell,.hh-cell::before,.hh-cell::after{transition:none !important;}.hh-cell:hover::after,.hh-cell:focus-visible::after{transform:none;}}
 @media (min-width:1024px) and (hover:hover){
   /* The panel never grows past the viewport: past 80vh it scrolls inside itself, so the page under it never shifts. */
   .hh-panel.hh-mega{max-height:80vh;overflow-y:auto;overscroll-behavior-y:contain;}
@@ -460,7 +486,13 @@ html.nav-locked{overflow:hidden;}
   .hh-tabs::-webkit-scrollbar{display:none;}
   .hh-tab{flex-shrink:0;min-height:36px;}
   .hh-tabbed .hh-col:not(.is-on){display:none;}
-  .hh-tabbed .hh-col ul{column-width:9rem;}
+  .hh-tabbed .hh-col ul{grid-template-columns:repeat(auto-fill,minmax(12rem,1fr));}
+}
+@media (max-width:640px){
+  /* Phones: name only, so two cells fit a row and a long group stays short. */
+  .hh-panel .hh-cell-desc{display:none;}
+  .hh-tabbed .hh-col ul{grid-template-columns:repeat(auto-fill,minmax(9.5rem,1fr));}
+  .hh-panel .hh-col a.hh-cell{column-gap:.45rem;padding:.4rem .5rem;font-size:.85rem;}
 }
 @media (prefers-reduced-motion:reduce){.hh-tab,.hh-tab::before{transition:none !important;}}
 

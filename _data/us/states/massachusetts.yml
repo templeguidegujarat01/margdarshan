@@ -1,0 +1,26 @@
+# Massachusetts (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
+# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
+# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
+# the page prints only the blocks that exist.
+name: "Massachusetts"
+abbr: MA
+checked: 2026-10-22
+review_by: 2027-04-22
+lede: "In Massachusetts, the Massachusetts Board of Bar Examiners handles bar admission for lawyers, the Massachusetts Board of Registration in Medicine licenses physicians, the Massachusetts Board of Public Accountancy licenses CPAs and the Massachusetts Board of Registration in Nursing licenses registered nurses."
+
+boards:
+  # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),
+  # board of accountancy (NASBA directory), board of nursing (NCSBN member page). Links checked 2026-10-22.
+  law: { body: "Massachusetts Board of Bar Examiners", url: "https://www.mass.gov/orgs/massachusetts-board-of-bar-examiners", stat: "UBE", exam: "Uniform Bar Exam (MBE, MEE and MPT).", note: "MPRE required (passing score 85). NextGen UBE from July 2028.", src: ncbe_ma }
+  medicine:
+    src: fsmb_boards
+    boards:
+      - { body: "Massachusetts Board of Registration in Medicine", url: "https://www.mass.gov/orgs/board-of-registration-in-medicine" }
+  cpa:
+    src: nasba_boards
+    boards:
+      - { body: "Massachusetts Board of Public Accountancy", url: "https://www.mass.gov/orgs/board-of-public-accountancy" }
+  nursing:
+    src: ncsbn_ma
+    boards:
+      - { body: "Massachusetts Board of Registration in Nursing", url: "https://www.mass.gov/orgs/board-of-registration-in-nursing" }

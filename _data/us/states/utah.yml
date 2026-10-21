@@ -1,0 +1,26 @@
+# Utah (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
+# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
+# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
+# the page prints only the blocks that exist.
+name: "Utah"
+abbr: UT
+checked: 2026-10-22
+review_by: 2027-04-22
+lede: "In Utah, the Utah State Bar handles bar admission for lawyers, the Utah Medical Licensing Board licenses physicians, the Utah Board of Accountancy licenses CPAs and the Utah Board of Nursing and Certified Nurse Midwives licenses registered nurses."
+
+boards:
+  # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),
+  # board of accountancy (NASBA directory), board of nursing (NCSBN member page). Links checked 2026-10-22.
+  law: { body: "Utah State Bar", url: "https://www.utahbar.org", stat: "UBE", exam: "Uniform Bar Exam (MBE, MEE and MPT).", note: "MPRE required (passing score 86). NextGen UBE from July 2028.", src: ncbe_ut }
+  medicine:
+    src: fsmb_boards
+    boards:
+      - { body: "Utah Medical Licensing Board", url: "https://commerce.utah.gov/dopl/physician-and-surgeon/" }
+  cpa:
+    src: nasba_boards
+    boards:
+      - { body: "Utah Board of Accountancy", url: "https://commerce.utah.gov/dopl/accountancy/" }
+  nursing:
+    src: ncsbn_ut
+    boards:
+      - { body: "Utah Board of Nursing and Certified Nurse Midwives", url: "https://commerce.utah.gov/dopl/nursing/" }

@@ -14,6 +14,9 @@
 #   apprenticeship { office, url, kind: SAA | OA | both, line, src, oa_src }
 #   licenses   (Phase 12) { <licenses.yml id or cte_careers.yml trade slug>: { body, req, exam, fee, renewal, sources [] } }
 #              Rows already in licenses.yml boards / cte_careers.yml states for the same place are not repeated here.
+#   boards     (50-state portal, 2026-10-22; every file) { law {body, url, stat, exam, note, src: ncbe_<abbr>},
+#              medicine|cpa|nursing {src, boards [{body, url}]} } from the NCBE, FSMB, NASBA and NCSBN directories.
+#              A boards-tier file (lede + boards, no diploma) gets a licensing-boards page; adding diploma requires every block.
 # Pages: scripts/build-us-states.mjs [--check] writes us/states/index.html, us/states/<slug>/index.html and
 # us/states/<slug>/licenses.html. scripts/check-us-data.mjs validates the files.
 as_of: 2026-10-21

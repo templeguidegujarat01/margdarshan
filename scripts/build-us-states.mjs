@@ -1,6 +1,7 @@
 // USA Edition, States hub (USA Master Plan Phase 11 + 12, 2026-10-21): writes the page stubs for
 //   us/states/index.html                 the hub, all 51 jurisdictions A to Z     (_includes/us-states-hub.html)
 //   us/states/<slug>/index.html          one page per state with a data file      (_includes/us-state-page.html)
+//                                        (all 51 since 2026-10-22; boards-tier files get a licensing-boards title)
 //   us/states/<slug>/licenses.html       that state's license rows (Phase 12)     (_includes/us-state-licenses.html)
 // from _data/us/state_index.yml and _data/us/states/<slug>.yml.
 //   VERIFY_DEPS=<dir containing node_modules with js-yaml> node scripts/build-us-states.mjs [--check]
@@ -46,8 +47,12 @@ for (const slug of built) {
   const S = yaml.load(fs.readFileSync(path.join(dataDir, slug + '.yml'), 'utf8'));
   const n = S.name;
   const k12 = S.k12_test ? S.k12_test.name : 'state tests';
+  // Boards-tier states (50-state portal, 2026-10-22) have no diploma block yet: the page is their licensing boards.
+  const title = S.diploma
+    ? `${esc(n)}: Diploma Requirements, ${esc(k12)}, In-State Tuition, Aid and State Jobs | Education Margdarshan USA`
+    : `${esc(n)} Licensing Boards: Bar Admission, Medical Board, Board of Accountancy, Nursing | Education Margdarshan USA`;
   put(`us/states/${slug}/index.html`, `---
-title: "${esc(n)}: Diploma Requirements, ${esc(k12)}, In-State Tuition, Aid and State Jobs | Education Margdarshan USA"
+title: "${title}"
 description: "${esc(S.lede)}"
 og_type: "article"
 state: ${slug}

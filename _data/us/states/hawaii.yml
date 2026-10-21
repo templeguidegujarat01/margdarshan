@@ -1,0 +1,26 @@
+# Hawaii (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
+# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
+# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
+# the page prints only the blocks that exist.
+name: "Hawaii"
+abbr: HI
+checked: 2026-10-22
+review_by: 2027-04-22
+lede: "In Hawaii, the Board of Examiners, Supreme Court of the State of Hawaii handles bar admission for lawyers, the Hawaii Medical Board licenses physicians, the Hawaii Board of Public Accountancy licenses CPAs and the Hawaii Board of Nursing licenses registered nurses."
+
+boards:
+  # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),
+  # board of accountancy (NASBA directory), board of nursing (NCSBN member page). Links checked 2026-10-22.
+  law: { body: "Board of Examiners, Supreme Court of the State of Hawaii", url: "https://www.courts.state.hi.us", stat: "State exam", exam: "Hawaii's own bar exam with the MBE, MEE and MPT.", note: "MPRE required (passing score 85). NextGen UBE from July 2028.", src: ncbe_hi }
+  medicine:
+    src: fsmb_boards
+    boards:
+      - { body: "Hawaii Medical Board", url: "https://cca.hawaii.gov/pvl/boards/medical/" }
+  cpa:
+    src: nasba_boards
+    boards:
+      - { body: "Hawaii Board of Public Accountancy", url: "https://cca.hawaii.gov/pvl/boards/accountancy/" }
+  nursing:
+    src: ncsbn_hi
+    boards:
+      - { body: "Hawaii Board of Nursing", url: "https://cca.hawaii.gov/pvl/boards/nursing/" }

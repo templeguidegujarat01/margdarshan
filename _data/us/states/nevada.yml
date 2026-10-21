@@ -1,0 +1,27 @@
+# Nevada (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
+# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
+# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
+# the page prints only the blocks that exist.
+name: "Nevada"
+abbr: NV
+checked: 2026-10-22
+review_by: 2027-04-22
+lede: "In Nevada, the State Bar of Nevada handles bar admission for lawyers, the Nevada State Board of Medical Examiners and Nevada State Board of Osteopathic Medicine license physicians, the Nevada State Board of Accountancy licenses CPAs and the Nevada State Board of Nursing licenses registered nurses."
+
+boards:
+  # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),
+  # board of accountancy (NASBA directory), board of nursing (NCSBN member page). Links checked 2026-10-22.
+  law: { body: "State Bar of Nevada", url: "https://www.nvbar.org", stat: "State exam", exam: "Nevada's own bar exam with the MBE.", note: "MPRE required (passing score 85).", src: ncbe_nv }
+  medicine:
+    src: fsmb_boards
+    boards:
+      - { body: "Nevada State Board of Medical Examiners", url: "https://medboard.nv.gov/" }
+      - { body: "Nevada State Board of Osteopathic Medicine", url: "https://bom.nv.gov/" }
+  cpa:
+    src: nasba_boards
+    boards:
+      - { body: "Nevada State Board of Accountancy", url: "https://nvaccountancy.com/" }
+  nursing:
+    src: ncsbn_nv
+    boards:
+      - { body: "Nevada State Board of Nursing", url: "https://nevadanursingboard.org/" }

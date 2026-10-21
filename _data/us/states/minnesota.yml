@@ -1,0 +1,26 @@
+# Minnesota (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
+# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
+# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
+# the page prints only the blocks that exist.
+name: "Minnesota"
+abbr: MN
+checked: 2026-10-22
+review_by: 2027-04-22
+lede: "In Minnesota, the Minnesota State Board of Law Examiners handles bar admission for lawyers, the Minnesota Board of Medical Practice licenses physicians, the Minnesota State Board of Accountancy licenses CPAs and the Minnesota Board of Nursing licenses registered nurses."
+
+boards:
+  # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),
+  # board of accountancy (NASBA directory), board of nursing (NCSBN member page). Links checked 2026-10-22.
+  law: { body: "Minnesota State Board of Law Examiners", url: "https://www.ble.mn.gov", stat: "UBE", exam: "Uniform Bar Exam (MBE, MEE and MPT).", note: "MPRE required (passing score 85). NextGen UBE from July 2027.", src: ncbe_mn }
+  medicine:
+    src: fsmb_boards
+    boards:
+      - { body: "Minnesota Board of Medical Practice", url: "https://mn.gov/boards/medical-practice/" }
+  cpa:
+    src: nasba_boards
+    boards:
+      - { body: "Minnesota State Board of Accountancy", url: "https://www.boa.state.mn.us/" }
+  nursing:
+    src: ncsbn_mn
+    boards:
+      - { body: "Minnesota Board of Nursing", url: "https://mn.gov/boards/nursing/" }

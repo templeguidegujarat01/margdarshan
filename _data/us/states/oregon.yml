@@ -1,0 +1,26 @@
+# Oregon (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
+# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
+# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
+# the page prints only the blocks that exist.
+name: "Oregon"
+abbr: OR
+checked: 2026-10-22
+review_by: 2027-04-22
+lede: "In Oregon, the Oregon State Board of Bar Examiners handles bar admission for lawyers, the Oregon Medical Board licenses physicians, the Oregon Board of Accountancy licenses CPAs and the Oregon State Board of Nursing licenses registered nurses."
+
+boards:
+  # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),
+  # board of accountancy (NASBA directory), board of nursing (NCSBN member page). Links checked 2026-10-22.
+  law: { body: "Oregon State Board of Bar Examiners", url: "https://www.osbar.org", stat: "NextGen UBE", exam: "NextGen UBE.", note: "MPRE required (passing score 85).", src: ncbe_or }
+  medicine:
+    src: fsmb_boards
+    boards:
+      - { body: "Oregon Medical Board", url: "https://www.oregon.gov/omb" }
+  cpa:
+    src: nasba_boards
+    boards:
+      - { body: "Oregon Board of Accountancy", url: "https://www.oregon.gov/boa/" }
+  nursing:
+    src: ncsbn_or
+    boards:
+      - { body: "Oregon State Board of Nursing", url: "https://www.oregon.gov/osbn" }

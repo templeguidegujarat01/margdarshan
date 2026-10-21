@@ -1,0 +1,26 @@
+# Connecticut (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
+# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
+# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
+# the page prints only the blocks that exist.
+name: "Connecticut"
+abbr: CT
+checked: 2026-10-22
+review_by: 2027-04-22
+lede: "In Connecticut, the Connecticut Bar Examining Committee handles bar admission for lawyers, the Connecticut Medical Examining Board licenses physicians, the Connecticut State Board of Accountancy licenses CPAs and the Connecticut Board of Nurse Licensure licenses registered nurses."
+
+boards:
+  # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),
+  # board of accountancy (NASBA directory), board of nursing (NCSBN member page). Links checked 2026-10-22.
+  law: { body: "Connecticut Bar Examining Committee", url: "https://ctbaradmissions.jud.ct.gov", stat: "NextGen UBE", exam: "NextGen UBE.", note: "MPRE required (passing score 80).", src: ncbe_ct }
+  medicine:
+    src: fsmb_boards
+    boards:
+      - { body: "Connecticut Medical Examining Board", url: "https://portal.ct.gov/DPH/Public-Health-Hearing-Office/Connecticut-Medical-Examining-Board/Connecticut-Medical-Examining-Board" }
+  cpa:
+    src: nasba_boards
+    boards:
+      - { body: "Connecticut State Board of Accountancy", url: "https://portal.ct.gov/dcp/occupational-and-professional-division/occupational-boards/state-board-of-accountancy" }
+  nursing:
+    src: ncsbn_ct
+    boards:
+      - { body: "Connecticut Board of Nurse Licensure", url: "https://portal.ct.gov/dph/practitioner-licensing--investigations/registered-nurse/registered-nurse-licensure" }

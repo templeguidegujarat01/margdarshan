@@ -1,0 +1,26 @@
+# Wyoming (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
+# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
+# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
+# the page prints only the blocks that exist.
+name: "Wyoming"
+abbr: WY
+checked: 2026-10-22
+review_by: 2027-04-22
+lede: "In Wyoming, the Wyoming Board of Law Examiners handles bar admission for lawyers, the Wyoming Board of Medicine licenses physicians, the Wyoming Board of Certified Public Accountants licenses CPAs and the Wyoming State Board of Nursing licenses registered nurses."
+
+boards:
+  # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),
+  # board of accountancy (NASBA directory), board of nursing (NCSBN member page). Links checked 2026-10-22.
+  law: { body: "Wyoming Board of Law Examiners", url: "https://www.wyomingbar.org", stat: "UBE", exam: "Uniform Bar Exam (MBE, MEE and MPT).", note: "MPRE required (passing score 85). NextGen UBE from July 2027.", src: ncbe_wy }
+  medicine:
+    src: fsmb_boards
+    boards:
+      - { body: "Wyoming Board of Medicine", url: "https://wyomedboard.wyo.gov/" }
+  cpa:
+    src: nasba_boards
+    boards:
+      - { body: "Wyoming Board of Certified Public Accountants", url: "https://cpaboard.wyo.gov/home" }
+  nursing:
+    src: ncsbn_wy
+    boards:
+      - { body: "Wyoming State Board of Nursing", url: "https://wsbn.wyo.gov/" }

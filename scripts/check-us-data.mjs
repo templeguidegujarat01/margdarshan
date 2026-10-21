@@ -683,7 +683,29 @@ for (const f of stFiles) {
   if (S.name !== row.name || S.abbr !== row.abbr) err(w, `name/abbr must match state_index (${row.name}, ${row.abbr})`);
   if (!isDate(S.checked) || !isDate(S.review_by)) err(w, 'needs checked and review_by dates');
   else if (immIso(S.review_by) < immToday) err(w, `review_by ${immIso(S.review_by)} has passed: re-check the state's pages`);
-  for (const k of ['lede', 'diploma', 'k12_test', 'colleges', 'residency', 'aid', 'jobs', 'apprenticeship']) if (!S[k]) err(w, `missing ${k}`);
+  // 50-state portal (2026-10-22): every file has `boards` (bar, medical, accountancy, nursing boards, each from a
+  // national directory source). A boards-tier file (no diploma block yet) needs only lede + boards; once a file has a
+  // diploma block, every Phase 11 block is required.
+  if (!S.lede) err(w, 'missing lede');
+  const BD = S.boards || {};
+  if (!S.boards) err(w, 'missing boards (bar admission, medical, accountancy and nursing boards)');
+  else {
+    const L = BD.law || {};
+    if (!L.body || !/^https?:\/\//.test(L.url || '') || !L.stat || !L.exam) err(`${w}.boards.law`, 'needs body, url, stat and exam');
+    needSrc(`${w}.boards.law`, L.src);
+    for (const k of ['medicine', 'cpa', 'nursing']) {
+      const G = BD[k] || {};
+      needSrc(`${w}.boards.${k}`, G.src);
+      if (!(G.boards || []).length) err(`${w}.boards.${k}`, 'needs at least one board');
+      (G.boards || []).forEach((b, i) => { if (!b.body || !/^https?:\/\//.test(b.url || '')) err(`${w}.boards.${k}[${i}]`, 'needs body and url'); });
+    }
+  }
+  if (!S.diploma) {
+    for (const k of ['k12_test', 'colleges', 'residency', 'aid', 'jobs', 'apprenticeship', 'licenses']) if (S[k]) err(w, `boards-tier file has ${k} but no diploma block: add the full Phase 11 set`);
+    if (!fs.existsSync(path.join(root, 'us/states', slug, 'index.html'))) err(w, `us/states/${slug}/index.html missing (run scripts/build-us-states.mjs)`);
+    continue;
+  }
+  for (const k of ['diploma', 'k12_test', 'colleges', 'residency', 'aid', 'jobs', 'apprenticeship']) if (!S[k]) err(w, `missing ${k}`);
   const D = S.diploma || {};
   if (!D.intro || !D.tests) err(`${w}.diploma`, 'needs intro and tests');
   needSrc(`${w}.diploma`, D.src);
@@ -725,6 +747,7 @@ for (const f of stFiles) {
   if (!fs.existsSync(path.join(root, 'us/states', slug, 'index.html'))) err(w, `us/states/${slug}/index.html missing (run scripts/build-us-states.mjs)`);
   if (S.licenses && !fs.existsSync(path.join(root, 'us/states', slug, 'licenses.html'))) err(w, `us/states/${slug}/licenses.html missing (run scripts/build-us-states.mjs)`);
 }
+for (const r of SIX.list || []) if (!stFiles.includes(r.slug + '.yml')) err(`states.${r.slug}`, 'no _data/us/states file: every jurisdiction needs at least a boards-tier page');
 if (!pageExists('us/states/') || home.support.find((s) => s.id === 'states')?.href !== 'us/states/') err('home.support.states', 'the States card must link us/states/');
 if (!/href: us\/states\/\n/.test(navUs.replace(/\r/g, ''))) err('_data/nav_us.yml', 'the USA menu needs the States hub (href: us/states/)');
 console.log(`checked ${stFiles.length} state pages (${stLicRows} state license rows) against ${(SIX.list || []).length} jurisdictions`);

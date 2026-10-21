@@ -1,0 +1,26 @@
+# Virginia (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
+# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
+# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
+# the page prints only the blocks that exist.
+name: "Virginia"
+abbr: VA
+checked: 2026-10-22
+review_by: 2027-04-22
+lede: "In Virginia, the Virginia Board of Bar Examiners handles bar admission for lawyers, the Virginia Board of Medicine licenses physicians, the Virginia Board of Accountancy licenses CPAs and the Virginia Board of Nursing licenses registered nurses."
+
+boards:
+  # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),
+  # board of accountancy (NASBA directory), board of nursing (NCSBN member page). Links checked 2026-10-22.
+  law: { body: "Virginia Board of Bar Examiners", url: "https://barexam.virginia.gov/home", stat: "State exam", exam: "Virginia's own bar exam with the MBE.", note: "MPRE required (passing score 85). NextGen UBE from July 2028.", src: ncbe_va }
+  medicine:
+    src: fsmb_boards
+    boards:
+      - { body: "Virginia Board of Medicine", url: "https://www.dhp.virginia.gov/Boards/Medicine/" }
+  cpa:
+    src: nasba_boards
+    boards:
+      - { body: "Virginia Board of Accountancy", url: "https://boa.virginia.gov/" }
+  nursing:
+    src: ncsbn_va
+    boards:
+      - { body: "Virginia Board of Nursing", url: "https://www.dhp.virginia.gov/Boards/Nursing/" }

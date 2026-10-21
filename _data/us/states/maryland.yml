@@ -1,0 +1,26 @@
+# Maryland (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
+# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
+# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
+# the page prints only the blocks that exist.
+name: "Maryland"
+abbr: MD
+checked: 2026-10-22
+review_by: 2027-04-22
+lede: "In Maryland, the Maryland State Board of Law Examiners handles bar admission for lawyers, the Maryland Board of Physicians licenses physicians, the Maryland Board of Public Accountancy licenses CPAs and the Maryland Board of Nursing licenses registered nurses."
+
+boards:
+  # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),
+  # board of accountancy (NASBA directory), board of nursing (NCSBN member page). Links checked 2026-10-22.
+  law: { body: "Maryland State Board of Law Examiners", url: "https://www.mdcourts.gov/ble", stat: "NextGen UBE", exam: "NextGen UBE.", note: "MPRE required (passing score 85).", src: ncbe_md }
+  medicine:
+    src: fsmb_boards
+    boards:
+      - { body: "Maryland Board of Physicians", url: "https://www.mbp.state.md.us/" }
+  cpa:
+    src: nasba_boards
+    boards:
+      - { body: "Maryland Board of Public Accountancy", url: "https://labor.maryland.gov/license/cpa/" }
+  nursing:
+    src: ncsbn_md
+    boards:
+      - { body: "Maryland Board of Nursing", url: "https://mbon.maryland.gov/" }

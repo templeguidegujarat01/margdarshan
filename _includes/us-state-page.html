@@ -3,11 +3,19 @@
   scripts/build-us-states.mjs from _data/us/states/<slug>.yml (schema in _data/us/state_index.yml). Sections: diploma,
   state test, colleges, in-state tuition, aid, licensing boards (Phase 12 page), public jobs, apprenticeship, sources —
   8 h2[id] sections, so site.js builds the right rail (>=900px) and chip rail (<900px). Every block cites its source.
+  50-state portal (2026-10-22): every state file has a `boards` block (bar admission, medical, accountancy and nursing
+  boards from the NCBE, FSMB, NASBA and NCSBN directories), printed as a table in #licensing. A boards-tier state (no
+  `diploma` block yet) shows the hero, #licensing first, then #colleges and the sources; the other sections print only
+  when their block exists.
 {%- endcomment -%}
 {%- assign US = site.data.us -%}
 {%- assign S = US.states[page.state] -%}
 {%- assign IXR = US.state_index.list | where: "slug", page.state | first -%}
 {%- assign N = S.name -%}
+{%- assign B = S.boards -%}
+{%- comment -%} Nurse Licensure Compact status comes from _data/us/compacts.yml (one list for the whole site). {%- endcomment -%}
+{%- assign NLC = "none" -%}{%- assign NLC_since = nil -%}
+{%- for g in US.compacts.nlc.groups -%}{%- assign NLC_hit = g.states | where: "name", N | first -%}{%- if NLC_hit -%}{%- assign NLC = g.status -%}{%- assign NLC_since = NLC_hit.since -%}{%- endif -%}{%- endfor -%}
 {%- assign src_ids = "" -%}
 <script type="application/ld+json">
 {
@@ -25,26 +33,73 @@
   <div class="container md-page-top">
     <header class="md-answer">
       <span class="eyebrow">USA · States · {{ S.abbr }}</span>
-      <h1>{{ N }}: school, college and career rules</h1>
+      <h1>{% if S.diploma %}{{ N }}: school, college and career rules{% else %}{{ N }}: licensing boards and colleges{% endif %}</h1>
       <p class="md-answer-lede">{{ S.lede }}</p>
       <div class="md-stats" data-no-points>
         <div class="md-stat"><span class="md-stat-label">Population</span><span class="md-stat-value">{% include fmt-num.html n=IXR.pop %}</span><span class="md-stat-note">Rank {{ IXR.rank }} of 51 · Census, {{ US.state_index.vintage }}</span></div>
+        {%- if S.k12_test %}
         <div class="md-stat"><span class="md-stat-label">State test</span><span class="md-stat-value is-text">{{ S.k12_test.name }}</span><span class="md-stat-note">{{ S.k12_test.full | truncate: 70 }}</span></div>
         <div class="md-stat"><span class="md-stat-label">State grant</span><span class="md-stat-value is-text">{{ S.aid.programs[0].name | split: " (" | first }}</span><span class="md-stat-note">{{ S.aid.agency.name | truncate: 60 }}</span></div>
+        {%- else %}
+        <div class="md-stat"><span class="md-stat-label">Bar exam</span><span class="md-stat-value is-text">{{ B.law.stat }}</span><span class="md-stat-note">NCBE exams {{ N }} uses</span></div>
+        <div class="md-stat"><span class="md-stat-label">Nurse Licensure Compact</span><span class="md-stat-value is-text">{% case NLC %}{% when "implemented" %}Member{% when "pending" %}Enacted{% else %}Not a member{% endcase %}</span><span class="md-stat-note">{% case NLC %}{% when "implemented" %}Since {{ NLC_since }}{% when "pending" %}Not yet in effect{% else %}Multistate nurse license{% endcase %}</span></div>
+        {%- endif %}
         <div class="md-stat"><span class="md-stat-label">Checked</span><span class="md-stat-value is-text">{{ S.checked | date: "%-d %b %Y" }}</span><span class="md-stat-note">Re-check by {{ S.review_by | date: "%b %Y" }}</span></div>
       </div>
       <div class="md-answer-actions">
+        {%- if S.diploma %}
         <a href="#diploma" class="btn btn-primary">Diploma requirements</a>
         <a href="#residency" class="md-textlink">In-state tuition</a>
-        {%- if S.licenses %}<a href="us/states/{{ page.state }}/licenses.html" class="md-textlink">Licensing boards</a>{% endif %}
+        <a href="#licensing" class="md-textlink">State boards</a>
+        {%- else %}
+        <a href="#licensing" class="btn btn-primary">State licensing boards</a>
+        {%- endif %}
+        {%- if S.licenses %}<a href="us/states/{{ page.state }}/licenses.html" class="md-textlink">License rules</a>{% endif %}
         {%- if site.data.us.college_index.states[page.state] %}<a href="us/colleges/{{ page.state }}/" class="md-textlink">All colleges in {{ N }}</a>{% endif %}
         {%- for l in S.links %}<a href="{{ l.href }}" class="md-textlink">{{ l.label }}</a>{% endfor %}
       </div>
-      <p class="md-tile-note">{% include us-src-chip.html id="census_pop2025" %} Every fact below is copied from {{ N }}'s own pages or the agency named in its source chip.</p>
+      <p class="md-tile-note">{% include us-src-chip.html id="census_pop2025" %} {% if S.diploma %}Every fact below is copied from {{ N }}'s own pages or the agency named in its source chip.{% else %}The boards are copied from the national directories of state boards (NCBE, FSMB, NASBA, NCSBN); each link opens the board's own site. Diploma, state test, tuition and aid rules for {{ N }} are still in the build queue.{% endif %}</p>
     </header>
   </div>
   {%- assign src_ids = "census_pop2025" -%}
 
+  {%- comment -%} Licensing boards: captured once, printed after aid (full pages) or first (boards-tier pages). {%- endcomment -%}
+  {%- if S.diploma %}{% assign lic_cls = "md-sec md-sec-alt" %}{% else %}{% assign lic_cls = "md-sec" %}{% endif -%}
+  {%- capture lic_sec %}
+  <section class="{{ lic_cls }}" id="licensing" aria-labelledby="licensing-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="licensing-h">Licensing boards</h2><p>Lawyers, doctors, CPAs and nurses need a {{ N }} license from a state board, even after passing a national exam. These are the boards that grant it.</p></div>
+      {%- if B %}
+      <div class="table-wrap" data-no-points>
+        <table class="md-table us-board-table">
+          <thead><tr><th scope="col">License</th><th scope="col">{{ N }} board</th><th scope="col">Exam</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Lawyer</strong><br><a class="us-by" href="us/professional-licenses/law/">How bar admission works</a></td><td><a href="{{ B.law.url }}">{{ B.law.body }}</a>{% if S.licenses.law %}<br><a class="us-by" href="us/states/{{ page.state }}/licenses.html#lic-law">{{ N }} requirements</a>{% endif %}</td><td>{{ B.law.exam }}{% if B.law.note %} {{ B.law.note }}{% endif %} {% include us-src-chip.html id=B.law.src align="end" %}</td></tr>
+            <tr><td><strong>Physician</strong><br><a class="us-by" href="us/professional-licenses/medicine/">How a medical license works</a></td><td>{% for m in B.medicine.boards %}<a href="{{ m.url }}">{{ m.body }}</a>{% unless forloop.last %}<br>{% endunless %}{% endfor %}</td><td>USMLE (M.D.) or COMLEX-USA (D.O.){% if B.medicine.boards.size > 1 %}; {{ N }} has more than one board, as listed{% endif %} {% include us-src-chip.html id=B.medicine.src align="end" %}</td></tr>
+            <tr><td><strong>CPA</strong><br><a class="us-by" href="us/professional-licenses/cpa/">How the CPA license works</a></td><td>{% for c in B.cpa.boards %}<a href="{{ c.url }}">{{ c.body }}</a>{% unless forloop.last %}<br>{% endunless %}{% endfor %}{% if S.licenses.cpa %}<br><a class="us-by" href="us/states/{{ page.state }}/licenses.html#lic-cpa">{{ N }} requirements</a>{% endif %}</td><td>Uniform CPA Examination {% include us-src-chip.html id=B.cpa.src align="end" %}</td></tr>
+            <tr><td><strong>Registered nurse</strong><br><a class="us-by" href="us/professional-licenses/nursing/">How the RN license works</a></td><td>{% for c in B.nursing.boards %}<a href="{{ c.url }}">{{ c.body }}</a>{% unless forloop.last %}<br>{% endunless %}{% endfor %}{% if S.licenses.nursing %}<br><a class="us-by" href="us/states/{{ page.state }}/licenses.html#lic-nursing">{{ N }} requirements</a>{% endif %}</td><td>NCLEX-RN · {% case NLC %}{% when "implemented" %}Nurse Licensure Compact member since {{ NLC_since }}{% when "pending" %}Nurse Licensure Compact enacted, not yet in effect{% else %}Not in the Nurse Licensure Compact{% endcase %} {% include us-src-chip.html id=B.nursing.src align="end" %} {% include us-src-chip.html id=US.compacts.nlc.source align="end" %}</td></tr>
+          </tbody>
+        </table>
+      </div>
+      {%- assign src_ids = src_ids | append: "," | append: B.law.src | append: "," | append: B.medicine.src | append: "," | append: B.cpa.src | append: "," | append: B.nursing.src | append: "," | append: US.compacts.nlc.source -%}
+      {%- endif %}
+      {%- if S.licenses %}
+      <ul class="md-links">
+        <li><a href="us/states/{{ page.state }}/licenses.html"><strong>{{ N }} license rules</strong><span>Requirement, exam, fee and renewal for every license on this site, copied from each board's page</span></a></li>
+        {%- for p in S.licenses limit: 6 %}{%- assign LX = US.licenses[p[0]] %}{%- assign TX = US.cte_careers.list | where: "slug", p[0] | first %}
+        <li><a href="us/states/{{ page.state }}/licenses.html#lic-{{ p[0] }}"><strong>{% if LX %}{{ LX.short }}{% else %}{{ TX.short }}{% endif %}</strong><span>{{ p[1].body }}</span></a></li>
+        {%- endfor %}
+      </ul>
+      {%- else %}
+      <p class="md-tile-note">Engineering, teaching, real estate, cosmetology and the trades have their own boards: <a href="us/professional-licenses/">all professional licenses</a> · <a href="us/cte/">trades and apprenticeships</a>.</p>
+      {%- endif %}
+    </div>
+  </section>
+  {%- endcapture %}
+
+  {%- unless S.diploma %}{{ lic_sec }}{% endunless %}
+
+  {%- if S.diploma %}
   {%- assign D = S.diploma %}
   <section class="md-sec" id="diploma" aria-labelledby="diploma-h">
     <div class="container">
@@ -67,7 +122,9 @@
       </div>
     </div>
   </section>
+  {%- endif %}
 
+  {%- if S.k12_test %}
   {%- assign K = S.k12_test %}
   <section class="md-sec md-sec-alt" id="state-test" aria-labelledby="state-test-h">
     <div class="container">
@@ -85,9 +142,12 @@
       <p class="md-tile-note">National tests (SAT, ACT, AP, NAEP) are on the <a href="us/exams/">Exams hub</a>.</p>
     </div>
   </section>
+  {%- endif %}
 
-  <section class="md-sec" id="colleges" aria-labelledby="colleges-h">
+  {%- assign CIS = site.data.us.college_index.states[page.state] %}
+  <section class="md-sec{% unless S.diploma %} md-sec-alt{% endunless %}" id="colleges" aria-labelledby="colleges-h">
     <div class="container">
+      {%- if S.colleges %}
       <div class="md-sec-head"><h2 id="colleges-h">Public colleges and universities</h2><p>The state's public university system(s) and community colleges, from their own pages.</p></div>
       <ul class="md-links">
         {%- for c in S.colleges.systems %}
@@ -96,11 +156,19 @@
         {%- endfor %}
       </ul>
       <p class="md-tile-note">Sources:{% for c in S.colleges.systems %} {% include us-src-chip.html id=c.src %}{% endfor %}</p>
-      {%- assign CIS = site.data.us.college_index.states[page.state] %}
       {%- if CIS %}<p class="md-tile-note">Every school in {{ N }}, public and private, with cost and completion: <a href="us/colleges/{{ page.state }}/">{% include fmt-num.html n=CIS.n %} colleges, community colleges and trade schools</a>{% if CIS.cities.size > 0 %}, with {{ CIS.cities.size }} city pages{% endif %}.</p>{% endif %}
+      {%- else %}
+      <div class="md-sec-head"><h2 id="colleges-h">Colleges in {{ N }}</h2><p>Every college, community college and trade school in {{ N }} that reports to the U.S. Department of Education, public and private, with cost and completion.</p></div>
+      <ul class="md-links">
+        {%- if CIS %}<li><a href="us/colleges/{{ page.state }}/"><strong>{% include fmt-num.html n=CIS.n %} schools in {{ N }}</strong><span>{% if CIS.cities.size > 0 %}{{ CIS.cities.size }} city pages · {% endif %}cost, completion and programs, from College Scorecard and IPEDS</span></a></li>{% endif %}
+        <li><a href="us/college/#in-state"><strong>In-state tuition and residency</strong><span>How public colleges decide who pays the in-state rate, and regional discounts</span></a></li>
+        <li><a href="us/college/#aid"><strong>FAFSA, grants and loans</strong><span>Federal aid every state's students apply for</span></a></li>
+      </ul>
+      {%- endif %}
     </div>
   </section>
 
+  {%- if S.residency %}
   <section class="md-sec md-sec-alt" id="residency" aria-labelledby="residency-h">
     <div class="container">
       <div class="md-sec-head"><h2 id="residency-h">In-state tuition: the residency rule</h2><p>Public colleges charge less to state residents. Who counts as a resident is set by state law or the college system, not by where you went to school alone.</p></div>
@@ -108,7 +176,9 @@
       <p class="md-tile-note">The college's residency office makes the final decision. More on costs: <a href="us/college/#cost">What college costs</a>.</p>
     </div>
   </section>
+  {%- endif %}
 
+  {%- if S.aid %}
   <section class="md-sec" id="aid" aria-labelledby="aid-h">
     <div class="container">
       <div class="md-sec-head"><h2 id="aid-h">State financial aid</h2><p>Run by the <a href="{{ S.aid.agency.url }}">{{ S.aid.agency.name }}</a>. Federal aid (Pell Grants, loans) starts with the FAFSA: <a href="us/college/#aid">FAFSA, grants and loans</a>.</p></div>
@@ -120,23 +190,11 @@
       </div>
     </div>
   </section>
+  {%- endif %}
 
-  <section class="md-sec md-sec-alt" id="licensing" aria-labelledby="licensing-h">
-    <div class="container">
-      <div class="md-sec-head"><h2 id="licensing-h">Licensing boards</h2><p>Nurses, CPAs, lawyers, engineers, cosmetologists, real estate agents and many trades need a {{ N }} license from a state board, even after passing a national exam.</p></div>
-      {%- if S.licenses %}
-      <ul class="md-links">
-        <li><a href="us/states/{{ page.state }}/licenses.html"><strong>{{ N }} licensing boards</strong><span>Requirement, exam, fee and renewal for every license on this site, copied from each board's page</span></a></li>
-        {%- for p in S.licenses limit: 6 %}{%- assign LX = US.licenses[p[0]] %}{%- assign TX = US.cte_careers.list | where: "slug", p[0] | first %}
-        <li><a href="us/states/{{ page.state }}/licenses.html#lic-{{ p[0] }}"><strong>{% if LX %}{{ LX.short }}{% else %}{{ TX.short }}{% endif %}</strong><span>{{ p[1].body }}</span></a></li>
-        {%- endfor %}
-      </ul>
-      {%- else %}
-      <ul class="md-links"><li><a href="us/professional-licenses/"><strong>Professional licenses</strong><span>The route to each license, national exams and what state boards publish</span></a></li></ul>
-      {%- endif %}
-    </div>
-  </section>
+  {%- if S.diploma %}{{ lic_sec }}{% endif %}
 
+  {%- if S.jobs %}
   {%- assign J = S.jobs %}
   <section class="md-sec" id="public-jobs" aria-labelledby="public-jobs-h">
     <div class="container">
@@ -162,7 +220,9 @@
       <p class="md-tile-note">Police, fire and other public-safety routes: <a href="us/clusters/public-service-safety/#public-sector">Public Service &amp; Safety hub</a>.</p>
     </div>
   </section>
+  {%- endif %}
 
+  {%- if S.apprenticeship %}
   {%- assign A = S.apprenticeship %}
   <section class="md-sec md-sec-alt" id="apprenticeship" aria-labelledby="apprenticeship-h">
     <div class="container">
@@ -175,6 +235,7 @@
       {%- assign src_ids = src_ids | append: "," | append: A.src | append: "," | append: A.oa_src -%}
     </div>
   </section>
+  {%- endif %}
 
   {%- assign src_ids = src_ids | split: "," | uniq | join: "," -%}
   {% include us-sources.html ids=src_ids bg="" %}

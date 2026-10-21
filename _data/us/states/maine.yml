@@ -1,0 +1,27 @@
+# Maine (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
+# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
+# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
+# the page prints only the blocks that exist.
+name: "Maine"
+abbr: ME
+checked: 2026-10-22
+review_by: 2027-04-22
+lede: "In Maine, the Maine Board of Bar Examiners handles bar admission for lawyers, the Maine Board of Licensure in Medicine and Maine Board of Osteopathic Licensure license physicians, the Maine Board of Accountancy licenses CPAs and the Maine State Board of Nursing licenses registered nurses."
+
+boards:
+  # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),
+  # board of accountancy (NASBA directory), board of nursing (NCSBN member page). Links checked 2026-10-22.
+  law: { body: "Maine Board of Bar Examiners", url: "https://www.mainebarexaminers.org", stat: "UBE", exam: "Uniform Bar Exam (MBE, MEE and MPT).", note: "MPRE required (passing score 80). NextGen UBE from July 2028.", src: ncbe_me }
+  medicine:
+    src: fsmb_boards
+    boards:
+      - { body: "Maine Board of Licensure in Medicine", url: "https://www.maine.gov/md/" }
+      - { body: "Maine Board of Osteopathic Licensure", url: "https://www.maine.gov/osteo/" }
+  cpa:
+    src: nasba_boards
+    boards:
+      - { body: "Maine Board of Accountancy", url: "https://www.maine.gov/pfr/professionallicensing/professions/accountancy" }
+  nursing:
+    src: ncsbn_me
+    boards:
+      - { body: "Maine State Board of Nursing", url: "https://www.maine.gov/boardofnursing/" }

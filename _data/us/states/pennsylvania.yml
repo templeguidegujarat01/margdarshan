@@ -104,3 +104,21 @@ licenses:
     req: "Apply to the Board of Law Examiners; it also handles Uniform Bar Examination score transfer."
     exam: "Uniform Bar Examination (UBE)"
     sources: [pa_ble_home]
+
+boards:
+  # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),
+  # board of accountancy (NASBA directory), board of nursing (NCSBN member page). Links checked 2026-10-22.
+  law: { body: "Pennsylvania Board of Law Examiners", url: "https://www.pabarexam.org", stat: "UBE", exam: "Uniform Bar Exam (MBE, MEE and MPT).", note: "MPRE required (passing score 75). NextGen UBE from July 2028.", src: ncbe_pa }
+  medicine:
+    src: fsmb_boards
+    boards:
+      - { body: "Pennsylvania State Board of Medicine", url: "https://www.pa.gov/agencies/dos/department-and-offices/bpoa/boards-commissions/medicine" }
+      - { body: "Pennsylvania State Board of Osteopathic Medicine", url: "https://www.pa.gov/agencies/dos/department-and-offices/bpoa/boards-commissions/osteopathic-medicine" }
+  cpa:
+    src: nasba_boards
+    boards:
+      - { body: "Pennsylvania State Board of Accountancy", url: "https://www.pa.gov/agencies/dos/department-and-offices/bpoa/boards-commissions/accountancy-board" }
+  nursing:
+    src: ncsbn_pa
+    boards:
+      - { body: "Pennsylvania State Board of Nursing", url: "https://www.pa.gov/agencies/dos/department-and-offices/bpoa/boards-commissions/nursing" }

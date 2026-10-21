@@ -1,0 +1,26 @@
+# Iowa (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
+# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
+# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
+# the page prints only the blocks that exist.
+name: "Iowa"
+abbr: IA
+checked: 2026-10-22
+review_by: 2027-04-22
+lede: "In Iowa, the Iowa Board of Law Examiners (Office of Professional Regulation) handles bar admission for lawyers, the Iowa Board of Medicine licenses physicians, the Iowa Accountancy Examining Board licenses CPAs and the Iowa Board of Nursing licenses registered nurses."
+
+boards:
+  # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),
+  # board of accountancy (NASBA directory), board of nursing (NCSBN member page). Links checked 2026-10-22.
+  law: { body: "Iowa Board of Law Examiners (Office of Professional Regulation)", url: "https://www.iowacourts.gov", stat: "UBE", exam: "Uniform Bar Exam (MBE, MEE and MPT).", note: "MPRE required (passing score 80). NextGen UBE from July 2027.", src: ncbe_ia }
+  medicine:
+    src: fsmb_boards
+    boards:
+      - { body: "Iowa Board of Medicine", url: "https://dial.iowa.gov/about-dial/boards-and-commissions/board-medicine" }
+  cpa:
+    src: nasba_boards
+    boards:
+      - { body: "Iowa Accountancy Examining Board", url: "https://dial.iowa.gov/about-dial/boards-and-commissions/accountancy-board" }
+  nursing:
+    src: ncsbn_ia
+    boards:
+      - { body: "Iowa Board of Nursing", url: "https://dial.iowa.gov/about-dial/boards-and-commissions/board-nursing-0" }

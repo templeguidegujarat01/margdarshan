@@ -1,0 +1,26 @@
+# Louisiana (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
+# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
+# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
+# the page prints only the blocks that exist.
+name: "Louisiana"
+abbr: LA
+checked: 2026-10-22
+review_by: 2027-04-22
+lede: "In Louisiana, the Louisiana Committee on Bar Admissions handles bar admission for lawyers, the Louisiana State Board of Medical Examiners licenses physicians, the State Board of CPAs of Louisiana licenses CPAs and the Louisiana State Board of Nursing licenses registered nurses."
+
+boards:
+  # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),
+  # board of accountancy (NASBA directory), board of nursing (NCSBN member page). Links checked 2026-10-22.
+  law: { body: "Louisiana Committee on Bar Admissions", url: "https://www.lascba.org", stat: "State exam", exam: "Louisiana's own bar exam.", note: "MPRE required (passing score 80).", src: ncbe_la }
+  medicine:
+    src: fsmb_boards
+    boards:
+      - { body: "Louisiana State Board of Medical Examiners", url: "https://www.lsbme.la.gov/" }
+  cpa:
+    src: nasba_boards
+    boards:
+      - { body: "State Board of CPAs of Louisiana", url: "http://www.cpaboard.state.la.us/" }
+  nursing:
+    src: ncsbn_la
+    boards:
+      - { body: "Louisiana State Board of Nursing", url: "https://www.lsbn.state.la.us/" }

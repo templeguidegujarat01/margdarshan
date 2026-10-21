@@ -1,0 +1,27 @@
+# Oklahoma (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
+# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
+# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
+# the page prints only the blocks that exist.
+name: "Oklahoma"
+abbr: OK
+checked: 2026-10-22
+review_by: 2027-04-22
+lede: "In Oklahoma, the Oklahoma Board of Bar Examiners handles bar admission for lawyers, the Oklahoma Board of Medical Licensure and Supervision and Oklahoma State Board of Osteopathic Examiners license physicians, the Oklahoma Accountancy Board licenses CPAs and the Oklahoma Board of Nursing licenses registered nurses."
+
+boards:
+  # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),
+  # board of accountancy (NASBA directory), board of nursing (NCSBN member page). Links checked 2026-10-22.
+  law: { body: "Oklahoma Board of Bar Examiners", url: "https://www.okbbe.com/home", stat: "UBE", exam: "Uniform Bar Exam (MBE, MEE and MPT).", note: "MPRE required (passing score 80). NextGen UBE from July 2027.", src: ncbe_ok }
+  medicine:
+    src: fsmb_boards
+    boards:
+      - { body: "Oklahoma Board of Medical Licensure and Supervision", url: "https://www.okmedicalboard.org/" }
+      - { body: "Oklahoma State Board of Osteopathic Examiners", url: "https://oklahoma.gov/osboe.html" }
+  cpa:
+    src: nasba_boards
+    boards:
+      - { body: "Oklahoma Accountancy Board", url: "https://oklahoma.gov/oab.html" }
+  nursing:
+    src: ncsbn_ok
+    boards:
+      - { body: "Oklahoma Board of Nursing", url: "https://oklahoma.gov/nursing.html" }

@@ -37,7 +37,7 @@
       <div class="md-answer-actions">
         {%- if SI.cities.size > 0 %}<a href="#cities" class="btn btn-primary">Colleges by city</a>{% endif %}
         <a href="#list" class="md-textlink">All {% include fmt-num.html n=SI.n %} schools</a>
-        {%- if state_page %}<a href="us/states/{{ page.state }}/" class="md-textlink">{{ SI.name }}: tuition and aid rules</a>{% endif %}
+        {%- if state_page %}<a href="us/states/{{ page.state }}/" class="md-textlink">{{ SI.name }}: {% if state_page.residency %}tuition and aid rules{% else %}licensing boards{% endif %}</a>{% endif %}
         <a href="us/colleges/fields/" class="md-textlink">Programs by career</a>
       </div>
     </header>
@@ -51,7 +51,7 @@
         <li><a href="#list" data-cl-lv="2"><strong>{{ CL_LVS[2] }}: {{ SI.lv["2"] }}</strong><span>Longest program at least two but under four years: associate degrees and certificates.</span></a></li>
         <li><a href="#list" data-cl-lv="3"><strong>{{ CL_LVS[3] }}: {{ SI.lv["3"] }}</strong><span>Every program under two years: certificates in trades, health care, beauty and other careers.</span></a></li>
       </ul>
-      <p class="md-tile-note">Public: {{ SI.ct["1"] }} · private nonprofit: {{ SI.ct["2"] }} · private for-profit: {{ SI.ct["3"] }}. Public schools usually charge state residents less; see {% if state_page %}<a href="us/states/{{ page.state }}/#residency">{{ SI.name }}'s in-state tuition rules</a>{% else %}<a href="us/college/#cost">what college costs</a>{% endif %}.</p>
+      <p class="md-tile-note">Public: {{ SI.ct["1"] }} · private nonprofit: {{ SI.ct["2"] }} · private for-profit: {{ SI.ct["3"] }}. Public schools usually charge state residents less; see {% if state_page.residency %}<a href="us/states/{{ page.state }}/#residency">{{ SI.name }}'s in-state tuition rules</a>{% else %}<a href="us/college/#cost">what college costs</a>{% endif %}.</p>
     </div>
   </section>
 

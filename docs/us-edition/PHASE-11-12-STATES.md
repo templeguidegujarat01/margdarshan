@@ -85,3 +85,35 @@ from Phases 2–8; those were not repeated.
 - **Phase 12 batch 2**: close the gaps above for batch-1 states (start with teaching and EMT for PA, IL, OH, GA, NC, MI;
   then CPA/PE where the board page opens), then rows for batch-2 states as they are built.
 - Re-check every state file by its `review_by` date (2027-04-21); the checker fails once it passes.
+
+## 6. 50-state licensure portal (2026-10-22)
+
+Every one of the 51 jurisdictions now has a page. The 41 states not yet built in Phase 11 got a **boards-tier** file
+(`_data/us/states/<slug>.yml` with `lede` + `boards` only); the 10 full states got the same `boards` block added.
+
+- `boards` = bar admission agency (NCBE jurisdiction page, one source per state: `ncbe_<abbr>`), medical board(s)
+  including separate osteopathic boards (FSMB directory, `fsmb_boards`), board(s) of accountancy (NASBA directory,
+  `nasba_boards`; Illinois lists IDFPR for the license and the Board of Examiners for the exam) and the RN board
+  (NCSBN member page, `ncsbn_<abbr>`). The bar row also carries what NCBE lists: current exam (UBE, NextGen UBE or the
+  state's own exam), MPRE passing score and the NextGen UBE first date.
+- Nurse Licensure Compact status on the page is read from `_data/us/compacts.yml` (not from NCSBN's badge, which
+  disagreed for Connecticut), so there is one list for the site.
+- State page template: boards table in `#licensing` on all 51; boards-tier pages show hero, `#licensing` (first),
+  `#colleges` (link to `us/colleges/<slug>/`) and sources; every other section prints only when its block exists.
+- States hub: the A-to-Z table is now the boards directory for all 51 (one list); the compare table lists only the 10
+  full pages. `us-aid-state.html` picker: license card where a licenses page exists, else the state's board table for
+  law / medicine / cpa / nursing, else the state page. `us-colleges-state.html` links `#residency` only when it exists.
+- Checker: every jurisdiction must have a file; every file needs `boards`; a boards-tier file may not carry Phase 11
+  blocks without `diploma`. `review_by` 2027-04-22 for the new files.
+
+Link checking: every board URL was opened on 22 Oct 2026 (curl, then headless Edge for Cloudflare pages). Sites that
+block or time out from India (Alaska, Arizona, Hawaii, Utah, Indiana, Nebraska, SC LLR, several courts) were confirmed
+through their latest Internet Archive capture (status 200, 2025–2026). Moved pages were replaced with the current URL
+(e.g. Iowa DIAL boards, Michigan LARA accountancy, Pennsylvania pa.gov boards, Utah DOPL accountancy, Wyoming CPA board,
+Massachusetts BBE, Indiana courts/ace). Directory URLs used as given where nothing better was verifiable: Ohio bar
+(Supreme Court home), New Hampshire bar (`courts.state.nh.us/nhbar`, redirects to the NH Judicial Branch home),
+Rhode Island and Wisconsin nursing (department home pages). NCBE's West Virginia page gives two NextGen dates (July 2027
+and July 2028), so the page says so instead of picking one.
+
+Still queued for the 41 boards-tier states: diploma, state test, residency, aid, jobs and apprenticeship blocks
+(Phase 11 order: NJ VA WA AZ TN MA IN MO MD CO first).

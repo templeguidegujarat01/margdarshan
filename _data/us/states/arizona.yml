@@ -1,0 +1,27 @@
+# Arizona (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
+# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
+# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
+# the page prints only the blocks that exist.
+name: "Arizona"
+abbr: AZ
+checked: 2026-10-22
+review_by: 2027-04-22
+lede: "In Arizona, the Arizona Supreme Court Committees on Examinations and Character and Fitness handles bar admission for lawyers, the Arizona Medical Board and Arizona Board of Osteopathic Examiners in Medicine and Surgery license physicians, the Arizona State Board of Accountancy licenses CPAs and the Arizona State Board of Nursing licenses registered nurses."
+
+boards:
+  # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),
+  # board of accountancy (NASBA directory), board of nursing (NCSBN member page). Links checked 2026-10-22.
+  law: { body: "Arizona Supreme Court Committees on Examinations and Character and Fitness", url: "https://www.azcourts.gov/cld/Attorney-Admissions", stat: "UBE", exam: "Uniform Bar Exam (MBE, MEE and MPT).", note: "MPRE required (passing score 85). NextGen UBE from July 2027.", src: ncbe_az }
+  medicine:
+    src: fsmb_boards
+    boards:
+      - { body: "Arizona Medical Board", url: "https://www.azmd.gov/" }
+      - { body: "Arizona Board of Osteopathic Examiners in Medicine and Surgery", url: "https://www.azdo.gov/" }
+  cpa:
+    src: nasba_boards
+    boards:
+      - { body: "Arizona State Board of Accountancy", url: "https://www.azaccountancy.gov/" }
+  nursing:
+    src: ncsbn_az
+    boards:
+      - { body: "Arizona State Board of Nursing", url: "https://www.azbn.gov/" }

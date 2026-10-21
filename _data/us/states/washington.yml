@@ -1,0 +1,27 @@
+# Washington (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
+# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
+# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
+# the page prints only the blocks that exist.
+name: "Washington"
+abbr: WA
+checked: 2026-10-22
+review_by: 2027-04-22
+lede: "In Washington, the Washington State Bar Association handles bar admission for lawyers, the Washington Medical Commission and Washington Board of Osteopathic Medicine and Surgery license physicians, the Washington State Board of Accountancy licenses CPAs and the Washington State Board of Nursing licenses registered nurses."
+
+boards:
+  # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),
+  # board of accountancy (NASBA directory), board of nursing (NCSBN member page). Links checked 2026-10-22.
+  law: { body: "Washington State Bar Association", url: "https://www.wsba.org", stat: "NextGen UBE", exam: "NextGen UBE.", note: "MPRE required (passing score 85).", src: ncbe_wa }
+  medicine:
+    src: fsmb_boards
+    boards:
+      - { body: "Washington Medical Commission", url: "https://wmc.wa.gov/" }
+      - { body: "Washington Board of Osteopathic Medicine and Surgery", url: "https://doh.wa.gov/licenses-permits-and-certificates/professions-new-renew-or-update/osteopathic-physician-and-surgeon/board-osteopathic-medicine-and-surgery" }
+  cpa:
+    src: nasba_boards
+    boards:
+      - { body: "Washington State Board of Accountancy", url: "https://acb.wa.gov/" }
+  nursing:
+    src: ncsbn_wa
+    boards:
+      - { body: "Washington State Board of Nursing", url: "https://nursing.wa.gov/" }

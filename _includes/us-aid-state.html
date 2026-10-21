@@ -4,9 +4,10 @@
   Usage: include us-aid-state.html key=<licenses.yml id or trade slug, optional>
   Paying for it: FAFSA, Pell max and the in-state / out-of-state averages from _data/us/guides.yml, linking to
   us/college/ (#aid, #in-state). Your state: a no-JavaScript <details> dropdown of all 51 jurisdictions in
-  state_index.yml. A state with a state file opens its license card (when us/states/<s>/licenses.html has one for
-  the key, same rule as us-state-lic-links.html) or its state page; every other state opens its colleges list
-  (us/colleges/<s>/ exists for all 51). No empty links.
+  state_index.yml. A state with a state file opens its license card (when us/states/<s>/licenses.html exists and has
+  one for the key, same rule as us-state-lic-links.html), else its boards table when the key is law / medicine / cpa /
+  nursing (50-state portal, 2026-10-22: every state file has `boards`), else its state page; a state without a file
+  would open its colleges list (us/colleges/<s>/ exists for all 51). No empty links.
 {%- endcomment -%}
 {%- assign AS_US = site.data.us -%}
 {%- assign AS_M = AS_US.guides.money -%}
@@ -27,8 +28,10 @@
               {%- if AS_S -%}
               {%- assign AS_R = nil -%}{%- assign AS_H = nil -%}
               {%- if include.key %}{% assign AS_R = AS_S.licenses[include.key] %}{% assign AS_H = AS_B | where: "place", ir.name | first %}{% endif -%}
-              {%- if AS_R or AS_H %}
+              {%- if AS_S.licenses and AS_R or AS_S.licenses and AS_H %}
               <li><a class="sc-opt is-live" href="us/states/{{ ir.slug }}/licenses.html#lic-{{ include.key }}"><span>{{ ir.name }}</span><span class="sc-opt-tag">License rules</span></a></li>
+              {%- elsif include.key and AS_S.boards[include.key] %}
+              <li><a class="sc-opt is-live" href="us/states/{{ ir.slug }}/#licensing"><span>{{ ir.name }}</span><span class="sc-opt-tag">State board</span></a></li>
               {%- else %}
               <li><a class="sc-opt is-live" href="us/states/{{ ir.slug }}/"><span>{{ ir.name }}</span><span class="sc-opt-tag">State guide</span></a></li>
               {%- endif %}

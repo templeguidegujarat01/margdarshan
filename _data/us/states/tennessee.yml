@@ -1,0 +1,27 @@
+# Tennessee (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
+# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
+# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
+# the page prints only the blocks that exist.
+name: "Tennessee"
+abbr: TN
+checked: 2026-10-22
+review_by: 2027-04-22
+lede: "In Tennessee, the Tennessee Board of Law Examiners handles bar admission for lawyers, the Tennessee Board of Medical Examiners and Tennessee Board of Osteopathic Examination license physicians, the Tennessee State Board of Accountancy licenses CPAs and the Tennessee Board of Nursing licenses registered nurses."
+
+boards:
+  # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),
+  # board of accountancy (NASBA directory), board of nursing (NCSBN member page). Links checked 2026-10-22.
+  law: { body: "Tennessee Board of Law Examiners", url: "https://www.tnble.org", stat: "UBE", exam: "Uniform Bar Exam (MBE, MEE and MPT).", note: "MPRE required (passing score 82). NextGen UBE from July 2027.", src: ncbe_tn }
+  medicine:
+    src: fsmb_boards
+    boards:
+      - { body: "Tennessee Board of Medical Examiners", url: "https://www.tn.gov/health/licensure/me.html" }
+      - { body: "Tennessee Board of Osteopathic Examination", url: "https://www.tn.gov/health/licensure/ost.html" }
+  cpa:
+    src: nasba_boards
+    boards:
+      - { body: "Tennessee State Board of Accountancy", url: "https://www.tn.gov/commerce/regboards/accountancy.html" }
+  nursing:
+    src: ncsbn_tn
+    boards:
+      - { body: "Tennessee Board of Nursing", url: "https://www.tn.gov/health/licensure/nurs.html" }

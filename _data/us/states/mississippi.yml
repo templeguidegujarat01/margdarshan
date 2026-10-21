@@ -1,0 +1,26 @@
+# Mississippi (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
+# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
+# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
+# the page prints only the blocks that exist.
+name: "Mississippi"
+abbr: MS
+checked: 2026-10-22
+review_by: 2027-04-22
+lede: "In Mississippi, the Mississippi Board of Bar Admissions handles bar admission for lawyers, the Mississippi State Board of Medical Licensure licenses physicians, the Mississippi State Board of Public Accountancy licenses CPAs and the Mississippi Board of Nursing licenses registered nurses."
+
+boards:
+  # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),
+  # board of accountancy (NASBA directory), board of nursing (NCSBN member page). Links checked 2026-10-22.
+  law: { body: "Mississippi Board of Bar Admissions", url: "https://courts.ms.gov/bar/baradmissions/baradmissions.php", stat: "State exam", exam: "Mississippi's own bar exam with the MBE, MEE and MPT.", note: "MPRE required (passing score 75). Moving to the NextGen UBE; NCBE lists no first date yet.", src: ncbe_ms }
+  medicine:
+    src: fsmb_boards
+    boards:
+      - { body: "Mississippi State Board of Medical Licensure", url: "https://www.msbml.ms.gov/" }
+  cpa:
+    src: nasba_boards
+    boards:
+      - { body: "Mississippi State Board of Public Accountancy", url: "https://www.msbpa.ms.gov/" }
+  nursing:
+    src: ncsbn_ms
+    boards:
+      - { body: "Mississippi Board of Nursing", url: "https://www.msbn.ms.gov/" }

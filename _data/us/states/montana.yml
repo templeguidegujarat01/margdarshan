@@ -1,0 +1,26 @@
+# Montana (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
+# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
+# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
+# the page prints only the blocks that exist.
+name: "Montana"
+abbr: MT
+checked: 2026-10-22
+review_by: 2027-04-22
+lede: "In Montana, the State Bar of Montana handles bar admission for lawyers, the Montana Board of Medical Examiners licenses physicians, the Montana Board of Public Accountants licenses CPAs and the Montana Board of Nursing licenses registered nurses."
+
+boards:
+  # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),
+  # board of accountancy (NASBA directory), board of nursing (NCSBN member page). Links checked 2026-10-22.
+  law: { body: "State Bar of Montana", url: "https://www.montanabar.org", stat: "UBE", exam: "Uniform Bar Exam (MBE, MEE and MPT).", note: "MPRE required (passing score 80). NextGen UBE from February 2028.", src: ncbe_mt }
+  medicine:
+    src: fsmb_boards
+    boards:
+      - { body: "Montana Board of Medical Examiners", url: "https://boards.bsd.dli.mt.gov/medical-examiners/" }
+  cpa:
+    src: nasba_boards
+    boards:
+      - { body: "Montana Board of Public Accountants", url: "https://boards.bsd.dli.mt.gov/public-accountants/" }
+  nursing:
+    src: ncsbn_mt
+    boards:
+      - { body: "Montana Board of Nursing", url: "https://boards.bsd.dli.mt.gov/nursing/" }

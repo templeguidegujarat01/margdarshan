@@ -169,6 +169,19 @@ else {
     ['toefl fee usa', null, (r) => (has(r, 'us/exams/toefl-ibt/', 3) ? '' : 'expected the TOEFL page in top 3')],
     ['asvab sample questions', null, (r) => (has(r, 'us/exams/asvab/', 3) ? '' : 'expected the ASVAB page in top 3')],
     ['us exams list', null, (r) => (has(r, 'us/exams/', 3) ? '' : 'expected the Exams hub in top 3')],
+    // USA Master Plan Phase 10 batch 1 (2026-10-21): graduate and health licensing exam pages
+    ['gre fee reduction', null, (r) => (has(r, 'us/exams/gre/', 3) ? '' : 'expected the GRE page in top 3')],
+    ['gmat exam fee usa', null, (r) => (has(r, 'us/exams/gmat/', 3) ? '' : 'expected the GMAT page in top 3')],
+    ['lsat test dates 2027', null, (r) => (has(r, 'us/exams/lsat/', 3) ? '' : 'expected the LSAT page in top 3')],
+    ['mcat 2027 test dates', null, (r) => (has(r, 'us/exams/mcat/', 3) ? '' : 'expected the MCAT page in top 3')],
+    ['dental admission test', null, (r) => (has(r, 'us/exams/dat/', 3) ? '' : 'expected the DAT page in top 3')],
+    ['usmle step 2 ck passing score', null, (r) => (has(r, 'us/exams/usmle/', 3) ? '' : 'expected the USMLE page in top 3')],
+    ['comlex level 3', null, (r) => (has(r, 'us/exams/comlex-usa/', 3) ? '' : 'expected the COMLEX-USA page in top 3')],
+    ['nclex rn fee', null, (r) => (has(r, 'us/exams/nclex-rn/', 3) ? '' : 'expected the NCLEX-RN page in top 3')],
+    ['naplex mpje', null, (r) => (has(r, 'us/exams/naplex-mpje/', 3) ? '' : 'expected the NAPLEX and MPJE page in top 3')],
+    ['npte test dates', null, (r) => (has(r, 'us/exams/npte/', 3) ? '' : 'expected the NPTE page in top 3')],
+    ['physician assistant exam pance', null, (r) => (has(r, 'us/exams/pance/', 3) ? '' : 'expected the PANCE page in top 3')],
+    ['eppp psychology exam', null, (r) => (has(r, 'us/exams/eppp/', 3) ? '' : 'expected the EPPP page in top 3')],
     ['zzzz qqqq', null, (r) => (r.total === 0 ? '' : 'nonsense should return nothing')],
   ];
   for (const [q, home, t] of cases) {

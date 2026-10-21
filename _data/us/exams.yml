@@ -13,8 +13,12 @@
 #   tests.yml path such as high_school.sat), lede (one sentence, the answer box), facts (4 stat tiles: label, value,
 #   note), sections: who, format, scoring, fees, dates, accepted, practice — each optional, each
 #   { intro, table: { head: [..], rows: [[..]] }, points: [ { t, src } ], source }; `source` covers intro + table.
-#   used_by: { careers: bachelor | hs (careers on this site whose BLS typical entry starts there), colleges: [ {name,
-#   text, src} ], links: [ { label, href, text } ] }. page: { title, description }. search: { s, k }.
+#   used_by: { careers: bachelor | hs (careers on this site whose BLS typical entry starts there), need: [career or
+#   pathway slugs whose roadmap has this exam as a step], colleges: [ {name, text, src} ], links: [ { label, href,
+#   text } ] }. license (optional): the licenses.yml id this exam leads to; the page links that license page instead of
+#   repeating its state rules. page: { title, description }. search: { s, k }.
+# Phase 10 (2026-10-21) added the graduate admission and health licensing exams (batch 1); see
+# docs/us-edition/PHASE-10-EXAMS.md for the queue.
 as_of: 2026-10-21
 review_by: 2027-04-21
 
@@ -49,17 +53,16 @@ stages:
     exams: [asvab, workkeys]
   - id: graduate
     title: "Graduate and professional school"
-    line: "Tests taken near the end of a bachelor's degree. Dedicated pages come in Master Plan Phase 10; until then these live pages cover them."
-    exams: []
+    line: "Admission tests taken near the end of a bachelor's degree, for graduate, business, law, medical, dental and optometry school. Each school decides which tests it accepts."
+    exams: [gre, gmat, lsat, mcat, dat, oat]
     elsewhere:
-      - { label: "MCAT, DAT, LSAT or GRE", href: "us/tests/#grad-tests", text: "Medical, dental and law school tests on the Tests page" }
       - { label: "PCAT (retired)", href: "us/tests/#grad-tests", text: "Retired January 2024; pharmacy schools no longer list it", retired: true }
   - id: licensing
     title: "Licensing exams"
-    line: "National exams (NCLEX, USMLE, CPA, FE/PE, bar …) that a state board requires before it grants a license."
-    exams: []
+    line: "National exams that a state board requires before it grants a license. Passing is one step: the license itself always comes from the state board."
+    exams: [usmle, comlex-usa, nclex-rn, nclex-pn, naplex-mpje, inbde, npte, pance, nbcot, eppp, nce]
     elsewhere:
-      - { label: "Professional licenses", href: "us/professional-licenses/", text: "Every license page on this site, with its exams and state rules" }
+      - { label: "Bar, CPA, FE/PE, ARE and other license exams", href: "us/professional-licenses/", text: "Their exams and state rules are on each license page until their own exam pages are added" }
   - id: government
     title: "Government jobs"
     line: "Federal jobs hire through USAJOBS assessments; police, fire and state civil service have their own exams."
@@ -1259,6 +1262,1127 @@ exams:
     search:
       s: "NCRC: 3 core tests, Bronze to Platinum, free practice"
       k: "usa act workkeys ncrc national career readiness certificate applied math graphic literacy workplace documents job seekers"
+
+  # ---- Phase 10, batch 1 (2026-10-21): graduate admission tests ----
+
+  gre:
+    name: "GRE General Test"
+    short: "GRE"
+    by: "ETS"
+    stage: graduate
+    status: current
+    grades: "College seniors and graduates applying to graduate, business or law school"
+    lede: "The GRE General Test is ETS's admission test for graduate, business and law school: about 1 hour 58 minutes on a computer, at a test center or at home. Verbal and Quantitative are scored 130–170 and Analytical Writing 0–6. The fee is $249 in most of the world."
+    facts:
+      - { label: "Length", value: "1 h 58 min", note: "Five sections" }
+      - { label: "Score", value: "130–170", note: "Verbal and Quant; Writing 0–6" }
+      - { label: "Fee", value: "$249", note: "Most of the world, from Aug 1, 2026" }
+      - { label: "Scores valid", value: "5 years" }
+    sections:
+      who:
+        points:
+          - { t: "Taken for admission to graduate, business and other professional programs such as law; schools also use GRE scores for scholarships and fellowships.", src: ets_gre_glance }
+          - { t: "Offered all year at test centers in 160 countries, or at home 24 hours a day, 7 days a week; a home appointment can often be booked for the next day.", src: ets_gre_glance }
+          - { t: "You can take it once every 21 days, up to five times in any rolling 12-month period, even if you canceled earlier scores.", src: ets_gre_register }
+      format:
+        intro: "Five sections since 22 September 2023. Analytical Writing always comes first; the Verbal and Quantitative sections follow in any order."
+        source: ets_gre_structure
+        table:
+          head: ["Section", "Questions", "Time"]
+          rows:
+            - ["Analytical Writing", "One \"Analyze an Issue\" task", "30 min"]
+            - ["Verbal Reasoning, section 1", "12", "18 min"]
+            - ["Verbal Reasoning, section 2", "15", "23 min"]
+            - ["Quantitative Reasoning, section 1", "12", "21 min"]
+            - ["Quantitative Reasoning, section 2", "15", "26 min"]
+            - ["Total", "", "About 1 h 58 min"]
+        points:
+          - { t: "Verbal and Quantitative are section-level adaptive: the first section is of average difficulty and the second gets harder or easier depending on how you did.", src: ets_gre_structure }
+          - { t: "Within a section you can skip questions, mark them, go back and change answers; Quantitative has an on-screen calculator.", src: ets_gre_structure }
+      scoring:
+        source: ets_gre_scores
+        table:
+          head: ["Measure", "Score scale"]
+          rows:
+            - ["Verbal Reasoning", "130–170, in 1-point steps"]
+            - ["Quantitative Reasoning", "130–170, in 1-point steps"]
+            - ["Analytical Writing", "0–6, in half-point steps"]
+        points:
+          - { t: "Verbal and Quantitative scores start from the number of questions you got right, then are equated so a score means the same whichever second section you got.", src: ets_gre_scoring }
+          - { t: "Analytical Writing is scored on a 6-point holistic scale, including a score from ETS's e-rater engine.", src: ets_gre_scoring }
+          - { t: "Official scores reach your ETS account 8–10 days after the test.", src: ets_gre_scores }
+      fees:
+        intro: "U.S. dollars, effective 1 August 2026. In the United States, sales tax is added to the order."
+        source: ets_gre_fees
+        table:
+          head: ["Item", "Fee"]
+          rows:
+            - ["GRE General Test (all areas except China)", "$249"]
+            - ["GRE General Test in China", "$237.86"]
+            - ["Rescheduling", "$55"]
+            - ["Changing your test center", "$55"]
+            - ["Additional score report, per school", "$40"]
+            - ["Score Review, Analytical Writing", "$60"]
+        points:
+          - { t: "Fee Reduction Program: a voucher cuts the General Test fee to $100 and adds two POWERPREP PLUS practice tests and ScoreItNow!. It is for people who show financial need, are unemployed and receiving unemployment compensation, are serving in the Peace Corps, or are in national programs for underrepresented groups.", src: ets_gre_fees }
+          - { t: "The test fee includes score reports to four schools named on test day; with ScoreSelect you choose which test dates they see.", src: ets_gre_send }
+      dates:
+        points:
+          - { t: "No national test dates: the GRE runs continuously at test centers and at home. When you register you pick a two-month window, then a date and time.", src: ets_gre_glance }
+      accepted:
+        points:
+          - { t: "Accepted by thousands of graduate, business and law schools worldwide; ETS publishes the full lists of approved score recipients, business schools and law schools.", src: ets_gre_about }
+          - { t: "For law school, LSAC notes that only the LSAT is accepted by every ABA-approved school; check each law school's list.", src: lsac_about }
+      practice:
+        points:
+          - { t: "Free POWERPREP Online: Practice Test 1 (untimed, no Verbal or Quantitative scores) and Practice Test 2 (timed), both with scored sample essays.", src: ets_gre_powerprep }
+          - { t: "POWERPREP PLUS Online costs $44.95 per practice test and adds instant scores and answer explanations.", src: ets_gre_powerprep }
+    used_by:
+      need: [top-executive, management-analyst, human-resources-manager, training-development-manager, market-research-analyst, marketing-manager]
+      links:
+        - { label: "GMAT", href: "us/exams/gmat/", text: "The other business school test" }
+        - { label: "LSAT", href: "us/exams/lsat/", text: "The law school admission test" }
+    page:
+      title: "GRE General Test: Format, 130–170 Scores, $249 Fee, Fee Reduction and Free Practice"
+      description: "ETS's GRE General Test for graduate, business and law school: five sections in about 1 h 58 min, Verbal and Quant 130–170, Writing 0–6, $249 fee, $100 with a Fee Reduction voucher, free POWERPREP tests."
+    search:
+      s: "1 h 58 min, Verbal/Quant 130–170, $249, Fee Reduction voucher, free POWERPREP"
+      k: "usa gre general test ets graduate school admission test fee reduction powerprep verbal quantitative analytical writing 170 business school law school"
+
+  gmat:
+    name: "GMAT Exam"
+    short: "GMAT"
+    by: "Graduate Management Admission Council (GMAC)"
+    stage: graduate
+    status: current
+    grades: "Graduates and working professionals applying to business school (MBA and business master's)"
+    lede: "The GMAT is GMAC's business school admission test: 64 questions in 2 hours 15 minutes across Quantitative Reasoning, Verbal Reasoning and Data Insights, scored 205–805. In the United States it costs $275 at a test center or $300 online."
+    facts:
+      - { label: "Length", value: "2 h 15 min", note: "64 questions, one optional break" }
+      - { label: "Total score", value: "205–805", note: "Sections 60–90" }
+      - { label: "U.S. fee", value: "$275", note: "Test center; $300 online" }
+      - { label: "Retake", value: "16 days", note: "Superscore across attempts" }
+    sections:
+      who:
+        points:
+          - { t: "Accepted by more than 2,400 graduate management programs. Take it online or at a test center; scores stay valid for five years.", src: gmac_register }
+      format:
+        intro: "Three sections, in any order you choose, with one optional 10-minute break after the first or second section."
+        source: gmac_structure
+        table:
+          head: ["Section", "Questions", "Time"]
+          rows:
+            - ["Quantitative Reasoning", "21", "45 min"]
+            - ["Verbal Reasoning", "23", "45 min"]
+            - ["Data Insights", "20", "45 min"]
+            - ["Total", "64", "2 h 15 min"]
+        points:
+          - { t: "Quantitative Reasoning is 21 Problem Solving questions with no calculator; Data Insights allows an on-screen calculator.", src: gmac_content }
+          - { t: "Verbal Reasoning mixes Reading Comprehension and Critical Reasoning. Data Insights covers Data Sufficiency, Multi-Source Reasoning, Table Analysis, Graphics Interpretation and Two-Part Analysis.", src: gmac_content }
+          - { t: "You can bookmark questions and change up to three answers in each section.", src: gmac_structure }
+      scoring:
+        points:
+          - { t: "Total Score 205–805 (every total ends in 5), with the three sections weighted equally; each section is scored 60–90.", src: gmac_scores }
+          - { t: "Take it more than once and you automatically get a GMAT Superscore made from your best section scores across valid attempts.", src: gmac_scores }
+          - { t: "Questions left unanswered when time runs out lower your score.", src: gmac_scores }
+          - { t: "Unofficial scores appear on screen at the end; the Official Score Report follows within 3–5 days (occasionally up to 20).", src: gmac_structure }
+          - { t: "The earlier GMAT (10th Edition) was scored 200–800; GMAC says to compare percentiles, not scores, between the two.", src: gmac_understand }
+      fees:
+        intro: "Fees for the United States, in U.S. dollars:"
+        source: gmac_payment
+        table:
+          head: ["Item", "Test center", "Online"]
+          rows:
+            - ["GMAT exam", "$275", "$300"]
+            - ["Additional score report", "$35 each", "$35 each"]
+            - ["Reschedule, more than 60 days ahead", "$55", "$60"]
+            - ["Reschedule, 15–60 days ahead", "$110", "$120"]
+            - ["Reschedule, 14 days or less", "$165", "$180"]
+        points:
+          - { t: "Cancelling refunds part of the fee: $110 (center) or $120 (online) more than 60 days ahead, $80 or $90 at 15–60 days, $55 or $60 at 14 days or less. No changes within 24 hours of the appointment.", src: gmac_payment }
+          - { t: "Score reports to the schools you pick after seeing your score are free.", src: gmac_structure }
+          - { t: "GMAC's fee page lists no fee waiver; special programs may set different fees in their own offer documents.", src: gmac_payment }
+      dates:
+        points:
+          - { t: "No national test dates: book an online or test-center appointment yourself, and you can test again after 16 days.", src: gmac_register }
+      practice:
+        points:
+          - { t: "The free GMAT Official Starter Kit has more than 70 sample questions and two full-length practice exams that use the real exam's timing and scoring.", src: gmac_register }
+    used_by:
+      need: [top-executive, management-analyst, human-resources-manager, training-development-manager, market-research-analyst, marketing-manager]
+      links:
+        - { label: "GRE", href: "us/exams/gre/", text: "Also accepted by many business schools" }
+    page:
+      title: "GMAT Exam: 2 h 15 min, 205–805 Score, $275 U.S. Fee, Superscore and Free Practice"
+      description: "GMAC's GMAT for business school: Quantitative, Verbal and Data Insights (64 questions, 2 h 15 min), scored 205–805, $275 at a U.S. test center or $300 online, retake after 16 days, free Official Starter Kit."
+    search:
+      s: "64 questions in 2 h 15 min, 205–805, $275 center / $300 online"
+      k: "usa gmat exam gmac mba business school admission test data insights superscore 805 fee test center online"
+
+  lsat:
+    name: "LSAT (Law School Admission Test)"
+    short: "LSAT"
+    by: "Law School Admission Council (LSAC)"
+    stage: graduate
+    status: current
+    grades: "College seniors and graduates applying to law school (J.D.)"
+    lede: "The LSAT is LSAC's law school admission test: four 35-minute multiple-choice sections (three scored) plus an unscored online writing task, scored 120–180. Registration costs $253 for the August 2026–June 2027 testing year."
+    facts:
+      - { label: "Score", value: "120–180" }
+      - { label: "Fee", value: "$253", note: "Aug 2026–June 2027" }
+      - { label: "Next open date", value: "Jan 13–16, 2027", note: "Register by Dec 1, 2026" }
+      - { label: "Limit", value: "5 tests", note: "Since July 2021; 7 in a lifetime" }
+    sections:
+      who:
+        points:
+          - { t: "The only admission test accepted by all ABA-approved law schools, and the only one designed for law school.", src: lsac_about }
+          - { t: "Limits: five tests in the current reportable score period (since July 2021) and seven in a lifetime; no retake after a 180. Canceled scores count, absences do not.", src: lsac_repeat }
+      format:
+        intro: "Two parts."
+        source: lsac_types
+        table:
+          head: ["Part", "What it is", "Time"]
+          rows:
+            - ["Multiple choice", "Four sections of Reading Comprehension and Logical Reasoning; three are scored and one unscored section tries out new questions", "35 min per section"]
+            - ["LSAT Argumentative Writing", "Unscored essay taking a position on a debatable issue, done online with remote proctoring from 8 days before your test date", "50 min (15 prewriting, 35 writing)"]
+        points:
+          - { t: "The unscored section can be either question type and can come at any point in the test.", src: lsac_types }
+      scoring:
+        points:
+          - { t: "Your score is the number of questions answered correctly, converted to the 120–180 scale. Every question counts the same and wrong answers cost nothing.", src: lsac_scoring }
+          - { t: "The score report lists up to 12 reportable results, a percentile rank based on the previous three testing years and a score band. Scores stay reportable for five testing years after the year earned.", src: lsac_scoring }
+          - { t: "First-time takers must complete LSAT Argumentative Writing before their score is released.", src: lsac_scoring }
+      fees:
+        intro: "U.S. dollars, August 2026–June 2027 testing year:"
+        source: lsac_fees
+        table:
+          head: ["Item", "Fee"]
+          rows:
+            - ["LSAT (includes LSAT Argumentative Writing)", "$253"]
+            - ["Credential Assembly Service (CAS)", "$219"]
+            - ["Law school report, each school", "$45"]
+            - ["LSAT Score Preview", "$46 before testing; $87 after"]
+            - ["Test date change after the registration deadline", "$153 up to 7 days after; $253 later"]
+        points:
+          - { t: "Repeat test takers pay the same $253. LSAC fee waivers are accepted as payment, and a pre-approved waiver also halves the Score Audit fee ($150 to $75).", src: lsac_fees }
+      dates:
+        intro: "2026-27 administrations in the U.S. and Canada (all deadlines 11:59 p.m. ET):"
+        source: lsac_dates
+        table:
+          head: ["Administration", "Test dates", "Register by", "Scores out"]
+          rows:
+            - ["September 2026", "Sept 9–12, 2026", "July 28, 2026", "Sept 30, 2026"]
+            - ["October 2026", "Oct 7–10, 2026", "Aug 27, 2026", "Oct 28, 2026"]
+            - ["November 2026", "Nov 11–14, 2026", "Oct 1, 2026", "Dec 2, 2026"]
+            - ["January 2027", "Jan 13–16, 2027", "Dec 1, 2026", "Feb 3, 2027"]
+            - ["February 2027", "Feb 12–13, 2027", "Dec 29, 2026", "Mar 3, 2027"]
+            - ["February 2027, LSAT—Puerto Rico", "Feb 18–20, 2027", "Jan 5, 2027", "Mar 10, 2027"]
+            - ["April 2027", "Apr 8–10, 2027", "Feb 25, 2027", "Apr 28, 2027"]
+            - ["June 2027", "June 9–12, 2027", "Apr 29, 2027", "June 30, 2027"]
+        points:
+          - { t: "For most administrations the registration deadline is also the last day to ask for accommodations, a free test date change or a full refund.", src: lsac_dates }
+      practice:
+        points:
+          - { t: "Four full LSAT PrepTests are free on LSAC's LawHub; LawHub Advantage ($124) opens a year of the full PrepTest library.", src: lsac_practice }
+    license: law
+    used_by:
+      need: [lawyer]
+      links:
+        - { label: "GRE", href: "us/exams/gre/", text: "Accepted by some law schools" }
+    page:
+      title: "LSAT 2026-27: Test Dates, $253 Fee, Format, 120–180 Scoring and Free PrepTests"
+      description: "LSAC's LSAT: four 35-minute multiple-choice sections plus LSAT Argumentative Writing, scored 120–180, $253 for 2026-27, test dates from September 2026 to June 2027, limits on retakes, free LawHub PrepTests."
+    search:
+      s: "2026-27 dates, $253, 120–180, retake limits, free LawHub PrepTests"
+      k: "usa lsat law school admission test lsac test dates 2026 2027 fee waiver lawhub preptest argumentative writing 180"
+
+  mcat:
+    name: "MCAT (Medical College Admission Test)"
+    short: "MCAT"
+    by: "Association of American Medical Colleges (AAMC)"
+    stage: graduate
+    status: current
+    grades: "Pre-med college students and graduates applying to medical school (M.D. and D.O.)"
+    tests: professional_admission.mcat
+    lede: "The MCAT is AAMC's medical school admission test: four multiple-choice sections with 6 hours 15 minutes of test time (about 7 hours 30 minutes seated), scored 472–528. Registration is $360, or $145 with the AAMC Fee Assistance Program."
+    facts:
+      - { label: "Score", value: "472–528", note: "Four sections, 118–132 each" }
+      - { label: "Test time", value: "6 h 15 min", note: "About 7 h 30 min seated" }
+      - { label: "Fee", value: "$360", note: "$145 with Fee Assistance" }
+      - { label: "2027 U.S. dates", value: "Jan 15–Sept 11" }
+    sections:
+      who:
+        points:
+          - { t: "Most U.S. medical schools, and many in Canada, require recent MCAT scores; other health professions and graduate programs accept them too.", src: aamc_mcat_content }
+          - { t: "Given at Pearson test centers in the U.S., Canada and some other countries on set dates from January through September.", src: aamc_mcat_register }
+          - { t: "Attempt limits: three in a testing year, four over two consecutive years and seven in a lifetime (counting from April 2015); one appointment at a time.", src: aamc_mcat_attempts }
+      format:
+        intro: "Four multiple-choice sections in this order, with optional breaks of 10, 30 and 10 minutes between them. Some questions are unscored field-test items."
+        source: aamc_mcat_content
+        table:
+          head: ["Section", "Questions", "Time"]
+          rows:
+            - ["Chemical and Physical Foundations of Biological Systems", "59", "95 min"]
+            - ["Critical Analysis and Reasoning Skills", "53", "90 min"]
+            - ["Biological and Biochemical Foundations of Living Systems", "59", "95 min"]
+            - ["Psychological, Social, and Biological Foundations of Behavior", "59", "95 min"]
+            - ["Total content time", "", "6 h 15 min"]
+        points:
+          - { t: "Each science section has 10 passage-based sets and 15 stand-alone questions, drawing on general and organic chemistry, physics, biology, biochemistry, psychology and sociology.", src: aamc_mcat_content }
+          - { t: "Critical Analysis and Reasoning Skills uses passages from the social sciences and humanities and needs no specific content knowledge.", src: aamc_mcat_content }
+      scoring:
+        points:
+          - { t: "Five scores: each section 118–132 (midpoint 125) and a total of 472–528 (midpoint 500).", src: aamc_mcat }
+          - { t: "There is no curve: scores are scaled and equated so they mean the same on every test date.", src: aamc_mcat_scores }
+          - { t: "Scores are released 30–35 days after the exam.", src: aamc_mcat_scores }
+      fees:
+        intro: "2027 testing year, U.S. dollars:"
+        source: aamc_mcat_fees
+        table:
+          head: ["Item", "Standard", "Fee Assistance Program"]
+          rows:
+            - ["Registration", "$360", "$145"]
+            - ["Reschedule, 60 or more days before", "$55", "$25"]
+            - ["Reschedule, 30–59 days before", "$110", "$45"]
+            - ["Reschedule, 10–29 days before", "$210", "$85"]
+            - ["Refund if you cancel 30 or more days before", "$180", "$75"]
+            - ["Refund if you cancel 10–29 days before", "$0", "$0"]
+        points:
+          - { t: "Testing outside the U.S., Canada or U.S. territories adds a $130 international fee. No changes are allowed less than 10 days before the exam.", src: aamc_mcat_fees }
+          - { t: "AAMC Fee Assistance Program: for people who could not take the MCAT or apply through AMCAS without help. It gives the lower fee, all online MCAT Official Prep products and free access to the MSAR database; you need final approval before choosing a date.", src: aamc_fap }
+      dates:
+        intro: "2027 U.S. test dates. Testing starts at 8:00 a.m.; registration for every 2027 date opened October 20–22, 2026."
+        source: aamc_mcat_calendar
+        table:
+          head: ["Month", "Test dates", "Scores released"]
+          rows:
+            - ["January", "15, 16, 21, 29, 30*", "Feb 16 to Mar 2"]
+            - ["February", "12", "Mar 16"]
+            - ["March", "6, 19", "Apr 6, Apr 20"]
+            - ["April", "9, 10, 16, 17", "May 11, May 18"]
+            - ["May", "1, 7, 8, 13, 14*, 21, 29", "June 2 to June 29"]
+            - ["June", "11, 12, 25, 26", "July 13, July 27"]
+            - ["July", "9*, 10, 23, 30", "Aug 10 to Aug 31"]
+            - ["August", "14, 20, 21, 28*", "Sept 14 to Sept 28"]
+            - ["September", "2, 3, 10, 11", "Oct 5, Oct 12"]
+        points:
+          - { t: "Dates marked * are offered only at select centers in large metro areas, listed on AAMC's calendar page.", src: aamc_mcat_calendar }
+          - { t: "The last day to schedule, reschedule or cancel is 10 days before the test.", src: aamc_mcat_calendar }
+      practice:
+        points:
+          - { t: "Free from AAMC: Practice Exam One (230 questions from past exams, with a scaled score and percentile) and the Unscored Sample Test (230 questions).", src: aamc_mcat_free }
+          - { t: "Also free: the What's on the MCAT Exam? content outline course with 120 practice questions, and the Khan Academy MCAT collection (1,100 videos, 3,000 review questions) made with AAMC support.", src: aamc_mcat_free }
+    license: medicine
+    used_by:
+      need: [physician]
+      links:
+        - { label: "USMLE", href: "us/exams/usmle/", text: "The M.D. licensing exam taken in medical school" }
+        - { label: "COMLEX-USA", href: "us/exams/comlex-usa/", text: "The D.O. licensing exam" }
+    page:
+      title: "MCAT 2027: Test Dates, $360 Fee, Fee Assistance, Sections and 472–528 Scoring"
+      description: "AAMC's MCAT: four sections, 6 h 15 min of test time, scored 472–528. 2027 U.S. test dates January 15 to September 11, $360 registration ($145 with Fee Assistance), attempt limits and free practice exams."
+    search:
+      s: "2027 test dates, $360 ($145 Fee Assistance), 472–528, free practice exam"
+      k: "usa mcat medical college admission test aamc 2027 test dates fee assistance program score 528 medical school pre med"
+
+  dat:
+    name: "DAT (Dental Admission Test)"
+    short: "DAT"
+    by: "American Dental Association, Department of Testing Services"
+    stage: graduate
+    status: current
+    grades: "Pre-dental college students, usually in the spring of junior year or the summer after"
+    lede: "The DAT is the American Dental Association's admission test, required by all U.S. dental schools: four tests in 5 hours 15 minutes at Prometric centers all year, scored 200–600. The 2026 fee is $580."
+    facts:
+      - { label: "Length", value: "5 h 15 min", note: "With tutorial and optional break" }
+      - { label: "Score", value: "200–600", note: "Since March 1, 2025" }
+      - { label: "Fee", value: "$580", note: "2026" }
+      - { label: "Retest wait", value: "60 days" }
+    sections:
+      who:
+        points:
+          - { t: "All U.S. and Canadian dental schools require it, and each school decides how much it counts. Take it after the subjects it covers, especially organic chemistry: ADA suggests the spring of junior year or the summer after, applying 6–8 weeks before your date.", src: ada_dat }
+          - { t: "Retest rules: wait 60 days between attempts, at most four in 12 months; from the third attempt you need permission and proof of a recent dental school application; after the fifth, once every 12 months.", src: ada_dat }
+      format:
+        intro: "Multiple-choice questions in English. The 5 h 15 min includes an optional 15-minute tutorial, an optional 30-minute break after Perceptual Ability and a 15-minute survey."
+        source: ada_dat_guide
+        table:
+          head: ["Test", "Items", "Time"]
+          rows:
+            - ["Survey of the Natural Sciences (biology 40, general chemistry 30, organic chemistry 30)", "100", "90 min"]
+            - ["Perceptual Ability", "90", "60 min"]
+            - ["Reading Comprehension", "50", "60 min"]
+            - ["Quantitative Reasoning", "40", "45 min"]
+        points:
+          - { t: "New organic chemistry test specifications took effect in 2026; ADA asked anyone testing from May 2026 to use them.", src: ada_dat }
+      scoring:
+        points:
+          - { t: "Scale scores from 200 to 600 in 10-point steps, not raw scores or percentiles. There is no penalty for guessing and no official passing score: each school decides.", src: ada_dat_guide }
+          - { t: "The old 1–30 scale ended on March 1, 2025; older results are converted to the new scale when reported to dental schools through ADEA AADSAS.", src: ada_dat_scale }
+      fees:
+        intro: "2026 Candidate Guide, U.S. dollars:"
+        source: ada_dat_guide
+        table:
+          head: ["Item", "Fee"]
+          rows:
+            - ["Examination fee (includes reports to schools chosen when you apply)", "$580"]
+            - ["Score report requested later", "$55 each"]
+            - ["Score audit", "$105"]
+            - ["Eligibility extension (45 days)", "$150"]
+            - ["Reschedule 30 or more business days ahead", "$50"]
+            - ["Reschedule 5–29 business days ahead", "$70"]
+            - ["Reschedule 1–4 business days ahead", "$150"]
+        points:
+          - { t: "Partial fee waivers cover 50% of the exam fee for first-time U.S. citizens or resident aliens with financial hardship who received school financial aid. They go first come, first served; all 2026 waivers are gone and new ones open on January 1, 2027.", src: ada_dat }
+      dates:
+        points:
+          - { t: "Year-round at Prometric centers in the U.S., its territories and some Canadian cities (not Quebec). After your eligibility letter, book 60–90 days before the date you want.", src: ada_dat }
+      practice:
+        points:
+          - { t: "Practice test questions are posted at ADA.org/DAT, and Prometric's Test Drive previews test day.", src: ada_dat_guide }
+          - { t: "An online DAT tutorial (a sample test you can take any time) opens with your DENTPIN as the keycode.", src: ada_dat }
+    license: dentistry
+    used_by:
+      need: [dentistry]
+      links:
+        - { label: "INBDE", href: "us/exams/inbde/", text: "The licensing exam after dental school" }
+    page:
+      title: "DAT (Dental Admission Test): Sections, 200–600 Scores, $580 Fee and Retest Rules"
+      description: "The ADA's Dental Admission Test, required by all U.S. dental schools: four tests in 5 h 15 min, scored 200–600 since March 2025, $580 in 2026, 50% partial fee waivers, 60-day retest wait."
+    search:
+      s: "4 tests, 5 h 15 min, 200–600, $580, 50% partial fee waiver"
+      k: "usa dat dental admission test ada dental school perceptual ability natural sciences fee waiver score 600 predental"
+
+  oat:
+    name: "OAT (Optometry Admission Test)"
+    short: "OAT"
+    by: "Association of Schools and Colleges of Optometry (run by the ADA Department of Testing Services)"
+    stage: graduate
+    status: current
+    grades: "Pre-optometry college students, usually in the spring of junior year or the summer after"
+    lede: "The OAT is accepted by all U.S. optometry schools: four tests in 5 hours 5 minutes at Prometric centers all year, scored 200–400. The 2026 fee is $520."
+    facts:
+      - { label: "Length", value: "5 h 5 min", note: "With tutorial and optional break" }
+      - { label: "Score", value: "200–400" }
+      - { label: "Fee", value: "$520", note: "2026" }
+      - { label: "Retest wait", value: "60 days" }
+    sections:
+      who:
+        points:
+          - { t: "All U.S. and Canadian optometry schools require it. Take it in the second semester of junior year or the summer before senior year, after biology, general chemistry and organic chemistry.", src: oat_home }
+          - { t: "Most test takers have finished two or more years of college; advanced biology and physics courses are not required.", src: oat_guide }
+          - { t: "Retest rules: wait 60 days, at most four attempts in 12 months; from the third attempt you need permission and proof of a recent optometry school application; after the fifth, once every 12 months.", src: oat_home }
+      format:
+        intro: "Multiple-choice questions in English. The 5 h 5 min includes an optional 15-minute tutorial, an optional 30-minute break after Reading Comprehension and a 15-minute survey."
+        source: oat_guide
+        table:
+          head: ["Test", "Items", "Time"]
+          rows:
+            - ["Survey of the Natural Sciences (biology 40, general chemistry 30, organic chemistry 30)", "100", "90 min"]
+            - ["Reading Comprehension", "50", "60 min"]
+            - ["Physics", "40", "50 min"]
+            - ["Quantitative Reasoning", "40", "45 min"]
+      scoring:
+        points:
+          - { t: "Scale scores from 200 to 400 in 10-point steps; there is no curve and no official passing score.", src: oat_guide }
+          - { t: "Official scores reach the schools you chose within 3–4 weeks. Every attempt is reported and scores cannot be voided.", src: oat_scores }
+      fees:
+        intro: "2026 Candidate Guide, U.S. dollars:"
+        source: oat_guide
+        table:
+          head: ["Item", "Fee"]
+          rows:
+            - ["Examination fee", "$520"]
+            - ["Score report requested later", "$55 each"]
+            - ["Score audit", "$105"]
+            - ["Eligibility extension", "$150"]
+            - ["Reschedule 30 or more business days ahead", "$50"]
+            - ["Reschedule 5–29 business days ahead", "$70"]
+            - ["Reschedule 1–4 business days ahead", "$150"]
+        points:
+          - { t: "Name as many optometry schools as you like when you apply, at no extra charge.", src: oat_apply }
+          - { t: "Partial fee waivers (50% of the exam fee) are first come, first served; all 2026 waivers have been granted.", src: oat_home }
+      dates:
+        points:
+          - { t: "Year-round at Prometric centers in the U.S., Guam, Puerto Rico, the Virgin Islands and some Canadian cities (not Quebec). Book 60–90 days ahead after your eligibility email.", src: oat_home }
+      practice:
+        points:
+          - { t: "Full practice tests and single-section test modules, written by OAT test constructors, are offered through Prometric.", src: oat_apply }
+    used_by:
+      links:
+        - { label: "DAT", href: "us/exams/dat/", text: "The sister test for dental school, run by the same ADA testing office" }
+        - { label: "Healthcare careers", href: "us/clusters/healthcare-human-services/", text: "Every healthcare career on this site" }
+    page:
+      title: "OAT (Optometry Admission Test): Sections, 200–400 Scores, $520 Fee and Retest Rules"
+      description: "The Optometry Admission Test accepted by all U.S. optometry schools: four tests in 5 h 5 min at Prometric, scored 200–400, $520 in 2026, partial fee waivers and a 60-day retest wait."
+    search:
+      s: "4 tests, 5 h 5 min, 200–400, $520, accepted by all U.S. optometry schools"
+      k: "usa oat optometry admission test optometrist school asco ada prometric physics fee waiver"
+
+  # ---- Phase 10, batch 1 (2026-10-21): health licensing exams ----
+
+  usmle:
+    name: "USMLE (Step 1, Step 2 CK, Step 3)"
+    short: "USMLE"
+    by: "FSMB and NBME"
+    stage: licensing
+    status: current
+    grades: "M.D. students (Steps 1 and 2 CK), residents (Step 3) and international medical graduates"
+    lede: "The USMLE is the three-step licensing exam for M.D. physicians, accepted by every state medical board. Step 1 is pass/fail; Step 2 CK needs 218 and Step 3 needs 200 to pass. For 2026 and 2027, Steps 1 and 2 CK cost $695 each and Step 3 costs $955."
+    facts:
+      - { label: "Steps", value: "3" }
+      - { label: "Step 1", value: "Pass/fail", note: "Since Jan 26, 2022" }
+      - { label: "Step 2 CK pass", value: "218", note: "Step 3: 200" }
+      - { label: "Fees", value: "$695", note: "Step 3: $955" }
+    sections:
+      who:
+        points:
+          - { t: "State medical boards grant licenses and use USMLE results to do it. Used since 1992 and accepted by all state medical boards, it is the exam for M.D.s; D.O.s take COMLEX-USA.", src: usmle }
+          - { t: "Students of LCME- or COCA-accredited programs apply for Steps 1 and 2 CK through NBME; students and graduates of schools outside the U.S. apply through FSMB and need ECFMG Certification before Step 3.", src: usmle_fees }
+          - { t: "Attempt limits: four or more failed attempts at a Step ends eligibility for every Step; at most three tries at the same Step in 12 months, the fourth at least 12 months after the first and 6 months after the last. A passed Step cannot be retaken except to meet a board's time limit.", src: usmle_eligibility }
+      format:
+        intro: "All three Steps are taken at Prometric test centers."
+        source: usmle_step1
+        table:
+          head: ["Step", "What it tests", "Format"]
+          row_src: [usmle_step1, usmle_step2ck, usmle_step3_content]
+          rows:
+            - ["Step 1", "Science basic to medicine: principles and mechanisms of health, disease and therapy", "One 8-hour day: fourteen 30-minute blocks of up to 20 questions (from May 14, 2026), with at least 55 minutes of breaks"]
+            - ["Step 2 CK", "Clinical knowledge for patient care under supervision", "One 9-hour day: sixteen 30-minute blocks of up to 20 questions (from May 7, 2026), with at least 55 minutes of breaks"]
+            - ["Step 3", "Unsupervised general practice, mainly in ambulatory settings", "Two days. Day 1 (Foundations of Independent Practice): 232 questions in 12 blocks, about 7 hours. Day 2 (Advanced Clinical Medicine): 180 questions in 9 blocks plus 13–14 computer case simulations, about 9 hours"]
+      scoring:
+        intro: "Results are on a 3-digit scale. Current minimum passing scores:"
+        source: usmle_results
+        table:
+          head: ["Step", "Minimum passing score", "For exams on or after"]
+          rows:
+            - ["Step 1", "Pass/fail only (passing standard 196 on the 3-digit scale)", "Jan 26, 2022"]
+            - ["Step 2 CK", "218", "July 1, 2025"]
+            - ["Step 3", "200", "Jan 1, 2024"]
+        points:
+          - { t: "Results usually come within four weeks; USMLE says to allow at least eight.", src: usmle_results }
+          - { t: "On Step 3 the case simulations count toward your score and can decide pass or fail.", src: usmle_scoring }
+      fees:
+        intro: "Application fees for 2026 and 2027:"
+        source: usmle_fees
+        table:
+          head: ["Step", "Fee"]
+          rows:
+            - ["Step 1", "$695"]
+            - ["Step 2 CK", "$695"]
+            - ["Step 3", "$955"]
+        points:
+          - { t: "Testing outside the U.S. and Canada adds a region fee: $210 for Step 1 and $235 for Step 2 CK (not a USMLE fee).", src: usmle_fees }
+          - { t: "NBME runs a USMLE Fee Assistance program for medical students and residents with demonstrated financial need.", src: usmle_fees }
+      dates:
+        points:
+          - { t: "No national test dates: after your application is approved you choose a date at a Prometric center; the exams are not given on major local holidays.", src: usmle_fees }
+      practice:
+        points:
+          - { t: "Once registered you get the interactive testing experience, with tips on the exam software and sample test questions.", src: usmle_step1 }
+    license: medicine
+    used_by:
+      need: [physician]
+      links:
+        - { label: "COMLEX-USA", href: "us/exams/comlex-usa/", text: "The D.O. route to the same license" }
+        - { label: "MCAT", href: "us/exams/mcat/", text: "The medical school admission test" }
+        - { label: "Indian MBBS to a U.S. residency", href: "us/roadmaps/img-usmle.html", text: "The ECFMG and USMLE route for international graduates" }
+    page:
+      title: "USMLE Step 1, Step 2 CK and Step 3: Format, Passing Scores and 2026-27 Fees"
+      description: "The U.S. Medical Licensing Examination: Step 1 pass/fail, Step 2 CK passing score 218, Step 3 200, new 30-minute block format from May 2026, fees $695 / $695 / $955 for 2026 and 2027, attempt limits."
+    search:
+      s: "Step 1 pass/fail, Step 2 CK 218, Step 3 200, fees $695 / $955"
+      k: "usa usmle step 1 step 2 ck step 3 medical licensing exam passing score fees nbme fsmb physician residency img"
+
+  comlex-usa:
+    name: "COMLEX-USA (Level 1, Level 2-CE, Level 3)"
+    short: "COMLEX-USA"
+    by: "National Board of Osteopathic Medical Examiners (NBOME)"
+    stage: licensing
+    status: current
+    grades: "D.O. students (Levels 1 and 2-CE) and osteopathic residents (Level 3)"
+    lede: "COMLEX-USA is the three-level licensing exam for osteopathic physicians (D.O.), and Levels 1 and 2-CE are also graduation requirements at U.S. colleges of osteopathic medicine. Levels 1 and 2-CE cost $745 each and Level 3 $950; Level 3 becomes a one-day exam on January 13, 2027."
+    facts:
+      - { label: "Levels", value: "3" }
+      - { label: "Level 1 / 2-CE", value: "$745", note: "Each" }
+      - { label: "Level 3", value: "$950", note: "One day from Jan 13, 2027" }
+      - { label: "Attempts", value: "4", note: "Scored attempts per level" }
+    sections:
+      who:
+        points:
+          - { t: "Required to graduate with a Doctor of Osteopathic Medicine degree from U.S. schools and colleges of osteopathic medicine, and for entry into and promotion within residency.", src: nbome_comlex }
+          - { t: "Level 3 needs Level 1 passed and a clinical skills attestation from your college's dean (the Level 2-PE exam ended in June 2022).", src: nbome_eligibility }
+          - { t: "Your residency program director must also approve you for Level 3; NBOME recommends at least six months of residency first. From the Class of 2029, the Core Competency Capstone for DOs (C3DO) becomes part of Level 3 eligibility.", src: nbome_faqs }
+          - { t: "Limits: four scored attempts per level, and no more than four attempts at a level in 12 months. A passed level cannot be retaken to raise the score.", src: nbome_eligibility }
+      format:
+        intro: "Computer-based and non-adaptive: the questions and time limits are fixed in advance."
+        source: nbome_faqs
+        table:
+          head: ["Level", "What it tests", "Format"]
+          row_src: [nbome_enhancements, nbome_enhancements, nbome_level3]
+          rows:
+            - ["Level 1", "Foundational biomedical sciences and osteopathic principles, for entry into supervised patient care", "320 questions in 8 hours (down from 352; NBOME targeted the change for its spring 2026 cycles)"]
+            - ["Level 2-CE", "Clinical sciences, for entry into supervised residency", "320 questions in 8 hours (same planned change)"]
+            - ["Level 3", "Unsupervised practice as a generalist osteopathic physician", "Two days now; one day from January 13, 2027, with fewer questions and the same Blueprint (multiple choice plus clinical decision-making cases)"]
+      scoring:
+        points:
+          - { t: "Level 1 is reported pass/fail only.", src: nbome_faqs }
+          - { t: "NBOME sets a criterion-referenced pass/fail standard, so no set share of candidates passes; the standard is reviewed from time to time.", src: nbome_faqs }
+      fees:
+        intro: "U.S. dollars:"
+        source: nbome_faqs
+        table:
+          head: ["Item", "Level 1 or 2-CE", "Level 3"]
+          rows:
+            - ["Exam fee", "$745", "$950"]
+            - ["Reschedule or cancel more than 30 days ahead", "$0", "$0"]
+            - ["Reschedule or cancel 6–30 days ahead", "$85", "$170"]
+            - ["Reschedule or cancel 1–5 days ahead", "$250", "$350"]
+            - ["No-show (within 24 hours)", "$400", "$500"]
+        points:
+          - { t: "Other fees: score confirmation $75, transcript $65.", src: nbome_faqs }
+      dates:
+        points:
+          - { t: "Levels 1 and 2-CE: schedule at least 5 calendar days ahead; NBOME advises trying 120 days ahead because seats are limited. Level 3: register by the deadline for each published testing window.", src: nbome_scheduling }
+      practice:
+        points:
+          - { t: "COMSAE, NBOME's three-phase self-assessment series, lets students and residents gauge their knowledge before each COMLEX-USA level.", src: nbome_comsae }
+    license: medicine
+    used_by:
+      need: [physician]
+      links:
+        - { label: "USMLE", href: "us/exams/usmle/", text: "The M.D. route to the same license" }
+    page:
+      title: "COMLEX-USA Levels 1, 2-CE and 3: Format, Fees ($745 / $950) and the 2027 Level 3 Change"
+      description: "NBOME's COMLEX-USA for D.O. physicians: Level 1 pass/fail, 320-question Levels 1 and 2-CE, Level 3 one-day format from January 13, 2027, fees $745 and $950, four-attempt limit, COMSAE practice."
+    search:
+      s: "D.O. licensing: Level 1 pass/fail, $745 / $950, Level 3 one-day from Jan 2027"
+      k: "usa comlex usa level 1 level 2 ce level 3 nbome osteopathic do physician licensing exam fee comsae"
+
+  nclex-rn:
+    name: "NCLEX-RN"
+    short: "NCLEX-RN"
+    by: "National Council of State Boards of Nursing (NCSBN)"
+    stage: licensing
+    status: current
+    grades: "Graduates of RN programs (bachelor's, associate degree or hospital diploma)"
+    lede: "The NCLEX-RN is the national exam U.S. boards of nursing use to license registered nurses. It is computer adaptive: 85 to 150 items in up to five hours, scored pass/fail. The fee is $200, rising to $350 on February 1, 2027."
+    facts:
+      - { label: "Items", value: "85–150", note: "Computer adaptive" }
+      - { label: "Time limit", value: "5 hours" }
+      - { label: "Fee", value: "$200", note: "$350 from Feb 1, 2027" }
+      - { label: "Retake wait", value: "45 days" }
+    sections:
+      who:
+        points:
+          - { t: "Each nursing regulatory body sets its own eligibility rules. Apply to the board where you want a license, then register and pay with Pearson.", src: nclex_faqs }
+          - { t: "Once the board makes you eligible you get an Authorization to Test (ATT); test within its dates (about 90 days on average, never extended).", src: nclex_faqs }
+          - { t: "A registration stays open 365 days waiting for the board; if you are not made eligible in that time, the fee is lost.", src: nclex_registration }
+      format:
+        intro: "The Next Generation NCLEX (since April 1, 2023) measures clinical judgment with newer item types. The 2026 RN Test Plan runs from April 1, 2026 to March 31, 2029."
+        source: nclex_rn_plan
+        points:
+          - { t: "Every candidate answers at least 85 items and at most 150 in the five-hour limit; the minimum-length exam includes three clinical judgment case studies of six items each.", src: nclex_rn_plan }
+          - { t: "Content follows four Client Needs categories (Safe and Effective Care Environment, Health Promotion and Maintenance, Psychosocial Integrity, Physiological Integrity), for example Management of Care 15–21% and Pharmacological and Parenteral Therapies 11–17%.", src: nclex_rn_plan }
+          - { t: "You cannot skip items or go back: each answer is used to pick the next item.", src: nclex_faqs }
+      scoring:
+        points:
+          - { t: "Pass or fail. The computer stops when it is 95% sure you are above or below the passing standard; if you stay close to it, you get the maximum number of items. Running out of time before the minimum number of items is a fail.", src: nclex_cat }
+          - { t: "The RN passing standard is 0.00 logits, kept through March 31, 2029.", src: nclex_passing }
+          - { t: "Official results come only from your board, within six weeks. Where the board takes part, unofficial Quick Results are available (for a fee) two business days after the exam.", src: nclex_results }
+      fees:
+        intro: "For candidates seeking a U.S. license:"
+        source: nclex_fees
+        table:
+          head: ["Item", "Fee"]
+          rows:
+            - ["Registration, until January 31, 2027", "$200"]
+            - ["Registration, from February 1, 2027", "$350"]
+            - ["Change of nursing regulatory body after registering", "$50"]
+            - ["Change of exam type (RN/PN) after registering", "$50"]
+        points:
+          - { t: "Fees are not refunded for any reason, including a missed appointment or a change made inside 24 business hours.", src: nclex_fees }
+          - { t: "The NCLEX is on the VA's list of approved licensure exams, so eligible veterans and dependents can be reimbursed.", src: nclex_fees }
+      dates:
+        points:
+          - { t: "No national dates: test all year at any Pearson Professional Testing center, whichever state you are applying to.", src: nclex_faqs }
+          - { t: "If you do not pass, you can retake after 45 days, up to eight times a year where the board allows; some boards set stricter limits.", src: nclex_results }
+      practice:
+        points:
+          - { t: "Free from NCSBN: a sample pack (three RN and two PN case studies), an exam preview, the 2026 Candidate Bulletin and the Pearson candidate tutorial.", src: nclex_prepare }
+    license: nursing
+    used_by:
+      need: [registered-nurse, nurse-practitioner, licensed-practical-nurse]
+      links:
+        - { label: "NCLEX-PN", href: "us/exams/nclex-pn/", text: "The exam for licensed practical and vocational nurses" }
+    page:
+      title: "NCLEX-RN: 85–150 Items, 5 Hours, $200 Fee ($350 from Feb 2027), Pass/Fail Rules"
+      description: "NCSBN's NCLEX-RN for registered nurses: computer adaptive, 85–150 items in 5 hours, 2026 test plan, passing standard 0.00 logits, $200 fee rising to $350 on February 1, 2027, 45-day retake wait."
+    search:
+      s: "85–150 adaptive items, 5 h, $200 → $350 from Feb 2027, 45-day retake"
+      k: "usa nclex rn next generation nclex ngn registered nurse exam ncsbn pearson fee 2027 test plan retake"
+
+  nclex-pn:
+    name: "NCLEX-PN"
+    short: "NCLEX-PN"
+    by: "National Council of State Boards of Nursing (NCSBN)"
+    stage: licensing
+    status: current
+    grades: "Graduates of practical or vocational nursing programs (LPN/LVN)"
+    lede: "The NCLEX-PN is the national exam boards of nursing use to license practical and vocational nurses (LPN/LVN). It is computer adaptive: 85 to 150 items in up to five hours, scored pass/fail. The fee is $200, rising to $350 on February 1, 2027."
+    facts:
+      - { label: "Items", value: "85–150", note: "Computer adaptive" }
+      - { label: "Time limit", value: "5 hours" }
+      - { label: "Fee", value: "$200", note: "$350 from Feb 1, 2027" }
+      - { label: "Retake wait", value: "45 days" }
+    sections:
+      who:
+        points:
+          - { t: "Each nursing regulatory body sets its own eligibility rules. Apply to the board where you want a license, then register and pay with Pearson.", src: nclex_faqs }
+          - { t: "Once the board makes you eligible you get an Authorization to Test (ATT); test within its dates (about 90 days on average, never extended).", src: nclex_faqs }
+      format:
+        intro: "The 2026 PN Test Plan runs from April 1, 2026 to March 31, 2029."
+        source: nclex_pn_plan
+        points:
+          - { t: "Every LPN/VN candidate answers at least 85 items and at most 150 in the five-hour limit; the minimum-length exam includes three clinical judgment case studies of six items each.", src: nclex_pn_plan }
+          - { t: "Content follows the Client Needs categories, for example Coordinated Care 18–24% and Pharmacological Therapies 7–13%.", src: nclex_pn_plan }
+          - { t: "You cannot skip items or go back: each answer is used to pick the next item.", src: nclex_faqs }
+      scoring:
+        points:
+          - { t: "Pass or fail. The computer stops when it is 95% sure you are above or below the passing standard; if you stay close to it, you get the maximum number of items.", src: nclex_cat }
+          - { t: "The PN passing standard is −0.18 logits, kept through March 31, 2029.", src: nclex_passing }
+          - { t: "Official results come only from your board, within six weeks.", src: nclex_results }
+      fees:
+        intro: "For candidates seeking a U.S. license:"
+        source: nclex_fees
+        table:
+          head: ["Item", "Fee"]
+          rows:
+            - ["Registration, until January 31, 2027", "$200"]
+            - ["Registration, from February 1, 2027", "$350"]
+            - ["Change of nursing regulatory body after registering", "$50"]
+            - ["Change of exam type (RN/PN) after registering", "$50"]
+        points:
+          - { t: "Fees are not refunded for any reason. Eligible veterans and dependents can be reimbursed by the VA.", src: nclex_fees }
+      dates:
+        points:
+          - { t: "No national dates: test all year at any Pearson Professional Testing center.", src: nclex_faqs }
+          - { t: "If you do not pass, you can retake after 45 days, up to eight times a year where the board allows.", src: nclex_results }
+      practice:
+        points:
+          - { t: "Free from NCSBN: a sample pack (three RN and two PN case studies), an exam preview, the 2026 Candidate Bulletin and the Pearson candidate tutorial.", src: nclex_prepare }
+    license: practical-nursing
+    used_by:
+      need: [licensed-practical-nurse, nursing-assistant]
+      links:
+        - { label: "NCLEX-RN", href: "us/exams/nclex-rn/", text: "The registered nurse exam, the next step up the ladder" }
+    page:
+      title: "NCLEX-PN: 85–150 Items, 5 Hours, $200 Fee ($350 from Feb 2027), Pass/Fail Rules"
+      description: "NCSBN's NCLEX-PN for licensed practical and vocational nurses: computer adaptive, 85–150 items in 5 hours, 2026 PN test plan, passing standard −0.18 logits, $200 fee rising to $350 on February 1, 2027."
+    search:
+      s: "LPN/LVN exam: 85–150 items, 5 h, $200 → $350 from Feb 2027"
+      k: "usa nclex pn lpn lvn practical nurse vocational nurse exam ncsbn fee test plan"
+
+  naplex-mpje:
+    name: "NAPLEX and MPJE (pharmacist licensing exams)"
+    short: "NAPLEX and MPJE"
+    by: "National Association of Boards of Pharmacy (NABP)"
+    stage: licensing
+    status: current
+    grades: "Pharm.D. graduates and FPGEC-certified foreign-educated pharmacists"
+    lede: "Pharmacists pass two NABP exams for a license: the NAPLEX on general practice (225 questions in 6 hours) and a law exam, either the state's MPJE or, in adopting states, the Uniform MPJE (120 questions in 2.5 hours). Both are reported pass or fail."
+    facts:
+      - { label: "NAPLEX", value: "225 Qs", note: "6 hours" }
+      - { label: "MPJE / UMPJE", value: "120 Qs", note: "2.5 hours" }
+      - { label: "Results", value: "14 days", note: "Business days, pass/fail" }
+      - { label: "NAPLEX attempts", value: "5", note: "Max 3 in 12 months" }
+    sections:
+      who:
+        points:
+          - { t: "Recent pharmacy graduates take the NAPLEX shortly after their degree; foreign-educated pharmacists take it after earning FPGEC Certification.", src: nabp_naplex }
+          - { t: "Apply in the Exam Services section of your NABP e-Profile and pay; your school sends an official transcript. NABP itself confirms eligibility, for an extra $85, for Alaska, Arizona, Colorado, D.C., Idaho, Kentucky, Louisiana, Maine, Michigan, Nebraska, North Carolina, Oregon, Rhode Island, Utah and Wisconsin; other boards confirm it themselves.", src: nabp_naplex }
+          - { t: "The UMPJE is open to ACPE-accredited graduates, FPGEC-certified pharmacists and licensed pharmacists transferring a license.", src: nabp_umpje_states }
+      format:
+        source: nabp_mpje_day
+        table:
+          head: ["Exam", "Questions", "Time", "Delivery"]
+          row_src: [nabp_naplex_day, nabp_mpje_day, nabp_mpje_day]
+          rows:
+            - ["NAPLEX: general pharmacy practice", "225", "6 hours", "Computer, fixed form"]
+            - ["MPJE: one state's laws plus federal law", "120", "2.5 hours", "Computer adaptive"]
+            - ["UMPJE: law principles shared by most states plus federal law", "120", "2.5 hours", "Computer adaptive"]
+        points:
+          - { t: "The Uniform MPJE launched in 2026 for jurisdictions that adopt it; the MPJE stays state-specific elsewhere.", src: nabp_mpje }
+      scoring:
+        points:
+          - { t: "Results are pass or fail, posted in your NABP e-Profile within 14 business days for most boards; a failed exam comes with a performance report.", src: nabp_naplex_results }
+          - { t: "Attempts: NAPLEX 5 in total and no more than 3 in 12 months; MPJE 5 per jurisdiction; UMPJE 5 in total.", src: nabp_mpje_day }
+          - { t: "A pass is not a license: only boards of pharmacy issue licenses.", src: nabp_naplex_results }
+      fees:
+        points:
+          - { t: "NAPLEX score transfer to other boards: $105 per jurisdiction, within 89 days after the exam. MPJE scores cannot be transferred.", src: nabp_naplex }
+          - { t: "NABP's exam pages do not print the exam fees; they are in the Candidate Application Bulletin, and NABP notes timelines and fees vary by jurisdiction. An armed forces discount is available.", src: nabp_naplex }
+      dates:
+        points:
+          - { t: "No national dates: after you buy the exam you get an Authorization to Test by email, then schedule with Pearson.", src: nabp_naplex }
+      accepted:
+        intro: "Jurisdictions using the Uniform MPJE:"
+        source: nabp_umpje_states
+        table:
+          head: ["Jurisdiction", "UMPJE starts", "MPJE retired"]
+          rows:
+            - ["Arizona", "Apr 1, 2026", "Mar 31, 2026"]
+            - ["Florida", "June 1, 2026", "May 31, 2026"]
+            - ["Iowa", "Apr 1, 2026", "Mar 31, 2026"]
+            - ["Kansas", "Apr 1, 2026", "Mar 31, 2027"]
+            - ["Maryland", "June 1, 2026", "May 31, 2027"]
+            - ["Montana", "June 1, 2026", "May 31, 2026"]
+            - ["Nebraska", "June 1, 2026", "May 31, 2028"]
+            - ["North Carolina", "Apr 1, 2026", "Mar 31, 2026"]
+            - ["Ohio", "Apr 1, 2026", "Sept 30, 2026"]
+            - ["Rhode Island", "Apr 1, 2026", "Mar 31, 2026"]
+            - ["Virginia", "Sept 1, 2026", "Sept 30, 2026"]
+            - ["Washington", "July 2, 2026", "Dec 29, 2026"]
+            - ["West Virginia", "June 1, 2026", "Aug 1, 2026"]
+      practice:
+        points:
+          - { t: "Pre-NAPLEX, NABP's official practice exam: 100 retired NAPLEX questions in 140 minutes with a scaled score (paid; up to two a year).", src: nabp_pre_naplex }
+    license: pharmacy
+    used_by:
+      need: [pharmacist]
+    page:
+      title: "NAPLEX and MPJE / Uniform MPJE: Questions, Time, Attempts and UMPJE States"
+      description: "NABP's pharmacist licensing exams: NAPLEX (225 questions, 6 hours) and the state MPJE or Uniform MPJE (120 questions, 2.5 hours), pass/fail in 14 business days, attempt limits and the jurisdictions using the Uniform MPJE."
+    search:
+      s: "NAPLEX 225 Qs / 6 h; MPJE and Uniform MPJE 120 Qs / 2.5 h; UMPJE states"
+      k: "usa naplex mpje umpje uniform mpje pharmacist licensure exam nabp pharmacy law pre naplex"
+
+  inbde:
+    name: "INBDE (Integrated National Board Dental Examination)"
+    short: "INBDE"
+    by: "Joint Commission on National Dental Examinations (JCNDE)"
+    stage: licensing
+    status: current
+    grades: "Dental students approved by their dean, and dental graduates"
+    lede: "The INBDE is the national written exam for a U.S. dental license, accepted in all states and territories. It takes two days (12 hours 30 minutes in all) at Prometric centers and is reported pass or fail. The exam fee is $890."
+    facts:
+      - { label: "Length", value: "12 h 30 min", note: "Two days within 7 days" }
+      - { label: "Result", value: "Pass/fail", note: "Scale score 75 passes" }
+      - { label: "Fee", value: "$890" }
+      - { label: "Limit", value: "5 years / 5 tries" }
+    sections:
+      who:
+        points:
+          - { t: "Accepted in all U.S. states and territories as all or part of the written exam requirement; check your dental board for its other rules.", src: jcnde_inbde }
+          - { t: "Students in CODA-accredited programs are eligible once their dean confirms it. Students and graduates of programs not accredited by CODA send a Certification of Eligibility signed by the dean or registrar.", src: jcnde_inbde }
+      format:
+        points:
+          - { t: "All multiple choice: standalone items and case-based items. Total time 12 h 30 min including the optional tutorial, breaks and survey: Day 1 is 8 h 15 min and Day 2 is 4 h 15 min.", src: jcnde_inbde_guide }
+          - { t: "Day 2 must fall within seven days of Day 1 at the same test center, or you retest at your own cost.", src: jcnde_inbde_guide }
+      scoring:
+        points:
+          - { t: "Reported as pass or fail. The minimum passing scale score is 75; candidates who fail get performance information for remediation.", src: jcnde_inbde_guide }
+          - { t: "Retest rules: wait at least 60 days after a failed attempt; pass within five years of your first attempt or within five attempts, whichever comes first, then you may test once every six months. A passed INBDE cannot be retaken unless a board requires it.", src: jcnde_inbde_guide }
+      fees:
+        intro: "U.S. dollars:"
+        source: jcnde_inbde_guide
+        table:
+          head: ["Item", "Fee"]
+          row_src: [jcnde_inbde_guide, jcnde_inbde_guide, jcnde_inbde_guide, jcnde_inbde_guide, jcnde_inbde_guide, jcnde_inbde_guide, jcnde_inbde, jcnde_inbde, jcnde_inbde]
+          rows:
+            - ["Exam fee (results to you, three licensing boards and your CODA program)", "$890"]
+            - ["INBDE and DLOSCE bundle", "$1,080"]
+            - ["Processing fee, programs not accredited by CODA", "$435"]
+            - ["Extra results report", "$55 each"]
+            - ["Results audit", "$105"]
+            - ["Eligibility extension", "$150"]
+            - ["Reschedule 30 or more business days ahead", "$50"]
+            - ["Reschedule 5–29 business days ahead", "$70"]
+            - ["Reschedule 1–4 business days ahead", "$150"]
+      dates:
+        points:
+          - { t: "No national dates: after your eligibility email from the JCNDE, book with Prometric 60 to 90 days before the date you want. Not offered in Quebec.", src: jcnde_inbde }
+      practice:
+        points:
+          - { t: "The JCNDE posts fact sheets and practice questions for the INBDE; Prometric's 30-minute Test Drive previews test day.", src: jcnde_inbde_guide }
+    license: dentistry
+    used_by:
+      need: [dentistry]
+      links:
+        - { label: "DAT", href: "us/exams/dat/", text: "The admission test before dental school" }
+    page:
+      title: "INBDE: Two-Day Dental Licensure Exam, Pass/Fail Scoring, $890 Fee and Retest Rules"
+      description: "The JCNDE's Integrated National Board Dental Examination, accepted in all U.S. states: two days, 12 h 30 min at Prometric, pass/fail (scale score 75), $890 fee, 60-day retest wait, five-years-five-attempts rule."
+    search:
+      s: "2 days, 12 h 30 min, pass/fail, $890, accepted in all U.S. states"
+      k: "usa inbde integrated national board dental examination jcnde dentist licensure exam dds dmd fee"
+
+  npte:
+    name: "NPTE (National Physical Therapy Examination)"
+    short: "NPTE"
+    by: "Federation of State Boards of Physical Therapy (FSBPT)"
+    stage: licensing
+    status: current
+    grades: "Graduates of physical therapist (DPT) and physical therapist assistant programs"
+    lede: "The NPTE is the national licensing exam for physical therapists and PT assistants, given on fixed dates four times a year. The PT exam is 225 questions in 5 hours; a scaled score of 600 (on 200–800) passes. You pay FSBPT $485 plus a Prometric fee of $100.30."
+    facts:
+      - { label: "PT exam", value: "225 Qs", note: "5 sections, 5 hours" }
+      - { label: "Pass", value: "600", note: "Scale 200–800" }
+      - { label: "Fees", value: "$485", note: "+ $100.30 Prometric (PT)" }
+      - { label: "Next PT date", value: "Oct 27–28, 2026" }
+    sections:
+      who:
+        points:
+          - { t: "Register online with FSBPT and pay; your state licensing authority then approves you, and you get an Authorization to Test to book with Prometric.", src: fsbpt_npte_handbook }
+          - { t: "Limits: three consecutive attempts per exam level, six in a lifetime, and no more than two scores of 400 or less since January 1, 2016.", src: fsbpt_npte_elig }
+      format:
+        source: fsbpt_npte_handbook
+        table:
+          head: ["Exam", "Sections", "Questions", "Testing time", "Appointment"]
+          rows:
+            - ["Physical Therapist (PT)", "5", "225", "5 hours", "5 h 30 min"]
+            - ["Physical Therapist Assistant (PTA)", "4", "180", "4 hours", "4 h 30 min"]
+      scoring:
+        points:
+          - { t: "Scores are on a 200–800 scale but the exam is pass/fail: 600 or higher passes.", src: fsbpt_npte_handbook }
+          - { t: "FSBPT sends your score to the licensing authority about five business days after your eligibility period ends. A free score report sits on your dashboard about 10 business days after each date, for 30 days.", src: fsbpt_npte_after }
+      fees:
+        table:
+          head: ["Item", "Fee"]
+          row_src: [fsbpt_npte_handbook, fsbpt_npte_reg, fsbpt_npte_reg]
+          rows:
+            - ["NPTE exam fee (paid to FSBPT)", "$485"]
+            - ["Prometric fee, PT exam", "$100.30"]
+            - ["Prometric fee, PTA exam", "$82.60"]
+        points:
+          - { t: "If your registration is closed before you test, the exam fee is refunded minus a $50 processing fee.", src: fsbpt_npte_handbook }
+      dates:
+        intro: "2026 PT test dates (deadlines 11:59 p.m. ET; some states set earlier deadlines). FSBPT has not posted 2027 dates on this page."
+        source: fsbpt_npte_dates
+        table:
+          head: ["Test dates", "Register and pay by", "Board approval by", "Scores to boards"]
+          rows:
+            - ["Jan 27–28", "Dec 23", "Jan 5", "Feb 4"]
+            - ["Apr 28–29", "Mar 24", "Mar 31", "May 6"]
+            - ["July 28–29", "June 23", "June 30", "Aug 5"]
+            - ["Oct 27–28", "Sept 22", "Sept 29", "Nov 4"]
+      practice:
+        points:
+          - { t: "PEAT, FSBPT's Practice Exam and Assessment Tool ($99): two timed exams in the NPTE format, a practice test and a retired NPTE form.", src: fsbpt_peat }
+    license: physical-therapy
+    used_by:
+      need: [physical-therapist]
+    page:
+      title: "NPTE: 2026 Test Dates, 225 Questions, 600 to Pass, $485 + Prometric Fee"
+      description: "FSBPT's National Physical Therapy Examination: PT exam 225 questions in 5 hours (PTA 180 in 4), pass at 600 on a 200–800 scale, fixed test dates in January, April, July and October 2026, $485 plus $100.30 Prometric fee."
+    search:
+      s: "Fixed dates, PT 225 Qs / 5 h, 600 to pass, $485 + $100.30"
+      k: "usa npte national physical therapy examination fsbpt physical therapist pta license exam dates peat"
+
+  pance:
+    name: "PANCE (Physician Assistant National Certifying Exam)"
+    short: "PANCE"
+    by: "National Commission on Certification of Physician Assistants (NCCPA)"
+    stage: licensing
+    status: current
+    grades: "Graduates of ARC-PA accredited physician assistant programs"
+    lede: "The PANCE is the national certification exam for physician assistants: five blocks of 60 questions, 5 hours of exam time in a 6-hour session at Pearson VUE. Passing earns NCCPA certification and the PA-C title. The fee is $550."
+    facts:
+      - { label: "Format", value: "5 × 60 Qs", note: "60 minutes per block" }
+      - { label: "Session", value: "6 hours", note: "5 hours of exam time" }
+      - { label: "Fee", value: "$550" }
+      - { label: "Limit", value: "6 years / 6 tries" }
+    sections:
+      who:
+        points:
+          - { t: "You must graduate from an entry-level PA program accredited by ARC-PA.", src: nccpa_become }
+          - { t: "Six-years-six-attempts rule: graduates since January 1, 2003 who were never certified can take the PANCE for six years after finishing, at most six times; after that, only a new accredited PA program restores eligibility.", src: nccpa_become }
+      format:
+        points:
+          - { t: "Five blocks of 60 questions with 60 minutes for each, 45 minutes of break time between blocks that you manage yourself, and a 15-minute tutorial.", src: nccpa_become }
+      scoring:
+        points:
+          - { t: "Passing earns NCCPA board certification and the right to use PA-C (Physician Assistant-Certified) while you keep certification current.", src: nccpa_become }
+      fees:
+        points:
+          - { t: "Submit the application with the $550 fee; an exam acknowledgement with scheduling details follows within 3 days.", src: nccpa_become }
+      dates:
+        points:
+          - { t: "No national dates: you get a 180-day window to test, based on your graduation date, and book at a Pearson VUE center.", src: nccpa_become }
+      practice:
+        points:
+          - { t: "Pearson VUE's website has a PANCE exam tutorial (under Tutorials).", src: nccpa_become }
+    used_by:
+      links:
+        - { label: "Healthcare careers", href: "us/clusters/healthcare-human-services/", text: "Every healthcare career on this site" }
+        - { label: "Professional licenses", href: "us/professional-licenses/", text: "License pages and state boards" }
+    page:
+      title: "PANCE: Physician Assistant Exam Format, $550 Fee and the Six-Years-Six-Attempts Rule"
+      description: "NCCPA's Physician Assistant National Certifying Exam: five 60-question blocks, 6-hour session at Pearson VUE, $550 fee, 180-day test window, six-years-six-attempts eligibility rule, PA-C on passing."
+    search:
+      s: "5 × 60 questions, 6-hour session, $550, PA-C on passing"
+      k: "usa pance physician assistant national certifying exam nccpa pa-c arc-pa certification"
+
+  nbcot:
+    name: "NBCOT exams (OTR and COTA)"
+    short: "NBCOT"
+    by: "National Board for Certification in Occupational Therapy (NBCOT)"
+    stage: licensing
+    status: current
+    grades: "Graduates of occupational therapy (OTR) and OT assistant (COTA) programs"
+    lede: "NBCOT's national certification exams for occupational therapists (OTR, 180 items) and occupational therapy assistants (COTA, 190 items) are four-hour, computer-based tests at Pearson centers. Scores are released on set weekly score dates."
+    facts:
+      - { label: "OTR exam", value: "180 items" }
+      - { label: "COTA exam", value: "190 items" }
+      - { label: "Time", value: "4 hours" }
+      - { label: "Score dates", value: "Weekly", note: "e.g. Oct 22 and 29, 2026" }
+    sections:
+      who:
+        points:
+          - { t: "NBCOT certifies only those who show the knowledge of occupational therapy needed for safe, effective entry-level practice.", src: nbcot_exam }
+      format:
+        intro: "A timed, four-hour, computer-based exam taken in person at a Pearson test center."
+        source: nbcot_handbook
+        table:
+          head: ["Exam", "Items"]
+          rows:
+            - ["OTR (occupational therapist)", "180: three- and four-option single-answer multiple choice plus six-option multi-select scenario sets"]
+            - ["COTA (occupational therapy assistant)", "190: three- and four-option single-answer multiple choice plus six-option multi-select items"]
+        points:
+          - { t: "Each exam mixes scored items with unscored field-test items, chosen to match the OTR or COTA content outline.", src: nbcot_foundations }
+      scoring:
+        points:
+          - { t: "Exams are scored on set score dates. Take the exam at least three days before the score date you want; in October 2026 the score dates are the 1st, 8th, 15th, 22nd and 29th.", src: nbcot_exam }
+      fees:
+        points:
+          - { t: "The handbook lists service fees: one free score transfer and one eligibility confirmation notice with your application, then $35 each; $115 to reissue an Authorization to Test; $40 to process a refund. The exam fee is not printed in the handbook or on the exam pages we opened.", src: nbcot_handbook }
+      dates:
+        points:
+          - { t: "No national dates: book with Pearson after your Authorization to Test; you can reschedule or cancel up to 48 hours before the appointment.", src: nbcot_handbook }
+      practice:
+        points:
+          - { t: "NBCOT offers study tools: the StudyPack, practice tests that give a scaled score like the real exam, and animated Practice Sims.", src: nbcot_exam_info }
+    used_by:
+      links:
+        - { label: "Healthcare careers", href: "us/clusters/healthcare-human-services/", text: "Every healthcare career on this site" }
+        - { label: "Professional licenses", href: "us/professional-licenses/", text: "License pages and state boards" }
+    page:
+      title: "NBCOT OTR and COTA Exams: 180 / 190 Items, 4 Hours, Score Dates and Fees"
+      description: "NBCOT's occupational therapy certification exams: OTR 180 items and COTA 190 items in four hours at Pearson, weekly score dates, service fees and official practice tools."
+    search:
+      s: "OTR 180 items, COTA 190 items, 4 hours, weekly score dates"
+      k: "usa nbcot otr cota occupational therapist occupational therapy assistant certification exam"
+
+  eppp:
+    name: "EPPP (Examination for Professional Practice in Psychology)"
+    short: "EPPP"
+    by: "Association of State and Provincial Psychology Boards (ASPPB)"
+    stage: licensing
+    status: current
+    grades: "Doctoral graduates in psychology approved by a state licensing board"
+    lede: "All 66 ASPPB member jurisdictions require the EPPP Part 1–Knowledge (225 items in 4 hours 15 minutes) before licensure, and some also require Part 2–Skills. Part 1 costs $600 plus a $91.88 test-site fee; ASPPB recommends a passing score of 500 on a 200–800 scale."
+    facts:
+      - { label: "Part 1 items", value: "225", note: "175 scored" }
+      - { label: "Time", value: "4 h 15 min" }
+      - { label: "Fee", value: "$600", note: "+ $91.88 test-site fee" }
+      - { label: "Pass", value: "500", note: "Recommended, independent practice" }
+    sections:
+      who:
+        points:
+          - { t: "Apply first to the licensing board where you plan to practice; once it approves you, pay the exam fee and the Pearson VUE sitting fee and sit within 12 months (or your board's window, if shorter).", src: asppb_eppp_handbook }
+          - { t: "All 66 member jurisdictions in the U.S. and Canada require Part 1–Knowledge; some also require Part 2–Skills.", src: asppb_eppp }
+      format:
+        source: asppb_eppp_handbook
+        table:
+          head: ["Part", "Items", "Time for the items"]
+          rows:
+            - ["Part 1–Knowledge", "225 (175 scored, 50 unscored pretest)", "4 h 15 min"]
+            - ["Part 2–Skills", "170 (130 scored, 40 unscored pretest); some with audio or video", "4 h 10 min"]
+        points:
+          - { t: "ASPPB has announced content specifications for a new EPPP to become operational in fall 2027.", src: asppb_eppp }
+      scoring:
+        points:
+          - { t: "Scaled scores run from 200 to 800. ASPPB recommends 500 to pass Part 1 for independent practice and 450 for supervised practice; the recommended pass for Part 2 is 500.", src: asppb_eppp_handbook }
+      fees:
+        intro: "U.S. dollars, all non-refundable:"
+        source: asppb_eppp_handbook
+        table:
+          head: ["Item", "Fee"]
+          rows:
+            - ["EPPP Part 1–Knowledge", "$600 per sitting"]
+            - ["EPPP Part 2–Skills", "$450 per sitting"]
+            - ["Test-site sitting fee, each part", "$91.88"]
+            - ["Reschedule or cancel less than 31 days but more than 24 hours ahead", "$87.50 plus tax"]
+      dates:
+        points:
+          - { t: "No national dates: you book with Pearson VUE inside the window your board sets. After a failed attempt, your board decides whether you may retake.", src: asppb_eppp_handbook }
+      practice:
+        points:
+          - { t: "The EPPP Candidate Handbook includes sample Part 1 and Part 2 questions in its appendices.", src: asppb_eppp_handbook }
+    license: psychology
+    used_by:
+      need: [psychology]
+    page:
+      title: "EPPP Psychology Licensing Exam: Parts 1 and 2, $600 Fee, 500 Passing Score"
+      description: "ASPPB's Examination for Professional Practice in Psychology: Part 1–Knowledge (225 items, 4 h 15 min) required by all 66 member boards, Part 2–Skills in some, $600 + $91.88 fee, recommended pass 500 on 200–800."
+    search:
+      s: "Part 1: 225 items, 4 h 15 min, $600 + $91.88, pass 500"
+      k: "usa eppp examination for professional practice in psychology asppb psychologist license exam part 1 part 2"
+
+  nce:
+    name: "NCE (National Counselor Examination)"
+    short: "NCE"
+    by: "National Board for Certified Counselors (NBCC)"
+    stage: licensing
+    status: current
+    grades: "Counseling graduates applying for a state license or the NCC credential"
+    lede: "The NCE is NBCC's 200-question counseling exam (160 scored), required for licensure in many states: 225 minutes of exam time in a 4 hour 15 minute session. A new 170-question version, scored 100–500 with 360 to pass, starts on July 1, 2027."
+    facts:
+      - { label: "Questions", value: "200", note: "160 scored" }
+      - { label: "Exam time", value: "225 min", note: "4 h 15 min session" }
+      - { label: "Retake wait", value: "30 days" }
+      - { label: "New version", value: "July 1, 2027", note: "170 questions" }
+    sections:
+      who:
+        points:
+          - { t: "Required for counselor licensure in many states and one of two exam options for the National Certified Counselor (NCC) credential.", src: nbcc_nce }
+          - { t: "Take it as part of an NCC application or on its own for a state license; questions about state requirements go to the state licensing board.", src: nbcc_nce_handbook }
+      format:
+        intro: "The current NCE: 200 multiple-choice questions (160 scored, 40 unscored field-test items) aligned to the eight CACREP domains."
+        source: nbcc_nce_handbook
+        table:
+          head: ["Part of the session", "Time"]
+          rows:
+            - ["Test administration and confidentiality agreement", "5 min"]
+            - ["Tutorial (with a sample case study)", "10 min"]
+            - ["Examination", "225 min"]
+            - ["Scheduled break after question 100", "15 min"]
+            - ["Total session", "255 min (4 h 15 min)"]
+        points:
+          - { t: "From July 1, 2027: 170 multiple-choice questions with three answer choices each (30 unscored field-test items) in 225 minutes.", src: nbcc_nce_2027 }
+      scoring:
+        points:
+          - { t: "Now: 160 scored questions decide whether you reach the passing score set for your form.", src: nbcc_nce_handbook }
+          - { t: "From July 1, 2027: scaled scores from 100 to 500, with 360 to pass on every form.", src: nbcc_nce_2027 }
+          - { t: "After a failed attempt you can retake after a 30-day wait.", src: nbcc_nce_handbook }
+      fees:
+        points:
+          - { t: "NBCC's state-licensure handbook says fees are paid by card (or check with a paper form), cannot be refunded or transferred, and are lost if you do not test in your approved window. It does not print the amount.", src: nbcc_nce_handbook }
+      dates:
+        points:
+          - { t: "No national dates: you book during a month-long test authorization window; NBCC has an extension request policy.", src: nbcc_nce_handbook }
+      practice:
+        points:
+          - { t: "Sample NCE questions are in Appendix B of the handbook.", src: nbcc_nce_handbook }
+    license: counseling
+    used_by:
+      need: [mental-health-counselor]
+    page:
+      title: "NCE (National Counselor Examination): 200 Questions, 225 Minutes and the July 2027 Version"
+      description: "NBCC's National Counselor Examination for state counselor licensure and the NCC: 200 questions (160 scored) in 225 minutes, 30-day retake wait, and the new 170-question exam scored 100–500 (360 to pass) from July 1, 2027."
+    search:
+      s: "200 Qs (160 scored), 225 min; 170-question version from July 2027"
+      k: "usa nce national counselor examination nbcc counselor license lpc ncc exam 2027"
 
 # All AP subjects (College Board, "42 AP subjects"), in College Board's course groups, from each course's "About the
 # Exam" page opened 2026-10-21 (source cb_ap_courses; exam day and session also match cb_ap_dates). length = the page's

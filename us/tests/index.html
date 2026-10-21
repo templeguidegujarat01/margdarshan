@@ -178,7 +178,7 @@ breadcrumb:
           <tbody>
             {%- for t in T.professional_admission %}
             {%- assign d = t[1] %}
-            <tr><td><strong>{{ d.name }}</strong><br><span class="us-by">{{ d.by }}</span></td><td>{{ d.for }}</td><td>{% if d.total %}Total {{ d.total }}. {% endif %}{% if d.sections %}{{ d.sections }}. {% endif %}{{ d.notes | join: " " }} <a href="{{ SRC[d.source].url }}">Source</a></td></tr>
+            <tr><td><strong>{{ d.name }}</strong><br><span class="us-by">{{ d.by }}</span></td><td>{{ d.for }}</td><td>{% if d.total %}Total {{ d.total }}. {% endif %}{% if d.sections %}{{ d.sections }}. {% endif %}{{ d.notes | join: " " }} <a href="{{ SRC[d.source].url }}">Source</a>{% if d.page %} · <a href="{{ d.page }}">Exam page: dates, fees, format</a>{% endif %}</td></tr>
             {%- endfor %}
           </tbody>
         </table>

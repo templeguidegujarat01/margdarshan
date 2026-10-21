@@ -28,8 +28,8 @@ const put = (rel, stub) => {
 };
 
 put('us/exams/index.html', `---
-title: "U.S. Exams by Stage: State Tests, PSAT, SAT, ACT, AP, GED, TOEFL, ASVAB | Education Margdarshan USA"
-description: "Every U.S. exam from grade 3 to graduate school, grouped by stage, with a page per exam: who takes it, format, scoring, fees and fee waivers, 2026-27 dates and free official practice from the exam owner."
+title: "U.S. Exams by Stage: SAT, ACT, AP, GED, TOEFL, GRE, GMAT, LSAT, MCAT, USMLE, NCLEX | Education Margdarshan USA"
+description: "Every U.S. exam from grade 3 to graduate school and licensing, grouped by stage, with a page per exam: who takes it, format, scoring, fees and fee waivers, 2026-27 dates and official practice from the exam owner."
 og_type: "website"
 breadcrumb:
   current: "Exams"

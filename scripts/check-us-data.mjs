@@ -611,7 +611,18 @@ for (const [slug, E] of Object.entries(EXS)) {
   if (U.careers && !['bachelor', 'hs'].includes(U.careers)) err(`${w}.used_by`, 'careers must be bachelor or hs');
   (U.colleges || []).forEach((c) => { if (!c.name || !c.text) err(`${w}.used_by`, 'college needs name and text'); needSrc(`${w}.used_by`, c.src); });
   (U.links || []).forEach((l) => { if (!l.label || !pageExists(l.href)) err(`${w}.used_by`, `link "${l.label}" must point to a page that exists`); });
-  if (!U.careers && !(U.colleges || []).length && !(U.links || []).length) err(`${w}.used_by`, 'needs careers, colleges or links');
+  if (!U.careers && !(U.colleges || []).length && !(U.links || []).length && !(U.need || []).length) err(`${w}.used_by`, 'needs careers, need, colleges or links');
+  // Phase 10: `license` links the license page (facts stay there); `need` = careers whose roadmap has this exam as a
+  // step (the step names the exam or links its page) or pathway guides (us/careers/<slug>/).
+  if (E.license && (!lic[E.license] || !pageExists(`us/professional-licenses/${E.license}/`))) err(w, `license "${E.license}" needs a licenses.yml entry and its us/professional-licenses/ page`);
+  for (const n of U.need || []) {
+    const X = Object.values(careerData).flatMap((D) => D.list || []).find((x) => x.slug === n);
+    if (X) {
+      const named = (X.routes || []).some((R) => (R.steps || []).some((st) => st.kind === 'exam' && ((st.href || '').startsWith(`us/exams/${slug}/`) || (st.title || '').includes(E.short))));
+      if (!named) err(`${w}.used_by.need`, `career "${n}" has no roadmap step that names ${E.short} or links us/exams/${slug}/`);
+      if (!pageExists(`us/roadmaps/${n}.html`)) err(`${w}.used_by.need`, `us/roadmaps/${n}.html does not exist`);
+    } else if (!(paths.list || []).some((p) => p.slug === n) || !pageExists(`us/careers/${n}/`)) err(`${w}.used_by.need`, `"${n}" is neither a career with a roadmap nor a live pathway page`);
+  }
   if (E.tests) {
     const [grp, id] = E.tests.split('.');
     const T = tests[grp]?.[id];
@@ -628,13 +639,19 @@ if (String((exams.ap_subjects || []).length) !== String(apStated)) err('exams.ap
 for (const a of exams.ap_subjects || []) if (!a.name || !a.group || !a.exam || !/^https:\/\/apstudents\.collegeboard\.org\/courses\//.test(a.url || '')) err(`exams.ap_subjects[${a.name}]`, 'needs name, group, exam and its apstudents course url');
 if (!pageExists('us/exams/') || home.support.find((s) => s.id === 'exams')?.href !== 'us/exams/') err('home.support.exams', 'the Exams card must link us/exams/');
 if (!/href: us\/exams\/\n/.test(navUs.replace(/\r/g, ''))) err('_data/nav_us.yml', 'the USA menu needs the Exams hub (href: us/exams/)');
-// Roadmap gates: a step that names a Phase 9 exam links its page (the equivalency gate: GED or HiSET).
-const GATES = [[/\bGED\b|diploma or equivalent/i, /^us\/exams\/(ged\/|hiset\/|#equivalency)/], [/\bSAT\b/, /^us\/exams\/sat\//], [/\bACT\b(?! WorkKeys)/, /^us\/exams\/act\//], [/\bCLT\b/, /^us\/exams\/clt\//], [/\bASVAB\b/, /^us\/exams\/asvab\//], [/\bTOEFL\b/, /^us\/exams\/toefl-ibt\//], [/\bIELTS\b/, /^us\/exams\/ielts\//], [/\bCLEP\b/, /^us\/exams\/clep\//], [/\bWorkKeys\b|\bNCRC\b/, /^us\/exams\/workkeys\//]];
+for (const [id, L] of Object.entries(lic)) for (const x of L.exams || []) if (x.page && !pageExists(x.page)) err(`licenses.${id}.exams`, `page ${x.page} does not exist`);
+for (const [grp, G] of Object.entries(tests)) if (G && typeof G === 'object') for (const [id, T] of Object.entries(G)) if (T?.page && !pageExists(T.page)) err(`tests.${grp}.${id}`, `page ${T.page} does not exist`);
+// Roadmap gates: a step that names an exam with its own page links that page (the equivalency gate: GED or HiSET).
+// Phase 9 = school-stage exams; Phase 10 batch 1 = graduate admission and health licensing exams.
+const GATES = [[/\bGED\b|diploma or equivalent/i, /^us\/exams\/(ged\/|hiset\/|#equivalency)/], [/\bSAT\b/, /^us\/exams\/sat\//], [/\bACT\b(?! WorkKeys)/, /^us\/exams\/act\//], [/\bCLT\b/, /^us\/exams\/clt\//], [/\bASVAB\b/, /^us\/exams\/asvab\//], [/\bTOEFL\b/, /^us\/exams\/toefl-ibt\//], [/\bIELTS\b/, /^us\/exams\/ielts\//], [/\bCLEP\b/, /^us\/exams\/clep\//], [/\bWorkKeys\b|\bNCRC\b/, /^us\/exams\/workkeys\//],
+  [/\bGMAT\b|\bGRE\b/, /^us\/exams\/(gmat|gre)\//], [/\bLSAT\b/, /^us\/exams\/lsat\//], [/\bMCAT\b/, /^us\/exams\/mcat\//], [/\bDAT\b/, /^us\/exams\/dat\//], [/\bOAT\b/, /^us\/exams\/oat\//],
+  [/\bUSMLE\b/, /^us\/exams\/usmle\//], [/^COMLEX/, /^us\/exams\/comlex-usa\//], [/\bNCLEX-RN\b/, /^us\/exams\/nclex-rn\//], [/\bNCLEX-PN\b/, /^us\/exams\/nclex-pn\//], [/\bNAPLEX\b|\bMPJE\b/, /^us\/exams\/naplex-mpje\//],
+  [/\bINBDE\b/, /^us\/exams\/inbde\//], [/\bNPTE\b/, /^us\/exams\/npte\//], [/\bPANCE\b/, /^us\/exams\/pance\//], [/\bNBCOT\b/, /^us\/exams\/nbcot\//], [/\bEPPP\b/, /^us\/exams\/eppp\//], [/^NCE\b/, /^us\/exams\/nce\//]];
 const gateTracks = [...Object.entries(careerData).flatMap(([c, D]) => (D.list || []).map((X) => [`careers.${c}[${X.slug}]`, X])), ...(cte.list || []).map((T) => [`cte_careers[${T.slug}]`, T]), ...(paths.crossborder || []).map((T) => [`pathways.crossborder[${T.slug}]`, T])];
 let gatesLinked = 0;
 for (const [w, X] of gateTracks) for (const R of X.routes || []) for (const s of R.steps || []) for (const [re, want] of GATES) {
   if (!re.test(s.title || '')) continue;
-  if (!s.href || !want.test(s.href)) err(`${w}.routes[${R.id}]`, `step "${s.title}" names a Phase 9 exam: give it href ${want.source.replace(/\\/g, '').replace(/^\^/, '')}…`); else gatesLinked++;
+  if (!s.href || !want.test(s.href)) err(`${w}.routes[${R.id}]`, `step "${s.title}" names an exam with its own page: give it href ${want.source.replace(/\\/g, '').replace(/^\^/, '')}…`); else gatesLinked++;
 }
 for (const r of home.public_sector?.service_routes?.officer?.routes || []) {
   for (const [re, want] of GATES) if (re.test(r.text || '') && !(r.exams || []).some((x) => want.test(x.href))) err(`home.service_routes.officer[${r.name}]`, `names an exam with a page (${re.source}): add it to exams:`);

@@ -38,7 +38,8 @@
       <div class="md-answer-actions">
         {%- if S.dates %}<a href="#dates" class="btn btn-primary">Test dates</a>{% endif %}
         {%- if S.fees %}<a href="#fees" class="md-textlink">Fees and fee help</a>{% endif %}
-        {%- if S.practice %}<a href="#practice" class="md-textlink">Free official practice</a>{% endif %}
+        {%- if S.practice %}<a href="#practice" class="md-textlink">{% if E.stage == "licensing" or E.stage == "graduate" %}Official practice{% else %}Free official practice{% endif %}</a>{% endif %}
+        {%- if E.license %}<a href="us/professional-licenses/{{ E.license }}/" class="md-textlink">{{ US.licenses[E.license].short }} license steps</a>{% endif %}
       </div>
       <p class="md-tile-note">Made by {{ E.by }}. {% if E.grades %}Who: {{ E.grades }}. {% endif %}Checked on the owner's own pages, {{ EX.as_of | date: "%-d %b %Y" }}.</p>
     </header>
@@ -55,7 +56,7 @@
     {%- when "fees" -%}{%- assign h = "Fees and fee waivers" -%}
     {%- when "dates" -%}{%- assign h = "Test dates" -%}
     {%- when "accepted" -%}{%- assign h = "Where it is accepted" -%}
-    {%- when "practice" -%}{%- assign h = "Free official practice" -%}
+    {%- when "practice" -%}{%- if E.stage == "licensing" or E.stage == "graduate" -%}{%- assign h = "Official practice" -%}{%- else -%}{%- assign h = "Free official practice" -%}{%- endif -%}
   {%- endcase %}
   <section class="md-sec{% if alt %} md-sec-alt{% endif %}" id="{{ k }}" aria-labelledby="{{ k }}-h">
     <div class="container">
@@ -105,7 +106,28 @@
       <div class="md-sec-head"><h2 id="used-by-h">Used by these careers and colleges</h2>
         {%- if U.careers == "bachelor" %}<p>Careers on this site where BLS lists a bachelor's degree or more as the typical way in. A college may ask for this test on the way, depending on its own policy.</p>
         {%- elsif U.careers == "hs" %}<p>Careers on this site where BLS lists a high school diploma or equivalent as the typical entry. A GED or HiSET credential counts as the equivalent.</p>
+        {%- elsif U.need %}<p>Careers on this site whose step-by-step roadmap includes this exam{% if E.license %}, and the license it leads to{% endif %}.</p>
         {%- endif %}</div>
+      {%- if E.license %}{%- assign LX = US.licenses[E.license] %}
+      <h3 class="md-pay-sub">The license at the end of this route</h3>
+      <ul class="md-links">
+        <li><a href="us/professional-licenses/{{ E.license }}/"><strong>{{ LX.name }}</strong><span>Granted by {{ LX.authority | downcase }}. Education, exams, experience and state rules on one page</span></a></li>
+      </ul>
+      {%- endif %}
+      {%- if U.need %}
+      <h3 class="md-pay-sub">Careers that need it</h3>
+      <ul class="md-links">
+        {%- for slug in U.need %}
+        {%- assign X = nil -%}
+        {%- for cf in US.careers -%}{%- assign m = cf[1].list | where: "slug", slug | first -%}{%- if m -%}{%- assign X = m -%}{%- endif -%}{%- endfor -%}
+        {%- if X %}
+        <li><a href="us/roadmaps/{{ X.slug }}.html"><strong>{{ X.short }}</strong><span>Roadmap: every step to the job, with this exam in place</span></a></li>
+        {%- else -%}{%- assign PW = US.pathways.list | where: "slug", slug | first %}
+        <li><a href="us/careers/{{ slug }}/"><strong>{{ PW.title }}</strong><span>Career guide: degree, exams and license</span></a></li>
+        {%- endif %}
+        {%- endfor %}
+      </ul>
+      {%- endif %}
       {%- if U.colleges_from_guides or U.colleges %}
       <h3 class="md-pay-sub">Colleges, checked on their own admissions pages</h3>
       <ul class="md-list">

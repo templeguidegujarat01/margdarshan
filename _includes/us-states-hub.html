@@ -33,25 +33,14 @@
         <div class="md-stat"><span class="md-stat-label">Checked</span><span class="md-stat-value is-text">{{ IX.as_of | date: "%-d %b %Y" }}</span></div>
       </div>
       <div class="md-answer-actions">
-        <a href="#state-pages" class="btn btn-primary">Open a state</a>
+        <a href="#compare" class="btn btn-primary">Open a state</a>
         <a href="#compare" class="md-textlink">Compare states</a>
         <a href="us/professional-licenses/" class="md-textlink">All licenses</a>
       </div>
     </header>
   </div>
 
-  <section class="md-sec" id="state-pages" aria-labelledby="state-pages-h">
-    <div class="container">
-      <div class="md-sec-head"><h2 id="state-pages-h">State pages</h2><p>Built in population order, largest first.</p></div>
-      <ul class="md-links">
-        {%- for r in by_rank %}{%- assign S = US.states[r.slug] %}{%- if S %}
-        <li><a href="us/states/{{ r.slug }}/"><strong>{{ S.name }}</strong><span>{{ S.k12_test.name }} · {{ S.colleges.systems | map: "name" | first | truncate: 60 }}{% if S.licenses %} · licensing boards{% endif %}</span></a></li>
-        {%- endif %}{%- endfor %}
-      </ul>
-    </div>
-  </section>
-
-  <section class="md-sec md-sec-alt" id="compare" aria-labelledby="compare-h">
+  <section class="md-sec" id="compare" aria-labelledby="compare-h">
     <div class="container">
       <div class="md-sec-head"><h2 id="compare-h">Compare the state pages</h2><p>The headline rule from each state page; open the state for the detail and its sources.</p></div>
       <div class="table-wrap" data-no-points>
@@ -68,7 +57,7 @@
     </div>
   </section>
 
-  <section class="md-sec" id="all-states" aria-labelledby="all-states-h">
+  <section class="md-sec md-sec-alt" id="all-states" aria-labelledby="all-states-h">
     <div class="container">
       <div class="md-sec-head"><h2 id="all-states-h">All 50 states and DC, A to Z</h2><p>Population on {{ IX.vintage }} and rank, copied from the Census Bureau's Vintage 2025 estimates. {% include us-src-chip.html id="census_pop2025" %} States without a link are still in the build queue.</p></div>
       <div class="table-wrap" data-no-points>

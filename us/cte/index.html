@@ -92,7 +92,7 @@ links to its profile when it has `roadmap: <slug>`. Every block carries data-no-
       </div>
       <div class="table-wrap reveal" data-no-points>
         <table class="table-simple">
-          <thead><tr><th>Trade</th><th>Entry &amp; training</th><th>License or certification</th><th>Median pay</th><th>Outlook {{ V.projection_period }}</th></tr></thead>
+          <thead><tr><th>Trade</th><th>Entry &amp; training</th><th>License or certification</th><th>Median pay</th><th>Outlook {{ V.projection_period }}</th><th><span class="sr-only">Career page</span></th></tr></thead>
           <tbody>
             {%- for t in H.trades %}
             <tr>
@@ -101,35 +101,13 @@ links to its profile when it has `roadmap: <slug>`. Every block carries data-no-
               <td>{{ t.license }} <a href="{{ SRC[t.source].url }}">{{ SRC[t.source].short }}</a></td>
               <td>{% include fmt-num.html n=t.pay prefix="$" %}{% if t.pay_note %}<br><span class="us-by">{{ t.pay_note }}</span>{% endif %}</td>
               <td>{% include fmt-num.html n=t.outlook sign=true %}%</td>
+              <td>{% if t.roadmap %}<a class="btn btn-primary btn-page-link btn-row" href="us/cte/{{ t.roadmap }}.html">Open<span class="sr-only">: {{ t.name }}</span></a>{% endif %}</td>
             </tr>
             {%- endfor %}
           </tbody>
         </table>
       </div>
       <p class="table-note">{{ H.trades_note }} Median annual pay, {{ V.wage_ref }}. For comparison, BLS projects total U.S. employment to grow {{ V.all_occupations_growth_pct }}% over {{ V.projection_period }}.</p>
-    </div>
-  </section>
-
-  <section class="block block-alt" id="careers" aria-labelledby="careers-heading" data-no-points>
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">Career pages</span>
-        <h2 id="careers-heading">Pick a trade</h2>
-        <p>Each career page shows what the job is, BLS pay and outlook, and the tools; its roadmap shows the routes step by step and the state licensing rules.</p>
-      </div>
-      <div class="usv-boards">
-        {%- for X in CTE %}
-        <article class="usv-board">
-          <h3>{{ X.short }}</h3>
-          <p>{{ X.does.text }}</p>
-          <dl>
-            <div><dt>Median pay, {{ V.wage_ref }}</dt><dd>{% include fmt-num.html n=X.metrics.pay prefix="$" %} a year</dd></div>
-            <div><dt>Outlook {{ V.projection_period }}</dt><dd>{% include fmt-num.html n=X.metrics.outlook sign=true %}% ({{ X.metrics.outlook_words | downcase }})</dd></div>
-          </dl>
-          <a class="btn btn-primary btn-page-link" href="us/cte/{{ X.slug }}.html">See career page<span class="sr-only">: {{ X.short }}</span></a>
-        </article>
-        {%- endfor %}
-      </div>
       <div class="rm-link-card" data-no-points><div><strong>Community college first?</strong><p>Associate degrees, costs and transfer to a 4-year college.</p></div><a class="btn btn-primary btn-page-link" href="us/college/">Community college, costs &amp; transfer</a></div>
     </div>
   </section>

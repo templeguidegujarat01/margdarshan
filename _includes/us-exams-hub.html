@@ -55,22 +55,6 @@
   </section>
   {%- endfor %}
 
-  <section class="md-sec" id="glance" aria-labelledby="glance-h">
-    <div class="container">
-      <div class="md-sec-head"><h2 id="glance-h">All exam pages at a glance</h2><p>Owner, who takes it and the headline number; open a page for fees, dates and practice.</p></div>
-      <div class="table-wrap" data-no-points>
-        <table class="md-table">
-          <thead><tr><th scope="col">Exam</th><th scope="col">Made by</th><th scope="col">Who</th><th scope="col">Key facts</th></tr></thead>
-          <tbody>
-            {%- for st in EX.stages %}{%- for slug in st.exams %}{%- assign E = EX.exams[slug] %}
-            <tr><td><a href="us/exams/{{ slug }}/"><strong>{{ E.short }}</strong></a>{% if E.status == "retired" %} (retired){% endif %}</td><td>{{ E.by }}</td><td>{{ E.grades }}</td><td>{% for f in E.facts limit:3 %}{{ f.label }}: <strong>{{ f.value }}</strong>{% unless forloop.last %} · {% endunless %}{% endfor %}</td></tr>
-            {%- endfor %}{%- endfor %}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
   {%- assign src_ids = src_ids | append: ",cb_sat_dates,act_dates,cb_ap_dates,ged_subjects,toefl_content,asvab_expect,naep_about" | remove_first: "," | split: "," | uniq | join: "," -%}
   {% include us-sources.html ids=src_ids bg="alt" %}
 

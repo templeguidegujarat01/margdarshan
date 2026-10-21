@@ -1,5 +1,5 @@
 {%- comment -%}
-  One career of a cluster hub (_includes/us-cluster-hub.html), as a matrix row (mode="row") or a card (mode="card").
+  One career of a cluster hub (_includes/us-cluster-hub.html), as a matrix row (mode="row", ending in its career-page button) or a link (mode="link").
   Param e = one `careers` entry of _data/us/clusters.yml; the facts come from the career's own data, never from here:
     pathway: <slug>  _data/us/pathways.yml + its lead occupation in occupations.yml (BLS OOH); description =
                      pathway_pages.yml answer; license wording = the same rule as the pathway page (us-career-v2.html)
@@ -16,10 +16,9 @@
   {%- assign LIC = US.licenses[P.license] -%}
   {%- assign c_name = P.title -%}
   {%- assign c_href = "us/careers/" | append: P.slug | append: "/" -%}
-  {%- assign c_text = US.pathway_pages[P.slug].answer -%}
   {%- assign c_entry = O.education -%}
   {%- assign c_pay = O.pay -%}{%- assign c_pay_by = O.title -%}
-  {%- assign c_out = O.outlook_pct -%}{%- assign c_out_words = O.outlook_label -%}
+  {%- assign c_out = O.outlook_pct -%}
   {%- assign c_src = O.source -%}
   {%- if P.license_stat -%}
     {%- assign c_lic = P.license_stat.value -%}{%- assign c_lic_note = P.license_stat.note -%}
@@ -37,10 +36,9 @@
   {%- assign H = US.home.trades | where: "roadmap", e.trade | first -%}
   {%- assign c_name = T.short -%}
   {%- assign c_href = "us/cte/" | append: T.slug | append: ".html" -%}
-  {%- assign c_text = T.does.text -%}
   {%- assign c_entry = H.entry -%}
   {%- assign c_pay = H.pay -%}{%- if H.pay_note %}{% assign c_pay_by = H.pay_note %}{% endif -%}
-  {%- assign c_out = H.outlook -%}{%- assign c_out_words = T.metrics.outlook_words -%}
+  {%- assign c_out = H.outlook -%}
   {%- assign c_lic = H.license -%}
   {%- assign c_src = H.source -%}
 {%- elsif e.career -%}
@@ -49,10 +47,9 @@
   {%- assign LIC = US.licenses[X.license] -%}
   {%- assign c_name = X.short -%}
   {%- assign c_href = "us/careers/" | append: X.slug | append: "/" -%}
-  {%- assign c_text = X.does.text -%}
   {%- assign c_entry = XM.entry -%}
   {%- assign c_pay = XM.pay -%}{%- assign c_pay_hour = XM.pay_hour -%}{%- if XM.pay_by %}{% assign c_pay_by = XM.pay_by %}{% endif -%}
-  {%- assign c_out = XM.outlook -%}{%- assign c_out_words = XM.outlook_words -%}
+  {%- assign c_out = XM.outlook -%}
   {%- assign c_src = XM.source -%}
   {%- if X.license_text -%}
     {%- assign c_lic = X.license_text -%}
@@ -70,18 +67,8 @@
               <td>{% if c_lic_href != "" %}<a href="{{ c_lic_href }}">{{ c_lic }}</a>{% else %}{{ c_lic }}{% endif %}{% if c_lic_note != "" %}<br><span class="us-by">{{ c_lic_note }}</span>{% endif %}</td>
               <td>{% if c_pay %}{% include fmt-num.html n=c_pay prefix="$" %}{% else %}${{ c_pay_hour }} an hour{% endif %}{% if c_pay_by != "" %}<br><span class="us-by">{{ c_pay_by }}</span>{% endif %}</td>
               <td>{% include fmt-num.html n=c_out sign=true %}% {% include us-src-chip.html id=c_src align="end" %}</td>
+              <td><a class="btn btn-primary btn-page-link btn-row" href="{{ c_href }}">Open<span class="sr-only">: {{ c_name }}</span></a></td>
             </tr>
 {%- elsif include.mode == "link" %}
           <li><a href="{{ c_href }}">{{ c_name }}</a> <span class="us-by">{{ e.sub }}</span></li>
-{%- else %}
-        <article class="usv-board usc-career">
-          <span class="usc-sub">{{ e.sub }}</span>
-          <h3>{{ c_name }}</h3>
-          <p>{{ c_text }}</p>
-          <dl>
-            <div><dt>Median pay, {{ US.sources.bls_vintage.wage_ref }}</dt><dd>{% if c_pay %}{% include fmt-num.html n=c_pay prefix="$" %} a year{% else %}${{ c_pay_hour }} an hour{% endif %}{% if c_pay_by != "" %} ({{ c_pay_by | downcase }}){% endif %}</dd></div>
-            <div><dt>Outlook {{ US.sources.bls_vintage.projection_period }}</dt><dd>{% include fmt-num.html n=c_out sign=true %}%{% if c_out_words %} ({{ c_out_words | downcase }}){% endif %}</dd></div>
-          </dl>
-          <a class="btn btn-primary btn-page-link" href="{{ c_href }}">See career page<span class="sr-only">: {{ c_name }}</span></a>
-        </article>
 {%- endif -%}

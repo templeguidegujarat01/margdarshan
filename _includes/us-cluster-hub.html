@@ -1,8 +1,8 @@
 {%- comment -%}
   Career Cluster hub (level 1 of USA Home → cluster hub → career page → roadmap): us/clusters/<slug>/index.html
   with `cluster: <slug>`, written by scripts/build-us-clusters.mjs for every `live` cluster in _data/us/clusters.yml.
-  Sections: what the cluster covers (Advance CTE definition), the careers on this site (matrix + one card per
-  career, _includes/us-cluster-career.html), careers placed in another cluster that the crosswalk also puts here,
+  Sections: what the cluster covers (Advance CTE definition), the careers on this site (one matrix, each row
+  ending in its career-page button, _includes/us-cluster-career.html), careers placed in another cluster that the crosswalk also puts here,
   the sub-clusters, optional `credentials` (Phase 3: certifications and licenses with their kind, each row sourced;
   kinds checked by scripts/check-us-data.mjs), an optional `small_business` block (Phase 4, Management &
   Entrepreneurship: SBA's free business guide steps and resource partners, no paid courses), an optional `public_sector` block (Public Service & Safety: USAJOBS and state/city hiring,
@@ -55,7 +55,6 @@
       </div>
       <dl class="usv-facts">
         <div><dt>Definition</dt><dd>{{ C.definition }} {% include us-src-chip.html id=C.source %}</dd></div>
-        <div><dt>Sub-clusters</dt><dd>{{ C.sub_clusters | map: "name" | join: " · " }}</dd></div>
       </dl>
     </div>
   </section>
@@ -70,7 +69,7 @@
       {%- if C.careers.size > 0 %}
       <div class="table-wrap">
         <table class="table-simple usc-matrix">
-          <thead><tr><th scope="col">Career</th><th scope="col">Typical entry</th><th scope="col">License</th><th scope="col">Median pay, {{ V.wage_ref }}</th><th scope="col">Outlook {{ V.projection_period }}</th></tr></thead>
+          <thead><tr><th scope="col">Career</th><th scope="col">Typical entry</th><th scope="col">License</th><th scope="col">Median pay, {{ V.wage_ref }}</th><th scope="col">Outlook {{ V.projection_period }}</th><th scope="col"><span class="sr-only">Career page</span></th></tr></thead>
           <tbody>
             {%- for E in C.careers %}
             {% include us-cluster-career.html e=E mode="row" sub=true cluster=C.slug %}
@@ -79,11 +78,6 @@
         </table>
       </div>
       <p class="table-note">Pay is the BLS median for the occupation named under it, for {{ V.wage_ref }}; half of workers earned more, half less. For comparison, BLS projects all U.S. jobs to grow {{ V.all_occupations_growth_pct }}% over {{ V.projection_period }}. The career's sub-cluster comes from Advance CTE's SOC crosswalk.</p>
-      <div class="usv-boards">
-        {%- for E in C.careers %}
-        {% include us-cluster-career.html e=E mode="card" cluster=C.slug %}
-        {%- endfor %}
-      </div>
       {%- else %}
       <p>This cluster's career pages are built in Phase {{ C.phase }} of the USA Edition plan.</p>
       {%- endif %}

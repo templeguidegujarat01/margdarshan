@@ -241,8 +241,7 @@
       </ol>
       {%- endif %}
       {%- if LIC and P.roadmap == "license" %}
-      {%- capture v2_st %}{% include us-state-lic-links.html key=P.license %}{% endcapture %}{% assign v2_st = v2_st | strip %}
-      <div class="md-datanote">{{ LIC.jurisdiction_note }} <a href="us/professional-licenses/{{ P.license }}/">Full licensing route →</a>{% if v2_st != "" %} State license pages: {{ v2_st }}.{% endif %}</div>
+      <div class="md-datanote">{{ LIC.jurisdiction_note }} <a href="us/professional-licenses/{{ P.license }}/">Full licensing route →</a></div>
       <details class="md-more md-exams-more">
         <summary>About the licensing exams</summary>
         {% include us-exam-list.html license=P.license %}
@@ -271,6 +270,9 @@
           <span class="md-tile-note">Education Margdarshan's advice, based on the data on this page.</span>
         </details>
       </div>
+      <dl class="md-kv" data-no-points>
+        {% include us-aid-state.html key=P.license %}
+      </dl>
 
       {%- if PP.key_numbers %}
       <h3 class="md-pay-sub">Reality check</h3>
@@ -323,8 +325,6 @@
       {% include us-exam-list.html license=P.license %}
       {%- if LIC.not_required_for %}<p class="md-tile-note"><strong>Not always required:</strong> {{ LIC.not_required_for | join: " " }}</p>{% endif %}
       <a class="md-tile-link" href="us/professional-licenses/{{ P.license }}/">Full licensing route and changes to watch →</a>
-      {%- capture v2_st %}{% include us-state-lic-links.html key=P.license %}{% endcapture %}{% assign v2_st = v2_st | strip %}
-      {%- if v2_st != "" %}<p class="md-tile-note">State license pages: {{ v2_st }}</p>{% endif %}
     </div>
   </section>
   {%- endif %}

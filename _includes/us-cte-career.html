@@ -53,8 +53,8 @@
         {%- if t_cl %}
         <div><dt>Career cluster</dt><dd><a href="us/clusters/{{ CL.slug }}/">{{ CL.name }}</a></dd></div>
         {%- endif %}{%- endfor %}
-        {%- capture t_st %}{% include us-state-lic-links.html key=X.slug %}{% endcapture %}{% assign t_st = t_st | strip %}
-        <div><dt>By state</dt><dd><a href="{{ rm_href }}#states">State licensing matrix on the roadmap</a>{% if t_st != "" %} · State license pages: {{ t_st }}{% endif %}</dd></div>
+        <div><dt>By state</dt><dd><a href="{{ rm_href }}#states">State licensing matrix on the roadmap</a></dd></div>
+        {% include us-aid-state.html key=X.slug %}
       </dl>
     </div>
   </section>

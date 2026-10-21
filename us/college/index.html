@@ -67,6 +67,7 @@ breadcrumb:
       <nav class="quicknav" aria-label="Section navigation">
         <a href="#degrees">Degree Levels</a>
         <a href="#cost">Costs</a>
+        <a href="#in-state">In-State vs Out-of-State</a>
         <a href="#aid">Financial Aid</a>
         <a href="#transfer">Transfer</a>
         <a href="#experience">Student Life</a>
@@ -129,7 +130,31 @@ breadcrumb:
     </div>
   </section>
 
-  <section class="block block-alt" id="aid" aria-labelledby="aid-heading" data-pfold>
+  {%- assign RS = G.residency %}{%- assign RT = G.regional_tuition %}
+  {%- assign out_state = M.sticker_prices.rows | where: "type", "Public four-year (out-of-state)" | first %}
+  {%- assign res_gap = out_state.usd | minus: in_state.usd %}
+  <section class="block block-alt" id="in-state" aria-labelledby="in-state-heading" data-pfold>
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Residency</span>
+        <h2 id="in-state-heading">In-state vs out-of-state tuition</h2>
+        <p>At an average public four-year college, out-of-state students paid {% include fmt-num.html n=res_gap prefix="$" %} more in {{ M.sticker_prices.year }} tuition and fees than residents. Here is who counts as a resident, and four ways to pay less across a state line.</p>
+      </div>
+      {% include phone-fold.html id="in-state" %}
+      <ul class="md-list reveal">{% for p in RS.points %}<li>{{ p.t }} {% include us-src-chip.html id=p.src %}</li>{% endfor %}</ul>
+      {%- assign res_n = 0 %}
+      <p class="table-note">Your state's exact rule:{% for ir in US.state_index.list %}{% if US.states[ir.slug].residency %}{% if res_n > 0 %} ·{% endif %} <a href="us/states/{{ ir.slug }}/#residency">{{ ir.name }}</a>{% assign res_n = res_n | plus: 1 %}{% endif %}{% endfor %} · <a href="us/states/">All states</a>. The college's residency office makes the final decision.</p>
+      <h3 class="block-subhead">Regional tuition discounts</h3>
+      <p class="table-note">{{ RT.intro }}</p>
+      <div class="chip-grid us-links reveal">
+        {%- for p in RT.programs %}
+        <div class="item"><strong>{{ p.name }}</strong>{{ p.deal }} <em>Who: {{ p.who }}</em> <a href="{{ SRC[p.src].url }}">{{ p.by }}</a></div>
+        {%- endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="aid" aria-labelledby="aid-heading" data-pfold>
     <div class="container">
       <div class="section-head reveal">
         <span class="eyebrow">Financial aid</span>
@@ -143,12 +168,26 @@ breadcrumb:
         <div class="item"><strong>Federal student loans</strong>{{ M.loans.text }} <a href="{{ SRC[M.loans.source].url }}">Source</a></div>
         <div class="item"><strong>Graduate &amp; professional loans changed in 2026</strong>{{ M.grad_changes.text }} <a href="{{ SRC[M.grad_changes.source].url }}">Source</a></div>
       </div>
-      <p class="table-note">Aid rules change with new laws and each award year. Confirm amounts on StudentAid.gov and with each college's financial aid office.</p>
+      {%- assign FR = G.fafsa_rules %}
+      <h3 class="block-subhead">FAFSA deadlines</h3>
+      <div class="table-wrap">
+        <table class="table-simple">
+          <thead><tr><th>{{ FR.award_year }} FAFSA</th><th>Federal deadline</th></tr></thead>
+          <tbody>
+            <tr><td>Submit the form</td><td><strong>{{ FR.federal_deadline }}</strong></td></tr>
+            <tr><td>Submit corrections</td><td>{{ FR.corrections_deadline }}</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">{{ FR.deadline_note }} State and college deadlines come much earlier, and some aid runs out: file as soon as the form opens. <a class="source-link" href="{{ SRC[FR.deadline_source].url }}">Source: {{ SRC[FR.deadline_source].publisher }}</a></p>
+      <h3 class="block-subhead">Who can get federal student aid</h3>
+      <ul class="md-list reveal">{% for e in FR.eligibility %}<li>{{ e.t }} {% include us-src-chip.html id=e.src %}</li>{% endfor %}</ul>
+      <p class="table-note">Aid rules change with new laws and each award year. Confirm amounts on StudentAid.gov and with each college's financial aid office. Not eligible for federal aid? International students: see <a href="us/international-students/">International Students</a>.</p>
     </div>
   </section>
 
   {%- assign TR = G.transfer %}
-  <section class="block" id="transfer" aria-labelledby="transfer-heading" data-pfold>
+  <section class="block block-alt" id="transfer" aria-labelledby="transfer-heading" data-pfold>
     <div class="container">
       <div class="section-head reveal">
         <span class="eyebrow">Community college</span>
@@ -166,6 +205,14 @@ breadcrumb:
         </table>
       </div>
       <p class="table-note">{{ TR.text }} <a class="source-link" href="{{ SRC[TR.source].url }}">Source: {{ SRC[TR.source].publisher }}</a></p>
+      {%- assign TT = G.two_plus_two %}
+      <h3 class="block-subhead">The 2+2 pathway: how transfer guarantees work</h3>
+      <p class="table-note">{{ TT.intro }} Two state examples:</p>
+      <div class="chip-grid us-links reveal">
+        {%- for x in TT.examples %}
+        <div class="item"><strong>{{ x.place }}: {{ x.name }}</strong>{{ x.text }} <a href="{{ SRC[x.src].url }}">{{ SRC[x.src].short }}</a></div>
+        {%- endfor %}
+      </div>
       <h3 class="block-subhead">Practical tips for transferring</h3>
       <div class="prose reveal">
         <ul>
@@ -178,7 +225,7 @@ breadcrumb:
   </section>
 
   {%- assign EX = G.experience %}
-  <section class="block block-alt" id="experience" aria-labelledby="experience-heading" data-pfold>
+  <section class="block" id="experience" aria-labelledby="experience-heading" data-pfold>
     <div class="container">
       <div class="section-head reveal">
         <span class="eyebrow">What students say</span>
@@ -211,7 +258,7 @@ breadcrumb:
     </div>
   </section>
 
-  <section class="block" id="faq" aria-labelledby="faq-heading" data-pfold>
+  <section class="block block-alt" id="faq" aria-labelledby="faq-heading" data-pfold>
     <div class="container">
       <div class="section-head reveal">
         <span class="eyebrow">Good to know</span>
@@ -227,7 +274,7 @@ breadcrumb:
     </div>
   </section>
 
-  <section class="block block-alt" aria-labelledby="related-heading">
+  <section class="block" aria-labelledby="related-heading">
     <div class="container">
       <div class="section-head reveal">
         <span class="eyebrow">Keep going</span>
@@ -242,6 +289,6 @@ breadcrumb:
     </div>
   </section>
 
-  {% include us-sources.html ids="nces_ipeds_glossary,cb_pricing_2025,ed_fafsa_2027_28,fsa_pell_2026_27,fsa_loans,ed_obbba_loans,nsc_tracking_transfer,gallup_stopout,gallup_ai_use,gallup_ai_majors" %}
+  {% include us-sources.html ids="nces_ipeds_glossary,cb_pricing_2025,fl_stat_1009_21,ca_uc_rpg,wiche_wue,mhec_msep,nebhe_rsp,sreb_acm,ed_fafsa_2027_28,fr_fafsa_2026_27,fsa_hb_ch1,fsa_hb_ch2,fsa_hb_ch3,fsa_hb_ch4,fsa_pell_2026_27,fsa_loans,ed_obbba_loans,nsc_tracking_transfer,fl_stat_1007_23,losrios_adt,gallup_stopout,gallup_ai_use,gallup_ai_majors" bg="alt" %}
 
 </main>

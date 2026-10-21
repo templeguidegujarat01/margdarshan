@@ -69,6 +69,7 @@ breadcrumb:
         <a href="#plan">Grade-by-Grade Plan</a>
         <a href="#gpa">GPA</a>
         <a href="#rigor">Honors, AP, IB, Dual Enrollment</a>
+        <a href="#ap-credit">AP Credit Savings</a>
         <a href="#what-counts">What Colleges Weigh</a>
         <a href="#apply">Application Plans</a>
         <a href="#state-rules">State Rules</a>
@@ -78,7 +79,21 @@ breadcrumb:
     </div>
   </div>
 
-  {% include roadmap-flow.html id="plan" eyebrow="Grade-by-grade plan" heading="What each year of high school is for" intro="A typical path for a student aiming at a four-year college. Your school counselor can adapt it to your goals." s1="Grade 9|Build strong habits|Your GPA starts here. Take the most challenging core classes you can do well in, and try a few activities." s2="Grade 10|Add rigor|Consider honors, AP or dual enrollment if offered. The PSAT 10 is optional practice." s3="Grade 11|Test and research|PSAT/NMSQT (the National Merit year), the SAT or ACT if your colleges use them, college visits and a balanced list." s4="Grade 12|Apply and decide|Early deadlines in October–November, FAFSA from October 1, decisions in winter and spring, and most colleges' reply deadline on May 1." s5="Goal|College, training or work|A four-year college, community college, career training, the military or a job — all start from the same diploma." note="Community college and career training are full options, not fallbacks. See College &amp; Money for costs and transfer." %}
+  <section class="block" id="plan" aria-labelledby="plan-heading" data-pfold>
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Grade-by-grade plan</span>
+        <h2 id="plan-heading">Grades 9 to 12: what to do each year</h2>
+        <p>Education Margdarshan's checklist for a student aiming at a four-year college. Tick off each line with your counselor. Community college and career training are full options, not fallbacks: see <a href="us/college/">College &amp; Money</a>.</p>
+      </div>
+      {% include phone-fold.html id="plan" %}
+      <div class="chip-grid us-links us-plan-grid reveal">
+        {%- for y in G.hs_checklist %}
+        <div class="item"><strong>{{ y.grade }} · {{ y.focus }}</strong><ul class="md-list">{% for i in y.items %}<li>{{ i }}</li>{% endfor %}</ul></div>
+        {%- endfor %}
+      </div>
+    </div>
+  </section>
 
   <section class="block block-alt" id="gpa" aria-labelledby="gpa-heading">
     <div class="container">
@@ -91,6 +106,22 @@ breadcrumb:
         <p>In practice: an A in a hard class counts for more than a number on your transcript suggests, and a weighted 4.3 from one school is not automatically "better" than an unweighted 3.9 from another. Colleges see your school's profile and course offerings alongside your grades.</p>
       </div>
       <a class="source-link" href="{{ SRC[G.admissions.gpa.source].url }}">Source: {{ SRC[G.admissions.gpa.source].publisher }}</a>
+      {%- assign GW = G.gpa_weighting %}
+      <h3 class="block-subhead">Weighted vs unweighted, side by side</h3>
+      <div class="prose reveal"><p>{{ GW.intro }}</p></div>
+      <div class="table-wrap">
+        <table class="table-simple">
+          <thead><tr><th>Worked example: 20 semester grades in grades 10–11</th><th>GPA</th></tr></thead>
+          <tbody>
+            <tr><td>Grades: 12 A's and 8 B's. Unweighted: (12 × 4 + 8 × 3) ÷ 20 = 72 ÷ 20</td><td>3.60</td></tr>
+            <tr><td>Same grades, 6 of them (all A's or B's) in AP or honors courses. {{ GW.uc.name }} method: 72 + 6 honors points = 78 ÷ 20</td><td>3.90</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Education Margdarshan's example, using the {{ GW.uc.name }}'s published rules. Your high school's own weighting may differ.</p>
+      <h3 class="block-subhead">One real rule: how the {{ GW.uc.name }} weights GPA</h3>
+      <ul class="md-list reveal">{% for r in GW.uc.rules %}<li>{{ r }}</li>{% endfor %}</ul>
+      <a class="source-link" href="{{ SRC[GW.uc.source].url }}">Source: {{ SRC[GW.uc.source].publisher }}</a>
     </div>
   </section>
 
@@ -110,6 +141,36 @@ breadcrumb:
         <div class="item"><strong>International Baccalaureate (IB)</strong>A two-year diploma program in grades 11–12. {{ IB.notes | join: " " }} <a href="{{ SRC[IB.source].url }}">IB</a></div>
         <div class="item"><strong>Dual enrollment</strong>Real college courses, often at a community college, that can count for high school and college credit. {{ G.dual_enrollment.students }} high school students took one in {{ G.dual_enrollment.year }}. {{ G.dual_enrollment.facts | join: " " }} <a href="{{ SRC[G.dual_enrollment.source].url }}">CCRC (IPEDS data)</a></div>
       </div>
+    </div>
+  </section>
+
+  {%- assign APC = G.ap_credit %}
+  {%- assign M_rows = G.money.sticker_prices.rows %}
+  {%- assign ap_in = M_rows | where: "type", "Public four-year (in-state)" | first %}
+  {%- assign ap_out = M_rows | where: "type", "Public four-year (out-of-state)" | first %}
+  {%- assign ap3_in = ap_in.usd | times: 3 | divided_by: APC.credits_per_year %}
+  {%- assign ap3_out = ap_out.usd | times: 3 | divided_by: APC.credits_per_year %}
+  <section class="block" id="ap-credit" aria-labelledby="ap-credit-heading" data-pfold>
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">AP credit</span>
+        <h2 id="ap-credit-heading">How AP credit can cut your tuition bill</h2>
+        <p>Pass an AP Exam with a score your college accepts, and you may skip a course you would otherwise pay for.</p>
+      </div>
+      {% include phone-fold.html id="ap-credit" %}
+      <ul class="md-list reveal">{% for f in APC.facts %}<li>{{ f }}</li>{% endfor %}</ul>
+      <a class="source-link" href="{{ SRC[APC.source].url }}">Source: {{ SRC[APC.source].publisher }}</a>
+      <div class="table-wrap">
+        <table class="table-simple">
+          <thead><tr><th>One 3-credit course, paid for or skipped</th><th>Cost</th></tr></thead>
+          <tbody>
+            <tr><td>AP Exam fee at a U.S. school ({{ G.testing.ap.exam_year }})</td><td>${{ G.testing.ap.fee_us }}</td></tr>
+            <tr><td>Public four-year, in-state: {% include fmt-num.html n=ap_in.usd prefix="$" %} ÷ {{ APC.credits_per_year }} credits × 3</td><td>About {% include fmt-num.html n=ap3_in prefix="$" %}</td></tr>
+            <tr><td>Public four-year, out-of-state: {% include fmt-num.html n=ap_out.usd prefix="$" %} ÷ {{ APC.credits_per_year }} credits × 3</td><td>About {% include fmt-num.html n=ap3_out prefix="$" %}</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Education Margdarshan's arithmetic: College Board's {{ G.money.sticker_prices.year }} average published tuition and fees, spread over {{ APC.credits_per_year }} credits a year (120 credits in four years). Real savings depend on whether the credit counts toward your major or only as an elective. <a href="{{ APC.search_url }}">Search a college's AP credit policy</a>.</p>
     </div>
   </section>
 
@@ -223,6 +284,6 @@ breadcrumb:
     </div>
   </section>
 
-  {% include us-sources.html ids="nacac_factors,cb_gpa,cb_ed_ea,cb_ap_scores,cb_ap_fees,cb_ap_courses,ib_dp,ccrc_dual_enrollment,uc_requirements,nces_hs_credits" bg="alt" %}
+  {% include us-sources.html ids="nacac_factors,cb_gpa,cb_ed_ea,cb_ap_scores,cb_ap_fees,cb_ap_courses,ib_dp,ccrc_dual_enrollment,uc_requirements,uc_gpa,cb_ap_credit,cb_pricing_2025,nces_hs_credits" bg="alt" %}
 
 </main>

@@ -1,0 +1,41 @@
+{%- comment -%}
+  USA career pages: "Paying for it" + "Your state" rows (foundation pass, 2026-10-22). Prints two md-kv rows
+  (<div><dt>…</dt><dd>…</dd></div>); the caller wraps them in <dl class="md-kv">.
+  Usage: include us-aid-state.html key=<licenses.yml id or trade slug, optional>
+  Paying for it: FAFSA, Pell max and the in-state / out-of-state averages from _data/us/guides.yml, linking to
+  us/college/ (#aid, #in-state). Your state: a no-JavaScript <details> dropdown of all 51 jurisdictions in
+  state_index.yml. A state with a state file opens its license card (when us/states/<s>/licenses.html has one for
+  the key, same rule as us-state-lic-links.html) or its state page; every other state opens its colleges list
+  (us/colleges/<s>/ exists for all 51). No empty links.
+{%- endcomment -%}
+{%- assign AS_US = site.data.us -%}
+{%- assign AS_M = AS_US.guides.money -%}
+{%- assign AS_in = AS_M.sticker_prices.rows | where: "type", "Public four-year (in-state)" | first -%}
+{%- assign AS_out = AS_M.sticker_prices.rows | where: "type", "Public four-year (out-of-state)" | first -%}
+{%- assign AS_T = nil -%}{%- assign AS_B = nil -%}
+{%- if include.key -%}
+{%- assign AS_T = AS_US.cte_careers.list | where: "slug", include.key | first -%}
+{%- if AS_T %}{% assign AS_B = AS_T.states %}{% else %}{% assign AS_B = AS_US.licenses[include.key].boards %}{% endif -%}
+{%- endif -%}
+        <div><dt>Paying for it</dt><dd>File the <a class="us-aid-link" href="us/college/#aid">FAFSA</a> (opens by October 1) for grants, work-study and federal loans; a Pell Grant pays up to {% include fmt-num.html n=AS_M.pell.max prefix="$" %} a year ({{ AS_M.pell.year }}). Average public four-year tuition and fees: {% include fmt-num.html n=AS_in.usd prefix="$" %} in-state vs {% include fmt-num.html n=AS_out.usd prefix="$" %} out-of-state ({{ AS_M.sticker_prices.year }}). <a class="us-aid-link" href="us/college/#in-state">Residency rules and regional discounts</a> · <a class="us-aid-link" href="us/college/#transfer">Save with 2+2 transfer</a></dd></div>
+        <div><dt>Your state</dt><dd>
+          <details class="sc-picker">
+            <summary class="sc-picker-btn"><span class="sc-picker-label">State</span><span class="sc-picker-value">Choose a state</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+            <ul class="sc-picker-list" role="list">
+              {%- for ir in AS_US.state_index.list %}
+              {%- assign AS_S = AS_US.states[ir.slug] -%}
+              {%- if AS_S -%}
+              {%- assign AS_R = nil -%}{%- assign AS_H = nil -%}
+              {%- if include.key %}{% assign AS_R = AS_S.licenses[include.key] %}{% assign AS_H = AS_B | where: "place", ir.name | first %}{% endif -%}
+              {%- if AS_R or AS_H %}
+              <li><a class="sc-opt is-live" href="us/states/{{ ir.slug }}/licenses.html#lic-{{ include.key }}"><span>{{ ir.name }}</span><span class="sc-opt-tag">License rules</span></a></li>
+              {%- else %}
+              <li><a class="sc-opt is-live" href="us/states/{{ ir.slug }}/"><span>{{ ir.name }}</span><span class="sc-opt-tag">State guide</span></a></li>
+              {%- endif %}
+              {%- else %}
+              <li><a class="sc-opt" href="us/colleges/{{ ir.slug }}/"><span>{{ ir.name }}</span><span class="sc-opt-tag">Colleges</span></a></li>
+              {%- endif %}
+              {%- endfor %}
+            </ul>
+          </details>
+        </dd></div>

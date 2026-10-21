@@ -132,10 +132,10 @@
         <div><dt>License</dt><dd>{{ X.license_text }}{% if X.states_note %}. {{ X.states_note }}{% endif %}</dd></div>
         {%- endif %}
         {%- assign st_key = X.license | default: X.slug -%}
-        {%- capture st_links %}{% include us-state-lic-links.html key=st_key %}{% endcapture %}{% assign st_links = st_links | strip -%}
         {%- if LIC or X.routes.size > 0 and X.states_note %}
-        <div><dt>By state</dt><dd>{% if LIC %}<a href="us/professional-licenses/{{ X.license }}/#states">{{ LIC.short }} state matrix</a>{% else %}<a href="{{ rm_href }}#states">State rules on the roadmap</a>{% endif %}{% if st_links != "" %} · State license pages: {{ st_links }}{% endif %}</dd></div>
+        <div><dt>By state</dt><dd>{% if LIC %}<a href="us/professional-licenses/{{ X.license }}/#states">{{ LIC.short }} state matrix</a>{% else %}<a href="{{ rm_href }}#states">State rules on the roadmap</a>{% endif %}</dd></div>
         {%- endif %}
+        {% include us-aid-state.html key=st_key %}
       </dl>
     </div>
   </section>

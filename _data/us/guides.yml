@@ -160,3 +160,103 @@ international:
   credential_eval: "Colleges often ask for a course-by-course evaluation of foreign transcripts from a NACES member such as World Education Services (WES) or Educational Credential Evaluators (ECE). Use the evaluator your college names."
   credential_source: naces
   as_of: 2026-10-07
+
+# Foundation pass (2026-10-22): depth blocks for us/high-school/ and us/college/.
+gpa_weighting:
+  # The worked example on the page uses UC's published method because it is one real, sourced rule; schools differ.
+  intro: "An unweighted GPA counts every A as 4, B as 3, C as 2 and D as 1, whatever the course. A weighted GPA adds extra points for harder courses such as honors, AP or IB, so it can go above 4.0. Each high school sets its own weighting, and colleges see your school's profile next to your transcript."
+  uc:
+    name: "University of California"
+    rules:
+      - "Counts letter grades in A-G courses from the summer after 9th grade through the summer after 11th grade."
+      - "A = 4, B = 3, C = 2, D = 1. Plus and minus grades are not counted."
+      - "One extra honors point per semester for an A, B or C in an approved honors course (AP, IB HL, designated IB SL, UC-transferable college courses, UC-certified honors courses)."
+      - "At most 8 honors points in total, and no more than 4 from 10th grade. D and F grades earn no honors point."
+      - "Nonresidents get honors weight for AP and IB courses only, not for school-designated honors courses."
+      - "Minimum GPA: 3.0 for California residents, 3.4 for nonresidents. The result is not rounded."
+    source: uc_gpa
+  as_of: 2026-10-22
+
+ap_credit:
+  facts:
+    - "Most U.S. colleges offer credit or advanced placement, or both, for qualifying AP scores."
+    - "Each college decides which scores it accepts and how many credits a score is worth; College Board's own example is a college granting 8 credits for a 4 on AP Biology."
+    - "You usually need 120 credits to get a bachelor's degree."
+  source: cb_ap_credit
+  search_url: "https://apstudents.collegeboard.org/getting-credit-placement/search-policies"
+  # credits_per_year is Education Margdarshan's planning assumption (120 credits over 4 years), not a sourced figure;
+  # the page labels the savings sum as Margdarshan's arithmetic.
+  credits_per_year: 30
+  as_of: 2026-10-22
+
+# Margdarshan's checklist (advice, labelled as such on the page). Dates inside repeat the sourced blocks above.
+hs_checklist:
+  - grade: "Grade 9"
+    focus: "Start strong"
+    items:
+      - "Meet your school counselor and write a four-year course plan."
+      - "Take the hardest core classes you can earn A's or B's in. Your GPA starts now."
+      - "Try two or three activities. Keep the ones you enjoy."
+      - "Start a simple record of awards, activities and hours. You will need it in grade 12."
+  - grade: "Grade 10"
+    focus: "Add rigor"
+    items:
+      - "Add an honors, AP or dual enrollment course in a subject you are good at."
+      - "Take the PSAT 10 if your school offers it. It is practice only."
+      - "Go deeper in one or two activities. Aim for a role with responsibility."
+      - "Use summer for a job, a course, volunteering or a project."
+  - grade: "Grade 11"
+    focus: "Test and research"
+    items:
+      - "Take the PSAT/NMSQT in October. It is the National Merit Scholarship year."
+      - "Take the SAT or ACT in spring if any college on your list uses scores."
+      - "Build a balanced list: reach, match and likely colleges, plus one you can surely afford."
+      - "Run each college's net price calculator with your family."
+      - "Ask two teachers who know you well for recommendation letters before summer."
+  - grade: "Grade 12"
+    focus: "Apply and decide"
+    items:
+      - "Finish essays by early fall. Early Decision and Early Action deadlines are usually in October or November."
+      - "File the FAFSA as soon as it opens (by October 1), plus any state or college aid form."
+      - "Send test scores and transcripts, then check every application portal."
+      - "Compare aid offers side by side. Most colleges ask you to reply by May 1."
+      - "Keep your grades up. Offers can be withdrawn after a big drop."
+
+fafsa_rules:
+  award_year: "2026–27"
+  federal_deadline: "June 30, 2027"
+  corrections_deadline: "September 11, 2027"
+  deadline_note: "The federal deadline is the last day of the award year. The Department publishes each year's dates in the Federal Register; these are for the 2026–27 form. The 2027–28 form covers college from July 1, 2027 to June 30, 2028."
+  deadline_source: fr_fafsa_2026_27
+  eligibility:
+    - { t: "Be a U.S. citizen or national, a citizen of the Freely Associated States, or a U.S. lawful permanent resident or other eligible noncitizen. F-1 and J-1 student visas do not make you eligible.", src: fsa_hb_ch2 }
+    - { t: "Have a valid Social Security number. Citizens of the Freely Associated States are the exception.", src: fsa_hb_ch4 }
+    - { t: "Have a high school diploma or a recognized equivalent.", src: fsa_hb_ch1 }
+    - { t: "Enroll as a regular student in an eligible degree or certificate program.", src: fsa_hb_ch1 }
+    - { t: "Keep up satisfactory academic progress once you are in college.", src: fsa_hb_ch1 }
+    - { t: "Not be in default on a federal student loan, or owe a federal grant overpayment, without a repayment arrangement.", src: fsa_hb_ch3 }
+  as_of: 2026-10-22
+
+residency:
+  points:
+    - { t: "Public colleges charge state residents far less. Each state, and sometimes each university system, writes its own residency rules.", src: cb_pricing_2025 }
+    - { t: "Rules usually ask for a real, permanent home (domicile) in the state for about a year before you enroll, not a home set up just to attend college. Florida, for example, requires 12 consecutive months.", src: fl_stat_1009_21 }
+    - { t: "If you are a dependent student, residency usually follows your parents.", src: fl_stat_1009_21 }
+    - { t: "The University of California counts one year as 366 days, and every applicant files a Statement of Legal Residence.", src: ca_uc_rpg }
+  as_of: 2026-10-22
+
+regional_tuition:
+  intro: "Four regional programs let students cross a state line for less than full out-of-state tuition. Each covers only participating colleges and programs."
+  programs:
+    - { name: "Western Undergraduate Exchange (WUE)", by: "WICHE", deal: "Pay 150% or less of the college's resident tuition at about 170 participating public colleges.", who: "Alaska, Arizona, California, Colorado, Hawaii, Idaho, Montana, Nevada, New Mexico, North Dakota, Oregon, South Dakota, Utah, Washington, Wyoming, plus American Samoa, the Northern Mariana Islands and Guam.", src: wiche_wue }
+    - { name: "Midwest Student Exchange Program (MSEP)", by: "MHEC", deal: "A discounted tuition rate at colleges that choose to join; average savings of about $7,000 a year.", who: "Indiana, Kansas, Minnesota, Missouri, Nebraska, North Dakota, Ohio, Wisconsin.", src: mhec_msep }
+    - { name: "Tuition Break (New England RSP)", by: "NEBHE", deal: "Up to 175% of in-state tuition at a public college in another New England state, in approved programs; average savings of $8,500 in 2024–25.", who: "Connecticut, Maine, Massachusetts, New Hampshire, Rhode Island, Vermont.", src: nebhe_rsp }
+    - { name: "Academic Common Market (ACM)", by: "SREB", deal: "In-state tuition at an out-of-state public college, for a degree no public college in your home state offers. You must be admitted and approved by your home state.", who: "Residents of 15 SREB states in the South; check your state's ACM contact for the current list.", src: sreb_acm }
+  as_of: 2026-10-22
+
+two_plus_two:
+  intro: "In a 2+2 plan you spend about two years at a community college, earn an associate degree, then transfer to a four-year university for the last two years. The savings are real only if your credits count toward your major."
+  examples:
+    - { place: "Florida", name: "Associate in arts (A.A.) guarantee", text: "Every A.A. graduate of a Florida College System institution has met all general education requirements and must be admitted to the upper division of a state university, except limited-access, teacher certification and audition programs. A.A. graduates get priority over out-of-state students. 2+2 targeted pathways also guarantee a specific degree program if you join before 30 credit hours.", src: fl_stat_1007_23 }
+    - { place: "California", name: "Associate Degree for Transfer (AA-T / AS-T)", text: "A 60-unit, CSU-transferable degree with a C or better in each required course. Graduates are guaranteed admission with junior standing to select CSU campuses, and in a similar major can finish the bachelor's within 60 units after transfer.", src: losrios_adt }
+  as_of: 2026-10-22

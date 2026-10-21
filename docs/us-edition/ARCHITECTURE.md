@@ -104,7 +104,7 @@ Planned careers per cluster (examples from the Master Plan; the final list comes
 | States | `us/states/` + `us/states/<state>/` (51) | P11 | `_data/us/states/<state>.yml`, one file per state; `us/new-york-city/` stays and is linked from New York |
 | State licensing & jobs | `us/states/<state>/licenses.html` (+ civil service) | P12 | matrix rows only from the state's own board |
 | Licensing | `us/professional-licenses/` + `<id>/` (13 live; the 4 added in P2 have `page:` + `boards:` in `licenses.yml` and generated stubs) | live; new licenses P2–P8, state matrices P12 | `licenses.yml`, `compacts.yml` |
-| Colleges & training | `us/colleges/<state>/`, `us/colleges/<state>/<city>/` (≥3 institutions per city) | P13 | IPEDS + College Scorecard via `scripts/build-ipeds.mjs`; apprenticeship.gov links |
+| Colleges & training | `us/colleges/` + `<state>/` (51) + `<state>/<city>/` (493, ≥3 schools) + `fields/<career>/` (110) | **live (P13)** | College Scorecard + IPEDS + CIP–SOC crosswalk + DOL RAPIDS via `scripts/build-ipeds.mjs --places`; stubs `scripts/build-us-colleges.mjs [--check]`; report `PHASE-13-COLLEGES.md` |
 | High school | `us/high-school/` | live | `#plan` holds the grade 9–12 route (home anchor `#k12` forwards there) |
 | Paying for college | `us/college/` | live | `#degrees` holds the degree route (home anchor `#college` forwards there) |
 
@@ -200,3 +200,9 @@ PreACT, SAT, ACT, CLT, AP (with all 42 subjects), IB, CLEP, GED, HiSET, TOEFL iB
 (+ CEP), ACT WorkKeys. Roadmap start steps that name a high school equivalent link the GED/HiSET section; the checker
 makes every roadmap step that names a Phase 9 exam link its page. Report, corrections and queue:
 `docs/us-edition/PHASE-9-EXAMS.md`.
+
+## 11. Phase 13 (2026-10-21)
+
+Colleges & training: hub, 51 state pages, 493 city pages (3+ schools), 110 program lists by career, Colleges and
+Apprenticeships buttons on career, trade and pathway pages. Report, corrections and refresh steps:
+`docs/us-edition/PHASE-13-COLLEGES.md`.

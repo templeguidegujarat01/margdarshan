@@ -1,0 +1,186 @@
+{%- comment -%}
+  Program list for one career (USA Master Plan Phase 13): every school that awarded one of the career's programs.
+  Stub us/colleges/fields/<career>/index.html with `field: <career slug>`, written by scripts/build-us-colleges.mjs.
+  The programs are the career's SOC code(s) looked up in the NCES CIP 2020–SOC 2018 crosswalk (no hand picking);
+  schools and awards from IPEDS C<year>_A (first majors), limited to currently operating Title IV schools in the
+  College Scorecard file. HTML (crawlable): counts, programs, largest programs, counts by state, apprenticeships.
+  JS (progressive): assets/data/us/colleges/fields/<career>.json for the state / program / level / type / name finder.
+  Career pages link here with a "Colleges" button when college_fields.json has the career.
+{%- endcomment -%}
+{%- include us-colleges-labels.html -%}
+{%- assign FD = site.data.us.college_fields -%}
+{%- assign F = FD.fields[page.field] -%}
+{%- assign AP = site.data.us.apprenticeships.careers[page.field] -%}
+{%- assign SRC = site.data.us.sources.list -%}
+{%- assign LVK = "cert_short:Certificate under 12 weeks,cert_lt1:Certificate 12 weeks to 1 year,cert_1to2:Certificate 1–2 years,cert_2to4:Certificate 2–4 years,associate:Associate,bachelor:Bachelor's,postbacc:Postbaccalaureate certificate,master:Master's,postmaster:Post-master's certificate,doctor_research:Research doctorate,doctor_professional:Professional doctorate,doctor_other:Other doctorate" | split: "," -%}
+{%- assign n_cert = F.totals.cert_short | plus: F.totals.cert_lt1 | plus: F.totals.cert_1to2 | plus: F.totals.cert_2to4 -%}
+{%- assign n_doc = F.totals.doctor_research | plus: F.totals.doctor_professional | plus: F.totals.doctor_other -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "USA Home", "item": "{{ site.url }}{{ site.baseurl }}/us/" },
+    { "@type": "ListItem", "position": 2, "name": "Colleges", "item": "{{ site.url }}{{ site.baseurl }}/us/colleges/" },
+    { "@type": "ListItem", "position": 3, "name": "Programs by career", "item": "{{ site.url }}{{ site.baseurl }}/us/colleges/fields/" },
+    { "@type": "ListItem", "position": 4, "name": {{ F.short | jsonify }}, "item": "{{ page.url | absolute_url }}" }
+  ]
+}
+</script>
+<main id="main" class="md-page">
+
+  <div class="container md-page-top">
+    <header class="md-answer">
+      <span class="eyebrow">USA · Colleges · Programs</span>
+      <h1>{{ F.short }}: where to study</h1>
+      <p class="md-answer-lede">Every U.S. school that awarded {% if F.cip.size == 1 %}this program ({{ F.cip[0].label }}){% else %}one of the {{ F.cip.size }} programs NCES links to this career{% endif %} in {{ AY }}, certificate to doctorate. A complete list, not a ranking.</p>
+      <div class="md-stats" data-no-points>
+        <div class="md-stat"><span class="md-stat-label">Schools</span><span class="md-stat-value">{% include fmt-num.html n=F.institutions %}</span>{% include us-src-chip.html id="ipeds_completions" %}</div>
+        <div class="md-stat"><span class="md-stat-label">States and territories</span><span class="md-stat-value">{{ F.states }}</span></div>
+        <div class="md-stat"><span class="md-stat-label">Certificates · degrees to master's</span><span class="md-stat-value is-text">{% include fmt-num.html n=n_cert %} · {% assign n_deg = F.totals.associate | plus: F.totals.bachelor | plus: F.totals.master %}{% include fmt-num.html n=n_deg %}</span><span class="md-stat-note">Awarded {{ AY }}, first majors</span></div>
+        <div class="md-stat"><span class="md-stat-label">Doctorates awarded</span><span class="md-stat-value">{% include fmt-num.html n=n_doc %}</span><span class="md-stat-note">Research, professional and other</span></div>
+      </div>
+      <div class="md-answer-actions">
+        <a href="#find" class="btn btn-primary">Find a school</a>
+        <a href="{{ F.href }}" class="md-textlink">The {{ F.short }} career page</a>
+        {%- if AP %}<a href="#apprenticeship" class="md-textlink">Registered Apprenticeship</a>{% endif %}
+      </div>
+    </header>
+  </div>
+
+  <section class="md-sec" id="find" aria-labelledby="find-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="find-h">Find a school</h2><p>Filter by state, program, award level and type of school. Each result links to the school's College Navigator profile (costs, admissions, graduation rates) and its own site.</p></div>
+      <div class="md-pay" data-colleges="assets/data/us/colleges/fields/{{ page.field }}.json">
+        <div class="md-geo-controls md-finder-controls">
+          <label class="md-select"><span class="md-stat-label">State</span><select id="cfState" disabled><option value="">All states</option></select></label>
+          {%- if F.cip.size > 1 %}
+          <label class="md-select"><span class="md-stat-label">Program</span><select id="cfProg" disabled><option value="">All programs</option>{% for c in F.cip %}<option value="{{ c.code }}">{{ c.label }}</option>{% endfor %}</select></label>
+          {%- endif %}
+          <label class="md-select"><span class="md-stat-label">Award level</span><select id="cfLevel" disabled><option value="">All levels</option></select></label>
+          <label class="md-select"><span class="md-stat-label">Type of school</span><select id="cfType" disabled><option value="">All types</option><option value="l1">{{ CL_LV[1] }}</option><option value="l2">{{ CL_LV[2] }}</option><option value="l3">{{ CL_LV[3] }}</option><option value="c1">{{ CL_CT[1] }}</option><option value="c2">{{ CL_CT[2] }}</option><option value="c3">{{ CL_CT[3] }}</option></select></label>
+          <label class="md-search"><span class="md-stat-label">School name</span><input id="cfName" type="search" placeholder="Search by name" autocomplete="off" disabled></label>
+        </div>
+        <p class="md-tile-note" id="cfCount" aria-live="polite">Loading {% include fmt-num.html n=F.institutions %} schools…</p>
+        <ul class="md-college-list" id="cfList"></ul>
+        <button type="button" class="btn btn-ghost md-more-btn" id="cfMore" hidden>Show more</button>
+        <noscript><p class="md-tile-note">The finder needs JavaScript. The largest programs and the count in every state are listed below; each state page lists all of its schools.</p></noscript>
+      </div>
+    </div>
+  </section>
+
+  <section class="md-sec md-sec-alt" id="programs" aria-labelledby="programs-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="programs-h">Programs that lead to this career</h2><p>The NCES CIP–SOC crosswalk links {% if F.soc.size == 1 %}SOC {{ F.soc[0] }}{% else %}SOC {{ F.soc | join: ", " }}{% endif %} to {% if F.cip.size == 1 %}this program{% else %}these programs{% endif %}. Awards in {{ AY }}, all levels, first majors.{% if F.cip_unawarded > 0 %} {{ F.cip_unawarded }} more linked {% if F.cip_unawarded == 1 %}program had{% else %}programs had{% endif %} no awards at an operating school that year.{% endif %} {% include us-src-chip.html id="cip_soc_crosswalk" %}</p></div>
+      <div class="table-wrap" data-no-points>
+        <table class="md-table">
+          <thead><tr><th>Program</th><th>CIP code</th><th class="num">Awards</th></tr></thead>
+          <tbody>
+            {%- for c in F.cip %}
+            <tr><td>{{ c.label }}</td><td>{{ c.code }}</td><td class="num">{% include fmt-num.html n=c.n %}</td></tr>
+            {%- endfor %}
+          </tbody>
+        </table>
+      </div>
+      <p class="md-tile-note">By award level:{% for kv in LVK %}{% assign k = kv | split: ":" %}{% assign v = F.totals[k[0]] %}{% if v %} {{ k[1] }} {% include fmt-num.html n=v %} ·{% endif %}{% endfor %} (awards, not schools).</p>
+    </div>
+  </section>
+
+  <section class="md-sec" id="largest" aria-labelledby="largest-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="largest-h">Largest programs by awards</h2><p>Size tells you where many students study, not which program is best for you.</p></div>
+      <div class="table-wrap" data-no-points>
+        <table class="md-table">
+          <thead><tr><th>School</th><th>Location</th><th>Type</th><th class="num">Awards</th></tr></thead>
+          <tbody>
+            {%- for c in F.largest %}
+            <tr><td><a href="https://nces.ed.gov/collegenavigator/?id={{ c.id }}">{{ c.name }}</a></td><td>{{ c.city }}, {{ c.state }}</td><td>{{ CL_LV[c.lv] }} · {{ CL_CT[c.ct] }}</td><td class="num">{% include fmt-num.html n=c.total %}</td></tr>
+            {%- endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="md-sec md-sec-alt" id="states" aria-labelledby="states-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="states-h">Schools in each state</h2><p>How many schools in each state awarded one of these programs in {{ AY }}. Each state page lists all of its schools with cost and completion.</p></div>
+      <ul class="md-links md-links-sm" data-no-points>
+        {%- for st in CI.states %}{%- assign SS = st[1] %}{%- assign n = F.by_state[SS.abbr] %}{% if n %}
+        <li><a href="us/colleges/{{ st[0] }}/"><strong>{{ SS.name }}</strong><span>{{ n }} {% if n == 1 %}school{% else %}schools{% endif %}</span></a></li>
+        {%- endif %}{% endfor %}
+      </ul>
+    </div>
+  </section>
+
+  {%- if AP %}
+  <section class="md-sec" id="apprenticeship" aria-labelledby="appr-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="appr-h">Registered Apprenticeship</h2><p>A Registered Apprenticeship Program is a model of apprenticeship validated by the Department of Labor or a State Apprenticeship Agency {% include us-src-chip.html id="dol_rap" %}. The U.S. Department of Labor lists {{ AP.list.size }} apprenticeship {% if AP.list.size == 1 %}occupation{% else %}occupations{% endif %} as approved for Registered Apprenticeship under this career's SOC code. Terms are hours of on-the-job learning as DOL lists them. {% include us-src-chip.html id="dol_occupations" %}</p></div>
+      <div class="table-wrap" data-no-points>
+        <table class="md-table">
+          <thead><tr><th>Apprenticeship occupation (DOL title)</th><th>RAPIDS code</th><th>O*NET occupation</th><th>Term (hours)</th></tr></thead>
+          <tbody>
+            {%- for o in AP.list %}
+            <tr><td>{{ o.title }}</td><td>{{ o.code }}</td><td>{{ o.onet_title }} ({{ o.onet }})</td><td>{% for t in o.terms %}{{ t[0] }} {{ t[1] }}{% unless forloop.last %}<br>{% endunless %}{% endfor %}</td></tr>
+            {%- endfor %}
+          </tbody>
+        </table>
+      </div>
+      <p class="md-tile-note"><a href="{{ SRC.dol_job_finder.url }}">Search open apprenticeship jobs on Apprenticeship.gov</a> · <a href="{{ SRC.dol_rap.url }}">What a Registered Apprenticeship is</a></p>
+    </div>
+  </section>
+  {%- endif %}
+
+  <section class="md-sec md-sec-alt" id="data" aria-labelledby="data-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="data-h">About this list</h2></div>
+      <div class="md-datanote">Programs: the career's SOC code(s) in the NCES CIP 2020–SOC 2018 crosswalk. Schools and awards: NCES IPEDS {{ CI.ipeds | join: ", " }} ({{ AY }}, first majors), limited to schools that the College Scorecard file of {{ SC_REL }} lists as operating and approved for federal aid (U.S. territories included). It shows which schools award a program, not accreditation, quality or admission chances: check program accreditation with the accreditor and the school with <a href="{{ SRC.ed_dapip.url }}">DAPIP</a>. Some careers need a state license; see the career page.</div>
+    </div>
+  </section>
+
+  {% include us-sources.html ids="ipeds_completions,cip_soc_crosswalk,scorecard_data,cip_2020,dol_occupations,college_navigator" %}
+</main>
+<script>
+/* Program finder: filters every school in the IPEDS list for this career (rows: id, name, city, state, level,
+   control, website, {award level: n}, {CIP: n}). */
+document.addEventListener('DOMContentLoaded', function(){
+  var box = document.querySelector('[data-colleges]'); if(!box || !window.fetch) return;
+  var s = document.querySelector('script[data-root]'); var root = s ? s.getAttribute('data-root') : '';
+  var $ = function(id){ return document.getElementById(id); };
+  var pg = $('cfProg'), st = $('cfState'), lv = $('cfLevel'), ty = $('cfType'), nm = $('cfName'), list = $('cfList'), count = $('cfCount'), more = $('cfMore');
+  var LV = {};
+  {{ LVK | jsonify }}.forEach(function(kv){ var i = kv.indexOf(':'); LV[kv.slice(0, i)] = kv.slice(i + 1); });
+  var LVL = {{ CL_LV | jsonify }}, CTL = {{ CL_CT | jsonify }};
+  var esc = function(t){ return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); };
+  var PAGE = window.matchMedia('(max-width: 639px)').matches ? 10 : 30, shown = PAGE, data, rows = [];
+  fetch(root + box.getAttribute('data-colleges')).then(function(r){ if(!r.ok) throw r; return r.json(); }).then(function(d){
+    data = d;
+    var states = {}, levels = {};
+    d.rows.forEach(function(r){ states[r[3]] = 1; Object.keys(r[7]).forEach(function(k){ levels[k] = 1; }); });
+    st.innerHTML += Object.keys(states).sort().map(function(x){ return '<option>' + esc(x) + '</option>'; }).join('');
+    lv.innerHTML += Object.keys(LV).filter(function(k){ return levels[k]; }).map(function(k){ return '<option value="' + k + '">' + LV[k] + '</option>'; }).join('');
+    [st, lv, ty, nm, pg].forEach(function(el){ if(!el) return; el.disabled = false; el.addEventListener(el === nm ? 'input' : 'change', function(){ shown = PAGE; apply(); }); });
+    more.addEventListener('click', function(){ shown += PAGE; draw(); });
+    apply();
+  }).catch(function(){ count.textContent = 'The school list could not be loaded. The largest programs and state counts below are still correct.'; });
+  function apply(){
+    var q = nm.value.trim().toLowerCase(), t = ty.value;
+    rows = data.rows.filter(function(r){
+      return (!pg || !pg.value || r[8][pg.value]) && (!st.value || r[3] === st.value) && (!lv.value || r[7][lv.value]) && (!t || (t[0] === 'l' ? r[4] === +t[1] : r[5] === +t[1])) && (!q || r[1].toLowerCase().indexOf(q) !== -1);
+    });
+    draw();
+  }
+  function draw(){
+    var multi = data.cip.length > 1;
+    count.textContent = rows.length.toLocaleString('en-US') + (rows.length === 1 ? ' school' : ' schools') + (rows.length > shown ? ' — showing ' + shown : '');
+    list.innerHTML = rows.slice(0, shown).map(function(r){
+      var lvls = Object.keys(LV).filter(function(k){ return r[7][k]; }).map(function(k){ return '<span>' + LV[k] + ' ' + r[7][k].toLocaleString('en-US') + '</span>'; }).join('');
+      var progs = multi ? '<small>' + Object.keys(r[8]).map(function(c){ return esc(data.labels[c] || c) + ' ' + r[8][c]; }).join(' · ') + '</small>' : '';
+      var web = r[6] ? '<a href="' + esc(/^https?:/.test(r[6]) ? r[6] : 'https://' + r[6]) + '" rel="noopener">Website</a>' : '';
+      return '<li><div><strong>' + esc(r[1]) + '</strong><small>' + esc(r[2]) + ', ' + esc(r[3]) + ' · ' + esc(LVL[r[4]] || '') + ' · ' + esc(CTL[r[5]] || '') + '</small>' + progs + '<div class="md-chips">' + lvls + '</div></div><div class="md-college-links"><a href="https://nces.ed.gov/collegenavigator/?id=' + r[0] + '">College Navigator</a>' + web + '</div></li>';
+    }).join('');
+    more.hidden = rows.length <= shown;
+  }
+});
+</script>

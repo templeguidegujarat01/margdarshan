@@ -1,0 +1,15 @@
+{%- comment -%}
+  Shared labels for the Colleges & training pages (USA Master Plan Phase 13). Codes are the official ones:
+  level = College Scorecard / IPEDS ICLEVEL (1 four or more years, 2 at least 2 but less than 4 years, 3 less than 2
+  years); control = CONTROL (1 public, 2 private nonprofit, 3 private for-profit); tier = highest award a school made
+  in a CIP family in the IPEDS year (scripts/lib/college-places.mjs: 1 certificate … 6 doctorate).
+  Assigns CI (college_index.json), CL_LV, CL_LVS, CL_CT, CL_TIER, CL_FAM, AY, SC_REL and the source chips.
+{%- endcomment -%}
+{%- assign CI = site.data.us.college_index -%}
+{%- assign CL_LV = "-,4-year,2-year,Under 2-year" | split: "," -%}
+{%- assign CL_LVS = "-,Universities and 4-year colleges,Community and 2-year colleges,Trade and career schools (under 2 years)" | split: "," -%}
+{%- assign CL_CT = "-,Public,Private nonprofit,Private for-profit" | split: "," -%}
+{%- assign CL_TIER = "-,Certificate,Associate,Bachelor's,Graduate certificate,Master's,Doctorate" | split: "," -%}
+{%- assign CL_FAM = CI.families -%}
+{%- assign AY = CI.academic_year -%}
+{%- assign SC_REL = CI.scorecard_release | date: "%-d %b %Y" -%}

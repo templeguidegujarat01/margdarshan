@@ -1,6 +1,12 @@
 // Build per-pathway college lists from the official NCES IPEDS complete data files.
 //   node scripts/build-ipeds.mjs --year 2024 --from-pathways [--out assets/data/us/colleges] [--summary _data/us/colleges_summary.json] [--cache <dir>]
 //   node scripts/build-ipeds.mjs --year 2024 --group computer-science=11.0701,11.0101 [--group …]   (ad-hoc)
+//   VERIFY_DEPS=<dir with js-yaml> node scripts/build-ipeds.mjs --year 2024 --places --scorecard <Most-Recent-Cohorts-Institution_MMDDYYYY.zip>
+//        [--cache <dir>] [--crosswalk <xlsx>] [--cipcodes <csv>] [--rapids <xlsx>]
+//     USA Master Plan Phase 13: every operating school by state and city (College Scorecard directory, cost and
+//     completion + IPEDS fields and highest award), one program list per career (NCES CIP–SOC crosswalk) and the
+//     DOL Registered Apprenticeship occupations per career. See scripts/lib/college-places.mjs; pages come from
+//     scripts/build-us-colleges.mjs.
 //
 // Sources (NCES IPEDS Data Center, complete data files; downloaded once into --cache):
 //   HD<year>.zip       institutional characteristics: name, city, state, sector, website
@@ -31,6 +37,22 @@ const cache = path.resolve(val('--cache') || out);
 const LEVEL = { 3: 'associate', 5: 'bachelor', 7: 'master', 17: 'doctor_research', 18: 'doctor_professional', 19: 'doctor_other' };
 const SECTOR = { 1: 'Public, 4-year or above', 2: 'Private nonprofit, 4-year or above', 3: 'Private for-profit, 4-year or above', 4: 'Public, 2-year', 5: 'Private nonprofit, 2-year', 6: 'Private for-profit, 2-year', 7: 'Public, less than 2-year', 8: 'Private nonprofit, less than 2-year', 9: 'Private for-profit, less than 2-year' };
 
+async function get(name) {
+  const f = path.join(cache, name);
+  if (!fs.existsSync(f)) {
+    const r = await fetch('https://nces.ed.gov/ipeds/datacenter/data/' + name, { headers: { 'User-Agent': 'Margdarshan data refresh' } });
+    if (!r.ok) throw new Error(name + ' HTTP ' + r.status + ' (is this IPEDS year released yet?)');
+    fs.writeFileSync(f, Buffer.from(await r.arrayBuffer()));
+  }
+  return f;
+}
+if (args.includes('--places')) {
+  fs.mkdirSync(cache, { recursive: true });
+  const { buildPlaces } = await import('./lib/college-places.mjs');
+  await buildPlaces({ root, args, val, year, get });
+  process.exit(0);
+}
+
 const groups = {}; const labels = {};
 if (args.includes('--from-pathways')) {
   const y = fs.readFileSync(path.join(root, '_data/us/pathways.yml'), 'utf8');
@@ -47,15 +69,6 @@ for (const [i, a] of args.entries()) if (a === '--group') { const [k, v] = args[
 if (!Object.keys(groups).length) { console.error('usage: node scripts/build-ipeds.mjs --year 2024 --from-pathways | --group <name>=<cip,cip>'); process.exit(1); }
 
 fs.mkdirSync(cache, { recursive: true });
-async function get(name) {
-  const f = path.join(cache, name);
-  if (!fs.existsSync(f)) {
-    const r = await fetch('https://nces.ed.gov/ipeds/datacenter/data/' + name, { headers: { 'User-Agent': 'Margdarshan data refresh' } });
-    if (!r.ok) throw new Error(name + ' HTTP ' + r.status + ' (is this IPEDS year released yet?)');
-    fs.writeFileSync(f, Buffer.from(await r.arrayBuffer()));
-  }
-  return f;
-}
 const hd = Object.fromEntries(csvFromZip(await get(`HD${year}.zip`)).map((r) => [r.UNITID, r]));
 const comp = csvFromZip(await get(`C${year}_A.zip`));
 const academic_year = `${+year - 1}-${String(year).slice(2)}`;

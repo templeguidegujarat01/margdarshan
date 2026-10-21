@@ -1,0 +1,23 @@
+<script>
+/* Colleges & training (USA Master Plan Phase 13): filter a static school table by type, control and name.
+   Rows carry data-lv / data-ct / data-q; the controls are shown only when this script runs. */
+document.addEventListener('DOMContentLoaded', function(){
+  var box = document.querySelector('[data-cl-filter]'); if(!box) return;
+  var rows = Array.prototype.slice.call(document.querySelectorAll('.md-cl-table tbody tr'));
+  var count = document.querySelector('[data-cl-count]');
+  var f = {}; Array.prototype.forEach.call(box.querySelectorAll('[data-cl-f]'), function(el){ f[el.getAttribute('data-cl-f')] = el; });
+  function apply(){
+    var lv = f.lv ? f.lv.value : '', ct = f.ct ? f.ct.value : '', q = f.q ? f.q.value.trim().toLowerCase() : '', n = 0;
+    rows.forEach(function(r){
+      var ok = (!lv || r.getAttribute('data-lv') === lv) && (!ct || r.getAttribute('data-ct') === ct) && (!q || r.getAttribute('data-q').indexOf(q) !== -1);
+      r.hidden = !ok; if(ok) n++;
+    });
+    if(count) count.textContent = n.toLocaleString('en-US') + (n === 1 ? ' school' : ' schools') + (n < rows.length ? ' of ' + rows.length.toLocaleString('en-US') : '');
+  }
+  Object.keys(f).forEach(function(k){ f[k].addEventListener(k === 'q' ? 'input' : 'change', apply); });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-cl-lv]'), function(a){
+    a.addEventListener('click', function(){ if(f.lv){ f.lv.value = a.getAttribute('data-cl-lv'); apply(); } });
+  });
+  box.hidden = false;
+});
+</script>

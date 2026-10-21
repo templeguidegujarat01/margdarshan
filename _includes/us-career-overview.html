@@ -15,7 +15,9 @@
     license   id in _data/us/licenses.yml (button to us/professional-licenses/<id>/) or license_text (short words for the
               hub matrix, e.g. "Some states"; the page adds states_note after it)
     exams     [{ name, href }]  only exam pages that exist (verify-site fails on a dead href)
-    colleges  optional href of a verified colleges list (Master Plan Phase 13)
+    colleges  optional href of a verified colleges list; without it the Colleges button opens us/colleges/fields/<slug>/
+              when _data/us/college_fields.json has the career (Master Plan Phase 13, scripts/build-ipeds.mjs --places), and an
+              Apprenticeships button links Apprenticeship.gov when _data/us/apprenticeships.json has it (DOL approved occupations)
     routes, certs, states_note, states_source, states | states_from, states_title?, states_col?, watch   roadmap content
               (states_title / states_col rename the matrix, e.g. police and fire: real departments' hiring pages as examples) (_includes/intl-roadmap.html, `career: true`)
   Five h2[id] sections, so site.js builds the right rail (>=900px) and the chip rail (<900px).
@@ -59,6 +61,11 @@
         {%- endfor %}
         {%- if X.colleges %}
         <a href="{{ X.colleges }}" class="btn btn-primary btn-page-link">Colleges</a>
+        {%- elsif site.data.us.college_fields.fields[X.slug] %}
+        <a href="us/colleges/fields/{{ X.slug }}/" class="btn btn-primary btn-page-link">Colleges</a>
+        {%- endif %}
+        {%- if site.data.us.apprenticeships.careers[X.slug] %}
+        <a href="{{ site.data.us.sources.list.dol_job_finder.url }}" class="btn btn-primary btn-page-link">Apprenticeships</a>
         {%- endif %}
       </div>
     </header>

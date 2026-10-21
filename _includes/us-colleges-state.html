@@ -1,0 +1,114 @@
+{%- comment -%}
+  Colleges in one state (USA Master Plan Phase 13). Stub us/colleges/<state>/index.html with `state: <slug>`, written by
+  scripts/build-us-colleges.mjs. Data: _data/us/college_states/<slug>.json (every currently operating Title IV school,
+  College Scorecard directory + cost + completion, IPEDS fields) and _data/us/college_index.json (counts, cities with
+  3+ schools). Values are copied from the files; percentages are the Scorecard rates shown as whole percents.
+  Sections: types, cities, list (filterable table), doctorates, data, sources — so site.js builds the rails.
+{%- endcomment -%}
+{%- include us-colleges-labels.html -%}
+{%- assign SD = site.data.us.college_states[page.state] -%}
+{%- assign SI = CI.states[page.state] -%}
+{%- assign city_pages = SI.cities | map: "s" | join: "|" | prepend: "|" | append: "|" -%}
+{%- assign state_page = site.data.us.states[page.state] -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "USA Home", "item": "{{ site.url }}{{ site.baseurl }}/us/" },
+    { "@type": "ListItem", "position": 2, "name": "Colleges", "item": "{{ site.url }}{{ site.baseurl }}/us/colleges/" },
+    { "@type": "ListItem", "position": 3, "name": {{ SI.name | jsonify }}, "item": "{{ page.url | absolute_url }}" }
+  ]
+}
+</script>
+<main id="main" class="md-page">
+
+  <div class="container md-page-top">
+    <header class="md-answer">
+      <span class="eyebrow">USA · Colleges · {{ SI.abbr }}</span>
+      <h1>Colleges in {{ SI.name }}</h1>
+      <p class="md-answer-lede">All {% include fmt-num.html n=SI.n %} colleges, community colleges and trade schools in {{ SI.name }} that are currently approved for federal student aid, from the U.S. Department of Education. A complete list, not a ranking.</p>
+      <div class="md-stats" data-no-points>
+        <div class="md-stat"><span class="md-stat-label">Schools</span><span class="md-stat-value">{% include fmt-num.html n=SI.n %}</span>{% include us-src-chip.html id="scorecard_data" %}</div>
+        <div class="md-stat"><span class="md-stat-label">4-year · 2-year · under 2</span><span class="md-stat-value is-text">{{ SI.lv["1"] }} · {{ SI.lv["2"] }} · {{ SI.lv["3"] }}</span><span class="md-stat-note">Level of institution</span></div>
+        <div class="md-stat"><span class="md-stat-label">Public · nonprofit · for-profit</span><span class="md-stat-value is-text">{{ SI.ct["1"] }} · {{ SI.ct["2"] }} · {{ SI.ct["3"] }}</span><span class="md-stat-note">Control</span></div>
+        <div class="md-stat"><span class="md-stat-label">Award doctorates</span><span class="md-stat-value">{{ SI.doc }}</span><span class="md-stat-note">In {{ AY }}, any field</span></div>
+      </div>
+      <div class="md-answer-actions">
+        {%- if SI.cities.size > 0 %}<a href="#cities" class="btn btn-primary">Colleges by city</a>{% endif %}
+        <a href="#list" class="md-textlink">All {% include fmt-num.html n=SI.n %} schools</a>
+        {%- if state_page %}<a href="us/states/{{ page.state }}/" class="md-textlink">{{ SI.name }}: tuition and aid rules</a>{% endif %}
+        <a href="us/colleges/fields/" class="md-textlink">Programs by career</a>
+      </div>
+    </header>
+  </div>
+
+  <section class="md-sec" id="types" aria-labelledby="types-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="types-h">Types of school</h2><p>The federal data sort every school by the length of its longest program and by who runs it.</p></div>
+      <ul class="md-links" data-no-points>
+        <li><a href="#list" data-cl-lv="1"><strong>{{ CL_LVS[1] }}: {{ SI.lv["1"] }}</strong><span>Offer programs of four years or more (bachelor's and up); many also give associate degrees and certificates.</span></a></li>
+        <li><a href="#list" data-cl-lv="2"><strong>{{ CL_LVS[2] }}: {{ SI.lv["2"] }}</strong><span>Longest program at least two but under four years: associate degrees and certificates.</span></a></li>
+        <li><a href="#list" data-cl-lv="3"><strong>{{ CL_LVS[3] }}: {{ SI.lv["3"] }}</strong><span>Every program under two years: certificates in trades, health care, beauty and other careers.</span></a></li>
+      </ul>
+      <p class="md-tile-note">Public: {{ SI.ct["1"] }} · private nonprofit: {{ SI.ct["2"] }} · private for-profit: {{ SI.ct["3"] }}. Public schools usually charge state residents less; see {% if state_page %}<a href="us/states/{{ page.state }}/#residency">{{ SI.name }}'s in-state tuition rules</a>{% else %}<a href="us/college/#cost">what college costs</a>{% endif %}.</p>
+    </div>
+  </section>
+
+  <section class="md-sec md-sec-alt" id="cities" aria-labelledby="cities-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="cities-h">Colleges by city</h2><p>{% if SI.cities.size > 0 %}{{ SI.cities.size }} {% if SI.cities.size == 1 %}city has{% else %}cities have{% endif %} {{ CI.min_city }} or more schools; each has its own page comparing them.{% else %}No city in {{ SI.name }} has {{ CI.min_city }} or more schools, so every school is in the list below.{% endif %}{% if SI.small > 0 %} {% include fmt-num.html n=SI.small %} smaller {% if SI.small == 1 %}place has{% else %}places have{% endif %} one or two schools; they are in the full list.{% endif %}</p></div>
+      {%- if SI.cities.size > 0 %}
+      <ul class="md-links" data-no-points>
+        {%- for c in SI.cities %}
+        <li><a href="us/colleges/{{ page.state }}/{{ c.s }}/"><strong>{{ c.n }}</strong><span>{{ c.count }} schools · {{ c.lv["1"] }} 4-year, {{ c.lv["2"] }} 2-year, {{ c.lv["3"] }} under 2</span></a></li>
+        {%- endfor %}
+      </ul>
+      {%- endif %}
+    </div>
+  </section>
+
+  <section class="md-sec" id="list" aria-labelledby="list-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="list-h">Every school in {{ SI.name }}</h2><p>Cost is the average yearly cost of attendance (tuition, fees, books and living costs) before aid; net price is that cost minus the average grant and scholarship aid. Both are for full-time first-year students who get federal aid. Completion is the share who finished within 150% of normal time.</p></div>
+      <div class="md-geo-controls md-finder-controls" data-cl-filter hidden>
+        <label class="md-select"><span class="md-stat-label">Type of school</span><select data-cl-f="lv"><option value="">All types</option><option value="1">{{ CL_LV[1] }}</option><option value="2">{{ CL_LV[2] }}</option><option value="3">{{ CL_LV[3] }}</option></select></label>
+        <label class="md-select"><span class="md-stat-label">Control</span><select data-cl-f="ct"><option value="">Public and private</option><option value="1">{{ CL_CT[1] }}</option><option value="2">{{ CL_CT[2] }}</option><option value="3">{{ CL_CT[3] }}</option></select></label>
+        <label class="md-search"><span class="md-stat-label">School or city</span><input data-cl-f="q" type="search" placeholder="Search by name or city" autocomplete="off"></label>
+      </div>
+      <p class="md-tile-note" data-cl-count aria-live="polite">{% include fmt-num.html n=SI.n %} schools</p>
+      <div class="table-wrap" data-no-points>
+        <table class="md-table md-cl-table">
+          <thead><tr><th>School</th><th>City</th><th>Type</th><th class="num">Cost a year</th><th class="num">Net price</th><th class="num">Completion</th></tr></thead>
+          <tbody>
+            {%- for i in SD.inst %}
+            {%- assign key = "|" | append: i.cs | append: "|" %}
+            <tr data-lv="{{ i.lv }}" data-ct="{{ i.ct }}" data-q="{{ i.n | downcase | escape }} {{ i.cn | downcase | escape }}"><td><a href="https://nces.ed.gov/collegenavigator/?id={{ i.id }}">{{ i.n }}</a>{% if i.dist == 1 %} <small>(online only)</small>{% endif %}</td><td>{% if city_pages contains key %}<a href="us/colleges/{{ page.state }}/{{ i.cs }}/">{{ i.cn }}</a>{% else %}{{ i.cn }}{% endif %}</td><td>{{ CL_LV[i.lv] }} · {{ CL_CT[i.ct] }}</td><td class="num">{{ i.fc | default: "—" }}</td><td class="num">{{ i.fn | default: "—" }}</td><td class="num">{{ i.fg | default: "—" }}</td></tr>
+            {%- endfor %}
+          </tbody>
+        </table>
+      </div>
+      <p class="md-tile-note">— = not reported for that school. Names link to the school's College Navigator profile (admissions, aid, programs).</p>
+    </div>
+  </section>
+
+  <section class="md-sec md-sec-alt" id="doctorates" aria-labelledby="doc-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="doc-h">Where to earn a doctorate</h2><p>Schools in {{ SI.name }} that awarded a doctor's degree (research, professional practice such as MD, JD or PharmD, or other) in {{ AY }}, and the fields they awarded it in.</p></div>
+      {%- if SI.doc > 0 %}
+      <ul class="md-college-list" data-no-points>
+        {%- for i in SD.inst %}{% if i.doc.size > 0 %}
+        <li><div><strong>{{ i.n }}</strong><small>{{ i.cn }} · {{ CL_CT[i.ct] }}</small><small>{% for d in i.doc %}{{ CL_FAM[d] }}{% unless forloop.last %} · {% endunless %}{% endfor %}</small></div><div class="md-college-links"><a href="https://nces.ed.gov/collegenavigator/?id={{ i.id }}">College Navigator</a></div></li>
+        {%- endif %}{% endfor %}
+      </ul>
+      {%- else %}
+      <p class="md-tile-note">No school in {{ SI.name }} reported a doctor's degree in {{ AY }}.</p>
+      {%- endif %}
+    </div>
+  </section>
+
+  {% include us-colleges-datanote.html %}
+
+  {% include us-sources.html ids="scorecard_data,ipeds_completions,scorecard_dictionary,cip_2020,college_navigator" %}
+</main>
+{% include us-colleges-filter.html %}

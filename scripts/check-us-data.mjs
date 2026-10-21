@@ -729,6 +729,59 @@ if (!pageExists('us/states/') || home.support.find((s) => s.id === 'states')?.hr
 if (!/href: us\/states\/\n/.test(navUs.replace(/\r/g, ''))) err('_data/nav_us.yml', 'the USA menu needs the States hub (href: us/states/)');
 console.log(`checked ${stFiles.length} state pages (${stLicRows} state license rows) against ${(SIX.list || []).length} jurisdictions`);
 
+// ---- USA Master Plan Phase 13: colleges by state and city, program lists per career, apprenticeships ----
+// Data from scripts/build-ipeds.mjs --places; pages from scripts/build-us-colleges.mjs (which has its own --check).
+const readJ = (rel) => { try { return JSON.parse(fs.readFileSync(path.join(root, rel), 'utf8')); } catch (e) { err(rel, 'missing or not JSON (run scripts/build-ipeds.mjs --places)'); return null; } };
+const CIX = readJ('_data/us/college_index.json'), CFD = readJ('_data/us/college_fields.json'), CAP = readJ('_data/us/apprenticeships.json');
+let clCities = 0, clSchools = 0;
+if (CIX && CFD && CAP) {
+  const MIN = CIX.min_city;
+  if (MIN !== 3) err('college_index.min_city', 'city pages need at least 3 schools (same rule as the India landing pages)');
+  for (const k of ['scorecard_data', 'scorecard_dictionary', 'ipeds_completions', 'cip_soc_crosswalk', 'cip_2020', 'dol_occupations', 'dol_rap', 'dol_job_finder']) if (!sources.list[k]) err('sources', `Phase 13 source ${k} missing`);
+  const rel = new Date(CIX.scorecard_release + 'T00:00:00Z');
+  const relWords = `${rel.getUTCDate()} ${rel.toLocaleString('en-US', { month: 'short', timeZone: 'UTC' })} ${rel.getUTCFullYear()}`;
+  if (!String(sources.list.scorecard_data?.name || '').includes(relWords)) err('sources.scorecard_data', `name must name the release used (${relWords})`);
+  for (const S of SIX.list || []) {
+    const w = `college_index.states[${S.slug}]`;
+    const I = CIX.states[S.slug];
+    if (!I) { err(w, 'missing (every state in state_index.yml gets a colleges page)'); continue; }
+    const D = readJ(`_data/us/college_states/${S.slug}.json`); if (!D) continue;
+    if (I.abbr !== S.abbr || D.inst.length !== I.n) err(w, `abbr/count mismatch with college_states/${S.slug}.json`);
+    const byCity = {}; for (const i of D.inst) { byCity[i.cs] = (byCity[i.cs] || 0) + 1; if (![1, 2, 3].includes(i.lv) || ![1, 2, 3].includes(i.ct)) err(w, `${i.n}: level/control code out of range`); if (i.gr != null && (i.gr < 0 || i.gr > 1)) err(w, `${i.n}: completion rate ${i.gr} is not a 0–1 share`); }
+    const want = Object.entries(byCity).filter(([, n]) => n >= MIN).map(([c]) => c).sort();
+    const have = I.cities.map((c) => c.s).sort();
+    if (want.join() !== have.join()) err(w, 'city pages must be exactly the cities with ' + MIN + '+ schools');
+    for (const c of I.cities) { if (byCity[c.s] !== c.count) err(`${w}.cities[${c.s}]`, 'count mismatch'); if (!pageExists(`us/colleges/${S.slug}/${c.s}/`)) err(`${w}.cities[${c.s}]`, 'stub missing (run scripts/build-us-colleges.mjs)'); }
+    if (!pageExists(`us/colleges/${S.slug}/`)) err(w, 'stub missing (run scripts/build-us-colleges.mjs)');
+    clCities += I.cities.length; clSchools += I.n;
+  }
+  if (clSchools !== CIX.national.n) err('college_index.national', 'n is not the sum of the states');
+  const careerSlugs = new Set([...Object.values(careerData).flatMap((D) => (D.list || []).map((X) => X.slug)), ...(cte.list || []).map((T) => T.slug), ...paths.list.map((p) => p.slug)]);
+  for (const [k, F] of Object.entries(CFD.fields)) {
+    const w = `college_fields[${k}]`;
+    if (!careerSlugs.has(k)) err(w, 'not a career, trade or pathway slug');
+    if (!pageExists(F.href)) err(w, `career page ${F.href} missing`);
+    if (!pageExists(`us/colleges/fields/${k}/`)) err(w, 'stub missing (run scripts/build-us-colleges.mjs)');
+    const R = readJ(`assets/data/us/colleges/fields/${k}.json`);
+    if (R && (R.rows.length !== F.institutions || R.institutions !== F.institutions)) err(w, 'institution count differs from the finder file');
+    if (!(F.cip || []).length) err(w, 'needs at least one CIP program');
+  }
+  for (const k of Object.keys(CFD.skipped || {})) if (CFD.fields[k]) err(`college_fields.skipped[${k}]`, 'also has a list');
+  for (const [k, A] of Object.entries(CAP.careers)) {
+    if (!careerSlugs.has(k)) err(`apprenticeships[${k}]`, 'not a career, trade or pathway slug');
+    for (const o of A.list) if (!o.code || !o.title || !Object.keys(o.terms || {}).length) err(`apprenticeships[${k}]`, `${o.title || '?'}: needs RAPIDS code, title and terms`);
+  }
+  if (home.support.find((s) => s.id === 'colleges')?.href !== 'us/colleges/') err('home.support.colleges', 'the Colleges & training card must link us/colleges/');
+  if (!navUs.includes('href: "us/colleges/"')) err('_data/nav_us.yml', 'the USA menu needs us/colleges/');
+}
+// Coaching (Master Plan section 11): no private centres; every exam page shows the owner's own free practice instead.
+for (const [k, E] of Object.entries(EXS)) {
+  const P = E.sections?.practice;
+  if (!P || !(P.points || []).length) err(`exams[${k}]`, "needs a practice section (the exam owner's own practice)");
+  else for (const p of P.points) if (!p.src || !sources.list[p.src]) err(`exams[${k}].practice`, `point needs a known source id (${p.src})`);
+}
+if (CIX) console.log(`checked colleges: ${clSchools} schools in ${Object.keys(CIX.states).length} states, ${clCities} city pages, ${Object.keys(CFD?.fields || {}).length} program lists, ${Object.keys(CAP?.careers || {}).length} apprenticeship matches`);
+
 console.log(`checked ${Object.keys(EXS).length} exam pages in ${(exams.stages || []).length} stages, ${(exams.ap_subjects || []).length} AP subjects, ${gatesLinked} roadmap exam gates linked`);
 console.log(`checked ${Object.keys(sources.list).length} sources, ${Object.keys(occ).length} occupations, ${Object.keys(lic).length} licenses, ${testIds.size} tests, ${paths.list.length} pathways, ${(paths.crossborder || []).length} cross-border tracks, ${(cte.list || []).length} trades roadmaps, ${clusters.length} clusters (${subTotal} sub-clusters, ${placed.size} careers placed, ${clusters.filter((c) => c.live).length} hubs live)`);
 if (errors.length) { console.log(errors.join('\n')); console.log(`\n${errors.length} problem(s)`); process.exit(1); }

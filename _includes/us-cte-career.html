@@ -30,6 +30,13 @@
       <p class="md-answer-lede">{{ X.does.text }}</p>
       <div class="md-answer-actions">
         <a href="{{ rm_href }}" class="btn btn-primary btn-page-link">📍 See Full Journey / Step-by-Step Roadmap</a>
+        {%- comment -%} Master Plan Phase 13: program list (college_fields.json) and DOL apprenticeship occupations (apprenticeships.json) {%- endcomment -%}
+        {%- if site.data.us.college_fields.fields[X.slug] %}
+        <a href="us/colleges/fields/{{ X.slug }}/" class="btn btn-primary btn-page-link">Colleges</a>
+        {%- endif %}
+        {%- if site.data.us.apprenticeships.careers[X.slug] %}
+        <a href="{{ site.data.us.sources.list.dol_job_finder.url }}" class="btn btn-primary btn-page-link">Apprenticeships</a>
+        {%- endif %}
       </div>
     </header>
   </div>

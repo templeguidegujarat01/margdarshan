@@ -116,6 +116,8 @@
         {%- if v2_rm %}<a href="us/roadmaps/{{ v2_rm.slug }}.html" class="md-textlink">Step-by-step roadmap</a>{% endif %}
         {%- if has_salary %}<a href="us/careers/{{ salary_slug }}/salary/" class="md-textlink">Salary by state and city</a>
         {%- elsif D.industries %}<a href="#pay" class="md-textlink">{{ D.breakdown_label | default: "Pay by industry" }}</a>{% endif %}
+        {%- if P.colleges %}<a href="us/careers/{{ P.slug }}/colleges/" class="md-textlink">Colleges</a>{% endif %}
+        {%- if site.data.us.apprenticeships.careers[P.slug] %}<a href="{{ site.data.us.sources.list.dol_job_finder.url }}" class="md-textlink">Apprenticeships</a>{% endif %}
       </div>
     </header>
   </div>

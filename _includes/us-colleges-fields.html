@@ -1,0 +1,72 @@
+{%- comment -%}
+  Index of the career program lists (USA Master Plan Phase 13): us/colleges/fields/. One link per career in
+  _data/us/college_fields.json, grouped by Career Cluster (trades under Trades & CTE), and the careers that have no
+  list with the reason (college_fields.json `skipped`, written by scripts/build-ipeds.mjs --places).
+{%- endcomment -%}
+{%- include us-colleges-labels.html -%}
+{%- assign FD = site.data.us.college_fields -%}
+{%- assign US = site.data.us -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "USA Home", "item": "{{ site.url }}{{ site.baseurl }}/us/" },
+    { "@type": "ListItem", "position": 2, "name": "Colleges", "item": "{{ site.url }}{{ site.baseurl }}/us/colleges/" },
+    { "@type": "ListItem", "position": 3, "name": "Programs by career", "item": "{{ page.url | absolute_url }}" }
+  ]
+}
+</script>
+<main id="main" class="md-page">
+
+  <div class="container md-page-top">
+    <header class="md-answer">
+      <span class="eyebrow">USA · Colleges · Programs</span>
+      <h1>Programs by career</h1>
+      <p class="md-answer-lede">Pick a career to see every U.S. school that awarded a matching program in {{ AY }}, from a short certificate to a doctorate. Programs are matched by the federal CIP–SOC crosswalk, not picked by hand.</p>
+      <div class="md-answer-actions">
+        <a href="us/colleges/" class="md-textlink">Colleges by state and city</a>
+        <a href="us/careers/" class="md-textlink">All careers</a>
+      </div>
+    </header>
+  </div>
+  {%- for C in US.clusters.clusters %}
+  {%- capture cl_items %}{% for f in FD.fields %}{% assign FF = f[1] %}{% if FF.cluster == C.slug %}<li><a href="us/colleges/fields/{{ f[0] }}/"><strong>{{ FF.short }}</strong><span>{% include fmt-num.html n=FF.institutions %} schools · {{ FF.cip.size }} {% if FF.cip.size == 1 %}program{% else %}programs{% endif %}</span></a></li>{% endif %}{% endfor %}{% endcapture %}
+  {%- if cl_items != "" %}
+  <section class="md-sec{% cycle '', ' md-sec-alt' %}" id="{{ C.slug }}" aria-labelledby="{{ C.slug }}-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="{{ C.slug }}-h">{{ C.name }}</h2></div>
+      <ul class="md-links" data-no-points>{{ cl_items }}</ul>
+    </div>
+  </section>
+  {%- endif %}
+  {%- endfor %}
+
+  <section class="md-sec" id="trades" aria-labelledby="trades-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="trades-h">Skilled trades</h2><p>Trade programs, mostly certificates and associate degrees. Most trades are also learned through a Registered Apprenticeship; each list shows the DOL apprenticeship occupations too.</p></div>
+      <ul class="md-links" data-no-points>
+        {%- for f in FD.fields %}{% assign FF = f[1] %}{% if FF.kind == "trade" %}
+        <li><a href="us/colleges/fields/{{ f[0] }}/"><strong>{{ FF.short }}</strong><span>{% include fmt-num.html n=FF.institutions %} schools · {{ FF.cip.size }} {% if FF.cip.size == 1 %}program{% else %}programs{% endif %}</span></a></li>
+        {%- endif %}{% endfor %}
+      </ul>
+    </div>
+  </section>
+
+  <section class="md-sec md-sec-alt" id="not-listed" aria-labelledby="nl-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="nl-h">Careers without a list, and why</h2>{%- assign pw_col = US.pathways.list | where: "colleges", true %}<p>The {{ pw_col.size }} degree pathways with their own college pages (computer science, nursing, law and others) are reached from each pathway's Colleges tab.</p></div>
+      <ul class="md-occ" data-no-points>
+        {%- for s in FD.skipped %}{%- assign sk = s[0] %}
+        {%- assign sk_name = sk %}{%- assign href = "us/careers/" | append: sk | append: "/" %}
+        {%- for cf in US.careers %}{% assign hit = cf[1].list | where: "slug", sk | first %}{% if hit %}{% assign sk_name = hit.short %}{% endif %}{% endfor %}
+        {%- assign tr = US.cte_careers.list | where: "slug", sk | first %}{% if tr %}{% assign href = "us/cte/" | append: sk | append: ".html" %}{% assign sk_name = tr.short %}{% endif %}
+        <li><span><a href="{{ href }}">{{ sk_name }}</a><small>{{ s[1] }}.</small></span></li>
+        {%- endfor %}
+      </ul>
+      <p class="md-datanote">Data: NCES IPEDS {{ CI.ipeds | join: ", " }} ({{ AY }}, first majors), NCES CIP 2020–SOC 2018 crosswalk, College Scorecard file of {{ SC_REL }} (operating schools approved for federal aid).</p>
+    </div>
+  </section>
+
+  {% include us-sources.html ids="ipeds_completions,cip_soc_crosswalk,scorecard_data,dol_occupations" %}
+</main>

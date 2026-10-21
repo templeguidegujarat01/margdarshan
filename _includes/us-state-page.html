@@ -37,6 +37,7 @@
         <a href="#diploma" class="btn btn-primary">Diploma requirements</a>
         <a href="#residency" class="md-textlink">In-state tuition</a>
         {%- if S.licenses %}<a href="us/states/{{ page.state }}/licenses.html" class="md-textlink">Licensing boards</a>{% endif %}
+        {%- if site.data.us.college_index.states[page.state] %}<a href="us/colleges/{{ page.state }}/" class="md-textlink">All colleges in {{ N }}</a>{% endif %}
         {%- for l in S.links %}<a href="{{ l.href }}" class="md-textlink">{{ l.label }}</a>{% endfor %}
       </div>
       <p class="md-tile-note">{% include us-src-chip.html id="census_pop2025" %} Every fact below is copied from {{ N }}'s own pages or the agency named in its source chip.</p>
@@ -95,6 +96,8 @@
         {%- endfor %}
       </ul>
       <p class="md-tile-note">Sources:{% for c in S.colleges.systems %} {% include us-src-chip.html id=c.src %}{% endfor %}</p>
+      {%- assign CIS = site.data.us.college_index.states[page.state] %}
+      {%- if CIS %}<p class="md-tile-note">Every school in {{ N }}, public and private, with cost and completion: <a href="us/colleges/{{ page.state }}/">{% include fmt-num.html n=CIS.n %} colleges, community colleges and trade schools</a>{% if CIS.cities.size > 0 %}, with {{ CIS.cities.size }} city pages{% endif %}.</p>{% endif %}
     </div>
   </section>
 

@@ -1,0 +1,77 @@
+{%- comment -%}
+  USA Exams hub (USA Master Plan Phase 9, 2026-10-21), stub us/exams/index.html written by scripts/build-us-exams.mjs.
+  One h2[id] section per stage in _data/us/exams.yml `stages` (youngest first): a card per exam page in that stage
+  (us/exams/<slug>/) and, for stages whose own pages come in Phase 10 or 11, links to the live pages that cover them
+  now (`elsewhere`). Retired tests are labelled. The us/tests/ overview page stays live and is linked here.
+{%- endcomment -%}
+{%- assign US = site.data.us -%}
+{%- assign EX = US.exams -%}
+{%- assign src_ids = "" -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "USA Home", "item": "{{ site.url }}{{ site.baseurl }}/us/" },
+    { "@type": "ListItem", "position": 2, "name": "Exams", "item": "{{ page.url | absolute_url }}" }
+  ]
+}
+</script>
+<main id="main" class="md-page">
+
+  <div class="container md-page-top">
+    <header class="md-answer">
+      <span class="eyebrow">USA · Exams</span>
+      <h1>Every U.S. exam, by stage</h1>
+      <p class="md-answer-lede">From grade 3 state tests to the SAT, ACT, AP, GED, English tests and the ASVAB. Each exam page gives who takes it, the format, scoring, fees and fee waivers, this cycle's dates and free official practice, copied from the exam owner's own pages.</p>
+      <div class="md-stats" data-no-points>
+        <div class="md-stat"><span class="md-stat-label">Exam pages</span><span class="md-stat-value">{{ EX.exams.size }}</span><span class="md-stat-note">Plus all {{ EX.ap_subjects.size }} AP subjects</span></div>
+        <div class="md-stat"><span class="md-stat-label">Stages</span><span class="md-stat-value">{{ EX.stages.size }}</span><span class="md-stat-note">Grade 3 to licensing</span></div>
+        <div class="md-stat"><span class="md-stat-label">Sources</span><span class="md-stat-value is-text">Exam owners</span><span class="md-stat-note">College Board, ACT, ETS, DoD …</span></div>
+        <div class="md-stat"><span class="md-stat-label">Checked</span><span class="md-stat-value is-text">{{ EX.as_of | date: "%-d %b %Y" }}</span></div>
+      </div>
+      <div class="md-answer-actions">
+        <a href="#admission" class="btn btn-primary">College admission tests</a>
+        <a href="us/tests/" class="md-textlink">Do colleges require tests?</a>
+      </div>
+    </header>
+  </div>
+
+  {%- for st in EX.stages %}
+  <section class="md-sec{% cycle '', ' md-sec-alt' %}" id="{{ st.id }}" aria-labelledby="{{ st.id }}-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="{{ st.id }}-h">{{ st.title }}</h2><p>{{ st.line }}{% if st.source %} {% include us-src-chip.html id=st.source %}{% assign src_ids = src_ids | append: "," | append: st.source %}{% endif %}</p></div>
+      <ul class="md-links">
+        {%- for slug in st.exams %}{%- assign E = EX.exams[slug] %}
+        {%- assign f1 = E.facts[0] %}{%- assign f2 = E.facts[1] %}
+        <li><a href="us/exams/{{ slug }}/"><strong>{{ E.short }}{% if E.status == "retired" %} (retired){% endif %}</strong><span>{{ E.grades | truncate: 70 }} · {{ f2.label }} {{ f2.value }}</span></a></li>
+        {%- endfor %}
+        {%- for l in st.elsewhere %}
+        <li><a href="{{ l.href }}"><strong>{{ l.label }}</strong><span>{{ l.text }}</span></a></li>
+        {%- endfor %}
+      </ul>
+      {%- if st.note %}<p class="md-tile-note">{{ st.note }}</p>{% endif %}
+    </div>
+  </section>
+  {%- endfor %}
+
+  <section class="md-sec" id="glance" aria-labelledby="glance-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="glance-h">All exam pages at a glance</h2><p>Owner, who takes it and the headline number; open a page for fees, dates and practice.</p></div>
+      <div class="table-wrap" data-no-points>
+        <table class="md-table">
+          <thead><tr><th scope="col">Exam</th><th scope="col">Made by</th><th scope="col">Who</th><th scope="col">Key facts</th></tr></thead>
+          <tbody>
+            {%- for st in EX.stages %}{%- for slug in st.exams %}{%- assign E = EX.exams[slug] %}
+            <tr><td><a href="us/exams/{{ slug }}/"><strong>{{ E.short }}</strong></a>{% if E.status == "retired" %} (retired){% endif %}</td><td>{{ E.by }}</td><td>{{ E.grades }}</td><td>{% for f in E.facts limit:3 %}{{ f.label }}: <strong>{{ f.value }}</strong>{% unless forloop.last %} · {% endunless %}{% endfor %}</td></tr>
+            {%- endfor %}{%- endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  {%- assign src_ids = src_ids | append: ",cb_sat_dates,act_dates,cb_ap_dates,ged_subjects,toefl_content,asvab_expect,naep_about" | remove_first: "," | split: "," | uniq | join: "," -%}
+  {% include us-sources.html ids=src_ids bg="alt" %}
+
+</main>

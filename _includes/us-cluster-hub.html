@@ -265,7 +265,7 @@
           <h3>Enlisted member · all branches</h3>
           <dl>
             <div><dt>Who can join</dt><dd>{{ SR.enlisted.common }} {% include us-src-chip.html id=SR.enlisted.common_source %}</dd></div>
-            <div><dt>ASVAB</dt><dd>{{ SR.enlisted.asvab }}{% for s in SR.enlisted.asvab_sources %} {% include us-src-chip.html id=s %}{% endfor %}</dd></div>
+            <div><dt>ASVAB</dt><dd>{{ SR.enlisted.asvab }}{% for s in SR.enlisted.asvab_sources %} {% include us-src-chip.html id=s %}{% endfor %} <a class="md-textlink" href="us/exams/asvab/">How the ASVAB works</a></dd></div>
             <div><dt>Training</dt><dd>{{ SR.enlisted.training }} {% include us-src-chip.html id=SR.enlisted.training_source %}</dd></div>
           </dl>
         </article>
@@ -288,7 +288,7 @@
           <thead><tr><th scope="col">Route</th><th scope="col">What it takes</th></tr></thead>
           <tbody>
             {%- for r in SR.officer.routes %}
-            <tr><td><strong>{{ r.name }}</strong></td><td>{{ r.text }} {% include us-src-chip.html id=r.source %}</td></tr>
+            <tr><td><strong>{{ r.name }}</strong></td><td>{{ r.text }} {% include us-src-chip.html id=r.source %}{% for x in r.exams %} <a class="md-textlink" href="{{ x.href }}">{{ x.name }}</a>{% endfor %}</td></tr>
             {%- endfor %}
           </tbody>
         </table>

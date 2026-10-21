@@ -16,9 +16,9 @@ vectors:
 
 # The six support hubs on the USA Home, next to the 14 Career Cluster hubs (_data/us/clusters.yml). A card links
 # only when its page exists (`href`); otherwise it names the Master Plan phase that builds it. `planned` is the
-# hub's planned URL (docs/us-edition/ARCHITECTURE.md); Exams lives on us/tests/ until Phase 9 builds us/exams/.
+# hub's planned URL (docs/us-edition/ARCHITECTURE.md); Exams = us/exams/ since Phase 9 (us/tests/ stays as the testing-policy overview).
 support:
-  - { id: exams, title: "Exams", line: "SAT, ACT, PSAT, AP, then MCAT, DAT and LSAT", href: "us/tests/", planned: "us/exams/", phase: 9 }
+  - { id: exams, title: "Exams", line: "State tests, PSAT, SAT, ACT, AP, GED, TOEFL, ASVAB: every exam by stage", href: "us/exams/", planned: "us/exams/", phase: 9 }
   - { id: states, title: "States", line: "50 states and DC: diploma rules, in-state tuition, boards", planned: "us/states/", phase: 11 }
   - { id: licensing, title: "Licensing", line: "State license routes for doctors, lawyers, CPAs, engineers, nurses", href: "us/professional-licenses/", planned: "us/professional-licenses/", phase: 12 }
   - { id: colleges, title: "Colleges & training", line: "Colleges by state and city, community colleges, apprenticeships", planned: "us/colleges/", phase: 13 }
@@ -274,7 +274,7 @@ public_sector:
       common_source: ooh_military
       routes:
         - { name: "Service academy", text: "A free bachelor's degree with a commission and typically a 5-year active-duty obligation. Candidates must be unmarried with no dependents and, except at the Coast Guard Academy, nominated, usually by a member of Congress.", source: ooh_military }
-        - { name: "West Point (Army)", text: "U.S. citizen, 17 to 22 on 1 July of the admission year, unmarried, no legal duty to support children. SAT, ACT or CLT, a fitness assessment, a DoDMERB medical exam and a nomination from your Senators, Representative or the Vice President.", source: usma_steps }
+        - { name: "West Point (Army)", text: "U.S. citizen, 17 to 22 on 1 July of the admission year, unmarried, no legal duty to support children. SAT, ACT or CLT, a fitness assessment, a DoDMERB medical exam and a nomination from your Senators, Representative or the Vice President.", source: usma_steps, exams: [{ name: "SAT", href: "us/exams/sat/" }, { name: "ACT", href: "us/exams/act/" }, { name: "CLT", href: "us/exams/clt/" }] }
         - { name: "Naval Academy (Navy, Marine Corps)", text: "U.S. citizen by 1 July of the entry year, at least 17 and not past your 23rd birthday on 1 July, unmarried, no dependents; apply for a nomination.", source: usna_apply }
         - { name: "Coast Guard Academy", text: "Admission is on merit; congressional nominations are not required or considered.", source: uscga_admissions }
         - { name: "ROTC", text: "Regular college classes plus 3 to 5 hours of military instruction a week; competitive 2-, 3- and 4-year scholarships. Graduates serve on active duty or in the Reserves or National Guard.", source: ooh_military }

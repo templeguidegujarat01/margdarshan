@@ -160,6 +160,15 @@ else {
     ['college professor usa', null, (r) => (has(r, 'us/careers/postsecondary-teacher/', 3) || has(r, 'us/roadmaps/postsecondary-teacher.html', 3) ? '' : 'expected the professor page or roadmap in top 3')],
     ['asvab enlist', null, (r) => (has(r, 'us/clusters/public-service-safety/#service-routes', 3) ? '' : 'expected the Foreign Service and military block in top 3')],
     ['education careers usa', null, (r) => (has(r, 'us/clusters/education/', 3) ? '' : 'expected the Education hub in top 3')],
+    // USA Master Plan Phase 9 (2026-10-21): exam pages
+    ['sat test dates 2026', null, (r) => (has(r, 'us/exams/sat/', 3) ? '' : 'expected the SAT page in top 3')],
+    ['act fee waiver', null, (r) => (has(r, 'us/exams/act/', 3) ? '' : 'expected the ACT page in top 3')],
+    ['national merit psat junior', null, (r) => (has(r, 'us/exams/psat-nmsqt/', 3) ? '' : 'expected the PSAT/NMSQT page in top 3')],
+    ['ap exam schedule 2027', null, (r) => (has(r, 'us/exams/ap/', 3) ? '' : 'expected the AP Exams page in top 3')],
+    ['ged price by state', null, (r) => (has(r, 'us/exams/ged/', 3) ? '' : 'expected the GED page in top 3')],
+    ['toefl fee usa', null, (r) => (has(r, 'us/exams/toefl-ibt/', 3) ? '' : 'expected the TOEFL page in top 3')],
+    ['asvab sample questions', null, (r) => (has(r, 'us/exams/asvab/', 3) ? '' : 'expected the ASVAB page in top 3')],
+    ['us exams list', null, (r) => (has(r, 'us/exams/', 3) ? '' : 'expected the Exams hub in top 3')],
     ['zzzz qqqq', null, (r) => (r.total === 0 ? '' : 'nonsense should return nothing')],
   ];
   for (const [q, home, t] of cases) {

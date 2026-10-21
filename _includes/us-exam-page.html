@@ -1,0 +1,169 @@
+{%- comment -%}
+  USA exam page (USA Master Plan Phase 9, 2026-10-21). Stub: us/exams/<slug>/index.html with `exam: <slug>`, written by
+  scripts/build-us-exams.mjs from _data/us/exams.yml (schema at the top of that file). Sections render in a fixed order
+  (who, format, scoring, fees, dates, accepted, practice) when the exam has them, then "Used by" and sources, so every
+  page has 4+ h2[id] and gets the right rail (>=900px) and chip rail (<900px) from site.js. Every block cites its own
+  source chip; tables carry data-no-points. The AP page adds the full subject table from exams.yml `ap_subjects`.
+{%- endcomment -%}
+{%- assign US = site.data.us -%}
+{%- assign EX = US.exams -%}
+{%- assign E = EX.exams[page.exam] -%}
+{%- assign ST = EX.stages | where: "id", E.stage | first -%}
+{%- assign S = E.sections -%}
+{%- assign keys = "who,format,scoring,fees,dates,accepted,practice" | split: "," -%}
+{%- assign src_ids = "" -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "USA Home", "item": "{{ site.url }}{{ site.baseurl }}/us/" },
+    { "@type": "ListItem", "position": 2, "name": "Exams", "item": "{{ site.url }}{{ site.baseurl }}/us/exams/" },
+    { "@type": "ListItem", "position": 3, "name": {{ E.short | jsonify }}, "item": "{{ page.url | absolute_url }}" }
+  ]
+}
+</script>
+<main id="main" class="md-page">
+
+  <div class="container md-page-top">
+    <header class="md-answer">
+      <span class="eyebrow">USA · Exams · {{ ST.title | split: ":" | first }}{% if E.status == "retired" %} · Retired{% endif %}</span>
+      <h1>{{ E.name }}</h1>
+      <p class="md-answer-lede">{{ E.lede }}</p>
+      <div class="md-stats" data-no-points>
+        {%- for f in E.facts %}
+        <div class="md-stat"><span class="md-stat-label">{{ f.label }}</span><span class="md-stat-value{% if f.value.size > 9 %} is-text{% endif %}">{{ f.value }}</span>{% if f.note %}<span class="md-stat-note">{{ f.note }}</span>{% endif %}</div>
+        {%- endfor %}
+      </div>
+      <div class="md-answer-actions">
+        {%- if S.dates %}<a href="#dates" class="btn btn-primary">Test dates</a>{% endif %}
+        {%- if S.fees %}<a href="#fees" class="md-textlink">Fees and fee help</a>{% endif %}
+        {%- if S.practice %}<a href="#practice" class="md-textlink">Free official practice</a>{% endif %}
+      </div>
+      <p class="md-tile-note">Made by {{ E.by }}. {% if E.grades %}Who: {{ E.grades }}. {% endif %}Checked on the owner's own pages, {{ EX.as_of | date: "%-d %b %Y" }}.</p>
+    </header>
+  </div>
+
+  {%- assign alt = false -%}
+  {%- for k in keys %}
+  {%- assign B = S[k] -%}
+  {%- if B %}
+  {%- case k -%}
+    {%- when "who" -%}{%- assign h = "Who takes it" -%}
+    {%- when "format" -%}{%- assign h = "Format and sections" -%}
+    {%- when "scoring" -%}{%- assign h = "Scoring" -%}
+    {%- when "fees" -%}{%- assign h = "Fees and fee waivers" -%}
+    {%- when "dates" -%}{%- assign h = "Test dates" -%}
+    {%- when "accepted" -%}{%- assign h = "Where it is accepted" -%}
+    {%- when "practice" -%}{%- assign h = "Free official practice" -%}
+  {%- endcase %}
+  <section class="md-sec{% if alt %} md-sec-alt{% endif %}" id="{{ k }}" aria-labelledby="{{ k }}-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="{{ k }}-h">{{ h }}</h2>{% if B.intro %}<p>{{ B.intro }}{% if B.source %} {% include us-src-chip.html id=B.source %}{% endif %}</p>{% endif %}</div>
+      {%- if B.table %}
+      <div class="table-wrap" data-no-points>
+        <table class="md-table">
+          <thead><tr>{% for th in B.table.head %}<th scope="col">{{ th }}</th>{% endfor %}</tr></thead>
+          <tbody>
+            {%- for r in B.table.rows %}{%- assign rs = nil %}{% if B.table.row_src %}{% assign rs = B.table.row_src[forloop.index0] %}{% endif %}
+            <tr>{% for c in r %}<td>{% if forloop.first %}<strong>{{ c }}</strong>{% else %}{{ c }}{% endif %}{% if forloop.last and rs %} {% include us-src-chip.html id=rs align="end" %}{% endif %}</td>{% endfor %}</tr>
+            {%- endfor %}
+          </tbody>
+        </table>
+      </div>
+      {%- if B.source and B.intro == nil %}<p class="md-tile-note">Source: {% include us-src-chip.html id=B.source %}</p>{% endif %}
+      {%- endif %}
+      {%- if k == "dates" and page.exam == "ap" %}
+      <div class="table-wrap" data-no-points>
+        <table class="md-table" id="ap-subjects">
+          <thead><tr><th scope="col">AP subject</th><th scope="col">Group</th><th scope="col">2027 exam</th><th scope="col">Length</th><th scope="col">Digital Portfolio due</th></tr></thead>
+          <tbody>
+            {%- for a in EX.ap_subjects %}
+            <tr><td><a href="{{ a.url }}"><strong>{{ a.name }}</strong></a></td><td>{{ a.group }}</td><td>{{ a.exam }}</td><td>{{ a.length | default: "—" }}{% if a.mode %}<br><span class="us-by">{% if a.mode == "hybrid" %}Hybrid digital{% else %}Fully digital{% endif %}</span>{% endif %}</td><td>{{ a.due | default: "—" }}</td></tr>
+            {%- endfor %}
+          </tbody>
+        </table>
+      </div>
+      <p class="md-tile-note">{{ EX.ap_subjects.size }} subjects, as listed on College Board's AP Courses and Exams page; each name opens its official course page. Session 1 is usually the morning, Session 2 the afternoon. {% include us-src-chip.html id="cb_ap_courses" %} {% include us-src-chip.html id="cb_ap_dates" %}</p>
+      {%- endif %}
+      {%- if B.points %}
+      <ul class="md-list">
+        {%- for p in B.points %}
+        <li>{{ p.t }} {% include us-src-chip.html id=p.src %}</li>
+        {%- endfor %}
+      </ul>
+      {%- endif %}
+    </div>
+  </section>
+  {%- if alt %}{% assign alt = false %}{% else %}{% assign alt = true %}{% endif %}
+  {%- endif %}
+  {%- endfor %}
+
+  {%- assign U = E.used_by -%}
+  <section class="md-sec{% if alt %} md-sec-alt{% endif %}" id="used-by" aria-labelledby="used-by-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="used-by-h">Used by these careers and colleges</h2>
+        {%- if U.careers == "bachelor" %}<p>Careers on this site where BLS lists a bachelor's degree or more as the typical way in. A college may ask for this test on the way, depending on its own policy.</p>
+        {%- elsif U.careers == "hs" %}<p>Careers on this site where BLS lists a high school diploma or equivalent as the typical entry. A GED or HiSET credential counts as the equivalent.</p>
+        {%- endif %}</div>
+      {%- if U.colleges_from_guides or U.colleges %}
+      <h3 class="md-pay-sub">Colleges, checked on their own admissions pages</h3>
+      <ul class="md-list">
+        {%- if U.colleges_from_guides %}{%- for c in US.guides.testing.policies.examples %}
+        <li><strong>{{ c.college }}:</strong> {{ c.policy }}. {{ c.detail }} {% include us-src-chip.html id=c.source %}</li>
+        {%- endfor %}{%- endif %}
+        {%- for c in U.colleges %}
+        <li><strong>{{ c.name }}:</strong> {{ c.text }} {% include us-src-chip.html id=c.src %}</li>
+        {%- endfor %}
+      </ul>
+      {%- endif %}
+      {%- if U.careers %}
+      {%- capture career_items -%}
+        {%- for p in US.pathways.list -%}{%- if p.live -%}
+          {%- assign en = US.occupations[p.lead].education | default: "" -%}
+          {%- assign hit = false -%}
+          {%- if U.careers == "bachelor" -%}{%- if en contains "Bachelor" or en contains "Doctoral" or en contains "Master" -%}{%- assign hit = true -%}{%- endif -%}
+          {%- elsif en contains "High school" -%}{%- assign hit = true -%}{%- endif -%}
+          {%- if hit %}<li><a href="us/careers/{{ p.slug }}/"><strong>{{ p.title }}</strong><span>BLS entry: {{ en }}</span></a></li>{% endif -%}
+        {%- endif -%}{%- endfor -%}
+        {%- for cf in US.careers -%}{%- for x in cf[1].list -%}{%- if x.metrics -%}
+          {%- assign en = x.metrics.entry | default: "" -%}
+          {%- if U.careers == "bachelor" -%}{%- assign hit = false -%}{%- if en contains "Bachelor" or en contains "Doctoral" or en contains "Master" or en contains "Ph.D." -%}{%- assign hit = true -%}{%- endif -%}
+          {%- else -%}{%- assign hit = false -%}{%- if en contains "High school" -%}{%- assign hit = true -%}{%- endif -%}{%- endif -%}
+          {%- if hit %}<li><a href="us/careers/{{ x.slug }}/"><strong>{{ x.short }}</strong><span>BLS entry: {{ en }}</span></a></li>{% endif -%}
+        {%- endif -%}{%- endfor -%}{%- endfor -%}
+      {%- endcapture -%}
+      {%- assign n_items = career_items | split: "<li>" | size | minus: 1 -%}
+      {%- if n_items > 0 %}
+      <h3 class="md-pay-sub">Careers ({{ n_items }})</h3>
+      <details class="md-more">
+        <summary>Show the {{ n_items }} careers</summary>
+        <ul class="md-links">{{ career_items }}</ul>
+      </details>
+      {%- endif %}
+      {%- endif %}
+      {%- if U.links %}
+      <h3 class="md-pay-sub">Next on this site</h3>
+      <ul class="md-links">
+        {%- for l in U.links %}
+        <li><a href="{{ l.href }}"><strong>{{ l.label }}</strong><span>{{ l.text }}</span></a></li>
+        {%- endfor %}
+        <li><a href="us/exams/"><strong>All exams</strong><span>Every U.S. exam by stage, grade 3 to graduate school</span></a></li>
+      </ul>
+      {%- endif %}
+    </div>
+  </section>
+
+  {%- comment -%} Sources: every id used on this page, in order of first use. {%- endcomment -%}
+  {%- for k in keys %}{%- assign B = S[k] -%}{%- if B -%}
+    {%- if B.source %}{%- assign src_ids = src_ids | append: "," | append: B.source -%}{% endif -%}
+    {%- for r in B.table.row_src %}{%- assign src_ids = src_ids | append: "," | append: r -%}{% endfor -%}
+    {%- for p in B.points %}{%- assign src_ids = src_ids | append: "," | append: p.src -%}{% endfor -%}
+  {%- endif -%}{%- endfor -%}
+  {%- if page.exam == "ap" %}{%- assign src_ids = src_ids | append: ",cb_ap_courses,cb_ap_dates" -%}{% endif -%}
+  {%- for c in U.colleges %}{%- assign src_ids = src_ids | append: "," | append: c.src -%}{% endfor -%}
+  {%- if U.colleges_from_guides %}{%- for c in US.guides.testing.policies.examples %}{%- assign src_ids = src_ids | append: "," | append: c.source -%}{% endfor %}{% endif -%}
+  {%- assign src_ids = src_ids | remove_first: "," | split: "," | uniq | join: "," -%}
+  {% include us-sources.html ids=src_ids bg="alt" %}
+
+</main>

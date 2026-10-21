@@ -567,6 +567,81 @@ for (const f of fs.readdirSync(path.join(root, 'us/cte')).filter((x) => x.endsWi
   if (!cteSeen.has(f.replace(/\.html$/, ''))) err(`us/cte/${f}`, 'no cte_careers trade with this slug');
 }
 
+// Exams hub (Master Plan Phase 9, 2026-10-21): _data/us/exams.yml. Every exam sits in exactly one stage, has its stub
+// (scripts/build-us-exams.mjs), cites known sources on every block, keeps table rows as wide as the header, agrees with
+// its tests.yml record (every number in that record's score range appears on the exam page), and links only to pages
+// that exist. The AP subject list keeps the count College Board states. Then every roadmap step (careers, trades,
+// cross-border tracks) and service-academy route that names a Phase 9 exam must link that exam's page.
+const exams = load('exams');
+const EXS = exams.exams || {};
+if (!isDate(exams.as_of) || !isDate(exams.review_by)) err('exams', 'missing as_of / review_by');
+const stageOf = {};
+for (const st of exams.stages || []) {
+  const w = `exams.stages.${st.id}`;
+  if (!st.id || !st.title || !st.line) err(w, 'needs id, title, line');
+  if (st.source) needSrc(w, st.source);
+  if (!(st.exams || []).length && !(st.elsewhere || []).length) err(w, 'a stage needs exam pages or `elsewhere` links');
+  for (const s of st.exams || []) { if (!EXS[s]) err(w, `unknown exam "${s}"`); if (stageOf[s]) err(w, `exam "${s}" is in two stages`); stageOf[s] = st.id; }
+  for (const l of st.elsewhere || []) if (!l.label || !l.text || !pageExists(l.href)) err(w, `elsewhere "${l.label}" needs label, text and an href to a page that exists`);
+}
+for (const [slug, E] of Object.entries(EXS)) {
+  const w = `exams.${slug}`;
+  for (const k of ['name', 'short', 'by', 'stage', 'grades', 'lede']) if (!E[k]) err(w, `missing ${k}`);
+  if (!['current', 'retired'].includes(E.status)) err(w, 'status must be current or retired');
+  if (stageOf[slug] !== E.stage) err(w, `stage "${E.stage}" must list this exam (stages[].exams)`);
+  if ((E.facts || []).length !== 4 || E.facts.some((f) => !f.label || !f.value)) err(w, 'needs exactly 4 facts with label and value');
+  if (!E.page?.title || !E.page?.description) err(w, 'needs page.title and page.description');
+  if (!E.search?.s || !E.search?.k) err(w, 'needs search.s and search.k (_data/search.yml entry)');
+  const S = E.sections || {};
+  if (Object.keys(S).length < 3) err(w, 'needs at least 3 sections (with Used by + Sources the page gets 4+ h2 for the rail)');
+  for (const k of Object.keys(S)) if (!['who', 'format', 'scoring', 'fees', 'dates', 'accepted', 'practice'].includes(k)) err(w, `unknown section "${k}"`);
+  for (const [k, B] of Object.entries(S)) {
+    const bw = `${w}.${k}`;
+    if ((B.intro || B.table) && !B.source && !(B.table?.row_src)) err(bw, 'intro / table needs a source');
+    if (B.source) needSrc(bw, B.source);
+    if (B.table) {
+      const n = (B.table.head || []).length;
+      (B.table.rows || []).forEach((r, i) => { if (r.length !== n) err(bw, `table row ${i} has ${r.length} cells, header has ${n}`); });
+      if (B.table.row_src) { if (B.table.row_src.length !== B.table.rows.length) err(bw, 'row_src needs one source per row'); B.table.row_src.forEach((id) => needSrc(bw, id)); }
+    }
+    (B.points || []).forEach((p, i) => { if (!p.t) err(bw, `point ${i} has no text`); needSrc(`${bw}.points[${i}]`, p.src); });
+    if (!B.intro && !B.table && !(B.points || []).length) err(bw, 'empty section');
+  }
+  const U = E.used_by || {};
+  if (U.careers && !['bachelor', 'hs'].includes(U.careers)) err(`${w}.used_by`, 'careers must be bachelor or hs');
+  (U.colleges || []).forEach((c) => { if (!c.name || !c.text) err(`${w}.used_by`, 'college needs name and text'); needSrc(`${w}.used_by`, c.src); });
+  (U.links || []).forEach((l) => { if (!l.label || !pageExists(l.href)) err(`${w}.used_by`, `link "${l.label}" must point to a page that exists`); });
+  if (!U.careers && !(U.colleges || []).length && !(U.links || []).length) err(`${w}.used_by`, 'needs careers, colleges or links');
+  if (E.tests) {
+    const [grp, id] = E.tests.split('.');
+    const T = tests[grp]?.[id];
+    if (!T) err(w, `tests "${E.tests}" is not a tests.yml record`);
+    else { const blob = JSON.stringify(E); for (const num of String(T.total).match(/\d[\d,]*/g) || []) if (!blob.includes(num)) err(w, `tests.yml ${E.tests} total "${T.total}" (${num}) does not appear on the exam page: keep them in step`); }
+  }
+  const stub = path.join(root, 'us/exams', slug, 'index.html');
+  if (!fs.existsSync(stub) || !new RegExp(`^exam:\\s*${slug}\\s*$`, 'm').test(fs.readFileSync(stub, 'utf8'))) err(w, `us/exams/${slug}/index.html must exist and say exam: ${slug} (run scripts/build-us-exams.mjs)`);
+}
+if (!fs.existsSync(path.join(root, 'us/exams/index.html'))) err('us/exams/index.html', 'exams hub is missing (run scripts/build-us-exams.mjs)');
+for (const s of Object.keys(EXS)) if (!stageOf[s]) err(`exams.${s}`, 'not in any stage');
+const apStated = (EXS.ap?.facts || []).find((f) => f.label === 'Subjects')?.value;
+if (String((exams.ap_subjects || []).length) !== String(apStated)) err('exams.ap_subjects', `${(exams.ap_subjects || []).length} subjects, but the AP page states ${apStated}`);
+for (const a of exams.ap_subjects || []) if (!a.name || !a.group || !a.exam || !/^https:\/\/apstudents\.collegeboard\.org\/courses\//.test(a.url || '')) err(`exams.ap_subjects[${a.name}]`, 'needs name, group, exam and its apstudents course url');
+if (!pageExists('us/exams/') || home.support.find((s) => s.id === 'exams')?.href !== 'us/exams/') err('home.support.exams', 'the Exams card must link us/exams/');
+if (!/href: us\/exams\/\n/.test(navUs.replace(/\r/g, ''))) err('_data/nav_us.yml', 'the USA menu needs the Exams hub (href: us/exams/)');
+// Roadmap gates: a step that names a Phase 9 exam links its page (the equivalency gate: GED or HiSET).
+const GATES = [[/\bGED\b|diploma or equivalent/i, /^us\/exams\/(ged\/|hiset\/|#equivalency)/], [/\bSAT\b/, /^us\/exams\/sat\//], [/\bACT\b(?! WorkKeys)/, /^us\/exams\/act\//], [/\bCLT\b/, /^us\/exams\/clt\//], [/\bASVAB\b/, /^us\/exams\/asvab\//], [/\bTOEFL\b/, /^us\/exams\/toefl-ibt\//], [/\bIELTS\b/, /^us\/exams\/ielts\//], [/\bCLEP\b/, /^us\/exams\/clep\//], [/\bWorkKeys\b|\bNCRC\b/, /^us\/exams\/workkeys\//]];
+const gateTracks = [...Object.entries(careerData).flatMap(([c, D]) => (D.list || []).map((X) => [`careers.${c}[${X.slug}]`, X])), ...(cte.list || []).map((T) => [`cte_careers[${T.slug}]`, T]), ...(paths.crossborder || []).map((T) => [`pathways.crossborder[${T.slug}]`, T])];
+let gatesLinked = 0;
+for (const [w, X] of gateTracks) for (const R of X.routes || []) for (const s of R.steps || []) for (const [re, want] of GATES) {
+  if (!re.test(s.title || '')) continue;
+  if (!s.href || !want.test(s.href)) err(`${w}.routes[${R.id}]`, `step "${s.title}" names a Phase 9 exam: give it href ${want.source.replace(/\\/g, '').replace(/^\^/, '')}…`); else gatesLinked++;
+}
+for (const r of home.public_sector?.service_routes?.officer?.routes || []) {
+  for (const [re, want] of GATES) if (re.test(r.text || '') && !(r.exams || []).some((x) => want.test(x.href))) err(`home.service_routes.officer[${r.name}]`, `names an exam with a page (${re.source}): add it to exams:`);
+  for (const x of r.exams || []) if (!pageExists(x.href)) err(`home.service_routes.officer[${r.name}]`, `exam link ${x.href} is not a page`);
+}
+
+console.log(`checked ${Object.keys(EXS).length} exam pages in ${(exams.stages || []).length} stages, ${(exams.ap_subjects || []).length} AP subjects, ${gatesLinked} roadmap exam gates linked`);
 console.log(`checked ${Object.keys(sources.list).length} sources, ${Object.keys(occ).length} occupations, ${Object.keys(lic).length} licenses, ${testIds.size} tests, ${paths.list.length} pathways, ${(paths.crossborder || []).length} cross-border tracks, ${(cte.list || []).length} trades roadmaps, ${clusters.length} clusters (${subTotal} sub-clusters, ${placed.size} careers placed, ${clusters.filter((c) => c.live).length} hubs live)`);
 if (errors.length) { console.log(errors.join('\n')); console.log(`\n${errors.length} problem(s)`); process.exit(1); }
 console.log('OK: 0 problems');

@@ -1,0 +1,1308 @@
+# USA Edition — Exams hub (USA Master Plan Phase 9, 2026-10-21): us/exams/ and one page per exam, us/exams/<slug>/.
+# Extends tests.yml (which still drives the live us/tests/ overview page, unchanged): an exam with `tests:` names its
+# tests.yml record, and scripts/check-us-data.mjs requires the score range here to match that record.
+# Every fact was copied from the exam owner's own page (or the statute) opened on 2026-10-21; each block names its
+# source id in _data/us/sources.yml. Nothing is computed. Where an owner's page does not state something (a fee, a
+# date), the page says so instead of guessing.
+#
+# Page stubs: scripts/build-us-exams.mjs [--check] writes us/exams/index.html (_includes/us-exams-hub.html) and
+# us/exams/<slug>/index.html (_includes/us-exam-page.html, `exam: <slug>`).
+#
+# Exam schema:
+#   name, short (card / menu label), by, stage (a stages[].id), status (current | retired), grades, tests (optional
+#   tests.yml path such as high_school.sat), lede (one sentence, the answer box), facts (4 stat tiles: label, value,
+#   note), sections: who, format, scoring, fees, dates, accepted, practice — each optional, each
+#   { intro, table: { head: [..], rows: [[..]] }, points: [ { t, src } ], source }; `source` covers intro + table.
+#   used_by: { careers: bachelor | hs (careers on this site whose BLS typical entry starts there), colleges: [ {name,
+#   text, src} ], links: [ { label, href, text } ] }. page: { title, description }. search: { s, k }.
+as_of: 2026-10-21
+review_by: 2027-04-21
+
+# The hub groups exams by stage, youngest first. `exams` = slugs with a page here; `elsewhere` = live pages on this
+# site that already cover a stage (Phase 10 builds dedicated graduate, licensing and government exam pages).
+stages:
+  - id: grades-3-8
+    title: "Grades 3–8: state tests and national samples"
+    line: "Federal law makes every state test reading or language arts and math in each of grades 3 through 8 and once in grades 9 through 12, and science once in grades 3–5, 6–9 and 10–12. Each state writes or picks its own test; NAEP samples students to compare states."
+    source: usc_6311_assess
+    exams: [naep]
+    note: "Your state's own test (its name, grades and score reports) is covered on the state pages, Master Plan Phase 11."
+  - id: grades-8-11
+    title: "Grades 8–11: practice and scholarship tests"
+    line: "Taken at school, usually on a school day. They preview the SAT or ACT, and the PSAT/NMSQT in grade 11 is the entry to the National Merit Scholarship Program."
+    exams: [psat-8-9, psat-10, psat-nmsqt, preact]
+  - id: admission
+    title: "College admission and college credit"
+    line: "Admission tests (SAT, ACT, CLT) and exams that can earn college credit or placement (AP, IB, CLEP). Each college sets its own rules."
+    exams: [sat, act, clt, ap, ib, clep]
+  - id: equivalency
+    title: "High school equivalency"
+    line: "No diploma? A passing score on the GED or HiSET earns a state high school equivalency credential. Your state decides which test it offers."
+    exams: [ged, hiset]
+  - id: english
+    title: "English proficiency"
+    line: "For students whose first language is not English. Each college sets which tests and scores it accepts."
+    exams: [toefl-ibt, ielts, duolingo-english-test]
+  - id: military-career
+    title: "Military and career readiness"
+    line: "The ASVAB decides military enlistment and job placement (and is also given in high schools for career exploration); WorkKeys certifies workplace skills."
+    exams: [asvab, workkeys]
+  - id: graduate
+    title: "Graduate and professional school"
+    line: "Tests taken near the end of a bachelor's degree. Dedicated pages come in Master Plan Phase 10; until then these live pages cover them."
+    exams: []
+    elsewhere:
+      - { label: "MCAT, DAT, LSAT or GRE", href: "us/tests/#grad-tests", text: "Medical, dental and law school tests on the Tests page" }
+      - { label: "PCAT (retired)", href: "us/tests/#grad-tests", text: "Retired January 2024; pharmacy schools no longer list it", retired: true }
+  - id: licensing
+    title: "Licensing exams"
+    line: "National exams (NCLEX, USMLE, CPA, FE/PE, bar …) that a state board requires before it grants a license."
+    exams: []
+    elsewhere:
+      - { label: "Professional licenses", href: "us/professional-licenses/", text: "Every license page on this site, with its exams and state rules" }
+  - id: government
+    title: "Government jobs"
+    line: "Federal jobs hire through USAJOBS assessments; police, fire and state civil service have their own exams."
+    exams: []
+    elsewhere:
+      - { label: "Federal and state civil service", href: "us/clusters/public-service-safety/#public-sector", text: "USAJOBS, police, fire and state exams on the Public Service hub" }
+
+exams:
+
+  naep:
+    name: "NAEP (The Nation's Report Card)"
+    short: "NAEP"
+    by: "National Center for Education Statistics (U.S. Department of Education)"
+    stage: grades-3-8
+    status: current
+    grades: "Grades 4, 8 and 12 (a sample of students)"
+    lede: "NAEP is not a test you sign up for: NCES picks a sample of schools and students to measure how the nation, states and some large districts are doing. No student or school gets a score."
+    facts:
+      - { label: "Grades", value: "4, 8, 12", note: "Sampled, not every student" }
+      - { label: "Window", value: "Jan–Mar", note: "Long-term trend: Oct–May" }
+      - { label: "Your score", value: "None", note: "Results only for groups" }
+      - { label: "Who picks", value: "NCES", note: "Schools, then students, at random" }
+    sections:
+      who:
+        intro: "NAEP is required by Congress and run by NCES, part of the U.S. Department of Education's Institute of Education Sciences; the National Assessment Governing Board sets its policy. It has measured achievement since 1969."
+        source: naep_about
+        points:
+          - { t: "Schools are chosen to match the makeup of the nation, a state or a district; inside each chosen school and grade, students are picked at random.", src: naep_faqs }
+          - { t: "National results use 10,000 to 20,000 students; state and district results about 3,000 students from about 100 schools in each place.", src: naep_faqs }
+      format:
+        intro: "Subjects, grades and where results are reported:"
+        source: naep_about
+        table:
+          head: ["Subject", "Grades", "Results for"]
+          rows:
+            - ["Reading", "4, 8, 12", "Nation, states, districts"]
+            - ["Mathematics", "4, 8, 12", "Nation, states, districts"]
+            - ["Science", "4, 8, 12", "Nation; states (grades 4 and 8)"]
+            - ["Writing", "8, 12", "Nation"]
+            - ["Arts", "8", "Nation"]
+            - ["Civics", "4, 8, 12", "Nation"]
+            - ["Geography", "4, 8, 12", "Nation"]
+        points:
+          - { t: "NAEP also assesses economics, technology and engineering literacy, and U.S. history.", src: naep_about }
+      scoring:
+        points:
+          - { t: "No scores for individual students or schools, by design: each student takes only a small part of the assessment, and results are reliable only when added up for a state, district or the nation.", src: naep_faqs }
+          - { t: "State tests measure a state's own standards and usually give each student a score; NAEP is the only assessment that compares one state with another or with the nation. NAEP's 'Proficient' does not mean the same as 'proficiency' on a state test.", src: naep_faqs }
+      dates:
+        intro: "All assessments take place between January and March, except long-term trend assessments (October to May). Schedule as of 15 May 2026:"
+        source: naep_calendar
+        points:
+          - { t: "NAEP 2027: a grade 8 science pilot with student, teacher and school questionnaires, 25 January to 19 March 2027. Pilot results are not released.", src: naep_participating }
+      practice:
+        points:
+          - { t: "Sample questions from recent assessments by subject, content area, difficulty and grade, from the NAEP Questions Tool (over 3,000 questions).", src: naep_participating }
+    used_by:
+      links:
+        - { label: "Grades 3–8 state tests", href: "us/exams/#grades-3-8", text: "How state tests and NAEP fit together" }
+    page:
+      title: "NAEP, The Nation's Report Card: Grades, Subjects and the 2027 Schedule"
+      description: "NAEP samples students in grades 4, 8 and 12 to compare states and the nation. No individual scores; all assessments run January to March; 2027 is a grade 8 science pilot."
+    search:
+      s: "Grades 4, 8, 12 sample; no individual scores; 2027 grade 8 science pilot"
+      k: "usa naep nations report card national assessment of educational progress nces grade 4 grade 8 state test comparison"
+
+  psat-8-9:
+    name: "PSAT 8/9"
+    short: "PSAT 8/9"
+    by: "College Board"
+    stage: grades-8-11
+    status: current
+    grades: "Grades 8 and 9"
+    tests: high_school.psat-8-9
+    lede: "The PSAT 8/9 is a school-day test for grades 8 and 9 with the same two sections and length as the SAT, scored 240–1440. Your school registers you and pays."
+    facts:
+      - { label: "Grades", value: "8 and 9" }
+      - { label: "Length", value: "2 h 14 min", note: "98 questions" }
+      - { label: "Score", value: "240–1440", note: "Two sections, 120–720 each" }
+      - { label: "List price", value: "$14", note: "Charged to schools, 2026-27" }
+    sections:
+      who:
+        points:
+          - { t: "For students in grades 8 and 9; one of College Board's in-school assessments, with SAT School Day, the PSAT/NMSQT and PSAT 10.", src: cb_inschool }
+          - { t: "Students do not register on their own: the school or district handles registration.", src: cb_sat_dates }
+      format:
+        intro: "Two sections; most questions are multiple choice, and some math questions ask you to type in the answer."
+        source: cb_psat89_structure
+        table:
+          head: ["Section", "Time", "Questions"]
+          rows:
+            - ["Reading and Writing", "64 min", "54"]
+            - ["Math", "70 min", "44"]
+            - ["Total", "134 min (2 h 14 min)", "98"]
+      scoring:
+        points:
+          - { t: "Total 240–1440, the sum of Reading and Writing (120–720) and Math (120–720).", src: cb_psat_score_structure }
+          - { t: "The SAT Suite shares one score scale, so scores can be followed from grade to grade.", src: cb_psat_score_structure }
+      fees:
+        intro: "The school, district or state pays College Board. 2026-27 list price per student:"
+        source: cb_suite_pricing
+        table:
+          head: ["Test", "List price"]
+          rows:
+            - ["PSAT 8/9", "$14"]
+        points:
+          - { t: "Schools serving low-income students get a discount based on the federal poverty-rate estimate (up to 45%) for all students, so individual fee waivers are not needed; the lowest price after discounts is $4.", src: cb_suite_pricing }
+      dates:
+        intro: "2026-27 testing windows (your school picks the day):"
+        source: cb_sat_dates
+        table:
+          head: ["Season", "Window"]
+          rows:
+            - ["Fall 2026", "October 1–30, 2026"]
+            - ["Spring 2027", "March 1–April 30, 2027"]
+      practice:
+        points:
+          - { t: "Official full-length digital practice tests in the Bluebook app, and paper (nonadaptive) practice tests to download, for the SAT, PSAT/NMSQT, PSAT 10 and PSAT 8/9.", src: cb_sat_practice }
+    used_by:
+      links:
+        - { label: "PSAT 10", href: "us/exams/psat-10/", text: "The next step in grade 10" }
+        - { label: "High school plan", href: "us/high-school/#plan", text: "Grade-by-grade plan" }
+    page:
+      title: "PSAT 8/9: Format, Scores (240–1440), Testing Windows and Cost"
+      description: "College Board's PSAT 8/9 for grades 8 and 9: 98 questions in 2 hours 14 minutes, scored 240–1440, given at school in October 2026 or March–April 2027. $14 list price, paid by schools."
+    search:
+      s: "Grades 8–9, 2 h 14 min, scored 240–1440, school testing windows 2026-27"
+      k: "usa psat 8/9 psat 89 eighth grade ninth grade college board practice test"
+
+  psat-10:
+    name: "PSAT 10"
+    short: "PSAT 10"
+    by: "College Board"
+    stage: grades-8-11
+    status: current
+    grades: "Grade 10"
+    tests: high_school.psat-10
+    lede: "The PSAT 10 is the spring school-day version of the PSAT/NMSQT for grade 10, scored 320–1520. Its scores do not enter the National Merit Scholarship Program."
+    facts:
+      - { label: "Grade", value: "10" }
+      - { label: "Length", value: "2 h 14 min", note: "98 questions" }
+      - { label: "Score", value: "320–1520", note: "Two sections, 160–760 each" }
+      - { label: "List price", value: "$18", note: "Charged to schools, 2026-27" }
+    sections:
+      who:
+        points:
+          - { t: "Grade 10 students, at school. Same test as the PSAT/NMSQT.", src: cb_inschool }
+          - { t: "Your school or district registers you; you do not register on your own.", src: cb_sat_dates }
+      format:
+        intro: "Two sections; most questions are multiple choice and some math questions ask you to write in the answer."
+        source: cb_psat10_structure
+        table:
+          head: ["Section", "Time", "Questions"]
+          rows:
+            - ["Reading and Writing", "64 min", "54"]
+            - ["Math", "70 min", "44"]
+            - ["Total", "134 min (2 h 14 min)", "98"]
+      scoring:
+        points:
+          - { t: "Total 320–1520: Reading and Writing 160–760 plus Math 160–760.", src: cb_psat_score_structure }
+          - { t: "PSAT 10 scores do not count toward the National Merit Scholarship Program; only the PSAT/NMSQT does.", src: cb_psat_score_structure }
+      fees:
+        intro: "Paid by the school, district or state. 2026-27 list price per student:"
+        source: cb_suite_pricing
+        table:
+          head: ["Test", "List price"]
+          rows:
+            - ["PSAT/NMSQT and PSAT 10", "$18"]
+        points:
+          - { t: "Low-income schools get an automatic discount of up to 45% for all students, so individual fee waivers are not needed; lowest price after discounts $4.", src: cb_suite_pricing }
+      dates:
+        source: cb_sat_dates
+        table:
+          head: ["Season", "Window"]
+          rows:
+            - ["Spring 2027", "March 1–April 30, 2027 (SAT School Day, PSAT 10 and PSAT 8/9)"]
+      practice:
+        points:
+          - { t: "Official practice tests in the Bluebook app and paper practice tests to download.", src: cb_sat_practice }
+    used_by:
+      links:
+        - { label: "PSAT/NMSQT", href: "us/exams/psat-nmsqt/", text: "The fall test that counts for National Merit in grade 11" }
+    page:
+      title: "PSAT 10: Format, Scores (320–1520), Spring 2027 Window and Cost"
+      description: "PSAT 10 for grade 10: same test as the PSAT/NMSQT, 98 questions in 2 hours 14 minutes, scored 320–1520, given at school March–April 2027. Not used for National Merit."
+    search:
+      s: "Grade 10, spring at school, 320–1520, not used for National Merit"
+      k: "usa psat 10 tenth grade sophomore college board practice test"
+
+  psat-nmsqt:
+    name: "PSAT/NMSQT"
+    short: "PSAT/NMSQT"
+    by: "College Board, with National Merit Scholarship Corporation"
+    stage: grades-8-11
+    status: current
+    grades: "Grades 10 or 11 (only grade 11 counts for National Merit)"
+    tests: high_school.psat-nmsqt
+    lede: "The PSAT/NMSQT is the fall school-day test that qualifies grade 11 students for the National Merit Scholarship Program. Scored 320–1520 on the SAT's scale."
+    facts:
+      - { label: "Grades", value: "10 or 11", note: "Grade 11 counts for National Merit" }
+      - { label: "Length", value: "2 h 14 min", note: "98 questions" }
+      - { label: "Score", value: "320–1520" }
+      - { label: "Fall 2026", value: "Oct 1–30" }
+    sections:
+      who:
+        points:
+          - { t: "The qualifying test for the National Merit Scholarship Program, an academic competition for recognition and scholarships run by National Merit Scholarship Corporation (NMSC).", src: cb_nmsp }
+          - { t: "Only scores from grade 11 (junior year) count toward National Merit.", src: cb_psat_score_structure }
+          - { t: "Your school registers you for the fall test.", src: cb_sat_dates }
+      format:
+        intro: "Two sections; most questions are multiple choice and some math questions ask you to write in the answer."
+        source: cb_psatnmsqt_structure
+        table:
+          head: ["Section", "Time", "Questions"]
+          rows:
+            - ["Reading and Writing", "64 min", "54"]
+            - ["Math", "70 min", "44"]
+            - ["Total", "134 min (2 h 14 min)", "98"]
+      scoring:
+        points:
+          - { t: "Total 320–1520 (Reading and Writing 160–760, Math 160–760), on the same scale as the SAT.", src: cb_psat_score_structure }
+      fees:
+        intro: "Paid by the school, district or state. 2026-27 list price per student:"
+        source: cb_suite_pricing
+        table:
+          head: ["Test", "List price"]
+          rows:
+            - ["PSAT/NMSQT and PSAT 10", "$18"]
+        points:
+          - { t: "Low-income schools get an automatic discount of up to 45% for every student, so individual fee waivers are not needed; lowest price after discounts $4.", src: cb_suite_pricing }
+      dates:
+        source: cb_sat_dates
+        table:
+          head: ["Season", "Window"]
+          rows:
+            - ["Fall 2026", "October 1–30, 2026 (SAT School Day, PSAT/NMSQT and PSAT 8/9)"]
+      practice:
+        points:
+          - { t: "Official practice tests in the Bluebook app and paper practice tests to download.", src: cb_sat_practice }
+    used_by:
+      links:
+        - { label: "SAT", href: "us/exams/sat/", text: "Same scale, longer score range" }
+        - { label: "Paying for college", href: "us/college/#aid", text: "Grants, loans and scholarships" }
+    page:
+      title: "PSAT/NMSQT: National Merit, Format, Scores and the Fall 2026 Window"
+      description: "The PSAT/NMSQT qualifies grade 11 students for the National Merit Scholarship Program: 98 questions in 2 h 14 min, scored 320–1520, at school October 1–30, 2026. $18 list price paid by schools."
+    search:
+      s: "National Merit qualifying test; grade 11 counts; October 2026 window"
+      k: "usa psat nmsqt national merit scholarship semifinalist junior year eleventh grade college board"
+
+  preact:
+    name: "PreACT and PreACT 8/9"
+    short: "PreACT"
+    by: "ACT"
+    stage: grades-8-11
+    status: current
+    grades: "PreACT 8/9: grades 8–9 · PreACT: grades 9–10"
+    lede: "PreACT tests give grades 8, 9 and 10 an early run at ACT-style questions and a predicted ACT score. Schools, districts and states order them; scores sit on the ACT's 1–36 scale."
+    facts:
+      - { label: "Grades", value: "8–10" }
+      - { label: "Score scale", value: "1–36", note: "Top 30 (8/9) or 35 (PreACT)" }
+      - { label: "PreACT length", value: "2 h 40 min", note: "New blueprint, fall 2026" }
+      - { label: "Ordered by", value: "Schools", note: "Not individual students" }
+    sections:
+      who:
+        points:
+          - { t: "PreACT 8/9 suits grades 8 or 9; PreACT suits grades 9 or 10; PreACT 9 Secure (grade 9) and PreACT Secure (grade 10) are online versions for higher-stakes uses.", src: preact_faqs }
+          - { t: "States, districts, schools, educational agencies and gifted and talented programs order PreACT 8/9 and PreACT; the Secure versions are only for states and districts.", src: preact_faqs }
+          - { t: "Students who take PreACT 8/9 or paper PreACT may opt to share their information with colleges and scholarship agencies.", src: preact_main }
+      format:
+        intro: "New PreACT blueprint from fall 2026 (items include unscored field-test questions):"
+        source: preact_faqs
+        table:
+          head: ["Section", "Items (scored)", "Time"]
+          rows:
+            - ["English", "48 (36)", "35 min"]
+            - ["Math", "36 (32)", "45 min"]
+            - ["Reading", "33 (25)", "40 min"]
+            - ["Science", "36 (30)", "40 min"]
+            - ["Total time", "", "160 min (2 h 40 min)"]
+        points:
+          - { t: "PreACT 8/9 has 40 English, 35 math, 25 reading and 30 science items; its new blueprint date is still to be announced.", src: preact_faqs }
+          - { t: "Paper or online for PreACT 8/9 and PreACT; the Secure versions are online only.", src: preact_faqs }
+      scoring:
+        points:
+          - { t: "All PreACT tests use the ACT's 1–36 scale; the highest possible score is 30 on PreACT 8/9, 32 on PreACT 9 Secure and 35 on PreACT and PreACT Secure.", src: preact_faqs }
+          - { t: "From fall 2026 the Composite is English, math and reading, and science is optional at the district or school level (not the student's choice), as on the enhanced ACT.", src: preact_enhanced }
+          - { t: "Reports include predicted ACT score ranges and progress toward the WorkKeys National Career Readiness Certificate.", src: preact_faqs }
+      fees:
+        points:
+          - { t: "ACT sells PreACT to schools and districts by quote; it publishes no student fee.", src: preact_main }
+      practice:
+        points:
+          - { t: "Free PreACT Secure and PreACT 9 Secure practice tests on TestNav (Practice Tests link under the login box), timed and untimed, no login needed; ACT says they work as practice for every PreACT product.", src: preact_faqs }
+    used_by:
+      links:
+        - { label: "ACT", href: "us/exams/act/", text: "The test PreACT predicts" }
+        - { label: "WorkKeys", href: "us/exams/workkeys/", text: "The career readiness certificate PreACT reports progress toward" }
+    page:
+      title: "PreACT and PreACT 8/9: Grades, Sections, Score Scale and Practice"
+      description: "ACT's PreACT tests for grades 8–10: ACT-style English, math, reading and science, scores on the 1–36 scale, new 2-hour-40-minute PreACT blueprint from fall 2026, free TestNav practice."
+    search:
+      s: "Grades 8–10, ACT 1–36 scale, fall 2026 blueprint, ordered by schools"
+      k: "usa preact pre act preact 8/9 preact secure ninth tenth grade act practice predicted score"
+
+  sat:
+    name: "SAT"
+    short: "SAT"
+    by: "College Board"
+    stage: admission
+    status: current
+    grades: "Usually grades 11 and 12"
+    tests: high_school.sat
+    lede: "The SAT is College Board's digital college admission test: two sections, 2 hours 14 minutes, scored 400–1600. Registration is $68 in the U.S., and low-income juniors and seniors can test free twice."
+    facts:
+      - { label: "Length", value: "2 h 14 min", note: "98 questions, adaptive" }
+      - { label: "Score", value: "400–1600" }
+      - { label: "U.S. fee", value: "$68", note: "+$43 outside the U.S." }
+      - { label: "Next date", value: "Nov 7, 2026", note: "Register by Oct 23" }
+    sections:
+      who:
+        points:
+          - { t: "Usually taken in grades 11 and 12. Students register for an SAT Weekend date themselves; SAT School Day is given at school and the school registers you.", src: cb_sat_dates }
+          - { t: "The same dates and deadlines apply to U.S. and international students.", src: cb_sat_dates }
+      format:
+        intro: "Each section has two equal modules: the first is a mix of easy, medium and hard questions, and the second is harder or easier depending on how you did. A 10-minute break separates the sections."
+        source: cb_sat_structure
+        table:
+          head: ["Section", "Time", "Questions"]
+          rows:
+            - ["Reading and Writing", "64 min (two 32-min modules)", "54"]
+            - ["Math", "70 min (two 35-min modules)", "44"]
+            - ["Total", "134 min (2 h 14 min)", "98"]
+        points:
+          - { t: "Most questions are multiple choice; some math questions ask you to enter the answer.", src: cb_sat_structure }
+      scoring:
+        points:
+          - { t: "Total 400–1600, the sum of Reading and Writing (200–800) and Math (200–800).", src: cb_psat_score_structure }
+          - { t: "The SAT Essay is given only in states that require it for SAT School Day; its score is reported separately.", src: cb_psat_score_structure }
+          - { t: "Your first 4 score reports are free if you order them by 9 days after the test.", src: cb_sat_fees }
+      fees:
+        intro: "U.S. fees through June 2027:"
+        source: cb_sat_fees
+        table:
+          head: ["Item", "Fee"]
+          rows:
+            - ["SAT registration", "$68"]
+            - ["Late registration", "$38"]
+            - ["Change test center", "$34"]
+            - ["Cancel by the change deadline", "$34"]
+            - ["Late cancel (by Thursday before test day)", "$44"]
+            - ["Extra score report (after the 4 free)", "$15 each"]
+            - ["Rush report", "$31"]
+            - ["Score verification", "$55"]
+        points:
+          - { t: "Outside the U.S.: $68 plus a $43 international fee; some test centers add $24.", src: cb_sat_intl_fees }
+          - { t: "Fee waivers: for low-income 11th and 12th graders in the U.S. or U.S. territories (abroad, U.S. citizens only), for example students in the National School Lunch Program, TRIO programs such as Upward Bound, foster care or federally subsidized housing.", src: cb_fee_waivers_k12 }
+          - { t: "A waiver gives two free SATs, unlimited score reports, no late or change fees, waived application fees at participating colleges and free CSS Profile applications. It does not cover changing test centers, rush scores or scores by phone.", src: cb_fee_waivers_k12 }
+          - { t: "Ask your school counselor for a waiver code, or request one directly from College Board (homeschoolers too); benefits can be used once per lifetime. Ask at least 1–2 weeks before the registration deadline.", src: cb_sat_fee_waivers }
+      dates:
+        intro: "SAT Weekend dates, 2026-27 (deadlines end 11:59 p.m. ET). Students borrowing a College Board device must register at least 30 days ahead."
+        source: cb_sat_dates
+        table:
+          head: ["Test date", "Register by", "Late registration and changes by"]
+          rows:
+            - ["Oct 3, 2026", "Sept 18, 2026", "Sept 22, 2026"]
+            - ["Nov 7, 2026", "Oct 23, 2026", "Oct 27, 2026"]
+            - ["Dec 5, 2026", "Nov 20, 2026", "Nov 24, 2026"]
+            - ["March 6, 2027", "Feb 19, 2027", "Feb 23, 2027"]
+            - ["May 1, 2027", "Apr 16, 2027", "April 20, 2027"]
+            - ["June 5, 2027", "May 21, 2027", "May 25, 2027"]
+        points:
+          - { t: "SAT School Day windows: October 1–30, 2026 and March 1–April 30, 2027.", src: cb_sat_dates }
+          - { t: "Anticipated 2027-28 dates: Aug 28, Sept 18, Oct 9, Nov 6 and Dec 4, 2027; March 4, May 6 and June 3, 2028.", src: cb_sat_dates }
+          - { t: "Sunday testing is only for students who cannot test on Saturday for religious reasons.", src: cb_sat_dates }
+      practice:
+        points:
+          - { t: "Official full-length digital practice tests and a test preview in the Bluebook app; paper (nonadaptive) practice tests to download, recommended for students testing with paper accommodations.", src: cb_sat_practice }
+          - { t: "Students who test with a fee waiver also get free college application benefits.", src: cb_fee_waivers_k12 }
+    used_by:
+      careers: bachelor
+      colleges_from_guides: true
+      colleges:
+        - { name: "West Point (Army)", text: "Applicants send SAT, ACT or CLT scores, with a fitness assessment, a medical exam and a nomination.", src: usma_steps }
+      links:
+        - { label: "SAT vs ACT", href: "us/tests/#sat-act", text: "Side-by-side on the Tests page" }
+        - { label: "Paying for college", href: "us/college/#aid", text: "FAFSA, grants and loans" }
+    page:
+      title: "SAT 2026-27: Test Dates, $68 Fee, Fee Waivers, Format and Scores"
+      description: "SAT dates and deadlines for 2026-27 (Nov 7, Dec 5, March 6, May 1, June 5), $68 U.S. fee, who gets a fee waiver, the 2 h 14 min adaptive format, 400–1600 scoring and free official practice."
+    search:
+      s: "2026-27 dates, $68 fee, fee waivers, 2 h 14 min, 400–1600"
+      k: "usa sat test dates 2026 2027 registration deadline fee waiver digital sat bluebook score 1600 college board"
+
+  act:
+    name: "ACT"
+    short: "ACT"
+    by: "ACT"
+    stage: admission
+    status: current
+    grades: "Usually grades 11 and 12"
+    tests: high_school.act
+    lede: "The enhanced ACT has English, math and reading (science and writing are optional add-ons). The Composite is 1–36, the test costs $70, and seven national dates run from September 2026 to July 2027."
+    facts:
+      - { label: "Sections", value: "3 + 2 optional", note: "Science, writing" }
+      - { label: "Composite", value: "1–36", note: "English, math, reading" }
+      - { label: "Fee", value: "$70", note: "$75 with science" }
+      - { label: "Next date", value: "Dec 12, 2026", note: "Register by Nov 6" }
+    sections:
+      who:
+        points:
+          - { t: "Usually taken in grades 11 and 12. National test dates are for the United States, U.S. territories and Puerto Rico; ACT says more than 2 million students take it every year.", src: act_dates }
+          - { t: "State and district school-day ACT tests moved to the enhanced format from spring 2026.", src: act_enhanced }
+      format:
+        intro: "Multiple-choice sections in English, math, reading and optional science: 171 questions and 2 hours 45 minutes with science. Writing is an optional 40-minute essay after a 5-minute break."
+        source: act_test_day
+        table:
+          head: ["Section", "Time", "Questions", ""]
+          rows:
+            - ["English", "35 min", "50", "Required"]
+            - ["Math", "50 min", "45", "Required"]
+            - ["Reading", "40 min", "36", "Required"]
+            - ["Science", "40 min", "40", "Optional add-on"]
+            - ["Writing", "40 min", "1 essay", "Optional add-on"]
+        points:
+          - { t: "Each section includes unscored field-test questions: English 40 scored (+10), math 41 (+4), reading 27 (+9), science 34 (+6).", src: act_understand }
+          - { t: "No penalty for guessing: scores count only correct answers.", src: act_test_day }
+      scoring:
+        points:
+          - { t: "Composite 1–36: the average of English, math and reading, rounded. Science left the Composite for all ACT tests from September 2025.", src: act_understand }
+          - { t: "With science you also get a STEM score (math and science); the ELA score averages English, reading and writing if taken. Writing is scored 2–12 and does not affect the Composite.", src: act_understand }
+          - { t: "Fees include reports to you, your high school and up to four colleges named at registration.", src: act_fees }
+      fees:
+        source: act_fees
+        table:
+          head: ["Item", "Fee"]
+          rows:
+            - ["The ACT (English, math, reading)", "$70"]
+            - ["With science", "$75"]
+            - ["With writing", "$95"]
+            - ["With science and writing", "$100"]
+            - ["Late registration", "$42"]
+            - ["Standby testing", "$75"]
+            - ["Change (form, test day or center)", "$49"]
+            - ["Score reports for 5th and 6th colleges, or later reports", "$20 each"]
+            - ["ACT My Answer Key (before the test / after)", "$36 / $44"]
+            - ["Score verification (multiple choice or writing)", "$67"]
+        points:
+          - { t: "Fee waivers: up to two ACT tests free, including science and writing, for students in grade 11 or 12 testing in the U.S., its territories or Puerto Rico who show economic need (free or reduced-price lunch, programs such as GEAR UP or Upward Bound, foster care, homelessness, public assistance or family income at USDA lunch levels). Ask your school counselor.", src: act_fee_waivers }
+          - { t: "A waiver also brings free access to The Official ACT Self-Paced Course (five full practice tests, one year), free My Answer Key, free extra score reports, and you may ask colleges to waive or defer their application fee.", src: act_fee_waivers }
+      dates:
+        intro: "2026-2027 national test dates (deadlines 11:59 p.m. Central Time):"
+        source: act_dates
+        table:
+          head: ["Test date", "Register by", "Late deadline", "Scores from (online)"]
+          rows:
+            - ["Sept 19, 2026", "Aug 14", "Sept 1", "Oct 6, 2026"]
+            - ["Oct 17, 2026", "Sept 11", "Sept 29", "Oct 22, 2026"]
+            - ["Dec 12, 2026", "Nov 6", "Nov 29", "Dec 17, 2026"]
+            - ["Feb 27, 2027", "Jan 22", "Feb 9", "Mar 16, 2027"]
+            - ["Apr 10, 2027", "Mar 5", "Mar 23", "Apr 15, 2027"]
+            - ["June 12, 2027", "May 7", "May 25", "June 17, 2027"]
+            - ["July 10, 2027", "June 4", "June 22", "July 15, 2027"]
+        points:
+          - { t: "Initial online score release dates are from ACT's score page; paper scores can come later.", src: act_score_release }
+          - { t: "July testing comes to New York starting in 2027. Projected 2027-28 dates: Sept 11, Oct 16, Dec 11, 2027; Feb 26, Apr 8, June 10, July 15, 2028.", src: act_dates }
+      accepted:
+        points:
+          - { t: "Colleges that use scores set their own rules; ACT and College Board publish official concordance tables to compare ACT and SAT scores (they are estimates, not exact conversions).", src: act_understand }
+      practice:
+        points:
+          - { t: "Free official full-length practice tests: digital (timed and untimed, by section, with scoring) and paper booklets with scoring keys.", src: act_free_prep }
+    used_by:
+      careers: bachelor
+      colleges_from_guides: true
+      colleges:
+        - { name: "West Point (Army)", text: "Applicants send SAT, ACT or CLT scores.", src: usma_steps }
+      links:
+        - { label: "PreACT", href: "us/exams/preact/", text: "The grades 8–10 practice tests" }
+        - { label: "SAT vs ACT", href: "us/tests/#sat-act", text: "Side-by-side on the Tests page" }
+    page:
+      title: "ACT 2026-27: Test Dates, $70 Fee, Fee Waivers, Sections and Scores"
+      description: "Enhanced ACT test dates for 2026-27, the $70 fee (science $5, writing $25), who qualifies for a fee waiver, section times, the 1–36 Composite and free official practice tests."
+    search:
+      s: "2026-27 dates, $70 fee, fee waivers, enhanced ACT sections, Composite 1–36"
+      k: "usa act test dates 2026 2027 registration deadline fee waiver enhanced act science optional composite 36"
+
+  clt:
+    name: "CLT (Classic Learning Test)"
+    short: "CLT"
+    by: "Classic Learning Initiatives"
+    stage: admission
+    status: current
+    grades: "Grades 11 and 12"
+    lede: "The CLT is a 2-hour online college admission test for grades 11 and 12, taken at school or at home with remote proctoring. It costs $112 and is scored up to 120."
+    facts:
+      - { label: "Length", value: "2 h", note: "+20 min instructions" }
+      - { label: "Score", value: "Up to 120", note: "Three sections of 1–40" }
+      - { label: "Cost", value: "$112", note: "Remote, at home" }
+      - { label: "Next at-home date", value: "Nov 14, 2026", note: "Register by Nov 5" }
+    sections:
+      who:
+        points:
+          - { t: "An online college entrance exam for 11th and 12th graders and an alternative to the SAT and ACT; open to any student, including people who graduated years ago.", src: clt_faqs }
+          - { t: "Individual students sign up for remotely proctored dates; only schools can register students for in-school dates.", src: clt_main }
+          - { t: "Remote testers need a laptop, desktop or tablet (no phones), a stable internet connection and the LockDown browser. On test day the window is 7:00 a.m. to 6:00 p.m. Eastern.", src: clt_main }
+      format:
+        source: clt_faqs
+        table:
+          head: ["Section", "Time"]
+          rows:
+            - ["Verbal Reasoning", "40 min"]
+            - ["Grammar/Writing", "35 min"]
+            - ["Quantitative Reasoning", "45 min"]
+            - ["Total", "120 min (2 h), plus 20 min of instructions"]
+        points:
+          - { t: "An optional 30-minute essay is offered to in-school online testers only; it does not change the score.", src: clt_faqs }
+          - { t: "No penalty for wrong answers. You can take the CLT as often as you like, but once per test date.", src: clt_main }
+      scoring:
+        points:
+          - { t: "Three section scores of 1–40 (Verbal Reasoning, Grammar/Writing, Quantitative Reasoning) and an overall score up to 120. (The CLT-vs-SAT page prints the range as 0–120.)", src: clt_faqs }
+          - { t: "CLT publishes a CLT-to-SAT concordance: for example, a CLT 100 sits beside SAT 1390.", src: clt_vs_sat }
+          - { t: "Results within 3 weeks; unlimited score sharing with colleges is included.", src: clt_main }
+      fees:
+        points:
+          - { t: "Remotely proctored CLT $112, including student analytics and unlimited score sends. Homeschool group members may get a discount through their group.", src: clt_faqs }
+          - { t: "No extra registration, score or international tester fees, CLT's comparison page says.", src: clt_vs_sat }
+          - { t: "CLT's pages list no general fee waiver.", src: clt_faqs }
+      dates:
+        intro: "Remaining remotely proctored (at-home) dates, 2026-27 — open to any student:"
+        source: clt_main
+        table:
+          head: ["Test date", "Register by", "Scores"]
+          rows:
+            - ["Sat, Nov 14, 2026", "Nov 5, 2026", "Dec 2, 2026"]
+            - ["Tue, Dec 8, 2026", "Dec 3, 2026", "Dec 22, 2026"]
+            - ["Sat, Jan 23, 2027", "Jan 14, 2027", "Feb 10, 2027"]
+            - ["Thu, Feb 18, 2027", "Feb 11, 2027", "Mar 10, 2027"]
+            - ["Sat, Mar 20, 2027", "Mar 11, 2027", "Apr 7, 2027"]
+            - ["Sat, Apr 17, 2027", "Apr 8, 2027", "May 5, 2027"]
+            - ["Sat, May 22, 2027", "May 13, 2027", "June 9, 2027"]
+            - ["Thu, June 17, 2027", "June 10, 2027", "July 7, 2027"]
+        points:
+          - { t: "Schools have extra in-school dates (for example Oct 28–29, Nov 14 and Dec 8, 2026) with earlier deadlines.", src: clt_main }
+      accepted:
+        points:
+          - { t: "Over 350 colleges partner with CLT and accept it in place of the SAT or ACT; they tend to be private, liberal arts or faith-based. Test-optional colleges may also accept CLT scores.", src: clt_main }
+          - { t: "Accepted by five state university systems (Arkansas, Florida, Georgia, Indiana, North Carolina). In Florida it can count toward Bright Futures scholarships and state university applications.", src: clt_main }
+          - { t: "U.S. Military Service Academies accept the CLT from the 2027 admissions cycle; applicants could submit scores from February 2026.", src: clt_academies }
+      practice:
+        points:
+          - { t: "Official CLT and CLT10 practice tests in your free online account, with immediate results and answer explanations.", src: clt_practice }
+    used_by:
+      careers: bachelor
+      colleges:
+        - { name: "West Point, Naval Academy, Air Force Academy", text: "CLT accepted for admission from the 2027 cycle.", src: clt_academies }
+        - { name: "West Point (Army)", text: "Applicants send SAT, ACT or CLT scores.", src: usma_steps }
+      links:
+        - { label: "Military officer routes", href: "us/clusters/public-service-safety/#service-routes", text: "Service academies, ROTC, OCS" }
+    page:
+      title: "CLT (Classic Learning Test): 2026-27 Dates, $112 Cost, Sections and Who Accepts It"
+      description: "The CLT for grades 11–12: 2 hours online at home or at school, three sections scored up to 120, $112, at-home dates Nov 14, 2026 to June 17, 2027; accepted by 350+ partner colleges and the service academies from 2027."
+    search:
+      s: "2 h online test, up to 120, $112, at-home dates, service academies from 2027"
+      k: "usa clt classic learning test sat alternative act alternative remote proctored homeschool service academies florida bright futures"
+
+  ap:
+    name: "AP Exams (Advanced Placement)"
+    short: "AP Exams"
+    by: "College Board"
+    stage: admission
+    status: current
+    grades: "Usually grades 10–12, after an AP course"
+    tests: high_school.ap
+    lede: "AP Exams are College Board's end-of-course exams in 42 subjects, scored 1–5 and given at school in two weeks of May. Each exam costs $99 in the U.S.; many colleges give credit for a 3 or higher."
+    facts:
+      - { label: "Subjects", value: "42" }
+      - { label: "Score", value: "1–5", note: "College decides credit" }
+      - { label: "Fee", value: "$99", note: "$129 outside the U.S." }
+      - { label: "2027 exams", value: "May 3–14" }
+    sections:
+      who:
+        points:
+          - { t: "Most AP courses end in an exam that measures how well you mastered the course; a few courses are assessed in other ways (portfolios, performance tasks).", src: cb_ap_what_to_know }
+          - { t: "Exams are given at many high schools and exam centers; your AP coordinator orders them and tells you when and where to report.", src: cb_ap_what_to_know }
+      format:
+        intro: "Digital exams in the Bluebook app; some are hybrid (multiple choice on screen, free response handwritten in a booklet). AP Biology, for example, is 3 hours: 60 multiple-choice questions in 1 h 30 min (50%) and 6 free-response questions in 1 h 30 min (50%)."
+        source: cb_ap_exam_page
+        points:
+          - { t: "For most exams the score is a weighted mix of the multiple-choice and free-response sections; some courses include other scored components.", src: cb_ap_scores }
+          - { t: "Portfolio and performance-task deadlines (11:59 p.m. ET): AP Art and Design May 7, 2027; Computer Science Principles, Seminar, Research and the new World Languages Personalized Project Reference April 30, 2027.", src: cb_ap_dates }
+      scoring:
+        points:
+          - { t: "Scored 1–5: 5 extremely well qualified, 4 very well qualified, 3 qualified, 2 possibly qualified, 1 no recommendation.", src: cb_ap_scores }
+          - { t: "Many U.S. colleges grant credit or advanced placement for 3 and above, but each college decides.", src: cb_ap_scores }
+          - { t: "One free score send a year: choose the college or scholarship program by June 20, 2027.", src: cb_ap_credit }
+      fees:
+        intro: "2027 AP Exam fees, per exam:"
+        source: cb_ap_fees
+        table:
+          head: ["Item", "Fee"]
+          rows:
+            - ["AP Exam in the U.S., U.S. territories, Canada and DoWEA schools (incl. Seminar and Research)", "$99"]
+            - ["AP Exam at schools outside the U.S.", "$129"]
+            - ["Late order (Nov 14, 2026 – Mar 12, 2027, full-year or first-semester courses)", "+$40"]
+            - ["Unused or canceled exam after Nov 13", "$40"]
+        points:
+          - { t: "Fee reduction: $37 per exam from College Board for students with significant financial need; some states add more. Ask your AP coordinator; you pay through your school, not online.", src: cb_ap_fees }
+          - { t: "Your school may charge more to cover proctoring. Order deadline: November 13, 2026 (March 12, 2027 for courses starting later). New in 2026-27: no unused-exam fee for AP Business with Personal Finance and AP Cybersecurity in their launch year.", src: cb_ap_fees_central }
+      dates:
+        intro: "2027 AP Exams: May 3–7 and May 10–14, 2027, in two sessions a day (usually morning and afternoon). Every subject's day and session is in the table below."
+        source: cb_ap_dates
+      accepted:
+        points:
+          - { t: "Each college publishes which scores earn credit or placement; College Board's AP Credit Policy Search lists them.", src: cb_ap_credit }
+      practice:
+        points:
+          - { t: "Free-response questions from the past three years, with scoring guidelines and sample responses, on each course's AP Central page; AP Classroom practice once you join your class in My AP; test previews in Bluebook.", src: cb_ap_past_frq }
+    used_by:
+      careers: bachelor
+      links:
+        - { label: "Honors, AP, IB, dual enrollment", href: "us/high-school/#rigor", text: "How AP fits a high school schedule" }
+        - { label: "CLEP", href: "us/exams/clep/", text: "Credit by exam after high school" }
+    page:
+      title: "AP Exams 2027: All 42 Subjects, Exam Dates, $99 Fee and Scores"
+      description: "Every AP subject with its 2027 exam day and session (May 3–14), exam length, the $99 fee and $37 fee reduction, 1–5 scoring and free past free-response questions from College Board."
+    search:
+      s: "All 42 subjects, 2027 dates May 3–14, $99, fee reduction, 1–5"
+      k: "usa ap exams advanced placement 2027 exam schedule subjects calculus biology fee reduction score credit college board"
+
+  ib:
+    name: "IB Diploma Programme exams"
+    short: "IB Diploma"
+    by: "International Baccalaureate"
+    stage: admission
+    status: current
+    grades: "Usually grades 11 and 12 (students aged 16–19)"
+    tests: high_school.ib
+    lede: "The IB Diploma Programme is a two-part qualification for students aged 16 to 19 at authorized IB World Schools: six subjects graded 1–7 plus a core, up to 45 points, with exams in May or November."
+    facts:
+      - { label: "Ages", value: "16–19" }
+      - { label: "Points", value: "Up to 45", note: "24 needed + conditions" }
+      - { label: "Sessions", value: "May, Nov" }
+      - { label: "Results to universities", value: "6 free", note: "If requested before release" }
+    sections:
+      who:
+        points:
+          - { t: "Open to students aged 16 to 19 at schools authorized to teach the DP, from state-supported to independent and international schools.", src: ib_dp_home }
+          - { t: "Six subjects plus the core: theory of knowledge (TOK), the extended essay (EE) and creativity, activity, service (CAS). At least one course each in language and literature, language acquisition, individuals and societies, sciences and mathematics.", src: ib_dp }
+      format:
+        intro: "Subject groups and the core:"
+        source: ib_curriculum
+        table:
+          head: ["Group", "Examples"]
+          rows:
+            - ["Studies in language and literature", "Language A: literature; language and literature"]
+            - ["Language acquisition", "Language B, ab initio, classical languages"]
+            - ["Individuals and societies", "Economics, history, psychology, global politics, business management"]
+            - ["Sciences", "Biology, chemistry, physics, computer science, design technology"]
+            - ["Mathematics", "Analysis and approaches; applications and interpretation"]
+            - ["Arts", "Visual arts, music, theatre, film, dance"]
+            - ["Core", "Theory of knowledge, extended essay, CAS"]
+        points:
+          - { t: "External exams form the basis of assessment for most courses; teachers also mark internal assessment.", src: ib_assessment }
+      scoring:
+        points:
+          - { t: "Each subject is graded 1–7; TOK and EE together add up to 3 points; CAS is not graded but must be completed. Maximum 45; the diploma needs at least 24 points and the other passing conditions.", src: ib_dp }
+          - { t: "Standard and higher level subjects count equally toward the points.", src: ib_dp }
+      fees:
+        points:
+          - { t: "The IB pages we read list no per-student exam fee; ask your school's DP coordinator.", src: ib_results }
+      dates:
+        points:
+          - { t: "Two exam sessions a year, in May and November. The November 2026 schedule is published; ask your coordinator which session and schedule apply to you.", src: ib_schedule }
+          - { t: "Before results are released you can have them sent to six universities free; the IB sends grades as soon as results come out.", src: ib_results }
+      accepted:
+        points:
+          - { t: "The IB says the DP is recognized by leading universities; it publishes country recognition statements, and each university sets its own policy for IB grades.", src: ib_university }
+      practice:
+        points:
+          - { t: "The IB posts a small set of past and specimen exam papers (for example English A, history, geography, mathematics) for information.", src: ib_samples }
+    used_by:
+      careers: bachelor
+      links:
+        - { label: "Honors, AP, IB, dual enrollment", href: "us/high-school/#rigor", text: "How IB fits high school" }
+    page:
+      title: "IB Diploma Programme: Subjects, 45-Point Scoring, Exam Sessions and University Results"
+      description: "How the IB Diploma works for students aged 16–19: six subject groups and the core, grades 1–7 and up to 45 points (24 to pass), exams in May and November, and results sent to six universities free."
+    search:
+      s: "Six subjects + core, up to 45 points, May and November exams"
+      k: "usa ib international baccalaureate diploma programme dp 45 points tok extended essay cas exams may november"
+
+  clep:
+    name: "CLEP (College-Level Examination Program)"
+    short: "CLEP"
+    by: "College Board"
+    stage: admission
+    status: current
+    grades: "Anyone (high school students, adults, service members)"
+    lede: "CLEP lets anyone test out of an introductory college course: multiple-choice exams of about 90–120 minutes at $97 each, year-round at test centers or at home. Colleges decide the credit; ACE recommends 50 on the 20–80 scale."
+    facts:
+      - { label: "Length", value: "90–120 min", note: "Multiple choice" }
+      - { label: "Fee", value: "$97", note: "+ test center or proctoring fee" }
+      - { label: "Score", value: "20–80", note: "ACE recommends 50" }
+      - { label: "Military", value: "Funded", note: "DANTES, first attempt" }
+    sections:
+      who:
+        points:
+          - { t: "Anyone can take a CLEP exam. Over 3,000 colleges grant credit for CLEP.", src: clep_home }
+          - { t: "Parents register a child under 13 with a signed College Board consent form.", src: clep_register }
+      format:
+        intro: "Multiple-choice exams of about 90–120 minutes, at more than 2,000 test centers worldwide or at home with remote proctoring, offered year-round."
+        source: clep_home
+        table:
+          head: ["Area", "Exams"]
+          rows:
+            - ["History and social sciences", "American Government; History of the United States I and II; Human Growth and Development; Introduction to Educational Psychology; Introductory Psychology; Introductory Sociology; Principles of Macroeconomics; Principles of Microeconomics; Social Sciences and History; Western Civilization I and II"]
+            - ["Composition and literature", "American Literature; Analyzing and Interpreting Literature; College Composition; College Composition Modular; English Literature; Humanities"]
+            - ["Science and mathematics", "Biology; Calculus; Chemistry; College Algebra; College Mathematics; Natural Sciences; Precalculus"]
+            - ["Business", "Financial Accounting; Information Systems; Introductory Business Law; Principles of Management; Principles of Marketing"]
+            - ["World languages", "French Language; German Language; Spanish Language; Spanish with Writing (each Levels 1 and 2)"]
+        points:
+          - { t: "List and prices from College Board's exam topics page.", src: clep_exams }
+      scoring:
+        points:
+          - { t: "One point per correct answer, no deduction for wrong or skipped answers; the raw score becomes a scaled score of 20–80.", src: clep_scores }
+          - { t: "The American Council on Education (ACE) recommends credit for 50 or higher; each college sets its own score and may vary it by exam.", src: clep_scores }
+          - { t: "Scores appear right after the exam, except College Composition and Spanish with Writing, whose essays are graded by college faculty.", src: clep_home }
+      fees:
+        points:
+          - { t: "$97 per exam, plus the test center's or remote proctoring administration fee.", src: clep_register }
+          - { t: "Military: DANTES funds the exam fee for eligible first-time testers (active duty, Reserve, National Guard, Coast Guard spouses, SpouseWorks-eligible spouses, Air Force civilians) and on-base centers waive the administration fee; veterans may use G.I. Bill benefits.", src: clep_military }
+      dates:
+        points:
+          - { t: "No fixed dates: register and pay with College Board, then book directly with a test center (or schedule remote proctoring).", src: clep_register }
+          - { t: "Retest rule: wait three months before retaking an exam of the same title; DANTES pays for only one attempt per title.", src: clep_policies }
+      accepted:
+        points:
+          - { t: "Read your college's CLEP policy to see whether it grants credit for the exam, whether it counts toward your degree, and any limits (for example, no CLEP credit after you have taken a similar course).", src: clep_college_policies }
+      practice:
+        points:
+          - { t: "Official College Board study guides with CLEP practice questions, study resources by exam, and a tour of the testing platform.", src: clep_prepare }
+    used_by:
+      careers: bachelor
+      links:
+        - { label: "AP Exams", href: "us/exams/ap/", text: "Credit by exam during high school" }
+        - { label: "Community college and transfer", href: "us/college/#transfer", text: "Saving credits on the way to a degree" }
+    page:
+      title: "CLEP Exams: Every Subject, $97 Fee, Scores and Free Military Testing"
+      description: "Every CLEP exam by area, the $97 fee plus center fee, 20–80 scoring with ACE's recommended 50, the 3-month retest rule and DANTES-funded exams for service members."
+    search:
+      s: "Every exam by area, $97, 20–80 scale, DANTES-funded for military"
+      k: "usa clep college level examination program credit by exam test out dantes military 97 college board"
+
+  ged:
+    name: "GED test"
+    short: "GED"
+    by: "GED Testing Service"
+    stage: equivalency
+    status: current
+    grades: "Adults without a high school diploma (minimum age set by each state)"
+    lede: "The GED is four subject tests you can take one at a time, online or at a test center. Score 145 or higher on all four to earn your state's high school equivalency credential; the price is set by your state."
+    facts:
+      - { label: "Subjects", value: "4", note: "Take them one at a time" }
+      - { label: "Pass", value: "145", note: "On each subject" }
+      - { label: "Price", value: "By state", note: "e.g. California $41 a subject" }
+      - { label: "Minimum age", value: "By state", note: "Often 18; NY 19" }
+    sections:
+      who:
+        points:
+          - { t: "For people without a high school diploma who are not enrolled in high school; age, residency and other rules vary by state.", src: ged_policies }
+          - { t: "Texas: 18, or younger with a parent's or guardian's permission (some 16-year-olds need a court order; no one under 16).", src: ged_tx }
+          - { t: "California: 18, or 17 if you meet extra requirements, but the certificate comes only at 18.", src: ged_ca }
+          - { t: "Illinois: 18, or 17 with a withdrawal letter from your last school.", src: ged_il }
+          - { t: "Florida: 16- and 17-year-olds must file a declaration of intent to leave school and a notarized underage testing form. New York: 19.", src: ged_fl }
+      format:
+        source: ged_subjects
+        table:
+          head: ["Subject", "Time", "Notes"]
+          rows:
+            - ["Mathematical Reasoning", "115 min", "On-screen calculator on part 2; formula sheet"]
+            - ["Reasoning Through Language Arts", "150 min", "Includes a 45-minute essay and a 10-minute break"]
+            - ["Social Studies", "70 min", "No break"]
+            - ["Science", "90 min", "No break"]
+        points:
+          - { t: "Multiple choice plus drag-and-drop, fill-in-the-blank, select-an-area and drop-down questions. You can space the four tests out however you like.", src: ged_subjects }
+      scoring:
+        source: ged_scores
+        table:
+          head: ["Score on a subject", "Means"]
+          rows:
+            - ["145 or higher", "Pass (needed on all four)"]
+            - ["165–174", "GED College Ready: may skip placement tests or remedial courses"]
+            - ["175–200", "GED College Ready + Credit: could qualify for up to 10 college credit hours"]
+      fees:
+        intro: "Each state sets the price. Five examples from GED.com's state pages:"
+        source: ged_policies
+        table:
+          head: ["State", "Price"]
+          row_src: [ged_ca, ged_fl, ged_il, ged_ny, ged_tx]
+          rows:
+            - ["California", "$41 per subject (test center or online)"]
+            - ["Florida", "$38 (test center)"]
+            - ["Illinois", "$36 per subject; $26 off per subject from the Illinois Community College Board while funding lasts"]
+            - ["New York", "No charge: New York State pays"]
+            - ["Texas", "$36.25 per subject at a center, $42.25 online; state pays for eligible adults 21+ through Adult Education and Literacy while funding lasts"]
+        points:
+          - { t: "California retakes: one discounted test-center retake for each subject you fail, within 365 days, plus a $15 center fee; online retakes cost the full $41, and after two online attempts at a subject you wait 60 days.", src: ged_ca }
+          - { t: "Texas retakes: two discounted test-center retakes for each subject you fail, within 365 days, plus a $16.25 center fee; online retakes cost $42.25.", src: ged_tx }
+          - { t: "Illinois also requires the Illinois/U.S. Constitution Test and then awards a standard high school diploma.", src: ged_il }
+      dates:
+        points:
+          - { t: "No national dates: schedule each subject online or at a test center when you are ready; age and other rules vary by area.", src: ged_policies }
+          - { t: "In Texas, GED.com says you can prepare online or in class but take the test only online (from home or at a testing center).", src: ged_tx }
+      accepted:
+        points:
+          - { t: "Passing all four earns your state's high school equivalency credential; GED.com says the College Ready score levels can mean skipping placement tests or earning college credit.", src: ged_scores }
+      practice:
+        points:
+          - { t: "Free GED preview tests in all four subjects (a quarter of the real length, with answer explanations), in English and Spanish; GED Ready, the official practice test, predicts whether you would pass.", src: ged_practice }
+    used_by:
+      careers: hs
+      links:
+        - { label: "HiSET", href: "us/exams/hiset/", text: "The other equivalency test some states offer" }
+        - { label: "Trades & CTE", href: "us/cte/", text: "Apprenticeships that start with a diploma or GED" }
+    page:
+      title: "GED Test: 4 Subjects, Passing Score 145, State Prices and Free Practice"
+      description: "The GED's four subject tests and times, the 145 passing score and College Ready levels, prices and age rules in California, Florida, Illinois, New York and Texas, retake rules and free official practice."
+    search:
+      s: "4 subjects, pass 145, state prices, minimum age, free practice"
+      k: "usa ged test general educational development high school equivalency diploma price by state passing score 145 ged ready"
+
+  hiset:
+    name: "HiSET exam"
+    short: "HiSET"
+    by: "PSI Services"
+    stage: equivalency
+    status: current
+    grades: "Adults without a high school diploma (rules set by each state)"
+    lede: "The HiSET is a five-subtest high school equivalency exam offered by the states and territories that choose it. Pass with 8 of 20 on each subtest, 45 of 100 overall and 2 of 6 on the essay."
+    facts:
+      - { label: "Subtests", value: "5" }
+      - { label: "Pass", value: "45/100", note: "8 of 20 on each subtest" }
+      - { label: "Essay", value: "2 of 6", note: "Minimum" }
+      - { label: "Fees", value: "By state" }
+    sections:
+      who:
+        points:
+          - { t: "Each state or jurisdiction sets its own rules: some have a minimum age, residency, a prep course or an official practice test first; fees and retest rules vary.", src: hiset_states }
+          - { t: "HiSET jurisdictions listed: American Samoa, California (and California Proficiency), Colorado, Georgia, Guam, Hawaii, Illinois, Indiana, Iowa, Louisiana, Maine, Marshall Islands, Massachusetts, Michigan, Minnesota, Mississippi, Missouri, Montana, Nevada, New Hampshire, New Jersey, New Mexico, North Carolina, Northern Mariana Islands, Ohio, Oklahoma, Palau, Pennsylvania, Tennessee, West Virginia, Wyoming.", src: hiset_states }
+      format:
+        source: hiset_about
+        table:
+          head: ["Subtest", "Time", "Format"]
+          rows:
+            - ["Mathematics", "90 min", "Multiple choice; calculator allowed"]
+            - ["Science", "80 min", "Multiple choice"]
+            - ["Social Studies", "70 min", "Multiple choice"]
+            - ["Language Arts – Reading", "65 min (80 in Spanish)", "Multiple choice"]
+            - ["Language Arts – Writing", "120 min", "Multiple choice and one essay"]
+      scoring:
+        points:
+          - { t: "Pass each subtest with at least 8 out of 20, the battery with at least 45 out of 100, and the essay with at least 2 out of 6.", src: hiset_scores }
+          - { t: "College and career readiness: 15 of 20 on a subtest and at least 4 on the essay.", src: hiset_scores }
+          - { t: "Scores post in about three business days (five for Writing).", src: hiset_scores }
+      fees:
+        points:
+          - { t: "Fees are set by each state; see your state's requirements page.", src: hiset_states }
+      dates:
+        points:
+          - { t: "No national dates: you schedule each subtest yourself after reading your state's requirements page.", src: hiset_states }
+      practice:
+        points:
+          - { t: "Free practice tests in English and Spanish for all five subtests (half the length of a real subtest, with answer keys), free computer-based practice tests (English, 30–45 minutes), paid practice tests, and official practice tests through adult education programs (some states require one).", src: hiset_practice }
+    used_by:
+      careers: hs
+      links:
+        - { label: "GED", href: "us/exams/ged/", text: "The other equivalency test" }
+    page:
+      title: "HiSET Exam: 5 Subtests, Passing Scores and the States That Offer It"
+      description: "The HiSET high school equivalency exam: five subtests and times, pass with 8/20 per subtest, 45/100 overall and 2/6 on the essay, the states and territories that offer it, and free practice tests."
+    search:
+      s: "5 subtests, pass 45/100, states that offer it, free practice"
+      k: "usa hiset high school equivalency test hse psi ets tasc ged alternative states practice test"
+
+  toefl-ibt:
+    name: "TOEFL iBT"
+    short: "TOEFL iBT"
+    by: "ETS"
+    stage: english
+    status: current
+    grades: "Students whose first language is not English (high school, college, graduate)"
+    lede: "The TOEFL iBT tests academic reading, listening, writing and speaking in about two hours, at a test center or at home. Since 21 January 2026 it is scored 1–6; in the U.S. it costs $280."
+    facts:
+      - { label: "Length", value: "About 2 h", note: "Adaptive" }
+      - { label: "Score", value: "1–6", note: "+ 0–120 estimate to Jan 2028" }
+      - { label: "U.S. fee", value: "$280" }
+      - { label: "Valid", value: "2 years" }
+    sections:
+      who:
+        points:
+          - { t: "Taken on a computer at an authorized test center, or as TOEFL iBT Home Edition at home with a live human proctor.", src: toefl_content }
+          - { t: "ETS says the TOEFL is accepted by over 13,500 institutions in more than 160 countries.", src: toefl_scores }
+      format:
+        intro: "Approximate base time per section (directions not included; allow about two hours; items and time vary as the test adapts):"
+        source: toefl_content
+        table:
+          head: ["Section", "Tasks", "Items", "About"]
+          rows:
+            - ["Reading", "Complete the Words; Read in Daily Life; Read an Academic Passage", "50", "30 min"]
+            - ["Listening", "Choose a Response; Conversation; Announcement; Academic Talk", "47", "29 min"]
+            - ["Writing", "Build a Sentence; Write an Email; Academic Discussion", "12", "23 min"]
+            - ["Speaking", "Listen and Repeat; Take an Interview", "11", "8 min"]
+      scoring:
+        points:
+          - { t: "Four section scores and an overall score on a 1–6 scale in half bands; the overall is the average of the four, rounded to the nearest half band. For two years after January 2026 you also get a comparable 0–120 total.", src: toefl_scores }
+          - { t: "There is no pass or fail: each institution sets its own requirement, and some still list 0–120 scores.", src: toefl_scores }
+          - { t: "Scores in your ETS account 3 days after the test; four free score reports if chosen by 10 p.m. on test day.", src: toefl_scores }
+      fees:
+        intro: "Testing in the United States:"
+        source: toefl_fees
+        table:
+          head: ["Item", "Fee"]
+          rows:
+            - ["TOEFL iBT registration (United States)", "$280"]
+            - ["Express registration (within 7 days of the test)", "$49"]
+            - ["Rescheduling", "$69"]
+            - ["Additional score report", "$29 each"]
+            - ["Speaking or Writing score review", "$80 ($160 both)"]
+            - ["Reinstate canceled scores", "$20"]
+            - ["Express Scoring", "$129"]
+        points:
+          - { t: "Fees differ by country: choose your testing location on ETS's fee page.", src: toefl_fees }
+      dates:
+        points:
+          - { t: "No single national calendar on this page: you book a test center or a Home Edition appointment with ETS.", src: toefl_content }
+      accepted:
+        points:
+          - { t: "Each college sets which English tests and scores it accepts; contact the institution to confirm its current requirement.", src: toefl_scores }
+      practice:
+        points:
+          - { t: "A free 40-minute, self-paced TOEFL iBT Sample Test with questions from all four sections (screen-reader accessible), plus the TOEFL iBT Information Bulletin.", src: toefl_about }
+    used_by:
+      links:
+        - { label: "International students", href: "us/international-students/", text: "F-1 visa, admission and English tests" }
+        - { label: "IELTS", href: "us/exams/ielts/", text: "Another English test U.S. colleges list" }
+    page:
+      title: "TOEFL iBT: $280 U.S. Fee, the New 1–6 Score Scale, Sections and Free Sample Test"
+      description: "The TOEFL iBT since January 2026: about two hours, four adaptive sections, scores on the 1–6 scale (with a 0–120 estimate for two years), $280 in the U.S., at a center or at home."
+    search:
+      s: "1–6 scale since Jan 2026, about 2 h, $280 in the U.S."
+      k: "usa toefl ibt english test ets home edition score 1-6 band 0-120 fee international students"
+
+  ielts:
+    name: "IELTS Academic"
+    short: "IELTS"
+    by: "British Council, IDP IELTS and Cambridge University Press & Assessment"
+    stage: english
+    status: current
+    grades: "Students and professionals whose first language is not English (not recommended under 16)"
+    lede: "IELTS Academic tests listening, reading, writing and speaking in 2 hours 45 minutes, at a test center or online. Scores are bands 0–9; in the U.S. the test costs $280 to $340 depending on location."
+    facts:
+      - { label: "Length", value: "2 h 45 min" }
+      - { label: "Score", value: "Band 0–9", note: "Half bands" }
+      - { label: "U.S. fee", value: "$280–$340", note: "By location" }
+      - { label: "Validity", value: "2 years", note: "Recommended" }
+    sections:
+      who:
+        points:
+          - { t: "Choose IELTS Academic for undergraduate or graduate study, or professional registration (for example doctors and nurses).", src: ielts_academic }
+          - { t: "In the U.S., IELTS runs at over 20 locations through independent providers managed by the IELTS USA office in Washington; it says over 3,400 U.S. institutions and programs accept it.", src: bc_ielts_us }
+          - { t: "Candidates under 18 must be registered by a parent or guardian; IELTS is not recommended under age 16.", src: bc_ielts_us }
+      format:
+        intro: "Same format at a test center or online:"
+        source: ielts_academic
+        table:
+          head: ["Section", "Time"]
+          rows:
+            - ["Listening", "About 30 min"]
+            - ["Reading", "60 min (including transfer time)"]
+            - ["Writing", "60 min"]
+            - ["Speaking", "11–14 min"]
+        points:
+          - { t: "Listening and Speaking are the same in Academic and General Training; Reading and Writing differ.", src: ielts_academic }
+      scoring:
+        points:
+          - { t: "Bands from 0 (did not attempt) to 9 (expert) for each section; the overall band is the average of the four, rounded to the nearest half band (.25 rounds up to the half band, .75 to the next whole band).", src: ielts_scoring }
+          - { t: "IELTS recommends treating results as valid for two years; organizations may accept older results.", src: ielts_scoring }
+      fees:
+        source: bc_ielts_us
+        table:
+          head: ["Test (in the U.S.)", "Fee"]
+          rows:
+            - ["IELTS Academic or General Training", "$280–$340, depending on location"]
+            - ["IELTS for UK Visas and Immigration", "$305"]
+            - ["IELTS for UKVI Life Skills (A1, B1)", "$195"]
+        points:
+          - { t: "Fees vary, so check with your test center.", src: bc_ielts_us }
+      dates:
+        points:
+          - { t: "Dates are set by each test center: you get a confirmation email with your Speaking and Listening/Reading/Writing times, and the Speaking time can change.", src: bc_ielts_us }
+      accepted:
+        points:
+          - { t: "Check which IELTS test, and which result, each organization you apply to needs.", src: bc_ielts_us }
+      practice:
+        points:
+          - { t: "Free official IELTS Academic and General Training sample test questions with answers.", src: ielts_samples }
+    used_by:
+      links:
+        - { label: "International students", href: "us/international-students/", text: "F-1 visa, admission and English tests" }
+        - { label: "TOEFL iBT", href: "us/exams/toefl-ibt/", text: "Another English test U.S. colleges list" }
+    page:
+      title: "IELTS Academic in the U.S.: $280–$340 Fee, Format, Band Scores and Free Samples"
+      description: "IELTS Academic: four sections in 2 h 45 min at a center or online, band scores 0–9 and how the overall is rounded, U.S. fees ($280–$340 by location) and free official sample questions."
+    search:
+      s: "2 h 45 min, bands 0–9, U.S. fee $280–$340"
+      k: "usa ielts academic english test band score british council idp fee international students"
+
+  duolingo-english-test:
+    name: "Duolingo English Test"
+    short: "Duolingo English Test"
+    by: "Duolingo"
+    stage: english
+    status: current
+    grades: "Students whose first language is not English"
+    lede: "The Duolingo English Test is taken online at home with no appointment, in about an hour, with results in 2 days. Scores run 10–160."
+    facts:
+      - { label: "Length", value: "About 1 h", note: "45 min scored" }
+      - { label: "Score", value: "10–160" }
+      - { label: "Results", value: "2 days" }
+      - { label: "Institutions", value: "6,500+", note: "Duolingo's count" }
+    sections:
+      who:
+        points:
+          - { t: "Taken online, anytime, with no appointment; Duolingo says over 6,500 institutions worldwide trust it.", src: det_home }
+      format:
+        source: det_home
+        table:
+          head: ["Part", "Time"]
+          rows:
+            - ["Setup and ID verification", "5 min"]
+            - ["Scored assessment", "45 min"]
+            - ["Writing and speaking samples", "10 min"]
+      scoring:
+        points:
+          - { t: "All scores on a 10–160 scale. Certified tests get subscores in speaking, writing, reading and listening, which average to the overall score, plus integrated subscores (production, literacy, comprehension, conversation).", src: det_scores }
+          - { t: "Duolingo publishes how its scores line up with CEFR levels (A1 to C2).", src: det_scores }
+          - { t: "Results in 2 days; unlimited score sharing.", src: det_home }
+      fees:
+        points:
+          - { t: "Duolingo calls the price 'a fraction of the cost of other tests' but prints no amount on its public pages; the price is shown when you buy a test in your account.", src: det_home }
+      dates:
+        points:
+          - { t: "No dates: you test whenever you are ready.", src: det_home }
+      accepted:
+        points:
+          - { t: "Each college decides whether it accepts the test and the score it needs; Duolingo lists accepting institutions on its site.", src: det_home }
+      practice:
+        points:
+          - { t: "Free practice on the test's site (Practice free).", src: det_home }
+    used_by:
+      links:
+        - { label: "International students", href: "us/international-students/", text: "F-1 visa, admission and English tests" }
+    page:
+      title: "Duolingo English Test: Format, 10–160 Scores, Results in 2 Days"
+      description: "The Duolingo English Test: about one hour online at home, no appointment, results in 2 days, scores 10–160 with subscores, free practice. Price shown at checkout."
+    search:
+      s: "1 h online at home, 10–160, results in 2 days"
+      k: "usa duolingo english test det online english proficiency test score 160 international students"
+
+  asvab:
+    name: "ASVAB and the ASVAB Career Exploration Program"
+    short: "ASVAB"
+    by: "U.S. Department of Defense"
+    stage: military-career
+    status: current
+    grades: "Military applicants; high school and post-secondary students through the CEP"
+    lede: "The ASVAB decides whether you can enlist (through the AFQT percentile) and which military jobs fit you. Applicants take it at a MEPS or MET site; students can take it at school through the free Career Exploration Program."
+    facts:
+      - { label: "Subtests", value: "10", note: "9 on paper (AS combined)" }
+      - { label: "AFQT", value: "1–99", note: "Percentile" }
+      - { label: "Retest wait", value: "1 month", note: "Then 1, then 6 months" }
+      - { label: "Scores valid", value: "2 years", note: "For enlistment" }
+    sections:
+      who:
+        points:
+          - { t: "Military applicants: a recruiter first checks basic eligibility, then schedules the ASVAB at one of 65 Military Entrance Processing Stations (MEPS) in the U.S. and Puerto Rico or at a satellite Military Entrance Test (MET) site.", src: asvab_expect }
+          - { t: "Students: the ASVAB Career Exploration Program (CEP) is offered to high school and post-secondary students, free to participating schools, with tools for civilian and military career planning.", src: asvab_cep }
+          - { t: "The school (Student Testing Program) and enlistment versions have the same content, except Assembling Objects is not given at school; students get Verbal, Math and Science and Technical composites instead of the AFQT and Service composites.", src: asvab_faqs }
+      format:
+        intro: "Proctored CAT-ASVAB (computer, adaptive) at MEPS and most MET sites; no calculator. Time limits without / with unscored tryout questions:"
+        source: asvab_expect
+        table:
+          head: ["Subtest", "Scored questions", "Time limit (min)"]
+          rows:
+            - ["General Science", "15", "12 / 25"]
+            - ["Arithmetic Reasoning", "15", "55 / 113"]
+            - ["Word Knowledge", "15", "9 / 18"]
+            - ["Paragraph Comprehension", "10", "27 / 75"]
+            - ["Mathematics Knowledge", "15", "31 / 65"]
+            - ["Electronics Information", "15", "10 / 21"]
+            - ["Auto Information", "10", "7 / 18"]
+            - ["Shop Information", "10", "6 / 17"]
+            - ["Mechanical Comprehension", "15", "22 / 42"]
+            - ["Assembling Objects", "15", "18 / 38"]
+        points:
+          - { t: "Paper-and-pencil (a handful of MET sites): 225 questions in 149 minutes, 3 to 4 hours with instructions.", src: asvab_expect }
+          - { t: "PiCAT: an unproctored online version you can take once, from home, if you have never taken the ASVAB; a recruiter gives the code. A 25–30 minute Verification Test at a MEPS or MET site within 45 days confirms the score.", src: asvab_expect }
+          - { t: "On the CAT-ASVAB you cannot go back to a question, and several wrong answers at the end of a subtest are penalized, so answer properly rather than guessing randomly when time runs short.", src: asvab_prepare }
+      scoring:
+        points:
+          - { t: "Subtest standard scores are relative to a national sample of 18- to 23-year-olds: about half score 50 or more, about 16% score 60 or more.", src: asvab_scores }
+          - { t: "The AFQT, from Arithmetic Reasoning, Mathematics Knowledge, Paragraph Comprehension and Word Knowledge, is a percentile from 1 to 99; categories run from I (93–99) to V (1–9).", src: asvab_scores }
+          - { t: "Retesting: wait one calendar month after the first test, another month after the second, then six months. Scores can be used to enlist for up to two years.", src: asvab_faqs }
+          - { t: "School (CEP) scores can be used to enlist within two years if verified as yours; scores from School Staff Testing need a Verification Test first.", src: asvab_cep }
+      fees:
+        points:
+          - { t: "The Career Exploration Program is free to participating schools. The official ASVAB pages list no fee for applicants; testing is arranged through a recruiter.", src: asvab_cep }
+      dates:
+        points:
+          - { t: "No national dates: a recruiter schedules your session at a MEPS or MET site; schools schedule CEP test dates through the program (asvabprogram.com).", src: asvab_cep }
+      accepted:
+        points:
+          - { t: "Used by all branches to decide enlistment eligibility and assign military jobs, and by students for career exploration. ACT or SAT scores cannot replace it.", src: asvab_faqs }
+      practice:
+        points:
+          - { t: "Official sample questions for all 10 subtests, taken from retired ASVAB forms. The ASVAB program endorses no paid prep: it recommends solid high school math, English and science courses.", src: asvab_samples }
+    used_by:
+      links:
+        - { label: "Enlisting, by branch", href: "us/clusters/public-service-safety/#service-routes", text: "Ages and rules for the Army, Navy, Air Force, Marines, Space Force, Coast Guard" }
+    page:
+      title: "ASVAB and ASVAB CEP: Subtests, AFQT Score, Retest Rules and Free Sample Questions"
+      description: "How the ASVAB works: 10 subtests and time limits on the CAT-ASVAB, the AFQT percentile and categories, MEPS, MET and PiCAT, retest waits, school CEP testing and official sample questions."
+    search:
+      s: "10 subtests, AFQT 1–99, retest waits, school CEP, sample questions"
+      k: "usa asvab afqt military entrance test enlist army navy air force marines meps picat cep career exploration program sample questions"
+
+  workkeys:
+    name: "ACT WorkKeys and the National Career Readiness Certificate"
+    short: "WorkKeys"
+    by: "ACT"
+    stage: military-career
+    status: current
+    grades: "High school students, adult learners, job seekers"
+    lede: "ACT WorkKeys assessments measure workplace skills. Pass Applied Math, Graphic Literacy and Workplace Documents to earn the National Career Readiness Certificate (Bronze to Platinum)."
+    facts:
+      - { label: "NCRC tests", value: "3" }
+      - { label: "Levels", value: "4", note: "Bronze to Platinum" }
+      - { label: "Most tests", value: "1 h", note: "Web-based" }
+      - { label: "College credit", value: "Up to 9 h", note: "ACE, Silver or higher" }
+    sections:
+      who:
+        points:
+          - { t: "Offered through schools, employers and local workforce centers.", src: wk_ncrc }
+          - { t: "Job seekers can find one of hundreds of licensed WorkKeys test centers across the U.S.", src: wk_assess }
+          - { t: "Applied Math and Workplace Documents are approved by the National Reporting System for measuring gains in adult education (WIOA programs).", src: wk_assess }
+      format:
+        intro: "Most assessments are web-based, take one hour and come in English and Spanish; levels build on each other."
+        source: wk_assess
+        table:
+          head: ["Group", "Assessments"]
+          rows:
+            - ["NCRC core", "Applied Math, Graphic Literacy, Workplace Documents"]
+            - ["Other skills", "Applied Technology, Business Writing, Workplace Observation"]
+            - ["Soft skills", "Fit, Talent"]
+      scoring:
+        source: wk_ncrc
+        table:
+          head: ["NCRC level", "Minimum level score on all three core tests"]
+          rows:
+            - ["Platinum", "6"]
+            - ["Gold", "5"]
+            - ["Silver", "4"]
+            - ["Bronze", "3"]
+        points:
+          - { t: "The certificate shows the level and a 9-digit number employers can verify; a Spanish-language NCRC is available.", src: wk_ncrc }
+      fees:
+        points:
+          - { t: "ACT prices WorkKeys for schools, employers and workforce centers by quote; it publishes no individual fee. Ask the test center or program that offers it.", src: wk_assess }
+      dates:
+        points:
+          - { t: "No national dates: test when your school, employer or a licensed test center schedules it.", src: wk_ncrc }
+      accepted:
+        points:
+          - { t: "ACT reports more than 6.1 million NCRCs earned. The American Council on Education recommends up to nine semester hours of college credit for a Silver, Gold or Platinum NCRC; each school decides.", src: wk_ncrc }
+      practice:
+        points:
+          - { t: "Free sample questions for every WorkKeys assessment and free online practice tests for the NCRC assessments, with a basic score summary.", src: wk_prep }
+    used_by:
+      careers: hs
+      links:
+        - { label: "Trades & CTE", href: "us/cte/", text: "Career and technical routes" }
+        - { label: "PreACT", href: "us/exams/preact/", text: "Reports progress toward the NCRC" }
+    page:
+      title: "ACT WorkKeys and the NCRC: Assessments, Bronze to Platinum Levels, Free Practice"
+      description: "ACT WorkKeys workplace skills tests and the National Career Readiness Certificate: the three core tests, Bronze to Platinum level scores, up to 9 college credit hours (ACE) and free practice tests."
+    search:
+      s: "NCRC: 3 core tests, Bronze to Platinum, free practice"
+      k: "usa act workkeys ncrc national career readiness certificate applied math graphic literacy workplace documents job seekers"
+
+# All AP subjects (College Board, "42 AP subjects"), in College Board's course groups, from each course's "About the
+# Exam" page opened 2026-10-21 (source cb_ap_courses; exam day and session also match cb_ap_dates). length = the page's
+# exam (or assessment) duration; due = AP Digital Portfolio deadline (11:59 p.m. ET) where the course has one.
+ap_subjects:
+  - { name: "AP 2-D Art and Design", group: "Arts", exam: "Portfolio, no exam", due: "May 7, 2027", url: "https://apstudents.collegeboard.org/courses/ap-2-d-art-and-design" }
+  - { name: "AP 3-D Art and Design", group: "Arts", exam: "Portfolio, no exam", due: "May 7, 2027", url: "https://apstudents.collegeboard.org/courses/ap-3-d-art-and-design" }
+  - { name: "AP Drawing", group: "Arts", exam: "Portfolio, no exam", due: "May 7, 2027", url: "https://apstudents.collegeboard.org/courses/ap-drawing" }
+  - { name: "AP Art History", group: "Arts", exam: "Wed May 12 · Session 2", length: "3 h", mode: digital, url: "https://apstudents.collegeboard.org/courses/ap-art-history" }
+  - { name: "AP Music Theory", group: "Arts", exam: "Mon May 10 · Session 2", length: "About 2 h 40 min", mode: hybrid, url: "https://apstudents.collegeboard.org/courses/ap-music-theory" }
+  - { name: "AP English Language and Composition", group: "English", exam: "Wed May 12 · Session 1", length: "3 h 15 min", mode: digital, url: "https://apstudents.collegeboard.org/courses/ap-english-language-and-composition" }
+  - { name: "AP English Literature and Composition", group: "English", exam: "Wed May 5 · Session 1", length: "3 h", mode: digital, url: "https://apstudents.collegeboard.org/courses/ap-english-literature-and-composition" }
+  - { name: "AP African American Studies", group: "History and Social Sciences", exam: "Thu May 6 · Session 2", length: "2 h 45 min", mode: digital, url: "https://apstudents.collegeboard.org/courses/ap-african-american-studies" }
+  - { name: "AP Comparative Government and Politics", group: "History and Social Sciences", exam: "Fri May 14 · Session 1", length: "2 h 30 min", mode: digital, url: "https://apstudents.collegeboard.org/courses/ap-comparative-government-and-politics" }
+  - { name: "AP European History", group: "History and Social Sciences", exam: "Tue May 4 · Session 2", length: "3 h 15 min", mode: digital, url: "https://apstudents.collegeboard.org/courses/ap-european-history" }
+  - { name: "AP Human Geography", group: "History and Social Sciences", exam: "Mon May 3 · Session 1", length: "2 h 15 min", mode: digital, url: "https://apstudents.collegeboard.org/courses/ap-human-geography" }
+  - { name: "AP Macroeconomics", group: "History and Social Sciences", exam: "Fri May 7 · Session 2", length: "2 h 10 min", mode: hybrid, url: "https://apstudents.collegeboard.org/courses/ap-macroeconomics" }
+  - { name: "AP Microeconomics", group: "History and Social Sciences", exam: "Tue May 4 · Session 2", length: "2 h 10 min", mode: hybrid, url: "https://apstudents.collegeboard.org/courses/ap-microeconomics" }
+  - { name: "AP Psychology", group: "History and Social Sciences", exam: "Fri May 14 · Session 2", length: "2 h 40 min", mode: digital, url: "https://apstudents.collegeboard.org/courses/ap-psychology" }
+  - { name: "AP United States Government and Politics", group: "History and Social Sciences", exam: "Tue May 4 · Session 1", length: "3 h", mode: digital, url: "https://apstudents.collegeboard.org/courses/ap-united-states-government-and-politics" }
+  - { name: "AP United States History", group: "History and Social Sciences", exam: "Fri May 7 · Session 1", length: "3 h 15 min", mode: digital, url: "https://apstudents.collegeboard.org/courses/ap-united-states-history" }
+  - { name: "AP World History: Modern", group: "History and Social Sciences", exam: "Thu May 6 · Session 1", length: "3 h 15 min", mode: digital, url: "https://apstudents.collegeboard.org/courses/ap-world-history-modern" }
+  - { name: "AP Calculus AB", group: "Math and Computer Science", exam: "Mon May 10 · Session 1", length: "3 h 10 min", mode: hybrid, url: "https://apstudents.collegeboard.org/courses/ap-calculus-ab" }
+  - { name: "AP Calculus BC", group: "Math and Computer Science", exam: "Mon May 10 · Session 1", length: "3 h 10 min", mode: hybrid, url: "https://apstudents.collegeboard.org/courses/ap-calculus-bc" }
+  - { name: "AP Computer Science A", group: "Math and Computer Science", exam: "Wed May 12 · Session 2", length: "3 h", mode: digital, url: "https://apstudents.collegeboard.org/courses/ap-computer-science-a" }
+  - { name: "AP Computer Science Principles", group: "Math and Computer Science", exam: "Fri May 14 · Session 1", length: "3 h", due: "Apr 30, 2027", url: "https://apstudents.collegeboard.org/courses/ap-computer-science-principles" }
+  - { name: "AP Precalculus", group: "Math and Computer Science", exam: "Tue May 11 · Session 1", length: "2 h 55 min", mode: hybrid, url: "https://apstudents.collegeboard.org/courses/ap-precalculus" }
+  - { name: "AP Statistics", group: "Math and Computer Science", exam: "Tue May 11 · Session 2", length: "3 h", mode: digital, url: "https://apstudents.collegeboard.org/courses/ap-statistics" }
+  - { name: "AP Biology", group: "Sciences", exam: "Mon May 3 · Session 2", length: "3 h", mode: hybrid, url: "https://apstudents.collegeboard.org/courses/ap-biology" }
+  - { name: "AP Chemistry", group: "Sciences", exam: "Thu May 6 · Session 2", length: "3 h 15 min", mode: hybrid, url: "https://apstudents.collegeboard.org/courses/ap-chemistry" }
+  - { name: "AP Environmental Science", group: "Sciences", exam: "Thu May 13 · Session 2", length: "2 h 40 min", mode: digital, url: "https://apstudents.collegeboard.org/courses/ap-environmental-science" }
+  - { name: "AP Physics 1: Algebra-Based", group: "Sciences", exam: "Wed May 5 · Session 2", length: "3 h", mode: hybrid, url: "https://apstudents.collegeboard.org/courses/ap-physics-1-algebra-based" }
+  - { name: "AP Physics 2: Algebra-Based", group: "Sciences", exam: "Thu May 6 · Session 1", length: "3 h", mode: hybrid, url: "https://apstudents.collegeboard.org/courses/ap-physics-2-algebra-based" }
+  - { name: "AP Physics C: Electricity and Magnetism", group: "Sciences", exam: "Wed May 5 · Session 2", length: "3 h", mode: hybrid, url: "https://apstudents.collegeboard.org/courses/ap-physics-c-electricity-and-magnetism" }
+  - { name: "AP Physics C: Mechanics", group: "Sciences", exam: "Mon May 3 · Session 1", length: "3 h", mode: hybrid, url: "https://apstudents.collegeboard.org/courses/ap-physics-c-mechanics" }
+  - { name: "AP Chinese Language and Culture", group: "World Languages and Cultures", exam: "Thu May 13 · Session 2", length: "About 2 h", mode: digital, url: "https://apstudents.collegeboard.org/courses/ap-chinese-language-and-culture" }
+  - { name: "AP French Language and Culture", group: "World Languages and Cultures", exam: "Thu May 6 · Session 1", length: "About 2 h 30 min", mode: digital, url: "https://apstudents.collegeboard.org/courses/ap-french-language-and-culture" }
+  - { name: "AP German Language and Culture", group: "World Languages and Cultures", exam: "Fri May 7 · Session 1", length: "About 2 h 30 min", mode: digital, url: "https://apstudents.collegeboard.org/courses/ap-german-language-and-culture" }
+  - { name: "AP Italian Language and Culture", group: "World Languages and Cultures", exam: "Mon May 3 · Session 2", length: "About 2 h 30 min", mode: digital, url: "https://apstudents.collegeboard.org/courses/ap-italian-language-and-culture" }
+  - { name: "AP Japanese Language and Culture", group: "World Languages and Cultures", exam: "Tue May 11 · Session 1", length: "About 2 h", mode: digital, url: "https://apstudents.collegeboard.org/courses/ap-japanese-language-and-culture" }
+  - { name: "AP Latin", group: "World Languages and Cultures", exam: "Fri May 14 · Session 2", length: "3 h", mode: digital, url: "https://apstudents.collegeboard.org/courses/ap-latin" }
+  - { name: "AP Spanish Language and Culture", group: "World Languages and Cultures", exam: "Thu May 13 · Session 1", length: "About 2 h 30 min", mode: digital, url: "https://apstudents.collegeboard.org/courses/ap-spanish-language-and-culture" }
+  - { name: "AP Spanish Literature and Culture", group: "World Languages and Cultures", exam: "Fri May 14 · Session 1", length: "3 h", mode: digital, url: "https://apstudents.collegeboard.org/courses/ap-spanish-literature-and-culture" }
+  - { name: "AP Research", group: "AP Capstone", exam: "Performance tasks, no exam", due: "Apr 30, 2027", url: "https://apstudents.collegeboard.org/courses/ap-research" }
+  - { name: "AP Seminar", group: "AP Capstone", exam: "Mon May 10 · Session 2", length: "2 h", due: "Apr 30, 2027", url: "https://apstudents.collegeboard.org/courses/ap-seminar" }
+  - { name: "AP Business with Personal Finance", group: "AP Career Kickstart", exam: "Tue May 4 · Session 1", length: "2 h 40 min", mode: digital, url: "https://apstudents.collegeboard.org/courses/ap-business-personal-finance" }
+  - { name: "AP Cybersecurity", group: "AP Career Kickstart", exam: "Wed May 5 · Session 1", length: "2 h 10 min", mode: digital, url: "https://apstudents.collegeboard.org/courses/ap-cybersecurity" }

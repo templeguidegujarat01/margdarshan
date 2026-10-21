@@ -100,7 +100,7 @@ Planned careers per cluster (examples from the Master Plan; the final list comes
 
 | Hub | URL | Status | Notes |
 |-----|-----|--------|-------|
-| Exams | `us/exams/` + `us/exams/<exam>/` (~130) | P9 (school, admission, equivalency, English, military), P10 (graduate, licensing, government) | Until then the home card links `us/tests/` (live). If `us/tests/` moves, it becomes a redirect stub. Data: `_data/us/exams.yml` (extends `tests.yml`) |
+| Exams | `us/exams/` + `us/exams/<exam>/` | **live (P9: hub + 18 exam pages)**; P10 adds graduate, licensing and government exams | `_includes/us-exams-hub.html`, `us-exam-page.html`; stubs by `scripts/build-us-exams.mjs [--check]`. Data: `_data/us/exams.yml` (extends `tests.yml`; `us/tests/` stays live as the testing-policy overview, not moved). Home card + sidebar link `us/exams/` |
 | States | `us/states/` + `us/states/<state>/` (51) | P11 | `_data/us/states/<state>.yml`, one file per state; `us/new-york-city/` stays and is linked from New York |
 | State licensing & jobs | `us/states/<state>/licenses.html` (+ civil service) | P12 | matrix rows only from the state's own board |
 | Licensing | `us/professional-licenses/` + `<id>/` (13 live; the 4 added in P2 have `page:` + `boards:` in `licenses.yml` and generated stubs) | live; new licenses P2–P8, state matrices P12 | `licenses.yml`, `compacts.yml` |
@@ -192,3 +192,11 @@ GitHub Pages build.
 Healthcare & Human Services batch 1: 12 new career pages, 16 roadmaps (4 on existing pathways), 4 license pages
 (LPN/LVN, social work, counseling, EMT) with state-board tables. Full BLS list, corrections, fetch tricks and the queue:
 `docs/us-edition/PHASE-2-HEALTHCARE.md`.
+
+## 10. Phase 9 (2026-10-21)
+
+Exams hub `us/exams/` (9 stages, grade 3 to government) and 18 exam pages: NAEP, PSAT 8/9, PSAT 10, PSAT/NMSQT,
+PreACT, SAT, ACT, CLT, AP (with all 42 subjects), IB, CLEP, GED, HiSET, TOEFL iBT, IELTS, Duolingo English Test, ASVAB
+(+ CEP), ACT WorkKeys. Roadmap start steps that name a high school equivalent link the GED/HiSET section; the checker
+makes every roadmap step that names a Phase 9 exam link its page. Report, corrections and queue:
+`docs/us-edition/PHASE-9-EXAMS.md`.

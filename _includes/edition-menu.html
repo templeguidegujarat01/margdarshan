@@ -19,10 +19,9 @@
 {%- assign em_here = page.url | remove_first: "/" -%}
 {%- assign em_to_us = "" -%}
 {%- assign em_to_in = "" -%}
-{%- assign em_n_us = 0 -%}
+{%- include us-career-count.html -%}{%- assign em_n_us = us_n_careers -%}
 {%- for p in site.data.us.pathways.list -%}
   {%- if p.live -%}
-    {%- assign em_n_us = em_n_us | plus: 1 -%}
     {%- if p.in_page -%}
       {%- assign p_url = "us/careers/" | append: p.slug | append: "/" -%}
       {%- if em_here == p.in_page %}{%- assign em_to_us = p_url -%}{%- endif -%}
@@ -43,7 +42,7 @@
     {%- assign em_n = 0 -%}{%- assign em_unit = "career guides" -%}
     {%- case rid -%}
       {%- when "in" -%}{%- assign em_n = em_n_in -%}
-      {%- when "us" -%}{%- assign em_n = em_n_us -%}{%- assign em_unit = "career pathways" -%}
+      {%- when "us" -%}{%- assign em_n = em_n_us -%}
       {%- when "uk" -%}{%- assign em_n = em_n_uk -%}
     {%- endcase %}
     <li><a class="region-opt ed-card" href="{{ dest }}" hreflang="{{ r.lang }}" data-region-set="{{ rid }}"{% if rid == region_id and region_neutral == false %} aria-current="true"{% endif %}>

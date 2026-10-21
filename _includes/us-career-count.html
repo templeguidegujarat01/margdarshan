@@ -1,0 +1,8 @@
+{%- comment -%}
+  Counts every USA career page from _data at build time and leaves it in `us_n_careers`:
+  live pathway pages (pathways.yml) + generic career pages (_data/us/careers/*.yml, minus rows whose
+  `pathway:` points at a pathway page) + trade pages (cte_careers.yml). Never type the number in.
+{%- endcomment -%}
+{%- assign us_n_careers = site.data.us.pathways.list | where: "live", true | size -%}
+{%- for f in site.data.us.careers -%}{%- for c in f[1].list -%}{%- unless c.pathway -%}{%- assign us_n_careers = us_n_careers | plus: 1 -%}{%- endunless -%}{%- endfor -%}{%- endfor -%}
+{%- assign us_n_careers = us_n_careers | plus: site.data.us.cte_careers.list.size -%}

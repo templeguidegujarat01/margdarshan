@@ -18,6 +18,7 @@ so site.js Block 0 leaves the text as it is (no reflow after load). {%- endcomme
 {%- assign SRC = US.sources.list -%}
 {%- assign L = US.degrees.levels -%}
 {%- assign live = CL.clusters | where: "live", true -%}
+{%- include us-career-count.html -%}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -129,7 +130,8 @@ so site.js Block 0 leaves the text as it is (no reflow after load). {%- endcomme
       </div>
       {% include phone-fold.html id="more" %}
       <div class="chip-grid us-links">
-        <div class="item"><strong><a href="us/careers/">{{ US.pathways.list.size }} career pathways</a></strong>BLS pay and outlook by occupation, with colleges for each.</div>
+        <div class="item"><strong><a href="us/clusters/">{{ us_n_careers }} career guides</a></strong>Every career, trade and pathway, grouped by cluster, with BLS pay and the route in.</div>
+        <div class="item"><strong><a href="us/careers/">{{ US.pathways.list.size }} career pathways</a></strong>Broad fields such as computer science or nursing, with colleges for each.</div>
         <div class="item"><strong><a href="us/cte/">Trades &amp; CTE</a></strong>Electrician, plumber, HVAC, welder and auto technician, with roadmaps.</div>
         <div class="item"><strong><a href="us/compare/">Compare two careers</a></strong>Side-by-side tables built from the same data.</div>
         <div class="item"><strong><a href="us/international-students/">International students</a></strong>F-1, OPT, STEM OPT and H-1B, kept separate from your degree.</div>

@@ -81,9 +81,8 @@ footer:
     {%- comment -%} Capacity numbers are counted from the data files at build time — never typed in by hand. {%- endcomment -%}
     {%- assign n_in = 0 -%}{%- assign n_in_src = 0 -%}
     {%- for c in site.data.in.careers -%}{%- assign n_in = n_in | plus: 1 -%}{%- assign n_in_src = n_in_src | plus: c[1].sources.size -%}{%- endfor -%}
-    {%- assign n_us_src = 0 -%}{%- for x in site.data.us.sources.list -%}{%- assign n_us_src = n_us_src | plus: 1 -%}{%- endfor -%}
-    {%- assign n_src = n_in_src | plus: n_us_src -%}
-    {%- assign n_us = site.data.us.pathways.list.size -%}
+    {%- assign n_src = n_in_src -%}
+    {%- assign n_col = site.data.colleges.colleges.size -%}
     {%- assign n_guides = site.data.search.items.size %}
     <div class="container hero-inner hub-inner">
       <div class="hub-head">
@@ -99,7 +98,7 @@ footer:
 
       <dl class="cap-bar" aria-label="What is on Education Margdarshan">
         <div><dt>India career guides</dt><dd>{{ n_in }}</dd></div>
-        <div><dt>USA career pathways</dt><dd>{{ n_us }}</dd></div>
+        <div><dt>Indian colleges listed</dt><dd>{{ n_col }}</dd></div>
         <div><dt>Searchable guides and hubs</dt><dd>{{ n_guides }}</dd></div>
         <div><dt>Official sources cited</dt><dd>{{ n_src }}</dd></div>
       </dl>

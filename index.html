@@ -20,7 +20,7 @@ editions:
       - { href: "colleges.html", label: "College finder" }
   us:
     stat: us
-    stat_label: "career pathways"
+    stat_label: "career guides"
     links:
       - { href: "us/high-school/", label: "High school plan" }
       - { href: "us/college/", label: "College & money" }
@@ -66,7 +66,7 @@ same_career:
 {%- assign n_us_src = 0 -%}{%- for x in site.data.us.sources.list -%}{%- assign n_us_src = n_us_src | plus: 1 -%}{%- endfor -%}
 {%- assign n_uk_src = 0 -%}{%- for x in site.data.uk.sources.list -%}{%- assign n_uk_src = n_uk_src | plus: 1 -%}{%- endfor -%}
 {%- assign n_src = n_in_src | plus: n_us_src | plus: n_uk_src -%}
-{%- assign n_us = site.data.us.pathways.list.size -%}
+{%- include us-career-count.html -%}{%- assign n_us = us_n_careers -%}
 {%- assign n_col = site.data.colleges.colleges.size -%}
 {%- assign n_guides = site.data.search.items.size -%}
 {%- assign n_ed = site.data.regions.list.size -%}
@@ -106,7 +106,7 @@ same_career:
         {
           "@type": "Question",
           "name": "Are the USA and UK editions complete?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Not yet. Both are in beta. The USA Edition has {{ n_us }} career pathways and the UK Edition has {{ n_uk }} career guides so far. The India Edition is the largest, with {{ n_in }} career guides." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Not yet. Both are in beta. The USA Edition has {{ n_us }} career guides and the UK Edition has {{ n_uk }} career guides so far. The India Edition is the largest, with {{ n_in }} career guides." }
         },
         {
           "@type": "Question",
@@ -232,7 +232,7 @@ same_career:
       </div>
       <dl class="gw-stats">
         <div class="gw-stat"><dt>India career guides</dt><dd>{{ n_in }}</dd></div>
-        <div class="gw-stat"><dt>USA career pathways</dt><dd>{{ n_us }}</dd></div>
+        <div class="gw-stat"><dt>USA career guides</dt><dd>{{ n_us }}</dd></div>
         <div class="gw-stat"><dt>UK career guides</dt><dd>{{ n_uk }}</dd></div>
         <div class="gw-stat"><dt>Indian colleges listed</dt><dd>{{ n_col }}</dd></div>
         <div class="gw-stat"><dt>Official sources cited</dt><dd>{{ n_src }}</dd></div>
@@ -280,7 +280,7 @@ same_career:
         </div>
         <div class="faq-item" data-open="false">
           <button type="button" class="faq-q" aria-expanded="false">Are the USA and UK editions complete?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="faq-a">Not yet. Both are in beta. The USA Edition has {{ n_us }} career pathways and the UK Edition has {{ n_uk }} career guides so far. The India Edition is the largest, with {{ n_in }} career guides.</div>
+          <div class="faq-a">Not yet. Both are in beta. The USA Edition has {{ n_us }} career guides and the UK Edition has {{ n_uk }} career guides so far. The India Edition is the largest, with {{ n_in }} career guides.</div>
         </div>
         <div class="faq-item" data-open="false">
           <button type="button" class="faq-q" aria-expanded="false">Where do the salary numbers come from?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>

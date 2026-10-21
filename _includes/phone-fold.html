@@ -1,0 +1,10 @@
+{%- comment -%}
+  Phone fold button (USA Master Plan Phase 14, 2026-10-21: hubs at most 8 phone screens long). Put it right after
+  the section head of a section that has `data-pfold` and an id:
+    <section id="sub-clusters" data-pfold> <div class="container"> <div class="section-head">…</div>
+      {% include phone-fold.html id="sub-clusters" %} …rest… </div></section>
+  Below 900px, with JS on (html.js), main.css (block "Phone fold") shows only the section head and this button from the
+  first paint; site.js (block "Phone fold") opens the section on tap, or when a link / URL hash points inside it.
+  Desktop and no-JS: everything shown, button hidden. Nothing is removed from the page.
+{%- endcomment -%}
+<button type="button" class="pfold-btn" aria-expanded="false" aria-controls="{{ include.id }}">Show this section</button>

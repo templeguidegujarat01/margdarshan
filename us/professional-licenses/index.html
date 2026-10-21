@@ -69,9 +69,10 @@ breadcrumb:
     </div>
   </section>
 
-  <section class="md-sec md-sec-alt" id="changes" aria-labelledby="changes-h">
+  <section class="md-sec md-sec-alt" id="changes" aria-labelledby="changes-h" data-pfold>
     <div class="container">
       <div class="md-sec-head"><h2 id="changes-h">Licensing changes to watch</h2><p>Rules that are changing now. Check the licensing body before you plan around them.</p></div>
+      {% include phone-fold.html id="changes" %}
       <ul class="md-occ">
         {%- for l in US.licenses %}{%- for w in l[1].watch %}
         <li><span><strong><a href="us/professional-licenses/{{ l[0] }}/">{{ l[1].name }}</a></strong><small>{{ w }}</small></span></li>
@@ -80,9 +81,10 @@ breadcrumb:
     </div>
   </section>
 
-  <section class="md-sec" id="faq" aria-labelledby="faq-h">
+  <section class="md-sec" id="faq" aria-labelledby="faq-h" data-pfold>
     <div class="container">
       <div class="md-sec-head"><h2 id="faq-h">Questions</h2></div>
+      {% include phone-fold.html id="faq" %}
       <div class="faq-list">
         <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">Who grants professional licenses in the U.S.?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">State and territorial boards, not the federal government. National organizations write most licensing exams, but each state board decides who is licensed in that state.</div></div>
         <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">Does passing the USMLE make me a doctor?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">No. A physician also needs an M.D. or D.O., residency training and a license from a state medical board. D.O. students usually take COMLEX-USA.</div></div>

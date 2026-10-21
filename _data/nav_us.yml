@@ -58,8 +58,10 @@ sidebar:
           - { label: "SAT vs ACT", href: "us/tests/#sat-act" }
           - { label: "AP exams", href: "us/tests/#ap" }
           - { label: "MCAT, DAT, LSAT", href: "us/exams/#graduate" }
-      - label: College & Money
-        short: College
+      # Phase 14 (2026-10-21): "Paying for college" and "Colleges & training" are two of the six support hubs
+      # (_data/us/home.yml `support`), so each has its own item; scripts/check-us-data.mjs requires all six here.
+      - label: Paying for College
+        short: Paying
         href: us/college/
         icon: '<rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M6 12h.01M18 12h.01"/>'
         children:
@@ -67,9 +69,16 @@ sidebar:
           - { label: "What college costs", href: "us/college/#cost" }
           - { label: "FAFSA, grants and loans", href: "us/college/#aid" }
           - { label: "Community college and transfer", href: "us/college/#transfer" }
-          # Colleges & training (USA Master Plan Phase 13, 2026-10-21)
-          - { label: "Colleges by state and city", href: "us/colleges/" }
+      # Colleges & training (USA Master Plan Phase 13, 2026-10-21; own item since Phase 14)
+      - label: Colleges & Training
+        short: Colleges
+        href: "us/colleges/"
+        icon: '<path d="M3 21h18M5 21V10l7-5 7 5v11"/><path d="M9 21v-6h6v6M10 11h4"/>'
+        children:
+          - { label: "Colleges by state and city", href: "us/colleges/#states" }
           - { label: "Programs by career", href: "us/colleges/fields/" }
+          - { label: "Apprenticeships", href: "us/colleges/#apprenticeship" }
+          - { label: "Trades & CTE", href: "us/cte/" }
   - id: us-careers
     label: Careers & Beyond
     items:
@@ -139,8 +148,11 @@ footer:
     - { href: "us/", label: "USA Home" }
     - { href: "us/clusters/", label: "Career Clusters" }
     - { href: "us/high-school/", label: "High School" }
+    - { href: "us/exams/", label: "Exams" }
     - { href: "us/tests/", label: "Tests: SAT, ACT, AP" }
-    - { href: "us/college/", label: "College & Money" }
+    - { href: "us/college/", label: "Paying for College" }
+    - { href: "us/colleges/", label: "Colleges & Training" }
+    - { href: "us/cte/", label: "Trades & CTE" }
     - { href: us/careers/, label: "Career Pathways" }
     - { href: "us/professional-licenses/", label: "Licensed Professions" }
     - { href: "us/states/", label: "States" }

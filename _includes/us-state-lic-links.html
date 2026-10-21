@@ -1,0 +1,17 @@
+{%- comment -%}
+  State license pages that cover one license or trade (USA Master Plan Phase 14 cross-links), as "Texas · Ohio".
+  Usage: include us-state-lic-links.html with key = a licenses.yml id or a cte trade slug (assign it to a variable first).
+  A state is listed when its us/states/<slug>/licenses.html shows a card for the key: the state file has
+  `licenses.<key>`, or the license's `boards` (trade: the trade's `states`) has a row for that state, the same rule as
+  _includes/us-state-licenses.html. Prints nothing when no state page covers it.
+{%- endcomment -%}
+{%- assign SLK_US = site.data.us -%}
+{%- assign SLK_T = SLK_US.cte_careers.list | where: "slug", include.key | first -%}
+{%- if SLK_T %}{% assign SLK_B = SLK_T.states %}{% else %}{% assign SLK_B = SLK_US.licenses[include.key].boards %}{% endif -%}
+{%- assign SLK_n = 0 -%}
+{%- for ir in SLK_US.state_index.list %}{%- assign SLK_S = SLK_US.states[ir.slug] -%}
+{%- if SLK_S -%}
+{%- assign SLK_R = SLK_S.licenses[include.key] -%}{%- assign SLK_H = SLK_B | where: "place", ir.name | first -%}
+{%- if SLK_R or SLK_H -%}{%- if SLK_n > 0 %} · {% endif %}<a href="us/states/{{ ir.slug }}/licenses.html#lic-{{ include.key }}">{{ ir.name }}</a>{%- assign SLK_n = SLK_n | plus: 1 -%}{%- endif -%}
+{%- endif -%}
+{%- endfor -%}

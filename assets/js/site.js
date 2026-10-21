@@ -370,14 +370,19 @@ try {
      scripts/check-search.mjs runs this exact block in Node against the real index.
      Every entry of assets/search.json gets its attributes ONCE, when the index loads:
        ed  edition (0 India, 1 USA, 2 UK) from the category;  st  state number from the url
-       (state/<s>/, colleges/<s>/, coaching/<s>/) or a state name in the title;  f  a bitmask of facets
+       (state/<s>/, colleges/<s>/, coaching/<s>/; USA us/states/<s>/, us/colleges/<s>/) or a state name in the title;
+       cl  USA Career Cluster number from the entry's g field (scripts/lib/us-cluster-map.mjs);  f  a bitmask of facets
        (exam, college, coaching, license, govt, class 10, class 12, medical, law, engineering, commerce, arts,
        technology, roadmap, high school / K-12, trades & CTE) read from the category, url and words.
      A query is parsed into the same attributes: edition and state words are HARD filters (only matching pages
      stay), facet words ("government", "exam", "class 10", "licensing") are SOFT (each match adds rank; with no
      other words at least one must match), small words ("path", "for", "how") are ignored, and every other
      word must appear in the page's title / subtitle / keywords (if none of the pages has them all, pages with
-     most of them are shown instead). The per-keystroke loop only does integer tests and string indexOf on
+     most of them are shown instead). A Career Cluster phrase ("healthcare", "construction", "supply chain") sets
+     P.cl: on USA searches (USA home or a USA word) pages in that cluster rank up; the words still count as text.
+     A USA state name is a hard filter only when it is the whole query ("texas"); with other words it ranks that
+     state's pages up instead, so national pages that answer the question ("texas plumber license") still show;
+     a USA state also makes the search USA-only, like the word "usa". The per-keystroke loop only does integer tests and string indexOf on
      precomputed lower-case text, and keeps the best results in two fixed typed arrays: no objects or arrays
      are created per entry, so typing stays smooth on low-end phones. */
   var MdSearch = (function(){
@@ -388,6 +393,23 @@ try {
                    [F.eng, 'Engineering'], [F.commerce, 'Commerce'], [F.arts, 'Arts & design'], [F.tech, 'Technology'], [F.roadmap, 'Roadmap'],
                    [F.hs, 'High school'], [F.trade, 'Trades & CTE']];
     var ED_LABEL = ['India', 'USA', 'UK'];
+    // USA Career Clusters (Advance CTE, 14): slug = _data/us/clusters.yml (scripts/check-search.mjs keeps them equal),
+    // label for the filter line, query phrases on normalised text.
+    var CL = [['healthcare-human-services', 'Healthcare', /\b(healthcare|health care|human services|health science)\b/],
+              ['digital-technology', 'Digital Technology', /\b(digital technology|information technology)\b/],
+              ['financial-services', 'Financial Services', /\b(financial services)\b/],
+              ['management-entrepreneurship', 'Management', /\b(management|entrepreneurship|entrepreneur)\b/],
+              ['marketing-sales', 'Marketing & Sales', /\b(marketing|sales)\b/],
+              ['public-service-safety', 'Public Service', /\b(public service|public safety)\b/],
+              ['education', 'Education', /\b(education|teaching)\b/],
+              ['construction', 'Construction', /\b(construction)\b/],
+              ['advanced-manufacturing', 'Manufacturing', /\b(manufacturing)\b/],
+              ['supply-chain-transportation', 'Supply Chain', /\b(supply chain|transportation|logistics)\b/],
+              ['energy-natural-resources', 'Energy', /\b(energy|natural resources)\b/],
+              ['agriculture', 'Agriculture', /\b(agriculture|agricultural|farming)\b/],
+              ['arts-entertainment-design', 'Arts & Design', /\b(arts|entertainment)\b/],
+              ['hospitality-events-tourism', 'Hospitality', /\b(hospitality|tourism|hotel|events)\b/]];
+    var CL_NO = {}; CL.forEach(function(c, i){ CL_NO[c[0]] = i + 1; });
     var CAT_ED = { usa: 1, uk: 2 };
     var CAT_F = { exams: F.exam, govt: F.govt | F.exam, colleges: F.college, coaching: F.coaching, medical: F.medical,
                   commerce: F.commerce, 'engineering-science': F.eng, technology: F.tech, arts: F.arts };
@@ -466,12 +488,12 @@ try {
     // Build the index once: data = search.json rows, cats = { id: label }.
     function build(data, cats){
       var states = [], stateIdx = {};
-      var addState = function(slug){
-        if(!stateIdx[slug]){ states.push({ slug: slug, name: slug.replace(/-/g, ' ') }); stateIdx[slug] = states.length; }
+      var addState = function(slug, us){
+        if(!stateIdx[slug]){ states.push({ slug: slug, name: slug.replace(/-/g, ' '), us: us }); stateIdx[slug] = states.length; }
         return stateIdx[slug];
       };
-      var rx = /^(?:state|colleges|coaching)\/([a-z-]+)\//;
-      data.forEach(function(d){ var m = rx.exec(d.u || ''); if(m) addState(m[1]); });
+      var rx = /^(?:state\/|colleges\/|coaching\/|us\/states\/|us\/colleges\/(?!fields\/))([a-z-]+)\//;
+      data.forEach(function(d){ var m = rx.exec(d.u || ''); if(m) addState(m[1], (d.u || '').indexOf('us/') === 0); });
       states.sort(function(a, b){ return b.name.length - a.name.length; });   // "andhra pradesh" before "pradesh"-like overlaps
       var entries = data.map(function(d, i){
         var t = norm(d.t), s = norm(d.s), k = norm(d.k) + ' ' + norm(cats[d.c]);
@@ -487,7 +509,7 @@ try {
         if(/(^|\/)state\//.test(u) && /\b(psc|sssb|police|constable|clerk|talathi|recruitment|board)\b/.test(all)) f |= F.govt;
         // edm: editions the TITLE is about (India's "Study in USA" page still answers "study in usa").
         var edm = (/\b(usa|us|america|american|united states)\b/.test(t) ? 2 : 0) | (/\b(uk|britain|british|england|united kingdom)\b/.test(t) ? 4 : 0);
-        return { i: i, t: t, s: s, k: k, ed: CAT_ED[d.c] || 0, edm: edm, st: st, f: f | ft, ft: ft, nf: bits(f | ft) };
+        return { i: i, t: t, s: s, k: k, ed: CAT_ED[d.c] || 0, edm: edm, st: st, cl: CL_NO[d.g] || 0, f: f | ft, ft: ft, nf: bits(f | ft) };
       });
       entries.states = states;               // longest name first, for parsing
       entries.stateNo = stateIdx;            // slug -> the number stored in entry.st
@@ -496,16 +518,17 @@ try {
       return entries;
     }
 
-    // Parse a raw query against an index: { q, words, n, ed (-1 any), st (0 any), soft, sw (facet words, for highlight), stName }.
+    // Parse a raw query against an index: { q, words, n, ed (-1 any), st (0 any), cl (0 any), soft, sw (facet words, for highlight), stName }.
     function parse(raw, index){
       var q = norm(raw), x;
       for(x = 0; x < Q_PHRASE.length; x++) q = q.replace(Q_PHRASE[x][0], Q_PHRASE[x][1]);
       q = ' ' + q.replace(/\s+/g, ' ').trim() + ' ';
-      var P = { q: '', words: [], n: 0, ed: -1, st: 0, soft: 0, sw: [], stName: '' };
+      var P = { q: '', words: [], n: 0, ed: -1, st: 0, stSoft: false, cl: 0, soft: 0, sw: [], stName: '' };
+      for(x = 0; x < CL.length; x++){ var cm = CL[x][2].exec(q); if(cm){ P.cl = x + 1; P.sw.push(cm[1]); break; } }
       var states = index.states || [];
       for(x = 0; x < states.length; x++){
         var at = q.indexOf(' ' + states[x].name + ' ');
-        if(at !== -1){ P.st = index.stateNo[states[x].slug]; P.stName = states[x].name; P.sw.push(states[x].name); q = q.slice(0, at) + ' ' + q.slice(at + states[x].name.length + 1); break; }
+        if(at !== -1){ P.st = index.stateNo[states[x].slug]; P.stSoft = !!states[x].us; P.stName = states[x].name; P.sw.push(states[x].name); q = q.slice(0, at) + ' ' + q.slice(at + states[x].name.length + 1); break; }
       }
       var toks = q.trim().split(' ');
       var free = [], dropped = [];
@@ -518,6 +541,8 @@ try {
         if(Q_STOP[w] && toks.length > 1){ dropped.push(w); continue; }
         free.push(w);
       }
+      // A USA state name means a USA search unless the query names another edition.
+      if(P.stSoft && P.ed === -1) P.ed = 1;
       // Only small words left ("U.S. career pathways"): search them after all.
       if(!free.length && !P.soft) free = dropped;
       P.words = free; P.n = free.length; P.q = free.join(' ');
@@ -529,15 +554,16 @@ try {
     function search(index, P, max, home){
       var top = index.top, topSc = index.topSc, n = 0, total = 0, x, e, sc;
       if(max > top.length) max = top.length;
-      var st = P.st;
+      var st = P.st, stHard = st && (!P.stSoft || !P.n);
       var homeEd = home === 'india' ? 0 : home === 'usa' ? 1 : home === 'uk' ? 2 : -1;
+      var cl = (P.ed === 1 || homeEd === 1) ? P.cl : 0;      // clusters are a USA grouping
       for(var pass = 0; pass < 2 && !total; pass++){
         var need = pass === 0 ? P.n : Math.max(1, Math.ceil(P.n / 2));
         if(pass === 1 && P.n < 2) break;      // loose pass only helps multi-word queries
         for(x = 0; x < index.length; x++){
           e = index[x];
           if(P.ed !== -1 && e.ed !== P.ed && !(e.edm & (1 << P.ed))) continue;
-          if(st && e.st !== st) continue;
+          if(stHard && e.st !== st) continue;
           var hit = bits(e.f & P.soft);
           if(P.n){
             if(pass === 0){ sc = score(e, P.q, P.words, P.n); if(!sc) continue; }
@@ -552,6 +578,8 @@ try {
           sc += hit * 25 + bits(e.ft & P.soft) * 8;
           if(!P.n && P.soft) sc -= e.nf - hit;
           for(var y = 0; y < P.sw.length; y++){ if((' ' + e.t).indexOf(' ' + P.sw[y]) !== -1) sc += 20; else if((' ' + e.k).indexOf(' ' + P.sw[y]) !== -1) sc += 6; }
+          if(cl && e.cl === cl) sc += 30;
+          if(st && !stHard && e.st === st) sc += 60;
           if(homeEd !== -1 && e.ed === homeEd) sc += 100;
           total++;
           // keep the best `max` in the fixed buffers (insertion; ties keep index order)
@@ -570,11 +598,12 @@ try {
       var parts = [];
       if(P.ed !== -1) parts.push(ED_LABEL[P.ed]);
       if(P.stName) parts.push(P.stName.replace(/\b[a-z]/g, function(c){ return c.toUpperCase(); }));
+      if(P.cl && P.ed === 1) parts.push(CL[P.cl - 1][1]);
       for(var x = 0; x < F_LABEL.length; x++) if(P.soft & F_LABEL[x][0]) parts.push(F_LABEL[x][1]);
       return parts.join(' · ');
     }
 
-    return { F: F, norm: norm, build: build, parse: parse, search: search, describe: describe };
+    return { F: F, CL: CL, norm: norm, build: build, parse: parse, search: search, describe: describe };
   })();
   /* @search-engine:end */
   var norm = MdSearch.norm;
@@ -2044,6 +2073,47 @@ try {
       setOpen(true);
       el.scrollIntoView({ block: 'center' });
     }
+  }
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a[href^="#"]');
+    if(a) openFor(a.getAttribute('href'));
+  }, true);
+  window.addEventListener('hashchange', function(){ openFor(window.location.hash); });
+  if(window.location.hash) openFor(window.location.hash);
+})();
+} catch (e) { if (window.console) console.error(e); }
+
+/* ===== Phone fold (USA hubs, 2026-10-21) =====
+   Below 900px main.css shows only the head of every section[data-pfold] plus its button (_includes/phone-fold.html).
+   Here: the button opens / closes the section; a link, rail chip or URL hash pointing at the section or inside it
+   opens it first. Desktop: CSS shows everything, so the button is never visible there. */
+try {
+(function(){
+  "use strict";
+  var secs = document.querySelectorAll('[data-pfold]');
+  if(!secs.length) return;
+  function setOpen(sec, open){
+    var btn = sec.querySelector('.pfold-btn');
+    sec.classList.toggle('is-open', open);
+    if(btn){ btn.setAttribute('aria-expanded', open ? 'true' : 'false'); btn.textContent = open ? 'Show less' : 'Show all'; }
+    if(open) sec.querySelectorAll('.reveal:not(.is-visible)').forEach(function(r){ r.classList.add('is-visible'); });
+  }
+  Array.prototype.forEach.call(secs, function(sec){
+    var btn = sec.querySelector('.pfold-btn');
+    if(!btn) return;
+    btn.textContent = 'Show all';
+    btn.addEventListener('click', function(){
+      var open = !sec.classList.contains('is-open');
+      setOpen(sec, open);
+      if(!open && sec.getBoundingClientRect().top < 0) sec.scrollIntoView({ block: 'start' });
+    });
+  });
+  function openFor(hash){
+    var id = (hash || '').slice(1), el = null;
+    try { el = id && document.getElementById(decodeURIComponent(id)); } catch(e){}
+    if(!el) return;
+    var sec = el.closest('[data-pfold]');
+    if(sec && !sec.classList.contains('is-open')){ setOpen(sec, true); if(el !== sec) el.scrollIntoView({ block: 'start' }); }
   }
   document.addEventListener('click', function(e){
     var a = e.target.closest && e.target.closest('a[href^="#"]');

@@ -94,13 +94,14 @@ breadcrumb:
     </div>
   </section>
 
-  <section class="block" id="rigor" aria-labelledby="rigor-heading">
+  <section class="block" id="rigor" aria-labelledby="rigor-heading" data-pfold>
     <div class="container">
       <div class="section-head reveal">
         <span class="eyebrow">Course rigor</span>
         <h2 id="rigor-heading">Honors, AP, IB and dual enrollment</h2>
         <p>Four ways to take harder courses. Which ones you can choose depends on your school; each college decides its own credit rules.</p>
       </div>
+      {% include phone-fold.html id="rigor" %}
       {%- assign AP = US.tests.high_school.ap %}
       {%- assign IB = US.tests.high_school.ib %}
       <div class="chip-grid us-links reveal">
@@ -112,13 +113,14 @@ breadcrumb:
     </div>
   </section>
 
-  <section class="block block-alt" id="what-counts" aria-labelledby="what-counts-heading">
+  <section class="block block-alt" id="what-counts" aria-labelledby="what-counts-heading" data-pfold>
     <div class="container">
       <div class="section-head reveal">
         <span class="eyebrow">Real admissions data</span>
         <h2 id="what-counts-heading">What colleges actually weigh</h2>
         <p>NACAC asked four-year colleges how much each factor matters ({{ G.admissions.factors.survey }}). Grades and course choices dominate; test scores matter most at a small, often highly selective group of colleges.</p>
       </div>
+      {% include phone-fold.html id="what-counts" %}
       <div class="table-wrap">
         <table class="table-simple">
           <thead><tr><th>Factor</th><th>{{ G.admissions.factors.label }}</th></tr></thead>
@@ -133,13 +135,14 @@ breadcrumb:
     </div>
   </section>
 
-  <section class="block" id="apply" aria-labelledby="apply-heading">
+  <section class="block" id="apply" aria-labelledby="apply-heading" data-pfold>
     <div class="container">
       <div class="section-head reveal">
         <span class="eyebrow">Senior year</span>
         <h2 id="apply-heading">Early Decision, Early Action or Regular Decision?</h2>
         <p>{{ G.admissions.plans_timing }}</p>
       </div>
+      {% include phone-fold.html id="apply" %}
       <div class="chip-grid reveal">
         {%- for p in G.admissions.plans %}
         <div class="item"><strong>{{ p.name }}</strong>{{ p.text }}</div>
@@ -149,13 +152,14 @@ breadcrumb:
     </div>
   </section>
 
-  <section class="block block-alt" id="state-rules" aria-labelledby="state-rules-heading">
+  <section class="block block-alt" id="state-rules" aria-labelledby="state-rules-heading" data-pfold>
     <div class="container">
       <div class="section-head reveal">
         <span class="eyebrow">State and college rules</span>
         <h2 id="state-rules-heading">Requirements depend on where you live and apply</h2>
         <p>{{ US.degrees.high_school.requirements_note }}</p>
       </div>
+      {% include phone-fold.html id="state-rules" %}
       <h3 class="block-subhead">Example: {{ G.admissions.example_state.name }}</h3>
       <div class="prose reveal">
         <ul>
@@ -168,12 +172,13 @@ breadcrumb:
     </div>
   </section>
 
-  <section class="block" id="mistakes" aria-labelledby="mistakes-heading">
+  <section class="block" id="mistakes" aria-labelledby="mistakes-heading" data-pfold>
     <div class="container">
       <div class="section-head reveal">
         <span class="eyebrow">Learn from the data</span>
         <h2 id="mistakes-heading">Common mistakes in high school</h2>
       </div>
+      {% include phone-fold.html id="mistakes" %}
       <div class="prose reveal">
         <ul>
           <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><strong>Avoiding hard classes to protect GPA.</strong> Strength of curriculum mattered considerably to {{ F_curr.pct }}% of colleges in NACAC's survey. Challenge yourself where you can still earn good grades.</li>
@@ -186,12 +191,13 @@ breadcrumb:
     </div>
   </section>
 
-  <section class="block block-alt" id="faq" aria-labelledby="faq-heading">
+  <section class="block block-alt" id="faq" aria-labelledby="faq-heading" data-pfold>
     <div class="container">
       <div class="section-head reveal">
         <span class="eyebrow">Good to know</span>
         <h2 id="faq-heading">Frequently asked questions</h2>
       </div>
+      {% include phone-fold.html id="faq" %}
       <div class="faq-list reveal">
         <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">Is there a national exam at the end of U.S. high school?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">No. States and local districts set diploma requirements. Some states use end-of-course or exit exams, but there is no single national graduation exam.</div></div>
         <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">Is a weighted or unweighted GPA better?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">Neither is better; schools report GPA differently. Many colleges recalculate GPAs using core subjects and adjust or remove extra weighting so applicants from different schools can be compared.</div></div>

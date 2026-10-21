@@ -118,6 +118,14 @@
         {%- elsif D.industries %}<a href="#pay" class="md-textlink">{{ D.breakdown_label | default: "Pay by industry" }}</a>{% endif %}
         {%- if P.colleges %}<a href="us/careers/{{ P.slug }}/colleges/" class="md-textlink">Colleges</a>{% endif %}
         {%- if site.data.us.apprenticeships.careers[P.slug] %}<a href="{{ site.data.us.sources.list.dol_job_finder.url }}" class="md-textlink">Apprenticeships</a>{% endif %}
+        {%- comment -%} Phase 14 cross-links: exam pages whose used_by.need names this pathway or its roadmap slug,
+          and the Career Cluster hub that lists it (_data/us/clusters.yml `pathway:` entry) {%- endcomment -%}
+        {%- for E in US.exams.exams %}{%- assign EN = E[1].used_by.need -%}
+        {%- if EN contains P.slug or v2_rm and EN contains v2_rm.slug %}<a href="us/exams/{{ E[0] }}/" class="md-textlink">{{ E[1].short }}</a>{% endif %}
+        {%- endfor %}
+        {%- for CL in US.clusters.clusters %}{%- assign v2_cl = CL.careers | where: "pathway", P.slug | first -%}
+        {%- if v2_cl %}<a href="us/clusters/{{ CL.slug }}/" class="md-textlink">{{ CL.name }} hub</a>{% endif %}
+        {%- endfor %}
       </div>
     </header>
   </div>
@@ -233,7 +241,8 @@
       </ol>
       {%- endif %}
       {%- if LIC and P.roadmap == "license" %}
-      <div class="md-datanote">{{ LIC.jurisdiction_note }} <a href="us/professional-licenses/{{ P.license }}/">Full licensing route →</a></div>
+      {%- capture v2_st %}{% include us-state-lic-links.html key=P.license %}{% endcapture %}{% assign v2_st = v2_st | strip %}
+      <div class="md-datanote">{{ LIC.jurisdiction_note }} <a href="us/professional-licenses/{{ P.license }}/">Full licensing route →</a>{% if v2_st != "" %} State license pages: {{ v2_st }}.{% endif %}</div>
       <details class="md-more md-exams-more">
         <summary>About the licensing exams</summary>
         {% include us-exam-list.html license=P.license %}
@@ -314,6 +323,8 @@
       {% include us-exam-list.html license=P.license %}
       {%- if LIC.not_required_for %}<p class="md-tile-note"><strong>Not always required:</strong> {{ LIC.not_required_for | join: " " }}</p>{% endif %}
       <a class="md-tile-link" href="us/professional-licenses/{{ P.license }}/">Full licensing route and changes to watch →</a>
+      {%- capture v2_st %}{% include us-state-lic-links.html key=P.license %}{% endcapture %}{% assign v2_st = v2_st | strip %}
+      {%- if v2_st != "" %}<p class="md-tile-note">State license pages: {{ v2_st }}</p>{% endif %}
     </div>
   </section>
   {%- endif %}

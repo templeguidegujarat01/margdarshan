@@ -137,6 +137,7 @@ the home forwards `us/#<id>` to the route card's link (`home.yml` `vectors[].mov
 | `us-cluster-career.html` | one career as matrix row / card / link | reads `pathway`, `trade` or `career` data; same license wording as the pathway page |
 | `us-career-overview.html` | `us/careers/<slug>/` for new careers | what the job is (+ work environment), key numbers, outlook, how to become one, roadmap CTA; buttons only for pages that exist |
 | `intl-roadmap.html` (`career: true`) | `us/roadmaps/<slug>.html` | routes as `.cflow`; step `href`/`link` for exam and license gates; license step labelled "License"; "Where to go next" → cluster hub |
+| `us-state-lic-links.html` | "Texas · Ohio" links to the state licensing pages that cover a license or trade | Phase 14 cross-links on career, pathway and trade pages (`FINAL-REPORT.md` §2.1) |
 | `us-career-page.html` | — | retired v1 pathway template, unused; kept until the owner OKs deletion. The new generic page is `us-career-overview.html` so the old file is not overwritten |
 
 ## 5. Data (`_data/us/`)

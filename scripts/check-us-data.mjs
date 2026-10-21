@@ -780,6 +780,15 @@ for (const [k, E] of Object.entries(EXS)) {
   if (!P || !(P.points || []).length) err(`exams[${k}]`, "needs a practice section (the exam owner's own practice)");
   else for (const p of P.points) if (!p.src || !sources.list[p.src]) err(`exams[${k}].practice`, `point needs a known source id (${p.src})`);
 }
+// Phase 14 navigation: the USA sidebar has a top-level item for each of the six support hubs (home.yml `support`)
+// and the Career Clusters item lists all 14 clusters (above: one child per live hub; every hub is live since Phase 8).
+{
+  const nav = yaml.load(navUs);
+  const top = new Set(nav.sidebar.flatMap((g) => g.items.map((i) => i.href)));
+  for (const S of home.support) if (!top.has(S.href)) err('_data/nav_us.yml', `support hub "${S.title}" (${S.href}) needs its own sidebar item`);
+  if (navHubs.size !== clusters.length) err('_data/nav_us.yml', `Career Clusters menu lists ${navHubs.size} of ${clusters.length} clusters`);
+  if (!top.has('us/cte/') && !nav.sidebar.some((g) => g.items.some((i) => (i.children || []).some((c) => c.href === 'us/cte/')))) err('_data/nav_us.yml', 'the Trades & CTE hub (us/cte/) needs a menu link');
+}
 if (CIX) console.log(`checked colleges: ${clSchools} schools in ${Object.keys(CIX.states).length} states, ${clCities} city pages, ${Object.keys(CFD?.fields || {}).length} program lists, ${Object.keys(CAP?.careers || {}).length} apprenticeship matches`);
 
 console.log(`checked ${Object.keys(EXS).length} exam pages in ${(exams.stages || []).length} stages, ${(exams.ap_subjects || []).length} AP subjects, ${gatesLinked} roadmap exam gates linked`);

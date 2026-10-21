@@ -38,9 +38,10 @@
   </div>
 
   {%- for st in EX.stages %}
-  <section class="md-sec{% cycle '', ' md-sec-alt' %}" id="{{ st.id }}" aria-labelledby="{{ st.id }}-h">
+  <section class="md-sec{% cycle '', ' md-sec-alt' %}" id="{{ st.id }}" aria-labelledby="{{ st.id }}-h" data-pfold>
     <div class="container">
       <div class="md-sec-head"><h2 id="{{ st.id }}-h">{{ st.title }}</h2><p>{{ st.line }}{% if st.source %} {% include us-src-chip.html id=st.source %}{% assign src_ids = src_ids | append: "," | append: st.source %}{% endif %}</p></div>
+      {% include phone-fold.html id=st.id %}
       <ul class="md-links">
         {%- for slug in st.exams %}{%- assign E = EX.exams[slug] %}
         {%- assign f1 = E.facts[0] %}{%- assign f2 = E.facts[1] %}

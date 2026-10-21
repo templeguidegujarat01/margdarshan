@@ -43,9 +43,10 @@
     </header>
   </div>
 
-  <section class="md-sec" id="types" aria-labelledby="types-h">
+  <section class="md-sec" id="types" aria-labelledby="types-h" data-pfold>
     <div class="container">
       <div class="md-sec-head"><h2 id="types-h">Three kinds of school</h2><p>Federal data sort every school by the length of its longest program. Each kind can be public, private nonprofit or private for-profit.</p></div>
+      {% include phone-fold.html id="types" %}
       <div class="table-wrap" data-no-points>
         <table class="md-table">
           <thead><tr><th>Kind</th><th>What it awards</th><th class="num">Public</th><th class="num">Private nonprofit</th><th class="num">Private for-profit</th><th class="num">All</th></tr></thead>
@@ -62,9 +63,10 @@
     </div>
   </section>
 
-  <section class="md-sec md-sec-alt" id="states" aria-labelledby="states-h">
+  <section class="md-sec md-sec-alt" id="states" aria-labelledby="states-h" data-pfold>
     <div class="container">
       <div class="md-sec-head"><h2 id="states-h">Colleges by state</h2><p>Each state page lists every school with type, control, cost, net price and completion, links its city pages and shows where to earn a doctorate.</p></div>
+      {% include phone-fold.html id="states" %}
       <ul class="md-links" data-no-points>
         {%- for st in CI.states %}{%- assign SS = st[1] %}
         <li><a href="us/colleges/{{ st[0] }}/"><strong>{{ SS.name }}</strong><span>{% include fmt-num.html n=SS.n %} schools{% if SS.cities.size > 0 %} · {{ SS.cities.size }} {% if SS.cities.size == 1 %}city{% else %}cities{% endif %}{% endif %}</span></a></li>
@@ -80,9 +82,10 @@
     </div>
   </section>
 
-  <section class="md-sec md-sec-alt" id="apprenticeship" aria-labelledby="appr-h">
+  <section class="md-sec md-sec-alt" id="apprenticeship" aria-labelledby="appr-h" data-pfold>
     <div class="container">
       <div class="md-sec-head"><h2 id="appr-h">Registered Apprenticeship</h2><p>A Registered Apprenticeship Program is a model of apprenticeship validated by the Department of Labor or a State Apprenticeship Agency. {% include us-src-chip.html id="dol_rap" %} DOL's list of approved occupations has {% include fmt-num.html n=APX.rapids_codes %} RAPIDS codes; {{ n_appr }} careers on this site match at least one, and their program lists and career pages show it. {% include us-src-chip.html id="dol_occupations" %}</p></div>
+      {% include phone-fold.html id="apprenticeship" %}
       <ul class="md-links" data-no-points>
         <li><a href="{{ SRC.dol_job_finder.url }}"><strong>Apprenticeship Job Finder</strong><span>Open apprenticeship jobs from employers, on Apprenticeship.gov</span></a></li>
         <li><a href="{{ SRC.dol_apprentice_seekers.url }}"><strong>Becoming an apprentice</strong><span>DOL's guide for career seekers</span></a></li>
@@ -91,9 +94,10 @@
     </div>
   </section>
 
-  <section class="md-sec" id="test-prep" aria-labelledby="prep-h">
+  <section class="md-sec" id="test-prep" aria-labelledby="prep-h" data-pfold>
     <div class="container">
       <div class="md-sec-head"><h2 id="prep-h">Test prep and tutoring</h2><p>This site does not list private coaching or tutoring centers in the U.S.: there is no official registry of them to check a listing against. Every exam page links the exam owner's own free practice instead (SAT and PSAT in Bluebook, ACT practice tests, GED preview tests, GRE, GMAT, LSAT, MCAT and licensing exam samples).</p></div>
+      {% include phone-fold.html id="test-prep" %}
       <div class="rm-link-card" data-no-points><div><strong>Exams hub</strong><p>Every exam by stage, each with dates, fees, scoring and free official practice.</p></div><a href="us/exams/" class="btn btn-primary btn-page-link">Open the exams hub</a></div>
     </div>
   </section>

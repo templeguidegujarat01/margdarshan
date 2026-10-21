@@ -3425,6 +3425,26 @@ html.js #sources:not(.is-open) .section-head > :not(.eyebrow):not(h2),
 html.js #sources:not(.is-open) :is(.cite-md,.cite-report){display:none;}
 @media (prefers-reduced-motion:reduce){html.js #sources .src-more,html.js #sources .src-more::after{transition:none;}}
 
+/* ===================== PHONE FOLD (USA hubs, Master Plan Phase 14, 2026-10-21) =====================
+   Hubs must stay within 8 phone screens without dropping content: below 900px a section[data-pfold] shows its
+   head (eyebrow, h2, intro line) and a "Show all" button (_includes/phone-fold.html, site.js block "Phone fold");
+   the rest opens on tap. Gated by html.js like the sources fold, so it is folded from the first paint and fully
+   visible without JS. Desktop: unchanged, button hidden. */
+.pfold-btn{display:none;}
+@media (max-width:899.98px){
+  html.js [data-pfold]:not(.is-open) > .container > :not(.section-head):not(.md-sec-head):not(.pfold-btn){display:none;}
+  html.js [data-pfold] .pfold-btn{display:inline-flex;align-items:center;gap:.4rem;margin:.2rem 0 .4rem;padding:.5rem 1rem;min-height:44px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--text);font:inherit;font-size:.86rem;font-weight:600;cursor:pointer;}
+  html.js [data-pfold] .pfold-btn:hover,html.js [data-pfold] .pfold-btn:focus-visible{border-color:var(--gold);}
+  html.js [data-pfold] .pfold-btn::after{content:"";width:.45rem;height:.45rem;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:translateY(-2px) rotate(45deg);}
+  html.js [data-pfold].is-open .pfold-btn::after{transform:translateY(1px) rotate(-135deg);}
+}
+@media (max-width:767.98px){
+  /* Footer on phones: link lists in two columns (all editions), less padding */
+  .footer-col ul{grid-template-columns:1fr 1fr;column-gap:1rem;}
+  .footer-top{gap:1.6rem;}
+  .site-footer{padding-top:2.5rem;}
+}
+
 /* ===================== USA HOME ROUTES (us/index.html, _data/us/home.yml, 2026-10-20) =====================
    .usv-grid   five route cards under the hero (anchor links to the five sections); 1 col → 2 → 5.
    .usv-facts  short dt/dd fact rows under each route's .cflow rail.

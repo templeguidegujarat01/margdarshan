@@ -99,13 +99,14 @@ breadcrumb:
     </div>
   </section>
 
-  <section class="block" id="cost" aria-labelledby="cost-heading">
+  <section class="block" id="cost" aria-labelledby="cost-heading" data-pfold>
     <div class="container">
       <div class="section-head reveal">
         <span class="eyebrow">Real prices</span>
         <h2 id="cost-heading">What college costs ({{ M.sticker_prices.year }})</h2>
         <p>{{ M.sticker_prices.label }}, from College Board's annual survey.</p>
       </div>
+      {% include phone-fold.html id="cost" %}
       <div class="table-wrap">
         <table class="table-simple">
           <thead><tr><th>Type of college</th><th>Tuition and fees per year</th></tr></thead>
@@ -127,13 +128,14 @@ breadcrumb:
     </div>
   </section>
 
-  <section class="block block-alt" id="aid" aria-labelledby="aid-heading">
+  <section class="block block-alt" id="aid" aria-labelledby="aid-heading" data-pfold>
     <div class="container">
       <div class="section-head reveal">
         <span class="eyebrow">Financial aid</span>
         <h2 id="aid-heading">FAFSA, grants and loans</h2>
         <p>Grants do not have to be repaid; loans do. Most federal aid starts with one free form.</p>
       </div>
+      {% include phone-fold.html id="aid" %}
       <div class="chip-grid us-links reveal">
         <div class="item"><strong>FAFSA</strong>{{ M.fafsa.text }} <a href="{{ SRC[M.fafsa.source].url }}">Source</a></div>
         <div class="item"><strong>Pell Grant ({{ M.pell.year }})</strong>{{ M.pell.text }} Up to {% include fmt-num.html n=M.pell.max prefix="$" %} a year; the minimum award is {% include fmt-num.html n=M.pell.min prefix="$" %}. <a href="{{ SRC[M.pell.source].url }}">Source</a></div>
@@ -145,13 +147,14 @@ breadcrumb:
   </section>
 
   {%- assign TR = G.transfer %}
-  <section class="block" id="transfer" aria-labelledby="transfer-heading">
+  <section class="block" id="transfer" aria-labelledby="transfer-heading" data-pfold>
     <div class="container">
       <div class="section-head reveal">
         <span class="eyebrow">Community college</span>
         <h2 id="transfer-heading">Community college and transfer: the real numbers</h2>
         <p>Starting at a community college is a smart way to save money — if you plan the transfer. National data on {{ TR.cohort | downcase }}:</p>
       </div>
+      {% include phone-fold.html id="transfer" %}
       <div class="table-wrap">
         <table class="table-simple">
           <thead><tr><th>Outcome within six years</th><th>Share</th></tr></thead>
@@ -174,13 +177,14 @@ breadcrumb:
   </section>
 
   {%- assign EX = G.experience %}
-  <section class="block block-alt" id="experience" aria-labelledby="experience-heading">
+  <section class="block block-alt" id="experience" aria-labelledby="experience-heading" data-pfold>
     <div class="container">
       <div class="section-head reveal">
         <span class="eyebrow">What students say</span>
         <h2 id="experience-heading">College life, from national student surveys</h2>
         <p>Real experiences of currently enrolled students, from large national surveys rather than anecdotes.</p>
       </div>
+      {% include phone-fold.html id="experience" %}
       <h3 class="block-subhead">{{ EX.stopout.considered_pct }}% considered leaving their program in the past six months</h3>
       <div class="table-wrap">
         <table class="table-simple">
@@ -206,12 +210,13 @@ breadcrumb:
     </div>
   </section>
 
-  <section class="block" id="faq" aria-labelledby="faq-heading">
+  <section class="block" id="faq" aria-labelledby="faq-heading" data-pfold>
     <div class="container">
       <div class="section-head reveal">
         <span class="eyebrow">Good to know</span>
         <h2 id="faq-heading">Frequently asked questions</h2>
       </div>
+      {% include phone-fold.html id="faq" %}
       <div class="faq-list reveal">
         <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">Do I have to pay the full sticker price?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">Often not. Published tuition is before grants and scholarships. Use each college's net price calculator and file the FAFSA to see what you would actually pay.</div></div>
         <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">Is starting at a community college a good idea?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">It can save money, but plan the transfer from day one. Of students who started at a community college in fall 2018, {{ TR.transferred_pct }}% transferred to a four-year college within six years, and {{ TR.of_those_bachelor_pct }}% of those earned a bachelor's degree in that time.</div></div>

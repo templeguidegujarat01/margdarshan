@@ -48,6 +48,13 @@
         <div><dt>The work</dt><dd>{{ X.does.text }} {% include us-src-chip.html id=X.does.source %}</dd></div>
         <div><dt>How people get in</dt><dd>{{ X.lede }}</dd></div>
         <div><dt>Good fit for</dt><dd>{{ X.for }}</dd></div>
+        {%- comment -%} Phase 14 cross-links: the Career Cluster hub that lists this trade, and its state rules {%- endcomment -%}
+        {%- for CL in site.data.us.clusters.clusters %}{%- assign t_cl = CL.careers | where: "trade", X.slug | first -%}
+        {%- if t_cl %}
+        <div><dt>Career cluster</dt><dd><a href="us/clusters/{{ CL.slug }}/">{{ CL.name }}</a></dd></div>
+        {%- endif %}{%- endfor %}
+        {%- capture t_st %}{% include us-state-lic-links.html key=X.slug %}{% endcapture %}{% assign t_st = t_st | strip %}
+        <div><dt>By state</dt><dd><a href="{{ rm_href }}#states">State licensing matrix on the roadmap</a>{% if t_st != "" %} · State license pages: {{ t_st }}{% endif %}</dd></div>
       </dl>
     </div>
   </section>

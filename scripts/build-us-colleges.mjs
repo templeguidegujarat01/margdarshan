@@ -7,15 +7,19 @@
 // and _data/us/college_search.json (search entries for all of them; assets/search.json concatenates it).
 // Input: _data/us/college_index.json, college_fields.json and apprenticeships.json, written by
 //   node scripts/build-ipeds.mjs --places …   (rerun this script after every data rebuild, then --check).
-//   node scripts/build-us-colleges.mjs [--check]
+//   VERIFY_DEPS=<dir with node_modules/js-yaml> node scripts/build-us-colleges.mjs [--check]
+// Program-list search entries carry `g` = the career's Career Cluster (scripts/lib/us-cluster-map.mjs, Phase 14).
 // --check only reports missing / stale stubs and stub folders with no data behind them; it never deletes (a city
 // that drops below 3 schools keeps its folder until the owner decides: make it a redirect_to stub).
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+import { usClusterMap } from './lib/us-cluster-map.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const check = process.argv.includes('--check');
+const CLM = usClusterMap(root, createRequire(path.join(process.env.VERIFY_DEPS || root, 'x.js'))('js-yaml'));
 const IX = JSON.parse(fs.readFileSync(path.join(root, '_data/us/college_index.json'), 'utf8'));
 const FD = JSON.parse(fs.readFileSync(path.join(root, '_data/us/college_fields.json'), 'utf8'));
 const AP = JSON.parse(fs.readFileSync(path.join(root, '_data/us/apprenticeships.json'), 'utf8'));
@@ -100,7 +104,7 @@ breadcrumb:
   parent_label: "Programs by career"
   current: "${esc(F.short)}"
 `, 'us-colleges-field.html'));
-  search.push({ t: `Where to study: ${F.short}`, s: `${fmt(F.institutions)} U.S. colleges and schools award a matching program`, u: `us/colleges/fields/${slug}/`, c: 'usa', k: 'usa colleges schools programs training where to study' });
+  search.push({ t: `Where to study: ${F.short}`, s: `${fmt(F.institutions)} U.S. colleges and schools award a matching program`, u: `us/colleges/fields/${slug}/`, c: 'usa', k: 'usa colleges schools programs training where to study', ...(CLM.has(`us/colleges/fields/${slug}/`) ? { g: CLM.get(`us/colleges/fields/${slug}/`) } : {}) });
 }
 
 // Stub folders without data behind them (never deleted here).

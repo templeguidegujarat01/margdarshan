@@ -7,6 +7,8 @@
 //   - duplicate ids, unbalanced <details>/<section>/<div>
 //   - no "coming soon" placeholder text
 //   - no typed arrow inside a .btn-page-link button (the CSS draws one; 2026-10-20)
+//   - with --all: no orphan USA page (every us/** page that is not a redirect is linked from another page;
+//     USA Master Plan Phase 14, 2026-10-21)
 import fs from 'node:fs';
 import path from 'node:path';
 import { createRequire } from 'node:module';
@@ -70,6 +72,8 @@ for (const f of [...urlSet].filter((x) => x.endsWith('.html') && !x.startsWith('
   }
 }
 const idCache = {};
+const inbound = new Map();     // page -> how many OTHER pages link to it (orphan check)
+const redirects = new Set();
 
 async function render(f) {
   const raw = fs.readFileSync(path.join(root, f), 'utf8');
@@ -78,6 +82,7 @@ async function render(f) {
   // and jekyll-redirect-from replaces a `redirect_to` page with its own bare redirect page.
   if (!m) return raw;
   const fm = yaml.load(m[1]) || {};
+  if (fm.redirect_to) redirects.add(f);
   if (fm.redirect_to) return `<!DOCTYPE html><html lang="en-US"><meta charset="utf-8"><title>Redirecting…</title><link rel="canonical" href="${fm.redirect_to}"><meta http-equiv="refresh" content="0; url=${fm.redirect_to}"><a href="${fm.redirect_to}">Click here if you are not redirected.</a></html>`;
   const body = m ? raw.slice(m[0].length) : raw;
   // Apply _config.yml `defaults` like Jekyll: scope.path is a folder prefix ("" = all); front matter wins.
@@ -138,6 +143,8 @@ for (const f of targets) {
       target = clean.startsWith('/') ? clean.slice(1) : path.posix.normalize(path.posix.join(dir, clean));
       if (target === '' || target.endsWith('/')) target += 'index.html';
       if (!urlSet.has(target) && !urlSet.has(target + '.html')) { err(f, 'broken link: ' + h); continue; }
+      const tf = urlSet.has(target) ? target : target + '.html';
+      if (tf !== f && !redirects.has(f)) inbound.set(tf, (inbound.get(tf) || 0) + 1);
     }
     if (hash && target.endsWith('.html') && urlSet.has(target)) {
       const ids2 = target === f ? new Set(ids) : await idsOf(target);
@@ -145,6 +152,7 @@ for (const f of targets) {
     }
   }
 }
+if (all) for (const f of targets) if (f.startsWith('us/') && !redirects.has(f) && !inbound.get(f)) err(f, 'orphan page: no other page links to it');
 console.log(`checked ${n} pages`);
 if (errors.length) { console.log(errors.join('\n')); console.log(`\n${errors.length} problem(s)`); process.exit(1); }
 console.log('OK: 0 problems');

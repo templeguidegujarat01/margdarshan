@@ -86,13 +86,14 @@
 
   {%- assign also_trim = also_html | strip %}
   {%- if also_trim != "" %}
-  <section class="block" id="also" aria-labelledby="also-heading" data-no-points>
+  <section class="block" id="also" aria-labelledby="also-heading" data-no-points data-pfold>
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">Shared careers</span>
         <h2 id="also-heading">Also in this cluster</h2>
         <p>Advance CTE places some occupations in more than one cluster. These careers have their page under another cluster, and the crosswalk puts them here too.</p>
       </div>
+      {% include phone-fold.html id="also" %}
       <ul class="usc-also">
         {{ also_html }}
       </ul>
@@ -101,13 +102,14 @@
   {%- endif %}
 
   {%- if also_trim != "" %}{% assign alt = " block-alt" %}{% else %}{% assign alt = "" %}{% endif %}
-  <section class="block{{ alt }}" id="sub-clusters" aria-labelledby="sub-heading" data-no-points>
+  <section class="block{{ alt }}" id="sub-clusters" aria-labelledby="sub-heading" data-no-points data-pfold>
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">{{ C.sub_clusters.size }} sub-clusters</span>
         <h2 id="sub-heading">Sub-clusters and example programs</h2>
         <p>{{ CL.framework.terms[1].text }} The programs are Advance CTE's examples of school and college programs of study; what is offered varies by state.</p>
       </div>
+      {% include phone-fold.html id="sub-clusters" %}
       <ul class="usc-subgrid">
         {%- for S in C.sub_clusters %}
         <li class="usc-subcard">
@@ -122,13 +124,14 @@
 
   {%- if C.credentials %}
   {%- if alt == "" %}{% assign alt = " block-alt" %}{% else %}{% assign alt = "" %}{% endif %}
-  <section class="block{{ alt }}" id="credentials" aria-labelledby="credentials-heading" data-no-points>
+  <section class="block{{ alt }}" id="credentials" aria-labelledby="credentials-heading" data-no-points data-pfold>
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">License or not?</span>
         <h2 id="credentials-heading">Certifications and licenses</h2>
         <p>A state or federal license is the law; a registration through an employer comes with the job; a voluntary certification is something employers may ask for. Each card links the owner's own page.</p>
       </div>
+      {% include phone-fold.html id="credentials" %}
       <ul class="usc-subgrid">
         {%- for K in C.credentials %}
         <li class="usc-subcard">
@@ -147,13 +150,14 @@
   {%- if C.small_business %}
   {%- assign SB = C.small_business %}
   {%- if alt == "" %}{% assign alt = " block-alt" %}{% else %}{% assign alt = "" %}{% endif %}
-  <section class="block{{ alt }}" id="small-business" aria-labelledby="small-business-heading" data-no-points>
+  <section class="block{{ alt }}" id="small-business" aria-labelledby="small-business-heading" data-no-points data-pfold>
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">Entrepreneurship</span>
         <h2 id="small-business-heading">Start a small business</h2>
         <p>{{ SB.intro }} {% include us-src-chip.html id=SB.source %}</p>
       </div>
+      {% include phone-fold.html id="small-business" %}
       <div class="usv-split">
         {%- assign sb_n = 0 %}
         {%- for G in SB.groups %}
@@ -185,13 +189,14 @@
   {%- if C.public_sector %}
   {%- assign PS = US.home.public_sector %}
   {%- if alt == "" %}{% assign alt = " block-alt" %}{% else %}{% assign alt = "" %}{% endif %}
-  <section class="block{{ alt }}" id="public-sector" aria-labelledby="public-heading" data-no-points>
+  <section class="block{{ alt }}" id="public-sector" aria-labelledby="public-heading" data-no-points data-pfold>
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">Government jobs</span>
         <h2 id="public-heading">Federal, state and city civil service</h2>
         <p>Federal agencies hire through job announcements, mostly on USAJOBS. States, counties and cities run separate systems with their own exams and lists.</p>
       </div>
+      {% include phone-fold.html id="public-sector" %}
       <div class="usv-split">
         <article class="usv-board">
           <h3>Federal agencies · {{ PS.federal.portal }}</h3>
@@ -235,13 +240,14 @@
   {%- if C.public_sector and PS.service_routes %}
   {%- assign SR = PS.service_routes %}
   {%- if alt == "" %}{% assign alt = " block-alt" %}{% else %}{% assign alt = "" %}{% endif %}
-  <section class="block{{ alt }}" id="service-routes" aria-labelledby="service-heading" data-no-points>
+  <section class="block{{ alt }}" id="service-routes" aria-labelledby="service-heading" data-no-points data-pfold>
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">Serve the country</span>
         <h2 id="service-heading">Foreign Service and the military</h2>
         <p>The State Department and each armed service run their own selection, apart from USAJOBS. These are their entry routes as each one publishes them.</p>
       </div>
+      {% include phone-fold.html id="service-routes" %}
       <div class="usv-split">
         <article class="usv-board">
           <h3>{{ SR.foreign_service.name }} · {{ SR.foreign_service.by }}</h3>
@@ -292,7 +298,7 @@
   {%- endif %}
 
   {%- if alt == "" %}{% assign alt = " block-alt" %}{% else %}{% assign alt = "" %}{% endif %}
-  <section class="block{{ alt }}" id="connected" aria-labelledby="connected-heading" data-no-points>
+  <section class="block{{ alt }}" id="connected" aria-labelledby="connected-heading" data-no-points data-pfold>
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">Next door</span>
@@ -303,6 +309,7 @@
         <p>This is a cross-cutting cluster: Advance CTE says its skills apply across all Career Clusters, and its page names no single closest cluster. {% include us-src-chip.html id=C.source %}</p>
         {%- endif %}
       </div>
+      {% include phone-fold.html id="connected" %}
       {%- if C.connected.size > 0 %}
       <ul class="usc-chips">
         {%- for s in C.connected %}{% assign N = CL.clusters | where: "slug", s | first %}

@@ -13,6 +13,7 @@ import path from 'node:path';
 import vm from 'node:vm';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
+import { usClusterMap } from './lib/us-cluster-map.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const yaml = createRequire(path.join(process.env.VERIFY_DEPS || root, 'x.js'))('js-yaml');
@@ -75,8 +76,18 @@ else {
   const run = (q, home) => {
     const P = E.parse(q, index);
     const out = E.search(index, P, 8, home || null);
-    return { P, total: out.total, top: out.top.map((i) => items[i]) };
+    return { P, total: out.total, top: out.top.map((i) => items[i]), filters: E.describe(P) };
   };
+  // USA Career Cluster facet (Phase 14): the engine's 14 cluster slugs = _data/us/clusters.yml, and every search entry
+  // for a page the cluster map knows (hub, career page, roadmap, program list) carries that cluster as `g`.
+  const clSlugs = load('_data/us/clusters.yml').clusters.map((c) => c.slug);
+  const engCl = Array.from(E.CL || [], (c) => c[0]);
+  if (engCl.join() !== clSlugs.join()) err('site.js MdSearch CL', `cluster slugs ${JSON.stringify(engCl)} must equal clusters.yml ${JSON.stringify(clSlugs)}`);
+  const CLM = usClusterMap(root, yaml);
+  items.forEach((d) => {
+    const want = d.c === 'usa' ? CLM.get(d.u.split('#')[0]) : undefined;
+    if ((d.g || undefined) !== want) err(`search "${d.t}"`, want ? `needs g: ${want}` : `g: ${d.g} but ${d.u} is not a page of that cluster`);
+  });
   // [query, edition home (null = global), test(result) → error text or ''].
   const urls = (r) => r.top.map((d) => d.u);
   const has = (r, u, n = 8) => urls(r).slice(0, n).includes(u);
@@ -197,6 +208,33 @@ else {
     ['community colleges usa', null, (r) => (has(r, 'us/colleges/', 5) ? '' : 'expected the USA colleges hub in top 5')],
     ['electrician school usa', null, (r) => (has(r, 'us/colleges/fields/electrician/', 5) ? '' : 'expected the electrician program list in top 5')],
     ['where to study nursing assistant usa', null, (r) => (has(r, 'us/colleges/fields/nursing-assistant/', 5) ? '' : 'expected the nursing assistant program list in top 5')],
+    // USA Master Plan Phase 14 (2026-10-21): USA state facet (soft with other words, implies USA) + Career Cluster facet
+    ['texas nurse license', null, (r) => (r.top.length && r.top.every((d) => d.c === 'usa') && has(r, 'us/states/texas/licenses.html', 3) ? '' : 'expected USA-only, the Texas state boards page in top 3')],
+    ['sat dates', null, (r) => (has(r, 'us/exams/sat/', 1) ? '' : 'expected the SAT page first')],
+    ['electrician apprenticeship ohio', null, (r) => (has(r, 'us/states/ohio/licenses.html', 3) && has(r, 'us/cte/roadmaps/electrician.html', 3) ? '' : 'expected the Ohio state boards page + electrician roadmap in top 3')],
+    ['new york nursing license', null, (r) => (r.top.every((d) => d.c === 'usa') && has(r, 'us/states/new-york/licenses.html', 1) ? '' : 'expected USA-only, the New York state boards page first')],
+    ['california cpa license', null, (r) => (has(r, 'us/professional-licenses/cpa/', 3) && has(r, 'us/states/california/licenses.html', 3) ? '' : 'expected the CPA license + California boards in top 3')],
+    ['florida bar exam', null, (r) => (has(r, 'us/states/florida/licenses.html', 3) && has(r, 'us/professional-licenses/law/', 3) ? '' : 'expected the Florida boards + bar admission in top 3')],
+    ['illinois plumber', null, (r) => (has(r, 'us/states/illinois/licenses.html', 3) && has(r, 'us/cte/plumber.html', 3) ? '' : 'expected the Illinois boards + plumber page in top 3')],
+    ['michigan electrician license', null, (r) => (has(r, 'us/states/michigan/licenses.html', 3) ? '' : 'expected the Michigan boards page in top 3')],
+    ['pennsylvania cosmetology license', null, (r) => (has(r, 'us/professional-licenses/cosmetology/', 3) && has(r, 'us/states/pennsylvania/licenses.html', 3) ? '' : 'expected the cosmetology license + Pennsylvania boards in top 3')],
+    ['north carolina real estate license', null, (r) => (r.top.every((d) => d.c === 'usa') && has(r, 'us/professional-licenses/real-estate/', 3) ? '' : 'expected USA-only, the real estate license page in top 3')],
+    ['georgia nursing board', null, (r) => (has(r, 'us/states/georgia/licenses.html', 1) ? '' : 'expected the Georgia boards page first')],
+    ['hvac license ohio', null, (r) => (has(r, 'us/states/ohio/licenses.html', 3) && has(r, 'us/cte/roadmaps/hvac-technician.html', 3) ? '' : 'expected the Ohio boards + HVAC roadmap in top 3')],
+    ['pe license california', null, (r) => (has(r, 'us/professional-licenses/pe/', 1) && has(r, 'us/states/california/licenses.html', 5) ? '' : 'expected the PE license first, California boards in top 5')],
+    ['texas teaching license', null, (r) => (has(r, 'us/professional-licenses/teaching/', 1) ? '' : 'expected the teaching license page first')],
+    ['texas', null, (r) => (r.top.length && r.top.every((d) => /texas/.test(d.u)) && has(r, 'us/states/texas/', 1) ? '' : 'a state name alone is a hard filter: Texas pages only, state page first')],
+    ['colleges in ohio', null, (r) => (has(r, 'us/colleges/ohio/', 1) ? '' : 'expected the Ohio colleges page first')],
+    ['colleges in chicago', null, (r) => (has(r, 'us/colleges/illinois/chicago/', 1) ? '' : 'expected the Chicago colleges page first')],
+    ['colleges in seattle', null, (r) => (has(r, 'us/colleges/washington/seattle/', 1) ? '' : 'expected the Seattle colleges page first')],
+    ['act test dates', null, (r) => (has(r, 'us/exams/act/', 1) ? '' : 'expected the ACT page first')],
+    ['lsat dates', null, (r) => (has(r, 'us/exams/lsat/', 1) ? '' : 'expected the LSAT page first')],
+    ['healthcare jobs usa', null, (r) => (has(r, 'us/clusters/healthcare-human-services/', 1) && /Healthcare/.test(r.filters) ? '' : 'expected the Healthcare hub first and the Healthcare cluster facet')],
+    ['supply chain careers usa', null, (r) => (has(r, 'us/clusters/supply-chain-transportation/', 1) && /Supply Chain/.test(r.filters) ? '' : 'expected the Supply Chain hub first and the cluster facet')],
+    ['construction trades usa', null, (r) => (has(r, 'us/clusters/construction/', 1) ? '' : 'expected the Construction hub first')],
+    ['manufacturing jobs usa', null, (r) => (has(r, 'us/clusters/advanced-manufacturing/', 1) && r.top.slice(0, 5).every((d) => d.g === 'advanced-manufacturing' || /manufacturing/i.test(d.t)) ? '' : 'expected the Advanced Manufacturing hub first, its careers next')],
+    ['usa states list', null, (r) => (has(r, 'us/states/', 1) ? '' : 'expected the States hub first')],
+    ['where to study registered nurse', null, (r) => (has(r, 'us/careers/nursing/colleges/', 3) ? '' : 'expected the nursing colleges list in top 3')],
     ['zzzz qqqq', null, (r) => (r.total === 0 ? '' : 'nonsense should return nothing')],
   ];
   for (const [q, home, t] of cases) {

@@ -26,7 +26,14 @@ so site.js Block 0 leaves the text as it is (no reflow after load). {%- endcomme
   "description": {{ page.description | jsonify }},
   "url": "{{ page.url | absolute_url }}",
   "inLanguage": "en-US",
-  "publisher": { "@type": "Organization", "name": "Education Margdarshan", "url": "{{ site.url }}{{ site.baseurl }}/" }
+  "publisher": { "@type": "Organization", "name": "Education Margdarshan", "url": "{{ site.url }}{{ site.baseurl }}/" },
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Education Margdarshan", "item": "{{ site.url }}{{ site.baseurl }}/" },
+      { "@type": "ListItem", "position": 2, "name": "USA Home", "item": "{{ page.url | absolute_url }}" }
+    ]
+  }
 }
 </script>
 <main id="main" data-no-page-nav>
@@ -87,13 +94,14 @@ so site.js Block 0 leaves the text as it is (no reflow after load). {%- endcomme
   </section>
 
   <!-- ===================== FIVE ROUTES (detail lives in the hubs) ===================== -->
-  <section class="block" id="routes" aria-labelledby="routes-heading" data-no-points>
+  <section class="block" id="routes" aria-labelledby="routes-heading" data-no-points data-pfold>
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">Where are you now?</span>
         <h2 id="routes-heading">Five routes from high school to a career</h2>
         <p>Each route opens the hub that explains it step by step: high school, college, trades, state licenses and government jobs.</p>
       </div>
+      {% include phone-fold.html id="routes" %}
       <ol class="usv-grid">
         {%- for v in H.vectors %}
         <li><a class="usv-card" href="{{ v.moved_to }}" data-route="{{ v.id }}"><span class="usv-n">{{ v.n }}</span><strong>{{ v.title }}</strong><span>{{ v.line }}</span></a></li>
@@ -113,12 +121,13 @@ so site.js Block 0 leaves the text as it is (no reflow after load). {%- endcomme
   </script>
 
   <!-- ===================== ALSO IN THIS EDITION ===================== -->
-  <section class="block block-alt" id="more" aria-labelledby="more-heading" data-no-points>
+  <section class="block block-alt" id="more" aria-labelledby="more-heading" data-no-points data-pfold>
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">Also in the USA Edition</span>
         <h2 id="more-heading">More guides</h2>
       </div>
+      {% include phone-fold.html id="more" %}
       <div class="chip-grid us-links">
         <div class="item"><strong><a href="us/careers/">{{ US.pathways.list.size }} career pathways</a></strong>BLS pay and outlook by occupation, with colleges for each.</div>
         <div class="item"><strong><a href="us/cte/">Trades &amp; CTE</a></strong>Electrician, plumber, HVAC, welder and auto technician, with roadmaps.</div>
@@ -132,12 +141,13 @@ so site.js Block 0 leaves the text as it is (no reflow after load). {%- endcomme
   </section>
 
   <!-- ===================== FAQ ===================== -->
-  <section class="faq" id="faq" aria-labelledby="faq-heading">
+  <section class="faq" id="faq" aria-labelledby="faq-heading" data-pfold>
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">Good to know</span>
         <h2 id="faq-heading">Frequently asked questions</h2>
       </div>
+      {% include phone-fold.html id="faq" %}
       <div class="faq-list">
         <div class="faq-item" data-open="false">
           <button type="button" class="faq-q" aria-expanded="false">What is a Career Cluster?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>

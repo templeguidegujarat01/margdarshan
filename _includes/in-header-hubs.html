@@ -14,6 +14,9 @@
   scripts/build-nav-mega.mjs from the hub pages). Desktop with a mouse (>=1024px, hover): hovering or
   focusing a rail name swaps the right pane at once (site.js moves .is-on; the first node starts on).
   Touch and below 1024px: each rail name is an accordion that opens its list under it.
+  Group tabs (2026-10-21): a node with 2+ groups and more than 8 guides gets a row of group tabs on top of its
+  pane (states, sub-streams, sport families). Only the hovered / focused / tapped group's list shows, so the
+  pane stays short; site.js moves .is-on between .hh-tab and its .hh-col.
 {%- endcomment -%}
 {%- assign hh_cur = page.url | remove_first: "/" -%}
 <nav class="in-header-hubs" aria-label="India menu">
@@ -37,16 +40,26 @@
             {%- assign M = site.data.nav_mega[n.mega] %}
             {%- assign n_cols = n.cols %}
             {%- if M %}{% assign n_cols = M.cols %}{% endif %}
+            {%- assign n_links = 0 %}{% for col in n_cols %}{% assign n_links = n_links | plus: col.links.size %}{% endfor %}
+            {%- if n_cols.size > 1 and n_links > 8 %}{% assign n_tab = true %}{% else %}{% assign n_tab = false %}{% endif %}
+            {%- capture n_id %}hh-{{ it.label | slugify }}-{{ n.label | slugify }}{% endcapture %}
             <li class="hh-sub hh-node{% if forloop.first %} is-on{% endif %}">
               <a class="hh-sub-btn" href="{{ n.href }}" aria-haspopup="true"{% if hh_cur == n.href %} aria-current="page"{% endif %}><span class="hh-node-txt">{{ n_label }}</span><svg class="hh-sub-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
-              <div class="hh-fly hh-grid" role="group" aria-label="{{ n_label }}">
+              <div class="hh-fly hh-grid{% if n_tab %} hh-tabbed{% endif %}" role="group" aria-label="{{ n_label }}">
                 <div class="hh-fly-head">
                   <p class="hh-fly-title">{{ n_label }}{% if M.note %}<span>{{ M.note | replace: "&", "&amp;" }}</span>{% endif %}</p>
                   <a class="hh-link hh-fly-all" href="{% if M.head %}{{ M.head.href }}{% else %}{{ n.href }}{% endif %}">{% if M.head %}{{ M.head.label | replace: "&", "&amp;" }}{% else %}Open {{ n_label }}{% endif %} <span aria-hidden="true">→</span></a>
                 </div>
+                {%- if n_tab %}
+                <div class="hh-tabs" role="tablist" aria-label="{{ n_label }}: pick a group">
+                  {%- for col in n_cols %}
+                  <button type="button" class="hh-tab{% if forloop.first %} is-on{% endif %}" role="tab" id="{{ n_id }}-t{{ forloop.index }}" aria-controls="{{ n_id }}-p{{ forloop.index }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"{% unless forloop.first %} tabindex="-1"{% endunless %}>{{ col.label | replace: "&", "&amp;" }}<span class="hh-tab-n">{{ col.links.size }}</span></button>
+                  {%- endfor %}
+                </div>
+                {%- endif %}
                 <div class="hh-cols">
                   {%- for col in n_cols %}
-                  <div class="hh-col{% if col.links.size < 9 %} hh-col-keep{% endif %}">
+                  <div class="hh-col{% if col.links.size < 9 %} hh-col-keep{% endif %}{% if n_tab and forloop.first %} is-on{% endif %}"{% if n_tab %} role="tabpanel" id="{{ n_id }}-p{{ forloop.index }}" aria-labelledby="{{ n_id }}-t{{ forloop.index }}"{% endif %}>
                     <p class="hh-col-head">{% if col.icon %}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{{ col.icon }}</svg>{% endif %}{{ col.label | replace: "&", "&amp;" }}</p>
                     <ul>
                       {%- for c in col.links %}

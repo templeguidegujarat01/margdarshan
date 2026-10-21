@@ -1905,11 +1905,50 @@ try {
         if(n.classList.contains('is-on')) n.classList.remove('is-on'); else on(n);
       });
     });
+    // Group tabs (.hh-tabs, a node with many groups): one group's list at a time. Mouse: hover switches after
+    // 110 ms, so moving down across the pill rows to the list does not flick through the pills passed over.
+    // Click / tap / focus switch at once; Left / Right / Home / End move between pills (WAI-ARIA tabs).
+    function tabOn(tabs, t){
+      tabs.forEach(function(o){
+        var hit = o === t, pane = document.getElementById(o.getAttribute('aria-controls'));
+        o.classList.toggle('is-on', hit); o.setAttribute('aria-selected', hit ? 'true' : 'false'); o.tabIndex = hit ? 0 : -1;
+        if(pane) pane.classList.toggle('is-on', hit);
+      });
+      // Narrow: the pills scroll sideways in one line; bring the active one into view.
+      var row = t.parentNode, r = row.getBoundingClientRect(), b = t.getBoundingClientRect();
+      if(row.scrollWidth > row.clientWidth && (b.left < r.left || b.right > r.right)) row.scrollLeft += b.left - r.left - 12;
+    }
+    function tabReset(n){
+      var tabs = n.querySelectorAll('.hh-tab');
+      if(!tabs.length) return;
+      var cur = n.querySelector('.hh-tabbed .hh-col [aria-current="page"]'), t = tabs[0];
+      if(cur){ var pane = cur.closest('.hh-col'); tabs.forEach(function(o){ if(o.getAttribute('aria-controls') === pane.id) t = o; }); }
+      tabOn(tabs, t);
+    }
+    panel.querySelectorAll('.hh-tabs').forEach(function(row){
+      var tabs = row.querySelectorAll('.hh-tab'), tt = 0;
+      tabs.forEach(function(t, i){
+        t.addEventListener('mouseenter', function(){
+          if(!wide.matches) return;
+          clearTimeout(tt); tt = setTimeout(function(){ tabOn(tabs, t); }, 110);
+        });
+        t.addEventListener('mouseleave', function(){ clearTimeout(tt); });
+        t.addEventListener('click', function(){ clearTimeout(tt); tabOn(tabs, t); });
+        t.addEventListener('focus', function(){ tabOn(tabs, t); });
+        t.addEventListener('keydown', function(e){
+          var k = e.key, j = k === 'ArrowRight' ? i + 1 : k === 'ArrowLeft' ? i - 1 : k === 'Home' ? 0 : k === 'End' ? tabs.length - 1 : null;
+          if(j === null) return;
+          e.preventDefault();
+          tabs[(j + tabs.length) % tabs.length].focus();
+        });
+      });
+    });
     // Each time the menu opens: desktop starts on the first node (or the one holding this page);
     // narrow starts with every list closed except the one holding this page.
     var dd = panel.closest('.hh-dd');
     dd.addEventListener('toggle', function(){
       if(!dd.open) return;
+      nodes.forEach(tabReset);
       var cur = null;
       nodes.forEach(function(n){ if(!cur && n.querySelector('[aria-current="page"]')) cur = n; });
       if(wide.matches) on(cur || nodes[0]);

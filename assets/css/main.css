@@ -418,6 +418,33 @@ html.nav-locked{overflow:hidden;}
   .hh-cols{column-width:9rem;}
 }
 @media (prefers-reduced-motion:reduce){.hh-sub-arrow{transition:none !important;}}
+/* Group tabs (.hh-tabbed: a node with 2+ groups and 9+ guides): a row of pills on top of the pane, one per
+   group (a state, a sub-stream, a sport family) with its count. Only the active group's list shows, flowed
+   into columns across the pane. Desktop: every group sits in the same grid cell, so the pane is as tall as
+   its longest group and switching never moves the layout. Narrow: the pills scroll sideways in one line. */
+.hh-tabs{display:flex;flex-wrap:wrap;gap:.35rem;margin:0 0 .7rem;padding:0 .5rem .65rem;border-bottom:1px solid var(--line);}
+.hh-tab{display:inline-flex;align-items:center;gap:.4rem;min-height:32px;padding:.3rem .45rem .3rem .75rem;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--text);font:inherit;font-size:.8rem;font-weight:600;line-height:1.2;white-space:nowrap;cursor:pointer;transition:background-color .15s var(--ease),border-color .15s var(--ease),color .15s var(--ease),box-shadow .15s var(--ease);}
+.hh-tab-n{display:inline-grid;place-items:center;min-width:1.35rem;height:1.35rem;padding:0 .3rem;border-radius:999px;background:var(--stream-soft);color:var(--text-muted);font-family:var(--font-mono);font-size:.68rem;font-weight:700;}
+.hh-tab:hover{border-color:var(--stream-border);background:var(--stream-soft);}
+.hh-tab.is-on{border-color:var(--stream-border);background:var(--stream-soft);color:var(--link);box-shadow:inset 0 0 0 1px var(--stream-border);}
+.hh-tab.is-on .hh-tab-n{background:var(--gold);color:#241703;}
+.hh-tab:focus-visible{outline:2px solid var(--link);outline-offset:2px;}
+.hh-tabbed .hh-cols{columns:auto;display:grid;}
+.hh-tabbed .hh-col{grid-area:1 / 1;margin:0;}
+.hh-tabbed .hh-col-head{display:none;}
+.hh-tabbed .hh-col ul{column-width:11rem;column-gap:.75rem;}
+@media (min-width:1024px) and (hover:hover){
+  .hh-tabbed .hh-col{visibility:hidden;}
+  .hh-tabbed .hh-col.is-on{visibility:inherit;}
+}
+@media not all and (min-width:1024px) and (hover:hover){
+  .hh-tabs{flex-wrap:nowrap;overflow-x:auto;margin:0 -.25rem .6rem;padding:.1rem .5rem .6rem;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;}
+  .hh-tabs::-webkit-scrollbar{display:none;}
+  .hh-tab{flex-shrink:0;min-height:36px;}
+  .hh-tabbed .hh-col:not(.is-on){display:none;}
+  .hh-tabbed .hh-col ul{column-width:9rem;}
+}
+@media (prefers-reduced-motion:reduce){.hh-tab{transition:none;}}
 
 /* India edition pages (body.shell-in, _layouts/default.html): no sidebar, so the content takes the full width
    and the top bar has no menu button. On phones the logo mark stands where the menu button was (it lived in the

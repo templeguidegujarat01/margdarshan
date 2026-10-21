@@ -93,14 +93,28 @@ eligible, have a visible breadcrumb (except the USA Home) and a BreadcrumbList.
 - Crawl of the rendered site (3,108 pages): 0 broken internal links, 0 orphan USA pages, every USA page has a
   canonical URL and is sitemap-eligible; BreadcrumbList on all of them after the USA Home fix.
 - `check-us-data`, `check-search` (140 queries), every `build-* --check`: 0 problems. `verify-site --all` with the new
-  orphan check was still running when this commit was made (not confirmed in this run).
+  orphan check: 3,108 pages, 0 problems.
 - axe-core (WCAG 2.0/2.1/2.2 A + AA) on 20 sample pages × (1366 light, 390 dark) = 40 runs: 0 violations.
 - Phone length (390×844). New phone fold (`data-pfold`, `_includes/phone-fold.html`): below 900px long secondary
   sections show heading + "Show all"; nothing removed; footer lists in two columns. Before → after (screens):
   cluster hubs 7.3–14.9 → 5.2–7.8; USA Home 10 → 7.2; Exams 10.8 → 6.6; States 10.5 → 7.8; Colleges 13.5 → 7.0;
-  Programs by career 17 → 6.9; High school 12.9 → 8.0; Trades & CTE 7.5 → 7.0. **Still over 8:** Licensing hub 8.3 and
-  Paying for college 8.1 (next fix: fold the licensing overview list and the degrees section).
-- Lighthouse: not run in this pass (queued: live spot checks after deploy).
+  Programs by career 17 → 6.9; High school 12.9 → 8.0; Trades & CTE 7.5 → 7.0; Licensing 11.2 → 6.1 (its compare
+  table scrolls sideways on phones instead of wrapping every cell); Paying for college 13 → 7.1. Every hub is now at
+  most 8 screens.
+- Phone overflow fixed: every cluster hub was 716px wide on phones (before Phase 14 too). The careers table's hidden
+  "Career page" header (`.sr-only`, absolutely positioned) escaped its scroll box; `.table-wrap` is now
+  `position: relative`. Screenshots 1366 + 390, light + dark, of 8 pages: no horizontal overflow.
+- Lighthouse (live site, mobile, 2026-10-21) for performance / accessibility / best practices / SEO:
+
+  | Page | Perf | A11y | BP | SEO | LCP | CLS | TBT |
+  |---|---:|---:|---:|---:|---|---|---|
+  | `us/` | 59 | 100 | 100 | 100 | 2.8 s | 0 | 2,930 ms |
+  | `us/clusters/healthcare-human-services/` | 86 | 100 | 100 | 100 | 1.5 s | 0 | 560 ms |
+  | `us/careers/licensed-practical-nurse/` | 73 | 100 | 100 | 100 | 2.0 s | 0 | 1,380 ms |
+  | `us/colleges/texas/houston/` | 97 | 100 | 100 | 100 | 1.6 s | 0 | 160 ms |
+
+  Open: the USA Home's blocking time comes from style and layout (3.7 s of main-thread work under throttling) and
+  the Google tag (1.9 s of script). Neither is a Phase 14 change; it is the next performance item.
 
 ## 4. Open gaps (from the phase reports)
 

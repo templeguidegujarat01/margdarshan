@@ -756,7 +756,7 @@ table{border-collapse:collapse;width:100%;}
 /* Tables — the single definition used by every page. Cells wrap (with a
    minimum width) so long text stays readable; .table-wrap scrolls
    sideways on narrow screens when a table is wider than the viewport. */
-.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius-md);background:var(--surface);margin-top:.5rem;}
+.table-wrap{position:relative;overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius-md);background:var(--surface);margin-top:.5rem;}
 .table-simple{width:100%;border-collapse:collapse;}
 .table-simple th,.table-simple td{text-align:left;vertical-align:top;padding:.85rem 1.1rem;font-size:.9rem;border-bottom:1px solid var(--line);}
 .table-simple th{background:var(--paper);color:var(--text-muted);font-weight:700;font-size:.76rem;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap;}
@@ -3443,6 +3443,8 @@ html.js #sources:not(.is-open) :is(.cite-md,.cite-report){display:none;}
   .footer-col ul{grid-template-columns:1fr 1fr;column-gap:1rem;}
   .footer-top{gap:1.6rem;}
   .site-footer{padding-top:2.5rem;}
+  /* Wide compare tables scroll sideways instead of wrapping every cell into a tall column (Phase 14) */
+  .md-table-wide{min-width:40rem;}
 }
 
 /* ===================== USA HOME ROUTES (us/index.html, _data/us/home.yml, 2026-10-20) =====================

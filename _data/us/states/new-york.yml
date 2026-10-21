@@ -1,0 +1,100 @@
+# New York (USA Master Plan Phase 11 + 12). Schema: _data/us/state_index.yml. hesc.ny.gov returns 403 to requests from
+# India: read through the Internet Archive's latest capture. NYSED Office of the Professions' engineering pages did not
+# load (timeout / 404): PE is in the gaps list.
+name: "New York"
+abbr: NY
+checked: 2026-10-21
+review_by: 2027-04-21
+lede: "New York's diploma needs 22 credits plus Regents exams in four subjects and one pathway; SUNY and CUNY run the public colleges, and TAP pays up to $5,665 a year."
+links:
+  - { label: "New York City hub", href: "us/new-york-city/", text: "Wall Street investment banking and criminal law in the city: BLS pay, bar admission, employers and NYC colleges" }
+
+diploma:
+  intro: "Three diplomas: local, Regents, and Regents with advanced designation. Every student must meet both the credit and the assessment requirements; schools and districts may add more."
+  rows:
+    - ["English", "4 credits"]
+    - ["Social studies", "4 credits: U.S. History 1, Global History and Geography 2, Participation in Government ½, Economics ½"]
+    - ["Science", "3 credits: life science 1, physical science 1, life or physical science 1"]
+    - ["Mathematics", "3 credits"]
+    - ["World languages", "1 credit (students with disabilities may be excused by their IEP)"]
+    - ["The arts", "1 credit (dance, media arts, music, theater or visual arts)"]
+    - ["Physical education", "2 credits (¼ credit per semester of participation)"]
+    - ["Health", "½ credit"]
+    - ["Electives", "3½ credits"]
+  unit: "22 credits in total."
+  tests: "For a Regents or local diploma, pass one Regents exam (or an approved alternative) each in English language arts, mathematics, science and social studies, plus one pathway. Advanced designation adds two more math exams and a second science exam (one life, one physical), and a world-language, arts or CTE sequence."
+  src: ny_sed_grad
+
+k12_test:
+  name: "New York State Testing Program"
+  full: "Grades 3-8 tests and Regents examinations (NYSTP)"
+  intro: "NYSED's Office of State Assessment develops and runs the New York State Testing Program, given from kindergarten through grade 12 in public, nonpublic and charter schools."
+  src: ny_sed_assessment
+  rows:
+    - ["Grades 3–8 tests", "English language arts and mathematics", "Grades 3–8"]
+    - ["Elementary-level and Intermediate-level Science", "Science", "Grade 5 and grade 8"]
+    - ["Regents examinations", "High school subjects", "High school; four subjects plus a pathway are diploma requirements"]
+    - ["New York State Alternate Assessment (NYSAA)", "Alternate assessment", "Students who qualify"]
+  rows_src: ny_sed_38
+  use:
+    - { t: "Regents exams (or approved alternatives) are part of the diploma requirements above.", src: ny_sed_grad }
+    - { t: "NYSED has published a memo on statewide implementation of computer-based testing for grades 3–8.", src: ny_sed_38 }
+
+colleges:
+  systems:
+    - { name: "State University of New York (SUNY)", kind: university, url: "https://www.suny.edu/", line: "The largest comprehensive university system in the U.S.: 64 institutions, including research universities, academic medical centers, liberal arts colleges, community colleges and colleges of technology, serving nearly 1.3 million students.", src: ny_suny_about }
+    - { name: "City University of New York (CUNY)", kind: university, url: "https://www.cuny.edu/", line: "The nation's largest urban public university: 26 colleges across the five boroughs (11 senior colleges, 7 community colleges), 247,000 students, founded in 1847.", src: ny_cuny_about }
+    - { name: "SUNY and CUNY community colleges", kind: community, url: "https://www.suny.edu/", line: "Community colleges belong to the two university systems: SUNY lists community colleges among its 64 institutions, and CUNY has 7 community colleges in New York City.", src: ny_suny_about, src2: ny_cuny_about }
+
+residency:
+  points:
+    - { t: "SUNY: a U.S. citizen, permanent resident or certain non-immigrant whose domicile has been in New York for at least one year immediately before registration pays in-state tuition.", src: ny_suny_residency }
+    - { t: "Being physically present in New York for twelve months does not by itself create a domicile; a domicile is a fixed, permanent home you intend to return to.", src: ny_suny_residency }
+    - { t: "A student's residency usually follows the custodial parents or guardians; students 24 and older are independent of their parents. Students with less than a year apply to the campus with the Application for New York State Resident Status (it may need to be notarized).", src: ny_suny_residency }
+
+aid:
+  agency: { name: "New York State Higher Education Services Corporation (HESC)", url: "https://hesc.ny.gov/", src: ny_hesc_tap }
+  programs:
+    - { name: "Tuition Assistance Program (TAP)", line: "$1,000 to $5,665 a year toward tuition. Legal NYS resident for 12 continuous months before enrolling (or eligible under the NYS DREAM Act). NYS net taxable income limit: $125,000 for dependent students, $60,000 for married students with no dependents, $30,000 for single independent students. Up to 3 years for a full-time associate degree, 4 for a bachelor's, 5 for approved five-year programs; file the FAFSA and TAP application each year.", src: ny_hesc_tap }
+
+jobs:
+  state:
+    portal: "NYS Department of Civil Service"
+    url: "https://www.cs.ny.gov/jobseeker/"
+    by: "New York State Department of Civil Service"
+    steps:
+      - "Find non-competitive roles that do not need an exam, or compete in civil service examinations."
+      - "The type of test is set by the job and listed on the examination announcement under 'Subject of Examination'."
+      - "Under NY HELPS, testing was waived for most open-competitive positions from May 2024 to June 2026, as the page states."
+    exam: "Yes for competitive positions; some roles are non-competitive."
+    src: nys_civil_service
+  cities:
+    - { name: "New York City", body: "NYC Department of Citywide Administrative Services (DCAS)", url: "https://www.nyc.gov/site/dcas/employment/applying-for-an-exam.page", line: "Exam applications are accepted only during the filing period in the Notice of Examination: apply online in OASys or at a Computer-based Testing & Applications Center (CTAC), open Monday to Friday. The NYC Exam Regulations set the rules and timeframes.", src: ny_nyc_dcas_apply }
+
+apprenticeship:
+  office: "New York State Department of Labor, Registered Apprenticeship"
+  url: "https://dol.ny.gov/apprenticeships"
+  kind: SAA
+  line: "New York's State Apprenticeship Agency. Apprentices have a job from day one, with hands-on learning and related classroom instruction."
+  src: ny_dol_apprenticeship
+  oa_src: dol_oa_states
+
+licenses:
+  nursing:
+    body: "NYSED Office of the Professions"
+    req: "At least 18, good moral character, graduation from an acceptable nursing program (associate, bachelor's, master's or diploma), plus NYSED child abuse reporting and infection control coursework."
+    exam: "NCLEX-RN (or another exam acceptable to NYSED)"
+    fee: "Licensure and first registration $143; limited permit $35"
+    renewal: "Registration every 3 years; infection control coursework every 4 years"
+    sources: [ny_op_rn]
+  cpa:
+    body: "NYSED Office of the Professions"
+    req: "At least 21, plus education, examination and experience requirements; supervisors verify experience on Form 4B."
+    exam: "Uniform CPA Examination"
+    fee: "Licensure and first registration $427"
+    sources: [ny_op_cpa]
+  law:
+    body: "New York State Board of Law Examiners; admission by the Appellate Division"
+    req: "Before admission: 50 hours of pro bono work, the skills competency requirement, then a character and fitness interview at the Appellate Division."
+    exam: "UBE, the New York Law Course and New York Law Exam, and the MPRE. From July 2028 the NextGen bar exam replaces the UBE"
+    sources: [nycrr_520_9, nybole_admission, nybole_home]

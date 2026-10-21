@@ -1,0 +1,83 @@
+# Georgia (USA Master Plan Phase 11 + 12). Schema: _data/us/state_index.yml. gadoe.org, apps.gadoe.org, tcsg.edu and
+# gafutures.org time out or return 503 from India: read through the Internet Archive's latest capture. Secretary of State
+# board PDFs (electrical, plumbing) return 403: those trade rows are in the gaps list.
+name: "Georgia"
+abbr: GA
+checked: 2026-10-21
+review_by: 2027-04-21
+lede: "Georgia sets a 23-unit minimum for a diploma, tests grades 3–8 and key high school courses with Georgia Milestones, and runs two public systems: the University System of Georgia and the Technical College System of Georgia."
+
+diploma:
+  intro: "State Board of Education rule 160-4-2-.48 (effective 11 March 2020), for students who entered grade 9 in 2008-09 or later. Local boards may require more."
+  rows:
+    - ["English / language arts", "4 units"]
+    - ["Mathematics", "4 units"]
+    - ["Science", "4 units (the 4th can also count as an elective)"]
+    - ["Social studies", "3 units"]
+    - ["CTAE, modern language / Latin, or fine arts", "3 units"]
+    - ["Health and physical education", "1 unit"]
+    - ["Electives", "4 units"]
+  unit: "23 units minimum."
+  tests: "Students in courses designated by the State Board of Education take Georgia Milestones end-of-course tests (see State test)."
+  src: ga_sboe_48
+
+k12_test:
+  name: "Georgia Milestones"
+  full: "Georgia Milestones Assessment System"
+  intro: "Georgia Milestones measures how well students in grades 3 through high school have learned the state standards in English language arts, mathematics, science and social studies."
+  src: ga_doe_milestones
+  rows:
+    - ["End-of-Grade (EOG)", "English language arts and mathematics", "Grades 3–8"]
+    - ["End-of-Grade (EOG)", "Science", "Grades 5 and 8"]
+    - ["End-of-Grade (EOG)", "Social studies", "Grade 8"]
+    - ["End-of-Course (EOC)", "Courses designated by the State Board of Education", "High school (or middle school students in those courses)"]
+  rows_src: ga_doe_milestones
+  use:
+    - { t: "Milestones tells students how ready they are for the next grade, the next course or postsecondary study; parents, schools, districts and policy makers use the results to monitor and improve Georgia's education system.", src: ga_doe_milestones }
+
+colleges:
+  systems:
+    - { name: "University System of Georgia (USG)", kind: university, url: "https://www.usg.edu/institutions/", line: "Georgia's public colleges and universities, governed by the Board of Regents, which elects each institution's president.", src: ga_usg_policy }
+    - { name: "Technical College System of Georgia (TCSG)", kind: community, url: "https://www.tcsg.edu/", line: "Oversees the state's technical colleges, adult literacy programs and economic and workforce development programs: a unified system of technical education, adult education and business and industry training.", src: ga_tcsg_about }
+
+residency:
+  points:
+    - { t: "O.C.G.A. 20-3-66 and Board of Regents policy: you must establish and keep a domicile in Georgia for at least 12 consecutive months immediately before the first day of classes to be considered in-state for that term.", src: ga_usg_glossary }
+    - { t: "A domicile is your present, permanent home where you intend to stay indefinitely; you can have only one. A student turning 18 is not reclassified by emancipation alone unless they show financial independence and a domicile separate from their parents.", src: ga_usg_glossary }
+
+aid:
+  agency: { name: "Georgia Student Finance Commission (GAfutures)", url: "https://www.gafutures.org/", src: ga_hope }
+  programs:
+    - { name: "HOPE Scholarship", line: "For Georgia residents who have shown academic achievement; pays part of tuition at a HOPE-eligible college or university. High school students can track their HOPE GPA in their GAfutures account.", src: ga_hope }
+
+jobs:
+  state:
+    portal: "Careers.Georgia.gov"
+    url: "https://careers.georgia.gov/"
+    by: "State of Georgia"
+    steps:
+      - "Search job openings across nearly 100 state agencies and apply online."
+      - "The site's FAQ explains how to apply and how to check your application status."
+    src: ga_careers
+  cities: []
+
+apprenticeship:
+  office: "Georgia Apprenticeship Office (U.S. Department of Labor)"
+  url: "https://www.apprenticeship.gov/about-us/state-office"
+  kind: OA
+  line: "Georgia has no State Apprenticeship Agency: the U.S. Department of Labor's Georgia Apprenticeship Office registers and oversees programs."
+  src: dol_oa_offices
+  oa_src: dol_oa_states
+
+licenses:
+  nursing:
+    body: "Georgia Board of Nursing (Secretary of State, Licensing Division)"
+    req: "Graduate from an approved registered nursing education program and apply to the Board; register with Pearson VUE the same day, and complete fingerprinting through GAPS after you apply."
+    exam: "NCLEX-RN"
+    renewal: "Every 2 years"
+    sources: [ga_sos_rn]
+  law:
+    body: "Georgia Office of Bar Admissions"
+    req: "Create an account, be certified as fit to practice law by the Fitness Board, then file a Bar Exam Application on time."
+    exam: "Georgia Bar Exam"
+    sources: [ga_bar_home]

@@ -1,0 +1,83 @@
+# Michigan (USA Master Plan Phase 11 + 12). Schema: _data/us/state_index.yml. michigan.gov PDFs return 403 to requests
+# from India: the Merit Curriculum overview and the Guide to State Assessments were read through the Internet Archive's
+# latest capture. The Michigan Board of Law Examiners page (courts.michigan.gov) returned 403: law is in the gaps list.
+name: "Michigan"
+abbr: MI
+checked: 2026-10-21
+review_by: 2027-04-21
+lede: "Michigan's Merit Curriculum sets 18 credits (plus an online learning experience and, for newer classes, half a credit of personal finance); grade 11 students take the Michigan Merit Examination built on the SAT."
+
+diploma:
+  intro: "The Michigan Merit Curriculum: credit is based on proficiency in the state content standards, not seat time, so courses, CTE programs and internships can each fill parts of a credit."
+  rows:
+    - ["English language arts", "4 credits"]
+    - ["Mathematics", "4 credits: 3 in the state standards plus a district-approved 4th credit; students must have a math experience in their final year"]
+    - ["Science", "3 credits (or 2 credits plus a department-approved CTE program)"]
+    - ["Social studies", "3 credits"]
+    - ["Physical education and health", "1 credit (or ½ health plus ½ for approved extracurricular physical activity)"]
+    - ["Visual, performing and applied arts", "1 credit"]
+    - ["World language", "2 credits in grades K–12 (or 1 plus a CTE program or an extra arts credit)"]
+    - ["Online learning experience", "A course, learning or integrated learning experience"]
+    - ["Personal finance", "½ credit, for students entering grade 8 in 2023 and later"]
+  unit: "18 credits."
+  tests: "Grade 11 students take the Michigan Merit Examination (MME): the SAT with Essay, WIN Work Readiness Assessments and M-STEP science and social studies."
+  src: mi_mde_mmc
+  points:
+    - { t: "The MME's SAT with Essay provides the grade 11 English language arts and math scores used for school accountability.", src: mi_mde_guide }
+
+k12_test:
+  name: "M-STEP and the MME"
+  full: "Michigan Student Test of Educational Progress, PSAT and the Michigan Merit Examination"
+  intro: "M-STEP is a computer-based test of how well students are mastering the state standards; combined with classwork, report cards and local tests, the results give a full view of student progress."
+  src: mi_mde_mstep
+  rows:
+    - ["M-STEP", "English language arts and mathematics (computer-adaptive)", "Grades 3–7"]
+    - ["M-STEP", "Science and social studies", "Grades 5, 8 and 11"]
+    - ["PSAT 8/9", "English language arts and mathematics (grade 8 accountability scores)", "Grade 8 (also taken in grade 9)"]
+    - ["PSAT 10", "Online multistage adaptive test", "Grade 10 (not part of accountability)"]
+    - ["Michigan Merit Examination (MME)", "SAT with Essay, WIN Work Readiness, M-STEP science and social studies", "Grade 11"]
+  rows_src: mi_mde_guide
+  use:
+    - { t: "Grade 8 PSAT 8/9 and grade 11 SAT scores are the English and math scores Michigan uses for accountability; grade 9 PSAT 8/9 and PSAT 10 results are not.", src: mi_mde_guide }
+
+colleges:
+  systems:
+    - { name: "Michigan public universities", kind: university, url: "https://www.michigan.gov/mileap/higher-education", line: "MiLEAP's Office of Higher Education works with institutions across the state on credit transfer (its Transfer Success Project). The University of Michigan, for example, has constitutional authority to set its own residency rules.", src: mi_mileap, src2: mi_um_residency }
+    - { name: "Michigan community colleges", kind: community, url: "https://www.michigan.gov/mistudentaid", line: "The Community College Guarantee lets every recent Michigan high school graduate earn a skill certificate or associate degree tuition-free at their local community college, regardless of family income.", src: mi_achievement }
+
+residency:
+  points:
+    - { t: "Each university sets its own rule. At the University of Michigan you qualify for in-state tuition through residence (Michigan is your permanent legal home and you intend to stay), attendance, or service.", src: mi_um_residency }
+    - { t: "University of Michigan attendance route: at least three years at an accredited Michigan high school followed by graduation (or a Michigan GED), plus attendance at a Michigan middle or junior high school; you need not be a legal resident of Michigan or the U.S. for this route.", src: mi_um_residency }
+    - { t: "The University's residency office decides for all three U-M campuses, independent of tax, voting or driving rules.", src: mi_um_residency }
+
+aid:
+  agency: { name: "MI Student Aid (MiLEAP)", url: "https://www.michigan.gov/mistudentaid", src: mi_achievement }
+  programs:
+    - { name: "Michigan Achievement Scholarship", line: "For recent Michigan high school graduates continuing their education at a college or university, with a Michigan Achievement Skills Scholarship for career training programs.", src: mi_achievement }
+    - { name: "Community College Guarantee", line: "Tuition-free skill certificate or associate degree at the local community college for all recent high school graduates; Pell Grant recipients get a $1,000 bonus for living costs.", src: mi_achievement }
+
+jobs:
+  state:
+    portal: "State of Michigan Jobs (governmentjobs.com/careers/michigan)"
+    url: "https://www.governmentjobs.com/careers/michigan"
+    by: "State of Michigan"
+    steps:
+      - "Search State of Michigan jobs online; featured career areas include engineering, business support, human services, IT, health care, natural resources and law enforcement."
+    src: mi_som_jobs
+  cities: []
+
+apprenticeship:
+  office: "Michigan Apprenticeship Office (U.S. Department of Labor)"
+  url: "https://www.apprenticeship.gov/about-us/state-office"
+  kind: OA
+  line: "Michigan has no State Apprenticeship Agency: the U.S. Department of Labor's Michigan Apprenticeship Office registers and oversees programs."
+  src: dol_oa_offices
+  oa_src: dol_oa_states
+
+licenses:
+  electrician:
+    body: "Department of Licensing and Regulatory Affairs (LARA), Bureau of Construction Codes"
+    req: "Electrical apprentices register with the state and must be in a board-approved apprenticeship program with related technical instruction (MCL 339.5717). Electrical contractor, fire alarm contractor and sign contractor licenses no longer need an exam."
+    exam: "Journeyman and master exams by PSI, based on the 2023 National Electrical Code and Michigan Electrical Code rules"
+    sources: [mi_lara_electrical]

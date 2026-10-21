@@ -3468,3 +3468,15 @@ a.usc-card:hover,a.usc-card:focus-visible{border-color:var(--gold);box-shadow:va
 .usc-matrix th:nth-child(1){width:24%;}.usc-matrix th:nth-child(2){width:18%;}.usc-matrix th:nth-child(3){width:28%;}
 .usc-matrix th:nth-child(4){width:16%;}.usc-matrix th:nth-child(5){width:14%;}
 .usc-matrix th,.usc-matrix td{white-space:normal;overflow-wrap:break-word;}
+
+/* USA state licensing cards (Master Plan Phase 12, 2026-10-21): requirement / exam / fee / renewal as a small
+   definition list inside .md-tile; label column on the left from 480px, stacked on phones. */
+.us-lic-card h3{margin:0 0 .15rem;}
+.us-lic-card h3 a{color:inherit;}
+.us-lic-dl{display:grid;grid-template-columns:minmax(0,1fr);gap:.2rem .9rem;margin:.6rem 0 .4rem;}
+.us-lic-dl dt{font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--text-muted);margin-top:.35rem;}
+.us-lic-dl dd{margin:0;line-height:1.5;}
+@media (min-width:480px){.us-lic-dl{grid-template-columns:6.5rem minmax(0,1fr);}.us-lic-dl dt{margin-top:.15rem;}}
+/* License page state matrix: State | Board | Requirement | Exam | Fee | Renewal (scrolls inside .table-wrap below 760px). */
+.us-state-matrix{min-width:760px;}
+.us-state-matrix td{vertical-align:top;}

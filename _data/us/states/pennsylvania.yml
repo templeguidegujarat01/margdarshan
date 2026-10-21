@@ -1,0 +1,106 @@
+# Pennsylvania (USA Master Plan Phase 11 + 12). Schema: _data/us/state_index.yml. License rows come from the
+# Department of State's "Licensure Requirements Snapshot" pages (one per license). pabarexam.org times out from India:
+# read through the Internet Archive's latest capture.
+name: "Pennsylvania"
+abbr: PA
+checked: 2026-10-21
+review_by: 2027-04-21
+lede: "Pennsylvania students meet the state requirement through one of five Pathways to Graduation built around the Keystone Exams, while course credits are set locally; PASSHE universities and 15 community colleges are the public options covered here."
+
+diploma:
+  intro: "Pennsylvania sets no statewide list of course credits on this page: local graduation requirements apply, and every school must tell students and families what they are. The statewide requirement, from the class of 2023, is met through one of five Pathways to Graduation."
+  tests: "Students in public schools take the Keystone Exams (end-of-course tests in Algebra I, Literature and Biology). Proficiency in all three was meant to be required from 2017, but the legislature passed a series of moratoriums; a student who does not reach proficiency or the minimum composite score can show the Keystone content through locally set, grade-based requirements plus other evidence."
+  src: pa_pde_grad
+  points:
+    - { t: "A student who meets the statewide requirements but cannot meet local ones because of education instability may qualify for a Keystone diploma.", src: pa_pde_grad }
+
+k12_test:
+  name: "PSSA and Keystone Exams"
+  full: "Pennsylvania System of School Assessment (grades 3–8) and Keystone Exams (high school)"
+  intro: "The PSSA is a standards-based, criterion-referenced test that shows student and school performance against the state's academic standards."
+  src: pa_pde_pssa
+  rows:
+    - ["PSSA", "English language arts and math", "Grades 3–8"]
+    - ["PSSA", "Science", "Grades 5 and 8"]
+    - ["Keystone Exams", "Algebra I, Literature, Biology", "End-of-course, high school"]
+  rows_src: pa_pde_pssa
+  use:
+    - { t: "Individual scores go only to the student's school, to help teachers find students who need more support; school scores guide curriculum planning.", src: pa_pde_pssa }
+    - { t: "Keystone results feed the Pathways to Graduation (see above) and federal accountability.", src: pa_pde_grad }
+
+colleges:
+  systems:
+    - { name: "Pennsylvania's State System of Higher Education (PASSHE)", kind: university, url: "https://www.passhe.edu/", line: "Established 1 July 1983; more than 80,000 degree-seeking students, the most Pennsylvania residents of any four-year group in the state. A 20-member Board of Governors sets tuition and appoints the chancellor and presidents.", src: pa_passhe_about }
+    - { name: "Pennsylvania's community colleges", kind: community, url: "https://www.pacommunitycolleges.org/", line: "15 community colleges. Their statewide voice is the Pennsylvania Commission for Community Colleges, a nonprofit membership association of the college presidents and trustees.", src: pa_pccc_about }
+
+residency:
+  points:
+    - { t: "PASSHE Board of Governors Policy 1985-03 (Student Domicile Regulations): 12 months of continuous residence in Pennsylvania before registration creates a presumption of domicile; a shorter stay creates the opposite presumption, which you can rebut with clear and convincing evidence.", src: pa_passhe_domicile }
+    - { t: "Domicile is the place where you intend to live permanently or indefinitely and do in fact live. Students who are not U.S. citizens and hold a nonimmigrant visa or no visa are presumed not domiciled, which they may also rebut.", src: pa_passhe_domicile }
+
+aid:
+  agency: { name: "Pennsylvania Higher Education Assistance Agency (PHEAA)", url: "https://www.pheaa.org/", src: pa_pheaa_grant }
+  programs:
+    - { name: "PA State Grant", line: "A grant you do not repay if you stay eligible. File the FAFSA; PHEAA then asks first-time applicants to complete extra application items in their GrantUs account. A Summer PA State Grant has a 1 September deadline.", src: pa_pheaa_grant }
+
+jobs:
+  state:
+    portal: "Commonwealth of Pennsylvania Employment"
+    url: "https://www.pa.gov/agencies/employment"
+    by: "Commonwealth of Pennsylvania"
+    steps:
+      - "Search openings, explore careers and apply online."
+      - "The Commonwealth says 92% of state government jobs (65,000 opportunities) are open to people without a four-year degree."
+    src: pa_employment
+  cities:
+    - { name: "Philadelphia", body: "City of Philadelphia, Office of Human Resources", url: "https://www.phila.gov/departments/office-of-human-resources/", line: "More than 30,000 employees in over 1,000 job categories. Jobs are listed at work.phila.gov, and OHR runs Zoom information sessions on the hiring process on the second and fourth Tuesday of each month.", src: pa_phila_ohr }
+
+apprenticeship:
+  office: "Apprenticeship and Training Office (ATO), Department of Labor & Industry"
+  url: "https://www.pa.gov/agencies/dli/programs-services/workforce-development-home/home----------"
+  kind: SAA
+  line: "Pennsylvania's State Apprenticeship Agency. Apprentices are paid employees who combine on-the-job learning, classroom learning and a mentor, and finish with a portable, nationally recognized credential."
+  src: pa_dli_apprenticeship
+  oa_src: dol_oa_states
+
+licenses:
+  nursing:
+    body: "State Board of Nursing (Department of State)"
+    req: "High school or GED, an approved RN program (diploma, associate or bachelor's), and 3 hours of approved child abuse recognition training."
+    exam: "NCLEX-RN"
+    fee: "Single-state initial $95 (Pennsylvania school), $115 (out-of-state school)"
+    renewal: "Every 2 years, $122; 30 hours of continuing education including 2 on child abuse; from 1 May 2026, 2 hours of organ donation education once every 5 years"
+    sources: [pa_dos_rn]
+  cpa:
+    body: "State Board of Accountancy (Department of State)"
+    req: "120 semester credits to sit for the exam. To be licensed, one of three routes: bachelor's with 150 credits and 12 months/1,600 hours of experience; bachelor's with fewer than 150 credits and 24 months/3,200 hours; or a master's and 12 months/1,600 hours. Experience must fall in the 60 months before applying."
+    exam: "Uniform CPA Examination (scheduled through NASBA)"
+    fee: "Initial $65"
+    renewal: "$100; 80 hours of continuing education every 2 years, including 4 in ethics"
+    sources: [pa_dos_cpa]
+  pe:
+    body: "State Registration Board for Professional Engineers, Land Surveyors and Geologists"
+    req: "An ABET-accredited engineering degree (or another route the Board accepts, including 8 years of progressive experience), certification as an engineer intern, and 4 years of progressive engineering experience."
+    exam: "FE and PE (NCEES)"
+    fee: "Initial $50"
+    renewal: "$100 every 2 years; 24 professional development hours per renewal period"
+    sources: [pa_dos_pe]
+  cosmetology:
+    body: "State Board of Cosmetology (Department of State)"
+    req: "10th grade or equivalent and at least 1,250 hours in a licensed cosmetology school (over at least 8 months as a day student), or an apprenticeship route of up to 2,000 hours."
+    exam: "State theory and practical (procedural) exams"
+    fee: "Initial $119 ($26 application, $93 to the testing organization)"
+    renewal: "$97 every 2 years; no continuing education"
+    sources: [pa_dos_cosmo]
+  real-estate:
+    body: "State Real Estate Commission (Department of State)"
+    req: "At least 18, high school graduate or equivalent, and 75 hours (5 credits) of basic real estate courses; no experience needed."
+    exam: "Salesperson exam, national and Pennsylvania parts, passed within 3 years before applying"
+    fee: "Initial $97 ($72 license, $25 application)"
+    renewal: "$96 every 2 years; 14 hours of continuing education"
+    sources: [pa_dos_re]
+  law:
+    body: "Pennsylvania Board of Law Examiners"
+    req: "Apply to the Board of Law Examiners; it also handles Uniform Bar Examination score transfer."
+    exam: "Uniform Bar Examination (UBE)"
+    sources: [pa_ble_home]

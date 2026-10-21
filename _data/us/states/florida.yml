@@ -1,0 +1,95 @@
+# Florida (USA Master Plan Phase 11 + 12). Schema: _data/us/state_index.yml. fldoe.org PDFs, floridabarexam.org and
+# the Office of Student Financial Assistance site block or drop requests from India: read through the Internet Archive's
+# latest capture of the official page (source notes give the dates). myfloridalicense.com (Board of Accountancy) had no
+# reachable copy: CPA is in the gaps list.
+name: "Florida"
+abbr: FL
+checked: 2026-10-21
+review_by: 2027-04-21
+lede: "Florida's standard diploma is 24 credits with a 2.0 GPA and two state tests (Grade 10 ELA and the Algebra 1 end-of-course exam); the State University System and 28 Florida College System colleges serve the state."
+
+diploma:
+  intro: "Students choose one of five diploma options: the 24-credit standard diploma, the 18-credit ACCEL option, the Career and Technical Education Pathway, AICE or the IB Diploma. The 24-credit option needs:"
+  rows:
+    - ["English language arts", "4 credits (ELA 1–4; honors, AP, AICE, IB and dual enrollment courses may count)"]
+    - ["Mathematics", "4 credits, including Algebra 1 and Geometry"]
+    - ["Science", "3 credits: Biology 1 and two equally rigorous courses; two of the three with a lab"]
+    - ["Social studies", "3 credits: World History, U.S. History, 0.5 U.S. Government, 0.5 Economics"]
+    - ["Arts", "1 credit in fine and performing arts, speech and debate, or practical arts"]
+    - ["Physical education", "1 credit, including health"]
+    - ["Electives", "8 credits"]
+    - ["Online course", "1 online course"]
+  unit: "24 credits and a 2.0 GPA on a 4.0 scale. The 18-credit ACCEL option drops PE and the online course and needs 3 electives instead of 8."
+  tests: "Pass the Grade 10 ELA test (or a concordant score) and the Algebra 1 end-of-course exam (or a comparative score). The Algebra 1, Geometry, Biology 1 and U.S. History EOCs count for 30% of the course grade."
+  src: fl_doe_diploma
+  points:
+    - { t: "The Scholar diploma designation adds Algebra 2 and Statistics (or equally rigorous courses), Chemistry or Physics plus one more equally rigorous course, and passing the Geometry, Biology 1 and U.S. History EOCs.", src: fl_doe_diploma }
+    - { t: "For a State University System university, the minimum is a standard diploma, a 2.5 GPA, college-ready admission test scores and 16 approved college-preparatory credits.", src: fl_doe_diploma }
+
+k12_test:
+  name: "FAST"
+  full: "Florida Assessment of Student Thinking"
+  intro: "Florida's ELA and math progress monitoring system (section 1008.25(9), Florida Statutes), first given in 2022-23 and aligned to the B.E.S.T. Standards. It is computer adaptive and taken three times a year: PM1 (baseline), PM2 (mid-year) and PM3 (end of year)."
+  src: fl_doe_fast
+  rows:
+    - ["FAST ELA Reading", "English language arts", "Grades 3–10 (120 minutes at PM3)"]
+    - ["FAST Mathematics", "Math", "Grades 3–8 (100 minutes for grades 3–5, 120 for 6–8 at PM3)"]
+    - ["B.E.S.T. end-of-course exams", "Algebra 1, Geometry, Biology 1, U.S. History", "High school courses"]
+  rows_src: fl_doe_fast
+  use:
+    - { t: "PM1 and PM2 are for information only; PM3 is the summative score used for school accountability. 2026-27 windows: PM1 10 Aug–25 Sept 2026, PM2 30 Nov 2026–22 Jan 2027, PM3 3–28 May 2027.", src: fl_doe_fast }
+    - { t: "Grade 10 ELA is a diploma requirement (see above).", src: fl_doe_diploma }
+
+colleges:
+  systems:
+    - { name: "State University System of Florida", kind: university, url: "https://www.flbog.edu/", line: "Governed by the Board of Governors. Universities: FAMU, FAU, FGCU, FIU, Florida Polytechnic, FSU, New College, UCF, UF, UNF, USF and UWF.", src: fl_bog_universities }
+    - { name: "Florida College System", kind: community, url: "https://www.fldoe.org/schools/higher-ed/fl-college-system/", line: "28 member colleges, the primary access point to higher education for Floridians. Each is governed by a local district board of trustees under the State Board of Education.", src: fl_doe_fcs }
+
+residency:
+  points:
+    - { t: "Section 1009.21, Florida Statutes: you (or, if you are a dependent, your parent) must have established legal residence in Florida and kept it for at least 12 consecutive months immediately before you first enroll.", src: fl_stat_1009_21 }
+    - { t: "You must show the 12 months were spent keeping a bona fide domicile, not a temporary home just to attend college. A dependent child of divorced or separated parents counts as a resident if either parent is a Florida resident.", src: fl_stat_1009_21 }
+    - { t: "The rule applies to state universities, Florida College System institutions and district career centers.", src: fl_stat_1009_21 }
+
+aid:
+  agency: { name: "Florida Department of Education, Office of Student Financial Assistance", url: "https://www.floridastudentfinancialaidsg.org/", src: fl_osfa }
+  programs:
+    - { name: "Florida Bright Futures Scholarship Program", line: "Lottery-funded scholarships that reward Florida high school graduates for high academic achievement: Florida Academic Scholarship, Florida Medallion Scholarship, Gold Seal CAPE and Gold Seal Vocational. Apply with the Florida Financial Aid Application (FFAA).", src: fl_osfa }
+
+jobs:
+  state:
+    portal: "People First (State of Florida Careers)"
+    url: "https://jobs.myflorida.com/"
+    by: "Florida Department of Management Services, People First"
+    steps:
+      - "Search state jobs by career field or location on jobs.myflorida.com."
+      - "For help, the People First Service Center answers at (877) 562-7287, Monday to Friday."
+    src: fl_people_first
+  cities: []
+
+apprenticeship:
+  office: "Florida Department of Education, Office of Apprenticeship"
+  url: "https://www.fldoe.org/academics/career-adult-edu/apprenticeship-programs/"
+  kind: SAA
+  line: "The official state apprenticeship agency, authorized by the U.S. Department of Labor, with regional apprenticeship staff across the state and an Apprenticeship Finder Map of registered programs."
+  src: fl_doe_apprenticeship
+  oa_src: dol_oa_states
+
+licenses:
+  nursing:
+    body: "Florida Board of Nursing"
+    req: "Apply for licensure by examination (RN or LPN) before taking the NCLEX; electronic fingerprinting is required under House Bill 975 (2024). Florida joined the Nurse Licensure Compact on 19 January 2018 and offers a multistate upgrade."
+    exam: "NCLEX-RN"
+    sources: [fl_bon_rn_lpn]
+  law:
+    body: "Florida Board of Bar Examiners (Supreme Court of Florida)"
+    req: "Bar admission is a judicial function; the Board runs character and fitness screening and the bar exam. Apply online; filing deadlines and late fees are set by rule 4-43."
+    exam: "Florida Bar Exam. From July 2028 Florida gives the NextGen Bar Exam with a Florida law component"
+    sources: [fl_bbe_home]
+  pe:
+    body: "Florida Board of Professional Engineers (FBPE)"
+    req: "An ABET-accredited (or equivalent) bachelor's degree in engineering or engineering technology, pass the FE and PE exams, be at least 18, and score 90% or more on the Board's Laws and Rules Study Guide."
+    exam: "FE and PE (NCEES)"
+    fee: "Application $230 ($130 non-refundable), paid by check or money order"
+    renewal: "Every two years (current cycle ends 28 Feb 2027); renewal $98.75 including the $5 unlicensed-activity fee, with continuing education"
+    sources: [fl_fbpe_pe, fl_fbpe_fees, fl_fbpe_renewal]

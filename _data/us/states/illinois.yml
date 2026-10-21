@@ -1,0 +1,91 @@
+# Illinois (USA Master Plan Phase 11 + 12). Schema: _data/us/state_index.yml. isac.org (403) and ibhe.org (timeout) were
+# read through the Internet Archive's latest capture. IDFPR's CPA, engineering, real estate and cosmetology pages moved
+# (404 on 21 Oct 2026): those rows are in the gaps list.
+name: "Illinois"
+abbr: IL
+checked: 2026-10-21
+review_by: 2027-04-21
+lede: "Illinois sets at least 16 units for a diploma (4 years of language arts, 3 of math, 2 of science, 2 of social science) plus a Constitution exam and a FAFSA or waiver; students take the IAR in grades 3–8 and the ACT in grade 11."
+
+diploma:
+  intro: "Illinois law (105 ILCS 5/27-22) sets the state minimum by the year a student enters grade 9; local boards may add more. For students entering grade 9 from 2024-25:"
+  rows:
+    - ["Language arts", "4 years, 1 of them a writing-intensive English course"]
+    - ["Writing-intensive courses", "2 years: 1 in an English course, 1 may be embedded in any course"]
+    - ["Mathematics", "3 years: Algebra I (or integrated), a course with geometry content, and one more (AP computer science counts)"]
+    - ["Science", "2 years of laboratory science, content not specified"]
+    - ["Social science", "2 years, including 1 year of U.S. History (or U.S. History and American government) and 1 semester of civics"]
+    - ["Computer literacy", "1 year of a course with intensive computer literacy instruction (may count toward other requirements)"]
+    - ["Electives", "1 year from art, music, world languages (including ASL), CTE or forensic speech"]
+    - ["World languages", "2 years, for students entering grade 9 in 2028-29 and later"]
+  unit: "Years of study; the ISBE chart lists the state minimum for each entering class."
+  tests: "A passing score on the Illinois and U.S. Constitution examination (American patriotism, representative government, the flag) is required for graduation. Students must also file a FAFSA, an Illinois state aid application, or a waiver with the district."
+  src: il_isbe_grad
+
+k12_test:
+  name: "IAR, ISA and the ACT"
+  full: "Illinois Assessment of Readiness, Illinois Science Assessment and the high school ACT"
+  intro: "The IAR is Illinois's state assessment and accountability measure for students in public school districts, assessing the Illinois Learning Standards (which incorporate the Common Core)."
+  src: il_isbe_iar
+  rows:
+    - ["Illinois Assessment of Readiness (IAR)", "English language arts and mathematics", "Grades 3–8"]
+    - ["Illinois Science Assessment (ISA)", "Science, online", "Grades 5 and 8"]
+    - ["ACT + Science + Writing", "English, mathematics, reading, science and writing", "Grade 11 (and grade 12 as required), since 2024-25"]
+    - ["PreACT Secure and PreACT 9 Secure", "Also part of the state high school assessment", "High school"]
+  rows_src: il_isbe_hs
+  use:
+    - { t: "ISBE uses new, unified performance levels and proficiency benchmarks across the IAR, ISA and ACT.", src: il_isbe_iar }
+    - { t: "The ISA is aligned to the Illinois Learning Standards for Science (which incorporate the Next Generation Science Standards); students on the DLM alternate assessment take that instead.", src: il_isbe_isa }
+
+colleges:
+  systems:
+    - { name: "Illinois public universities", kind: university, url: "https://www.ibhe.org/", line: "The Illinois Board of Higher Education (IBHE) publishes data and guidance for the state's public universities, including enrollment and affordability reports.", src: il_ibhe }
+    - { name: "Illinois Community College System", kind: community, url: "https://www.iccb.org/", line: "45 colleges and one multi-community college center, coordinated by the Illinois Community College Board (set up in 1965); more than 550,000 Illinois residents enroll each year. The third largest community college system in the nation.", src: il_iccb_about }
+
+residency:
+  points:
+    - { t: "University of Illinois System: you can be a resident by bona fide domicile, the true, fixed and permanent home you have set up for reasons other than education and intend to keep; you may have only one domicile and must show evidence that rules out a domicile elsewhere.", src: il_ui_residency }
+    - { t: "Also resident under the same policy: a student who attended an Illinois high school for at least 2 years and graduated from it (or earned the Illinois equivalent), or who combined Illinois high school and public community college attendance for at least 3 years.", src: il_ui_residency }
+    - { t: "Students not first classified as residents can file a Petition for Determination of Residency Status by the term deadline (fall: 1 July to 1 September).", src: il_uiuc_registrar }
+
+aid:
+  agency: { name: "Illinois Student Assistance Commission (ISAC)", url: "https://www.isac.org/", src: il_isac_map }
+  programs:
+    - { name: "Monetary Award Program (MAP)", line: "Grants that do not need to be repaid, for Illinois residents with financial need (based on the FAFSA) at approved Illinois colleges. No grades or test scores are needed. The number and size of grants depend on each year's state appropriation.", src: il_isac_map }
+
+jobs:
+  state:
+    portal: "Work.Illinois.Gov"
+    url: "https://careers.illinois.gov/"
+    by: "Illinois Department of Central Management Services (CMS)"
+    steps:
+      - "All jobs for agencies under the Governor are posted on Work.Illinois.Gov."
+      - "Create an account and complete a candidate profile, then apply to the posting."
+    src: il_careers_procedures
+  cities: []
+
+apprenticeship:
+  office: "Illinois Apprenticeship Office (U.S. Department of Labor)"
+  url: "https://www.apprenticeship.gov/about-us/state-office"
+  kind: OA
+  line: "Illinois has no State Apprenticeship Agency: the U.S. Department of Labor's Illinois Apprenticeship Office registers and oversees programs."
+  src: dol_oa_offices
+  oa_src: dol_oa_states
+
+licenses:
+  nursing:
+    body: "Illinois Department of Financial and Professional Regulation (IDFPR), Board of Nursing"
+    req: "Apply to sit for the exam with Continental Testing Services (CTS) and Pearson VUE, with education documents and a fingerprint receipt. After passing, apply separately to IDFPR for the license."
+    exam: "NCLEX-RN (results reach the applicant from CTS within about 10 business days)"
+    sources: [il_idfpr_rn_flyer]
+  law:
+    body: "Illinois Board of Admissions to the Bar"
+    req: "Create an IL Bar Admission Registration account before filing any application; character and fitness review. Illinois admits lawyers by transferred UBE score under Supreme Court Rule 704A."
+    exam: "Illinois bar examination (UBE scores transfer in)"
+    sources: [il_bar_home]
+  plumber:
+    body: "Illinois Department of Public Health (Illinois Plumbing License Law, 225 ILCS 320)"
+    req: "At least 4 years as a licensed apprentice plumber, at least 2 years of high school (or equivalent), and an approved course of instruction at a college, university or trade school. Apprentice plumbers must be 16+ and sponsored by a licensed plumber or approved apprenticeship."
+    exam: "State plumber's examination (apply at least 30 days before the exam date)"
+    renewal: "Every year by 30 April"
+    sources: [il_idph_plumbing]

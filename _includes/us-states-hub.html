@@ -1,0 +1,91 @@
+{%- comment -%}
+  USA States hub (USA Master Plan Phase 11, 2026-10-21), stub us/states/index.html written by scripts/build-us-states.mjs.
+  All 51 jurisdictions from _data/us/state_index.yml (Census Vintage 2025 population and rank, copied); a state links
+  only when _data/us/states/<slug>.yml exists (no empty buttons). The compare table reads each state file.
+{%- endcomment -%}
+{%- assign US = site.data.us -%}
+{%- assign IX = US.state_index -%}
+{%- assign src_ids = "census_pop2025,dol_oa_states" -%}
+{%- assign by_rank = IX.list | sort: "rank" -%}
+{%- assign n_built = 0 -%}{%- assign n_lic = 0 -%}
+{%- for r in IX.list -%}{%- if US.states[r.slug] -%}{%- assign n_built = n_built | plus: 1 -%}{%- if US.states[r.slug].licenses -%}{%- assign n_lic = n_lic | plus: 1 -%}{%- endif -%}{%- endif -%}{%- endfor -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "USA Home", "item": "{{ site.url }}{{ site.baseurl }}/us/" },
+    { "@type": "ListItem", "position": 2, "name": "States", "item": "{{ page.url | absolute_url }}" }
+  ]
+}
+</script>
+<main id="main" class="md-page">
+
+  <div class="container md-page-top">
+    <header class="md-answer">
+      <span class="eyebrow">USA · States</span>
+      <h1>U.S. states: school, college and licensing rules</h1>
+      <p class="md-answer-lede">Education and licensing are run by each state. A state page gives the high school diploma requirements and state tests, the public university and community college systems, the in-state tuition rule, state grants, licensing boards, civil service hiring and the apprenticeship office, each copied from that state's own pages.</p>
+      <div class="md-stats" data-no-points>
+        <div class="md-stat"><span class="md-stat-label">State pages</span><span class="md-stat-value">{{ n_built }}</span><span class="md-stat-note">of {{ IX.list.size }} (50 states and DC), largest first</span></div>
+        <div class="md-stat"><span class="md-stat-label">License pages</span><span class="md-stat-value">{{ n_lic }}</span><span class="md-stat-note">State boards: requirement, exam, fee, renewal</span></div>
+        <div class="md-stat"><span class="md-stat-label">Population data</span><span class="md-stat-value is-text">Census</span><span class="md-stat-note">Vintage 2025, {{ IX.vintage }}</span></div>
+        <div class="md-stat"><span class="md-stat-label">Checked</span><span class="md-stat-value is-text">{{ IX.as_of | date: "%-d %b %Y" }}</span></div>
+      </div>
+      <div class="md-answer-actions">
+        <a href="#state-pages" class="btn btn-primary">Open a state</a>
+        <a href="#compare" class="md-textlink">Compare states</a>
+        <a href="us/professional-licenses/" class="md-textlink">All licenses</a>
+      </div>
+    </header>
+  </div>
+
+  <section class="md-sec" id="state-pages" aria-labelledby="state-pages-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="state-pages-h">State pages</h2><p>Built in population order, largest first.</p></div>
+      <ul class="md-links">
+        {%- for r in by_rank %}{%- assign S = US.states[r.slug] %}{%- if S %}
+        <li><a href="us/states/{{ r.slug }}/"><strong>{{ S.name }}</strong><span>{{ S.k12_test.name }} · {{ S.colleges.systems | map: "name" | first | truncate: 60 }}{% if S.licenses %} · licensing boards{% endif %}</span></a></li>
+        {%- endif %}{%- endfor %}
+      </ul>
+    </div>
+  </section>
+
+  <section class="md-sec md-sec-alt" id="compare" aria-labelledby="compare-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="compare-h">Compare the state pages</h2><p>The headline rule from each state page; open the state for the detail and its sources.</p></div>
+      <div class="table-wrap" data-no-points>
+        <table class="md-table">
+          <thead><tr><th scope="col">State</th><th scope="col">State test</th><th scope="col">Diploma</th><th scope="col">State grant</th><th scope="col">Apprenticeship office</th></tr></thead>
+          <tbody>
+            {%- for r in by_rank %}{%- assign S = US.states[r.slug] %}{%- if S %}
+            <tr><td><a href="us/states/{{ r.slug }}/"><strong>{{ S.name }}</strong></a></td><td>{{ S.k12_test.name }}</td><td>{{ S.diploma.unit | default: "Set locally; see the state page" }}</td><td>{{ S.aid.programs | map: "name" | join: "; " }}</td><td>{% case S.apprenticeship.kind %}{% when "SAA" %}State agency{% when "OA" %}U.S. DOL office{% else %}State agency and U.S. DOL{% endcase %}</td></tr>
+            {%- endif %}{%- endfor %}
+          </tbody>
+        </table>
+      </div>
+      <p class="md-tile-note">"U.S. DOL office" means registered apprenticeships in that state are run by the Department of Labor's Office of Apprenticeship; "State agency" means a recognized State Apprenticeship Agency. {% include us-src-chip.html id="dol_oa_states" %}</p>
+    </div>
+  </section>
+
+  <section class="md-sec" id="all-states" aria-labelledby="all-states-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="all-states-h">All 50 states and DC, A to Z</h2><p>Population on {{ IX.vintage }} and rank, copied from the Census Bureau's Vintage 2025 estimates. {% include us-src-chip.html id="census_pop2025" %} States without a link are still in the build queue.</p></div>
+      <div class="table-wrap" data-no-points>
+        <table class="md-table">
+          <thead><tr><th scope="col">State</th><th scope="col">Population</th><th scope="col">Rank</th><th scope="col">Pages</th></tr></thead>
+          <tbody>
+            {%- for r in IX.list %}{%- assign S = US.states[r.slug] %}
+            <tr><td>{% if S %}<a href="us/states/{{ r.slug }}/"><strong>{{ r.name }}</strong></a>{% else %}{{ r.name }}{% endif %} <span class="us-by">{{ r.abbr }}</span></td><td>{% include fmt-num.html n=r.pop %}</td><td>{{ r.rank }}</td><td>{% if S %}<a href="us/states/{{ r.slug }}/">State page</a>{% if S.licenses %} · <a href="us/states/{{ r.slug }}/licenses.html">Licenses</a>{% endif %}{% else %}—{% endif %}</td></tr>
+            {%- endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  {%- for r in by_rank %}{%- assign S = US.states[r.slug] %}{%- if S %}{%- assign src_ids = src_ids | append: "," | append: S.diploma.src | append: "," | append: S.k12_test.src -%}{% endif %}{% endfor -%}
+  {%- assign src_ids = src_ids | split: "," | uniq | join: "," -%}
+  {% include us-sources.html ids=src_ids bg="alt" %}
+
+</main>

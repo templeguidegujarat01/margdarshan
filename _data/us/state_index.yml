@@ -1,0 +1,73 @@
+# USA Edition, States hub (USA Master Plan Phase 11, 2026-10-21): the 50 states and the District of Columbia, A to Z.
+# pop and rank are copied from the Census Bureau's Vintage 2025 estimates (POPESTIMATE2025 and NRANK_POPEST2025 columns of
+# NST-EST2025-POPCHG2020-2025.csv, source id census_pop2025); nothing here is computed. Phase 11 builds state pages in
+# population order, about 10 per run. A state has a page when _data/us/states/<slug>.yml exists; the hub links only those.
+#
+# State file schema (_data/us/states/<slug>.yml), every fact with a source id from sources.yml:
+#   name, abbr, checked, review_by (re-check date), lede, links [{label, href, text}]
+#   diploma    { intro, rows [[subject, requirement]], unit, tests, src, points [{t, src}] }   rows optional
+#   k12_test   { name, full, intro, src, rows [[test, subject, grades]], rows_src, use [{t, src}] }
+#   colleges   { systems [{ name, kind: university | community, url, line, src, src2 }] }
+#   residency  { points [{t, src}] }
+#   aid        { agency {name, url, src}, programs [{name, line, src}] }
+#   jobs       { state { portal, url, by, steps [..], exam, src }, cities [{ name, body, url, line, src }] }
+#   apprenticeship { office, url, kind: SAA | OA | both, line, src, oa_src }
+#   licenses   (Phase 12) { <licenses.yml id or cte_careers.yml trade slug>: { body, req, exam, fee, renewal, sources [] } }
+#              Rows already in licenses.yml boards / cte_careers.yml states for the same place are not repeated here.
+# Pages: scripts/build-us-states.mjs [--check] writes us/states/index.html, us/states/<slug>/index.html and
+# us/states/<slug>/licenses.html. scripts/check-us-data.mjs validates the files.
+as_of: 2026-10-21
+source: census_pop2025
+vintage: "July 1, 2025"
+list:
+  - { name: "Alabama", abbr: AL, slug: alabama, pop: 5193088, rank: 24 }
+  - { name: "Alaska", abbr: AK, slug: alaska, pop: 737270, rank: 48 }
+  - { name: "Arizona", abbr: AZ, slug: arizona, pop: 7623818, rank: 14 }
+  - { name: "Arkansas", abbr: AR, slug: arkansas, pop: 3114791, rank: 33 }
+  - { name: "California", abbr: CA, slug: california, pop: 39355309, rank: 1 }
+  - { name: "Colorado", abbr: CO, slug: colorado, pop: 6012561, rank: 20 }
+  - { name: "Connecticut", abbr: CT, slug: connecticut, pop: 3688496, rank: 29 }
+  - { name: "Delaware", abbr: DE, slug: delaware, pop: 1059952, rank: 45 }
+  - { name: "District of Columbia", abbr: DC, slug: district-of-columbia, pop: 693645, rank: 49 }
+  - { name: "Florida", abbr: FL, slug: florida, pop: 23462518, rank: 3 }
+  - { name: "Georgia", abbr: GA, slug: georgia, pop: 11302748, rank: 8 }
+  - { name: "Hawaii", abbr: HI, slug: hawaii, pop: 1432820, rank: 40 }
+  - { name: "Idaho", abbr: ID, slug: idaho, pop: 2029733, rank: 37 }
+  - { name: "Illinois", abbr: IL, slug: illinois, pop: 12719141, rank: 6 }
+  - { name: "Indiana", abbr: IN, slug: indiana, pop: 6973333, rank: 17 }
+  - { name: "Iowa", abbr: IA, slug: iowa, pop: 3238387, rank: 32 }
+  - { name: "Kansas", abbr: KS, slug: kansas, pop: 2977220, rank: 34 }
+  - { name: "Kentucky", abbr: KY, slug: kentucky, pop: 4606864, rank: 26 }
+  - { name: "Louisiana", abbr: LA, slug: louisiana, pop: 4618189, rank: 25 }
+  - { name: "Maine", abbr: ME, slug: maine, pop: 1414874, rank: 42 }
+  - { name: "Maryland", abbr: MD, slug: maryland, pop: 6265347, rank: 19 }
+  - { name: "Massachusetts", abbr: MA, slug: massachusetts, pop: 7154084, rank: 16 }
+  - { name: "Michigan", abbr: MI, slug: michigan, pop: 10127884, rank: 10 }
+  - { name: "Minnesota", abbr: MN, slug: minnesota, pop: 5830405, rank: 22 }
+  - { name: "Mississippi", abbr: MS, slug: mississippi, pop: 2954160, rank: 35 }
+  - { name: "Missouri", abbr: MO, slug: missouri, pop: 6270541, rank: 18 }
+  - { name: "Montana", abbr: MT, slug: montana, pop: 1144694, rank: 43 }
+  - { name: "Nebraska", abbr: NE, slug: nebraska, pop: 2018006, rank: 38 }
+  - { name: "Nevada", abbr: NV, slug: nevada, pop: 3282188, rank: 31 }
+  - { name: "New Hampshire", abbr: NH, slug: new-hampshire, pop: 1415342, rank: 41 }
+  - { name: "New Jersey", abbr: NJ, slug: new-jersey, pop: 9548215, rank: 11 }
+  - { name: "New Mexico", abbr: NM, slug: new-mexico, pop: 2125498, rank: 36 }
+  - { name: "New York", abbr: NY, slug: new-york, pop: 20002427, rank: 4 }
+  - { name: "North Carolina", abbr: NC, slug: north-carolina, pop: 11197968, rank: 9 }
+  - { name: "North Dakota", abbr: ND, slug: north-dakota, pop: 799358, rank: 47 }
+  - { name: "Ohio", abbr: OH, slug: ohio, pop: 11900510, rank: 7 }
+  - { name: "Oklahoma", abbr: OK, slug: oklahoma, pop: 4123288, rank: 28 }
+  - { name: "Oregon", abbr: OR, slug: oregon, pop: 4273586, rank: 27 }
+  - { name: "Pennsylvania", abbr: PA, slug: pennsylvania, pop: 13059432, rank: 5 }
+  - { name: "Rhode Island", abbr: RI, slug: rhode-island, pop: 1114521, rank: 44 }
+  - { name: "South Carolina", abbr: SC, slug: south-carolina, pop: 5570274, rank: 23 }
+  - { name: "South Dakota", abbr: SD, slug: south-dakota, pop: 935094, rank: 46 }
+  - { name: "Tennessee", abbr: TN, slug: tennessee, pop: 7315076, rank: 15 }
+  - { name: "Texas", abbr: TX, slug: texas, pop: 31709821, rank: 2 }
+  - { name: "Utah", abbr: UT, slug: utah, pop: 3538904, rank: 30 }
+  - { name: "Vermont", abbr: VT, slug: vermont, pop: 644663, rank: 50 }
+  - { name: "Virginia", abbr: VA, slug: virginia, pop: 8880107, rank: 12 }
+  - { name: "Washington", abbr: WA, slug: washington, pop: 8001020, rank: 13 }
+  - { name: "West Virginia", abbr: WV, slug: west-virginia, pop: 1766147, rank: 39 }
+  - { name: "Wisconsin", abbr: WI, slug: wisconsin, pop: 5972787, rank: 21 }
+  - { name: "Wyoming", abbr: WY, slug: wyoming, pop: 588753, rank: 51 }

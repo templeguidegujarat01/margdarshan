@@ -189,6 +189,14 @@
               <td>{{ r.rule }}{% for s in r.sources %} {% include us-src-chip.html id=s %}{% endfor %}</td>
             </tr>
             {%- endfor %}
+            {%- comment -%} Phase 12: rows from _data/us/states/<slug>.yml `licenses` keyed by this trade or license. {%- endcomment -%}
+            {%- assign st_key = X.states_from | default: X.slug -%}
+            {%- for ir in site.data.us.state_index.list %}{%- assign R = site.data.us.states[ir.slug].licenses[st_key] %}{%- if R %}
+            <tr>
+              <td><strong><a href="us/states/{{ ir.slug }}/licenses.html#lic-{{ st_key }}">{{ ir.name }}</a></strong><br><span class="us-by">{{ R.body }}</span></td>
+              <td>{{ R.req }}{% if R.exam %} <strong>Exam:</strong> {{ R.exam }}.{% endif %}{% if R.fee %} <strong>Fee:</strong> {{ R.fee }}.{% endif %}{% if R.renewal %} <strong>Renewal:</strong> {{ R.renewal }}.{% endif %}{% for s in R.sources %} {% include us-src-chip.html id=s %}{% endfor %}</td>
+            </tr>
+            {%- endif %}{%- endfor %}
           </tbody>
         </table>
       </div>

@@ -1,0 +1,96 @@
+# Ohio (USA Master Plan Phase 11 + 12). Schema: _data/us/state_index.yml. education.ohio.gov (Department of Education
+# and Workforce) rejects every request from India and its archive copies are the same rejection page, so the diploma
+# and testing rules are copied from the Ohio Revised Code itself (codes.ohio.gov, read through the Internet Archive's
+# latest capture). The Supreme Court of Ohio bar admissions site timed out with no archive copy: law is in the gaps list.
+name: "Ohio"
+abbr: OH
+checked: 2026-10-21
+review_by: 2027-04-21
+lede: "Ohio law sets 20 units for a diploma plus competency on the Algebra I and English language arts II end-of-course exams and two diploma seals; 14 public universities and 22 community colleges make up the public system."
+
+diploma:
+  intro: "Ohio Revised Code section 3313.603(C), for students who entered grade 9 on or after 1 July 2010 (one unit is at least 120 hours of instruction). Local boards may add requirements."
+  rows:
+    - ["English language arts", "4 units"]
+    - ["Health", "½ unit, including nutrition and physical activity"]
+    - ["Mathematics", "4 units, including Algebra II or its equivalent (or advanced computer science); career-technical students may take an approved career-based math course instead of Algebra II"]
+    - ["Physical education", "½ unit"]
+    - ["Science", "3 units with inquiry-based lab work: physical science, life science, and one advanced science"]
+    - ["History and government", "1 unit: ½ American history, ½ American government"]
+    - ["Social studies", "2 units, including at least ½ unit of world history and civilizations"]
+    - ["Electives", "5 units from world language, fine arts, business, career-technical education, family and consumer sciences, technology, agricultural education, JROTC, or extra core courses"]
+    - ["Financial literacy", "½ unit, for students entering grade 9 on or after 1 July 2022 (in place of ½ math unit or an elective)"]
+  unit: "20 units in grades 9–12."
+  tests: "For students entering grade 9 on or after 1 July 2019 (Revised Code 3313.618): reach a competency score on the Algebra I and English language arts II end-of-course exams (or, after a retake, show competency another way, such as College Credit Plus credit or career-focused options), and earn at least two state diploma seals."
+  src: oh_orc_3313_603
+  points:
+    - { t: "Schools must offer remedial support to students who miss the competency score, and a student who misses it must retake the exam at least once.", src: oh_orc_3313_618 }
+
+k12_test:
+  name: "Ohio achievement tests"
+  full: "Statewide achievement assessments and end-of-course exams set in the Ohio Revised Code"
+  intro: "Ohio Revised Code section 3301.0710 makes the Department prescribe statewide achievement assessments for each grade from 3 to 8, each with at least five score ranges: advanced, accomplished, proficient, basic and limited."
+  src: oh_orc_3301_0710
+  rows:
+    - ["Achievement assessments", "English language arts and mathematics", "Grades 3–8 (end of each grade)"]
+    - ["Achievement assessments", "Science", "Grades 5 and 8"]
+  rows_src: oh_orc_3301_0710
+  use:
+    - { t: "Scores are reported in five levels (advanced, accomplished, proficient, basic, limited).", src: oh_orc_3301_0710 }
+    - { t: "Algebra I and ELA II end-of-course competency is a diploma requirement (see above).", src: oh_orc_3313_618 }
+
+colleges:
+  systems:
+    - { name: "Ohio public universities", kind: university, url: "https://highered.ohio.gov/about/ohios-campuses", line: "14 universities with 24 regional branch campuses, overseen by the Ohio Department of Higher Education.", src: oh_odhe_campuses }
+    - { name: "Ohio community colleges", kind: community, url: "https://highered.ohio.gov/about/ohios-campuses", line: "22 community colleges, plus Ohio Technical Centers, shown on ODHE's campus map.", src: oh_odhe_campuses }
+
+residency:
+  points:
+    - { t: "Ohio Administrative Code 3333-1-10: a resident keeps a twelve-month place of residence in Ohio, can vote and receive state public assistance in Ohio, and may be taxed under Revised Code 5747.02, without claiming residence in another state for those purposes.", src: oh_oac_3333_1_10 }
+    - { t: "A student counts as a resident for tuition if they have lived in Ohio for at least twelve consecutive months before enrolling and have not received financial support from people who are not Ohio residents in that time.", src: oh_oac_3333_1_10 }
+
+aid:
+  agency: { name: "Ohio Department of Higher Education (ODHE)", url: "https://highered.ohio.gov/", src: oh_odhe_ocog }
+  programs:
+    - { name: "Ohio College Opportunity Grant (OCOG)", line: "For Ohio residents with the highest financial need in an associate, first bachelor's or nurse diploma program: Student Aid Index of $3,750 or less and household income of $96,000 or less. Apply by filing the FAFSA. Because the fixed Pell/SAI amount ($7,395) exceeds average community college tuition, OCOG is not paid at community colleges except for foster youth, veterans and third-term cases.", src: oh_odhe_ocog }
+
+jobs:
+  state:
+    portal: "Careers.Ohio.Gov"
+    url: "https://careers.ohio.gov/"
+    by: "State of Ohio"
+    steps:
+      - "Use 'Search for State Government Jobs' to find and apply for openings with state agencies, boards and commissions and statewide elected offices."
+      - "Current state employees apply through the Employee-Only Jobs Portal."
+    src: oh_careers
+  cities: []
+
+apprenticeship:
+  office: "ApprenticeOhio, Ohio Department of Job and Family Services"
+  url: "https://jfs.ohio.gov/job-workforce-services/job-programs-and-services/apprenticeohio"
+  kind: SAA
+  line: "Ohio's State Apprenticeship Agency. Apprentices earn while they learn; ApprenticeOhio publishes a statewide registered apprenticeship dashboard and issues completion certificates."
+  src: oh_apprenticeohio
+  oa_src: dol_oa_states
+
+licenses:
+  pe:
+    body: "State Board of Registration for Professional Engineers and Surveyors"
+    req: "Licensing by examination or by reciprocity through the Board (details on its licensing pages)."
+    renewal: "Individual P.E. licenses expire on 31 December of odd years; the open renewal period runs 1 November to 31 December"
+    sources: [oh_peps_licensing]
+  electrician:
+    body: "Ohio Construction Industry Licensing Board (OCILB), Division of Industrial Compliance"
+    req: "The state licenses commercial electrical contractors (a contractor or 'master' license) who pass the PSI licensing exam. Residential contractors are regulated by local building departments, which may also require the state license."
+    exam: "PSI licensing examination"
+    sources: [oh_ocilb]
+  plumber:
+    body: "Ohio Construction Industry Licensing Board (OCILB), Division of Industrial Compliance"
+    req: "The state licenses commercial plumbing and hydronics contractors (a contractor or 'master' license) who pass the PSI licensing exam. Residential contractors are regulated by local building and health departments."
+    exam: "PSI licensing examination"
+    sources: [oh_ocilb]
+  hvac-technician:
+    body: "Ohio Construction Industry Licensing Board (OCILB), Division of Industrial Compliance"
+    req: "The state licenses commercial HVAC and refrigeration contractors (a contractor or 'master' license) who pass the PSI licensing exam. Local building departments regulate residential contractors."
+    exam: "PSI licensing examination"
+    sources: [oh_ocilb]

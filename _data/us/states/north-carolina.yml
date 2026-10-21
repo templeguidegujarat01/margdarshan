@@ -1,0 +1,89 @@
+# North Carolina (USA Master Plan Phase 11 + 12). Schema: _data/us/state_index.yml. ncbon.com returns 403 to requests
+# from India and has no archive copy of its exam page: nursing is in the gaps list.
+name: "North Carolina"
+abbr: NC
+checked: 2026-10-21
+review_by: 2027-04-21
+lede: "North Carolina's Future-Ready Course of Study needs 22 credits (with a computer science credit from the class entering grade 9 in 2026-27); EOC exams count for at least 20% of the course grade; the UNC System and 58 community colleges are the public options."
+
+diploma:
+  intro: "Every student must earn at least 22 credits in the Future-Ready Course of Study. For students entering grade 9 in 2026-27 or later:"
+  rows:
+    - ["English", "4 credits: English I, II, III and IV"]
+    - ["Mathematics", "4 credits: NC Math 1, 2 and 3 plus a fourth course matched to post-high school plans (or, rarely, Math 1 and 2 plus two approved courses)"]
+    - ["Science", "3 credits: a physical science, Biology, and an earth/environmental science course"]
+    - ["Social studies", "4 credits: Founding Principles of the USA and North Carolina (Civic Literacy), Economics and Personal Finance, American History, World History"]
+    - ["Health and physical education", "1 credit, including CPR instruction"]
+    - ["Computer science", "1 credit (Computer Science, IT and Technology Education in CTE)"]
+    - ["Electives", "2 credits from CTE, arts education or world language, plus 3 from any subject"]
+  unit: "22 credits. Districts may recommend more. The Occupational Course of Study (for identified students with disabilities) also needs 22 credits."
+  tests: "Students in courses with an end-of-course test (Biology, English II, NC Math 1, NC Math 3) must take it, and it counts for at least 20% of the final course grade (State Board policy TEST-003)."
+  src: nc_dpi_grad
+  points:
+    - { t: "Students entering grade 9 in 2025-26 must have at least one arts education course in grades 6–12.", src: nc_dpi_grad }
+
+k12_test:
+  name: "North Carolina EOG and EOC tests"
+  full: "End-of-Grade and End-of-Course tests (NC Department of Public Instruction)"
+  intro: "NCDPI's Office of Accountability and Testing designs and manages statewide assessments for students in public and charter schools in grades 3–12."
+  src: nc_dpi_tests
+  rows:
+    - ["Beginning-of-Grade 3 Reading Test", "Reading", "First 15 days of grade 3"]
+    - ["End-of-Grade (EOG) Reading and Mathematics", "Reading and math", "End of each tested grade (testing window: last 10 instructional days)"]
+    - ["End-of-Grade (EOG) Science", "Science", "Grades 5 and 8"]
+    - ["End-of-Course (EOC)", "Biology, English II, NC Math 1, NC Math 3", "At the end of the course; online"]
+  rows_src: nc_dpi_tests
+  use:
+    - { t: "Schools must use every EOC result as at least 20% of the student's final grade in that course.", src: nc_dpi_tests }
+
+colleges:
+  systems:
+    - { name: "The University of North Carolina System", kind: university, url: "https://www.northcarolina.edu/", line: "16 universities plus the North Carolina School of Science and Mathematics. UNC-Chapel Hill, chartered in 1789, was the first public university in the U.S.", src: nc_unc_about }
+    - { name: "North Carolina Community College System", kind: community, url: "https://www.nccommunitycolleges.edu/", line: "58 community colleges; the only public organization in the state dedicated to affordable college access for anyone in North Carolina.", src: nc_nccc_about }
+
+residency:
+  points:
+    - { t: "Living in North Carolina for 12 months is not enough by itself: you must prove you established legal residence (domicile) in North Carolina for at least 12 consecutive months before claiming residency, intending to make it your home indefinitely, not only to attend college.", src: nc_rds_faq }
+    - { t: "The test is capacity, presence, intent and duration; dependent students' residence is based on their parents'. Housing documents alone do not count as domiciliary acts.", src: nc_rds_faq }
+    - { t: "Residency is decided centrally by the Residency Determination Service (RDS), set up with the UNC System, the Community College System, NCSEAA and the independent colleges (NCICU).", src: nc_rds_home }
+
+aid:
+  agency: { name: "North Carolina State Education Assistance Authority (NCSEAA), via CFNC", url: "https://www.cfnc.org/", src: nc_next_nc }
+  programs:
+    - { name: "Next NC Scholarship", line: "For most North Carolinians from households making $80,000 or less: at least $3,000 a year at a community college and at least $5,000 a year at a public university. Start with the FAFSA.", src: nc_next_nc }
+
+jobs:
+  state:
+    portal: "Work for NC"
+    url: "https://oshr.nc.gov/work-nc"
+    by: "North Carolina Office of State Human Resources (OSHR)"
+    steps:
+      - "Jobseekers without an N.C. employee Workday account apply through the state's application portal."
+      - "Current state employees apply for new roles in Workday; the General Assembly and UNC System post their own jobs."
+    src: nc_oshr
+  cities: []
+
+apprenticeship:
+  office: "ApprenticeshipNC (NC Community College System)"
+  url: "https://www.nccommunitycolleges.edu/businesses/apprenticeships/"
+  kind: SAA
+  line: "North Carolina's State Apprenticeship Agency helps businesses build Registered Apprenticeship Programs that combine hands-on training, classroom instruction, structured wage increases and nationally recognized credentials."
+  src: nc_apprenticeshipnc
+  oa_src: dol_oa_states
+
+licenses:
+  cpa:
+    body: "North Carolina State Board of Certified Public Accountant Examiners"
+    req: "From 1 January 2026, three pathways: a bachelor's plus education to 150 semester hours and 1 year of experience; a relevant master's (or law degree) and 1 year; or a bachelor's and 2 years. All need 24 semester hours in 8 of 10 fields, a concentration in accounting, the NC accountancy law course, good moral character and age 18+."
+    exam: "Uniform CPA Exam, at least 75 on each section"
+    sources: [nc_cpa_pathways]
+  real-estate:
+    body: "North Carolina Real Estate Commission"
+    req: "Complete the 75-hour Broker Prelicensing Course, apply with the fee and documents; the Commission confirms exam eligibility and, after the exam, character."
+    exam: "State broker licensing exam (scheduled with the testing service)"
+    sources: [nc_ncrec_apply]
+  law:
+    body: "North Carolina Board of Law Examiners"
+    req: "Create an NC Bar Admission Registration account before filing any application; the written exam can be taken on a laptop through ExamSoft."
+    exam: "North Carolina written bar examination"
+    sources: [nc_ble_home]

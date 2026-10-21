@@ -1,0 +1,150 @@
+{%- comment -%}
+  USA state licensing page (USA Master Plan Phase 12, 2026-10-21). Stub us/states/<slug>/licenses.html with `state: <slug>`,
+  written by scripts/build-us-states.mjs. Rows come from three places, never repeated:
+    1. _data/us/states/<slug>.yml `licenses` (Phase 12 rows: body, req, exam, fee, renewal, sources)
+    2. _data/us/licenses.yml `boards` rows whose place is this state (Phase 2–8 rows: body, rule, sources)
+    3. _data/us/cte_careers.yml `states` rows whose place is this state (trade rows: body, rule, sources)
+  A key in (1) is a licenses.yml id (links us/professional-licenses/<id>/) or a trade slug (links us/cte/<slug>.html).
+  Each row cites the board page it was copied from. Public jobs (civil service) come from the state file's `jobs`.
+{%- endcomment -%}
+{%- assign US = site.data.us -%}
+{%- assign S = US.states[page.state] -%}
+{%- assign N = S.name -%}
+{%- assign src_ids = "" -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "USA Home", "item": "{{ site.url }}{{ site.baseurl }}/us/" },
+    { "@type": "ListItem", "position": 2, "name": "States", "item": "{{ site.url }}{{ site.baseurl }}/us/states/" },
+    { "@type": "ListItem", "position": 3, "name": {{ N | jsonify }}, "item": "{{ site.url }}{{ site.baseurl }}/us/states/{{ page.state }}/" },
+    { "@type": "ListItem", "position": 4, "name": "Licenses", "item": "{{ page.url | absolute_url }}" }
+  ]
+}
+</script>
+{%- comment -%} Count rows per group first (for the stat tiles). {%- endcomment -%}
+{%- assign n_pro = 0 -%}{%- assign n_trade = 0 -%}
+{%- for p in S.licenses -%}{%- if US.licenses[p[0]] -%}{%- assign n_pro = n_pro | plus: 1 -%}{%- else -%}{%- assign n_trade = n_trade | plus: 1 -%}{%- endif -%}{%- endfor -%}
+{%- for p in US.licenses -%}{%- assign hit = p[1].boards | where: "place", N | first -%}{%- if hit -%}{%- assign n_pro = n_pro | plus: 1 -%}{%- endif -%}{%- endfor -%}
+{%- for t in US.cte_careers.list -%}{%- assign hit = t.states | where: "place", N | first -%}{%- if hit -%}{%- assign n_trade = n_trade | plus: 1 -%}{%- endif -%}{%- endfor -%}
+<main id="main" class="md-page">
+
+  <div class="container md-page-top">
+    <header class="md-answer">
+      <span class="eyebrow">USA · States · {{ N }} · Licensing</span>
+      <h1>{{ N }} licensing boards</h1>
+      <p class="md-answer-lede">What {{ N }}'s own boards ask for before you can work in a licensed job: the requirement, the exam, the fee where the board publishes it, and renewal. National exams are written by national bodies, but the license comes from the state.</p>
+      <div class="md-stats" data-no-points>
+        <div class="md-stat"><span class="md-stat-label">Professions</span><span class="md-stat-value">{{ n_pro }}</span><span class="md-stat-note">Nursing, CPA, law, engineering and more</span></div>
+        <div class="md-stat"><span class="md-stat-label">Trades</span><span class="md-stat-value">{{ n_trade }}</span><span class="md-stat-note">Electrician, plumber, HVAC and others</span></div>
+        <div class="md-stat"><span class="md-stat-label">Copied from</span><span class="md-stat-value is-text">State boards</span><span class="md-stat-note">Each row cites its board page</span></div>
+        <div class="md-stat"><span class="md-stat-label">Checked</span><span class="md-stat-value is-text">{{ S.checked | date: "%-d %b %Y" }}</span><span class="md-stat-note">Re-check by {{ S.review_by | date: "%b %Y" }}</span></div>
+      </div>
+      <div class="md-answer-actions">
+        <a href="#professions" class="btn btn-primary">Professional licenses</a>
+        {%- if n_trade > 0 %}<a href="#trades" class="md-textlink">Trade licenses</a>{% endif %}
+        <a href="#public-jobs" class="md-textlink">State and city jobs</a>
+        <a href="us/states/{{ page.state }}/" class="md-textlink">{{ N }} state page</a>
+      </div>
+    </header>
+  </div>
+
+  <section class="md-sec" id="professions" aria-labelledby="professions-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="professions-h">Professional licenses</h2><p>Each card links the national license page on this site (education, national exams and other states).</p></div>
+      <div class="md-tiles2">
+        {%- for p in US.licenses %}{%- assign LX = p[1] %}{%- assign R = S.licenses[p[0]] %}{%- assign B = LX.boards | where: "place", N | first %}
+        {%- if R or B %}
+        <div class="md-tile us-lic-card" id="lic-{{ p[0] }}">
+          <h3><a href="us/professional-licenses/{{ p[0] }}/">{{ LX.short }}</a></h3>
+          {%- if R %}
+          <p class="us-by">{{ R.body }}</p>
+          <dl class="us-lic-dl" data-no-points>
+            <dt>Requirement</dt><dd>{{ R.req }}</dd>
+            {%- if R.exam %}<dt>Exam</dt><dd>{{ R.exam }}</dd>{% endif %}
+            {%- if R.fee %}<dt>Fee</dt><dd>{{ R.fee }}</dd>{% endif %}
+            {%- if R.renewal %}<dt>Renewal</dt><dd>{{ R.renewal }}</dd>{% endif %}
+          </dl>
+          <p class="md-tile-note">Source:{% for s in R.sources %} {% include us-src-chip.html id=s %}{%- assign src_ids = src_ids | append: "," | append: s -%}{% endfor %}</p>
+          {%- else %}
+          <p class="us-by">{{ B.body }}</p>
+          <p>{{ B.rule }}</p>
+          <p class="md-tile-note">Source:{% for s in B.sources %} {% include us-src-chip.html id=s %}{%- assign src_ids = src_ids | append: "," | append: s -%}{% endfor %}</p>
+          {%- endif %}
+        </div>
+        {%- endif %}{%- endfor %}
+      </div>
+    </div>
+  </section>
+
+  {%- if n_trade > 0 %}
+  <section class="md-sec md-sec-alt" id="trades" aria-labelledby="trades-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="trades-h">Trade licenses</h2><p>Each card links the trade's page on this site (training route, apprenticeship and pay).</p></div>
+      <div class="md-tiles2">
+        {%- for t in US.cte_careers.list %}{%- assign R = S.licenses[t.slug] %}{%- assign B = t.states | where: "place", N | first %}
+        {%- if R or B %}
+        <div class="md-tile us-lic-card" id="lic-{{ t.slug }}">
+          <h3><a href="us/cte/{{ t.slug }}.html">{{ t.short }}</a></h3>
+          {%- if R %}
+          <p class="us-by">{{ R.body }}</p>
+          <dl class="us-lic-dl" data-no-points>
+            <dt>Requirement</dt><dd>{{ R.req }}</dd>
+            {%- if R.exam %}<dt>Exam</dt><dd>{{ R.exam }}</dd>{% endif %}
+            {%- if R.fee %}<dt>Fee</dt><dd>{{ R.fee }}</dd>{% endif %}
+            {%- if R.renewal %}<dt>Renewal</dt><dd>{{ R.renewal }}</dd>{% endif %}
+          </dl>
+          <p class="md-tile-note">Source:{% for s in R.sources %} {% include us-src-chip.html id=s %}{%- assign src_ids = src_ids | append: "," | append: s -%}{% endfor %}</p>
+          {%- else %}
+          <p class="us-by">{{ B.body }}</p>
+          <p>{{ B.rule }}</p>
+          <p class="md-tile-note">Source:{% for s in B.sources %} {% include us-src-chip.html id=s %}{%- assign src_ids = src_ids | append: "," | append: s -%}{% endfor %}</p>
+          {%- endif %}
+        </div>
+        {%- endif %}{%- endfor %}
+      </div>
+    </div>
+  </section>
+  {%- endif %}
+
+  {%- assign J = S.jobs %}
+  <section class="md-sec" id="public-jobs" aria-labelledby="public-jobs-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="public-jobs-h">State and city government jobs</h2><p>Government jobs are filled through each government's own hiring system; some need a civil service exam.</p></div>
+      <div class="md-tiles2">
+        <div class="md-tile">
+          <h3><a href="{{ J.state.url }}">{{ J.state.portal }}</a></h3>
+          <p class="us-by">{{ J.state.by }}</p>
+          <ol class="md-list">{% for s in J.state.steps %}<li>{{ s }}</li>{% endfor %}</ol>
+          {%- if J.state.exam %}<p><strong>Exam:</strong> {{ J.state.exam }}</p>{% endif %}
+          <p class="md-tile-note">Source: {% include us-src-chip.html id=J.state.src %}</p>
+          {%- assign src_ids = src_ids | append: "," | append: J.state.src -%}
+        </div>
+        {%- for c in J.cities %}
+        <div class="md-tile">
+          <h3><a href="{{ c.url }}">{{ c.name }}</a></h3>
+          <p class="us-by">{{ c.body }}</p>
+          <p>{{ c.line }} {% include us-src-chip.html id=c.src %}</p>
+          {%- assign src_ids = src_ids | append: "," | append: c.src -%}
+        </div>
+        {%- endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="md-sec md-sec-alt" id="other-states" aria-labelledby="other-states-h">
+    <div class="container">
+      <div class="md-sec-head"><h2 id="other-states-h">Licensed somewhere else?</h2><p>Licenses do not move automatically between states. Each national license page shows interstate compacts (nursing, EMS and others) and what other states' boards publish.</p></div>
+      <ul class="md-links">
+        <li><a href="us/states/{{ page.state }}/"><strong>{{ N }} state page</strong><span>Diploma, state test, colleges, in-state tuition, aid and apprenticeship</span></a></li>
+        <li><a href="us/professional-licenses/"><strong>All professional licenses</strong><span>The route to each license and the state matrix</span></a></li>
+        <li><a href="us/states/"><strong>All states</strong><span>Every state page and license page built so far</span></a></li>
+      </ul>
+    </div>
+  </section>
+
+  {%- assign src_ids = src_ids | remove_first: "," | split: "," | uniq | join: "," -%}
+  {% include us-sources.html ids=src_ids bg="" %}
+
+</main>

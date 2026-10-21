@@ -1,0 +1,104 @@
+# Texas (USA Master Plan Phase 11 + 12). Schema: _data/us/state_index.yml. tsbpa.texas.gov, workintexas.com and the
+# TWC apprenticeship page block or time out from India; those were read through the Internet Archive's latest capture.
+name: "Texas"
+abbr: TX
+checked: 2026-10-21
+review_by: 2027-04-21
+lede: "Texas students graduate on the Foundation High School Program (22 credits, 26 with an endorsement) and must pass five STAAR end-of-course exams; residency for tuition is set by state law."
+
+diploma:
+  intro: "Students follow the plan in place when they started grade 9. The Foundation High School Program has been the default since students entered grade 9 in 2014-15."
+  rows:
+    - ["English", "4 credits: English I, II, III (or a comparable AP or IB course) and an advanced English course"]
+    - ["Mathematics", "3 credits: Algebra I, Geometry and an advanced math course"]
+    - ["Science", "3 credits: Biology; Integrated Physics and Chemistry, chemistry or physics; an advanced science course"]
+    - ["Social studies", "3 credits: World History or World Geography, U.S. History, U.S. Government (half credit), Economics or Economics and Personal Financial Literacy (half credit)"]
+    - ["Languages other than English", "2 credits in the same language, or 2 credits of computer programming languages"]
+    - ["Physical education", "1 credit"]
+    - ["Fine arts", "1 credit"]
+    - ["Electives", "5 credits"]
+    - ["With an endorsement (26 credits)", "Add the endorsement's courses, a 4th math credit, a 4th science credit and 2 more electives. Five areas: STEM, business and industry, public services, arts and humanities, multidisciplinary studies."]
+  unit: "22 credits minimum (Foundation); 26 with an endorsement. Districts do not have to offer every endorsement."
+  tests: "Pass the end-of-course (EOC) exams in Algebra I, English I, English II, Biology and U.S. History. A student who fails no more than two can still graduate after an individual graduation committee review."
+  src: tx_tea_toolkit
+  points:
+    - { t: "In grade 12 every student must also submit a FAFSA, submit a TASFA (Texas Application for State Financial Aid), or turn in a signed opt-out form.", src: tx_tea_toolkit }
+    - { t: "The Distinguished Level of Achievement (four credits each of math, including Algebra II, and science, plus an endorsement) is required for automatic top 10 percent admission to Texas public universities.", src: tx_tea_toolkit }
+    - { t: "Texas law does not require Algebra II to graduate under the Foundation program; districts must tell families this every year (SB 232, 2019).", src: tx_tea_grad }
+
+k12_test:
+  name: "STAAR"
+  full: "State of Texas Assessments of Academic Readiness"
+  intro: "STAAR is the core of the Texas Assessment Program, with STAAR Alternate 2 for students with significant cognitive disabilities and TELPAS for English learners. TEA says the tests measure how far a child has learned the state curriculum standards."
+  src: tx_tea_staar
+  rows:
+    - ["STAAR", "Summative academic tests", "Grades 3–12"]
+    - ["STAAR end-of-course (EOC)", "Algebra I, English I, English II, Biology, U.S. History", "High school; passing all five is a graduation requirement"]
+    - ["STAAR Alternate 2", "Alternate academic tests", "For students who qualify"]
+    - ["TELPAS and TELPAS Alternate", "English language proficiency", "English learners"]
+  rows_src: tx_tea_staar
+  use:
+    - { t: "Families get a STAAR Student Report Card explaining the child's score.", src: tx_tea_staar }
+    - { t: "The five EOC exams are part of the diploma requirements above.", src: tx_tea_grad }
+
+colleges:
+  systems:
+    - { name: "The University of Texas System", kind: university, url: "https://www.utsystem.edu/", line: "More than 270,000 students at academic and health institutions; more than one-third of the state's undergraduate degrees and about 56% of its medical degrees.", src: tx_ut_about }
+    - { name: "The Texas A&M University System", kind: university, url: "https://www.tamus.edu/", line: "12 universities, a health science center and eight state agencies, with a $9.1 billion annual budget.", src: tx_tamus_about }
+    - { name: "Texas public community colleges", kind: community, url: "https://comptroller.texas.gov/economy/economic-data/colleges/", line: "No single system: 50 community college districts, each meeting the education and job-training needs of its own service area. In fall 2017 about 700,000 students, 46% of Texas higher education students, attended community colleges.", src: tx_cpa_cc }
+
+residency:
+  points:
+    - { t: "Texas Education Code section 54.052: you are a resident for tuition if you set up a domicile in Texas at least one year before the census date of your term and kept it for that year, or if your parent did (a dependent's domicile is presumed to be the parent's).", src: tx_ed_54 }
+    - { t: "Also resident under the same section: a graduate of a Texas high school (or Texas diploma equivalent) who lived in Texas for the three years before graduating and the year before the census date.", src: tx_ed_54 }
+    - { t: "A federal court judgment of 4 June 2025 permanently bars Texas from applying section 54.052(a) to people who are not lawfully present in the United States.", src: tx_oag_judgment }
+
+aid:
+  agency: { name: "Texas Higher Education Coordinating Board (THECB)", url: "https://www.highered.texas.gov/", src: tx_thecb_texas_grant }
+  programs:
+    - { name: "TEXAS Grant (Toward EXcellence, Access, & Success)", line: "State grant for students with financial need at Texas public universities and health-related institutions. You must be a Texas resident and enter through the high school pathway (an accredited Texas high school, at most 30 college credit hours attempted) or the associate degree pathway. Universities use 15 January as the state priority deadline; the 2025-26 priority Student Aid Index is $6,514.", src: tx_thecb_texas_grant }
+
+jobs:
+  state:
+    portal: "WorkInTexas.com"
+    url: "https://www.workintexas.com/"
+    by: "Texas Workforce Commission (TWC)"
+    steps:
+      - "Search state agency jobs on WorkInTexas.com."
+      - "Since March 2026 the State of Texas Application is two steps: upload your resume and complete a brief questionnaire."
+    exam: "No statewide civil service exam is described; each agency hires for its own posted jobs."
+    src: tx_gov_application
+  cities: []
+
+apprenticeship:
+  office: "Texas Office of Apprenticeship (U.S. DOL) with TWC's apprenticeship program"
+  url: "https://www.twc.texas.gov/programs/apprenticeship"
+  kind: OA
+  line: "Texas has no State Apprenticeship Agency: programs register with the U.S. Department of Labor Office of Apprenticeship. TWC funds classroom instruction for registered apprentices and helps employers set up programs; to get TWC funds, programs and apprentices must be registered with DOL."
+  src: tx_twc_apprenticeship
+  oa_src: dol_oa_states
+
+licenses:
+  nursing:
+    body: "Texas Board of Nursing (BON)"
+    req: "Apply in the Texas Nurse Portal; your program dean submits an Affidavit of Graduation; fingerprints for a DPS and FBI background check. You can retest only within four years of graduating."
+    exam: "NCLEX-RN, plus the Texas Nursing Jurisprudence Exam (2 hours) before an Authorization to Test is issued"
+    fee: "Pearson VUE NCLEX registration $200"
+    sources: [tx_bon_exam]
+  cpa:
+    body: "Texas State Board of Public Accountancy (TSBPA)"
+    req: "Pathway A: bachelor's or graduate degree, 150 semester hours and 1 year of work experience. Pathway B (from 1 August 2026): bachelor's degree, 120 semester hours (24 upper-level accounting, 21 upper-level business, a 3-hour ethics course to sit) and 2 years of non-routine accounting work supervised by a CPA."
+    exam: "Uniform CPA Exam"
+    sources: [tx_tsbpa_pathway]
+  law:
+    body: "Texas Board of Law Examiners (on behalf of the Supreme Court of Texas)"
+    req: "Apply through an ATLAS account. First-semester J.D. students at Texas law schools file a Declaration of Intention to Study Law."
+    exam: "Texas Bar Exam. Texas accepts NextGen UBE transfer scores of 620 or higher now and gives its first NextGen UBE in July 2028"
+    fee: "Late filing adds $150, final filing deadline adds $300"
+    sources: [tx_ble_home, tx_ble_deadlines]
+  pe:
+    body: "Texas Board of Professional Engineers and Land Surveyors (TBPELS)"
+    req: "An EAC/ABET engineering degree (or a board-approved combination) and 4 years of engineering experience, or a non-accredited degree and 8 years; 3 references from licensed P.E.s (5 if you ask for exam waivers)."
+    exam: "FE and PE (NCEES) or waivers, plus the open-book Texas Ethics of Engineering exam"
+    renewal: "Annual until now, moving to a two-year cycle under SB 681; the September 2026 renewal needs 15 hours of continuing education, 1 in ethics"
+    sources: [tx_pels_basic, tx_pels_home]

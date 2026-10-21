@@ -1,0 +1,109 @@
+# California (USA Master Plan Phase 11 + 12). Schema: _data/us/state_index.yml. Every line was copied from the page its
+# `src` names (sources.yml), read on `checked`. CDE and CSAC block requests from India: those pages were read through
+# the Internet Archive's latest capture of the official page (the source note gives the capture date).
+name: "California"
+abbr: CA
+checked: 2026-10-21
+review_by: 2027-04-21
+lede: "California sets a short state list of high school courses (districts add their own), tests students with CAASPP, and runs three public college systems: UC, CSU and the California Community Colleges."
+
+diploma:
+  intro: "California Education Code section 51225.3 sets the minimum courses, taken in grades 9 to 12, for a diploma. Local school boards may require more."
+  rows:
+    - ["English", "3 courses"]
+    - ["Mathematics", "2 courses, including one year of Algebra I"]
+    - ["Science", "2 courses, including biological and physical sciences"]
+    - ["Social studies", "3 courses: U.S. history and geography; world history, culture and geography; one semester of American government and civics; one semester of economics"]
+    - ["Arts, world language or CTE", "1 course in visual or performing arts, world language (American Sign Language counts) or career technical education"]
+    - ["Physical education", "2 courses, unless exempted"]
+    - ["Ethnic studies", "1 semester, starting with the class graduating in 2029–30"]
+    - ["Personal finance", "1 semester standalone course, starting with the class graduating in 2030–31"]
+  unit: "Courses of one school year each (not credits); the district decides how many local credits a year is worth."
+  tests: "No state exam is on the state's minimum list for a diploma."
+  src: ca_cde_grad
+  points:
+    - { t: "California approves two high school equivalency tests, GED and HiSET, for people 18 and older (17 in some cases); a pass earns the California High School Equivalency Certificate.", src: ca_cde_grad_faq }
+
+k12_test:
+  name: "CAASPP"
+  full: "California Assessment of Student Performance and Progress"
+  intro: "California's statewide testing system, set up on 1 January 2014. Its main purpose, CDE says, is to help teachers, administrators, students and parents by promoting high-quality teaching and learning."
+  src: ca_cde_caaspp
+  rows:
+    - ["Smarter Balanced Summative Assessments", "English language arts/literacy and mathematics", "Grades 3–8 and 11"]
+    - ["California Science Test (CAST)", "Science", "Grades 5 and 8, and once in high school (grade 10, 11 or 12)"]
+    - ["California Alternate Assessments (CAAs)", "ELA, math and science, for students whose IEP calls for an alternate test", "Same grades as above"]
+    - ["California Spanish Assessment (optional)", "Spanish language arts", "Grades 3–8 and high school"]
+  rows_src: ca_cde_caaspp_facts
+  use:
+    - { t: "Smarter Balanced tests are given by computer: a computer-adaptive section plus a performance task based on the Common Core State Standards.", src: ca_cde_caaspp_facts }
+    - { t: "Scores go to families and schools through the CAASPP Results website; CDE also publishes scale-score percentiles and statewide summaries.", src: ca_cde_caaspp }
+
+colleges:
+  systems:
+    - { name: "University of California (UC)", kind: university, url: "https://www.universityofcalifornia.edu/", line: "10 campuses, 6 academic health centers and 21 health professional schools; more than 300,000 students. 85% of UC undergraduates are California residents.", src: ca_uc_about }
+    - { name: "California State University (CSU)", kind: university, url: "https://www.calstate.edu/", line: "22 universities educating more than 450,000 students a year, led by a Chancellor and a 25-member Board of Trustees.", src: ca_csu_about }
+    - { name: "California Community Colleges", kind: community, url: "https://www.cccco.edu/", line: "2.2 million students at 116 colleges in 73 districts, the largest higher education system in the country. 51% of CSU graduates and 29% of UC graduates started at a California community college.", src: ca_ccc_facts }
+
+residency:
+  points:
+    - { t: "UC: to pay resident tuition you need an eligible immigration status, a primary and permanent home (domicile) in California for at least one year before the residence determination date, and proof of physical presence and intent. For residency, one year equals 366 days.", src: ca_uc_rpg }
+    - { t: "Students are presumed dependent, so the student and the parents must each meet the requirements, unless the student qualifies as independent (graduate students included).", src: ca_uc_rpg }
+    - { t: "Every UC applicant files a Statement of Legal Residence; students are nonresident by default until it is decided.", src: ca_uc_residency }
+    - { t: "AB 540 (Education Code section 68130.5): students who meet California school time and enrollment rules plus degree or unit attainment pay resident tuition even without residency; one route is three or more years of full-time attendance at California high schools, adult schools or community colleges.", src: ca_uc_rpg }
+
+aid:
+  agency: { name: "California Student Aid Commission (CSAC)", url: "https://www.csac.ca.gov/", src: ca_csac_calgrant }
+  programs:
+    - { name: "Cal Grant", line: "State grant that does not need to be paid back, for UC, CSU, community colleges and qualifying independent and career colleges. Apply with the FAFSA or the California Dream Act Application plus a verified Cal Grant GPA by the deadline. The High School and Transfer Entitlement awards close 2 April; the Community College Entitlement award closes 2 September.", src: ca_csac_calgrant }
+    - { name: "Middle Class Scholarship", line: "For low- to middle-income undergraduates (and teaching-credential students) at UC, CSU or a community college bachelor's program. Income and asset ceiling up to $234,000 for students attending July 2025 to June 2026; up to 8 semesters or 12 quarters.", src: ca_csac_mcs }
+
+jobs:
+  state:
+    portal: "CalCareers"
+    url: "https://www.calcareers.ca.gov/"
+    by: "California Department of Human Resources (CalHR)"
+    steps:
+      - "Search: browse career fields or search by keyword, title or department."
+      - "Assessment: the job bulletin shows the qualifications and the assessment, which can be an exam or an interview, depending on the job. Pass it to become eligible to apply."
+      - "Apply: one CalCareer application can be used for many jobs; a department with a vacancy calls you for an interview."
+    exam: "Yes, an assessment comes before applying for most jobs; its form (exam, interview) depends on the job."
+    src: ca_calcareers_steps
+  cities:
+    - { name: "Los Angeles", body: "City of Los Angeles Personnel Department", url: "https://personnel.lacity.gov/", line: "Publishes the full calendar of civil service exams and eligible lists. Each exam shows its parts and weight, for example multiple-choice 100%, interview 100%, or a training and experience questionnaire.", src: ca_la_exams }
+
+apprenticeship:
+  office: "California Division of Apprenticeship Standards (DAS)"
+  url: "https://www.dir.ca.gov/das/"
+  kind: both
+  line: "DAS (Department of Industrial Relations) helps employers build registered apprenticeship programs. Its page counts 91,317 registered apprentices in California."
+  src: ca_das
+  oa_src: dol_oa_states
+
+# Phase 12: state license rows. Key = licenses.yml id or a trade slug in cte_careers.yml. Rows for licenses that
+# already list California in licenses.yml `boards` (teaching, cosmetology, real estate...) are not repeated here.
+licenses:
+  nursing:
+    body: "Board of Registered Nursing (BRN)"
+    req: "Finish an educational program that meets all California requirements; apply online in BreEZe."
+    exam: "NCLEX-RN, unless already passed or licensed as an RN in another state or territory"
+    fee: "Exam application $300 (California graduate), $350 (other state), $750 (international graduate)"
+    renewal: "Every 2 years; 30 contact hours of continuing education and DOJ/FBI fingerprints for an active license"
+    sources: [ca_brn_exam, ca_brn_fees, ca_brn_renewal]
+  cpa:
+    body: "California Board of Accountancy (CBA)"
+    req: "To sit for the exam now: a bachelor's degree or higher with 24 units of accounting and 24 units of business subjects; 1 year (12 months) of general accounting experience under a U.S. CPA, plus 500 attest hours to sign audit reports. New rules under AB 1175 start 1 January 2027; the current route stays open to 31 December 2028."
+    exam: "Uniform CPA Exam"
+    sources: [ca_cba_guide, ca_cba_experience]
+  law:
+    body: "State Bar of California"
+    req: "A J.D. from a California-accredited or ABA-approved law school (or another route the Bar allows), a positive moral character determination, and proof of compliance with any child or family support order."
+    exam: "California Bar Examination (two days: five one-hour essays, one 90-minute performance test, 200 multiple-choice questions) and the MPRE"
+    sources: [ca_bar_req, ca_bar_exams]
+  pe:
+    body: "Board for Professional Engineers, Land Surveyors, and Geologists (BPELSG)"
+    req: "Pass the NCEES FE and PE exams and meet the qualifying experience in Business and Professions Code sections 6751 and 6753. Civil engineers also pass two California exams: Civil Seismic Principles and Civil Engineering Surveying."
+    exam: "FE, PE (NCEES); for civil, the state Seismic Principles and Engineering Surveying exams"
+    fee: "Application $250 and each state exam $250 from 1 July 2026 (was $175); NCEES and Prometric fees are paid separately"
+    renewal: "Licenses are valid 2 years; a Renewal Assessment is required for licenses renewing after 30 June 2026"
+    sources: [ca_bpelsg_ce, ca_bpelsg_fees, ca_bpelsg_renewal]

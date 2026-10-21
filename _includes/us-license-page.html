@@ -68,19 +68,26 @@
     <div class="container">
       <div class="md-sec-head"><h2 id="states-h">State rules and other states</h2><p>{{ LIC.jurisdiction_note }}</p></div>
       {% include us-compact.html license=page.license %}
-      {%- if LIC.boards %}
-      <h3 class="md-pay-sub">What {{ LIC.boards.size }} state boards publish</h3>
+      {%- comment -%} Phase 12 (2026-10-21): the matrix = licenses.yml `boards` rows (one text cell) + every
+        _data/us/states/<slug>.yml `licenses.<id>` row (requirement, exam, fee, renewal), states A to Z. {%- endcomment -%}
+      {%- assign n_rows = LIC.boards.size | default: 0 -%}
+      {%- for ir in US.state_index.list %}{% if US.states[ir.slug].licenses[page.license] %}{% assign n_rows = n_rows | plus: 1 %}{% endif %}{% endfor -%}
+      {%- if n_rows > 0 %}
+      <h3 class="md-pay-sub">What {{ n_rows }} state boards publish</h3>
       <div class="table-wrap" data-no-points>
-        <table class="md-table">
-          <thead><tr><th scope="col">State</th><th scope="col">What the board asks for</th></tr></thead>
+        <table class="md-table us-state-matrix">
+          <thead><tr><th scope="col">State</th><th scope="col">What the board asks for</th><th scope="col">Exam</th><th scope="col">Fee</th><th scope="col">Renewal</th></tr></thead>
           <tbody>
-            {%- for r in LIC.boards %}
-            <tr><td><strong>{{ r.place }}</strong><br><span class="us-by">{{ r.body }}</span></td><td>{{ r.rule }}{% for s in r.sources %} {% include us-src-chip.html id=s %}{% endfor %}</td></tr>
+            {%- for r in LIC.boards %}{%- assign rs = US.state_index.list | where: "name", r.place | first %}
+            <tr><td><strong>{% if rs and US.states[rs.slug].licenses %}<a href="us/states/{{ rs.slug }}/licenses.html#lic-{{ page.license }}">{{ r.place }}</a>{% else %}{{ r.place }}{% endif %}</strong><br><span class="us-by">{{ r.body }}</span></td><td colspan="4">{{ r.rule }}{% for s in r.sources %} {% include us-src-chip.html id=s %}{% endfor %}</td></tr>
             {%- endfor %}
+            {%- for ir in US.state_index.list %}{%- assign R = US.states[ir.slug].licenses[page.license] %}{%- if R %}
+            <tr><td><strong><a href="us/states/{{ ir.slug }}/licenses.html#lic-{{ page.license }}">{{ ir.name }}</a></strong><br><span class="us-by">{{ R.body }}</span></td><td>{{ R.req }}{% for s in R.sources %} {% include us-src-chip.html id=s align="end" %}{% endfor %}</td><td>{{ R.exam | default: "—" }}</td><td>{{ R.fee | default: "—" }}</td><td>{{ R.renewal | default: "—" }}</td></tr>
+            {%- endif %}{%- endfor %}
           </tbody>
         </table>
       </div>
-      <p class="md-tile-note">Copied from each board's own page on {{ LIC.last_verified | date: "%-d %b %Y" }}. Other states have their own rules: check the board where you will work.</p>
+      <p class="md-tile-note">Each row is copied from that board's own page and cites it. A dash means the board page we read did not state it. Other states have their own rules: check the board where you will work, or open <a href="us/states/">the state pages</a>.</p>
       {%- endif %}
     </div>
   </section>

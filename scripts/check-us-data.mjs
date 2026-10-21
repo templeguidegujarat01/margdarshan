@@ -658,6 +658,77 @@ for (const r of home.public_sector?.service_routes?.officer?.routes || []) {
   for (const x of r.exams || []) if (!pageExists(x.href)) err(`home.service_routes.officer[${r.name}]`, `exam link ${x.href} is not a page`);
 }
 
+// States hub (USA Master Plan Phase 11 + 12, 2026-10-21): _data/us/state_index.yml (51 rows, Census figures) and one
+// _data/us/states/<slug>.yml per built state. Every block cites a known source; license rows are keyed by a
+// licenses.yml id or a cte_careers.yml trade slug and never repeat a place already in licenses.yml boards / cte states.
+const SIX = load('state_index');
+const stDir = path.join(root, '_data/us/states');
+const stFiles = fs.existsSync(stDir) ? fs.readdirSync(stDir).filter((f) => f.endsWith('.yml')) : [];
+if ((SIX.list || []).length !== 51) err('state_index', `expected 51 jurisdictions, got ${(SIX.list || []).length}`);
+needSrc('state_index', SIX.source);
+const ixSlugs = new Set();
+for (const r of SIX.list || []) {
+  if (ixSlugs.has(r.slug)) err('state_index', `duplicate slug ${r.slug}`);
+  ixSlugs.add(r.slug);
+  if (typeof r.pop !== 'number' || typeof r.rank !== 'number' || !/^[A-Z]{2}$/.test(r.abbr || '')) err(`state_index.${r.slug}`, 'needs numeric pop and rank and a 2-letter abbr');
+}
+const tradeSlugs = new Set((cte.list || []).map((t) => t.slug));
+let stLicRows = 0;
+for (const f of stFiles) {
+  const slug = f.slice(0, -4);
+  const w = `states.${slug}`;
+  const S = yaml.load(fs.readFileSync(path.join(stDir, f), 'utf8'));
+  const row = (SIX.list || []).find((r) => r.slug === slug);
+  if (!row) { err(w, 'no row in state_index.yml'); continue; }
+  if (S.name !== row.name || S.abbr !== row.abbr) err(w, `name/abbr must match state_index (${row.name}, ${row.abbr})`);
+  if (!isDate(S.checked) || !isDate(S.review_by)) err(w, 'needs checked and review_by dates');
+  else if (immIso(S.review_by) < immToday) err(w, `review_by ${immIso(S.review_by)} has passed: re-check the state's pages`);
+  for (const k of ['lede', 'diploma', 'k12_test', 'colleges', 'residency', 'aid', 'jobs', 'apprenticeship']) if (!S[k]) err(w, `missing ${k}`);
+  const D = S.diploma || {};
+  if (!D.intro || !D.tests) err(`${w}.diploma`, 'needs intro and tests');
+  needSrc(`${w}.diploma`, D.src);
+  (D.points || []).forEach((p) => needSrc(`${w}.diploma.points`, p.src));
+  const K = S.k12_test || {};
+  if (!K.name || !K.full || !(K.rows || []).length || !(K.use || []).length) err(`${w}.k12_test`, 'needs name, full, rows and use');
+  needSrc(`${w}.k12_test`, K.src); needSrc(`${w}.k12_test.rows_src`, K.rows_src);
+  (K.use || []).forEach((u) => needSrc(`${w}.k12_test.use`, u.src));
+  const kinds = new Set();
+  for (const c of S.colleges?.systems || []) {
+    kinds.add(c.kind);
+    if (!['university', 'community'].includes(c.kind) || !/^https:\/\//.test(c.url || '') || !c.line) err(`${w}.colleges[${c.name}]`, 'needs kind (university | community), https url and line');
+    needSrc(`${w}.colleges[${c.name}]`, c.src); if (c.src2) needSrc(`${w}.colleges[${c.name}]`, c.src2);
+  }
+  if (!kinds.has('university') || !kinds.has('community')) err(`${w}.colleges`, 'needs a university system and a community college entry');
+  if (!(S.residency?.points || []).length) err(`${w}.residency`, 'needs points');
+  (S.residency?.points || []).forEach((p) => needSrc(`${w}.residency`, p.src));
+  needSrc(`${w}.aid.agency`, S.aid?.agency?.src);
+  if (!(S.aid?.programs || []).length) err(`${w}.aid`, 'needs at least one program');
+  (S.aid?.programs || []).forEach((p) => needSrc(`${w}.aid[${p.name}]`, p.src));
+  const J = S.jobs?.state || {};
+  if (!J.portal || !/^https:\/\//.test(J.url || '') || !(J.steps || []).length) err(`${w}.jobs.state`, 'needs portal, https url and steps');
+  needSrc(`${w}.jobs.state`, J.src);
+  (S.jobs?.cities || []).forEach((c) => needSrc(`${w}.jobs.cities[${c.name}]`, c.src));
+  const A = S.apprenticeship || {};
+  if (!['SAA', 'OA', 'both'].includes(A.kind)) err(`${w}.apprenticeship`, 'kind must be SAA, OA or both');
+  needSrc(`${w}.apprenticeship`, A.src); needSrc(`${w}.apprenticeship`, A.oa_src);
+  for (const l of S.links || []) if (!pageExists(l.href)) err(`${w}.links`, `${l.href} is not a page`);
+  for (const [k, R] of Object.entries(S.licenses || {})) {
+    const lw = `${w}.licenses.${k}`;
+    stLicRows++;
+    if (!lic[k] && !tradeSlugs.has(k)) err(lw, 'key must be a licenses.yml id or a cte_careers.yml trade slug');
+    if (!R.body || !R.req) err(lw, 'needs body and req');
+    if (!(R.sources || []).length) err(lw, 'needs sources (the board page it was copied from)');
+    (R.sources || []).forEach((s) => needSrc(lw, s));
+    if ((lic[k]?.boards || []).some((b) => b.place === S.name)) err(lw, `licenses.yml ${k}.boards already has a ${S.name} row`);
+    if (((cte.list || []).find((t) => t.slug === k)?.states || []).some((b) => b.place === S.name)) err(lw, `cte_careers ${k}.states already has a ${S.name} row`);
+  }
+  if (!fs.existsSync(path.join(root, 'us/states', slug, 'index.html'))) err(w, `us/states/${slug}/index.html missing (run scripts/build-us-states.mjs)`);
+  if (S.licenses && !fs.existsSync(path.join(root, 'us/states', slug, 'licenses.html'))) err(w, `us/states/${slug}/licenses.html missing (run scripts/build-us-states.mjs)`);
+}
+if (!pageExists('us/states/') || home.support.find((s) => s.id === 'states')?.href !== 'us/states/') err('home.support.states', 'the States card must link us/states/');
+if (!/href: us\/states\/\n/.test(navUs.replace(/\r/g, ''))) err('_data/nav_us.yml', 'the USA menu needs the States hub (href: us/states/)');
+console.log(`checked ${stFiles.length} state pages (${stLicRows} state license rows) against ${(SIX.list || []).length} jurisdictions`);
+
 console.log(`checked ${Object.keys(EXS).length} exam pages in ${(exams.stages || []).length} stages, ${(exams.ap_subjects || []).length} AP subjects, ${gatesLinked} roadmap exam gates linked`);
 console.log(`checked ${Object.keys(sources.list).length} sources, ${Object.keys(occ).length} occupations, ${Object.keys(lic).length} licenses, ${testIds.size} tests, ${paths.list.length} pathways, ${(paths.crossborder || []).length} cross-border tracks, ${(cte.list || []).length} trades roadmaps, ${clusters.length} clusters (${subTotal} sub-clusters, ${placed.size} careers placed, ${clusters.filter((c) => c.live).length} hubs live)`);
 if (errors.length) { console.log(errors.join('\n')); console.log(`\n${errors.length} problem(s)`); process.exit(1); }

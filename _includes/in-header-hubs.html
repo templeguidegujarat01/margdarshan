@@ -14,9 +14,11 @@
   scripts/build-nav-mega.mjs from the hub pages). Desktop with a mouse (>=1024px, hover): hovering or
   focusing a rail name swaps the right pane at once (site.js moves .is-on; the first node starts on).
   Touch and below 1024px: each rail name is an accordion that opens its list under it.
-  Group tabs (2026-10-21): a node with 2+ groups and more than 8 guides gets a row of group tabs on top of its
-  pane (states, sub-streams, sport families). Only the hovered / focused / tapped group's list shows, so the
-  pane stays short; site.js moves .is-on between .hh-tab and its .hh-col.
+  Cascade selector (2026-10-21): a node with 2+ groups and more than 8 guides becomes three columns on desktop —
+  rail (hover), its groups as a vertical list (states, sub-streams, sport families), and the picked group's
+  links only. A group is picked by click / tap / arrow keys, never by hover; site.js moves .is-on between
+  .hh-tab and the .hh-col its aria-controls names. More than 10 groups (states) sit in two
+  short columns in column 2 (.hh-tabbed-2). Narrow: the groups are a sideways pill line above the list.
 {%- endcomment -%}
 {%- assign hh_cur = page.url | remove_first: "/" -%}
 <nav class="in-header-hubs" aria-label="India menu">
@@ -45,7 +47,7 @@
             {%- capture n_id %}hh-{{ it.label | slugify }}-{{ n.label | slugify }}{% endcapture %}
             <li class="hh-sub hh-node{% if forloop.first %} is-on{% endif %}">
               <a class="hh-sub-btn" href="{{ n.href }}" aria-haspopup="true"{% if hh_cur == n.href %} aria-current="page"{% endif %}><span class="hh-node-txt">{{ n_label }}</span><svg class="hh-sub-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
-              <div class="hh-fly hh-grid{% if n_tab %} hh-tabbed{% endif %}" role="group" aria-label="{{ n_label }}">
+              <div class="hh-fly hh-grid{% if n_tab %} hh-tabbed{% if n_cols.size > 10 %} hh-tabbed-2{% endif %}{% endif %}" role="group" aria-label="{{ n_label }}">
                 <div class="hh-fly-head">
                   <p class="hh-fly-title">{{ n_label }}{% if M.note %}<span>{{ M.note | replace: "&", "&amp;" }}</span>{% endif %}</p>
                   <a class="hh-link hh-fly-all" href="{% if M.head %}{{ M.head.href }}{% else %}{{ n.href }}{% endif %}">{% if M.head %}{{ M.head.label | replace: "&", "&amp;" }}{% else %}Open {{ n_label }}{% endif %} <span aria-hidden="true">→</span></a>

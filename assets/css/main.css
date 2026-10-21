@@ -418,12 +418,15 @@ html.nav-locked{overflow:hidden;}
   .hh-cols{column-width:9rem;}
 }
 @media (prefers-reduced-motion:reduce){.hh-sub-arrow{transition:none !important;}}
-/* Group tabs (.hh-tabbed: a node with 2+ groups and 9+ guides): a row of pills on top of the pane, one per
-   group (a state, a sub-stream, a sport family) with its count. Only the active group's list shows, flowed
-   into columns across the pane. Desktop: every group sits in the same grid cell, so the pane is as tall as
-   its longest group and switching never moves the layout. Narrow: the pills scroll sideways in one line. */
+/* Cascade selector (.hh-tabbed: a node with 2+ groups and 9+ guides) — the third tier of the mega menu.
+   Column 1 is the rail (hover picks a node), column 2 is this node's groups as a vertical list (a state, a
+   sub-stream, a sport family, with its count), column 3 is the picked group's links only. A group is picked
+   by a click / tap (or the arrow keys), never by hovering, so the links only change when asked to.
+   The active group carries a gold rail line that slides in with transform only. Desktop: every group sits in
+   the same grid cell, so the pane is as tall as its longest group and switching never moves the layout.
+   Narrow: the groups are a pill line that scrolls sideways above the list. */
 .hh-tabs{display:flex;flex-wrap:wrap;gap:.35rem;margin:0 0 .7rem;padding:0 .5rem .65rem;border-bottom:1px solid var(--line);}
-.hh-tab{display:inline-flex;align-items:center;gap:.4rem;min-height:32px;padding:.3rem .45rem .3rem .75rem;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--text);font:inherit;font-size:.8rem;font-weight:600;line-height:1.2;white-space:nowrap;cursor:pointer;transition:background-color .15s var(--ease),border-color .15s var(--ease),color .15s var(--ease),box-shadow .15s var(--ease);}
+.hh-tab{position:relative;display:inline-flex;align-items:center;gap:.4rem;min-height:32px;padding:.3rem .45rem .3rem .75rem;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--text);font:inherit;font-family:var(--font-sans);font-size:.8rem;font-weight:600;line-height:1.2;white-space:nowrap;cursor:pointer;transition:background-color .15s var(--ease),border-color .15s var(--ease),color .15s var(--ease),box-shadow .15s var(--ease);}
 .hh-tab-n{display:inline-grid;place-items:center;min-width:1.35rem;height:1.35rem;padding:0 .3rem;border-radius:999px;background:var(--stream-soft);color:var(--text-muted);font-family:var(--font-mono);font-size:.68rem;font-weight:700;}
 .hh-tab:hover{border-color:var(--stream-border);background:var(--stream-soft);}
 .hh-tab.is-on{border-color:var(--stream-border);background:var(--stream-soft);color:var(--link);box-shadow:inset 0 0 0 1px var(--stream-border);}
@@ -434,6 +437,21 @@ html.nav-locked{overflow:hidden;}
 .hh-tabbed .hh-col-head{display:none;}
 .hh-tabbed .hh-col ul{column-width:11rem;column-gap:.75rem;}
 @media (min-width:1024px) and (hover:hover){
+  /* The panel never grows past the viewport: past 80vh it scrolls inside itself, so the page under it never shifts. */
+  .hh-panel.hh-mega{max-height:80vh;overflow-y:auto;overscroll-behavior-y:contain;}
+  .hh-mega .hh-node > .hh-tabbed{display:grid;grid-template-columns:15rem minmax(0,1fr);grid-template-rows:auto 1fr;column-gap:0;align-content:start;}
+  .hh-tabbed > .hh-fly-head{grid-column:1 / -1;}
+  .hh-tabbed > .hh-tabs{grid-column:1;flex-direction:column;flex-wrap:nowrap;gap:1px;margin:0;padding:0 .5rem 0 0;border-bottom:0;border-right:1px solid var(--line);}
+  .hh-tabbed > .hh-cols{grid-column:2;min-width:0;padding-left:.75rem;}
+  /* More than 10 groups (the states): two short columns, so column 2 stays as short as the lists beside it. */
+  .hh-mega .hh-node > .hh-tabbed-2{grid-template-columns:22rem minmax(0,1fr);}
+  .hh-tabbed-2 > .hh-tabs{display:grid;grid-template-columns:1fr 1fr;align-content:start;column-gap:.25rem;}
+  .hh-tabbed .hh-tab{justify-content:space-between;width:100%;min-height:34px;padding:.4rem .5rem .4rem .85rem;border:0;border-radius:0 8px 8px 0;background:transparent;text-align:left;white-space:normal;}
+  .hh-tabbed .hh-tab::before{content:"";position:absolute;left:0;top:4px;bottom:4px;width:3px;border-radius:0 3px 3px 0;background:var(--gold);transform:scaleY(0);transition:transform .18s var(--ease);}
+  .hh-tabbed .hh-tab:hover{background:var(--stream-soft);}
+  .hh-tabbed .hh-tab.is-on{background:var(--stream-soft);box-shadow:none;}
+  .hh-tabbed .hh-tab.is-on::before{transform:scaleY(1);}
+  .hh-tabbed .hh-tab:focus-visible{outline-offset:-2px;}
   .hh-tabbed .hh-col{visibility:hidden;}
   .hh-tabbed .hh-col.is-on{visibility:inherit;}
 }
@@ -444,7 +462,7 @@ html.nav-locked{overflow:hidden;}
   .hh-tabbed .hh-col:not(.is-on){display:none;}
   .hh-tabbed .hh-col ul{column-width:9rem;}
 }
-@media (prefers-reduced-motion:reduce){.hh-tab{transition:none;}}
+@media (prefers-reduced-motion:reduce){.hh-tab,.hh-tab::before{transition:none !important;}}
 
 /* India edition pages (body.shell-in, _layouts/default.html): no sidebar, so the content takes the full width
    and the top bar has no menu button. On phones the logo mark stands where the menu button was (it lived in the

@@ -1905,9 +1905,10 @@ try {
         if(n.classList.contains('is-on')) n.classList.remove('is-on'); else on(n);
       });
     });
-    // Group tabs (.hh-tabs, a node with many groups): one group's list at a time. Mouse: hover switches after
-    // 110 ms, so moving down across the pill rows to the list does not flick through the pills passed over.
-    // Click / tap / focus switch at once; Left / Right / Home / End move between pills (WAI-ARIA tabs).
+    // Cascade selector (.hh-tabs, a node with many groups): column 2 lists the groups, column 3 shows the
+    // picked group's links only. A group is picked on purpose: click / tap, or the arrow keys (Up / Down /
+    // Left / Right / Home / End, WAI-ARIA tabs). Hovering a group does nothing, so crossing column 2 on the
+    // way to a link never swaps the list.
     function tabOn(tabs, t){
       tabs.forEach(function(o){
         var hit = o === t, pane = document.getElementById(o.getAttribute('aria-controls'));
@@ -1926,20 +1927,15 @@ try {
       tabOn(tabs, t);
     }
     panel.querySelectorAll('.hh-tabs').forEach(function(row){
-      var tabs = row.querySelectorAll('.hh-tab'), tt = 0;
+      var tabs = row.querySelectorAll('.hh-tab');
       tabs.forEach(function(t, i){
-        t.addEventListener('mouseenter', function(){
-          if(!wide.matches) return;
-          clearTimeout(tt); tt = setTimeout(function(){ tabOn(tabs, t); }, 110);
-        });
-        t.addEventListener('mouseleave', function(){ clearTimeout(tt); });
-        t.addEventListener('click', function(){ clearTimeout(tt); tabOn(tabs, t); });
-        t.addEventListener('focus', function(){ tabOn(tabs, t); });
+        t.addEventListener('click', function(){ tabOn(tabs, t); });
         t.addEventListener('keydown', function(e){
-          var k = e.key, j = k === 'ArrowRight' ? i + 1 : k === 'ArrowLeft' ? i - 1 : k === 'Home' ? 0 : k === 'End' ? tabs.length - 1 : null;
+          var k = e.key, j = k === 'ArrowDown' || k === 'ArrowRight' ? i + 1 : k === 'ArrowUp' || k === 'ArrowLeft' ? i - 1 : k === 'Home' ? 0 : k === 'End' ? tabs.length - 1 : null;
           if(j === null) return;
           e.preventDefault();
-          tabs[(j + tabs.length) % tabs.length].focus();
+          var to = tabs[(j + tabs.length) % tabs.length];
+          tabOn(tabs, to); to.focus();
         });
       });
     });

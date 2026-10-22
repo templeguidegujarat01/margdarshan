@@ -1,12 +1,81 @@
-# Oregon (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# Oregon (USA Master Plan Phase 11 batch 3, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the
+# boards tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# oregon.gov pages open from India; the Secretary of State's rules site (OAR text) and oregonlegislature.gov time out, so
+# residency is read from the University of Oregon's page that applies the OARs. Oregon has no single university system:
+# the seven public universities have their own boards, so the university row is the University of Oregon.
 name: "Oregon"
 abbr: OR
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In Oregon, the Oregon State Board of Bar Examiners handles bar admission for lawyers, the Oregon Medical Board licenses physicians, the Oregon Board of Accountancy licenses CPAs and the Oregon State Board of Nursing licenses registered nurses."
+lede: "Oregon requires 24 credits for its diploma (with personal finance and career path skills from 2027), has suspended the Essential Skills test requirement through 2027-28, asks for 12 months of Oregon residence for in-state tuition, and funds need-based Oregon Opportunity Grants."
+
+diploma:
+  intro: "To earn the Oregon Diploma, students complete the state credit requirements and the personalized learning requirements (education plan and profile, extended application and career-related learning experiences). Districts may add requirements."
+  rows:
+    - ["Language arts", "4 credits"]
+    - ["Mathematics", "3 credits, Algebra I and above"]
+    - ["Science", "3 credits, including scientific inquiry and lab experiences"]
+    - ["Social sciences", "3 credits, including at least 0.5 credit of civics (from the class of 2026)"]
+    - ["World languages, arts or career and technical education", "3 credits from any of these"]
+    - ["Health", "1 credit"]
+    - ["Physical education", "1 credit"]
+    - ["Personal financial education", "0.5 credit (graduates from 1 January 2027)"]
+    - ["Higher education and career path skills", "0.5 credit (graduates from 1 January 2027)"]
+    - ["Electives", "5 credits (6 before 2027)"]
+  unit: "24 credits."
+  tests: "Students are expected to show proficiency in the Essential Skills, but the State Board of Education has suspended the Essential Skills assessment as a diploma requirement through the 2027-28 school year."
+  src: or_ode_diploma
+  points:
+    - { t: "Senate Bill 3 added the personal finance and higher education and career path skills half-credits for students graduating on or after 1 January 2027.", src: or_ode_diploma }
+    - { t: "Students with a GPA of 3.5 or above can request an honors diploma seal; modified and extended diplomas exist for eligible students.", src: or_ode_diploma }
+
+k12_test:
+  name: "OSAS"
+  full: "Oregon Statewide Assessment System"
+  intro: "OSAS summative tests are given every year in English language arts, math and science in selected grades; the Oregon Extended Assessment is an alternate for students with significant cognitive disabilities."
+  src: or_ode_osas
+  rows:
+    - ["OSAS English Language Arts", "Reading and writing", "Grades 3–8 and 11"]
+    - ["OSAS Mathematics", "Mathematics", "Grades 3–8 and 11"]
+    - ["OSAS Science", "Science", "Grades 5, 8 and 11"]
+  rows_src: or_ode_osas
+  use:
+    - { t: "OSAS also includes local performance assessments in math, scientific inquiry, speaking and writing (grades 3 to 8 and at least once in high school) and the SEED student survey.", src: or_ode_osas }
+
+colleges:
+  systems:
+    - { name: "University of Oregon", kind: university, url: "https://www.uoregon.edu/", line: "An R1 research university and Association of American Universities member, founded in 1876, with 302 degrees and programs across ten schools and colleges; one of Oregon's seven public universities, coordinated by the Higher Education Coordinating Commission.", src: or_uo, src2: or_hecc }
+    - { name: "Oregon's 17 community colleges", kind: community, url: "https://www.oregon.gov/highered/access/pages/community-colleges.aspx", line: "17 community colleges governed by locally elected boards, offering certificates, two-year degrees, transfer coursework and workforce training; some now offer four-year degrees.", src: or_hecc_cc }
+
+residency:
+  points:
+    - { t: "Residency is decided by each college's residency officers under the Oregon Administrative Rules. At the University of Oregon the key test is living in Oregon for at least 12 months before the term begins.", src: or_uo_residency }
+    - { t: "Officers also look at whether the student is financially dependent on an Oregon resident or independent, and at signs of residency such as owning a home, permanent employment or paying income tax in Oregon.", src: or_uo_residency }
+    - { t: "Enrolled members of federally recognized tribes of Oregon, or tribes with traditional lands in Oregon, are treated as residents for tuition wherever they live.", src: or_uo_residency }
+
+aid:
+  agency: { name: "Office of Student Access and Completion (OSAC), Higher Education Coordinating Commission", url: "https://oregonstudentaid.gov/", src: or_oog }
+  programs:
+    - { name: "Oregon Opportunity Grant", line: "Oregon's largest state-funded need-based grant, reaching more than 30,000 students a year working toward a first associate or bachelor's degree. Students must have lived in Oregon for 12 months before college; there is no separate application beyond the FAFSA or ORSAA.", src: or_oog }
+
+jobs:
+  state:
+    portal: "Oregon Job Opportunities"
+    url: "https://www.oregon.gov/jobs/"
+    by: "Oregon Department of Administrative Services, Chief Human Resources Office"
+    steps:
+      - "Look for jobs as an external applicant and apply through Workday, the state's recruiting tool, after creating an external applicant account."
+      - "Use the application guide, video interviewing tips and job classification and pay rate pages before applying."
+    src: or_jobs
+  cities: []
+
+apprenticeship:
+  office: "Bureau of Labor and Industries (BOLI), Apprenticeship and Training Division"
+  url: "https://www.oregon.gov/boli/apprenticeship/Pages/default.aspx"
+  kind: SAA
+  line: "Oregon is a State Apprenticeship Agency state: BOLI's Apprenticeship and Training Division registers and supports apprenticeship programs and lists programs by trade."
+  src: or_boli
+  oa_src: dol_oa_offices
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

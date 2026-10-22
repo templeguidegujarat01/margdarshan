@@ -1,12 +1,86 @@
-# South Carolina (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# South Carolina (USA Master Plan Phase 11 batch 3, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the
+# boards tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# ed.sc.gov, che.sc.gov, sc.edu, careers.sc.gov and admin.sc.gov block India (CloudFront country block or timeouts):
+# rules come from the S.C. Code and State Board regulations on scstatehouse.gov, and careers.sc.gov and the SC Technical
+# College System page from Internet Archive captures (timestamps in each source's note in sources.yml).
 name: "South Carolina"
 abbr: SC
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In South Carolina, the South Carolina Supreme Court, Board of Law Examiners handles bar admission for lawyers, the South Carolina Board of Medical Examiners licenses physicians, the South Carolina Board of Accountancy licenses CPAs and the South Carolina Board of Nursing licenses registered nurses."
+lede: "South Carolina requires 24 units for its uniform high school diploma, gives 20% weight to end-of-course exams in gateway courses, grants in-state tuition after 12 months of domicile, and funds merit LIFE Scholarships."
+
+diploma:
+  intro: "S.C. Code § 59-39-100 sets 24 units for the uniform state diploma, earned through personalized pathways; State Board of Education Regulation 43-234 divides them by subject."
+  rows:
+    - ["English language arts", "4 units"]
+    - ["Mathematics", "4 units"]
+    - ["Science", "3 units"]
+    - ["U.S. History and Constitution", "1 unit"]
+    - ["Economics", "0.5 unit"]
+    - ["U.S. Government", "0.5 unit"]
+    - ["Other social studies", "1 unit"]
+    - ["Physical education or Junior ROTC", "1 unit"]
+    - ["Computer science", "1 unit"]
+    - ["World language or career and technology education", "1 unit"]
+    - ["Financial literacy", "0.5 unit (from the freshman class of 2023-24)"]
+    - ["Electives", "6.5 units"]
+  unit: "24 units. One unit is a standards-based course of at least 120 hours, or credit through a proficiency-based system."
+  tests: "Students must pass a classroom examination on the U.S. Constitution, the Declaration of Independence, the Federalist papers and American institutions, take the 100-question U.S. citizenship civics test, and pass a high school science course that has an end-of-course examination."
+  src: sc_reg_43_234
+  rows_src: sc_reg_43_234
+  points:
+    - { t: "Since the class of 2015 there is no exit exam for the diploma; former students denied a diploma only for the old exit exam may petition their local school board.", src: sc_code_59_18 }
+    - { t: "Students can earn endorsements on their pathway, shown as seals on the uniform diploma; they are not required to graduate.", src: sc_code_59_39_100 }
+
+k12_test:
+  name: "SC READY and EOCEP"
+  full: "South Carolina statewide assessment program: SC READY, the End-of-Course Examination Program (EOCEP) and grade 11 readiness tests"
+  intro: "State law requires tests in English language arts, math, science and social studies in grades 3 to 8, end-of-course tests in gateway high school courses, and a college entrance test and a career readiness test in grade 11."
+  src: sc_code_59_18
+  rows:
+    - ["SC READY (state assessment)", "English language arts, mathematics, science and social studies", "Grades 3–8"]
+    - ["End-of-Course Examination Program (EOCEP)", "Gateway courses in English, mathematics, science and U.S. History and the Constitution", "When the course ends"]
+    - ["College entrance assessment", "Offered to every student", "Grade 11"]
+    - ["Career readiness assessment", "Given to every student", "Grade 11"]
+  rows_src: sc_reg_43_262
+  use:
+    - { t: "End-of-course exam scores count for 20% of the student's final grade in each gateway course.", src: sc_reg_43_262 }
+    - { t: "Students may use grade 11 college and career readiness results to apply to college or jobs; the results stay on the student's permanent record for at least ten years.", src: sc_code_59_18 }
+
+colleges:
+  systems:
+    - { name: "University of South Carolina System", kind: university, url: "https://sc.edu/", line: "The flagship Columbia campus, three comprehensive universities (Aiken, Beaufort and Upstate) and four regional Palmetto College campuses; the system confers nearly 40% of bachelor's and graduate degrees from South Carolina's public institutions.", src: sc_usc_bulletin }
+    - { name: "SC Technical College System", kind: community, url: "https://www.sctechsystem.edu/", line: "The state's largest higher education system: 16 technical colleges plus readySC and Apprenticeship Carolina, serving more than 134,000 South Carolinians a year.", src: sc_tech_about }
+
+residency:
+  points:
+    - { t: "S.C. Code § 59-112-20: independent persons who have lived in and been domiciled in South Carolina for at least 12 months, intending to make a permanent home there, and their dependents may get in-state rates.", src: sc_code_59_112 }
+    - { t: "Independent persons domiciled for less than 12 months but employed full time in the state, and their dependents, may get in-state rates while that full-time job lasts.", src: sc_code_59_112 }
+    - { t: "A dependent minor's domicile is presumed to be the parent's.", src: sc_code_59_112 }
+
+aid:
+  agency: { name: "South Carolina Commission on Higher Education (CHE)", url: "https://che.sc.gov/", src: sc_code_59_149 }
+  programs:
+    - { name: "LIFE Scholarship", line: "Merit scholarship for students who graduated from a South Carolina high school (or meet the other residence routes) and qualify for in-state tuition, with a 3.0 high school GPA and an SAT of 1100 or the ACT equivalent (no test score needed at two-year and technical colleges). Students keep it with a 3.0 college GPA and 30 credit hours a year.", src: sc_code_59_149 }
+
+jobs:
+  state:
+    portal: "SC Careers"
+    url: "https://careers.sc.gov/"
+    by: "South Carolina Department of Administration, Division of State Human Resources"
+    steps:
+      - "Create a NEOGOV account and apply online for jobs in more than 70 state agencies; some agencies run their own e-recruitment sites, linked from the portal."
+      - "Postings with a closing date of continuous stay open until filled. Ask the hiring agency's HR office about application status."
+    src: sc_careers_faq
+  cities: []
+
+apprenticeship:
+  office: "South Carolina Apprenticeship Office (U.S. Department of Labor)"
+  url: "https://www.apprenticeship.gov/about-us/state-office"
+  kind: OA
+  line: "South Carolina has no recognized State Apprenticeship Agency: the U.S. Department of Labor's South Carolina Apprenticeship Office registers programs. Apprenticeship Carolina, part of the SC Technical College System, helps employers build them."
+  src: dol_oa_offices
+  oa_src: dol_oa_states
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

@@ -1,12 +1,83 @@
-# Louisiana (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# Louisiana (USA Master Plan Phase 11 batch 3, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the
+# boards tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# doe.louisiana.gov / louisianabelieves.com, lctcs.edu and laworks.net sit behind Cloudflare from India and legis.la.gov
+# times out: the diploma and test rows come from Internet Archive captures of Department of Education PDFs, and
+# residency from the University of Louisiana System's regulation and an archived R.S. 17:2137 (timestamps in sources.yml).
 name: "Louisiana"
 abbr: LA
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In Louisiana, the Louisiana Committee on Bar Admissions handles bar admission for lawyers, the Louisiana State Board of Medical Examiners licenses physicians, the State Board of CPAs of Louisiana licenses CPAs and the Louisiana State Board of Nursing licenses registered nurses."
+lede: "Louisiana offers a 24-unit TOPS University diploma and a 23-unit Jump Start TOPS Tech career diploma, requires passing LEAP 2025 tests in three course pairs, and funds TOPS merit scholarships and need-based GO Grants through LOSFA."
+
+diploma:
+  intro: "Bulletin 741 sets two diploma pathways: the TOPS University (college) diploma and the Jump Start TOPS Tech (career) diploma. The rows show the TOPS University minimum for students entering grade 9 from 2027-28."
+  rows:
+    - ["English", "4 units"]
+    - ["Mathematics", "4 units"]
+    - ["Science", "4 units"]
+    - ["Social studies", "4 units"]
+    - ["Foreign language", "2 units"]
+    - ["Art", "1 unit"]
+    - ["Physical education", "1.5 units"]
+    - ["Health", "0.5 unit"]
+    - ["Financial literacy", "1 unit (from freshmen of 2024-25)"]
+    - ["Computer science", "1 unit (from freshmen of 2027-28)"]
+    - ["Electives", "1 unit"]
+  unit: "TOPS University: 24 units. Jump Start TOPS Tech: 23 units (4 English, 4 math, 2 science, 2 social studies, 1.5 physical education, 0.5 health and 9 units of Jump Start courses, workplace experience and credentials)."
+  tests: "Students must also pass the LEAP 2025 test in one course of each of three pairs (see State test)."
+  src: la_igp
+  points:
+    - { t: "Freshmen of 2024-25 to 2026-27 take 2 electives instead of computer science; freshmen of 2014-15 to 2023-24 had 3 electives and no financial literacy unit.", src: la_igp }
+    - { t: "Students can add diploma endorsements, such as community service, STEM and the State Seal of Biliteracy, through their Individual Graduation Plan.", src: la_igp }
+
+k12_test:
+  name: "LEAP 2025"
+  full: "Louisiana Educational Assessment Program (LEAP 2025)"
+  intro: "Students in grades 3 through high school take LEAP 2025 tests each year in English language arts, math, science and social studies, and in seven high school courses."
+  src: la_leap_guide
+  rows:
+    - ["LEAP 2025", "English language arts, mathematics, science and social studies", "Grades 3–8"]
+    - ["LEAP 2025 high school", "English I, English II, Algebra I, geometry, biology, civics and U.S. history", "When the course is taken"]
+  rows_src: la_leap_guide
+  use:
+    - { t: "To graduate, students must pass one course test in each pair: English I or English II; Algebra I or geometry; and biology or civics (biology or U.S. history for students who entered high school before 2024-25).", src: la_leap_guide }
+    - { t: "School systems count the LEAP test as 15–30% of the final course grade. U.S. history becomes a district-administered test from 2027-28.", src: la_leap_guide }
+
+colleges:
+  systems:
+    - { name: "Louisiana State University (LSU)", kind: university, url: "https://www.lsu.edu/", line: "The state's flagship university, a land-grant, sea-grant and space-grant institution, and the center of the LSU System.", src: la_lsu }
+    - { name: "Louisiana Community and Technical Colleges (LCTC)", kind: community, url: "https://www.lctcs.edu/", line: "The state's community and technical college system, including Baton Rouge, Bossier Parish, Delgado, Nunez, River Parishes, South Louisiana and SOWELA, among 12 colleges.", src: la_lctc }
+
+residency:
+  points:
+    - { t: "Louisiana public universities define a resident student as one who has abandoned all prior domiciles and has lived in Louisiana continuously for at least one full year (365 days) before the first day of classes, intending to keep a Louisiana home.", src: la_ul_residency }
+    - { t: "Being in Louisiana only to study is not enough, however long the stay, without substantial evidence of intent to remain.", src: la_ul_residency }
+    - { t: "R.S. 17:2137: members of the U.S. Armed Forces permanently stationed in Louisiana, and veterans and others using VA education benefits who live in Louisiana, are classified as residents for tuition.", src: la_rs_17_2137 }
+
+aid:
+  agency: { name: "Louisiana Office of Student Financial Assistance (LOSFA)", url: "https://mylosfa.la.gov/", src: la_losfa_tops }
+  programs:
+    - { name: "TOPS (Taylor Opportunity Program for Students)", line: "State merit scholarships for Louisiana residents at public colleges, LCTC colleges, approved proprietary schools and LAICU private colleges. The basic Opportunity award needs the 19-unit TOPS core with a 2.50 core GPA and an ACT of at least 20 (or the prior year's state average if higher); TOPS Tech follows the career diploma core.", src: la_losfa_opp }
+    - { name: "Louisiana GO Grant", line: "Need-based grant for Louisiana residents enrolled at least half time who file the FAFSA and still have unmet need after other gift aid; colleges set award amounts within their allocation.", src: la_losfa_go }
+
+jobs:
+  state:
+    portal: "LA Jobs"
+    url: "https://jobs.la.gov/"
+    by: "Louisiana Department of State Civil Service"
+    steps:
+      - "Search classified state jobs on LA Jobs and apply through a NEOGOV account; the Job Information and Test Finder shows which jobs need a test."
+      - "Civil Service's Recruiting and Outreach Center still runs the Protective Services Exam (PSE) and advises applicants on matching their skills to state jobs."
+    src: la_civil_service
+  cities: []
+
+apprenticeship:
+  office: "Louisiana State Apprenticeship Agency (Louisiana Workforce Commission)"
+  url: "https://www.apprenticeship.gov/about-us/state-office"
+  kind: SAA
+  line: "Louisiana is a State Apprenticeship Agency state: the state agency registers and oversees programs for federal purposes."
+  src: dol_oa_offices
+  oa_src: dol_oa_states
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

@@ -1,12 +1,76 @@
-# Oklahoma (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# Oklahoma (USA Master Plan Phase 11 batch 3, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the
+# boards tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# The 2028 graduation checklist on sde.ok.gov now returns an HTML page instead of the PDF, so it was read from an Internet
+# Archive capture; okpromise.org times out from India (archive capture). Other pages were read live.
 name: "Oklahoma"
 abbr: OK
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In Oklahoma, the Oklahoma Board of Bar Examiners handles bar admission for lawyers, the Oklahoma Board of Medical Licensure and Supervision and Oklahoma State Board of Osteopathic Examiners license physicians, the Oklahoma Accountancy Board licenses CPAs and the Oklahoma Board of Nursing licenses registered nurses."
+lede: "Oklahoma requires 23 units on the college preparatory/work ready curriculum plus the U.S. naturalization civics test, tests grade 11 in science and U.S. history, gives in-state tuition after 12 months of domicile, and offers Oklahoma's Promise tuition scholarships to students from qualifying families."
+
+diploma:
+  intro: "70 O.S. § 11-103.6 and OAC 210:35-25-2 set the college preparatory/work ready curriculum; the checklist below is for the graduating class of 2028."
+  rows:
+    - ["English", "4 units"]
+    - ["Mathematics", "3 units (Algebra I, geometry, Algebra II or higher approved courses)"]
+    - ["Laboratory science", "3 units, including Biology I and chemistry, physics or physical science"]
+    - ["History and citizenship", "3 units, including 0.5 unit of government"]
+    - ["World language or computer technology", "2 units (two years of the same language, or two of computer technology)"]
+    - ["Fine arts or speech", "1 unit"]
+    - ["Additional unit", "1 unit from English, math, science, history, world language or computer technology, or an approved college-admission course"]
+    - ["Electives", "6 units"]
+  unit: "23 units or sets of competencies."
+  tests: "Students must also pass the U.S. naturalization (civics) test, complete the Personal Financial Literacy Passport and CPR/AED training, and file the FAFSA or a signed opt-out form."
+  src: ok_grad_2028
+  points:
+    - { t: "Students also take part in service learning or work-based learning at least once in grades 9 to 12.", src: ok_grad_2028 }
+
+k12_test:
+  name: "OSTP"
+  full: "Oklahoma School Testing Program, including the grade 11 College- and Career-Readiness Assessments (CCRA)"
+  intro: "The OSTP gives general and alternate assessments aligned to the Oklahoma Academic Standards in grades 3 to 8 and 11."
+  src: ok_ostp
+  rows:
+    - ["OSTP", "Mathematics, English language arts and science", "Grades 3–8"]
+    - ["College- and Career-Readiness Assessments (CCRA)", "Mathematics, English language arts and science", "Grade 11"]
+    - ["U.S. History assessment", "U.S. history", "Grade 11"]
+  rows_src: ok_ostp
+  use:
+    - { t: "The state publishes district and school results for grades 3 to 8 (English, math and science) and grade 11 (science and U.S. history) each year.", src: ok_ostp }
+
+colleges:
+  systems:
+    - { name: "University of Oklahoma (OU)", kind: university, url: "https://www.ou.edu/", line: "The state's flagship public research university, founded in 1890 (17 years before statehood), with three campuses.", src: ok_ou }
+    - { name: "Oklahoma State System of Higher Education", kind: community, url: "https://okhighered.org/", line: "25 public colleges and universities, including 12 community colleges, two research universities and 10 regional universities, coordinated by the Oklahoma State Regents for Higher Education; each has its own governing board.", src: ok_osrhe }
+
+residency:
+  points:
+    - { t: "A resident of Oklahoma has lived in the state continuously for at least 12 months and has an Oklahoma domicile (residence plus the intention to remain). Colleges decide under State Regents policy.", src: ok_osrhe_res }
+    - { t: "Attending college is treated as temporary residence: a nonresident studying more than half time is presumed to be in Oklahoma mainly for education, and acts like registering to vote or getting a driver's license are not enough on their own. The applicant carries the burden of proof.", src: ok_osrhe_res }
+
+aid:
+  agency: { name: "Oklahoma State Regents for Higher Education", url: "https://okhighered.org/", src: ok_osrhe }
+  programs:
+    - { name: "Oklahoma's Promise", line: "Tuition scholarship created in 1992 for Oklahoma residents from families with adjusted gross income under about $60,000–$80,000 (by household size). Students apply in grades 8 to 11, or by 31 December of grade 12 before graduating, keep their grades up and stay out of trouble; it can be used at Oklahoma colleges, universities and technology centers.", src: ok_promise }
+
+jobs:
+  state:
+    portal: "State of Oklahoma Careers"
+    url: "https://jobs.ok.gov/"
+    by: "Office of Management and Enterprise Services (OMES), Human Capital Management"
+    steps:
+      - "External applicants (including former state employees and those in trial status) apply through State of Oklahoma Careers on Workday; current permanent state employees apply through Workday@OK."
+      - "Agencies post openings with job requisition numbers; upload a letter of interest and resume with the Workday application."
+    src: ok_apply
+  cities: []
+
+apprenticeship:
+  office: "Oklahoma Apprenticeship Office (U.S. Department of Labor)"
+  url: "https://www.apprenticeship.gov/about-us/state-office"
+  kind: OA
+  line: "Oklahoma has no recognized State Apprenticeship Agency: the U.S. Department of Labor's Oklahoma Apprenticeship Office registers and oversees programs."
+  src: dol_oa_offices
+  oa_src: dol_oa_states
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

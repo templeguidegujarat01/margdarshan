@@ -166,3 +166,42 @@ no Phase 12 license rows for the 10 states yet.
 
 Queue: Phase 11 batch 3 = Wisconsin, Minnesota, South Carolina, Alabama, Louisiana, Kentucky, Oregon, Oklahoma,
 Connecticut, Utah (next by Census rank); Phase 12 rows for the batch-2 states.
+
+## 8. Phase 11 batch 3 (2026-10-22)
+
+Wisconsin, Minnesota, South Carolina, Alabama, Louisiana, Kentucky, Oregon, Oklahoma, Connecticut and Utah moved from
+the boards tier to full pages (diploma, state test, colleges, residency, aid, jobs, apprenticeship); boards blocks kept
+byte-for-byte. 95 sources added to `_data/us/sources.yml` under the batch 3 header. The ten search entries were upgraded
+in place to the full-page shape, keeping the licensing-board keywords; `scripts/check-search.mjs` has 7 new cases.
+
+What the official texts say (worth knowing before editing):
+- **Wisconsin**: Wis. Stat. 118.33 sets 15.5 state credits plus a 100-question civics test (65 to pass); UW tuition
+  residency is 12 months of bona fide residence (s. 36.27). **Minnesota**: 21.5 credits + PE, personal finance from
+  freshmen of 2024-25, no graduation test; North Star Promise for family AGI under $80,000.
+- **South Carolina**: 24 units (R. 43-234), EOC exams weigh 20% of the course grade, no exit exam since 2015; LIFE
+  amount not quoted (statute says $2,000, budget sets more). **Alabama**: 24 credits + civics exam + a college and
+  career readiness indicator from the class of 2026; no official text of a general 12-month rule could be opened, so
+  none is stated.
+- **Louisiana**: TOPS University 24 units / Jump Start TOPS Tech 23; pass one LEAP test in each of three course pairs.
+  **Kentucky**: 704 KAR 3:305 (amended eff. 6 July 2026) = 22 credits; local boards may not tie graduation to state test
+  scores; KEES amounts not quoted (statute table is 1998-99).
+- **Oregon**: Essential Skills test requirement suspended through 2027-28; personal finance + career path skills from
+  2027. **Oklahoma**: 23 units + naturalization test, finance passport, CPR, FAFSA. **Connecticut**: 25 credits; finance
+  0.5 + FAFSA from the class of 2027; domicile presumed after one year. **Utah**: 24 credits (R277-700, eff. 7 Apr 2026);
+  Opportunity Scholarship capped at $3,200 for the class of 2026.
+- Apprenticeship: AL, CT, KY, LA, MN, OR, WI are State Apprenticeship Agency states; OK, SC, UT are DOL Office of
+  Apprenticeship states (apprenticeship.gov state-office list, read 22 Oct 2026).
+
+Fetch notes: blocked from India and read via Internet Archive captures (dates in each source note): docs.legis.wisconsin.gov,
+heab.state.wi.us, dwd.wisconsin.gov, education.mn.gov, ed.sc.gov-family sites (rules read from scstatehouse.gov instead),
+careers.sc.gov, sctechsystem.edu, alabamaachieves.org, doe.louisiana.gov, lctcs.edu, legis.la.gov, education.ky.gov,
+cga.ct.gov, ushe.edu, le.utah.gov, dhrm.utah.gov, okpromise.org. scstatehouse.gov, apps.legislature.ky.gov and
+revisor.mn.gov open directly and serve full statute/regulation text (KY regs as PDFs).
+
+Gaps: Minnesota tuition residency cites statute + the UMN tuition page (UMN's residency booklet would not download);
+Louisiana residency is the UL System regulation (no LSU page found); Kentucky university row is the University of
+Kentucky's communications page (uky.edu about pages 404/time out); Alabama, Louisiana and Kentucky apprenticeship rows use
+the DOL listing (state sites blocked); no city civil service rows; no Phase 12 license rows for these states.
+
+Queue: Phase 11 batch 4 = Census ranks 31–40 (Nevada, Iowa, Arkansas, Kansas, Mississippi, New Mexico, Idaho, Nebraska,
+West Virginia, Hawaii); Phase 12 rows for batches 2 and 3.

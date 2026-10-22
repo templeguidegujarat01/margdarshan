@@ -1,12 +1,80 @@
-# Wisconsin (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# Wisconsin (USA Master Plan Phase 11 batch 3, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the
+# boards tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# docs.legis.wisconsin.gov, heab.state.wi.us, wisc.jobs and dwd.wisconsin.gov time out from India: those rows were read
+# from Internet Archive captures (timestamps in each source's note in sources.yml).
 name: "Wisconsin"
 abbr: WI
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In Wisconsin, the Wisconsin Board of Bar Examiners handles bar admission for lawyers, the Wisconsin Medical Examining Board licenses physicians, the Wisconsin Accounting Examining Board licenses CPAs and the Wisconsin Board of Nursing (Department of Safety and Professional Services) licenses registered nurses."
+lede: "Wisconsin law sets the core credits every high school diploma needs plus a 100-question civics test, gives in-state tuition after 12 months of bona fide residence, and funds need-based Wisconsin Grants through HEAB."
+
+diploma:
+  intro: "Wis. Stat. § 118.33: a school board may not grant a high school diploma unless the student has earned the state minimum credits in the high school grades and passed the civics test. Each board adds its own criteria, which must include academic performance and teacher recommendations."
+  rows:
+    - ["English", "At least 4 credits, including writing composition"]
+    - ["Social studies", "At least 3 credits, including state and local government"]
+    - ["Mathematics", "At least 3 credits (up to 1 can come from an approved computer science or career and technical course)"]
+    - ["Science", "At least 3 credits (approved agriculture courses can count)"]
+    - ["Physical education", "At least 1.5 credits"]
+    - ["Personal financial literacy", "At least 0.5 credit"]
+    - ["Health education", "At least 0.5 credit, earned in grades 7 to 12"]
+  unit: "15.5 state minimum credits; the State Superintendent encourages boards to require 8.5 more from vocational education, world languages, fine arts and other courses."
+  tests: "Every diploma also needs the civics test: the 100 questions of the U.S. citizenship test, with at least 65 answered correctly. Students may retake it until they pass."
+  src: wi_stat_118_33
+  points:
+    - { t: "A school board may grant a technical education high school diploma to a student who also completes a board-approved technical education program, which can include industry-recognized certifications printed on the diploma.", src: wi_stat_118_33 }
+    - { t: "Boards may let students earn up to half of their credits by showing proficiency or through a learning portfolio instead of class time.", src: wi_stat_118_33 }
+
+k12_test:
+  name: "Forward Exam and the ACT suite"
+  full: "Wisconsin Student Assessment System: Wisconsin Forward Exam, PreACT Secure and the ACT with Writing"
+  intro: "The Wisconsin Student Assessment System gives the Forward Exam in grades 3 to 8, PreACT Secure in grades 9 and 10 and the ACT with Writing in grade 11 (Dynamic Learning Maps for students with significant cognitive disabilities)."
+  src: wi_dpi_assessment
+  rows:
+    - ["Forward Exam", "English language arts and mathematics", "Grades 3–8"]
+    - ["Forward Exam", "Science", "Grades 4 and 8"]
+    - ["Forward Exam", "Social studies", "Grades 4, 8 and 10"]
+    - ["PreACT Secure", "English, reading, mathematics and science", "Grades 9 and 10"]
+    - ["ACT with Writing", "Reading, English, mathematics, science and writing", "Grade 11"]
+  rows_src: wi_dpi_assessment
+  use:
+    - { t: "Federal law (ESSA) requires the reading and math tests in grades 3 to 8 and once in high school, plus science once per grade span; Wisconsin law adds the grade 9 and 10 tests and the social studies test.", src: wi_dpi_assessment }
+    - { t: "Results are reported in proficiency categories, and English and math results feed school, district and state accountability.", src: wi_dpi_assessment }
+
+colleges:
+  systems:
+    - { name: "Universities of Wisconsin (University of Wisconsin System)", kind: university, url: "https://www.wisconsin.edu/", line: "13 public universities under one Board of Regents (Research I universities in Madison and Milwaukee, 10 comprehensive universities and a polytechnic), serving more than 164,600 students and awarding over 37,000 degrees a year.", src: wi_uw_about }
+    - { name: "Wisconsin Technical College System (WTCS)", kind: community, url: "https://www.wtcsystem.edu/", line: "The coordinating body for the state's 16 public two-year technical colleges, offering more than 500 programs: associate degrees, technical diplomas, certificates and apprenticeship instruction.", src: wi_wtcs }
+
+residency:
+  points:
+    - { t: "Under Wis. Stat. § 36.27, an adult student who has been a bona fide resident of Wisconsin for the 12 months before the semester starts is exempt from nonresident tuition at the Universities of Wisconsin; a minor or a dependent student qualifies through a parent who meets the same 12 months.", src: wi_stat_36_27 }
+    - { t: "Intent to make a permanent home in Wisconsin decides residence, shown by things like a full-year Wisconsin tax return, voter and vehicle registration, a Wisconsin driver's license and self-support. A student who came to Wisconsin mainly to study is presumed to remain a nonresident unless clear and convincing evidence shows otherwise.", src: wi_stat_36_27 }
+    - { t: "A graduate of a Wisconsin high school whose parents have been bona fide residents for the 12 months before the term also qualifies, as do some veterans and active-duty service members stationed in the state.", src: wi_stat_36_27 }
+
+aid:
+  agency: { name: "Wisconsin Higher Educational Aids Board (HEAB)", url: "https://heab.state.wi.us/", src: wi_heab_programs }
+  programs:
+    - { name: "Wisconsin Grant", line: "Need-based grants for undergraduate Wisconsin residents in degree or certificate programs at the Universities of Wisconsin, Wisconsin technical colleges and tribal colleges (a separate Wisconsin Grant covers private nonprofit colleges). Awards are prorated by enrollment and last at most ten semesters; HEAB sets the minimum and maximum each year.", src: wi_heab_programs }
+
+jobs:
+  state:
+    portal: "Wisc.Jobs"
+    url: "https://wisc.jobs/"
+    by: "State of Wisconsin, Division of Personnel Management (DPM)"
+    steps:
+      - "Search Wisc.Jobs, the official State of Wisconsin government job site, where openings in executive branch agencies are posted daily, and apply online."
+      - "DPM runs the state civil service system for more than 20 executive branch agencies and over 30,000 employees."
+    src: wi_dpm_jobs
+  cities: []
+
+apprenticeship:
+  office: "Wisconsin State Apprenticeship Agency (Department of Workforce Development)"
+  url: "https://dwd.wisconsin.gov/apprenticeship/"
+  kind: SAA
+  line: "Wisconsin is a State Apprenticeship Agency state: the Department of Workforce Development registers and oversees programs. Apprentices earn while they learn, with on-the-job training from the employer and related instruction at a technical college or private training center."
+  src: wi_dwd_apprenticeship
+  oa_src: dol_oa_offices
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

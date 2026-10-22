@@ -1,12 +1,77 @@
-# Connecticut (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# Connecticut (USA Master Plan Phase 11 batch 3, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the
+# boards tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# cga.ct.gov (General Statutes) times out from India: the diploma, test and residency rows are read from Internet Archive
+# captures of the statute chapters (timestamps in sources.yml). The State Department of Education's assessment pages render
+# empty or 404, so the test rows come from the statute (C.G.S. § 10-14n).
 name: "Connecticut"
 abbr: CT
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In Connecticut, the Connecticut Bar Examining Committee handles bar admission for lawyers, the Connecticut Medical Examining Board licenses physicians, the Connecticut State Board of Accountancy licenses CPAs and the Connecticut Board of Nurse Licensure licenses registered nurses."
+lede: "Connecticut requires 25 credits for a diploma (plus personal finance and the FAFSA from the class of 2027), tests grades 3 to 8 and grade 11 every year, gives in-state tuition by domicile (presumed after one year), and offers Roberta B. Willis Scholarships."
+
+diploma:
+  intro: "C.G.S. § 10-221a: no board of education may grant a diploma to a student who has not completed at least 25 credits, including these minimums. Boards may also require a one-credit mastery-based diploma assessment."
+  rows:
+    - ["Humanities", "At least 9 credits, including civics and the arts"]
+    - ["Science, technology, engineering and mathematics (STEM)", "At least 9 credits"]
+    - ["Physical education and wellness", "At least 1 credit"]
+    - ["Health and safety education", "At least 1 credit"]
+    - ["World languages", "At least 1 credit"]
+    - ["Personal financial management and financial literacy", "0.5 credit from the class of 2027 (can count toward humanities, STEM or electives)"]
+  unit: "25 credits minimum. A credit is at least the equivalent of a 40-minute class period every school day for a school year."
+  tests: "From the class of 2027, students must also meet C.G.S. § 10-221z: file the FAFSA (or an institutional aid application) unless waived or exempt."
+  src: ct_cgs_10_221a
+  points:
+    - { t: "Since the class of 2023, boards must provide support and remedial services from grade 7, including summer or online course retakes, college classes and alternate forms of end-of-year exams.", src: ct_cgs_10_221a }
+
+k12_test:
+  name: "Mastery examinations (Smarter Balanced, NGSS science and the SAT)"
+  full: "Connecticut statewide mastery examinations under C.G.S. § 10-14n"
+  intro: "Every public school student in grades 3 to 8 and grade 11 takes a mastery examination in reading, writing and math each year during the school day, and grades 5, 8 and 11 take a statewide science examination."
+  src: ct_cgs_10_14n
+  rows:
+    - ["Mastery examination", "Reading, writing and mathematics", "Grades 3–8"]
+    - ["State-wide science examination", "Science", "Grades 5, 8 and 11"]
+    - ["Nationally recognized college readiness assessment", "Reading, writing and mathematics", "Grade 11"]
+  rows_src: ct_cgs_10_14n
+  use:
+    - { t: "The grade 11 mastery examination is a nationally recognized college readiness assessment approved by the State Board of Education, so the state test doubles as a college admission test score.", src: ct_cgs_10_14n }
+
+colleges:
+  systems:
+    - { name: "University of Connecticut (UConn)", kind: university, url: "https://uconn.edu/", line: "Connecticut's public research university, with 14 schools and colleges and more than 125 undergraduate majors.", src: ct_uconn }
+    - { name: "Connecticut State Community College (CT State)", kind: community, url: "https://ctstate.edu/", line: "Formed on 1 July 2023 by merging the state's 12 community colleges: 12 campuses serving all 169 towns, the largest community college in New England, part of the Connecticut State Colleges and Universities system.", src: ct_ctstate }
+
+residency:
+  points:
+    - { t: "C.G.S. § 10a-29: every person domiciled in Connecticut (true, fixed and permanent home) is entitled to in-state tuition at the public colleges; an unemancipated student's domicile is the parent's.", src: ct_cgs_10a_28 }
+    - { t: "C.G.S. § 10a-30: unless the college is satisfied otherwise, an adult is presumed not to have a new Connecticut domicile until living in the state for at least one year, and full-time students do not gain residence just by attending without clear proof of domicile.", src: ct_cgs_10a_28 }
+    - { t: "Someone who moves to Connecticut for a full-time job can apply for in-state status for their spouse and children after six consecutive months; members of the armed forces stationed in Connecticut and their spouses also qualify.", src: ct_cgs_10a_28 }
+
+aid:
+  agency: { name: "Connecticut Office of Higher Education (OHE)", url: "https://portal.ct.gov/ohe", src: ct_ohe_aid }
+  programs:
+    - { name: "Roberta B. Willis Scholarship: Need and Merit-Based", line: "For Connecticut students at Connecticut public or nonprofit private colleges with qualifying need (SAI) and merit: top 20% of the class, or SAT 1200 or ACT 25. Up to $5,250 a year in a four-year program and $4,650 in a two-year program; the counselor applies and the FAFSA is due by 15 February.", src: ct_ohe_aid }
+    - { name: "Roberta B. Willis Scholarship: Need-Based Grant", line: "Up to $4,500 for full-time study, based on the FAFSA Student Aid Index alone; there is no separate application.", src: ct_ohe_aid }
+
+jobs:
+  state:
+    portal: "State Job Openings (JobAps)"
+    url: "https://www.jobapscloud.com/CT/"
+    by: "Connecticut Department of Administrative Services (DAS)"
+    steps:
+      - "Browse state job openings and follow the directions in each posting to apply through the state's JobAps site."
+      - "DAS's State Jobs and Employment pages explain how state hiring works."
+    src: ct_jobs
+  cities: []
+
+apprenticeship:
+  office: "Connecticut Department of Labor, Office of Apprenticeship Training"
+  url: "https://portal.ct.gov/dol/divisions/apprenticeships"
+  kind: SAA
+  line: "Connecticut is a State Apprenticeship Agency state: the Department of Labor's Office of Apprenticeship Training registers programs and awards a portable, industry-recognized credential that makes completers eligible for occupational licensing exams."
+  src: ct_dol_apprenticeship
+  oa_src: dol_oa_offices
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

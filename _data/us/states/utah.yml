@@ -1,12 +1,85 @@
-# Utah (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# Utah (USA Master Plan Phase 11 batch 3, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the
+# boards tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# ushe.edu blocks India (Wordfence) and le.utah.gov and statejobs.utah.gov time out: the system, scholarship, residency and
+# jobs rows come from Internet Archive captures (timestamps in sources.yml). schools.utah.gov pages were read live.
 name: "Utah"
 abbr: UT
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In Utah, the Utah State Bar handles bar admission for lawyers, the Utah Medical Licensing Board licenses physicians, the Utah Board of Accountancy licenses CPAs and the Utah Board of Nursing and Certified Nurse Midwives licenses registered nurses."
+lede: "Utah requires 24 credits (including financial literacy and digital studies) for a diploma, tests with RISE, Utah Aspire Plus and the grade 11 ACT, gives resident tuition after one full year of Utah residency, and rewards advanced high school coursework with the Opportunity Scholarship."
+
+diploma:
+  intro: "Utah State Board of Education Rule R277-700-6 (effective 7 April 2026): students in grades 9 to 12 earn at least 24 units of credit through courses or competency assessment."
+  rows:
+    - ["Language arts", "4.0 units (grade 9, 10 and 11 levels plus one more)"]
+    - ["Mathematics", "3.0 units (Secondary Mathematics I, II and III or equivalents; parents may opt out of Math III in writing)"]
+    - ["Science", "3.0 units: 2 from two of earth science, biology, chemistry, physics or computer science, plus 1 more"]
+    - ["Social studies", "3.0 units (3.5 for students entering grade 10 in 2026-27, with American Constitutional Government and Citizenship)"]
+    - ["The arts", "1.5 units"]
+    - ["Health education", "0.5 unit"]
+    - ["Physical education", "1.5 units"]
+    - ["Career and technical education", "1.0 unit"]
+    - ["Digital studies", "0.5 unit"]
+    - ["General financial literacy", "0.5 unit"]
+    - ["Electives", "5.0 units"]
+  unit: "24 units of credit."
+  tests: "The diploma rule has no exit exam. Students heading to college must also meet a math competency, such as AP Calculus or Statistics 3+, ACT math 26+, SAT math 640+, a C in a qualifying concurrent enrollment math course, or a full year of senior math in special circumstances."
+  src: ut_r277_700
+  points:
+    - { t: "Library media skills are built into the subject areas, and credits earned before grade 9 can count toward graduation.", src: ut_usbe_grad }
+
+k12_test:
+  name: "RISE, Utah Aspire Plus and the ACT"
+  full: "Readiness Improvement Success Empowerment (RISE), Utah Aspire Plus and the statewide grade 11 ACT"
+  intro: "RISE is the computer-adaptive summative test for grades 3 to 8 (and some high school courses); Utah Aspire Plus, a hybrid of ACT Aspire and Utah Core items, is given in grades 9 and 10; all grade 11 students take the ACT."
+  src: ut_rise
+  rows:
+    - ["RISE", "English language arts", "Grades 3–10"]
+    - ["RISE", "Mathematics", "Grades 3–8 (plus Secondary Math I and II)"]
+    - ["RISE", "Science", "Grades 4–8 (plus earth science, biology, physics and chemistry)"]
+    - ["RISE", "Writing", "Grades 5 and 8"]
+    - ["Utah Aspire Plus", "Reading, mathematics and science", "Grades 9 and 10"]
+    - ["ACT", "Statewide school-day administration", "Grade 11"]
+  rows_src: ut_rise
+  use:
+    - { t: "Utah Aspire Plus reports predicted ACT score ranges for each subtest and a predicted composite, alongside grade 9 and 10 proficiency scores.", src: ut_aspire }
+    - { t: "The grade 11 ACT is given statewide by ACT for Utah, so every student gets a college admission score.", src: ut_act }
+
+colleges:
+  systems:
+    - { name: "Utah System of Higher Education (USHE)", kind: university, url: "https://ushe.edu/", line: "16 public institutions under the Utah Board of Higher Education: degree-granting universities and colleges such as the University of Utah (the state's flagship and an AAU member), Utah State, Weber State, Utah Valley, Southern Utah and Utah Tech, plus eight technical colleges.", src: ut_ushe_aid, src2: ut_uofu }
+    - { name: "Salt Lake Community College (SLCC)", kind: community, url: "https://www.slcc.edu/", line: "Utah's open-access community college, part of USHE: nearly 50,000 students on 8 campuses and online, over 100 programs, with credits that transfer to four-year schools.", src: ut_slcc }
+
+residency:
+  points:
+    - { t: "Utah Code § 53B-8-102: a student who came to Utah to attend college can get resident status only after keeping continuous Utah residency for one full year, signing a declaration giving up residency elsewhere, and showing objective evidence of permanent Utah residency.", src: ut_code_53b_8_102 }
+    - { t: "Evidence includes a Utah high school transcript from the past 12 months, Utah voter and vehicle registration, a Utah driver license, Utah employment, Utah resident income tax returns and a 12-month Utah rental agreement.", src: ut_code_53b_8_102 }
+    - { t: "Otherwise residency follows the general law of domicile; the section also sets rules for military members, veterans and their families.", src: ut_code_53b_8_102 }
+
+aid:
+  agency: { name: "Utah System of Higher Education (Utah Board of Higher Education)", url: "https://ushe.edu/", src: ut_ushe_aid }
+  programs:
+    - { name: "Opportunity Scholarship", line: "Achievement-based scholarship for completing advanced core courses in high school; students apply in their senior year (January to March for the class of 2026). It covers tuition and general fees after other state aid, up to a cap set each year: $800 a semester for four semesters ($3,200) for the class of 2026, for full-time students at eligible Utah colleges.", src: ut_opportunity }
+    - { name: "Utah Promise Grant", line: "Statewide need-based grant that helps Utahns who show financial need attend Utah public colleges.", src: ut_ushe_aid }
+
+jobs:
+  state:
+    portal: "Utah State Jobs"
+    url: "https://statejobs.utah.gov/"
+    by: "Utah Department of Government Operations, Division of Human Resource Management (DHRM)"
+    steps:
+      - "Search and apply at statejobs.utah.gov; a new applicant tracking system launched on 18 March 2026, so applicants need a new profile."
+      - "Check minimum requirements for any job at jobdesc.utah.gov. Utah's Skills-First Hiring initiative drops degree requirements where a degree is not legally required."
+    src: ut_dhrm_jobs
+  cities: []
+
+apprenticeship:
+  office: "Utah Apprenticeship Office (U.S. Department of Labor)"
+  url: "https://www.apprenticeship.gov/about-us/state-office"
+  kind: OA
+  line: "Utah has no recognized State Apprenticeship Agency: the U.S. Department of Labor's Utah Apprenticeship Office registers and oversees programs."
+  src: dol_oa_offices
+  oa_src: dol_oa_states
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

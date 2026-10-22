@@ -1,12 +1,79 @@
-# Kentucky (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# Kentucky (USA Master Plan Phase 11 batch 3, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the
+# boards tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# education.ky.gov and elc.ky.gov return "service unavailable" to India and kheaa.com times out: the test rows come from an
+# Internet Archive capture, KEES from the statute KHEAA administers, and the apprenticeship row from the U.S. DOL listing.
+# Kentucky has no single public university system; the university row is the University of Kentucky.
 name: "Kentucky"
 abbr: KY
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In Kentucky, the Kentucky Office of Bar Admissions handles bar admission for lawyers, the Kentucky Board of Medical Licensure licenses physicians, the Kentucky Board of Accountancy licenses CPAs and the Kentucky Board of Nursing licenses registered nurses."
+lede: "Kentucky requires 22 credits plus civics, financial literacy and technology competency for a diploma, bars local graduation tests tied to state assessment scores, presumes newcomers who enroll within 12 months are nonresidents, and lets high school students earn KEES scholarship money each year."
+
+diploma:
+  intro: "704 KAR 3:305 (as amended effective 6 July 2026): every public school student needs at least 22 credits, made up of 10 foundational credits and 12 personalized credits aligned to the student's individual learning plan."
+  rows:
+    - ["English/language arts", "2 foundational credits (English I and II) + 2 personalized credits"]
+    - ["Mathematics", "2 foundational credits (Algebra I and geometry) + 2 personalized credits"]
+    - ["Science", "2 foundational credits with lab-based investigation + 1 personalized credit"]
+    - ["Social studies", "2 foundational credits + 1 personalized credit"]
+    - ["Health", "0.5 credit"]
+    - ["Physical education", "0.5 credit"]
+    - ["Visual and performing arts", "1 credit (or a standards-based specialized arts course)"]
+    - ["Academic and career interest learning experiences", "6 credits, at least 4 based on the individual learning plan"]
+  unit: "22 credits: 10 foundational and 12 personalized."
+  tests: "Students must also show performance-based competency in technology, meet the civics requirement (KRS 158.141) and meet the financial literacy requirement (KRS 158.1411). A local board may not make a minimum score on a state assessment a graduation requirement."
+  src: ky_704kar3_305
+  points:
+    - { t: "The individual learning plan starts within the first 90 days of grade 6 and focuses on career exploration and the education it needs.", src: ky_704kar3_305 }
+    - { t: "Credits can come from standards-based courses, dual credit, internships, cooperative learning and other supervised experiences.", src: ky_704kar3_305 }
+
+k12_test:
+  name: "Kentucky Summative Assessment (KSA)"
+  full: "Kentucky Summative Assessment and the grade 11 college admissions exam"
+  intro: "Kentucky has tested all public school students every year since 1990, with results feeding the school accountability system; testing starts in grade 3 and takes under 1% of instructional time."
+  src: ky_kde_assessment
+  rows:
+    - ["Kentucky Summative Assessment", "Reading, mathematics, science, social studies and writing", "Grades 3–8, 10 and 11"]
+    - ["College admissions exam", "Required for all students", "Grade 11"]
+  rows_src: ky_kde_assessment
+  use:
+    - { t: "Students with significant cognitive disabilities take the Alternate Kentucky Summative Assessment in the same grades.", src: ky_kde_assessment }
+    - { t: "The KSA is given in the last 14 instructional days of each district's calendar.", src: ky_kde_assessment }
+
+colleges:
+  systems:
+    - { name: "University of Kentucky", kind: university, url: "https://www.uky.edu/", line: "Kentucky's public university in Lexington, founded in 1865 to advance the Commonwealth through education, research, healthcare and service. Kentucky's public universities each have their own board rather than one system.", src: ky_uk }
+    - { name: "Kentucky Community and Technical College System (KCTCS)", kind: community, url: "https://kctcs.edu/", line: "16 colleges that share centralized services such as financial aid, technology and human resources.", src: ky_kctcs }
+
+residency:
+  points:
+    - { t: "13 KAR 2:045: residency for tuition means being domiciled in Kentucky, a true, fixed and permanent home. A person is presumed a nonresident if they moved to Kentucky mainly to enroll, or moved here and within 12 months enrolled more than half time.", src: ky_13kar2_045 }
+    - { t: "Graduates of an out-of-state high school within the last five years, and students whose admission records show an out-of-state address, are also presumed nonresidents; the presumption is overcome only by a preponderance of evidence of Kentucky domicile.", src: ky_13kar2_045 }
+    - { t: "A dependent student's domicile is that of either parent; if parents live apart, it is Kentucky when either parent is domiciled in Kentucky.", src: ky_13kar2_045 }
+
+aid:
+  agency: { name: "Kentucky Higher Education Assistance Authority (KHEAA)", url: "https://www.kheaa.com/", src: ky_krs_164_7879 }
+  programs:
+    - { name: "Kentucky Educational Excellence Scholarship (KEES)", line: "High school students in the KEES curriculum earn a base award for every year they finish with at least a 2.5 GPA (higher GPA, larger award), plus a supplemental award based on their highest ACT score (15 or more). KHEAA reviews the base amounts each year; an award already earned is never reduced.", src: ky_krs_164_7879 }
+
+jobs:
+  state:
+    portal: "Kentucky state government careers"
+    url: "https://careers.ky.gov/"
+    by: "Kentucky Personnel Cabinet"
+    steps:
+      - "Search current openings for executive branch jobs and apply online through the Personnel Cabinet's careers site."
+      - "The executive branch has about 30,000 employees, and more than 800 job classifications do not require a degree."
+    src: ky_personnel
+  cities: []
+
+apprenticeship:
+  office: "Kentucky State Apprenticeship Agency (Education and Labor Cabinet)"
+  url: "https://www.apprenticeship.gov/about-us/state-office"
+  kind: SAA
+  line: "Kentucky is a State Apprenticeship Agency state: the state agency registers and oversees programs for federal purposes."
+  src: dol_oa_offices
+  oa_src: dol_oa_states
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

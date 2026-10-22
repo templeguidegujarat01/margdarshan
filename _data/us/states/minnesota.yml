@@ -1,12 +1,81 @@
-# Minnesota (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# Minnesota (USA Master Plan Phase 11 batch 3, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the
+# boards tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# education.mn.gov and ohe.state.mn.us sit behind a bot wall from India: the test rows come from Minnesota Statutes and a
+# 2025 Internet Archive capture of the MDE page, and the aid rows from the statutes the Office of Higher Education runs.
+# The University of Minnesota's residency booklet would not download, so residency cites statute and the tuition page.
 name: "Minnesota"
 abbr: MN
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In Minnesota, the Minnesota State Board of Law Examiners handles bar admission for lawyers, the Minnesota Board of Medical Practice licenses physicians, the Minnesota State Board of Accountancy licenses CPAs and the Minnesota Board of Nursing licenses registered nurses."
+lede: "Minnesota law sets 21.5 high school credits plus physical education and a personal finance course, has no graduation test, gives resident tuition to students with three years at a Minnesota high school, and pays State Grants and North Star Promise scholarships."
+
+diploma:
+  intro: "Minn. Stat. § 120B.024: students must complete these high school credits, each sufficient to meet the state academic standards in the subject, to graduate."
+  rows:
+    - ["Language arts", "4 credits"]
+    - ["Mathematics", "3 credits"]
+    - ["Science", "3 credits: one each in earth and space science, life science, and chemistry or physics"]
+    - ["Social studies", "3.5 credits, covering U.S. history, geography, government and citizenship, world history and economics"]
+    - ["The arts", "1 credit"]
+    - ["Physical education", "Credit sufficient to meet the state standards"]
+    - ["Electives", "At least 7 credits"]
+  unit: "21.5 listed credits, plus physical education (and health once the state adopts health standards rules)."
+  tests: "The graduation statute lists credits only, with no state test to pass; the MCAs (see State test) measure progress, and the law bars making the high school science test a diploma condition."
+  src: mn_stat_120b024
+  points:
+    - { t: "Students who start grade 9 in 2024-25 or later must also pass a personal finance course for credit in grade 10, 11 or 12.", src: mn_stat_120b024 }
+    - { t: "Students starting grade 9 in 2025-26 or later take a government and citizenship course in grade 11 or 12 (or an AP, IB or other rigorous equivalent) within social studies.", src: mn_stat_120b024 }
+    - { t: "Career and technical, agriculture, computer science, Project Lead the Way and ethnic studies credits can fill some math, science, arts or social studies credits when they meet those standards.", src: mn_stat_120b024 }
+
+k12_test:
+  name: "MCA"
+  full: "Minnesota Comprehensive Assessments"
+  intro: "The MCAs are given each spring: reading and math in grades 3 to 8, a last reading test in grade 10 and a last math test in grade 11, and science three times. Students in special education who qualify take the MTAS in the same grades."
+  src: mn_mde_mca
+  rows:
+    - ["MCA Reading", "Reading", "Grades 3–8 and 10"]
+    - ["MCA Mathematics", "Mathematics", "Grades 3–8 and 11"]
+    - ["MCA Science", "Science", "Grades 5 and 8 and once in high school"]
+  rows_src: mn_mde_mca
+  use:
+    - { t: "By law the state may not make passing a high school science test a condition of the diploma. Schools may use a high school student's state test score as part of a course grade or put it on the transcript.", src: mn_stat_120b302 }
+    - { t: "A college entrance exam is not a graduation requirement; while state funds last, districts pay for one exam in grade 11 or 12 for students eligible for free or reduced-price meals.", src: mn_stat_120b30 }
+
+colleges:
+  systems:
+    - { name: "University of Minnesota System", kind: university, url: "https://www.umn.edu/", line: "The state's land-grant university system; its flagship Twin Cities campus is one of five U.S. universities with engineering, medical, law, veterinary and agriculture schools on one campus.", src: mn_umn_tc }
+    - { name: "Minnesota State Colleges and Universities (Minnesota State)", kind: community, url: "https://www.minnstate.edu/", line: "33 public state colleges and universities on 54 campuses and online, including the state's community and technical colleges.", src: mn_minnstate }
+
+residency:
+  points:
+    - { t: "Minn. Stat. § 135A.043: a student who attended high school in Minnesota for three or more years and graduated from a Minnesota high school (or earned the equivalent in the state) qualifies for resident tuition at state universities and colleges.", src: mn_stat_135a043 }
+    - { t: "The University of Minnesota sets tuition by residency and publishes its official residency policy and resident-evaluation application in a booklet; residents of Wisconsin, North Dakota and Manitoba can get reciprocity rates, lower than nonresident tuition.", src: mn_umn_tuition }
+    - { t: "For state grants, a resident student has lived in Minnesota for at least 12 months for reasons other than college (without taking more than five credits a term), or is a dependent whose parent or guardian lives in Minnesota.", src: mn_stat_136a101 }
+
+aid:
+  agency: { name: "Minnesota Office of Higher Education (OHE)", url: "https://www.ohe.state.mn.us/", src: mn_stat_136a121 }
+  programs:
+    - { name: "Minnesota State Grant", line: "Need-based grants for Minnesota residents at eligible colleges, renewable with continued residency, satisfactory progress and need, up to 120 credits or a bachelor's degree. Students must file the FAFSA (or state aid application) every year.", src: mn_stat_136a121 }
+    - { name: "North Star Promise", line: "Since fall 2024, a scholarship for students with family adjusted gross income below $80,000 that pays up to 100% of tuition and fees left after other gift aid at Minnesota public colleges and universities and Tribal colleges. It renews each semester for up to four full-time semesters toward a certificate or associate degree, or eight toward a bachelor's degree.", src: mn_stat_136a1465 }
+
+jobs:
+  state:
+    portal: "Careers in Minnesota State Government"
+    url: "https://mn.gov/mmb/careers/"
+    by: "Minnesota Management and Budget (MMB)"
+    steps:
+      - "Search openings across state agencies and apply on the State of Minnesota job application website (an accessible applicant portal is also offered)."
+      - "Sign up for the monthly State of Minnesota Open Jobs and Career Info email; separate pages cover internships and student work."
+    src: mn_mmb_careers
+  cities: []
+
+apprenticeship:
+  office: "Minnesota State Apprenticeship Agency (Department of Labor and Industry)"
+  url: "https://www.dli.mn.gov/business/workforce/apprenticeship"
+  kind: SAA
+  line: "Minnesota is a State Apprenticeship Agency state: the Department of Labor and Industry registers programs and keeps a directory of registered apprenticeship programs, alongside apprenticeship preparation, the Dual-Training Pipeline and the Youth Skills Training program."
+  src: mn_dli_apprenticeship
+  oa_src: dol_oa_offices
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

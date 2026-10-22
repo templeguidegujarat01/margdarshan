@@ -1,12 +1,83 @@
-# Alabama (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# Alabama (USA Master Plan Phase 11 batch 3, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the
+# boards tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# alabamaachieves.org (state department of education) times out from India: graduation and test rows were read from
+# Internet Archive captures of its pages and PDFs (timestamps in sources.yml). The Code of Alabama site is a script app,
+# so § 16-64-2 is read from an archived alisondb page; no official text of the general 12-month rule (§ 16-64-1) could be
+# opened, so the page does not state one.
 name: "Alabama"
 abbr: AL
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In Alabama, the Alabama State Bar handles bar admission for lawyers, the Alabama Board of Medical Examiners and Medical Licensure Commission of Alabama license physicians, the Alabama State Board of Public Accountancy licenses CPAs and the Alabama Board of Nursing licenses registered nurses."
+lede: "Alabama requires 24 credits, a civics exam and at least one college and career readiness indicator for the general diploma, tests grade 11 with the ACT with Writing, and gives need-based ASAP grants of $300 to $5,000 through ACHE."
+
+diploma:
+  intro: "Alabama Administrative Code 290-3-1-.02(8): the State Board of Education's credit requirements for the Alabama High School Diploma, graduating class of 2028 and beyond (Option A shown)."
+  rows:
+    - ["English language arts", "4 credits (English 9, 10, 11 and 12)"]
+    - ["Mathematics", "4 credits, including Algebra I, geometry and Algebra II or equivalents"]
+    - ["Science", "4 credits, including biology and a physical science"]
+    - ["Social studies", "4 credits: world history, U.S. History I and II, U.S. Government (0.5) and economics (0.5)"]
+    - ["Physical education", "1 credit (Beginning Kinesiology or JROTC)"]
+    - ["Career Preparedness", "1 credit, with a financial literacy examination"]
+    - ["Health education", "0.5 credit"]
+    - ["Arts education, career and technical education, world languages", "3 credits"]
+    - ["Electives", "2.5 credits"]
+  unit: "24 credits."
+  tests: "Students must earn a passing score on the Civics Exam. Since the class of 2022, each senior must also file the FAFSA or sign a non-participation waiver."
+  src: al_grad_2028
+  points:
+    - { t: "From the class of 2026, the General Education Pathway diploma also needs at least one college and career readiness indicator: for example an ACT benchmark score, AP 3+ or IB 4+, college credit in high school, a silver or gold ACT WorkKeys level, a youth apprenticeship, an approved industry credential, military enlistment, CTE completer status or an approved computer science course.", src: al_ccr }
+    - { t: "Students who miss the indicator can still earn the General Education Pathway diploma if they meet it within two years.", src: al_ccr }
+
+k12_test:
+  name: "ACAP and the ACT"
+  full: "Alabama Comprehensive Assessment Program (ACAP) Summative and the ACT with Writing"
+  intro: "The ACAP Summative measures progress on the Alabama Courses of Study in grades 2 to 8 each spring; the ACT with Writing is given to every grade 11 student in Alabama public high schools."
+  src: al_acap
+  rows:
+    - ["ACAP Summative", "English language arts and mathematics", "Grades 2–8"]
+    - ["ACAP Summative", "Science", "Grades 4, 6 and 8"]
+    - ["ACT with Writing", "English, mathematics, reading, science and writing", "Grade 11"]
+  rows_src: al_assessment
+  use:
+    - { t: "The ACT with Writing has been the high school accountability measure since 2017-18; since 2020-21 its English language arts, math and science benchmarks count for accountability.", src: al_assessment }
+    - { t: "Students with the most significant cognitive disabilities take the ACAP Alternate in grades 2 to 8, 10 and 11.", src: al_acap }
+
+colleges:
+  systems:
+    - { name: "The University of Alabama System", kind: university, url: "https://uasystem.edu/", line: "The state's largest higher education enterprise: The University of Alabama, UAB and UAH (plus the UAB Health System), educating about 71,500 students and awarding over 18,000 degrees and certificates in 2024-25.", src: al_uasystem }
+    - { name: "Alabama Community College System (ACCS)", kind: community, url: "https://www.accs.edu/", line: "24 community and technical colleges plus Marion Military Institute and the Alabama Technology Network, with more than 168,000 people studying each year; governed by the ACCS Board of Trustees.", src: al_accs }
+
+residency:
+  points:
+    - { t: "At The University of Alabama, someone living in Alabama to attend school is treated as a nonresident, and time spent attending does not change that; students must apply for reclassification and show they meet the University's residency policy. Under 19 (the age of majority), residency follows the supporting person.", src: al_ua_residency }
+    - { t: "Code of Alabama § 16-64-2 lets public colleges count as residents adults employed full time in Alabama (or starting within 90 days) and their spouses, and requires them to count active-duty military stationed in Alabama, Alabama National Guard members of two or more years and qualifying veterans.", src: al_code_16_64_2 }
+    - { t: "Under § 16-64-4(b), colleges may also extend resident rates to students living in counties within 50 miles of a campus that existed on 1 January 1996.", src: al_ache_50mile }
+
+aid:
+  agency: { name: "Alabama Commission on Higher Education (ACHE)", url: "https://www.ache.edu/", src: al_ache_aid }
+  programs:
+    - { name: "Alabama Student Assistance Program (ASAP)", line: "Need-based grant of $300 to $5,000 a year. Colleges use the FAFSA to decide eligibility, and ACHE sends the money to participating colleges, which award it.", src: al_ache_asap }
+    - { name: "Alabama Student Grant Program", line: "A non-need grant for students at participating independent Alabama colleges, up to $3,000 a year depending on funds.", src: al_ache_asgp }
+
+jobs:
+  state:
+    portal: "State of Alabama jobs (State Personnel Department)"
+    url: "https://www.governmentjobs.com/careers/alabama"
+    by: "State of Alabama Personnel Department (SPD)"
+    steps:
+      - "Search and apply for state jobs through SPD's NEOGOV jobs site; applications made on the old SPD website are no longer valid."
+      - "Explore job classifications by career field on SPD's Careers page, and ask SPD to check your ranking after you apply."
+    src: al_spd
+  cities: []
+
+apprenticeship:
+  office: "Alabama Office of Apprenticeship"
+  url: "https://www.apprenticeship.gov/about-us/state-office"
+  kind: SAA
+  line: "Alabama is a State Apprenticeship Agency state: the Alabama Office of Apprenticeship registers and oversees programs for federal purposes. A youth apprenticeship also counts as an Alabama college and career readiness indicator."
+  src: dol_oa_offices
+  oa_src: dol_oa_states
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

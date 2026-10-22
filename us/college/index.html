@@ -32,6 +32,7 @@ breadcrumb:
     { "@type": "Question", "name": "Do I have to pay the full sticker price?", "acceptedAnswer": { "@type": "Answer", "text": "Often not. Published tuition is before grants and scholarships. Use each college's net price calculator and file the FAFSA to see what you would actually pay." } },
     { "@type": "Question", "name": "Is starting at a community college a good idea?", "acceptedAnswer": { "@type": "Answer", "text": "It can save money, but plan the transfer from day one. Of students who started at a community college in fall 2018, 31.6% transferred to a four-year college within six years, and 48.7% of those earned a bachelor's degree in that time." } },
     { "@type": "Question", "name": "When should I file the FAFSA?", "acceptedAnswer": { "@type": "Answer", "text": "As soon as you can after it opens (by October 1 each year). Federal, state and college deadlines differ, and some state and college aid runs out." } },
+    { "@type": "Question", "name": "Will an outside scholarship lower the aid my college gives me?", "acceptedAnswer": { "@type": "Answer", "text": "It can. If your total aid goes above your financial need, the college may reduce its own aid. Some states, such as New Jersey, limit this at public colleges. Ask each college whether it cuts loans and work-study first or its grants." } },
     { "@type": "Question", "name": "How will the 2026 loan changes affect medical or law school?", "acceptedAnswer": { "@type": "Answer", "text": "From July 1, 2026, new graduate and professional borrowers can no longer get Grad PLUS loans, and federal loans for professional students are capped at $50,000 a year and $200,000 in total. Plan for the full cost before you enroll." } }
   ]
 }
@@ -182,6 +183,19 @@ breadcrumb:
       <p class="table-note">{{ FR.deadline_note }} State and college deadlines come much earlier, and some aid runs out: file as soon as the form opens. <a class="source-link" href="{{ SRC[FR.deadline_source].url }}">Source: {{ SRC[FR.deadline_source].publisher }}</a></p>
       <h3 class="block-subhead">Who can get federal student aid</h3>
       <ul class="md-list reveal">{% for e in FR.eligibility %}<li>{{ e.t }} {% include us-src-chip.html id=e.src %}</li>{% endfor %}</ul>
+      {%- assign CP = G.css_profile %}
+      <h3 class="block-subhead" id="css-profile">CSS Profile: the second aid form</h3>
+      <p class="table-note">{{ CP.intro }}</p>
+      <div class="chip-grid us-links reveal">
+        {%- for c in CP.cards %}
+        <div class="item"><strong>{{ c.h }}</strong>{{ c.t }} {% include us-src-chip.html id=c.src %}</div>
+        {%- endfor %}
+      </div>
+      {%- assign SS = G.scholarship_stacking %}
+      <h3 class="block-subhead" id="stacking">Scholarship stacking</h3>
+      <p class="table-note">{{ SS.intro }}</p>
+      <ul class="md-list reveal">{% for s in SS.steps %}<li>{{ s.t }} {% include us-src-chip.html id=s.src %}</li>{% endfor %}</ul>
+      <p class="table-note"><strong>Margdarshan tip:</strong> {{ SS.warning }}</p>
       <p class="table-note">Aid rules change with new laws and each award year. Confirm amounts on StudentAid.gov and with each college's financial aid office. Not eligible for federal aid? International students: see <a href="us/international-students/">International Students</a>.</p>
     </div>
   </section>
@@ -269,6 +283,7 @@ breadcrumb:
         <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">Do I have to pay the full sticker price?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">Often not. Published tuition is before grants and scholarships. Use each college's net price calculator and file the FAFSA to see what you would actually pay.</div></div>
         <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">Is starting at a community college a good idea?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">It can save money, but plan the transfer from day one. Of students who started at a community college in fall 2018, {{ TR.transferred_pct }}% transferred to a four-year college within six years, and {{ TR.of_those_bachelor_pct }}% of those earned a bachelor's degree in that time.</div></div>
         <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">When should I file the FAFSA?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">As soon as you can after it opens (by October 1 each year). Federal, state and college deadlines differ, and some state and college aid runs out.</div></div>
+        <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">Will an outside scholarship lower the aid my college gives me?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">It can. If your total aid goes above your financial need, the college may reduce its own aid. Some states, such as New Jersey, limit this at public colleges. Ask each college whether it cuts loans and work-study first or its grants.</div></div>
         <div class="faq-item" data-open="false"><button type="button" class="faq-q" aria-expanded="false">How will the 2026 loan changes affect medical or law school?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">From July 1, 2026, new graduate and professional borrowers can no longer get Grad PLUS loans, and federal loans for professional students are capped at $50,000 a year and $200,000 in total. Plan for the full cost before you enroll.</div></div>
       </div>
     </div>
@@ -289,6 +304,6 @@ breadcrumb:
     </div>
   </section>
 
-  {% include us-sources.html ids="nces_ipeds_glossary,cb_pricing_2025,fl_stat_1009_21,ca_uc_rpg,wiche_wue,mhec_msep,nebhe_rsp,sreb_acm,ed_fafsa_2027_28,fr_fafsa_2026_27,fsa_hb_ch1,fsa_hb_ch2,fsa_hb_ch3,fsa_hb_ch4,fsa_pell_2026_27,fsa_loans,ed_obbba_loans,nsc_tracking_transfer,fl_stat_1007_23,losrios_adt,gallup_stopout,gallup_ai_use,gallup_ai_majors" bg="alt" %}
+  {% include us-sources.html ids="nces_ipeds_glossary,cb_pricing_2025,fl_stat_1009_21,ca_uc_rpg,wiche_wue,mhec_msep,nebhe_rsp,sreb_acm,ed_fafsa_2027_28,fr_fafsa_2026_27,fsa_hb_ch1,fsa_hb_ch2,fsa_hb_ch3,fsa_hb_ch4,cb_css_about,cb_css_flyer,cb_css_howto,ecfr_673_5,nj_oshe_displacement,fsa_pell_2026_27,fsa_loans,ed_obbba_loans,nsc_tracking_transfer,fl_stat_1007_23,losrios_adt,gallup_stopout,gallup_ai_use,gallup_ai_majors" bg="alt" %}
 
 </main>

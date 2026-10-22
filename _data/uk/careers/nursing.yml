@@ -1,0 +1,46 @@
+# nursing — UK career data sheet, read by _includes/uk-career.html (page: uk/careers/nursing/).
+# Rules: see the header of _data/uk/careers/law.yml (checked by scripts/check-uk-data.mjs).
+# Pay: ONS splits registered nurses into several SOC 2020 groups; 2237 is the group for nursing work not
+# classified in the specialist groups (source ons_soc2020), so it comes first.
+slug: nursing
+title: "Nurse (adult nursing)"
+eyebrow: "UK · Health · Nursing"
+lede: "A <strong>3-year nursing degree</strong> approved by the NMC, or a <strong>nursing degree apprenticeship</strong>. Then you join the <strong>NMC register</strong>."
+checked: 2026-10-23
+in_page: nursing.html
+us_pathway: nursing
+licensure_body: { short: "NMC", name: "Nursing and Midwifery Council", note: "Register to work as a nurse", source: ncs_nurse }
+pay:
+  - { soc: "2237", label: "Other registered nursing professionals", note: "The ONS group for nursing work not counted in a specialist nursing group.", source: ons_soc2020 }
+  - { soc: "2235", label: "Mental health nurses" }
+  - { soc: "2236", label: "Children's nurses" }
+ncs:
+  - { label: "Adult nurse", starter: 32000, experienced: 48000, source: ncs_nurse }
+school:
+  - { k: "GCSEs", v: "<strong>4 or 5 GCSEs at grades 9 to 4</strong>, including English, maths and science.", source: ncs_nurse }
+  - { k: "A levels", v: "<strong>2 or 3 A levels including a science</strong>, or a level 3 diploma or Access to HE in health, science or nursing.", source: ncs_nurse }
+  - { k: "UCAS points", v: "An <strong>A* = 56 points</strong>. Many courses ask for grades instead of points.", source: ucas_tariff }
+badges:
+  - { label: "NMC registration fee", value: "£143", note: "Paid when you first join the register", source: nmc_uk_trained }
+tracks:
+  - id: degree
+    title: "Nursing degree"
+    tag: "NMC"
+    who: "A degree in adult nursing approved by the <strong>Nursing and Midwifery Council</strong>."
+    steps:
+      - { tag: "School", title: "GCSEs + 2 or 3 A levels", text: "Including a science, or an equivalent level 3 course.", kind: stage, source: ncs_nurse }
+      - { tag: "Degree", title: "Adult nursing degree: 3 years full time", text: "Extra money may come from the NHS Learning Support Fund.", kind: stage, source: ncs_nurse }
+      - { tag: "Register", title: "Apply to the NMC", text: "Your university sends your details; you pay the fee and apply in MyNMC.", kind: gate, source: nmc_uk_trained }
+      - { tag: "Goal", title: "Registered nurse", text: "", kind: license, source: ncs_nurse }
+    facts:
+      - { k: "Already have a degree?", v: "With a degree in a health subject, psychology, life sciences or social work you may be able to <strong>join year 2</strong>.", source: ncs_nurse }
+  - id: apprenticeship
+    title: "Registered Nurse Degree Apprenticeship"
+    tag: "Level 6"
+    who: "For people working in a healthcare setting, like a hospital."
+    steps:
+      - { tag: "Work", title: "Job in healthcare", text: "You need your employer's support.", kind: stage, source: ncs_nurse }
+      - { tag: "Level 6", title: "Degree apprenticeship: about 4 years", text: "Study plus on-the-job training.", kind: stage, source: ncs_nurse }
+      - { tag: "Goal", title: "Registered nurse", text: "", kind: license, source: ncs_nurse }
+    facts:
+      - { k: "Nursing associate?", v: "Assistant practitioners and nursing associates can take a <strong>shortened nursing degree</strong>.", source: ncs_nurse }

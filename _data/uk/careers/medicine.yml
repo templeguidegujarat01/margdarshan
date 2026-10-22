@@ -1,0 +1,47 @@
+# medicine — UK career data sheet, read by _includes/uk-career.html (page: uk/careers/medicine/).
+# Rules: see the header of _data/uk/careers/law.yml (checked by scripts/check-uk-data.mjs).
+slug: medicine
+title: "Doctor: hospital doctor or GP"
+eyebrow: "UK · Health · Medicine"
+lede: "A <strong>5-year medicine degree</strong>, then <strong>2 years of foundation training</strong>, then specialist training. To work as a doctor you must be on the <strong>GMC register</strong> with a licence to practise."
+checked: 2026-10-23
+in_page: mbbs.html
+us_pathway: medicine
+licensure_body: { short: "GMC", name: "General Medical Council", note: "Register + licence to practise", source: ncs_hospital_doctor }
+pay:
+  - { soc: "2211", label: "Generalist medical practitioners" }
+  - { soc: "2212", label: "Specialist medical practitioners" }
+ncs:
+  - { label: "Hospital doctor", starter: 40000, experienced: 145000, source: ncs_hospital_doctor }
+  - { label: "GP", starter: 79000, experienced: 119000, source: ncs_gp }
+school:
+  - { k: "GCSEs", v: "<strong>At least 5 GCSEs at grades 9 to 7</strong> (A* or A), including English, maths and sciences.", source: ncs_hospital_doctor }
+  - { k: "A levels", v: "<strong>3 A levels</strong>, or equivalent, including <strong>biology and chemistry</strong>.", source: ncs_hospital_doctor }
+  - { k: "UCAS points", v: "An <strong>A* = 56 points</strong>. Medical schools usually set grades, so check each school.", source: ucas_tariff }
+  - { k: "Entry test", v: "You may be asked to take the <strong>UCAT</strong> (University Clinical Aptitude Test).", source: ncs_hospital_doctor }
+tracks:
+  - id: hospital
+    title: "Hospital doctor"
+    tag: "GMC"
+    who: "Registered with the <strong>General Medical Council</strong>."
+    steps:
+      - { tag: "School", title: "5 GCSEs (9 to 7) + 3 A levels", text: "Including biology and chemistry.", kind: stage, source: ncs_hospital_doctor }
+      - { tag: "Test", title: "UCAT", text: "Many medical schools ask for it when you apply.", kind: gate, source: ncs_hospital_doctor }
+      - { tag: "Degree", title: "5-year medicine degree", text: "Recognised by the GMC.", kind: stage, source: ncs_hospital_doctor }
+      - { tag: "Exam", title: "Medical Licensing Assessment (MLA)", text: "Passed as part of your degree, before you join the medical register.", kind: gate, source: gmc_mla }
+      - { tag: "Training", title: "Foundation programme: 2 years", text: "General training.", kind: stage, source: ncs_hospital_doctor }
+      - { tag: "Training", title: "Specialist training: 5 to 8 years", text: "Depends on the speciality.", kind: stage, source: ncs_hospital_doctor }
+      - { tag: "Goal", title: "Registered with the GMC", text: "", kind: license, source: ncs_hospital_doctor }
+    facts:
+      - { k: "Already have a science degree?", v: "A <strong>4-year graduate entry</strong> route into medicine.", source: ncs_hospital_doctor }
+      - { k: "Working in healthcare?", v: "A <strong>Doctor Level 7 Degree Apprenticeship</strong> takes 5 years and needs your employer's support.", source: ncs_hospital_doctor }
+  - id: gp
+    title: "GP (general practitioner)"
+    tag: "GMC"
+    who: "A family doctor in a GP practice or health centre."
+    steps:
+      - { tag: "Degree", title: "5-year medicine degree", text: "From a medical school recognised by the GMC.", kind: stage, source: ncs_gp }
+      - { tag: "Exam", title: "Medical Licensing Assessment (MLA)", text: "Part of your degree.", kind: gate, source: gmc_mla }
+      - { tag: "Training", title: "Foundation programme: 2 years", text: "General training.", kind: stage, source: ncs_gp }
+      - { tag: "Training", title: "GP specialist training: 3 years", text: "Often split between hospital and general practice.", kind: stage, source: ncs_gp }
+      - { tag: "Goal", title: "GMC GP Register + licence to practise", text: "", kind: license, source: ncs_gp }

@@ -1,0 +1,36 @@
+# paramedic — UK career data sheet, read by _includes/uk-career.html (page: uk/careers/paramedic/).
+# Rules: see the header of _data/uk/careers/law.yml (checked by scripts/check-uk-data.mjs).
+slug: paramedic
+title: "Paramedic"
+eyebrow: "UK · Health · Emergency care"
+lede: "A <strong>paramedic science degree</strong>, a <strong>degree apprenticeship</strong>, or a student paramedic job with an ambulance service. \"Paramedic\" is a protected title: you must be on the <strong>HCPC register</strong>."
+checked: 2026-10-23
+licensure_body: { short: "HCPC", name: "Health and Care Professions Council", note: "Protected title: registration required", source: hcpc_titles }
+pay:
+  - { soc: "2255", label: "Paramedics" }
+ncs:
+  - { label: "Paramedic", starter: 32000, experienced: 48000, source: ncs_paramedic }
+school:
+  - { k: "GCSEs", v: "<strong>4 or 5 GCSEs at grades 9 to 4</strong> plus A levels for a degree apprenticeship.", source: ncs_paramedic }
+  - { k: "A levels", v: "<strong>2 or 3 A levels including a science</strong>, or equivalent, for a degree.", source: ncs_paramedic }
+  - { k: "UCAS points", v: "An <strong>A* = 56 points</strong>. Many courses ask for grades instead of points.", source: ucas_tariff }
+tracks:
+  - id: degree
+    title: "Paramedic science degree"
+    tag: "HCPC"
+    who: "A degree approved by the <strong>Health and Care Professions Council</strong>."
+    steps:
+      - { tag: "School", title: "2 or 3 A levels", text: "Including a science.", kind: stage, source: ncs_paramedic }
+      - { tag: "Degree", title: "Paramedic science degree: 3 years full time", text: "Extra money may come from the NHS Learning Support Fund.", kind: stage, source: ncs_paramedic }
+      - { tag: "Register", title: "Register with the HCPC", text: "", kind: gate, source: ncs_paramedic }
+      - { tag: "Goal", title: "Paramedic", text: "", kind: license, source: hcpc_titles }
+  - id: apprenticeship
+    title: "Degree apprenticeship or student paramedic"
+    tag: "Work + study"
+    who: "Earn while you train with an ambulance service."
+    steps:
+      - { tag: "Level 6", title: "Paramedic Degree Apprenticeship: 3 years", text: "Or a student paramedic training scheme with an ambulance trust.", kind: stage, source: ncs_paramedic }
+      - { tag: "Register", title: "Register with the HCPC", text: "", kind: gate, source: ncs_paramedic }
+      - { tag: "Goal", title: "Paramedic", text: "", kind: license, source: hcpc_titles }
+    facts:
+      - { k: "Start lower down?", v: "Ambulance care assistants and emergency medical technicians (associate ambulance practitioners) can apply for paramedic training later.", source: ncs_paramedic }

@@ -39,6 +39,10 @@
 
     <div class="md-stats">
       <div class="md-stat"><span class="md-stat-label">Typical UK pay (median)</span><span class="md-stat-value">{% include fmt-num.html n=A0.uk.median prefix="£" %}</span><span class="md-stat-note">{{ P0.label }}, full time, per year</span>{% include uk-src-chip.html id="ons_ashe" %}</div>
+      {%- if C.licensure_body %}
+      {%- assign LB = C.licensure_body %}
+      <div class="md-stat"><span class="md-stat-label">Licensed or registered by</span><span class="md-stat-value">{{ LB.short }}</span><span class="md-stat-note">{{ LB.name }}{% if LB.note %}. {{ LB.note }}{% endif %}</span>{% include uk-src-chip.html id=LB.source %}</div>
+      {%- endif %}
       {%- if A0.uk.p90 %}
       <div class="md-stat"><span class="md-stat-label">Top 10% earn over</span><span class="md-stat-value">{% include fmt-num.html n=A0.uk.p90 prefix="£" %}</span><span class="md-stat-note">{{ AV.label }}</span></div>
       {%- elsif A0.uk.p75 %}
@@ -93,7 +97,7 @@
       {%- assign AE = UK.ashe.occupations[PE.soc] %}
       {%- assign rows = AE.regions | where_exp: "r", "r.cv_median != nil" | sort: "median" | reverse %}
       <h3 class="md-pay-sub">{{ PE.label }} <span class="mob-badge">SOC {{ PE.soc }}</span></h3>
-      {%- if PE.note %}<p class="md-tile-note">{{ PE.note }}</p>{% endif %}
+      {%- if PE.note %}<p class="md-tile-note">{{ PE.note }}{% if PE.source %} {% include uk-src-chip.html id=PE.source %}{% endif %}</p>{% endif %}
       <ul class="md-badges">
         <li>UK median <strong>{% include fmt-num.html n=AE.uk.median prefix="£" %}</strong></li>
         {%- if AE.uk.p25 %}<li>Bottom 25% under <strong>{% include fmt-num.html n=AE.uk.p25 prefix="£" %}</strong></li>{% endif %}

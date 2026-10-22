@@ -60,6 +60,7 @@ for (const f of fs.readdirSync(dir).filter((x) => x.endsWith('.yml'))) {
   const stub = `uk/careers/${slug}/index.html`;
   if (!exists(stub)) err(w, `${stub} is missing`);
   else if (!new RegExp(`^career:\\s*${slug}\\s*$`, 'm').test(fs.readFileSync(path.join(root, stub), 'utf8'))) err(w, `${stub} must say career: ${slug}`);
+  if (C.licensure_body) for (const k of ['short', 'name', 'source']) if (!C.licensure_body[k]) err(w, `licensure_body: missing ${k}`);
   if (!Array.isArray(C.pay) || !C.pay.length) err(w, 'needs at least one pay: entry');
   for (const p of C.pay || []) {
     const o = ashe.occupations[p.soc];

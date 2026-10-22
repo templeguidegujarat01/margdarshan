@@ -1,0 +1,39 @@
+# teaching — UK career data sheet, read by _includes/uk-career.html (page: uk/careers/teaching/).
+# Rules: see the header of _data/uk/careers/law.yml (checked by scripts/check-uk-data.mjs).
+slug: teaching
+title: "Secondary school teacher"
+eyebrow: "UK · Education · England"
+lede: "You need <strong>qualified teacher status (QTS)</strong> to teach in most state schools in England. Get it with a <strong>degree with QTS</strong>, or any degree + a <strong>PGCE</strong> or school-based training."
+scope_note: "These rules are for England. Wales, Scotland and Northern Ireland register teachers separately."
+checked: 2026-10-23
+in_page: bed.html
+licensure_body: { short: "DfE", name: "Department for Education (QTS)", note: "QTS: legal need in maintained schools", source: dfe_qts }
+pay:
+  - { soc: "2313", label: "Secondary education teaching professionals" }
+  - { soc: "2314", label: "Primary education teaching professionals" }
+ncs:
+  - { label: "Secondary school teacher", starter: 34000, experienced: 53000, source: ncs_secondary_teacher }
+school:
+  - { k: "GCSEs", v: "<strong>4 or 5 GCSEs at grades 9 to 4</strong>, including English and maths.", source: ncs_secondary_teacher }
+  - { k: "A levels", v: "<strong>2 to 3 A levels</strong>, or equivalent, for a degree.", source: ncs_secondary_teacher }
+  - { k: "UCAS points", v: "An <strong>A* = 56 points</strong>. Many courses ask for grades instead of points.", source: ucas_tariff }
+tracks:
+  - id: undergraduate
+    title: "Degree with QTS"
+    tag: "QTS"
+    who: "For example a BEd, or a BA or BSc with QTS."
+    steps:
+      - { tag: "School", title: "GCSEs + 2 to 3 A levels", text: "English and maths GCSEs needed.", kind: stage, source: ncs_secondary_teacher }
+      - { tag: "Degree", title: "Undergraduate degree with QTS", text: "", kind: stage, source: ncs_secondary_teacher }
+      - { tag: "Goal", title: "Qualified teacher status", text: "Your training provider reports your result and the DfE records QTS on your teacher record.", kind: license, source: dfe_qts }
+  - id: postgraduate
+    title: "Any degree + teacher training"
+    tag: "PGCE"
+    who: "Your degree does not always need to be in the subject you teach."
+    steps:
+      - { tag: "Degree", title: "Bachelor's degree in any subject", text: "", kind: stage, source: ncs_secondary_teacher }
+      - { tag: "Training", title: "Postgraduate teacher training", text: "A PGCE at university or a school-based programme. You need QTS, not the PGCE itself.", kind: gate, source: ncs_secondary_teacher }
+      - { tag: "Goal", title: "Qualified teacher status", text: "", kind: license, source: dfe_qts }
+    facts:
+      - { k: "Earn while you train?", v: "A <strong>Postgraduate Teacher Apprenticeship</strong> takes about 1 year and leads to QTS.", source: ncs_secondary_teacher }
+      - { k: "Academies and private schools", v: "Academies, free schools and private schools <strong>can</strong> employ teachers without QTS, but many still look for it.", source: dfe_qts }

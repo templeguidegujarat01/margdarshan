@@ -1,0 +1,38 @@
+# social-work — UK career data sheet, read by _includes/uk-career.html (page: uk/careers/social-work/).
+# Rules: see the header of _data/uk/careers/law.yml (checked by scripts/check-uk-data.mjs).
+slug: social-work
+title: "Social worker"
+eyebrow: "UK · Care · England"
+lede: "A <strong>social work degree</strong> approved by Social Work England, a <strong>master's</strong> after another degree, or a <strong>degree apprenticeship</strong>. Then you register with <strong>Social Work England</strong>."
+scope_note: "These rules are for England. Wales, Scotland and Northern Ireland have their own social work regulators."
+checked: 2026-10-23
+in_page: bsw.html
+licensure_body: { short: "SWE", name: "Social Work England", note: "Register to work as a social worker", source: ncs_social_worker }
+pay:
+  - { soc: "2461", label: "Social workers" }
+ncs:
+  - { label: "Social worker", starter: 32000, experienced: 48000, source: ncs_social_worker }
+school:
+  - { k: "A levels", v: "<strong>2 to 3 A levels</strong>, or equivalent, for a degree.", source: ncs_social_worker }
+  - { k: "Experience", v: "Most courses want experience with <strong>vulnerable groups or children</strong>: paid or volunteer.", source: ncs_social_worker }
+  - { k: "UCAS points", v: "An <strong>A* = 56 points</strong>. Many courses ask for grades instead of points.", source: ucas_tariff }
+tracks:
+  - id: degree
+    title: "Social work degree"
+    tag: "SWE"
+    who: "A degree approved by <strong>Social Work England</strong>."
+    steps:
+      - { tag: "School", title: "2 to 3 A levels", text: "Or equivalent.", kind: stage, source: ncs_social_worker }
+      - { tag: "Degree", title: "Social work degree", text: "Or a 2-year postgraduate degree if your first degree is in another subject.", kind: stage, source: ncs_social_worker }
+      - { tag: "Register", title: "Join the Social Work England register", text: "", kind: gate, source: swe_registration }
+      - { tag: "Goal", title: "Registered social worker", text: "", kind: license, source: ncs_social_worker }
+    facts:
+      - { k: "Graduate schemes", v: "Intensive work-based programmes like <strong>Step Up to Social Work</strong> and <strong>Approach Social Work</strong> need at least a 2:2 degree.", source: ncs_social_worker }
+  - id: apprenticeship
+    title: "Degree apprenticeship"
+    tag: "Level 6"
+    who: "Work placements plus academic study."
+    steps:
+      - { tag: "School", title: "GCSEs + A levels", text: "4 or 5 GCSEs at grades 9 to 4.", kind: stage, source: ncs_social_worker }
+      - { tag: "Level 6", title: "Social Worker Degree Apprenticeship", text: "Around 3 years.", kind: stage, source: ncs_social_worker }
+      - { tag: "Goal", title: "Registered social worker", text: "", kind: license, source: swe_registration }

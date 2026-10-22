@@ -1,12 +1,79 @@
-# Tennessee (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# Tennessee (USA Master Plan Phase 11 batch 2, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the
+# boards tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# collegefortn.org (TSAC) returns 503 from India: the HOPE award table is from UT Knoxville's page. The residency
+# rule is the Board of Regents rule chapter on the Secretary of State site (archive capture).
 name: "Tennessee"
 abbr: TN
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In Tennessee, the Tennessee Board of Law Examiners handles bar admission for lawyers, the Tennessee Board of Medical Examiners and Tennessee Board of Osteopathic Examination license physicians, the Tennessee State Board of Accountancy licenses CPAs and the Tennessee Board of Nursing licenses registered nurses."
+lede: "Tennessee requires 22 credits and an ACT or SAT for a regular diploma, classifies students by domicile rather than a fixed waiting period, and funds the lottery HOPE Scholarship and Tennessee Promise for in-state students."
+
+diploma:
+  intro: "State Board of Education High School Policy 2.103 (Tennessee Diploma Project, 2009). All students enrolled in a Tennessee public school in grade 11 must take the ACT or SAT to receive a traditional diploma."
+  rows:
+    - ["English", "4 credits"]
+    - ["Mathematics", "4 credits: Algebra I and II, geometry and a fourth higher-level course; enrolled in math at least three of four years (from 2024-25)"]
+    - ["Science", "3 credits: biology, chemistry or physics, and a third lab course"]
+    - ["Social studies", "3 credits: U.S. history and geography, world history and geography, U.S. government and civics, economics"]
+    - ["Wellness", "1 credit"]
+    - ["Physical education", "½ credit"]
+    - ["Personal finance", "½ credit"]
+    - ["World language", "2 credits (a district may waive them to widen the elective focus)"]
+    - ["Fine arts", "1 credit (may be waived the same way)"]
+    - ["Elective focus", "3 credits: math and science, CTE, fine arts, humanities, AP or IB"]
+  unit: "22 credits. A computer science credit can replace the fourth math or third lab science credit."
+  tests: "High school students take TCAP End of Course exams in core subjects, and their scores count toward the semester grade for the course."
+  src: tn_grad
+
+k12_test:
+  name: "TCAP"
+  full: "Tennessee Comprehensive Assessment Program"
+  intro: "TCAP is meant to measure real understanding of the state standards, not memorization, and to show what schools can do to help students."
+  src: tn_tcap
+  rows:
+    - ["TCAP achievement", "English language arts, mathematics and science", "Grades 3–8"]
+    - ["TCAP achievement", "Social studies", "Grades 6–8"]
+    - ["TCAP End of Course", "English I and II, Algebra I and II, geometry (or Integrated Math I–III), biology, U.S. history", "High school courses"]
+  rows_src: tn_tcap_times
+  use:
+    - { t: "End of Course scores factor into the student's semester grade for the course.", src: tn_grad }
+    - { t: "Results give feedback on progress toward grade-level expectations, compare students with peers in the district and state, and show colleges and employers how ready students are.", src: tn_assessment }
+
+colleges:
+  systems:
+    - { name: "The University of Tennessee System", kind: university, url: "https://tennessee.edu/", line: "Five campuses (Knoxville, Chattanooga, Martin, Southern and the Health Science Center) and two statewide institutes.", src: tn_ut }
+    - { name: "Tennessee Board of Regents (community and technical colleges)", kind: community, url: "https://www.tbr.edu/", line: "35 community and technical colleges across the state with more than 400 programs of study; Tennessee Promise covers mandatory tuition and fees there for up to two years for eligible high school graduates.", src: tn_tbr }
+
+residency:
+  points:
+    - { t: "Board of Regents rule 0240-02-02: everyone whose domicile is in Tennessee is classified in-state for tuition and admission, with no fixed waiting period. Domicile means your true, fixed and permanent home.", src: tn_0240_02_02 }
+    - { t: "An unemancipated student takes a parent's domicile (one parent is enough if the parents are divorced). A U.S. citizen who has lived in Tennessee for at least a year before admission and graduated from a Tennessee high school, or earned a Tennessee equivalency diploma, is also in-state.", src: tn_0240_02_02 }
+    - { t: "Each public college's classification officer decides first, and each college has an appeal process.", src: tn_0240_02_02 }
+
+aid:
+  agency: { name: "Tennessee Student Assistance Corporation (College for TN)", url: "https://www.collegefortn.org/", src: tn_collegefortn }
+  programs:
+    - { name: "Tennessee HOPE Scholarship", line: "Lottery scholarship for Tennessee residents: entering freshmen need a 21 ACT (1060 SAT) or an overall weighted 3.0 high school GPA, and must file the FAFSA. Up to $2,250 per full-time semester as a freshman or sophomore and $2,850 as a junior or senior (UT Knoxville figures).", src: tn_utk_hope }
+    - { name: "Tennessee Promise", line: "Last-dollar scholarship covering mandatory tuition and fees at a community or technical college for up to two years for Tennessee high school graduates.", src: tn_tbr }
+
+jobs:
+  state:
+    portal: "TN.gov Careers (TeamTN)"
+    url: "https://www.tn.gov/careers.html"
+    by: "State of Tennessee"
+    steps:
+      - "The State of Tennessee is the largest employer in the state, with more than 43,000 employees in jobs from accounting to forestry."
+      - "The careers site explains the hiring process and benefits and links the job search."
+    src: tn_careers
+  cities: []
+
+apprenticeship:
+  office: "Apprenticeship TN (Tennessee Department of Labor and Workforce Development)"
+  url: "https://www.tn.gov/workforce/jobs-and-education/training-opportunities/training-opportunities-redirect/paying-for-training/registered-apprenticeship.html"
+  kind: SAA
+  line: "Tennessee is a State Apprenticeship Agency state. Each grand division has an Apprenticeship Director who meets employers to design, register and launch programs, and registered programs can join the state Eligible Training Provider List."
+  src: tn_ra
+  oa_src: dol_oa_states
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

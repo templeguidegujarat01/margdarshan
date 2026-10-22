@@ -1,12 +1,78 @@
-# Virginia (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# Virginia (USA Master Plan Phase 11 batch 2, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the
+# boards tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# doe.virginia.gov returns Access Denied from India: VDOE pages read through Internet Archive captures. The
+# diploma rule is quoted from 8VAC20-132-51 (chapter 131 was repealed in September 2024).
 name: "Virginia"
 abbr: VA
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In Virginia, the Virginia Board of Bar Examiners handles bar admission for lawyers, the Virginia Board of Medicine licenses physicians, the Virginia Board of Accountancy licenses CPAs and the Virginia Board of Nursing licenses registered nurses."
+lede: "Virginia's Standard Diploma needs 22 standard and 5 verified credits (passing SOL end-of-course tests), in-state tuition needs one year of Virginia domicile, and SCHEV runs the state grants: VGAP at public colleges and VTAG at private ones."
+
+diploma:
+  intro: "8VAC20-132-51, for students who entered grade 9 in 2018-19 or later. These are the only diploma requirements unless a local school board has extra requirements approved by the Board of Education. Standard Diploma shown; the Advanced Studies Diploma asks for more."
+  rows:
+    - ["English (reading and writing)", "4 standard credits, 2 verified"]
+    - ["Mathematics", "3 standard credits, 1 verified (at least two different courses from Algebra I, geometry, Algebra II and similar)"]
+    - ["Laboratory science", "3 standard credits, 1 verified (at least two science disciplines)"]
+    - ["History and social science", "3 standard credits, 1 verified (Virginia and U.S. history, Virginia and U.S. government, and world history or geography)"]
+    - ["Health and physical education", "2 standard credits"]
+    - ["World language, fine arts or career and technical education", "2 standard credits (one in fine or performing arts or CTE)"]
+    - ["Economics and personal finance", "1 standard credit"]
+    - ["Electives", "4 standard credits, including two sequential electives"]
+  unit: "22 standard credits and 5 verified credits. No more than one locally awarded verified credit may count."
+  tests: "A verified credit means passing the course and its end-of-course SOL test (or another test the Board approves). Students also complete an AP, honors, IB or dual enrollment course, a work-based learning experience or a CTE credential; one virtual course; first aid, CPR and AED training; and show the five Cs (critical and creative thinking, collaboration, communication, citizenship)."
+  src: va_8vac20_132_51
+  points:
+    - { t: "Students who entered grade 9 between 2011-12 and 2017-18 graduated under the older rule: 22 standard credits and 6 verified credits.", src: va_doe_standard }
+
+k12_test:
+  name: "SOL tests"
+  full: "Virginia Standards of Learning (SOL) assessments"
+  intro: "SOL tests measure how well students meet the Board of Education's expectations for each grade or course; Virginia classroom teachers review every item and help set the proficiency standards. Grades 3–8 reading and mathematics tests are computer adaptive."
+  src: va_doe_sol
+  rows:
+    - ["SOL non-writing tests", "Reading and mathematics", "Grades 3–8"]
+    - ["SOL non-writing tests", "Science", "Grades 5 and 8"]
+    - ["End-of-course (EOC) tests", "Reading, writing, Algebra I, geometry, Algebra II, biology, chemistry, earth science, world geography, world history I and II, Virginia and U.S. history", "High school courses"]
+  rows_src: va_doe_sol
+  use:
+    - { t: "Passing an end-of-course SOL test (or an approved substitute) turns a course credit into a verified credit, and the diploma needs 5 of them.", src: va_8vac20_132_51 }
+
+colleges:
+  systems:
+    - { name: "Virginia public colleges and universities (coordinated by SCHEV)", kind: university, url: "https://www.schev.edu/", line: "SCHEV is the Commonwealth's coordinating body for higher education, set up in 1956; it makes policy recommendations to the Governor and General Assembly on budgets, enrollment and student aid.", src: va_schev }
+    - { name: "Virginia's Community Colleges (VCCS)", kind: community, url: "https://www.vccs.edu/", line: "Founded in 1966 and governed by the State Board for Community Colleges, whose members the Governor appoints for four-year terms (no more than two in a row).", src: va_vccs }
+
+residency:
+  points:
+    - { t: "Code of Virginia § 23.1-502: you must prove by clear and convincing evidence that you have been domiciled in Virginia for at least one year immediately before the date you claim in-state tuition, and that you gave up any earlier domicile.", src: va_code_23_1_502 }
+    - { t: "Dependent students are presumed to have their supporting parent's domicile; students under 24 are presumed dependent unless, for example, they are married, veterans or graduate students.", src: va_schev_residency }
+    - { t: "If you cannot show domicile, more than a dozen other provisions may still give in-state tuition, including the Tuition Equity provision for students who completed high school in Virginia, whatever their parents' immigration status.", src: va_schev_residency }
+
+aid:
+  agency: { name: "State Council of Higher Education for Virginia (SCHEV)", url: "https://www.schev.edu/financial-aid", src: va_vgap }
+  programs:
+    - { name: "Virginia Guaranteed Assistance Program (VGAP)", line: "Need-based award at Virginia public two- and four-year colleges for full-time students who graduated from a Virginia high school (not a GED) with at least a 2.5 GPA. No separate form: file the FAFSA or VASA by the college's deadline; the neediest students get at least tuition.", src: va_vgap }
+    - { name: "Virginia Tuition Assistance Grant (VTAG)", line: "For Virginia students at accredited private, nonprofit colleges in Virginia (not for religious training). Apply through the college's financial aid office by September 15; later applications to December 1 are funded only if money is left.", src: va_vtag }
+
+jobs:
+  state:
+    portal: "Virginia Jobs"
+    url: "https://www.jobs.virginia.gov/"
+    by: "Commonwealth of Virginia"
+    steps:
+      - "Search by job title, location, department or category, then apply online."
+      - "Applicants who have already applied log in to the same site to see their applications."
+    src: va_jobs
+  cities: []
+
+apprenticeship:
+  office: "Virginia State Apprenticeship Agency (Virginia Works)"
+  url: "https://virginiaworks.gov/im-an-employer/hire-and-retain/registered-apprenticeship-and-on-the-job-training/"
+  kind: SAA
+  line: "Virginia is a State Apprenticeship Agency state: its agency registers and oversees programs for federal purposes. Registered apprenticeship sits with Virginia Works, the Department of Workforce Development and Advancement."
+  src: va_works_ra
+  oa_src: dol_oa_states
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

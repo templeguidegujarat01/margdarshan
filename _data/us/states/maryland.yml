@@ -1,12 +1,75 @@
-# Maryland (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# Maryland (USA Master Plan Phase 11 batch 2, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the
+# boards tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# news.maryland.gov returns 403 from India: the MSTAR release was read through an Internet Archive capture.
+# In-state tuition differs by sector: USM policy (12 months) for universities, COMAR 13B.07.02 (3 months) for community colleges.
 name: "Maryland"
 abbr: MD
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In Maryland, the Maryland State Board of Law Examiners handles bar admission for lawyers, the Maryland Board of Physicians licenses physicians, the Maryland Board of Public Accountancy licenses CPAs and the Maryland Board of Nursing licenses registered nurses."
+lede: "Maryland requires 22 credits, 75 hours of student service and the high school Maryland Comprehensive Assessments for a diploma; USM universities want 12 months of Maryland domicile for in-state tuition and community colleges 3 months."
+
+diploma:
+  intro: "COMAR 13A.03.02.03, for students who entered grade 9 in 2021-22 or later (21 credits applied to earlier classes). Students must be enrolled in a Maryland public school system."
+  rows:
+    - ["English", "4 credits (one aligned with the Maryland Comprehensive Assessment for English)"]
+    - ["Fine arts", "1 credit"]
+    - ["Mathematics", "4 credits, including algebra and geometry"]
+    - ["Science", "3 credits with labs: life science, physical science, and earth/space or other science"]
+    - ["Social studies", "3 credits: U.S. history, world history, and local, state and national government"]
+    - ["Physical education", "½ credit"]
+    - ["Health education", "1 credit"]
+    - ["Computer science, engineering or technology education", "1 credit"]
+    - ["World language or CTE", "2 credits of the same world language (ASL counts) or a state-approved career and technical education program"]
+  unit: "22 credits minimum."
+  tests: "To get the Maryland High School Diploma, every student takes the Maryland Comprehensive Assessments in algebra, science, English and government after the course. Students also complete 75 hours of student service (or an approved local program) and a local environmental literacy program."
+  src: md_comar_13a_03_02_03
+
+k12_test:
+  name: "MSTAR and MCAP"
+  full: "Maryland System of Testing Academic Readiness (grades 3–8 from 2026-27) and the Maryland Comprehensive Assessment Program high school tests"
+  intro: "2025-26 was the fifth and final full MCAP administration for grades 3–8; the newly designed MSTAR starts with grades 3–8 in the 2026-27 school year."
+  src: md_mstar
+  rows:
+    - ["MSTAR (new)", "Replaces MCAP for these grades", "Grades 3–8, from 2026-27"]
+    - ["Maryland Comprehensive Assessments", "Algebra, English, science and government", "High school, during the course's regular administration"]
+  rows_src: md_comar_13a_03_02_03
+  use:
+    - { t: "For students entering grade 9, the science and government assessments count for 20 percent of the final grade in those high school courses.", src: md_comar_13a_03_02_03 }
+    - { t: "The diploma requires taking all four high school Maryland Comprehensive Assessments.", src: md_comar_13a_03_02_03 }
+
+colleges:
+  systems:
+    - { name: "University System of Maryland (USM)", kind: university, url: "https://www.usmd.edu/", line: "Maryland's public university system, including Bowie State, Coppin State, Frostburg State, Salisbury, Towson, the University of Baltimore and the University of Maryland campuses.", src: md_usm }
+    - { name: "Maryland community colleges (MACC)", kind: community, url: "https://mdacc.org/", line: "The Maryland Association of Community Colleges is the voice of the state's 16 community colleges.", src: md_macc }
+
+residency:
+  points:
+    - { t: "USM policy VIII-2.70: for in-state tuition at a USM university you must show that for at least 12 consecutive months, up to the last day to register, you intended to make Maryland your permanent home and gave up your former home state, with objective evidence such as a lease and Maryland taxes.", src: md_usm_residency }
+    - { t: "Community colleges (COMAR 13B.07.02): a Maryland resident is a student who has kept a Maryland domicile for at least 3 months before enrolling; immigration status alone does not bar Maryland residency if the person can legally establish domicile.", src: md_comar_13b_07_02_03 }
+
+aid:
+  agency: { name: "Maryland Higher Education Commission, Office of Student Financial Assistance", url: "https://mhec.maryland.gov/", src: md_mhec_ea }
+  programs:
+    - { name: "Howard P. Rawlings Educational Assistance (EA) Grant", line: "Need-based grant of up to $3,000 a year for up to four years. File the FAFSA or the MHEC One-App by March 1 (for 2026-27, March 1, 2026); awards go out until funds run out.", src: md_mhec_ea }
+
+jobs:
+  state:
+    portal: "State of Maryland Job Openings"
+    url: "https://www.jobapscloud.com/MD/"
+    by: "State of Maryland"
+    steps:
+      - "Filter open jobs and apply online; Interest Cards email you when a type of job opens."
+      - "After the FY26 budget the Governor announced a hiring freeze for most Executive Branch positions; exempt classes such as public safety are still recruiting."
+    src: md_jobs
+  cities: []
+
+apprenticeship:
+  office: "Office of Apprenticeship, Maryland Department of Labor"
+  url: "https://labor.maryland.gov/employment/appr/"
+  kind: SAA
+  line: "Maryland's State Apprenticeship Agency. The Office of Apprenticeship, set up by the RAISE Act of 2025 and succeeding the Maryland Apprenticeship Training Program, develops, supports and tracks registered apprenticeship programs."
+  src: md_apprentice
+  oa_src: dol_oa_states
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

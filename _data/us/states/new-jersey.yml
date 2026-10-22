@@ -1,12 +1,80 @@
-# New Jersey (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# New Jersey (USA Master Plan Phase 11 batch 2, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the
+# boards tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# N.J.A.C. 9A:5-1.1 (tuition residency) is not online in a readable form; the rule is quoted from Rutgers' catalog,
+# which prints it.
 name: "New Jersey"
 abbr: NJ
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In New Jersey, the New Jersey Board of Bar Examiners handles bar admission for lawyers, the New Jersey State Board of Medical Examiners licenses physicians, the New Jersey State Board of Accountancy licenses CPAs and the New Jersey Board of Nursing licenses registered nurses."
+lede: "New Jersey sets a 120-credit minimum for a State-endorsed diploma and a graduation test in grade 11 (the NJGPA-A), presumes in-state tuition status after 12 months of residence, and gives need-based Tuition Aid Grants through HESAA."
+
+diploma:
+  intro: "N.J.A.C. 6A:8-5.1: for a State-endorsed diploma, each district board of education adopts local graduation requirements that include a program of study of at least 120 credits in courses designed to meet the New Jersey Student Learning Standards."
+  rows:
+    - ["English language arts", "At least 20 credits"]
+    - ["Mathematics", "At least 15 credits, including Algebra I, geometry and a third year that builds on them"]
+    - ["Science", "At least 15 credits (physical, life, and earth and space science, and engineering)"]
+    - ["Social studies", "At least 15 credits, including 5 credits in world history"]
+    - ["Financial, economic, business and entrepreneurial literacy", "At least 2.5 credits"]
+    - ["Health, safety and physical education", "At least 3¾ credits in each year of enrollment (150 minutes a week)"]
+    - ["Visual and performing arts", "At least 5 credits"]
+    - ["World languages", "At least 5 credits, or shown proficiency"]
+    - ["Career readiness or career and technical education", "At least 5 credits"]
+  unit: "120 credits minimum. Technological literacy is built into the curriculum rather than counted as its own credits."
+  tests: "Locally set courses sit alongside the state graduation assessment requirement in English language arts and mathematics, set for each graduating class (see the notes and State test)."
+  src: nj_njac_6a8
+  points:
+    - { t: "Class of 2027: students must take the NJGPA-A in grade 11 and reach the graduation-ready score of 450 in English language arts and in mathematics (cut scores approved 5 August 2026). They may retake it the following summer or fall.", src: nj_grad_2027 }
+    - { t: "Students who took the NJGPA-A in grade 11 and did not pass can meet the requirement with a score on the state menu of substitute tests (for example the PSAT10, SAT, ACT or ACCUPLACER) or through a portfolio appeal in grade 12.", src: nj_grad_2027 }
+
+k12_test:
+  name: "NJSLA and NJGPA"
+  full: "New Jersey Student Learning Assessments (Adaptive and Science) and the New Jersey Graduation Proficiency Assessment-Adaptive"
+  intro: "New Jersey gives these statewide tests every year under the Every Student Succeeds Act and state law, together with ACCESS for English learners, Dynamic Learning Maps for some students with disabilities, and NAEP."
+  src: nj_assessment
+  rows:
+    - ["NJSLA-Adaptive (NJSLA-A)", "English language arts and mathematics", "Tested grades from grade 3"]
+    - ["NJSLA-Science (NJSLA-S)", "Science", "Tested grades"]
+    - ["NJGPA-Adaptive (NJGPA-A)", "English language arts (grade 10 standards) and mathematics (Algebra I and geometry)", "Grade 11"]
+  rows_src: nj_adaptive_faq
+  use:
+    - { t: "The NJGPA-A is the graduation test: participation is required to meet the graduation assessment requirement, first for the class of 2027.", src: nj_adaptive_faq }
+    - { t: "NJSLA-A and NJGPA-A results show grade-level proficiency in the state standards; they are not meant for frequent progress checks during the year.", src: nj_adaptive_faq }
+
+colleges:
+  systems:
+    - { name: "Rutgers, The State University of New Jersey", kind: university, url: "https://www.rutgers.edu/", line: "One of the leading comprehensive public research universities in the nation, with a mission to provide for New Jersey's educational needs through undergraduate, graduate and continuing education.", src: nj_rutgers }
+    - { name: "New Jersey's 18 community colleges (NJ Council of County Colleges)", kind: community, url: "https://www.njcommunitycolleges.org/", line: "The Council describes a network of 18 community colleges working together on education, careers, workforce up-skilling and the state's economy.", src: nj_njccc }
+
+residency:
+  points:
+    - { t: "Under N.J.A.C. 9A:5, people who have lived in New Jersey for more than 12 months before first enrolling are presumed to be domiciled for tuition purposes; those with less than 12 months are presumed not to be and must prove domicile.", src: nj_rutgers_res }
+    - { t: "Dependent students are presumed to share their parents' domicile. A student from another state who enrolls in a New Jersey school is presumed to be in New Jersey for education, not to have set up a domicile.", src: nj_rutgers_res }
+    - { t: "For state grants, a dependent student and parent (or an independent student) must have lived in New Jersey for at least 12 consecutive months before the term; students who attended a New Jersey high school for at least three years can qualify under P.L. 2018, c. 12.", src: nj_hesaa_tag }
+
+aid:
+  agency: { name: "Higher Education Student Assistance Authority (HESAA)", url: "https://www.hesaa.org/", src: nj_hesaa_tag }
+  programs:
+    - { name: "Tuition Aid Grant (TAG)", line: "Need-based help with tuition at approved New Jersey colleges in every sector (public, private, two-year and four-year); award amounts depend on the type of college. Summer TAG is available for students who received TAG in the prior fall or spring.", src: nj_hesaa_tag }
+
+jobs:
+  state:
+    portal: "NJ Civil Service Commission job announcements"
+    url: "https://www.nj.gov/csc/jobs/"
+    by: "New Jersey Civil Service Commission"
+    steps:
+      - "Choose an open competitive or promotional job announcement and apply through the CSC Online Application System."
+      - "Complete the application in full: the review of your application may be the only basis for your eligibility and ranking on the eligible list, and you must meet every requirement by the announcement's closing date."
+    src: nj_csc_jobs
+  cities: []
+
+apprenticeship:
+  office: "New Jersey Apprenticeship Office (U.S. Department of Labor)"
+  url: "https://www.apprenticeship.gov/about-us/state-office"
+  kind: OA
+  line: "New Jersey has no recognized State Apprenticeship Agency: the U.S. Department of Labor's New Jersey Apprenticeship Office registers and oversees programs."
+  src: dol_oa_offices
+  oa_src: dol_oa_states
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

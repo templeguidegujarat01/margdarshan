@@ -1,12 +1,73 @@
-# Arizona (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# Arizona (USA Master Plan Phase 11 batch 2, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the
+# boards tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# azed.gov, azsbe.az.gov, apps.azsos.gov and oeo.az.gov are behind Cloudflare checks: the diploma rule comes from
+# the Administrative Code PDF (archive capture) and the test list from ADE's 2024-25 assessment sheet.
 name: "Arizona"
 abbr: AZ
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In Arizona, the Arizona Supreme Court Committees on Examinations and Character and Fitness handles bar admission for lawyers, the Arizona Medical Board and Arizona Board of Osteopathic Examiners in Medicine and Surgery license physicians, the Arizona State Board of Accountancy licenses CPAs and the Arizona State Board of Nursing licenses registered nurses."
+lede: "Arizona requires 22 credits and a passing civics test for a diploma, gives in-state tuition after one year of domicile, and covers public university tuition for eligible low-income residents through the Arizona Promise Program."
+
+diploma:
+  intro: "Arizona Administrative Code R7-2-302 (State Board of Education). Districts and charter schools may require more."
+  rows:
+    - ["English (or English as a Second Language)", "4 credits"]
+    - ["Social studies", "3 credits: American and Arizona history, world history/geography, ½ American government and ½ economics"]
+    - ["Mathematics", "4 credits: Algebra I, geometry and Algebra II content, and a fourth credit with significant math content"]
+    - ["Science", "3 credits"]
+    - ["Arts or career and technical education", "1 credit"]
+    - ["Additional courses set by the district or charter school", "7 credits"]
+  unit: "22 credits minimum."
+  tests: "Students must also pass a civics test identical to the civics part of the U.S. naturalization test: from the graduating class of 2026, at least 70 correct answers out of 100 (60 through the class of 2025). Schools may give it from grade 7, and students may retake it until they pass."
+  src: az_r7_2_302
+
+k12_test:
+  name: "AASA, AzSCI and ACT"
+  full: "Arizona's Academic Standards Assessment (AASA), Arizona's science test (AzSCI), ACT Aspire and the ACT"
+  intro: "State law (A.R.S. 15-741) tells the State Board to adopt a statewide assessment of reading, writing and mathematics in at least four grades; the Board may also test science and social studies."
+  src: az_ars_15_741
+  rows:
+    - ["AASA", "English language arts (including writing) and mathematics", "Grades 3–8"]
+    - ["AzSCI", "Science", "Grades 5, 8 and 11"]
+    - ["ACT Aspire", "English, math, reading, science and writing", "Grade 9"]
+    - ["ACT", "English, math, reading, science and writing", "Grade 11"]
+  rows_src: az_ade_assess
+  use:
+    - { t: "The State Board uses the scores to evaluate schools, set intervention strategies for schools below the standard and review district results every year; students are not required to meet the science or social studies standards on the state test.", src: az_ars_15_741 }
+
+colleges:
+  systems:
+    - { name: "Arizona public universities (Arizona Board of Regents)", kind: university, url: "https://www.azregents.edu/", line: "The Board of Regents governs Arizona's public universities: Arizona State University, Northern Arizona University and the University of Arizona.", src: az_abor }
+    - { name: "Arizona community colleges", kind: community, url: "https://arizonacommunitycolleges.org/", line: "Arizona's community colleges share a mission of open admissions and affordable tuition, are accredited by the Higher Learning Commission, and train students for jobs or transfer to a university.", src: az_cc }
+
+residency:
+  points:
+    - { t: "A.R.S. 15-1802: you are not entitled to in-state status until you have been domiciled in Arizona for one year.", src: az_ars_15_1802 }
+    - { t: "Exceptions apply to a person domiciled in Arizona whose parent is domiciled in the state and can claim them as a tax dependent, to employees transferred to Arizona (and their spouses), to some school district employees and to spouses of residents.", src: az_ars_15_1802 }
+
+aid:
+  agency: { name: "Arizona Board of Regents (ABOR)", url: "https://www.azregents.edu/", src: az_promise }
+  programs:
+    - { name: "Arizona Promise Program", line: "Guaranteed scholarship that covers remaining tuition and fees at Arizona's public universities after other aid, for Arizona residents who graduated from high school with at least a 2.5 GPA, receive a federal Pell Grant and enroll at an Arizona public university. File the FAFSA by April 1 of senior year for priority. Housing, meals, parking and books are not covered.", src: az_promise }
+
+jobs:
+  state:
+    portal: "AZ State Jobs"
+    url: "https://www.azstatejobs.gov/"
+    by: "State of Arizona"
+    steps:
+      - "Search and apply for State of Arizona jobs; the state lists more than 1,700 types of careers under one employer."
+      - "The site lists the benefits, including paid holidays, leave, insurance and a pension."
+    src: az_statejobs
+  cities: []
+
+apprenticeship:
+  office: "Arizona Apprenticeship Office (Department of Economic Security)"
+  url: "https://des.az.gov/services/employment/apprenticeship-program"
+  kind: SAA
+  line: "Arizona is a State Apprenticeship Agency state. The Arizona Apprenticeship Program at DES works with employers and industry to offer registered apprenticeships; finishers earn a nationally recognized credential."
+  src: az_des_apprentice
+  oa_src: dol_oa_states
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

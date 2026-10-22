@@ -1,12 +1,69 @@
-# Colorado (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# Colorado (USA Master Plan Phase 11 batch 2, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the
+# boards tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# cdle.colorado.gov denies access from India even in archive captures: the apprenticeship row uses the U.S. DOL
+# state-office listing.
 name: "Colorado"
 abbr: CO
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In Colorado, the Colorado Supreme Court, Office of Attorney Admissions handles bar admission for lawyers, the Colorado Medical Board licenses physicians, the Colorado State Board of Accountancy licenses CPAs and the Colorado Board of Nursing licenses registered nurses."
+lede: "Colorado has no statewide credit list: districts set graduation requirements that include the state Graduation Guidelines menu; in-state tuition needs 12 months of domicile, and the Colorado Student Grant helps students with financial need."
+
+diploma:
+  intro: "Local school boards set high school graduation requirements. Since the class of 2021-22 they must include the state Graduation Guidelines: students show readiness through at least one measure in reading, writing and communicating and one in mathematics from a Menu of Options."
+  unit: "No statewide credit total: each district sets its own."
+  tests: "The Menu of Options includes test scores, programs such as AP, IB and concurrent enrollment, and performance-based options such as capstones. The guidelines build on Individual Career and Academic Plans (ICAP), essential skills and the Colorado Academic Standards."
+  src: co_gradguide
+  points:
+    - { t: "Districts report the menu measure each student from the 2021 anticipated graduation year onward graduated with.", src: co_gradguide }
+
+k12_test:
+  name: "CMAS and PSAT/SAT"
+  full: "Colorado Measures of Academic Success (CMAS) and the PSAT/SAT suite"
+  intro: "CMAS is the state's common end-of-year measure of progress in English language arts, math, science and social studies; the PSAT/SAT suite serves as the high school college- and career-readiness measure."
+  src: co_cde_assessment
+  rows:
+    - ["CMAS", "English language arts and mathematics", "Grades 3–8"]
+    - ["CMAS", "Science", "Grades 5, 8 and 11"]
+    - ["CMAS", "Social studies (about a third of schools each year)", "Grades 4 and 7"]
+    - ["PSAT", "Reading, writing and math", "Grades 9 and 10"]
+    - ["SAT", "Reading, writing and math", "Grade 11"]
+  rows_src: co_cde_faq
+  use:
+    - { t: "Federal funds require annual statewide tests; the grade 4 and 7 social studies tests and the grade 9 and 10 PSAT are required only by Colorado law.", src: co_cde_faq }
+
+colleges:
+  systems:
+    - { name: "University of Colorado (CU)", kind: university, url: "https://www.cu.edu/", line: "Four campuses (Boulder, Denver, Colorado Springs and Anschutz) governed by the Board of Regents, which the state constitution charges with general supervision of the university.", src: co_cu }
+    - { name: "Colorado Community College System (CCCS)", kind: community, url: "https://cccs.edu/", line: "The state's largest higher education system: 13 colleges and more than 35 locations serving about 130,000 students a year, governed by a 12-member board.", src: co_cccs }
+
+residency:
+  points:
+    - { t: "By law, an in-state student (or the student's parents) must have been domiciled in Colorado for 12 or more continuous months immediately before the first day of classes. Physical presence and intent must both exist.", src: co_residency_faq }
+    - { t: "You can start the 12-month clock at 22 (so a student on their own qualifies no sooner than their 23rd birthday); under 23, you can qualify through parents domiciled in Colorado for 12 months. Each college's tuition classification officer decides.", src: co_residency_faq }
+
+aid:
+  agency: { name: "Colorado Department of Higher Education (CDHE)", url: "https://cdhe.colorado.gov/", src: co_state_aid }
+  programs:
+    - { name: "Colorado Student Grant", line: "Colorado's need-based award for qualified students with documented financial need (alongside the Colorado Graduate Grant for graduate students).", src: co_state_aid }
+
+jobs:
+  state:
+    portal: "State of Colorado Careers"
+    url: "https://careers.colorado.gov/"
+    by: "State of Colorado (Department of Personnel & Administration)"
+    steps:
+      - "Search jobs across state departments and institutions and apply online; career events are announced on the site."
+      - "Colorado's constitution requires applicants for classified state jobs to be Colorado residents, unless the work is mainly within 30 miles of the border or the requirement is waived for a position."
+    src: co_careers
+  cities: []
+
+apprenticeship:
+  office: "Colorado State Apprenticeship Agency"
+  url: "https://www.apprenticeship.gov/about-us/state-office"
+  kind: SAA
+  line: "Colorado is a State Apprenticeship Agency state: the Colorado State Apprenticeship Agency registers and oversees programs for federal purposes."
+  src: dol_oa_offices
+  oa_src: dol_oa_states
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

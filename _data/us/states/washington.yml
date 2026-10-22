@@ -1,12 +1,78 @@
-# Washington (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# Washington (USA Master Plan Phase 11 batch 2, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the
+# boards tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# ospi.k12.wa.us returns 403 from India: OSPI pages read through Internet Archive captures. The credit table is
+# quoted from WAC 180-51-210 (the State Board page leaves the numbers out of its text).
 name: "Washington"
 abbr: WA
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In Washington, the Washington State Bar Association handles bar admission for lawyers, the Washington Medical Commission and Washington Board of Osteopathic Medicine and Surgery license physicians, the Washington State Board of Accountancy licenses CPAs and the Washington State Board of Nursing licenses registered nurses."
+lede: "Washington requires 24 credits plus a High School and Beyond Plan and a graduation pathway, charges in-state tuition after one year of domicile, and guarantees the need-based Washington College Grant to eligible residents."
+
+diploma:
+  intro: "WAC 180-51-210, for students who entered grade 9 on or after 1 July 2017 (the class of 2021 and later). Students are held to the requirements of their expected graduation year, set when they enter grade 9. Districts may add local requirements."
+  rows:
+    - ["English", "4 credits (core)"]
+    - ["Mathematics", "3 credits (core): Algebra 1 or Integrated Math I, geometry or Integrated Math II, and a third credit matched to the student's plan"]
+    - ["Science", "3 credits (core), at least two in laboratory science"]
+    - ["Social studies", "3 credits (core): U.S. history, ½ contemporary world history, ½ civics and 1 elective; plus Washington state history (no credit)"]
+    - ["Health and fitness", "½ credit health and 1½ credits physical education (core)"]
+    - ["Career and technical education", "1 credit (core)"]
+    - ["Arts", "2 credits: 1 core and 1 flexible (the flexible one can be a personalized pathway course)"]
+    - ["World languages", "2 credits (flexible; can be replaced by personalized pathway courses)"]
+    - ["Electives", "4 credits (flexible)"]
+  unit: "24 credits: 17 core and 7 flexible. A district may waive up to two flexible credits for a student, who can then graduate with 22."
+  tests: "Credits alone are not enough: every student must also meet a graduation pathway (for example the high school Smarter Balanced scores, dual credit, AP or IB, the ASVAB, a CTE sequence or a performance-based pathway) that matches their High School and Beyond Plan."
+  src: wa_wac_180_51_210
+  points:
+    - { t: "The pathway requirement started with the class of 2020. The ASVAB counts with an AFQT score of at least 31.", src: wa_ospi_pathways }
+    - { t: "Non-credit requirements: the High School and Beyond Plan and Washington State History.", src: wa_sbe_grad }
+
+k12_test:
+  name: "Smarter Balanced and WCAS"
+  full: "Smarter Balanced Assessments (SBA) and the Washington Comprehensive Assessment of Science (WCAS)"
+  intro: "These tests are required for federal and state accountability. Students with significant cognitive disabilities take the WA-AIM alternate assessments instead."
+  src: wa_ospi_testing
+  rows:
+    - ["Smarter Balanced (SBA)", "English language arts and mathematics", "Grades 3–8 and 10"]
+    - ["WCAS", "Science", "Grades 5, 8 and 11"]
+  rows_src: wa_ospi_testing
+  use:
+    - { t: "The high school Smarter Balanced English language arts and math tests can also meet a student's graduation pathway requirement.", src: wa_ospi_testing }
+
+colleges:
+  systems:
+    - { name: "Washington's public universities", kind: university, url: "https://app.leg.wa.gov/rcw/default.aspx?cite=28B.10.016", line: "State law names two state universities (University of Washington and Washington State University), three regional universities (Western, Central and Eastern Washington) and one state college (The Evergreen State College).", src: wa_rcw_28b_10_016 }
+    - { name: "Washington community and technical colleges (SBCTC)", kind: community, url: "https://www.sbctc.edu/", line: "A nine-member governor-appointed board coordinates the system of 34 public community and technical colleges: adult basic education, workforce training and academic transfer.", src: wa_sbctc }
+
+residency:
+  points:
+    - { t: "RCW 28B.15.012: a financially independent student is a resident after one year of domicile in Washington immediately before the term, set up mainly for reasons other than education. A dependent student qualifies if a parent or legal guardian has kept a Washington domicile for at least a year.", src: wa_rcw_28b_15_012 }
+    - { t: "Someone who earned a Washington high school diploma (or equivalent) and lived in the state for at least a year, mainly not for college, can also qualify, with an affidavit if they are not yet a permanent resident.", src: wa_rcw_28b_15_012 }
+    - { t: "Domicile means your true, fixed and permanent home; the student carries the burden of proving it.", src: wa_rcw_28b_15_012 }
+
+aid:
+  agency: { name: "Washington Student Achievement Council (WSAC)", url: "https://wsac.wa.gov/", src: wa_wsac_grant }
+  programs:
+    - { name: "Washington College Grant (WA Grant)", line: "Guaranteed to eligible people and based on income, not grades; considered automatically when you file the FAFSA or WASFA. Up to $13,000 a year, usable part-time or full-time, for college, certificates, job training and apprenticeships, and open to residents of every immigration status.", src: wa_wsac_grant }
+
+jobs:
+  state:
+    portal: "careers.wa.gov"
+    url: "https://careers.wa.gov/"
+    by: "State of Washington (Department of Enterprise Services)"
+    steps:
+      - "Create a profile to apply for any opening, or sign in to manage applications."
+      - "Sign up for email notices of new openings; state college and university jobs have a separate link."
+    src: wa_careers
+  cities: []
+
+apprenticeship:
+  office: "Apprenticeship program, Washington State Department of Labor & Industries (L&I)"
+  url: "https://lni.wa.gov/licensing-permits/apprenticeship/become-apprentice/"
+  kind: SAA
+  line: "Washington is a State Apprenticeship Agency state. L&I explains registered apprenticeship: on-the-job training with classroom instruction, rising wages and a nationally recognized credential at the end."
+  src: wa_lni_apprentice
+  oa_src: dol_oa_states
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

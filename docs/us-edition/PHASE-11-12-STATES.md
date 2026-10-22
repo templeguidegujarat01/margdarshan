@@ -117,3 +117,52 @@ and July 2028), so the page says so instead of picking one.
 
 Still queued for the 41 boards-tier states: diploma, state test, residency, aid, jobs and apprenticeship blocks
 (Phase 11 order: NJ VA WA AZ TN MA IN MO MD CO first).
+
+## 7. Phase 11 batch 2 + state search entries (2026-10-22)
+
+New Jersey, Virginia, Washington, Arizona, Tennessee, Massachusetts, Indiana, Missouri, Maryland and Colorado moved
+from the boards tier to full pages. Each file now has `diploma`, `k12_test`, `colleges`, `residency`, `aid`, `jobs`
+and `apprenticeship` (the brief's names `state_test` / `in_state_tuition` / `state_aid` / `govt_jobs` map onto these
+existing keys, so the template, checker and hub needed no change); the `boards` block was kept as it was.
+`_data/us/sources.yml` +97 sources (`nj_` … `co_`), `review_by` 2027-04-22. The page template prints all 8 sections for
+the 10 states, the hub compare table now lists 20 states, and `us/colleges/<slug>/` links each state's tuition rules.
+
+Search: `_data/search.yml` +41 entries, one per state page that had none (10 full pages in the batch-1 shape, 31
+boards-tier pages titled "<State>: state boards for lawyers, doctors, CPAs and nurses"). The New York entry gained
+"regents" keywords (Arizona's and Tennessee's "Board of Regents" had pushed it out of "new york regents diploma").
+`scripts/check-search.mjs` +6 queries (NJ TAG, Virginia SOL, MCAS, Colorado tuition, Alabama bar, West Virginia vs
+Virginia).
+
+Corrections and notes from the sources:
+- **Virginia**: 8VAC20-131-51 was repealed on 25 Sept 2024; the same Standard Diploma rule (22 standard + 5 verified
+  credits) now sits in **8VAC20-132-51**, which is what the page cites.
+- **Massachusetts**: no statewide credits and no MCAS graduation test any more. 603 CMR 30 (amended 20 May 2025, after
+  the 2024 ballot question) makes the Competency Determination certified coursework (2 years ELA, Algebra I + geometry,
+  one science/technology year; U.S. history from the class of 2027). Residency: 12 months (UMass, state universities),
+  6 months (community colleges).
+- **Maryland**: 22 credits from the 2021-22 grade 9 class (21 before). 2025-26 was the last MCAP year for grades 3–8;
+  **MSTAR** starts in 2026-27. Residency differs by sector: USM policy VIII-2.70 = 12 months; COMAR 13B.07.02 = 3
+  months at community colleges. The state job site notes an Executive Branch hiring freeze (public safety exempt).
+- **Indiana**: Core 40 (40 credits) + Graduation Pathways today; a new single Indiana Diploma with seals applies from
+  the class of 2029 (current rules sunset 1 Oct 2028).
+- **Tennessee**: no fixed waiting period: domicile alone decides in-state status (rule 0240-02-02); a U.S. citizen with
+  a year of residence and a Tennessee high school diploma also qualifies. Graduation needs the ACT or SAT.
+- **Arizona**: civics test passing score rose to 70/100 from the class of 2026. **New Jersey**: NJGPA-A graduation-ready
+  score 450 (set 5 Aug 2026), first for the class of 2027.
+- **Colorado**: no statewide credits; districts must include the Graduation Guidelines menu (class of 2021-22 on).
+- Apprenticeship: NJ, IN and MO are U.S. DOL Office of Apprenticeship states; VA, WA, AZ, TN, MA, MD and CO are State
+  Apprenticeship Agency states (apprenticeship.gov, read 22 Oct 2026).
+
+Fetch notes: Internet Archive captures (`/web/2026/<url>` in headless Edge, or CDX + `id_`) were used for doe.virginia.gov,
+ospi.k12.wa.us, in.gov, dese.mo.gov, dhewd.mo.gov, sos.mo.gov, news.maryland.gov, publications.tnsosfiles.com,
+collegefortn.org and apps.azsos.gov; each such source carries a note with the capture date. azed.gov and
+cdle.colorado.gov block even archive captures (Cloudflare / Akamai), so Arizona's test list is ADE's 2024-25 sheet
+(March 2025 capture) and Colorado's apprenticeship row uses the DOL state-office listing.
+
+Gaps (filled from no third-party site): NJ tuition rule quoted from Rutgers' 2019-21 catalog (N.J.A.C. 9A:5 text not
+readable online); Indiana residency from IU's policy (no state page opened); Tennessee HOPE amounts from UT Knoxville
+(TSAC site down from India); NJSLA grade list not stated on NJDOE pages ("tested grades"); no city civil service rows;
+no Phase 12 license rows for the 10 states yet.
+
+Queue: Phase 11 batch 3 = Wisconsin, Minnesota, South Carolina, Alabama, Louisiana, Kentucky, Oregon, Oklahoma,
+Connecticut, Utah (next by Census rank); Phase 12 rows for the batch-2 states.

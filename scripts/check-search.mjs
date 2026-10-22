@@ -137,6 +137,13 @@ else {
     ['new york regents diploma', null, (r) => (has(r, 'us/states/new-york/', 3) ? '' : 'expected the New York state page in top 3')],
     ['pennsylvania licensing boards', null, (r) => (has(r, 'us/states/pennsylvania/licenses.html', 3) ? '' : 'expected the Pennsylvania licenses page in top 3')],
     ['florida bright futures', null, (r) => (has(r, 'us/states/florida/', 3) ? '' : 'expected the Florida state page in top 3')],
+    // Phase 11 batch 2 (2026-10-22): full pages for NJ VA WA AZ TN MA IN MO MD CO; boards-tier pages for the other 31.
+    ['new jersey tuition aid grant', null, (r) => (has(r, 'us/states/new-jersey/', 3) ? '' : 'expected the New Jersey state page in top 3')],
+    ['virginia sol tests', null, (r) => (has(r, 'us/states/virginia/', 3) ? '' : 'expected the Virginia state page in top 3')],
+    ['massachusetts mcas', null, (r) => (has(r, 'us/states/massachusetts/', 3) ? '' : 'expected the Massachusetts state page in top 3')],
+    ['colorado in-state tuition', null, (r) => (has(r, 'us/states/colorado/', 3) ? '' : 'expected the Colorado state page in top 3')],
+    ['alabama bar admission', null, (r) => (has(r, 'us/states/alabama/', 3) ? '' : 'expected the Alabama state boards page in top 3')],
+    ['west virginia nursing board', null, (r) => (has(r, 'us/states/west-virginia/', 3) && !has(r, 'us/states/virginia/', 1) ? '' : 'expected the West Virginia page in top 3, not the Virginia page first')],
     ['usa construction cluster', null, (r) => (has(r, 'us/clusters/construction/', 2) ? '' : 'expected the Construction hub in top 2')],
     ['manufacturing careers usa', null, (r) => (has(r, 'us/clusters/advanced-manufacturing/', 3) ? '' : 'expected the Advanced Manufacturing hub in top 3')],
     ['cna to lpn to rn', null, (r) => (has(r, 'us/roadmaps/registered-nurse.html', 3) || has(r, 'us/roadmaps/nursing-assistant.html', 3) ? '' : 'expected the RN or CNA roadmap in top 3')],

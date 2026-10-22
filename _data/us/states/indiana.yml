@@ -1,12 +1,79 @@
-# Indiana (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# Indiana (USA Master Plan Phase 11 batch 2, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the
+# boards tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# in.gov times out from India: IDOE and CHE pages read through Internet Archive captures. No state-level
+# residency rule page opened; the 12-month rule is quoted from Indiana University's policy.
 name: "Indiana"
 abbr: IN
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In Indiana, the Indiana State Board of Law Examiners handles bar admission for lawyers, the Medical Licensing Board of Indiana licenses physicians, the Indiana Board of Accountancy licenses CPAs and the Indiana State Board of Nursing licenses registered nurses."
+lede: "Indiana students earn the Indiana Diploma with Core 40 (40 credits) plus Graduation Pathways until a new diploma takes over for the class of 2029; IU charges in-state tuition after 12 months of residence, and the Frank O'Bannon Grant is the main need-based state grant."
+
+diploma:
+  intro: "Indiana Diploma with Core 40 designation, for students who entered high school in 2012-13 (class of 2016) and later. Core 40 is required by law unless parents opt their student into the General designation, and it is a minimum admission requirement at Indiana's public four-year universities."
+  rows:
+    - ["English / language arts", "8 credits (literature, composition and speech)"]
+    - ["Mathematics", "6 credits: Algebra I, geometry and Algebra II (or Integrated Math I–III); a math or quantitative reasoning course every year"]
+    - ["Science", "6 credits: biology, chemistry or physics (or integrated chemistry-physics), and one more Core 40 science"]
+    - ["Social studies", "6 credits: U.S. history, U.S. government, economics, and world history or geography"]
+    - ["Directed electives", "5 credits from world languages, fine arts and CTE"]
+    - ["Physical education", "2 credits"]
+    - ["Health and wellness", "1 credit"]
+    - ["Electives", "6 credits (College and Career Pathway courses recommended)"]
+  unit: "40 state credits. Schools may add local requirements (not for students with an IEP). Academic and Technical Honors need at least 47."
+  tests: "Students graduating in 2023 and later must also complete Graduation Pathways: the diploma requirements, employability skills and a postsecondary-ready competency (the last can be waived)."
+  src: in_grad
+  points:
+    - { t: "A new single Indiana Diploma with readiness seals (Enrollment, Employment and Enlistment honors) was approved on 11 December 2024. Current requirements sunset on 1 October 2028, so it applies to everyone from the class of 2029; schools could opt in from 2025-26.", src: in_new_diploma }
+    - { t: "Course and credit breakdown from IDOE's Core 40 summary.", src: in_core40 }
+
+k12_test:
+  name: "ILEARN"
+  full: "Indiana's Learning Evaluation and Assessment Readiness Network"
+  intro: "ILEARN measures achievement and growth on the Indiana Academic Standards. Grades 3–8 math and English language arts use a through-year design: three Checkpoints and an end-of-year summative test."
+  src: in_ilearn
+  rows:
+    - ["ILEARN through-year", "English language arts and mathematics", "Grades 3–8"]
+    - ["ILEARN summative", "Science", "Grades 4 and 6"]
+    - ["ILEARN summative", "Social studies", "Grade 5"]
+    - ["ILEARN Biology end-of-course", "Biology (required after the course)", "High school"]
+    - ["ILEARN U.S. Government end-of-course", "U.S. government (optional)", "High school"]
+  rows_src: in_ilearn
+  use:
+    - { t: "Checkpoint data guides teaching during the year; end-of-year results check mastery, evaluate programs and feed school accountability.", src: in_ilearn }
+
+colleges:
+  systems:
+    - { name: "Indiana University (IU)", kind: university, url: "https://www.iu.edu/", line: "Public university founded in 1820, with more than one Research 1 campus; one of Indiana's public four-year universities.", src: in_iu }
+    - { name: "Ivy Tech Community College", kind: community, url: "https://www.ivytech.edu/", line: "Indiana's community college: 70+ academic programs at 40+ locations plus online, with transfer agreements with Indiana four-year universities.", src: in_ivytech }
+
+residency:
+  points:
+    - { t: "Indiana University: an independent student, or a dependent student's parent, must have set up permanent residence in Indiana mainly for a reason other than in-state tuition at least 12 consecutive months before the first day of the semester.", src: in_iu_residency }
+    - { t: "The 12-month rule may be waived when the move to Indiana was for a predominant purpose other than in-state tuition. Each public university applies its own residency rules.", src: in_iu_residency }
+
+aid:
+  agency: { name: "Indiana Commission for Higher Education (CHE)", url: "https://www.in.gov/che/", src: in_obannon }
+  programs:
+    - { name: "Frank O'Bannon Grant", line: "Need-based grant (Higher Education Award and Freedom of Choice Award) for full-time Indiana residents at eligible Indiana public, private and proprietary colleges; file the FAFSA by April 15. Earning 30 credits a year gives the full on-time award.", src: in_obannon }
+
+jobs:
+  state:
+    portal: "Work for Indiana"
+    url: "https://workforindiana.in.gov/"
+    by: "Indiana State Personnel Department"
+    steps:
+      - "Search and apply for jobs with Indiana state government on the Work for Indiana job board."
+      - "The State Personnel Department site covers benefits, training and state employee policies."
+    src: in_spd
+  cities: []
+
+apprenticeship:
+  office: "Indiana Apprenticeship Office (U.S. Department of Labor)"
+  url: "https://www.apprenticeship.gov/about-us/state-office"
+  kind: OA
+  line: "Indiana has no recognized State Apprenticeship Agency: the U.S. Department of Labor's Indiana Apprenticeship Office registers and oversees programs."
+  src: dol_oa_offices
+  oa_src: dol_oa_states
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

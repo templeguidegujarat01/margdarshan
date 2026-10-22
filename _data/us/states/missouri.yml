@@ -1,12 +1,79 @@
-# Missouri (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# Missouri (USA Master Plan Phase 11 batch 2, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the
+# boards tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# dese.mo.gov, dhewd.mo.gov and sos.mo.gov block requests from India: their pages and rule PDFs were read through
+# Internet Archive captures.
 name: "Missouri"
 abbr: MO
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In Missouri, the Missouri Board of Law Examiners handles bar admission for lawyers, the Missouri Board of Registration for the Healing Arts licenses physicians, the Missouri State Board of Accountancy licenses CPAs and the Missouri State Board of Nursing licenses registered nurses."
+lede: "Missouri requires 24 units of credit and four end-of-course tests before graduation, treats 12 months of presence plus intent as proof of domicile for in-state tuition, and funds the need-based Access Missouri grant."
+
+diploma:
+  intro: "5 CSR 20-100.190 (State Board of Education), the state minimum since the class of 2010. Local boards must adopt graduation policies that include at least these requirements and may add more."
+  rows:
+    - ["Communication arts", "4 units"]
+    - ["Social studies", "3 units"]
+    - ["Mathematics", "3 units"]
+    - ["Science", "3 units"]
+    - ["Fine arts", "1 unit"]
+    - ["Practical arts", "1 unit"]
+    - ["Physical education", "1 unit"]
+    - ["Health education", "½ unit"]
+    - ["Personal finance", "½ unit"]
+    - ["Electives", "7 units"]
+  unit: "24 units of credit."
+  tests: "Districts must make sure students complete the Algebra I, English II, biology and government end-of-course assessments before graduating (see State test)."
+  src: mo_5csr20_100_190
+  points:
+    - { t: "To earn a unit of credit, a student must meet all the course requirements and earn a passing grade.", src: mo_dese_grad }
+
+k12_test:
+  name: "MAP"
+  full: "Missouri Assessment Program (Grade-Level and End-of-Course assessments)"
+  intro: "MAP tests measure progress toward the Missouri Learning Standards (the Show-Me Standards). Students with the most significant cognitive disabilities take MAP-A instead."
+  src: mo_dese_map
+  rows:
+    - ["Grade-Level Assessment", "English language arts and mathematics", "Grades 3–8"]
+    - ["Grade-Level Assessment", "Science", "Grades 5 and 8"]
+    - ["End-of-Course (required)", "Algebra I, English II, biology and government", "Taken when the course is completed, at any grade"]
+  rows_src: mo_dese_gla
+  use:
+    - { t: "The State Board's purposes: measuring student mastery toward postsecondary readiness and serving as the basis for state and national accountability.", src: mo_dese_map }
+    - { t: "The four required End-of-Course tests must be completed before high school graduation; a student who took Algebra I before high school takes Algebra II as the required high school math test.", src: mo_dese_eoc }
+
+colleges:
+  systems:
+    - { name: "University of Missouri System", kind: university, url: "https://www.umsystem.edu/", line: "Missouri's public university system (governed by the Curators of the University of Missouri), whose campuses include Mizzou and UMSL.", src: mo_umsystem }
+    - { name: "Missouri community colleges (MCCA)", kind: community, url: "https://www.missouricolleges.org/", line: "The Missouri Community College Association serves the state's 12 community colleges through advocacy, networking and information.", src: mo_mcca }
+
+residency:
+  points:
+    - { t: "6 CSR 10-3.010: either of two things is enough proof of Missouri domicile: being present in Missouri for the 12 immediately past consecutive months with proof of intent to stay indefinitely, or being in Missouri for retirement, full-time work, practice or business with that intent.", src: mo_6csr10_3_010 }
+    - { t: "A minor or dependent student's domicile is presumed to be that of the legal custodian. Heavily weighted signs of intent include continuous presence when not enrolled and reliance on Missouri sources of support.", src: mo_6csr10_3_010 }
+
+aid:
+  agency: { name: "Missouri Department of Higher Education and Workforce Development (MDHEWD)", url: "https://dhewd.mo.gov/", src: mo_dhewd_aid }
+  programs:
+    - { name: "Access Missouri Financial Assistance Program", line: "Need-based grant for full-time undergraduates who are Missouri residents and U.S. citizens or permanent residents at participating Missouri schools, based on the FAFSA Student Aid Index. File by February 1 for the priority deadline (guaranteed award); April 1 is the final deadline. Renewal needs a 2.5 cumulative GPA.", src: mo_access_mo }
+
+jobs:
+  state:
+    portal: "MO Careers"
+    url: "https://mocareers.mo.gov/"
+    by: "State of Missouri"
+    steps:
+      - "Browse State of Missouri jobs by department, from agriculture and conservation to justice and education, and apply online."
+      - "Positions run from entry level to experienced professionals."
+    src: mo_careers
+  cities: []
+
+apprenticeship:
+  office: "Missouri Apprenticeship Office (U.S. Department of Labor)"
+  url: "https://www.apprenticeship.gov/about-us/state-office"
+  kind: OA
+  line: "Missouri has no recognized State Apprenticeship Agency: the U.S. Department of Labor's Missouri Apprenticeship Office registers and oversees programs."
+  src: dol_oa_offices
+  oa_src: dol_oa_states
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

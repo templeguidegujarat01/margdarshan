@@ -1,12 +1,73 @@
-# Massachusetts (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# Massachusetts (USA Master Plan Phase 11 batch 2, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the
+# boards tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# Massachusetts has no statewide course-credit list: the diploma block quotes the Competency Determination rule
+# (603 CMR 30, amended May 2025 after the 2024 ballot question) plus local requirements.
 name: "Massachusetts"
 abbr: MA
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In Massachusetts, the Massachusetts Board of Bar Examiners handles bar admission for lawyers, the Massachusetts Board of Registration in Medicine licenses physicians, the Massachusetts Board of Public Accountancy licenses CPAs and the Massachusetts Board of Registration in Nursing licenses registered nurses."
+lede: "Massachusetts diplomas need the state Competency Determination (now earned through certified coursework, not a passing grade 10 MCAS) plus local requirements; in-state tuition needs 12 months of residence (6 at community colleges), and community college is free through MassEducate."
+
+diploma:
+  intro: "603 CMR 30.00: a school committee may award a diploma only to a student who has met the Competency Determination and the district's local graduation requirements (attendance, courses and grades). There are no statewide course credits; from the class of 2026 the Competency Determination is earned through coursework the district certifies."
+  rows:
+    - ["English language arts", "Coursework equal to two years of high school English language arts"]
+    - ["Mathematics", "One year each of Algebra I and geometry, or of Integrated Math I and II"]
+    - ["Science and technology/engineering", "One year of biology, physics, chemistry, or a technology or engineering course"]
+    - ["United States history", "One year of U.S. history (from the class of 2027)"]
+  unit: "No statewide credit total: each district sets its own course and credit requirements."
+  tests: "Each district must adopt and post a Competency Determination policy with an appeals process. Only where a district cannot document a student's coursework can the student use a Meeting or Exceeding Expectations score on the high school MCAS (or a district-certified equivalent)."
+  src: ma_603cmr30
+  points:
+    - { t: "Students who met the Competency Determination in English language arts, math or science before 3 January 2025 keep that benefit.", src: ma_603cmr30 }
+
+k12_test:
+  name: "MCAS"
+  full: "Massachusetts Comprehensive Assessment System"
+  intro: "MCAS is a set of statewide standardized tests based on the state's learning standards; students score Exceeding, Meeting, Partially Meeting or Not Meeting Expectations. Federal and state law require statewide testing."
+  src: ma_mcas
+  rows:
+    - ["MCAS", "English language arts and mathematics", "Grades 3–8 and 10"]
+    - ["MCAS", "Science and technology/engineering", "Grades 5 and 8, and one high school grade (usually 9 or 10)"]
+  rows_src: ma_mcas
+  use:
+    - { t: "Families get an objective measure of their child's and school's progress, and taxpayers see results of their investment in schools.", src: ma_mcas }
+    - { t: "A passing high school MCAS score is no longer the route to a diploma: it counts toward the Competency Determination only where a district cannot document the student's coursework.", src: ma_603cmr30 }
+
+colleges:
+  systems:
+    - { name: "University of Massachusetts (UMass)", kind: university, url: "https://www.massachusetts.edu/", line: "Massachusetts' public university system: five campuses, including UMass Lowell and UMass Chan Medical School, with a mission of affordable, world-class education and research.", src: ma_umass }
+    - { name: "Massachusetts community colleges (Department of Higher Education)", kind: community, url: "https://www.mass.edu/system/campusdirectory.asp", line: "The Department of Higher Education's campus directory lists each public community college, state university and UMass campus, from Cape Cod Community College to Springfield Technical Community College.", src: ma_dhe_campuses }
+
+residency:
+  points:
+    - { t: "Board of Higher Education policy: at UMass and the state universities you are a Massachusetts resident if you (or the parent of an unemancipated student) lived in Massachusetts for reasons other than school for the 12 months before entering. At community colleges the period is 6 months.", src: ma_bhe_residency }
+    - { t: "Physical presence for the whole period is not required if your conduct shows you intend Massachusetts as your permanent home, but residency is not gained just by living there while enrolled. The burden of proof is on the student.", src: ma_bhe_residency }
+
+aid:
+  agency: { name: "Office of Student Financial Assistance, Department of Higher Education", url: "https://www.mass.edu/osfa/", src: ma_massgrant }
+  programs:
+    - { name: "MASSGrant", line: "Need-based grant for full-time undergraduates who have lived in Massachusetts for at least a year, at approved public or private colleges in the state (and some in Vermont, Pennsylvania and DC). File the FAFSA, or the MASFA if you cannot file the FAFSA; the deadline for 2026-27 was 30 June 2026.", src: ma_massgrant }
+    - { name: "MassEducate (free community college)", line: "Covers the full cost of tuition and fees at Massachusetts community colleges for eligible students of any age and income, with up to $1,200 for books and supplies by income; students need at least 6 credits a term.", src: ma_masseducate }
+
+jobs:
+  state:
+    portal: "MassCareers"
+    url: "https://www.mass.gov/find-your-career-at-the-commonwealth"
+    by: "Commonwealth of Massachusetts"
+    steps:
+      - "Create a profile on MassCareers, upload your resume and apply for jobs."
+      - "Jobs span health, human services, transportation, IT, finance, public safety, education and more; state college and university jobs are listed separately."
+    src: ma_careers
+  cities: []
+
+apprenticeship:
+  office: "Division of Apprentice Standards (DAS)"
+  url: "https://www.mass.gov/orgs/division-of-apprentice-standards"
+  kind: SAA
+  line: "Massachusetts' State Apprenticeship Agency: DAS supports, promotes and oversees Massachusetts Registered Apprenticeship Programs and helps employers develop and register programs."
+  src: ma_das
+  oa_src: dol_oa_states
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

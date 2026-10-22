@@ -105,6 +105,19 @@
           <span class="md-stat-note">for most jobs</span>
           {%- endif %}
         </div>
+        {%- comment -%} High-school levers (pathways.yml ap_tuition_hack, sat_act_weight): one full-width row each {%- endcomment -%}
+        {%- if P.ap_tuition_hack %}
+        <div class="md-stat md-stat-wide">
+          <span class="md-stat-label">AP tuition hack</span>
+          <span class="md-stat-value is-text">{{ P.ap_tuition_hack }}</span>
+        </div>
+        {%- endif %}
+        {%- if P.sat_act_weight %}
+        <div class="md-stat md-stat-wide">
+          <span class="md-stat-label">SAT/ACT weight</span>
+          <span class="md-stat-value is-text">{{ P.sat_act_weight }}</span>
+        </div>
+        {%- endif %}
       </div>
       <p class="qf-note md-money-note">{{ site.data.regions.us.vocab.money_note }}</p>
       {%- comment -%} Career Clusters roadmap (USA Master Plan Phase 2+): a `pathway: <slug>` entry in _data/us/careers/<cluster>.yml

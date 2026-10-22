@@ -3070,6 +3070,9 @@ p,li,dd,figcaption{text-wrap:pretty;}
   .md-answer-career .md-stats-micro .md-stat:nth-child(2){border-top:1px solid var(--line);}
   .md-answer-career .md-stats-micro .md-stat:nth-child(2n){border-left:0;}
 }
+/* Sentence rows (AP tuition hack, SAT/ACT weight) span both columns under the 2 x 2 stats. */
+.md-answer-career .md-stats-micro .md-stat.md-stat-wide{grid-column:1 / -1;border-left:0;border-top:1px solid var(--line);}
+.md-answer-career .md-stats-micro .md-stat-wide .md-stat-value.is-text{font-weight:400;line-height:1.45;overflow-wrap:break-word;}
 .md-answer-career .md-answer-actions{justify-content:center;margin-top:var(--sp-3);}
 .md-stats.md-stats-micro{gap:.5rem;margin-top:var(--sp-3);}
 .md-stats-micro .md-stat{padding:.55rem .75rem;gap:.15rem;border-radius:var(--radius-sm);}
@@ -3381,7 +3384,7 @@ details[open] > .ed-dash{animation:edDashIn .16s var(--ease);}
 .xfc-step:first-child .xfc-dot{background:var(--xfc-hi);color:#241703;}
 .xfc-step:hover .xfc-dot{background:var(--xfc-total-bg);}
 .xfc-step:first-child:hover .xfc-dot{background:var(--xfc-hi);}
-.xfc-step-text{padding-top:.2rem;font-size:.92rem;line-height:1.45;overflow-wrap:anywhere;}
+.xfc-step-text{padding-top:.2rem;font-size:.92rem;line-height:1.45;overflow-wrap:break-word;}
 @media (min-width:640px){
   .xfc-grid{grid-template-columns:var(--xfc-cols);}
   .xfc-solo .xfc-grid{grid-template-columns:minmax(0,1fr);}

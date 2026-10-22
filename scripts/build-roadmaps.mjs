@@ -8,6 +8,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { fitTitle, fitDesc, DESC_MAX } from './lib/seo-fit.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const srcDir = path.join(root, 'scripts', 'roadmap-src');
@@ -52,9 +53,12 @@ for (const f of files) {
     };
     fs.writeFileSync(path.join(root, '_data', 'roadmaps', c.slug + '.json'), JSON.stringify(data, null, 1) + '\n');
 
+    // <title> <= 60 and description <= 160 characters (scripts/lib/seo-fit.mjs): fewer phases named until it fits.
+    const title = fitTitle(...[c.title, c.name].flatMap((x) => [`${x} Roadmap: Exams & Training | Margdarshan`, `${x} Roadmap | Margdarshan`]), `${c.name} Roadmap`);
+    const descs = [4, 3, 2, 1].map((n) => `${c.name} full roadmap for Indian students: ${c.phases.map((p) => p.title).slice(0, n).join(', ')} and more, with exams, eligibility and official links.`);
     const stub = `---
-title: "${esc(c.title)} Roadmap — Step-by-Step Journey, Exams & Training | Education Margdarshan"
-description: "${esc(c.name)} full roadmap for Indian students: ${esc(c.phases.map((p) => p.title).slice(0, 4).join(', '))} and more, with exams, eligibility and official links."
+title: "${esc(title)}"
+description: "${esc(descs.find((d) => d.length <= DESC_MAX) || fitDesc(descs[3]))}"
 stream: "${fm.stream}"
 header:
   careers_href: "${c.slug}.html"

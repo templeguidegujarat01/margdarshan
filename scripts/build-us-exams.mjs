@@ -8,6 +8,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
+import { shrinkTitle, fitDesc } from './lib/seo-fit.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const yaml = createRequire(path.join(process.env.VERIFY_DEPS || root, 'x.js'))('js-yaml');
@@ -28,8 +29,8 @@ const put = (rel, stub) => {
 };
 
 put('us/exams/index.html', `---
-title: "U.S. Exams by Stage: SAT, ACT, AP, GED, TOEFL, GRE, GMAT, LSAT, MCAT, USMLE, NCLEX | Education Margdarshan USA"
-description: "Every U.S. exam from grade 3 to graduate school and licensing, grouped by stage, with a page per exam: who takes it, format, scoring, fees and fee waivers, 2026-27 dates and official practice from the exam owner."
+title: "U.S. Exams by Stage: SAT, ACT, AP & GRE | Margdarshan USA"
+description: "Every U.S. exam from grade 3 to grad school and licensing, by stage: who takes it, format, scoring, fees and waivers, 2026-27 dates and official practice."
 og_type: "website"
 breadcrumb:
   current: "Exams"
@@ -37,12 +38,13 @@ breadcrumb:
 {% include us-exams-hub.html %}
 `);
 
+// exams.yml keeps the full page title; <title> and description are cut to 60 / 160 characters (scripts/lib/seo-fit.mjs).
 let pages = 0;
 for (const [slug, E] of Object.entries(EX.exams)) {
   pages++;
   put(`us/exams/${slug}/index.html`, `---
-title: "${esc(E.page.title)} | Education Margdarshan USA"
-description: "${esc(E.page.description)}"
+title: "${esc(shrinkTitle(`${E.page.title} | Margdarshan USA`))}"
+description: "${esc(fitDesc(E.page.description))}"
 og_type: "article"
 exam: ${slug}
 breadcrumb:

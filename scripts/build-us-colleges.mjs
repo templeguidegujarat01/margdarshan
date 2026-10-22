@@ -16,6 +16,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
 import { usClusterMap } from './lib/us-cluster-map.mjs';
+import { fitTitle, fitDesc } from './lib/seo-fit.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const check = process.argv.includes('--check');
@@ -26,7 +27,7 @@ const AP = JSON.parse(fs.readFileSync(path.join(root, '_data/us/apprenticeships.
 const esc = (s) => String(s).replace(/\\/g, '\\\\').replace(/"/g, '\\"');
 const fmt = (n) => n.toLocaleString('en-US');
 const plural = (n, one, many) => `${fmt(n)} ${n === 1 ? one : many}`;
-const SUF = ' | Education Margdarshan USA';
+const SUF = ' | Margdarshan USA'; // <title> <= 60, description <= 160 characters (scripts/lib/seo-fit.mjs)
 
 let wrote = 0;
 const stale = [];
@@ -44,8 +45,8 @@ const search = [];
 const N = IX.national;
 
 put('us/colleges/index.html', stub(`
-title: "U.S. Colleges by State and City: ${fmt(N.n)} Universities, Community Colleges and Trade Schools${SUF}"
-description: "Every operating college in the 50 states and DC from the U.S. Department of Education: ${fmt(N.lv[1])} four-year, ${fmt(N.lv[2])} two-year and ${fmt(N.lv[3])} under-two-year schools, by state and city, with cost, net price and completion, plus program lists and apprenticeships for each career."
+title: "${fitTitle(`U.S. Colleges by State & City: ${fmt(N.n)} Schools${SUF}`, `U.S. Colleges by State and City${SUF}`)}"
+description: "${fitDesc(`Every operating college in the 50 states and DC (U.S. Dept. of Education): ${fmt(N.lv[1])} four-year, ${fmt(N.lv[2])} two-year and ${fmt(N.lv[3])} under-two-year schools, with cost and completion.`)}"
 og_type: "website"
 breadcrumb:
   current: "Colleges"
@@ -54,8 +55,8 @@ search.push({ t: 'U.S. colleges by state and city', s: `${fmt(N.n)} universities
 
 const nFields = Object.keys(FD.fields).length;
 put('us/colleges/fields/index.html', stub(`
-title: "College Programs by Career: Where to Study for ${nFields} U.S. Careers${SUF}"
-description: "For each career on Education Margdarshan USA, every school that awarded a matching program (certificate to doctorate) in ${FD.academic_year}, from NCES IPEDS and the CIP–SOC crosswalk, plus Registered Apprenticeship occupations."
+title: "${fitTitle(`College Programs for ${nFields} U.S. Careers${SUF}`, `College Programs by Career${SUF}`)}"
+description: "${fitDesc(`For each career on this site, every U.S. school that awarded a matching program (certificate to doctorate) in ${FD.academic_year}, from NCES IPEDS, plus Registered Apprenticeships.`)}"
 og_type: "website"
 breadcrumb:
   parent_href: "us/colleges/"
@@ -67,8 +68,8 @@ search.push({ t: 'College programs by career (USA)', s: `Where to study for ${nF
 for (const [slug, S] of Object.entries(IX.states)) {
   const lead = `${plural(S.n, 'operating college', 'operating colleges')} in ${S.name}`;
   put(`us/colleges/${slug}/index.html`, stub(`
-title: "Colleges in ${esc(S.name)}: ${fmt(S.n)} Universities, Community Colleges and Trade Schools${SUF}"
-description: "${esc(lead)} (U.S. Dept. of Education): ${fmt(S.lv[1])} four-year, ${fmt(S.lv[2])} two-year and ${fmt(S.lv[3])} under-two-year schools, public and private, with cost, net price, completion and the fields each teaches${S.cities.length ? `; ${plural(S.cities.length, 'city list', 'city lists')}` : ''}."
+title: "${esc(fitTitle(`Colleges in ${S.name}: ${fmt(S.n)} Schools Compared${SUF}`, `Colleges in ${S.name}: ${fmt(S.n)} Schools${SUF}`, `Colleges in ${S.name}${SUF}`))}"
+description: "${esc(fitDesc(`${lead} (U.S. Dept. of Education): ${fmt(S.lv[1])} four-year, ${fmt(S.lv[2])} two-year and ${fmt(S.lv[3])} under-two-year schools, with cost, net price and completion${S.cities.length ? `; ${plural(S.cities.length, 'city list', 'city lists')}` : ''}.`))}"
 og_type: "article"
 state: ${slug}
 breadcrumb:
@@ -79,8 +80,9 @@ breadcrumb:
   search.push({ t: `Colleges in ${S.name}`, s: `${fmt(S.n)} schools: universities, community colleges, trade schools`, u: `us/colleges/${slug}/`, c: 'usa', k: `usa ${S.name.toLowerCase()} ${S.abbr.toLowerCase()} colleges universities community college trade school list` });
   for (const C of S.cities) {
     put(`us/colleges/${slug}/${C.s}/index.html`, stub(`
-title: "Colleges in ${esc(C.n)}, ${esc(S.name)}: ${fmt(C.count)} Schools Compared${SUF}"
-description: "All ${fmt(C.count)} operating colleges in ${esc(C.n)}, ${esc(S.abbr)} (U.S. Dept. of Education): type, public or private, cost, net price, completion rate and every field taught, with the highest award in each, doctorates included."
+title: "${esc(fitTitle(`Colleges in ${C.n}, ${S.name}: ${fmt(C.count)} Schools${SUF}`, `Colleges in ${C.n}, ${S.name}: ${fmt(C.count)} Schools Compared`,
+  `Colleges in ${C.n}, ${S.abbr}: ${fmt(C.count)} Schools Compared`, `Colleges in ${C.n}, ${S.abbr}: ${fmt(C.count)} Schools`, `Colleges in ${C.n}, ${S.abbr}`))}"
+description: "${esc(fitDesc(`All ${fmt(C.count)} operating colleges in ${C.n}, ${S.abbr} (U.S. Dept. of Education): type, cost, net price, completion rate and every field taught, doctorates included.`))}"
 og_type: "article"
 state: ${slug}
 city: ${C.s}
@@ -95,8 +97,9 @@ breadcrumb:
 
 for (const [slug, F] of Object.entries(FD.fields)) {
   put(`us/colleges/fields/${slug}/index.html`, stub(`
-title: "${esc(F.short)} Programs: ${fmt(F.institutions)} U.S. Colleges and Schools (IPEDS ${FD.academic_year})${SUF}"
-description: "Every U.S. school that awarded a program linked to ${esc(F.short)} in ${FD.academic_year} (NCES IPEDS and the CIP–SOC crosswalk), certificate to doctorate: filter by state, award level and type of school${AP.careers[slug] ? ', plus Registered Apprenticeship occupations' : ''}."
+title: "${esc(fitTitle(`${F.short} Programs: ${fmt(F.institutions)} U.S. Colleges${SUF}`, `${F.short} Programs: ${fmt(F.institutions)} U.S. Schools`,
+  `${F.short} Programs${SUF}`, `${F.short} Programs in the U.S.`, `${F.short} Programs`))}"
+description: "${esc(fitDesc(`Every U.S. school that awarded a ${F.short} program in ${FD.academic_year} (NCES IPEDS), certificate to doctorate: filter by state, award level and school type${AP.careers[slug] ? ', plus apprenticeships' : ''}.`))}"
 og_type: "article"
 field: ${slug}
 breadcrumb:

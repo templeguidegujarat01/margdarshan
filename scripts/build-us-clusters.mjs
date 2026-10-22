@@ -16,7 +16,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
-import { fitTitle, fitDesc } from './lib/seo-fit.mjs';
+import { fitTitle, fitDesc, fitRoadmapTitle, shrinkTitle, DESC_MAX } from './lib/seo-fit.mjs';
 import { xlsxRows } from './lib/unzip.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -47,7 +47,6 @@ const check = process.argv.includes('--check');
 const load = (f) => yaml.load(fs.readFileSync(path.join(root, f), 'utf8'));
 const esc = (s) => String(s).replace(/\\/g, '\\\\').replace(/"/g, '\\"');
 const plain = (s) => String(s).replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
-const clip = (s, n) => (s.length <= n ? s : s.slice(0, s.lastIndexOf(' ', n - 1)).replace(/[,;:]$/, '') + '…');
 
 const CL = load('_data/us/clusters.yml');
 const careersDir = path.join(root, '_data/us/careers');
@@ -66,8 +65,8 @@ const put = (rel, stub) => {
 };
 
 put('us/clusters/index.html', `---
-title: "The 14 Career Clusters in the USA: Every Field, Its Sub-Clusters and Careers | Education Margdarshan USA"
-description: "All 14 Career Clusters of the National Career Clusters Framework (Advance CTE, 2024) with their 72 sub-clusters, example programs of study and the career pages on this site for each one."
+title: "The 14 Career Clusters in the USA | Margdarshan USA"
+description: "All 14 Career Clusters of the National Career Clusters Framework (Advance CTE, 2024) with their 72 sub-clusters, programs of study and career pages for each."
 og_type: "website"
 breadcrumb:
   current: "Career Clusters"
@@ -75,13 +74,19 @@ breadcrumb:
 {% include us-clusters-index.html %}
 `);
 
+// Hub description <= 160 characters: every sub-cluster named if that fits, else their count.
+const hubDesc = (C) => [
+  `The ${C.name} Career Cluster in the U.S.: ${C.sub_clusters.map((s) => s.name).join(', ')}. Career pages with BLS pay, job outlook, license and the route into each.`,
+  `The ${C.name} Career Cluster in the U.S.: ${C.sub_clusters.length} sub-clusters, with BLS pay, job outlook, license and the route into each career.`,
+].find((d) => d.length <= DESC_MAX) || fitDesc(`The ${C.name} Career Cluster in the U.S., with BLS pay, job outlook, license and the route into each career.`);
+
 let hubs = 0;
 for (const C of CL.clusters) {
   if (!C.live) continue;
   hubs++;
   put(`us/clusters/${C.slug}/index.html`, `---
-title: "${esc(C.name)} Careers in the USA: Sub-Clusters, Pay and Routes | Education Margdarshan USA"
-description: "${esc(clip(`The ${C.name} Career Cluster in the U.S.: ${C.sub_clusters.map((s) => s.name).join(', ')}. Career pages with BLS pay, job outlook, license and the route into each.`, 300))}"
+title: "${esc(fitTitle(`${C.name} Careers in the USA: Pay & Routes | Margdarshan USA`, `${C.name} Careers: Pay & Routes | Margdarshan USA`, `${C.name} Careers | Margdarshan USA`, `${C.name} Careers in the USA`))}"
+description: "${esc(hubDesc(C))}"
 og_type: "website"
 cluster: ${C.slug}
 breadcrumb:
@@ -124,8 +129,8 @@ breadcrumb:
     if ((X.routes || []).length) {
       roadmaps++;
       put(`us/roadmaps/${X.slug}.html`, `---
-title: "${esc(plain(X.title))} — Step-by-Step Roadmap | Education Margdarshan USA"
-description: "${esc(clip(plain(X.lede), 300))}"
+title: "${esc(fitRoadmapTitle(plain(X.title), plain(X.short), 'Margdarshan USA'))}"
+description: "${esc(fitDesc(plain(X.lede)))}"
 og_type: "article"
 track: ${X.slug}
 cluster: ${cluster}
@@ -148,8 +153,8 @@ for (const [id, L] of Object.entries(load('_data/us/licenses.yml'))) {
   if (!L.page) continue;
   licPages++;
   put(`us/professional-licenses/${id}/index.html`, `---
-title: "${esc(L.page.title)}"
-description: "${esc(L.page.description)}"
+title: "${esc(shrinkTitle(L.page.title))}"
+description: "${esc(fitDesc(L.page.description))}"
 license: ${id}
 breadcrumb:
   parent_href: "us/professional-licenses/"

@@ -8,6 +8,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
+import { fitTitle, fitDesc, DESC_MAX } from './lib/seo-fit.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const yaml = createRequire(path.join(process.env.VERIFY_DEPS || root, 'x.js'))('js-yaml');
@@ -32,9 +33,16 @@ for (const E of D.sports || []) {
     'who can start, the detailed route' + (E.domain === 'arts' ? '' : ' with trials and selection rules'),
     (E.ages ? 'what is open at every age, ' : '') + 'where to train, who pays and the jobs after',
   ].filter(Boolean).join(', ');
-  const desc = `Education Margdarshan's full ${name} roadmap for India: ${what}.`;
+  // <title> <= 60 and description <= 160 characters (scripts/lib/seo-fit.mjs): the stage names go first.
+  const descs = [
+    `Education Margdarshan's full ${name} roadmap for India: ${what}.`,
+    ...(stages.length ? [`Full ${name} roadmap for India: the four stages (${stages.join(', ')}), ages, training, selection and jobs.`] : []),
+    `Full ${name} roadmap for India: who can start, ${E.domain === 'arts' ? 'the route' : 'trials and selection'}, ${E.ages ? 'what is open at every age, ' : ''}where to train, who pays and the jobs after.`,
+  ];
+  const desc = descs.find((d) => d.length <= DESC_MAX) || fitDesc(descs[descs.length - 1]);
+  const title = fitTitle(`${name} Roadmap: ${E.domain === 'arts' ? 'First Lesson to the Stage' : 'First Club to the Top'} | Margdarshan`, `${name} Roadmap | Margdarshan`, `${name} Roadmap`);
   const stub = `---
-title: "${esc(name)} Roadmap — Step-by-Step Journey ${E.domain === 'arts' ? 'from First Lesson to the Stage' : 'from First Club to the Top'} | Education Margdarshan"
+title: "${esc(title)}"
 description: "${esc(desc)}"
 og_type: "article"
 twitter_title: "${esc(name)} — Step-by-Step Roadmap"

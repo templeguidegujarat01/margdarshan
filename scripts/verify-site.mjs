@@ -9,13 +9,15 @@
 //   - no typed arrow inside a .btn-page-link button (the CSS draws one; 2026-10-20)
 //   - FAQPage JSON-LD: one per page, each item a Question with a name and an Answer with text
 //   - with --all: sitemap.xml (rendered from the real template) lists every indexable page once, each <loc>
-//     equal to that page's canonical, no noindex/redirect URLs; <title> unique across indexable pages (2026-10-22)
+//     equal to that page's canonical, no noindex/redirect URLs; <title> unique across indexable pages (2026-10-22);
+//     every indexable page's <title> <= 60 and meta description 1-160 characters (2026-10-23)
 //   - with --all: no orphan USA page (every us/** page that is not a redirect is linked from another page;
 //     USA Master Plan Phase 14, 2026-10-21)
 import fs from 'node:fs';
 import path from 'node:path';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
+import { TITLE_MAX, DESC_MAX } from './lib/seo-fit.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const req = createRequire(path.join(process.env.VERIFY_DEPS || root, 'x.js'));
@@ -221,14 +223,16 @@ if (all) {
     if (!t) err(fs2[0], 'empty <title>');
     else if (fs2.length > 1) err(fs2[0], `duplicate <title> on ${fs2.length} pages (${fs2.slice(1, 4).join(', ')}): ${t.slice(0, 80)}`);
   }
-  // SERP lengths (2026-10-22): USA state pages and career pages keep <title> <= 60 and description <= 160 characters
-  // (titles come from build-us-states.mjs / build-us-clusters.mjs, or the hand-written pathway stubs).
+  // SERP lengths (2026-10-22, every indexable page in every edition since 2026-10-23): <title> <= 60 and
+  // description <= 160 characters. Generators fit theirs with scripts/lib/seo-fit.mjs; for hand-written
+  // pages run scripts/fit-seo.mjs, or write a shorter title in the front matter when it cannot cut one.
   const plainText = (x) => x.replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'");
   for (const [f, s] of seo) {
-    if (s.noindex || !/^us\/(states\/|careers\/[^/]+\/index\.html$)/.test(f)) continue;
+    if (s.noindex || skip.has(f)) continue;
     const t = plainText(s.title), d = plainText(s.description);
-    if (t.length > 60) err(f, `<title> is ${t.length} characters (max 60): ${t}`);
-    if (d.length > 160) err(f, `meta description is ${d.length} characters (max 160)`);
+    if (t.length > TITLE_MAX) err(f, `<title> is ${t.length} characters (max ${TITLE_MAX}): ${t}`);
+    if (d.length > DESC_MAX) err(f, `meta description is ${d.length} characters (max ${DESC_MAX})`);
+    if (!d.trim()) err(f, 'empty meta description');
   }
   console.log(`sitemap.xml: ${locs.length} URLs`);
 }

@@ -12,6 +12,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
+import { fitTitle, fitDesc, fitRoadmapTitle } from './lib/seo-fit.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const yaml = createRequire(path.join(process.env.VERIFY_DEPS || root, 'x.js'))('js-yaml');
@@ -20,7 +21,6 @@ const load = (f) => yaml.load(fs.readFileSync(path.join(root, f), 'utf8'));
 
 const esc = (s) => String(s).replace(/\\/g, '\\\\').replace(/"/g, '\\"');
 const plain = (s) => String(s).replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
-const clip = (s, n) => (s.length <= n ? s : s.slice(0, s.lastIndexOf(' ', n - 1)).replace(/[,;:]$/, '') + '…');
 
 const jobs = [];
 const US = load('_data/us/pathways.yml');
@@ -58,8 +58,8 @@ const put = (rel, stub) => {
 const SITE_URL = (fs.readFileSync(path.join(root, '_config.yml'), 'utf8').match(/^url:\s*"([^"]+)"/m) || [])[1] || '';
 for (const X of CTE) {
   put(`us/cte/${X.slug}.html`, `---
-title: "${esc(X.short)} in the USA: What the Job Is, BLS Pay and Outlook | Education Margdarshan USA"
-description: "${esc(clip(plain(X.does.text) + ' ' + plain(X.lede), 300))}"
+title: "${esc(fitTitle(`${X.short} in the USA: Job, Pay & Outlook | Margdarshan USA`, `${X.short}: Job, Pay & Outlook | Margdarshan USA`, `${X.short}: Pay & Outlook | Margdarshan USA`, `${X.short}: Pay & Outlook`))}"
+description: "${esc(fitDesc(plain(X.does.text) + ' ' + plain(X.lede)))}"
 og_type: "article"
 trade: ${X.slug}
 breadcrumb:
@@ -78,8 +78,8 @@ sitemap: false
 for (const J of jobs) {
   const { X } = J;
   const stub = `---
-title: "${esc(plain(X.title))} — Step-by-Step Roadmap | ${J.brand}"
-description: "${esc(clip(plain(X.lede), 300))}"
+title: "${esc(fitRoadmapTitle(plain(X.title), X.short && plain(X.short), J.brand))}"
+description: "${esc(fitDesc(plain(X.lede)))}"
 og_type: "article"
 track: ${X.slug}
 ${J.extra}breadcrumb:

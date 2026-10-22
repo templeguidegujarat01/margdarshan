@@ -1,12 +1,80 @@
-# Hawaii (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# Hawaii (USA Master Plan Phase 11 batch 4, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the
+# boards tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# labor.hawaii.gov and dhrd.hawaii.gov answer India with a Cloudflare challenge: the apprenticeship and jobs rows come
+# from Internet Archive captures (timestamps in sources.yml). boe.hawaii.gov, hawaiipublicschools.org, hawaii.edu and the
+# Windward CC catalog were read live. The University of Hawaii is the state's only public higher education system.
 name: "Hawaii"
 abbr: HI
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In Hawaii, the Board of Examiners, Supreme Court of the State of Hawaii handles bar admission for lawyers, the Hawaii Medical Board licenses physicians, the Hawaii Board of Public Accountancy licenses CPAs and the Hawaii Board of Nursing licenses registered nurses."
+lede: "Hawaii requires 24 credits for a Hawaii High School Diploma (Board Policy 102-15), tests with Smarter Balanced in grades 3 to 8 and 11, gives resident tuition after 12 months of physical presence with intent to stay, and covers community college tuition through the Hawaii Promise Program."
+
+diploma:
+  intro: "Board of Education Policy 102-15 (amended 12 February 2026): students who show proficiency in the state standards in the required courses (or proficiency-based equivalents) receive a Hawaii High School Diploma. Minimum credits:"
+  rows:
+    - ["English", "4.0 credits: English Language Arts 1 and 2, Expository Writing (0.5) and 1.5 credits of language arts electives"]
+    - ["Social studies", "4.0 credits: U.S. History and Government, World History and Culture, Modern History of Hawaii (0.5), Participation in a Democracy (0.5) and 1 elective"]
+    - ["Mathematics", "3.0 credits: Algebra 1, Geometry and 1 math elective"]
+    - ["Science", "3.0 credits: Biology and 2 science electives"]
+    - ["World language, fine arts or CTE", "2.0 credits in one of these programs of study"]
+    - ["Physical education", "1.0 credit"]
+    - ["Health", "0.5 credit"]
+    - ["Personal/transition plan", "0.5 credit"]
+    - ["Electives", "6.0 credits"]
+  unit: "24.0 credits."
+  tests: "No exit exam; proficiency is judged by Department of Education procedures. Students with disabilities have the same diploma requirements as other students."
+  src: hi_boe_102_15
+  points:
+    - { t: "High school diplomas may also be granted to 16- and 17-year-olds who qualify for graduation through adult schools.", src: hi_boe_102_15 }
+
+k12_test:
+  name: "Smarter Balanced and HSA Science"
+  full: "Smarter Balanced Assessments (SBA) and the Hawaii State Assessment in Science (HSA-Science)"
+  intro: "The Smarter Balanced Assessments in mathematics and English language arts/literacy, aligned to the Hawaii Common Core Standards, are mandatory in grades 3 to 8 and 11 and given each spring; science results come from the HSA-Science."
+  src: hi_doe_testing
+  rows:
+    - ["Smarter Balanced (SBA)", "English language arts/literacy and mathematics", "Grades 3–8 and 11"]
+    - ["HSA-Science", "Science", "Tested grades set by HIDOE (results published yearly)"]
+    - ["HSA-Alternate", "ELA, mathematics and science for students with significant cognitive disabilities", "Tested grades"]
+    - ["KĀʻEO", "Hawaiian-language assessments for Kaiapuni immersion students", "Grades 3 and 4"]
+  rows_src: hi_doe_testing
+  use:
+    - { t: "Smarter Balanced scores can place students into credit-bearing courses at a number of colleges, including the University of Hawaii system.", src: hi_doe_testing }
+
+colleges:
+  systems:
+    - { name: "University of Hawaii System (four-year campuses)", kind: university, url: "https://www.hawaii.edu/", line: "Hawaii's only public higher education system, founded in 1907: 10 campuses on six islands, including the universities at Mānoa (the largest and oldest), Hilo and West Oʻahu.", src: hi_uh }
+    - { name: "University of Hawaii Community Colleges", kind: community, url: "https://www.hawaii.edu/campuses/", line: "Seven community colleges in the UH System: Hawaiʻi CC, Honolulu CC, Kapiʻolani CC, Kauaʻi CC, Leeward CC, UH Maui College and Windward CC.", src: hi_uh_campuses }
+
+residency:
+  points:
+    - { t: "Hawaii Administrative Rules on residency (UH): an independent adult, emancipated minor, or a minor's parents or guardians must show intent to live permanently in Hawaii and be physically present for the 12 consecutive months before the first day of instruction, counted from the first act showing that intent.", src: hi_wcc_residency }
+    - { t: "Evidence of intent includes filing a Hawaii resident income tax return, voting or registering to vote in Hawaii, permanent employment and owning or continuously leasing a home; no single act is enough.", src: hi_wcc_residency }
+    - { t: "A student claimed as a tax dependent by non-resident parents or guardians in the prior 12 months does not qualify, and residency is lost if it is interrupted during the 12 months before instruction begins.", src: hi_wcc_residency }
+
+aid:
+  agency: { name: "University of Hawaii Community Colleges", url: "https://www.hawaii.edu/", src: hi_promise }
+  programs:
+    - { name: "Hawaii Promise Program", line: "State scholarship for UH Community Colleges students with financial need. Act 235 (2026) removed the last-dollar rule, so students keep other scholarships while the state covers up to 95% of tuition; in 2024-25 it paid $5.69 million to 1,941 students (average $2,933).", src: hi_promise }
+
+jobs:
+  state:
+    portal: "State of Hawaii civil service jobs (governmentjobs.com)"
+    url: "https://www.governmentjobs.com/careers/hawaii"
+    by: "Hawaii Department of Human Resources Development (DHRD)"
+    steps:
+      - "Browse the State of Hawaii Executive Branch civil service job listing and click a job title, then Apply."
+      - "First-time applicants create an account with a unique username and password; DHRD recruits under the merit principle (HRS Chapter 76)."
+    src: hi_jobs
+  cities: []
+
+apprenticeship:
+  office: "Hawaii State Apprenticeship Agency (Department of Labor and Industrial Relations, Workforce Development Division)"
+  url: "https://labor.hawaii.gov/wdd/how-do-i-join-an-apprenticeship/"
+  kind: SAA
+  line: "Hawaii is a State Apprenticeship Agency state: the Department of Labor and Industrial Relations' Workforce Development Division runs registered apprenticeship, with over 100 registered programs in a wide variety of occupations combining on-the-job learning with related training instruction."
+  src: hi_dlir_apprenticeship
+  oa_src: dol_oa_offices
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

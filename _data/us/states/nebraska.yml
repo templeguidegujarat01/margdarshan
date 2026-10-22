@@ -1,12 +1,74 @@
-# Nebraska (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# Nebraska (USA Master Plan Phase 11 batch 4, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the
+# boards tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# nebraskalegislature.gov and statejobs.nebraska.gov time out from India: the statute and jobs rows come from Internet
+# Archive captures (timestamps in sources.yml). education.ne.gov, nebraska.edu, mccneb.edu and ccpe.nebraska.gov were
+# read live. Nebraska sets credit hours, not subject units, in statute; Rule 10 subject lists were not read.
 name: "Nebraska"
 abbr: NE
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In Nebraska, the Nebraska State Bar Commission (Nebraska Supreme Court, Attorney Services Division) handles bar admission for lawyers, the Nebraska Board of Medicine and Surgery licenses physicians, the Nebraska State Board of Public Accountancy licenses CPAs and the Nebraska Board of Nursing licenses registered nurses."
+lede: "Nebraska requires at least 200 high school credit hours (80% in core courses, with personal finance and, from 2027-28, computer science) and a completed FAFSA, tests with NSCAS and the ACT for every junior, sets resident tuition after a home in Nebraska for 180 days, and funds the need-based Nebraska Opportunity Grant."
+
+diploma:
+  intro: "Neb. Rev. Stat. § 79-729: each high school student must complete at least 200 high school credit hours before graduating, and at least 80% of them must be core curriculum courses prescribed by the State Board of Education."
+  rows:
+    - ["Total", "200 credit hours minimum (a credit hour is at least one class period a week for one semester)"]
+    - ["Core curriculum", "At least 80% of the minimum credit hours, in courses set by the State Board of Education"]
+    - ["Personal finance or financial literacy", "At least 5 credit hours (public schools, since 2023-24)"]
+    - ["Computer science and technology education", "At least 5 credit hours (public schools, from 2027-28)"]
+  unit: "200 credit hours."
+  tests: "No exit exam. Public high school students must complete and submit the FAFSA before graduating, unless a parent (or a student who is 19 or emancipated) signs an opt-out form or the principal excuses them for good cause."
+  src: ne_statute_79_729
+  points:
+    - { t: "Students who were under juvenile court jurisdiction in an out-of-home placement during high school can, from 2026-27, graduate on request without extra local requirements, or receive a state diploma from the Commissioner.", src: ne_statute_79_729 }
+
+k12_test:
+  name: "NSCAS and the ACT"
+  full: "Nebraska Student-Centered Assessment System (NSCAS) General Summative and the ACT"
+  intro: "NSCAS General Summative tests measure performance against Nebraska standards: computer-adaptive English language arts and math in grades 3 to 8 and science in grades 5 and 8 (given by NWEA); high school accountability testing is the ACT."
+  src: ne_nscas
+  rows:
+    - ["NSCAS General Summative", "English language arts and mathematics", "Grades 3–8"]
+    - ["NSCAS General Summative", "Science", "Grades 5 and 8"]
+    - ["ACT", "English, math, reading, science and writing", "Third-year high school cohort (usually juniors)"]
+  rows_src: ne_nscas
+  use:
+    - { t: "Since LB 930 (2016) changed Neb. Rev. Stat. § 79-760, high school accountability testing is a college entrance exam: every third-year public school student, including special education students and English learners, takes the ACT each spring.", src: ne_act }
+
+colleges:
+  systems:
+    - { name: "University of Nebraska System", kind: university, url: "https://nebraska.edu/", line: "Four campuses under the NU Board of Regents: the University of Nebraska-Lincoln (land-grant research university and Big Ten member), the University of Nebraska Medical Center, the University of Nebraska at Kearney and the University of Nebraska at Omaha, plus the two-year Nebraska College of Technical Agriculture.", src: ne_nu }
+    - { name: "Metropolitan Community College (MCC)", kind: community, url: "https://www.mccneb.edu/", line: "Comprehensive public community college founded in 1974 for Dodge, Douglas, Sarpy and Washington counties; the largest community college in Nebraska by enrollment and the state's second-largest postsecondary institution.", src: ne_mcc }
+
+residency:
+  points:
+    - { t: "Neb. Rev. Stat. § 85-502: an adult or emancipated minor is a resident for tuition only after establishing a home in Nebraska where they are habitually present for at least 180 days, with the bona fide intention of making Nebraska their permanent home, backed by documents.", src: ne_statute_85_502 }
+    - { t: "Minors (and adult tax dependents) qualify through parents or guardians who have a Nebraska home with that intention; a student does not lose residency if the parents later leave.", src: ne_statute_85_502 }
+    - { t: "Students who lived with a parent and graduated from a Nebraska high school (or earned a Nebraska equivalency diploma) after at least three years in the state also qualify, as do active-duty military stationed in Nebraska, Nebraska National Guard members and new university or college staff.", src: ne_statute_85_502 }
+
+aid:
+  agency: { name: "Nebraska Coordinating Commission for Postsecondary Education (CCPE)", url: "https://ccpe.nebraska.gov/", src: ne_nog }
+  programs:
+    - { name: "Nebraska Opportunity Grant (NOG)", line: "Need-based state grant (formerly the Nebraska State Grant) for Nebraska residents attending a Nebraska postsecondary institution, based on the Student Aid Index from the FAFSA; it is awarded through the colleges, so students apply to the school and file the FAFSA.", src: ne_nog }
+
+jobs:
+  state:
+    portal: "Nebraska State Jobs"
+    url: "https://statejobs.nebraska.gov/"
+    by: "Nebraska Department of Administrative Services"
+    steps:
+      - "Search and apply for jobs across almost 80 state agencies, boards and commissions at statejobs.nebraska.gov; current state employees use a separate apply link."
+      - "The SOS Temporary Program places candidates in temporary state assignments of one day to one year."
+    src: ne_statejobs
+  cities: []
+
+apprenticeship:
+  office: "Nebraska Apprenticeship Office (U.S. Department of Labor)"
+  url: "https://www.apprenticeship.gov/about-us/state-office"
+  kind: OA
+  line: "Nebraska has no recognized State Apprenticeship Agency: the U.S. Department of Labor's Nebraska Apprenticeship Office registers and oversees programs."
+  src: dol_oa_offices
+  oa_src: dol_oa_states
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

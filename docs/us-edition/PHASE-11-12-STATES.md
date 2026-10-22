@@ -205,3 +205,58 @@ the DOL listing (state sites blocked); no city civil service rows; no Phase 12 l
 
 Queue: Phase 11 batch 4 = Census ranks 31–40 (Nevada, Iowa, Arkansas, Kansas, Mississippi, New Mexico, Idaho, Nebraska,
 West Virginia, Hawaii); Phase 12 rows for batches 2 and 3.
+
+## 9. Phase 11 batch 4 (2026-10-22)
+
+Nevada, Iowa, Arkansas, Kansas, Mississippi, New Mexico, Idaho, Nebraska, West Virginia and Hawaii (Census ranks 31–40)
+moved from the boards tier to full pages (diploma, state test, colleges, residency, aid, jobs, apprenticeship); boards
+blocks kept byte-for-byte. 96 sources added to `_data/us/sources.yml` under the batch 4 header. The ten search entries were
+upgraded in place to the full-page shape, keeping the licensing-board keywords; `scripts/check-search.mjs` has 11 new cases.
+
+What the official texts say (worth knowing before editing):
+- **Nevada**: six diplomas; Standard 23 credits, Advanced and College and Career Ready 24 with a 3.25 GPA; every diploma
+  needs the Civics Assessment and the grade 11 ACT (score not used for graduation). NRS 396.540: 12 months bona fide
+  residency, but any Nevada high school graduate is exempt from non-resident tuition. Millennium Scholarship per credit
+  ($40/$60/$80, $10,000 cap) is in NRS 396.934 — read from the statute because the Treasurer's site blocks India.
+- **Iowa**: the state sets subject minimums only (4 ELA, 3 math, 3 science, 3 social studies, PE, CPR) plus the civics
+  test (60%); districts set totals. Regents residency (681 IAC 1.4, eff. 12 Aug 2026) is "why is the person in Iowa",
+  12 months. Iowa became a State Apprenticeship Agency on 27 June 2024 (DOL's state-office list still says "Iowa
+  Apprenticeship Office"; the DOL map and IWD say SAA).
+- **Arkansas**: 22 credits + civics exam (60%), CPR, personal finance, computer science from 2026 graduates, 75 service
+  hours from 2027 graduates. No statewide residency text online; the UA System 6-month bona fide domicile policy is used.
+  Academic Challenge pays $2,000/$4,000/$4,000/$5,000 at four-year colleges.
+- **Kansas**: 21 units; from the class of 2028 financial literacy, an advanced STEM unit and two postsecondary assets.
+  Completing the FAFSA is not a Kansas graduation requirement (KSDE 2028 fact sheet). KSDE's KAP page
+  says science in grades 5, 7, 11, but its 2026-27 overview PDF says 5, 8, 11 (page uses the PDF and notes the conflict).
+- **Mississippi**: 24 Carnegie units (Appendix A-6) plus Algebra I, English II and Biology EOC requirements (U.S. History
+  EOC ended 2025-26); endorsements 26/28 units. 12 months' residence (Miss. Code 37-103), read via USM's registrar page.
+- **New Mexico**: HB 171 (2024) rewrote the diploma from cohort 2029: 24 units with 4 social studies, a 2-unit local
+  requirement and no Algebra 2 or demonstrations of competency. 5.7.18.9 NMAC: 12 months physical presence plus
+  financial independence, written declaration and two overt acts.
+- **Idaho**: IDAPA 08.02.03.105 = 46 credits, 29 core (30 with digital literacy from 2028); senior project replaced by the
+  Future Readiness Project from the class of 2028; college entrance exam is now optional at parent discretion
+  (111.06.l). Idaho Code 33-3717B: 12 months, or an Idaho high school graduate within eight years.
+- **Nebraska**: statute sets 200 credit hours (80% core), personal finance, computer science from 2027-28 and a FAFSA
+  (with opt-outs). Residency is **180 days**, not 12 months (Neb. Rev. Stat. 85-502).
+- **West Virginia**: Policy 2510 = 23 credits from the 2024-25 freshman cohort (22 before), computer science from the
+  2027-28 cohort (HB 2411). Statewide HEPC Series 25 text was not online; WVU BOG Rule 2.4 (12 months' presence) is used.
+- **Hawaii**: BOE Policy 102-15 (amended 12 Feb 2026) = 24 credits; Smarter Balanced grades 3–8 and 11. Act 235 (2026)
+  removed Hawaii Promise's last-dollar rule.
+- Apprenticeship: NV, IA, KS, NM, HI are State Apprenticeship Agency states; AR, MS, ID, NE, WV are DOL Office of
+  Apprenticeship states (apprenticeship.gov apprenticeship-system map, read 22 Oct 2026). New Mexico's row cites
+  11.2.3 NMAC because dws.state.nm.us blocks every fetch.
+
+Fetch notes: blocked from India and read via Internet Archive captures (dates in each source note): leg.state.nv.us,
+mdek12.org standards PDFs, legislature.idaho.gov, nebraskalegislature.gov, statejobs.nebraska.gov, wvde.us,
+personnel.wv.gov, labor.hawaii.gov, governmentjobs.com/careers/hawaii. nv.gov agency sites (treasurer, hr, labor) return
+"Request Rejected" and their captures hold only bot checks, so the Nevada jobs row was read through a US-based fetch and
+the apprenticeship row cites the Business and Industry press release. ksde.gov PDFs reject curl but download in headless
+Edge after the home page loads (tools/dl.cjs). srca.nm.gov, adminrules.idaho.gov and kslegislature.gov open directly.
+
+Gaps: Arkansas, Mississippi and West Virginia residency rows come from a university system/registrar page (no statewide
+rule text found); New Mexico, Idaho and Hawaii have no single university system page, so the university row names UNM,
+the University of Idaho and the UH System; Nebraska and Hawaii list one aid program; Kansas has no state ACT; no city
+civil service rows; no Phase 12 license rows for batches 2–4.
+
+Queue: Phase 11 batch 5 = Census ranks 41–51 (New Hampshire, Maine, Montana, Rhode Island, Delaware, South Dakota, North
+Dakota, Alaska, District of Columbia, Vermont, Wyoming); Phase 12 rows for batches 2–4.

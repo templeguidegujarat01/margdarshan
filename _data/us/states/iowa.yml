@@ -1,12 +1,79 @@
-# Iowa (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# Iowa (USA Master Plan Phase 11 batch 4, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the
+# boards tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# All Iowa pages (educate.iowa.gov, legis.iowa.gov, iowaregents.edu, das.iowa.gov, workforce.iowa.gov) were read live.
+# Iowa College Aid now lives inside the Department of Education (iowacollegeaid.gov redirects to educate.iowa.gov).
 name: "Iowa"
 abbr: IA
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In Iowa, the Iowa Board of Law Examiners (Office of Professional Regulation) handles bar admission for lawyers, the Iowa Board of Medicine licenses physicians, the Iowa Accountancy Examining Board licenses CPAs and the Iowa Board of Nursing licenses registered nurses."
+lede: "Iowa sets a state floor of 4 units of English, 3 each of math, science and social studies and 1 of physical education, plus CPR and a passing civics test score; it tests with ISASP, gives Regents-university resident tuition after 12 months in Iowa for non-educational reasons, and pays the Future Ready Iowa Last-Dollar Scholarship and All Iowa Opportunity Scholarship."
+
+diploma:
+  intro: "Iowa Code sections 256.7(26) and 256.11(5) set the minimum graduation requirements for students at public districts and accredited nonpublic schools; districts may add more."
+  rows:
+    - ["English-language arts", "4 units"]
+    - ["Mathematics", "3 units"]
+    - ["Science", "3 units"]
+    - ["Social studies", "3 units, including 1 unit of American history and 1/2 unit of government"]
+    - ["Physical education", "1 unit (one-eighth unit each semester) unless the student is excused or exempt"]
+    - ["CPR", "A CPR certification course by the end of grade 12"]
+    - ["Health, fine arts, world language, CTE, computer science, financial literacy", "Local district decision (schools must still offer and teach them)"]
+  unit: "State subject minimums plus CPR and the civics test; each district sets its own total credits."
+  tests: "Every student must get at least one passing score (60 percent correct) on the civics test developed by the Department of Education, with unlimited retakes."
+  src: ia_hs_requirements
+  points:
+    - { t: "Districts must offer and teach a wider program: 6 units of English and math, 5 of science (including chemistry and physics) and social studies, 2 of fine arts and world language, 12 of CTE, 1/2 unit of computer science and 1/2 unit of financial literacy.", src: ia_hs_requirements }
+    - { t: "Iowa Code 256.7(26) has set these minimums since the 2010-11 graduating class, with physical education at one-eighth unit in each semester of high school enrollment.", src: ia_hs_page }
+
+k12_test:
+  name: "ISASP"
+  full: "Iowa Statewide Assessment of Student Progress (ISASP)"
+  intro: "The ISASP is Iowa's summative accountability test for all students under ESSA, developed by Iowa Testing Programs at the University of Iowa, aligned to the Iowa Core and first given in spring 2019."
+  src: ia_isasp
+  rows:
+    - ["ISASP", "Mathematics", "Grades 3–11"]
+    - ["ISASP", "English-language arts, including reading and writing", "Grades 3–11"]
+    - ["ISASP", "Science", "Grades 5, 8 and 11"]
+    - ["Dynamic Learning Maps", "Alternate assessment in reading, mathematics and science", "Same grades, for students with the most significant cognitive disabilities"]
+  rows_src: ia_isasp
+  use:
+    - { t: "ISASP results are reported annually in the Department's Annual Condition of Education Report; English learners also take ELPA21 every year until proficient.", src: ia_isasp }
+
+colleges:
+  systems:
+    - { name: "Iowa Board of Regents universities", kind: university, url: "https://www.iowaregents.edu/", line: "The Board of Regents governs Iowa's three public universities: the University of Iowa (founded 1847, more than 30,000 students), Iowa State University (land-grant, about 30,000 students in Ames) and the University of Northern Iowa (more than 9,000 students in Cedar Falls).", src: ia_regents }
+    - { name: "Iowa's 15 community colleges", kind: community, url: "https://educate.iowa.gov/higher-ed/community-colleges", line: "Fifteen locally governed community colleges, each with an elected board, meeting State Board of Education standards and open to all Iowans of postsecondary age: adult education, career and technical programs, and college-parallel courses that transfer as the first two years of a bachelor's degree.", src: ia_cc }
+
+residency:
+  points:
+    - { t: "681 IAC 1.4 (Board of Regents): the question is why the person is in Iowa. A person in Iowa primarily for education is a nonresident, and the student must prove otherwise; a voter registration, Iowa driver's license or community college residency does not by itself qualify.", src: ia_681_1_4 }
+    - { t: "A student who moves to Iowa may be classified as a resident at the next registration after 12 consecutive months in the state, if not enrolled more than half time (6 undergraduate credits) in any term and with evidence of an Iowa domicile.", src: ia_681_1_4 }
+    - { t: "Applications are due by the 15th class day of the term; residency also covers active-duty and reserve service members in Iowa, honorably discharged veterans with 90 days of Title 10 service, refugees and members of tribes historically connected to Iowa.", src: ia_681_1_4 }
+
+aid:
+  agency: { name: "Iowa Department of Education, Iowa College Aid", url: "https://educate.iowa.gov/higher-ed/financial-aid", src: ia_aid }
+  programs:
+    - { name: "Future Ready Iowa Last-Dollar Scholarship", line: "Covers the gap between other federal and state grants and tuition and fees for certificates, diplomas and associate degrees in high-demand programs at Iowa community colleges and eligible private colleges; for recent Iowa high school graduates or adults 20 and older, with the FAFSA filed by June 30. Up to 8 part-time semesters or the full-time equivalent.", src: ia_last_dollar }
+    - { name: "All Iowa Opportunity Scholarship (AIOS)", line: "For recent Iowa high school graduates with financial need (2027-28 Student Aid Index from -1,500 to 11,292) who file the FAFSA and Iowa Financial Aid Application by April 1, with priority for foster youth, TRIO and GEAR UP participants and others; maximum award $5,646 in 2027-28, renewable for up to eight full-time semesters.", src: ia_aios }
+
+jobs:
+  state:
+    portal: "State of Iowa Careers (NEOGOV)"
+    url: "https://www.governmentjobs.com/careers/iowa"
+    by: "Iowa Department of Administrative Services"
+    steps:
+      - "Search open jobs across 16 state agencies on the State of Iowa careers page at governmentjobs.com/careers/iowa; a separate list is for current state employees only."
+      - "Apply through the NEOGOV application; new hires are checked through E-Verify."
+    src: ia_das_jobs
+  cities: []
+
+apprenticeship:
+  office: "Iowa Office of Apprenticeship (Iowa Workforce Development)"
+  url: "https://workforce.iowa.gov/apprenticeship"
+  kind: SAA
+  line: "Iowa has been a State Apprenticeship Agency state since 27 June 2024: the Iowa Office of Apprenticeship in Iowa Workforce Development registers and oversees all Registered Apprenticeship programs in Iowa, advised by a five-member Iowa Apprenticeship Council."
+  src: ia_ioa
+  oa_src: dol_oa_states
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

@@ -1,12 +1,85 @@
-# Mississippi (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# Mississippi (USA Master Plan Phase 11 batch 4, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the
+# boards tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# mdek12.org pages were read live, but its accountability-standards PDFs return 403 to India: the diploma table comes from
+# an Internet Archive capture of the 2025 standards (timestamp in sources.yml). msfinancialaid.org, mississippi.edu,
+# mccb.edu, usm.edu and mspb.ms.gov were read live. No 2026 standards capture exists yet.
 name: "Mississippi"
 abbr: MS
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In Mississippi, the Mississippi Board of Bar Admissions handles bar admission for lawyers, the Mississippi State Board of Medical Licensure licenses physicians, the Mississippi State Board of Public Accountancy licenses CPAs and the Mississippi Board of Nursing licenses registered nurses."
+lede: "Mississippi requires 24 Carnegie units plus end-of-course test requirements for a Traditional Diploma (endorsements need 26 or 28), gives every junior the ACT, gives resident tuition after 12 months of continuous residence, and funds the HELP, MTAG and MESG state aid programs."
+
+diploma:
+  intro: "Mississippi Public School Accountability Standards, Appendix A-6 (Standard 14): students who entered ninth grade in 2018-19 or later need at least 24 Carnegie units for the Traditional Diploma; districts may add local requirements."
+  rows:
+    - ["English", "4 units, including English I and English II"]
+    - ["Mathematics", "4 units, including Algebra I"]
+    - ["Science", "3 units, including Biology"]
+    - ["Social studies", "3 1/2 units: World History, U.S. History, 1/2 U.S. Government, 1/2 Economics and 1/2 Mississippi Studies"]
+    - ["Physical education", "1/2 unit"]
+    - ["Health", "1/2 unit (Contemporary Health)"]
+    - ["Technology or computer science", "1 unit"]
+    - ["The arts", "1 unit"]
+    - ["College and career readiness", "1 unit"]
+    - ["Electives", "5 1/2 units"]
+  unit: "24 Carnegie units (26 for the Career and Technical or Academic endorsement, 28 for the Distinguished Academic endorsement)."
+  tests: "Each diploma student must meet the requirement on each required high school end-of-course test (MAAP Algebra I, English II and Biology) or one of the State Board's options in lieu of passing, such as a composite score or a portfolio. The U.S. History end-of-course test ended in 2025-26."
+  src: ms_standards_2025
+  points:
+    - { t: "Every ninth grader chooses the Traditional Diploma or adds an endorsement: Career and Technical or JROTC (a state-approved credential or a career-aligned AP, IB or Cambridge course), Academic (2.5 GPA, ACT English 17 and math 19 or equivalent) or Distinguished Academic (3.0 GPA, ACT English 18 and math 22).", src: ms_mde_diploma }
+    - { t: "Students who earn an academic or distinguished academic endorsement from a public high school are accepted into any Mississippi public university.", src: ms_mde_diploma }
+
+k12_test:
+  name: "MAAP and the grade 11 ACT"
+  full: "Mississippi Academic Assessment Program (MAAP) and the statewide grade 11 ACT"
+  intro: "MAAP measures English language arts, mathematics and science against the Mississippi College- and Career-Readiness Standards; every eleventh grader takes the ACT."
+  src: ms_maap
+  rows:
+    - ["MAAP", "English language arts and mathematics", "Grades 3–8"]
+    - ["MAAP", "Science", "Grades 5 and 8"]
+    - ["MAAP end of course", "Algebra I, English II and Biology I", "High school"]
+    - ["ACT", "College readiness", "Grade 11 (all students)"]
+  rows_src: ms_maap
+  use:
+    - { t: "The ACT is given to all students classified as eleventh graders; districts can also give ACT WorkKeys in grades 10 to 12, where a score of 3 or more on Applied Math, Graphic Literacy and Workplace Documents earns the National Career Readiness Certificate.", src: ms_act }
+    - { t: "ACT subscores of 17 in English and 19 in math (Academic) or 18 and 22 (Distinguished Academic) are one way to earn a diploma endorsement.", src: ms_mde_diploma }
+
+colleges:
+  systems:
+    - { name: "Mississippi Institutions of Higher Learning (IHL)", kind: university, url: "https://www.mississippi.edu/", line: "Mississippi's eight public universities under one Board of Trustees: Alcorn State, Delta State, Jackson State, Mississippi State, Mississippi University for Women, Mississippi Valley State, the University of Mississippi and the University of Southern Mississippi, plus the University of Mississippi Medical Center.", src: ms_ihl }
+    - { name: "Mississippi Community College Board (MCCB)", kind: community, url: "https://www.mccb.edu/", line: "The coordinating agency for Mississippi's 15 community colleges, which offer university transfer, technical careers and workforce training.", src: ms_mccb }
+
+residency:
+  points:
+    - { t: "Mississippi Code §§ 37-103-1 to 37-103-29: no student may be admitted to a public university as a Mississippi resident unless their residence has been in Mississippi for a continuous 12 months immediately before admission. The burden of proof is on the student.", src: ms_usm_residency }
+    - { t: "An adult who has lived in Mississippi for 12 months after turning 21 can establish residence by showing intent to stay permanently: Mississippi income tax returns, voter eligibility, vehicle registration, a Mississippi driver's license, employment and self-support. Residence of a person under 21 is that of a parent or court-appointed guardian.", src: ms_usm_residency }
+    - { t: "A minor who graduated from a Mississippi high school after attending for at least the final four years does not pay out-of-state tuition; service members stationed in Mississippi, National Guard members and their families also qualify.", src: ms_usm_residency }
+
+aid:
+  agency: { name: "Mississippi Office of Student Financial Aid (an office of IHL)", url: "https://www.msfinancialaid.org/", src: ms_osfa }
+  programs:
+    - { name: "Higher Education Legislative Plan (HELP)", line: "Full tuition for up to four years for Mississippi residents of one year with a 2.5 high school GPA, an ACT of 20 (superscores accepted) and a full or partial Pell Grant; apply 1 October to 31 March.", src: ms_help }
+    - { name: "Mississippi Tuition Assistance Grant (MTAG)", line: "For one-year Mississippi residents with a 2.5 GPA and an ACT of 15 who enroll full-time and receive less than the maximum Pell Grant; apply by 15 September.", src: ms_mtag }
+    - { name: "Mississippi Eminent Scholars Grant (MESG)", line: "Up to $2,500 a year (not more than tuition and required fees) for residents with a 3.5 GPA and an ACT of 29 (SAT 1330) or National Merit Semifinalist or Finalist status, enrolled full-time in Mississippi.", src: ms_mesg }
+
+jobs:
+  state:
+    portal: "State of Mississippi careers (governmentjobs.com)"
+    url: "https://www.governmentjobs.com/careers/mississippi"
+    by: "Mississippi State Personnel Board"
+    steps:
+      - "View and apply for open positions in state government through the State Personnel Board's careers page."
+      - "The Governor's Job Fair Network (jobfairs.ms.gov) lists statewide hiring events."
+    src: ms_mspb
+  cities: []
+
+apprenticeship:
+  office: "Mississippi Apprenticeship Office (U.S. Department of Labor)"
+  url: "https://www.apprenticeship.gov/about-us/state-office"
+  kind: OA
+  line: "Mississippi has no recognized State Apprenticeship Agency: the U.S. Department of Labor's Mississippi Apprenticeship Office registers and oversees programs."
+  src: dol_oa_offices
+  oa_src: dol_oa_states
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

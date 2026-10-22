@@ -1,12 +1,80 @@
-# Kansas (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# Kansas (USA Master Plan Phase 11 batch 4, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the
+# boards tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# ksde.gov PDFs answer plain requests from India with "Request Rejected" but download in headless Edge after the home
+# page loads; kansasregents.gov, kslegislature.gov, admin.ks.gov and kansascommerce.gov were read live.
 name: "Kansas"
 abbr: KS
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In Kansas, the Kansas Board of Law Examiners handles bar admission for lawyers, the Kansas State Board of Healing Arts licenses physicians, the Kansas Board of Accountancy licenses CPAs and the Kansas State Board of Nursing licenses registered nurses."
+lede: "Kansas requires at least 21 credits (with financial literacy, an advanced STEM unit and two postsecondary assets from the class of 2028), tests with the Kansas Assessment Program, gives Regents resident fees after 12 months of Kansas domicile, and funds the Kansas Promise Act Scholarship and the Kansas Comprehensive Grant."
+
+diploma:
+  intro: "Each local board of education must require at least these units for graduation; boards may add more. Classes of 2025 to 2027:"
+  rows:
+    - ["English language arts", "4 units (reading, writing, literature, communication and grammar)"]
+    - ["History and government", "3 units: world history, U.S. history, U.S. government including the Constitution, and economics and geography concepts"]
+    - ["Science", "3 units (physical, biological, and earth and space science; at least 1 unit a lab course)"]
+    - ["Mathematics", "3 units (algebraic and geometric concepts)"]
+    - ["Physical education", "1 unit, including health"]
+    - ["Fine arts", "1 unit"]
+    - ["Electives", "6 units"]
+  unit: "21 units minimum, set by each local board."
+  tests: "Kansas has no exit exam. From the class of 2028, students must earn at least two State Board-approved postsecondary assets, such as an ACT composite of 21, 9 or more college hours, 40 community service hours, an industry-recognized certification, a WorkKeys Silver level or state assessment scores of 3 or 4."
+  src: ks_grad_pre2028
+  points:
+    - { t: "Class of 2028 and beyond: English 4 (with at least 1/2 unit of communications), history and government 3, science 3, math 3, physical education 1/2, health 1/2, fine arts 1, financial literacy 1/2, advanced science, technology, engineering or advanced math 1, and 4 1/2 elective units. Completing the FAFSA is not a graduation requirement.", src: ks_grad_2028 }
+    - { t: "From the class of 2028, graduation expectations also include postsecondary readiness, such as career-connected experiences that support college, workforce or military pathways.", src: ks_ksde_grad }
+
+k12_test:
+  name: "Kansas Assessment Program (KAP)"
+  full: "Kansas Assessment Program (KAP) general summative assessments"
+  intro: "KAP assessments are aligned to the Kansas standards, delivered in the Kite Student Portal and untimed; the general summative, KELPA, History, Government and Social Studies (HGSS) and Dynamic Learning Maps assessments are mandatory."
+  src: ks_kap_overview
+  rows:
+    - ["KAP summative", "English language arts", "Grades 3–8 and 10"]
+    - ["KAP summative", "Mathematics", "Grades 3–8 and 10"]
+    - ["KAP summative", "Science", "Grades 5, 8 and 11"]
+    - ["HGSS (classroom-based)", "History, government and social studies", "Grades 4, 7 and one of 10, 11 or 12"]
+  rows_src: ks_kap_overview
+  use:
+    - { t: "A state assessment score of 3 or 4 in math, ELA or science counts as one of the postsecondary assets the class of 2028 and later need to graduate.", src: ks_grad_2028 }
+    - { t: "KSDE's own KAP page lists science in grades 5, 7 and 11; the 2026-27 overview it links lists grades 5, 8 and 11.", src: ks_kap }
+
+colleges:
+  systems:
+    - { name: "Kansas Board of Regents state universities", kind: university, url: "https://kansasregents.gov/", line: "The Board of Regents governs Kansas's six state universities (the University of Kansas, Kansas State, Wichita State, Emporia State, Pittsburg State and Fort Hays State) and coordinates 32 public institutions in all.", src: ks_kbor_about, src2: ks_kbor_institutions }
+    - { name: "Kansas community colleges", kind: community, url: "https://kansasregents.gov/universities_colleges/public-institutions/public_institutions_accessible_list", line: "Nineteen community colleges and six technical colleges, coordinated by the Board of Regents, from Johnson County and Kansas City Kansas to Garden City, Dodge City and Colby.", src: ks_kbor_about, src2: ks_kbor_institutions }
+
+residency:
+  points:
+    - { t: "K.S.A. 76-729: adults domiciled in Kansas for at least 12 months before enrolling (or minors whose parents have been) pay resident fees at state universities; a resident who leaves keeps that status if they return within 60 months. Veterans, active-duty service members and their spouses and dependent children are residents for fee purposes.", src: ks_ksa_76_729 }
+    - { t: "K.A.R. 88-3-3: \"12 months\" means a continuous 365-day period ending on the day before classes start. Residence means continuous physical presence and intent to make Kansas a permanent home, not only while studying.", src: ks_kbor_residency }
+    - { t: "Evidence must have existed at least a year before enrollment (Kansas income taxes, Kansas financial support, permanent job offer, home ownership); voting, a student job or a lease alone does not prove residence.", src: ks_kbor_residency }
+
+aid:
+  agency: { name: "Kansas Board of Regents, Student Financial Aid", url: "https://kansasregents.gov/students/student_financial_aid", src: ks_kbor_aid }
+  programs:
+    - { name: "Kansas Promise Act Scholarship", line: "Last-dollar scholarship for two-year degrees and certificates in high-wage, high-demand or critical-need programs (such as IT and security, advanced manufacturing and building trades, and early childhood education) at Kansas community and technical colleges and some private colleges. Income limits apply; students enroll in at least 6 hours, finish within 36 months, and agree to live and work in Kansas for two years. Lifetime cap: 68 credit hours or $20,000.", src: ks_promise }
+    - { name: "Kansas Comprehensive Grant", line: "Need-based grant for Kansas residents enrolled full-time at the six public universities, Washburn University and twenty independent colleges, from $100 to $4,500 at public institutions in 2026-27; filing the FAFSA is the only application.", src: ks_kbor_aid_brochure }
+
+jobs:
+  state:
+    portal: "State of Kansas Employment Center & Careers Portal"
+    url: "https://admin.ks.gov/offices/personnel-services/jobs"
+    by: "Kansas Department of Administration, Division of Personnel Services"
+    steps:
+      - "Search and apply for state jobs in the Careers portal (jobs.ks.gov opens the Employment Center page)."
+      - "First-time users can follow the Department's How to Search and How to Apply instruction guides."
+    src: ks_jobs
+  cities: []
+
+apprenticeship:
+  office: "Kansas Office of Registered Apprenticeship (Kansas Department of Commerce)"
+  url: "https://www.kansascommerce.gov/"
+  kind: SAA
+  line: "Kansas is a State Apprenticeship Agency state: the Kansas Office of Registered Apprenticeship in the Department of Commerce registers programs and funds their growth, for example with Rural Apprenticeship Innovation for a Stronger Economy (RAISE) grants for communities under 50,000 people."
+  src: ks_koa
+  oa_src: dol_oa_offices
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

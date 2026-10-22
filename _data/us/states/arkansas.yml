@@ -1,12 +1,83 @@
-# Arkansas (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# Arkansas (USA Master Plan Phase 11 batch 4, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the
+# boards tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# All pages (dese.ade.arkansas.gov, adecm memos, sams.adhe.edu, uasys.edu, catalog.uark.edu, arcareers) were read live.
+# Arkansas has no single statewide residency rule text online: the row uses the University of Arkansas System policy.
 name: "Arkansas"
 abbr: AR
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In Arkansas, the Arkansas State Board of Law Examiners handles bar admission for lawyers, the Arkansas State Medical Board licenses physicians, the Arkansas State Board of Public Accountancy licenses CPAs and the Arkansas State Board of Nursing licenses registered nurses."
+lede: "Arkansas requires 22 credits plus a passed civics exam, CPR, personal finance and (from 2026 graduates) computer science, tests with ATLAS and gives every junior the chance to take the ACT, gives in-state tuition at University of Arkansas campuses after six months of bona fide domicile, and funds the lottery-backed Academic Challenge Scholarship."
+
+diploma:
+  intro: "Students graduating from an Arkansas public or public charter school must meet or exceed the 22 graduation credits adopted by the State Board of Education; each student's Student Success Plan (grades 8 to 12) tracks them."
+  rows:
+    - ["English language arts", "4 credits (English 9, 10, 11 and 12)"]
+    - ["Mathematics", "4 credits: Algebra I, Geometry, Algebra II or Quantitative Reasoning, and a math or computer science flex credit"]
+    - ["Science", "3 credits: Biology, a physical science (physical science, chemistry or physics) and a third science or computer science flex credit"]
+    - ["Social studies", "3 credits: World History, U.S. History, Civics (0.5) and Economics with Personal Finance (0.5)"]
+    - ["Physical education", "0.5 credit"]
+    - ["Fine arts", "0.5 credit"]
+    - ["Oral communication", "0.5 credit"]
+    - ["Health and safety", "0.5 credit"]
+    - ["Career focus or content electives", "6 credits"]
+  unit: "22 credits."
+  tests: "Every graduate must pass the Arkansas Civics Exam with 60 percent (A.C.A. § 6-16-149); the exam is also required for a high school equivalency diploma."
+  src: ar_dese_grad
+  points:
+    - { t: "Graduates must also complete CPR training, earn credit in a course with the Personal and Family Finance standards, and (from 2026 graduates) earn one credit of computer science or a computer science-related CTE course.", src: ar_dese_grad }
+    - { t: "From 2027 graduates, every student must complete at least 75 clock hours of documented community service in grades 9 to 12 (A.C.A. § 6-16-1901).", src: ar_dese_grad }
+
+k12_test:
+  name: "ATLAS and the grade 11 ACT"
+  full: "Arkansas Teaching, Learning & Assessment System (ATLAS) summative assessment and the ACT"
+  intro: "ATLAS is Arkansas's end-of-year summative test from grade 3 through high school; every grade 11 student must be offered the ACT, and every student must pass the Arkansas Civics Exam."
+  src: ar_testing_memo
+  rows:
+    - ["ATLAS", "English language arts, mathematics and science", "Grades 3–high school"]
+    - ["ATLAS end of course", "Algebra I, Geometry and Biology", "High school"]
+    - ["ACT", "College entrance exam", "Grade 11 (every student must be offered it)"]
+    - ["ACT WorkKeys", "Applied Math, Graphic Literacy and Workplace Documents", "Grades 10–12 (one free attempt each)"]
+    - ["Arkansas Civics Exam", "American government and history", "Required to graduate"]
+  rows_src: ar_testing_memo
+  use:
+    - { t: "WorkKeys can lead to a National Career Readiness Certificate, which measures workplace skills and is recognized by employers.", src: ar_testing_memo }
+    - { t: "Qualifying students with the most significant cognitive disabilities take Dynamic Learning Maps instead of ATLAS in grades 3 to 10.", src: ar_testing_memo }
+
+colleges:
+  systems:
+    - { name: "University of Arkansas System", kind: university, url: "https://uasys.edu/", line: "The state's largest higher education system, with 22 campuses, divisions and units under one Board of Trustees, including the University of Arkansas (Fayetteville) and the University of Arkansas for Medical Sciences.", src: ar_uasys, src2: ar_uasys_campuses }
+    - { name: "University of Arkansas System community colleges", kind: community, url: "https://uasys.edu/campuses-units/", line: "The UA System's two-year colleges include UA Pulaski Technical College, UA Community Colleges at Batesville, Hope-Texarkana, Morrilton and Rich Mountain, Phillips Community College, Cossatot Community College, UA East Arkansas Community College and North Arkansas College.", src: ar_uasys_campuses }
+
+residency:
+  points:
+    - { t: "University of Arkansas System policy: to be in-state at admission, a student must have a bona fide domicile in Arkansas and have lived in the state in that status for at least six consecutive months before applying.", src: ar_ua_residency }
+    - { t: "A bona fide domicile is a true, fixed and permanent home, not a temporary stay as a student; the student must show a permanent connection to Arkansas and expect to remain after graduation, and carries the burden of proof under oath.", src: ar_ua_residency }
+    - { t: "Dependents under 24 take the domicile of the parent who has supported them for six months; the six-month wait is waived for families who move to Arkansas mainly to set up a home there. Members of tribes that once lived in Arkansas (such as the Caddo, Cherokee, Choctaw and Quapaw) are classed as in-state.", src: ar_ua_residency }
+
+aid:
+  agency: { name: "Arkansas Division of Higher Education (ADHE)", url: "https://sams.adhe.edu/", src: ar_acst }
+  programs:
+    - { name: "Arkansas Academic Challenge Scholarship", line: "Lottery-funded scholarship for Arkansas residents of at least 12 months who file the FAFSA. Recent graduates qualify with a Diploma of Merit, a 3.00 GPA with any test score on record, or a qualifying score (ACT 19, SAT 990). At a four-year college it pays $2,000 in year 1, $4,000 in years 2 and 3 and $5,000 in year 4; recipients take 27 hours in the first year and 30 after with a 2.5 GPA.", src: ar_acst, src2: ar_acst_sheet }
+    - { name: "Academic Challenge PLUS", line: "Since 2024-25, recipients with a FAFSA Student Aid Index below 8,000 get $500 to $1,500 more a semester, up to $2,500 a semester in total.", src: ar_acst_sheet }
+
+jobs:
+  state:
+    portal: "ARCareers"
+    url: "https://arcareers.arkansas.gov/"
+    by: "Arkansas Department of Shared Administrative Services"
+    steps:
+      - "Search open positions and apply directly on ARCareers; job seekers can also join the talent community for email alerts."
+      - "Arkansas Department of Transportation and UA Pulaski Technical College jobs are posted on their own sites, linked from ARCareers."
+    src: ar_arcareers
+  cities: []
+
+apprenticeship:
+  office: "Arkansas Apprenticeship Office (U.S. Department of Labor)"
+  url: "https://www.apprenticeship.gov/about-us/state-office"
+  kind: OA
+  line: "Arkansas has no recognized State Apprenticeship Agency: the U.S. Department of Labor's Arkansas Apprenticeship Office registers and oversees programs."
+  src: dol_oa_offices
+  oa_src: dol_oa_states
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

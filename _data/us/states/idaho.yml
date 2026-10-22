@@ -1,12 +1,80 @@
-# Idaho (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# Idaho (USA Master Plan Phase 11 batch 4, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the
+# boards tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# legislature.idaho.gov times out from India: Idaho Code § 33-3717B comes from an Internet Archive capture (timestamp in
+# sources.yml). sde.idaho.gov, adminrules.idaho.gov (IDAPA PDF), nextsteps.idaho.gov, dhr.idaho.gov, uidaho.edu and
+# cwi.edu were read live. The State Board site has no list of public institutions, so the university row uses U of I.
 name: "Idaho"
 abbr: ID
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In Idaho, the Idaho State Bar handles bar admission for lawyers, the Idaho Board of Medicine licenses physicians, the Idaho State Board of Accountancy licenses CPAs and the Idaho Board of Nursing licenses registered nurses."
+lede: "Idaho requires 46 credits (29 in core subjects, 30 with digital literacy from 2028) plus a senior project or, from the class of 2028, a Future Readiness Project, tests with the ISAT, gives resident tuition after 12 months of domicile or to Idaho high school graduates, and funds the Idaho LAUNCH grant and the Idaho Opportunity Scholarship."
+
+diploma:
+  intro: "IDAPA 08.02.03.105 (State Board of Education): the state minimum is 46 credits, including 29 credits in core subjects; one credit equals 60 hours of instruction, and districts may add requirements."
+  rows:
+    - ["Language arts and communication", "9 credits: 8 of language arts and 1 of communications (speech, debate or equivalent)"]
+    - ["Mathematics", "6 credits: 2 of Algebra I, 2 of Geometry and 2 of the student's choice"]
+    - ["Science", "6 credits: 4 from at least two of physics, chemistry, earth and space or life science, plus 2 more"]
+    - ["Social studies", "5 credits: government 2, U.S. history 2, economics and financial literacy 1"]
+    - ["Fine arts or world languages", "2 credits"]
+    - ["Health/wellness", "1 credit, including CPR and AED training"]
+    - ["Digital literacy", "1 credit, for students graduating after 1 January 2028"]
+  unit: "46 credits, 29 in core subjects (30 with digital literacy)."
+  tests: "No exit exam. Students must meet the state civics and government standards, through the civics test or a district's alternate path (Idaho Code § 33-1602), noted on the transcript."
+  src: id_idapa_080203
+  points:
+    - { t: "Every student completes a senior project (research, a thesis and a presentation) by the end of grade 12; from the class of 2028 it is replaced by a Future Readiness Project with a work-based, service-based, research-based or portfolio component.", src: id_idapa_080203 }
+    - { t: "Districts must offer at least one advanced opportunity, such as dual credit or Advanced Placement; Idaho also offers a STEM diploma and a Workforce Readiness and CTE diploma.", src: id_sde_grad }
+
+k12_test:
+  name: "ISAT"
+  full: "Idaho Standards Achievement Tests (ISAT)"
+  intro: "IDAPA 08.02.03.111 sets Idaho's comprehensive assessment program: ISAT tests in English language usage and mathematics in grades 3 to 8 and 11, and science in grades 5, 8 and 11, given each spring."
+  src: id_idapa_080203
+  rows:
+    - ["ISAT", "English language usage and mathematics", "Grades 3–8 and 11"]
+    - ["ISAT", "Science", "Grades 5, 8 and 11"]
+    - ["High school ISAT", "Optional, at the district's choice", "Grades 9 and 10"]
+    - ["College entrance exam", "Optional, at the parent's discretion", "Grades 11 and 12"]
+  rows_src: id_idapa_080203
+  use:
+    - { t: "SAT scores above 750 in math and English or ACT math above 33 and English above 70 (among other conditions, such as a 3.5 GPA) let a student take a flexible schedule or graduate early.", src: id_sde_grad }
+
+colleges:
+  systems:
+    - { name: "University of Idaho", kind: university, url: "https://www.uidaho.edu/", line: "Idaho's land-grant university and top public research university, with centers in Boise, Coeur d'Alene and Idaho Falls and statewide Extension.", src: id_uidaho }
+    - { name: "College of Western Idaho (CWI)", kind: community, url: "https://cwi.edu/", line: "Community college for the Boise area, created in 2007 when Ada and Canyon county voters formed a community college district, Boise having been the last US metropolitan area without one; Boise State's professional-technical programs moved to CWI.", src: id_cwi }
+
+residency:
+  points:
+    - { t: "Idaho Code § 33-3717B: a student who gets less than half their support from parents is a resident after continuously living in Idaho, with a bona fide domicile mainly for non-educational purposes, for 12 months before the term starts.", src: id_code_33_3717b }
+    - { t: "Students whose parents or guardians are domiciled in Idaho and give at least 50% of their support are residents, as are graduates of an accredited Idaho high school who are domiciled in Idaho and enroll within eight years of graduating.", src: id_code_33_3717b }
+    - { t: "Undergraduates enrolled full time in the prior 12 months are presumed to be in Idaho for education unless they show 12 months of full-time Idaho employment and an Idaho resident income tax return. Military members stationed in Idaho and members of Idaho tribes also qualify.", src: id_code_33_3717b }
+
+aid:
+  agency: { name: "Idaho State Board of Education (Next Steps Idaho / Scholarship Idaho)", url: "https://nextsteps.idaho.gov/", src: id_ios }
+  programs:
+    - { name: "Idaho LAUNCH", line: "Grant for current Idaho high school graduates (public, charter, private, home school or GED, under 21) who enroll by the fall after graduation in an approved in-demand training, two-year or four-year program in Idaho: 80% of tuition and fees up to $8,000, with at most $4,000 in the first year for longer programs. Apply 1 October to 15 April and complete a Career Pathway Plan.", src: id_launch }
+    - { name: "Idaho Opportunity Scholarship", line: "Up to $3,500 a year, renewable for up to four years, for Idaho high school (or Idaho GED) graduates with an unweighted 2.7 GPA who file the FAFSA by 1 March and pursue a first certificate, associate or bachelor's degree.", src: id_ios }
+
+jobs:
+  state:
+    portal: "State of Idaho careers (Luma)"
+    url: "https://statecareers.idaho.gov/"
+    by: "Idaho Division of Human Resources (DHR)"
+    steps:
+      - "Agencies post job announcements at statecareers.idaho.gov with the hiring agency, location, salary, duties, minimum qualifications and how to apply."
+      - "Apply online from the announcement; some jobs include an examination taken in the same application system under Idaho's merit system."
+    src: id_dhr_careers
+  cities: []
+
+apprenticeship:
+  office: "Idaho Apprenticeship Office (U.S. Department of Labor)"
+  url: "https://www.apprenticeship.gov/about-us/state-office"
+  kind: OA
+  line: "Idaho has no recognized State Apprenticeship Agency: the U.S. Department of Labor's Idaho Apprenticeship Office registers and oversees programs."
+  src: dol_oa_offices
+  oa_src: dol_oa_states
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

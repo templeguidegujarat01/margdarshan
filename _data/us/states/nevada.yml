@@ -1,12 +1,85 @@
-# Nevada (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# Nevada (USA Master Plan Phase 11 batch 4, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the
+# boards tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# leg.state.nv.us (Cloudflare) and the nv.gov agency sites (treasurer, hr, labor: "Request Rejected") block India: the
+# NRS chapter 396 rows come from an Internet Archive capture (timestamp in sources.yml). doe.nv.gov pages were read live.
 name: "Nevada"
 abbr: NV
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In Nevada, the State Bar of Nevada handles bar admission for lawyers, the Nevada State Board of Medical Examiners and Nevada State Board of Osteopathic Medicine license physicians, the Nevada State Board of Accountancy licenses CPAs and the Nevada State Board of Nursing licenses registered nurses."
+lede: "Nevada requires 23 credits for a Standard Diploma (24 with a 3.25 GPA for the Advanced and College and Career Ready diplomas), has every junior take the ACT, gives resident tuition after 12 months of bona fide residency or to any Nevada high school graduate, and pays the Governor Guinn Millennium Scholarship per credit."
+
+diploma:
+  intro: "Nevada offers six diplomas. The Standard Diploma needs 23 credit units, the Civics Assessment and the ACT; the Advanced and College and Career Ready (CCR) diplomas need 24 credit units with a 3.25 minimum GPA (weighted or unweighted). Standard Diploma credits for the classes of 2025 to 2028:"
+  rows:
+    - ["English language arts", "4 units"]
+    - ["Mathematics", "3 units (the sequence must include Algebra I and Geometry)"]
+    - ["Science", "2 units"]
+    - ["American history", "1 unit"]
+    - ["American government", "0.5 unit"]
+    - ["Economics", "0.5 unit (Economics and Financial Literacy from the class of 2029)"]
+    - ["Arts, humanities, JROTC or CTE", "1 unit"]
+    - ["College and career flex credit", "2 units: Level II or higher CTE, a fourth year of math (Algebra II or higher), a fourth year of social studies or a third year of science"]
+    - ["Computer education and technology", "0.5 unit"]
+    - ["Health education", "0.5 unit"]
+    - ["Physical education", "2 units"]
+    - ["Electives", "6 units (5 from the class of 2029, which adds 1 unit of world history or world geography)"]
+  unit: "23 credit units for the Standard Diploma; 24 with a 3.25 GPA for the Advanced and CCR diplomas."
+  tests: "Every diploma except the Alternative Diploma requires taking the Civics Assessment and the ACT. The ACT score is not used to decide graduation."
+  src: nv_nde_diplomas
+  points:
+    - { t: "The Advanced and CCR diplomas need 4 units of math (including Algebra II or higher), 3 of science (two with a lab) and 1 of world history or world geography. The CCR Diploma also needs two units of AP, IB, dual-credit, CTE, work-based learning or world language courses (or the Seal of Biliteracy) and a college-ready or career-ready endorsement.", src: nv_nde_diplomas }
+    - { t: "The Alternative Diploma (23 credit units and the Nevada Alternative Assessment), the Adjusted Diploma (set by a student's IEP) and the Adult Diploma (20.5 credit units) complete the six types.", src: nv_nde_grad }
+
+k12_test:
+  name: "Smarter Balanced, Nevada Science and the grade 11 ACT"
+  full: "Smarter Balanced Assessment (SBAC), the Nevada science assessments and the ACT as Nevada's College and Career Readiness assessment"
+  intro: "Nevada's state assessment system tests English language arts and math with Smarter Balanced in grades 3 to 8, science in grades 5, 8 and high school, and gives the ACT to every junior."
+  src: nv_nde_assess
+  rows:
+    - ["Smarter Balanced (SBAC)", "English language arts and mathematics", "Grades 3–8"]
+    - ["Nevada Science", "Science", "Grades 5, 8 and high school"]
+    - ["ACT Plus Writing", "English, mathematics, reading, science and writing", "Grade 11"]
+    - ["Nevada Alternate Assessment (NAA)", "For students with significant cognitive disabilities", "Grades 3–12"]
+  rows_src: nv_nde_assess
+  use:
+    - { t: "To be eligible for graduation, every junior must take the ACT free on the school test day (late February or early March); the score does not decide graduation but can be sent with college applications.", src: nv_nde_act }
+    - { t: "Students who meet ACT or SAT college-ready benchmarks (ACT English 18, math 22) are placed directly into college-level English and math at any NSHE college if they take math and English in senior year and enroll within a year of graduating.", src: nv_nde_act }
+
+colleges:
+  systems:
+    - { name: "Nevada System of Higher Education (NSHE)", kind: university, url: "https://nshe.nevada.edu/", line: "Nevada's public system under 13 publicly elected Regents: two doctoral-granting universities (UNLV and the University of Nevada, Reno), a state university (Nevada State University), four comprehensive community colleges and the Desert Research Institute.", src: nv_nshe }
+    - { name: "College of Southern Nevada (CSN)", kind: community, url: "https://www.csn.edu/", line: "One of NSHE's four community colleges, with three main campuses in the Las Vegas area and learning centers across the southern half of the state.", src: nv_csn, src2: nv_nshe }
+
+residency:
+  points:
+    - { t: "NRS 396.540: NSHE may not charge non-resident tuition to students whose families have been bona fide Nevada residents for at least 12 months before the student matriculates, or to students who have themselves been bona fide residents for 12 months.", src: nv_nrs_396 }
+    - { t: "\"Bona fide\" means the residence is genuine and set up for reasons other than avoiding tuition; it is read with NRS 10.155 and Board of Regents policy.", src: nv_nrs_396 }
+    - { t: "Graduates of a Nevada high school (or of the state high school equivalency test taken in Nevada) are exempt from non-resident tuition whatever their or their family's residency, as are active-duty military stationed in Nevada and their families, honorably discharged veterans and full-time Nevada teachers.", src: nv_nrs_396 }
+
+aid:
+  agency: { name: "Nevada System of Higher Education (Board of Regents) and the Nevada State Treasurer", url: "https://nshe.nevada.edu/", src: nv_nrs_396 }
+  programs:
+    - { name: "Governor Guinn Millennium Scholarship", line: "For students who lived in Nevada at least 2 years and graduated from a Nevada high school with a 3.25 GPA in the Regents' core curriculum (or a qualifying college entrance exam score). It pays $40 a credit for lower-division community college courses ($60 upper division), $60 at a state college and $80 at other eligible institutions, up to 15 credits a semester and $10,000 in total; recipients keep a 2.75 GPA each semester.", src: nv_nrs_396 }
+    - { name: "Silver State Opportunity Grant", line: "Grant toward the cost of a Nevada community college or state college for students taking at least 12 credits who place into college-level English and math, are Nevada residents or Nevada high school graduates, and file the FAFSA.", src: nv_nrs_396 }
+
+jobs:
+  state:
+    portal: "State of Nevada careers (NVAPPS)"
+    url: "https://careers.nv.gov/"
+    by: "Nevada Department of Administration, Division of Human Resource Management"
+    steps:
+      - "Browse state job announcements at careers.nv.gov, which opens the NVAPPS recruiting site."
+      - "Create an NVAPPS profile (the orange button) and apply to each announcement there."
+    src: nv_dhrm_apply
+  cities: []
+
+apprenticeship:
+  office: "Nevada State Apprenticeship Council (Office of the Labor Commissioner)"
+  url: "https://labor.nv.gov/Wages/Nevada_State_Apprenticeship_Council/"
+  kind: SAA
+  line: "Nevada is a State Apprenticeship Agency state: since 1 July 2021 (AB 459) the Nevada State Apprenticeship Council in the Office of the Labor Commissioner is the SAA, and only it can register state apprentices and programs. Apprentices register with both the U.S. Department of Labor and the council."
+  src: nv_olc_nsac
+  oa_src: dol_oa_offices
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

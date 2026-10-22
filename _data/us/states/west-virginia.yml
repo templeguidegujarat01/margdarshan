@@ -1,12 +1,81 @@
-# West Virginia (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# West Virginia (USA Master Plan Phase 11 batch 4, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the
+# boards tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# wvde.us returns 403 to India: the Policy 2510 guide and the assessment page come from Internet Archive captures, as
+# does the Division of Personnel FAQ (timestamps in sources.yml). wvhepc.edu, wvctcs.edu, cfwv.com and wvu.edu were read
+# live. The statewide HEPC Series 25 residency rule was not found online; the row uses WVU's Board of Governors Rule 2.4.
 name: "West Virginia"
 abbr: WV
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In West Virginia, the West Virginia Board of Law Examiners handles bar admission for lawyers, the West Virginia Board of Medicine and West Virginia Board of Osteopathic Medicine license physicians, the West Virginia Board of Accountancy licenses CPAs and the West Virginia Board of Registered Nurses licenses registered nurses."
+lede: "West Virginia requires 23 credits from the 2024-25 freshman cohort (22 before), with personal finance and a four-credit Personalized Education Plan, tests with the WVGSA and the SAT School Day, gives WVU resident tuition after 12 months' presence for non-educational purposes, and funds the PROMISE Scholarship, the Higher Education Grant and WV Invests."
+
+diploma:
+  intro: "West Virginia Board of Education Policy 2510: 22 credits (12 prescribed, 10 personalized); from the 2024-25 freshman cohort, 23 credits (13 prescribed, 10 personalized) with the added Personal Finance credit. County boards may add requirements."
+  rows:
+    - ["English language arts", "4 credits: English 9, 10 and 11 plus 1 personalized credit"]
+    - ["Mathematics", "4 credits: Algebra I and Geometry (or Math I and II) plus 2 personalized credits"]
+    - ["Science", "3 credits: Earth and Space Science and Biology plus 1 personalized credit"]
+    - ["Social studies", "4 credits: World Studies, U.S. Studies and Civics (or AP equivalents) plus 1 personalized credit"]
+    - ["Physical education", "1 credit"]
+    - ["Health", "1 credit"]
+    - ["The arts", "1 credit"]
+    - ["Personal finance", "1 credit, taken in junior or senior year (from the 2024-25 freshman cohort)"]
+    - ["Personalized Education Plan (PEP)", "4 credits in a CTE program of study or in course work leading to college, an industry credential, workforce training or a job"]
+  unit: "23 credits from the 2024-25 freshman cohort (22 for earlier cohorts)."
+  tests: "No exit exam. Under House Bill 2411 (2025), students in the 2027-28 freshman cohort and later must also earn 1 full credit of computer science in grades 8 to 12."
+  src: wv_policy_2510
+  points:
+    - { t: "AP, dual credit and IB courses can replace a required or personalized credit in the same subject; schools must offer courses such as Algebra II, chemistry, physics, economics and driver education.", src: wv_policy_2510 }
+
+k12_test:
+  name: "WVGSA and the SAT School Day"
+  full: "West Virginia General Summative Assessment (WVGSA) and the SAT School Day"
+  intro: "The WVDE Office of Assessment runs the statewide comprehensive assessment program: the WVGSA for grades 3 to 8, the SAT School Day in high school, and the West Virginia Alternate Summative Assessment (WVASA) for grades 3 to 8 and 11."
+  src: wv_wvde_assessment
+  rows:
+    - ["WVGSA", "Statewide general summative assessment", "Grades 3–8"]
+    - ["SAT School Day", "College Board SAT given during the school day", "High school"]
+    - ["WVASA", "Alternate assessment for students with significant cognitive disabilities", "Grades 3–8 and 11"]
+  rows_src: wv_wvde_assessment
+  use:
+    - { t: "College for West Virginia offers free ACT and SAT test prep alongside state financial aid applications.", src: wv_hepc }
+
+colleges:
+  systems:
+    - { name: "West Virginia Higher Education Policy Commission (four-year public system)", kind: university, url: "https://www.wvhepc.edu/", line: "West Virginia's four-year public higher education system has 12 campuses, overseen by a 10-member commission; West Virginia University is its R1 research university.", src: wv_hepc, src2: wv_wvu }
+    - { name: "Community and Technical College System of West Virginia (CTCS)", kind: community, url: "https://wvctcs.edu/", line: "The state's public community and technical colleges, where more than 20,000 students a year pursue a certificate, associate or bachelor's degree, with industry training partnerships and apprenticeships.", src: wv_ctcs }
+
+residency:
+  points:
+    - { t: "WVU Board of Governors Rule 2.4: residency is a question of domicile, and the burden is on the student, shown by positive and unequivocal action.", src: wv_wvu_residency }
+    - { t: "Domicile is established when the student, spouse or (for a dependent) parent or guardian has kept a continuous presence in West Virginia for at least 12 months before classes start, for a primary purpose other than enrolling at the university.", src: wv_wvu_residency }
+    - { t: "Domicile is also established for people who entered federal service from West Virginia without claiming another state, or who are assigned to full-time federal service in West Virginia and live there.", src: wv_wvu_residency }
+
+aid:
+  agency: { name: "West Virginia Higher Education Policy Commission (College for West Virginia)", url: "https://www.cfwv.com/", src: wv_cfwv }
+  programs:
+    - { name: "PROMISE Scholarship", line: "Merit scholarship paying $5,500 a year or the cost of tuition and mandatory fees, whichever is less, at any eligible West Virginia institution; seniors apply on CFWV.com.", src: wv_cfwv }
+    - { name: "West Virginia Higher Education Grant", line: "Need-based state grant to help West Virginia students pursue postsecondary education.", src: wv_cfwv }
+    - { name: "WV Invests Grant", line: "Covers tuition at any state community and technical college for a certificate or associate degree in a high-demand field.", src: wv_cfwv, src2: wv_ctcs }
+
+jobs:
+  state:
+    portal: "West Virginia state jobs (governmentjobs.com)"
+    url: "https://www.governmentjobs.com/careers/wv"
+    by: "West Virginia Division of Personnel"
+    steps:
+      - "All jobs open for application are listed at governmentjobs.com/careers/wv; apply online from each job's page, or fill in a Job Interest Card for alerts."
+      - "The Division of Personnel applies merit principles; a resume is accepted in place of an application, and most positions do not require West Virginia residency."
+    src: wv_dop_faq
+  cities: []
+
+apprenticeship:
+  office: "West Virginia Apprenticeship Office (U.S. Department of Labor)"
+  url: "https://www.apprenticeship.gov/about-us/state-office"
+  kind: OA
+  line: "West Virginia has no recognized State Apprenticeship Agency: the U.S. Department of Labor's West Virginia Apprenticeship Office registers and oversees programs."
+  src: dol_oa_offices
+  oa_src: dol_oa_states
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

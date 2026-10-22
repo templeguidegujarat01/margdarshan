@@ -1,12 +1,81 @@
-# New Mexico (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# New Mexico (USA Master Plan Phase 11 batch 4, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the
+# boards tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# web.ped.nm.gov, srca.nm.gov (NMAC), hed.nm.gov (now ReachHigherNM), unm.edu, cnm.edu and spo.state.nm.us were read
+# live. dws.state.nm.us returns 403 to India and to a US-based fetch, with no archive capture: the apprenticeship row
+# cites NMAC 11.2.3 instead. New Mexico has no single university system: UNM (flagship) and CNM are the entries.
 name: "New Mexico"
 abbr: NM
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In New Mexico, the New Mexico Board of Bar Examiners handles bar admission for lawyers, the New Mexico Medical Board licenses physicians, the New Mexico Public Accountancy Board licenses CPAs and the New Mexico Board of Nursing licenses registered nurses."
+lede: "New Mexico requires 24 units (from cohort 2029: 4 English, 4 math, 3 science, 4 social studies and a 2-unit local requirement, with Algebra 2 no longer required), tests with MSSA, ASR and the grade 11 SAT, gives resident tuition after 12 months of physical presence, and covers full tuition through the Opportunity and Lottery scholarships."
+
+diploma:
+  intro: "High school graduation requirements are set by the legislature (House Bill 171, 2024). Students entering high school in 2025-26 (cohort 2029) and later need 24 units:"
+  rows:
+    - ["English", "4 units: ELA 1, 2 and 3 and a fourth English (ELD courses, CTE or work-based learning can count)"]
+    - ["Mathematics", "4 units: Algebra 1, Geometry, a third and a fourth math (Algebra 2 must be offered but is not required)"]
+    - ["Science", "3 units, two of them lab sciences"]
+    - ["Social studies", "4 units: U.S. history with New Mexico history, world history, government/economics and a fourth social studies"]
+    - ["Physical education", "1 unit"]
+    - ["Health", "0.5 unit"]
+    - ["Electives", "5.5 units, including a 2-unit pathway concentration of the student's choice"]
+    - ["Local requirement", "2 units set by each school board or governing body"]
+  unit: "24 units."
+  tests: "No exit exam. A Final Next Step Plan, started in grade 8 and aligned to the graduate profile, is a mandatory prerequisite for graduation."
+  src: nm_ped_flyer2029
+  points:
+    - { t: "House Bill 171 removed the state demonstrations of competency in five core subjects; districts may still set local ones (such as portfolios or capstones), and all students still take the state and federal ESSA assessments in grade 11.", src: nm_ped_manual }
+    - { t: "Algebra 1, Geometry and Health taken before high school count toward the diploma; any other deviation needs a coursework waiver from the Public Education Department.", src: nm_ped_flyer2029 }
+    - { t: "Students who entered high school before 2025-26 follow the earlier cohort requirements and guidance posted by the PED College and Career Readiness Bureau.", src: nm_ped_grad }
+
+k12_test:
+  name: "MSSA, ASR and the grade 11 SAT"
+  full: "New Mexico Measures of Student Success and Achievement (MSSA), Assessment of Science Readiness (ASR) and SAT School Day"
+  intro: "New Mexico's summative ESSA tests are MSSA in grades 3 to 8, the ASR science test in grades 5, 8 and 11, and the SAT School Day in grade 11; Spanish versions of MSSA and ASR are offered."
+  src: nm_ped_assessment
+  rows:
+    - ["MSSA", "Mathematics and English language arts", "Grades 3–8"]
+    - ["ASR", "Science (STEM Ready! standards)", "Grades 5, 8 and 11"]
+    - ["SAT School Day", "Reading and writing, mathematics", "Grade 11"]
+  rows_src: nm_ped_assessment
+  use:
+    - { t: "SAT School Day scores of 480 in reading and writing and 530 in math, or an ASR science score of 1160, are among the mastery scores that let a CTE or work-based learning course count as core credit.", src: nm_ped_flyer2029 }
+
+colleges:
+  systems:
+    - { name: "University of New Mexico (UNM)", kind: university, url: "https://www.unm.edu/", line: "Founded in 1889 as New Mexico's flagship university, on nearly 800 acres in Albuquerque.", src: nm_unm }
+    - { name: "Central New Mexico Community College (CNM)", kind: community, url: "https://www.cnm.edu/", line: "The largest community college in New Mexico and the state's largest higher education institution by undergraduate enrollment, with five campuses and transfer agreements with four-year schools including UNM.", src: nm_cnm }
+
+residency:
+  points:
+    - { t: "5.7.18.9 NMAC: to become a New Mexico resident for tuition, a person must physically live in New Mexico for the 12 consecutive months immediately before the term, be financially independent (or have New Mexico resident parents), sign a written declaration of intent, and show overt acts such as a New Mexico driver's license or a New Mexico high school transcript from the past year.", src: nm_nmac_5_7_18 }
+    - { t: "The 12-month wait is waived for spouses of New Mexico residents and for people who move to New Mexico for a permanent full-time job or business, or to retire.", src: nm_nmac_5_7_18 }
+    - { t: "In-state rates are also given to members of American Indian nations, tribes and pueblos located wholly or partly in New Mexico, to active-duty military in New Mexico, National Guard members and their families, and to some Texas residents.", src: nm_nmac_5_7_18 }
+
+aid:
+  agency: { name: "New Mexico Higher Education Department (ReachHigherNM)", url: "https://www.reachhighernm.com/", src: nm_hed_tuition_free }
+  programs:
+    - { name: "New Mexico Opportunity Scholarship", line: "Covers 100% of tuition and course-specific fees at New Mexico public colleges and universities for established New Mexico residents of any age working toward a for-credit certificate, associate degree or bachelor's degree; there is no separate application.", src: nm_hed_tuition_free }
+    - { name: "Legislative Lottery Scholarship", line: "New Mexico's first tuition-free college program: covers 100% of tuition for recent New Mexico high school graduates at New Mexico public colleges and universities.", src: nm_hed_tuition_free }
+
+jobs:
+  state:
+    portal: "Work for New Mexico (SHARE HCM careers)"
+    url: "https://www.spo.state.nm.us/work-for-new-mexico/"
+    by: "New Mexico State Personnel Office"
+    steps:
+      - "External applicants search current job openings from the State Personnel Office's Work for New Mexico page, which opens the state's SHARE HCM careers site."
+      - "The page links an application guide and FAQ; local America's Job Center New Mexico offices help with applications."
+    src: nm_spo_jobs
+  cities: []
+
+apprenticeship:
+  office: "New Mexico Department of Workforce Solutions, State Apprenticeship Office"
+  url: "https://www.dws.state.nm.us/SAO"
+  kind: SAA
+  line: "New Mexico is a State Apprenticeship Agency state: under 11.2.3 NMAC the Department of Workforce Solutions is the SAA and the registration agency for New Mexico, with the apprenticeship director as its administrator."
+  src: nm_nmac_11_2_3
+  oa_src: dol_oa_offices
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

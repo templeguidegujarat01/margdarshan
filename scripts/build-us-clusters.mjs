@@ -16,6 +16,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
+import { fitTitle, fitDesc } from './lib/seo-fit.mjs';
 import { xlsxRows } from './lib/unzip.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -102,9 +103,13 @@ for (const f of careerFiles) {
     const home = X.pathway ? `us/careers/${X.pathway}/` : `us/careers/${X.slug}/`;
     if (!X.pathway) {
       overviews++;
+      // Longest pattern that fits 60 characters; very long names drop "USA", then any "(…)" part.
+      const n = X.short;
+      const title = fitTitle(`${n}: Pay & How to Become One | Margdarshan USA`, `${n}: Pay & Career Path | Margdarshan USA`,
+        `${n} Career Guide | Margdarshan USA`, `${n} | Margdarshan USA`, `${n} | Margdarshan`, `${n.replace(/\s*\([^)]*\)/g, '')} | Margdarshan`);
       put(`us/careers/${X.slug}/index.html`, `---
-title: "${esc(X.short)} in the USA: What the Job Is, BLS Pay and How to Become One | Education Margdarshan USA"
-description: "${esc(clip(plain(X.does.text) + ' ' + plain(X.lede), 300))}"
+title: "${esc(title)}"
+description: "${esc(fitDesc(plain(X.does.text) + ' ' + plain(X.lede)))}"
 og_type: "article"
 cluster: ${cluster}
 career: ${X.slug}

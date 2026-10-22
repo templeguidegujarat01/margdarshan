@@ -10,6 +10,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
+import { fitTitle, fitDesc } from './lib/seo-fit.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const yaml = createRequire(path.join(process.env.VERIFY_DEPS || root, 'x.js'))('js-yaml');
@@ -32,8 +33,8 @@ const put = (rel, stub) => {
 };
 
 put('us/states/index.html', `---
-title: "U.S. States: Diploma Rules, State Tests, In-State Tuition, Aid and Licensing Boards | Education Margdarshan USA"
-description: "All 50 states and DC: high school diploma credits and state tests, public university and community college systems, in-state tuition rules, state grants, licensing boards, civil service and apprenticeship offices, from each state's own pages."
+title: "U.S. States: Diploma, Tuition, Aid, Boards | Margdarshan USA"
+description: "All 50 states and DC: diploma credits and state tests, public colleges, in-state tuition rules, state grants and licensing boards, from each state's own pages."
 og_type: "website"
 breadcrumb:
   current: "States"
@@ -46,14 +47,13 @@ for (const slug of built) {
   if (!row) { stale.push(`_data/us/states/${slug}.yml has no row in state_index.yml`); continue; }
   const S = yaml.load(fs.readFileSync(path.join(dataDir, slug + '.yml'), 'utf8'));
   const n = S.name;
-  const k12 = S.k12_test ? S.k12_test.name : 'state tests';
   // Boards-tier states (50-state portal, 2026-10-22) have no diploma block yet: the page is their licensing boards.
   const title = S.diploma
-    ? `${esc(n)}: Diploma Requirements, ${esc(k12)}, In-State Tuition, Aid and State Jobs | Education Margdarshan USA`
-    : `${esc(n)} Licensing Boards: Bar Admission, Medical Board, Board of Accountancy, Nursing | Education Margdarshan USA`;
+    ? fitTitle(`${n}: Diploma, Tests, Tuition & Aid | Margdarshan USA`, `${n}: Diploma, Tuition & Aid | Margdarshan USA`, `${n} Career & Aid Guide | Margdarshan USA`)
+    : fitTitle(`${n} Licensing Boards: Bar, Medical, CPA | Margdarshan USA`, `${n} State Licensing Boards | Margdarshan USA`);
   put(`us/states/${slug}/index.html`, `---
-title: "${title}"
-description: "${esc(S.lede)}"
+title: "${esc(title)}"
+description: "${esc(fitDesc(S.lede))}"
 og_type: "article"
 state: ${slug}
 breadcrumb:
@@ -65,8 +65,8 @@ breadcrumb:
 `);
   if (S.licenses) {
     put(`us/states/${slug}/licenses.html`, `---
-title: "${esc(n)} Licensing Boards: Nursing, CPA, Bar, Engineering, Trades and More | Education Margdarshan USA"
-description: "What ${esc(n)}'s own licensing boards ask for: requirements, exams, fees and renewal for each license on this site, copied from each board's page."
+title: "${esc(fitTitle(`${n} License Rules by Board | Margdarshan USA`, `${n} License Rules | Margdarshan USA`))}"
+description: "${esc(fitDesc(`What ${n}'s own licensing boards ask for: requirements, exams, fees and renewal for each license on this site, copied from each board's page.`))}"
 og_type: "article"
 state: ${slug}
 breadcrumb:

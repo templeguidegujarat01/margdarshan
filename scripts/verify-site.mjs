@@ -145,6 +145,7 @@ for (const f of targets) {
     const robots = (html.match(/<meta name="robots" content="([^"]*)"/) || [])[1] || '';
     seo.set(f, {
       title: ((html.match(/<title>([\s\S]*?)<\/title>/) || [])[1] || '').trim(),
+      description: (html.match(/<meta name="description" content="([^"]*)"/) || [])[1] || '',
       canonical: (html.match(/<link rel="canonical" href="([^"]*)"/) || [])[1] || '',
       noindex: /noindex/i.test(robots),
     });
@@ -219,6 +220,15 @@ if (all) {
   for (const [t, fs2] of byTitle) {
     if (!t) err(fs2[0], 'empty <title>');
     else if (fs2.length > 1) err(fs2[0], `duplicate <title> on ${fs2.length} pages (${fs2.slice(1, 4).join(', ')}): ${t.slice(0, 80)}`);
+  }
+  // SERP lengths (2026-10-22): USA state pages and career pages keep <title> <= 60 and description <= 160 characters
+  // (titles come from build-us-states.mjs / build-us-clusters.mjs, or the hand-written pathway stubs).
+  const plainText = (x) => x.replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'");
+  for (const [f, s] of seo) {
+    if (s.noindex || !/^us\/(states\/|careers\/[^/]+\/index\.html$)/.test(f)) continue;
+    const t = plainText(s.title), d = plainText(s.description);
+    if (t.length > 60) err(f, `<title> is ${t.length} characters (max 60): ${t}`);
+    if (d.length > 160) err(f, `meta description is ${d.length} characters (max 160)`);
   }
   console.log(`sitemap.xml: ${locs.length} URLs`);
 }

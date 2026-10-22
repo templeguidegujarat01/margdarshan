@@ -7,6 +7,9 @@
 //   - duplicate ids, unbalanced <details>/<section>/<div>
 //   - no "coming soon" placeholder text
 //   - no typed arrow inside a .btn-page-link button (the CSS draws one; 2026-10-20)
+//   - FAQPage JSON-LD: one per page, each item a Question with a name and an Answer with text
+//   - with --all: sitemap.xml (rendered from the real template) lists every indexable page once, each <loc>
+//     equal to that page's canonical, no noindex/redirect URLs; <title> unique across indexable pages (2026-10-22)
 //   - with --all: no orphan USA page (every us/** page that is not a redirect is linked from another page;
 //     USA Master Plan Phase 14, 2026-10-21)
 import fs from 'node:fs';
@@ -74,6 +77,19 @@ for (const f of [...urlSet].filter((x) => x.endsWith('.html') && !x.startsWith('
 const idCache = {};
 const inbound = new Map();     // page -> how many OTHER pages link to it (orphan check)
 const redirects = new Set();
+const seo = new Map();         // --all: rendered page -> { title, canonical, noindex } for the sitemap + title checks
+
+// The `page` object Jekyll gives a file: _config.yml `defaults` (scope.path is a folder prefix, "" = all),
+// then its own front matter, then url (Jekyll serves folder/index.html at folder/).
+function pageOf(f, fm) {
+  const defaults = {};
+  for (const d of config.defaults || []) {
+    const p = (d.scope && d.scope.path) || '';
+    if (p === '' || f === p || f.startsWith(p.replace(/\/$/, '') + '/')) Object.assign(defaults, d.values);
+  }
+  const url = f.endsWith('/index.html') ? '/' + f.slice(0, -'index.html'.length) : '/' + f;
+  return { ...defaults, ...fm, url };
+}
 
 async function render(f) {
   const raw = fs.readFileSync(path.join(root, f), 'utf8');
@@ -85,15 +101,7 @@ async function render(f) {
   if (fm.redirect_to) redirects.add(f);
   if (fm.redirect_to) return `<!DOCTYPE html><html lang="en-US"><meta charset="utf-8"><title>Redirecting…</title><link rel="canonical" href="${fm.redirect_to}"><meta http-equiv="refresh" content="0; url=${fm.redirect_to}"><a href="${fm.redirect_to}">Click here if you are not redirected.</a></html>`;
   const body = m ? raw.slice(m[0].length) : raw;
-  // Apply _config.yml `defaults` like Jekyll: scope.path is a folder prefix ("" = all); front matter wins.
-  const defaults = {};
-  for (const d of config.defaults || []) {
-    const p = (d.scope && d.scope.path) || '';
-    if (p === '' || f === p || f.startsWith(p.replace(/\/$/, '') + '/')) Object.assign(defaults, d.values);
-  }
-  // Jekyll serves folder/index.html at folder/.
-  const url = f.endsWith('/index.html') ? '/' + f.slice(0, -'index.html'.length) : '/' + f;
-  const page = { ...defaults, ...fm, url };
+  const page = pageOf(f, fm);
   const content = await engine.parseAndRender(body, { site, page });
   const layout = fm.layout || 'default';
   if (layout === 'none') return content;
@@ -117,8 +125,29 @@ for (const f of targets) {
   for (const a of html.matchAll(/<a\b[^>]*class="[^"]*\bbtn-page-link\b[^"]*"[^>]*>([\s\S]*?)<\/a>/g)) {
     if (/→|&rarr;|&#8594;|&#x2192;|»|&raquo;/i.test(a[1])) err(f, `typed arrow inside .btn-page-link (CSS already adds one): "${a[1].replace(/<[^>]+>/g, '').trim().slice(0, 60)}"`);
   }
+  let faqPages = 0;
   for (const b of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
-    try { JSON.parse(b[1]); } catch (e) { err(f, 'invalid JSON-LD: ' + e.message); }
+    let ld;
+    try { ld = JSON.parse(b[1]); } catch (e) { err(f, 'invalid JSON-LD: ' + e.message); continue; }
+    // FAQPage rich result: one per page, every item a Question with a name and an Answer with text.
+    for (const node of [ld].flat().flatMap((x) => x['@graph'] || [x])) {
+      if (node['@type'] !== 'FAQPage') continue;
+      faqPages++;
+      if (!Array.isArray(node.mainEntity) || !node.mainEntity.length) err(f, 'FAQPage JSON-LD has no mainEntity questions');
+      for (const q of node.mainEntity || []) {
+        if (q['@type'] !== 'Question' || !String(q.name || '').trim() || !q.acceptedAnswer || q.acceptedAnswer['@type'] !== 'Answer' || !String(q.acceptedAnswer.text || '').trim())
+          err(f, 'FAQPage item is not a Question with a name and an Answer with text: ' + String(q.name || '').slice(0, 60));
+      }
+    }
+  }
+  if (faqPages > 1) err(f, `${faqPages} FAQPage JSON-LD blocks (Google allows one per page)`);
+  if (all && !redirects.has(f) && /^\s*<!DOCTYPE html/i.test(html)) {
+    const robots = (html.match(/<meta name="robots" content="([^"]*)"/) || [])[1] || '';
+    seo.set(f, {
+      title: ((html.match(/<title>([\s\S]*?)<\/title>/) || [])[1] || '').trim(),
+      canonical: (html.match(/<link rel="canonical" href="([^"]*)"/) || [])[1] || '',
+      noindex: /noindex/i.test(robots),
+    });
   }
   html = html.replace(/<script[\s\S]*?<\/script>/g, '');
   const ids = [...html.matchAll(/\sid="([^"]+)"/g)].map((x) => x[1]);
@@ -153,6 +182,46 @@ for (const f of targets) {
   }
 }
 if (all) for (const f of targets) if (f.startsWith('us/') && !redirects.has(f) && !inbound.get(f)) err(f, 'orphan page: no other page links to it');
+
+// ---- --all: sitemap.xml + titles (2026-10-22) ----
+// Renders the real sitemap.xml template against a Jekyll-like site.html_pages, then checks every <loc> is an
+// indexable page whose canonical is that exact URL, and every indexable page is listed exactly once.
+if (all) {
+  const excluded = (config.exclude || []).map((x) => x.replace(/\/$/, ''));
+  const htmlPages = [];
+  for (const f of [...urlSet].filter((x) => x.endsWith('.html'))) {
+    if (/(^|\/)[_.]/.test(f) || excluded.some((x) => f === x || f.startsWith(x + '/'))) continue;
+    const fm = fs.readFileSync(path.join(root, f), 'utf8').match(fmRe);
+    if (fm) htmlPages.push({ ...pageOf(f, yaml.load(fm[1]) || {}), file: f });
+  }
+  const smSrc = fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8');
+  const sm = await engine.parseAndRender(smSrc.slice(smSrc.match(fmRe)[0].length), { site: { ...site, html_pages: htmlPages }, page: {} });
+  if (!sm.startsWith('<?xml version="1.0" encoding="UTF-8"?>')) err('sitemap.xml', 'does not start with the XML declaration');
+  if (/&(?!amp;|lt;|gt;|quot;|apos;)/.test(sm)) err('sitemap.xml', 'unescaped & in a URL');
+  const locs = [...sm.matchAll(/<url><loc>([^<]*)<\/loc><\/url>/g)].map((x) => x[1]);
+  if ((sm.match(/<url>/g) || []).length !== locs.length) err('sitemap.xml', 'malformed <url> entries');
+  if (locs.length > 50000) err('sitemap.xml', `${locs.length} URLs (limit 50,000 per sitemap file)`);
+  const byCanonical = new Map([...seo].map(([f, s]) => [s.canonical, f]));
+  const seen = new Set();
+  for (const loc of locs) {
+    if (seen.has(loc)) err('sitemap.xml', 'duplicate <loc> ' + loc);
+    seen.add(loc);
+    const f = byCanonical.get(loc);
+    if (!f) err('sitemap.xml', 'lists a URL that is no page\'s canonical: ' + loc);
+    else if (seo.get(f).noindex) err('sitemap.xml', 'lists a noindex page: ' + loc);
+  }
+  const inPages = new Set(htmlPages.map((p) => p.file));
+  const skip = new Set([...seo.keys()].filter((f) => !inPages.has(f)).concat(htmlPages.filter((p) => p.sitemap === false || p.url === '/404.html').map((p) => p.file)));
+  for (const [f, s] of seo) if (!s.noindex && !skip.has(f) && !seen.has(s.canonical) && !/google[0-9a-f]+\.html$/.test(f)) err(f, 'indexable page missing from sitemap.xml');
+  // Titles must be unique across indexable pages (duplicates compete in search results).
+  const byTitle = new Map();
+  for (const [f, s] of seo) if (!s.noindex && !skip.has(f)) byTitle.set(s.title, [...(byTitle.get(s.title) || []), f]);
+  for (const [t, fs2] of byTitle) {
+    if (!t) err(fs2[0], 'empty <title>');
+    else if (fs2.length > 1) err(fs2[0], `duplicate <title> on ${fs2.length} pages (${fs2.slice(1, 4).join(', ')}): ${t.slice(0, 80)}`);
+  }
+  console.log(`sitemap.xml: ${locs.length} URLs`);
+}
 console.log(`checked ${n} pages`);
 if (errors.length) { console.log(errors.join('\n')); console.log(`\n${errors.length} problem(s)`); process.exit(1); }
 console.log('OK: 0 problems');

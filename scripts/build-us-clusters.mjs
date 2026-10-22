@@ -153,7 +153,7 @@ for (const [id, L] of Object.entries(load('_data/us/licenses.yml'))) {
   if (!L.page) continue;
   licPages++;
   put(`us/professional-licenses/${id}/index.html`, `---
-title: "${esc(shrinkTitle(L.page.title))}"
+title: "${esc(L.page.seo_title ? fitTitle(L.page.seo_title) : shrinkTitle(L.page.title))}"
 description: "${esc(fitDesc(L.page.description))}"
 license: ${id}
 breadcrumb:

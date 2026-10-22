@@ -52,6 +52,28 @@ export const fitDesc = (text, n = DESC_MAX) => {
 // "Education Margdarshan USA" -> "Margdarshan USA": the short brand keeps room for the page's own words.
 export const shortBrand = (b) => String(b).replace(/^Education\s+/, '');
 
+// String.split with a capturing separator, but never inside "(…)", so "(Yuko, Waza-ari, Ippon)" stays whole.
+const splitTop = (s, sep) => {
+  const out = [];
+  let depth = 0, from = 0;
+  const re = new RegExp(sep.source, 'y');
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === '(') depth++;
+    else if (s[i] === ')') depth = Math.max(0, depth - 1);
+    else if (depth === 0) {
+      re.lastIndex = i;
+      const m = re.exec(s);
+      if (m && m[0].length) {
+        out.push(s.slice(from, i), m[0]);
+        from = i + m[0].length;
+        i = from - 1;
+      }
+    }
+  }
+  out.push(s.slice(from));
+  return out;
+};
+
 // A long composite title "Head — a, b, c & d | Brand" made to fit: the short brand, then the later
 // " — " / ": " parts dropped one list item at a time (the last kept item joined with " & "), then
 // "(…)" notes dropped; the brand stays unless it costs more than 10 characters of the page's own words.
@@ -62,18 +84,25 @@ export const shrinkTitle = (title, ...extra) => {
   const bar = t.lastIndexOf(' | ');
   const base = bar > 0 ? t.slice(0, bar) : t;
   const brand = bar > 0 ? shortBrand(t.slice(bar + 3)) : '';
-  const parts = base.split(/(\s+[—–]\s+|:\s+)/);
+  const parts = splitTop(base, /\s+[—–]\s+|:\s+/);
   const segs = [];
   for (let i = 0; i < parts.length; i += 2) segs.push({ sep: i ? parts[i - 1] : '', text: parts[i] });
   const bases = [];
   for (let n = segs.length; n >= 1; n--) {
     const head = segs.slice(0, n - 1).map((s) => s.sep + s.text).join('');
     const last = segs[n - 1];
-    const items = n > 1 ? last.text.split(/(, and |, | & )/) : [last.text];
+    const items = n > 1 ? splitTop(last.text, /, and |, | & /) : [last.text];
     const count = (items.length + 1) / 2;
     for (let k = count; k >= 1; k--) {
-      let s = items[0];
-      for (let j = 1; j < k; j++) s += (j === k - 1 && k < count ? ' & ' : items[2 * j - 1]) + items[2 * j];
+      let s = items[0], amp = false;
+      // The last kept item is joined with " & ", unless the list already joined two with "&" ("Park & Street, LA28 Places").
+      for (let j = 1; j < k; j++) {
+        const sep = j === k - 1 && k < count && !amp ? ' & ' : items[2 * j - 1];
+        amp ||= sep.trim() === '&';
+        s += sep + items[2 * j];
+      }
+      // A one-word tail ("— Age", ": Date") says nothing about the page: drop the whole part instead.
+      if (n > 1 && k < count && !/\s/.test(s) && s.length < 8) continue;
       bases.push(head + last.sep + s);
     }
   }

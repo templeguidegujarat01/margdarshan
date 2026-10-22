@@ -45,7 +45,7 @@ for (const E of D.sports || []) {
 title: "${esc(title)}"
 description: "${esc(desc)}"
 og_type: "article"
-twitter_title: "${esc(name)} — Step-by-Step Roadmap"
+twitter_title: "${esc(fitTitle(`${name} — Step-by-Step Roadmap`, `${name} Roadmap`))}"
 header:
   careers_href: "${E.slug}.html"
   careers_label: "${esc(name)} guide"

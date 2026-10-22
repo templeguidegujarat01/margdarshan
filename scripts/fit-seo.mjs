@@ -1,4 +1,4 @@
-// Fits every indexable page's front-matter title (<= 60) and description (<= 160) with scripts/lib/seo-fit.mjs
+// Fits every indexable page's front-matter title, og_title and twitter_title (<= 60) and description (<= 160) with scripts/lib/seo-fit.mjs
 // (2026-10-23). Generators (build-seo-landings, build-roadmaps, build-us-*, …) already call the same helpers, so
 // this only changes hand-written pages; a title or description that already fits is left as it is.
 //   VERIFY_DEPS=<dir containing node_modules with js-yaml> node scripts/fit-seo.mjs [--check]
@@ -49,10 +49,12 @@ for (const f of files) {
   const fm = yaml.load(m[1]) || {};
   if (fm.redirect_to || /noindex/.test(fm.robots || '') || fm.sitemap === false) continue;
   let out = m[1];
-  if (typeof fm.title === 'string') {
+  // og_title / twitter_title (social previews) get the same 60-character cut as the <title>.
+  for (const key of ['title', 'og_title', 'twitter_title']) {
+    if (typeof fm[key] !== 'string') continue;
     let t;
-    try { t = shrinkTitle(fm.title); } catch (e) { failed.push(`${f}: ${e.message}`); }
-    if (t && t !== fm.title) out = setKey(out, 'title', t);
+    try { t = shrinkTitle(fm[key]); } catch (e) { failed.push(`${f} (${key}): ${e.message}`); }
+    if (t && t !== fm[key]) out = setKey(out, key, t);
   }
   if (typeof fm.description === 'string') {
     const d = fitDesc(fm.description);

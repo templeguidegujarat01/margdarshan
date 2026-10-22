@@ -8,7 +8,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
-import { shrinkTitle, fitDesc } from './lib/seo-fit.mjs';
+import { fitTitle, shrinkTitle, fitDesc } from './lib/seo-fit.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const yaml = createRequire(path.join(process.env.VERIFY_DEPS || root, 'x.js'))('js-yaml');
@@ -39,11 +39,12 @@ breadcrumb:
 `);
 
 // exams.yml keeps the full page title; <title> and description are cut to 60 / 160 characters (scripts/lib/seo-fit.mjs).
+// An exam's optional page.seo_title (hand-written, <= 60) replaces the automatic cut when that reads badly.
 let pages = 0;
 for (const [slug, E] of Object.entries(EX.exams)) {
   pages++;
   put(`us/exams/${slug}/index.html`, `---
-title: "${esc(shrinkTitle(`${E.page.title} | Margdarshan USA`))}"
+title: "${esc(E.page.seo_title ? fitTitle(E.page.seo_title) : shrinkTitle(`${E.page.title} | Margdarshan USA`))}"
 description: "${esc(fitDesc(E.page.description))}"
 og_type: "article"
 exam: ${slug}

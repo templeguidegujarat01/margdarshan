@@ -10,7 +10,7 @@
 //   - FAQPage JSON-LD: one per page, each item a Question with a name and an Answer with text
 //   - with --all: sitemap.xml (rendered from the real template) lists every indexable page once, each <loc>
 //     equal to that page's canonical, no noindex/redirect URLs; <title> unique across indexable pages (2026-10-22);
-//     every indexable page's <title> <= 60 and meta description 1-160 characters (2026-10-23)
+//     every indexable page's <title>, og:title and twitter:title <= 60 and meta description 1-160 characters (2026-10-23)
 //   - with --all: no orphan USA page (every us/** page that is not a redirect is linked from another page;
 //     USA Master Plan Phase 14, 2026-10-21)
 import fs from 'node:fs';
@@ -148,6 +148,8 @@ for (const f of targets) {
     seo.set(f, {
       title: ((html.match(/<title>([\s\S]*?)<\/title>/) || [])[1] || '').trim(),
       description: (html.match(/<meta name="description" content="([^"]*)"/) || [])[1] || '',
+      ogTitle: (html.match(/<meta property="og:title" content="([^"]*)"/) || [])[1],
+      twitterTitle: (html.match(/<meta name="twitter:title" content="([^"]*)"/) || [])[1],
       canonical: (html.match(/<link rel="canonical" href="([^"]*)"/) || [])[1] || '',
       noindex: /noindex/i.test(robots),
     });
@@ -233,6 +235,14 @@ if (all) {
     if (t.length > TITLE_MAX) err(f, `<title> is ${t.length} characters (max ${TITLE_MAX}): ${t}`);
     if (d.length > DESC_MAX) err(f, `meta description is ${d.length} characters (max ${DESC_MAX})`);
     if (!d.trim()) err(f, 'empty meta description');
+    // Social previews (2026-10-23): og:title / twitter:title come from og_title / twitter_title or the title,
+    // and WhatsApp, LinkedIn and X cut them like a SERP, so the same 60-character ceiling applies.
+    for (const [tag, v] of [['og:title', s.ogTitle], ['twitter:title', s.twitterTitle]]) {
+      if (v === undefined) continue;
+      const x = plainText(v);
+      if (!x.trim()) err(f, `empty ${tag}`);
+      else if (x.length > TITLE_MAX) err(f, `${tag} is ${x.length} characters (max ${TITLE_MAX}): ${x}`);
+    }
   }
   console.log(`sitemap.xml: ${locs.length} URLs`);
 }

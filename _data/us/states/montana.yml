@@ -1,12 +1,78 @@
-# Montana (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# Montana (USA Master Plan Phase 11 batch 5, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the boards
+# tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# All sources were read live. rules.mt.gov is a script app: the ARM 10.55.905 text is its "View in PDF" document
+# (active version eff. 7/1/23). mus.edu, opi.mt.gov, doa.mt.gov and apprenticeship.mt.gov opened directly.
 name: "Montana"
 abbr: MT
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In Montana, the State Bar of Montana handles bar admission for lawyers, the Montana Board of Medical Examiners licenses physicians, the Montana Board of Public Accountants licenses CPAs and the Montana Board of Nursing licenses registered nurses."
+lede: "Montana requires at least 20 units (13 of them in set subjects, including a half unit of civics or government and a half unit of economics or financial literacy), tests with MAST and the ACT for every grade 11 student, gives in-state tuition after 12 months' domicile, and offers the MUS Honor Scholarship tuition waiver."
+
+diploma:
+  intro: "ARM 10.55.905 (Board of Public Education): a school district's graduation requirements must total at least 20 units of study, and 13 of them must be in the subjects below. An equivalent course that meets the district's curriculum and assessment requirements may satisfy a required unit."
+  rows:
+    - ["English language arts", "4 units"]
+    - ["Mathematics", "2 units"]
+    - ["Social studies", "2 units, including ½ unit of civics or government"]
+    - ["Science", "2 units"]
+    - ["Health and physical education", "1 unit"]
+    - ["Arts", "1 unit"]
+    - ["Career and technical education", "1 unit"]
+    - ["Economics or financial literacy", "½ unit, inside the social studies, mathematics or CTE units"]
+  unit: "20 units (13 required, 7 elective or local)."
+  tests: "No state exit exam. Local boards set requirements above the minimum, and may let students graduate in fewer than four years."
+  src: mt_arm_10_55_905
+  points:
+    - { t: "Units earned in any Montana high school accredited by the Board of Public Education must be accepted by every other Montana high school.", src: mt_arm_10_55_905 }
+
+k12_test:
+  name: "MAST and the ACT"
+  full: "Montana Comprehensive Assessment System (MontCAS): Montana Aligned to Standards Through-Year Assessment (MAST), Montana Science Assessment and ACT with Writing"
+  intro: "MontCAS is Montana's suite of statewide tests aligned with its content standards: MAST in English language arts and math for grades 3 to 8, the Montana Science Assessment in grades 5 and 8, and the ACT with Writing as the grade 11 high school requirement."
+  src: mt_montcas
+  rows:
+    - ["MAST (through-year)", "English language arts and mathematics", "Grades 3–8"]
+    - ["Montana Science Assessment", "Science", "Grades 5 and 8"]
+    - ["ACT with Writing", "English language arts, mathematics and science", "Grade 11"]
+    - ["DLM alternate assessments", "ELA, math and science", "Students with significant cognitive disabilities (grades 3–8 and 11; science 5, 8, 11)"]
+  rows_src: mt_montcas
+  use:
+    - { t: "ACT or SAT scores also matter for state aid: applicants for the MUS Honor Scholarship must take one of them by February of their senior year.", src: mt_mushs }
+
+colleges:
+  systems:
+    - { name: "Montana University System (MUS)", kind: university, url: "https://mus.edu/", line: "Sixteen public colleges and universities under the Board of Regents, including the research and doctoral universities of the University of Montana and Montana State University families plus comprehensive four-year and two-year campuses; Apply Montana is one application for all of them.", src: mt_mus }
+    - { name: "MUS two-year and community colleges", kind: community, url: "https://mus.edu/2yr/index.html", line: "Twelve MUS campuses offer two-year education: low-cost entry points for students who plan to transfer to a four-year college, earn an occupational degree or certificate, or refresh math and English skills.", src: mt_mus_2yr }
+
+residency:
+  points:
+    - { t: "Board of Regents Policy 940.1: a person may be classified as in-state after documenting at least 12 consecutive months of Montana domicile, which needs physical presence and evidence of intent to stay (cutting legal ties with the former state and creating them with Montana).", src: mt_bor_940_1 }
+    - { t: "People in Montana on a temporary basis, for example to finish a degree, cannot establish domicile just by taking an action that shows Montana domicile; being away from Montana for more than 30 days during the 12 months is presumed to show a lack of intent.", src: mt_bor_940_1 }
+    - { t: "Exception: a graduate of an accredited Montana high school who attended the whole senior year there and registers no later than the fourth fall term after graduation is in-state (for six years or until a bachelor's degree, or while continuously enrolled).", src: mt_bor_940_1 }
+
+aid:
+  agency: { name: "Montana University System, Office of the Commissioner of Higher Education (Award Montana)", url: "https://awardmontana.mus.edu/index.html", src: mt_mushs }
+  programs:
+    - { name: "MUS Honor Scholarship (MUSHS)", line: "Four-year renewable tuition waiver at an eligible Montana campus, worth on average $5,000 a year at a four-year campus; up to 200 a year, depending on funding. Montana residents need a 3.4 GPA after the 7th semester, the Board of Regents Rigorous Core (or an IB diploma) and an ACT or SAT score by February; 2027 applications open 1 December 2026 and are due 15 March 2027.", src: mt_mushs }
+
+jobs:
+  state:
+    portal: "State of Montana Careers"
+    url: "https://statecareers.mt.gov/"
+    by: "Montana Department of Administration, State Human Resources Division"
+    steps:
+      - "Create a username and password on the State of Montana Careers site, then search openings and internships by keyword, city or agency and click Apply Online."
+      - "Attach the required files (marked Relevant) and submit; an email confirms the application. Local Job Service Workforce Centers help with applications."
+    src: mt_careers
+  cities: []
+
+apprenticeship:
+  office: "Montana Registered Apprenticeship Program (Montana Department of Labor & Industry)"
+  url: "https://apprenticeship.mt.gov/"
+  kind: SAA
+  line: "Montana is a State Apprenticeship Agency state: the Department of Labor & Industry runs the Registered Apprenticeship Program, with more than 3,400 Montanans training in the skilled trades, health care, education, child care and more, and issues the nationally recognized Apprenticeship Completion Certificate."
+  src: mt_apprenticeship
+  oa_src: dol_oa_states
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

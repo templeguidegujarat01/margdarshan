@@ -1,12 +1,77 @@
-# Alaska (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# Alaska (USA Master Plan Phase 11 batch 5, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the boards
+# tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# Several alaska.gov hosts answer "Request Rejected" or time out from India (cnsonline.alaska.gov, workplace.alaska.gov,
+# doa.alaska.gov) and akleg.gov sits behind Cloudflare: the 4 AAC 06.075 text is the filed regulation PDF read through a
+# US-based fetch, and the jobs row uses Workplace Alaska on governmentjobs.com. education.alaska.gov, alaska.edu,
+# uaf.edu and acpe.alaska.gov were read live.
 name: "Alaska"
 abbr: AK
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In Alaska, the Alaska Bar Association, Law Examiners Committee handles bar admission for lawyers, the Alaska State Medical Board licenses physicians, the Alaska Board of Public Accountancy licenses CPAs and the Alaska Board of Nursing licenses registered nurses."
+lede: "Alaska requires at least 21 units of credit (including a half unit of Alaska history), tests with AK STAR in grades 3 to 9 and the Alaska Science Assessment, gives resident tuition at the University of Alaska after 12 months' domicile, and funds the merit-based Alaska Performance Scholarship (up to $28,000) and the need-based Alaska Education Grant."
+
+diploma:
+  intro: "4 AAC 06.075 (State Board of Education): each district's graduation plan must require at least 21 units of credit, including at least these subject units:"
+  rows:
+    - ["Language arts", "4 units"]
+    - ["Social studies", "3 units, including ½ unit of Alaska history (or meeting the Alaska history performance standards)"]
+    - ["Mathematics", "3 units (for graduates from 1 July 2017)"]
+    - ["Science", "2 units"]
+    - ["Health/physical education", "1 unit"]
+  unit: "21 units of credit (districts set the rest)."
+  tests: "The state rule sets units of credit only; each district's plan adds its own requirements. A unit of credit is earned with a passing grade by meeting the course content standards set by the local school board."
+  src: ak_4aac_06_075
+  points:
+    - { t: "Transfer students who earned 13 units outside the district may be excused from district subject requirements, and the Alaska history rule does not apply to students who transfer in after their second year of high school or already passed another state's history course.", src: ak_4aac_06_075 }
+
+k12_test:
+  name: "AK STAR and the Alaska Science Assessment"
+  full: "Alaska System of Academic Readiness (AK STAR) and Alaska Science Assessment"
+  intro: "The Department of Education and Early Development gives AK STAR, built with NWEA to connect interim and end-of-year testing, in English language arts and math for grades 3 to 9, and the Alaska Science Assessment, based on the 2019 K-12 Science Standards for Alaska, in grades 5, 8 and 10."
+  src: ak_akstar
+  rows:
+    - ["AK STAR", "English language arts and mathematics", "Grades 3–9"]
+    - ["Alaska Science Assessment", "Science", "Grades 5, 8 and 10"]
+    - ["Alternate assessments", "ELA, math and science", "Students with significant cognitive disabilities"]
+  rows_src: ak_assessments
+  use:
+    - { t: "The Alaska Performance Scholarship needs a rigorous high school curriculum plus either a minimum GPA or a minimum standardized test score.", src: ak_aps }
+
+colleges:
+  systems:
+    - { name: "University of Alaska System", kind: university, url: "https://www.alaska.edu/alaska/", line: "Three universities (University of Alaska Anchorage, University of Alaska Fairbanks and University of Alaska Southeast) with campuses across Alaska, offering short workforce courses through associate, bachelor's, master's and doctoral degrees.", src: ak_ua }
+    - { name: "UAF Community and Technical College", kind: community, url: "https://www.uaf.edu/ctc/", line: "The University of Alaska Fairbanks' community college: more than 40 career-focused occupational endorsements, certificates and associate degrees, transfer pathways and workforce training in Fairbanks, Tok and communities across Alaska, accredited by NWCCU.", src: ak_uaf_ctc }
+
+residency:
+  points:
+    - { t: "University of Alaska Regulation R05.10.050: a resident is a U.S. citizen or eligible non-citizen who is physically present with intent to remain indefinitely, has kept Alaska domicile for at least the 12 consecutive months before the end of add/drop, and claims no residency elsewhere.", src: ak_ua_residency }
+    - { t: "Proof of presence includes moving household goods, a lease or property, or permanent employment in Alaska for the past 12 months; receiving (or qualifying for) a Permanent Fund Dividend in the last 12 months creates a presumption of residency.", src: ak_ua_residency }
+    - { t: "Being away from Alaska for more than 90 days in total during the 12 months (other than for illness or school), voting or holding a driver's license in another state disqualifies the claim. Active-duty military, Guard, reservists and VA-benefit veterans (and their spouses and dependents) pay resident tuition.", src: ak_ua_residency }
+
+aid:
+  agency: { name: "Alaska Commission on Postsecondary Education (ACPE)", url: "https://acpe.alaska.gov/", src: ak_aps }
+  programs:
+    - { name: "Alaska Performance Scholarship (APS)", line: "Alaska's merit scholarship, up to $28,000 in total, for Alaska high school students who complete a specific rigorous curriculum in grades 9–12 and meet a minimum GPA or test score (AS 14.43.810–849, AS 14.03.113, 4 AAC 43).", src: ak_aps }
+    - { name: "Alaska Education Grant (AEG)", line: "Need-based grant of $500 to $4,000 a year for Alaska students at qualifying Alaska institutions, based on the FAFSA's Student Aid Index; awards go first to prior recipients and by FAFSA filing date, so file early.", src: ak_aeg }
+
+jobs:
+  state:
+    portal: "Workplace Alaska"
+    url: "https://www.governmentjobs.com/careers/alaska"
+    by: "State of Alaska"
+    steps:
+      - "Search and apply for State of Alaska jobs on Workplace Alaska; students filter by Job Type = Intern and current classified employees check the state-employee listings."
+      - "The Alaska Administrative Code limits most vacancy announcements to applicants domiciled or claiming residency in Alaska; people who do not meet the residency rules can apply only for jobs posted as All Applicant."
+    src: ak_workplace
+  cities: []
+
+apprenticeship:
+  office: "Alaska Apprenticeship Office (U.S. Department of Labor)"
+  url: "https://www.apprenticeship.gov/about-us/state-office"
+  kind: OA
+  line: "Alaska has no recognized State Apprenticeship Agency: the U.S. Department of Labor's Alaska Apprenticeship Office registers and oversees programs."
+  src: dol_oa_offices
+  oa_src: dol_oa_states
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

@@ -1,12 +1,82 @@
-# New Hampshire (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# New Hampshire (USA Master Plan Phase 11 batch 5, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the
+# boards tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# gc.nh.gov (statutes and administrative rules) returns "Web Page Blocked" to India: Ed 306 and RSA 189:11 come from
+# Internet Archive captures (timestamps in sources.yml). education.nh.gov, usnh.edu, ccsnh.edu, treasury.nh.gov and
+# das.nh.gov were read live. The Ed 306 rewrite (#14150, eff 12-13-24) renumbered the graduation rule to Ed 306.23.
 name: "New Hampshire"
 abbr: NH
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In New Hampshire, the New Hampshire Supreme Court, Office of Bar Admissions handles bar admission for lawyers, the New Hampshire Board of Medicine licenses physicians, the New Hampshire Board of Accountancy licenses CPAs and the New Hampshire Board of Nursing licenses registered nurses."
+lede: "New Hampshire requires 20 credits (a new table for students entering high school from 2026-27 adds logic and rhetoric, financial literacy and more history) and 70% on the civics naturalization test, tests with the NH SAS and the SAT for every junior, sets in-state tuition after 12 months' domicile, and funds the Governor's Scholarship and UNIQUE grants."
+
+diploma:
+  intro: "Ed 306.23 (New Hampshire minimum standards for public school approval): a regular high school diploma goes to students who demonstrate the required competencies across at least 20 credits. Students entering high school from 2026-27 follow Table 306-2 below; earlier classes follow Table 306-1 (4 English, 3 math, 6 open electives)."
+  rows:
+    - ["English", "3.5 credits, including ½ credit in writing"]
+    - ["Mathematics", "3 credits, including algebraic concepts and at least ½ credit in statistics or data analysis"]
+    - ["Science", "1 credit physical sciences and 1 credit biological sciences"]
+    - ["History and government", "½ US history, ½ NH history, ½ civics and 1 credit history, government and constitution of the US and NH"]
+    - ["World history, global studies or geography", "1 credit"]
+    - ["Economics and financial literacy", "½ credit each"]
+    - ["Logic and rhetoric", "½ credit"]
+    - ["Arts, digital literacy, health and wellness", "½ credit each"]
+    - ["Physical education", "1 credit"]
+    - ["Open electives", "4 credits, including an option for career connected learning"]
+  unit: "20 credits."
+  tests: "No exit exam on the core subjects, but RSA 189:11 makes every student pass a local civics competency assessment and score at least 70% on the 128-question (2020) USCIS civics naturalization test to receive a diploma."
+  src: nh_ed306
+  points:
+    - { t: "Every high school student must carry at least the equivalent of 3 credits a year, except students with an IEP, approved early graduates or special cases set by local school board policy.", src: nh_ed306 }
+    - { t: "RSA 189:11 also requires a half-year civics course and a one-year course in the history, government and constitutions of the United States and New Hampshire for graduation; public schools give the civics test the Department of Education provides.", src: nh_rsa_189_11 }
+
+k12_test:
+  name: "NH SAS and the SAT"
+  full: "New Hampshire Statewide Assessment System (NH SAS) and SAT School Day"
+  intro: "RSA 193-C and federal law require a standardized state test every year. NH SAS covers English language arts and math in grades 3 to 8 and science in grades 5, 8 and the second year of high school; in the third year of high school every student takes the state-provided SAT School Day."
+  src: nh_assessment
+  rows:
+    - ["NH SAS", "English language arts and mathematics", "Grades 3–8"]
+    - ["NH SAS", "Science", "Grades 5 and 8 and the second year of high school"]
+    - ["SAT School Day", "Reading and writing, and math", "Third year of high school (usually juniors)"]
+  rows_src: nh_assessment
+  use:
+    - { t: "SAT scores count for both federal and state accountability, and students may also send them to colleges for admission.", src: nh_assessment }
+
+colleges:
+  systems:
+    - { name: "University System of New Hampshire (USNH)", kind: university, url: "https://www.usnh.edu/", line: "The University of New Hampshire (UNH Durham, a land-, sea- and space-grant research university, plus UNH Manchester, the UNH Franklin Pierce School of Law in Concord and the online UNH College of Professional Studies), Plymouth State University and Keene State College, New Hampshire's public liberal arts college.", src: nh_usnh }
+    - { name: "Community College System of New Hampshire (CCSNH)", kind: community, url: "https://www.ccsnh.edu/", line: "Seven public community colleges across the state, all accredited by the New England Commission of Higher Education, with more than 200 associate degree and certificate programs and over 21,000 learners a year.", src: nh_ccsnh }
+
+residency:
+  points:
+    - { t: "USNH Board of Trustees policy IV.E: a student pays the in-state rate only after being domiciled in New Hampshire for 12 consecutive months immediately before registering for the term, and the residence must be for some purpose other than the temporary one of getting an education.", src: nh_usnh_residency }
+    - { t: "An un-emancipated student's domicile is that of the parent (birth-certificate parent, legal guardian or the person who claims the student as a tax dependent); students are presumed emancipated at 24. The applicant carries the burden of proof and files a notarized residency statement.", src: nh_usnh_residency }
+    - { t: "Under RSA 187-A:20-c a veteran who sets up a residence in New Hampshire gets the in-state rate at once, without the 12-month wait.", src: nh_usnh_residency }
+
+aid:
+  agency: { name: "New Hampshire State Treasury (College Tuition Savings Plan Advisory Commission)", url: "https://www.treasury.nh.gov/residents/scholarship-programs", src: nh_treasury_aid }
+  programs:
+    - { name: "Governor's Scholarship Program", line: "For New Hampshire high school graduates or recent graduates who enroll full-time at a participating New Hampshire college: $2,000 a year for first-year, Pell-eligible students with the New Hampshire Scholar designation and $1,000 a year for other eligible students, for up to four years.", src: nh_treasury_aid }
+    - { name: "UNIQUE Annual Allocation Program (UAAP)", line: "Need-based scholarship for New Hampshire residents eligible for federal aid in undergraduate programs at approved New Hampshire institutions: $3,500 for full-time students in 2026-27, prorated for part-time. Students apply through the college financial aid office.", src: nh_treasury_aid }
+
+jobs:
+  state:
+    portal: "State of NH Job Board"
+    url: "https://www.das.nh.gov/jobsearch/"
+    by: "New Hampshire Department of Administrative Services, Division of Personnel"
+    steps:
+      - "Search and apply for state jobs, from public safety and healthcare to transportation, the environment and IT, on the State of NH Job Board at das.nh.gov/jobsearch."
+      - "Questions about the application go to the Division of Personnel (603-271-3261, nhjobs@das.nh.gov)."
+    src: nh_das_jobs
+  cities: []
+
+apprenticeship:
+  office: "New Hampshire Apprenticeship Office (U.S. Department of Labor)"
+  url: "https://www.apprenticeship.gov/about-us/state-office"
+  kind: OA
+  line: "New Hampshire has no recognized State Apprenticeship Agency: the U.S. Department of Labor's New Hampshire Apprenticeship Office registers and oversees programs."
+  src: dol_oa_offices
+  oa_src: dol_oa_states
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

@@ -1,12 +1,79 @@
-# North Dakota (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# North Dakota (USA Master Plan Phase 11 batch 5, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the
+# boards tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# nd.gov/dpi answers "inaccessible due to geographical restrictions" (also to US fetches), and the archive holds no 2025-26
+# capture of its assessment pages, so the state test block comes from the Century Code (NDCC 15.1-21-08 and -19) and
+# names no test brand. ndlegis.gov chapter PDFs, ndus.edu and omb.nd.gov were read live.
 name: "North Dakota"
 abbr: ND
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In North Dakota, the North Dakota State Board of Law Examiners handles bar admission for lawyers, the North Dakota Board of Medicine licenses physicians, the North Dakota State Board of Accountancy licenses CPAs and the North Dakota Board of Nursing licenses registered nurses."
+lede: "North Dakota requires 22 units (including a unit of computer science or cybersecurity) and 70% on the civics test, has every grade 11 student take the ACT or three WorkKeys assessments, treats North Dakota high school graduates as residents for tuition, and funds the need-based State Grant (up to $1,375 a semester) and the merit North Dakota Scholarship."
+
+diploma:
+  intro: "NDCC 15.1-21-02.1 and 15.1-21-02.2: before a district, nonpublic high school or the Center for Distance Education issues a diploma, the student must complete 22 units of high school coursework (plus any extra units the school requires):"
+  rows:
+    - ["English language arts", "4 units, from a sequence with literature, composition and speech"]
+    - ["Mathematics", "3 units (may include 1 approved computer science unit)"]
+    - ["Science", "3 units: biology, chemistry and physics, or biology, physical science and one more science"]
+    - ["Social studies", "3 units: 1 U.S. history (including Native American tribal history), ½ U.S. government and ½ economics (or 1 problems of democracy), and 1 more"]
+    - ["Physical education and health", "1 unit of physical education, or ½ physical education and ½ health"]
+    - ["Foreign or Native American languages, fine arts or CTE", "3 units"]
+    - ["Additional units", "5 units"]
+    - ["Computer science or cybersecurity", "1 unit within the math or science units (waived with a board-approved integration plan)"]
+  unit: "22 units."
+  tests: "NDCC 15.1-21-27: before any student receives a diploma, the student must correctly answer at least 70% of the questions on the civics test (the 100 USCIS naturalization questions)."
+  src: nd_ndcc_15_1_21
+  points:
+    - { t: "NDCC 15.1-21-21: each district must require a half unit of financial literacy, or make sure its economics or problems of democracy course covers budgeting, saving, credit, banking and other personal finance concepts.", src: nd_ndcc_15_1_21 }
+
+k12_test:
+  name: "State assessment and the ACT or WorkKeys"
+  full: "North Dakota state assessment (reading, math, science) and the grade 11 ACT or WorkKeys summative assessment"
+  intro: "NDCC 15.1-21-08: the Superintendent of Public Instruction gives a test aligned to state standards in reading and math every year in grades 3 to 8 and in at least one grade from 9 to 12, and a science test once in grades 3–5, 6–9 and 10–12."
+  src: nd_ndcc_15_1_21
+  rows:
+    - ["State assessment", "Reading and mathematics", "Grades 3–8 and one grade in 9–12"]
+    - ["State assessment", "Science", "One grade each in 3–5, 6–9 and 10–12"]
+    - ["ACT (with writing) or three WorkKeys assessments", "College or career readiness", "Grade 11"]
+  rows_src: nd_ndcc_15_1_21
+  use:
+    - { t: "NDCC 15.1-21-19: each grade 11 student may take the ACT with writing or three WorkKeys assessments, and a career advisor or counselor reviews the results with the student.", src: nd_ndcc_15_1_21 }
+
+colleges:
+  systems:
+    - { name: "North Dakota University System (NDUS)", kind: university, url: "https://ndus.edu/", line: "Eleven public colleges and universities under the State Board of Higher Education: two research universities, four regional universities and five community colleges.", src: nd_ndus }
+    - { name: "NDUS community colleges", kind: community, url: "https://ndus.edu/", line: "The five community colleges of the North Dakota University System, the system's two-year entry point for career and technical education and transfer programs.", src: nd_ndus }
+
+residency:
+  points:
+    - { t: "NDCC 15-10-19.1: a resident student for tuition is someone whose parents or guardian are legal residents who have lived in North Dakota for 12 months, or an adult who is a legal resident and has lived in the state for 12 months after turning 18, immediately before the term.", src: nd_ndcc_15_10 }
+    - { t: "Anyone who graduated from a North Dakota high school is also a resident student, as is anyone who was a legal resident for at least three consecutive years within six years of the term.", src: nd_ndcc_15_10 }
+    - { t: "Active-duty service members, National Guard and reserve members, veterans and NDUS benefited employees, and their spouses and dependents, are resident students.", src: nd_ndcc_15_10 }
+
+aid:
+  agency: { name: "North Dakota University System (student financial assistance)", url: "https://ndus.edu/paying-for-college/state-grant", src: nd_state_grant }
+  programs:
+    - { name: "North Dakota State Grant (Student Financial Assistance Program)", line: "Need-based grant for North Dakota residents who are first-time undergraduates enrolled at least quarter-time at a qualifying public, tribal or private North Dakota institution: up to $1,375 a semester or $917 a quarter, for up to eight semesters. Students reapply every year with the FAFSA; funding is limited, so early filing is recommended.", src: nd_state_grant }
+    - { name: "North Dakota Scholarship", line: "NDCC 15.1-21-02.6 and -02.10: $750 a semester ($500 a quarter) while enrolled full-time at an accredited North Dakota institution with a 2.75 GPA ($500 a term in a qualifying registered apprenticeship); students qualify with a 3.0 high school GPA, the civics test, a four-year plan, at least four activities such as community service or a capstone project, and academic or CTE marks such as an ACT composite of 24.", src: nd_ndcc_15_1_21 }
+
+jobs:
+  state:
+    portal: "Team ND Careers"
+    url: "https://www.omb.nd.gov/team-nd-careers/career-openings"
+    by: "North Dakota Office of Management and Budget, Human Resource Management Services"
+    steps:
+      - "Browse Career Openings (career title, agency, location and closing date) on the Team ND Careers page at omb.nd.gov and apply online; My Career Applications tracks submitted applications."
+      - "Sign up for ND State Careers email and text alerts; current state employees use a separate link."
+    src: nd_omb_careers
+  cities: []
+
+apprenticeship:
+  office: "North Dakota Apprenticeship Office (U.S. Department of Labor)"
+  url: "https://www.apprenticeship.gov/about-us/state-office"
+  kind: OA
+  line: "North Dakota has no recognized State Apprenticeship Agency: the U.S. Department of Labor's North Dakota Apprenticeship Office registers and oversees programs."
+  src: dol_oa_offices
+  oa_src: dol_oa_states
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

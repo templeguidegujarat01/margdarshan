@@ -1,12 +1,79 @@
-# Rhode Island (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# Rhode Island (USA Master Plan Phase 11 batch 5, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the
+# boards tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# ride.ri.gov, dlt.ri.gov and admin.ri.gov sit behind a bot check ("Just a moment...") that also blocks US fetches: the
+# test, apprenticeship and jobs rows come from Internet Archive captures (timestamps in sources.yml). rules.sos.ri.gov
+# (with its S3 regulation PDF), riopc.edu, uri.edu and ccri.edu were read live. Rhode Island has no university "system":
+# the Council on Postsecondary Education oversees URI, Rhode Island College and CCRI.
 name: "Rhode Island"
 abbr: RI
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In Rhode Island, the Rhode Island Supreme Court Clerk's Office handles bar admission for lawyers, the Rhode Island Board of Medical Licensure and Discipline licenses physicians, the Rhode Island Board of Accountancy licenses CPAs and the Rhode Island Board of Nurse Registration and Nursing Education licenses registered nurses."
+lede: "Rhode Island requires 20 credits (4 math including Algebra II, 2 world language) plus at least one performance-based diploma assessment, tests with RICAS, the PSAT 10 and the SAT for every junior, gives in-state tuition after one year's residence, and makes CCRI tuition-free for recent high school graduates through Rhode Island Promise."
+
+diploma:
+  intro: "200-RICR-20-10-2 (Council on Elementary and Secondary Education), § 2.3: diploma eligibility needs at least 20 credits, each awarded for demonstrated proficiency rather than seat time, and at least one performance-based diploma assessment. Required content-area credits:"
+  rows:
+    - ["English language arts", "4 credits"]
+    - ["Mathematics", "4 credits, including Algebra I, Algebra II and Geometry"]
+    - ["Science", "3 credits, including 2 lab sciences"]
+    - ["History and social studies", "3 credits"]
+    - ["World language", "2 credits in the same language"]
+    - ["College preparatory coursework", "1 additional credit"]
+    - ["Arts, computer science, physical education and health", "3 credits, under district policy and state law"]
+  unit: "20 credits."
+  tests: "No statewide exit exam, but every student must complete at least one performance-based diploma assessment (scored on district criteria aligned with state standards) and show proficiency in financial literacy (from the Class of 2024) and in civics and computer science (from the Class of 2028)."
+  src: ri_ricr_20_10_2
+  points:
+    - { t: "From the Class of 2028 the credit sequence above is the default for every student; with a parent's informed consent a student may take a RIDE-approved readiness pathway instead, and students in high-skill CTE programs or full-time dual enrollment get flexibility (for example 3 math credits and 2 more college preparatory credits).", src: ri_ricr_20_10_2 }
+    - { t: "Every graduating senior must complete a resume, and high schools must explain how to file the FAFSA and the state's free application for student aid.", src: ri_ricr_20_10_2 }
+
+k12_test:
+  name: "RICAS, PSAT 10 and SAT"
+  full: "Rhode Island Comprehensive Assessment System (RICAS), Next Generation Science Assessment (NGSA), PSAT 10 and SAT School Day"
+  intro: "RICAS tests English language arts and math in grades 3 to 8 (since 2018), the Rhode Island NGSA tests science in grades 5, 8 and 11, and since 2017-18 the PSAT 10 and the SAT are the state tests for every grade 10 and grade 11 public school student."
+  src: ri_ricas
+  rows:
+    - ["RICAS", "English language arts and mathematics", "Grades 3–8"]
+    - ["RI NGSA", "Science", "Grades 5, 8 and 11"]
+    - ["PSAT 10", "Reading and writing, and math", "Grade 10"]
+    - ["SAT School Day", "Reading and writing, and math", "Grade 11"]
+  rows_src: ri_psat_sat
+  use:
+    - { t: "Students who qualify for alternate assessments take the Dynamic Learning Maps tests in English language arts, math and science in grade 11 instead of the SAT; there is no alternate test in grade 10.", src: ri_psat_sat }
+
+colleges:
+  systems:
+    - { name: "University of Rhode Island (URI)", kind: university, url: "https://www.uri.edu/", line: "Rhode Island's land-grant public research university, with its main campus in Kingston and a Narragansett Bay campus; with Rhode Island College and CCRI it is one of three public institutions supported by the Office of the Postsecondary Commissioner.", src: ri_opc }
+    - { name: "Community College of Rhode Island (CCRI)", kind: community, url: "https://www.ccri.edu/", line: "The state's only public comprehensive associate degree-granting institution and the largest community college in New England, with campuses across the state and 70+ transfer agreements, including Joint Admissions Agreements with URI and RIC.", src: ri_opc, src2: ri_ccri }
+
+residency:
+  points:
+    - { t: "Council on Postsecondary Education Policy S-5: residency means domicile, a person's legal, documented, true and permanent home. An unemancipated student is a resident when the parents or guardians have lived in Rhode Island for one year immediately before the first class day of the first semester.", src: ri_s5 }
+    - { t: "An emancipated student qualifies if the parents were residents for that year at the time of emancipation, or if the student has established and kept a Rhode Island residence for one year before the first day of the first semester.", src: ri_s5 }
+    - { t: "Under R.I.G.L. § 16-59-9.3 a student who attended an approved Rhode Island high school for three or more consecutive years, graduated (or earned a Rhode Island equivalency diploma) and still lives in the state is exempt from non-resident tuition, after filing an affidavit with the college.", src: ri_s5 }
+
+aid:
+  agency: { name: "Rhode Island Office of the Postsecondary Commissioner", url: "https://riopc.edu/", src: ri_opc }
+  programs:
+    - { name: "Rhode Island Promise", line: "Tuition-free associate degree at CCRI for Rhode Island residents who finish high school (public, private or homeschool) or a GED, are 18 or younger (19 to 21 by appeal) and enrol in the term right after graduation; to keep it for two years students earn at least 24 credits in the first year and enrol every semester.", src: ri_ccri_promise }
+
+jobs:
+  state:
+    portal: "APPLY.RI.gov"
+    url: "https://apply.ri.gov/"
+    by: "Rhode Island Department of Administration, Division of Human Resources"
+    steps:
+      - "The Division of Human Resources recruits for positions in most state agencies; view current openings and apply at APPLY.RI.gov (the state's Workday job site)."
+    src: ri_admin_jobs
+  cities: []
+
+apprenticeship:
+  office: "Office of Apprenticeship, Rhode Island Department of Labor and Training"
+  url: "https://dlt.ri.gov/regulation-and-safety/apprenticeship"
+  kind: SAA
+  line: "Rhode Island is a State Apprenticeship Agency state: the Department of Labor and Training's Office of Apprenticeship registers programs that meet federal and state requirements (trade programs need at least 2,000 hours of on-the-job learning), issues portable credentials and builds new programs with Apprenticeship RI."
+  src: ri_dlt_apprenticeship
+  oa_src: dol_oa_states
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

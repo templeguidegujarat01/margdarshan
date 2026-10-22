@@ -1,12 +1,76 @@
-# Wyoming (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# Wyoming (USA Master Plan Phase 11 batch 5, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the boards
+# tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# All sources were read live. edu.wyoming.gov redirects most deep links to its home page, so the diploma and test rows
+# come from WDE documents it hosts (Chapter 31 rules PDF, 2025 statewide assessment guide). Wyoming has one public
+# four-year university (UW) and eight community colleges coordinated by the Wyoming Community College Commission.
 name: "Wyoming"
 abbr: WY
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In Wyoming, the Wyoming Board of Law Examiners handles bar admission for lawyers, the Wyoming Board of Medicine licenses physicians, the Wyoming Board of Certified Public Accountants licenses CPAs and the Wyoming State Board of Nursing licenses registered nurses."
+lede: "Wyoming requires at least 4 years of English and 3 each of math, science and social studies plus a U.S. and Wyoming constitution exam, tests with WY-TOPP in grades 3 to 10 and the ACT in grade 11, sets UW resident tuition by 12 months of documented Wyoming ties, and funds the Hathaway Scholarship (raised by about 40% from fall 2026)."
+
+diploma:
+  intro: "State Board of Education Chapter 31, Section 4 (under W.S. 21-2-304): a diploma from any Wyoming high school needs passing grades (or competency-based equivalency exams) in coursework aligned to the grade 9–12 state standards, including at least:"
+  rows:
+    - ["English", "4 school years"]
+    - ["Mathematics", "3 school years"]
+    - ["Science", "3 school years (one may be computer science)"]
+    - ["Social studies", "3 school years, including history, American government and economic systems and institutions"]
+  unit: "Years of coursework in four subjects; each district sets its total credits and other requirements in policy."
+  tests: "Students must pass an examination on the principles of the U.S. and Wyoming constitutions (W.S. 21-9-102) and show proficient performance on the district assessment system for all courses taken for the diploma."
+  src: wy_ch31
+  points:
+    - { t: "Districts must award credit toward the diploma for courses passed in qualifying postsecondary (dual or concurrent enrollment) programs under W.S. 21-20-201.", src: wy_ch31 }
+
+k12_test:
+  name: "WY-TOPP and the ACT"
+  full: "Wyoming Test of Proficiency and Progress (WY-TOPP), WY-ALT and the ACT"
+  intro: "WY-TOPP is Wyoming's statewide assessment system for general education students (interim and summative tests from Pearson): ELA and math in grades 3 to 10, writing embedded in ELA in grades 5, 7 and 9, and science in grades 4, 8 and 10. Every grade 11 student takes the ACT in spring."
+  src: wy_assessment
+  rows:
+    - ["WY-TOPP", "English language arts and mathematics", "Grades 3–10"]
+    - ["WY-TOPP", "Science", "Grades 4, 8 and 10"]
+    - ["ACT", "English, math, reading and science", "Grade 11 (spring)"]
+    - ["WY-ALT", "ELA, math and science (Wyoming Extended Standards)", "Students with the most significant cognitive disabilities"]
+  rows_src: wy_assessment
+  use:
+    - { t: "The grade 11 ACT is used for Hathaway Scholarship eligibility and other scholarships, and some colleges may use it for admission.", src: wy_assessment }
+
+colleges:
+  systems:
+    - { name: "University of Wyoming (UW)", kind: university, url: "https://www.uwyo.edu/", line: "Wyoming's only four-year university, in Laramie, with Research Level 1 (R1) status in the Carnegie Classification.", src: wy_uw_residency }
+    - { name: "Wyoming community colleges (Wyoming Community College Commission)", kind: community, url: "https://communitycolleges.wy.edu/", line: "Eight community colleges, with the Wyoming Community College Commission as the state agency for their coordination, advocacy, funding and accountability.", src: wy_wccc }
+
+residency:
+  points:
+    - { t: "UW Regulation 2-200: a student must document continual residence in Wyoming and at least 5 of 8 criteria (for example a Wyoming driver's license, voter registration, a Wyoming address on the latest federal tax return, or 12 months of in-state employment), each dated at least 12 consecutive months before the petition.", src: wy_uw_residency }
+    - { t: "Living in Wyoming primarily as a student does not support resident tuition, and a person can be a Wyoming resident for other purposes yet still pay non-resident tuition at UW.", src: wy_uw_residency }
+    - { t: "The residency petition is due by the first day of classes for the semester; a denied petition can be appealed within 10 calendar days to the Residency Classification Committee.", src: wy_uw_residency }
+
+aid:
+  agency: { name: "Hathaway Scholarship Program (State of Wyoming)", url: "https://www.uwyo.edu/sfa/scholarships/hathaway/index.html", src: wy_hathaway }
+  programs:
+    - { name: "Hathaway Scholarship", line: "State merit scholarship for Wyoming residents who graduate from a Wyoming high school, home school or HSEC and attend UW or a Wyoming community college within four years. From fall 2026 (signed 27 February 2026) a 12-hour semester pays $2,360 (Honors), $1,770 (Performance) or $1,180 (Opportunity and Provisional); students need the Hathaway Success Curriculum and a standardized test score (ACT superscore allowed).", src: wy_hathaway }
+    - { name: "Hathaway Need Grant", line: "Need-based supplement to the Hathaway Scholarship: the maximum for non-Honors levels rises to $2,120 a semester (minimum $150) from fall 2026.", src: wy_hathaway }
+
+jobs:
+  state:
+    portal: "State of Wyoming jobs (NEOGOV)"
+    url: "https://www.governmentjobs.com/careers/wyoming"
+    by: "State of Wyoming"
+    steps:
+      - "Click a job title and Apply on the State of Wyoming job page; first-time applicants create a username and password, then Build Job Application once and reuse it for other openings."
+      - "Show all relevant education and experience, because incomplete applications may be rejected; the recruitment team is at 307-777-7188."
+    src: wy_jobs
+  cities: []
+
+apprenticeship:
+  office: "Wyoming Apprenticeship Office (U.S. Department of Labor)"
+  url: "https://www.apprenticeship.gov/about-us/state-office"
+  kind: OA
+  line: "Wyoming has no recognized State Apprenticeship Agency: the U.S. Department of Labor's Wyoming Apprenticeship Office registers and oversees programs."
+  src: dol_oa_offices
+  oa_src: dol_oa_states
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

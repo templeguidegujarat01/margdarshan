@@ -1,12 +1,81 @@
-# South Dakota (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# South Dakota (USA Master Plan Phase 11 batch 5, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the
+# boards tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# All sources were read live: ARSD and SDCL through the sdlegislature.gov rule and statute API (the .html pages are
+# UTF-16 text), doe.sd.gov, sdbor.edu and its scholarship knowledge base, sd.gov/bhra and a Board of Technical Education
+# report on boardsandcommissions.sd.gov. South Dakota's four technical colleges stand in for a community college system.
 name: "South Dakota"
 abbr: SD
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In South Dakota, the South Dakota Board of Bar Examiners handles bar admission for lawyers, the South Dakota Board of Medical and Osteopathic Examiners licenses physicians, the South Dakota Board of Accountancy licenses CPAs and the South Dakota Board of Nursing licenses registered nurses."
+lede: "South Dakota requires 22 units of credit (including a half unit of personal finance or economics) documented in a personal learning plan, tests with the SD ELA and math assessments and the SD-ACT for every grade 11 student, gives in-state tuition after 12 months' residence, and funds the merit-based South Dakota Opportunity Scholarship (up to $7,500)."
+
+diploma:
+  intro: "ARSD 24:43:11:01 and 24:43:11:02: students must earn at least 22 units of credit in grades 9 to 12, and every student in grades 9 to 12 must have a personal learning plan documenting them. The units must include:"
+  rows:
+    - ["Language arts", "4 units: 1 writing, ½ speech or debate, 1 literature (including ½ American literature)"]
+    - ["Social studies", "3 units, including 1 U.S. history and ½ U.S. government"]
+    - ["Mathematics", "3 units, including 1 Algebra I"]
+    - ["Science", "3 units, including 1 biology (a state-approved advanced computer science course may replace one non-biology unit)"]
+    - ["CTE, capstone or world languages", "1 unit in any combination"]
+    - ["Personal finance or economics", "½ unit"]
+    - ["Fine arts", "1 unit (up to 1 credit may come from extracurricular activities)"]
+    - ["Physical education", "½ unit"]
+    - ["Health or health integration", "½ unit"]
+    - ["Electives", "5½ units"]
+  unit: "22 units of credit."
+  tests: "The rules set credit requirements only; local school boards may require more. Students may also earn the advanced, advanced career and advanced honors endorsements, which are listed on the transcript."
+  src: sd_arsd_24_43_11_02
+  points:
+    - { t: "Transfer students who cannot meet a local board's extra requirements because of time and scheduling (not course failure) may graduate by meeting the state minimum, and the department must review the required credits after 1 January 2026.", src: sd_arsd_24_43_11_01 }
+
+k12_test:
+  name: "SD ELA and Math Assessments and the SD-ACT"
+  full: "South Dakota ELA and Math Assessments, SD Science Assessment and the SD-ACT"
+  intro: "South Dakota public school students take annual summative tests in English language arts and math (grades 3 to 8), the SD Science Assessment (grades 5 and 8), and the SD-ACT in grade 11 (English, reading, math, science and writing); results feed the state accountability system."
+  src: sd_assessment
+  rows:
+    - ["SD ELA and Math Assessments", "English language arts and mathematics", "Grades 3–8"]
+    - ["SD Science Assessment", "Science", "Grades 5 and 8"]
+    - ["SD-ACT", "English, reading, math, science and writing", "Grade 11 (2026-27 windows in March and April 2027)"]
+    - ["Alternate assessments", "ELA, math and science", "Students with the most significant cognitive disabilities (grades 3–8 and 11; science 5, 8, 11)"]
+  rows_src: sd_assessment
+  use:
+    - { t: "ACT scores matter for state aid: the South Dakota Opportunity Scholarship is earned with an ACT score (with or without a GPA and curriculum route), and super scores must be ACT-reported.", src: sd_sdos }
+
+colleges:
+  systems:
+    - { name: "South Dakota Board of Regents (state universities)", kind: university, url: "https://sdbor.edu/", line: "The public university system: six public universities plus two special schools serving deaf and visually impaired K-12 students, governed by nine regents under the South Dakota Constitution.", src: sd_sdbor }
+    - { name: "South Dakota technical colleges (Board of Technical Education)", kind: community, url: "https://boardsandcommissions.sd.gov/", line: "Four technical colleges under the Board of Technical Education (created in 2017, SDCL 13-39A): Lake Area Technical College in Watertown, Mitchell Technical College, Southeast Technical College in Sioux Falls and Western Dakota Technical College in Rapid City, each with a local governing board.", src: sd_bote }
+
+residency:
+  points:
+    - { t: "SDCL 13-53-24 and 13-53-26: a person coming from another state or country becomes a resident for tuition purposes only after continuously residing in South Dakota for at least 12 consecutive months immediately before the first scheduled day of classes.", src: sd_sdcl_13_53 }
+    - { t: "SDCL 13-53-29: an unemancipated student may be a resident without the 12 months if the parents moved their residence to South Dakota, and the move was predominantly for reasons other than getting resident tuition.", src: sd_sdcl_13_53 }
+    - { t: "SDCL 13-53-29.1: veterans, active-duty members of the armed forces, and the spouses and children of either are resident students without the 12-month wait.", src: sd_sdcl_13_53 }
+
+aid:
+  agency: { name: "South Dakota Board of Regents (scholarship portal)", url: "https://tdx.sdbor.edu/TDClient/33/Portal/KB/Category/35/South-Dakota-Opportunity-Scholarship", src: sd_sdos }
+  programs:
+    - { name: "South Dakota Opportunity Scholarship (SDOS)", line: "Merit scholarship created in 2003 (renamed 2004) for South Dakota's most academically accomplished high school graduates: up to $7,500 over four years at an accredited South Dakota university, college or technical school. Students qualify with ACT, GPA and curriculum requirements, or with ACT alone, and apply on the Board of Regents scholarship portal (by 1 September for fall entry).", src: sd_sdos }
+
+jobs:
+  state:
+    portal: "State of South Dakota careers"
+    url: "https://www.sd.gov/bhra"
+    by: "South Dakota Bureau of Human Resources and Administration"
+    steps:
+      - "Open Career Opportunities from the Bureau of Human Resources and Administration page; new state jobs are posted every day."
+      - "Create a profile and answer the job-relevant questions in the online application; applicants who need an accommodation can call 605.773.3148 or email careers@state.sd.us."
+    src: sd_bhra_jobs
+  cities: []
+
+apprenticeship:
+  office: "South Dakota Apprenticeship Office (U.S. Department of Labor)"
+  url: "https://www.apprenticeship.gov/about-us/state-office"
+  kind: OA
+  line: "South Dakota has no recognized State Apprenticeship Agency: the U.S. Department of Labor's South Dakota Apprenticeship Office registers and oversees programs."
+  src: dol_oa_offices
+  oa_src: dol_oa_states
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

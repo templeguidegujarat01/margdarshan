@@ -1,12 +1,77 @@
-# Maine (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# Maine (USA Master Plan Phase 11 batch 5, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the boards
+# tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# All sources were read live (legislature.maine.gov, maine.gov/doe, maine.edu, mccs.me.edu, famemaine.com, maine.gov/bhr,
+# apprenticeship.maine.gov). maine.gov/doe PDF files return 403 outside a browser; the web pages were enough. Maine sets
+# years "or the equivalent in standards achievement" in statute; districts set credit totals.
 name: "Maine"
 abbr: ME
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In Maine, the Maine Board of Bar Examiners handles bar admission for lawyers, the Maine Board of Licensure in Medicine and Maine Board of Osteopathic Licensure license physicians, the Maine Board of Accountancy licenses CPAs and the Maine State Board of Nursing licenses registered nurses."
+lede: "Maine sets its diploma by years of study in five subject areas (local districts set credit totals), tests with the Maine Through Year Assessment and the Maine Science Assessment, gives in-state tuition after 12 months in Maine for other than educational purposes, and funds the need-based Maine State Grant of up to $2,500."
+
+diploma:
+  intro: "20-A M.R.S. § 4722: a diploma needs a program of at least 4 years, with instruction in the subjects below in separate, integrated or applied learning programs. Students may show achievement through multiple pathways and measures (exams, portfolios, performances, exhibitions, projects and community service)."
+  rows:
+    - ["English", "4 years or the equivalent in standards achievement"]
+    - ["Social studies and history", "2 years or the equivalent, including American history, government, civics and personal finance"]
+    - ["Mathematics", "2 years or the equivalent in standards achievement"]
+    - ["Science", "2 years or the equivalent, including at least one year of laboratory study"]
+    - ["Fine arts (art, music, forensics or drama)", "1 year or the equivalent in standards achievement"]
+  unit: "Years of study or the equivalent in standards achievement; credit totals are set by each school administrative unit."
+  tests: "No state exit exam: a student earns the diploma by completing the requirements under the academic standards of the school administrative unit and § 4722."
+  src: me_statute_4722
+  points:
+    - { t: "A student who has finished the freshman year at an accredited college, or the junior and senior years of a dual enrollment career and technical education program, may receive a diploma from the last secondary school attended even without meeting the usual graduation requirements.", src: me_statute_4722 }
+    - { t: "The proficiency-based diploma standards (§ 4722-A) were repealed by PL 2019, c. 202; the current text applies to diplomas granted since 1 January 2019.", src: me_statute_4722 }
+
+k12_test:
+  name: "Maine Through Year Assessment and Maine Science Assessment"
+  full: "Maine Educational Assessments: Maine Through Year Assessment (math and reading) and Maine Science Assessment"
+  intro: "The Maine Comprehensive Assessment System gives the Maine Through Year Assessment in math and reading (a required fall and spring window) in grades 3 to 8 and the second year of high school, and the Maine Science Assessment in grades 5, 8 and the third year of high school."
+  src: me_calendar
+  rows:
+    - ["Maine Through Year Assessment", "Mathematics and reading", "Grades 3–8 and the second year of high school"]
+    - ["Maine Science Assessment", "Science", "Grades 5 and 8 and the third year of high school"]
+    - ["MSAA and MSAA Science (alternate)", "ELA, math and science", "Students with the most significant cognitive disabilities"]
+  rows_src: me_calendar
+  use:
+    - { t: "The Maine Science Assessment was built with New Meridian on the Maine Science and Engineering Standards, whose foundation is the Next Generation Science Standards.", src: me_science }
+
+colleges:
+  systems:
+    - { name: "University of Maine System (Maine's Public Universities)", kind: university, url: "https://www.maine.edu/", line: "Seven universities and a law school: the University of Maine (the flagship), the Universities of Maine at Augusta, Farmington, Fort Kent, Machias and Presque Isle, and the University of Southern Maine, with about 25,000 students and 260+ degree programs.", src: me_ums }
+    - { name: "Maine Community College System (MCCS)", kind: community, url: "https://www.mccs.me.edu/", line: "Seven community colleges with the lowest tuition and fees in New England, serving more than 33,000 people a year through associate degrees, one-year certificates, short-term workforce training and early college programs.", src: me_mccs }
+
+residency:
+  points:
+    - { t: "University of Maine System Administrative Practice Letter IV-G: a student who has lived in Maine for other than educational purposes for 12 consecutive months before the first day of classes (or before applying) is in-state; a full-time student is presumed to be in Maine for educational purposes, and the burden of proof is on the student.", src: me_ums_residency }
+    - { t: "A dependent student takes the parent's or legal guardian's residence, and counts as a Maine resident once that parent or guardian has lived at a proven primary residence in Maine for 183 consecutive days.", src: me_ums_residency }
+    - { t: "Current members and honorably discharged veterans of the U.S. Armed Forces are billed at the in-state rate, as are dependents using VA education benefits; holders of non-immigrant visas cannot get in-state tuition (with narrow Special Student Relief and TPS exceptions).", src: me_ums_residency }
+
+aid:
+  agency: { name: "Finance Authority of Maine (FAME)", url: "https://www.famemaine.com/", src: me_fame_grant }
+  programs:
+    - { name: "Maine State Grant Program", line: "Need-based grant for Maine undergraduates of all ages at Maine public and private colleges: up to $2,500 for full-time and up to $1,250 for at least half-time students in 2026-27, with a maximum Student Aid Index of 10,000. The FAFSA is the application (20-A M.R.S. § 11611 and FAME Rule Chapter 601).", src: me_fame_grant }
+    - { name: "Free College Scholarship", line: "FAME notes that recent Maine high school graduates who live in Maine qualify for a Free College Scholarship at any of the seven community colleges.", src: me_fame_grant }
+
+jobs:
+  state:
+    portal: "State of Maine careers (Workday)"
+    url: "https://www.maine.gov/bhr/state-jobs"
+    by: "Maine Bureau of Human Resources"
+    steps:
+      - "Find open executive-branch jobs on the State of Maine career page (maine.wd5.myworkdayjobs.com/Executive), linked from the Bureau of Human Resources' Working for the State page; departmental career sites sit alongside it."
+      - "Opt in to email messages so agencies can reach you about your application; current state employees apply through PRISM instead."
+    src: me_bhr_jobs
+  cities: []
+
+apprenticeship:
+  office: "Maine Apprenticeship Program (Maine Department of Labor)"
+  url: "https://apprenticeship.maine.gov/"
+  kind: SAA
+  line: "Maine is a State Apprenticeship Agency state: the Maine Department of Labor's Maine Apprenticeship Program helps employers develop and register programs and, as funding permits, pays a $1,500 signing bonus and $500 per apprentice toward classroom training."
+  src: me_map
+  oa_src: dol_oa_states
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

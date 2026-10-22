@@ -260,3 +260,66 @@ civil service rows; no Phase 12 license rows for batches 2–4.
 
 Queue: Phase 11 batch 5 = Census ranks 41–51 (New Hampshire, Maine, Montana, Rhode Island, Delaware, South Dakota, North
 Dakota, Alaska, District of Columbia, Vermont, Wyoming); Phase 12 rows for batches 2–4.
+
+## 10. Phase 11 batch 5 (2026-10-22): the last 11 jurisdictions
+
+New Hampshire, Maine, Montana, Rhode Island, Delaware, South Dakota, North Dakota, Alaska, the District of Columbia,
+Vermont and Wyoming (Census ranks 41–51) moved from the boards tier to full pages (diploma, state test, colleges,
+residency, aid, jobs, apprenticeship); boards blocks kept byte-for-byte. With this batch all 51 state pages are full
+pages. 90 sources added to `_data/us/sources.yml` under the batch 5 header; the eleven search entries were upgraded in
+place (board keywords kept) and `scripts/check-search.mjs` has 13 new cases (Alaska Performance Scholarship, DC TAG,
+Hathaway, Maine State Grant, Rhode Island Promise, ND/SD disambiguation, Vermont bar admission and others).
+
+What the official texts say (worth knowing before editing):
+- **New Hampshire**: the Ed 306 rewrite (#14150, eff. 13 Dec 2024) renumbered the rule to Ed 306.23 and adds Table
+  306-2 for students entering high school from 2026-27: still 20 credits, but English 3.5 (with ½ writing), math with ½
+  statistics, ½ logic and rhetoric, ½ financial literacy, 4 electives. RSA 189:11 = 70% on the 2020 USCIS civics test.
+  USNH residency is 12 months' domicile (veterans exempt). Aid: the Treasury runs the Governor's Scholarship ($2,000 /
+  $1,000) and the UNIQUE Annual Allocation ($3,500 in 2026-27); the old nh.gov/treasury page is gone (now
+  treasury.nh.gov, tab panels only visible in the rendered DOM).
+- **Maine**: 20-A M.R.S. § 4722 sets years "or the equivalent in standards achievement" (English 4, social studies 2,
+  math 2, science 2, fine arts 1); proficiency-based diploma (§ 4722-A) repealed 2019. High school testing is the Maine
+  Through Year Assessment in the 2nd year and science in the 3rd year (no SAT). UMS APL IV-G: 12 months for other than
+  educational purposes, but a dependent's parent qualifies after 183 days.
+- **Montana**: ARM 10.55.905 = 20 units, 13 required (½ civics/government; ½ economics or financial literacy inside other
+  units). MAST (through-year) grades 3–8, ACT with Writing in grade 11. BOR 940.1: 12 months, more than 30 days away is
+  presumed lack of intent; Montana high school graduates who start college by the 4th fall term are in-state. rules.mt.gov is a script app: the rule text is
+  the "View in PDF" document from its API.
+- **Rhode Island**: 200-RICR-20-10-2 = 20 proficiency-based credits (4 math incl. Algebra II, 2 world language) plus a
+  performance-based diploma assessment; civics and computer science proficiency from the Class of 2028. CPE Policy S-5
+  = one year; three years at a RI high school also qualifies (R.I.G.L. 16-59-9.3).
+- **Delaware**: 14 DE Admin. Code 505 = 24 credits incl. 3-credit career pathway; HS 1 for HB 203 (85 Del. Laws c. 224)
+  adds ½ financial literacy for students entering grade 9 in 2026-27. SAT is the grade 11 test. UD = 12 months' domicile;
+  ScIP $1,000; SEED = free tuition at Delaware Tech.
+- **South Dakota**: ARSD 24:43:11:01/02 = 22 units and a personal learning plan; SD-ACT in grade 11 (2026-27
+  test windows listed); SDCL 13-53-24/26 = 12 months; SDOS up to $7,500. The sdlegislature.gov API returns UTF-16 HTML.
+- **North Dakota**: NDCC 15.1-21-02.2 = 22 units incl. 1 computer science or cybersecurity; 70% civics test (15.1-21-27);
+  grade 11 ACT or three WorkKeys (15.1-21-19). Any ND high school graduate is a resident for tuition (15-10-19.1). nd.gov/dpi
+  is geo-blocked even to US fetches and has no recent archive, so the test block cites the statute and names no brand.
+- **Alaska**: 4 AAC 06.075 = 21 units incl. ½ Alaska history; AK STAR grades 3–9, science 5, 8, 10. UA R05.10.050: 12
+  months' domicile, more than 90 days away disqualifies, a Permanent Fund Dividend creates a presumption. Workplace
+  Alaska limits most postings to Alaska residents. APS up to $28,000; AEG $500–$4,000.
+- **District of Columbia**: 5-A DCMR 2203 = 24 Carnegie units + 100 service hours (OSSE is drafting new requirements; none
+  adopted when read). UDC's DC rate needs only 90 days. DCTAG rises to $15,000 a year ($75,000 lifetime) for public colleges
+  and $3,750 for private HBCUs/DC-area nonprofits from 2026-27; DCTAG itself needs 12 months' DC residence before college.
+- **Vermont**: no credit count; EQS § 2120.8 makes graduation proficiency-based across the § 2120.6 content areas. VTCAP
+  grades 3–9, science 5, 8, 11. VSC Policy 301 = one year's domicile. Vermont Grants $1,000–$15,350 (2025-26).
+- **Wyoming**: Chapter 31 = 4 English, 3 math, 3 science, 3 social studies plus the U.S./Wyoming constitution exam;
+  WY-TOPP grades 3–10, ACT grade 11. UW Regulation 2-200 = 5 of 8 ties dated 12 months back. Hathaway raised about 40%
+  from fall 2026 ($2,360 / $1,770 / $1,180 a semester).
+- Apprenticeship (apprenticeship.gov map, read 22 Oct 2026): SAA = DE, DC, ME, MT, RI, VT; OA = AK, NH, ND, SD, WY.
+
+Fetch notes: read through Internet Archive captures (timestamps in each source note): gc.nh.gov (Ed 306, RSA 189:11),
+ride.ri.gov, dlt.ri.gov, admin.ri.gov, education.delaware.gov. cnsonline.alaska.gov and workplace.alaska.gov answer
+"Request Rejected" (4 AAC 06.075 read through a US-based fetch; jobs row uses Workplace Alaska on governmentjobs.com).
+maine.gov/doe PDFs return 403 outside a browser. New scratchpad helpers: `tools/html.cjs` (rendered DOM incl. hidden
+tabs), `tools/click.cjs` (logs API/PDF responses after a click, used for rules.mt.gov).
+
+Gaps: Montana, South Dakota and Wyoming have no community college system page, so the community row names the MUS
+two-year campuses, the four technical colleges (from a Board of Technical Education report) and the Wyoming Community
+College Commission; the CCV row is thin (its about page is script-only); North Dakota's test brand is unnamed (statute
+only); NH's and Rhode Island's civics/diploma rows follow rules whose new tables apply to future cohorts; Delaware's
+505 page is the legacy AdminCode copy (last amended 2021) plus the 2025 act; no city civil service rows; no Phase 12
+license rows for batches 2–5.
+
+Queue: Phase 12 (state license rows: teaching, EMT, cosmetology and other boards) for the 41 states added in batches 2–5.

@@ -1,12 +1,77 @@
-# District of Columbia (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# District of Columbia (USA Master Plan Phase 11 batch 5, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from
+# the boards tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs,
+# apprenticeship. DC has no state university system: its one public university, UDC, also runs the UDC Community
+# College, and DCTAG pays toward out-of-state tuition instead. All sources were read live (osse.dc.gov, udc.edu,
+# dchr.dc.gov, does.dc.gov). OSSE is revising the graduation rules (5-A DCMR 2203); no revision was adopted when read.
 name: "District of Columbia"
 abbr: DC
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In District of Columbia, the Committee on Admissions, D.C. Court of Appeals handles bar admission for lawyers, the District of Columbia Board of Medicine licenses physicians, the District of Columbia Board of Accountancy licenses CPAs and the District of Columbia Board of Nursing licenses registered nurses."
+lede: "The District of Columbia requires 24 Carnegie units plus 100 hours of volunteer community service, tests with DC CAPE, gives UDC's DC rate after 90 days' residence, and pays up to $15,000 a year toward public college tuition anywhere in the country through the DC Tuition Assistance Grant (DCTAG)."
+
+diploma:
+  intro: "5-A DCMR § 2203 (OSSE): students who entered ninth grade in 2007-08 or later need 24 Carnegie units, a graduation plan made at the start of ninth grade, and community service. Required units:"
+  rows:
+    - ["English", "4.0"]
+    - ["Mathematics", "4.0, including Algebra I, Geometry and Algebra II"]
+    - ["Science", "4.0, including three lab sciences (one of them Biology)"]
+    - ["Social studies", "4.0, including World History 1 and 2, U.S. History, U.S. Government and DC History"]
+    - ["World language", "2.0"]
+    - ["Art and music", "0.5 each"]
+    - ["Physical education/health", "1.5"]
+    - ["Electives", "3.5"]
+  unit: "24 Carnegie units."
+  tests: "No exit exam, but students must also complete 100 hours of volunteer community service (projects set by each LEA), and at least two of the 24 units must be College Level or Career Preparatory (CLCP) courses."
+  src: dc_grad
+  points:
+    - { t: "All students must enrol in Algebra I by 10th grade (since 2016-17), and DCPS or the Public Charter School Board may let a school award competency-based units instead of Carnegie units.", src: dc_grad }
+
+k12_test:
+  name: "DC CAPE"
+  full: "District of Columbia Comprehensive Assessments of Progress in Education (DC CAPE)"
+  intro: "DC CAPE is the District's general statewide assessment system in English language arts/literacy, math and science. The DC ELA and DC Math tests follow the design of the PARCC tests DC gave from 2015 to 2023; DC Science (first given in 2019) assesses the Next Generation Science Standards."
+  src: dc_cape
+  rows:
+    - ["DC ELA", "English language arts/literacy", "Grades 3–8, ELA I and ELA II"]
+    - ["DC Math", "Mathematics", "Grades 3–8, Algebra I, Geometry and Algebra II"]
+    - ["DC Science", "Science", "Grades 5 and 8 and high school Biology"]
+  rows_src: dc_cape
+  use:
+    - { t: "DC CAPE tests are computer-based, and the DC CAPE Portal offers practice tests, tutorials and sample items.", src: dc_cape }
+
+colleges:
+  systems:
+    - { name: "University of the District of Columbia (UDC)", kind: university, url: "https://www.udc.edu/", line: "The only public university in the nation's capital and the only urban land-grant university in the United States, a public historically Black university founded in 1851 that offers associate, bachelor's, master's and doctoral degrees and a law school.", src: dc_udc }
+    - { name: "UDC Community College", kind: community, url: "https://www.udc.edu/cc/", line: "UDC's two-year college, with more than 25 associate degree programs (for example nursing, information technology and law enforcement) and the CARE Program, which lets pre-college DC students earn college credits at no cost.", src: dc_udc_cc }
+
+residency:
+  points:
+    - { t: "UDC presumes every student is out of state until shown otherwise by clear and convincing evidence: to get the D.C. (or lower D.C. Metro) rate a student must have lived in D.C. (or the covered Maryland and Virginia counties) for at least 90 days before the term starts.", src: dc_udc_residency }
+    - { t: "Students file a Proof of Residency Form with two approved documents, such as certified state tax returns, an unexpired state ID, a voter registration profile, a W-2 or a recent utility bill, by each term's deadline (for fall 2026, 2 September 2026).", src: dc_udc_residency }
+    - { t: "For DCTAG, a student must have been a DC resident for at least 12 consecutive months before first entering college and keep a DC domicile throughout; a dependent student under 24 takes the parent's or legal guardian's domicile.", src: dc_dctag }
+
+aid:
+  agency: { name: "Office of the State Superintendent of Education (OSSE), DCTAG program", url: "https://osse.dc.gov/dctag", src: dc_dctag }
+  programs:
+    - { name: "DC Tuition Assistance Grant (DCTAG)", line: "Created by the DC College Access Act of 1999 because DC has no state university system. From the 2026-27 award year it pays up to $15,000 a year ($75,000 lifetime) toward the gap between in-state and out-of-state tuition at public colleges nationwide, and up to $3,750 a year ($18,750 lifetime) at private four-year HBCUs nationwide or private nonprofit colleges in the DC region. Apply every year through the DC OneApp and the FAFSA (2026: 2 February to 21 August).", src: dc_dctag_increase }
+
+jobs:
+  state:
+    portal: "Careers DC"
+    url: "https://careers.dc.gov/"
+    by: "DC Department of Human Resources (DCHR)"
+    steps:
+      - "Find DC government jobs through Find a DC Gov Job on the DC Department of Human Resources site, which opens the Careers DC application system."
+    src: dc_dchr
+  cities: []
+
+apprenticeship:
+  office: "Apprenticeship DC (DC Department of Employment Services)"
+  url: "https://does.dc.gov/service/apprenticeship-dc"
+  kind: SAA
+  line: "The District is a State Apprenticeship Agency jurisdiction: the Department of Employment Services launched ApprenticeshipDC in 2017 to connect employers, government resources and workforce programs to DC residents, with the DC Apprenticeship Council and Youth Apprenticeship Advisory Council meeting every two months."
+  src: dc_does_apprenticeship
+  oa_src: dol_oa_states
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

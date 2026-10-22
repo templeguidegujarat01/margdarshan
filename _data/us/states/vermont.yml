@@ -1,12 +1,78 @@
-# Vermont (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# Vermont (USA Master Plan Phase 11 batch 5, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the boards
+# tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# All sources were read live (education.vermont.gov and its EQS rule PDF, vsc.edu, vermontstate.edu, ccv.edu policy PDF,
+# vsac.org, careers.vermont.gov, labor.vermont.gov). Vermont sets no state credit count: the Education Quality
+# Standards make graduation proficiency-based, so the diploma rows list the content areas, not units. The University of
+# Vermont (state-supported but separately governed) is not the system row; the Vermont State Colleges System is.
 name: "Vermont"
 abbr: VT
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In Vermont, the Vermont Board of Bar Examiners (Office of Attorney Licensing) handles bar admission for lawyers, the Vermont Board of Medical Practice and Vermont Board of Osteopathic Physicians and Surgeons license physicians, the Vermont Board of Public Accountancy licenses CPAs and the Vermont State Board of Nursing licenses registered nurses."
+lede: "Vermont makes graduation proficiency-based (no state credit count) under its Education Quality Standards, tests with VTCAP in grades 3 to 9 and science in grades 5, 8 and 11, gives in-state tuition at the Vermont State Colleges after one year's domicile, and funds need-based Vermont Grants through VSAC for study in or out of state."
+
+diploma:
+  intro: "Education Quality Standards (State Board Rule Series 2000, § 2120.8, effective July 1, 2025): a student graduates by demonstrating proficiency in the curriculum content areas of § 2120.6 and completing any other requirements of the school district board. Schools may use credits, but a credit must name the proficiencies shown and cannot be based on time spent."
+  rows:
+    - ["English language arts and literacy", "Proficiency in reading, writing, speaking and listening, language and critical thinking"]
+    - ["Mathematics", "Proficiency in numbers, operations, algebra and geometry"]
+    - ["Science", "Science and engineering practices and life, physical, earth and space sciences, engineering and technology design"]
+    - ["Global citizenship", "Civics, economics, geography, world language and cultural studies, and history"]
+    - ["Physical education and health", "At least 1½ years of physical education (or equivalent) in grades 9–12, plus health education"]
+    - ["Artistic expression", "Dance, media arts, music, theater and visual arts"]
+    - ["Transferable skills", "Communication, collaboration, creativity, problem solving, critical thinking, technology use and intercultural competency"]
+    - ["Ethnic and social equity studies", "As described in Act 1 (2019)"]
+  unit: "Proficiency-based; credit totals, if any, are set locally."
+  tests: "No state exit exam or credit minimum: each supervisory union or district defines proficiency-based graduation requirements based on State Board standards and records each student's path in a personalized learning plan."
+  src: vt_eqs
+  points:
+    - { t: "Students with an IEP or 504 plan meet the same graduation requirements in an accommodated or modified way, recorded in the personalized learning plan, and receive a regular diploma; students may also earn credit for learning outside school under a licensed educator's supervision.", src: vt_eqs }
+
+k12_test:
+  name: "VTCAP"
+  full: "Vermont Comprehensive Assessment Program (VTCAP), part of the Vermont Comprehensive Assessment System"
+  intro: "All students in grades 3 to 9 take the state's annual assessment in mathematics and English language arts, and all students in grades 5, 8 and 11 take the annual science assessment; most take the VTCAP, and students with the most significant disabilities may take the Multi-State Alternate Assessment (MSAA)."
+  src: vt_statewide_assessments
+  rows:
+    - ["VTCAP", "English language arts and mathematics", "Grades 3–9"]
+    - ["VTCAP", "Science", "Grades 5, 8 and 11"]
+    - ["MSAA (alternate)", "ELA, math and science", "Students on IEPs with the most significant disabilities"]
+  rows_src: vt_statewide_assessments
+  use:
+    - { t: "State assessment results feed Vermont's school accountability system (the Vermont Annual Snapshot); in 2026 the VTCAP and MSAA ran from 9 March to 24 April.", src: vt_statewide_assessments }
+
+colleges:
+  systems:
+    - { name: "Vermont State Colleges System (Vermont State University)", kind: university, url: "https://www.vsc.edu/", line: "Vermont's public higher education system: Vermont State University (five campuses plus learning sites, accredited by NECHE since 1 July 2023 after the system's transformation) and the Community College of Vermont.", src: vt_vsc, src2: vt_vtsu }
+    - { name: "Community College of Vermont (CCV)", kind: community, url: "https://ccv.edu/", line: "The Vermont State Colleges System's community college, joined with Vermont State University in the state's public higher education system.", src: vt_vsc }
+
+residency:
+  points:
+    - { t: "Vermont State Colleges Policy 301: a student must be domiciled in Vermont (a true, fixed and permanent home) continuously for one year immediately before enrolling; moving to or staying in Vermont to attend college creates a rebuttable presumption of out-of-state status.", src: vt_vsc_301 }
+    - { t: "The chief admissions officer weighs ties such as voter registration, property ownership, income and property tax payments, vehicle registration and driver's license; significant family financial support creates a presumption that the student lives with the family, and students under 18 hold their parents' residence.", src: vt_vsc_301 }
+    - { t: "A student who can enrol as a resident student in another state cannot be enrolled as a Vermont resident.", src: vt_vsc_301 }
+
+aid:
+  agency: { name: "Vermont Student Assistance Corporation (VSAC)", url: "https://www.vsac.org/", src: vt_vsac_grants }
+  programs:
+    - { name: "Vermont Grants (Vermont Incentive Grant and Advancement Grant)", line: "Need-based grants that VSAC administers for the State of Vermont, usable at in-state or out-of-state colleges: eligible students received $1,000 to $15,350 in 2025-26, first come first served while funds last. Apply through MyVSAC (Vermont Grant Application) and file the FAFSA every year; the Advancement Grant (formerly the Non-Degree Grant) covers short training.", src: vt_vsac_grants }
+
+jobs:
+  state:
+    portal: "State of Vermont Careers"
+    url: "https://careers.vermont.gov/"
+    by: "State of Vermont"
+    steps:
+      - "Search state jobs by keyword or location (or use the job map) on careers.vermont.gov and apply online; job seekers can join the talent network for alerts about matching openings."
+    src: vt_careers
+  cities: []
+
+apprenticeship:
+  office: "Vermont Registered Apprenticeship Program (Vermont Department of Labor)"
+  url: "https://labor.vermont.gov/workforce-development/apprenticeship"
+  kind: SAA
+  line: "Vermont is a State Apprenticeship Agency state: the Department of Labor's Workforce Development team runs Registered Apprenticeship, and Act 55 of 2023 (effective 1 July 2023) created a new framework for approving and regulating registered apprenticeship and pre-apprenticeship, with an Apprenticeship Advisory Board."
+  src: vt_dol_apprenticeship
+  oa_src: dol_oa_states
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

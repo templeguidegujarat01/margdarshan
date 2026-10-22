@@ -1,12 +1,83 @@
-# Delaware (USA 50-state licensure portal, 2026-10-22). Schema: _data/us/state_index.yml. Boards tier: the
-# licensing boards for lawyers, physicians, CPAs and nurses, copied from the national directories of state boards (NCBE,
-# FSMB, NASBA, NCSBN). Diploma, state test, tuition, aid, jobs and apprenticeship blocks are still in the Phase 11 queue;
-# the page prints only the blocks that exist.
+# Delaware (USA Master Plan Phase 11 batch 5, 2026-10-22). Schema: _data/us/state_index.yml. Upgraded from the boards
+# tier (50-state portal) to a full page: diploma, state test, colleges, in-state tuition, aid, jobs, apprenticeship.
+# education.delaware.gov answers automated requests with a Cloudflare block: the testing calendar and DHEO scholarship
+# rows come from Internet Archive captures (timestamps in sources.yml). regulations.delaware.gov, legis.delaware.gov,
+# delcode.delaware.gov, udel.edu, dtcc.edu, dhr.delaware.gov and labor.delaware.gov were read live. The University of
+# Delaware is "state-assisted yet privately governed"; Delaware Tech is the state's only community college.
 name: "Delaware"
 abbr: DE
 checked: 2026-10-22
 review_by: 2027-04-22
-lede: "In Delaware, the Board of Bar Examiners of the Delaware Supreme Court handles bar admission for lawyers, the Delaware Board of Medical Licensure and Discipline licenses physicians, the Delaware State Board of Accountancy licenses CPAs and the Delaware Board of Nursing licenses registered nurses."
+lede: "Delaware requires 24 credits (including 2 world language and a 3-credit career pathway, plus a half credit of financial literacy for students entering grade 9 from 2026-27), tests with DeSSA and the SAT for every junior, gives in-state tuition at the University of Delaware after 12 months' domicile, and funds the need-based Scholarship Incentive Program and the SEED free-tuition scholarship."
+
+diploma:
+  intro: "14 DE Admin. Code 505, § 5.0: beginning with the class of 2019, a public school student earns the State of Delaware Diploma with at least 24 credits (a credit is 135 hours of instruction or a locally approved option), including:"
+  rows:
+    - ["English language arts", "4 credits"]
+    - ["Mathematics", "4 credits, including Algebra II or Integrated Math III; one math credit must be earned in senior year"]
+    - ["Science", "3 credits with scientific investigations, including Biology"]
+    - ["Social studies", "3 credits, including U.S. History"]
+    - ["World language", "2 credits in the same language (or Novice-high proficiency on a recognized test)"]
+    - ["Physical education", "1 credit"]
+    - ["Health education", "½ credit"]
+    - ["Career pathway", "3 credits of planned, sequential courses in a career or academic area"]
+    - ["Electives", "3½ credits"]
+  unit: "24 credits."
+  tests: "No exit exam. In senior year a student must carry a credit load each semester that earns at least a majority of the credits that could be taken, including a math credit."
+  src: de_reg_505
+  points:
+    - { t: "HS 1 for HB 203 (signed 19 September 2025, 85 Del. Laws c. 224): high schools must offer at least a ½ credit in financial literacy, and from students entering grade 9 in 2026-27 completing it is required for a diploma.", src: de_hb_203 }
+    - { t: "A student with an IEP who meets the IEP's requirements but not the credit requirements receives the State of Delaware Diploma of Alternate Achievement Standards instead.", src: de_reg_505 }
+
+k12_test:
+  name: "DeSSA and the SAT"
+  full: "Delaware System of Student Assessments (DeSSA) and SAT School Day"
+  intro: "DeSSA (Smarter) tests English language arts and math in grades 3 to 8, science in grades 5 and 8 and high school Biology, and social studies in grades 4 to 8 and 11; the SAT School Day is the high school test in grade 11."
+  src: de_calendar
+  rows:
+    - ["DeSSA ELA and Mathematics", "English language arts and mathematics", "Grades 3–8"]
+    - ["DeSSA Science", "Science", "Grades 5 and 8 and high school Biology"]
+    - ["DeSSA Social Studies", "Social studies", "Grades 4–8 and 11"]
+    - ["SAT School Day", "Reading and writing, and math", "Grade 11"]
+  rows_src: de_calendar
+  use:
+    - { t: "Delaware gives a statewide math test in grades 3–8 and once in high school using the SAT; DeSSA-Alt is the alternate assessment for students with significant disabilities.", src: de_science }
+
+colleges:
+  systems:
+    - { name: "University of Delaware (UD)", kind: university, url: "https://www.udel.edu/", line: "Research-intensive university founded in 1743, state-assisted yet privately governed, with its main campus in Newark and locations in Wilmington, Dover, Georgetown and Lewes; Delaware residents pay lower tuition because the state funds its operation.", src: de_ud, src2: de_ud_residency }
+    - { name: "Delaware Technical Community College (Delaware Tech)", kind: community, url: "https://www.dtcc.edu/", line: "The First State's only community college: an open-admission college with four campuses (Georgetown, Dover, Wilmington and Stanton), accredited by the Middle States Commission on Higher Education.", src: de_dtcc }
+
+residency:
+  points:
+    - { t: "University of Delaware residency policy: the person the classification depends on (the parents of a dependent applicant, or the applicant if financially independent) must have been domiciled in Delaware for at least 12 consecutive months as of the first day of classes, with a predominant physical presence in Delaware for those months.", src: de_ud_residency }
+    - { t: "A financially independent applicant must be 18 or married, have kept a domicile separate from the parents for 12 consecutive months and not be claimed as a tax dependent; undergraduates under 24 are presumed to have the parents' domicile. Evidence includes 12 consecutive months of bills or statements at a Delaware address.", src: de_ud_residency }
+    - { t: "A student enrolled full-time at an out-of-state institution and charged that institution's in-state rate in the preceding semester cannot be classified as a Delaware resident.", src: de_ud_residency }
+
+aid:
+  agency: { name: "Delaware Higher Education Office (DHEO), Delaware Department of Education", url: "https://education.delaware.gov/families/college-career-life/college-scholarship-financial-aid/scholarships-and-financial-aid-resources/dheo-scholarships/", src: de_dheo }
+  programs:
+    - { name: "Scholarship Incentive Program (ScIP)", line: "Need-based scholarship for Delaware residents enrolled full-time in degree programs in Delaware (or out of state in programs not offered by a Delaware public institution); $1,000 for 2026-27, applied for through the Delaware Higher Education Financial Aid Portal and the FAFSA by 15 May. 14 Del. C. § 3411 caps it at 5 annual awards.", src: de_dheo }
+    - { name: "SEED (Student Excellence Equals Degree) Scholarship", line: "Free tuition at Delaware Tech for Delawareans of all ages, for an associate degree, diploma, certificate, workforce training or bachelor's degree program, covering up to five years of courses; course fees and books are not covered.", src: de_seed }
+
+jobs:
+  state:
+    portal: "State of Delaware jobs (JobAps)"
+    url: "https://www.jobapscloud.com/DE/"
+    by: "Delaware Department of Human Resources"
+    steps:
+      - "Search state jobs on the JobAps site linked from the Department of Human Resources (dhr.delaware.gov) and apply online."
+      - "Most agency jobs are merit positions governed by the Merit System Rules; others are non-merit, casual/seasonal (temporary, not benefit-eligible) or special appointments."
+    src: de_dhr_jobs
+  cities: []
+
+apprenticeship:
+  office: "Apprenticeship and Training, Delaware Department of Labor (Division of Employment and Training)"
+  url: "https://labor.delaware.gov/divisions/employment-training/apprenticeship-and-training/"
+  kind: SAA
+  line: "Delaware is a State Apprenticeship Agency state: the Department of Labor's Apprenticeship and Training office registers programs and apprentices, keeps the occupation ratio and craft training compliance list, and certifies pre-apprenticeship programs; every graduate receives a nationally recognized, portable credential."
+  src: de_dol_apprenticeship
+  oa_src: dol_oa_states
 
 boards:
   # 50-state portal (2026-10-22): bar admission agency (NCBE jurisdiction page), medical board(s) (FSMB directory),

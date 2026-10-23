@@ -635,6 +635,37 @@ for (const [slug, E] of Object.entries(EXS)) {
 }
 if (!fs.existsSync(path.join(root, 'us/exams/index.html'))) err('us/exams/index.html', 'exams hub is missing (run scripts/build-us-exams.mjs)');
 for (const s of Object.keys(EXS)) if (!stageOf[s]) err(`exams.${s}`, 'not in any stage');
+// Military Pathways (2026-10-23): exams.asvab.military. Every branch names its age source and rulebook, every AFQT
+// row names a known branch, and sections.accepted.table (what the page shows) matches asvab_scores cell for cell
+// (a null minimum must show as words, never a number).
+const MIL = EXS.asvab?.military;
+if (MIL) {
+  const w = 'exams.asvab.military';
+  if (!isDate(MIL.as_of)) err(w, 'missing as_of');
+  const ids = new Set();
+  for (const B of MIL.military_branches || []) {
+    if (!B.id || !B.name || !B.age || !B.education || !B.components) err(`${w}.military_branches`, `branch "${B.id}" needs id, name, components, age and education`);
+    needSrc(`${w}.military_branches.${B.id}`, B.age_src); needSrc(`${w}.military_branches.${B.id}`, B.rulebook); ids.add(B.id);
+  }
+  const rows = EXS.asvab.sections?.accepted?.table?.rows || [];
+  const S = MIL.asvab_scores || [];
+  if (S.length !== rows.length) err(`${w}.asvab_scores`, `${S.length} rows, but sections.accepted.table has ${rows.length}`);
+  S.forEach((A, i) => {
+    const aw = `${w}.asvab_scores.${A.branch}`;
+    if (!ids.has(A.branch)) err(aw, 'branch is not in military_branches');
+    needSrc(aw, A.src);
+    if (EXS.asvab.sections.accepted.table.row_src?.[i] !== A.src) err(aw, 'accepted.table row_src must match src');
+    ['tier1', 'tier2', 'tier3'].forEach((k, j) => {
+      const cell = String(rows[i]?.[j + 1] ?? '');
+      if (A[k] == null ? /^\d+$/.test(cell) : cell !== String(A[k])) err(aw, `${k} ${A[k]} but the page table shows "${cell}"`);
+    });
+  });
+  const G = MIL.gi_bill_benefits || {};
+  if (!G.name || !G.rates_period) err(`${w}.gi_bill_benefits`, 'needs name and rates_period');
+  for (const k of ['entitlement', 'tuition', 'housing', 'books']) { if (!G[k]?.t) err(`${w}.gi_bill_benefits`, `missing ${k}`); else needSrc(`${w}.gi_bill_benefits.${k}`, G[k].src); }
+  (G.eligibility || []).forEach((p, i) => needSrc(`${w}.gi_bill_benefits.eligibility[${i}]`, p.src));
+  if (!(G.eligibility || []).length) err(`${w}.gi_bill_benefits`, 'needs eligibility points');
+}
 const apStated = (EXS.ap?.facts || []).find((f) => f.label === 'Subjects')?.value;
 if (String((exams.ap_subjects || []).length) !== String(apStated)) err('exams.ap_subjects', `${(exams.ap_subjects || []).length} subjects, but the AP page states ${apStated}`);
 for (const a of exams.ap_subjects || []) if (!a.name || !a.group || !a.exam || !/^https:\/\/apstudents\.collegeboard\.org\/courses\//.test(a.url || '')) err(`exams.ap_subjects[${a.name}]`, 'needs name, group, exam and its apstudents course url');

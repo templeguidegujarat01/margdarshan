@@ -1196,8 +1196,22 @@ exams:
         points:
           - { t: "No national dates: a recruiter schedules your session at a MEPS or MET site; schools schedule CEP test dates through the program (asvabprogram.com).", src: asvab_cep }
       accepted:
+        intro: "Lowest AFQT each service's own enlistment rulebook accepts, by education tier. Every job then has its own higher line-score bar, and a recruiter can ask for more in a given year."
+        # Rows mirror military.asvab_scores below; scripts/check-us-data.mjs fails if they drift apart.
+        table:
+          head: ["Service", "Diploma (Tier 1)", "GED (Tier 2)", "No credential (Tier 3)", "Rule"]
+          rows:
+            - ["Army", "16", "Not split out", "Not stated", "Category IVA (16–30) is the lowest accepted; IVB (10–15) is not currently accepted and V (0–9) cannot enlist. The regulation does not split this by tier."]
+            - ["Navy", "31", "50", "50", "Scores under 50 only for Tier 1 diploma holders; no exception for Tier 3."]
+            - ["Air Force", "36", "50", "65", "A component may take Tier 1 applicants from 31. Tier 2 and 3 below the bar need a Service Eligibility Determination."]
+            - ["Space Force", "36", "50", "65", "Same Department of the Air Force rulebook as the Air Force."]
+            - ["Marine Corps", "21", "31", "50", "Plus a GT score of 80 (Tier 1) or 90. Under 31 needs a district commander's review; the yearly recruiting plan can raise the bar."]
+            - ["Coast Guard", "32", "47", "Not stated", "\"Most\" Tier 1 prospects qualify from 32."]
+          row_src: [ar_601_210, navy_recruiting_manual, dafman_36_2032, dafman_36_2032, mcrco_1100_1, uscg_recruiting]
         points:
           - { t: "Used by all branches to decide enlistment eligibility and assign military jobs, and by students for career exploration. ACT or SAT scores cannot replace it.", src: asvab_faqs }
+          - { t: "Common claims that every branch takes 31 and the Coast Guard 36 are out of date: the rulebooks above give the Air Force and Space Force 36, the Coast Guard 32, and higher bars for GED holders.", src: dafman_36_2032 }
+          - { t: "After service, the Post-9/11 GI Bill pays up to 36 months of school: full in-state public tuition and fees at the 100% level (private schools capped at $30,908.34 a year for 2026-27), a monthly housing allowance at the E-5 with dependents BAH rate for the school's ZIP code, and up to $1,000 a year for books.", src: va_post911_rates }
       practice:
         points:
           - { t: "Official sample questions for all 10 subtests, taken from retired ASVAB forms. The ASVAB program endorses no paid prep: it recommends solid high school math, English and science courses.", src: asvab_samples }
@@ -1211,6 +1225,73 @@ exams:
     search:
       s: "10 subtests, AFQT 1–99, retest waits, school CEP, sample questions"
       k: "usa asvab afqt military entrance test enlist army navy air force marines meps picat cep career exploration program sample questions"
+    # Military Pathways micro-task (2026-10-23). Read from each service's own enlistment rulebook and VA's pages
+    # (sources.yml ar_601_210 … va_post911_rates). The brief's "31 everywhere, Coast Guard 36" was wrong: see
+    # asvab_scores. Space Force is listed with the five branches the brief named because it enlists under the same
+    # Air Force rulebook. `asvab_scores` is the record; sections.accepted.table shows it (the checker keeps them equal).
+    # Nulls mean the rulebook does not state a number; nothing is filled in.
+    military:
+      as_of: 2026-10-23
+      military_branches:
+        - id: army
+          name: "U.S. Army"
+          components: "Regular Army, Army Reserve, Army National Guard"
+          age: "17 to 42"
+          age_src: army_reqs
+          education: "Diploma, GED or other Tier 2 credential (Tier 2 applicants must be at least 17)"
+          rulebook: ar_601_210
+        - id: navy
+          name: "U.S. Navy"
+          components: "Active Component, Navy Reserve"
+          age: "18 to 41, or 17 with parental permission; no one without prior service enters active duty past their 42nd birthday"
+          age_src: navy_recruiting_manual
+          education: "Tier 1 or Tier 2, or Tier 3 with an AFQT of 50 or more; no more than two dependents under 18"
+          rulebook: navy_recruiting_manual
+        - id: air_force
+          name: "U.S. Air Force"
+          components: "Regular Air Force, Air Force Reserve, Air National Guard"
+          age: "17 until your 42nd birthday"
+          age_src: af_join
+          education: "High school graduate, GED or other alternate credential, or one semester (15 semester hours) of college; AFQT 65 or more may enlist without one"
+          rulebook: dafman_36_2032
+        - id: space_force
+          name: "U.S. Space Force"
+          components: "Active Guardians; apply through an Air Force recruiter"
+          age: "17 to 42"
+          age_src: ussf_enlisted
+          education: "As for the Air Force (same rulebook)"
+          rulebook: dafman_36_2032
+        - id: marine_corps
+          name: "U.S. Marine Corps"
+          components: "Active duty, Marine Corps Reserve"
+          age: "17 to 28"
+          age_src: usmc_reqs
+          education: "Tier I, II or III, each with its own AFQT and GT minimum; mental waivers are not authorized"
+          rulebook: mcrco_1100_1
+        - id: coast_guard
+          name: "U.S. Coast Guard (Department of Homeland Security)"
+          components: "Coast Guard, Coast Guard Reserve"
+          age: "17 to 41; over 41 only by waiver, for prior service enlisting at E-4 or higher"
+          age_src: uscg_recruiting
+          education: "Tier I (high school graduate) or Tier II (alternative credential)"
+          rulebook: uscg_recruiting
+      asvab_scores:
+        - { branch: army, tier1: 16, tier2: null, tier3: null, src: ar_601_210, note: "Test score categories: IVA (16–30) accepted, IVB (10–15) not currently accepted, V (0–9) not eligible (except 09L)." }
+        - { branch: navy, tier1: 31, tier2: 50, tier3: 50, src: navy_recruiting_manual, note: "At least 31; under 50 must be Tier 1 (the Tier 2 note requires 50)." }
+        - { branch: air_force, tier1: 36, tier1_component_floor: 31, tier2: 50, tier3: 65, src: dafman_36_2032 }
+        - { branch: space_force, tier1: 36, tier1_component_floor: 31, tier2: 50, tier3: 65, src: dafman_36_2032 }
+        - { branch: marine_corps, tier1: 21, tier2: 31, tier3: 50, gt: { tier1: 80, tier2: 90, tier3: 90 }, src: mcrco_1100_1, note: "Under 31 = MG-IV, enlisted only after a district commanding officer's administrative review." }
+        - { branch: coast_guard, tier1: 32, tier2: 47, tier3: null, src: uscg_recruiting, note: "\"Most\" Tier I prospects qualify at 32." }
+      gi_bill_benefits:
+        name: "Post-9/11 GI Bill (Chapter 33)"
+        rates_period: "1 Aug 2026 to 31 Jul 2027"
+        eligibility:
+          - { t: "At least 90 days of active duty on or after 11 Sep 2001, in one stretch or with breaks; or a Purple Heart on or after that date with an honorable discharge; or 30 continuous days with a discharge for a service-connected disability.", src: va_post911 }
+          - { t: "The share paid rises with active-duty time: 50% from 90 days, 60% from 180, 70% from 545, 80% from 730, 90% from 910, and 100% from 1,095 days (36 months), a Purple Heart or a service-connected discharge.", src: va_post911_rates }
+        entitlement: { t: "Up to 36 months of benefits (up to 48 combined with the Montgomery GI Bill for 56+ months of active duty). Service that ended on or after 1 Jan 2013 never expires; earlier service expires 15 years after separation.", src: va_post911 }
+        tuition: { t: "At 100%, the full cost of in-state tuition and fees at public schools; private, foreign and non-degree programs up to $30,908.34 a year for 2026-27.", src: va_post911_rates }
+        housing: { t: "Monthly housing allowance at the military BAH rate for an E-5 with dependents in the school's ZIP code; online-only students get half the national average, up to $1,198 a month. None is paid over school breaks.", src: va_post911_rates }
+        books: { t: "Up to $1,000 a school year for books and supplies, at $41.67 a credit for up to 24 credits, scaled by your percentage.", src: va_post911_rates }
 
   workkeys:
     name: "ACT WorkKeys and the National Career Readiness Certificate"

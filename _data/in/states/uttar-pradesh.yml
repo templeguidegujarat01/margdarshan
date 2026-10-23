@@ -51,6 +51,34 @@ cockpit:
     - { label: "UPTAC (AKTU counselling)", url: "https://uptac.samarth.edu.in/" }
     - { label: "UPMSP (state board)", url: "https://upmsp.edu.in/" }
 
+# State engineering counselling at a glance (rendered by _includes/state-cockpit.html, block id "counselling").
+# counseling_body = body, seat_allocation_rule = seat_rule, top_three_college_anchors = anchors (exactly 3,
+# government institutes only, closing ranks read from UPTAC's own OR-CR matrix on 2026-10-23).
+counselling:
+  eyebrow: "B.Tech counselling"
+  heading: "Who allots B.Tech seats in Uttar Pradesh"
+  intro: "UPTAC is the single counselling for first-year B.Tech seats in AKTU-affiliated colleges. Below: who runs it, how seats are shared out, and the round-1 closing rank at three government institutes."
+  body:
+    name: "Dr. A.P.J. Abdul Kalam Technical University (AKTU) — UP Technical Admission Counselling (UPTAC)"
+    portal: "uptac.samarth.edu.in"
+    url: "https://uptac.samarth.edu.in/"
+    merit: "JEE (Main) 2026 rank for B.Tech"
+    source: tac-ib
+  seat_rule:
+    - { text: "Government, aided and government self-financed institutes fill 100% of first-year seats through UPTAC; private colleges fill 85% through UPTAC and 15% through management / NRI quota at the institute.", source: tac-ib }
+    - { text: "Regular rounds are open to candidates who passed the qualifying exam in UP or whose father or mother is domiciled in UP. Everyone else is considered only in the special round.", source: tac-ib }
+    - { text: "Seats reserved for UP candidates: SC 21%, ST 2%, OBC 27%, EWS 10%. Within these, up to 20% go to women, up to 5% to children of defence personnel, up to 5% to divyangjan and up to 2% to dependents of freedom fighters.", source: tac-ib }
+    - { text: "Seats go strictly by rank, choice order and category. Unreserved candidates who studied at a rural institution in UP get 3% added to their entrance marks.", source: tac-ib }
+  anchors_caption: "Three government institutes: B.Tech Computer Science and Engineering, UPTAC 2026 round 1"
+  anchors:
+    - { institute: "Institute of Engineering &amp; Technology (IET), Lucknow", seat: "CSE (Shift I) · OPNO · co-education", closing: "28,352", source: tac-orcr }
+    - { institute: "Kamla Nehru Institute of Technology (KNIT), Sultanpur", seat: "CSE (Shift I) · OPNO · co-education", closing: "50,704", source: tac-orcr }
+    - { institute: "Bundelkhand Institute of Engineering &amp; Technology (BIET), Jhansi", seat: "CSE (Shift I) · OPNO · co-education", closing: "58,871", source: tac-orcr }
+  anchors_note: "Ranks are JEE (Main) 2026 ranks in the OPNO (open) row of the round-1 OR-CR matrix. Closing ranks move further out in later rounds (IET Lucknow CSE: 35,507 by round 3). Other category codes and branches have their own rows in the matrix."
+  sources:
+    - { id: tac-ib, name: "AKTU — UPTAC Information Brochure 2026-27", url: "https://samarth-notification.s3.ap-south-1.amazonaws.com/uptacadmin.samarth.ac.in/admission/2026/july/admissionhed126/bc7d57e0090dd6f13e771125a9ad72a1ecdc68edf2e4430417ac2bb64bd909331/17901474761_admission_docs.pdf", covers: "merit exam, seat shares, domicile, reservation, rural weightage", checked: 2026-10-23 }
+    - { id: tac-orcr, name: "AKTU — UPTAC 2026 Opening &amp; Closing Rank (OR-CR) matrix", url: "https://uptac.samarth.edu.in/index.php/cut-off-matrix/index", covers: "round-wise opening and closing JEE (Main) ranks by institute, branch and category", checked: 2026-10-23 }
+
 exams:
   # ------------------------------------------------------------------ UPPSC PCS
   - slug: uppsc

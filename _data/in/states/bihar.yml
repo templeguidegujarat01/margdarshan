@@ -48,6 +48,36 @@ cockpit:
     - { label: "Bihar Police Subordinate Services Commission (BPSSC)", url: "https://bpssc.bihar.gov.in/" }
     - { label: "BCECE Board", url: "https://bceceboard.bihar.gov.in/" }
 
+# State engineering counselling at a glance (rendered by _includes/state-cockpit.html, block id "counselling").
+# counseling_body = body, seat_allocation_rule = seat_rule, top_three_college_anchors = anchors (exactly 3,
+# government colleges only). The UGEAC-2026 prospectus is a Hindi scan, read from rendered pages on 2026-10-23;
+# the closing ranks come from the Board's UGEAC-2025 first-round OR-CR file (the newest one we could open; its
+# text layer shifts columns, so the rows were read from rendered page images).
+counselling:
+  eyebrow: "B.Tech counselling"
+  heading: "Who allots B.Tech seats in Bihar"
+  intro: "B.Tech seats in Bihar's government engineering colleges are filled through UGEAC, the Board's counselling on JEE (Main) merit. Below: who runs it, how seats are reserved, and the first-round closing rank at three government colleges."
+  body:
+    name: "Bihar Combined Entrance Competitive Examination Board (BCECEB) — Under Graduate Engineering Admission Counselling (UGEAC-2026)"
+    portal: "bceceboard.bihar.gov.in"
+    url: "https://bceceboard.bihar.gov.in/"
+    merit: "JEE (Main)-2026 Paper-1 merit list"
+    source: ug-pros
+  seat_rule:
+    - { text: "UGEAC fills first-year B.Tech seats in two online rounds on JEE (Main)-2026 Paper-1 merit. Seats still empty after that go to BCECE-2026 candidates from the PCM / PCMB group.", source: ug-pros }
+    - { text: "Reserved seats for permanent residents of Bihar: SC 16%, ST 1%, EBC 18%, BC 12%, reserved-category girls (RCG) 3%, EWS 10%. The other 40% are unreserved.", source: ug-pros }
+    - { text: "Candidates who are not domiciled in Bihar cannot take reserved seats. A central-list OBC candidate must claim Bihar's BC or EBC category instead.", source: ug-pros }
+    - { text: "One-third of the seats in every course are reserved for women domiciled in Bihar, across all categories. 5% of seats are reserved for the Disabled Quota (DQ).", source: ug-pros }
+  anchors_caption: "Three government colleges: B.Tech Computer Science and Engineering, UGEAC-2025 first round"
+  anchors:
+    - { institute: "Muzaffarpur Institute of Technology (MIT), Muzaffarpur", seat: "CSE · UR · General seat", closing: "30", source: ug-orcr }
+    - { institute: "Bhagalpur College of Engineering (BCE), Bhagalpur", seat: "CSE · UR · General seat", closing: "62", source: ug-orcr }
+    - { institute: "Bakhtiyarpur College of Engineering (BCE), Bakhtiyarpur", seat: "CSE · UR · General seat", closing: "197", source: ug-orcr }
+  anchors_note: "These are UGEAC merit ranks (Bihar's own list, built from JEE (Main)), not JEE (Main) all-India ranks. They come from the Board's UGEAC-2025 first-round file. Female and category seats have separate rows in that file. Check the 2026 rounds on the Board's site before relying on these."
+  sources:
+    - { id: ug-pros, name: "BCECEB — UGEAC-2026 Prospectus (Hindi)", url: "https://bceceboard.bihar.gov.in/pdf_Pros/PROS_UGEAC26.pdf", covers: "merit exam, rounds, reservation, domicile, women's and disabled quota", checked: 2026-10-23 }
+    - { id: ug-orcr, name: "BCECEB — First Round Opening Rank Closing Rank of UGEAC-2025", url: "https://bceceboard.bihar.gov.in/pdf_Web/UGEAC2025_FCOFF.pdf", covers: "first-round UR and category opening / closing ranks by college and branch", checked: 2026-10-23 }
+
 exams:
   # ------------------------------------------------------------------ BPSC 72nd CCE
   - slug: bpsc

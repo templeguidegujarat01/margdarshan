@@ -49,6 +49,35 @@ cockpit:
     - { label: "West Bengal School Service Commission (WBSSC)", url: "https://www.westbengalssc.com/" }
     - { label: "WBSCTVESD Common Admission Portal (polytechnic)", url: "https://admission-tetsd.wb.gov.in/" }
 
+# State engineering counselling at a glance (rendered by _includes/state-cockpit.html, block id "counselling").
+# counseling_body = body, seat_allocation_rule = seat_rule, top_three_college_anchors = anchors (exactly 3,
+# public institutions only, closing ranks read from WBJEEB's 2026 OR-CR report on 2026-10-23).
+counselling:
+  eyebrow: "B.Tech counselling"
+  heading: "Who allots B.Tech seats in West Bengal"
+  intro: "WBJEEB runs one combined e-counselling for B.E. / B.Tech / B.Arch seats on WBJEE and JEE (Main) ranks. Below: who runs it, the domicile and reservation rules, and the round-1 closing rank at three public institutions."
+  body:
+    name: "West Bengal Joint Entrance Examinations Board (WBJEEB) — WBJEE-2026 centralised e-counselling"
+    portal: "wbjeeb.nic.in"
+    url: "https://wbjeeb.nic.in/"
+    merit: "WBJEE-2026 General Merit Rank (JEE (Main)-2026 rank for JEE (Main) seats)"
+    source: wb-cn
+  seat_rule:
+    - { text: "One combined counselling in three rounds for WBJEE-2026 and JEE (Main)-2026 rank holders. Seats go by rank, eligibility, reservation and the order of locked choices. Reserved candidates can also take unreserved seats on merit.", source: wb-cn }
+    - { text: "Vacant SC, ST, OBC, EWS, PwD and TFW seats are never converted into general seats. OBC seats follow the West Bengal Gazette notifications of 18 May 2026.", source: wb-cn }
+    - { text: "West Bengal domicile is needed for any seat in government-aided colleges, 90% of Jadavpur University's general seats, and every reserved seat. Domicile means 10 years' continuous residence as of 31.12.2025, or a parent who is a permanent resident of West Bengal.", source: wb-ib }
+    - { text: "Reservation for SC, ST, OBC-A, OBC-B, PwD, TFW and EWS is open only to Indian citizens domiciled in West Bengal. Seat counts for each category are declared before counselling.", source: wb-ib }
+  anchors_caption: "Three public institutions: B.Tech Computer Science and Engineering, WBJEE-2026 round 1"
+  anchors:
+    - { institute: "Jadavpur University, Kolkata", seat: "CSE · WBJEE seat · Home State · Open", closing: "108", source: wb-orcr }
+    - { institute: "Kalyani Government Engineering College, Kalyani (Nadia)", seat: "CSE · WBJEE seat · Home State · Open", closing: "1,324", source: wb-orcr }
+    - { institute: "Jalpaiguri Government Engineering College, Jalpaiguri", seat: "CSE · WBJEE seat · Home State · Open", closing: "1,783", source: wb-orcr }
+  anchors_note: "Ranks are WBJEE-2026 General Merit Ranks from round 1 of WBJEEB's 2026 OR-CR report. Jadavpur's All India Open row for the same branch closed at 14. Later rounds and other categories have their own rows."
+  sources:
+    - { id: wb-cn, name: "WBJEEB — Counselling Notification of WBJEE 2026 (rules and guidelines)", url: "https://cdnbbsr.s3waas.gov.in/s3d2a27e83d429f0dcae6b937cf440aeb1/uploads/2026/06/20260629604113331.pdf", covers: "combined counselling, three rounds, basis of allotment, no de-reservation, OBC gazette", checked: 2026-10-23 }
+    - { id: wb-ib, name: "WBJEEB — Information Bulletin of WBJEE-2026", url: "https://cdnbbsr.s3waas.gov.in/s3d2a27e83d429f0dcae6b937cf440aeb1/uploads/2026/03/202603101506582412.pdf", covers: "domicile rules (3.4), reservation of seats (5.1)", checked: 2026-10-23 }
+    - { id: wb-orcr, name: "WBJEEB — ORCR WBJEEB 2026 Counselling (opening and closing ranks)", url: "https://admissions.nic.in/wbjeeb/Applicant/report/orcrreport.aspx?enc=yVQCIiq12npg+pcvNJRdc0HDRnuJ9gFOaCInZL4j9NW30CHtS0gho2BQTEcrr6Wa", covers: "round-wise opening / closing ranks by institute, programme, quota and category", checked: 2026-10-23 }
+
 exams:
   # ------------------------------------------------------------------ WBCS (EXE.) ETC.
   - slug: wbcs

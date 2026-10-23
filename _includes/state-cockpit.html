@@ -72,6 +72,7 @@
       <nav class="quicknav" aria-label="On this page">
         <span class="sc-otp" aria-hidden="true">On this page</span>
         {%- for g in K.groups %}<a href="#{{ g.id }}">{{ g.heading }}</a>{% endfor %}
+        {%- if SD.counselling %}<a href="#counselling">{{ SD.counselling.eyebrow }}</a>{% endif %}
         <a href="#compare">Side-by-side</a>
         <a href="#portals">Official portals</a>
       </nav>
@@ -103,6 +104,57 @@
     </div>
   </section>
   {%- endfor %}
+
+  {%- comment -%}
+    Optional state engineering counselling block: SD.counselling {eyebrow, heading, intro, body {name, portal, url,
+    merit, source}, seat_rule[] {text, source}, anchors_caption, anchors[3] {institute, seat, closing, source},
+    anchors_note, sources[]}. Source markers [n] point into this block's own list (SRC below).
+  {%- endcomment -%}
+  {%- if SD.counselling %}
+  {%- assign C = SD.counselling -%}
+  {%- assign SRC = C.sources -%}
+  <section class="block mb sc-block" id="counselling" aria-labelledby="counselling-heading">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">{{ C.eyebrow }}</span>
+        <h2 id="counselling-heading">{{ C.heading }}</h2>
+        <p>{{ C.intro }}</p>
+      </div>
+      <h3 class="block-subhead">Counselling body</h3>
+      <ul class="sc-kv sc-counsel-body">
+        <li><span class="sc-k">Run by</span> {{ C.body.name }} {% include state-src-ref.html id=C.body.source %}</li>
+        <li><span class="sc-k">Merit basis</span> {{ C.body.merit }}</li>
+        <li><span class="sc-k">Official portal</span> <a href="{{ C.body.url }}" target="_blank" rel="noopener noreferrer">{{ C.body.portal }}<span class="sr-only"> (opens in a new tab)</span></a></li>
+      </ul>
+      <h3 class="block-subhead">How seats are allotted</h3>
+      <ul class="sc-list">
+        {%- for r in C.seat_rule %}
+        <li>{{ r.text }} {% include state-src-ref.html id=r.source %}</li>
+        {%- endfor %}
+      </ul>
+      <h3 class="block-subhead sc-cap">{{ C.anchors_caption }}</h3>
+      <div class="table-wrap sc-table"><table class="table-simple">
+        <caption class="sr-only">{{ C.anchors_caption }}</caption>
+        <thead><tr><th scope="col">Institute</th><th scope="col">Seat row compared</th><th scope="col">Closing rank</th></tr></thead>
+        <tbody>
+          {%- for a in C.anchors %}
+          <tr><th scope="row">{{ a.institute }}</th><td>{{ a.seat }}</td><td>{{ a.closing }} {% include state-src-ref.html id=a.source %}</td></tr>
+          {%- endfor %}
+        </tbody>
+      </table></div>
+      <p class="table-note sc-note">{{ C.anchors_note }}</p>
+      <h3 class="block-subhead">Sources for this block</h3>
+      <ol class="cite-list">
+        {%- for s in SRC %}
+        <li id="src-{{ s.id }}">
+          <a class="source-link" href="{{ s.url }}" target="_blank" rel="noopener noreferrer">{{ s.name }}<span class="sr-only"> (opens in a new tab)</span></a>
+          <span class="cite-covers">{{ s.covers }} · Last checked {{ s.checked | date: "%-d %b %Y" }}</span>
+        </li>
+        {%- endfor %}
+      </ol>
+    </div>
+  </section>
+  {%- endif %}
 
   <section class="block mb sc-block" id="compare" aria-labelledby="compare-heading">
     <div class="container">

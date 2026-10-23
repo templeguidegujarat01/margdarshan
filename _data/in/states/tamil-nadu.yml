@@ -51,6 +51,36 @@ cockpit:
     - { label: "Tamil Nadu Uniformed Services Recruitment Board (TNUSRB)", url: "https://tnusrb.tn.gov.in/" }
     - { label: "Tamil Nadu Engineering Admissions (TNEA)", url: "https://www.tneaonline.org/" }
 
+# State engineering counselling at a glance (rendered by _includes/state-cockpit.html, block id "counselling").
+# counseling_body = body, seat_allocation_rule = seat_rule, top_three_college_anchors = anchors (exactly 3,
+# government institutions only). TNEA publishes no closing-rank table we could open (cutoff.tneaonline.org
+# returned 503), so each closing rank is the last Open Competition (OC) allotment for that college and branch
+# in DoTE's own TNEA 2026 Round 1 General Academic provisional allotment list (read 2026-10-23).
+counselling:
+  eyebrow: "B.E. / B.Tech counselling"
+  heading: "Who allots engineering seats in Tamil Nadu"
+  intro: "TNEA is Tamil Nadu's single-window engineering counselling. There is no entrance test: rank comes from Class 12 marks. Below: who runs it, how seats are reserved, and the last Open Competition seat at three government institutions in round 1."
+  body:
+    name: "Directorate of Technical Education (DoTE), Chennai — Tamil Nadu Engineering Admissions (TNEA 2026)"
+    portal: "tneaonline.org"
+    url: "https://www.tneaonline.org/"
+    merit: "Class 12 cut-off out of 200 (Maths 100 + Physics 50 + Chemistry 50)"
+    source: tn-ib
+  seat_rule:
+    - { text: "Rank comes only from Class 12 marks: Maths out of 100 plus Physics and Chemistry out of 50 each, a cut-off out of 200. Seats are then allotted in online counselling rounds.", source: tn-ib }
+    - { text: "69% communal reservation for Tamil Nadu natives: BC 26.5%, BC Muslim 3.5%, MBC &amp; DNC 20%, SC 15%, SC Arunthathiyar 3%, ST 1%. The remaining 31% is Open Competition, where reserved candidates also compete.", source: tn-ib }
+    - { text: "7.5% of the seats in every community share, General included, go to students who studied Classes 6–12 in state government schools.", source: tn-ib }
+    - { text: "Communal reservation needs a permanent community certificate issued in Tamil Nadu. Students who studied Classes VIII–XII in Tamil Nadu need no nativity certificate. Children of central-government employees serving in the state apply under Open Competition only.", source: tn-ib }
+  anchors_caption: "Three government institutions: B.E. Computer Science and Engineering, TNEA 2026 round 1"
+  anchors:
+    - { institute: "College of Engineering, Guindy (CEG) — Anna University, Chennai", seat: "CSE (college code 1) · OC seat", closing: "2,912 (cut-off 193.5)", source: tn-r1 }
+    - { institute: "Madras Institute of Technology (MIT) — Anna University, Chromepet", seat: "CSE (college code 4) · OC seat", closing: "3,027 (cut-off 193.5)", source: tn-r1 }
+    - { institute: "Government College of Technology (GCT), Coimbatore", seat: "CSE (college code 2005) · OC seat", closing: "13,882 (cut-off 184.0)", source: tn-r1 }
+  anchors_note: "TNEA general rank and Class 12 cut-off of the last candidate given an Open Competition seat in that branch in round 1. Margdarshan worked these out from DoTE's allotment list; DoTE does not print them as a closing rank. Community seats close further out and are listed in the same file."
+  sources:
+    - { id: tn-ib, name: "DoTE Tamil Nadu — TNEA 2026 Information Brochure", url: "https://static.tneaonline.org/docs/2_Information_Brochure_2026.pdf", covers: "cut-off formula, reservation, 7.5% government-school quota, nativity", checked: 2026-10-19 }
+    - { id: tn-r1, name: "DoTE Tamil Nadu — TNEA 2026 Round 1 General Academic Provisional Allotment List", url: "https://static.tneaonline.org/docs/TNEA-2026-ROUND-1-GENERAL-ACADEMIC-PROVISIONAL-ALLOTMENT-LIST.pdf", covers: "rank, cut-off mark, community, college code, branch and allotted category of every round-1 allotment", checked: 2026-10-23 }
+
 exams:
   # ------------------------------------------------------------------ TNPSC GROUP IV
   - slug: tnpsc-group4

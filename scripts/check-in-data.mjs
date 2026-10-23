@@ -137,6 +137,26 @@ if (fs.existsSync(stateDir)) for (const f of fs.readdirSync(stateDir).filter((x)
     for (const s of g.exams || []) { if (!slugs.includes(s)) err(`group ${g.id}: unknown exam "${s}"`); grouped.set(s, g.id); }
   }
   if (!(D.cockpit && D.cockpit.portals_note)) err('cockpit.portals_note is required');
+  // Optional engineering counselling block on the cockpit: body + seat rules + exactly 3 college anchors, all sourced.
+  if (D.counselling) {
+    const C = D.counselling, ce = (m) => err(`counselling: ${m}`);
+    for (const k of ['eyebrow', 'heading', 'intro', 'anchors_caption', 'anchors_note']) if (!C[k]) ce(`${k} is required`);
+    const cids = new Set(), used = new Set();
+    for (const s of C.sources || []) {
+      if (!s.id || !s.name || !/^https:\/\//.test(s.url || '') || !s.covers || !isDay(s.checked)) ce(`source ${JSON.stringify(s.id)} needs id, name, https url, covers, checked date`);
+      if (cids.has(s.id)) ce(`duplicate source id ${s.id}`);
+      cids.add(s.id);
+    }
+    const use = (where, src) => { if (!src) ce(`${where}: fact without source`); else if (!cids.has(src)) ce(`${where}: source "${src}" is not listed`); else used.add(src); };
+    const B = C.body || {};
+    if (!B.name || !B.portal || !B.merit || !/^https:\/\//.test(B.url || '')) ce('body needs name, portal, merit and an https url');
+    use('body', B.source);
+    if (!(C.seat_rule || []).length) ce('seat_rule needs at least one rule');
+    for (const [i, r] of (C.seat_rule || []).entries()) { if (!r.text) ce(`seat_rule ${i + 1}: text is required`); use(`seat_rule ${i + 1}`, r.source); }
+    if ((C.anchors || []).length !== 3) ce(`anchors must list exactly 3 institutes (found ${(C.anchors || []).length})`);
+    for (const [i, a] of (C.anchors || []).entries()) { if (!a.institute || !a.seat || !a.closing) ce(`anchor ${i + 1}: institute, seat and closing are required`); use(`anchor ${i + 1}`, a.source); }
+    for (const sid of cids) if (!used.has(sid)) ce(`source "${sid}" is listed but never cited`);
+  }
   for (const o of (D.cockpit && D.cockpit.portals) || []) if (!/^https:\/\//.test(o.url || '')) err(`portal ${o.label}: url must start with https://`);
   for (const E of D.exams || []) {
     stateExams++;

@@ -72,6 +72,10 @@
       <span class="eyebrow">USA · {{ CAT.label }}</span>
       <h1>{{ P.title }}</h1>
       <p class="md-answer-lede">{{ PP.answer | default: PP.intro }}</p>
+      {%- comment -%} Career Clusters roadmap (USA Master Plan Phase 2+): a `pathway: <slug>` entry in _data/us/careers/<cluster>.yml
+        gives this pathway a standalone roadmap at us/roadmaps/<entry slug>.html {%- endcomment -%}
+      {%- assign v2_rm = nil -%}
+      {%- for cf in site.data.us.careers -%}{%- assign v2_hit = cf[1].list | where: "pathway", P.slug | first -%}{%- if v2_hit -%}{%- assign v2_rm = v2_hit -%}{%- endif -%}{%- endfor %}
       <div class="md-stats md-stats-micro">
         <div class="md-stat">
           <span class="md-stat-label">Median pay · {{ O.title | downcase }}</span>
@@ -105,6 +109,18 @@
           <span class="md-stat-note">for most jobs</span>
           {%- endif %}
         </div>
+        {%- comment -%} Entrance/licensing exams: exams.yml entries whose used_by.need names this pathway or its
+          roadmap slug (same match as the exam links under the console); row skipped when none match {%- endcomment -%}
+        {%- assign v2_exam_n = 0 -%}
+        {%- capture v2_exams -%}{%- for E in US.exams.exams -%}{%- assign EN = E[1].used_by.need -%}
+        {%- if EN contains P.slug or v2_rm and EN contains v2_rm.slug -%}{% if v2_exam_n > 0 %}, {% endif %}<a href="us/exams/{{ E[0] }}/">{{ E[1].short }}</a>{%- assign v2_exam_n = v2_exam_n | plus: 1 -%}{%- endif -%}
+        {%- endfor -%}{%- endcapture -%}
+        {%- if v2_exam_n > 0 %}
+        <div class="md-stat md-stat-wide">
+          <span class="md-stat-label">Key exams</span>
+          <span class="md-stat-value is-text">{{ v2_exams }}</span>
+        </div>
+        {%- endif %}
         {%- comment -%} High-school levers (pathways.yml ap_tuition_hack, sat_act_weight): one full-width row each {%- endcomment -%}
         {%- if P.ap_tuition_hack %}
         <div class="md-stat md-stat-wide">
@@ -120,10 +136,6 @@
         {%- endif %}
       </div>
       <p class="qf-note md-money-note">{{ site.data.regions.us.vocab.money_note }}</p>
-      {%- comment -%} Career Clusters roadmap (USA Master Plan Phase 2+): a `pathway: <slug>` entry in _data/us/careers/<cluster>.yml
-        gives this pathway a standalone roadmap at us/roadmaps/<entry slug>.html {%- endcomment -%}
-      {%- assign v2_rm = nil -%}
-      {%- for cf in site.data.us.careers -%}{%- assign v2_hit = cf[1].list | where: "pathway", P.slug | first -%}{%- if v2_hit -%}{%- assign v2_rm = v2_hit -%}{%- endif -%}{%- endfor %}
       <div class="md-answer-actions">
         <a href="#path" class="btn btn-primary btn-compact">See the path</a>
         {%- if v2_rm %}<a href="us/roadmaps/{{ v2_rm.slug }}.html" class="md-textlink">Step-by-step roadmap</a>{% endif %}

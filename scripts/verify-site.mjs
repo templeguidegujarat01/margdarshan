@@ -7,7 +7,8 @@
 //   - duplicate ids, unbalanced <details>/<section>/<div>
 //   - no "coming soon" placeholder text
 //   - no typed arrow inside a .btn-page-link button (the CSS draws one; 2026-10-20)
-//   - FAQPage JSON-LD: one per page, each item a Question with a name and an Answer with text
+//   - FAQPage JSON-LD: one per page, each item a Question with a name and an Answer with text, and every
+//     question and answer printed on the page itself in the same words (Google: marked-up FAQ must be visible; 2026-10-23)
 //   - with --all: sitemap.xml (rendered from the real template) lists every indexable page once, each <loc>
 //     equal to that page's canonical, no noindex/redirect URLs; <title> unique across indexable pages (2026-10-22);
 //     every indexable page's <title>, og:title and twitter:title <= 60 and meta description 1-160 characters (2026-10-23)
@@ -116,6 +117,14 @@ async function idsOf(f) {
   return (idCache[f] = new Set([...html.matchAll(/\sid="([^"]+)"/g)].map((x) => x[1])));
 }
 
+// Text as a reader sees it: tags dropped (like Liquid strip_html), entities decoded, whitespace collapsed.
+const ENT = { amp: '&', quot: '"', apos: "'", lt: '<', gt: '>', nbsp: ' ', rarr: '→', larr: '←', middot: '·', ndash: '–', mdash: '—', hellip: '…', rsquo: '’', lsquo: '‘', rdquo: '”', ldquo: '“', times: '×' };
+const flatText = (x) => String(x).replace(/<[^>]*>/g, '')
+  .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCodePoint(parseInt(h, 16)))
+  .replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(+d))
+  .replace(/&([a-z]+);/gi, (m, e) => ENT[e.toLowerCase()] ?? m)
+  .replace(/\s+/g, ' ').trim();
+
 let n = 0;
 for (const f of targets) {
   n++;
@@ -128,6 +137,7 @@ for (const f of targets) {
     if (/→|&rarr;|&#8594;|&#x2192;|»|&raquo;/i.test(a[1])) err(f, `typed arrow inside .btn-page-link (CSS already adds one): "${a[1].replace(/<[^>]+>/g, '').trim().slice(0, 60)}"`);
   }
   let faqPages = 0;
+  const faqItems = [];
   for (const b of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
     let ld;
     try { ld = JSON.parse(b[1]); } catch (e) { err(f, 'invalid JSON-LD: ' + e.message); continue; }
@@ -139,6 +149,7 @@ for (const f of targets) {
       for (const q of node.mainEntity || []) {
         if (q['@type'] !== 'Question' || !String(q.name || '').trim() || !q.acceptedAnswer || q.acceptedAnswer['@type'] !== 'Answer' || !String(q.acceptedAnswer.text || '').trim())
           err(f, 'FAQPage item is not a Question with a name and an Answer with text: ' + String(q.name || '').slice(0, 60));
+        else faqItems.push(q);
       }
     }
   }
@@ -155,6 +166,14 @@ for (const f of targets) {
     });
   }
   html = html.replace(/<script[\s\S]*?<\/script>/g, '');
+  // Every marked-up question and answer must be printed on the page in the same words.
+  if (faqItems.length) {
+    const visible = flatText(html.replace(/<(style|template|noscript)\b[\s\S]*?<\/\1>/g, '').replace(/<head\b[\s\S]*?<\/head>/, ''));
+    for (const q of faqItems) {
+      if (!visible.includes(flatText(q.name))) err(f, 'FAQPage question not printed on the page: ' + String(q.name).slice(0, 60));
+      else if (!visible.includes(flatText(q.acceptedAnswer.text))) err(f, 'FAQPage answer differs from the printed answer: ' + String(q.name).slice(0, 60));
+    }
+  }
   const ids = [...html.matchAll(/\sid="([^"]+)"/g)].map((x) => x[1]);
   const dup = ids.filter((x, i) => ids.indexOf(x) !== i);
   if (dup.length) err(f, 'duplicate ids: ' + [...new Set(dup)].slice(0, 5).join(', '));

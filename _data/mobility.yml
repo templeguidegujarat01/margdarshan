@@ -8,6 +8,9 @@
 #   - review_by: rules for foreign-qualified professionals change; the checker fails after this date
 #     until every source has been re-read and `checked` / review_by moved forward.
 #   - pages: in.<India sheet slug> | us.<pathway slug> | uk.<UK sheet slug>; each must exist.
+#   - optional per route: checked (date its sources were read, when newer than the file-wide one) and
+#     roadmap (root-relative path of the full cross-border roadmap; the strip links it only on pages of
+#     the other editions, because that edition's own page already has the "Trained outside" card).
 checked: 2026-10-09
 review_by: 2027-04-09
 
@@ -47,6 +50,63 @@ sources:
     publisher: "New York Court of Appeals (via Cornell LII)"
     short: "NY rule"
     url: "https://www.law.cornell.edu/regulations/new-york/22-NYCRR-520.6"
+  # ---- 2026-10-23: medicine + nursing. GMC and ECFMG return 403 to scripts: read in headless Edge.
+  # CGFNS now trades as TruMerit (cgfns.org redirects to trumerit.org); its applicant portal is still "CGFNS Connect".
+  gmc_plab:
+    name: "A guide to the PLAB test"
+    publisher: "General Medical Council (GMC)"
+    short: "GMC PLAB"
+    url: "https://www.gmc-uk.org/registration-and-licensing/join-our-registers/plab/a-guide-to-the-plab-test"
+  gmc_mla:
+    name: "Before you apply: Medical Licensing Assessment"
+    publisher: "General Medical Council (GMC)"
+    short: "GMC MLA"
+    url: "https://www.gmc-uk.org/registration-and-licensing/join-our-registers/before-you-apply-guide-for-doctors/medical-licensing-assessment"
+  gmc_pmq:
+    name: "Acceptable overseas qualifications for doctors"
+    publisher: "General Medical Council (GMC)"
+    short: "GMC degree check"
+    url: "https://www.gmc-uk.org/registration-and-licensing/join-our-registers/before-you-apply-guide-for-doctors/acceptable-overseas-qualifications-for-doctors"
+  gmc_ielts:
+    name: "Evidence of your knowledge of English: IELTS"
+    publisher: "General Medical Council (GMC)"
+    short: "GMC English"
+    url: "https://www.gmc-uk.org/registration-and-licensing/join-our-registers/before-you-apply-guide-for-doctors/evidence-of-your-knowledge-of-english/using-your-ielts-certificate"
+  gmc_oet:
+    name: "Evidence of your knowledge of English: OET"
+    publisher: "General Medical Council (GMC)"
+    short: "GMC OET"
+    url: "https://www.gmc-uk.org/registration-and-licensing/join-our-registers/before-you-apply-guide-for-doctors/evidence-of-your-knowledge-of-english/using-your-oet-certificate"
+  ecfmg_cert:
+    name: "ECFMG Certification: who is an IMG and the requirements"
+    publisher: "ECFMG (Intealth)"
+    short: "ECFMG"
+    url: "https://www.ecfmg.org/certification/"
+  nmc_overseas:
+    name: "Register as a nurse or midwife if you trained outside the UK: step by step"
+    publisher: "Nursing and Midwifery Council (NMC)"
+    short: "NMC"
+    url: "https://www.nmc.org.uk/registration/joining-the-register/register-nurse-midwife/trained-outside-uk/how-to-guide/"
+  nmc_toc:
+    name: "Test of Competence for all nursing fields and midwives"
+    publisher: "Nursing and Midwifery Council (NMC)"
+    short: "NMC ToC"
+    url: "https://www.nmc.org.uk/registration/joining-the-register/toc/toc-nursing-and-midwifery/"
+  nmc_english:
+    name: "Accepted English language tests"
+    publisher: "Nursing and Midwifery Council (NMC)"
+    short: "NMC English"
+    url: "https://www.nmc.org.uk/registration/joining-the-register/english-language-requirements/accepted-english-language-tests/"
+  cgfns_us_nurse:
+    name: "How to work as a nurse in the U.S. (foreign-educated nurses)"
+    publisher: "TruMerit (formerly CGFNS International)"
+    short: "CGFNS"
+    url: "https://www.trumerit.org/steps-to-working-as-nurse-in-united-states/"
+  cgfns_visascreen:
+    name: "VisaScreen: Visa Credentials Assessment"
+    publisher: "TruMerit (formerly CGFNS International)"
+    short: "VisaScreen"
+    url: "https://www.trumerit.org/services/certification/visascreen-visa-credentials-assessment/"
 
 routes:
   icai-to-aca:
@@ -61,6 +121,7 @@ routes:
       - "ICAI member for <strong>5+ years</strong>? You can apply through ICAEW's Pathways to Membership instead."
       - "Signing UK audits needs more: ICAEW says the ICAI qualification is <strong>not recognised</strong> for the UK Audit Qualification."
     sources: [icaew_icai_aca, icaew_icai_join]
+    roadmap: "uk/roadmaps/icai-to-uk-accountant.html"
   icai-to-acca:
     from: in
     to: uk
@@ -72,6 +133,7 @@ routes:
       - "<strong>No exemptions</strong> for the 4 Strategic Professional exams."
       - "Check your exact exemptions with ACCA's official exemptions calculator."
     sources: [acca_exemptions]
+    roadmap: "uk/roadmaps/icai-to-uk-accountant.html"
   icai-to-cpa:
     from: in
     to: us
@@ -82,6 +144,7 @@ routes:
       - "ICAI has <strong>no mutual recognition agreement</strong> with the U.S. board (NASBA/AICPA IQAB), so there is no shortened exam route."
       - "Bodies that do have one: SAICA, CPA Australia, CA ANZ, CPA Canada, Chartered Accountants Ireland, CPA Ireland, IMCP (Mexico)."
     sources: [nasba_mra]
+    roadmap: "us/roadmaps/cpa-international.html"
   aca-to-cpa:
     from: uk
     to: us
@@ -103,6 +166,7 @@ routes:
       - "Qualified lawyers <strong>do not need</strong> the 2 years of qualifying work experience."
       - "You still need a degree (any subject) or equivalent, and the SRA's character checks."
     sources: [sra_qualified_lawyers]
+    roadmap: "uk/roadmaps/sqe-overseas-lawyer.html"
   lawyer-to-barrister:
     from: [in, us]
     to: uk
@@ -124,6 +188,61 @@ routes:
       - "The degree must match a U.S. J.D. in length and content. If it does not, a U.S. <strong>LL.M. of at least 24 credits</strong> (with set subjects) can fill the gap."
       - "Some routes also need you to be <strong>admitted to practise</strong> in your home country first."
     sources: [nycrr_520_6]
+    roadmap: "us/roadmaps/foreign-lawyer-us-bar.html"
+  doctor-to-gmc:
+    from: [in, us]
+    to: uk
+    from_label: "Doctor who qualified outside the UK, EEA and Switzerland (e.g. Indian MBBS)"
+    to_label: "UK doctor (GMC licence to practise)"
+    badge: "PLAB 1 + PLAB 2"
+    checked: 2026-10-23
+    points:
+      - "You will <strong>probably need the PLAB test</strong>. It checks you know and can do what a UK doctor starting the second Foundation year can."
+      - "Before PLAB, the GMC checks that your degree is an <strong>acceptable overseas qualification</strong> and that your English is good enough."
+      - "English: IELTS Academic <strong>7.5 overall and 7.0 in each part</strong>, or OET Medicine <strong>grade B in all four parts</strong>, in one sitting. Valid for 2 years."
+      - "PLAB 1: <strong>180 questions in 3 hours</strong>, held in several countries. PLAB 2: a clinical exam (OSCE) of <strong>16 scenarios</strong> at the GMC's centre in the UK."
+      - "Pass both, then apply for registration: it must be approved <strong>within 2 years</strong> of passing PLAB 2. The GMC made PLAB meet the UK Medical Licensing Assessment (MLA) in 2024."
+    sources: [gmc_plab, gmc_pmq, gmc_ielts, gmc_oet, gmc_mla]
+  img-to-ecfmg:
+    from: [in, uk]
+    to: us
+    from_label: "Medical graduate from outside the U.S. (e.g. Indian or UK MBBS)"
+    to_label: "U.S. residency and licence (ECFMG Certification)"
+    badge: "USMLE + ECFMG"
+    checked: 2026-10-23
+    points:
+      - "ECFMG counts you as an international medical graduate (IMG) by where your <strong>medical school</strong> is, not by your passport."
+      - "Your school must be in the World Directory of Medical Schools with an <strong>ECFMG Sponsor Note</strong> that covers your graduation year. No note = not eligible."
+      - "Pass <strong>USMLE Step 1 and Step 2 CK</strong>, and meet an ECFMG Pathway, which includes <strong>OET Medicine</strong>."
+      - "ACGME residency programs and U.S. state medical boards both <strong>require ECFMG Certification</strong> from IMGs."
+    sources: [ecfmg_cert]
+    roadmap: "us/roadmaps/img-usmle.html"
+  nurse-to-nmc:
+    from: [in, us]
+    to: uk
+    from_label: "Nurse trained outside the UK (e.g. Indian B.Sc Nursing)"
+    to_label: "UK registered nurse (NMC)"
+    badge: "CBT + OSCE"
+    checked: 2026-10-23
+    points:
+      - "Without a recognised European qualification you take the NMC <strong>Test of Competence</strong>: a computer-based test (<strong>CBT</strong>) and a practical exam (<strong>OSCE</strong>)."
+      - "Pass the CBT and OSCE <strong>within 2 years</strong> of each other, in either order. Once passed, the test stays valid for <strong>5 years</strong>."
+      - "English: IELTS Academic <strong>7 in listening, reading and speaking, 6.5 in writing</strong>, or OET <strong>B (350)</strong> with <strong>C+ (300)</strong> in writing. Scores count for 2 years."
+      - "Order: eligibility and qualification application (<strong>£140</strong> evaluation fee, non-refundable), the test, then health, character, English and indemnity evidence."
+    sources: [nmc_overseas, nmc_toc, nmc_english]
+  nurse-to-us-rn:
+    from: [in, uk]
+    to: us
+    from_label: "Nurse educated outside the U.S. (e.g. Indian B.Sc Nursing)"
+    to_label: "U.S. Registered Nurse (NCLEX-RN)"
+    badge: "CGFNS check + NCLEX-RN"
+    checked: 2026-10-23
+    points:
+      - "State boards of nursing first want your education and licence checked by <strong>CGFNS (now called TruMerit)</strong> against U.S. nursing standards."
+      - "Then pass the <strong>NCLEX-RN</strong> for the state where you will work. Some states also want the CGFNS Qualifying Exam before it."
+      - "For a work visa (H-1B or green card) you need <strong>VisaScreen</strong>: education and licence checks, an English test, and a pass in the NCLEX-RN or the CGFNS Qualifying Exam."
+      - "A <strong>U.S. employer</strong> must file your visa petition, and the VisaScreen certificate goes with it."
+    sources: [cgfns_us_nurse, cgfns_visascreen]
 
 # Which routes each career page shows (order = order on the page).
 pages:
@@ -131,9 +250,15 @@ pages:
     ca: [icai-to-aca, icai-to-acca, icai-to-cpa]
     cpa: [icai-to-cpa]
     llb: [lawyer-to-solicitor, lawyer-to-barrister, common-law-to-ny]
+    mbbs: [doctor-to-gmc, img-to-ecfmg]
+    nursing: [nurse-to-nmc, nurse-to-us-rn]
   us:
     accounting: [icai-to-cpa, aca-to-cpa]
     law: [lawyer-to-solicitor, lawyer-to-barrister]
+    medicine: [img-to-ecfmg, doctor-to-gmc]
+    nursing: [nurse-to-us-rn, nurse-to-nmc]
   uk:
     accountancy: [icai-to-aca, icai-to-acca, aca-to-cpa]
     law: [common-law-to-ny, lawyer-to-solicitor, lawyer-to-barrister]
+    medicine: [doctor-to-gmc, img-to-ecfmg]
+    nursing: [nurse-to-nmc, nurse-to-us-rn]

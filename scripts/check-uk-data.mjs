@@ -111,6 +111,8 @@ for (const [id, r] of Object.entries(M.routes || {})) {
   if (!(r.points || []).length) err(w, 'no points');
   if (!(r.sources || []).length) err(w, 'no sources');
   for (const s of r.sources || []) if (!M.sources[s]) err(w, `unknown source "${s}"`);
+  if (r.checked !== undefined && (!isDate(r.checked) || day(r.checked) > today)) err(w, 'checked must be a past date');
+  if (r.roadmap !== undefined && (!/^(us|uk)\/roadmaps\/[a-z0-9-]+\.html$/.test(r.roadmap) || !exists(r.roadmap))) err(w, `roadmap ${r.roadmap} has no page`);
 }
 const pageExists = { in: (k) => exists(`_data/in/careers/${k}.yml`), us: (k) => !!usPaths.find((x) => x.slug === k && x.live), uk: (k) => !!careers[k] };
 for (const [ed, map] of Object.entries(M.pages || {})) {

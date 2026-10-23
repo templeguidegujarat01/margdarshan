@@ -21,38 +21,53 @@
   short columns in column 2 (.hh-tabbed-2). Narrow: the groups are a sideways pill line above the list.
   Column 3 cells (.hh-cell, cascade nodes only): each link is a ruled cell in a grid — mono index, name, its
   one-line desc shown (instead of a title tooltip), mono arrow — so a long group reads as a scannable board.
+  USA edition (2026-10-23): the layout includes this with edition="us" on every us/** page (body.shell-us, no
+  sidebar). Items then come from _data/nav_us.yml `topnav` and `mega` keys from _data/us/nav_mega.yml (built by
+  scripts/build-us-nav-mega.mjs). A menu with `clusters: true` draws one rail node per live cluster of
+  _data/us/clusters.yml (name, hub us/clusters/<slug>/, mega key cluster-<slug>), so the rail follows the data.
 {%- endcomment -%}
 {%- assign hh_cur = page.url | remove_first: "/" -%}
-<nav class="in-header-hubs" aria-label="India menu" data-no-points>
+{%- if include.edition == "us" -%}
+  {%- assign hh_items = site.data.nav_us.topnav -%}{%- assign hh_mega = site.data.us.nav_mega -%}{%- assign hh_aria = "USA menu" -%}
+{%- else -%}
+  {%- assign hh_items = site.data.nav.topnav -%}{%- assign hh_mega = site.data.nav_mega -%}{%- assign hh_aria = "India menu" -%}
+{%- endif -%}
+<nav class="in-header-hubs" aria-label="{{ hh_aria }}" data-no-points>
   <div class="container">
     <ul class="hh-row">
-      {%- for it in site.data.nav.topnav %}
+      {%- for it in hh_items %}
       {%- assign it_label = it.label | replace: "&", "&amp;" %}
       {%- capture it_icon %}<span class="hh-ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{{ it.icon }}</svg></span>{% endcapture %}
       {%- if it.type == "home" %}
       <li><a class="hh-home" href="{{ it.href }}" aria-label="{{ it_label }}" title="{{ it_label }}"{% if hh_cur == it.href %} aria-current="page"{% endif %}>{{ it_icon }}</a></li>
       {%- elsif it.type == "tile" %}
       <li><a class="hh-tile" href="{{ it.href }}">{{ it_icon }}{{ it_label }}</a></li>
-      {%- elsif it.nodes %}
-      {%- assign hh_rows = it.children | size | plus: it.nodes.size %}
+      {%- elsif it.nodes or it.clusters %}
+      {%- if it.clusters %}{% assign it_nodes = site.data.us.clusters.clusters | where: "live", true %}{% else %}{% assign it_nodes = it.nodes %}{% endif %}
+      {%- assign hh_rows = it.children | size | plus: it_nodes.size %}
       <li>
         <details class="hh-dd">
           <summary class="hh-btn">{{ it_label }}<svg class="hh-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-          <ul class="hh-panel hh-mega" style="--hh-rows:{{ hh_rows }}">
-            {%- for n in it.nodes %}
-            {%- assign n_label = n.label | replace: "&", "&amp;" %}
-            {%- assign M = site.data.nav_mega[n.mega] %}
+          <ul class="hh-panel hh-mega{% if it_nodes.size > 10 %} hh-mega-dense{% endif %}" style="--hh-rows:{{ hh_rows }}">
+            {%- for n in it_nodes %}
+            {%- if it.clusters %}
+            {%- assign n_raw = n.name %}{% capture n_href %}us/clusters/{{ n.slug }}/{% endcapture %}{% capture n_mega %}cluster-{{ n.slug }}{% endcapture %}
+            {%- else %}
+            {%- assign n_raw = n.label %}{% assign n_href = n.href %}{% assign n_mega = n.mega %}
+            {%- endif %}
+            {%- assign n_label = n_raw | replace: "&", "&amp;" %}
+            {%- assign M = hh_mega[n_mega] %}
             {%- assign n_cols = n.cols %}
             {%- if M %}{% assign n_cols = M.cols %}{% endif %}
             {%- assign n_links = 0 %}{% for col in n_cols %}{% assign n_links = n_links | plus: col.links.size %}{% endfor %}
             {%- if n_cols.size > 1 and n_links > 8 %}{% assign n_tab = true %}{% else %}{% assign n_tab = false %}{% endif %}
-            {%- capture n_id %}hh-{{ it.label | slugify }}-{{ n.label | slugify }}{% endcapture %}
+            {%- capture n_id %}hh-{{ it.label | slugify }}-{{ n_raw | slugify }}{% endcapture %}
             <li class="hh-sub hh-node{% if forloop.first %} is-on{% endif %}">
-              <a class="hh-sub-btn" href="{{ n.href }}" aria-haspopup="true"{% if hh_cur == n.href %} aria-current="page"{% endif %}><span class="hh-node-txt">{{ n_label }}</span><svg class="hh-sub-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+              <a class="hh-sub-btn" href="{{ n_href }}" aria-haspopup="true"{% if hh_cur == n_href %} aria-current="page"{% endif %}><span class="hh-node-txt">{{ n_label }}</span><svg class="hh-sub-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
               <div class="hh-fly hh-grid{% if n_tab %} hh-tabbed{% if n_cols.size > 10 %} hh-tabbed-2{% endif %}{% endif %}" role="group" aria-label="{{ n_label }}">
                 <div class="hh-fly-head">
                   <p class="hh-fly-title">{{ n_label }}{% if M.note %}<span>{{ M.note | replace: "&", "&amp;" }}</span>{% endif %}</p>
-                  <a class="hh-link hh-fly-all" href="{% if M.head %}{{ M.head.href }}{% else %}{{ n.href }}{% endif %}">{% if M.head %}{{ M.head.label | replace: "&", "&amp;" }}{% else %}Open {{ n_label }}{% endif %} <span aria-hidden="true">→</span></a>
+                  <a class="hh-link hh-fly-all" href="{% if M.head %}{{ M.head.href }}{% else %}{{ n_href }}{% endif %}">{% if M.head %}{{ M.head.label | replace: "&", "&amp;" }}{% else %}Open {{ n_label }}{% endif %} <span aria-hidden="true">→</span></a>
                 </div>
                 {%- if n_tab %}
                 <div class="hh-tabs" role="tablist" aria-label="{{ n_label }}: pick a group">

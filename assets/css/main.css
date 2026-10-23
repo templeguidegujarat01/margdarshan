@@ -408,6 +408,11 @@ html.nav-locked{overflow:hidden;}
   .hh-mega .hh-node.is-on > .hh-grid{visibility:visible;}
   .hh-node.is-on .hh-sub-arrow{transform:translateX(3px);}
   .hh-cols{column-width:10rem;}
+  /* More than 10 rail nodes (USA Career Clusters: 14): a wider rail keeps each name on one line and tighter rows
+     keep the whole rail on screen. */
+  .hh-panel.hh-mega-dense{grid-template-columns:17rem minmax(0,1fr);}
+  .hh-mega-dense .hh-sub-btn{padding:.36rem .7rem;font-size:.88rem;}
+  .hh-mega-dense .hh-rail-link a{padding:.3rem .7rem;}
 }
 /* Touch / narrow: accordion inside a panel that scrolls itself (never the page sideways). */
 @media not all and (min-width:1024px) and (hover:hover){
@@ -496,7 +501,7 @@ html.nav-locked{overflow:hidden;}
 }
 @media (prefers-reduced-motion:reduce){.hh-tab,.hh-tab::before{transition:none !important;}}
 
-/* India edition pages (body.shell-in, _layouts/default.html): no sidebar, so the content takes the full width
+/* India and USA edition pages (body.shell-in; USA pages also .shell-us, _layouts/default.html): no sidebar, so the content takes the full width
    and the top bar has no menu button. On phones the logo mark stands where the menu button was (it lived in the
    drawer before). The top menu row above is the navigation on every screen size. */
 .shell-in .app-main{margin-left:0;border-left:0;border-right:0;}

@@ -7,6 +7,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { createRequire } from 'node:module';
+import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { checkCrossborder, checkOrphanRoadmaps } from './lib/crossborder.mjs';
 
@@ -811,6 +812,23 @@ for (const [k, E] of Object.entries(EXS)) {
   for (const S of home.support) if (!top.has(S.href)) err('_data/nav_us.yml', `support hub "${S.title}" (${S.href}) needs its own sidebar item`);
   if (navHubs.size !== clusters.length) err('_data/nav_us.yml', `Career Clusters menu lists ${navHubs.size} of ${clusters.length} clusters`);
   if (!top.has('us/cte/') && !nav.sidebar.some((g) => g.items.some((i) => (i.children || []).some((c) => c.href === 'us/cte/')))) err('_data/nav_us.yml', 'the Trades & CTE hub (us/cte/) needs a menu link');
+  // Top menu (2026-10-23, every us/** page; the sidebar above only shows on region-neutral pages): every support hub
+  // and Trades & CTE is a rail node, one menu draws the live clusters, every `mega` key exists, every href is a page,
+  // and _data/us/nav_mega.yml matches the data (scripts/build-us-nav-mega.mjs --check).
+  const tn = nav.topnav || [];
+  const nodes = tn.flatMap((i) => i.nodes || []);
+  const nodeHrefs = new Set(nodes.map((n) => n.href));
+  for (const S of home.support) if (!nodeHrefs.has(S.href)) err('_data/nav_us.yml topnav', `support hub "${S.title}" (${S.href}) needs its own menu node`);
+  if (!nodeHrefs.has('us/cte/')) err('_data/nav_us.yml topnav', 'the Trades & CTE hub (us/cte/) needs a menu node');
+  if (!tn.some((i) => i.clusters)) err('_data/nav_us.yml topnav', 'one menu needs clusters: true (the Career Clusters menu)');
+  const megaPath = path.join(root, '_data/us/nav_mega.yml');
+  const MG = fs.existsSync(megaPath) ? yaml.load(fs.readFileSync(megaPath, 'utf8')) : {};
+  for (const n of nodes) if (n.mega && !MG[n.mega]) err('_data/nav_us.yml topnav', `node "${n.label}" names unknown mega key ${n.mega}`);
+  for (const C of clusters) if (C.live && !MG[`cluster-${C.slug}`]) err('_data/us/nav_mega.yml', `no cluster-${C.slug} panel`);
+  const tnLinks = tn.flatMap((i) => [i, ...(i.children || []), ...(i.nodes || []), ...(i.nodes || []).flatMap((n) => (n.cols || []).flatMap((c) => c.links))]);
+  for (const l of tnLinks) if (l.href && !pageExists(l.href.split('#')[0])) err('_data/nav_us.yml topnav', `${l.label}: page ${l.href} does not exist`);
+  const mc = spawnSync(process.execPath, [path.join(root, 'scripts/build-us-nav-mega.mjs'), '--check'], { encoding: 'utf8', env: process.env });
+  if (mc.status !== 0) err('_data/us/nav_mega.yml', (mc.stderr || mc.stdout).trim());
 }
 if (CIX) console.log(`checked colleges: ${clSchools} schools in ${Object.keys(CIX.states).length} states, ${clCities} city pages, ${Object.keys(CFD?.fields || {}).length} program lists, ${Object.keys(CAP?.careers || {}).length} apprenticeship matches`);
 

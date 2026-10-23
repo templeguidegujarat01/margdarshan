@@ -6,6 +6,96 @@
 # Only link to pages that exist. Individual career pages are reached from
 # the Careers hub (us/careers/), which links every pathway marked `live`.
 # icon is the inner SVG markup for a 24x24, stroke-based icon.
+#
+# 2026-10-23: USA pages have NO sidebar any more. Every us/** page draws the top menu below (`topnav`, same
+# shape as _data/nav.yml topnav, rendered by _includes/in-header-hubs.html with edition "us"). `sidebar` is
+# kept only for the region-neutral pages (about, contact, legal, 404), which still show the sidebar of the
+# visitor's saved edition.
+
+# USA top menu: three mega menus (rail of nodes | the active node's links). A node takes its links from its
+# own `cols` or, with `mega: <key>`, from _data/us/nav_mega.yml (built by scripts/build-us-nav-mega.mjs from
+# the USA data; rerun it after adding a career, exam, license or trade). `clusters: true` draws one node per
+# live cluster of _data/us/clusters.yml (mega key cluster-<slug>), so a new hub shows up without editing this.
+topnav:
+  - type: home
+    label: USA Home
+    href: us/
+    icon: '<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>'
+  - type: menu
+    label: Schooling & Money
+    nodes:
+      - label: High School Plan
+        href: us/high-school/
+        cols:
+          - label: Grades 9 to 12
+            links:
+              - { label: "Grade-by-grade plan", href: "us/high-school/#plan", desc: "What to do each year, grades 9 to 12" }
+              - { label: "How GPA works", href: "us/high-school/#gpa", desc: "Weighted and unweighted GPA" }
+              - { label: "Honors, AP, IB, dual enrollment", href: "us/high-school/#rigor", desc: "Harder courses and college credit" }
+              - { label: "AP credit and tuition", href: "us/high-school/#ap-credit", desc: "How AP credit can cut the bill" }
+              - { label: "What colleges weigh", href: "us/high-school/#what-counts", desc: "Grades, rigor, tests, essays" }
+              - { label: "ED, EA or Regular Decision", href: "us/high-school/#apply", desc: "Application rounds compared" }
+              - { label: "Rules where you live", href: "us/high-school/#state-rules", desc: "Diploma rules depend on your state" }
+              - { label: "Common mistakes", href: "us/high-school/#mistakes", desc: "What to avoid in high school" }
+      - label: "Tests: SAT, ACT, AP"
+        href: us/tests/
+        cols:
+          - label: Admission tests
+            links:
+              - { label: "Do colleges require tests?", href: "us/tests/#policies", desc: "Test-optional and test-required" }
+              - { label: "SAT vs ACT", href: "us/tests/#sat-act", desc: "Format, timing and scores side by side" }
+              - { label: "All tests at a glance", href: "us/tests/#all-tests", desc: "PSAT, SAT, ACT, AP and IB" }
+              - { label: "AP exams", href: "us/tests/#ap", desc: "Cost and college credit" }
+              - { label: "Professional school tests", href: "us/tests/#grad-tests", desc: "MCAT, DAT, LSAT and more" }
+              - { label: "Testing tips", href: "us/tests/#tips", desc: "Without wasting time or money" }
+      - label: College & Money
+        href: us/college/
+        cols:
+          - label: Paying for college
+            links:
+              - { label: "Degree levels", href: "us/college/#degrees", desc: "Associate to doctoral" }
+              - { label: "What college costs", href: "us/college/#cost", desc: "Sticker prices by school type" }
+              - { label: "In-state vs out-of-state", href: "us/college/#in-state", desc: "How residency changes tuition" }
+              - { label: "FAFSA, grants and loans", href: "us/college/#aid", desc: "Federal student aid" }
+              - { label: "CSS Profile", href: "us/college/#css-profile", desc: "The second aid form some colleges use" }
+              - { label: "Stacking scholarships", href: "us/college/#stacking", desc: "How outside awards combine" }
+              - { label: "Community college and transfer", href: "us/college/#transfer", desc: "The 2+2 route in real numbers" }
+              - { label: "College life", href: "us/college/#experience", desc: "From national student surveys" }
+      - label: Colleges & Training
+        href: us/colleges/
+        cols:
+          - label: Find a school
+            links:
+              - { label: "Three kinds of school", href: "us/colleges/#types", desc: "Four-year, two-year, under two years" }
+              - { label: "Colleges by state and city", href: "us/colleges/#states", desc: "Every operating college, 50 states and DC" }
+              - { label: "Programs by career", href: "us/colleges/fields/", desc: "Where to study for each career" }
+              - { label: "Registered Apprenticeship", href: "us/colleges/#apprenticeship", desc: "Earn while you learn" }
+              - { label: "Test prep and tutoring", href: "us/colleges/#test-prep", desc: "Where to find help" }
+      - { label: "Trades & CTE", href: us/cte/, mega: trades }
+      - label: International Students
+        href: us/international-students/
+        cols:
+          - label: Study in the USA
+            links:
+              - { label: "Admission to arrival", href: "us/international-students/#steps", desc: "From admission to your first day" }
+              - { label: "English and credentials", href: "us/international-students/#credentials", desc: "English tests and credential evaluation" }
+              - { label: "Work, OPT and H-1B", href: "us/international-students/work-authorization/", desc: "Working while you study and after" }
+              - { label: "Rules changing now", href: "us/international-students/work-authorization/#changes", desc: "Recent and proposed changes" }
+              - { label: "By the numbers", href: "us/international-students/#numbers", desc: "International students in the USA" }
+  - type: menu
+    label: State & Exam Portals
+    nodes:
+      - { label: "51 State Portals", href: us/states/, mega: states }
+      - { label: "National Exams Grid", href: us/exams/, mega: exams }
+      - { label: "Licensed Professions", href: us/professional-licenses/, mega: licenses }
+  - type: menu
+    label: Career Clusters
+    clusters: true
+    children:
+      - { label: "All 14 Career Clusters", href: us/clusters/ }
+      - { label: "All career pathways", href: us/careers/ }
+      - { label: "Compare careers", href: us/compare/ }
+      - { label: "New York City hub", href: us/new-york-city/ }
 
 sidebar:
   - id: us-start

@@ -25,6 +25,8 @@
     (India edition)             every page with region "in" that is not region-neutral gets body.shell-in:
                                 NO sidebar, full-width content, and the top menu row under the breadcrumb
                                 (_includes/in-header-hubs.html). The old `header_hubs` key is no longer read.
+    (USA edition)               same for region "us" (2026-10-23): body.shell-in shell-us, no sidebar, and the
+                                same top menu drawn from _data/nav_us.yml topnav (include edition="us").
     shell: gateway              global home only (index.html): no sidebar and no breadcrumb bar; the top
                                 bar is _includes/header-gateway.html (inline search + study-destination
                                 menu). Every other page keeps the full app shell.
@@ -123,7 +125,8 @@
 </head>
 {%- assign gateway = false -%}{%- if page.shell == "gateway" %}{%- assign gateway = true -%}{%- endif %}
 {%- assign india_shell = false -%}{%- if region_id == "in" and region_neutral == false and gateway == false %}{%- assign india_shell = true -%}{%- endif %}
-<body{% if page.stream %} data-stream="{{ page.stream }}"{% endif %}{% if gateway %} class="shell-gw"{% elsif india_shell %} class="shell-in"{% endif %}>
+{%- assign us_shell = false -%}{%- if region_id == "us" and region_neutral == false and gateway == false %}{%- assign us_shell = true -%}{%- endif %}
+<body{% if page.stream %} data-stream="{{ page.stream }}"{% endif %}{% if gateway %} class="shell-gw"{% elsif india_shell %} class="shell-in"{% elsif us_shell %} class="shell-in shell-us"{% endif %}>
 <a href="#main" class="skip-link">Skip to main content</a>
 <div class="progress-bar" id="progressBar"{% if page.progress_full %} style="width:100%;"{% endif %}></div>
 
@@ -132,7 +135,7 @@
 <div class="app-main">
 {% include header-gateway.html %}
 {%- else %}
-{%- unless india_shell %}
+{%- unless india_shell or us_shell %}
 {% include sidebar.html careers_href=page.header.careers_href careers_label=page.header.careers_label faq_href=page.header.faq_href faq_label=page.header.faq_label active_stream=page.header.active_stream %}
 {%- endunless %}
 
@@ -140,7 +143,7 @@
 {% include header.html %}
 
 <div class="crumb-bar"><div class="container">{% include breadcrumb.html grand_href=page.breadcrumb.grand_href grand_label=page.breadcrumb.grand_label parent_href=page.breadcrumb.parent_href parent_label=page.breadcrumb.parent_label current=page.breadcrumb.current %}</div></div>
-{%- if india_shell %}{% include in-header-hubs.html %}{% endif %}
+{%- if india_shell %}{% include in-header-hubs.html %}{% elsif us_shell %}{% include in-header-hubs.html edition="us" %}{% endif %}
 {%- endif %}
 
 {{ content }}

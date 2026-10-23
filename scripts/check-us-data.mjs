@@ -102,6 +102,14 @@ for (const p of paths.list) {
   (p.related || []).forEach((r) => { if (!slugs.has(r)) err(w, `unknown related "${r}"`); });
   if (p.in_page && !fs.existsSync(path.join(root, p.in_page))) err(w, `in_page ${p.in_page} does not exist`);
   if (p.license_stat && (!p.license_stat.value || !p.license_stat.note)) err(w, 'license_stat needs value and note');
+  // quick take callout: quick_take <= 45 words, hidden_challenge one sentence, target_keywords_seo = 4 phrases (data only, never printed)
+  if (p.quick_take || p.hidden_challenge || p.target_keywords_seo) {
+    if (!p.quick_take || !p.hidden_challenge) err(w, 'quick_take and hidden_challenge go together');
+    if (p.quick_take && p.quick_take.trim().split(/\s+/).length > 45) err(w, 'quick_take is over 45 words');
+    if (p.hidden_challenge && (/[.!?]\s+[A-Z]/.test(p.hidden_challenge) || !/[.!?]$/.test(p.hidden_challenge))) err(w, 'hidden_challenge must be one sentence');
+    const kw = p.target_keywords_seo;
+    if (!Array.isArray(kw) || kw.length !== 4 || kw.some((k) => typeof k !== 'string' || !k.trim())) err(w, 'target_keywords_seo needs 4 phrases');
+  }
   if (p.license_stat && p.license && p.license !== 'none') err(w, 'license_stat is only for pathways with license: none (a state license already fills the License stat)');
 }
 

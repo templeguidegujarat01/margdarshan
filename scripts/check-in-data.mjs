@@ -37,6 +37,15 @@ for (const f of fs.readdirSync(dir).filter((x) => x.endsWith('.yml'))) {
   }
   if (C.slug !== slug) err(`slug "${C.slug}" does not match the file name`);
   if (!C.hero || !C.hero.title || !C.hero.eyebrow) err('hero.title and hero.eyebrow are required');
+  // quick take callout: quick_take <= 45 words, hidden_challenge one sentence, target_keywords_seo = 4 phrases (data only, never printed)
+  const H0 = C.hero || {};
+  if (H0.quick_take || H0.hidden_challenge || H0.target_keywords_seo) {
+    if (!H0.quick_take || !H0.hidden_challenge) err('quick_take and hidden_challenge go together');
+    if (H0.quick_take && H0.quick_take.trim().split(/\s+/).length > 45) err('quick_take is over 45 words');
+    if (H0.hidden_challenge && (/[.!?]\s+[A-Z]/.test(H0.hidden_challenge) || !/[.!?]$/.test(H0.hidden_challenge))) err('hidden_challenge must be one sentence');
+    const kw = H0.target_keywords_seo;
+    if (!Array.isArray(kw) || kw.length !== 4 || kw.some((k) => typeof k !== 'string' || !k.trim())) err('target_keywords_seo needs 4 phrases');
+  }
 
   // sources: unique ids, every cited id exists, every listed source is cited
   const ids = new Set();

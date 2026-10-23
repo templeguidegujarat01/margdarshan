@@ -72,6 +72,16 @@
       <span class="eyebrow">USA · {{ CAT.label }}</span>
       <h1>{{ P.title }}</h1>
       <p class="md-answer-lede">{{ PP.answer | default: PP.intro }}</p>
+      {%- comment -%} Quick take (pathways.yml quick_take, hidden_challenge): a thin two-row callout above the stats console.
+        target_keywords_seo is editorial data only and is never printed. {%- endcomment %}
+      {%- if P.quick_take %}
+      <div class="ctr-quick-take">
+        <p class="cqt-row"><strong class="cqt-tag">Quick take</strong> <span>{{ P.quick_take }}</span></p>
+        {%- if P.hidden_challenge %}
+        <p class="cqt-row cqt-challenge"><strong class="cqt-tag">Hidden challenge</strong> <span>{{ P.hidden_challenge }}</span></p>
+        {%- endif %}
+      </div>
+      {%- endif %}
       {%- comment -%} Career Clusters roadmap (USA Master Plan Phase 2+): a `pathway: <slug>` entry in _data/us/careers/<cluster>.yml
         gives this pathway a standalone roadmap at us/roadmaps/<entry slug>.html {%- endcomment -%}
       {%- assign v2_rm = nil -%}

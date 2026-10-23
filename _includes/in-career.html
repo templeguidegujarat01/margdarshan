@@ -94,6 +94,16 @@
       {%- for p in H.intro %}
       <p>{{ p }}</p>
       {%- endfor %}
+      {%- comment -%} Quick take (hero.quick_take, hero.hidden_challenge): a thin two-row callout above the fact console.
+          hero.target_keywords_seo is editorial data only and is never printed. {%- endcomment %}
+      {%- if H.quick_take %}
+      <div class="ctr-quick-take">
+        <p class="cqt-row"><strong class="cqt-tag">Quick take</strong> <span>{{ H.quick_take }}</span></p>
+        {%- if H.hidden_challenge %}
+        <p class="cqt-row cqt-challenge"><strong class="cqt-tag">Hidden challenge</strong> <span>{{ H.hidden_challenge }}</span></p>
+        {%- endif %}
+      </div>
+      {%- endif %}
       {%- if C.roadmap or H.links %}
       <div class="page-hero-ctas">
         {%- if C.roadmap %}

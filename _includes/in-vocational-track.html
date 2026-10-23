@@ -1,0 +1,72 @@
+{%- comment -%}
+  One track of the vocational highway (Polytechnic diploma / ITI trade) from _data/in/pathways/vocational.yml.
+  Params: track = "polytechnic" | "iti"; part = "track" (steps + eligibility, exams, pay cards) or "sources"
+  (the citation list; renders section#sources with the sources fold, so place it near the end of the page).
+  Source markers [n] number only the sources tagged with this track, in file order.
+  Checked by scripts/check-in-data.mjs (every item sourced, every source cited, links exist).
+{%- endcomment -%}
+{%- assign V = site.data.in.pathways.vocational -%}
+{%- assign T = V.tracks | where: "id", include.track | first -%}
+{%- assign vt_key = include.track -%}
+{%- assign vt_src = V.sources | where_exp: "s", "s.tracks contains vt_key" -%}
+{%- if T and include.part == "track" %}
+  <section class="block" id="track" aria-labelledby="track-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">{{ T.eyebrow }}</span>
+        <h2 id="track-heading">{{ T.heading }}</h2>
+        <p>{{ T.intro }}</p>
+      </div>
+      {% include career-flow.html steps=T.steps %}
+      {%- assign vt_groups = "eligibility|Eligibility,exams|Mandatory exams & selection,pay|Entry-level pay in INR (official figures)" | split: "," %}
+      {%- for g in vt_groups %}
+      {%- assign gk = g | split: "|" | first -%}
+      {%- assign gl = g | split: "|" | last -%}
+      {%- assign items = T[gk] -%}
+      <h3 class="career-group-heading mt-lg">{{ gl }}</h3>
+      <div class="{% if gk == 'pay' %}salary-cards{% else %}chip-grid{% endif %} reveal">
+        {%- for it in items %}
+        {%- capture refs -%}
+          {%- assign ids = it.source | split: "," -%}
+          {%- for raw in ids -%}{%- assign sid = raw | strip -%}
+            {%- for s in vt_src -%}{%- if s.id == sid %} <a class="src-ref" href="#src-{{ s.id }}" title="Source: {{ s.name }}" aria-label="Source {{ forloop.index }}: {{ s.name }}">[{{ forloop.index }}]</a>{% endif -%}{%- endfor -%}
+          {%- endfor -%}
+        {%- endcapture -%}
+        {%- if gk == 'pay' %}
+        <div class="salary-card"><span>{{ it.label }}</span><strong>{{ it.value }}</strong><p>{{ it.text }}{{ refs }}</p></div>
+        {%- else %}
+        <div class="item"><strong>{{ it.label }}</strong>{{ it.text }}{{ refs }}{% if it.href %} <a href="{{ it.href }}">Full exam guide</a>{% endif %}</div>
+        {%- endif %}
+        {%- endfor %}
+      </div>
+      {%- endfor %}
+      {%- if T.pay_note %}
+      <p class="table-note">{{ T.pay_note }}</p>
+      {%- endif %}
+    </div>
+  </section>
+{%- elsif T and include.part == "sources" %}
+{%- assign ext = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>' %}
+  <section class="block block-alt mb" id="sources" aria-labelledby="sources-heading">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Sources &amp; verification</span>
+        <h2 id="sources-heading">Where these facts come from</h2>
+        <p>Eligibility, exams and pay in the track above are taken from the official documents below. Always confirm dates and fees on the official website before you act.</p>
+      </div>
+      <ol class="cite-list">
+        {%- for s in vt_src %}
+        <li id="src-{{ s.id }}">
+          <a class="source-link" href="{{ s.url }}" target="_blank" rel="noopener noreferrer">
+            {{ ext }}
+            {{ s.name }}<span class="sr-only"> (opens in a new tab)</span>
+          </a>
+          <span class="cite-covers">{{ s.covers }}{% if s.checked %} · Last checked {{ s.checked | date: "%-d %b %Y" }}{% endif %}</span>
+        </li>
+        {%- endfor %}
+      </ol>
+      {% include src-more.html %}
+      <p class="cite-report">Spotted something out of date? Email <a href="mailto:{{ site.feedback_email }}?subject={{ T.eyebrow | append: ' — correction' | uri_escape }}">{{ site.feedback_email }}</a> with the official link and we will update it.</p>
+    </div>
+  </section>
+{%- endif %}

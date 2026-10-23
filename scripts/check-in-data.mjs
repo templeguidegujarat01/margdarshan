@@ -528,6 +528,51 @@ if (fs.existsSync(sgFile)) {
   }
 }
 
+// ---- Vocational highway (_data/in/pathways/vocational.yml -> diploma.html / iti.html via in-vocational-track.html) ----
+// Fails on: a track without its page / include calls, fewer than 3 or more than 7 steps, an empty eligibility,
+// exams or pay list, an item without label/text (pay: value) or without source, a cited id that is not listed
+// or not tagged with that track, a source never cited, non-https or unchecked sources, and broken local links.
+const vocFile = path.join(root, '_data', 'in', 'pathways', 'vocational.yml');
+let vocTracks = 0;
+if (fs.existsSync(vocFile)) {
+  const err = (m) => errors.push(`pathways/vocational.yml: ${m}`);
+  let V = {};
+  try { V = yaml.load(fs.readFileSync(vocFile, 'utf8')) || {}; } catch (e) { err('YAML error: ' + e.message.split('\n')[0]); }
+  const srcs = new Map(), used = new Set();
+  for (const s of V.sources || []) {
+    if (!s.id || !s.name || !/^https:\/\//.test(s.url || '') || !s.covers || !isDay(s.checked) || !(s.tracks || []).length) err(`source ${JSON.stringify(s.id)} needs id, name, https url, covers, checked date and tracks`);
+    if (srcs.has(s.id)) err(`duplicate source id ${s.id}`);
+    srcs.set(s.id, s);
+  }
+  for (const T of V.tracks || []) {
+    vocTracks++;
+    const te = (m) => err(`${T.id}: ${m}`);
+    for (const k of ['id', 'page', 'eyebrow', 'heading', 'intro']) if (!T[k]) te(`${k} is required`);
+    const pg = path.join(root, T.page || '');
+    if (!T.page || !fs.existsSync(pg)) te(`page ${T.page} missing`);
+    else for (const part of ['track', 'sources']) if (!fs.readFileSync(pg, 'utf8').includes(`{% include in-vocational-track.html track="${T.id}" part="${part}" %}`)) te(`${T.page} does not include part "${part}"`);
+    const n = (T.steps || []).length;
+    if (n < 3 || n > 7) te(`steps must be 3-7 (found ${n})`);
+    for (const [i, s] of (T.steps || []).entries()) if (!s.title || !s.text) te(`step ${i + 1}: title and text are required`);
+    for (const g of ['eligibility', 'exams', 'pay']) {
+      if (!(T[g] || []).length) te(`${g} is empty`);
+      for (const [i, it] of (T[g] || []).entries()) {
+        const w = `${g} ${i + 1}`;
+        if (!it.label || !it.text || (g === 'pay' && !it.value)) te(`${w}: label and text${g === 'pay' ? ' and value' : ''} are required`);
+        if (it.href && !linkOk(it.href)) te(`${w}: missing page ${it.href}`);
+        if (!it.source) { te(`${w}: fact without source`); continue; }
+        for (const sid of String(it.source).split(',').map((x) => x.trim())) {
+          const S = srcs.get(sid);
+          if (!S) te(`${w}: source "${sid}" is not listed`);
+          else if (!(S.tracks || []).includes(T.id)) te(`${w}: source "${sid}" is not tagged with track ${T.id}`);
+          else used.add(sid + '@' + T.id);
+        }
+      }
+    }
+  }
+  for (const [sid, S] of srcs) for (const tk of S.tracks || []) if (!used.has(sid + '@' + tk)) err(`source "${sid}" is tagged ${tk} but never cited there`);
+}
+
 // ---- India top menu (_data/nav.yml topnav): every menu link, node heading and flyout link must exist ----
 const navFile = path.join(root, '_data', 'nav.yml');
 let navLinks = 0;
@@ -569,5 +614,6 @@ console.log(`checked ${nxExams} national exam console(s), ${navLinks} top-menu l
 console.log(`checked ${stateSheets} state cockpit sheet(s), ${stateExams} exam page(s)`);
 console.log(`checked ${spSports} sports cockpit page(s), ${saSports} directory row(s)`);
 console.log(`checked ${sgGuides} sports system guide(s)`);
+console.log(`checked ${vocTracks} vocational track(s)`);
 if (errors.length) { console.log('ERRORS:\n' + errors.join('\n')); process.exit(1); }
 console.log('OK');

@@ -1,0 +1,209 @@
+# Vocational highway — the two non-degree tracks after Class 10, as plain data.
+# Read by _includes/in-vocational-track.html, which renders one track on its hub page:
+#   diploma.html -> track "polytechnic"      iti.html -> track "iti"
+#   {% include in-vocational-track.html track="polytechnic" part="track" %}   (steps + parameter cards)
+#   {% include in-vocational-track.html track="polytechnic" part="sources" %} (citation list, #sources)
+# Rules (scripts/check-in-data.mjs enforces them):
+#   - every eligibility / exams / pay item has `source:` naming an id in `sources`, and every source is cited;
+#   - sources are official (government, council or regulator documents), https, with a `checked:` date;
+#   - pay is ONLY what an official document fixes (stipend rules, pay levels). Private-sector pay is not
+#     published by any official body, so it stays on each career guide as an indicative range, not here.
+#   - `href` links must point to pages that exist.
+# Facts re-read on 2026-10-23 unless a source says otherwise. Sources fetched through the Wayback Machine
+# (rrbcdg.gov.in, dgt.gov.in time out from scripts) say so in `covers`.
+
+tracks:
+  - id: polytechnic
+    page: diploma.html
+    eyebrow: "Track 1 · Polytechnic diploma"
+    heading: "Class 10 → 3-year diploma → B.Tech from the second year"
+    intro: "The engineering diploma starts right after Class 10. After three years you can take a job, or use lateral entry to join the second year of B.E./B.Tech and skip the first year."
+    steps:
+      - title: "Class 10 pass"
+        text: "AICTE's only national condition for a 3-year engineering diploma is a Class 10 / SSC pass. States add their own marks floor."
+      - title: "State polytechnic entrance or merit list"
+        text: "Each state fills its seats. Some hold a test (UP, Telangana), others rank Class 10 marks (West Bengal in 2026-27)."
+      - title: "3-year engineering diploma"
+        text: "Three years at an AICTE-approved polytechnic. A Class 12 Science or 10th + 2-year ITI student can enter the diploma's second year instead."
+      - title: "Lateral entry exam or merit (needs 45% in diploma)"
+        text: "A diploma with 45% (40% reserved) opens the second year of B.E./B.Tech. Names differ: LEEP in Rajasthan, UPTAC lateral entry in UP."
+      - title: "B.Tech from year 2, or a job"
+        text: "Finish the degree in three more years, or work now: apprenticeships, railway technical posts and industry jobs take diploma holders."
+    eligibility:
+      - label: "3-year engineering diploma"
+        text: "Passed Class 10 / SSC. AICTE sets no marks floor of its own."
+        source: aph
+      - label: "State marks floor (examples)"
+        text: "Uttar Pradesh (JEECUP): Class 10 with at least 35%, age 14+. Telangana (POLYCET): SSC with 35%."
+        source: jee-ib, poly-ib
+      - label: "Lateral entry into the diploma"
+        text: "Class 12 (Physics / Maths / Chemistry or another listed subject), or Class 10 + a 2-year ITI, can join the second year of a diploma."
+        source: aph
+      - label: "Lateral entry into B.E./B.Tech"
+        text: "3-year (or 2-year lateral) diploma in any engineering branch with at least 45% marks, 40% for reserved categories. B.Sc. with Maths in Class 12, or B.Voc / D.Voc, also qualify."
+        source: aph
+      - label: "Lateral-entry seats"
+        text: "Up to 10% of a college's approved intake, over and above it (supernumerary), plus first-year seats left unfilled."
+        source: aph
+    exams:
+      - label: "Uttar Pradesh — JEECUP"
+        text: "One online test: 100 MCQs, 400 marks, 2 hours 30 minutes. Fee ₹300 (₹200 SC/ST)."
+        source: jee-ib
+        href: "jeecup.html"
+      - label: "Telangana — TG POLYCET"
+        text: "One OMR test after Class 10: 150 marks in 2½ hours, no negative marking."
+        source: poly-ib
+        href: "state/telangana/polycet.html"
+      - label: "West Bengal — no test in 2026-27"
+        text: "Seats went on a merit list of qualifying-exam marks, filled through online counselling. The JEXPO test was not held."
+        source: wb-ib1
+        href: "jexpo.html"
+      - label: "Lateral entry to B.Tech — merit, not always a test"
+        text: "Rajasthan's LEEP-2026 ranks applicants on the marks used to award the diploma division. Uttar Pradesh admits diploma holders to B.Tech year 2 through UPTAC counselling."
+        source: leep, tac-ib
+    pay:
+      - label: "Diploma apprentice stipend"
+        value: "₹10,900 / month"
+        text: "Legal minimum for a technician apprentice or diploma holder, in force from 11 Sep 2025. Employers may pay more."
+        source: gsr610, dgt-clar
+      - label: "Railways — Assistant Loco Pilot"
+        value: "₹19,900 / month"
+        text: "Level 2 initial pay (7th CPC). A 3-year diploma in Mechanical, Electrical, Electronics or Automobile Engineering is accepted in place of ITI."
+        source: alp
+    pay_note: "Private-company pay is not fixed by any official body; each diploma career guide on this site shows its own indicative range."
+
+  - id: iti
+    page: iti.html
+    eyebrow: "Track 2 · ITI trade"
+    heading: "Class 8 or 10 → ITI trade → NCVT / SCVT certificate → Railway or PSU apprenticeship"
+    intro: "An ITI trade takes one or two years. The certificate then opens a paid apprenticeship under the Apprentices Act, 1961 — in the Railways, a PSU or a private firm — and after that technical jobs."
+    steps:
+      - title: "Class 8 or Class 10 pass"
+        text: "Each trade has its own minimum: Welder and Wireman need Class 8, Electrician and Fitter need Class 10 with Science and Maths."
+      - title: "State ITI admission"
+        text: "States run admission to ITIs; there is no national entrance test."
+      - title: "ITI trade training (1 or 2 years)"
+        text: "Electrician, Fitter and Wireman run two years; Welder and Mechanic Diesel run one."
+      - title: "Trade test exam → NCVT or SCVT certificate"
+        text: "The central government (DGT) conducts the exams and certification. Stipend rules and Railway notices name both National (NCVT) and State (SCVT) certificates."
+      - title: "Apprenticeship (Railways, PSU or private)"
+        text: "An Act apprenticeship on a monthly stipend. Western Railway's 2025-26 seats were one year long and filled on merit, with no written test."
+      - title: "Job — Railways, PSU or industry"
+        text: "ITI or a course-completed apprenticeship is the entry qualification for Assistant Loco Pilot, and NAC holders get preference in Railway Level-1 hiring."
+    eligibility:
+      - label: "Class 10 with Science and Maths"
+        text: "Electrician (2 years), Fitter (2 years), Mechanic Diesel (1 year)."
+        source: dgt-trades
+      - label: "Class 8 pass"
+        text: "Welder (1 year), Wireman (2 years), Sewing Technology (1 year)."
+        source: dgt-trades
+      - label: "Who runs what"
+        text: "Admission to ITIs is run by the state governments; training standards, exams and certification are set by the central government (DGT)."
+        source: dgt-cts
+      - label: "NCVT or SCVT?"
+        text: "Railway ALP recruitment accepts ITI from NCVT or SCVT institutes. Some apprentice notices ask for NCVT only — Western Railway's 2025-26 notice did."
+        source: alp, wr
+      - label: "Railway apprentice entry (Western Railway 2025-26)"
+        text: "Class 10 with at least 50% aggregate plus an ITI in the trade; age 15 to under 24 on the closing date (SC/ST +5, OBC +3, PwBD +10 years)."
+        source: wr
+    exams:
+      - label: "ITI admission"
+        text: "No national entrance exam — states admit to ITIs. Network: 14,643 ITIs (3,331 government, 11,312 private) in 169 NSQF trades."
+        source: dgt-cts
+      - label: "Western Railway apprentices — no written test"
+        text: "Merit list = average of Class 10 % and ITI %, equal weight. No written test or viva. Training lasts one year."
+        source: wr
+      - label: "RRB Assistant Loco Pilot"
+        text: "CBT-1, CBT-2 and a computer-based aptitude test (CBAT, no negative marking). Age 18-30 for CEN 01/2025."
+        source: alp
+      - label: "PSU and company apprenticeships"
+        text: "Every establishment covered by the Act must take apprentices equal to 2.5%–15% of its total staff, including contract staff, with at least 5% of that for freshers and skill-certificate holders."
+        source: gsr610
+    pay:
+      - label: "ITI-pass apprentice stipend"
+        value: "₹9,600 / month"
+        text: "Legal minimum for a National or State Certificate holder from 11 Sep 2025; +10% in the 2nd year and +15% more in the 3rd. Class 10 pass-outs without ITI: ₹8,200."
+        source: gsr610, dgt-clar
+      - label: "Railways — Assistant Loco Pilot"
+        value: "₹19,900 / month"
+        text: "Level 2 initial pay (7th CPC). Class 10 + ITI (NCVT/SCVT) in 15 listed trades, or a course-completed Act apprenticeship in them."
+        source: alp
+      - label: "Railways — Level 1 posts"
+        value: "₹18,000 – 56,900"
+        text: "Pay scale of Level-1 posts. Railway-trained apprentices holding the National Apprenticeship Certificate get preference for up to 20% of open-market Level-1 vacancies."
+        source: wr
+    pay_note: "Private-company pay is not fixed by any official body; each ITI trade guide on this site shows its own indicative range."
+
+sources:
+  - id: aph
+    name: "AICTE — Approval Process Handbook 2024-25 to 2026-27"
+    url: "https://aicte.gov.in/sites/default/files/APH%20Final.pdf"
+    covers: "diploma eligibility (8.1), lateral entry eligibility (8.2 VIII), lateral-entry seats up to 10% supernumerary + vacancies (6.13)"
+    checked: 2026-10-23
+    tracks: [polytechnic]
+  - id: jee-ib
+    name: "JEECUP — Information Brochure, UP Joint Entrance Examination (Polytechnic) 2026 (Hindi)"
+    url: "https://cdnbbsr.s3waas.gov.in/s325db67c5657914454081c6a18e93d6dd/uploads/2026/01/20260320986118241.pdf"
+    covers: "Class 10 with 35%, age 14+, 100-question 400-mark test, fee (same source as jeecup.html)"
+    checked: 2026-10-14
+    tracks: [polytechnic]
+  - id: poly-ib
+    name: "SBTET Telangana — POLYCET-2026 Instruction Booklet"
+    url: "https://polycet.sbtet.telangana.gov.in/Downloads/polycet2026.pdf"
+    covers: "SSC with 35%, 150-mark 2½-hour test, no negative marking (same source as state/telangana/polycet.html)"
+    checked: 2026-10-18
+    tracks: [polytechnic]
+  - id: wb-ib1
+    name: "WBSCTVESD — Information Brochure, 1st Year Diploma in Engineering & Technology 2026-27 (Common Admission Portal)"
+    url: "https://admission-tetsd.wb.gov.in/"
+    covers: "merit-list admission with no entrance test for 2026-27 (same source as jexpo.html)"
+    checked: 2026-10-14
+    tracks: [polytechnic]
+  - id: leep
+    name: "CEG Rajasthan — General Instruction Booklet, LEEP-2026 (Lateral Entry in Engineering Programme)"
+    url: "https://gweca.ac.in/files/admissionnotice/201_General_Instruction_Booklet_for_leep_2026.pdf"
+    covers: "45% / 40% diploma eligibility for B.E./B.Tech year 2, merit on diploma marks"
+    checked: 2026-10-23
+    tracks: [polytechnic]
+  - id: tac-ib
+    name: "AKTU — UPTAC Information Brochure 2026-27"
+    url: "https://samarth-notification.s3.ap-south-1.amazonaws.com/uptacadmin.samarth.ac.in/admission/2026/july/admissionhed126/bc7d57e0090dd6f13e771125a9ad72a1ecdc68edf2e4430417ac2bb64bd909331/17901474761_admission_docs.pdf"
+    covers: "lateral entry to B.Tech year 2 for diploma holders (same source as jeecup.html)"
+    checked: 2026-10-14
+    tracks: [polytechnic]
+  - id: gsr610
+    name: "Gazette of India — Apprenticeship (Amendment) Rules, 2025, G.S.R. 610(E), 3 Sep 2025"
+    url: "https://egazette.gov.in/WriteReadData/2025/266074.pdf"
+    covers: "minimum stipend table (rule 11), 2nd/3rd-year increase, 2.5–15% engagement band (rule 7B)"
+    checked: 2026-10-23
+    tracks: [polytechnic, iti]
+  - id: dgt-clar
+    name: "MSDE / DGT — Clarification on the rate of stipend for apprentices on training as on 11 Sep 2025 (15 Oct 2025)"
+    url: "https://naps-cdn.s3.ap-south-1.amazonaws.com/Clarification+on+the+rate+of+stipend_On+Training+as+on+11+September,+2025+-+Regarding.PDF"
+    covers: "revised stipend in force from 11 Sep 2025 (gazette publication date), also for apprentices already in training"
+    checked: 2026-10-23
+    tracks: [polytechnic, iti]
+  - id: alp
+    name: "Railway Recruitment Boards — CEN 01/2025, Assistant Loco Pilot (detailed notice)"
+    url: "https://www.rrbcdg.gov.in/uploads/2025/01-ALP/Detailed_CEN_01-2025_ALP.pdf"
+    covers: "Level 2, ₹19,900 initial pay, age 18-30, ITI / Act apprenticeship / diploma qualification (Annexure-A), CBT-1, CBT-2, CBAT; read from the Wayback Machine copy of 12 Apr 2025"
+    checked: 2026-10-23
+    tracks: [polytechnic, iti]
+  - id: dgt-cts
+    name: "Directorate General of Training — Craftsmen Training Scheme (CTS)"
+    url: "https://dgt.gov.in/en/CTS"
+    covers: "state vs central roles, 14,643 ITIs, 169 NSQF trades (page last updated 17 Sep 2026; read from the Wayback Machine copy)"
+    checked: 2026-10-23
+    tracks: [iti]
+  - id: dgt-trades
+    name: "Directorate General of Training — CTS trade list (minimum qualification and duration)"
+    url: "https://dgt.gov.in/en/cts-details"
+    covers: "Class 8 / Class 10 entry and 1- or 2-year duration per trade (read from the Wayback Machine copy of 24 Oct 2025)"
+    checked: 2026-10-23
+    tracks: [iti]
+  - id: wr
+    name: "RRC Western Railway — Notification RRC/WR/04/2025 (Act Apprentice), 18 Feb 2026"
+    url: "https://rrc-wr.com/rrwc/Files/2683.pdf"
+    covers: "5,349 slots, Class 10 50% + NCVT ITI, age 15-24 and relaxations, merit without written test, one-year training, Level-1 pay scale and 20% NAC preference"
+    checked: 2026-10-23
+    tracks: [iti]

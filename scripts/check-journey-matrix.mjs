@@ -33,6 +33,7 @@ const cited = new Set();
 
 const cite = (id, where) => {
   if (id == null) return;
+  if (Array.isArray(id)) { if (!id.length) err(`${where}: empty source list`); return id.forEach((x) => cite(x, where)); }
   if (!sources.has(id)) err(`${where}: unknown source "${id}"`);
   cited.add(id);
 };
@@ -56,7 +57,10 @@ for (const c of D.careers || []) {
     stagesOk(f.stages, `${at} foundation[${i}]`); textOk(f.title, `${at} foundation[${i}]`);
     (f.points || []).forEach((p, j) => { textOk(p.text, `${at} foundation[${i}].points[${j}]`); cite(p.source, `${at} foundation[${i}].points[${j}]`); });
   });
-  for (const k of Object.keys(c.board_notes || {})) if (!boards.has(k)) err(`${at}: board_notes key "${k}" is not a board`);
+  for (const [k, n] of Object.entries(c.board_notes || {})) {
+    if (!boards.has(k)) err(`${at}: board_notes key "${k}" is not a board`);
+    if (n && typeof n === 'object') { textOk(n.text, `${at} board_notes.${k}`); cite(n.source, `${at} board_notes.${k}`); }
+  }
   for (const b of boards) if (!(c.board_notes || {})[b]) err(`${at}: board_notes has no text for board "${b}"`);
   const e = c.exam || {};
   textOk(e.name, at + ' exam.name'); pageOk(e.href, at + ' exam.href');
@@ -75,7 +79,7 @@ for (const c of D.careers || []) {
 for (const m of D.money || []) {
   const at = `money ${m.id}`;
   for (const k of ['kind', 'name', 'by', 'who', 'apply']) textOk(m[k], `${at}.${k}`);
-  if (!['scholarship', 'stipend', 'fee', 'state'].includes(m.kind)) err(`${at}: unknown kind "${m.kind}"`);
+  if (!['scholarship', 'stipend', 'fee', 'state', 'training'].includes(m.kind)) err(`${at}: unknown kind "${m.kind}"`);
   stagesOk(m.stages, at); stateOk(m.state, at); cite(m.source, at);
 }
 

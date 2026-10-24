@@ -7,10 +7,14 @@
 #     (an id from `sources` at the bottom). Lines without `source:` are Margdarshan guidance, not facts.
 #   - `stages` lists the class ids a step / scheme applies to. The page shows only what is still ahead
 #     of the student: an item is hidden once every stage in it is behind the chosen class.
-#   - `state:` limits an item to the boards whose `state` matches (gujarat for now).
+#   - `state:` limits an item to the boards whose `state` matches (gujarat, uttar-pradesh, maharashtra,
+#     west-bengal). CBSE students outside Gujarat pick "CBSE — any other state" and see only national rules.
+#   - `source:` may be one id or a list of ids. A board_notes value may be plain text (cited to the career's
+#     `board_source`) or { text, source } when that board's note comes from a different file.
 #   - scripts/check-journey-matrix.mjs validates ids, stages and source links. Run it after editing.
-# Written 2026-10-24 from the official files listed under `sources`.
-checked: 2026-10-24
+# Written 2026-10-24 from the official files listed under `sources`. Batch 2 (software engineer, merchant
+# navy, commercial pilot, bank PO, civil services) and the UP / Maharashtra / West Bengal boards added 2026-10-25.
+checked: 2026-10-25
 
 classes:
   - { id: c8, label: "Class 8" }
@@ -24,11 +28,28 @@ boards:
   - id: gseb
     label: "GSEB — Gujarat State Board"
     state: gujarat
+    state_name: "Gujarat"
     exams: "Your board exams are the <strong>SSC</strong> (Std 10) and the <strong>HSC</strong> (Std 12). Wherever a notice says Matriculation, SSLC or Class 10, your SSC marksheet and certificate are what count."
   - id: cbse-gj
     label: "CBSE — studying in Gujarat"
     state: gujarat
+    state_name: "Gujarat"
     exams: "Your board exams are the CBSE <strong>Class X</strong> and <strong>Class XII</strong> exams. Gujarat-only rules below (domicile seats, state schemes) set their own definition of a Gujarat student — read that rule in the official notice before you count on it."
+  - id: upmsp
+    label: "UPMSP — Uttar Pradesh Board"
+    state: uttar-pradesh
+    state_name: "Uttar Pradesh"
+    exams: "Your board exams are the UPMSP <strong>High School</strong> (Class 10) and <strong>Intermediate</strong> (Class 12) exams. Wherever a notice says Matriculation or Class 10, your High School certificate is what counts; Intermediate is your Class 12."
+  - id: msbshse
+    label: "MSBSHSE — Maharashtra State Board"
+    state: maharashtra
+    state_name: "Maharashtra"
+    exams: "Your board exams are the <strong>SSC</strong> (Class 10) and the <strong>HSC</strong> (Class 12). Maharashtra's admission rules check where you passed both, so keep both marksheets and your leaving certificate safe."
+  - id: wb
+    label: "WBBSE / WBCHSE — West Bengal boards"
+    state: west-bengal
+    state_name: "West Bengal"
+    exams: "Your board exams are the <strong>Madhyamik</strong> (Class 10, WBBSE) and the <strong>Higher Secondary</strong> (Class 12, WBCHSE). Wherever a notice says Matriculation or Class 10, your Madhyamik certificate is what counts."
   - id: cbse
     label: "CBSE — any other state"
     exams: "Your board exams are the CBSE <strong>Class X</strong> and <strong>Class XII</strong> exams. National exams treat every board the same; state quotas follow your own state's rules."
@@ -76,6 +97,9 @@ careers:
     board_notes:
       gseb: "The CBT-1 and CBT-2 papers are offered in <strong>Gujarati</strong>, but the CBAT is only in English and Hindi — practise aptitude tests in one of those two."
       cbse-gj: "You may take CBT-1 and CBT-2 in English, Hindi or Gujarati; the CBAT is only in English and Hindi."
+      upmsp: "Your High School certificate is the Class 10 base for ALP. CBT-1 and CBT-2 come in Hindi as well as English; the CBAT is only in English and Hindi."
+      msbshse: "Your SSC is the Class 10 base for ALP. CBT-1 and CBT-2 are offered in <strong>Marathi</strong>, but the CBAT is only in English and Hindi — practise aptitude tests in one of those two."
+      wb: "Your Madhyamik is the Class 10 base for ALP. CBT-1 and CBT-2 are offered in <strong>Bengali</strong>, but the CBAT is only in English and Hindi — practise aptitude tests in one of those two."
       cbse: "CBT-1 and CBT-2 come in English, Hindi and 13 regional languages; the CBAT is only in English and Hindi."
       other: "CBT-1 and CBT-2 come in English, Hindi and 13 regional languages; the CBAT is only in English and Hindi."
     board_source: rrb-cen
@@ -148,6 +172,9 @@ careers:
     board_notes:
       gseb: "Your HSC marks are your Class 12 marks for the 45% rule — every stream (Science, Commerce, Arts) is accepted."
       cbse-gj: "Your CBSE Class XII marks are used for the 45% rule; every stream is accepted."
+      upmsp: "Your Intermediate marks are your Class 12 marks for the 45% rule — every stream is accepted."
+      msbshse: "Your HSC marks are your Class 12 marks for the 45% rule — every stream (Science, Commerce, Arts) is accepted."
+      wb: "Your Higher Secondary (WBCHSE) marks are your Class 12 marks for the 45% rule — every stream is accepted."
       cbse: "Your CBSE Class XII marks are used for the 45% rule; every stream is accepted."
       other: "Your state board Class 12 marks are used for the 45% rule; every stream is accepted."
     board_source: clat-elig
@@ -220,6 +247,9 @@ careers:
     board_notes:
       gseb: "If you are in the HSC Commerce stream, your Accountancy and Economics books overlap with Foundation Papers 1 and 4."
       cbse-gj: "CBSE Accountancy and Economics in Class XI–XII overlap with Foundation Papers 1 and 4."
+      upmsp: "Accountancy and Economics in Intermediate Commerce overlap with Foundation Papers 1 and 4."
+      msbshse: "If you are in the HSC Commerce stream, your Accountancy and Economics books overlap with Foundation Papers 1 and 4."
+      wb: "Accountancy and Economics in Higher Secondary Commerce overlap with Foundation Papers 1 and 4."
       cbse: "CBSE Accountancy and Economics in Class XI–XII overlap with Foundation Papers 1 and 4."
       other: "Accountancy and Economics in Class 11–12 overlap with Foundation Papers 1 and 4."
     exam:
@@ -282,6 +312,9 @@ careers:
     board_notes:
       gseb: "HSC Commerce with Statistics or Maths, or HSC Science, both lead to the usual degrees for this career."
       cbse-gj: "Applied or core Mathematics in Class XI–XII keeps every finance degree open."
+      upmsp: "Taking Mathematics in Intermediate keeps every finance degree open."
+      msbshse: "HSC Commerce with Mathematics, or HSC Science, both lead to the usual degrees for this career."
+      wb: "Taking Mathematics in Higher Secondary keeps every finance degree open."
       cbse: "Applied or core Mathematics in Class XI–XII keeps every finance degree open."
       other: "Taking Maths in Class 11–12 keeps every finance degree open."
     exam:
@@ -313,6 +346,417 @@ careers:
       - { title: "Risk", text: "FRM for risk-management roles in banks.", href: "frm.html" }
       - { title: "CFA charter", text: "Portfolio management and investment banking roles value it most.", href: "cfa.html" }
     money: [nmmss, csss, pms-sc, cfa-sch, mysy]
+
+  # ------------------------------------------------------------------ SOFTWARE ENGINEER (batch 2)
+  - id: software-engineer
+    name: "Software Engineer (B.Tech CSE / BCA → MCA)"
+    page: "software-engineer.html"
+    roadmap: "roadmaps/software-engineer.html"
+    gate: "Class 12 with Physics and Mathematics → JEE Main (or your state's own merit route) → 4-year B.E./B.Tech in Computer Science or IT → campus or off-campus hiring. Or a BCA / B.Sc followed by an MCA."
+    gate_source: [jm-ib, tac-ib]
+    foundation:
+      - stages: [c8, c9]
+        title: "Mathematics is the real filter"
+        points:
+          - text: "JEE Main Paper 1 is <strong>Mathematics, Physics and Chemistry — 100 marks each</strong>, 75 questions in 3 hours. Strong school algebra, geometry and arithmetic now make Class 11–12 far easier."
+            source: jm-ib
+          - text: "Try a beginner coding course or your school's computer lab projects — it tells you early whether you enjoy building software. No exam on this path tests coding before college."
+      - stages: [c10]
+        title: "Choose Science with Mathematics for Class 11"
+        points:
+          - text: "For B.E./B.Tech at NITs, IIITs and other NIT+ institutes, Class 12 must include <strong>Physics and Mathematics</strong>, a language, one of Chemistry / Biotechnology / Biology / a technical vocational subject, and one more subject."
+            source: jm-ib
+          - text: "Without Mathematics in Class 12, the B.Tech door closes; a BCA → MCA route may still be open — check each college's rule."
+      - stages: [c11, c12]
+        title: "JEE Main year — and protect your board percentage"
+        points:
+          - text: "For NIT+ seats through JoSAA you also need <strong>75% in Class 12</strong> (65% for SC, ST, PwD) — or a place in the top 20 percentile of your own board, category-wise."
+            source: jm-ib
+          - text: "You can sit JEE Main in your Class 12 year and the two years after it, with two sessions each year. The bulletin sets <strong>no age limit</strong>."
+            source: jm-ib
+          - text: "Your <strong>state code of eligibility</strong> is the state where you pass Class 12 — not your home town. It decides your Home State quota at NITs."
+            source: [jm-ib, josaa-br]
+      - stages: [grad]
+        title: "Already in college? BCA / B.Sc → MCA"
+        points:
+          - text: "In Uttar Pradesh's 2026-27 counselling, MCA admits BCA, B.Sc (CS/IT) or B.Tech (CSE/IT) graduates — or any graduate who had Mathematics at 10+2 or in the degree — with 50% (45% for SC/ST). Other states set similar rules; read your state's brochure."
+            source: tac-ib
+          - text: "Whatever the degree, employers test data structures, algorithms and problem solving in their own hiring rounds. Build projects and practise those from year one."
+    board_notes:
+      gseb:
+        text: "For Gujarat state-quota B.E. seats, ACPC merit is <strong>50% your HSC theory percentile</strong> in Mathematics, Physics and Chemistry + <strong>50% your GUJCET percentile</strong> — your board theory marks count directly. HSC needs 45% (40% reserved)."
+        source: acpc-advt
+      cbse-gj:
+        text: "Schooling at a Gujarat-located school plus a GUJCET attempt opens ACPC's state-quota seats; your CBSE Class XII theory percentile goes into the same 50:50 merit formula."
+        source: acpc-advt
+      upmsp:
+        text: "UPTAC fills B.Tech seats on your <strong>JEE Main</strong> rank. Passing Intermediate from an institution in UP makes you eligible for the regular rounds; you need 45% (40% SC/ST) in the required subjects taken together."
+        source: tac-ib
+      msbshse:
+        text: "Passing SSC and HSC from Maharashtra (and being domiciled or born there) makes you a <strong>Type A</strong> Maharashtra candidate. MHT-CET is compulsory for Maharashtra-candidature B.E./B.Tech seats; its paper comes in English, Marathi or Urdu."
+        source: mht-ib
+      wb:
+        text: "West Bengal domicile — 10 years' continuous residence as of 31.12.2025, or a parent who is a permanent resident — is needed for government-aided college seats and every reserved seat in WBJEEB counselling."
+        source: wb-ib
+      cbse: "JEE Main is the same paper for every board. Your board's own top-20-percentile list is the backup to the 75% rule for NIT+ seats."
+      other: "JEE Main is offered in 13 languages, including Hindi, Bengali, Gujarati, Marathi, Tamil and Telugu. Your board's top-20-percentile list is the backup to the 75% rule."
+    board_source: jm-ib
+    exam:
+      name: "JEE Main 2026 (Paper 1) → JoSAA / state counselling"
+      body: "National Testing Agency (NTA) · JoSAA · state admission bodies"
+      href: "jee-main.html"
+      facts:
+        - { label: "Paper 1", value: "75 questions · 300 marks · 3 hours", source: jm-ib }
+        - { label: "Marking", value: "+4 correct · −1 wrong (MCQ and numerical)", source: jm-ib }
+        - { label: "Fee per session", value: "₹1,000 General male · ₹800 female · ₹500 SC/ST/PwD", source: jm-ib }
+        - { label: "Sessions (2026)", value: "21–30 Jan and 2–9 Apr 2026", source: jm-ib }
+      stages:
+        head: ["Stage", "What it is", "Marking", "Rule"]
+        rows:
+          - ["JEE Main Paper 1", "Maths, Physics, Chemistry: 20 MCQs + 5 numerical questions each", "+4 / −1 in both sections", "Ties go to Maths, then Physics, then Chemistry NTA score"]
+          - ["JEE Advanced (for IITs)", "Separate exam by the IITs", "—", "Top 2,50,000 Paper 1 candidates become eligible"]
+          - ["JoSAA / CSAB", "Seat allotment at NITs, IIITs, IIEST and other GFTIs", "—", "75% in Class 12 (65% SC/ST/PwD) or top 20 percentile of your board"]
+          - ["State counselling", "ACPC (Gujarat), UPTAC (UP), CAP (Maharashtra), WBJEEB (West Bengal)", "—", "Each state's own merit and domicile rules — see block 03"]
+        source: jm-ib
+      notes:
+        - text: "Central reservation on JEE Main seats: SC 15%, ST 7.5%, OBC-NCL 27%, Gen-EWS 10%, and 5% horizontal for PwD inside each."
+          source: jm-ib
+        - text: "JoSAA seat acceptance fee: ₹15,000 for SC, ST and PwD, ₹30,000 for everyone else — it includes ₹5,000 processing charges and the rest goes towards the institute fee."
+          source: josaa-br
+        - text: "These are the 2026 rules. NTA publishes the JEE Main 2027 bulletin on jeemain.nta.nic.in — check dates, fees and pattern there the day it is out."
+    state_rules:
+      - state: gujarat
+        text: "ACPC fills <strong>95% of Govt / Grant-in-Aid and 50% of unaided seats</strong> with Gujarat-schooled GUJCET candidates; <strong>5% of Govt / GIA seats</strong> go on JEE Main rank to candidates from any board in India."
+        source: acpc-advt
+      - state: uttar-pradesh
+        text: "Government and aided institutes fill 100% of first-year seats through UPTAC; private colleges fill 85% through UPTAC and 15% through management / NRI quota. Without a UP qualifying exam or a UP-domiciled parent, you are considered only in the special round."
+        source: tac-ib
+      - state: maharashtra
+        text: "CAP reserves 60% of seats vertically for Maharashtra candidates — SC 13%, ST 7%, VJ/NT 11%, OBC 19%, SEBC 10% — plus 10% EWS over the intake and 30% for women. Candidature Types A–E decide who counts as a Maharashtra candidate."
+        source: [cap-ib, mht-ib]
+      - state: west-bengal
+        text: "Reservation for SC, ST, OBC-A, OBC-B, PwD, TFW and EWS in WBJEEB counselling is only for candidates domiciled in West Bengal. Domicile also decides 90% of Jadavpur University's general seats."
+        source: wb-ib
+      - text: "NIT, IIEST Shibpur and PEC Chandigarh seats are split into a <strong>Home State</strong> and an <strong>Other States</strong> quota; Home State is where you passed Class 12. Extra supernumerary seats lift female enrolment at NITs to at least 20%."
+        source: josaa-br
+    multiverse:
+      - { title: "B.Tech CSE / IT", text: "The most common route into product and service companies.", href: "cse.html" }
+      - { title: "BCA → MCA", text: "A cheaper, shorter degree route; many software jobs accept it.", href: "bca.html" }
+      - { title: "AI / ML engineering", text: "Building and integrating machine-learning systems.", href: "ai-engineer.html" }
+      - { title: "Cloud and DevOps", text: "Running the systems that software lives on.", href: "cloud-engineer.html" }
+      - { title: "Diploma first", text: "A 3-year computer engineering diploma after Class 10, then B.Tech through lateral entry.", href: "diploma-computer-engineering.html" }
+    money: [nmmss, csss, pms-sc, tfw-up, wbscc, mysy]
+
+  # ------------------------------------------------------------------ MERCHANT NAVY OFFICER (batch 2)
+  - id: merchant-navy
+    name: "Merchant Navy Deck Officer (B.Sc Nautical Science / DNS)"
+    page: "merchant-navy-officer.html"
+    roadmap: "roadmaps/merchant-navy-officer.html"
+    gate: "Class 12 PCM with a 60% PCM average and 50% in English → IMU CET rank → 3-year B.Sc Nautical Science or 1-year DNS → sea time as Deck Cadet → DG Shipping Certificates of Competency."
+    gate_source: imu-cc
+    foundation:
+      - stages: [c8, c9]
+        title: "English and Mathematics both carry a hard minimum"
+        points:
+          - text: "IMU wants at least <strong>50% in English</strong> in Class 10 or Class 12 — on top of the PCM rule. Treat English as a main subject, not a pass subject."
+            source: imu-cc
+          - text: "Get your eyes tested now. If you already wear glasses, ask the doctor about the sea-going standard below before you plan on this career."
+      - stages: [c10]
+        title: "Eyesight and colour vision decide early"
+        points:
+          - text: "For B.Sc Nautical Science and DNS: distance vision <strong>6/6 unaided in the better eye and 6/9 in the other</strong>, good binocular vision, and normal colour vision on the Ishihara chart, under the Merchant Shipping (Medical Examination) Rules, 2000."
+            source: imu-cc
+          - text: "Choose Science with Physics, Chemistry and Mathematics for Class 11 — all three count in the 60% average."
+            source: imu-cc
+      - stages: [c11, c12]
+        title: "60% PCM average, 50% English, and the age cap"
+        points:
+          - text: "Class 12 with a <strong>PCM average of at least 60%</strong> and 50% in English in Class 10 or 12. SC/ST candidates get 5% relaxation in the PCM marks, not in English."
+            source: imu-cc
+          - text: "Only <strong>unmarried</strong> candidates are admitted. Maximum age (male): General 25, OBC-NCL 28, SC/ST 30; (female): 27, 30, 32 — counted on the day the academic session starts."
+            source: imu-cc
+      - stages: [grad]
+        title: "Already in college? Take the 1-year DNS"
+        points:
+          - text: "DNS also admits a B.Sc in Physics, Mathematics, Chemistry or Electronics (with Physics in one year) with 55% in the final year, or a B.E./B.Tech with 50% in the final year — plus 50% English and the same age caps."
+            source: imu-cc
+    board_notes:
+      gseb: "IMU averages your HSC Physics, Chemistry and Mathematics marks — take the Science stream with Mathematics, not Biology alone."
+      cbse-gj: "IMU averages your CBSE Class XII Physics, Chemistry and Mathematics marks; English can come from Class X or XII."
+      upmsp: "IMU averages your Intermediate Physics, Chemistry and Mathematics marks; your English can come from High School or Intermediate."
+      msbshse: "IMU averages your HSC Physics, Chemistry and Mathematics marks; your English can come from SSC or HSC."
+      wb: "IMU averages your Higher Secondary Physics, Chemistry and Mathematics marks; your English can come from Madhyamik or Higher Secondary."
+      cbse: "IMU averages your Class XII Physics, Chemistry and Mathematics marks; English can come from Class X or XII."
+      other: "IMU averages your Class 12 Physics, Chemistry and Mathematics marks; English can come from Class 10 or 12."
+    board_source: imu-cc
+    exam:
+      name: "IMU CET 2026 → pre-sea course"
+      body: "Indian Maritime University (a central university)"
+      href: "merchant-navy-officer.html"
+      facts:
+        - { label: "Exam date (2026)", value: "24 May 2026, online, two shifts", source: imu-norm }
+        - { label: "UG cut-off percentile", value: "General 60 · EWS / OBC-NCL 54 · SC / ST 45", source: imu-cut }
+        - { label: "Result (2026)", value: "14 June 2026, rank list on imu.edu.in", source: imu-res }
+        - { label: "Max age (male, General)", value: "25 years", source: imu-cc }
+      stages:
+        head: ["Stage", "What it is", "Marking", "Rule"]
+        rows:
+          - ["IMU CET", "Online common entrance test for UG programmes (DNS, B.Sc, B.Tech)", "Raw scores turned into shift-wise percentiles (7 decimals)", "Category cut-off percentile; then rank"]
+          - ["Allotment", "Seats at IMU campuses and affiliated institutes, by CET rank", "—", "Category-wise rank list and allotment lists"]
+          - ["Medical", "Fitness certificate from a DG Shipping-approved doctor at admission", "—", "Eyesight 6/6 + 6/9 unaided, normal colour vision, hearing"]
+          - ["Pre-sea course", "B.Sc Nautical Science (3 years) or DNS (1 year), residential", "University exams", "Unmarried candidates only"]
+        source: [imu-norm, imu-cut, imu-cc]
+      notes:
+        - text: "After the pre-sea course you sail as a <strong>Deck Cadet</strong>, then take DG Shipping exams for the Second Mate, Chief Mate and Master Certificates of Competency, each after its own sea time."
+          source: dgs
+        - text: "Train only at institutes DG Shipping lists as approved — sea time from unapproved courses does not count for certificates."
+          source: dgs
+        - text: "IMU's 2026 files we read print no application fee table and no seat total, so we print neither. Check the IMU CET 2027 notice on imu.edu.in."
+    state_rules:
+      - text: "IMU is a central university with <strong>All-India jurisdiction</strong>: the CET, the cut-offs and the age rules are the same in every state."
+        source: imu-cc
+      - text: "The only regional relaxation printed: 5% in English marks for Scheduled Tribe natives of Lakshadweep and the Andaman &amp; Nicobar Islands whose parents were both born there."
+        source: imu-cc
+      - state: west-bengal
+        text: "West Bengal students can fund a professional degree through the <strong>Student Credit Card</strong> loan (see Money help)."
+        source: wbscc
+    multiverse:
+      - { title: "Deck to Master", text: "Deck Cadet → Third Officer → Second Officer → Chief Officer → Master (Captain), by sea time and DG Shipping certificates.", href: "merchant-navy-officer.html" }
+      - { title: "Engine side", text: "Prefer machines? Marine engineers run the engine room.", href: "marine-engineer.html" }
+      - { title: "Ashore later", text: "Port operations, marine surveying and ship management value sea experience." }
+      - { title: "Step-by-step", text: "The full path from Class 12 to Master.", href: "roadmaps/merchant-navy-officer.html" }
+    money: [nmmss, csss, wbscc]
+
+  # ------------------------------------------------------------------ COMMERCIAL PILOT (batch 2)
+  - id: commercial-pilot
+    name: "Commercial Pilot (DGCA CPL)"
+    page: "commercial-pilot.html"
+    roadmap: "roadmaps/commercial-pilot.html"
+    gate: "Class 12 with Physics and Mathematics → medical from an approved Medical Board → 200 hours of flying at a DGCA-approved flying school + DGCA written exams + radio telephony licence → Commercial Pilot's Licence at 18 or older."
+    gate_source: air-rules
+    foundation:
+      - stages: [c8, c9]
+        title: "Physics, Mathematics — and spoken English"
+        points:
+          - text: "A CPL holder must <strong>speak and understand radiotelephony English</strong> to the level DGCA sets, and the level is written on the licence. Whatever your school medium, build spoken English now."
+            source: air-rules
+          - text: "Physics and Mathematics are the only school subjects the rule names. Navigation and meteorology papers later build on both."
+            source: air-rules
+      - stages: [c10]
+        title: "Take Physics and Mathematics in Class 11"
+        points:
+          - text: "The CPL rule needs <strong>Class 10+2 passed with Physics and Mathematics</strong>. It sets <strong>no minimum percentage</strong> — a pass is enough."
+            source: air-rules
+          - text: "Without Physics and Mathematics in Class 12 you can clear them later through an equivalent board exam (for example the open school); plan this before you pay a flying school."
+      - stages: [c11, c12]
+        title: "Get the medical before you pay any fee"
+        points:
+          - text: "You must hold a certificate of fitness from an <strong>approved Medical Board</strong> under DGCA's medical standards before the licence is issued."
+            source: air-rules
+          - text: "Do the DGCA medical before signing up with a flying school — eyesight or other conditions can stop you, and school fees are rarely refunded."
+          - text: "You must be <strong>at least 18</strong> on the day you apply for the CPL."
+            source: air-rules
+      - stages: [grad]
+        title: "Graduating first? Your degree is optional"
+        points:
+          - text: "No degree is needed for a CPL; the rule asks only for Class 12 with Physics and Mathematics. Some airlines set their own extra criteria in cadet and hiring notices."
+            source: air-rules
+    board_notes:
+      gseb: "Your HSC must include <strong>Physics and Mathematics</strong> — HSC Science with Mathematics meets the rule."
+      cbse-gj: "Your CBSE Class XII must include Physics and Mathematics."
+      upmsp: "Your Intermediate must include Physics and Mathematics."
+      msbshse: "Your HSC must include Physics and Mathematics — HSC Science with Mathematics meets the rule."
+      wb: "Your Higher Secondary must include Physics and Mathematics."
+      cbse: "Your CBSE Class XII must include Physics and Mathematics."
+      other: "Your Class 12 must include Physics and Mathematics; any recognised board counts."
+    board_source: air-rules
+    exam:
+      name: "DGCA Commercial Pilot's Licence (Aeroplanes)"
+      body: "Directorate General of Civil Aviation (DGCA)"
+      href: "commercial-pilot.html"
+      facts:
+        - { label: "Minimum age", value: "18 on the date of application", source: air-rules }
+        - { label: "School base", value: "Class 10+2 with Physics and Mathematics", source: air-rules }
+        - { label: "Flight time", value: "200 hours within the 5 years before applying", source: air-rules }
+        - { label: "Written exams", value: "Air Regulations · Air Navigation · Meteorology · Aircraft and Engines", source: air-rules }
+      stages:
+        head: ["Stage", "What it is", "How it is judged", "Rule"]
+        rows:
+          - ["Medical", "Certificate from an approved Medical Board", "DGCA medical standards", "Needed before the licence is issued"]
+          - ["Ground exams", "Air Regulations, Air Navigation, Meteorology, Aircraft and Engines + a practical Signals exam", "DGCA syllabus", "All passed within the 5 years before the CPL application"]
+          - ["Flying hours", "200 hours: 100 as pilot-in-command (15 in the last 6 months), 20 cross-country as PIC incl. one 300 NM flight with landings at two aerodromes, 10 instrument (up to 5 on a simulator), 5 by night with 10 take-offs and landings", "Logged and certified at a DGCA-approved flying school", "Within the 5 years before applying"]
+          - ["Skill test + RTR", "General flying tests by day and night, a 250 NM day and a 120 NM night cross-country test, and a current Flight Radio Telephone Operator's Licence", "Examiner on the aeroplane type", "Skill test within 6 months before applying"]
+        source: air-rules
+      notes:
+        - text: "Holders of a helicopter CPL with 1,000 hours as pilot-in-command need only 100 aeroplane hours."
+          source: air-rules
+        - text: "Pilot licence rules are being rewritten under the Bharatiya Vayuyan Adhiniyam, 2024. Check dgca.gov.in for the current version before you join a flying school."
+        - text: "Flying schools quote very different totals for the CPL, and type rating is usually extra. Get the full written fee schedule before you pay anything."
+    state_rules:
+      - text: "There is <strong>no state quota</strong>: one DGCA licence, the same rules in every state and for every board."
+      - text: "The language filter is national, not regional: radiotelephony English is a licence requirement whatever your school's medium."
+        source: air-rules
+    multiverse:
+      - { title: "Airline first officer", text: "Airlines hire CPL holders through their own tests, then fund or ask for a type rating.", href: "commercial-pilot.html" }
+      - { title: "Aircraft maintenance", text: "A licensed AME keeps aircraft flying — a ground route into aviation.", href: "aircraft-maintenance-engineer.html" }
+      - { title: "Air traffic control", text: "AAI recruits Junior Executives (ATC) by exam.", href: "air-traffic-controller.html" }
+      - { title: "Step-by-step", text: "The full path from Class 12 to the right-hand seat.", href: "roadmaps/commercial-pilot.html" }
+    money: [nmmss]
+
+  # ------------------------------------------------------------------ BANK PO (batch 2)
+  - id: bank-po
+    name: "Bank Probationary Officer (IBPS PO)"
+    page: "ibps-po.html"
+    gate: "Any graduate aged 20–30 → IBPS PO Preliminary → Main → Personality Test → Interview → provisional allotment to one of 11 public sector banks."
+    gate_source: ibps16
+    foundation:
+      - stages: [c8, c9, c10]
+        title: "Arithmetic speed, reasoning and English reading"
+        points:
+          - text: "The Preliminary exam is English Language, Quantitative Aptitude and Reasoning Ability — each with its own <strong>20-minute</strong> clock. Fast, accurate school arithmetic is the base."
+            source: ibps16
+          - text: "Read an English newspaper daily; the English test is only in English, whatever your school medium."
+            source: ibps16
+      - stages: [c11, c12]
+        title: "Any stream works — a degree is the gate"
+        points:
+          - text: "IBPS asks for a <strong>degree in any discipline</strong>. It sets no Class 10 or 12 percentage and no stream."
+            source: ibps16
+          - text: "Commerce, Economics or Mathematics help with the Banking Awareness and Data Analysis tests later, but are not required."
+      - stages: [grad]
+        title: "Age, degree result and the yearly cycle"
+        points:
+          - text: "Age <strong>20–30</strong> on 1 July 2026, and your degree result must be declared by the cut-off date in the notice (21 July 2026 in this cycle)."
+            source: ibps16
+          - text: "You must write your graduation percentage (to two decimals) in the form; CGPA must be converted using your university's rule."
+            source: ibps16
+    board_notes:
+      gseb: "The tests are in <strong>English and Hindi only</strong> — there is no Gujarati paper. The English test is in English alone."
+      cbse-gj: "The tests are in English and Hindi only; the English test is in English alone."
+      upmsp: "You can take Quantitative Aptitude, Reasoning and Data Analysis in <strong>Hindi</strong>; the English test is in English alone."
+      msbshse: "The tests are in <strong>English and Hindi only</strong> — there is no Marathi paper. The English test is in English alone."
+      wb: "The tests are in <strong>English and Hindi only</strong> — there is no Bengali paper. The English test is in English alone."
+      cbse: "The tests are in English and Hindi only; the English test is in English alone."
+      other: "The tests are in English and Hindi only; the English test is in English alone."
+    board_source: ibps16
+    exam:
+      name: "IBPS CRP PO/MT-XVI (vacancies of 2027-28)"
+      body: "Institute of Banking Personnel Selection (IBPS)"
+      href: "ibps-po.html"
+      facts:
+        - { label: "Vacancies (indicative)", value: "6,715 in 11 public sector banks", source: ibps16 }
+        - { label: "Age", value: "20–30 years (as on 1 Jul 2026)", source: ibps16 }
+        - { label: "Fee", value: "₹850 · ₹175 SC/ST/PwBD (incl. GST)", source: ibps16 }
+        - { label: "Negative marking", value: "−0.25 of the question's marks, Prelims and Main", source: ibps16 }
+      stages:
+        head: ["Stage", "Paper", "Marking", "Pass rule"]
+        rows:
+          - ["Preliminary", "100 questions · 100 marks · 60 min: English 30, Quant 35, Reasoning 35 (20 min each)", "−0.25 per wrong answer", "Minimum in each test, set by IBPS; screening only"]
+          - ["Main — objective", "170 questions · 200 marks · 160 min: Reasoning, General / Economy / Banking Awareness, English, Data Analysis", "−0.25 per wrong answer", "Minimum in each test and in total"]
+          - ["Main — descriptive", "Essay and comprehension · 2 questions · 25 marks · 30 min, in English", "May be scored by an automated system", "Part of the Main score"]
+          - ["Personality Test", "Self-report test placed before the interview panel", "Not qualifying", "Must be taken to reach the interview"]
+          - ["Interview", "100 marks, by the participating banks", "—", "40% minimum (35% SC/ST/OBC/PwBD); final merit = Main 80 : Interview 20"]
+        source: ibps16
+      notes:
+        - text: "Only Main exam marks (not Prelims) count for shortlisting and the final merit list. Scores across sessions are normalised by the equi-percentile method."
+          source: ibps16
+        - text: "This is an <strong>All India cadre</strong>: allotted officers may be posted anywhere in India or abroad, at the bank's discretion."
+          source: ibps16
+        - text: "State Bank of India runs its own PO exam separately; read its notice on the SBI careers site."
+    state_rules:
+      - text: "The PO notice sets <strong>no state-language test</strong> and no domicile rule — you compete on one national merit list and can be posted anywhere."
+        source: ibps16
+      - text: "Interviews are run by the participating banks and coordinated by a <strong>Nodal Bank in each State / UT</strong>; the venue comes in your call letter and cannot be changed."
+        source: ibps16
+      - state: maharashtra
+        text: "Bank of Maharashtra is one of the 11 participating banks in CRP PO/MT-XVI."
+        source: ibps16
+    multiverse:
+      - { title: "SBI PO", text: "India's largest bank recruits officers through its own exam.", href: "sbi-po.html" }
+      - { title: "Clerk first", text: "IBPS and SBI clerk posts, with internal promotion to officer.", href: "ibps-clerk.html" }
+      - { title: "RBI Grade B", text: "Regulator-side officer roles at the Reserve Bank.", href: "rbi-grade-b.html" }
+      - { title: "Coaching", text: "Banking coaching centres near you.", href: "coaching-banking.html" }
+    money: [nmmss, csss, pms-sc, ibps-pet, ibps-fee, mysy]
+
+  # ------------------------------------------------------------------ CIVIL SERVICES (batch 2)
+  - id: civil-services
+    name: "Civil Servant (UPSC Civil Services — IAS, IPS, IFS)"
+    page: "upsc-civil-services.html"
+    roadmap: "roadmaps/upsc-civil-services.html"
+    gate: "Any graduate aged 21–32 (more for SC, ST, OBC and others) → Preliminary (screening) → Main (9 written papers) → Personality Test → service by rank and preference."
+    gate_source: cse26
+    foundation:
+      - stages: [c8, c9]
+        title: "Read widely and write every week"
+        points:
+          - text: "Prelims General Studies and the Main Essay and GS papers cover heritage, history, geography, polity, economy, environment, technology and ethics — your school Social Science and Science books are the first layer."
+            source: cse26
+          - text: "Read a newspaper daily and write short answers on what you read. Writing speed matters: every Main paper is a 3-hour essay-type paper."
+            source: cse26
+      - stages: [c10]
+        title: "Any stream is fine — choose what you can score in"
+        points:
+          - text: "The exam asks only for a <strong>graduate degree in any subject</strong> from a recognised university. No Class 10 or 12 stream or percentage is checked."
+            source: cse26
+          - text: "Pick a Class 11 stream you enjoy; a degree subject you like often becomes your Optional paper later."
+      - stages: [c11, c12]
+        title: "Plan your language — you may write Main in it"
+        points:
+          - text: "You may answer every Main paper except the two qualifying language papers in <strong>any language of the Eighth Schedule</strong> (including Hindi, Gujarati, Marathi and Bengali) or in English. Prelims papers are set in Hindi and English."
+            source: cse26
+          - text: "Main Paper A (an Indian language) and Paper B (English) are of Matriculation standard and only need <strong>25% each</strong>; they do not count for rank."
+            source: cse26
+      - stages: [grad]
+        title: "Final-year students can apply"
+        points:
+          - text: "You can sit Prelims while your final degree exam is pending; proof of passing is needed only if you reach the interview."
+            source: cse26
+          - text: "Age <strong>21–32</strong> on 1 August of the exam year (CSE 2026); upper limit +5 years for SC/ST and +3 for OBC. Attempts: 6 (General / EWS), 9 (OBC and PwBD), unlimited for SC/ST."
+            source: cse26
+    board_notes:
+      gseb: "<strong>Gujarati</strong> is an Eighth Schedule language: you may choose it for Main Paper A and write the GS, Essay and Optional papers in it."
+      cbse-gj: "You may write Main in English or in an Eighth Schedule language such as Gujarati or Hindi; Prelims is in Hindi and English."
+      upmsp: "You may write Main in <strong>Hindi</strong> and pick Hindi for Paper A; Prelims papers are also set in Hindi."
+      msbshse: "<strong>Marathi</strong> is an Eighth Schedule language: you may choose it for Main Paper A and write the GS, Essay and Optional papers in it."
+      wb: "<strong>Bengali</strong> is an Eighth Schedule language: you may choose it for Main Paper A and write the GS, Essay and Optional papers in it."
+      cbse: "You may write Main in English or any Eighth Schedule language; Prelims is in Hindi and English."
+      other: "If your state language is in the Eighth Schedule, you may write Main in it; Prelims is in Hindi and English."
+    board_source: cse26
+    exam:
+      name: "UPSC Civil Services Examination 2026 (Notice 05/2026-CSE)"
+      body: "Union Public Service Commission"
+      href: "upsc-civil-services.html"
+      facts:
+        - { label: "Vacancies (approx.)", value: "933, incl. 33 for PwBD", source: cse26 }
+        - { label: "Prelims date", value: "24 May 2026", source: cse26 }
+        - { label: "Fee", value: "₹100 Prelims + ₹200 Main · women, SC, ST, PwBD exempt", source: cse26 }
+        - { label: "Age", value: "21–32 on 1 Aug 2026 (relaxations by category)", source: cse26 }
+      stages:
+        head: ["Stage", "Papers", "Marking", "Rule"]
+        rows:
+          - ["Preliminary", "GS Paper I + GS Paper II (CSAT): 200 marks each, 2 hours each, objective", "−1/3 of the question's marks per wrong answer", "Screening only; GS II needs 33%; about 12–13 times the vacancies go to Main"]
+          - ["Main — written", "Essay, GS I–IV and two Optional papers (250 marks each, 1,750 in all) + qualifying Paper A (Indian language) and Paper B (English), 300 each; 3 hours per paper", "Conventional essay type", "Papers A and B need 25% each and do not count for rank"]
+          - ["Personality Test", "Interview, 275 marks", "No minimum qualifying marks", "About twice the vacancies are called"]
+          - ["Final merit", "Main written + interview = 2,025 marks", "—", "Ties: compulsory papers + interview, then compulsory papers, then the older candidate"]
+        source: cse26
+      notes:
+        - text: "Services are allotted by your rank and the order of preference you give for services and posts."
+          source: cse26
+        - text: "This is the 2026 notice. UPSC publishes the CSE 2027 notice early in 2027 on upsc.gov.in — check age, attempts and vacancies there."
+    state_rules:
+      - text: "Paper A (Indian language) is <strong>not compulsory</strong> for candidates from Arunachal Pradesh, Manipur, Meghalaya, Mizoram, Nagaland and Sikkim."
+        source: cse26
+      - text: "Selection is on one all-India rank list; the notice prints no state quota for candidates. Your state language matters through the medium you choose for Main."
+        source: cse26
+      - state: west-bengal
+        text: "The West Bengal <strong>Student Credit Card</strong> loan covers coaching for competitive exams such as IAS, IPS and WBCS (see Money help)."
+        source: wbscc
+    multiverse:
+      - { title: "IAS, IPS, IFS and more", text: "One exam fills many central services; your rank and preference decide which.", href: "upsc-civil-services.html" }
+      - { title: "State civil services", text: "Your state PSC exam (GPSC, UPPSC, MPSC, WBCS) runs on a similar pattern.", href: "state/gujarat/gpsc.html" }
+      - { title: "CAPF Assistant Commandant", text: "UPSC's exam for officer posts in the central armed police forces.", href: "upsc-capf-ac.html" }
+      - { title: "Coaching", text: "UPSC coaching centres near you.", href: "coaching-upsc.html" }
+    money: [nmmss, csss, pms-sc, upsc-fee, wbscc, mysy]
 
 # --------------------------------------------------------------------- MONEY HELP (scholarships, stipends, fee cuts)
 # kind: scholarship | stipend | fee | state. `amount` only when the official document prints it.
@@ -443,6 +887,52 @@ money:
     apply: "On cfainstitute.org before you register for an exam — you cannot apply while registered or waiting for results."
     stages: [grad]
     source: cfa-sch
+  - id: wbscc
+    kind: state
+    state: west-bengal
+    name: "West Bengal Student Credit Card (WBSCC)"
+    by: "Government of West Bengal"
+    amount: "Loan up to ₹10 lakh at 4% simple interest a year; 1% interest concession if the interest is fully serviced during the study period"
+    who: "Students from West Bengal aged 40 or under when applying — school (Class X onward), UG, PG, professional degree courses in India or abroad, and coaching for competitive exams such as Engineering, Medical, Law, IAS, IPS and WBCS. The state's scheme page asks for 10 years' residence in West Bengal and a co-borrower (usually a parent)."
+    apply: "On wbscc.wb.gov.in. Repayment runs up to 15 years, including the moratorium (course duration + 1 year); no margin money up to ₹4 lakh."
+    stages: [c10, c11, c12, grad]
+    source: [wbscc, wb-scc-info]
+  - id: tfw-up
+    kind: fee
+    state: uttar-pradesh
+    name: "Tuition Fee Waiver seats (UPTAC)"
+    by: "AKTU / UPTAC counselling, Uttar Pradesh"
+    amount: "No tuition fee, on up to 5% extra seats over the approved intake"
+    who: "Economically weaker meritorious students in B.Tech, MCA, MBA, B.Pharm, BHMCT, BFAD, BFA and B.Des (not B.Arch), with an income certificate. It is separate from the EWS category, which gets no fee concession."
+    apply: "Claim it in your UPTAC registration and upload the income certificate."
+    stages: [c11, c12, grad]
+    source: tac-ib
+  - id: ibps-pet
+    kind: training
+    name: "IBPS Pre-Examination Training (PET)"
+    by: "IBPS and the participating banks"
+    who: "A limited number of SC, ST, OBC and minority-community candidates who opt for it. Attending gives no right to selection."
+    apply: "Tick the PET column in the online application; it runs online before the Preliminary exam (August in the 2026 cycle)."
+    stages: [grad]
+    source: ibps16
+  - id: ibps-fee
+    kind: fee
+    name: "Lower IBPS PO fee"
+    by: "IBPS"
+    amount: "₹175 instead of ₹850 (both include GST)"
+    who: "SC, ST and PwBD candidates."
+    apply: "Paid online in the application form; bank charges are extra."
+    stages: [grad]
+    source: ibps16
+  - id: upsc-fee
+    kind: fee
+    name: "UPSC Civil Services fee exemption"
+    by: "Union Public Service Commission"
+    amount: "No fee at all — others pay ₹100 for Prelims and ₹200 more for Main"
+    who: "Women, SC, ST and Persons with Benchmark Disability candidates."
+    apply: "Choose the category in the online form on upsconline.nic.in; the exemption is automatic."
+    stages: [grad]
+    source: cse26
 
 # --------------------------------------------------------------------- SOURCES
 sources:
@@ -467,3 +957,22 @@ sources:
   - { id: pms-sc, name: "Ministry of Social Justice & Empowerment — Post Matric Scholarship for SC students, guidelines 2020-21 to 2025-26 (copy hosted by Goa Social Welfare)", url: "https://socialwelfare.goa.gov.in/wp-content/uploads/2024/07/Guidelines-to-post-matric-scholaships-to-the-students-belonging-to-scheduled-castes-for-students-in-India-2020-2021-to-2025-26_0001.pdf", covers: "₹2.5 lakh income limit, fees + academic allowance, no pre-payment of fees, CA/ICWA/CS students covered", checked: 2026-10-24 }
   - { id: mysy, name: "Government of Gujarat — MYSY scholarship portal", url: "https://mysy.guj.nic.in/", covers: "scheme portal; could not be opened on 24 Oct 2026, so no amounts are printed here" }
   - { id: gsr610, name: "Gazette of India — Apprenticeship (Amendment) Rules, 2025, G.S.R. 610(E)", url: "https://egazette.gov.in/WriteReadData/2025/266074.pdf", covers: "minimum stipend ₹9,600 (ITI) and ₹10,900 (diploma) from 11 Sep 2025, yearly increase", checked: 2026-10-23 }
+  # Batch 2 (2026-10-25). jm-ib / josaa-br / acpc-advt / mht-ib / cap-ib / tac-ib / wb-ib were read for the
+  # national_exams.yml and state sheets; their facts are copied from there with the same dates.
+  - { id: jm-ib, name: "NTA — JEE (Main) 2026 Information Bulletin", url: "https://cdnbbsr.s3waas.gov.in/s3f8e59f4b2fe7c5705bf878bbd494ccdf/uploads/2025/11/202511021649722475.pdf", covers: "Paper 1 pattern and marking, sessions, fees, Class 12 subjects, 75% / top-20-percentile rule, state code of eligibility, 13 languages, reservation, JEE Advanced cut", checked: 2026-10-14 }
+  - { id: josaa-br, name: "JoSAA — Business Rules for Joint Seat Allocation 2026-27 (1 June 2026)", url: "https://cdnbbsr.s3waas.gov.in/s313111c20aee51aeb480ecbd988cd8cc9/uploads/2026/06/20260601632081678.pdf", covers: "Home State quota, female supernumerary seats, seat acceptance fee", checked: 2026-10-14 }
+  - { id: acpc-advt, name: "ACPC Gujarat — Advertisement for degree engineering admission 2026-27", url: "https://acpc.gujarat.gov.in/assets/uploads/media-uploader/31032026-advertisement-for-degree-engineering-admission-2026-27-english1774956585.pdf", covers: "95% / 50% / 5% seat split, GUJCET + board theory 50:50 merit, 45% / 40% HSC rule", checked: 2026-10-14 }
+  - { id: tac-ib, name: "AKTU — UPTAC Information Brochure 2026-27", url: "https://samarth-notification.s3.ap-south-1.amazonaws.com/uptacadmin.samarth.ac.in/admission/2026/july/admissionhed126/bc7d57e0090dd6f13e771125a9ad72a1ecdc68edf2e4430417ac2bb64bd909331/17901474761_admission_docs.pdf", covers: "JEE Main merit for B.Tech, 100% / 85% seat shares, domicile, B.Tech and MCA eligibility, tuition fee waiver seats", checked: 2026-10-14 }
+  - { id: mht-ib, name: "State CET Cell Maharashtra — MHT-CET 2026 Information Brochure (updated 11 Apr 2026)", url: "https://cetcell.mahacet.org/wp-content/uploads/2023/12/MHT-CET-2026-Information-Brochure-Updated-on-11.04.2026.pdf", covers: "candidature Types A–E, MHT-CET compulsory for Maharashtra candidature, paper languages", checked: 2026-10-14 }
+  - { id: cap-ib, name: "State CET Cell Maharashtra — CAP Information Brochure for UG & PG Technical Courses 2025-26", url: "https://cetcell.mahacet.org/wp-content/uploads/2023/12/Information_Brochure_UG_PG_2025_26_Final_02_07_2025.pdf", covers: "vertical reservation shares, EWS and women's seats", checked: 2026-10-14 }
+  - { id: wb-ib, name: "WBJEEB — Information Bulletin of WBJEE-2026", url: "https://cdnbbsr.s3waas.gov.in/s3d2a27e83d429f0dcae6b937cf440aeb1/uploads/2026/03/202603101506582412.pdf", covers: "domicile rule (3.4), reservation only for West Bengal domicile (5.1), Jadavpur 90% seats", checked: 2026-10-23 }
+  - { id: imu-cc, name: "Indian Maritime University — Citizen / Client Charter (updated 30 May 2025)", url: "https://www.imu.edu.in/imunew/uploads/files/IMU_Citizen_Charter_30052025.pdf", covers: "B.Sc Nautical Science and DNS eligibility: 60% PCM, 50% English, SC/ST relaxation, unmarried, age caps, eyesight and colour vision, All-India jurisdiction", checked: 2026-10-25 }
+  - { id: imu-norm, name: "Indian Maritime University — Notification 03/2026, IMU-CET 2026 normalisation procedure", url: "https://www.imu.edu.in/imunew/uploads/files/admissions/2026/IMU-CET2026_Normalisation.pdf", covers: "CET in two shifts on 24 May 2026, shift-wise percentile scores", checked: 2026-10-25 }
+  - { id: imu-cut, name: "Indian Maritime University — Public Notification 12, IMU-CET 2026 UG cut-off percentiles (17 Jun 2026)", url: "https://www.imu.edu.in/imunew/uploads/files/admissions/2026/Notification_CET_Cutoff_17062026.pdf", covers: "General 60, EWS / OBC-NCL 54, SC / ST 45 for DNS, B.Sc and B.Tech", checked: 2026-10-25 }
+  - { id: imu-res, name: "Indian Maritime University — Notification, Results of IMU-CET 2026 (14 Jun 2026)", url: "https://www.imu.edu.in/imunew/uploads/files/admissions/2026/Notification_CET_Results_14062026.pdf", covers: "result date, rank list on the website", checked: 2026-10-25 }
+  - { id: dgs, name: "Directorate General of Shipping (DG Shipping)", url: "https://www.dgshipping.gov.in/", covers: "approved institutes, sea time, Certificates of Competency" }
+  - { id: air-rules, name: "Aircraft Rules, 1937 — Schedule II (general conditions and Section J, Commercial Pilot's Licence (Aeroplanes)), consolidated text with amendments, on Indian Kanoon", url: "https://indiankanoon.org/doc/165790640/", covers: "age 18, 10+2 with Physics and Mathematics, medical, written exams, 200-hour experience break-up, RTR licence, skill test, English proficiency (para 6-A), 5-year exam validity", checked: 2026-10-25 }
+  - { id: ibps16, name: "IBPS — Detailed Notification, CRP PO/MT-XVI (vacancies of 2027-28), 30 Jun 2026", url: "https://www.ibps.in/wp-content/uploads/Detailed-Notification_CRP-PO-XVI_Final_V1_30.06.2026.pdf", covers: "11 participating banks, 6,715 indicative vacancies, age, degree, fee, Prelims / Main pattern and media, −0.25, personality test, interview 40% / 35%, 80:20 weightage, PET, All India cadre, nodal banks", checked: 2026-10-25 }
+  - { id: cse26, name: "UPSC — Civil Services Examination 2026, Examination Notice No. 05/2026-CSE (4 Feb 2026)", url: "https://www.upsc.gov.in/sites/default/files/Notif-CSP-26-Engl-040226.pdf", covers: "933 vacancies, Prelims 24 May 2026, age, attempts, degree, fee and exemptions, Prelims / Main / interview scheme, negative marking, Eighth Schedule media, Paper A exemptions, tie-break", checked: 2026-10-25 }
+  - { id: wbscc, name: "Government of West Bengal — West Bengal Student Credit Card portal (About)", url: "https://wbscc.wb.gov.in/About", covers: "₹10 lakh at 4% simple interest, 1% concession, age 40, courses and competitive-exam coaching covered, 15-year repayment", checked: 2026-10-25 }
+  - { id: wb-scc-info, name: "Government of West Bengal — Information Centre: West Bengal Student Credit Card Scheme", url: "https://wb.gov.in/government-schemes-details-west-bengal-student-credit-card-scheme.aspx", covers: "10 years' residence, co-borrower, moratorium course + 1 year, no margin money up to ₹4 lakh", checked: 2026-10-25 }

@@ -76,7 +76,7 @@ footer:
   </section>
 
   <noscript>
-    <section class="block mb sc-block"><div class="container"><p class="sc-p">The blueprint needs JavaScript to switch careers, classes and boards. Every fact is still on our <a href="loco-pilot.html">Loco Pilot</a>, <a href="llb.html">Law</a>, <a href="ca.html">CA</a> and <a href="research-analyst.html">Research Analyst</a> pages, and the sources are listed at the bottom of this page.</p></div></section>
+    <section class="block mb sc-block"><div class="container"><p class="sc-p">The blueprint needs JavaScript to switch careers, classes and boards. Every fact is still on our {% for c in JM.careers %}<a href="{{ c.page }}">{{ c.name }}</a>{% unless forloop.last %}, {% endunless %}{% endfor %} pages, and the sources are listed at the bottom of this page.</p></div></section>
   </noscript>
 
   <section class="block mb sc-block" id="foundation" aria-labelledby="foundation-heading">
@@ -167,11 +167,14 @@ footer:
   var label = {}; D.classes.forEach(function(k){ label[k.id] = k.label; });
   var srcN = {}; D.sources.forEach(function(s, i){ srcN[s.id] = { n: i + 1, name: s.name }; });
   var money = {}; D.money.forEach(function(m){ money[m.id] = m; });
-  var KIND = { scholarship: 'Scholarship', stipend: 'Stipend', fee: 'Fee help', state: 'State scheme' };
+  var KIND = { scholarship: 'Scholarship', stipend: 'Stipend', fee: 'Fee help', state: 'State scheme', training: 'Free training' };
+  var stateNames = []; D.boards.forEach(function(b){ if(b.state_name && stateNames.indexOf(b.state_name) < 0) stateNames.push(b.state_name); });
 
   function esc(s){ return String(s == null ? '' : s).replace(/&(?![a-z#0-9]+;)/gi,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
   // Data text may carry simple trusted HTML (<strong>, &amp;) written in the YAML; plain fields use esc().
+  // A source may be one id or a list of ids.
   function ref(id){
+    if(Array.isArray(id)) return id.map(ref).join('');
     var s = id && srcN[id]; if(!s) return '';
     return ' <a class="src-ref" href="#src-' + id + '" title="Source: ' + esc(s.name) + '" aria-label="Source ' + s.n + ': ' + esc(s.name) + '">[' + s.n + ']</a>';
   }
@@ -185,6 +188,13 @@ footer:
     return '<ul class="jb-list">' + items.map(function(p){ return '<li>' + p.text + ref(p.source) + '</li>'; }).join('') + '</ul>';
   }
   function link(href, text){ return href ? '<a class="jb-more" href="' + esc(href) + '">' + text + '</a>' : ''; }
+
+  // board_notes values are text (cited to board_source) or { text, source }.
+  function boardNote(c, b){
+    var n = c.board_notes && c.board_notes[b.id];
+    if(!n) return '';
+    return typeof n === 'string' ? '<p>' + n + ref(c.board_source) + '</p>' : '<p>' + n.text + ref(n.source || c.board_source) + '</p>';
+  }
 
   function render(){
     var c = find(D.careers, selC.value), k = selK.value, b = find(D.boards, selB.value);
@@ -201,7 +211,7 @@ footer:
     }).join('');
     $('jbFoundation').innerHTML = (f ? '<ol class="jb-steps">' + f + '</ol>' : '<p class="sc-p">You are past the school stage for this career — see the exam and money blocks below.</p>') +
       '<div class="jb-board"><h3>Your board: ' + esc(b.label) + '</h3><p>' + b.exams + '</p>' +
-      (c.board_notes && c.board_notes[b.id] ? '<p>' + c.board_notes[b.id] + ref(c.board_source) + '</p>' : '') + '</div>';
+      boardNote(c, b) + '</div>';
 
     // 02 Exam anatomy
     var e = c.exam;
@@ -219,7 +229,7 @@ footer:
 
     // 03 State rules
     var rules = c.state_rules.filter(function(r){ return inState(r, b); });
-    var stateNote = b.state ? '' : '<p class="sc-p">Gujarat-specific rules are hidden for your board. Pick a Gujarat option above to see them.</p>';
+    var stateNote = b.state ? '' : '<p class="sc-p">State-specific rules (' + esc(stateNames.join(', ')) + ') are hidden for your board. Pick one of those boards above to see them.</p>';
     $('jbState').innerHTML = (rules.length ? list(rules) : '') + stateNote;
 
     // 04 Career multiverse

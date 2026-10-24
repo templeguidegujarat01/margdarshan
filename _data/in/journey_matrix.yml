@@ -1,0 +1,469 @@
+# journey_matrix — data for journey-blueprint.html (the Student Journey Blueprint).
+# The page prints this file as JSON and a small script renders the four blocks + the money block for the
+# chosen career × class × board. Edit this file, not the page.
+#
+# Rules (same as every India sheet):
+#   - Never type a number you did not read on the official document. Every fact line carries `source:`
+#     (an id from `sources` at the bottom). Lines without `source:` are Margdarshan guidance, not facts.
+#   - `stages` lists the class ids a step / scheme applies to. The page shows only what is still ahead
+#     of the student: an item is hidden once every stage in it is behind the chosen class.
+#   - `state:` limits an item to the boards whose `state` matches (gujarat for now).
+#   - scripts/check-journey-matrix.mjs validates ids, stages and source links. Run it after editing.
+# Written 2026-10-24 from the official files listed under `sources`.
+checked: 2026-10-24
+
+classes:
+  - { id: c8, label: "Class 8" }
+  - { id: c9, label: "Class 9" }
+  - { id: c10, label: "Class 10" }
+  - { id: c11, label: "Class 11" }
+  - { id: c12, label: "Class 12" }
+  - { id: grad, label: "College / graduate" }
+
+boards:
+  - id: gseb
+    label: "GSEB — Gujarat State Board"
+    state: gujarat
+    exams: "Your board exams are the <strong>SSC</strong> (Std 10) and the <strong>HSC</strong> (Std 12). Wherever a notice says Matriculation, SSLC or Class 10, your SSC marksheet and certificate are what count."
+  - id: cbse-gj
+    label: "CBSE — studying in Gujarat"
+    state: gujarat
+    exams: "Your board exams are the CBSE <strong>Class X</strong> and <strong>Class XII</strong> exams. Gujarat-only rules below (domicile seats, state schemes) set their own definition of a Gujarat student — read that rule in the official notice before you count on it."
+  - id: cbse
+    label: "CBSE — any other state"
+    exams: "Your board exams are the CBSE <strong>Class X</strong> and <strong>Class XII</strong> exams. National exams treat every board the same; state quotas follow your own state's rules."
+  - id: other
+    label: "Other state board"
+    exams: "Your Class 10 and Class 12 board certificates count exactly like CBSE ones for every national exam on this page. State quotas and state scholarships follow your own state's rules."
+
+careers:
+  # ------------------------------------------------------------------ LOCO PILOT
+  - id: loco-pilot
+    name: "Loco Pilot (Indian Railways)"
+    page: "loco-pilot.html"
+    roadmap: "roadmaps/loco-pilot.html"
+    gate: "Class 10 + ITI in a listed trade (or a 3-year engineering diploma), then RRB ALP: CBT-1 → CBT-2 → CBAT, and the A-1 medical."
+    gate_source: rrb-cen
+    foundation:
+      - stages: [c8, c9]
+        title: "Build the maths the CBT actually asks"
+        points:
+          - text: "The CBT maths syllabus is school maths: number system, BODMAS, fractions, LCM/HCF, ratio, percentages, mensuration, time and work, time and distance, interest, profit and loss, algebra, geometry, trigonometry and elementary statistics."
+            source: rrb-cen
+          - text: "Learn these from your own board's maths textbook (NCERT for CBSE). Coaching is not needed at this stage."
+      - stages: [c10]
+        title: "Pass Class 10 — and get your certificate details right"
+        points:
+          - text: "Class 10 (Matriculation / SSLC) is the school base for ALP. The CEN 01/2025 qualification table sets <strong>no minimum percentage</strong> for it."
+            source: rrb-cen
+          - text: "Your name, date of birth and Class 10 roll number, certificate number and date entered in the RRB form <strong>cannot be changed later</strong>. Check spelling on your Class 10 certificate now."
+            source: rrb-cen
+      - stages: [c10, c11, c12]
+        title: "Pick the technical route: ITI or a 3-year diploma"
+        points:
+          - text: "<strong>ITI (NCVT/SCVT)</strong> in one of the listed trades — Fitter, Electrician, Instrument Mechanic, Millwright/Maintenance Mechanic, Mechanic (Radio &amp; TV), Electronics Mechanic, Mechanic (Motor Vehicle), Wireman, Tractor Mechanic, Armature &amp; Coil Winder, Mechanic (Diesel), Heat Engine, Turner, Machinist, Refrigeration &amp; AC Mechanic — or a Course Completed Act Apprenticeship in those trades."
+            source: rrb-cen
+          - text: "Or a <strong>3-year diploma</strong> in Mechanical, Electrical, Electronics or Automobile Engineering (or a combination of these)."
+            source: rrb-cen
+          - text: "Class 11–12 is not required. If you are already in Class 11 or 12, you can still join an ITI or polytechnic after it — check each admission notice for its own rules."
+      - stages: [grad]
+        title: "Already in engineering? Your degree counts"
+        points:
+          - text: "A degree in Mechanical, Electrical, Electronics or Automobile Engineering is accepted in place of the diploma."
+            source: rrb-cen
+          - text: "Watch the age limit: <strong>18–30 years</strong> (as on 1 July 2025 for CEN 01/2025), with relaxations by category. The corrigendum that extended the 2025 application dates kept this age date unchanged."
+            source: rrb-cor
+    board_notes:
+      gseb: "The CBT-1 and CBT-2 papers are offered in <strong>Gujarati</strong>, but the CBAT is only in English and Hindi — practise aptitude tests in one of those two."
+      cbse-gj: "You may take CBT-1 and CBT-2 in English, Hindi or Gujarati; the CBAT is only in English and Hindi."
+      cbse: "CBT-1 and CBT-2 come in English, Hindi and 13 regional languages; the CBAT is only in English and Hindi."
+      other: "CBT-1 and CBT-2 come in English, Hindi and 13 regional languages; the CBAT is only in English and Hindi."
+    board_source: rrb-cen
+    exam:
+      name: "RRB Assistant Loco Pilot — CEN 01/2025"
+      body: "Railway Recruitment Boards"
+      href: "rrb-alp.html"
+      facts:
+        - { label: "Posts (all RRBs)", value: "9,970", source: rrb-cen }
+        - { label: "Pay at entry", value: "Level 2 · ₹19,900 initial pay", source: rrb-cen }
+        - { label: "Age", value: "18–30 years (as on 1 Jul 2025)", source: rrb-cen }
+        - { label: "Medical", value: "A-1", source: rrb-cen }
+      stages:
+        head: ["Stage", "Paper", "Marking", "Pass rule"]
+        rows:
+          - ["CBT-1 (screening)", "75 questions · 75 marks · 60 min", "−1/3 per wrong answer", "UR/EWS 40%, OBC-NCL 30%, SC 30%, ST 25%; marks not used in the final list"]
+          - ["CBT-2 Part A", "100 questions · 90 min", "−1/3 per wrong answer", "Same minimums as CBT-1; these marks decide merit"]
+          - ["CBT-2 Part B (trade)", "75 questions · 60 min", "−1/3 per wrong answer", "35% for every category; qualifying only"]
+          - ["CBAT (aptitude)", "Psychometric test batteries, English/Hindi", "No negative marking", "T-score of 42 in every battery"]
+        source: rrb-cen
+      notes:
+        - text: "Final merit = <strong>70% CBT-2 Part A + 30% CBAT</strong>. Up to 15 times the vacancies of each RRB are called to CBT-2."
+          source: rrb-cen
+        - text: "Exam fee: ₹500, of which ₹400 comes back after you sit CBT-1. ₹250 for SC, ST, ex-servicemen, women, transgender, minority and EBC candidates — refunded in full after CBT-1."
+          source: rrb-cen
+        - text: "The RRBs do not publish pass or fail percentages in the notice, so we do not print one."
+    state_rules:
+      - state: gujarat
+        text: "In CEN 01/2025, RRB Ahmedabad listed <strong>497 ALP posts for Western Railway</strong>."
+        source: rrb-cen
+      - text: "You apply to <strong>one RRB only</strong>, and CBT-2 shortlisting is done among candidates who chose the same RRB — so your choice of RRB decides whom you compete with."
+        source: rrb-cen
+      - text: "A-1 medical includes near vision Sn 0.6 without glasses plus colour, binocular, field, night and mesopic vision tests. Fail it and you cannot be appointed, whatever your marks."
+        source: rrb-cen
+    multiverse:
+      - { title: "Running line", text: "Assistant Loco Pilot → Senior ALP → Loco Pilot (Shunter / Goods) → Passenger → Mail/Express → Loco Inspector, by seniority and departmental tests.", href: "loco-pilot.html" }
+      - { title: "Same ITI, other railway jobs", text: "RRB Technician and Group D posts take the same ITI trades.", href: "rrb-group-d.html" }
+      - { title: "Apprenticeship first", text: "A Course Completed Act Apprenticeship in a listed trade also qualifies you for ALP — and pays a stipend while you train.", href: "railway-apprentice.html" }
+      - { title: "Upskill", text: "Diploma holders can move to a B.Tech through lateral entry and aim for railway or PSU engineer jobs later.", href: "diploma.html" }
+    money: [nmmss, pms-sc, apprentice-iti, apprentice-dip, rrb-fee, mysy]
+
+  # ------------------------------------------------------------------ LAWYER
+  - id: lawyer
+    name: "Lawyer (Advocate)"
+    page: "llb.html"
+    roadmap: "roadmaps/llb.html"
+    gate: "Class 12 with 45% (40% for SC/ST/PwD) → CLAT → 5-year LL.B. at an NLU (or a 3-year LL.B. after any degree) → enrol with a State Bar Council → pass the AIBE."
+    gate_source: clat-elig
+    foundation:
+      - stages: [c8, c9, c10]
+        title: "Read every day — CLAT is a reading test"
+        points:
+          - text: "CLAT is about 20% English, 25% current affairs, 25% legal reasoning, 20% logical reasoning and 10% quantitative techniques — all from passages."
+            source: clat-fmt
+          - text: "Build the habit now: a newspaper editorial a day, and your board's English and Social Science textbooks (NCERT for CBSE) read properly, not memorised."
+      - stages: [c11, c12]
+        title: "Any stream works — protect your Class 12 percentage"
+        points:
+          - text: "CLAT UG needs Class 12 with at least <strong>45%</strong> (<strong>40%</strong> for SC, ST and PwD). Students writing Class 12 in March/April can apply; there is no upper age limit."
+            source: clat-elig
+          - text: "CLAT is written in December of your Class 12 year: CLAT 2027 is on <strong>6 December 2026</strong>, for seats starting in 2027-28."
+            source: clat-pr
+      - stages: [grad]
+        title: "Already in college? Take the 3-year LL.B."
+        points:
+          - text: "After any bachelor's degree you can do a 3-year LL.B. instead of the 5-year integrated course; both lead to the same right to practise."
+            source: bci
+          - text: "Final-year LL.B. students can register for the All India Bar Examination (AIBE). AIBE XXI was held on 7 June 2026."
+            source: aibe
+    board_notes:
+      gseb: "Your HSC marks are your Class 12 marks for the 45% rule — every stream (Science, Commerce, Arts) is accepted."
+      cbse-gj: "Your CBSE Class XII marks are used for the 45% rule; every stream is accepted."
+      cbse: "Your CBSE Class XII marks are used for the 45% rule; every stream is accepted."
+      other: "Your state board Class 12 marks are used for the 45% rule; every stream is accepted."
+    board_source: clat-elig
+    exam:
+      name: "CLAT UG 2027"
+      body: "Consortium of National Law Universities"
+      href: "clat.html"
+      facts:
+        - { label: "Exam date", value: "Sun 6 Dec 2026, 2–4 PM", source: clat-pr }
+        - { label: "Paper", value: "120 MCQs · 120 marks · 2 hours, offline", source: clat-fmt }
+        - { label: "Fee", value: "₹4,000 · ₹3,500 SC/ST/BPL/PwD", source: clat-ins }
+        - { label: "Seats (examples)", value: "NLSIU 310 · GNLU 176 · NALSAR 132", source: clat-ins }
+      stages:
+        head: ["Stage", "What it is", "Marking", "Rule"]
+        rows:
+          - ["CLAT UG", "One offline paper of 120 one-mark MCQs", "+1 right · −0.25 wrong", "Rank decides NLU seats; ties go to higher Legal Reasoning marks, then the older candidate"]
+          - ["NLU counselling", "Seat allotment by rank, category and domicile", "—", "Each NLU applies its own seat matrix"]
+          - ["5-year LL.B.", "BA / BBA / B.Com / B.Sc / BSW LL.B. (Hons.) at the NLU", "—", "University exams"]
+          - ["AIBE", "All India Bar Examination after enrolment", "—", "Needed to practise as an advocate"]
+        source: clat-fmt
+      notes:
+        - text: "CLAT 2027 applications close on 31 October 2026, 11:59 PM. Fees are paid online only and are non-refundable."
+          source: clat-ins
+        - text: "Pass or rank-cut-off percentages are not part of the official CLAT notice, so we do not print one."
+    state_rules:
+      - state: gujarat
+        text: "<strong>GNLU Gandhinagar</strong> keeps 25% of its 176 all-India UG seats (40 seats) for <strong>Gujarat domicile</strong> candidates, across every category except EWS."
+        source: gnlu
+      - state: gujarat
+        text: "After your LL.B., you enrol as an advocate with the <strong>Bar Council of Gujarat</strong> before you can practise in the state."
+        source: bci
+      - text: "Most NLUs keep a home-state quota with their own definition — for example 25% for Karnataka Students at NLSIU Bengaluru and 25% for Telangana residents at NALSAR."
+        source: nlsiu
+    multiverse:
+      - { title: "Litigation", text: "Practise in courts; income grows slowly in the first years while you build clients.", href: "llb.html" }
+      - { title: "Corporate law", text: "Law firms and in-house legal teams; NLU graduates are hired most here." }
+      - { title: "Judicial services", text: "State judicial service exams for civil judge posts.", href: "judicial-services.html" }
+      - { title: "Niche legal careers", text: "Patent agent, trademark agent, insolvency professional and data protection roles.", href: "patent-agent.html" }
+    money: [nmmss, csss, pms-sc, clat-fee, mysy]
+
+  # ------------------------------------------------------------------ CHARTERED ACCOUNTANT
+  - id: ca
+    name: "Chartered Accountant (CA)"
+    page: "ca.html"
+    roadmap: "roadmaps/ca.html"
+    gate: "Register with ICAI → Foundation (after Class 12) → Intermediate → articleship → Final. Direct Entry skips Foundation for eligible graduates."
+    gate_source: icai
+    foundation:
+      - stages: [c8, c9]
+        title: "Get comfortable with numbers and English"
+        points:
+          - text: "The four Foundation papers are Accounting, Business Laws, Quantitative Aptitude and Business Economics — school maths and clear English are the base for all four."
+            source: icai
+      - stages: [c10]
+        title: "You can register early"
+        points:
+          - text: "You can register for CA Foundation provisionally after Class 10, but you sit the exam only after Class 12."
+            source: icai
+      - stages: [c11, c12]
+        title: "Any stream is allowed — Commerce makes Foundation easier"
+        points:
+          - text: "Foundation is open to Commerce, Science and Arts students, with <strong>no minimum Class 12 percentage</strong>."
+            source: icai
+          - text: "Commerce with Accountancy gives you a head start on Paper 1; Maths helps in Quantitative Aptitude."
+      - stages: [grad]
+        title: "Graduate? Use Direct Entry"
+        points:
+          - text: "Graduates can skip Foundation and register straight for Intermediate: Commerce graduates need 55%, others 60%."
+            source: icai
+    board_notes:
+      gseb: "If you are in the HSC Commerce stream, your Accountancy and Economics books overlap with Foundation Papers 1 and 4."
+      cbse-gj: "CBSE Accountancy and Economics in Class XI–XII overlap with Foundation Papers 1 and 4."
+      cbse: "CBSE Accountancy and Economics in Class XI–XII overlap with Foundation Papers 1 and 4."
+      other: "Accountancy and Economics in Class 11–12 overlap with Foundation Papers 1 and 4."
+    exam:
+      name: "CA Foundation → Intermediate → Final"
+      body: "Institute of Chartered Accountants of India (ICAI)"
+      href: "ca.html"
+      facts:
+        - { label: "Levels", value: "Foundation · Intermediate · Final", source: icai }
+        - { label: "Foundation", value: "4 papers · 100 marks each", source: icai }
+        - { label: "Training", value: "Articleship under a practising CA", source: icai }
+        - { label: "Seats", value: "No cap — one national registration", source: icai }
+      stages:
+        head: ["Level", "Papers", "Marking", "Pass rule"]
+        rows:
+          - ["Foundation", "Accounting · Business Laws · Quantitative Aptitude · Business Economics", "Papers 3 and 4 are MCQ with −0.25 per wrong answer", "40% in each paper and 50% aggregate, in one sitting"]
+          - ["Intermediate", "Two groups of 3 papers", "Written papers", "40% each paper + 50% aggregate per group"]
+          - ["Articleship", "Practical training under a practising CA", "—", "About 2 years under the current scheme"]
+          - ["Final", "Two groups of 3 papers", "Written papers", "40% each paper + 50% aggregate per group"]
+        source: icai
+      notes:
+        - text: "Score 60% or more in a paper but miss the group pass, and ICAI usually exempts that paper next time."
+          source: icai
+        - text: "ICAI publishes a pass percentage after every attempt in its result press release on icai.org — read the latest one there; we do not copy old numbers."
+          source: icai
+    state_rules:
+      - text: "There is <strong>no state quota</strong> in CA: one registration with ICAI, and the same exam for every state and board."
+        source: icai
+      - state: gujarat
+        text: "Gujarat comes under ICAI's <strong>Western India Regional Council</strong>, which runs branches, classes and student activities in the region."
+        source: icai
+    multiverse:
+      - { title: "Audit and practice", text: "Statutory audit is reserved for practising CAs — your own firm, or partner in one.", href: "ca.html" }
+      - { title: "Corporate finance", text: "Accounts, tax and finance roles in companies, leading up to CFO." }
+      - { title: "Specialist licences", text: "Insolvency professional and registered valuer are open to CAs after their own exams.", href: "insolvency-professional.html" }
+      - { title: "Add a second badge", text: "CA + CFA for investment roles, or CA vs CMA vs CS if you are still choosing.", href: "ca-vs-cma-vs-cs.html" }
+    money: [nmmss, icai-need-inter, icai-need-final, icai-merit-need, icai-merit, articleship, pms-sc, csss, mysy]
+
+  # ------------------------------------------------------------------ FINANCIAL ANALYST
+  - id: financial-analyst
+    name: "Financial Analyst (Equity Research / CFA)"
+    page: "research-analyst.html"
+    roadmap: "roadmaps/research-analyst.html"
+    gate: "Any bachelor's degree (Commerce, Economics, Maths or Engineering are common) → NISM Series XV for SEBI research roles → CFA Program levels for investment careers."
+    gate_source: sebi
+    foundation:
+      - stages: [c8, c9, c10]
+        title: "Maths, data and reading company news"
+        points:
+          - text: "Percentages, ratios, simple statistics and clear English are the daily tools of an analyst. Learn them well from your board's maths and English books."
+      - stages: [c11, c12]
+        title: "Choose a stream with Maths if you can"
+        points:
+          - text: "No exam in this path asks for a particular Class 12 stream. Commerce with Maths, or Science with Maths, makes a B.Com, BBA, Economics or Statistics degree easier."
+      - stages: [grad]
+        title: "Degree + NISM + CFA"
+        points:
+          - text: "To publish research as a SEBI-registered Research Analyst (or work for one), you need a graduate degree and the <strong>NISM Series XV</strong> Research Analyst certification."
+            source: sebi
+          - text: "You can usually start the CFA Program while your bachelor's degree is still in progress — confirm the current eligibility rule on cfainstitute.org."
+    board_notes:
+      gseb: "HSC Commerce with Statistics or Maths, or HSC Science, both lead to the usual degrees for this career."
+      cbse-gj: "Applied or core Mathematics in Class XI–XII keeps every finance degree open."
+      cbse: "Applied or core Mathematics in Class XI–XII keeps every finance degree open."
+      other: "Taking Maths in Class 11–12 keeps every finance degree open."
+    exam:
+      name: "NISM Series XV + CFA Program"
+      body: "NISM (for SEBI) · CFA Institute"
+      href: "cfa.html"
+      facts:
+        - { label: "SEBI research role", value: "Graduate + NISM Series XV", source: sebi }
+        - { label: "CFA Level I", value: "180 MCQs · two 135-min sessions", source: cfa-l1 }
+        - { label: "Negative marking", value: "None in CFA Level I", source: cfa-l1 }
+        - { label: "Seats", value: "No cap — certification exams", source: cfa-l1 }
+      stages:
+        head: ["Step", "What it is", "Marking", "Rule"]
+        rows:
+          - ["Bachelor's degree", "Any recognised degree", "—", "Needed for SEBI registration"]
+          - ["NISM Series XV", "Research Analyst certification by NISM", "—", "Required for SEBI research analysts"]
+          - ["CFA Level I", "180 three-option MCQs in two 135-minute sessions", "No penalty for wrong answers", "Pass mark set by CFA Institute after each exam"]
+          - ["CFA Level II and III", "Further levels of the CFA Program", "—", "Then work experience for the charter"]
+        source: cfa-l1
+      notes:
+        - text: "CFA Institute bills fees in US dollars; check the current fee on cfainstitute.org before you register."
+          source: cfa-l1
+    state_rules:
+      - text: "There is no state quota or domicile rule: NISM and CFA are national and global certifications, the same for every board."
+        source: sebi
+    multiverse:
+      - { title: "Equity research", text: "Brokerages and fund houses; SEBI rules apply to anyone giving buy/sell research.", href: "research-analyst.html" }
+      - { title: "Investment adviser", text: "Advising clients for a fee needs its own SEBI registration.", href: "investment-adviser.html" }
+      - { title: "Risk", text: "FRM for risk-management roles in banks.", href: "frm.html" }
+      - { title: "CFA charter", text: "Portfolio management and investment banking roles value it most.", href: "cfa.html" }
+    money: [nmmss, csss, pms-sc, cfa-sch, mysy]
+
+# --------------------------------------------------------------------- MONEY HELP (scholarships, stipends, fee cuts)
+# kind: scholarship | stipend | fee | state. `amount` only when the official document prints it.
+money:
+  - id: nmmss
+    kind: scholarship
+    name: "National Means-cum-Merit Scholarship (NMMSS)"
+    by: "Ministry of Education, through your state"
+    amount: "₹1,000 a month, Class 9 to 12"
+    who: "Class 8 students of government schools who passed Class 7 with 55% (50% SC/ST, as in Nagaland's notice) and clear the state's NMMSS test. Family income limit: see the scheme rules on the National Scholarship Portal."
+    apply: "Your state's SCERT announces the test in Class 8; renewals are on scholarships.gov.in."
+    stages: [c8]
+    source: nmmss
+  - id: csss
+    kind: scholarship
+    name: "Central Sector Scheme of Scholarships (PM-USP CSSS)"
+    by: "Ministry of Education"
+    amount: "₹12,000 a year for the first 3 years of a degree; ₹20,000 a year in years 4–5 of a 5-year integrated course (and in PG)"
+    who: "Above the 80th percentile of your board's Class 12 pass-outs in your stream, in a regular degree course (not diploma or distance), family income up to ₹4.5 lakh, and <strong>not taking any other scholarship</strong> — including state schemes."
+    apply: "On the National Scholarship Portal after Class 12; renewal needs 50% marks and 75% attendance each year."
+    stages: [c11, c12, grad]
+    source: csss
+  - id: pms-sc
+    kind: scholarship
+    name: "Post-Matric Scholarship for SC students"
+    by: "Ministry of Social Justice &amp; Empowerment, through your state"
+    amount: "Compulsory non-refundable fees (tuition included) plus a yearly academic allowance — the college cannot ask you to pay the fee first"
+    who: "SC students after Class 10 (ITI, diploma, degree and CA/CMA/CS courses count), family income up to ₹2.5 lakh. Separate post-matric schemes exist for ST, OBC and minority students on the same portal."
+    apply: "Your state scholarship portal or scholarships.gov.in. The printed guidelines cover 2020-21 to 2025-26; check the 2026-27 rules on the portal."
+    stages: [c11, c12, grad]
+    source: pms-sc
+  - id: mysy
+    kind: state
+    state: gujarat
+    name: "Mukhyamantri Yuva Swavalamban Yojana (MYSY)"
+    by: "Government of Gujarat"
+    who: "Gujarat students joining a diploma or degree course on merit: it pays part of the tuition fee and, in some cases, a hostel grant for students who must study away from home."
+    apply: "mysy.guj.nic.in. We could not open the official portal on 24 Oct 2026, so we print no amounts or cut-offs — read them in the current year's resolution on the portal."
+    stages: [c10, c11, c12, grad]
+    source: mysy
+  - id: apprentice-iti
+    kind: stipend
+    name: "Act apprenticeship stipend — ITI pass"
+    by: "Employer, under the Apprenticeship Rules"
+    amount: "At least ₹9,600 a month, +10% in year 2 and +15% more in year 3"
+    who: "ITI pass-outs (National or State certificate) training as apprentices — including railway apprenticeships, which also qualify you for ALP."
+    apply: "apprenticeshipindia.gov.in or the railway's apprentice notice."
+    stages: [c10, c11, c12]
+    source: gsr610
+  - id: apprentice-dip
+    kind: stipend
+    name: "Act apprenticeship stipend — diploma holder"
+    by: "Employer, under the Apprenticeship Rules"
+    amount: "At least ₹10,900 a month"
+    who: "Diploma holders training as technician apprentices."
+    apply: "apprenticeshipindia.gov.in."
+    stages: [c10, c11, c12, grad]
+    source: gsr610
+  - id: rrb-fee
+    kind: fee
+    name: "RRB exam fee back after CBT-1"
+    by: "Railway Recruitment Boards"
+    amount: "₹400 of ₹500 refunded; the ₹250 fee is refunded in full"
+    who: "Everyone who sits CBT-1. The ₹250 fee applies to SC, ST, ex-servicemen, women, transgender, minority and EBC candidates."
+    apply: "Give correct bank details in the RRB form — wrong details mean no refund."
+    stages: [c10, c11, c12, grad]
+    source: rrb-cen
+  - id: clat-fee
+    kind: fee
+    name: "Lower CLAT fee"
+    by: "Consortium of National Law Universities"
+    amount: "₹3,500 instead of ₹4,000"
+    who: "SC, ST, BPL and PwD candidates, with the certificate uploaded in the form."
+    apply: "In the CLAT application (closes 31 Oct for the December exam)."
+    stages: [c11, c12]
+    source: clat-ins
+  - id: icai-need-inter
+    kind: scholarship
+    name: "ICAI need-based scholarship — Intermediate"
+    by: "ICAI Board of Studies"
+    amount: "₹1,500 a month for 9 months (+3 months for finishing the orientation and IT courses within 9 months, +3 more for passing one Intermediate group within 12 months)"
+    who: "Students registered for Intermediate (Foundation or Direct Entry route) whose parents earn up to ₹3,00,000 a year."
+    apply: "Any time on the ICAI Self Service Portal (eservices.icai.org); grants are processed every quarter."
+    stages: [c12, grad]
+    source: icai-sch
+  - id: icai-need-final
+    kind: scholarship
+    name: "ICAI need-based scholarship — Final"
+    by: "ICAI Board of Studies"
+    amount: "₹1,500 a month for 30 months or the rest of your articleship, whichever is less"
+    who: "Students registered for CA Final whose parents earn up to ₹3,00,000 a year."
+    apply: "ICAI Self Service Portal, with an income certificate approved by your principal (or any CA if articleship has not started)."
+    stages: [grad]
+    source: icai-sch
+  - id: icai-merit-need
+    kind: scholarship
+    name: "ICAI merit-cum-need scholarship"
+    by: "ICAI Board of Studies"
+    amount: "₹2,000 a month for 30 months or the rest of your articleship"
+    who: "Intermediate rank holders (outside the top-10 merit list) who have registered for Final, parents' income up to ₹3,00,000 a year."
+    apply: "ICAI Self Service Portal."
+    stages: [grad]
+    source: icai-sch
+  - id: icai-merit
+    kind: scholarship
+    name: "ICAI merit scholarship"
+    by: "ICAI Board of Studies"
+    amount: "₹2,500 a month for 30 months or the rest of your articleship"
+    who: "Intermediate rank holders at ranks 1–10 (and everyone sharing rank 10) who have registered for Final. No income limit is printed."
+    apply: "ICAI Self Service Portal."
+    stages: [grad]
+    source: icai-sch
+  - id: articleship
+    kind: stipend
+    name: "Articleship stipend (paid by your principal)"
+    by: "Fixed by ICAI regulations (Regulation 48)"
+    amount: "Minimum per month by city size — 20 lakh+ population: ₹4,000 (year 1), ₹5,000 (year 2); 5–20 lakh: ₹3,000 / ₹4,000; under 5 lakh: ₹2,000 / ₹3,000. These 2023 rates come from a press report; a June 2026 draft proposes ₹1,000 more in each slab. Confirm both on icai.org."
+    who: "Every CA student in articleship. Firms can pay more than the minimum."
+    apply: "Nothing to apply for — it is part of your articleship terms."
+    stages: [c12, grad]
+    source: icai-stip
+  - id: cfa-sch
+    kind: fee
+    name: "CFA Program Access and Student scholarships"
+    by: "CFA Institute"
+    amount: "Lower programme fees (amount set per award)"
+    who: "Access: candidates who cannot afford the fees and are not registered for an exam. Student: students of a CFA Institute affiliated university."
+    apply: "On cfainstitute.org before you register for an exam — you cannot apply while registered or waiting for results."
+    stages: [grad]
+    source: cfa-sch
+
+# --------------------------------------------------------------------- SOURCES
+sources:
+  - { id: rrb-cen, name: "Railway Recruitment Boards — CEN 01/2025 (ALP), detailed notice", url: "https://rrbsecunderabad.gov.in/wp-content/uploads/2025/04/Final_CEN_01-2025_ALP_English.pdf", covers: "9,970 posts, RRB Ahmedabad (WR) 497, Level 2 / ₹19,900, age, ITI trades and diploma/degree rule, CBT-1/CBT-2/CBAT pattern, minimum marks, 70:30 merit, fee and refund, languages, A-1 vision tests", checked: 2026-10-24 }
+  - { id: rrb-cor, name: "Railway Recruitment Boards — CEN 01/2025 Corrigendum-1 (10 May 2025)", url: "https://rrbsecunderabad.gov.in/wp-content/uploads/2025/05/Corrigendum-1_CEN_01-2025ALP_English_10.05.2025.pdf", covers: "extended application dates; age still reckoned on 1 Jul 2025", checked: 2026-10-24 }
+  - { id: clat-elig, name: "Consortium of NLUs — CLAT 2027 UG Eligibility", url: "https://consortiumofnlus.ac.in/clat-2027/ug-eligibility.html", covers: "45% / 40% Class 12 rule, appearing candidates, no age limit", checked: 2026-10-14 }
+  - { id: clat-pr, name: "Consortium of NLUs — CLAT 2027 Press Release (22 Jul 2026)", url: "https://consortiumofnlus.ac.in/clat-2027/notifications/Press_Release_CLAT_2027.pdf", covers: "exam date and time", checked: 2026-10-14 }
+  - { id: clat-fmt, name: "Consortium of NLUs — CLAT 2027 UG Question Paper Format", url: "https://consortiumofnlus.ac.in/clat-2027/ug-question-format.html", covers: "120 MCQs, 2 hours, −0.25, section weightage", checked: 2026-10-14 }
+  - { id: clat-ins, name: "Consortium of NLUs — CLAT 2027 UG Instructions", url: "https://consortiumofnlus.ac.in/clat-2027/ug-instructions.html", covers: "fees, offline mode, tie-break, NLU seat matrices via brochures", checked: 2026-10-14 }
+  - { id: gnlu, name: "GNLU Gandhinagar — CLAT 2027 brochure", url: "https://consortiumofnlus.ac.in/clat-2027/nlus/brochure/GNLU.pdf", covers: "176 all-India UG seats, 25% Gujarat domicile (40 seats)", checked: 2026-10-14 }
+  - { id: nlsiu, name: "NLSIU Bengaluru — CLAT 2027 brochure", url: "https://consortiumofnlus.ac.in/clat-2027/nlus/brochure/NLSIU.pdf", covers: "310 BA LLB seats, 25% Karnataka Students", checked: 2026-10-14 }
+  - { id: bci, name: "Bar Council of India", url: "https://www.barcouncilofindia.org/", covers: "3-year and 5-year LL.B. routes, State Bar Council enrolment", checked: 2026-10-08 }
+  - { id: aibe, name: "All India Bar Examination — official website", url: "https://allindiabarexamination.com/", covers: "AIBE XXI held 7 Jun 2026, final-year registration notification", checked: 2026-10-24 }
+  - { id: icai, name: "Institute of Chartered Accountants of India (ICAI)", url: "https://www.icai.org/", covers: "Foundation / Intermediate / Final scheme, registration routes, passing rule, articleship, regional councils", checked: 2026-10-08 }
+  - { id: icai-sch, name: "ICAI Board of Studies — Scholarship Scheme for CA Students", url: "https://resource.cdn.icai.org/79872bos63950.pdf", covers: "four scholarship categories, ₹1,500–₹2,500 a month, ₹3 lakh income limit, periods, quarterly grants, SSP process", checked: 2026-10-24 }
+  - { id: icai-stip, name: "ICAI — Draft Chartered Accountants (Amendment) Regulations, 2026, Regulation 48 stipend (25 Jun 2026), as reproduced by TaxGuru", url: "https://taxguru.in/chartered-accountant/icai-proposes-higher-minimum-stipend-articled-assistants.html", covers: "proposed stipend table; the current 2023 table (₹4,000/₹5,000, ₹3,000/₹4,000, ₹2,000/₹3,000) was read from Taxscan's report of the 23 Jun 2023 notification — confirm both on icai.org", checked: 2026-10-24 }
+  - { id: sebi, name: "Securities and Exchange Board of India (SEBI)", url: "https://www.sebi.gov.in/", covers: "Research Analyst registration: graduate degree + NISM Series XV", checked: 2026-10-12 }
+  - { id: cfa-l1, name: "CFA Institute — CFA Program Level I exam", url: "https://www.cfainstitute.org/programs/cfa-program/candidate-resources/level-i-exam", covers: "180 MCQs, two 135-minute sessions, three options, no penalty for wrong answers", checked: 2026-10-24 }
+  - { id: cfa-sch, name: "CFA Institute — CFA Program scholarships", url: "https://www.cfainstitute.org/programs/cfa-program/scholarships", covers: "Access, Student and Professor scholarships; not open while registered for an exam", checked: 2026-10-24 }
+  - { id: nmmss, name: "SCERT Nagaland — NMMSS Examination 2027 advertisement (27 Jul 2026)", url: "https://scert.nagaland.gov.in/wp-content/uploads/2026/07/NMMSS-Advertisement-2027.pdf", covers: "Class 8 eligibility, 55% / 50% Class 7 marks, ₹1,000 a month from Class 9 to 12 (one state's notice of the central scheme)", checked: 2026-10-24 }
+  - { id: csss, name: "Ministry of Education — PM-USP Central Sector Scheme of Scholarships guidelines (2022-23 onwards), copy hosted by NIT Kurukshetra", url: "https://nitkkr.ac.in/wp-content/uploads/2025/04/Central-Sector-Scheme-Of-Scholarships-For-College-And-University-Students.pdf", covers: "80th percentile, ₹4.5 lakh income, regular degree only, no other scholarship, ₹12,000 / ₹20,000 rates, renewal rules", checked: 2026-10-24 }
+  - { id: pms-sc, name: "Ministry of Social Justice & Empowerment — Post Matric Scholarship for SC students, guidelines 2020-21 to 2025-26 (copy hosted by Goa Social Welfare)", url: "https://socialwelfare.goa.gov.in/wp-content/uploads/2024/07/Guidelines-to-post-matric-scholaships-to-the-students-belonging-to-scheduled-castes-for-students-in-India-2020-2021-to-2025-26_0001.pdf", covers: "₹2.5 lakh income limit, fees + academic allowance, no pre-payment of fees, CA/ICWA/CS students covered", checked: 2026-10-24 }
+  - { id: mysy, name: "Government of Gujarat — MYSY scholarship portal", url: "https://mysy.guj.nic.in/", covers: "scheme portal; could not be opened on 24 Oct 2026, so no amounts are printed here" }
+  - { id: gsr610, name: "Gazette of India — Apprenticeship (Amendment) Rules, 2025, G.S.R. 610(E)", url: "https://egazette.gov.in/WriteReadData/2025/266074.pdf", covers: "minimum stipend ₹9,600 (ITI) and ₹10,900 (diploma) from 11 Sep 2025, yearly increase", checked: 2026-10-23 }

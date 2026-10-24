@@ -1,0 +1,255 @@
+---
+title: "Journey Blueprint — Class 8 to Career Planner | Margdarshan"
+description: "Pick a career, your class and your board to see your school foundation, exam anatomy, state rules, next options and scholarships — all from official sources."
+og_type: "website"
+og_title: "Student Journey Blueprint — Class 8 to Career"
+og_description: "Career × class × board: school foundation, exam anatomy, state rules, career options and scholarships, stipends and fee help — from official sources."
+twitter_description: "Pick a career, class and board to see your full journey, exams and money help."
+breadcrumb:
+  current: "Journey Blueprint"
+footer:
+  col3_heading: "Explore More"
+  col3_links:
+    - { href: "career-fit.html", label: "Find My Fit" }
+    - { href: "career-comparison.html", label: "Career Comparison" }
+    - { href: "after-10th.html", label: "After 10th" }
+---
+{%- comment -%}
+  Student Journey Blueprint. All text comes from _data/in/journey_matrix.yml (printed below as JSON);
+  the inline script renders the five blocks for the chosen career × class × board and keeps the choice
+  in the URL (?career=ca&class=c12&board=gseb) so a blueprint can be shared. Sources are printed by
+  Liquid so they exist without JS; the script's [n] markers link to them.
+{%- endcomment -%}
+{%- assign JM = site.data.in.journey_matrix -%}
+{%- assign ext = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>' -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site.url }}{{ site.baseurl }}/" },
+    { "@type": "ListItem", "position": 2, "name": "Journey Blueprint", "item": "{{ site.url }}{{ site.baseurl }}/journey-blueprint.html" }
+  ]
+}
+</script>
+
+<main id="main" class="sc-page jb-page">
+  <section class="page-hero career-hero sc-hero jb-hero" aria-labelledby="hero-heading">
+    <div class="container page-hero-inner">
+      <span class="eyebrow">Student Journey Blueprint</span>
+      <h1 id="hero-heading">Your journey, from where you stand today</h1>
+      <div class="meta-row">
+        <span>Class 8 to graduate</span>
+        <span>·</span><span>Official sources only</span>
+        <span>·</span><span>Last checked {{ JM.checked | date: "%-d %b %Y" }}</span>
+      </div>
+      <p>Choose a career, your class and your board. The plan below changes instantly to show only what is still ahead of you.</p>
+
+      <form class="jb-controls" id="jbForm" aria-label="Build your blueprint" onsubmit="return false">
+        <div class="jb-field">
+          <label for="jbCareer">Dream career</label>
+          <select class="fx-select" id="jbCareer" name="career">
+            {%- for c in JM.careers %}
+            <option value="{{ c.id }}">{{ c.name }}</option>
+            {%- endfor %}
+          </select>
+        </div>
+        <div class="jb-field">
+          <label for="jbClass">Current class</label>
+          <select class="fx-select" id="jbClass" name="class">
+            {%- for k in JM.classes %}
+            <option value="{{ k.id }}"{% if k.id == "c10" %} selected{% endif %}>{{ k.label }}</option>
+            {%- endfor %}
+          </select>
+        </div>
+        <div class="jb-field">
+          <label for="jbBoard">State / board</label>
+          <select class="fx-select" id="jbBoard" name="board">
+            {%- for b in JM.boards %}
+            <option value="{{ b.id }}"{% if b.id == "gseb" %} selected{% endif %}>{{ b.label }}</option>
+            {%- endfor %}
+          </select>
+        </div>
+      </form>
+      <div class="jb-gate" id="jbGate" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <noscript>
+    <section class="block mb sc-block"><div class="container"><p class="sc-p">The blueprint needs JavaScript to switch careers, classes and boards. Every fact is still on our <a href="loco-pilot.html">Loco Pilot</a>, <a href="llb.html">Law</a>, <a href="ca.html">CA</a> and <a href="research-analyst.html">Research Analyst</a> pages, and the sources are listed at the bottom of this page.</p></div></section>
+  </noscript>
+
+  <section class="block mb sc-block" id="foundation" aria-labelledby="foundation-heading">
+    <div class="container" data-no-points>
+      <div class="section-head">
+        <span class="eyebrow"><span class="sc-step">01</span> School foundation</span>
+        <h2 id="foundation-heading">What to do from your class onward</h2>
+      </div>
+      <div id="jbFoundation"></div>
+    </div>
+  </section>
+
+  <section class="block mb sc-block" id="exam" aria-labelledby="exam-heading">
+    <div class="container" data-no-points>
+      <div class="section-head">
+        <span class="eyebrow"><span class="sc-step">02</span> Exam anatomy</span>
+        <h2 id="exam-heading">The exam, stage by stage</h2>
+      </div>
+      <div id="jbExam"></div>
+    </div>
+  </section>
+
+  <section class="block mb sc-block" id="state-rules" aria-labelledby="state-rules-heading">
+    <div class="container" data-no-points>
+      <div class="section-head">
+        <span class="eyebrow"><span class="sc-step">03</span> State rules</span>
+        <h2 id="state-rules-heading">Rules that depend on where you are</h2>
+      </div>
+      <div id="jbState"></div>
+    </div>
+  </section>
+
+  <section class="block mb sc-block" id="multiverse" aria-labelledby="multiverse-heading">
+    <div class="container" data-no-points>
+      <div class="section-head">
+        <span class="eyebrow"><span class="sc-step">04</span> Career multiverse</span>
+        <h2 id="multiverse-heading">Where this path can take you next</h2>
+      </div>
+      <div id="jbMulti"></div>
+    </div>
+  </section>
+
+  <section class="block mb sc-block" id="money-help" aria-labelledby="money-heading">
+    <div class="container" data-no-points>
+      <div class="section-head">
+        <span class="eyebrow"><span class="sc-step">05</span> Money help</span>
+        <h2 id="money-heading">Scholarships, stipends and fee help</h2>
+        <p>Government schemes, professional-body scholarships and paid training that apply to this path. Schemes you have already passed the stage for are hidden.</p>
+      </div>
+      <div id="jbMoney"></div>
+    </div>
+  </section>
+
+  <section class="block mb sc-block" id="sources" aria-labelledby="sources-heading">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow"><span class="sc-step">06</span> Official sources &amp; verification</span>
+        <h2 id="sources-heading">Where these facts come from</h2>
+        <p>Facts in the blueprint come from the official notices, gazettes and regulations below. Lines with no number are Margdarshan guidance. Rules, fees and dates change every cycle — open the current notice before you apply.</p>
+      </div>
+      <ol class="cite-list">
+        {%- for s in JM.sources %}
+        <li id="src-{{ s.id }}">
+          <a class="source-link" href="{{ s.url }}" target="_blank" rel="noopener noreferrer">
+            {{ ext }}
+            {{ s.name }}<span class="sr-only"> (opens in a new tab)</span>
+          </a>
+          <span class="cite-covers">{{ s.covers }}{% if s.checked %} · Last checked {{ s.checked | date: "%-d %b %Y" }}{% endif %}</span>
+        </li>
+        {%- endfor %}
+      </ol>
+      {% include src-more.html %}
+      <p class="cite-report">Spotted something out of date? Email <a href="mailto:{{ site.feedback_email }}?subject={{ 'Journey Blueprint — correction' | uri_escape }}">{{ site.feedback_email }}</a> with the official link and we will update it.</p>
+    </div>
+  </section>
+</main>
+
+<script type="application/json" id="jbData">{{ JM | jsonify }}</script>
+<script>
+/* Journey Blueprint: render _data/in/journey_matrix.yml for the chosen career × class × board.
+   An item shows while any of its `stages` is at or after the chosen class; `state:` items show only
+   for boards in that state. Choice is kept in ?career=&class=&board=. */
+(function(){
+  var D = JSON.parse(document.getElementById('jbData').textContent);
+  var $ = function(id){ return document.getElementById(id); };
+  var selC = $('jbCareer'), selK = $('jbClass'), selB = $('jbBoard');
+  var order = D.classes.map(function(k){ return k.id; });
+  var label = {}; D.classes.forEach(function(k){ label[k.id] = k.label; });
+  var srcN = {}; D.sources.forEach(function(s, i){ srcN[s.id] = { n: i + 1, name: s.name }; });
+  var money = {}; D.money.forEach(function(m){ money[m.id] = m; });
+  var KIND = { scholarship: 'Scholarship', stipend: 'Stipend', fee: 'Fee help', state: 'State scheme' };
+
+  function esc(s){ return String(s == null ? '' : s).replace(/&(?![a-z#0-9]+;)/gi,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  // Data text may carry simple trusted HTML (<strong>, &amp;) written in the YAML; plain fields use esc().
+  function ref(id){
+    var s = id && srcN[id]; if(!s) return '';
+    return ' <a class="src-ref" href="#src-' + id + '" title="Source: ' + esc(s.name) + '" aria-label="Source ' + s.n + ': ' + esc(s.name) + '">[' + s.n + ']</a>';
+  }
+  function ahead(stages, k){
+    var i = order.indexOf(k);
+    return (stages || []).some(function(s){ return order.indexOf(s) >= i; });
+  }
+  function inState(item, board){ return !item.state || item.state === board.state; }
+  function find(list, id){ for(var i = 0; i < list.length; i++){ if(list[i].id === id) return list[i]; } return list[0]; }
+  function list(items){
+    return '<ul class="jb-list">' + items.map(function(p){ return '<li>' + p.text + ref(p.source) + '</li>'; }).join('') + '</ul>';
+  }
+  function link(href, text){ return href ? '<a class="jb-more" href="' + esc(href) + '">' + text + '</a>' : ''; }
+
+  function render(){
+    var c = find(D.careers, selC.value), k = selK.value, b = find(D.boards, selB.value);
+
+    $('jbGate').innerHTML = '<p><strong>The one-line route:</strong> ' + c.gate + ref(c.gate_source) + '</p>' +
+      '<div class="jb-gate-links">' + link(c.page, 'Full ' + esc(c.name) + ' guide') + link(c.roadmap, 'Step-by-step roadmap') + '</div>';
+
+    // 01 Foundation: stages from the chosen class onward; the first one is "You are here".
+    var steps = c.foundation.filter(function(f){ return ahead(f.stages, k); });
+    var f = steps.map(function(s){
+      var now = s.stages.indexOf(k) > -1;
+      var tag = now ? '<span class="jb-tag jb-now">You are here</span>' : '<span class="jb-tag">From ' + esc(label[s.stages[0]]) + '</span>';
+      return '<li class="jb-step' + (now ? ' is-now' : '') + '">' + tag + '<h3>' + s.title + '</h3>' + list(s.points) + '</li>';
+    }).join('');
+    $('jbFoundation').innerHTML = (f ? '<ol class="jb-steps">' + f + '</ol>' : '<p class="sc-p">You are past the school stage for this career — see the exam and money blocks below.</p>') +
+      '<div class="jb-board"><h3>Your board: ' + esc(b.label) + '</h3><p>' + b.exams + '</p>' +
+      (c.board_notes && c.board_notes[b.id] ? '<p>' + c.board_notes[b.id] + ref(c.board_source) + '</p>' : '') + '</div>';
+
+    // 02 Exam anatomy
+    var e = c.exam;
+    $('jbExam').innerHTML = '<p class="jb-exam-name"><strong>' + e.name + '</strong> · ' + e.body + '</p>' +
+      '<dl class="jb-facts">' + e.facts.map(function(q){
+        return '<div class="jb-fact"><dt>' + q.label + '</dt><dd>' + q.value + ref(q.source) + '</dd></div>';
+      }).join('') + '</dl>' +
+      '<div class="table-wrap sc-table"><table class="table-simple"><caption class="sr-only">' + esc(e.name) + ' stages</caption><thead><tr>' +
+      e.stages.head.map(function(h){ return '<th scope="col">' + h + '</th>'; }).join('') + '</tr></thead><tbody>' +
+      e.stages.rows.map(function(r){
+        return '<tr>' + r.map(function(cell, i){ return i ? '<td>' + cell + '</td>' : '<th scope="row">' + cell + '</th>'; }).join('') + '</tr>';
+      }).join('') + '</tbody></table></div>' +
+      '<p class="sc-cite">Stage table source' + ref(e.stages.source) + '</p>' +
+      list(e.notes) + link(e.href, 'Open the full exam guide');
+
+    // 03 State rules
+    var rules = c.state_rules.filter(function(r){ return inState(r, b); });
+    var stateNote = b.state ? '' : '<p class="sc-p">Gujarat-specific rules are hidden for your board. Pick a Gujarat option above to see them.</p>';
+    $('jbState').innerHTML = (rules.length ? list(rules) : '') + stateNote;
+
+    // 04 Career multiverse
+    $('jbMulti').innerHTML = '<div class="jb-cards">' + c.multiverse.map(function(m){
+      var inner = '<h3>' + m.title + '</h3><p>' + m.text + '</p>';
+      return m.href ? '<a class="jb-card" href="' + esc(m.href) + '">' + inner + '<span class="jb-go">Explore →</span></a>' : '<div class="jb-card">' + inner + '</div>';
+    }).join('') + '</div>';
+
+    // 05 Money help
+    var ms = c.money.map(function(id){ return money[id]; }).filter(function(m){ return m && inState(m, b) && ahead(m.stages, k); });
+    $('jbMoney').innerHTML = ms.length ? '<div class="jb-money">' + ms.map(function(m){
+      var now = m.stages.indexOf(k) > -1;
+      var when = now ? '<span class="jb-tag jb-now">Open to you now</span>' : '<span class="jb-tag">From ' + esc(label[m.stages[0]]) + '</span>';
+      return '<article class="jb-mcard"><div class="jb-mhead"><span class="jb-kind jb-k-' + esc(m.kind) + '">' + (KIND[m.kind] || '') + '</span>' + when + '</div>' +
+        '<h3>' + m.name + '</h3><p class="jb-by">' + m.by + '</p>' +
+        (m.amount ? '<p class="jb-amt">' + m.amount + ref(m.source) + '</p>' : '') +
+        '<dl class="jb-mdl"><dt>Who</dt><dd>' + m.who + (m.amount ? '' : ref(m.source)) + '</dd><dt>How</dt><dd>' + m.apply + '</dd></dl></article>';
+    }).join('') + '</div>' : '<p class="sc-p">No scheme on our list is still ahead of you for this path.</p>';
+
+    if(window.history && history.replaceState){
+      history.replaceState(null, '', location.pathname + '?career=' + c.id + '&class=' + k + '&board=' + b.id + location.hash);
+    }
+  }
+
+  var sp = new URLSearchParams(location.search);
+  [[selC, 'career'], [selK, 'class'], [selB, 'board']].forEach(function(p){
+    var v = sp.get(p[1]);
+    if(v && Array.prototype.some.call(p[0].options, function(o){ return o.value === v; })) p[0].value = v;
+    p[0].addEventListener('change', render);
+  });
+  render();
+})();
+</script>

@@ -600,6 +600,7 @@ if (fs.existsSync(navFile)) {
       chk(`${it.label} > ${n.label}`, n.href);
       // A node lists either its own cols or `mega: <key>` (generated columns in _data/nav_mega.yml), never both.
       if (n.mega && n.cols) errors.push(`nav.yml topnav ${it.label} > ${n.label}: use cols or mega, not both`);
+      if (n.badge && !['stem', 'health', 'finance'].includes(n.badge)) errors.push(`nav.yml topnav ${it.label} > ${n.label}: badge must be stem, health or finance`);
       const M = n.mega ? (mega[n.mega] || {}) : null;
       if (n.mega && !M.cols) errors.push(`nav.yml topnav ${it.label} > ${n.label}: mega key '${n.mega}' is not in _data/nav_mega.yml`);
       if (M && M.head) chk(`${n.label} > flyout head`, M.head.href);

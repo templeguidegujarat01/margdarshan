@@ -25,7 +25,11 @@
   sidebar). Items then come from _data/nav_us.yml `topnav` and `mega` keys from _data/us/nav_mega.yml (built by
   scripts/build-us-nav-mega.mjs). A menu with `clusters: true` draws one rail node per live cluster of
   _data/us/clusters.yml (name, hub us/clusters/<slug>/, mega key cluster-<slug>), so the rail follows the data.
+  Category badges (2026-10-24): a rail node with `badge: stem | health | finance` (for clusters, the menu's
+  `badges` map by slug) gets a small mono tag after its name (.hh-nav-badge). The name already says it, so
+  the tag is aria-hidden.
 {%- endcomment -%}
+{%- assign hh_badge_txt = "stem:STEM,health:Health,finance:Finance" | split: "," -%}
 {%- assign hh_cur = page.url | remove_first: "/" -%}
 {%- if include.edition == "us" -%}
   {%- assign hh_items = site.data.nav_us.topnav -%}{%- assign hh_mega = site.data.us.nav_mega -%}{%- assign hh_aria = "USA menu" -%}
@@ -51,10 +55,11 @@
           <ul class="hh-panel hh-mega{% if it_nodes.size > 10 %} hh-mega-dense{% endif %}" style="--hh-rows:{{ hh_rows }}">
             {%- for n in it_nodes %}
             {%- if it.clusters %}
-            {%- assign n_raw = n.name %}{% capture n_href %}us/clusters/{{ n.slug }}/{% endcapture %}{% capture n_mega %}cluster-{{ n.slug }}{% endcapture %}
+            {%- assign n_raw = n.name %}{% capture n_href %}us/clusters/{{ n.slug }}/{% endcapture %}{% capture n_mega %}cluster-{{ n.slug }}{% endcapture %}{% assign n_badge = it.badges[n.slug] %}
             {%- else %}
-            {%- assign n_raw = n.label %}{% assign n_href = n.href %}{% assign n_mega = n.mega %}
+            {%- assign n_raw = n.label %}{% assign n_href = n.href %}{% assign n_mega = n.mega %}{% assign n_badge = n.badge %}
             {%- endif %}
+            {%- assign n_badge_txt = nil %}{% for b in hh_badge_txt %}{% assign bp = b | split: ":" %}{% if bp[0] == n_badge %}{% assign n_badge_txt = bp[1] %}{% endif %}{% endfor %}
             {%- assign n_label = n_raw | replace: "&", "&amp;" %}
             {%- assign M = hh_mega[n_mega] %}
             {%- assign n_cols = n.cols %}
@@ -63,7 +68,7 @@
             {%- if n_cols.size > 1 and n_links > 8 %}{% assign n_tab = true %}{% else %}{% assign n_tab = false %}{% endif %}
             {%- capture n_id %}hh-{{ it.label | slugify }}-{{ n_raw | slugify }}{% endcapture %}
             <li class="hh-sub hh-node{% if forloop.first %} is-on{% endif %}">
-              <a class="hh-sub-btn" href="{{ n_href }}" aria-haspopup="true"{% if hh_cur == n_href %} aria-current="page"{% endif %}><span class="hh-node-txt">{{ n_label }}</span><svg class="hh-sub-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+              <a class="hh-sub-btn" href="{{ n_href }}" aria-haspopup="true"{% if hh_cur == n_href %} aria-current="page"{% endif %}><span class="hh-node-txt">{{ n_label }}</span>{% if n_badge_txt %}<span class="hh-nav-badge hh-nav-badge-{{ n_badge }}" aria-hidden="true">{{ n_badge_txt }}</span>{% endif %}<svg class="hh-sub-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
               <div class="hh-fly hh-grid{% if n_tab %} hh-tabbed{% if n_cols.size > 10 %} hh-tabbed-2{% endif %}{% endif %}" role="group" aria-label="{{ n_label }}">
                 <div class="hh-fly-head">
                   <p class="hh-fly-title">{{ n_label }}{% if M.note %}<span>{{ M.note | replace: "&", "&amp;" }}</span>{% endif %}</p>

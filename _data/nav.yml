@@ -173,13 +173,14 @@ topnav:
   # Menus with `nodes` open as a mega panel: a rail of node names on the left, and the hovered node's
   # columns on the right. `mega: <key>` takes the columns from _data/nav_mega.yml, which
   # scripts/build-nav-mega.mjs builds from the hub pages and data (rerun it after adding a career).
+  # `badge: stem | health | finance` adds a small category tag after a node's name in the rail.
   - type: menu
     label: After Class 10th
     children:
       - { label: Compare all 5 pathways, href: after-10th.html }
     nodes:
-      - { label: Science, href: science.html, mega: science }
-      - { label: Commerce, href: commerce.html, mega: commerce }
+      - { label: Science, href: science.html, mega: science, badge: stem }
+      - { label: Commerce, href: commerce.html, mega: commerce, badge: finance }
       - { label: Arts, href: arts.html, mega: arts }
       - { label: Diploma, href: diploma.html, mega: diploma }
       - { label: ITI, href: iti.html, mega: iti }
@@ -198,6 +199,7 @@ topnav:
     nodes:
       - label: Science Exams
         href: science.html
+        badge: stem
         desc: "Engineering, medical, pure science & state CETs"
         cols:
           - label: National Engineering
@@ -232,6 +234,7 @@ topnav:
               - { label: COMEDK UGET (Karnataka), href: comedk.html, desc: "~150 private colleges · all-India" }
       - label: Commerce Exams
         href: commerce.html
+        badge: finance
         desc: "IPMAT, JIPMAT, CUET, CA, CMA & CS"
         cols:
           - label: Management Aptitude

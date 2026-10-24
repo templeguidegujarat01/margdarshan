@@ -864,6 +864,13 @@ for (const [k, E] of Object.entries(EXS)) {
   const MG = fs.existsSync(megaPath) ? yaml.load(fs.readFileSync(megaPath, 'utf8')) : {};
   for (const n of nodes) if (n.mega && !MG[n.mega]) err('_data/nav_us.yml topnav', `node "${n.label}" names unknown mega key ${n.mega}`);
   for (const C of clusters) if (C.live && !MG[`cluster-${C.slug}`]) err('_data/us/nav_mega.yml', `no cluster-${C.slug} panel`);
+  // Category badges: nodes take `badge`, the clusters menu takes a `badges` map keyed by live cluster slug.
+  const BADGES = ['stem', 'health', 'finance'];
+  for (const n of nodes) if (n.badge && !BADGES.includes(n.badge)) err('_data/nav_us.yml topnav', `node "${n.label}": badge must be stem, health or finance`);
+  for (const i of tn) for (const [slug, b] of Object.entries(i.badges || {})) {
+    if (!clusters.some((C) => C.live && C.slug === slug)) err('_data/nav_us.yml topnav', `badges: ${slug} is not a live cluster`);
+    if (!BADGES.includes(b)) err('_data/nav_us.yml topnav', `badges: ${slug} must be stem, health or finance`);
+  }
   const tnLinks = tn.flatMap((i) => [i, ...(i.children || []), ...(i.nodes || []), ...(i.nodes || []).flatMap((n) => (n.cols || []).flatMap((c) => c.links))]);
   for (const l of tnLinks) if (l.href && !pageExists(l.href.split('#')[0])) err('_data/nav_us.yml topnav', `${l.label}: page ${l.href} does not exist`);
   const mc = spawnSync(process.execPath, [path.join(root, 'scripts/build-us-nav-mega.mjs'), '--check'], { encoding: 'utf8', env: process.env });

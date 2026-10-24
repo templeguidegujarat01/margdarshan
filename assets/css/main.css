@@ -373,6 +373,13 @@ html.nav-locked{overflow:hidden;}
 .hh-node.is-on > .hh-sub-btn{color:var(--link);}
 .hh-node.is-on > .hh-sub-btn .hh-sub-arrow{color:var(--link);}
 .hh-panel .hh-sub-btn:focus-visible{outline:2px solid var(--link);outline-offset:-2px;}
+/* Category badge after a rail name (badge: stem | health | finance): a ruled mono tag in the theme's own tokens.
+   .hh-sub-btn > raises it above the .hh-mega a > span[aria-hidden] inherit rule. */
+.hh-panel .hh-sub-btn > .hh-nav-badge{flex-shrink:0;padding:.08rem .38rem;border:1px solid currentColor;border-radius:999px;font-family:var(--font-mono);font-size:.62rem;font-weight:700;letter-spacing:.06em;line-height:1.3;text-transform:uppercase;white-space:nowrap;color:var(--text-muted);}
+.hh-panel .hh-sub-btn > .hh-nav-badge-stem{color:var(--teal);}
+.hh-panel .hh-sub-btn > .hh-nav-badge-health{color:var(--rust);}
+.hh-panel .hh-sub-btn > .hh-nav-badge-finance{color:var(--gold-strong);}
+[data-theme="dark"] .hh-panel .hh-sub-btn > .hh-nav-badge-finance{color:var(--gold);}
 .hh-panel a[aria-current="page"]{background:var(--stream-soft);}
 .hh-rail-link a{display:block;padding:.45rem .75rem;font-size:.85rem;font-weight:600;color:var(--link);}
 .hh-mega a > span[aria-hidden="true"]{font-size:inherit;color:inherit;}
@@ -409,9 +416,9 @@ html.nav-locked{overflow:hidden;}
   .hh-node.is-on .hh-sub-arrow{transform:translateX(3px);}
   .hh-cols{column-width:10rem;}
   /* More than 10 rail nodes (USA Career Clusters: 14): a wider rail keeps each name on one line and tighter rows
-     keep the whole rail on screen. */
+     keep the whole rail on screen (.3rem rows leave room for the 2-line badged "Healthcare & Human Services"). */
   .hh-panel.hh-mega-dense{grid-template-columns:17rem minmax(0,1fr);}
-  .hh-mega-dense .hh-sub-btn{padding:.36rem .7rem;font-size:.88rem;}
+  .hh-mega-dense .hh-sub-btn{padding:.3rem .7rem;font-size:.88rem;}
   .hh-mega-dense .hh-rail-link a{padding:.3rem .7rem;}
 }
 /* Touch / narrow: accordion inside a panel that scrolls itself (never the page sideways). */

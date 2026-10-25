@@ -15,6 +15,9 @@
 # Written 2026-10-24 from the official files listed under `sources`. Batch 2 (software engineer, merchant
 # navy, commercial pilot, bank PO, civil services) and the UP / Maharashtra / West Bengal boards added 2026-10-25.
 # Batch 3 (doctor, nurse, NDA officer, company secretary, data scientist) added 2026-10-25.
+# Batch 4 (architect, clinical psychologist, hotel manager, biotech research scientist) added 2026-10-25; the
+# financial-analyst entry was upgraded with CFA Institute's official enrollment, fee and charter rules instead of
+# adding a second CFA career.
 checked: 2026-10-25
 
 classes:
@@ -290,11 +293,11 @@ careers:
 
   # ------------------------------------------------------------------ FINANCIAL ANALYST
   - id: financial-analyst
-    name: "Financial Analyst (Equity Research / CFA)"
+    name: "Financial / Investment Analyst (Equity Research / CFA)"
     page: "research-analyst.html"
     roadmap: "roadmaps/research-analyst.html"
-    gate: "Any bachelor's degree (Commerce, Economics, Maths or Engineering are common) → NISM Series XV for SEBI research roles → CFA Program levels for investment careers."
-    gate_source: sebi
+    gate: "Any bachelor's degree (Commerce, Economics, Maths or Engineering are common) → NISM Series XV for SEBI research roles → CFA Program Levels I, II and III + 4,000 hours of work experience → CFA charter."
+    gate_source: [sebi, cfa-exam]
     foundation:
       - stages: [c8, c9, c10]
         title: "Maths, data and reading company news"
@@ -304,12 +307,19 @@ careers:
         title: "Choose a stream with Maths if you can"
         points:
           - text: "No exam in this path asks for a particular Class 12 stream. Commerce with Maths, or Science with Maths, makes a B.Com, BBA, Economics or Statistics degree easier."
+          - text: "CFA exams are <strong>only in English</strong>, and you need a valid international travel <strong>passport</strong> to register and sit — apply for one well before college."
+            source: cfa-pol
       - stages: [grad]
         title: "Degree + NISM + CFA"
         points:
           - text: "To publish research as a SEBI-registered Research Analyst (or work for one), you need a graduate degree and the <strong>NISM Series XV</strong> Research Analyst certification."
             source: sebi
-          - text: "You can usually start the CFA Program while your bachelor's degree is still in progress — confirm the current eligibility rule on cfainstitute.org."
+          - text: "CFA Level I is open while you are still studying: the exam window you pick must be <strong>23 months or less before your graduation month</strong>. For Level II you must be within 11 months of graduating; for Level III you need the degree (or 4,000 hours of work experience)."
+            source: cfa-pol
+          - text: "No degree? You can also enrol with <strong>4,000 hours of work experience and / or higher education</strong> built up over at least three sequential years by the time you register for Level I."
+            source: cfa-pol
+          - text: "The charter itself needs all three exams passed, <strong>4,000 hours of relevant work experience over at least 36 months</strong> (before, during or after the exams) and CFA Institute membership."
+            source: cfa-exam
     board_notes:
       gseb: "HSC Commerce with Statistics or Maths, or HSC Science, both lead to the usual degrees for this career."
       cbse-gj: "Applied or core Mathematics in Class XI–XII keeps every finance degree open."
@@ -326,18 +336,23 @@ careers:
         - { label: "SEBI research role", value: "Graduate + NISM Series XV", source: sebi }
         - { label: "CFA Level I", value: "180 MCQs · two 135-min sessions", source: cfa-l1 }
         - { label: "Negative marking", value: "None in CFA Level I", source: cfa-l1 }
-        - { label: "Seats", value: "No cap — certification exams", source: cfa-l1 }
+        - { label: "All three levels", value: "USD 3,520–4,570 in exam fees", source: cfa-fees }
       stages:
         head: ["Step", "What it is", "Marking", "Rule"]
         rows:
           - ["Bachelor's degree", "Any recognised degree", "—", "Needed for SEBI registration"]
           - ["NISM Series XV", "Research Analyst certification by NISM", "—", "Required for SEBI research analysts"]
-          - ["CFA Level I", "180 three-option MCQs in two 135-minute sessions", "No penalty for wrong answers", "Pass mark set by CFA Institute after each exam"]
-          - ["CFA Level II and III", "Further levels of the CFA Program", "—", "Then work experience for the charter"]
-        source: cfa-l1
+          - ["CFA Level I", "180 three-option MCQs in two 135-minute sessions", "No penalty for wrong answers", "Window up to 23 months before graduation"]
+          - ["CFA Level II", "Vignettes (item sets) with multiple-choice questions", "Pass / fail with a score report", "Within 11 months of graduation"]
+          - ["CFA Level III", "Item sets plus constructed-response questions", "Pass / fail", "Degree or 4,000 hours of work experience; then the charter"]
+        source: [cfa-l1, cfa-exam, cfa-pol]
       notes:
-        - text: "CFA Institute bills fees in US dollars; check the current fee on cfainstitute.org before you register."
-          source: cfa-l1
+        - text: "Fees are paid in US dollars and depend on whether you book in the Early or Standard registration period. A missed exam forfeits the fee; rescheduling within your window costs USD 250."
+          source: cfa-fees
+        - text: "At most two attempts in a calendar year, at least six months apart and never in back-to-back windows, and <strong>six attempts per level</strong> in total."
+          source: cfa-elig
+        - text: "Results come 5–9 weeks after your exam window closes."
+          source: cfa-exam
     state_rules:
       - text: "There is no state quota or domicile rule: NISM and CFA are national and global certifications, the same for every board."
         source: sebi
@@ -1241,6 +1256,372 @@ careers:
       - { title: "ISI admission", text: "Indian Statistical Institute's B.Stat and B.Math entrance.", href: "isi.html" }
     money: [nmmss, csss, pms-sc, iitm-fee-support, tfw-up, wbscc, mysy]
 
+  # ------------------------------------------------------------------ ARCHITECT (batch 4)
+  - id: architect
+    name: "Architect (B.Arch through NATA / JEE Main Paper 2A)"
+    page: "architect.html"
+    roadmap: "roadmaps/architect.html"
+    gate: "Class 12 with Physics and Mathematics (plus one listed subject) and 45% aggregate → NATA or JEE Main Paper 2A → 5-year B.Arch → registration with the Council of Architecture before you call yourself an Architect."
+    gate_source: [nata-br, jm-ib]
+    foundation:
+      - stages: [c8, c9]
+        title: "Drawing, space and school maths"
+        points:
+          - text: "NATA's Part A is drawn on paper: <strong>composition and colour, sketching a scene with buildings and people to scale with shade and shadow, and a 3D composition</strong> built from a kit. Part B tests visual reasoning, design sensitivity, general knowledge of architecture and numerical ability."
+            source: nata-br
+          - text: "Sketch every day — buildings on your street, rooms from above, objects in light and shadow. Keep your board's maths strong; JEE Main Paper 2A has a 100-mark Mathematics part."
+      - stages: [c10]
+        title: "Pick Class 11 subjects that keep B.Arch open"
+        points:
+          - text: "B.Arch needs <strong>Physics and Mathematics compulsory</strong> in Class 12, plus any one of Chemistry, Biology, a technical vocational subject, Computer Science, IT, Informatics Practices, Engineering Graphics or Business Studies. Chemistry is not compulsory for the Council of Architecture rule."
+            source: nata-br
+          - text: "For B.Arch seats at NITs and SPAs through JoSAA, Class 12 must have <strong>Physics, Chemistry and Mathematics</strong> — so taking Chemistry too keeps every door open."
+            source: jm-ib
+      - stages: [c11, c12]
+        title: "45% in Class 12 and an aptitude score"
+        points:
+          - text: "Admission to B.Arch needs at least <strong>45% aggregate</strong> in Class 12 (or a 10+3 diploma with Mathematics and 45%) and a valid NATA or JEE score."
+            source: nata-br
+          - text: "NATA: up to <strong>two attempts in Phase 1</strong> (April–June) or one in Phase 2 (August, for vacant seats only). Phase 1 gives the percentile used in counselling; there is no minimum qualifying raw score. Your NATA score is valid only for that year's admissions."
+            source: nata-br
+          - text: "NIT+ seats through JoSAA also need <strong>75% in Class 12</strong> (65% SC, ST, PwD) or a place in your board's top 20 percentile."
+            source: jm-ib
+      - stages: [grad]
+        title: "B.Arch, then registration"
+        points:
+          - text: "Only a person registered with the <strong>Council of Architecture</strong> may practise under the title “Architect”. Registration needs a recognised qualification under the CoA Minimum Standards of Architectural Education Regulations, 2020; misusing the title is a criminal offence under the Architects Act, 1972."
+            source: nata-br
+          - text: "Already in a 3-year diploma with Mathematics? A 10+3 diploma with 45% also qualifies you to sit NATA and to join B.Arch."
+            source: nata-br
+    board_notes:
+      gseb:
+        text: "ACPC's B.Arch merit for 2026 was <strong>50% your board (or diploma) aggregate percentage + 50% your NATA 2025 / 2026 or JEE (Main) 2026 Paper-2 percentile</strong> — so your HSC total matters as much as the test."
+        source: acpc-barch-merit
+      cbse-gj:
+        text: "Your CBSE Class XII aggregate goes into the same ACPC formula: 50% board aggregate + 50% NATA or JEE Main Paper-2 percentile."
+        source: acpc-barch-merit
+      upmsp:
+        text: "UPTAC fills B.Arch seats first on <strong>NATA</strong> (2025 or 2026 score), then on JEE (Main) 2026. Intermediate needs Physics, Mathematics and one listed subject with at least <strong>45% across those three</strong> (or a 10+3 diploma with 45%)."
+        source: tac-ib
+      msbshse:
+        text: "Maharashtra CAP needs Physics and Mathematics plus one listed subject with 45% in HSC — 40% for reserved, EWS and PwD candidates <strong>of Maharashtra only</strong> — and a JEE or NATA aptitude score (2025-26 brochure)."
+        source: cap-ib
+      wb: "NATA is offered in English and Hindi only, and the Council of Architecture leaves seat quotas to each state's admission authority — check the B.Arch notice of the college you want."
+      cbse: "NATA and JEE Main treat every board the same. NATA is offered in English and Hindi; quotas come from the state or institute that admits you."
+      other: "Your board's Class 12 counts like CBSE's. Make sure Physics and Mathematics are in your subjects and that your aggregate is at least 45%."
+    board_source: nata-br
+    exam:
+      name: "NATA 2026 · JEE Main 2026 Paper 2A (B.Arch)"
+      body: "Council of Architecture · NTA · state CAP / JoSAA"
+      href: "nata.html"
+      facts:
+        - { label: "NATA paper", value: "200 marks · 3 hours (drawing 80 + adaptive CBT 120)", source: nata-br }
+        - { label: "NATA fee", value: "₹1,750 per test · ₹1,250 SC / ST / EWS / PwD", source: nata-fee }
+        - { label: "JEE Paper 2A", value: "77 questions · 400 marks · 3 hours · +4 / −1", source: jm-ib }
+        - { label: "Class 12 rule", value: "Physics + Maths + 1 listed subject · 45% aggregate", source: nata-br }
+      stages:
+        head: ["Route", "What it is", "Marking", "Used for"]
+        rows:
+          - ["NATA Part A", "3 drawing questions on paper (80 marks)", "Evaluated drawings", "State and institute B.Arch counselling"]
+          - ["NATA Part B", "42 MCQ + 8 NCQ, computer-based adaptive (120 marks)", "No minimum qualifying raw score", "Best of two Phase 1 attempts gives your percentile"]
+          - ["JEE Main Paper 2A", "Mathematics 100 + Aptitude 200 on screen, Drawing 100 on paper", "+4 / −1 on screen; drawing has no negative marking", "B.Arch at NITs and SPAs through JoSAA, and in many state counsellings"]
+        source: [nata-br, jm-ib]
+      notes:
+        - text: "NATA itself fixes no seat percentages: reservation is set by your state / UT or the admitting institute."
+          source: nata-br
+        - text: "JEE Main fee for one paper: ₹1,000 General male, ₹800 female, ₹500 SC / ST / PwD, per session."
+          source: jm-ib
+        - text: "These are the 2026 rules — the NATA 2027 brochure and JEE (Main) 2027 bulletin were not out when this was written. Check nata.in and jeemain.nta.nic.in."
+    state_rules:
+      - state: gujarat
+        text: "ACPC registration for B.Arch 2026 ran from <strong>19 May to 20 June 2026</strong> on gujacpc.admissions.nic.in, and you could register before your board or NATA result."
+        source: acpc-barch-reg
+      - state: uttar-pradesh
+        text: "Government and aided institutes fill 100% of first-year seats through UPTAC; private colleges 85%. The tuition-fee-waiver seats that UPTAC offers in B.Tech and BHMCT are <strong>not available for B.Arch</strong>."
+        source: tac-ib
+      - state: maharashtra
+        text: "Maharashtra CAP ranks B.Arch candidates on their <strong>JEE or NATA score and HSC marks</strong> together (2025-26 brochure; check the 2026-27 notice)."
+        source: cap-ib
+      - text: "B.Arch seats at NITs, SPAs and other NIT+ institutes are filled on JEE Main Paper 2A rank through <strong>JoSAA</strong>, with a Home State quota at NITs."
+        source: [jm-ib, josaa-br]
+    multiverse:
+      - { title: "Architect", text: "The full career guide.", href: "architect.html" }
+      - { title: "B.Arch colleges", text: "Find B.Arch colleges by state.", href: "colleges-barch.html" }
+      - { title: "Diploma in Architecture", text: "A 3-year diploma with Maths also leads to B.Arch.", href: "diploma-architecture.html" }
+      - { title: "JEE Main Paper 2", text: "B.Arch and B.Planning through NTA.", href: "jee-main-paper2.html" }
+      - { title: "NATA coaching", text: "Drawing and aptitude coaching near you.", href: "coaching-nata.html" }
+    money: [nmmss, nata-fee-cut, csss, pms-sc, wbscc, mysy]
+
+  # ------------------------------------------------------------------ CLINICAL PSYCHOLOGIST (batch 4)
+  - id: clinical-psychologist
+    name: "Clinical Psychologist (RCI-registered)"
+    page: "clinical-psychologist.html"
+    roadmap: "roadmaps/clinical-psychologist.html"
+    gate: "A 4-year BA / B.Sc in Psychology with 55% (or a 3-year degree plus a bridge year) → 2-year RCI-regulated Master in Clinical Psychology (M.Clin.Psy, formerly M.Phil) through an institute entrance test and interview → registration on RCI's Central Rehabilitation Register."
+    gate_source: [rci-ma, rci-act]
+    foundation:
+      - stages: [c8, c9, c10]
+        title: "Read people, read research"
+        points:
+          - text: "Clinical psychologists assess and treat mental-health problems with psychological tests, interviews, psychotherapy and counselling — the M.Clin.Psy trains you in all of these, plus statistics and research methods."
+            source: rci-ma
+          - text: "Strong English, biology and basic statistics help most. Read about how the brain and behaviour work, and practise writing clearly — case reports are a big part of the training."
+      - stages: [c11, c12]
+        title: "Science opens the RCI bachelor's; any stream opens psychology"
+        points:
+          - text: "RCI's own 4-year <strong>B.Sc Clinical Psychology (Hons)</strong> — now called Bachelor in Clinical Psychology (B.Clin.Psy) — takes students who passed <strong>Class 12 in the science stream</strong>, through the university's entrance test."
+            source: [rci-bsc, rci-name]
+          - text: "That B.Sc is a regular 4-year course with no midway exit and no online or distance mode. Graduates are licensed by RCI as <strong>“Clinical Assistant (Clinical Psychology)”</strong> — a separate register category below Clinical Psychologist."
+            source: rci-bsc
+          - text: "Not in science? A regular BA or B.Sc in Psychology from any stream is the other road in — check each university's own entry rule."
+      - stages: [grad]
+        title: "The master's that makes you a Clinical Psychologist"
+        points:
+          - text: "Entry to the M.A. Clinical Psychology (M.Clin.Psy): a <strong>4-year BA / B.Sc in Psychology with 55%</strong> (50% SC / ST). With a 3-year degree, first pass a fourth-year bridge course or the first year of a psychology master's with 55%."
+            source: rci-ma
+          - text: "Selection is by the institute's <strong>written entrance test (70%) and interview (30%)</strong>. It is a full-time clinical course of 2 years; you need 80% attendance and must finish within 4 years of enrolling."
+            source: rci-ma
+          - text: "UGC allowed M.Phil Clinical Psychology admissions only up to the <strong>2025-26</strong> session; from 2026-27 the master's in its place is the route."
+            source: rci-mphil
+    board_notes:
+      gseb:
+        text: "HSC Science (Group A or B) keeps RCI's B.Sc Clinical Psychology open; HSC Arts or Commerce still leads to a BA in Psychology."
+        source: rci-bsc
+      cbse-gj:
+        text: "Science in Class XI–XII keeps RCI's B.Sc Clinical Psychology open; any stream can take a BA in Psychology."
+        source: rci-bsc
+      upmsp:
+        text: "Intermediate Science keeps RCI's B.Sc Clinical Psychology open; Arts students can take a BA in Psychology."
+        source: rci-bsc
+      msbshse:
+        text: "HSC Science keeps RCI's B.Sc Clinical Psychology open; HSC Arts or Commerce leads to a BA in Psychology."
+        source: rci-bsc
+      wb:
+        text: "Higher Secondary Science keeps RCI's B.Sc Clinical Psychology open; Arts students can take a BA in Psychology."
+        source: rci-bsc
+      cbse: "RCI's rules are national: the same 55% four-year psychology degree rule applies whichever board you studied in."
+      other: "RCI's rules are national: the same 55% four-year psychology degree rule applies whichever board you studied in."
+    board_source: rci-ma
+    exam:
+      name: "RCI-regulated M.A. Clinical Psychology (M.Clin.Psy) — institute entrance"
+      body: "Rehabilitation Council of India · each RCI-approved institute"
+      href: "clinical-psychologist.html"
+      facts:
+        - { label: "Master's entry", value: "4-year BA / B.Sc Psychology · 55% (50% SC / ST)", source: rci-ma }
+        - { label: "Selection", value: "Written test 70% + interview 30%", source: rci-ma }
+        - { label: "Course", value: "2 years full-time · 80% attendance", source: rci-ma }
+        - { label: "Practising unregistered", value: "Up to 1 year in jail and / or ₹1,000 fine", source: rci-act }
+      stages:
+        head: ["Step", "What it is", "Assessment", "Rule"]
+        rows:
+          - ["Bachelor's", "4-year BA / B.Sc Psychology, or RCI's B.Sc Clinical Psychology (Hons)", "University exams", "55% aggregate (50% SC / ST) for the master's"]
+          - ["Entrance", "Written test and interview at the RCI-approved institute", "Test 70% · interview 30%", "Each institute advertises its seats and dates"]
+          - ["Year 1", "3 papers + psychological assessment practical + 5 full diagnostic case reports", "70 final + 30 internal per paper", "80% attendance to sit exams"]
+          - ["Year 2", "3 papers + therapy practical + 5 psychotherapy case reports + research thesis", "70 final + 30 internal per paper", "Finish within 4 years of enrolling"]
+        source: rci-ma
+      notes:
+        - text: "Seat numbers are tied to faculty: at most 8 trainees per Professor, 6 per Associate Professor and 4 per Assistant Professor — so most centres take only a handful each year."
+          source: rci-ma
+        - text: "In an office memorandum of 3 May 2026, RCI renamed the courses: M.A. Clinical Psychology → <strong>Master in Clinical Psychology (M.Clin.Psy)</strong>; B.Sc Clinical Psychology → <strong>Bachelor in Clinical Psychology (B.Clin.Psy)</strong>."
+          source: rci-name
+        - text: "There is no single national entrance and RCI publishes no fee for it — each institute sets its own test fee."
+    state_rules:
+      - text: "RCI sets no state or domicile quota for this course. Only a person enrolled on RCI's <strong>Central Rehabilitation Register</strong> may hold a rehabilitation-professional post in government, practise anywhere in India, or sign the certificates the law requires."
+        source: rci-act
+      - text: "Check that the institute's programme is RCI-approved before you join — RCI says other institutions may not run its B.Sc Clinical Psychology without its approval."
+        source: rci-bsc-n
+    multiverse:
+      - { title: "Clinical psychologist", text: "The full career guide.", href: "clinical-psychologist.html" }
+      - { title: "BA Psychology", text: "The usual first degree on this road.", href: "ba-psychology.html" }
+    money: [nmmss, csss, pms-sc, wbscc, mysy]
+
+  # ------------------------------------------------------------------ HOTEL MANAGER (batch 4)
+  - id: hotel-manager
+    name: "Hotel Manager / Hospitality Executive (B.Sc HHA / BHMCT)"
+    page: "bhm.html"
+    roadmap: "roadmaps/bhm.html"
+    gate: "Class 12 in any stream with English → NCHM JEE (or your state's route) → 3-year B.Sc Hospitality &amp; Hotel Administration at an IHM, or a state BHMCT / B.H.T.M. → management trainee in hotels, airlines, cruise lines and catering."
+    gate_source: [nc-ib, nc-bsc]
+    foundation:
+      - stages: [c8, c9, c10]
+        title: "English, numbers and service"
+        points:
+          - text: "NCHM JEE has <strong>45 English questions out of 120</strong>, plus numerical ability, reasoning, general knowledge and aptitude for the service sector."
+            source: nc-ib
+          - text: "Speak and write English every day, help at home in the kitchen and at family events, and notice how good hotels and restaurants treat guests."
+      - stages: [c11, c12]
+        title: "Any stream — just keep English"
+        points:
+          - text: "NCHM JEE needs Class 12 <strong>with English</strong> as a subject; no stream is required and there is <strong>no age limit</strong>. You may sit while still in Class 12."
+            source: nc-ib
+          - text: "After admission you must give a physical-fitness certificate, because the course has kitchen, bakery, restaurant service and housekeeping practicals."
+            source: nc-ib
+      - stages: [grad]
+        title: "The degree and the first job"
+        points:
+          - text: "The B.Sc (HHA) is a 3-year, 6-semester <strong>JNU degree</strong> with an optional fourth year for Honours. It covers food production, food &amp; beverage service, front office and housekeeping, with marketing, finance and HR."
+            source: nc-bsc
+          - text: "Graduates start as management trainees in hotels, flight kitchens and airline services, or in guest relations, railway catering, tourism corporations, cruise lines and retail chains."
+            source: nc-bsc
+    board_notes:
+      gseb:
+        text: "Gujarat's B.H.T.M. through ACPC takes Std 12 in <strong>any stream</strong> with 45% total marks (40% reserved) — Arts and Commerce students too."
+        source: acpc-htm
+      cbse-gj:
+        text: "ACPC's B.H.T.M. accepts Std 12 from any recognised board, any stream, with 45% (40% reserved)."
+        source: acpc-htm
+      upmsp:
+        text: "UPTAC fills BHMCT seats on your <strong>CUET (UG)</strong> score; Intermediate with 45% (40% SC / ST) is the rule in its 2026-27 brochure."
+        source: tac-ib
+      msbshse:
+        text: "For Maharashtra-candidature BHMCT seats you need HSC with 45% (40% reserved) and a non-zero score in <strong>MAH-B.HMCT-CET</strong> (2025-26 brochure)."
+        source: cap-ib
+      wb: "NCHM JEE is offered in English and Hindi; the medium you choose cannot be changed later."
+      cbse: "Any CBSE stream works, as long as English is one of your Class XII subjects."
+      other: "NCHM JEE accepts every recognised board, NIOS and state open schools (five subjects including English)."
+    board_source: nc-ib
+    exam:
+      name: "NCHM JEE 2026 (B.Sc Hospitality &amp; Hotel Administration)"
+      body: "NTA for NCHMCT (Ministry of Tourism)"
+      href: "nchmct-jee.html"
+      facts:
+        - { label: "Paper", value: "120 MCQs · 2 hours · English or Hindi", source: nc-ib }
+        - { label: "Marking", value: "+4 correct · −1 wrong", source: nc-ib }
+        - { label: "Fee", value: "₹1,000 · ₹700 EWS · ₹450 SC / ST / PwD", source: nc-ib }
+        - { label: "Age limit", value: "None", source: nc-ib }
+      stages:
+        head: ["Section", "Questions", "Marking", "Note"]
+        rows:
+          - ["Numerical Ability and Analytical Aptitude", "15", "+4 / −1", "School maths"]
+          - ["Reasoning and Logical Deduction", "15", "+4 / −1", "—"]
+          - ["General Knowledge &amp; Current Affairs", "15", "+4 / −1", "—"]
+          - ["English Language", "45", "+4 / −1", "The biggest section"]
+          - ["Aptitude for Service Sector", "30", "+4 / −1", "—"]
+        source: nc-ib
+      notes:
+        - text: "Seats are then allotted by NCHMCT's centralised online counselling on merit-cum-choice, at 21 Central IHMs and the State, PSU, PPP and private IHMs affiliated to it."
+          source: [nc-ib, nc-bsc]
+        - text: "NCHMCT's fixed charges for the B.Sc (HHA): ₹1,600 admission, ₹3,600 enrolment, ₹10,215 JNU fee, ₹3,000 exam fee a semester, ₹8,000 refundable caution money. Tuition is extra and varies by institute (NCHMCT says ₹3–5 lakh in total)."
+          source: nc-bsc
+        - text: "These are the 2026 rules; the NCHM JEE 2027 bulletin was not out when this was written. Check exams.nta.nic.in/nchm-jee."
+    state_rules:
+      - state: gujarat
+        text: "ACPC ran B.H.T.M. admission offline for 2026-27: forms by post or in person by <strong>30 June 2026</strong> with a ₹350 non-refundable registration fee. The NCHM list also includes a Central IHM at Gandhinagar."
+        source: [acpc-htm, nc-ib]
+      - state: uttar-pradesh
+        text: "UPTAC fills 100% of BHMCT seats in government and aided institutes and 85% in private ones; up to 5% extra tuition-fee-waiver seats exist for BHMCT (see Money help). The NCHM list includes a Central IHM at Lucknow."
+        source: [tac-ib, nc-ib]
+      - state: maharashtra
+        text: "Maharashtra's BHMCT is a <strong>4-year</strong> course. All-India candidates may apply on NCHM JEE or MAH-B.HMCT-CET, and NCHM JEE scorers get preference (2025-26 brochure). The NCHM list includes a Central IHM at Mumbai."
+        source: [cap-ib, nc-ib]
+      - state: west-bengal
+        text: "The NCHM list includes a Central IHM at Kolkata; State-run IHMs follow the state's own reservation policy."
+        source: nc-ib
+      - text: "At Central IHMs the quotas are SC 15%, ST 7.5%, OBC-NCL (Central list) 27%, Gen-EWS 10% and 5% PwD within each. Institutes run or aided by state governments follow their state's policy."
+        source: nc-ib
+    multiverse:
+      - { title: "Hotel management (BHM)", text: "The full career guide.", href: "bhm.html" }
+      - { title: "Diploma in hotel management", text: "A shorter, skills-first route into kitchens and front office.", href: "diploma-hotel-management.html" }
+      - { title: "Travel &amp; tourism", text: "Tour operations, airlines and travel companies.", href: "travel-tourism.html" }
+      - { title: "Hotel management coaching", text: "NCHM JEE coaching near you.", href: "coaching-hotel.html" }
+    money: [nmmss, nchm-fee, tfw-up, csss, pms-sc, wbscc, mysy]
+
+  # ------------------------------------------------------------------ BIOTECH RESEARCH SCIENTIST (batch 4)
+  - id: biotech-scientist
+    name: "Biotech Research Scientist (B.Sc / B.Tech → M.Sc / M.Tech → PhD)"
+    page: "biotechnology.html"
+    roadmap: "roadmaps/biotechnology.html"
+    gate: "Class 12 Science → B.Sc (Biotechnology / Life Sciences) or B.Tech Biotechnology → GAT-B (DBT-supported M.Sc / M.Tech, with a monthly stipend) or JAM Biotechnology (IIT master's) → BET for a DBT-JRF PhD fellowship → R&amp;D posts."
+    gate_source: [gatb-ib, jam27]
+    foundation:
+      - stages: [c8, c9, c10]
+        title: "Biology, chemistry and lab habits"
+        points:
+          - text: "GAT-B's first section is <strong>60 questions at Class 12 level in Physics, Chemistry, Mathematics and Biology</strong> — what you learn in school is literally on the test."
+            source: gatb-ib
+          - text: "Keep a lab notebook for every practical, read science news, and take Science and Mathematics seriously in Class 10."
+      - stages: [c11, c12]
+        title: "Choose the bachelor's route"
+        points:
+          - text: "For B.Tech Biotechnology at NITs and NIT+ institutes, Class 12 must include <strong>Physics and Mathematics</strong>, with 75% (65% SC / ST / PwD) or your board's top 20 percentile."
+            source: jm-ib
+          - text: "For B.Sc Biotechnology / Life Sciences, PCB or PCMB is the usual combination — check your university's own rule. Keeping Mathematics with Biology keeps both doors open."
+      - stages: [grad]
+        title: "Master's through GAT-B or JAM, then a PhD"
+        points:
+          - text: "<strong>GAT-B</strong> admits to DBT-supported M.Sc / M.Tech / M.V.Sc programmes: 1,316 sanctioned seats in 79 programmes for 2026-28. Most list 55% or 60% in the bachelor's — each university sets its own rule. Final-year students may apply."
+            source: [gatb-inst, gatb-ib]
+          - text: "<strong>JAM Biotechnology</strong> (BT paper) admits to IIT master's programmes. You may sit in the final year of your degree, as long as it is completed before admission. No age limit."
+            source: jam27
+          - text: "For a PhD, <strong>BET</strong> decides the DBT-Junior Research Fellowship: a 4-year research bachelor's with 75%, or a B.Tech / B.E. or master's with 60% (55% SC / ST / PwD)."
+            source: gatb-ib
+    board_notes:
+      gseb:
+        text: "For Gujarat B.E. Biotechnology seats, ACPC merit is <strong>50% HSC theory percentile</strong> (Maths, Physics, Chemistry) + <strong>50% GUJCET percentile</strong>; HSC needs 45% (40% reserved)."
+        source: acpc-advt
+      cbse-gj:
+        text: "Schooling in Gujarat plus GUJCET opens ACPC's state-quota B.E. seats, including Biotechnology; your Class XII theory percentile is half the merit."
+        source: acpc-advt
+      upmsp:
+        text: "UPTAC fills B.Tech seats, Biotechnology included, on your <strong>JEE Main</strong> rank; Intermediate needs 45% (40% SC / ST) in the required subjects."
+        source: tac-ib
+      msbshse:
+        text: "MHT-CET is compulsory for Maharashtra-candidature B.E. / B.Tech seats; passing SSC and HSC in Maharashtra makes you a Type A candidate."
+        source: mht-ib
+      wb:
+        text: "West Bengal domicile is needed for government-aided seats and every reserved seat in WBJEEB counselling."
+        source: wb-ib
+      cbse: "GAT-B and JAM are national and English-only; every board's Class 12 counts the same for the bachelor's that comes first."
+      other: "GAT-B and JAM are national and English-only; every board's Class 12 counts the same for the bachelor's that comes first."
+    board_source: gatb-ib
+    exam:
+      name: "GAT-B 2026 · JAM 2027 Biotechnology (BT) · BET 2026"
+      body: "NTA for DBT / RCB · IIT Kharagpur (JAM 2027)"
+      href: "biotechnology.html"
+      facts:
+        - { label: "GAT-B paper", value: "Attempt 120 of 160 MCQs · 240 marks · 3 hours", source: gatb-ib }
+        - { label: "GAT-B fee", value: "₹1,300 · ₹650 SC / ST / PwD", source: gatb-ib }
+        - { label: "JAM 2027 (BT)", value: "14 Feb 2027, afternoon · 60 questions · 100 marks · 3 hours", source: jam27 }
+        - { label: "JAM fee", value: "₹2,000 · ₹1,000 female / SC / ST / PwD (one paper)", source: jam27 }
+      stages:
+        head: ["Exam", "Paper", "Marking", "Leads to"]
+        rows:
+          - ["GAT-B Section A", "60 compulsory MCQs, Class 12 PCMB level", "+1 / −0.5", "DBT-supported M.Sc, M.Tech, M.V.Sc (score valid one year)"]
+          - ["GAT-B Section B", "Attempt 60 of 100 bachelor's-level MCQs", "+3 / −1", "Same"]
+          - ["JAM (BT)", "30 MCQ + 10 MSQ + 20 NAT", "MCQ −1/3 or −2/3; MSQ and NAT no negative", "M.Sc and other master's at IITs"]
+          - ["BET", "50 compulsory + attempt 50 of 150 MCQs", "+3 / −1", "DBT-JRF PhD fellowship (Category I) or project posts (Category II)"]
+        source: [gatb-ib, jam27]
+      notes:
+        - text: "GAT-B 2026 was held on 17 May 2026 (BET the same afternoon); applying for both cost ₹2,600 (₹1,300 SC / ST / PwD). Both papers are in English only."
+          source: gatb-ib
+        - text: "After GAT-B results, you apply to each university separately; DBT and RCB play no part in admission. The 2026 schedule had first admission lists by 17 July and closure by 31 August."
+          source: gatb-guide
+        - text: "JAM 2027: after qualifying, you apply through the JAM portal to programmes in 23 IITs with a ₹750 processing fee."
+          source: jam27
+    state_rules:
+      - state: gujarat
+        text: "Gujarat universities in the GAT-B 2026 list include <strong>Gujarat Technological University, the Institute of Advanced Research and MSU Baroda</strong>."
+        source: gatb-inst
+      - state: uttar-pradesh
+        text: "Uttar Pradesh universities in the GAT-B 2026 list include <strong>Banaras Hindu University</strong> (two programmes) and <strong>Gautam Buddha University</strong>."
+        source: gatb-inst
+      - state: maharashtra
+        text: "Maharashtra institutes in the GAT-B 2026 list include <strong>Savitribai Phule Pune University, ICT Mumbai</strong> and VNMKV's agricultural biotechnology college at Latur."
+        source: gatb-inst
+      - state: west-bengal
+        text: "<strong>Visva-Bharati</strong> runs an M.Sc Biotechnology in the GAT-B 2026 list."
+        source: gatb-inst
+      - text: "GAT-B admissions follow the Government of India reservation policy; there is no state quota in the DBT programme. JAM is open to all nationals with no age limit."
+        source: [gatb-ib, jam27]
+    multiverse:
+      - { title: "Biotechnology", text: "The full career guide.", href: "biotechnology.html" }
+      - { title: "Biotech colleges", text: "B.Sc and B.Tech Biotechnology colleges by state.", href: "colleges-biotech.html" }
+      - { title: "Microbiology", text: "A close life-science route into labs.", href: "microbiology.html" }
+      - { title: "Biomedical engineer", text: "Engineering for medical devices and diagnostics.", href: "biomedical-engineer.html" }
+      - { title: "IISER IAT", text: "BS-MS research degrees straight after Class 12.", href: "iiser-iat.html" }
+      - { title: "NEST", text: "Integrated M.Sc at NISER and UM-DAE CEBS.", href: "nest.html" }
+    money: [nmmss, csss, pms-sc, tfw-up, gatb-fee, jam-fee, gatb-stipend, dbt-jrf, wbscc, mysy]
+
 # --------------------------------------------------------------------- MONEY HELP (scholarships, stipends, fee cuts)
 # kind: scholarship | stipend | fee | state. `amount` only when the official document prints it.
 money:
@@ -1497,6 +1878,59 @@ money:
     apply: "Upload your category and family-income certificates when you join; IIT Madras runs extra income checks."
     stages: [c11, c12, grad]
     source: iitm-fee
+  - id: nata-fee-cut
+    kind: fee
+    name: "Lower NATA fee"
+    by: "Council of Architecture"
+    amount: "₹1,250 per test instead of ₹1,750 (₹1,000 for transgender candidates)"
+    who: "SC, ST, EWS and PwD candidates, for a test centre in India."
+    apply: "Choose your category in the NATA form on nata.in. The fee is paid for each test attempt and is not refunded."
+    stages: [c11, c12]
+    source: nata-fee
+  - id: nchm-fee
+    kind: fee
+    name: "Lower NCHM JEE fee"
+    by: "National Testing Agency for NCHMCT"
+    amount: "₹700 (Gen-EWS) or ₹450 (SC / ST / PwD / third gender) instead of ₹1,000"
+    who: "Gen-EWS, SC, ST, PwD and third-gender candidates. There is no gender difference in the fee."
+    apply: "Choose your category in the NCHM JEE form on exams.nta.nic.in/nchm-jee."
+    stages: [c11, c12]
+    source: nc-ib
+  - id: gatb-fee
+    kind: fee
+    name: "Lower GAT-B / BET fee"
+    by: "National Testing Agency for DBT / RCB"
+    amount: "₹650 per exam instead of ₹1,300 (₹1,300 instead of ₹2,600 for both)"
+    who: "SC, ST and PwD candidates."
+    apply: "Choose your category in the GAT-B / BET form on exams.nta.nic.in/gat-bet."
+    stages: [grad]
+    source: gatb-ib
+  - id: jam-fee
+    kind: fee
+    name: "Lower JAM fee"
+    by: "IIT Kharagpur (organising institute, JAM 2027)"
+    amount: "₹1,000 for one paper instead of ₹2,000 (₹1,350 instead of ₹2,700 for two)"
+    who: "Female, SC, ST and PwD candidates."
+    apply: "Choose your category and gender in the JAM application on jam.iitkgp.ac.in. The fee is not refunded."
+    stages: [grad]
+    source: jam27
+  - id: gatb-stipend
+    kind: stipend
+    name: "DBT stipend for GAT-B master's students"
+    by: "Department of Biotechnology, paid through your university"
+    amount: "₹5,000 a month (M.Sc Biotechnology &amp; allied), ₹7,500 (M.Sc Agricultural Biotechnology), ₹12,000 (M.Tech / M.V.Sc)"
+    who: "GAT-B-qualified students admitted to a DBT-supported PG programme. The second year continues only with satisfactory progress certified by the university."
+    apply: "Nothing extra to apply for — the university pays it after verifying your admission."
+    stages: [grad]
+    source: gatb-ib
+  - id: dbt-jrf
+    kind: scholarship
+    name: "DBT-Junior Research Fellowship (through BET)"
+    by: "Department of Biotechnology (managed by RCB)"
+    who: "BET Category-I candidates who join and register for a PhD at any recognised university or institute in India. Category-II gives no DBT-JRF fellowship, but you may be appointed in a DBT-sponsored project. The fellowship covers a research fellowship, contingency and HRA where applicable — the bulletin does not print the amounts."
+    apply: "Sit BET after a 4-year research bachelor's, a B.Tech / B.E. or a master's (final-year students may apply). Register for your PhD within 2 years of the award letter to activate it."
+    stages: [grad]
+    source: gatb-ib
 
 # --------------------------------------------------------------------- SOURCES
 sources:
@@ -1526,9 +1960,9 @@ sources:
   - { id: jm-ib, name: "NTA — JEE (Main) 2026 Information Bulletin", url: "https://cdnbbsr.s3waas.gov.in/s3f8e59f4b2fe7c5705bf878bbd494ccdf/uploads/2025/11/202511021649722475.pdf", covers: "Paper 1 pattern and marking, sessions, fees, Class 12 subjects, 75% / top-20-percentile rule, state code of eligibility, 13 languages, reservation, JEE Advanced cut", checked: 2026-10-14 }
   - { id: josaa-br, name: "JoSAA — Business Rules for Joint Seat Allocation 2026-27 (1 June 2026)", url: "https://cdnbbsr.s3waas.gov.in/s313111c20aee51aeb480ecbd988cd8cc9/uploads/2026/06/20260601632081678.pdf", covers: "Home State quota, female supernumerary seats, seat acceptance fee", checked: 2026-10-14 }
   - { id: acpc-advt, name: "ACPC Gujarat — Advertisement for degree engineering admission 2026-27", url: "https://acpc.gujarat.gov.in/assets/uploads/media-uploader/31032026-advertisement-for-degree-engineering-admission-2026-27-english1774956585.pdf", covers: "95% / 50% / 5% seat split, GUJCET + board theory 50:50 merit, 45% / 40% HSC rule", checked: 2026-10-14 }
-  - { id: tac-ib, name: "AKTU — UPTAC Information Brochure 2026-27", url: "https://samarth-notification.s3.ap-south-1.amazonaws.com/uptacadmin.samarth.ac.in/admission/2026/july/admissionhed126/bc7d57e0090dd6f13e771125a9ad72a1ecdc68edf2e4430417ac2bb64bd909331/17901474761_admission_docs.pdf", covers: "JEE Main merit for B.Tech, 100% / 85% seat shares, domicile, B.Tech and MCA eligibility, tuition fee waiver seats", checked: 2026-10-14 }
+  - { id: tac-ib, name: "AKTU — UPTAC Information Brochure 2026-27", url: "https://samarth-notification.s3.ap-south-1.amazonaws.com/uptacadmin.samarth.ac.in/admission/2026/july/admissionhed126/bc7d57e0090dd6f13e771125a9ad72a1ecdc68edf2e4430417ac2bb64bd909331/17901474761_admission_docs.pdf", covers: "JEE Main merit for B.Tech, 100% / 85% seat shares, domicile, B.Tech and MCA eligibility, tuition fee waiver seats (none for B.Arch), B.Arch exam priority NATA then JEE (Main), B.Arch / BHMCT eligibility, BHMCT on CUET (UG)", checked: 2026-10-14 }
   - { id: mht-ib, name: "State CET Cell Maharashtra — MHT-CET 2026 Information Brochure (updated 11 Apr 2026)", url: "https://cetcell.mahacet.org/wp-content/uploads/2023/12/MHT-CET-2026-Information-Brochure-Updated-on-11.04.2026.pdf", covers: "candidature Types A–E, MHT-CET compulsory for Maharashtra candidature, paper languages", checked: 2026-10-14 }
-  - { id: cap-ib, name: "State CET Cell Maharashtra — CAP Information Brochure for UG & PG Technical Courses 2025-26", url: "https://cetcell.mahacet.org/wp-content/uploads/2023/12/Information_Brochure_UG_PG_2025_26_Final_02_07_2025.pdf", covers: "vertical reservation shares, EWS and women's seats", checked: 2026-10-14 }
+  - { id: cap-ib, name: "State CET Cell Maharashtra — CAP Information Brochure for UG & PG Technical Courses 2025-26", url: "https://cetcell.mahacet.org/wp-content/uploads/2023/12/Information_Brochure_UG_PG_2025_26_Final_02_07_2025.pdf", covers: "vertical reservation shares, EWS and women's seats, B.Arch and B.HMCT eligibility and merit basis, MAH-B.HMCT-CET, NCHM JEE preference for All-India BHMCT candidates", checked: 2026-10-14 }
   - { id: wb-ib, name: "WBJEEB — Information Bulletin of WBJEE-2026", url: "https://cdnbbsr.s3waas.gov.in/s3d2a27e83d429f0dcae6b937cf440aeb1/uploads/2026/03/202603101506582412.pdf", covers: "domicile rule (3.4), reservation only for West Bengal domicile (5.1), Jadavpur 90% seats", checked: 2026-10-23 }
   - { id: imu-cc, name: "Indian Maritime University — Citizen / Client Charter (updated 30 May 2025)", url: "https://www.imu.edu.in/imunew/uploads/files/IMU_Citizen_Charter_30052025.pdf", covers: "B.Sc Nautical Science and DNS eligibility: 60% PCM, 50% English, SC/ST relaxation, unmarried, age caps, eyesight and colour vision, All-India jurisdiction", checked: 2026-10-25 }
   - { id: imu-norm, name: "Indian Maritime University — Notification 03/2026, IMU-CET 2026 normalisation procedure", url: "https://www.imu.edu.in/imunew/uploads/files/admissions/2026/IMU-CET2026_Normalisation.pdf", covers: "CET in two shifts on 24 May 2026, shift-wise percentile scores", checked: 2026-10-25 }
@@ -1569,3 +2003,26 @@ sources:
   - { id: icsi-sm, name: "ICSI — Study material applicable for December 2026 examination (28 Jul 2026)", url: "https://icsis3-console.icsi.edu:9002/icsi-prod/media/cms_uploads/study-material-applicable-for-dec-2026-examination-188aa857.pdf", covers: "CS Executive 7 papers in 2 groups, CS Professional papers and electives", checked: 2026-10-25 }
   - { id: iitm-adm, name: "IIT Madras — BS in Data Science and Applications: Admissions", url: "https://study.iitm.ac.in/ds/admissions.html", covers: "who can apply, Class 10 Maths and English, application fees, qualifier process and pass marks, result validity, JEE Advanced direct entry, term dates", checked: 2026-10-25 }
   - { id: iitm-fee, name: "IIT Madras — BS in Data Science and Applications: Academics and fee structure", url: "https://study.iitm.ac.in/ds/academics.html", covers: "levels and credits, fees from the January 2026 term, fee support by category and family income", checked: 2026-10-25 }
+  # Batch 4 (2026-10-25). nata-br / nata-fee / nc-ib / nc-bsc were read for national_exams.yml; their facts are
+  # copied from there with the same dates. Everything else was read for this batch.
+  - { id: nata-br, name: "Council of Architecture — NATA 2026 Information Brochure (v2.0, 10 Apr 2026)", url: "https://www.nata.in/assets/pdf/Final-NATA-BROCHURE-2026.pdf", covers: "paper pattern, Phase 1 / 2 attempts and percentile, no minimum raw score, B.Arch subject and 45% rule, diploma route, reservation left to states, registration as architect under the Architects Act", checked: 2026-10-14 }
+  - { id: nata-fee, name: "Council of Architecture — NATA 2026 Fee Structure", url: "https://www.nata.in/fees.html", covers: "₹1,750 / ₹1,250 / ₹1,000 per test, non-refundable", checked: 2026-10-14 }
+  - { id: acpc-barch-merit, name: "ACPC Gujarat — Calculation of Merit Marks, B.Arch Admissions 2026", url: "https://acpc.gujarat.gov.in/assets/uploads/media-uploader/2merit-marks-calculation-barch1782806079.pdf", covers: "50% board / diploma aggregate + 50% NATA 2025/26 or JEE (Main) 2026 Paper-2 percentile", checked: 2026-10-25 }
+  - { id: acpc-barch-reg, name: "ACPC Gujarat — B.Arch Admission Registration 2026", url: "https://acpc.gujarat.gov.in/assets/uploads/media-uploader/barch-admission-registration-20261779453032.pdf", covers: "registration 19 May – 20 June 2026 on gujacpc.admissions.nic.in, before results", checked: 2026-10-25 }
+  - { id: acpc-htm, name: "ACPC Gujarat — Advertisement: Degree Hotel &amp; Tourism Management (B.H.T.M.) offline admission 2026-27 (Gujarati, 4 Jun 2026)", url: "https://acpc.gujarat.gov.in/assets/uploads/media-uploader/03062026-advertisement-for-hotel-and-tourism-management-20261780467888.pdf", covers: "Std 12 any stream with 45% (40% reserved), any recognised board, forms 4–30 June 2026, ₹350 non-refundable registration fee", checked: 2026-10-25 }
+  - { id: nc-ib, name: "NTA — NCHM JEE 2026 Information Bulletin", url: "https://cdnbbsr.s3waas.gov.in/s388a839f2f6f1427879fc33ee4acf4f66/uploads/2025/12/20260102470139941.pdf", covers: "sections, marking, fees, English requirement, no age limit, fitness certificate, equivalents, languages, Central IHM list and quotas, state IHM rule", checked: 2026-10-15 }
+  - { id: nc-bsc, name: "NCHMCT — B.Sc. in Hospitality and Hotel Administration (course page)", url: "https://nchm.gov.in/admission/bsc-hospitality-and-hotel-administration-generic", covers: "JNU degree, optional fourth year, curriculum, fee heads, tuition range, career options, centralised counselling", checked: 2026-10-15 }
+  - { id: rci-act, name: "Rehabilitation Council of India Act, 1992 (as amended), RCI copy", url: "https://cdnbbsr.s3waas.gov.in/s34f4eeef3a8c90dfceaddd5c6d64e4ebb/uploads/2025/07/202507071149264140.pdf", covers: "Central Rehabilitation Register; section 13 — only enrolled professionals may hold posts, practise or certify; up to 1 year and / or ₹1,000 fine", checked: 2026-10-25 }
+  - { id: rci-ma, name: "Rehabilitation Council of India — Master of Arts in Clinical Psychology (RCI regulated): Guidelines &amp; Syllabus, effective 2025-26, in place of M.Phil (copy hosted by Gurugram University)", url: "https://gurugramuniversity.ac.in/academics/syllabus/utd/sosciedu/MA_Clinical_Psychology%20Guidelines_copy.pdf", covers: "4-year BA / B.Sc Psychology 55% (50% SC / ST), bridge route, entrance 70% + interview 30%, 2 years full time, 80% attendance, 4-year limit, trainee-to-faculty ratios, scheme of examination", checked: 2026-10-25 }
+  - { id: rci-name, name: "Rehabilitation Council of India — Office Memorandum: Change of nomenclature of courses in Clinical / Rehabilitation Psychology (3 May 2026)", url: "https://cdnbbsr.s3waas.gov.in/s34f4eeef3a8c90dfceaddd5c6d64e4ebb/uploads/2026/05/202605111585522882.pdf", covers: "B.Clin.Psy and M.Clin.Psy names", checked: 2026-10-25 }
+  - { id: rci-mphil, name: "Rehabilitation Council of India — Public Notice: Continuation of M.Phil Clinical Psychology for 2024-25 &amp; 2025-26, with UGC letters", url: "https://cdnbbsr.s3waas.gov.in/s34f4eeef3a8c90dfceaddd5c6d64e4ebb/uploads/2026/05/202605121269434903.pdf", covers: "M.Phil admissions only till 2025-26; new nomenclature from 2026-27", checked: 2026-10-25 }
+  - { id: rci-bsc, name: "Rehabilitation Council of India — Public Notice: Launching of B.Sc Clinical Psychology (Hons), with course document", url: "https://cdnbbsr.s3waas.gov.in/s34f4eeef3a8c90dfceaddd5c6d64e4ebb/uploads/2026/05/202605121753364959.pdf", covers: "4-year regular course, no midway exit or online mode, Class 12 science + entrance test, licensure as Clinical Assistant (Clinical Psychology) with a separate CRR category", checked: 2026-10-25 }
+  - { id: rci-bsc-n, name: "Rehabilitation Council of India — Notification for B.Sc Clinical Psychology (Hons)", url: "https://cdnbbsr.s3waas.gov.in/s34f4eeef3a8c90dfceaddd5c6d64e4ebb/uploads/2026/05/20260512112805192.pdf", covers: "programme details, start from 2024-25, may not be run without RCI approval", checked: 2026-10-25 }
+  - { id: gatb-ib, name: "NTA / RCB — Information Bulletin, GAT-B &amp; BET 2026", url: "https://rcb.res.in/files/2026-03/information-bulletien-gatbet-2026.pdf", covers: "dates, fees, GAT-B and BET patterns and marking, English only, score validity, DBT PG stipends, BET eligibility, DBT-JRF categories and activation", checked: 2026-10-25 }
+  - { id: gatb-inst, name: "RCB — Eligibility criteria and list of participating institutes, GAT-B 2026 (indicative)", url: "https://rcb.res.in/files/2026-03/eligibility-criteria-and-list-of-participating-institutes-in-gat-b-2026.pdf", covers: "1,316 DBT seats in 79 PG programmes, institute-wise eligibility, Gujarat / UP / Maharashtra / West Bengal institutes", checked: 2026-10-25 }
+  - { id: gatb-guide, name: "DBT — Guidelines and tentative schedule of admissions through GAT-B 2026", url: "https://rcb.res.in/files/2026-06/guidelines_and_tentative_admission_activity-gat-b_2026.pdf", covers: "apply to each university, DBT / RCB no role in admission, 2026 admission calendar", checked: 2026-10-25 }
+  - { id: jam27, name: "IIT Kharagpur — JAM 2027 Information Brochure", url: "https://jam.iitkgp.ac.in/docs/Info_Brochure.pdf", covers: "14 Feb 2027 sessions, 7 papers incl. Biotechnology, no age limit, fees, eligibility, MCQ / MSQ / NAT marking, 23 IITs, ₹750 admission processing fee", checked: 2026-10-25 }
+  - { id: cfa-pol, name: "CFA Institute — CFA Program policies (enrollment requirements)", url: "https://www.cfainstitute.org/programs/cfa-program/policies", covers: "bachelor's degree or 4,000 hours work / education route, undergraduate 23-month and 11-month rules, Level III rule, passport, English-only exams", checked: 2026-10-25 }
+  - { id: cfa-fees, name: "CFA Institute — CFA Program exam dates &amp; fees", url: "https://www.cfainstitute.org/programs/cfa-program/dates-fees", covers: "USD 3,520–4,570 for all three levels, Early / Standard registration, USD 250 rescheduling, fees non-refundable", checked: 2026-10-25 }
+  - { id: cfa-exam, name: "CFA Institute — CFA Program exam (levels and charter)", url: "https://www.cfainstitute.org/programs/cfa-program/exam", covers: "three levels, Level II / III formats, results in 5–9 weeks, charter = 3 exams + 4,000 hours over at least 3 years + membership", checked: 2026-10-25 }
+  - { id: cfa-elig, name: "CFA Institute — CFA exam eligibility policy", url: "https://www.cfainstitute.org/about/governance/policies/cfa-exam-eligibility-policy", covers: "at most two attempts a calendar year, not in consecutive windows, six attempts per level", checked: 2026-10-25 }

@@ -3,7 +3,8 @@
 // Fails (exit 1) on: YAML errors, duplicate ids, a `stages` entry that is not a class id, a `source:` id that is
 // not in `sources`, a source listed but never cited, a money id a career names but `money` lacks, a board_notes
 // key that is not a board, a `state:` no board has, a local link to a page that does not exist, a money item
-// without who/apply, and a career missing one of the five blocks.
+// without who/apply, a career missing one of the five blocks, a `search` phrase list that is missing or not text,
+// and a general_money id that `money` lacks.
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -74,7 +75,11 @@ for (const c of D.careers || []) {
   (c.state_rules || []).forEach((r, i) => { textOk(r.text, `${at} state_rules[${i}]`); cite(r.source, `${at} state_rules[${i}]`); stateOk(r.state, `${at} state_rules[${i}]`); });
   (c.multiverse || []).forEach((m, i) => { textOk(m.title, `${at} multiverse[${i}]`); pageOk(m.href, `${at} multiverse[${i}]`); });
   for (const id of c.money || []) if (!moneyIds.has(id)) err(`${at}: money id "${id}" is not in money`);
+  if (!Array.isArray(c.search) || !c.search.length) err(`${at}: search must be a non-empty list of phrases`);
+  for (const s of [...(c.search || []), ...(c.search_not || [])]) if (typeof s !== 'string' || !s.replace(/^=/, '').trim()) err(`${at}: search phrase must be text`);
 }
+if (!Array.isArray(D.general_money) || !D.general_money.length) err('general_money must be a non-empty list');
+for (const id of D.general_money || []) if (!moneyIds.has(id)) err(`general_money id "${id}" is not in money`);
 
 for (const m of D.money || []) {
   const at = `money ${m.id}`;

@@ -11,6 +11,10 @@
 #     west-bengal). CBSE students outside Gujarat pick "CBSE — any other state" and see only national rules.
 #   - `source:` may be one id or a list of ids. A board_notes value may be plain text (cited to the career's
 #     `board_source`) or { text, source } when that board's note comes from a different file.
+#   - `search` lists phrases that tie titles from the 10,000-title search list (assets/data/career-titles.json) to
+#     this full blueprint: a title containing a phrase as whole words opens it as the closest route; "=phrase"
+#     must be the whole title; `search_not` words veto the match. Keep phrases narrow — a wrong match shows a
+#     student the wrong route.
 #   - scripts/check-journey-matrix.mjs validates ids, stages and source links. Run it after editing.
 # Written 2026-10-24 from the official files listed under `sources`. Batch 2 (software engineer, merchant
 # navy, commercial pilot, bank PO, civil services) and the UP / Maharashtra / West Bengal boards added 2026-10-25.
@@ -65,6 +69,7 @@ careers:
   # ------------------------------------------------------------------ LOCO PILOT
   - id: loco-pilot
     name: "Loco Pilot (Indian Railways)"
+    search: ["loco pilot", "locomotive pilot", "train driver"]
     page: "loco-pilot.html"
     roadmap: "roadmaps/loco-pilot.html"
     gate: "Class 10 + ITI in a listed trade (or a 3-year engineering diploma), then RRB ALP: CBT-1 → CBT-2 → CBAT, and the A-1 medical."
@@ -148,6 +153,7 @@ careers:
   # ------------------------------------------------------------------ LAWYER
   - id: lawyer
     name: "Lawyer (Advocate)"
+    search: ["advocate", "lawyer", "litigation lawyer", "legal counsel", "corporate lawyer"]
     page: "llb.html"
     roadmap: "roadmaps/llb.html"
     gate: "Class 12 with 45% (40% for SC/ST/PwD) → CLAT → 5-year LL.B. at an NLU (or a 3-year LL.B. after any degree) → enrol with a State Bar Council → pass the AIBE."
@@ -222,6 +228,7 @@ careers:
   # ------------------------------------------------------------------ CHARTERED ACCOUNTANT
   - id: ca
     name: "Chartered Accountant (CA)"
+    search: ["chartered accountant"]
     page: "ca.html"
     roadmap: "roadmaps/ca.html"
     gate: "Register with ICAI → Foundation (after Class 12) → Intermediate → articleship → Final. Direct Entry skips Foundation for eligible graduates."
@@ -294,6 +301,7 @@ careers:
   # ------------------------------------------------------------------ FINANCIAL ANALYST
   - id: financial-analyst
     name: "Financial / Investment Analyst (Equity Research / CFA)"
+    search: ["financial analyst", "investment analyst", "equity research", "equity analyst", "cfa"]
     page: "research-analyst.html"
     roadmap: "roadmaps/research-analyst.html"
     gate: "Any bachelor's degree (Commerce, Economics, Maths or Engineering are common) → NISM Series XV for SEBI research roles → CFA Program Levels I, II and III + 4,000 hours of work experience → CFA charter."
@@ -366,6 +374,7 @@ careers:
   # ------------------------------------------------------------------ SOFTWARE ENGINEER (batch 2)
   - id: software-engineer
     name: "Software Engineer (B.Tech CSE / BCA → MCA)"
+    search: ["software engineer", "software developer", "backend developer", "frontend developer", "full stack developer", "full-stack developer", "application developer"]
     page: "software-engineer.html"
     roadmap: "roadmaps/software-engineer.html"
     gate: "Class 12 with Physics and Mathematics → JEE Main (or your state's own merit route) → 4-year B.E./B.Tech in Computer Science or IT → campus or off-campus hiring. Or a BCA / B.Sc followed by an MCA."
@@ -466,6 +475,7 @@ careers:
   # ------------------------------------------------------------------ MERCHANT NAVY OFFICER (batch 2)
   - id: merchant-navy
     name: "Merchant Navy Deck Officer (B.Sc Nautical Science / DNS)"
+    search: ["deck officer", "merchant navy", "navigating officer", "ship captain", "master mariner"]
     page: "merchant-navy-officer.html"
     roadmap: "roadmaps/merchant-navy-officer.html"
     gate: "Class 12 PCM with a 60% PCM average and 50% in English → IMU CET rank → 3-year B.Sc Nautical Science or 1-year DNS → sea time as Deck Cadet → DG Shipping Certificates of Competency."
@@ -546,6 +556,7 @@ careers:
   # ------------------------------------------------------------------ COMMERCIAL PILOT (batch 2)
   - id: commercial-pilot
     name: "Commercial Pilot (DGCA CPL)"
+    search: ["commercial pilot", "airline pilot", "commercial airline pilot", "first officer"]
     page: "commercial-pilot.html"
     roadmap: "roadmaps/commercial-pilot.html"
     gate: "Class 12 with Physics and Mathematics → medical from an approved Medical Board → 200 hours of flying at a DGCA-approved flying school + DGCA written exams + radio telephony licence → Commercial Pilot's Licence at 18 or older."
@@ -622,6 +633,7 @@ careers:
   # ------------------------------------------------------------------ BANK PO (batch 2)
   - id: bank-po
     name: "Bank Probationary Officer (IBPS PO)"
+    search: ["probationary officer", "bank po"]
     page: "ibps-po.html"
     gate: "Any graduate aged 20–30 → IBPS PO Preliminary → Main → Personality Test → Interview → provisional allotment to one of 11 public sector banks."
     gate_source: ibps16
@@ -697,6 +709,7 @@ careers:
   # ------------------------------------------------------------------ CIVIL SERVICES (batch 2)
   - id: civil-services
     name: "Civil Servant (UPSC Civil Services — IAS, IPS, IFS)"
+    search: ["indian administrative service", "indian police service", "indian foreign service", "ias officer", "ips officer", "civil servant"]
     page: "upsc-civil-services.html"
     roadmap: "roadmaps/upsc-civil-services.html"
     gate: "Any graduate aged 21–32 (more for SC, ST, OBC and others) → Preliminary (screening) → Main (9 written papers) → Personality Test → service by rank and preference."
@@ -777,6 +790,8 @@ careers:
   # ------------------------------------------------------------------ DOCTOR / PHYSICIAN (batch 3)
   - id: doctor
     name: "Doctor / Physician (NEET-UG → MBBS)"
+    search: ["doctor", "physician", "general physician", "mbbs"]
+    search_not: ["veterinary", "ayurvedic", "siddha", "unani", "homoeopathic", "naturopathy"]
     page: "mbbs.html"
     roadmap: "roadmaps/mbbs.html"
     gate: "Class 12 with Physics, Chemistry, Biology and English → NEET (UG) → MBBS seat through MCC (All India Quota) or your state's counselling → rotating internship of at least 12 months → registration with your State Medical Council and the National Medical Register."
@@ -882,6 +897,7 @@ careers:
   # ------------------------------------------------------------------ REGISTERED NURSE (batch 3)
   - id: nurse
     name: "Registered Nurse (B.Sc Nursing / GNM)"
+    search: ["nurse", "nursing officer", "staff nurse"]
     page: "nursing.html"
     roadmap: "roadmaps/nursing.html"
     gate: "Class 12 Science with 45% in Physics, Chemistry and Biology and a pass in English → state nursing entrance or merit list → 4-year B.Sc Nursing → registration with your State Nursing Council. Or Class 12 with English and 40% → GNM diploma."
@@ -984,6 +1000,8 @@ careers:
   # ------------------------------------------------------------------ DEFENCE OFFICER VIA NDA (batch 3)
   - id: nda-officer
     name: "Defence Officer via NDA (Army, Navy, Air Force)"
+    search: ["nda", "indian army", "indian navy", "indian air force"]
+    search_not: ["medical", "education", "architect", "inspector", "commando", "meteorology", "logistics", "hydrographic", "air traffic", "administration", "flight test"]
     page: "nda.html"
     roadmap: "roadmaps/nda.html"
     gate: "Unmarried and born inside the notice's window (1 Jan 2008 – 1 Jan 2011 for NDA (II) 2026) → Class 12 (Physics, Chemistry and Maths for Navy and Air Force) → UPSC NDA & NA written exam → SSB interview (+ pilot test for flying) → 3 years at NDA → service academy → commission as an officer."
@@ -1074,6 +1092,7 @@ careers:
   # ------------------------------------------------------------------ COMPANY SECRETARY (batch 3)
   - id: company-secretary
     name: "Company Secretary (ICSI: CSEET → Executive → Professional)"
+    search: ["company secretary"]
     page: "cs.html"
     roadmap: "roadmaps/cs.html"
     gate: "Class 12 in any stream → CSEET → CS Executive (7 papers in 2 groups) → 30-day EDP and 21 months' practical training → CS Professional → 30-day CLDP. Graduates skip CSEET."
@@ -1157,6 +1176,7 @@ careers:
   # ------------------------------------------------------------------ DATA SCIENTIST / AI SPECIALIST (batch 3)
   - id: data-scientist
     name: "Data Scientist / AI Specialist (B.Tech / B.Sc / BS Data Science)"
+    search: ["data scientist", "machine learning engineer", "artificial intelligence engineer", "ai engineer"]
     page: "datascience.html"
     roadmap: "roadmaps/datascience.html"
     gate: "Class 12 with Mathematics → B.Tech (CSE, AI or Data Science) through JEE Main or your state's route — or a B.Sc / BCA, or IIT Madras's online BS in Data Science → statistics, programming and machine-learning projects → analyst and data-scientist roles."
@@ -1259,6 +1279,7 @@ careers:
   # ------------------------------------------------------------------ ARCHITECT (batch 4)
   - id: architect
     name: "Architect (B.Arch through NATA / JEE Main Paper 2A)"
+    search: ["=architect", "heritage conservation architect"]
     page: "architect.html"
     roadmap: "roadmaps/architect.html"
     gate: "Class 12 with Physics and Mathematics (plus one listed subject) and 45% aggregate → NATA or JEE Main Paper 2A → 5-year B.Arch → registration with the Council of Architecture before you call yourself an Architect."
@@ -1355,6 +1376,7 @@ careers:
   # ------------------------------------------------------------------ CLINICAL PSYCHOLOGIST (batch 4)
   - id: clinical-psychologist
     name: "Clinical Psychologist (RCI-registered)"
+    search: ["clinical psychologist"]
     page: "clinical-psychologist.html"
     roadmap: "roadmaps/clinical-psychologist.html"
     gate: "A 4-year BA / B.Sc in Psychology with 55% (or a 3-year degree plus a bridge year) → 2-year RCI-regulated Master in Clinical Psychology (M.Clin.Psy, formerly M.Phil) through an institute entrance test and interview → registration on RCI's Central Rehabilitation Register."
@@ -1438,6 +1460,7 @@ careers:
   # ------------------------------------------------------------------ HOTEL MANAGER (batch 4)
   - id: hotel-manager
     name: "Hotel Manager / Hospitality Executive (B.Sc HHA / BHMCT)"
+    search: ["hotel manager", "hotel general manager", "front office manager", "hospitality manager", "hotel operations"]
     page: "bhm.html"
     roadmap: "roadmaps/bhm.html"
     gate: "Class 12 in any stream with English → NCHM JEE (or your state's route) → 3-year B.Sc Hospitality &amp; Hotel Administration at an IHM, or a state BHMCT / B.H.T.M. → management trainee in hotels, airlines, cruise lines and catering."
@@ -1529,6 +1552,7 @@ careers:
   # ------------------------------------------------------------------ BIOTECH RESEARCH SCIENTIST (batch 4)
   - id: biotech-scientist
     name: "Biotech Research Scientist (B.Sc / B.Tech → M.Sc / M.Tech → PhD)"
+    search: ["biotechnologist", "biotech research scientist", "biotechnology scientist", "biotech scientist"]
     page: "biotechnology.html"
     roadmap: "roadmaps/biotechnology.html"
     gate: "Class 12 Science → B.Sc (Biotechnology / Life Sciences) or B.Tech Biotechnology → GAT-B (DBT-supported M.Sc / M.Tech, with a monthly stipend) or JAM Biotechnology (IIT master's) → BET for a DBT-JRF PhD fellowship → R&amp;D posts."
@@ -1624,6 +1648,10 @@ careers:
 
 # --------------------------------------------------------------------- MONEY HELP (scholarships, stipends, fee cuts)
 # kind: scholarship | stipend | fee | state. `amount` only when the official document prints it.
+# Schemes open to a student on any path (not tied to one career). The blueprint shows these for a career from the
+# 10,000-title search list that has no full blueprint yet. Every id must also be in `money` below.
+general_money: [nmmss, csss, pms-sc, mysy, wbscc]
+
 money:
   - id: nmmss
     kind: scholarship

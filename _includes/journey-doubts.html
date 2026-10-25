@@ -1,0 +1,132 @@
+{%- comment -%}
+  Doubts roadmap for one three-layer career of the Student Journey Blueprint (journey-<id>.html).
+  Usage: {% include journey-doubts.html id="pharmacist" %}
+  Prints the career's whole stage layer from _data/in/journey_matrix.yml — every step from Class 8 to working,
+  what to do, the exam windows and each doubt as doubt → answer → what to do next — so a student meets the answers
+  while reading down the road. The same doubts go into the FAQPage JSON-LD in the same words (scripts/verify-site.mjs
+  checks that). journey-blueprint.html renders the same data for one chosen class and state.
+  Sources are numbered in order of first use on this page; [n] links go to the list at the bottom.
+{%- endcomment -%}
+{%- assign JM = site.data.in.journey_matrix -%}
+{%- assign C = JM.careers | where: "id", include.id | first -%}
+{%- assign ext = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>' -%}
+{%- comment -%} Collect the source ids this page cites, in order. A `source` is one id or a list. {%- endcomment -%}
+{%- assign ids = C.gate_source | join: "|" -%}
+{%- for j in C.journey -%}
+  {%- for p in j.do %}{% if p.source %}{% assign x = p.source | join: "|" %}{% assign ids = ids | append: "|" | append: x %}{% endif %}{% endfor -%}
+  {%- for p in j.exams %}{% assign x = p.source | join: "|" %}{% assign ids = ids | append: "|" | append: x %}{% endfor -%}
+  {%- for p in j.doubts %}{% assign x = p.source | join: "|" %}{% assign ids = ids | append: "|" | append: x %}{% endfor -%}
+{%- endfor -%}
+{%- assign ids = ids | split: "|" | uniq -%}
+{%- assign nq = 0 -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site.url }}{{ site.baseurl }}/" },
+    { "@type": "ListItem", "position": 2, "name": "Journey Blueprint", "item": "{{ site.url }}{{ site.baseurl }}/journey-blueprint.html" },
+    { "@type": "ListItem", "position": 3, "name": {{ page.breadcrumb.current | jsonify }}, "item": "{{ page.url | absolute_url }}" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {%- for j in C.journey %}{% for d in j.doubts %}
+    {% if nq > 0 %},{% endif %}{ "@type": "Question", "name": {{ d.q | strip_html | replace: "&amp;", "&" | jsonify }}, "acceptedAnswer": { "@type": "Answer", "text": {{ d.a | strip_html | replace: "&amp;", "&" | jsonify }} } }
+    {%- assign nq = nq | plus: 1 %}{% endfor %}{% endfor %}
+  ]
+}
+</script>
+
+<main id="main" class="sc-page jb-page jb-doubts-page">
+  <section class="page-hero career-hero sc-hero jb-hero" aria-labelledby="hero-heading">
+    <div class="container page-hero-inner">
+      <span class="eyebrow">Student Journey Blueprint · Doubts on the road</span>
+      <h1 id="hero-heading">{{ page.h1 }}</h1>
+      <div class="meta-row">
+        <span>Class 8 to working life</span>
+        <span>·</span><span>{{ nq }} student doubts answered</span>
+        <span>·</span><span>Last checked {{ JM.checked | date: "%-d %b %Y" }}</span>
+      </div>
+      <p><strong>The one-line route:</strong> {{ C.gate }}{% assign xs = C.gate_source | join: "|" | split: "|" %}{% for x in xs %}{% for i in ids %}{% if i == x %} <a class="src-ref" href="#src-{{ x }}">[{{ forloop.index }}]</a>{% endif %}{% endfor %}{% endfor %}</p>
+      <div class="page-hero-ctas">
+        <a href="journey-blueprint.html?career={{ C.id }}" class="btn btn-journey btn-page-link">Make it personal — pick your class and state</a>
+        <a href="{{ C.page }}" class="btn btn-ghost btn-page-link">Full career guide</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="block mb sc-block" id="road" aria-labelledby="road-heading">
+    <div class="container" data-no-points>
+      <div class="section-head">
+        <span class="eyebrow">Read top to bottom</span>
+        <h2 id="road-heading">The road, with every doubt in its place</h2>
+        <p>Each stage says what to do, which exams open and the doubts students ask at that point. You can stop at your own class — or read ahead.</p>
+      </div>
+      <ol class="jb-steps jb-road">
+        {%- for j in C.journey %}
+        <li class="jb-step">
+          <span class="jb-tag">{% for s in j.stages %}{% assign k = JM.classes | where: "id", s | first %}{{ k.label }}{% unless forloop.last %} · {% endunless %}{% endfor %}</span>
+          <h3>{{ j.title }}</h3>
+          {%- if j.do %}
+          <ul class="jb-list">
+            {%- for p in j.do %}
+            <li>{{ p.text }}{% if p.source %}{% assign xs = p.source | join: "|" | split: "|" %}{% for x in xs %}{% for i in ids %}{% if i == x %} <a class="src-ref" href="#src-{{ x }}">[{{ forloop.index }}]</a>{% endif %}{% endfor %}{% endfor %}{% endif %}</li>
+            {%- endfor %}
+          </ul>
+          {%- endif %}
+          {%- if j.stream %}<p class="jb-stream"><strong>Stream / subjects:</strong> {{ j.stream }}</p>{% endif %}
+          {%- if j.exams %}
+          <p class="jb-sub">Exams that open here</p>
+          <ul class="jb-list jb-exams">
+            {%- for x0 in j.exams %}
+            <li><strong>{{ x0.name }}</strong> — {{ x0.when }}{% assign xs = x0.source | join: "|" | split: "|" %}{% for x in xs %}{% for i in ids %}{% if i == x %} <a class="src-ref" href="#src-{{ x }}">[{{ forloop.index }}]</a>{% endif %}{% endfor %}{% endfor %}</li>
+            {%- endfor %}
+          </ul>
+          {%- endif %}
+          {%- if j.mistakes %}
+          <p class="jb-sub">Common mistakes</p>
+          <ul class="jb-list jb-mistakes">{% for m in j.mistakes %}<li>{{ m }}</li>{% endfor %}</ul>
+          {%- endif %}
+          {%- if j.late %}<p class="jb-late"><strong>Late? What now:</strong> {{ j.late }}</p>{% endif %}
+          {%- for d in j.doubts %}
+          <div class="jb-doubt">
+            <h4 class="jb-q"><span class="jb-q-tag">Doubt</span> {{ d.q }}</h4>
+            <p class="jb-a">{{ d.a }}{% assign xs = d.source | join: "|" | split: "|" %}{% for x in xs %}{% for i in ids %}{% if i == x %} <a class="src-ref" href="#src-{{ x }}">[{{ forloop.index }}]</a>{% endif %}{% endfor %}{% endfor %}</p>
+            <p class="jb-next"><strong>Next:</strong> {{ d.next }}</p>
+          </div>
+          {%- endfor %}
+        </li>
+        {%- endfor %}
+      </ol>
+      <p class="sc-p"><a class="jb-more" href="journey-blueprint.html?career={{ C.id }}">See the exam, state rules and scholarships for your class and state</a></p>
+    </div>
+  </section>
+
+  <section class="block mb sc-block" id="sources" aria-labelledby="sources-heading">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Official sources &amp; verification</span>
+        <h2 id="sources-heading">Where these answers come from</h2>
+        <p>Every number on this page comes from the official files below. Lines with no number are Margdarshan guidance. Rules change every year — open the current notice before you apply.</p>
+      </div>
+      <ol class="cite-list">
+        {%- for i in ids %}{% assign s = JM.sources | where: "id", i | first %}{% if s %}
+        <li id="src-{{ s.id }}">
+          <a class="source-link" href="{{ s.url }}" target="_blank" rel="noopener noreferrer">
+            {{ ext }}
+            {{ s.name }}<span class="sr-only"> (opens in a new tab)</span>
+          </a>
+          <span class="cite-covers">{{ s.covers }}{% if s.checked %} · Last checked {{ s.checked | date: "%-d %b %Y" }}{% endif %}</span>
+        </li>
+        {%- endif %}{% endfor %}
+      </ol>
+      {% include src-more.html %}
+      <p class="cite-report">Spotted something out of date? Email <a href="mailto:{{ site.feedback_email }}?subject={{ 'Journey Blueprint — correction' | uri_escape }}">{{ site.feedback_email }}</a> with the official link and we will update it.</p>
+    </div>
+  </section>
+</main>

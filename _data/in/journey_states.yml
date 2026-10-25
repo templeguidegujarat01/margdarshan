@@ -1,0 +1,502 @@
+# journey_states — the 28 states and 8 union territories for journey-blueprint.html (state layer).
+# Shared by every career, so a state's board and official portals are written once here instead of once per career.
+#
+# Rules:
+#   - Every `url` was opened on the date in `checked` and its page title matched the body named. Portals that would
+#     not open from our side were checked on a 2025–26 Wayback Machine capture instead (marked `via: wayback`).
+#   - A body we could not open at all is left out and listed under `gaps` — never guessed.
+#   - `bodies` roles: scholarship (state scholarship portal), psc (State Public Service Commission or the state's
+#     main recruitment board), police (state police recruitment board, or the state police website when no separate
+#     board was found), tech (state technical / professional admissions or entrance board), med (state-quota NEET
+#     counselling for medical, dental and AYUSH seats), tet (state teacher eligibility test), admin (a UT
+#     administration's own website, for UTs with no separate board or commission).
+#     Careers name the roles they need in `state_uses`; the page prints only those.
+#   - `board` is the state's own school board(s). UTs without one have none: their schools follow CBSE or a
+#     neighbouring state's board.
+#   - Career-specific state facts (quotas, seat counts, exam rules) are not here — they sit in each career's
+#     `state_rules` in journey_matrix.yml with their own source.
+#   - `legacy`: the old journey_matrix board id this state + board type maps to, so careers written before the
+#     36-state picker keep their board notes (gseb, upmsp, msbshse, wb).
+#   - scripts/check-journey-matrix.mjs checks ids, roles and https links.
+checked: 2026-10-25
+
+types:
+  - { id: state, label: "My state's board" }
+  - { id: cbse, label: "CBSE" }
+  - { id: cisce, label: "CISCE (ICSE / ISC)" }
+  - { id: other, label: "NIOS / other board" }
+
+states:
+  - id: andhra-pradesh
+    name: "Andhra Pradesh"
+    kind: state
+    board:
+      name: "BSEAP (Class 10 SSC) and BIEAP (Intermediate, Class 11–12)"
+      links:
+        - { label: "Board of Secondary Education, AP", url: "https://bse.ap.gov.in/" }
+        - { label: "Board of Intermediate Education, AP", url: "https://bie.ap.gov.in/" }
+    bodies:
+      - { role: scholarship, name: "Jnanabhumi — AP scholarship portal", url: "https://jnanabhumi.ap.gov.in/" }
+      - { role: psc, name: "Andhra Pradesh Public Service Commission (APPSC)", url: "https://psc.ap.gov.in/" }
+      - { role: police, name: "AP State Level Police Recruitment Board (SLPRB)", url: "https://slprb.ap.gov.in/" }
+      - { role: tech, name: "AP State Council of Higher Education — common entrance tests (AP EAPCET and others)", url: "https://cets.apsche.ap.gov.in/" }
+      - { role: med, name: "Dr. NTR University of Health Sciences (state-quota NEET counselling)", url: "https://drntr.uhsap.in/" }
+    cockpit: "state/andhra-pradesh/index.html"
+
+  - id: arunachal-pradesh
+    name: "Arunachal Pradesh"
+    kind: state
+    bodies:
+      - { role: psc, name: "Arunachal Pradesh Public Service Commission (APPSC)", url: "https://appsc.gov.in/" }
+      - { role: police, name: "Arunachal Pradesh Police (official website)", url: "https://arunpol.nic.in/" }
+    gaps: "State board website and state scholarship portal would not open — not listed."
+
+  - id: assam
+    name: "Assam"
+    kind: state
+    board:
+      name: "Assam State School Education Board (ASSEB) — Division I (HSLC, Class 10) and Division II (Higher Secondary, Class 12)"
+      links:
+        - { label: "ASSEB", url: "https://asseb.in/" }
+        - { label: "ASSEB Division I", url: "https://site.sebaonline.org/" }
+        - { label: "ASSEB Division II (former AHSEC)", url: "https://ahsec.assam.gov.in/" }
+    bodies:
+      - { role: psc, name: "Assam Public Service Commission (APSC)", url: "https://apsc.nic.in/" }
+      - { role: police, name: "State Level Police Recruitment Board, Assam (SLPRB)", url: "https://slprbassam.in/" }
+      - { role: tech, name: "Directorate of Technical Education, Assam", url: "https://dte.assam.gov.in/" }
+      - { role: med, name: "Directorate of Medical Education, Assam", url: "https://dme.assam.gov.in/" }
+    cockpit: "state/assam/index.html"
+
+  - id: bihar
+    name: "Bihar"
+    kind: state
+    board:
+      name: "Bihar School Examination Board (BSEB) — Matric (Class 10) and Intermediate (Class 12)"
+      links:
+        - { label: "Bihar School Examination Board", url: "https://biharboardonline.com/" }
+    bodies:
+      - { role: scholarship, name: "Bihar Post Matric Scholarship portal", url: "https://pmsonline.bihar.gov.in/" }
+      - { role: psc, name: "Bihar Public Service Commission (BPSC)", url: "https://bpsc.bihar.gov.in/" }
+      - { role: police, name: "Central Selection Board of Constable (CSBC), Bihar", url: "https://csbc.bihar.gov.in/" }
+      - { role: police, name: "Bihar Police Subordinate Service Commission (BPSSC — Sub-Inspector)", url: "https://bpssc.bihar.gov.in/" }
+      - { role: tech, name: "Bihar Combined Entrance Competitive Examination Board (BCECEB)", url: "https://bceceboard.bihar.gov.in/" }
+      - { role: med, name: "BCECEB (state-quota NEET counselling)", url: "https://bceceboard.bihar.gov.in/" }
+    cockpit: "state/bihar/index.html"
+
+  - id: chhattisgarh
+    name: "Chhattisgarh"
+    kind: state
+    board:
+      name: "Chhattisgarh Board of Secondary Education (CGBSE) — Class 10 and Class 12"
+      links:
+        - { label: "CGBSE", url: "https://cgbse.nic.in/" }
+    bodies:
+      - { role: scholarship, name: "Chhattisgarh post-matric scholarship portal", url: "https://postmatric-scholarship.cg.nic.in/" }
+      - { role: psc, name: "Chhattisgarh Public Service Commission (CGPSC)", url: "https://psc.cg.gov.in/" }
+      - { role: police, name: "Chhattisgarh Police (official website)", url: "https://cgpolice.gov.in/" }
+      - { role: tech, name: "Chhattisgarh Professional Examination Board (CG Vyapam)", url: "https://vyapamcg.cgstate.gov.in/" }
+      - { role: med, name: "Commissionerate of Medical Education, Chhattisgarh", url: "https://cgdme.in/" }
+    cockpit: "state/chhattisgarh/index.html"
+
+  - id: goa
+    name: "Goa"
+    kind: state
+    board:
+      name: "Goa Board of Secondary and Higher Secondary Education (GBSHSE) — SSC (Class 10) and HSSC (Class 12)"
+      links:
+        - { label: "GBSHSE", url: "https://www.gbshse.in/", via: wayback }
+    bodies:
+      - { role: psc, name: "Goa Public Service Commission", url: "https://gpsc.goa.gov.in/" }
+      - { role: police, name: "Goa Police (official website)", url: "https://citizen.goapolice.gov.in/" }
+      - { role: tech, name: "Directorate of Technical Education, Goa", url: "https://dte.goa.gov.in/" }
+    gaps: "Goa scholarship portal and Goa Medical College admission page would not open — not listed."
+
+  - id: gujarat
+    name: "Gujarat"
+    kind: state
+    legacy: { state: gseb, cbse: cbse-gj }
+    board:
+      name: "Gujarat Secondary and Higher Secondary Education Board (GSEB) — SSC (Std 10) and HSC (Std 12)"
+      links:
+        - { label: "GSEB", url: "https://www.gseb.org/" }
+    bodies:
+      - { role: scholarship, name: "Digital Gujarat (state scholarships)", url: "https://www.digitalgujarat.gov.in/" }
+      - { role: psc, name: "Gujarat Public Service Commission (GPSC)", url: "https://gpsc.gujarat.gov.in/" }
+      - { role: police, name: "Gujarat Police Recruitment Board (GPRB)", url: "https://gprb.gujarat.gov.in/" }
+      - { role: tech, name: "Admission Committee for Professional Courses (ACPC)", url: "https://acpc.gujarat.gov.in/" }
+      - { role: med, name: "Admission Committee for Professional Medical Courses (ACPUGMEC)", url: "https://medadmgujarat.org/" }
+      - { role: tet, name: "State Examination Board, Gandhinagar", url: "https://www.sebexam.org/" }
+    cockpit: "state/gujarat/index.html"
+
+  - id: haryana
+    name: "Haryana"
+    kind: state
+    board:
+      name: "Board of School Education Haryana (BSEH) — Class 10 and Class 12"
+      links:
+        - { label: "BSEH, Bhiwani", url: "https://bseh.org.in/" }
+    bodies:
+      - { role: scholarship, name: "Haryana DHE centralised online scholarship portal", url: "https://harchhatravratti.highereduhry.ac.in/" }
+      - { role: psc, name: "Haryana Public Service Commission (HPSC)", url: "https://hpsc.gov.in/" }
+      - { role: psc, name: "Haryana Staff Selection Commission (HSSC)", url: "https://hssc.gov.in/" }
+      - { role: tech, name: "Haryana State Technical Education Society — online admissions", url: "https://techadmissionshry.gov.in/" }
+      - { role: med, name: "Pt. B.D. Sharma University of Health Sciences, Rohtak", url: "https://www.uhsr.ac.in/", via: wayback }
+    cockpit: "state/haryana/index.html"
+
+  - id: himachal-pradesh
+    name: "Himachal Pradesh"
+    kind: state
+    board:
+      name: "Himachal Pradesh Board of School Education (HPBOSE) — Class 10 and Class 12"
+      links:
+        - { label: "HPBOSE", url: "https://hpbose.org/" }
+    bodies:
+      - { role: psc, name: "Himachal Pradesh Public Service Commission (HPPSC)", url: "https://hppsc.hp.gov.in/" }
+      - { role: tech, name: "Himachal Pradesh Technical University", url: "https://himtu.ac.in/" }
+      - { role: med, name: "Atal Medical and Research University, HP", url: "https://amruhp.ac.in/" }
+    gaps: "No separate HP police recruitment board or state scholarship portal page could be confirmed — not listed."
+
+  - id: jharkhand
+    name: "Jharkhand"
+    kind: state
+    board:
+      name: "Jharkhand Academic Council (JAC) — Matric (Class 10) and Intermediate (Class 12)"
+      links:
+        - { label: "JAC", url: "https://jac.jharkhand.gov.in/" }
+    bodies:
+      - { role: scholarship, name: "e-Kalyan — Jharkhand scholarship portal", url: "https://ekalyan.cgg.gov.in/" }
+      - { role: psc, name: "Jharkhand Public Service Commission (JPSC)", url: "https://www.jpsc.gov.in/" }
+      - { role: psc, name: "Jharkhand Staff Selection Commission (JSSC)", url: "https://jssc.jharkhand.gov.in/" }
+      - { role: tech, name: "Jharkhand Combined Entrance Competitive Examination Board (JCECEB)", url: "https://jceceb.jharkhand.gov.in/" }
+      - { role: med, name: "JCECEB (state-quota NEET counselling)", url: "https://jceceb.jharkhand.gov.in/" }
+    cockpit: "state/jharkhand/index.html"
+
+  - id: karnataka
+    name: "Karnataka"
+    kind: state
+    board:
+      name: "Karnataka School Examination and Assessment Board (KSEAB) — SSLC (Class 10) and II PUC (Class 12)"
+      links:
+        - { label: "KSEAB", url: "https://kseab.karnataka.gov.in/" }
+    bodies:
+      - { role: scholarship, name: "State Scholarship Portal (SSP), Karnataka", url: "https://ssp.postmatric.karnataka.gov.in/" }
+      - { role: psc, name: "Karnataka Public Service Commission (KPSC)", url: "https://kpsc.karnataka.gov.in/" }
+      - { role: police, name: "Karnataka State Police recruitment portal", url: "https://ksp-recruitment.in/" }
+      - { role: tech, name: "Karnataka Examinations Authority (KEA) — KCET and counselling", url: "https://cetonline.karnataka.gov.in/" }
+      - { role: med, name: "Karnataka Examinations Authority (KEA) — state-quota NEET counselling", url: "https://cetonline.karnataka.gov.in/" }
+    cockpit: "state/karnataka/index.html"
+
+  - id: kerala
+    name: "Kerala"
+    kind: state
+    board:
+      name: "Kerala Pareeksha Bhavan (SSLC, Class 10) and the Directorate of Higher Secondary Education (Class 11–12)"
+      links:
+        - { label: "Kerala Pareeksha Bhavan", url: "https://pareekshabhavan.kerala.gov.in/" }
+        - { label: "DHSE Kerala", url: "https://dhsekerala.gov.in/", via: wayback }
+    bodies:
+      - { role: scholarship, name: "Directorate of Collegiate Education — scholarship portal", url: "https://dcescholarship.kerala.gov.in/" }
+      - { role: psc, name: "Kerala Public Service Commission", url: "https://www.keralapsc.gov.in/" }
+      - { role: tech, name: "Commissioner for Entrance Examinations (CEE) — KEAM", url: "https://cee.kerala.gov.in/" }
+      - { role: med, name: "Commissioner for Entrance Examinations (CEE) — state-quota NEET allotment", url: "https://cee.kerala.gov.in/" }
+      - { role: tet, name: "K-TET — Kerala Teacher Eligibility Test", url: "https://ktet.kerala.gov.in/" }
+    cockpit: "state/kerala/index.html"
+
+  - id: madhya-pradesh
+    name: "Madhya Pradesh"
+    kind: state
+    board:
+      name: "Board of Secondary Education, Madhya Pradesh (MPBSE) — Class 10 and Class 12"
+      links:
+        - { label: "MPBSE", url: "https://mpbse.mponline.gov.in/" }
+    bodies:
+      - { role: psc, name: "Madhya Pradesh Public Service Commission (MPPSC)", url: "https://mppsc.mp.gov.in/" }
+      - { role: police, name: "MP Employees Selection Board (ESB)", url: "https://esb.mp.gov.in/" }
+      - { role: tech, name: "Directorate of Technical Education, MP — online counselling", url: "https://dte.mponline.gov.in/" }
+      - { role: med, name: "Directorate of Medical Education, MP", url: "https://dme.mponline.gov.in/" }
+    cockpit: "state/madhya-pradesh/index.html"
+    gaps: "MP scholarship portal would not open — not listed."
+
+  - id: maharashtra
+    name: "Maharashtra"
+    kind: state
+    legacy: { state: msbshse }
+    board:
+      name: "Maharashtra State Board (MSBSHSE) — SSC (Class 10) and HSC (Class 12)"
+      links:
+        - { label: "MSBSHSE", url: "https://www.mahahsscboard.in/" }
+    bodies:
+      - { role: scholarship, name: "MahaDBT — Maharashtra scholarships", url: "https://mahadbt.maharashtra.gov.in/" }
+      - { role: psc, name: "Maharashtra Public Service Commission (MPSC)", url: "https://mpsc.gov.in/" }
+      - { role: police, name: "Maharashtra State Police recruitment portal", url: "https://policerecruitment2025.mahait.org/" }
+      - { role: tech, name: "State Common Entrance Test Cell (MHT-CET and CAP)", url: "https://cetcell.mahacet.org/" }
+      - { role: med, name: "State Common Entrance Test Cell (state-quota NEET CAP)", url: "https://cetcell.mahacet.org/" }
+      - { role: tet, name: "MAHA TET — Maharashtra Teacher Eligibility Test", url: "https://mahatet.in/" }
+    cockpit: "state/maharashtra/index.html"
+
+  - id: manipur
+    name: "Manipur"
+    kind: state
+    board:
+      name: "Board of Secondary Education, Manipur (BOSEM, Class 10) and Council of Higher Secondary Education, Manipur (COHSEM, Class 12)"
+      links:
+        - { label: "BOSEM", url: "https://bosem.in/" }
+        - { label: "COHSEM", url: "https://cohsem.nic.in/" }
+    bodies:
+      - { role: psc, name: "Manipur Public Service Commission", url: "https://mpscmanipur.gov.in/" }
+      - { role: police, name: "Manipur Police (official website)", url: "https://manipurpolice.gov.in/" }
+    gaps: "Manipur scholarship portal would not open — not listed."
+
+  - id: meghalaya
+    name: "Meghalaya"
+    kind: state
+    board:
+      name: "Meghalaya Board of School Education (MBOSE) — Class 10 and Class 12"
+      links:
+        - { label: "MBOSE", url: "https://www.mbose.in/" }
+    bodies:
+      - { role: psc, name: "Meghalaya Public Service Commission", url: "https://mpsc.meghalaya.gov.in/" }
+      - { role: police, name: "Meghalaya Police (official website)", url: "https://megpolice.gov.in/" }
+    gaps: "No Meghalaya scholarship portal page could be confirmed — not listed."
+
+  - id: mizoram
+    name: "Mizoram"
+    kind: state
+    board:
+      name: "Mizoram Board of School Education (MBSE) — Class 10 and Class 12"
+      links:
+        - { label: "MBSE", url: "https://www.mbse.edu.in/" }
+    bodies:
+      - { role: psc, name: "Mizoram Public Service Commission", url: "https://mpsc.mizoram.gov.in/" }
+      - { role: police, name: "Mizoram Police (official website)", url: "https://police.mizoram.gov.in/" }
+    gaps: "Mizoram scholarship portal returned 'not found' — not listed."
+
+  - id: nagaland
+    name: "Nagaland"
+    kind: state
+    board:
+      name: "Nagaland Board of School Education (NBSE) — Class 10 and Class 12"
+      links:
+        - { label: "NBSE", url: "https://nbsenl.edu.in/" }
+    bodies:
+      - { role: scholarship, name: "Common Scholarship Portal, Nagaland", url: "https://scholarship.nagaland.gov.in/" }
+      - { role: psc, name: "Nagaland Public Service Commission", url: "https://npsc.nagaland.gov.in/" }
+      - { role: police, name: "Nagaland Police (official website)", url: "https://police.nagaland.gov.in/" }
+
+  - id: odisha
+    name: "Odisha"
+    kind: state
+    board:
+      name: "Board of Secondary Education, Odisha (Class 10) and Council of Higher Secondary Education, Odisha (Class 12)"
+      links:
+        - { label: "BSE Odisha", url: "https://bseodisha.ac.in/" }
+        - { label: "CHSE Odisha", url: "https://chseodisha.nic.in/" }
+    bodies:
+      - { role: scholarship, name: "State Scholarship Portal, Odisha", url: "https://scholarship.odisha.gov.in/" }
+      - { role: psc, name: "Odisha Public Service Commission (OPSC)", url: "https://www.opsc.gov.in/" }
+      - { role: police, name: "Odisha Police (official website)", url: "https://www.odishapolice.gov.in/", via: wayback }
+      - { role: tech, name: "Odisha Joint Entrance Examination (OJEE)", url: "https://ojee.nic.in/" }
+    cockpit: "state/odisha/index.html"
+
+  - id: punjab
+    name: "Punjab"
+    kind: state
+    board:
+      name: "Punjab School Education Board (PSEB) — Class 10 and Class 12"
+      links:
+        - { label: "PSEB", url: "https://www.pseb.ac.in/" }
+    bodies:
+      - { role: psc, name: "Punjab Public Service Commission (PPSC)", url: "https://ppsc.gov.in/" }
+      - { role: police, name: "Punjab Police (official website)", url: "https://punjabpolice.gov.in/" }
+      - { role: tech, name: "I.K. Gujral Punjab Technical University", url: "https://ptu.ac.in/" }
+      - { role: med, name: "Baba Farid University of Health Sciences, Faridkot", url: "https://bfuhs.ac.in/" }
+    cockpit: "state/punjab/index.html"
+    gaps: "Punjab scholarship portal showed only a server default page — not listed."
+
+  - id: rajasthan
+    name: "Rajasthan"
+    kind: state
+    board:
+      name: "Board of Secondary Education, Rajasthan (RBSE, Ajmer) — Class 10 and Class 12"
+      links:
+        - { label: "BSER Ajmer", url: "https://rajeduboard.rajasthan.gov.in/" }
+    bodies:
+      - { role: scholarship, name: "Social Justice &amp; Empowerment Department, Rajasthan (scholarships)", url: "https://sje.rajasthan.gov.in/" }
+      - { role: psc, name: "Rajasthan Public Service Commission (RPSC)", url: "https://rpsc.rajasthan.gov.in/" }
+      - { role: psc, name: "Rajasthan Staff Selection Board (RSSB)", url: "https://rssb.rajasthan.gov.in/" }
+      - { role: police, name: "Rajasthan Police (official website)", url: "https://police.rajasthan.gov.in/" }
+      - { role: tet, name: "Board of Secondary Education, Rajasthan (conducts REET)", url: "https://rajeduboard.rajasthan.gov.in/" }
+    cockpit: "state/rajasthan/index.html"
+    gaps: "Rajasthan NEET-UG state counselling site for 2026 could not be confirmed — not listed."
+
+  - id: sikkim
+    name: "Sikkim"
+    kind: state
+    bodies:
+      - { role: scholarship, name: "Scholarship Services — Sikkim", url: "https://scholarships.sikkim.gov.in/" }
+      - { role: psc, name: "Sikkim Public Service Commission", url: "https://spsc.sikkim.gov.in/" }
+      - { role: police, name: "Sikkim Police (official website)", url: "https://police.sikkim.gov.in/" }
+    gaps: "No Sikkim state board website could be opened — not listed."
+
+  - id: tamil-nadu
+    name: "Tamil Nadu"
+    kind: state
+    board:
+      name: "Directorate of Government Examinations, Tamil Nadu — SSLC (Class 10) and Higher Secondary (Class 11–12)"
+      links:
+        - { label: "DGE Tamil Nadu", url: "https://dge.tn.gov.in/" }
+    bodies:
+      - { role: scholarship, name: "UMIS — Tamil Nadu university and college scholarships", url: "https://umis.tn.gov.in/", via: wayback }
+      - { role: psc, name: "Tamil Nadu Public Service Commission (TNPSC)", url: "https://tnpsc.gov.in/" }
+      - { role: police, name: "Tamil Nadu Uniformed Services Recruitment Board (TNUSRB)", url: "https://tnusrb.tn.gov.in/" }
+      - { role: tech, name: "TNEA — Tamil Nadu Engineering Admissions", url: "https://www.tneaonline.org/" }
+      - { role: med, name: "Selection Committee, Directorate of Medical Education, TN", url: "https://tnmedicalselection.net/" }
+      - { role: tet, name: "Teachers Recruitment Board, Tamil Nadu (TN-TET)", url: "https://trb.tn.gov.in/" }
+    cockpit: "state/tamil-nadu/index.html"
+
+  - id: telangana
+    name: "Telangana"
+    kind: state
+    board:
+      name: "Board of Secondary Education, Telangana (SSC) and Telangana Board of Intermediate Education (Class 11–12)"
+      links:
+        - { label: "BSE Telangana", url: "https://bse.telangana.gov.in/" }
+        - { label: "TGBIE", url: "https://tgbie.cgg.gov.in/" }
+    bodies:
+      - { role: scholarship, name: "Telangana ePASS (scholarships)", url: "https://telanganaepass.cgg.gov.in/" }
+      - { role: psc, name: "Telangana Public Service Commission (TGPSC)", url: "https://websitenew.tgpsc.gov.in/" }
+      - { role: police, name: "Telangana State Level Police Recruitment Board (TGPRB)", url: "https://www.tgprb.in/" }
+      - { role: tech, name: "TG EAPCET (engineering, agriculture, pharmacy)", url: "https://eapcet.tgche.ac.in/" }
+      - { role: med, name: "Kaloji Narayana Rao University of Health Sciences (state-quota NEET counselling)", url: "https://www.knruhs.telangana.gov.in/" }
+      - { role: tet, name: "TG TET — Telangana Teacher Eligibility Test", url: "https://tgtet.aptonline.in/" }
+    cockpit: "state/telangana/index.html"
+
+  - id: tripura
+    name: "Tripura"
+    kind: state
+    board:
+      name: "Tripura Board of Secondary Education (TBSE) — Madhyamik (Class 10) and Higher Secondary (Class 12)"
+      links:
+        - { label: "TBSE", url: "https://tbse.tripura.gov.in/" }
+    bodies:
+      - { role: psc, name: "Tripura Public Service Commission", url: "https://tpsc.tripura.gov.in/" }
+      - { role: tech, name: "Tripura Board of Joint Entrance Examination (TBJEE)", url: "https://tbjee.tripura.gov.in/" }
+    gaps: "Tripura Police website and a state scholarship portal could not be opened — not listed."
+
+  - id: uttar-pradesh
+    name: "Uttar Pradesh"
+    kind: state
+    legacy: { state: upmsp }
+    board:
+      name: "UP Madhyamik Shiksha Parishad (UPMSP) — High School (Class 10) and Intermediate (Class 12)"
+      links:
+        - { label: "UPMSP", url: "https://upmsp.edu.in/" }
+    bodies:
+      - { role: scholarship, name: "Uttar Pradesh Scholarship Portal", url: "https://scholarship.up.gov.in/" }
+      - { role: psc, name: "Uttar Pradesh Public Service Commission (UPPSC)", url: "https://uppsc.up.nic.in/" }
+      - { role: police, name: "UP Police Recruitment &amp; Promotion Board (UPPRPB)", url: "https://uppbpb.gov.in/" }
+      - { role: tech, name: "UP Technical Admission Counselling (UPTAC, AKTU)", url: "https://uptac.samarth.edu.in/" }
+      - { role: med, name: "Directorate General of Medical Education, UP — UP NEET counselling", url: "https://upneet.gov.in/" }
+    cockpit: "state/uttar-pradesh/index.html"
+
+  - id: uttarakhand
+    name: "Uttarakhand"
+    kind: state
+    board:
+      name: "Uttarakhand Board of School Education (UBSE, Ramnagar) — Class 10 and Class 12"
+      links:
+        - { label: "UBSE", url: "https://ubse.uk.gov.in/" }
+    bodies:
+      - { role: psc, name: "Uttarakhand Public Service Commission (UKPSC)", url: "https://psc.uk.gov.in/" }
+      - { role: psc, name: "Uttarakhand Subordinate Service Selection Commission (UKSSSC)", url: "https://sssc.uk.gov.in/" }
+      - { role: tech, name: "Veer Madho Singh Bhandari Uttarakhand Technical University", url: "https://uktech.ac.in/" }
+      - { role: med, name: "H.N.B. Uttarakhand Medical Education University", url: "https://hnbumu.ac.in/" }
+    gaps: "Uttarakhand scholarship portal would not open — not listed."
+
+  - id: west-bengal
+    name: "West Bengal"
+    kind: state
+    legacy: { state: wb }
+    board:
+      name: "WBBSE — Madhyamik (Class 10) and WBCHSE — Higher Secondary (Class 12)"
+      links:
+        - { label: "WBBSE", url: "https://wbbse.wb.gov.in/" }
+        - { label: "WBCHSE", url: "https://wbchse.wb.gov.in/" }
+    bodies:
+      - { role: scholarship, name: "OASIS — West Bengal scholarships for SC, ST and OBC students", url: "https://oasis.wb.gov.in/" }
+      - { role: psc, name: "West Bengal Public Service Commission (WBPSC)", url: "https://psc.wb.gov.in/", via: wayback }
+      - { role: police, name: "West Bengal Police Recruitment Board (WBPRB)", url: "https://prb.wb.gov.in/" }
+      - { role: tech, name: "West Bengal Joint Entrance Examinations Board (WBJEEB)", url: "https://wbjeeb.nic.in/" }
+      - { role: med, name: "West Bengal Medical Counselling Committee (WBMCC)", url: "https://wbmcc.nic.in/" }
+      - { role: tet, name: "West Bengal Board of Primary Education (primary TET)", url: "https://wbbpe.wb.gov.in/" }
+    cockpit: "state/west-bengal/index.html"
+
+  # ------------------------------------------------------------------ UNION TERRITORIES
+  - id: andaman-nicobar
+    name: "Andaman and Nicobar Islands"
+    kind: ut
+    bodies:
+      - { role: admin, name: "Andaman and Nicobar Administration (official website)", url: "https://andaman.gov.in/", via: wayback }
+    gaps: "No separate UT school board; A&amp;N Police recruitment page would not open — not listed."
+
+  - id: chandigarh
+    name: "Chandigarh"
+    kind: ut
+    bodies:
+      - { role: admin, name: "Chandigarh Administration (official website)", url: "https://chandigarh.gov.in/" }
+      - { role: police, name: "Chandigarh Police (official portal)", url: "https://portal.chandigarhpolice.gov.in/" }
+    gaps: "No separate UT school board."
+
+  - id: dnh-dd
+    name: "Dadra and Nagar Haveli and Daman and Diu"
+    kind: ut
+    bodies:
+      - { role: admin, name: "UT Administration of DNH and DD (official website)", url: "https://ddd.gov.in/" }
+    gaps: "No separate UT school board; no separate police recruitment page found."
+
+  - id: delhi
+    name: "Delhi"
+    kind: ut
+    bodies:
+      - { role: psc, name: "Delhi Subordinate Services Selection Board (DSSSB)", url: "https://dsssb.delhi.gov.in/" }
+      - { role: police, name: "Delhi Police (constables and Sub-Inspectors are recruited through SSC)", url: "https://delhipolice.gov.in/" }
+      - { role: tech, name: "Joint Admission Committee (JAC) Delhi", url: "https://jacdelhi.admissions.nic.in/" }
+    cockpit: "state/delhi/index.html"
+    gaps: "No separate Delhi school board — Delhi schools follow CBSE."
+
+  - id: jammu-kashmir
+    name: "Jammu and Kashmir"
+    kind: ut
+    board:
+      name: "Jammu and Kashmir Board of School Education (JKBOSE) — Class 10 and Class 12"
+      links:
+        - { label: "JKBOSE", url: "https://jkbose.jk.gov.in/" }
+    bodies:
+      - { role: psc, name: "Jammu and Kashmir Public Service Commission (JKPSC)", url: "https://jkpsc.nic.in/" }
+      - { role: psc, name: "J&amp;K Services Selection Board (JKSSB)", url: "https://jkssb.nic.in/" }
+      - { role: tech, name: "J&amp;K Board of Professional Entrance Examinations (JKBOPEE)", url: "https://jkbopee.gov.in/" }
+      - { role: med, name: "JKBOPEE (UT-quota NEET counselling)", url: "https://jkbopee.gov.in/" }
+
+  - id: ladakh
+    name: "Ladakh"
+    kind: ut
+    bodies:
+      - { role: admin, name: "Administration of the UT of Ladakh (official website)", url: "https://ladakh.gov.in/" }
+      - { role: police, name: "Ladakh Police (official website)", url: "https://police.ladakh.gov.in/" }
+    gaps: "No separate Ladakh school board."
+
+  - id: lakshadweep
+    name: "Lakshadweep"
+    kind: ut
+    bodies:
+      - { role: admin, name: "Lakshadweep Administration (official website)", url: "https://lakshadweep.gov.in/", via: wayback }
+    gaps: "No separate UT school board; no police recruitment page found."
+
+  - id: puducherry
+    name: "Puducherry"
+    kind: ut
+    bodies:
+      - { role: police, name: "Puducherry Police (official website)", url: "https://police.py.gov.in/" }
+      - { role: tech, name: "CENTAC — Centralised Admission Committee, Puducherry", url: "https://www.centacpuducherry.in/" }
+      - { role: med, name: "CENTAC — UT-quota NEET counselling", url: "https://www.centacpuducherry.in/" }
+    gaps: "No separate UT school board."

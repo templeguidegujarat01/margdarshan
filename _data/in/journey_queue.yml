@@ -1,0 +1,160 @@
+# journey_queue — which careers get a full Journey Blueprint next (journey-blueprint.html, journey_matrix.yml).
+# Each batch takes the 10 highest-ranked rows with status: todo, builds them, and marks them done with the
+# blueprint id and batch number. Every title is copied exactly from assets/data/career-titles.json.
+#
+# How the ranking was made (written 2026-10-25, batch 5):
+#   - We could not read search-volume data (Google Trends is not reachable from our build setup), so NO search
+#     numbers are used or printed anywhere. The order is Margdarshan's editorial judgment.
+#   - The judgment weighs (1) how many students sit the gateway exam or recruitment for the career — NEET (UG),
+#     JEE Main, CTET and state police drives draw lakhs of candidates (Telangana's 2026 police drive alone received
+#     5,77,064 applications, TSLPRB press note of 17 Sep 2026); (2) whether the career has a clear official route a
+#     student can follow from Class 8; (3) spread across streams (science, commerce, arts, vocational, government).
+#   - Careers already built stay in the list at the rank we would give them today, so the queue shows coverage.
+#   - Specialist doctors (gynaecologist, cardiologist ...) sit low because they share the MBBS route already built;
+#     one "specialist doctor (NEET-PG)" blueprint can later cover them all.
+# Re-rank freely when real search data is available; keep titles exact.
+checked: 2026-10-25
+careers:
+  - { rank: 1, title: "General Physician", status: done, blueprint: doctor, batch: 3 }
+  - { rank: 2, title: "Software Engineer", status: done, blueprint: software-engineer, batch: 2 }
+  - { rank: 3, title: "Indian Administrative Service Officer", status: done, blueprint: civil-services, batch: 2 }
+  - { rank: 4, title: "Government School Teacher", status: done, blueprint: school-teacher, batch: 5 }
+  - { rank: 5, title: "Police Constable", status: done, blueprint: police, batch: 5 }
+  - { rank: 6, title: "Chartered Accountant in Audit", status: done, blueprint: ca, batch: 1 }
+  - { rank: 7, title: "Registered Nurse", status: done, blueprint: nurse, batch: 3 }
+  - { rank: 8, title: "Advocate", status: done, blueprint: lawyer, batch: 1 }
+  - { rank: 9, title: "Bank Branch Manager", status: done, blueprint: bank-po, batch: 2 }
+  - { rank: 10, title: "Indian Army Infantry Officer", status: done, blueprint: nda-officer, batch: 3 }
+  - { rank: 11, title: "Hospital Pharmacist", status: done, blueprint: pharmacist, batch: 5 }
+  - { rank: 12, title: "General Dentist", status: done, blueprint: dentist, batch: 5 }
+  - { rank: 13, title: "Government Civil Engineer", status: done, blueprint: civil-engineer, batch: 5 }
+  - { rank: 14, title: "Data Scientist", status: done, blueprint: data-scientist, batch: 3 }
+  - { rank: 15, title: "Locomotive Pilot", status: done, blueprint: loco-pilot, batch: 1 }
+  - { rank: 16, title: "Ayurvedic Physician", status: done, blueprint: ayurveda-doctor, batch: 5 }
+  - { rank: 17, title: "Physiotherapist", status: done, blueprint: physiotherapist, batch: 5 }
+  - { rank: 18, title: "Veterinary Surgeon", status: done, blueprint: veterinarian, batch: 5 }
+  - { rank: 19, title: "Fashion Designer", status: done, blueprint: fashion-designer, batch: 5 }
+  - { rank: 20, title: "Assistant Professor", status: done, blueprint: assistant-professor, batch: 5 }
+  - { rank: 21, title: "Commercial Airline Pilot", status: done, blueprint: commercial-pilot, batch: 2 }
+  - { rank: 22, title: "Merchant Navy Deck Cadet", status: done, blueprint: merchant-navy, batch: 2 }
+  - { rank: 23, title: "Architect", status: done, blueprint: architect, batch: 4 }
+  - { rank: 24, title: "Company Secretary", status: done, blueprint: company-secretary, batch: 3 }
+  - { rank: 25, title: "Equity Research Analyst", status: done, blueprint: financial-analyst, batch: 1 }
+  - { rank: 26, title: "Hotel General Manager", status: done, blueprint: hotel-manager, batch: 4 }
+  - { rank: 27, title: "Clinical Psychologist", status: done, blueprint: clinical-psychologist, batch: 4 }
+  - { rank: 28, title: "Industrial Biotechnologist", status: done, blueprint: biotech-scientist, batch: 4 }
+  - { rank: 29, title: "Government Mechanical Engineer", status: todo }
+  - { rank: 30, title: "Government Electrical Engineer", status: todo }
+  - { rank: 31, title: "Homoeopathic Physician", status: todo }
+  - { rank: 32, title: "Cost Accountant", status: todo }
+  - { rank: 33, title: "Graphic Designer", status: todo }
+  - { rank: 34, title: "Medical Laboratory Technologist", status: todo }
+  - { rank: 35, title: "Civil Judge", status: todo }
+  - { rank: 36, title: "Airline Cabin Crew Member", status: todo }
+  - { rank: 37, title: "Investigative Journalist", status: todo }
+  - { rank: 38, title: "Gynaecologist", status: todo }
+  - { rank: 39, title: "Railway Ticket Clerk", status: todo }
+  - { rank: 40, title: "Indian Air Force Fighter Pilot", status: todo }
+  - { rank: 41, title: "Interior Designer", status: todo }
+  - { rank: 42, title: "Ethical Hacker", status: todo }
+  - { rank: 43, title: "Forest Range Officer", status: todo }
+  - { rank: 44, title: "Actuary", status: todo }
+  - { rank: 45, title: "Optometrist", status: todo }
+  - { rank: 46, title: "Registered Dietitian", status: todo }
+  - { rank: 47, title: "Occupational Therapist", status: todo }
+  - { rank: 48, title: "Air Traffic Controller", status: todo }
+  - { rank: 49, title: "Aircraft Maintenance Engineer", status: todo }
+  - { rank: 50, title: "Marine Engineer", status: todo }
+  - { rank: 51, title: "Indian Navy Executive Officer", status: todo }
+  - { rank: 52, title: "Indian Coast Guard Assistant Commandant", status: todo }
+  - { rank: 53, title: "Executive Chef", status: todo }
+  - { rank: 54, title: "3D Animator", status: todo }
+  - { rank: 55, title: "Web Developer", status: todo }
+  - { rank: 56, title: "Game Developer", status: todo }
+  - { rank: 57, title: "Digital Marketing Manager", status: todo }
+  - { rank: 58, title: "Content Writer", status: todo }
+  - { rank: 59, title: "Data Analyst", status: todo }
+  - { rank: 60, title: "Cloud Engineer", status: todo }
+  - { rank: 61, title: "Business Analyst", status: todo }
+  - { rank: 62, title: "Human Resources Manager", status: todo }
+  - { rank: 63, title: "Marketing Manager", status: todo }
+  - { rank: 64, title: "Statistical Officer", status: todo }
+  - { rank: 65, title: "Economist", status: todo }
+  - { rank: 66, title: "Agricultural Officer", status: todo }
+  - { rank: 67, title: "Food Safety Officer", status: todo }
+  - { rank: 68, title: "Microbiologist", status: todo }
+  - { rank: 69, title: "Counselling Psychologist", status: todo }
+  - { rank: 70, title: "Librarian", status: todo }
+  - { rank: 71, title: "Special Education Teacher", status: todo }
+  - { rank: 72, title: "Physical Education Teacher", status: todo }
+  - { rank: 73, title: "Preschool Teacher", status: todo }
+  - { rank: 74, title: "Event Manager", status: todo }
+  - { rank: 75, title: "Wedding Photographer", status: todo }
+  - { rank: 76, title: "Film Director", status: todo }
+  - { rank: 77, title: "Playback Singer", status: todo }
+  - { rank: 78, title: "Professional Cricketer", status: todo }
+  - { rank: 79, title: "Yoga Instructor", status: todo }
+  - { rank: 80, title: "Fitness Instructor", status: todo }
+  - { rank: 81, title: "Makeup Artist", status: todo }
+  - { rank: 82, title: "Hairstylist", status: todo }
+  - { rank: 83, title: "Beautician", status: todo }
+  - { rank: 84, title: "Social Media Manager", status: todo }
+  - { rank: 85, title: "YouTube Content Creator", status: todo }
+  - { rank: 86, title: "Freelance Video Editor", status: todo }
+  - { rank: 87, title: "Tour Guide", status: todo }
+  - { rank: 88, title: "Social Worker", status: todo }
+  - { rank: 89, title: "Stockbroker", status: todo }
+  - { rank: 90, title: "Patent Attorney", status: todo }
+  - { rank: 91, title: "Insolvency Resolution Professional", status: todo }
+  - { rank: 92, title: "Exploration Geologist", status: todo }
+  - { rank: 93, title: "Forensic Science Officer", status: todo }
+  - { rank: 94, title: "Nursing Officer", status: todo }
+  - { rank: 95, title: "Anaesthesia Technologist", status: todo }
+  - { rank: 96, title: "Dialysis Technologist", status: todo }
+  - { rank: 97, title: "Operation Theatre Technologist", status: todo }
+  - { rank: 98, title: "Paramedic", status: todo }
+  - { rank: 99, title: "Speech-Language Pathologist", status: todo }
+  - { rank: 100, title: "Audiologist", status: todo }
+  - { rank: 101, title: "Unani Physician", status: todo }
+  - { rank: 102, title: "Clinical Nutritionist", status: todo }
+  - { rank: 103, title: "Paediatrician", status: todo }
+  - { rank: 104, title: "Cardiologist", status: todo }
+  - { rank: 105, title: "Dermatologist", status: todo }
+  - { rank: 106, title: "Psychiatrist", status: todo }
+  - { rank: 107, title: "Orthopaedic Surgeon", status: todo }
+  - { rank: 108, title: "Ophthalmologist", status: todo }
+  - { rank: 109, title: "Neurologist", status: todo }
+  - { rank: 110, title: "Judicial Magistrate", status: todo }
+  - { rank: 111, title: "Sub-Divisional Magistrate", status: todo }
+  - { rank: 112, title: "Montessori Teacher", status: todo }
+  - { rank: 113, title: "Archaeologist", status: todo }
+  - { rank: 114, title: "Museum Curator", status: todo }
+  - { rank: 115, title: "Town Planner", status: todo }
+  - { rank: 116, title: "Quantity Surveyor", status: todo }
+  - { rank: 117, title: "Conference Interpreter", status: todo }
+  - { rank: 118, title: "Technical Translator", status: todo }
+  - { rank: 119, title: "Defence Research Scientist", status: todo }
+  - { rank: 120, title: "Aerospace Design Engineer", status: todo }
+  - { rank: 121, title: "Petrochemical Engineer", status: todo }
+  - { rank: 122, title: "Mining Engineer", status: todo }
+  - { rank: 123, title: "Petroleum Engineer", status: todo }
+  - { rank: 124, title: "Robotics Engineer", status: todo }
+  - { rank: 125, title: "Blockchain Developer", status: todo }
+  - { rank: 126, title: "DevOps Engineer", status: todo }
+  - { rank: 127, title: "Supply Chain Manager", status: todo }
+  - { rank: 128, title: "Logistics Manager", status: todo }
+  - { rank: 129, title: "Insurance Underwriter", status: todo }
+  - { rank: 130, title: "Real Estate Agent", status: todo }
+  - { rank: 131, title: "Startup Founder", status: todo }
+  - { rank: 132, title: "Pharmaceutical Sales Representative", status: todo }
+  - { rank: 133, title: "Emergency Medical Technician", status: todo }
+  - { rank: 134, title: "Dialysis Nurse", status: todo }
+  - { rank: 135, title: "Mechanical Design Engineer", status: todo }
+  - { rank: 136, title: "Renewable Energy Electrical Engineer", status: todo }
+  - { rank: 137, title: "Government Electronics Engineer", status: todo }
+  - { rank: 138, title: "Government Computer Engineer", status: todo }
+  - { rank: 139, title: "Hospital Operations Analyst", status: todo }
+  - { rank: 140, title: "Music Therapist", status: todo }
+  - { rank: 141, title: "Music Teacher", status: todo }
+  - { rank: 142, title: "Fashion Merchandiser", status: todo }
+  - { rank: 143, title: "Textile Designer", status: todo }

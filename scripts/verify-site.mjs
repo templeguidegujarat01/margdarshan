@@ -1,5 +1,5 @@
 // Offline QA for the Jekyll site using liquidjs (no Ruby needed).
-//   VERIFY_DEPS=<dir containing node_modules with liquidjs + js-yaml> node scripts/verify-site.mjs [--all]
+//   VERIFY_DEPS=<dir containing node_modules with liquidjs + js-yaml> node scripts/verify-site.mjs [--all | --only=<path prefix>]
 // Renders every roadmaps/*.html (and, with --all, every top-level page) through the real layout and checks:
 //   - Liquid renders without error, 0 unresolved {{ }} / {% %}
 //   - every JSON-LD block parses
@@ -25,6 +25,8 @@ const req = createRequire(path.join(process.env.VERIFY_DEPS || root, 'x.js'));
 const { Liquid } = req('liquidjs');
 const yaml = req('js-yaml');
 const all = process.argv.includes('--all');
+// --only=<prefix>: check just the top-level pages whose path starts with <prefix> (e.g. --only=journey); no --all checks.
+const only = (process.argv.find((a) => a.startsWith('--only=')) || '').slice(7);
 
 // ---- site data ----
 const config = yaml.load(fs.readFileSync(path.join(root, '_config.yml'), 'utf8'));
@@ -62,7 +64,7 @@ const walk = (d, rel = '') => {
 walk(root);
 const permalinkIndex = new Set(['index.html']);
 
-const targets = [...urlSet].filter((f) => f.endsWith('.html') && !f.startsWith('_') && !f.startsWith('redirects/') && (all ? true : f.startsWith('roadmaps/')));
+const targets = [...urlSet].filter((f) => f.endsWith('.html') && !f.startsWith('_') && !f.startsWith('redirects/') && (only ? f.startsWith(only) : all ? true : f.startsWith('roadmaps/')));
 const errors = [];
 const err = (f, m) => errors.push(f + ': ' + m);
 

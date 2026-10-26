@@ -1,0 +1,176 @@
+# Journey Blueprint — Medical Laboratory Technologist (BMLS under NCAHP, or DMLT → Railway Lab Assistant). Printed on journey-lab-technologist.html (_includes/journey-doubts.html).
+# Rules, classes and the money items / sources several careers share: _data/in/journey_common.yml.
+# `sources` below are used only by this career; the RRB paramedical notice comes from pharmacist.yml.
+# Check: node scripts/check-journey-matrix.mjs
+id: lab-technologist
+v: 2
+name: "Medical Laboratory Technologist (BMLS / DMLT)"
+search: ["medical laboratory technologist", "lab technologist", "medical lab technician", "lab technician", "bmls", "dmlt", "bsc mlt", "pathology lab"]
+page: "medical-laboratory-technology.html"
+roadmap: "roadmaps/medical-laboratory-technology.html"
+doubts_page: "journey-lab-technologist.html"
+gate: "Class 12 Science with PCB (50%) → appear in NEET (UG) → BMLS: 4 years including a 1-year internship, under the NCAHP curriculum → Medical Laboratory Technologist; BMLS + experience or MMLS → Laboratory Scientist. A Class 12 Science + DMLT route leads to posts such as Railway Lab Assistant."
+gate_source: [ncahp-mls, rrb-para]
+core:
+  what:
+    text: "Medical laboratory technologists test blood, urine, tissue and other samples so that doctors can diagnose disease. Under the NCAHP Act 2021, medical laboratory science is a regulated allied and healthcare profession with a national competency-based curriculum."
+    source: ncahp-mls
+  day:
+    - "Collect and process samples, and run tests on analysers."
+    - "Do microscopy, biochemistry, microbiology and blood-bank work."
+    - "Run quality checks and report results accurately."
+  pay:
+    - { level: "Laboratory Assistant Grade II, Indian Railways (RRB CEN 03/2025)", value: "Pay Level 3 · ₹21,700 starting pay", source: rrb-para }
+  pay_note: "Private laboratory pay is not officially published, so it is not printed."
+  routes:
+    - { title: "BMLS (Bachelor of Medical Laboratory Science)", text: "Class 12 with Physics, Chemistry and Biology (at least 50%); admission on the basis of having appeared for NEET; 4 years including a 1-year compulsory internship.", source: ncahp-mls }
+    - { title: "Diploma (DMLT) → Lab Assistant", text: "Railway Lab Assistant Grade II needs Class 12 Science plus a DMLT, or a full-time certificate of at least one year at par with it.", source: rrb-para }
+    - { title: "MMLS and Laboratory Scientist", text: "A 2-year master's including six months of research dissertation; NCAHP's career map puts Laboratory Scientists at BMLS + 5 years' experience or MMLS with 50%.", source: ncahp-mls }
+  cost_time:
+    - { label: "BMLS", value: "4 years including 1 year of internship", source: ncahp-mls }
+    - { label: "MMLS", value: "2 years including 6 months of research dissertation", source: ncahp-mls }
+    - { label: "NEET (UG) fee (India centre)", value: "₹1,700 General · ₹1,600 EWS / OBC-NCL · ₹1,000 SC / ST / PwBD / third gender", source: neet-ib }
+  cost_note: "College fees differ by state and college, so they are not printed here."
+  challenges:
+    - text: "Central Railway posts are few: CEN 03/2025 had 12 Lab Assistant Grade II posts out of 434 paramedical posts."
+      source: rrb-para
+    - text: "NCAHP did not propose a revised curriculum for the Diploma in Medical Laboratory Science — the national curriculum covers the BMLS and MMLS."
+      source: ncahp-mls
+    - text: "Internship stipends are left to each university or institution; NCAHP only recommends a reasonable amount."
+      source: ncahp-mls
+  not_for:
+    - "You dislike handling blood and body samples."
+    - "You are careless with labels and records — one mix-up can harm a patient."
+    - "You want constant patient contact — most work is inside the lab."
+journey:
+  - stages: [c8, c9]
+    title: "Biology and Chemistry"
+    do:
+      - text: "BMLS needs Class 12 with Physics, Chemistry and Biology — at least 50% — so build Science early."
+        source: ncahp-mls
+    doubts:
+      - q: "What does a medical laboratory technologist do?"
+        a: "They test blood, urine, tissue and other samples so that doctors can diagnose disease. The NCAHP Act 2021 regulates the profession, and NCAHP has a national competency-based curriculum for it."
+        next: "Read the Routes list above."
+        source: ncahp-mls
+      - q: "Is lab technology regulated in India?"
+        a: "Yes. The National Commission for Allied and Healthcare Professions Act was notified on 28 March 2021; it regulates education and services and keeps a Central Register and State Registers of allied and healthcare professionals."
+        next: "Choose colleges that follow the NCAHP curriculum."
+        source: ncahp-mls
+  - stages: [c10]
+    title: "Choose PCB"
+    do:
+      - text: "Take Physics, Chemistry and Biology in Class 11 — both BMLS and DMLT-based posts need Class 12 Science."
+        source: [ncahp-mls, rrb-para]
+    stream: "Science with Biology (PCB)."
+    doubts:
+      - q: "Can I do lab technology after Class 10?"
+        a: "For the Railway Lab Assistant post, no: it needs Class 12 Science plus a DMLT. BMLS also needs Class 12 Science with PCB."
+        next: "Finish Class 12 Science first."
+        source: [rrb-para, ncahp-mls]
+  - stages: [c11, c12]
+    title: "Class 12 PCB and NEET"
+    do:
+      - text: "BMLS admission is on the basis of having appeared for NEET (UG), with at least 50% in Physics, Chemistry and Biology in Class 12."
+        source: ncahp-mls
+    exams:
+      - { name: "NEET (UG) 2026", when: "3 May 2026 (re-exam 21 June 2026)", source: [neet-ib, neet-re] }
+    money: [neet-fee]
+    doubts:
+      - q: "Do I need NEET for BMLS?"
+        a: "NCAHP's curriculum says admission should be on the basis of the candidate having appeared for NEET (UG), along with Class 12 PCB at 50% or more."
+        next: "Register for NEET even if MBBS is not your goal; check your state's admission rules too."
+        source: ncahp-mls
+      - q: "What marks do I need in Class 12 for BMLS?"
+        a: "At least 50% in Physics, Chemistry and Biology from a recognised board."
+        next: "Keep your PCB marks above 50%."
+        source: ncahp-mls
+      - q: "My board did not have English. Is that a problem?"
+        a: "NCAHP encourages such students to take English as an elective through Swayam or similar platforms; it does not add university credit."
+        next: "Take an online English course before or during BMLS."
+        source: ncahp-mls
+  - stages: [ug]
+    title: "BMLS and internship"
+    do:
+      - text: "BMLS lasts 4 years including a 1-year compulsory internship (laboratory rotation or research dissertation)."
+        source: ncahp-mls
+    doubts:
+      - q: "How long is BMLS?"
+        a: "Four years, including one year of compulsory internship in laboratory rotation or a research dissertation."
+        next: "Plan for four years."
+        source: ncahp-mls
+      - q: "Are BMLS interns paid?"
+        a: "NCAHP's task force strongly recommends a stipend during the internship but leaves the amount to each university or institution."
+        next: "Ask your college about its internship stipend before joining."
+        source: ncahp-mls
+      - q: "Is there an exit or licence exam for lab professionals?"
+        a: "Not yet in force. NCAHP's curriculum says an exit exam by an agency identified by the Commission can be held and may evolve into a licensure exam for all allied and healthcare professionals."
+        next: "Watch NCAHP notices in your final year."
+        source: ncahp-mls
+  - stages: [grad]
+    title: "Jobs and the master's"
+    do:
+      - text: "An MMLS takes 2 years including six months of research dissertation."
+        source: ncahp-mls
+    doubts:
+      - q: "What is the career ladder in medical labs?"
+        a: "NCAHP's map: Medical Laboratory Technologist with a BMLS; Laboratory Scientist with BMLS + 5 years' clinical experience or an MMLS with 50%; senior posts with more experience. Old diplomas (before 2021) map to the Associate level."
+        next: "Plan an MMLS or build experience to move up."
+        source: ncahp-mls
+      - q: "What does a Medical Laboratory Scientist do differently?"
+        a: "NCAHP describes scientists working closely with physicians: running specialised assays, relaying results to doctors, setting up quality-assurance programmes, supervising associates and technologists, and training staff."
+        next: "Aim for an MMLS if this work appeals to you."
+        source: ncahp-mls
+      - q: "Can a DMLT holder get a Railway job?"
+        a: "Yes. RRB's Lab Assistant Grade II needs Class 12 Science plus a DMLT, or a full-time certificate of at least one year at par with the DMLT; age 18–33; Pay Level 3."
+        next: "Watch for the next RRB paramedical notice."
+        source: rrb-para
+      - q: "How many Railway lab posts were notified recently?"
+        a: "CEN 03/2025 (paramedical) had 12 Lab Assistant Grade II posts at Pay Level 3 (₹21,700) out of 434 paramedical posts across RRBs."
+        next: "Apply to every relevant notice — posts are few."
+        source: rrb-para
+  - stages: [work]
+    title: "Diploma holders already working"
+    do:
+      - text: "NCAHP's career map lets a Diploma in MLS (2 years + 6 months' internship, obtained between 2015 and 2021) with 5 years' clinical experience reach the Technologist level."
+        source: ncahp-mls
+    doubts:
+      - q: "I have an old DMLT. Can I move up?"
+        a: "NCAHP's career map recognises a Diploma in MLS obtained between 2015 and 2021 plus 5 years' clinical experience at the Technologist level; a BMLS remains the main entry route."
+        next: "Consider a BMLS if your diploma is newer."
+        source: ncahp-mls
+      - q: "Is the Railway Lab Assistant exam negatively marked?"
+        a: "Yes. In RRB CEN 03/2025, one-third of a mark is cut for each wrong answer in the computer-based test, and marks are normalised across shifts."
+        next: "Practise with timed tests."
+        source: rrb-para
+board_note: "Any board. Class 12 needs Physics, Chemistry and Biology — at least 50% for BMLS."
+board_source: ncahp-mls
+exam:
+  name: "NEET (UG) appearance → BMLS · DMLT → RRB Lab Assistant"
+  body: "NCAHP (curriculum) · Railway Recruitment Boards"
+  href: "medical-laboratory-technology.html"
+  facts:
+    - { label: "BMLS", value: "4 years incl. 1-year internship", source: ncahp-mls }
+    - { label: "Entry", value: "Class 12 PCB 50% · appeared in NEET", source: ncahp-mls }
+    - { label: "Railway Lab Assistant Gr II", value: "Level 3 · ₹21,700 · age 18–33", source: rrb-para }
+    - { label: "MMLS", value: "2 years", source: ncahp-mls }
+  stages:
+    head: ["Stage", "What it is", "Rule"]
+    rows:
+      - ["Class 12", "Physics, Chemistry, Biology", "50% for BMLS"]
+      - ["BMLS", "4 years incl. internship", "Appeared in NEET (UG)"]
+      - ["MMLS", "2-year master's", "6 months' dissertation"]
+      - ["RRB Lab Assistant Gr II", "Railway post", "Class 12 Science + DMLT"]
+    source: [ncahp-mls, rrb-para]
+state_rules:
+  - { text: "National route: the NCAHP curriculum and RRB notices apply across India. Admission to BMLS seats follows each state's or university's own counselling rules.", source: [ncahp-mls, rrb-para] }
+multiverse:
+  - { title: "Medical lab technology guide", text: "Courses, colleges and jobs.", href: "medical-laboratory-technology.html" }
+  - { title: "DMLT", text: "The diploma route.", href: "dmlt.html" }
+  - { title: "Nursing officer", text: "Hospital care through AIIMS NORCET.", href: "journey-nursing-officer.html" }
+  - { title: "Pharmacist", text: "Another allied health career.", href: "journey-pharmacist.html" }
+  - { title: "Physiotherapist", text: "An NCAHP profession too.", href: "journey-physiotherapist.html" }
+money: [nmmss, csss, pms-sc, neet-fee]
+
+sources:
+  - { id: ncahp-mls, name: "NCAHP — Competency Based Curriculum for Medical Laboratory Sciences (approved 2025), as adopted by VNSGU, Surat for 2026-27", url: "https://vnsgu.ac.in/uploads/syllabus/Syllabus%20(2026-2027)/Medicine/UG/Medical%20Laboratory%20Science%20UG-PG-Curriculum-Rules%20Regulations-Syllabus%20As%20per%20NCAHP-2026-27(Dt.23-04-2026).pdf", covers: "NCAHP Act 2021 and registers, BMLS entry (PCB 50%, appeared in NEET), 4-year BMLS with 1-year internship, 2-year MMLS, internship stipend left to institutions, exit / licensure exam proposal, no revised diploma curriculum, laboratory career map", checked: 2026-10-26 }

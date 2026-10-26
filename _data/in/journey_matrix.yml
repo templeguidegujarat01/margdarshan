@@ -1,14 +1,21 @@
-# journey_matrix — data for journey-blueprint.html (the Student Journey Blueprint).
-# The page prints this file as JSON and a small script renders the four blocks + the money block for the
-# chosen career × class × board. Edit this file, not the page.
+# journey_matrix — data for the Student Journey Blueprint. Every career here has its own page, journey-<id>.html
+# (_includes/journey-doubts.html, stubs by scripts/build-journey-pages.mjs); journey-blueprint.html only picks a
+# career + class and redirects there with ?class=10. Edit this file, not the pages.
+#
+# LEAN DATA TIER (from 2026-10-26): there is no state / board picker any more. New careers carry the deep National /
+# Central road only — core, journey (Class 8, 9, 10, 11, 12, college, graduated, working), exam, multiverse, money —
+# plus all-India `state_rules` lines (no `state:`). Do NOT research state-by-state rows or `state_uses` for new
+# careers. State rows already written (with `state:`) stay: the career page prints them as "State notes we have
+# checked", one fold per state, and `state_uses` careers keep their 36-state office table.
 #
 # Rules (same as every India sheet):
 #   - Never type a number you did not read on the official document. Every fact line carries `source:`
 #     (an id from `sources` at the bottom). Lines without `source:` are Margdarshan guidance, not facts.
 #   - `stages` lists the class ids a step / scheme applies to. The page shows only what is still ahead
 #     of the student: an item is hidden once every stage in it is behind the chosen class.
-#   - `state:` limits an item to one of the 36 states / UTs in journey_states.yml (the student picks a state and a
-#     board type). `boards` below are kept for the older careers' board_notes; the page maps state + board type to them.
+#   - `state:` ties an existing item to one of the 36 states / UTs in journey_states.yml; the page labels it with that
+#     state's name. `boards` below are kept for the older careers' board_notes: `other` is printed as the general
+#     board note, the state boards' notes go into that state's fold.
 #   - `source:` may be one id or a list of ids. A board_notes value may be plain text (cited to the career's
 #     `board_source`) or { text, source } when that board's note comes from a different file.
 #   - `search` lists phrases that tie titles from the 10,000-title search list (assets/data/career-titles.json) to
@@ -450,7 +457,7 @@ careers:
           - ["JEE Main Paper 1", "Maths, Physics, Chemistry: 20 MCQs + 5 numerical questions each", "+4 / −1 in both sections", "Ties go to Maths, then Physics, then Chemistry NTA score"]
           - ["JEE Advanced (for IITs)", "Separate exam by the IITs", "—", "Top 2,50,000 Paper 1 candidates become eligible"]
           - ["JoSAA / CSAB", "Seat allotment at NITs, IIITs, IIEST and other GFTIs", "—", "75% in Class 12 (65% SC/ST/PwD) or top 20 percentile of your board"]
-          - ["State counselling", "ACPC (Gujarat), UPTAC (UP), CAP (Maharashtra), WBJEEB (West Bengal)", "—", "Each state's own merit and domicile rules — see the State rules block"]
+          - ["State counselling", "ACPC (Gujarat), UPTAC (UP), CAP (Maharashtra), WBJEEB (West Bengal)", "—", "Each state's own merit and domicile rules — see the State rules section of this career's blueprint"]
         source: jm-ib
       notes:
         - text: "Central reservation on JEE Main seats: SC 15%, ST 7.5%, OBC-NCL 27%, Gen-EWS 10%, and 5% horizontal for PwD inside each."
@@ -870,7 +877,7 @@ careers:
         rows:
           - ["NEET (UG)", "Physics 45, Chemistry 45, Biology 90 questions — all compulsory MCQs", "+4 / −1", "Qualify at the 50th percentile (General / EWS), 40th (SC, ST, OBC), 45th (PwBD General)"]
           - ["MCC counselling", "15% All India Quota in state government colleges, AIIMS, JIPMER, central universities, ESIC and deemed universities", "—", "Central reservation: SC 15%, ST 7.5%, OBC-NCL 27%, EWS 10%, PwBD 5%"]
-          - ["State counselling", "ACPUGMEC (Gujarat), DGME (UP), State CET Cell (Maharashtra), DME (West Bengal)", "—", "Each state's own domicile and reservation rules — see the State rules block"]
+          - ["State counselling", "ACPUGMEC (Gujarat), DGME (UP), State CET Cell (Maharashtra), DME (West Bengal)", "—", "Each state's own domicile and reservation rules — see the State rules section of this career's blueprint"]
           - ["MBBS + internship", "University exams, then a rotating internship of at least 12 months", "—", "Max 4 attempts at first-year MBBS; finish within 9 years of admission"]
         source: [neet-ib, gmer, crmi]
       notes:
@@ -1713,11 +1720,11 @@ careers:
         doubts:
           - q: "Do I need NEET to become a pharmacist?"
             a: "No national rule asks for NEET. The PCI rules for D.Pharm and B.Pharm only ask for Class 12 with Physics, Chemistry and Biology or Maths. Each state picks its own admission test — for example KCET in Karnataka and the Kerala pharmacy entrance in Kerala."
-            next: "Look up your state's admission route in the State rules block of your blueprint."
+            next: "Look up your state's admission route in the State rules section of this page."
             source: [pci-bph, kcet-ib, ke-noti]
           - q: "Is a pharmacist just a medical shop job?"
             a: "No. Registered pharmacists work in hospitals, medicine factories, labs, government health services and the railways. Some go on to M.Pharm and research."
-            next: "Read the Routes list in the first block."
+            next: "Read the Main routes list in The job section."
             source: [rrb-para, gp-ib]
       - stages: [c10]
         title: "Choose Science with Physics and Chemistry"
@@ -2362,7 +2369,7 @@ careers:
       pay_note: "We could not open an official 2026 notice that prints veterinary officer pay, and no official body publishes private veterinary pay — so no pay is printed here yet."
       routes:
         - { title: "Clinic or farm practice", text: "Treat pets or livestock in your own or another vet's practice after the degree.", source: vci-ib }
-        - { title: "Government veterinary service", text: "States run veterinary hospitals and dispensaries and recruit veterinary graduates through their own commissions — see your state's offices in the State rules block of your blueprint." }
+        - { title: "Government veterinary service", text: "States run veterinary hospitals and dispensaries and recruit veterinary graduates through their own commissions — see your state's offices in the State rules section of this page." }
         - { title: "Master's and research", text: "A master's after B.V.Sc &amp; A.H. leads to specialist, teaching and research work." }
       cost_time:
         - { label: "B.V.Sc &amp; A.H.", value: "5½ years, including a compulsory 1-year internship", source: vci-ib }
@@ -2390,7 +2397,7 @@ careers:
         doubts:
           - q: "Do I need NEET to become a vet?"
             a: "For the 15% all-India VCI quota, yes — VCI fills those seats from the NEET (UG) 2026 merit list. State seats follow each state's own rules: Karnataka uses KCET, and Andhra Pradesh and Telangana use EAPCET."
-            next: "Check your state's route in the State rules block of your blueprint and plan for both."
+            next: "Check your state's route in the State rules section of this page and plan for both."
             source: [vci-ib, kcet-ib, eap-ib, tg-eap-dn]
           - q: "Who controls veterinary education in India?"
             a: "The Veterinary Council of India, a statutory body set up under the Indian Veterinary Council Act, 1984. It regulates veterinary practice and education and keeps the Indian Veterinary Practitioners' Register."
@@ -2482,7 +2489,7 @@ careers:
             source: vci-ib
           - q: "Is there government work for vets?"
             a: "Yes. States run veterinary hospitals and dispensaries and recruit veterinary graduates through their own public service commissions and animal husbandry departments."
-            next: "Open your state's recruitment office listed in the State rules block of your blueprint."
+            next: "Open your state's recruitment office listed in the State rules section of this page."
       - stages: [work]
         title: "Starting later"
         do:
@@ -2640,7 +2647,7 @@ careers:
             source: [ncahp-bpt, cahet, jenpas]
           - q: "Is there an entrance exam for BPT?"
             a: "Some states have one, some do not. West Bengal uses JENPAS(UG); Uttar Pradesh, Karnataka and Gujarat admit on Class 12 marks."
-            next: "Find your state in the State rules block of your blueprint."
+            next: "Find your state in the State rules section of this page."
             source: [jenpas, cahet, kcet-ib, gj-nur]
           - q: "Can NIOS students join BPT?"
             a: "Yes in some states. Uttar Pradesh's 2026 bulletin accepts NIOS and state open schools with science subjects and English, and NCAHP's curriculum also names the National Open School."
@@ -3023,7 +3030,7 @@ careers:
             source: [wb-pc-vac, up-pc]
           - q: "Is police a state job or a central job?"
             a: "Mostly state. Each state recruits its own police through its own board. Delhi Police and the central armed police forces recruit through the Staff Selection Commission."
-            next: "Find your state's police recruitment board in the State rules block of your blueprint."
+            next: "Find your state's police recruitment board in the State rules section of this page."
             source: [dl-pc, dl-si]
       - stages: [c10]
         title: "Any stream — pass Class 12"
@@ -3060,7 +3067,7 @@ careers:
         doubts:
           - q: "What is the age limit for police constable?"
             a: "It depends on the state and the drive. UP 2025: men 18–22, women 18–25. Karnataka 2026: 18–33. Kerala PSC: 18–26. Reserved categories get extra years."
-            next: "Read your state's latest notice in the State rules block of your blueprint."
+            next: "Read your state's latest notice in the State rules section of this page."
             source: [up-pc, ka-pc, kl-pc]
           - q: "Is there a physical test in police recruitment?"
             a: "Yes, in every state: body measurement and a running test. Gujarat's: men run 5 km in 25 minutes and women 1.6 km in 9 minutes 30 seconds."
@@ -3091,7 +3098,7 @@ careers:
             source: [dl-si, up-si]
           - q: "Who conducts the SI exam in my state?"
             a: "Usually the state police recruitment board. In some states the State PSC runs it — RPSC in Rajasthan, CGPSC in Chhattisgarh and MPSC (through its Group-B combined exam) in Maharashtra."
-            next: "Check the State rules block of your blueprint for your state."
+            next: "Check the State rules section of this page for your state."
             source: [rj-si, cg-si, mh-psi]
       - stages: [grad]
         title: "Graduated: SI, CAPF SI or a State PSC officer post"
@@ -3231,7 +3238,7 @@ careers:
             source: ese27
           - q: "Can I become a civil engineer without JEE?"
             a: "Yes. State engineering seats use state routes too (Gujarat's GUJCET with ACPC, Maharashtra's MHT-CET), and a polytechnic diploma after Class 10 leads to Junior Engineer jobs or lateral entry into B.Tech."
-            next: "Check your state's route in the State rules block of your blueprint."
+            next: "Check your state's route in the State rules section of this page."
             source: [acpc-advt, mht-ib, jee-ib, acpc-be]
       - stages: [c10]
         title: "Science with Maths — or a polytechnic diploma"

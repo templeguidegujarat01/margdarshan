@@ -1,4 +1,4 @@
-// Checks _data/in/journey_matrix.yml (the Student Journey Blueprint, journey-blueprint.html) and the shared state
+// Checks _data/in/journey_matrix.yml (the Student Journey Blueprint: journey-blueprint.html + journey-<id>.html) and the shared state
 // layer _data/in/journey_states.yml.
 //   VERIFY_DEPS=<dir containing node_modules with js-yaml> node scripts/check-journey-matrix.mjs
 // Fails (exit 1) on: YAML errors, duplicate ids, a `stages` entry that is not a class id, a `source:` id that is
@@ -8,7 +8,10 @@
 // or not text, and a general_money id that `money` lacks.
 // Three-layer careers (`v: 2`) are checked for: core (what, day, routes, challenges, not_for; pay and cost lines
 // cited), a `journey` that covers every class from Class 8 to graduated, at least 15 doubts each with q / a / next,
-// `state_uses` roles that exist, and a doubts page (journey-<id>.html) that exists.
+// `state_uses` roles that exist.
+// Every career needs its own page journey-<id>.html (scripts/build-journey-pages.mjs writes the stub).
+// Lean data tier (2026-10-26): only the 28 careers built before the state picker was dropped may carry state-by-state
+// rows (`state:` in state_rules) or `state_uses`; a newer career with either fails, so batches stay national-only.
 // journey_states.yml: 36 entries (28 states + 8 UTs), unique ids, known roles, https links, every legacy board id
 // a real board. journey_queue.yml (if present): ranks in order, titles exactly in assets/data/career-titles.json, no
 // duplicates, status todo / done, done rows name a real career, and every career has a done row.
@@ -42,6 +45,11 @@ const states = dupes(S.states, 'state');
 const ROLES = new Set(['scholarship', 'psc', 'police', 'tech', 'med', 'tet', 'admin']);
 const USES = new Set([...ROLES, 'board']);
 const cited = new Set();
+// Careers built while the blueprint still had a state picker (batches 1–5); only these keep state rows.
+const STATE_ROWS_OK = new Set(['loco-pilot', 'lawyer', 'ca', 'financial-analyst', 'software-engineer', 'merchant-navy', 'commercial-pilot',
+  'bank-po', 'civil-services', 'doctor', 'nurse', 'nda-officer', 'company-secretary', 'data-scientist', 'architect', 'clinical-psychologist',
+  'hotel-manager', 'biotech-scientist', 'pharmacist', 'dentist', 'ayurveda-doctor', 'veterinarian', 'physiotherapist', 'school-teacher',
+  'police', 'civil-engineer', 'fashion-designer', 'assistant-professor']);
 
 // ---- journey_states.yml
 if ((S.states || []).length !== 36) err(`journey_states.yml: ${(S.states || []).length} states / UTs, expected 36`);
@@ -89,7 +97,12 @@ const points = (list, where) => (list || []).forEach((p, j) => { textOk(p.text, 
 for (const c of D.careers || []) {
   const at = `career ${c.id}`;
   const v2 = c.v === 2;
-  for (const k of ['name', 'page', 'gate', v2 ? 'journey' : 'foundation', 'exam', 'state_rules', 'multiverse', 'money']) if (!c[k]) err(`${at}: missing ${k}`);
+  for (const k of ['name', 'page', 'gate', v2 ? 'journey' : 'foundation', 'exam', 'multiverse', 'money']) if (!c[k]) err(`${at}: missing ${k}`);
+  pageOk(`journey-${c.id}.html`, at + ' blueprint page (run node scripts/build-journey-pages.mjs)');
+  if (!STATE_ROWS_OK.has(c.id)) {
+    if ((c.state_rules || []).some((r) => r.state)) err(`${at}: state-by-state rows are not added for new careers (lean data tier) — keep state_rules all-India`);
+    if (c.state_uses) err(`${at}: state_uses is not added for new careers (lean data tier)`);
+  }
   pageOk(c.page, at); pageOk(c.roadmap, at + ' roadmap');
   cite(c.gate_source, at + ' gate'); cite(c.board_source, at + ' board_source');
   (c.foundation || []).forEach((f, i) => {
@@ -151,7 +164,7 @@ for (const c of D.careers || []) {
   for (const s of ['c8', 'c9', 'c10', 'c11', 'c12', 'ug', 'grad']) if (!covered.has(s)) err(`${at}: journey has no step for "${s}"`);
   if (doubts < 15) err(`${at}: ${doubts} doubts — at least 15 needed`);
   for (const u of c.state_uses || []) if (!USES.has(u)) err(`${at}: state_uses "${u}" is not a role`);
-  if (!c.doubts_page) err(`${at}: doubts_page missing`); else pageOk(c.doubts_page, at + ' doubts_page');
+  if (c.doubts_page) pageOk(c.doubts_page, at + ' doubts_page');
 }
 if (!Array.isArray(D.general_money) || !D.general_money.length) err('general_money must be a non-empty list');
 for (const id of D.general_money || []) if (!moneyIds.has(id)) err(`general_money id "${id}" is not in money`);

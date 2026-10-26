@@ -1,10 +1,10 @@
 ---
 title: "Journey Blueprint — Class 8 to Career Planner | Margdarshan"
-description: "Search 9,600+ careers, pick your class, state and board, and see your road, exams, state rules and scholarships — from official sources."
+description: "Pick your dream career and your class, and open its step-by-step road: exams, student doubts, state notes and scholarships — from official sources."
 og_type: "website"
 og_title: "Student Journey Blueprint — Class 8 to Career"
-og_description: "Career × class × state: the job, your road stage by stage with student doubts, exam anatomy, state rules for all 36 states and UTs, and scholarships — from official sources."
-twitter_description: "Pick a career, class and state to see your full journey, exams and money help."
+og_description: "Career × class: the job, your road stage by stage with student doubts, exam anatomy, verified state notes and scholarships — from official sources."
+twitter_description: "Pick a career and your class to open your full journey, exams and money help."
 breadcrumb:
   current: "Journey Blueprint"
 footer:
@@ -15,14 +15,15 @@ footer:
     - { href: "after-10th.html", label: "After 10th" }
 ---
 {%- comment -%}
-  Student Journey Blueprint. All text comes from _data/in/journey_matrix.yml (printed below as JSON);
-  the inline script renders the five blocks for the chosen career × class × board and keeps the choice
-  in the URL (?career=ca&class=c12&board=gseb) so a blueprint can be shared. Sources are printed by
-  Liquid so they exist without JS; the script's [n] markers link to them.
+  Student Journey Blueprint — the picker (2026-10-26). Two controls: "I want to be a / an…" (only careers with a full
+  blueprint in _data/in/journey_matrix.yml) and the current class. When both are set the script sends the student to
+  that career's own page, journey-<id>.html?class=10 (_includes/journey-doubts.html, one page per career, written by
+  scripts/build-journey-pages.mjs). A search with no built career shows a "not built yet" card, with the career's
+  place in _data/in/journey_queue.yml when it is queued. Old shared links (?career=&class=&state=&board=, ?want=)
+  still land on the right page.
 {%- endcomment -%}
 {%- assign JM = site.data.in.journey_matrix -%}
-{%- assign JS = site.data.in.journey_states -%}
-{%- assign ext = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>' -%}
+{%- assign JQ = site.data.in.journey_queue -%}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -34,24 +35,23 @@ footer:
 }
 </script>
 
-<main id="main" class="sc-page jb-page" data-mode="empty">
+<main id="main" class="sc-page jb-page jb-hub">
   <section class="page-hero career-hero sc-hero jb-hero" aria-labelledby="hero-heading">
     <div class="container page-hero-inner">
       <span class="eyebrow">Student Journey Blueprint</span>
       <h1 id="hero-heading">Your journey, from where you stand today</h1>
       <div class="meta-row">
-        <span>Class 8 to working life</span>
-        <span>·</span><span>Official sources only</span>
+        <span>{{ JM.careers.size }} career blueprints</span>
+        <span>·</span><span>Class 8 to working life</span>
         <span>·</span><span>Last checked {{ JM.checked | date: "%-d %b %Y" }}</span>
       </div>
-      <p>Type the career you want, then pick your class, your state and your board. Your plan appears below and shows only what is still ahead of you.</p>
+      <p>Pick the career you want and your class. Your blueprint opens on its own page and starts where you stand.</p>
 
-      <form class="jb-controls" id="jbForm" aria-label="Build your blueprint" onsubmit="return false">
-        <div class="jb-field jb-field-want">
+      <form class="jb-controls" id="jbForm" aria-label="Open your blueprint" onsubmit="return false">
+        <div class="jb-field">
           <label for="jbWant">I want to be a / an…</label>
-          <input class="jb-want" id="jbWant" name="want" type="text" role="combobox" aria-expanded="false" aria-controls="jbOptions" aria-autocomplete="list" aria-describedby="jbWantHint" autocomplete="off" spellcheck="false" placeholder="Type a career — pilot, nurse, lawyer, chef…">
-          <ul class="jb-options" id="jbOptions" role="listbox" aria-label="Matching careers" hidden></ul>
-          <p class="jb-hint" id="jbWantHint">Search almost 10,000 careers. Ones marked <span class="jb-badge">Full blueprint</span> have a step-by-step plan.</p>
+          <input class="jb-want" id="jbWant" name="want" type="text" role="combobox" aria-expanded="false" aria-controls="jbOptions" aria-autocomplete="list" autocomplete="off" spellcheck="false" placeholder="Type a career — pilot, nurse, lawyer…">
+          <ul class="jb-options" id="jbOptions" role="listbox" aria-label="Careers with a full blueprint" hidden></ul>
         </div>
         <div class="jb-field">
           <label for="jbClass">Current class</label>
@@ -62,193 +62,87 @@ footer:
             {%- endfor %}
           </select>
         </div>
-        <div class="jb-field">
-          <label for="jbState">State / UT</label>
-          <select class="fx-select" id="jbState" name="state">
-            <option value="">Select your state / UT</option>
-            <optgroup label="States">
-              {%- for s in JS.states %}{% if s.kind == "state" %}
-              <option value="{{ s.id }}">{{ s.name }}</option>
-              {%- endif %}{% endfor %}
-            </optgroup>
-            <optgroup label="Union territories">
-              {%- for s in JS.states %}{% if s.kind == "ut" %}
-              <option value="{{ s.id }}">{{ s.name }}</option>
-              {%- endif %}{% endfor %}
-            </optgroup>
-          </select>
-        </div>
-        <div class="jb-field">
-          <label for="jbBoard">School board</label>
-          <select class="fx-select" id="jbBoard" name="board">
-            <option value="">Select your board</option>
-            {%- for t in JS.types %}
-            <option value="{{ t.id }}">{{ t.label }}</option>
-            {%- endfor %}
-          </select>
-        </div>
       </form>
       <div class="jb-gate" id="jbGate" aria-live="polite"></div>
     </div>
   </section>
 
-  <noscript>
-    <style>.jb-page .jb-out:not(.jb-lite){display:block!important;}</style>
-    <section class="block mb sc-block"><div class="container"><p class="sc-p">The blueprint needs JavaScript to search careers and switch classes, states and boards. Every fact is still on our {% for c in JM.careers %}<a href="{{ c.page }}">{{ c.name }}</a>{% unless forloop.last %}, {% endunless %}{% endfor %} pages, the student doubts are printed in full on {% for c in JM.careers %}{% if c.doubts_page %}<a href="{{ c.doubts_page }}">{{ c.name }} doubts</a> {% endif %}{% endfor %}, and the sources are listed at the bottom of this page.</p></div></section>
-  </noscript>
-
-  <section class="block mb sc-block jb-out jb-lite" id="your-career" aria-labelledby="your-career-heading">
+  <section class="block mb sc-block" id="all-blueprints" aria-labelledby="all-heading">
     <div class="container" data-no-points>
       <div class="section-head">
-        <span class="eyebrow">Your career</span>
-        <h2 id="your-career-heading">Careers in the same field</h2>
+        <span class="eyebrow">Every blueprint</span>
+        <h2 id="all-heading">Careers with a full road</h2>
+        <p>Each page shows the job, the road from Class 8 with what to do at every stage, the exam, state notes we have verified and the money help — every fact cited to an official file.</p>
       </div>
-      <div id="jbLite"></div>
+      <div class="jb-cards jb-hub-cards">
+        {%- for c in JM.careers %}
+        {%- assign nq = 0 %}{% for j in c.journey %}{% assign nq = nq | plus: j.doubts.size %}{% endfor %}
+        <a class="jb-card" href="journey-{{ c.id }}.html">
+          <h3>{{ c.name }}</h3>
+          <p>{{ c.exam.name }}</p>
+          {%- if nq > 0 %}<span class="jb-badge">{{ nq }} doubts answered</span>{% endif %}
+        </a>
+        {%- endfor %}
+      </div>
     </div>
   </section>
 
-  <section class="block mb sc-block jb-out jb-full jb-v2" id="the-job" aria-labelledby="job-heading">
+  {%- assign todo = JQ.careers | where: "status", "todo" %}
+  {%- if todo.size > 0 %}
+  <section class="block mb sc-block" id="next-up" aria-labelledby="next-heading">
     <div class="container" data-no-points>
       <div class="section-head">
-        <span class="eyebrow"><span class="sc-step">00</span> The job</span>
-        <h2 id="job-heading">What the work really is</h2>
+        <span class="eyebrow">In the build queue</span>
+        <h2 id="next-heading">Blueprints we are building next</h2>
+        <p>We build each road from official notices only, a batch at a time. These are next in line.</p>
       </div>
-      <div id="jbCore"></div>
-    </div>
-  </section>
-
-  <section class="block mb sc-block jb-out jb-full" id="foundation" aria-labelledby="foundation-heading">
-    <div class="container" data-no-points>
-      <div class="section-head">
-        <span class="eyebrow"><span class="sc-step">01</span> <span id="jbFoundEyebrow">School foundation</span></span>
-        <h2 id="foundation-heading">What to do from your class onward</h2>
-      </div>
-      <div id="jbFoundation"></div>
-    </div>
-  </section>
-
-  <section class="block mb sc-block jb-out jb-full" id="exam" aria-labelledby="exam-heading">
-    <div class="container" data-no-points>
-      <div class="section-head">
-        <span class="eyebrow"><span class="sc-step">02</span> Exam anatomy</span>
-        <h2 id="exam-heading">The exam, stage by stage</h2>
-      </div>
-      <div id="jbExam"></div>
-    </div>
-  </section>
-
-  <section class="block mb sc-block jb-out jb-full" id="state-rules" aria-labelledby="state-rules-heading">
-    <div class="container" data-no-points>
-      <div class="section-head">
-        <span class="eyebrow"><span class="sc-step">03</span> State rules</span>
-        <h2 id="state-rules-heading">Rules that depend on where you are</h2>
-      </div>
-      <div id="jbStateRules"></div>
-    </div>
-  </section>
-
-  <section class="block mb sc-block jb-out jb-full" id="multiverse" aria-labelledby="multiverse-heading">
-    <div class="container" data-no-points>
-      <div class="section-head">
-        <span class="eyebrow"><span class="sc-step">04</span> Career multiverse</span>
-        <h2 id="multiverse-heading">Where this path can take you next</h2>
-      </div>
-      <div id="jbMulti"></div>
-    </div>
-  </section>
-
-  <section class="block mb sc-block jb-out" id="money-help" aria-labelledby="money-heading">
-    <div class="container" data-no-points>
-      <div class="section-head">
-        <span class="eyebrow"><span class="sc-step">05</span> Money help</span>
-        <h2 id="money-heading">Scholarships, stipends and fee help</h2>
-        <p>Government schemes, professional-body scholarships and paid training that apply to this path. Schemes you have already passed the stage for are hidden.</p>
-      </div>
-      <div id="jbMoney"></div>
-    </div>
-  </section>
-
-  <section class="block mb sc-block jb-out" id="sources" aria-labelledby="sources-heading">
-    <div class="container">
-      <div class="section-head">
-        <span class="eyebrow"><span class="sc-step">06</span> Official sources &amp; verification</span>
-        <h2 id="sources-heading">Where these facts come from</h2>
-        <p>Facts in the blueprint come from the official notices, gazettes and regulations below. Lines with no number are Margdarshan guidance. Rules, fees and dates change every cycle — open the current notice before you apply.</p>
-      </div>
-      <ol class="cite-list">
-        {%- for s in JM.sources %}
-        <li id="src-{{ s.id }}">
-          <a class="source-link" href="{{ s.url }}" target="_blank" rel="noopener noreferrer">
-            {{ ext }}
-            {{ s.name }}<span class="sr-only"> (opens in a new tab)</span>
-          </a>
-          <span class="cite-covers">{{ s.covers }}{% if s.checked %} · Last checked {{ s.checked | date: "%-d %b %Y" }}{% endif %}</span>
-        </li>
+      <ol class="jb-queue">
+        {%- for q in todo limit: 10 %}
+        <li>{{ q.title }}</li>
         {%- endfor %}
       </ol>
-      {% include src-more.html %}
-      <p class="cite-report">Spotted something out of date? Email <a href="mailto:{{ site.feedback_email }}?subject={{ 'Journey Blueprint — correction' | uri_escape }}">{{ site.feedback_email }}</a> with the official link and we will update it.</p>
+      <p class="sc-p jb-note">Want a career moved up? Email <a href="mailto:{{ site.feedback_email }}?subject={{ 'Journey Blueprint — please build' | uri_escape }}">{{ site.feedback_email }}</a>.</p>
     </div>
   </section>
+  {%- endif %}
 </main>
 
-<script type="application/json" id="jbData">{{ JM | jsonify }}</script>
-<script type="application/json" id="jbStates">{{ JS | jsonify }}</script>
+<script type="application/json" id="jbIndex">{
+  "careers": [{% for c in JM.careers %}{ "id": {{ c.id | jsonify }}, "name": {{ c.name | jsonify }}, "search": {{ c.search | jsonify }}, "not": {{ c.search_not | default: "" | jsonify }} }{% unless forloop.last %},{% endunless %}{% endfor %}],
+  "queue": {{ todo | map: "title" | jsonify }}
+}</script>
 <script>
-/* Journey Blueprint: the student types a career ("I want to be a / an …"), picks a class, a state / UT and a board
-   type, and only then the blocks below render. Careers come from two lists:
-     - the full blueprints in _data/in/journey_matrix.yml (careers). Older ones render five blocks; three-layer careers
-       (`v: 2`) add "The job" (core), a stage-by-stage road with the student doubts in place, and the state layer;
-     - ~9,600 titles in assets/data/career-titles.json (scripts/build-career-titles.mjs), loaded on first use.
-   A title that matches a full blueprint's `search` phrases opens that blueprint as the closest route; any other title
-   shows careers in the same field + the schemes in `general_money`. An item shows while any of its `stages` is at or
-   after the chosen class; `state:` items show only for that state / UT (_data/in/journey_states.yml).
-   Older careers keep their board notes through the state's `legacy` board ids (gseb, upmsp, msbshse, wb, cbse-gj).
-   Choice is kept in ?career=<id> or ?want=<title>, plus &class=&state=&board=. Old links with board=gseb etc. still work. */
+/* Journey Blueprint picker. The list holds only careers with a full blueprint (journey_matrix.yml), searchable by name
+   and by their `search` phrases ("=x" = whole title only; `search_not` words veto). Career + class chosen (either
+   order) → go to journey-<id>.html?class=<slug>. The career's page is prefetched as soon as it is picked, so the
+   jump is instant. Text that matches no built career → a "not built yet" card, with its place in the queue if queued. */
 (function(){
-  var D = JSON.parse(document.getElementById('jbData').textContent);
-  var ST = JSON.parse(document.getElementById('jbStates').textContent);
+  var D = JSON.parse(document.getElementById('jbIndex').textContent);
   var $ = function(id){ return document.getElementById(id); };
-  var page = document.querySelector('.jb-page');
-  var inp = $('jbWant'), box = $('jbOptions'), selK = $('jbClass'), selS = $('jbState'), selB = $('jbBoard');
-  var TITLES_URL = '{{ "/assets/data/career-titles.json" | relative_url }}';
-  var order = D.classes.map(function(k){ return k.id; });
-  var label = {}; D.classes.forEach(function(k){ label[k.id] = k.label; });
-  var srcN = {}; D.sources.forEach(function(s, i){ srcN[s.id] = { n: i + 1, name: s.name }; });
-  var money = {}; D.money.forEach(function(m){ money[m.id] = m; });
-  var typeLabel = {}; ST.types.forEach(function(t){ typeLabel[t.id] = t.label; });
-  var KIND = { scholarship: 'Scholarship', stipend: 'Stipend', fee: 'Fee help', state: 'State scheme', training: 'Free training' };
-  var ROLE = { board: 'State school board', scholarship: 'State scholarship portal', psc: 'State recruitment', police: 'Police recruitment', tech: 'State admissions / entrance', med: 'State medical counselling', tet: 'Teacher eligibility test', admin: 'UT administration' };
-  // Old ?board= ids → state + board type.
-  var OLD = { gseb: ['gujarat', 'state'], 'cbse-gj': ['gujarat', 'cbse'], upmsp: ['uttar-pradesh', 'state'], msbshse: ['maharashtra', 'state'], wb: ['west-bengal', 'state'], cbse: ['', 'cbse'], other: ['', 'other'] };
+  var inp = $('jbWant'), box = $('jbOptions'), selK = $('jbClass'), gate = $('jbGate');
+  var SLUG = { c8: '8', c9: '9', c10: '10', c11: '11', c12: '12', ug: 'college', grad: 'graduate', work: 'working' };
+  var MAIL = {{ site.feedback_email | jsonify }};
+  var pick = null, active = -1, shown = [];
 
-  function esc(s){ return String(s == null ? '' : s).replace(/&(?![a-z#0-9]+;)/gi,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
   // " word word " — lower case, letters and digits only, padded so phrase tests match whole words.
   function norm(s){ return ' ' + String(s).toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim() + ' '; }
-
-  /* ---------- career search ---------- */
-  // Full blueprints are searchable by their name and their `search` phrases.
-  var FULL = D.careers.map(function(c){
-    return { t: c.name, id: c.id, cat: 'Full blueprint', n: norm(c.name + ' ' + (c.search || []).join(' ').replace(/=/g, '')), full: true };
-  });
-  var TITLES = null, loading = null, pick = null, active = -1, shown = [];
-
-  function load(){
-    if(TITLES) return Promise.resolve(TITLES);
-    if(!loading) loading = fetch(TITLES_URL).then(function(r){ return r.json(); }).then(function(j){
-      TITLES = j.t.map(function(x){ return { t: x[0], cat: j.cats[x[1]], n: norm(x[0]), cn: norm(j.cats[x[1]]) }; });
-      $('jbWantHint').firstChild.nodeValue = 'Search ' + TITLES.length.toLocaleString('en-IN') + ' careers. Ones marked ';
-      return TITLES;
-    }).catch(function(){ loading = null; return []; });
-    return loading;
+  function find(id){ for(var i = 0; i < D.careers.length; i++){ if(D.careers[i].id === id) return D.careers[i]; } return null; }
+  function slugToId(v){
+    v = String(v || '').toLowerCase();
+    for(var k in SLUG){ if(v === k || v === SLUG[k]) return k; }
+    return '';
   }
+  D.careers.forEach(function(c){
+    c.n = norm(c.name);
+    c.alias = (c.search || []).map(function(s){ return norm(s.replace(/^=/, '')); });
+  });
 
-  // The full blueprint a title belongs to: the longest `search` phrase found in it, skipping careers whose
-  // `search_not` words appear. "=phrase" must be the whole title.
+  // The blueprint a free-text title belongs to: the longest `search` phrase found in it (old ?want= links).
   function blueprintFor(title){
     var h = norm(title), best = null, len = 0;
     D.careers.forEach(function(c){
-      if((c.search_not || []).some(function(w){ return h.indexOf(norm(w)) > -1; })) return;
+      if((c.not || []).some(function(w){ return h.indexOf(norm(w)) > -1; })) return;
       (c.search || []).forEach(function(s){
         var exact = s.charAt(0) === '=', k = norm(exact ? s.slice(1) : s);
         if((exact ? h === k : h.indexOf(k) > -1) && k.length > len){ best = c; len = k.length; }
@@ -257,42 +151,36 @@ footer:
     return best;
   }
 
-  // Rank: title starts with the query, then every word found as a word start, then plain substring, then a
-  // match on the field (category) name only. Full blueprints first inside a rank, shorter titles before longer.
+  // Rank: name starts with the query, every word starts a word in the name, every word starts a word in a search
+  // phrase ("hospital pharmacist" finds Pharmacist), then plain substring in the name.
   function search(q){
     var qn = norm(q), words = qn.trim().split(' ').filter(Boolean);
-    if(!words.length) return { list: FULL.slice(), total: FULL.length };
+    if(!words.length) return D.careers.slice();
+    var starts = function(hay){ return words.every(function(w){ return hay.indexOf(' ' + w) > -1; }); };
     var hits = [];
-    FULL.concat(TITLES || []).forEach(function(it){
+    D.careers.forEach(function(c){
       var r = -1;
-      if(it.n.indexOf(qn.replace(/ $/, '')) === 0) r = 0;
-      else if(words.every(function(w){ return it.n.indexOf(' ' + w) > -1; })) r = 1;
-      else if(words.every(function(w){ return it.n.indexOf(w) > -1; })) r = 2;
-      else if(it.cn && words.every(function(w){ return it.cn.indexOf(' ' + w) > -1; })) r = 3;
-      if(r > -1) hits.push({ it: it, r: r * 2 + (it.full ? 0 : 1) });
+      if(c.n.indexOf(qn.replace(/ $/, '')) === 0) r = 0;
+      else if(starts(c.n)) r = 1;
+      else if(c.alias.some(starts)) r = 2;
+      else if(words.every(function(w){ return c.n.indexOf(w) > -1; })) r = 3;
+      if(r > -1) hits.push({ c: c, r: r });
     });
-    hits.sort(function(a, b){ return a.r - b.r || a.it.t.length - b.it.t.length || (a.it.t < b.it.t ? -1 : 1); });
-    return { list: hits.slice(0, 40).map(function(h){ return h.it; }), total: hits.length };
+    hits.sort(function(a, b){ return a.r - b.r || a.c.name.length - b.c.name.length; });
+    return hits.map(function(h){ return h.c; });
   }
 
-  function openList(res, q){
-    shown = res.list; active = -1;
-    var head;
-    if(!q.trim()) head = 'Careers with a full blueprint — or start typing';
-    else if(!res.total) head = TITLES ? 'No career matches “' + esc(q.trim()) + '”. Try a shorter word, like “engineer” or “teacher”.' : 'Loading careers…';
-    else head = res.total.toLocaleString('en-IN') + ' career' + (res.total === 1 ? ' matches' : 's match') + (res.total > shown.length ? ' — showing the first ' + shown.length + ', keep typing to narrow' : '');
-    box.innerHTML = '<li class="jb-opt-head" role="presentation">' + head + '</li>' + shown.map(function(it, i){
-      return '<li class="jb-opt" role="option" id="jbOpt' + i + '" data-i="' + i + '" aria-selected="false"><span class="jb-opt-t">' + esc(it.t) + '</span>' +
-        (it.full ? '<span class="jb-badge">Full blueprint</span>' : '<span class="jb-opt-c">' + esc(it.cat) + '</span>') + '</li>';
+  function openList(q){
+    shown = search(q); active = -1;
+    if(!shown.length){ closeList(); missing(q); return; }
+    var head = q.trim() ? shown.length + ' blueprint' + (shown.length === 1 ? ' matches' : 's match') : 'Careers with a full blueprint — or start typing';
+    box.innerHTML = '<li class="jb-opt-head" role="presentation">' + head + '</li>' + shown.map(function(c, i){
+      return '<li class="jb-opt" role="option" id="jbOpt' + i + '" data-i="' + i + '" aria-selected="false"><span class="jb-opt-t">' + esc(c.name) + '</span></li>';
     }).join('');
     box.hidden = false; inp.setAttribute('aria-expanded', 'true'); inp.removeAttribute('aria-activedescendant');
+    if(!pick) gate.innerHTML = '';
   }
   function closeList(){ box.hidden = true; inp.setAttribute('aria-expanded', 'false'); inp.removeAttribute('aria-activedescendant'); active = -1; }
-  function refresh(){
-    var q = inp.value;
-    openList(search(q), q);
-    if(!TITLES) load().then(function(){ if(document.activeElement === inp && inp.value === q) openList(search(q), q); });
-  }
   function move(d){
     if(box.hidden || !shown.length) return;
     var el = $('jbOpt' + active); if(el) el.setAttribute('aria-selected', 'false');
@@ -300,19 +188,47 @@ footer:
     el = $('jbOpt' + active); el.setAttribute('aria-selected', 'true'); inp.setAttribute('aria-activedescendant', el.id);
     el.scrollIntoView({ block: 'nearest' });
   }
-  function choose(it){
-    if(!it) return;
-    pick = it.full ? { t: it.t, id: it.id } : { t: it.t, cat: it.cat };
-    inp.value = it.t; closeList(); render();
-    if(!selK.value) selK.focus(); else if(!selS.value) selS.focus(); else if(!selB.value) selB.focus();
+
+  // No built blueprint for the text: say so plainly, give its queue place if any, and the way forward.
+  function missing(q){
+    var t = q.trim();
+    if(t.length < 3){ gate.innerHTML = ''; return; }
+    var qn = norm(t), at = -1;
+    D.queue.forEach(function(title, i){ if(at < 0 && norm(title).indexOf(qn) > -1) at = i; });
+    var where = at > -1 ? '<strong>' + esc(D.queue[at]) + '</strong> is number ' + (at + 1) + ' in our build queue. We publish each road only after reading the official notices.' : 'It is not on our build list yet.';
+    gate.innerHTML = '<div class="jb-missing" role="status"><span class="jb-tag">Not available yet</span>' +
+      '<h2 class="jb-missing-t">No blueprint for “' + esc(t) + '” yet</h2><p>' + where + '</p>' +
+      '<div class="jb-gate-links"><a class="jb-more" href="mailto:' + MAIL + '?subject=' + encodeURIComponent('Journey Blueprint — please build: ' + t) + '">Ask us to build it</a>' +
+      '<button type="button" class="jb-more jb-linkbtn" id="jbShowAll">See the ' + D.careers.length + ' careers we have</button></div></div>';
+    $('jbShowAll').addEventListener('click', function(){ inp.value = ''; inp.focus(); openList(''); });
   }
 
-  inp.addEventListener('focus', refresh);
-  inp.addEventListener('input', function(){ if(pick){ pick = null; render(); } refresh(); });
+  function href(c, k){ return 'journey-' + c.id + '.html' + (k ? '?class=' + SLUG[k] : ''); }
+  function go(){
+    if(!pick) return;
+    var k = selK.value;
+    if(!k){
+      gate.innerHTML = '<p><strong>' + esc(pick.name) + '</strong> — now choose your class, or <a class="jb-inline" href="' + href(pick, '') + '">open the whole road</a>.</p>';
+      selK.focus();
+      return;
+    }
+    gate.innerHTML = '<p class="jb-going">Opening your ' + esc(pick.name) + ' blueprint from ' + esc(selK.options[selK.selectedIndex].text) + '…</p>';
+    location.assign(href(pick, k));
+  }
+  function choose(c){
+    if(!c) return;
+    pick = c; inp.value = c.name; closeList();
+    // Warm the cache so the redirect after the class pick is instant.
+    var l = document.createElement('link'); l.rel = 'prefetch'; l.href = href(c, ''); document.head.appendChild(l);
+    go();
+  }
+
+  inp.addEventListener('focus', function(){ openList(inp.value); });
+  inp.addEventListener('input', function(){ pick = null; openList(inp.value); });
   inp.addEventListener('keydown', function(e){
-    if(e.key === 'ArrowDown'){ e.preventDefault(); if(box.hidden) refresh(); else move(1); }
+    if(e.key === 'ArrowDown'){ e.preventDefault(); if(box.hidden) openList(inp.value); else move(1); }
     else if(e.key === 'ArrowUp'){ e.preventDefault(); move(-1); }
-    else if(e.key === 'Enter'){ if(!box.hidden && shown.length){ e.preventDefault(); choose(shown[active > -1 ? active : 0]); } }
+    else if(e.key === 'Enter'){ e.preventDefault(); if(!box.hidden && shown.length) choose(shown[active > -1 ? active : 0]); else missing(inp.value); }
     else if(e.key === 'Escape'){ closeList(); }
   });
   inp.addEventListener('blur', function(){ setTimeout(closeList, 150); });
@@ -321,245 +237,17 @@ footer:
   box.addEventListener('click', function(e){
     var li = e.target.closest('.jb-opt'); if(li) choose(shown[+li.getAttribute('data-i')]);
   });
+  selK.addEventListener('change', function(){ if(pick) go(); else inp.focus(); });
 
-  /* ---------- blueprint blocks ---------- */
-  // Data text may carry simple trusted HTML (<strong>, &amp;) written in the YAML; plain fields use esc().
-  // A source may be one id or a list of ids.
-  function ref(id){
-    if(Array.isArray(id)) return id.map(ref).join('');
-    var s = id && srcN[id]; if(!s) return '';
-    return ' <a class="src-ref" href="#src-' + id + '" title="Source: ' + esc(s.name) + '" aria-label="Source ' + s.n + ': ' + esc(s.name) + '">[' + s.n + ']</a>';
-  }
-  function ahead(stages, k){
-    var i = order.indexOf(k);
-    return (stages || []).some(function(s){ return order.indexOf(s) >= i; });
-  }
-  function inState(item, x){ return !item.state || item.state === x.st.id; }
-  function find(list, id){ for(var i = 0; i < list.length; i++){ if(list[i].id === id) return list[i]; } return null; }
-  function list(items, cls){
-    return '<ul class="jb-list' + (cls ? ' ' + cls : '') + '">' + items.map(function(p){ return typeof p === 'string' ? '<li>' + p + '</li>' : '<li>' + p.text + ref(p.source) + '</li>'; }).join('') + '</ul>';
-  }
-  function link(href, text){ return href ? '<a class="jb-more" href="' + esc(href) + '">' + text + '</a>' : ''; }
-  function stageTag(stages, k){
-    var now = stages.indexOf(k) > -1;
-    return now ? '<span class="jb-tag jb-now">You are here</span>' : '<span class="jb-tag">From ' + esc(label[stages[0]]) + '</span>';
-  }
-
-  // Your board panel. Older careers: board_notes by legacy board id (text, cited to board_source, or { text, source }).
-  // Three-layer careers: one board_note for every board.
-  function boardPanel(c, x){
-    var name = x.type === 'state' ? (x.st.board ? x.st.board.name : 'Your school\'s board — ' + esc(x.st.name) + ' has no separate board of its own') : typeLabel[x.type];
-    var links = x.type === 'state' && x.st.board ? '<p class="jb-links">' + x.st.board.links.map(function(l){ return '<a href="' + esc(l.url) + '" target="_blank" rel="noopener noreferrer">' + l.label + '</a>'; }).join(' · ') + '</p>' : '';
-    var note = '';
-    if(c.v === 2) note = c.board_note ? '<p>' + c.board_note + ref(c.board_source) + '</p>' : '';
-    else {
-      var n = c.board_notes && c.board_notes[x.b.id];
-      if(n) note = typeof n === 'string' ? '<p>' + n + ref(c.board_source) + '</p>' : '<p>' + n.text + ref(n.source || c.board_source) + '</p>';
-    }
-    return '<div class="jb-board"><h3>Your board: ' + name + '</h3>' + links + '<p>' + x.b.exams + '</p>' + note + '</div>';
-  }
-
-  function moneyBlock(ids, k, x){
-    var ms = ids.map(function(id){ return money[id]; }).filter(function(m){ return m && inState(m, x) && ahead(m.stages, k); });
-    var portal = (x.st.bodies || []).filter(function(b){ return b.role === 'scholarship'; });
-    $('jbMoney').innerHTML = (ms.length ? '<div class="jb-money">' + ms.map(function(m){
-      var now = m.stages.indexOf(k) > -1;
-      var when = now ? '<span class="jb-tag jb-now">Open to you now</span>' : '<span class="jb-tag">From ' + esc(label[m.stages[0]]) + '</span>';
-      return '<article class="jb-mcard" id="money-' + esc(m.id) + '"><div class="jb-mhead"><span class="jb-kind jb-k-' + esc(m.kind) + '">' + (KIND[m.kind] || '') + '</span>' + when + '</div>' +
-        '<h3>' + m.name + '</h3><p class="jb-by">' + m.by + '</p>' +
-        (m.amount ? '<p class="jb-amt">' + m.amount + ref(m.source) + '</p>' : '') +
-        '<dl class="jb-mdl"><dt>Who</dt><dd>' + m.who + (m.amount ? '' : ref(m.source)) + '</dd><dt>How</dt><dd>' + m.apply + '</dd></dl></article>';
-    }).join('') + '</div>' : '<p class="sc-p">No scheme on our list is still ahead of you for this path.</p>') +
-      (portal.length ? '<p class="sc-p jb-portal">' + esc(x.st.name) + '\'s own scholarships: ' + portal.map(function(b){ return '<a href="' + esc(b.url) + '" target="_blank" rel="noopener noreferrer">' + b.name + '</a>'; }).join(' · ') + '</p>' : '');
-  }
-
-  // 00 The job (three-layer careers only).
-  function renderCore(c){
-    var k = c.core;
-    var pay = (k.pay || []).length ? '<div class="table-wrap sc-table jb-pay"><table class="table-simple"><caption class="sr-only">Pay</caption><thead><tr><th scope="col">Level</th><th scope="col">Pay (official)</th></tr></thead><tbody>' +
-      k.pay.map(function(p){ return '<tr><th scope="row">' + p.level + '</th><td>' + p.value + ref(p.source) + '</td></tr>'; }).join('') + '</tbody></table></div>' : '';
-    $('jbCore').innerHTML =
-      '<p class="jb-what">' + k.what.text + ref(k.what.source) + '</p>' +
-      '<h3 class="jb-h">A normal working day</h3>' + list(k.day) +
-      '<h3 class="jb-h">Pay</h3>' + pay + (k.pay_note ? '<p class="sc-p jb-note">' + k.pay_note + '</p>' : '') +
-      '<h3 class="jb-h">Main routes</h3><div class="jb-cards">' + k.routes.map(function(r){ return '<div class="jb-card"><h3>' + r.title + '</h3><p>' + r.text + ref(r.source) + '</p></div>'; }).join('') + '</div>' +
-      ((k.cost_time || []).length ? '<h3 class="jb-h">Time and cost</h3><dl class="jb-facts">' + k.cost_time.map(function(q){ return '<div class="jb-fact"><dt>' + q.label + '</dt><dd>' + q.value + ref(q.source) + '</dd></div>'; }).join('') + '</dl>' : '') +
-      (k.cost_note ? '<p class="sc-p jb-note">' + k.cost_note + '</p>' : '') +
-      '<h3 class="jb-h">Hidden challenges</h3>' + list(k.challenges) +
-      '<h3 class="jb-h">Who should not choose it</h3>' + list(k.not_for, 'jb-not');
-  }
-
-  // 01 for three-layer careers: the road from the chosen class onward, with exams, money, mistakes, a "late?" line and
-  // the doubts placed where they come up (doubt → answer → next step).
-  function renderJourney(c, k){
-    var steps = c.journey.filter(function(j){ return ahead(j.stages, k); });
-    var html = steps.map(function(j){
-      var now = j.stages.indexOf(k) > -1;
-      var m = (j.money || []).map(function(id){ return money[id]; }).filter(Boolean);
-      return '<li class="jb-step' + (now ? ' is-now' : '') + '">' + stageTag(j.stages, k) + '<h3>' + j.title + '</h3>' +
-        (j.do ? list(j.do) : '') +
-        (j.stream ? '<p class="jb-stream"><strong>Stream / subjects:</strong> ' + j.stream + '</p>' : '') +
-        (j.exams ? '<p class="jb-sub">Exams that open here</p>' + list(j.exams.map(function(x){ return { text: '<strong>' + x.name + '</strong> — ' + x.when, source: x.source }; }), 'jb-exams') : '') +
-        (m.length ? '<p class="jb-sub">Money help at this stage</p><p class="jb-mchips">' + m.map(function(x){ return '<a class="jb-mchip" href="#money-' + esc(x.id) + '">' + x.name + '</a>'; }).join('') + '</p>' : '') +
-        (j.mistakes ? '<p class="jb-sub">Common mistakes</p>' + list(j.mistakes, 'jb-mistakes') : '') +
-        (j.late ? '<p class="jb-late"><strong>Late? What now:</strong> ' + j.late + '</p>' : '') +
-        (j.doubts || []).map(function(d){
-          return '<div class="jb-doubt"><h4 class="jb-q"><span class="jb-q-tag">Doubt</span> ' + esc(d.q) + '</h4><p class="jb-a">' + d.a + ref(d.source) + '</p><p class="jb-next"><strong>Next:</strong> ' + d.next + '</p></div>';
-        }).join('') + '</li>';
-    }).join('');
-    return html ? '<ol class="jb-steps jb-road">' + html + '</ol>' : '';
-  }
-
-  // 03 State layer: the state's own bodies the career needs (journey_states.yml), then the career's facts for that
-  // state, then the rules that apply everywhere. No career fact for the state → "national route applies".
-  function renderState(c, x){
-    var own = c.state_rules.filter(function(r){ return r.state && r.state === x.st.id; });
-    var all = c.state_rules.filter(function(r){ return !r.state; });
-    var uses = c.state_uses || [];
-    var bodies = (x.st.bodies || []).filter(function(b){ return uses.indexOf(b.role) > -1 || b.role === 'admin'; });
-    var h = '<h3 class="jb-h">' + esc(x.st.name) + (x.st.kind === 'ut' ? ' (union territory)' : '') + '</h3>';
-    if(own.length) h += '<ul class="jb-list">' + own.map(function(r){ return '<li>' + r.text + ref(r.source) + (r.href ? ' ' + link(r.href, 'Full page') : '') + '</li>'; }).join('') + '</ul>';
-    else if(c.v === 2) h += '<p class="sc-p jb-national"><strong>National route applies.</strong> We found nothing in this career\'s official rules that changes in ' + esc(x.st.name) + '. Your state\'s own offices are below.</p>';
-    if(bodies.length || (uses.indexOf('board') > -1 && x.st.board)) h += '<p class="jb-sub">' + esc(x.st.name) + '\'s official offices for this path</p><ul class="jb-bodies">' +
-      (uses.indexOf('board') > -1 && x.st.board ? x.st.board.links.map(function(l){ return '<li><span class="jb-role">' + ROLE.board + '</span><a href="' + esc(l.url) + '" target="_blank" rel="noopener noreferrer">' + l.label + '</a></li>'; }).join('') : '') +
-      bodies.map(function(b){ return '<li><span class="jb-role">' + (ROLE[b.role] || '') + '</span><a href="' + esc(b.url) + '" target="_blank" rel="noopener noreferrer">' + b.name + '</a></li>'; }).join('') + '</ul>';
-    if(x.st.cockpit) h += link(x.st.cockpit, esc(x.st.name) + ' exam &amp; career cockpit');
-    if(all.length) h += '<p class="jb-sub">Everywhere in India</p>' + list(all);
-    if(c.v === 2 && x.st.gaps) h += '<p class="sc-p jb-note">Not listed for ' + esc(x.st.name) + ': ' + x.st.gaps + '</p>';
-    $('jbStateRules').innerHTML = h;
-  }
-
-  function renderFull(c, k, x){
-    var v2 = c.v === 2;
-    page.setAttribute('data-v', v2 ? '2' : '1');
-    if(v2) renderCore(c);
-    $('jbFoundEyebrow').textContent = v2 ? 'Your road, stage by stage' : 'School foundation';
-    $('foundation-heading').textContent = v2 ? 'What to do from ' + label[k] + ' onward — and the doubts on the way' : 'What to do from your class onward';
-    var road;
-    if(v2) road = renderJourney(c, k);
-    else {
-      // Older careers: foundation stages from the chosen class onward; the first one is "You are here".
-      road = c.foundation.filter(function(f){ return ahead(f.stages, k); }).map(function(s){
-        return '<li class="jb-step' + (s.stages.indexOf(k) > -1 ? ' is-now' : '') + '">' + stageTag(s.stages, k) + '<h3>' + s.title + '</h3>' + list(s.points) + '</li>';
-      }).join('');
-      road = road ? '<ol class="jb-steps">' + road + '</ol>' : '';
-    }
-    $('jbFoundation').innerHTML = (road || '<p class="sc-p">You are past the school stage for this career — see the exam, state and money blocks below.</p>') +
-      boardPanel(c, x) + (v2 && c.doubts_page ? '<p class="sc-p">' + link(c.doubts_page, 'Read every doubt for this career, Class 8 to working life') + '</p>' : '');
-
-    // 02 Exam anatomy
-    var e = c.exam;
-    $('jbExam').innerHTML = '<p class="jb-exam-name"><strong>' + e.name + '</strong> · ' + e.body + '</p>' +
-      '<dl class="jb-facts">' + e.facts.map(function(q){
-        return '<div class="jb-fact"><dt>' + q.label + '</dt><dd>' + q.value + ref(q.source) + '</dd></div>';
-      }).join('') + '</dl>' +
-      '<div class="table-wrap sc-table"><table class="table-simple"><caption class="sr-only">' + esc(e.name) + ' stages</caption><thead><tr>' +
-      e.stages.head.map(function(h){ return '<th scope="col">' + h + '</th>'; }).join('') + '</tr></thead><tbody>' +
-      e.stages.rows.map(function(r){
-        return '<tr>' + r.map(function(cell, i){ return i ? '<td>' + cell + '</td>' : '<th scope="row">' + cell + '</th>'; }).join('') + '</tr>';
-      }).join('') + '</tbody></table></div>' +
-      '<p class="sc-cite">Stage table source' + ref(e.stages.source) + '</p>' +
-      list(e.notes) + link(e.href, 'Open the full exam guide');
-
-    // 03 State rules
-    renderState(c, x);
-
-    // 04 Career multiverse
-    $('jbMulti').innerHTML = '<div class="jb-cards">' + c.multiverse.map(function(m){
-      var inner = '<h3>' + m.title + '</h3><p>' + m.text + '</p>';
-      return m.href ? '<a class="jb-card" href="' + esc(m.href) + '">' + inner + '<span class="jb-go">Explore →</span></a>' : '<div class="jb-card">' + inner + '</div>';
-    }).join('') + '</div>';
-
-    // 05 Money help
-    moneyBlock(c.money, k, x);
-  }
-
-  // A title with no full blueprint: its field, other careers in that field (tap to switch), the full blueprints we
-  // have, and the schemes open on any path. Nothing here is a fact about the title itself.
-  function renderLite(k, x){
-    var same = (TITLES || []).filter(function(it){ return it.cat === pick.cat && it.t !== pick.t; });
-    $('jbLite').innerHTML = '<p class="jb-field-name">Field: <strong>' + esc(pick.cat || '—') + '</strong></p>' +
-      (same.length ? '<p class="sc-p">' + same.length + ' more career' + (same.length === 1 ? '' : 's') + ' in this field — tap one to switch:</p><div class="jb-chips">' +
-        same.slice(0, 24).map(function(it){ return '<button type="button" class="jb-chip" data-t="' + esc(it.t) + '">' + esc(it.t) + '</button>'; }).join('') +
-        '</div>' : '') +
-      '<p class="sc-p">Careers with a full blueprint so far:</p><div class="jb-chips">' +
-        D.careers.map(function(c){ return '<button type="button" class="jb-chip jb-chip-full" data-id="' + esc(c.id) + '">' + esc(c.name) + '</button>'; }).join('') + '</div>';
-    moneyBlock(D.general_money || [], k, x);
-  }
-  $('jbLite').addEventListener('click', function(e){
-    var bt = e.target.closest('.jb-chip'); if(!bt) return;
-    var id = bt.getAttribute('data-id');
-    if(id){ var c = find(D.careers, id); choose({ t: c.name, id: c.id, full: true }); }
-    else { var t = bt.getAttribute('data-t'); choose((TITLES || []).filter(function(it){ return it.t === t; })[0]); }
-    $('jbForm').scrollIntoView({ block: 'start', behavior: 'smooth' });
-  });
-
-  // State + board type → context. b = the old journey_matrix board used by older careers' board notes.
-  function context(){
-    var st = find(ST.states, selS.value), type = selB.value;
-    if(!st || !type) return null;
-    var legacy = (st.legacy && st.legacy[type]) || (type === 'cbse' ? 'cbse' : 'other');
-    return { st: st, type: type, b: find(D.boards, legacy) };
-  }
-
-  function render(){
-    var k = selK.value, x = context();
-    var c = pick && (pick.id ? find(D.careers, pick.id) : blueprintFor(pick.t));
-    var gate = $('jbGate');
-    var mode = !pick || !k || !x ? 'empty' : c ? 'full' : 'lite';
-    page.setAttribute('data-mode', mode);
-
-    var qs = [];
-    if(pick) qs.push(pick.id ? 'career=' + encodeURIComponent(pick.id) : 'want=' + encodeURIComponent(pick.t));
-    if(k) qs.push('class=' + k);
-    if(selS.value) qs.push('state=' + selS.value);
-    if(selB.value) qs.push('board=' + selB.value);
-    if(window.history && history.replaceState) history.replaceState(null, '', location.pathname + (qs.length ? '?' + qs.join('&') : '') + location.hash);
-
-    if(mode === 'empty'){
-      var need = [];
-      if(!pick) need.push('pick a career from the list');
-      if(!k) need.push('choose your class');
-      if(!selS.value) need.push('choose your state / UT');
-      if(!selB.value) need.push('choose your board');
-      gate.innerHTML = '<p class="jb-todo"><strong>To see your blueprint,</strong> ' + need.join(', ') + '.</p>';
-      return;
-    }
-    if(mode === 'lite'){
-      page.setAttribute('data-v', '1');
-      gate.innerHTML = '<p><strong>' + esc(pick.t) + '</strong> is on our career list, but its step-by-step blueprint is not ready yet. Below: careers in the same field and the scholarships open to every student.</p>';
-      renderLite(k, x);
-      return;
-    }
-    // A title that is exactly one of the blueprint's search phrases ("Clinical Psychologist") needs no "closest" note.
-    var exact = pick.id || (c.search || []).some(function(s){ return norm(s.replace(/^=/, '')) === norm(pick.t); });
-    var closest = exact ? '' : '<p class="jb-closest">Showing the closest full blueprint for <strong>' + esc(pick.t) + '</strong>. Open the full guide to check the route fits your exact role.</p>';
-    gate.innerHTML = closest + '<p><strong>The one-line route:</strong> ' + c.gate + ref(c.gate_source) + '</p>' +
-      '<div class="jb-gate-links">' + link(c.page, 'Full ' + esc(c.name) + ' guide') + link(c.roadmap, 'Step-by-step roadmap') + (c.doubts_page ? link(c.doubts_page, 'Every student doubt') : '') + '</div>';
-    renderFull(c, k, x);
-  }
-
-  [selK, selS, selB].forEach(function(s){ s.addEventListener('change', render); });
-
-  // Restore a shared blueprint: ?career=<id> or ?want=<title>, plus &class=, &state= and &board= (an old board id such
-  // as gseb also sets the state).
+  // Old shared links: ?career=<id> or ?want=<title>, with &class= (state= and board= are no longer used).
   var sp = new URLSearchParams(location.search);
-  function setSel(sel, v){ if(v && Array.prototype.some.call(sel.options, function(o){ return o.value === v; })) sel.value = v; }
-  setSel(selK, sp.get('class'));
-  setSel(selS, sp.get('state'));
-  var ob = OLD[sp.get('board')];
-  if(ob){ if(ob[0] && !selS.value) setSel(selS, ob[0]); setSel(selB, ob[1]); }
-  else setSel(selB, sp.get('board'));
-  var cc = sp.get('career') && find(D.careers, sp.get('career')), want = sp.get('want');
-  if(cc){ pick = { t: cc.name, id: cc.id }; inp.value = cc.name; render(); }
-  else if(want){
-    load().then(function(){
-      var lw = want.toLowerCase();
-      var hit = (TITLES || []).filter(function(it){ return it.t.toLowerCase() === lw; })[0];
-      if(hit){ pick = { t: hit.t, cat: hit.cat }; inp.value = hit.t; }
-      render();
-    });
-  }
-  else render();
+  var k0 = slugToId(sp.get('class')), want = sp.get('want');
+  var c0 = sp.get('career') ? find(sp.get('career')) : want ? blueprintFor(want) : null;
+  if(c0 && k0){ location.replace(href(c0, k0)); return; }
+  if(k0) selK.value = k0;
+  if(c0){ pick = c0; inp.value = c0.name; go(); }
+  else if(want){ inp.value = want; missing(want); }
+  // Back button from a blueprint: the page comes back from the cache still saying "Opening…" — clear it.
+  window.addEventListener('pageshow', function(e){ if(e.persisted) gate.innerHTML = ''; });
 })();
 </script>

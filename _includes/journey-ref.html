@@ -1,0 +1,3 @@
+{%- comment -%} [n] source links for one `source` (an id or a list of ids), numbered by `ids` from journey-doubts.html. {%- endcomment -%}
+{%- assign jr_xs = include.s | join: "|" | split: "|" -%}
+{%- for jr_x in jr_xs %}{% for jr_i in ids %}{% if jr_i == jr_x %} <a class="src-ref" href="#src-{{ jr_x }}">[{{ forloop.index }}]</a>{% endif %}{% endfor %}{% endfor -%}

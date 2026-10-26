@@ -1,24 +1,50 @@
 {%- comment -%}
-  Doubts roadmap for one three-layer career of the Student Journey Blueprint (journey-<id>.html).
-  Usage: {% include journey-doubts.html id="pharmacist" %}
-  Prints the career's whole stage layer from _data/in/journey_matrix.yml — every step from Class 8 to working,
-  what to do, the exam windows and each doubt as doubt → answer → what to do next — so a student meets the answers
-  while reading down the road. The same doubts go into the FAQPage JSON-LD in the same words (scripts/verify-site.mjs
-  checks that). journey-blueprint.html renders the same data for one chosen class and state.
-  Sources are numbered in order of first use on this page; [n] links go to the list at the bottom.
+  One career's Student Journey Blueprint page (journey-<id>.html, 2026-10-26).
+  Usage: {% include journey-doubts.html id="pharmacist" %}   (stubs are written by scripts/build-journey-pages.mjs)
+  journey-blueprint.html only picks a career + class and redirects here with ?class=10 (8–12, college, graduate,
+  working; the old c10 / ug ids work too). Everything below is printed at build time from _data/in/journey_matrix.yml,
+  so the page is complete without JS. Each step, scheme and note carries data-stages; the small script at the end
+  hides what is behind the chosen class (a button brings it back) and marks the "You are here" step.
+  Blocks: the job (three-layer careers), the road (journey with doubts, or the older foundation steps) + board note,
+  exam anatomy, rules (all-India first, then the state notes we have verified, one fold per state, and — for
+  three-layer careers — the state offices from journey_states.yml), career multiverse, money help, sources.
+  Doubts go into FAQPage JSON-LD in the same words (scripts/verify-site.mjs checks that).
+  Sources are numbered in order of first use on this page; [n] links (journey-ref.html) go to the list at the bottom.
 {%- endcomment -%}
 {%- assign JM = site.data.in.journey_matrix -%}
+{%- assign JS = site.data.in.journey_states -%}
 {%- assign C = JM.careers | where: "id", include.id | first -%}
 {%- assign ext = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>' -%}
-{%- comment -%} Collect the source ids this page cites, in order. A `source` is one id or a list. {%- endcomment -%}
+{%- assign v2 = false -%}{%- if C.v == 2 -%}{%- assign v2 = true -%}{%- endif -%}
+{%- assign other_note = C.board_notes.other -%}
+{%- comment -%} Source ids in the order this page cites them. A `source` is one id or a list. {%- endcomment -%}
 {%- assign ids = C.gate_source | join: "|" -%}
-{%- for j in C.journey -%}
-  {%- for p in j.do %}{% if p.source %}{% assign x = p.source | join: "|" %}{% assign ids = ids | append: "|" | append: x %}{% endif %}{% endfor -%}
-  {%- for p in j.exams %}{% assign x = p.source | join: "|" %}{% assign ids = ids | append: "|" | append: x %}{% endfor -%}
-  {%- for p in j.doubts %}{% assign x = p.source | join: "|" %}{% assign ids = ids | append: "|" | append: x %}{% endfor -%}
-{%- endfor -%}
+{%- if v2 -%}
+  {%- assign x = C.core.what.source | join: "|" %}{% if x != "" %}{% assign ids = ids | append: "|" | append: x %}{% endif -%}
+  {%- for p in C.core.pay %}{% assign x = p.source | join: "|" %}{% if x != "" %}{% assign ids = ids | append: "|" | append: x %}{% endif %}{% endfor -%}
+  {%- for p in C.core.routes %}{% assign x = p.source | join: "|" %}{% if x != "" %}{% assign ids = ids | append: "|" | append: x %}{% endif %}{% endfor -%}
+  {%- for p in C.core.cost_time %}{% assign x = p.source | join: "|" %}{% if x != "" %}{% assign ids = ids | append: "|" | append: x %}{% endif %}{% endfor -%}
+  {%- for p in C.core.challenges %}{% assign x = p.source | join: "|" %}{% if x != "" %}{% assign ids = ids | append: "|" | append: x %}{% endif %}{% endfor -%}
+  {%- for j in C.journey -%}
+    {%- for p in j.do %}{% assign x = p.source | join: "|" %}{% if x != "" %}{% assign ids = ids | append: "|" | append: x %}{% endif %}{% endfor -%}
+    {%- for p in j.exams %}{% assign x = p.source | join: "|" %}{% if x != "" %}{% assign ids = ids | append: "|" | append: x %}{% endif %}{% endfor -%}
+    {%- for p in j.doubts %}{% assign x = p.source | join: "|" %}{% if x != "" %}{% assign ids = ids | append: "|" | append: x %}{% endif %}{% endfor -%}
+  {%- endfor -%}
+{%- else -%}
+  {%- for f in C.foundation %}{% for p in f.points %}{% assign x = p.source | join: "|" %}{% if x != "" %}{% assign ids = ids | append: "|" | append: x %}{% endif %}{% endfor %}{% endfor -%}
+  {%- if other_note.source %}{% assign x = other_note.source | join: "|" %}{% else %}{% assign x = C.board_source | join: "|" %}{% endif -%}
+  {%- if x != "" %}{% assign ids = ids | append: "|" | append: x %}{% endif -%}
+{%- endif -%}
+{%- assign x = C.board_source | join: "|" %}{% if x != "" %}{% assign ids = ids | append: "|" | append: x %}{% endif -%}
+{%- for p in C.exam.facts %}{% assign x = p.source | join: "|" %}{% if x != "" %}{% assign ids = ids | append: "|" | append: x %}{% endif %}{% endfor -%}
+{%- assign x = C.exam.stages.source | join: "|" %}{% if x != "" %}{% assign ids = ids | append: "|" | append: x %}{% endif -%}
+{%- for p in C.exam.notes %}{% assign x = p.source | join: "|" %}{% if x != "" %}{% assign ids = ids | append: "|" | append: x %}{% endif %}{% endfor -%}
+{%- for p in C.state_rules %}{% assign x = p.source | join: "|" %}{% if x != "" %}{% assign ids = ids | append: "|" | append: x %}{% endif %}{% endfor -%}
+{%- for b in JM.boards %}{% if b.state %}{% assign n = C.board_notes[b.id] %}{% if n.source %}{% assign x = n.source | join: "|" %}{% assign ids = ids | append: "|" | append: x %}{% endif %}{% endif %}{% endfor -%}
+{%- for mid in C.money %}{% assign m = JM.money | where: "id", mid | first %}{% assign x = m.source | join: "|" %}{% if x != "" %}{% assign ids = ids | append: "|" | append: x %}{% endif %}{% endfor -%}
 {%- assign ids = ids | split: "|" | uniq -%}
-{%- assign nq = 0 -%}
+{%- assign nq = 0 -%}{%- for j in C.journey %}{% assign nq = nq | plus: j.doubts.size %}{% endfor -%}
+{%- assign nnat = 0 -%}{%- for r in C.state_rules %}{% unless r.state %}{% assign nnat = nnat | plus: 1 %}{% endunless %}{% endfor -%}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -30,63 +56,113 @@
   ]
 }
 </script>
+{%- if nq > 0 %}
+{%- assign k = 0 %}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
     {%- for j in C.journey %}{% for d in j.doubts %}
-    {% if nq > 0 %},{% endif %}{ "@type": "Question", "name": {{ d.q | strip_html | replace: "&amp;", "&" | jsonify }}, "acceptedAnswer": { "@type": "Answer", "text": {{ d.a | strip_html | replace: "&amp;", "&" | jsonify }} } }
-    {%- assign nq = nq | plus: 1 %}{% endfor %}{% endfor %}
+    {% if k > 0 %},{% endif %}{ "@type": "Question", "name": {{ d.q | strip_html | replace: "&amp;", "&" | jsonify }}, "acceptedAnswer": { "@type": "Answer", "text": {{ d.a | strip_html | replace: "&amp;", "&" | jsonify }} } }
+    {%- assign k = k | plus: 1 %}{% endfor %}{% endfor %}
   ]
 }
 </script>
+{%- endif %}
 
-<main id="main" class="sc-page jb-page jb-doubts-page">
+<main id="main" class="sc-page jb-page jc-page" data-career="{{ C.id }}">
   <section class="page-hero career-hero sc-hero jb-hero" aria-labelledby="hero-heading">
     <div class="container page-hero-inner">
-      <span class="eyebrow">Student Journey Blueprint · Doubts on the road</span>
+      <span class="eyebrow">Student Journey Blueprint</span>
       <h1 id="hero-heading">{{ page.h1 }}</h1>
       <div class="meta-row">
         <span>Class 8 to working life</span>
-        <span>·</span><span>{{ nq }} student doubts answered</span>
+        {%- if nq > 0 %}<span>·</span><span>{{ nq }} student doubts answered</span>{% endif %}
         <span>·</span><span>Last checked {{ JM.checked | date: "%-d %b %Y" }}</span>
       </div>
-      <p><strong>The one-line route:</strong> {{ C.gate }}{% assign xs = C.gate_source | join: "|" | split: "|" %}{% for x in xs %}{% for i in ids %}{% if i == x %} <a class="src-ref" href="#src-{{ x }}">[{{ forloop.index }}]</a>{% endif %}{% endfor %}{% endfor %}</p>
+      <p><strong>The one-line route:</strong> {{ C.gate }}{% include journey-ref.html s=C.gate_source %}</p>
+      <form class="jb-controls jc-controls" aria-label="Show the road from your class" onsubmit="return false">
+        <div class="jb-field">
+          <label for="jcClass">Your current class</label>
+          <select class="fx-select" id="jcClass" name="class">
+            <option value="">Show the whole road</option>
+            {%- for c in JM.classes %}
+            <option value="{{ c.id }}">{{ c.label }}</option>
+            {%- endfor %}
+          </select>
+        </div>
+        <p class="jc-status" id="jcStatus" aria-live="polite">Pick your class and the road below starts where you stand.</p>
+      </form>
       <div class="page-hero-ctas">
-        <a href="journey-blueprint.html?career={{ C.id }}" class="btn btn-journey btn-page-link">Make it personal — pick your class and state</a>
         <a href="{{ C.page }}" class="btn btn-ghost btn-page-link">Full career guide</a>
+        {%- if C.roadmap %}
+        <a href="{{ C.roadmap }}" class="btn btn-ghost btn-page-link">Step-by-step roadmap</a>
+        {%- endif %}
+        <a href="journey-blueprint.html" class="btn btn-ghost btn-page-link">Pick another career</a>
       </div>
     </div>
   </section>
 
+  {%- if v2 %}
+  {%- assign K = C.core %}
+  <section class="block mb sc-block" id="the-job" aria-labelledby="job-heading">
+    <div class="container" data-no-points>
+      <div class="section-head">
+        <span class="eyebrow"><span class="sc-step">00</span> The job</span>
+        <h2 id="job-heading">What the work really is</h2>
+      </div>
+      <p class="jb-what">{{ K.what.text }}{% include journey-ref.html s=K.what.source %}</p>
+      <h3 class="jb-h">A normal working day</h3>
+      <ul class="jb-list">{% for p in K.day %}<li>{{ p }}</li>{% endfor %}</ul>
+      <h3 class="jb-h">Pay</h3>
+      {%- if K.pay.size > 0 %}
+      <div class="table-wrap sc-table jb-pay"><table class="table-simple"><caption class="sr-only">Pay</caption>
+        <thead><tr><th scope="col">Level</th><th scope="col">Pay (official)</th></tr></thead>
+        <tbody>{% for p in K.pay %}<tr><th scope="row">{{ p.level }}</th><td>{{ p.value }}{% include journey-ref.html s=p.source %}</td></tr>{% endfor %}</tbody>
+      </table></div>
+      {%- endif %}
+      {%- if K.pay_note %}<p class="sc-p jb-note">{{ K.pay_note }}</p>{% endif %}
+      <h3 class="jb-h">Main routes</h3>
+      <div class="jb-cards">{% for r in K.routes %}<div class="jb-card"><h3>{{ r.title }}</h3><p>{{ r.text }}{% include journey-ref.html s=r.source %}</p></div>{% endfor %}</div>
+      {%- if K.cost_time.size > 0 %}
+      <h3 class="jb-h">Time and cost</h3>
+      <dl class="jb-facts">{% for q in K.cost_time %}<div class="jb-fact"><dt>{{ q.label }}</dt><dd>{{ q.value }}{% include journey-ref.html s=q.source %}</dd></div>{% endfor %}</dl>
+      {%- endif %}
+      {%- if K.cost_note %}<p class="sc-p jb-note">{{ K.cost_note }}</p>{% endif %}
+      <h3 class="jb-h">Hidden challenges</h3>
+      <ul class="jb-list">{% for p in K.challenges %}<li>{{ p.text }}{% include journey-ref.html s=p.source %}</li>{% endfor %}</ul>
+      <h3 class="jb-h">Who should not choose it</h3>
+      <ul class="jb-list jb-not">{% for p in K.not_for %}<li>{{ p }}</li>{% endfor %}</ul>
+    </div>
+  </section>
+  {%- endif %}
+
   <section class="block mb sc-block" id="road" aria-labelledby="road-heading">
     <div class="container" data-no-points>
       <div class="section-head">
-        <span class="eyebrow">Read top to bottom</span>
-        <h2 id="road-heading">The road, with every doubt in its place</h2>
-        <p>Each stage says what to do, which exams open and the doubts students ask at that point. You can stop at your own class — or read ahead.</p>
+        <span class="eyebrow"><span class="sc-step">01</span> Your road, stage by stage</span>
+        <h2 id="road-heading">{% if v2 %}What to do at each stage — and the doubts on the way{% else %}What to do from your class onward{% endif %}</h2>
       </div>
+      <button type="button" class="jc-past-toggle" id="jcPast" aria-expanded="false" hidden></button>
       <ol class="jb-steps jb-road">
+        {%- if v2 %}
         {%- for j in C.journey %}
-        <li class="jb-step">
-          <span class="jb-tag">{% for s in j.stages %}{% assign k = JM.classes | where: "id", s | first %}{{ k.label }}{% unless forloop.last %} · {% endunless %}{% endfor %}</span>
+        <li class="jb-step" data-stages="{{ j.stages | join: ' ' }}">
+          <span class="jb-tag jb-now jc-here">You are here</span>
+          <span class="jb-tag">{% for s in j.stages %}{% assign kl = JM.classes | where: "id", s | first %}{{ kl.label }}{% unless forloop.last %} · {% endunless %}{% endfor %}</span>
           <h3>{{ j.title }}</h3>
           {%- if j.do %}
-          <ul class="jb-list">
-            {%- for p in j.do %}
-            <li>{{ p.text }}{% if p.source %}{% assign xs = p.source | join: "|" | split: "|" %}{% for x in xs %}{% for i in ids %}{% if i == x %} <a class="src-ref" href="#src-{{ x }}">[{{ forloop.index }}]</a>{% endif %}{% endfor %}{% endfor %}{% endif %}</li>
-            {%- endfor %}
-          </ul>
+          <ul class="jb-list">{% for p in j.do %}<li>{{ p.text }}{% include journey-ref.html s=p.source %}</li>{% endfor %}</ul>
           {%- endif %}
           {%- if j.stream %}<p class="jb-stream"><strong>Stream / subjects:</strong> {{ j.stream }}</p>{% endif %}
           {%- if j.exams %}
           <p class="jb-sub">Exams that open here</p>
-          <ul class="jb-list jb-exams">
-            {%- for x0 in j.exams %}
-            <li><strong>{{ x0.name }}</strong> — {{ x0.when }}{% assign xs = x0.source | join: "|" | split: "|" %}{% for x in xs %}{% for i in ids %}{% if i == x %} <a class="src-ref" href="#src-{{ x }}">[{{ forloop.index }}]</a>{% endif %}{% endfor %}{% endfor %}</li>
-            {%- endfor %}
-          </ul>
+          <ul class="jb-list jb-exams">{% for x0 in j.exams %}<li><strong>{{ x0.name }}</strong> — {{ x0.when }}{% include journey-ref.html s=x0.source %}</li>{% endfor %}</ul>
+          {%- endif %}
+          {%- if j.money %}
+          <p class="jb-sub">Money help at this stage</p>
+          <p class="jb-mchips">{% for mid in j.money %}{% assign m = JM.money | where: "id", mid | first %}{% if m %}<a class="jb-mchip" href="#money-{{ m.id }}">{{ m.name }}</a>{% endif %}{% endfor %}</p>
           {%- endif %}
           {%- if j.mistakes %}
           <p class="jb-sub">Common mistakes</p>
@@ -96,22 +172,164 @@
           {%- for d in j.doubts %}
           <div class="jb-doubt">
             <h4 class="jb-q"><span class="jb-q-tag">Doubt</span> {{ d.q }}</h4>
-            <p class="jb-a">{{ d.a }}{% assign xs = d.source | join: "|" | split: "|" %}{% for x in xs %}{% for i in ids %}{% if i == x %} <a class="src-ref" href="#src-{{ x }}">[{{ forloop.index }}]</a>{% endif %}{% endfor %}{% endfor %}</p>
+            <p class="jb-a">{{ d.a }}{% include journey-ref.html s=d.source %}</p>
             <p class="jb-next"><strong>Next:</strong> {{ d.next }}</p>
           </div>
           {%- endfor %}
         </li>
         {%- endfor %}
+        {%- else %}
+        {%- for f in C.foundation %}
+        <li class="jb-step" data-stages="{{ f.stages | join: ' ' }}">
+          <span class="jb-tag jb-now jc-here">You are here</span>
+          <span class="jb-tag">{% for s in f.stages %}{% assign kl = JM.classes | where: "id", s | first %}{{ kl.label }}{% unless forloop.last %} · {% endunless %}{% endfor %}</span>
+          <h3>{{ f.title }}</h3>
+          <ul class="jb-list">{% for p in f.points %}<li>{{ p.text }}{% include journey-ref.html s=p.source %}</li>{% endfor %}</ul>
+        </li>
+        {%- endfor %}
+        {%- endif %}
       </ol>
-      <p class="sc-p"><a class="jb-more" href="journey-blueprint.html?career={{ C.id }}">See the exam, state rules and scholarships for your class and state</a></p>
+      <p class="sc-p jc-done" id="jcDone" hidden>You are past the school stage for this career — the exam, rules and money blocks below still apply.</p>
+      <div class="jb-board">
+        <h3>Your school board</h3>
+        {%- if v2 %}
+        <p>{{ C.board_note }}{% include journey-ref.html s=C.board_source %}</p>
+        {%- elsif other_note.text %}
+        <p>{{ other_note.text }}{% if other_note.source %}{% include journey-ref.html s=other_note.source %}{% else %}{% include journey-ref.html s=C.board_source %}{% endif %}</p>
+        {%- elsif other_note %}
+        <p>{{ other_note }}{% include journey-ref.html s=C.board_source %}</p>
+        {%- endif %}
+        <p class="jb-note">CBSE, CISCE and state-board certificates count the same for every national exam on this page. Notes for particular state boards are under State rules below.</p>
+      </div>
+    </div>
+  </section>
+
+  {%- assign e = C.exam %}
+  <section class="block mb sc-block" id="exam" aria-labelledby="exam-heading">
+    <div class="container" data-no-points>
+      <div class="section-head">
+        <span class="eyebrow"><span class="sc-step">02</span> Exam anatomy</span>
+        <h2 id="exam-heading">The exam, stage by stage</h2>
+      </div>
+      <p class="jb-exam-name"><strong>{{ e.name }}</strong> · {{ e.body }}</p>
+      <dl class="jb-facts">{% for q in e.facts %}<div class="jb-fact"><dt>{{ q.label }}</dt><dd>{{ q.value }}{% include journey-ref.html s=q.source %}</dd></div>{% endfor %}</dl>
+      <div class="table-wrap sc-table"><table class="table-simple"><caption class="sr-only">{{ e.name | strip_html }} stages</caption>
+        <thead><tr>{% for h in e.stages.head %}<th scope="col">{{ h }}</th>{% endfor %}</tr></thead>
+        <tbody>{% for r in e.stages.rows %}<tr>{% for cell in r %}{% if forloop.first %}<th scope="row">{{ cell }}</th>{% else %}<td>{{ cell }}</td>{% endif %}{% endfor %}</tr>{% endfor %}</tbody>
+      </table></div>
+      <p class="sc-cite">Stage table source{% include journey-ref.html s=e.stages.source %}</p>
+      {%- if e.notes %}
+      <ul class="jb-list">{% for p in e.notes %}<li>{{ p.text }}{% include journey-ref.html s=p.source %}</li>{% endfor %}</ul>
+      {%- endif %}
+      {%- if e.href %}<a class="jb-more" href="{{ e.href }}">Open the full exam guide</a>{% endif %}
+    </div>
+  </section>
+
+  {%- assign uses = C.state_uses %}
+  <section class="block mb sc-block" id="state-rules" aria-labelledby="state-rules-heading">
+    <div class="container" data-no-points>
+      <div class="section-head">
+        <span class="eyebrow"><span class="sc-step">03</span> State rules</span>
+        <h2 id="state-rules-heading">Rules for all of India — and your state</h2>
+      </div>
+      {%- if nnat > 0 %}
+      <ul class="jb-list">{% for r in C.state_rules %}{% if r.state %}{% continue %}{% endif %}<li>{{ r.text }}{% include journey-ref.html s=r.source %}{% if r.href %} <a class="jb-more" href="{{ r.href }}">Full page</a>{% endif %}</li>{% endfor %}</ul>
+      {%- endif %}
+      {%- assign nst = 0 %}
+      {%- capture states_html %}
+      {%- for s in JS.states %}
+      {%- assign own = C.state_rules | where: "state", s.id %}
+      {%- assign bnotes = JM.boards | where: "state", s.id %}
+      {%- assign nb = 0 %}{% for b in bnotes %}{% if C.board_notes[b.id] %}{% assign nb = nb | plus: 1 %}{% endif %}{% endfor %}
+      {%- if own.size > 0 or nb > 0 %}
+      {%- assign nst = nst | plus: 1 %}{% assign nn = own.size | plus: nb %}
+      <details class="jc-state">
+        <summary>{{ s.name }}<span>{{ nn }} {% if nn == 1 %}note{% else %}notes{% endif %}</span></summary>
+        <ul class="jb-list">
+          {%- for r in own %}<li>{{ r.text }}{% include journey-ref.html s=r.source %}{% if r.href %} <a class="jb-more" href="{{ r.href }}">Full page</a>{% endif %}</li>{% endfor %}
+          {%- for b in bnotes %}{% assign n = C.board_notes[b.id] %}{% if n %}<li><strong>{{ b.label }}:</strong> {% if n.text %}{{ n.text }}{% if n.source %}{% include journey-ref.html s=n.source %}{% else %}{% include journey-ref.html s=C.board_source %}{% endif %}{% else %}{{ n }}{% include journey-ref.html s=C.board_source %}{% endif %}</li>{% endif %}{% endfor %}
+        </ul>
+        {%- if s.cockpit %}<a class="jb-more" href="{{ s.cockpit }}">{{ s.name }} exam &amp; career cockpit</a>{% endif %}
+      </details>
+      {%- endif %}
+      {%- endfor %}
+      {%- endcapture %}
+      {%- if nst > 0 %}
+      <p class="jb-sub">State notes we have checked ({{ nst }} {% if nst == 1 %}state{% else %}states / UTs{% endif %})</p>
+      <div class="jc-states">{{ states_html }}</div>
+      <p class="sc-p jb-note">Not in this list? The national route above applies — we found nothing in this career's official rules that changes in your state.</p>
+      {%- else %}
+      <p class="sc-p jb-national"><strong>National route applies.</strong> This career follows the same rules in every state and UT.</p>
+      {%- endif %}
+      {%- if uses and uses.size > 0 %}
+      <details class="jc-offices">
+        <summary>Official offices for this path in all 36 states and UTs</summary>
+        <div class="table-wrap sc-table"><table class="table-simple"><caption class="sr-only">State offices</caption>
+          <thead><tr><th scope="col">State / UT</th><th scope="col">Offices</th></tr></thead>
+          <tbody>
+          {%- for s in JS.states %}
+          <tr><th scope="row">{{ s.name }}</th><td>
+            {%- assign first = true %}
+            {%- if uses contains "board" and s.board %}{% for l in s.board.links %}{% unless first %} · {% endunless %}<a href="{{ l.url }}" target="_blank" rel="noopener noreferrer">{{ l.label }}</a>{% assign first = false %}{% endfor %}{% endif %}
+            {%- for b in s.bodies %}{% if uses contains b.role or b.role == "admin" %}{% unless first %} · {% endunless %}<a href="{{ b.url }}" target="_blank" rel="noopener noreferrer">{{ b.name }}</a>{% assign first = false %}{% endif %}{% endfor %}
+            {%- if first %}—{% endif -%}
+          </td></tr>
+          {%- endfor %}
+          </tbody>
+        </table></div>
+      </details>
+      {%- endif %}
+    </div>
+  </section>
+
+  <section class="block mb sc-block" id="multiverse" aria-labelledby="multiverse-heading">
+    <div class="container" data-no-points>
+      <div class="section-head">
+        <span class="eyebrow"><span class="sc-step">04</span> Career multiverse</span>
+        <h2 id="multiverse-heading">Where this path can take you next</h2>
+      </div>
+      <div class="jb-cards">
+        {%- for m in C.multiverse %}
+        {%- if m.href %}<a class="jb-card" href="{{ m.href }}"><h3>{{ m.title }}</h3><p>{{ m.text }}</p><span class="jb-go">Explore →</span></a>
+        {%- else %}<div class="jb-card"><h3>{{ m.title }}</h3><p>{{ m.text }}</p></div>{% endif %}
+        {%- endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="block mb sc-block" id="money-help" aria-labelledby="money-heading">
+    <div class="container" data-no-points>
+      <div class="section-head">
+        <span class="eyebrow"><span class="sc-step">05</span> Money help</span>
+        <h2 id="money-heading">Scholarships, stipends and fee help</h2>
+        <p>Government schemes, professional-body scholarships and paid training on this path. Pick your class above and schemes you have already passed are hidden.</p>
+      </div>
+      <div class="jb-money">
+        {%- for mid in C.money %}{% assign m = JM.money | where: "id", mid | first %}{% if m %}
+        <article class="jb-mcard" id="money-{{ m.id }}" data-stages="{{ m.stages | join: ' ' }}">
+          <div class="jb-mhead">
+            <span class="jb-kind jb-k-{{ m.kind }}">{% case m.kind %}{% when "scholarship" %}Scholarship{% when "stipend" %}Stipend{% when "fee" %}Fee help{% when "state" %}State scheme{% when "training" %}Free training{% endcase %}</span>
+            <span class="jb-tag jb-now jc-here">Open to you now</span>
+            {%- assign fs = JM.classes | where: "id", m.stages.first | first %}
+            <span class="jb-tag jc-from">From {{ fs.label }}</span>
+            {%- if m.state %}{% assign ms = JS.states | where: "id", m.state | first %}<span class="jb-tag">{{ ms.name }} only</span>{% endif %}
+          </div>
+          <h3>{{ m.name }}</h3>
+          <p class="jb-by">{{ m.by }}</p>
+          {%- if m.amount %}<p class="jb-amt">{{ m.amount }}{% include journey-ref.html s=m.source %}</p>{% endif %}
+          <dl class="jb-mdl"><dt>Who</dt><dd>{{ m.who }}{% unless m.amount %}{% include journey-ref.html s=m.source %}{% endunless %}</dd><dt>How</dt><dd>{{ m.apply }}</dd></dl>
+        </article>
+        {%- endif %}{% endfor %}
+      </div>
+      <p class="sc-p jc-nomoney" id="jcNoMoney" hidden>No scheme on our list is still ahead of you for this path.</p>
     </div>
   </section>
 
   <section class="block mb sc-block" id="sources" aria-labelledby="sources-heading">
     <div class="container">
       <div class="section-head">
-        <span class="eyebrow">Official sources &amp; verification</span>
-        <h2 id="sources-heading">Where these answers come from</h2>
+        <span class="eyebrow"><span class="sc-step">06</span> Official sources &amp; verification</span>
+        <h2 id="sources-heading">Where these facts come from</h2>
         <p>Every number on this page comes from the official files below. Lines with no number are Margdarshan guidance. Rules change every year — open the current notice before you apply.</p>
       </div>
       <ol class="cite-list">
@@ -130,3 +348,51 @@
     </div>
   </section>
 </main>
+
+<script>
+/* Class filter for this blueprint page. ?class=10 (8–12, college, graduate, working; old ids c10 / ug / grad / work
+   too) or the select hides every [data-stages] item whose stages are all before the chosen class, marks the items
+   at that class "You are here" / "Open to you now", and keeps the choice in the URL. The button shows the hidden
+   earlier stages again. No class = the whole road. */
+(function(){
+  var order = [{% for c in JM.classes %}'{{ c.id }}'{% unless forloop.last %},{% endunless %}{% endfor %}];
+  var label = { {% for c in JM.classes %}'{{ c.id }}': {{ c.label | jsonify }}{% unless forloop.last %}, {% endunless %}{% endfor %} };
+  var SLUG = { c8: '8', c9: '9', c10: '10', c11: '11', c12: '12', ug: 'college', grad: 'graduate', work: 'working' };
+  var main = document.querySelector('.jc-page'), sel = document.getElementById('jcClass');
+  var btn = document.getElementById('jcPast'), status = document.getElementById('jcStatus');
+  var items = main.querySelectorAll('[data-stages]');
+  function fromParam(v){
+    v = String(v || '').toLowerCase().replace(/^class\s*/, '');
+    for(var k in SLUG){ if(v === k || v === SLUG[k]) return k; }
+    return '';
+  }
+  function apply(k){
+    var i = order.indexOf(k), past = 0, ahead = 0, money = 0;
+    main.classList.remove('jc-show-past');
+    Array.prototype.forEach.call(items, function(el){
+      var st = el.getAttribute('data-stages').split(' ');
+      var gone = i > -1 && st.every(function(s){ return order.indexOf(s) < i; });
+      el.classList.toggle('is-past', gone);
+      el.classList.toggle('is-now', i > -1 && st.indexOf(k) > -1);
+      var road = el.classList.contains('jb-step');
+      if(road){ if(gone) past++; else ahead++; }
+      else if(!gone) money++;
+    });
+    btn.hidden = !past;
+    btn.setAttribute('aria-expanded', 'false');
+    btn.textContent = 'Show the ' + past + ' earlier stage' + (past === 1 ? '' : 's') + ' you have passed';
+    document.getElementById('jcDone').hidden = !(i > -1 && !ahead);
+    document.getElementById('jcNoMoney').hidden = !(i > -1 && !money);
+    status.textContent = i > -1 ? 'Showing your road from ' + label[k] + ' onward.' : 'Pick your class and the road below starts where you stand.';
+    if(window.history && history.replaceState) history.replaceState(null, '', location.pathname + (k ? '?class=' + SLUG[k] : '') + location.hash);
+  }
+  btn.addEventListener('click', function(){
+    var on = main.classList.toggle('jc-show-past');
+    btn.setAttribute('aria-expanded', on ? 'true' : 'false');
+  });
+  sel.addEventListener('change', function(){ apply(sel.value); });
+  var k = fromParam(new URLSearchParams(location.search).get('class'));
+  sel.value = k;
+  apply(k);
+})();
+</script>

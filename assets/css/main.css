@@ -3655,8 +3655,6 @@ a.usc-card:hover,a.usc-card:focus-visible{border-color:var(--gold);box-shadow:va
 .jb-hint{margin:.1rem 0 0;font-size:.8rem;line-height:1.5;color:var(--on-ink-muted);}
 .jb-todo,.jb-closest{color:var(--on-ink-muted);}
 .jb-gate .jb-closest{margin-bottom:.5rem;font-size:.92rem;}
-/* Nothing below the form shows until career, class and board are all chosen (data-mode set by the page script). */
-.jb-page[data-mode="empty"] .jb-out,.jb-page[data-mode="lite"] .jb-full,.jb-page:not([data-mode="lite"]) .jb-lite{display:none;}
 .jb-field-name{margin:0 0 .8rem;}
 .jb-chips{display:flex;flex-wrap:wrap;gap:.5rem;margin:0 0 1.2rem;}
 .jb-chip{min-height:40px;padding:.4rem .8rem;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--text);font:inherit;font-size:.88rem;font-weight:600;line-height:1.3;text-align:left;cursor:pointer;transition:border-color .2s var(--ease);}
@@ -3719,8 +3717,6 @@ a.jb-card:is(:hover,:focus-visible){border-color:var(--gold);transform:translate
 /* 2026-10-25 (batch 5): three-layer careers — state / UT + board pickers (3 selects in a row from 900px), "The job"
    block, the road with student doubts in place (also printed on journey-<id>.html), and the state layer's office
    links. .jb-v2 blocks show only for careers with `v: 2`. */
-@media (min-width:900px){.jb-controls{grid-template-columns:repeat(3,minmax(0,1fr));}}
-.jb-page:not([data-v="2"]) .jb-v2{display:none;}
 .jb-what{margin:0 0 1rem;max-width:80ch;font-size:1.04rem;line-height:1.65;}
 .jb-h{margin:1.4rem 0 .6rem;font-size:1.02rem;}
 .jb-note{font-size:.88rem;color:var(--text-muted);}
@@ -3748,3 +3744,36 @@ a.jb-card:is(:hover,:focus-visible){border-color:var(--gold);transform:translate
 .jb-role{font-size:.7rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--text-muted);}
 .jb-links{font-size:.9rem;}
 .jb-links a,.jb-portal a{color:var(--link);font-weight:600;overflow-wrap:anywhere;}
+/* 2026-10-26 structural pivot: the hub (journey-blueprint.html) has two controls — career (built blueprints only) +
+   class — and redirects to the career's own page journey-<id>.html?class=10 (_includes/journey-doubts.html). On that
+   page the class filter hides [data-stages] items behind the chosen class (.is-past) until the toggle shows them. */
+.jc-controls{align-items:end;}
+.jc-status{margin:0;font-size:.88rem;line-height:1.5;color:var(--on-ink-muted);}
+.jc-here{display:none;margin-right:.35rem;}
+.jc-page .is-now .jc-here{display:inline-block;}
+.jb-mcard.is-now .jc-from{display:none;}
+.jc-page:not(.jc-show-past) .is-past{display:none;}
+.jc-page .is-past{opacity:.72;}
+.jc-past-toggle{display:inline-flex;align-items:center;min-height:44px;margin:0 0 .9rem;padding:.45rem .95rem;border:1px dashed var(--line);border-radius:999px;background:var(--surface);color:var(--text);font:inherit;font-size:.9rem;font-weight:600;cursor:pointer;transition:border-color .2s var(--ease);}
+.jc-past-toggle:is(:hover,:focus-visible){border-color:var(--gold);}
+.jc-past-toggle[hidden]{display:none;}
+.jc-done{padding:.65rem .85rem;border:1px dashed var(--line);border-radius:var(--radius-sm);}
+.jc-states{display:grid;gap:.5rem;margin:0 0 1rem;max-width:80ch;}
+.jc-state{border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);}
+.jc-state summary,.jc-offices summary{display:flex;justify-content:space-between;align-items:center;gap:.8rem;min-height:48px;padding:.6rem .95rem;font-weight:650;cursor:pointer;}
+.jc-state summary span{font-size:.75rem;font-weight:600;color:var(--text-muted);white-space:nowrap;}
+.jc-state[open] summary{border-bottom:1px solid var(--line);}
+.jc-state .jb-list{margin:.8rem .95rem .6rem;}
+.jc-state .jb-more{margin:0 .95rem .6rem;}
+.jc-offices{margin:1rem 0 0;max-width:80ch;border:1px dashed var(--line);border-radius:var(--radius-sm);}
+.jc-offices .table-wrap{margin:0 .6rem .6rem;}
+.jc-offices .table-simple{min-width:0!important;}
+.jc-offices td a{color:var(--link);font-weight:600;overflow-wrap:anywhere;}
+.jb-hub-cards .jb-badge{align-self:flex-start;margin-top:auto;}
+.jb-queue{margin:0 0 1rem;padding-left:1.4rem;max-width:60ch;line-height:1.6;}
+.jb-queue li{margin-bottom:.35rem;break-inside:avoid;}
+@media (min-width:720px){.jb-queue{max-width:none;columns:2;column-gap:2.5rem;}}
+.jb-missing{padding:1rem 1.1rem;border:1px solid rgba(var(--hl-rgb),.25);border-left:4px solid var(--plum);border-radius:var(--radius-sm);background:rgba(var(--hl-rgb),.05);}
+.jb-missing-t{margin:.5rem 0 .35rem;font-size:1.1rem;line-height:1.35;color:var(--on-ink-strong);}
+.jb-linkbtn{padding:0;border:0;background:none;font:inherit;font-weight:600;cursor:pointer;}
+.jb-hero .jb-gate :is(a.jb-more,.jb-linkbtn,.jb-inline){color:var(--on-ink-strong);text-decoration:underline;text-underline-offset:3px;}

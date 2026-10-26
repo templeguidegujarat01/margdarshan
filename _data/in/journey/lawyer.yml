@@ -1,0 +1,97 @@
+# Journey Blueprint — Lawyer (Advocate). Printed on journey-lawyer.html (_includes/journey-doubts.html).
+# Rules, classes and the money items / sources several careers share: _data/in/journey_common.yml.
+# `money_defs` / `sources` below are used only by this career. Check: node scripts/check-journey-matrix.mjs
+id: lawyer
+name: "Lawyer (Advocate)"
+search: ["advocate", "lawyer", "litigation lawyer", "legal counsel", "corporate lawyer"]
+page: "llb.html"
+roadmap: "roadmaps/llb.html"
+gate: "Class 12 with 45% (40% for SC/ST/PwD) → CLAT → 5-year LL.B. at an NLU (or a 3-year LL.B. after any degree) → enrol with a State Bar Council → pass the AIBE."
+gate_source: clat-elig
+foundation:
+  - stages: [c8, c9, c10]
+    title: "Read every day — CLAT is a reading test"
+    points:
+      - text: "CLAT is about 20% English, 25% current affairs, 25% legal reasoning, 20% logical reasoning and 10% quantitative techniques — all from passages."
+        source: clat-fmt
+      - text: "Build the habit now: a newspaper editorial a day, and your board's English and Social Science textbooks (NCERT for CBSE) read properly, not memorised."
+  - stages: [c11, c12]
+    title: "Any stream works — protect your Class 12 percentage"
+    points:
+      - text: "CLAT UG needs Class 12 with at least <strong>45%</strong> (<strong>40%</strong> for SC, ST and PwD). Students writing Class 12 in March/April can apply; there is no upper age limit."
+        source: clat-elig
+      - text: "CLAT is written in December of your Class 12 year: CLAT 2027 is on <strong>6 December 2026</strong>, for seats starting in 2027-28."
+        source: clat-pr
+  - stages: [ug, grad]
+    title: "Already in college? Take the 3-year LL.B."
+    points:
+      - text: "After any bachelor's degree you can do a 3-year LL.B. instead of the 5-year integrated course; both lead to the same right to practise."
+        source: bci
+      - text: "Final-year LL.B. students can register for the All India Bar Examination (AIBE). AIBE XXI was held on 7 June 2026."
+        source: aibe
+board_notes:
+  gseb: "Your HSC marks are your Class 12 marks for the 45% rule — every stream (Science, Commerce, Arts) is accepted."
+  cbse-gj: "Your CBSE Class XII marks are used for the 45% rule; every stream is accepted."
+  upmsp: "Your Intermediate marks are your Class 12 marks for the 45% rule — every stream is accepted."
+  msbshse: "Your HSC marks are your Class 12 marks for the 45% rule — every stream (Science, Commerce, Arts) is accepted."
+  wb: "Your Higher Secondary (WBCHSE) marks are your Class 12 marks for the 45% rule — every stream is accepted."
+  cbse: "Your CBSE Class XII marks are used for the 45% rule; every stream is accepted."
+  other: "Your state board Class 12 marks are used for the 45% rule; every stream is accepted."
+board_source: clat-elig
+exam:
+  name: "CLAT UG 2027"
+  body: "Consortium of National Law Universities"
+  href: "clat.html"
+  facts:
+    - { label: "Exam date", value: "Sun 6 Dec 2026, 2–4 PM", source: clat-pr }
+    - { label: "Paper", value: "120 MCQs · 120 marks · 2 hours, offline", source: clat-fmt }
+    - { label: "Fee", value: "₹4,000 · ₹3,500 SC/ST/BPL/PwD", source: clat-ins }
+    - { label: "Seats (examples)", value: "NLSIU 310 · GNLU 176 · NALSAR 132", source: clat-ins }
+  stages:
+    head: ["Stage", "What it is", "Marking", "Rule"]
+    rows:
+      - ["CLAT UG", "One offline paper of 120 one-mark MCQs", "+1 right · −0.25 wrong", "Rank decides NLU seats; ties go to higher Legal Reasoning marks, then the older candidate"]
+      - ["NLU counselling", "Seat allotment by rank, category and domicile", "—", "Each NLU applies its own seat matrix"]
+      - ["5-year LL.B.", "BA / BBA / B.Com / B.Sc / BSW LL.B. (Hons.) at the NLU", "—", "University exams"]
+      - ["AIBE", "All India Bar Examination after enrolment", "—", "Needed to practise as an advocate"]
+    source: clat-fmt
+  notes:
+    - text: "CLAT 2027 applications close on 31 October 2026, 11:59 PM. Fees are paid online only and are non-refundable."
+      source: clat-ins
+    - text: "Pass or rank-cut-off percentages are not part of the official CLAT notice, so we do not print one."
+state_rules:
+  - state: gujarat
+    text: "<strong>GNLU Gandhinagar</strong> keeps 25% of its 176 all-India UG seats (40 seats) for <strong>Gujarat domicile</strong> candidates, across every category except EWS."
+    source: gnlu
+  - state: gujarat
+    text: "After your LL.B., you enrol as an advocate with the <strong>Bar Council of Gujarat</strong> before you can practise in the state."
+    source: bci
+  - text: "Most NLUs keep a home-state quota with their own definition — for example 25% for Karnataka Students at NLSIU Bengaluru and 25% for Telangana residents at NALSAR."
+    source: nlsiu
+multiverse:
+  - { title: "Litigation", text: "Practise in courts; income grows slowly in the first years while you build clients.", href: "llb.html" }
+  - { title: "Corporate law", text: "Law firms and in-house legal teams; NLU graduates are hired most here." }
+  - { title: "Judicial services", text: "State judicial service exams for civil judge posts.", href: "judicial-services.html" }
+  - { title: "Niche legal careers", text: "Patent agent, trademark agent, insolvency professional and data protection roles.", href: "patent-agent.html" }
+money: [nmmss, csss, pms-sc, clat-fee, mysy]
+
+money_defs:
+  - id: clat-fee
+    kind: fee
+    name: "Lower CLAT fee"
+    by: "Consortium of National Law Universities"
+    amount: "₹3,500 instead of ₹4,000"
+    who: "SC, ST, BPL and PwD candidates, with the certificate uploaded in the form."
+    apply: "In the CLAT application (closes 31 Oct for the December exam)."
+    stages: [c11, c12]
+    source: clat-ins
+
+sources:
+  - { id: clat-elig, name: "Consortium of NLUs — CLAT 2027 UG Eligibility", url: "https://consortiumofnlus.ac.in/clat-2027/ug-eligibility.html", covers: "45% / 40% Class 12 rule, appearing candidates, no age limit", checked: 2026-10-14 }
+  - { id: clat-pr, name: "Consortium of NLUs — CLAT 2027 Press Release (22 Jul 2026)", url: "https://consortiumofnlus.ac.in/clat-2027/notifications/Press_Release_CLAT_2027.pdf", covers: "exam date and time", checked: 2026-10-14 }
+  - { id: clat-fmt, name: "Consortium of NLUs — CLAT 2027 UG Question Paper Format", url: "https://consortiumofnlus.ac.in/clat-2027/ug-question-format.html", covers: "120 MCQs, 2 hours, −0.25, section weightage", checked: 2026-10-14 }
+  - { id: clat-ins, name: "Consortium of NLUs — CLAT 2027 UG Instructions", url: "https://consortiumofnlus.ac.in/clat-2027/ug-instructions.html", covers: "fees, offline mode, tie-break, NLU seat matrices via brochures", checked: 2026-10-14 }
+  - { id: gnlu, name: "GNLU Gandhinagar — CLAT 2027 brochure", url: "https://consortiumofnlus.ac.in/clat-2027/nlus/brochure/GNLU.pdf", covers: "176 all-India UG seats, 25% Gujarat domicile (40 seats)", checked: 2026-10-14 }
+  - { id: nlsiu, name: "NLSIU Bengaluru — CLAT 2027 brochure", url: "https://consortiumofnlus.ac.in/clat-2027/nlus/brochure/NLSIU.pdf", covers: "310 BA LLB seats, 25% Karnataka Students", checked: 2026-10-14 }
+  - { id: bci, name: "Bar Council of India", url: "https://www.barcouncilofindia.org/", covers: "3-year and 5-year LL.B. routes, State Bar Council enrolment", checked: 2026-10-08 }
+  - { id: aibe, name: "All India Bar Examination — official website", url: "https://allindiabarexamination.com/", covers: "AIBE XXI held 7 Jun 2026, final-year registration notification", checked: 2026-10-24 }

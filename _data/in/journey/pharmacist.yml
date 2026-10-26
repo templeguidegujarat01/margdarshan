@@ -1,0 +1,286 @@
+# Journey Blueprint — Pharmacist (D.Pharm / B.Pharm / Pharm.D). Printed on journey-pharmacist.html (_includes/journey-doubts.html).
+# Rules, classes and the money items / sources several careers share: _data/in/journey_common.yml.
+# `money_defs` / `sources` below are used only by this career. Check: node scripts/check-journey-matrix.mjs
+id: pharmacist
+v: 2
+name: "Pharmacist (D.Pharm / B.Pharm / Pharm.D)"
+search: ["pharmacist", "hospital pharmacist", "community pharmacist", "clinical pharmacist", "industrial pharmacist", "railway pharmacist"]
+search_not: ["ayurvedic", "unani", "veterinary"]
+page: "bpharm.html"
+roadmap: "roadmaps/bpharm.html"
+doubts_page: "journey-pharmacist.html"
+gate: "Class 12 with Physics, Chemistry and Biology or Maths → a 2-year D.Pharm or a 4-year B.Pharm at a PCI-approved college → register with your State Pharmacy Council → hospital, medical store, industry or government job; GPAT for M.Pharm."
+gate_source: [pci-er20, pci-bph]
+core:
+  what:
+    text: "A pharmacist checks a doctor's prescription, gives out the right medicine in the right dose and tells the patient how to take it safely. Pharmacists also make and test medicines in factories and labs. By law, only a <strong>registered pharmacist</strong> may prepare or give out medicine on a doctor's prescription."
+    source: pci-s42
+  day:
+    - "In a hospital or medical store: read prescriptions, pick and check medicines, explain doses and side effects, keep the stock and expiry dates in order."
+    - "In a medicine factory: help make, pack or test batches, and keep the records that drug inspectors check."
+    - "In government service: run the pharmacy of a hospital, dispensary or railway health unit."
+  pay:
+    - { level: "Government entry (Railways)", value: "Pay Level 5 · ₹29,200 initial pay — Pharmacist (Entry Grade), RRB CEN 03/2025", source: rrb-para }
+  pay_note: "No official body publishes private-sector or mid- and senior-career pharmacist pay, so we print only the government entry pay."
+  routes:
+    - { title: "Medical store or hospital pharmacy", text: "Needs registration with your State Pharmacy Council. Only a registered pharmacist may dispense medicine on a prescription.", source: pci-s42 }
+    - { title: "Government pharmacist", text: "Railway Recruitment Boards hire Pharmacist (Entry Grade) with a D.Pharm or B.Pharm and registration; states hire through their own boards.", source: rrb-para }
+    - { title: "Industry and research", text: "A B.Pharm, then GPAT for M.Pharm and a Ph.D. A valid GPAT, GATE or NET score also opens NIPER JEE for the National Institutes of Pharmaceutical Education and Research.", source: [gp-ib, nj-br] }
+    - { title: "Clinical pharmacy (Pharm.D)", text: "A 6-year Pharm.D: five years of study and one year of internship or residency in a hospital.", source: pci-pharmd }
+  cost_time:
+    - { label: "D.Pharm", value: "2 academic years + 500 hours of practical training (at least 3 months)", source: pci-er20 }
+    - { label: "B.Pharm", value: "4 years full time; D.Pharm holders can join in the 2nd year", source: pci-bph }
+    - { label: "Pharm.D", value: "6 years (5 years of study + 1 year internship)", source: pci-pharmd }
+    - { label: "GPAT fee (2026)", value: "₹3,500 · ₹2,500 for SC / ST / PwD", source: gp-ib }
+  cost_note: "College fees are set by each state's fee committee or the college itself, so we do not print one national figure."
+  challenges:
+    - text: "Your college must be approved by the Pharmacy Council of India (PCI). A D.Pharm from an institution that is not approved under section 12 of the Pharmacy Act does not lead to registration."
+      source: pci-dpee
+    - text: "Government posts are few: the 2025 railway notice had <strong>105</strong> Pharmacist (Entry Grade) posts across all RRBs."
+      source: rrb-para
+    - text: "GPAT qualifies only the top 10% of candidates who sit it, and they must also cross a minimum percentile."
+      source: gp-ib
+    - text: "The D.Pharm exit exam rules of 2022 are still on the books, but the exam has not been held. PCI's circular of 20 February 2026 told State Pharmacy Councils to register pass-outs under the Pharmacy Act — watch PCI for any change."
+      source: [pci-dpee, pci-dpee26]
+  not_for:
+    - "You want to examine patients and decide the treatment — that is a doctor's job; a pharmacist works from the doctor's prescription."
+    - "You dislike chemistry and careful checking — one wrong medicine or dose can harm a patient."
+    - "You want a job with no rules and records — medicine stock, licences and registers are checked by inspectors."
+journey:
+  - stages: [c8, c9]
+    title: "Find out if medicines interest you"
+    do:
+      - text: "Learn your Science and Maths well — pharmacy courses after Class 12 need <strong>Physics and Chemistry</strong>, plus Biology or Maths."
+        source: pci-er20
+      - text: "Visit a medical store or a hospital pharmacy with a parent and watch what the pharmacist does in a day."
+    mistakes:
+      - "Thinking a pharmacist only sells medicines. Hospitals, factories, labs and government health services all hire pharmacists."
+    doubts:
+      - q: "Do I need NEET to become a pharmacist?"
+        a: "No national rule asks for NEET. The PCI rules for D.Pharm and B.Pharm only ask for Class 12 with Physics, Chemistry and Biology or Maths. Each state picks its own admission test — for example KCET in Karnataka and the Kerala pharmacy entrance in Kerala."
+        next: "Look up your state's admission route in the State rules section of this page."
+        source: [pci-bph, kcet-ib, ke-noti]
+      - q: "Is a pharmacist just a medical shop job?"
+        a: "No. Registered pharmacists work in hospitals, medicine factories, labs, government health services and the railways. Some go on to M.Pharm and research."
+        next: "Read the Main routes list in The job section."
+        source: [rrb-para, gp-ib]
+  - stages: [c10]
+    title: "Choose Science with Physics and Chemistry"
+    do:
+      - text: "Take Science in Class 11 with <strong>Physics, Chemistry and either Biology or Mathematics</strong>. For B.Pharm, English must also be one of your Class 12 subjects."
+        source: [pci-er20, pci-bph]
+    stream: "PCB or PCM — both are accepted. PCMB keeps every pharmacy course open."
+    mistakes:
+      - "Taking Commerce or Arts and planning to switch later — pharmacy needs Physics and Chemistry in Class 12."
+    late: "Already in Commerce or Arts in Class 11? There is no pharmacy route without Class 12 Science. You would have to pass Class 12 again with Physics, Chemistry and Biology or Maths."
+    doubts:
+      - q: "Can I study pharmacy straight after Class 10?"
+        a: "No. Even the 2-year D.Pharm needs a pass in Class 12 Science with Physics, Chemistry and Biology or Mathematics."
+        next: "Pick PCB or PCM for Class 11."
+        source: pci-er20
+      - q: "Can a Commerce or Arts student become a pharmacist?"
+        a: "Not without Science. D.Pharm, B.Pharm and Pharm.D all need Physics and Chemistry in Class 12, with Biology or Mathematics."
+        next: "If you are in Class 10 now, choose Science for Class 11."
+        source: [pci-er20, pci-bph, pci-pharmd]
+      - q: "Is Biology or Maths better for pharmacy?"
+        a: "Both are accepted for D.Pharm, B.Pharm and Pharm.D. Some state tests let you write either group — Karnataka's KCET takes PCM or PCB for B.Pharm."
+        next: "Pick the group you score better in."
+        source: [pci-bph, kcet-ib]
+  - stages: [c11, c12]
+    title: "Class 12 + your state's admission test"
+    do:
+      - text: "Pass Class 12 with Physics, Chemistry and Biology or Maths. PCI's B.Pharm rules set no minimum percentage, but states do — Karnataka asks for 45% (40% for reserved categories)."
+        source: [pci-bph, kcet-ib]
+      - text: "You must be <strong>17 years old by 31 December</strong> of the year you join B.Pharm or Pharm.D."
+        source: [pci-bph, pci-pharmd]
+      - text: "Register for your state's entrance test early in your Class 12 year — the 2026 dates are below."
+    exams:
+      - { name: "KEAM pharmacy entrance (Kerala)", when: "Computer test 17–23 Apr 2026", source: ke-noti }
+      - { name: "AP EAPCET — Agriculture &amp; Pharmacy", when: "Applications from 4 Feb 2026 · test 19–20 May 2026", source: eap-ib }
+      - { name: "MHT-CET (Maharashtra)", when: "Compulsory for Maharashtra-candidature B.Pharm / Pharm.D seats", source: mht-ib }
+    money: [csss, pms-sc]
+    mistakes:
+      - "Joining a college without checking that PCI has approved it for that year."
+      - "Forgetting the state test, then finding that government-college seats are filled only through it."
+    late: "Missed your state's B.Pharm test? Many states fill D.Pharm seats on Class 12 marks (Karnataka does), and a D.Pharm lets you join B.Pharm in the 2nd year later."
+    doubts:
+      - q: "What percentage do I need in Class 12 for B.Pharm?"
+        a: "The PCI B.Pharm Regulations do not set a percentage — your state's rules do. Karnataka needs 45% in Physics, Chemistry and Biology or Maths (40% for reserved categories)."
+        next: "Check your state's brochure for its own cut-off."
+        source: [pci-bph, kcet-ib]
+      - q: "What is the minimum age for pharmacy courses?"
+        a: "For B.Pharm and Pharm.D you must be 17 by 31 December of your admission year. Kerala sets no upper age limit for B.Pharm."
+        next: "Check your date of birth against 31 December of your joining year."
+        source: [pci-bph, pci-pharmd, ke-noti]
+      - q: "D.Pharm or B.Pharm — which should I choose?"
+        a: "D.Pharm is 2 years plus 500 hours of training and is the minimum qualification to register as a pharmacist. B.Pharm is 4 years and opens GPAT, M.Pharm and industry roles. A D.Pharm holder can join B.Pharm in the second year."
+        next: "Choose D.Pharm to start work sooner, B.Pharm for industry or higher study."
+        source: [pci-er20, pci-bph]
+      - q: "What is Pharm.D?"
+        a: "A 6-year course — five years of study and one year of internship or residency — for clinical work in hospitals. You can join after Class 12 with Physics, Chemistry and Maths or Biology, or after a D.Pharm."
+        next: "Pick Pharm.D if you want to work with doctors on hospital wards."
+        source: pci-pharmd
+      - q: "Can I do B.Pharm after NIOS or open school?"
+        a: "The 2014 B.Pharm Regulations said students with Class 12 from open schools such as NIOS are not eligible. News reports in 2026 say PCI has since allowed open-school students, but we have not read that circular."
+        next: "Before choosing NIOS, ask your state's pharmacy admission body in writing whether it accepts it."
+        source: pci-bph
+  - stages: [ug]
+    title: "In D.Pharm or B.Pharm: year by year"
+    do:
+      - text: "<strong>D.Pharm:</strong> two academic years, then <strong>500 hours of practical training</strong> spread over at least three months under a registered pharmacist."
+        source: pci-er20
+      - text: "<strong>B.Pharm:</strong> after your 2nd year, do <strong>150 hours</strong> of practical training (at least one month) in a hospital, community pharmacy or medicine factory."
+        source: pci-bph
+      - text: "<strong>B.Pharm 3rd year:</strong> you may already sit GPAT, if your final-year result will come before the M.Pharm admission year you are aiming for. <strong>Final year:</strong> sit GPAT in the year of your result."
+        source: gp-ib
+    exams:
+      - { name: "GPAT (for M.Pharm and the PCI scholarship)", when: "2026 cycle: form 23 Dec 2025 – 12 Jan 2026 · exam 7 Mar 2026", source: gp-ib }
+    money: [pms-sc, csss, gpat-sch]
+    mistakes:
+      - "Losing your practical-training contract form — the training in-charge signs it when you finish, and your D.Pharm is not complete without it."
+    doubts:
+      - q: "Is there an exit exam after D.Pharm?"
+        a: "PCI made rules for a D.Pharm exit exam in 2022 (three papers, 50% in each), but the exam has not been held. On 20 February 2026 PCI told State Pharmacy Councils to register D.Pharm pass-outs under the Pharmacy Act."
+        next: "Keep checking pci.nic.in for any new exam notice before you finish."
+        source: [pci-dpee, pci-dpee26]
+      - q: "Does my college's PCI approval really matter?"
+        a: "Yes. Registration needs a course from an institution approved by PCI under section 12 of the Pharmacy Act, and no one may start a B.Pharm course without PCI's approval."
+        next: "Check the college on PCI's approved list every year you pay fees."
+        source: [pci-dpee, pci-bph]
+      - q: "When can I write GPAT?"
+        a: "In your final (4th) year of B.Pharm, or even in your 3rd year if your final result comes before that M.Pharm admission year. GPAT 2026 had 125 questions for 500 marks, with −1 for a wrong answer."
+        next: "Start GPAT practice in your 3rd year."
+        source: gp-ib
+  - stages: [grad]
+    title: "Register, then pick your path"
+    do:
+      - text: "Apply to the <strong>State Pharmacy Council</strong> of the state where you live or work to enter your name in its register."
+        source: pci-dpee
+      - text: "For a railway job, watch for the RRB Paramedical notice: Pharmacist (Entry Grade) needs Class 12 Science with D.Pharm or a B.Pharm, plus registration. Age 20–35 in the 2025 notice."
+        source: rrb-para
+      - text: "For M.Pharm and Ph.D., use your GPAT score — it is valid for three years."
+        source: gp-ib
+    exams:
+      - { name: "RRB Paramedical (Pharmacist Entry Grade)", when: "CEN 03/2025: applications 9 Aug – 8 Sep 2025", source: rrb-para }
+      - { name: "NIPER JEE (Master's)", when: "Needs a valid GPAT, GATE or NET score", source: nj-br }
+    money: [gpat-sch]
+    doubts:
+      - q: "Where do I register as a pharmacist?"
+        a: "With the State Pharmacy Council of the state where you live or run your pharmacy work. A registered pharmacist is someone whose name is on that state's register."
+        next: "Keep your marksheets, training certificate and ID ready for the council's online form."
+        source: pci-dpee
+      - q: "Can I work in a medical shop without registration?"
+        a: "Not as the pharmacist. Section 42 of the Pharmacy Act lets only a registered pharmacist prepare or dispense medicine on a doctor's prescription; the Kerala High Court upheld this rule in 2017."
+        next: "Register first, then apply for pharmacist jobs."
+        source: pci-s42
+      - q: "How do I get a government pharmacist job?"
+        a: "Railways hire through the RRB Paramedical exam: one computer-based test with −1/3 mark for a wrong answer, then document check and medical. Pharmacist (Entry Grade) starts at Pay Level 5, ₹29,200."
+        next: "Watch rrb websites for the next Paramedical notice."
+        source: rrb-para
+      - q: "Is GPAT compulsory for M.Pharm?"
+        a: "PCI-approved institutions accept the GPAT score for M.Pharm and Ph.D. admission, but GPAT gives no automatic seat — each state or admission committee sets its rules. NIPER JEE needs GPAT, GATE or NET."
+        next: "Read your state's M.Pharm counselling rules before you plan."
+        source: [gp-ib, nj-br]
+  - stages: [work]
+    title: "Switching to pharmacy later"
+    do:
+      - text: "PCI's B.Pharm rules set a minimum age of 17 but no maximum, so you can start later if you have Class 12 Science."
+        source: pci-bph
+      - text: "Government jobs have upper age limits: 35 years for Pharmacist (Entry Grade) in the 2025 railway notice, with category relaxations."
+        source: rrb-para
+    doubts:
+      - q: "I am 25 or older. Can I still study B.Pharm?"
+        a: "Yes — PCI's B.Pharm rules have only a minimum age of 17. Kerala's KEAM also sets no upper age for B.Pharm. You still need Class 12 with Physics, Chemistry and Biology or Maths."
+        next: "Check your state's brochure for its own age rule."
+        source: [pci-bph, ke-noti]
+board_note: "Pharmacy courses need Physics and Chemistry in Class 12 with Biology or Maths; B.Pharm also needs English as a subject. Every board's Class 12 counts if your state's admission body accepts it."
+board_source: pci-bph
+exam:
+  name: "GPAT 2026 (for M.Pharm) · RRB Pharmacist (for government jobs)"
+  body: "NBEMS for the Pharmacy Council of India · Railway Recruitment Boards"
+  href: "gpat.html"
+  facts:
+    - { label: "GPAT paper", value: "125 MCQs · 500 marks · 3 hours", source: gp-ib }
+    - { label: "GPAT marking", value: "+4 correct · −1 wrong", source: gp-ib }
+    - { label: "GPAT score", value: "Valid 3 years", source: gp-ib }
+    - { label: "RRB Pharmacist pay", value: "Level 5 · ₹29,200", source: rrb-para }
+  stages:
+    head: ["Step", "What it is", "Rule"]
+    rows:
+      - ["D.Pharm or B.Pharm", "PCI-approved course after Class 12 Science", "Physics + Chemistry + Biology or Maths"]
+      - ["Registration", "Name entered with your State Pharmacy Council", "Needed to dispense medicine"]
+      - ["GPAT", "National test for M.Pharm and the PCI scholarship", "Top 10% who cross the category percentile qualify"]
+      - ["RRB CBT", "Railway Pharmacist (Entry Grade) test", "One CBT, −1/3 per wrong answer, then documents and medical"]
+    source: [pci-er20, gp-ib, rrb-para]
+  notes:
+    - text: "GPAT minimum percentile: 50th for General / EWS, 45th for OBC / SC / ST and PwBD."
+      source: gp-ib
+    - text: "NBEMS only conducts GPAT. Admission and scholarship payment follow each state's or admission committee's rules."
+      source: gp-ib
+state_uses: [board, tech, scholarship, psc]
+state_rules:
+  - state: karnataka
+    text: "<strong>B.Pharm and Pharm.D</strong> government seats go through <strong>KCET</strong> — you may write PCM or PCB. B.Pharm needs 45% in PCB or PCM (40% reserved), or a D.Pharm with 45%. <strong>D.Pharm</strong> has no test: seats go on II PUC marks after registering with KEA."
+    source: kcet-ib
+    href: "state/karnataka/kcet.html"
+  - state: kerala
+    text: "B.Pharm is ranked only on the <strong>Kerala Pharmacy Entrance</strong> (Chemistry 45 + Physics 30 questions, 90 minutes, out of 300) inside KEAM. Fee ₹925 (₹400 SC, nil for ST). No upper age. Non-Keralite II candidates cannot get government pharmacy seats."
+    source: [ke-noti, ke-pros]
+    href: "state/kerala/keam.html"
+  - state: maharashtra
+    text: "<strong>MHT-CET</strong> is compulsory for Maharashtra-State and Minority candidature B.Pharm / Pharm.D seats. All-India-candidature seats prefer the <strong>NEET</strong> score."
+    source: mht-ib
+    href: "state/maharashtra/mhtcet.html"
+  - state: andhra-pradesh
+    text: "<strong>AP EAPCET</strong> admits to B.Pharmacy and Pharm.D. In 2026 the Agriculture &amp; Pharmacy test ran on 19–20 May; Pharm.D needs a minimum age of 17."
+    source: eap-ib
+    href: "state/andhra-pradesh/eapcet.html"
+  - state: telangana
+    text: "<strong>TG EAPCET</strong> admits to B.Pharmacy and Pharm-D, and ranks come only from normalised EAPCET marks. Fee ₹900 (₹500 SC / ST / PH) for one stream."
+    source: tg-eap-dn
+    href: "state/telangana/eapcet.html"
+  - state: gujarat
+    text: "<strong>GUJCET</strong> (run by GSEB) is used for degree and diploma pharmacy admissions, which <strong>ACPC</strong> conducts."
+    source: [gujcet-reg, acpc-be]
+    href: "state/gujarat/acpc.html"
+  - state: bihar
+    text: "<strong>D.Pharm</strong> seats come through <strong>DCECE (PM group)</strong>: Intermediate science with Physics, Chemistry, English and Maths or Biology; age 17–32 on 31 Dec 2026; a parent (or spouse) must be a permanent resident of Bihar or fit one of the other residence rules."
+    source: dcece-pros
+    href: "state/bihar/bceceb.html"
+  - state: delhi
+    text: "At <strong>GGSIPU</strong>, B.Pharm (programme 133) seats go first by <strong>IPU CET</strong> rank, then by CUET for seats left over."
+    source: ipu-ib
+    href: "state/delhi/ipu-cet.html"
+  - text: "PCI's course rules are the same in every state. Registration is with the State Pharmacy Council of the state where you live or work."
+    source: [pci-bph, pci-dpee]
+multiverse:
+  - { title: "B.Pharm guide", text: "Subjects, colleges and jobs after B.Pharm.", href: "bpharm.html" }
+  - { title: "D.Pharm guide", text: "The 2-year diploma route.", href: "diploma-pharmacy.html" }
+  - { title: "GPAT", text: "The national test for M.Pharm.", href: "gpat.html" }
+  - { title: "NIPER JEE", text: "Master's and Ph.D. at the NIPERs.", href: "niper-jee.html" }
+  - { title: "B.Pharm colleges", text: "Find colleges by state.", href: "colleges-bpharm.html" }
+money: [nmmss, csss, pms-sc, gpat-sch, mysy, wbscc, tfw-up]
+
+money_defs:
+  - id: gpat-sch
+    kind: scholarship
+    name: "PCI scholarship for GPAT-qualified M.Pharm students"
+    by: "Pharmacy Council of India (GPAT is run by NBEMS)"
+    who: "B.Pharm graduates who qualify GPAT and join an M.Pharm course. GPAT exists to award this scholarship; the GPAT 2026 bulletin does not print the amount."
+    apply: "Qualify GPAT, then follow your M.Pharm admission body's process. NBEMS has no role in counselling or paying the scholarship, and a GPAT score gives no automatic right to it."
+    stages: [ug, grad]
+    source: gp-ib
+
+sources:
+  - { id: pci-bph, name: "Pharmacy Council of India — B.Pharm Course Regulations, 2014 (Gazette, 11 Dec 2014)", url: "https://www.pci.nic.in/pdf/B.Pharm%20Regulations.pdf", covers: "4-year course, 10+2 with English and Physics, Chemistry, Maths / Biology, no minimum percentage, open-school exclusion, age 17 by 31 Dec, D.Pharm lateral entry, 150 hours of practical training, PCI approval needed to run the course", checked: 2026-10-25 }
+  - { id: pci-er20, name: "Pharmacy Council of India — Education Regulations, 2020 (Diploma in Pharmacy)", url: "https://www.pci.nic.in/pdf/Education_REGULATION_2020_12022021.pdf", covers: "D.Pharm as the minimum qualification for registration, 10+2 science with Physics, Chemistry and Biology or Maths, 2 academic years, 500 hours of practical training over 3 months, training contract form", checked: 2026-10-25 }
+  - { id: pci-pharmd, name: "Pharmacy Council of India — Pharm.D Regulations, 2008", url: "https://www.pci.nic.in/pdf/PharmD_regu_2008.pdf", covers: "6 years (5 + 1 internship / residency), 10+2 with Physics and Chemistry plus Maths or Biology, or D.Pharm; age 17", checked: 2026-10-25 }
+  - { id: pci-dpee, name: "Pharmacy Council of India — Diploma in Pharmacy Exit Examination Regulations, 2022 (Gazette, 24 Feb 2022)", url: "https://www.pci.nic.in/pdf/Diploma%20in%20Pharmacy%20Exit%20Examination%20Regulations,%202022.pdf", covers: "three MCQ papers in English, 50% in each, no limit on attempts; D.Pharm from a section-12-approved institution; registration with the State Pharmacy Council; definition of registered pharmacist", checked: 2026-10-25 }
+  - { id: pci-dpee26, name: "Pharmacy Council of India — Circular 14-285/2025-PCI, 'Update on Diploma in Pharmacy Exit Examination' (20 Feb 2026), copy published by the Goa State Pharmacy Council", url: "https://goaspc.org/wp-content/uploads/2026/03/NOTICE-D.Pharm-Exit-Exam-batches-New-Reg.-_9.03.2026.pdf", covers: "State Pharmacy Councils to issue registration to pass-outs under section 32(2); circular of 8 Dec 2025 declared null and void", checked: 2026-10-25 }
+  - { id: pci-s42, name: "Pharmacy Council of India — 'No person other than a Registered Pharmacist can dispense medicine' (Kerala High Court judgment of 23 Aug 2017)", url: "https://www.pci.nic.in/pdf/3.pdf", covers: "section 42 of the Pharmacy Act, 1948 and the Pharmacy Practice Regulations, 2015 upheld", checked: 2026-10-25 }
+  - { id: gp-ib, name: "NBEMS — GPAT 2026 Information Bulletin", url: "https://nbe.edu.in/IB/Information%20bulletin%20GPAT%202026.pdf", covers: "scholarship purpose, NBEMS role, calendar, final / pre-final-year eligibility, 125 questions / 500 marks / −1, top-10% qualifying rule, percentiles, fees, 3-year score validity", checked: 2026-10-25 }
+  - { id: nj-br, name: "NIPER JEE 2026 — Revised Information Brochure, Master's (19 June 2026)", url: "https://www.niper.gov.in/niperjee2026/include/2026_Masters_Brochure_Revised_19June.pdf", covers: "GPAT / GATE / NET requirement for NIPER JEE", checked: 2026-10-15 }
+  - { id: rrb-para, name: "Railway Recruitment Boards — CEN 03/2025 (Paramedical Categories), detailed notice", url: "https://rrbsecunderabad.gov.in/wp-content/uploads/2025/08/Final-CEN-03_2025-English.pdf", covers: "Pharmacist (Entry Grade): Level 5, ₹29,200, age 20–35 on 1 Jan 2026, 105 posts, D.Pharm or B.Pharm + registration; application dates; single CBT with −1/3 marking", checked: 2026-10-25 }
+  - { id: ke-pros, name: "CEE Kerala — KEAM 2026 Prospectus", url: "https://cee.kerala.gov.in/keam2026/pdf/Prospectus.pdf", covers: "pharmacy paper (Chemistry 45 + Physics 30, 90 minutes), B.Pharm ranked on the pharmacy score out of 300", checked: 2026-10-19 }
+  - { id: gujcet-reg, name: "GSEB — Press note, GUJCET 2026 registration (Gujarati)", url: "https://www.gsebeservice.com/assets/news/Press%20Note%20for%20GUJCET%20Registration-2026.pdf", covers: "GUJCET used for degree engineering and degree / diploma pharmacy", checked: 2026-10-14 }
+  - { id: dcece-pros, name: "BCECEB — Prospectus, DCECE (PE/PMM/PM)-2026 (Hindi)", url: "https://bceceboard.bihar.gov.in/pdf_Pros/PROS_DCECE26.pdf", covers: "PM group courses incl. D.Pharm, eligibility, age 17–32, Bihar residence rule", checked: 2026-10-18 }

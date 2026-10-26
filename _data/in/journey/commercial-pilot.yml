@@ -1,0 +1,81 @@
+# Journey Blueprint — Commercial Pilot (DGCA CPL). Printed on journey-commercial-pilot.html (_includes/journey-doubts.html).
+# Rules, classes and the money items / sources several careers share: _data/in/journey_common.yml.
+# `money_defs` / `sources` below are used only by this career. Check: node scripts/check-journey-matrix.mjs
+id: commercial-pilot
+name: "Commercial Pilot (DGCA CPL)"
+search: ["commercial pilot", "airline pilot", "commercial airline pilot", "first officer"]
+page: "commercial-pilot.html"
+roadmap: "roadmaps/commercial-pilot.html"
+gate: "Class 12 with Physics and Mathematics → medical from an approved Medical Board → 200 hours of flying at a DGCA-approved flying school + DGCA written exams + radio telephony licence → Commercial Pilot's Licence at 18 or older."
+gate_source: air-rules
+foundation:
+  - stages: [c8, c9]
+    title: "Physics, Mathematics — and spoken English"
+    points:
+      - text: "A CPL holder must <strong>speak and understand radiotelephony English</strong> to the level DGCA sets, and the level is written on the licence. Whatever your school medium, build spoken English now."
+        source: air-rules
+      - text: "Physics and Mathematics are the only school subjects the rule names. Navigation and meteorology papers later build on both."
+        source: air-rules
+  - stages: [c10]
+    title: "Take Physics and Mathematics in Class 11"
+    points:
+      - text: "The CPL rule needs <strong>Class 10+2 passed with Physics and Mathematics</strong>. It sets <strong>no minimum percentage</strong> — a pass is enough."
+        source: air-rules
+      - text: "Without Physics and Mathematics in Class 12 you can clear them later through an equivalent board exam (for example the open school); plan this before you pay a flying school."
+  - stages: [c11, c12]
+    title: "Get the medical before you pay any fee"
+    points:
+      - text: "You must hold a certificate of fitness from an <strong>approved Medical Board</strong> under DGCA's medical standards before the licence is issued."
+        source: air-rules
+      - text: "Do the DGCA medical before signing up with a flying school — eyesight or other conditions can stop you, and school fees are rarely refunded."
+      - text: "You must be <strong>at least 18</strong> on the day you apply for the CPL."
+        source: air-rules
+  - stages: [ug, grad]
+    title: "Graduating first? Your degree is optional"
+    points:
+      - text: "No degree is needed for a CPL; the rule asks only for Class 12 with Physics and Mathematics. Some airlines set their own extra criteria in cadet and hiring notices."
+        source: air-rules
+board_notes:
+  gseb: "Your HSC must include <strong>Physics and Mathematics</strong> — HSC Science with Mathematics meets the rule."
+  cbse-gj: "Your CBSE Class XII must include Physics and Mathematics."
+  upmsp: "Your Intermediate must include Physics and Mathematics."
+  msbshse: "Your HSC must include Physics and Mathematics — HSC Science with Mathematics meets the rule."
+  wb: "Your Higher Secondary must include Physics and Mathematics."
+  cbse: "Your CBSE Class XII must include Physics and Mathematics."
+  other: "Your Class 12 must include Physics and Mathematics; any recognised board counts."
+board_source: air-rules
+exam:
+  name: "DGCA Commercial Pilot's Licence (Aeroplanes)"
+  body: "Directorate General of Civil Aviation (DGCA)"
+  href: "commercial-pilot.html"
+  facts:
+    - { label: "Minimum age", value: "18 on the date of application", source: air-rules }
+    - { label: "School base", value: "Class 10+2 with Physics and Mathematics", source: air-rules }
+    - { label: "Flight time", value: "200 hours within the 5 years before applying", source: air-rules }
+    - { label: "Written exams", value: "Air Regulations · Air Navigation · Meteorology · Aircraft and Engines", source: air-rules }
+  stages:
+    head: ["Stage", "What it is", "How it is judged", "Rule"]
+    rows:
+      - ["Medical", "Certificate from an approved Medical Board", "DGCA medical standards", "Needed before the licence is issued"]
+      - ["Ground exams", "Air Regulations, Air Navigation, Meteorology, Aircraft and Engines + a practical Signals exam", "DGCA syllabus", "All passed within the 5 years before the CPL application"]
+      - ["Flying hours", "200 hours: 100 as pilot-in-command (15 in the last 6 months), 20 cross-country as PIC incl. one 300 NM flight with landings at two aerodromes, 10 instrument (up to 5 on a simulator), 5 by night with 10 take-offs and landings", "Logged and certified at a DGCA-approved flying school", "Within the 5 years before applying"]
+      - ["Skill test + RTR", "General flying tests by day and night, a 250 NM day and a 120 NM night cross-country test, and a current Flight Radio Telephone Operator's Licence", "Examiner on the aeroplane type", "Skill test within 6 months before applying"]
+    source: air-rules
+  notes:
+    - text: "Holders of a helicopter CPL with 1,000 hours as pilot-in-command need only 100 aeroplane hours."
+      source: air-rules
+    - text: "Pilot licence rules are being rewritten under the Bharatiya Vayuyan Adhiniyam, 2024. Check dgca.gov.in for the current version before you join a flying school."
+    - text: "Flying schools quote very different totals for the CPL, and type rating is usually extra. Get the full written fee schedule before you pay anything."
+state_rules:
+  - text: "There is <strong>no state quota</strong>: one DGCA licence, the same rules in every state and for every board."
+  - text: "The language filter is national, not regional: radiotelephony English is a licence requirement whatever your school's medium."
+    source: air-rules
+multiverse:
+  - { title: "Airline first officer", text: "Airlines hire CPL holders through their own tests, then fund or ask for a type rating.", href: "commercial-pilot.html" }
+  - { title: "Aircraft maintenance", text: "A licensed AME keeps aircraft flying — a ground route into aviation.", href: "aircraft-maintenance-engineer.html" }
+  - { title: "Air traffic control", text: "AAI recruits Junior Executives (ATC) by exam.", href: "air-traffic-controller.html" }
+  - { title: "Step-by-step", text: "The full path from Class 12 to the right-hand seat.", href: "roadmaps/commercial-pilot.html" }
+money: [nmmss]
+
+sources:
+  - { id: air-rules, name: "Aircraft Rules, 1937 — Schedule II (general conditions and Section J, Commercial Pilot's Licence (Aeroplanes)), consolidated text with amendments, on Indian Kanoon", url: "https://indiankanoon.org/doc/165790640/", covers: "age 18, 10+2 with Physics and Mathematics, medical, written exams, 200-hour experience break-up, RTR licence, skill test, English proficiency (para 6-A), 5-year exam validity", checked: 2026-10-25 }

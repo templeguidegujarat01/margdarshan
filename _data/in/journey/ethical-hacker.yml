@@ -1,0 +1,199 @@
+# Journey Blueprint — Ethical Hacker / Cyber Security Analyst. Printed on journey-ethical-hacker.html (_includes/journey-doubts.html).
+# Rules, classes and the money items / sources several careers share: _data/in/journey_common.yml.
+# `money_defs` / `sources` below are used only by this career. Check: node scripts/check-journey-matrix.mjs
+id: ethical-hacker
+v: 2
+name: "Ethical Hacker / Cyber Security Analyst"
+search: ["ethical hacker", "cyber security analyst", "cybersecurity analyst", "penetration tester", "security analyst", "bug bounty hunter", "information security analyst", "cyber security engineer"]
+page: "ethical-hacker.html"
+roadmap: "roadmaps/ethical-hacker.html"
+doubts_page: "journey-ethical-hacker.html"
+gate: "Class 12 with Physics and Mathematics → B.Tech in CSE / IT / Cyber Security (JEE Main or your state CET), or B.Sc / BCA → M.Sc / MCA. Government cyber posts such as CERT-In's Scientist-B (Pay Level 10) pick on GATE score. Testing anyone's system without the owner's permission is an offence under the IT Act."
+gate_source: [jm-ib, certin-scb, itact]
+core:
+  what:
+    text: "An ethical hacker finds security holes in websites, apps and networks — with the owner's permission — and helps fix them before criminals use them. India's national cyber security agency is CERT-In, under the Ministry of Electronics and IT."
+    source: [certin-scb, rvdcp]
+  day:
+    - "Test apps, networks and cloud systems for weaknesses — only with written permission."
+    - "Write clear reports: what is wrong, how to reproduce it and how to fix it."
+    - "Follow new attacks and security advisories, and patch fast."
+  pay:
+    - { level: "CERT-In Scientist-B, Group A (2026 advert)", value: "Pay Level 10 · ₹56,100 – ₹1,77,500", source: certin-scb }
+  pay_note: "Private security salaries are not officially published, so we print only the government level."
+  routes:
+    - { title: "B.Tech CSE / IT / Cyber Security", text: "JEE Main or your state CET after Class 12 with Physics and Mathematics.", source: jm-ib }
+    - { title: "B.Sc / BCA → M.Sc / MCA", text: "CERT-In's Scientist-B accepts a 4-year B.E. / B.Tech, a master's in science disciplines or an MCA, in subjects such as Computer Science, IT, Information Security, Cyber Security and Digital Forensics.", source: certin-scb }
+    - { title: "Government cyber security (CERT-In)", text: "2026 advert: 133 Scientist-B posts — 83 Computer Science and IT, 25 Data Science and AI, 25 Electronics and Communication — shortlisted on a GATE 2024 / 2025 / 2026 score.", source: certin-scb }
+    - { title: "Responsible disclosure", text: "Found a bug in a product? Report it to CERT-In, which acknowledges within 72 working hours and aims to resolve it within 120 days of contacting the vendor.", source: rvdcp }
+  cost_time:
+    - { label: "JEE Main fee 2026 (per session)", value: "₹1,000 General male · ₹800 female · ₹500 SC / ST / PwD", source: jm-ib }
+    - { label: "GATE 2027 fee (one paper)", value: "₹2,000 · ₹1,000 for women, SC, ST, PwD (regular period)", source: gate27-fee }
+    - { label: "CERT-In Scientist-B application", value: "No fee for any category", source: certin-scb }
+  cost_note: "Private certification fees are set by private bodies and change often, so we do not print them."
+  challenges:
+    - text: "Hacking without permission is a crime: under IT Act section 66 it can mean <strong>up to 3 years in jail, a fine up to ₹5 lakh, or both</strong>."
+      source: itact
+    - text: "CERT-In's policy says reporting a bug does not exempt you from the law — you answer for how you found it."
+      source: rvdcp
+    - text: "Government posts are few and GATE-based: final merit = 60% GATE score + 40% interview, and you need 50% (40% reserved) in the interview."
+      source: certin-scb
+  not_for:
+    - "You enjoy breaking things but hate writing reports."
+    - "You want to get into other people's accounts — that is crime, not a career."
+    - "You dislike constant learning — attacks change every month."
+journey:
+  - stages: [c8, c9]
+    title: "Learn computers the legal way"
+    do:
+      - text: "Under the IT Act, getting into a computer, system or network without the owner's permission is penalised (section 43), and doing it dishonestly is a crime (section 66)."
+        source: itact
+      - text: "Practise only on your own devices and on legal practice labs."
+    doubts:
+      - q: "Is ethical hacking legal in India?"
+        a: "Only with the owner's permission. Accessing a computer or network without permission falls under section 43 of the IT Act, and doing it dishonestly or fraudulently is punishable under section 66 with up to 3 years in jail, a fine up to ₹5 lakh, or both."
+        next: "Never test a site or app you do not own or have written permission for."
+        source: itact
+      - q: "What is CERT-In?"
+        a: "The Indian Computer Emergency Response Team, set up in 2004 under the Ministry of Electronics and IT — India's national agency for cyber security under the IT (Amendment) Act 2008."
+        next: "Follow its advisories to see real attacks and fixes."
+        source: certin-scb
+      - q: "Which school subjects matter most for cyber security?"
+        a: "Mathematics and computers. B.Tech seats through JEE Main need Physics and Mathematics in Class 12, and CERT-In picks on GATE papers in Computer Science, Data Science and AI, or Electronics."
+        next: "Keep Maths strong."
+        source: [jm-ib, certin-scb]
+  - stages: [c10]
+    title: "PCM — or Maths with Computer Science"
+    do:
+      - text: "For B.E. / B.Tech, Class 12 must include <strong>Physics and Mathematics</strong>."
+        source: jm-ib
+    stream: "PCM, with Computer Science if your school offers it."
+    mistakes:
+      - "Dropping Maths — it closes B.Tech and most computer degrees."
+    doubts:
+      - q: "Can I become an ethical hacker without Maths in Class 11?"
+        a: "The degree routes here need Mathematics: B.Tech asks for Physics and Mathematics in Class 12, and CERT-In's Scientist-B needs an engineering degree, a science master's or an MCA."
+        next: "Take Maths in Class 11 if you can."
+        source: [jm-ib, certin-scb]
+  - stages: [c11, c12]
+    title: "JEE Main and your state CET"
+    do:
+      - text: "JEE Main can be taken in your Class 12 year and the two years after it, two sessions a year."
+        source: jm-ib
+    exams:
+      - { name: "JEE Main 2026", when: "Session 1: 21–30 Jan · Session 2: 2–9 Apr 2026", source: jm-ib }
+    money: [csss]
+    doubts:
+      - q: "Is a B.Tech in Cyber Security better than CSE?"
+        a: "For CERT-In's Scientist-B both count — its list of accepted subjects includes Computer Science, IT, Information Security, Cyber Security and Digital Forensics."
+        next: "Pick the best college and branch you can get; skills matter more."
+        source: certin-scb
+      - q: "Which exam gives B.Tech seats for cyber security?"
+        a: "JEE Main for NITs, IIITs and many colleges, plus your state's engineering entrance for state seats."
+        next: "Register for both."
+        source: jm-ib
+  - stages: [ug]
+    title: "In college: skills, bug reports, GATE"
+    do:
+      - text: "You can sit GATE from the 3rd year of a B.Tech, or the 3rd year of a 3-year B.Sc / BCA."
+        source: gate27-elig
+      - text: "Report bugs in products through CERT-In's disclosure policy; it credits the finder in its advisory."
+        source: rvdcp
+    exams:
+      - { name: "GATE 2027", when: "6–7, 13–14, 20–21 Feb 2027 · result 19 Mar 2027", source: gate27 }
+    money: [gate-fee]
+    doubts:
+      - q: "When can I write GATE?"
+        a: "From the 3rd year of any undergraduate degree, or after completing it. GATE 2027 is on 6, 7, 13, 14, 20 and 21 February 2027, with results on 19 March 2027."
+        next: "Register in August–October of your 3rd year."
+        source: [gate27-elig, gate27]
+      - q: "Do companies pay for bugs I report to CERT-In?"
+        a: "CERT-In credits you in its advisory and can introduce you to the vendor if the vendor wants to reward you, but CERT-In itself takes no part in rewards."
+        next: "Read each company's own bug-bounty terms before testing."
+        source: rvdcp
+      - q: "How do I report a security bug to the government?"
+        a: "Email CERT-In under its Responsible Vulnerability Disclosure and Coordination Policy with the product, exact version, steps to reproduce and proof such as code, screenshots or video. It acknowledges within 72 working hours."
+        next: "Check the bug exists in the latest supported version and is not already known."
+        source: rvdcp
+      - q: "Is a 3-year B.Sc enough for CERT-In?"
+        a: "No. CERT-In's Scientist-B asks for a 4-year B.E. / B.Tech, a master's in science disciplines or an MCA."
+        next: "Plan an M.Sc or MCA after a B.Sc / BCA."
+        source: certin-scb
+  - stages: [grad]
+    title: "Government cyber posts or industry"
+    do:
+      - text: "CERT-In Scientist-B 2026: age up to 30 (UR / EWS), 33 (OBC-NCL), 35 (SC / ST); applications 14 Jul – 17 Aug 2026; no fee."
+        source: certin-scb
+      - text: "Final merit = 60% GATE + 40% interview; GATE 2024, 2025 and 2026 scores are weighted equally."
+        source: certin-scb
+    doubts:
+      - q: "What does CERT-In pay a Scientist-B?"
+        a: "Pay Level 10 of the 7th CPC (₹56,100 – ₹1,77,500), a Group A post."
+        next: "Keep a valid GATE score — it is the first filter."
+        source: certin-scb
+      - q: "What is the age limit for CERT-In Scientist-B?"
+        a: "30 for UR / EWS, 33 for OBC (non-creamy layer) and 35 for SC / ST, with higher limits for PwBD and service candidates (2026 advert)."
+        next: "Check the next advert's cut-off date."
+        source: certin-scb
+      - q: "Which GATE paper do I need for CERT-In?"
+        a: "CS (Computer Science and IT), DA (Data Science and AI) or EC (Electronics and Communication), matching the discipline you apply for."
+        next: "Choose your GATE paper by the discipline you want."
+        source: certin-scb
+      - q: "Is there negative marking in GATE?"
+        a: "Yes, for wrong answers in MCQs. GATE has 65 questions (10 General Aptitude + 55 subject) for 100 marks in 3 hours."
+        next: "Be careful with MCQ guesses."
+        source: gate27-qp
+  - stages: [work]
+    title: "Switching from IT"
+    do:
+      - text: "GATE eligibility depends on your degree stage, not your age."
+        source: gate27-elig
+    doubts:
+      - q: "I already work in IT. Can I move into cyber security?"
+        a: "Yes. GATE eligibility depends on your degree, not your age, but CERT-In's Scientist-B stopped at 30 for UR / EWS in 2026. Private roles have no official age rule."
+        next: "Choose the route that fits your age."
+        source: [gate27-elig, certin-scb]
+board_note: "Every board counts for JEE Main and state CETs; NIT seats also need 75% in Class 12 (65% SC / ST / PwD) or your board's top 20 percentile."
+board_source: jm-ib
+exam:
+  name: "GATE → CERT-In Scientist-B"
+  body: "IIT Madras (GATE 2027) · CERT-In"
+  href: "cybersecurity.html"
+  facts:
+    - { label: "GATE", value: "65 questions · 100 marks · 3 hours", source: gate27-qp }
+    - { label: "GATE 2027", value: "Six days, 6–21 Feb 2027", source: gate27 }
+    - { label: "CERT-In 2026", value: "133 Scientist-B posts", source: certin-scb }
+    - { label: "Final merit", value: "60% GATE + 40% interview", source: certin-scb }
+  stages:
+    head: ["Stage", "What it is", "Rule"]
+    rows:
+      - ["GATE (CS / DA / EC)", "Computer-based: MCQ, MSQ, numerical answers", "Negative marking for wrong MCQs"]
+      - ["Shortlisting", "On a valid GATE 2024 / 2025 / 2026 score", "All three years weighted equally"]
+      - ["Interview", "Personal interaction", "50% needed (40% reserved)"]
+      - ["Final merit", "60% GATE + 40% interview", "Category- and discipline-wise"]
+    source: [gate27-qp, certin-scb]
+state_rules:
+  - { text: "National route: the IT Act, CERT-In's policy and GATE apply the same way in every state.", source: [itact, certin-scb] }
+multiverse:
+  - { title: "Cyber security guide", text: "Degrees, skills and jobs.", href: "cybersecurity.html" }
+  - { title: "Software engineer", text: "Building software instead of breaking it.", href: "journey-software-engineer.html" }
+  - { title: "Cyber forensic investigator", text: "Investigating cyber crime.", href: "cyber-forensic-investigator.html" }
+  - { title: "Data analyst", text: "Working with data instead of security.", href: "journey-data-analyst.html" }
+money: [nmmss, csss, pms-sc, gate-fee]
+
+money_defs:
+  - id: gate-fee
+    kind: fee
+    name: "Lower GATE fee"
+    by: "IIT Madras (GATE 2027)"
+    amount: "₹1,000 per paper instead of ₹2,000 (regular period); ₹1,500 instead of ₹2,500 in the extended period"
+    who: "Female, SC, ST and PwD candidates."
+    apply: "Pay in the GATE online application (GOAPS) with your category certificate."
+    stages: [ug, grad]
+    source: gate27-fee
+
+sources:
+  - { id: itact, name: "Information Technology Act, 2000 (updated), India Code", url: "https://www.indiacode.nic.in/bitstream/123456789/13116/1/it_act_2000_updated.pdf", covers: "section 43 (access without the owner's permission), section 66 (dishonest or fraudulent acts under section 43: up to 3 years, fine up to ₹5 lakh, or both)", checked: 2026-10-26 }
+  - { id: rvdcp, name: "CERT-In — Responsible Vulnerability Disclosure and Coordination Policy", url: "https://www.cert-in.org.in/RVDCP.jsp", covers: "how to report, details expected, acknowledgement in 72 working hours, 120-day target, credits and vendor rewards, no exemption from the IT Act", checked: 2026-10-26 }
+  - { id: gate27-fee, name: "IIT Madras — GATE 2027: Application fees", url: "https://gate2027.iitm.ac.in/application_fees", covers: "₹1,000 / ₹2,000 per paper (regular), ₹1,500 / ₹2,500 (extended)", checked: 2026-10-26 }
+  - { id: gate27-qp, name: "IIT Madras — GATE 2027: Question paper pattern", url: "https://gate2027.iitm.ac.in/question_paper_pattern", covers: "CBT, 3 hours, 65 questions (10 GA + 55 subject), 100 marks, MCQ / MSQ / NAT, negative marking for wrong MCQs", checked: 2026-10-26 }

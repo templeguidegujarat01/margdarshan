@@ -1,0 +1,290 @@
+# journey_common.yml — shared data for the Student Journey Blueprint (journey-blueprint.html + journey-<id>.html).
+# Split from the single journey_matrix.yml on 2026-10-26 (scripts/split-journey-matrix.mjs) so a batch only touches
+# small files. Each career is its own file, _data/in/journey/<id>.yml; this file keeps what they all share:
+#   classes, boards, `careers` (the order careers are listed in — add a new id here), general_money, and the
+#   money items / sources used by more than one career. A money item or source only one career uses lives in that
+#   career's file under `money_defs` / `sources`. Any career may cite any id from any file; every id is unique.
+# The pages merge the files in _includes/journey-data.html; the scripts in scripts/lib/journey-data.mjs.
+#
+# Original header of journey_matrix.yml (the rules still apply to every career file):
+# journey_matrix — data for the Student Journey Blueprint. Every career here has its own page, journey-<id>.html
+# (_includes/journey-doubts.html, stubs by scripts/build-journey-pages.mjs); journey-blueprint.html only picks a
+# career + class and redirects there with ?class=10. Edit the data files, not the pages.
+#
+# LEAN DATA TIER (from 2026-10-26): there is no state / board picker any more. New careers carry the deep National /
+# Central road only — core, journey (Class 8, 9, 10, 11, 12, college, graduated, working), exam, multiverse, money —
+# plus all-India `state_rules` lines (no `state:`). Do NOT research state-by-state rows or `state_uses` for new
+# careers. State rows already written (with `state:`) stay: the career page prints them as "State notes we have
+# checked", one fold per state, and `state_uses` careers keep their 36-state office table.
+#
+# Rules (same as every India sheet):
+#   - Never type a number you did not read on the official document. Every fact line carries `source:`
+#     (an id from `sources` at the bottom). Lines without `source:` are Margdarshan guidance, not facts.
+#   - `stages` lists the class ids a step / scheme applies to. The page shows only what is still ahead
+#     of the student: an item is hidden once every stage in it is behind the chosen class.
+#   - `state:` ties an existing item to one of the 36 states / UTs in journey_states.yml; the page labels it with that
+#     state's name. `boards` below are kept for the older careers' board_notes: `other` is printed as the general
+#     board note, the state boards' notes go into that state's fold.
+#   - `source:` may be one id or a list of ids. A board_notes value may be plain text (cited to the career's
+#     `board_source`) or { text, source } when that board's note comes from a different file.
+#   - `search` lists phrases that tie titles from the 10,000-title search list (assets/data/career-titles.json) to
+#     this full blueprint: a title containing a phrase as whole words opens it as the closest route; "=phrase"
+#     must be the whole title; `search_not` words veto the match. Keep phrases narrow — a wrong match shows a
+#     student the wrong route.
+#   - scripts/check-journey-matrix.mjs validates ids, stages and source links. Run it after editing.
+# Written 2026-10-24 from the official files listed under `sources`. Batch 2 (software engineer, merchant
+# navy, commercial pilot, bank PO, civil services) and the UP / Maharashtra / West Bengal boards added 2026-10-25.
+# Batch 3 (doctor, nurse, NDA officer, company secretary, data scientist) added 2026-10-25.
+# Batch 4 (architect, clinical psychologist, hotel manager, biotech research scientist) added 2026-10-25; the
+# financial-analyst entry was upgraded with CFA Institute's official enrollment, fee and charter rules instead of
+# adding a second CFA career.
+# Batch 5 (2026-10-25): three-layer careers (`v: 2`) — pharmacist, dentist, Ayurveda doctor, veterinarian, physiotherapist,
+# school teacher, police, civil engineer, fashion designer, assistant professor. Each adds `core` (the job, pay, routes,
+# time and cost, hidden challenges, who should not choose it), `journey` (the stage layer: Class 8 → college → graduated →
+# working, each step with what to do, stream, exam windows, money, mistakes, a "late?" line and the student doubts as
+# doubt → answer → next) and `state_uses` (which offices from journey_states.yml the state layer prints). Their doubts
+# are also printed on journey-<id>.html with FAQPage JSON-LD. Classes now include "In college" (ug) and "Working" (work).
+# The order of careers to build comes from journey_queue.yml.
+checked: 2026-10-25
+
+classes:
+  - { id: c8, label: "Class 8" }
+  - { id: c9, label: "Class 9" }
+  - { id: c10, label: "Class 10" }
+  - { id: c11, label: "Class 11" }
+  - { id: c12, label: "Class 12" }
+  - { id: ug, label: "In college" }
+  - { id: grad, label: "Graduated" }
+  - { id: work, label: "Working / switching career" }
+
+boards:
+  - id: gseb
+    label: "GSEB — Gujarat State Board"
+    state: gujarat
+    state_name: "Gujarat"
+    exams: "Your board exams are the <strong>SSC</strong> (Std 10) and the <strong>HSC</strong> (Std 12). Wherever a notice says Matriculation, SSLC or Class 10, your SSC marksheet and certificate are what count."
+  - id: cbse-gj
+    label: "CBSE — studying in Gujarat"
+    state: gujarat
+    state_name: "Gujarat"
+    exams: "Your board exams are the CBSE <strong>Class X</strong> and <strong>Class XII</strong> exams. Gujarat-only rules below (domicile seats, state schemes) set their own definition of a Gujarat student — read that rule in the official notice before you count on it."
+  - id: upmsp
+    label: "UPMSP — Uttar Pradesh Board"
+    state: uttar-pradesh
+    state_name: "Uttar Pradesh"
+    exams: "Your board exams are the UPMSP <strong>High School</strong> (Class 10) and <strong>Intermediate</strong> (Class 12) exams. Wherever a notice says Matriculation or Class 10, your High School certificate is what counts; Intermediate is your Class 12."
+  - id: msbshse
+    label: "MSBSHSE — Maharashtra State Board"
+    state: maharashtra
+    state_name: "Maharashtra"
+    exams: "Your board exams are the <strong>SSC</strong> (Class 10) and the <strong>HSC</strong> (Class 12). Maharashtra's admission rules check where you passed both, so keep both marksheets and your leaving certificate safe."
+  - id: wb
+    label: "WBBSE / WBCHSE — West Bengal boards"
+    state: west-bengal
+    state_name: "West Bengal"
+    exams: "Your board exams are the <strong>Madhyamik</strong> (Class 10, WBBSE) and the <strong>Higher Secondary</strong> (Class 12, WBCHSE). Wherever a notice says Matriculation or Class 10, your Madhyamik certificate is what counts."
+  - id: cbse
+    label: "CBSE — any other state"
+    exams: "Your board exams are the CBSE <strong>Class X</strong> and <strong>Class XII</strong> exams. National exams treat every board the same; state quotas follow your own state's rules."
+  - id: other
+    label: "Other state board"
+    exams: "Your Class 10 and Class 12 board certificates count exactly like CBSE ones for every national exam on this page. State quotas and state scholarships follow your own state's rules."
+
+# Career files in _data/in/journey/, in the order the hub lists them.
+careers:
+  - loco-pilot
+  - lawyer
+  - ca
+  - financial-analyst
+  - software-engineer
+  - merchant-navy
+  - commercial-pilot
+  - bank-po
+  - civil-services
+  - doctor
+  - nurse
+  - nda-officer
+  - company-secretary
+  - data-scientist
+  - architect
+  - clinical-psychologist
+  - hotel-manager
+  - biotech-scientist
+  - pharmacist
+  - dentist
+  - ayurveda-doctor
+  - veterinarian
+  - physiotherapist
+  - school-teacher
+  - police
+  - civil-engineer
+  - fashion-designer
+  - assistant-professor
+  - railway-ntpc
+  - statistical-officer
+  - iaf-pilot
+  - ethical-hacker
+  - data-analyst
+  - digital-marketer
+  - actuary
+  - agricultural-officer
+  - air-traffic-controller
+  - insurance-officer
+
+# --------------------------------------------------------------------- MONEY HELP (scholarships, stipends, fee cuts)
+# kind: scholarship | stipend | fee | state | training. `amount` only when the official document prints it.
+# Schemes open to a student on any path (not tied to one career). Every id must be a money item in some file.
+general_money: [nmmss, csss, pms-sc, mysy, wbscc]
+
+money:
+  - id: nmmss
+    kind: scholarship
+    name: "National Means-cum-Merit Scholarship (NMMSS)"
+    by: "Ministry of Education, through your state"
+    amount: "₹1,000 a month, Class 9 to 12"
+    who: "Class 8 students of government schools who passed Class 7 with 55% (50% SC/ST, as in Nagaland's notice) and clear the state's NMMSS test. Family income limit: see the scheme rules on the National Scholarship Portal."
+    apply: "Your state's SCERT announces the test in Class 8; renewals are on scholarships.gov.in."
+    stages: [c8]
+    source: nmmss
+  - id: csss
+    kind: scholarship
+    name: "Central Sector Scheme of Scholarships (PM-USP CSSS)"
+    by: "Ministry of Education"
+    amount: "₹12,000 a year for the first 3 years of a degree; ₹20,000 a year in years 4–5 of a 5-year integrated course (and in PG)"
+    who: "Above the 80th percentile of your board's Class 12 pass-outs in your stream, in a regular degree course (not diploma or distance), family income up to ₹4.5 lakh, and <strong>not taking any other scholarship</strong> — including state schemes."
+    apply: "On the National Scholarship Portal after Class 12; renewal needs 50% marks and 75% attendance each year."
+    stages: [c11, c12, ug, grad]
+    source: csss
+  - id: pms-sc
+    kind: scholarship
+    name: "Post-Matric Scholarship for SC students"
+    by: "Ministry of Social Justice &amp; Empowerment, through your state"
+    amount: "Compulsory non-refundable fees (tuition included) plus a yearly academic allowance — the college cannot ask you to pay the fee first"
+    who: "SC students after Class 10 (ITI, diploma, degree and CA/CMA/CS courses count), family income up to ₹2.5 lakh. Separate post-matric schemes exist for ST, OBC and minority students on the same portal."
+    apply: "Your state scholarship portal or scholarships.gov.in. The printed guidelines cover 2020-21 to 2025-26; check the 2026-27 rules on the portal."
+    stages: [c11, c12, ug, grad]
+    source: pms-sc
+  - id: mysy
+    kind: state
+    state: gujarat
+    name: "Mukhyamantri Yuva Swavalamban Yojana (MYSY)"
+    by: "Government of Gujarat"
+    who: "Gujarat students joining a diploma or degree course on merit: it pays part of the tuition fee and, in some cases, a hostel grant for students who must study away from home."
+    apply: "mysy.guj.nic.in. We could not open the official portal on 24 Oct 2026, so we print no amounts or cut-offs — read them in the current year's resolution on the portal."
+    stages: [c10, c11, c12, ug, grad]
+    source: mysy
+  - id: rrb-fee
+    kind: fee
+    name: "RRB exam fee back after CBT-1"
+    by: "Railway Recruitment Boards"
+    amount: "₹400 of ₹500 refunded; the ₹250 fee is refunded in full"
+    who: "Everyone who sits CBT-1. The ₹250 fee applies to SC, ST, ex-servicemen, women, transgender, minority and EBC candidates."
+    apply: "Give correct bank details in the RRB form — wrong details mean no refund."
+    stages: [c10, c11, c12, ug, grad]
+    source: rrb-cen
+  - id: wbscc
+    kind: state
+    state: west-bengal
+    name: "West Bengal Student Credit Card (WBSCC)"
+    by: "Government of West Bengal"
+    amount: "Loan up to ₹10 lakh at 4% simple interest a year; 1% interest concession if the interest is fully serviced during the study period"
+    who: "Students from West Bengal aged 40 or under when applying — school (Class X onward), UG, PG, professional degree courses in India or abroad, and coaching for competitive exams such as Engineering, Medical, Law, IAS, IPS and WBCS. The state's scheme page asks for 10 years' residence in West Bengal and a co-borrower (usually a parent)."
+    apply: "On wbscc.wb.gov.in. Repayment runs up to 15 years, including the moratorium (course duration + 1 year); no margin money up to ₹4 lakh."
+    stages: [c10, c11, c12, ug, grad]
+    source: [wbscc, wb-scc-info]
+  - id: tfw-up
+    kind: fee
+    state: uttar-pradesh
+    name: "Tuition Fee Waiver seats (UPTAC)"
+    by: "AKTU / UPTAC counselling, Uttar Pradesh"
+    amount: "No tuition fee, on up to 5% extra seats over the approved intake"
+    who: "Economically weaker meritorious students in B.Tech, MCA, MBA, B.Pharm, BHMCT, BFAD, BFA and B.Des (not B.Arch), with an income certificate. It is separate from the EWS category, which gets no fee concession."
+    apply: "Claim it in your UPTAC registration and upload the income certificate."
+    stages: [c11, c12, ug, grad]
+    source: tac-ib
+  - id: neet-fee
+    kind: fee
+    name: "Lower NEET (UG) fee"
+    by: "National Testing Agency"
+    amount: "₹1,000 instead of ₹1,700 (₹1,600 for EWS / OBC-NCL)"
+    who: "SC, ST, PwBD / PwD and third-gender candidates, for an exam centre in India."
+    apply: "Choose your category in the NEET (UG) form on neet.nta.nic.in."
+    stages: [c11, c12]
+    source: neet-ib
+  - id: iitm-fee-support
+    kind: fee
+    name: "IIT Madras BS fee support"
+    by: "IIT Madras"
+    amount: "50% or 75% of the programme fee"
+    who: "Family income up to ₹1 lakh: 75% for every category (with documents). ₹1–5 lakh: 50% for General-EWS and OBC-NCL. SC / ST and PwD get at least 50% at any income; SC / ST with PwD get 75%. Not for students outside India."
+    apply: "Upload your category and family-income certificates when you join; IIT Madras runs extra income checks."
+    stages: [c11, c12, ug, grad]
+    source: iitm-fee
+  - id: ssc-fee
+    kind: fee
+    name: "SSC CGL fee exemption"
+    by: "Staff Selection Commission"
+    amount: "No fee — others pay ₹100"
+    who: "Women, SC, ST, Persons with Benchmark Disabilities and ex-servicemen eligible for reservation."
+    apply: "Choose your category in the online form on ssc.gov.in; the exemption is applied there."
+    stages: [ug, grad]
+    source: cgl26
+
+# --------------------------------------------------------------------- SOURCES used by more than one career
+sources:
+  - { id: rrb-cen, name: "Railway Recruitment Boards — CEN 01/2025 (ALP), detailed notice", url: "https://rrbsecunderabad.gov.in/wp-content/uploads/2025/04/Final_CEN_01-2025_ALP_English.pdf", covers: "9,970 posts, RRB Ahmedabad (WR) 497, Level 2 / ₹19,900, age, ITI trades and diploma/degree rule, CBT-1/CBT-2/CBAT pattern, minimum marks, 70:30 merit, fee and refund, languages, A-1 vision tests", checked: 2026-10-24 }
+  - { id: nmmss, name: "SCERT Nagaland — NMMSS Examination 2027 advertisement (27 Jul 2026)", url: "https://scert.nagaland.gov.in/wp-content/uploads/2026/07/NMMSS-Advertisement-2027.pdf", covers: "Class 8 eligibility, 55% / 50% Class 7 marks, ₹1,000 a month from Class 9 to 12 (one state's notice of the central scheme)", checked: 2026-10-24 }
+  - { id: csss, name: "Ministry of Education — PM-USP Central Sector Scheme of Scholarships guidelines (2022-23 onwards), copy hosted by NIT Kurukshetra", url: "https://nitkkr.ac.in/wp-content/uploads/2025/04/Central-Sector-Scheme-Of-Scholarships-For-College-And-University-Students.pdf", covers: "80th percentile, ₹4.5 lakh income, regular degree only, no other scholarship, ₹12,000 / ₹20,000 rates, renewal rules", checked: 2026-10-24 }
+  - { id: pms-sc, name: "Ministry of Social Justice & Empowerment — Post Matric Scholarship for SC students, guidelines 2020-21 to 2025-26 (copy hosted by Goa Social Welfare)", url: "https://socialwelfare.goa.gov.in/wp-content/uploads/2024/07/Guidelines-to-post-matric-scholaships-to-the-students-belonging-to-scheduled-castes-for-students-in-India-2020-2021-to-2025-26_0001.pdf", covers: "₹2.5 lakh income limit, fees + academic allowance, no pre-payment of fees, CA/ICWA/CS students covered", checked: 2026-10-24 }
+  - { id: mysy, name: "Government of Gujarat — MYSY scholarship portal", url: "https://mysy.guj.nic.in/", covers: "scheme portal; could not be opened on 24 Oct 2026, so no amounts are printed here" }
+  - { id: jm-ib, name: "NTA — JEE (Main) 2026 Information Bulletin", url: "https://cdnbbsr.s3waas.gov.in/s3f8e59f4b2fe7c5705bf878bbd494ccdf/uploads/2025/11/202511021649722475.pdf", covers: "Paper 1 pattern and marking, sessions, fees, Class 12 subjects, 75% / top-20-percentile rule, state code of eligibility, 13 languages, reservation, JEE Advanced cut", checked: 2026-10-14 }
+  - { id: josaa-br, name: "JoSAA — Business Rules for Joint Seat Allocation 2026-27 (1 June 2026)", url: "https://cdnbbsr.s3waas.gov.in/s313111c20aee51aeb480ecbd988cd8cc9/uploads/2026/06/20260601632081678.pdf", covers: "Home State quota, female supernumerary seats, seat acceptance fee", checked: 2026-10-14 }
+  - { id: acpc-advt, name: "ACPC Gujarat — Advertisement for degree engineering admission 2026-27", url: "https://acpc.gujarat.gov.in/assets/uploads/media-uploader/31032026-advertisement-for-degree-engineering-admission-2026-27-english1774956585.pdf", covers: "95% / 50% / 5% seat split, GUJCET + board theory 50:50 merit, 45% / 40% HSC rule", checked: 2026-10-14 }
+  - { id: tac-ib, name: "AKTU — UPTAC Information Brochure 2026-27", url: "https://samarth-notification.s3.ap-south-1.amazonaws.com/uptacadmin.samarth.ac.in/admission/2026/july/admissionhed126/bc7d57e0090dd6f13e771125a9ad72a1ecdc68edf2e4430417ac2bb64bd909331/17901474761_admission_docs.pdf", covers: "JEE Main merit for B.Tech, 100% / 85% seat shares, domicile, B.Tech and MCA eligibility, tuition fee waiver seats (none for B.Arch), B.Arch exam priority NATA then JEE (Main), B.Arch / BHMCT eligibility, BHMCT on CUET (UG)", checked: 2026-10-14 }
+  - { id: mht-ib, name: "State CET Cell Maharashtra — MHT-CET 2026 Information Brochure (updated 11 Apr 2026)", url: "https://cetcell.mahacet.org/wp-content/uploads/2023/12/MHT-CET-2026-Information-Brochure-Updated-on-11.04.2026.pdf", covers: "candidature Types A–E, MHT-CET compulsory for Maharashtra candidature (B.E./B.Tech, B.Pharm / Pharm.D; NEET preferred for All-India pharmacy seats), paper languages", checked: 2026-10-14 }
+  - { id: cap-ib, name: "State CET Cell Maharashtra — CAP Information Brochure for UG & PG Technical Courses 2025-26", url: "https://cetcell.mahacet.org/wp-content/uploads/2023/12/Information_Brochure_UG_PG_2025_26_Final_02_07_2025.pdf", covers: "vertical reservation shares, EWS and women's seats, B.Arch and B.HMCT eligibility and merit basis, MAH-B.HMCT-CET, NCHM JEE preference for All-India BHMCT candidates", checked: 2026-10-14 }
+  - { id: wb-ib, name: "WBJEEB — Information Bulletin of WBJEE-2026", url: "https://cdnbbsr.s3waas.gov.in/s3d2a27e83d429f0dcae6b937cf440aeb1/uploads/2026/03/202603101506582412.pdf", covers: "domicile rule (3.4), reservation only for West Bengal domicile (5.1), Jadavpur 90% seats", checked: 2026-10-23 }
+  - { id: wbscc, name: "Government of West Bengal — West Bengal Student Credit Card portal (About)", url: "https://wbscc.wb.gov.in/About", covers: "₹10 lakh at 4% simple interest, 1% concession, age 40, courses and competitive-exam coaching covered, 15-year repayment", checked: 2026-10-25 }
+  - { id: wb-scc-info, name: "Government of West Bengal — Information Centre: West Bengal Student Credit Card Scheme", url: "https://wb.gov.in/government-schemes-details-west-bengal-student-credit-card-scheme.aspx", covers: "10 years' residence, co-borrower, moratorium course + 1 year, no margin money up to ₹4 lakh", checked: 2026-10-25 }
+  - { id: neet-ib, name: "NTA — NEET (UG) 2026 Information Bulletin", url: "https://cdnbbsr.s3waas.gov.in/s37bc1ec1d9c3426357e69acd5bf320061/uploads/2026/02/202602231394640855.pdf", covers: "pattern, marking, age, subjects, additional-subject rule, qualifying percentiles, reservation, fees, 13 languages, MCC seats; chapter on BAMS / BSMS / BUMS / BHMS (eligibility, AACCC, AIQ reservation, percentiles); VCI 15% B.V.Sc quota", checked: 2026-10-14 }
+  - { id: neet-re, name: "NTA — Public notice: re-examination for NEET (UG) 2026 (15 May 2026)", url: "https://cdnbbsr.s3waas.gov.in/s37bc1ec1d9c3426357e69acd5bf320061/uploads/2026/05/20260515960654684.pdf", covers: "21 June 2026 re-exam, no fee", checked: 2026-10-14 }
+  - { id: neet-res, name: "NTA — Press release: Result of NEET (UG) 2026 (16 July 2026)", url: "https://cdnbbsr.s3waas.gov.in/s37bc1ec1d9c3426357e69acd5bf320061/uploads/2026/07/20260716477215762.pdf", covers: "result date, counselling bodies, B.Sc (Hons) Nursing through NEET", checked: 2026-10-14 }
+  - { id: acpug-reg, name: "ACPUGMEC Gujarat — Procedure for Online Registration, UG medical 2026-27", url: "https://medadmgujarat.ncode.in/web/UG2026/REG/Procedure%20for%20online%20registration%20%5B2026-27%5D.pdf", covers: "SSC + HSC (Science B/AB) from Gujarat and Gujarat domicile / birth, boards accepted, ₹1,000 PIN + ₹10,000 refundable deposit", checked: 2026-10-25 }
+  - { id: up-neet, name: "DGME Uttar Pradesh — NEET UG-2026 Counselling Brochure (MBBS & BDS, Hindi)", url: "https://upneet.gov.in/pdffile/UGBrochure.pdf", covers: "UP domicile for government colleges, private colleges open to other states, ₹2,000 registration, ₹30,000 / ₹2,00,000 security money, 2-year ₹10 lakh service bond, debarment rule", checked: 2026-10-25 }
+  - { id: mh-neet3, name: "State CET Cell Maharashtra — Notice No. 03, NEET-UG-2026 MBBS / BDS CAP registration schedule (5 Aug 2026)", url: "https://medical2026.mahacet.org/NEET-UG-2026/instructions-downloadFile/Notice%20No.03.pdf", covers: "admission on NEET (UG) 2026 merit to government, aided, municipal and private colleges, separate state registration, Round 1 dates", checked: 2026-10-25 }
+  - { id: wb-neet, name: "Directorate of Medical Education, West Bengal — Notice cum information bulletin, NEET UG 2026 counselling (11 Aug 2026)", url: "https://cdnbbsr.s3waas.gov.in/s3aae8d1e00b15a30e5901227e97ffbef7/uploads/2026/08/202608111455134720.pdf", covers: "state-quota domicile proformas a1 / a2 / b, 10 years as on 31 Dec 2025, signing authorities, certificates not accepted", checked: 2026-10-25 }
+  - { id: gj-nur, name: "Admission Committee for Gujarat Professional Nursing and Allied Medical Educational Courses — Merit list explanation 2026-27", url: "https://medadmgujarat.ncode.in/web/NUR2026/Merit/Merit%20Explanation.PDF", covers: "merit report fields (HSC PCB total, Class 12 total and English, SSC), separate male merit for B.Sc Nursing and GNM, eligible-course list", checked: 2026-10-25 }
+  - { id: jenpas, name: "WBJEEB — Information Bulletin of JENPAS(UG)-2026", url: "https://cdnbbsr.s3waas.gov.in/s3d2a27e83d429f0dcae6b937cf440aeb1/uploads/2026/08/20260808892082586.pdf", covers: "7 June 2026 exam, Paper I pattern and marking, fees, domicile rule, female-only government B.Sc Nursing seats, no upper age limit, INC percentiles; BPT among NCAHP courses with 50% / 40% PCB and English pass", checked: 2026-10-25 }
+  - { id: nda226, name: "UPSC — National Defence Academy and Naval Academy Examination (II) 2026, Notice No. 10/2026-NDA-II (20 May 2026)", url: "https://www.upsc.gov.in/sites/default/files/Notif-NDA-II-2026-Engl-200526.pdf", covers: "394 vacancies, birth-date window, unmarried rule, wing-wise Class 12 subjects, fee and exemptions, written scheme and −⅓ marking, SSB stages, CPSS, centres, travel allowance, training cost, ₹2,500 aid, state scholarships, JNU degrees, ₹56,100 academy stipend, Level 10 pay", checked: 2026-10-25 }
+  - { id: iitm-adm, name: "IIT Madras — BS in Data Science and Applications: Admissions", url: "https://study.iitm.ac.in/ds/admissions.html", covers: "who can apply, Class 10 Maths and English, application fees, qualifier process and pass marks, result validity, JEE Advanced direct entry, term dates", checked: 2026-10-25 }
+  - { id: iitm-fee, name: "IIT Madras — BS in Data Science and Applications: Academics and fee structure", url: "https://study.iitm.ac.in/ds/academics.html", covers: "levels and credits, fees from the January 2026 term, fee support by category and family income", checked: 2026-10-25 }
+  - { id: kcet-ib, name: "KEA — UGCET-2026 e-Information Bulletin-1 (17 Jan 2026, English)", url: "https://cetonline.karnataka.gov.in/keawebentry456/ugcet2026/information_bulletin_1_ugcet_2026_17012026english.pdf", covers: "CET subjects by course (B.Pharm PCM or PCB; D.Pharm, BPT, allied health on PU marks), academic eligibility (B.Pharm 45% / 40%)", checked: 2026-10-14 }
+  - { id: ke-noti, name: "CEE Kerala — Notification, KEAM-2026, applications invited (5 Jan 2026)", url: "https://cee.kerala.gov.in/keam2026/noti_view/3/Upload1", covers: "Kerala Pharmacy Entrance for B.Pharm, CBT 17–23 Apr 2026, Keralite / NK-I / NK-II rules, B.Pharm eligibility, age 17 and no upper limit, fees", checked: 2026-10-19 }
+  - { id: eap-ib, name: "JNTU Kakinada / APSCHE — AP EAPCET-2026 Instruction Booklet, Engineering (V4)", url: "https://cets.apsche.ap.gov.in/EAPCET/PDF/APEAPCET2026_Instruction_Booklet_Engineering_V4.pdf", covers: "courses incl. B.Pharmacy and Pharm.D, 2026 calendar, age rule for Pharm.D", checked: 2026-10-18 }
+  - { id: tg-eap-dn, name: "JNTU Hyderabad / TGCHE — TG EAPCET-2026 Detailed Notification", url: "https://eapcet.tgche.ac.in/TGEAPCET/Doc2026/Detailed%20Notification-2026.pdf", covers: "courses incl. B.Pharmacy and Pharm-D, ranking on normalised marks, fees", checked: 2026-10-18 }
+  - { id: acpc-be, name: "ACPC — B.E./B.Tech and course rules pages", url: "https://acpc.gujarat.gov.in/be-b-tech", covers: "courses ACPC admits to (engineering, pharmacy, architecture, hotel management)", checked: 2026-10-14 }
+  - { id: ipu-ib, name: "GGSIPU — Admission Brochure for Bachelor's Programmes 2026-27", url: "https://ipu.ac.in/adm2026/adm2026br/br280126ug.pdf", covers: "admission route by programme (B.Pharm 133: IPU CET, then CUET)", checked: 2026-10-18 }
+  - { id: upsc-adv06, name: "UPSC — Advertisement No. 06/2026 (vacancy 26060677113, Dental Surgeon, UT of Ladakh)", url: "https://www.upsc.gov.in/sites/default/files/AdvtNo-06-2026-Engl-120626.pdf", covers: "Dental Surgeon: Pay Level 9, BDS under the Dentists Act, registration with DCI or a State Dental Council, job description", checked: 2026-10-25 }
+  - { id: cgl26, name: "Staff Selection Commission — Notice, Combined Graduate Level Examination 2026 (21 May 2026)", url: "https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_adv_cgl_2025.pdf", covers: "dates, posts and pay levels, age limits by post (JSO 18–32), age on 1 Aug 2026, JSO and SI-II qualifications, fee ₹100 and exemptions, Tier-I and Tier-II schemes, negative marking, qualifying sections, merit rules for JSO / SI-II", checked: 2026-10-26 }
+  - { id: cgl26-vac, name: "Staff Selection Commission — Tentative vacancies, CGL Examination 2026 (as on 24 Sep 2026)", url: "https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Tentative_vacancy_CGLE2026_24092026.pdf", covers: "JSO 158, Statistical Investigator Grade-II 48, total 10,731", checked: 2026-10-26 }
+  - { id: cgl26-t1, name: "Staff Selection Commission — Notice: exam city and admission certificate, CGL 2026 Tier-I (21 Sep 2026)", url: "https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/cgle_2026_city_live_21092026.pdf", covers: "Tier-I from 30 Sep to 30 Oct 2026", checked: 2026-10-26 }
+  - { id: cuet26, name: "NTA — CUET (UG) 2026 Information Bulletin", url: "https://cdnbbsr.s3waas.gov.in/s3d1a21da7bca4abff8b0b61b87597de73/uploads/2026/01/202601031633478370.pdf", covers: "NTA's role, universities make their own merit lists, up to 5 of 37 tests, 50 MCQs in 60 minutes, +5 / −1, exam window 11–31 May 2026", checked: 2026-10-14 }
+  - { id: isi26, name: "ISI — Admission Notice 2026-27 (24 Apr 2026)", url: "https://admission.isical.ac.in/Documents/IsiAdmission2026/Admission-Notice-2026.pdf", covers: "B.Stat eligibility (Class 12 with Mathematics and English), B.SDS (Hons) terms: 75% in Class 12, hybrid mode, ₹1,00,000 a semester, waiver for SC / ST / PwBD", checked: 2026-10-15 }
+  - { id: certin-scb, name: "CERT-In (MeitY) — Detailed Advertisement CERT-In/SCB/2026/1, Scientist-B (direct recruitment)", url: "https://www.cert-in.org.in/PDF/SCB_Advt.pdf", covers: "CERT-In's role, 133 posts by discipline, Level 10 pay, GATE CS / DA / EC 2024–26, qualifications, age limits, dates 14 Jul – 17 Aug 2026, nil fee, 60:40 merit, interview minimums", checked: 2026-10-26 }
+  - { id: gate27, name: "IIT Madras — GATE 2027: Important dates", url: "https://gate2027.iitm.ac.in/important_dates", covers: "registration windows, exam on 6, 7, 13, 14, 20, 21 Feb 2027, result on 19 Mar 2027", checked: 2026-10-26 }
+  - { id: gate27-elig, name: "IIT Madras — GATE 2027: Eligibility criteria", url: "https://gate2027.iitm.ac.in/eligibility_criteria", covers: "3rd year or higher of any UG degree, or completed; degree-wise table", checked: 2026-10-26 }
+  - { id: niacl-ao25, name: "The New India Assurance Co. Ltd — Recruitment of 550 Administrative Officers (Generalists &amp; Specialists) (Scale I) 2025, Ref CORP.HRM/AO/2025 (7 Aug 2025)", url: "https://www.newindia.co.in/assets/docs/recruitment/RECRUITMENT%20OF%20ADMINISTRATIVE%20OFFICERS%202025/RECRUITMENT%20OF%20_5_50%20ADMINISTRATIVE%20OFFICERS%20(GENERALISTS%20&%20SPECIALISTS)%20(SCALE-I)%20202_5.pdf", covers: "vacancies by discipline, dates, 5-year first posting, probation and non-life Licentiate, bond, pay, qualifications at 60%, percentage rule, age 21–30 and relaxations, phase-wise exams, penalty, 75:25 merit", checked: 2026-10-26 }
+
+# Batch notes that sat between the money / sources entries of journey_matrix.yml (kept for the record):
+# Batch 3 (2026-10-25): doctor, nurse, NDA, company secretary, data scientist.
+# Batch 5 (2026-10-25): pharmacist and the other three-layer careers.
+# Batch 6 (2026-10-26): railway NTPC, statistical officer, IAF pilot, ethical hacker, data analyst, digital marketer,
+# actuary, agricultural officer, air traffic controller, insurance officer.
+# Batch 2 (2026-10-25). jm-ib / josaa-br / acpc-advt / mht-ib / cap-ib / tac-ib / wb-ib were read for the
+# national_exams.yml and state sheets; their facts are copied from there with the same dates.
+# Batch 3 (2026-10-25). neet-ib / neet-re / neet-res / cms were read for national_exams.yml; their facts are
+# copied from there with the same dates. Everything else was read for this batch.
+# Batch 4 (2026-10-25). nata-br / nata-fee / nc-ib / nc-bsc were read for national_exams.yml; their facts are
+# copied from there with the same dates. Everything else was read for this batch.
+# Batch 5 (2026-10-25)
+# Batch 6 (2026-10-26) — national / central sources only (lean tier).

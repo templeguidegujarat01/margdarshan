@@ -1,0 +1,111 @@
+# Journey Blueprint — Registered Nurse (B.Sc Nursing / GNM). Printed on journey-nurse.html (_includes/journey-doubts.html).
+# Rules, classes and the money items / sources several careers share: _data/in/journey_common.yml.
+# `money_defs` / `sources` below are used only by this career. Check: node scripts/check-journey-matrix.mjs
+id: nurse
+name: "Registered Nurse (B.Sc Nursing / GNM)"
+search: ["nurse", "nursing officer", "staff nurse"]
+page: "nursing.html"
+roadmap: "roadmaps/nursing.html"
+gate: "Class 12 Science with 45% in Physics, Chemistry and Biology and a pass in English → state nursing entrance or merit list → 4-year B.Sc Nursing → registration with your State Nursing Council. Or Class 12 with English and 40% → GNM diploma."
+gate_source: [inc-bsc, inc-elig]
+foundation:
+  - stages: [c8, c9]
+    title: "Science, English and care"
+    points:
+      - text: "INC's model entrance test has five parts of 20 marks each: <strong>Aptitude for Nursing, Physics, Chemistry, Biology and English</strong>. You need 50% to qualify."
+        source: inc-bsc
+      - text: "Volunteer at a health camp or learn first aid — it tells you early whether patient care suits you."
+  - stages: [c10]
+    title: "Pick Science with Biology — or know the GNM door"
+    points:
+      - text: "B.Sc Nursing needs Class 12 Science with <strong>45% in Physics, Chemistry and Biology taken together</strong> (40% for SC, ST and OBC) and a pass in English."
+        source: inc-bsc
+      - text: "GNM needs Class 12 with English and <strong>40%</strong> in the qualifying exam and in English, from any recognised board — Science is preferred, not compulsory. SC / ST candidates get 5% relaxation."
+        source: inc-elig
+  - stages: [c11, c12]
+    title: "Entrance year"
+    points:
+      - text: "Minimum age <strong>17 on 31 December</strong> of the admission year. Married candidates may apply; colour-blind candidates are eligible with corrective lenses; you must be medically fit."
+        source: inc-bsc
+      - text: "Admission is once a year: the semester starts on 1 August and no admission is allowed after 30 September."
+        source: inc-bsc
+      - text: "NIOS and State Open School students with Science and English are also eligible."
+        source: inc-bsc
+  - stages: [ug, grad]
+    title: "Inside the degree — and registration"
+    points:
+      - text: "B.Sc Nursing runs <strong>8 semesters</strong>; the last semester is an internship of 22 weeks (1,056 hours)."
+        source: inc-bsc
+      - text: "After the degree you register with your <strong>State Nurses and Midwives Registration Council</strong> as RN &amp; RM; renewing that registration needs Continuing Nursing Education every 5 years."
+        source: inc-bsc
+board_notes:
+  gseb:
+    text: "Gujarat's admission committee fills B.Sc Nursing and GNM seats from a <strong>merit list built on your board marks</strong> — the merit report shows your HSC PCB total, Class 12 total and English, and SSC marks. There is no entrance test, and boys get a separate male merit list for these two courses."
+    source: gj-nur
+  cbse-gj:
+    text: "The Gujarat nursing merit report records your board (GSEB, CBSE and others) with your Class 12 and Class 10 marks. Read the current year's rules on medadmgujarat.org for how CBSE marks are counted."
+    source: gj-nur
+  upmsp:
+    text: "UP's <strong>CNET 2026</strong> (by ABVMU) is the only door into B.Sc Nursing at ABVMU colleges, SGPGIMS, KGMU, RMLIMS, UPUMS Saifai and LLRM Meerut. Government colleges need UP domicile — or both High School and Intermediate passed in UP."
+    source: up-cnet
+  msbshse:
+    text: "MH-Nursing-CET needs <strong>SSC and HSC passed in Maharashtra</strong> (HSC with English, Physics, Chemistry and Biology) and a Maharashtra domicile, apart from the brochure's listed exceptions."
+    source: mh-ncet
+  wb:
+    text: "JENPAS(UG) admits only <strong>West Bengal domiciles</strong>, to any seat. Government-college B.Sc Nursing seats are for female candidates only; a few private colleges take male candidates."
+    source: jenpas
+  cbse: "INC's rule is the same for every board: 45% in Physics, Chemistry and Biology taken together and a pass in English."
+  other: "Each state runs its own nursing entrance or merit list, but INC's minimum — 45% in PCB and a pass in English — applies everywhere."
+board_source: inc-bsc
+exam:
+  name: "State nursing entrance tests 2026 (INC rules) → state counselling"
+  body: "Indian Nursing Council rules · state universities and boards"
+  href: "nursing.html"
+  facts:
+    - { label: "INC test pattern", value: "Aptitude for Nursing, Physics, Chemistry, Biology, English — 20 marks each", source: inc-bsc }
+    - { label: "Qualify (INC)", value: "50% in the entrance test", source: inc-bsc }
+    - { label: "Run by", value: "A university or the state government", source: inc-bsc }
+    - { label: "Degree", value: "4 years, 8 semesters, last semester internship", source: inc-bsc }
+  stages:
+    head: ["State test (2026)", "Pattern", "Marking", "Qualify"]
+    rows:
+      - ["UP — CNET (ABVMU), 6 Jun 2026", "120 MCQs: Nursing Aptitude, Physics, Chemistry, Biology, English (20% each); English and Hindi", "1 mark each, no negative marking", "50th percentile General, 45th General-PwD, 40th SC / ST / OBC"]
+      - ["Maharashtra — MH-Nursing-CET", "100 MCQs in 90 minutes: Physics, Chemistry, Biology, English, Nursing Aptitude (20 each); English only", "1 mark each, no negative marking", "50 percentile Open / EWS, 40 reserved, 45 General-PwD"]
+      - ["West Bengal — JENPAS(UG), 7 Jun 2026", "Paper I: 100 questions, 115 marks — Physics, Chemistry, Biology, Basic English, Health Aptitude", "1-mark questions −¼ if wrong; 2-mark questions no negative", "50th percentile General / EWS, 45th General-PwD, 40th SC / ST / OBC"]
+      - ["Gujarat — no test", "Admission committee merit list from board marks", "—", "Separate male merit for B.Sc Nursing and GNM"]
+    source: [up-cnet, mh-ncet, jenpas, gj-nur]
+  notes:
+    - text: "2026 fees: UP CNET ₹3,000 (₹2,000 SC / ST / PwD); MH-Nursing-CET ₹1,300 (₹1,000 reserved, PwD, orphan and other gender); JENPAS(UG) ₹500 for one paper (₹400 SC / ST / OBC / EWS)."
+      source: [up-cnet, mh-ncet, jenpas]
+    - text: "NEET (UG) results are also used for B.Sc (Hons) Nursing at selected central institutes."
+      source: neet-res
+    - text: "These are the 2026 tests. Each state posts its 2027 bulletin early in 2027 — check the fee, date and pattern there."
+state_rules:
+  - state: gujarat
+    text: "One Gujarat merit list covers B.Sc Nursing, GNM, ANM, BPT, BOT, BASLP, optometry and other allied courses; your merit report shows which of them you are eligible for."
+    source: gj-nur
+  - state: uttar-pradesh
+    text: "UP's GNM entrance (UPGET 2026) asks for 10+2 with English and <strong>40%</strong> (three core subjects, English excluded but passed), with 5% relaxation for SC / ST. Fee ₹3,000 (₹2,000 SC / ST / PwD)."
+    source: up-get
+  - state: maharashtra
+    text: "Maharashtra's GNM (Public Health Department) needs HSC Science with Physics, Chemistry and Biology and <strong>45% aggregate</strong> — stricter than INC's 40%. NRIs may take only the 15% institute quota in unaided private colleges."
+    source: mh-ncet
+  - state: west-bengal
+    text: "JENPAS(UG) sets no upper age limit for Nursing. A reserved-category candidate without a domicile certificate may use the category certificate instead — but if that is rejected, the candidate becomes non-West Bengal."
+    source: jenpas
+  - text: "Reservation follows the central or state policy of the college. 5% of seats go to candidates with 40–50% locomotor disability of the lower limbs."
+    source: inc-bsc
+multiverse:
+  - { title: "B.Sc Nursing", text: "The 4-year degree route to Registered Nurse.", href: "nursing.html" }
+  - { title: "GNM diploma", text: "The diploma route, open to more streams.", href: "gnm-nursing.html" }
+  - { title: "Nursing colleges", text: "Find nursing colleges near you.", href: "colleges-nursing.html" }
+  - { title: "AIIMS Nursing Officer", text: "NORCET, the exam for nursing officer posts at AIIMS.", href: "aiims-norcet.html" }
+  - { title: "Physiotherapy", text: "Another clinical degree on the same merit lists in many states.", href: "bpt.html" }
+money: [nmmss, csss, pms-sc, mysy, wbscc]
+
+sources:
+  - { id: inc-bsc, name: "Indian Nursing Council — Revised Regulations and Curriculum for B.Sc (Nursing) Program, Regulations 2020 (Gazette, 5 July 2021), copy hosted by thc.nic.in", url: "https://thc.nic.in/Central%20Governmental%20Regulations/Indian%20Nursing%20Council%20(Revised%20Regulations%20and%20Curriculum%20For%20B.Sc.(Nursing)%20(Program)%20Regulations,2020..pdf", covers: "age 17, 45% / 40% PCB + English, NIOS, medical fitness, entrance pattern and 50% qualifying, admission dates, reservation, 8 semesters and internship, SNRC registration and CNE renewal", checked: 2026-10-25 }
+  - { id: inc-elig, name: "Indian Nursing Council — Eligibility criteria (GNM and B.Sc Nursing)", url: "https://www.indiannursingcouncil.org/eligibility-criteria", covers: "GNM: 10+2 with English and 40%, science preferable, NIOS, 5% SC/ST relaxation", checked: 2026-10-25 }
+  - { id: up-cnet, name: "ABVMU Uttar Pradesh — Information Bulletin, Common Nursing Entrance Test (CNET) 2026, B.Sc Nursing", url: "https://cet26.blr1.cdn.digitaloceanspaces.com/docs/ENGLISH%20B.Sc.%20Nursing%20Information%20Bulletin.pdf", covers: "institutions covered, 6 June 2026 exam, ₹3,000 / ₹2,000 fee, 45% / 40% PCB, UP domicile for government colleges, 120 MCQs, no negative marking, qualifying percentiles", checked: 2026-10-25 }
+  - { id: up-get, name: "ABVMU Uttar Pradesh — Information Bulletin, UP GNM Entrance Test (UPGET) 2026", url: "https://cet26.blr1.cdn.digitaloceanspaces.com/docs/ENGLISH%20GNM%20Information%20Bulletin.pdf", covers: "GNM eligibility 10+2 with English and 40%, 5% SC/ST relaxation, fee", checked: 2026-10-25 }
+  - { id: mh-ncet, name: "State CET Cell Maharashtra — MH-Nursing-CET 2026 Information Brochure", url: "https://cetcell.mahacet.org/wp-content/uploads/2023/12/Nursing-CET-2026-brochure-1.pdf", covers: "domicile and SSC/HSC-in-Maharashtra rules, NRI 15% institute quota, GNM 45% rule, percentile cut-offs, fees, 100 MCQs in 90 minutes, English medium", checked: 2026-10-25 }

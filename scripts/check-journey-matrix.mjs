@@ -1,5 +1,8 @@
-// Checks _data/in/journey_matrix.yml (the Student Journey Blueprint: journey-blueprint.html + journey-<id>.html) and the shared state
-// layer _data/in/journey_states.yml.
+// Checks the Student Journey Blueprint data (journey-blueprint.html + journey-<id>.html): one file per career in
+// _data/in/journey/<id>.yml plus the shared _data/in/journey_common.yml (merged by scripts/lib/journey-data.mjs, so a
+// career may cite a money id / source from any file), and the shared state layer _data/in/journey_states.yml.
+// Also fails on: a career file not listed in journey_common.yml `careers` (or listed with no file), a file whose `id`
+// is not its file name, and the same money / source id defined in two files.
 //   VERIFY_DEPS=<dir containing node_modules with js-yaml> node scripts/check-journey-matrix.mjs
 // Fails (exit 1) on: YAML errors, duplicate ids, a `stages` entry that is not a class id, a `source:` id that is
 // not in `sources`, a source listed but never cited, a money id a career names but `money` lacks, a board_notes
@@ -19,6 +22,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
+import { loadJourney } from './lib/journey-data.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const yaml = createRequire(path.join(process.env.VERIFY_DEPS || root, 'x.js'))('js-yaml');
@@ -28,7 +32,9 @@ const load = (name) => {
   try { return yaml.load(fs.readFileSync(path.join(root, '_data', 'in', name), 'utf8')); }
   catch (e) { console.error(`${name}: YAML error: ` + e.message.split('\n')[0]); process.exit(1); }
 };
-const D = load('journey_matrix.yml');
+const { D, problems: loadProblems } = loadJourney(root, yaml);
+if (loadProblems.some((p) => /YAML error|file missing/.test(p))) { console.error('journey: ' + loadProblems.join('\n  ')); process.exit(1); }
+loadProblems.forEach(err);
 const S = load('journey_states.yml');
 
 const dupes = (list, what) => {
@@ -75,7 +81,7 @@ for (const s of S.states || []) {
   if (s.cockpit && !fs.existsSync(path.join(root, s.cockpit))) err(`${at}: cockpit page "${s.cockpit}" does not exist`);
 }
 
-// ---- journey_matrix.yml
+// ---- journey/<id>.yml + journey_common.yml
 const cite = (id, where) => {
   if (id == null) return;
   if (Array.isArray(id)) { if (!id.length) err(`${where}: empty source list`); return id.forEach((x) => cite(x, where)); }
@@ -207,4 +213,4 @@ if (errors.length) {
 }
 const v2 = D.careers.filter((c) => c.v === 2);
 const nd = v2.reduce((n, c) => n + c.journey.reduce((m, j) => m + (j.doubts || []).length, 0), 0);
-console.log(`journey_matrix.yml OK: ${D.careers.length} careers (${v2.length} three-layer, ${nd} doubts), ${D.money.length} money items, ${D.sources.length} sources · journey_states.yml OK: ${S.states.length} states / UTs`);
+console.log(`journey data OK: ${D.careers.length} career files (${v2.length} three-layer, ${nd} doubts), ${D.money.length} money items, ${D.sources.length} sources · journey_states.yml OK: ${S.states.length} states / UTs`);

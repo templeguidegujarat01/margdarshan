@@ -1,0 +1,11 @@
+{%- comment -%}
+  Puts the Journey Blueprint data back together (split 2026-10-26, see scripts/lib/journey-data.mjs):
+    JM        = site.data.in.journey_common (classes, boards, checked, general_money; JM.careers = career ids in order)
+    JMONEY    = every money item: journey_common.yml `money` + each career file's `money_defs`
+    JSOURCES  = every source: journey_common.yml `sources` + each career file's `sources`
+  One career is site.data.in.journey[id] (_data/in/journey/<id>.yml). Usage: {% include journey-data.html %}
+{%- endcomment -%}
+{%- assign JM = site.data.in.journey_common -%}
+{%- assign JMONEY = JM.money -%}
+{%- assign JSOURCES = JM.sources -%}
+{%- for jid in JM.careers %}{% assign jf = site.data.in.journey[jid] %}{% if jf.money_defs %}{% assign JMONEY = JMONEY | concat: jf.money_defs %}{% endif %}{% if jf.sources %}{% assign JSOURCES = JSOURCES | concat: jf.sources %}{% endif %}{% endfor -%}

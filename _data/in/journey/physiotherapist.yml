@@ -1,0 +1,209 @@
+# Journey Blueprint — Physiotherapist (BPT). Printed on journey-physiotherapist.html (_includes/journey-doubts.html).
+# Rules, classes and the money items / sources several careers share: _data/in/journey_common.yml.
+# `money_defs` / `sources` below are used only by this career. Check: node scripts/check-journey-matrix.mjs
+id: physiotherapist
+v: 2
+name: "Physiotherapist (BPT)"
+search: ["physiotherapist", "sports physiotherapist", "neurological physiotherapist", "orthopaedic physiotherapist", "paediatric physiotherapist", "geriatric physiotherapist", "cardiopulmonary physiotherapist"]
+search_not: ["equipment", "technician", "assistant"]
+page: "bpt.html"
+roadmap: "roadmaps/bpt.html"
+doubts_page: "journey-physiotherapist.html"
+gate: "Class 12 with Physics, Chemistry, Biology and English (50% in PCB) → your state's BPT admission (merit list or entrance test) → Bachelor of Physiotherapy: 4 years + 1-year internship under the NCAHP curriculum → registration under the NCAHP Act → hospital, sports, clinic or MPT."
+gate_source: [ncahp-bpt, cahet]
+core:
+  what:
+    text: "A physiotherapist helps people move and work again after injury, surgery, stroke or long illness — with exercise, hands-on therapy and training. Physiotherapists are healthcare professionals under the National Commission for Allied and Healthcare Professions (NCAHP) Act, 2021."
+    source: ncahp-bpt
+  day:
+    - "Assess a patient's pain, strength and movement, then plan exercises and treatment."
+    - "Treat patients in a hospital ward, an OPD, a sports team or a home visit."
+    - "Teach patients and families exercises to do at home, and track progress session by session."
+  pay_note: "We found no 2026 official recruitment notice that prints physiotherapist pay, and no official body publishes private pay — so no pay is printed here yet."
+  routes:
+    - { title: "Hospital physiotherapist", text: "Work with doctors on wards, ICUs and OPDs on recovery after surgery, stroke or injury." }
+    - { title: "Sports and fitness", text: "Sports teams, academies and sports-medicine clinics." }
+    - { title: "Own clinic or home care", text: "After registration, practise independently or visit patients at home." }
+    - { title: "MPT and teaching", text: "A master's (MPT) leads to specialist and teaching posts; NCAHP's curriculum asks for 55% in MPT for academic posts.", source: ncahp-bpt }
+  cost_time:
+    - { label: "BPT (NCAHP 2025 curriculum)", value: "4 years of study + 1-year full-time rotatory internship; English medium", source: ncahp-bpt }
+    - { label: "UP CAHET registration 2026", value: "₹750 UR / OBC · ₹500 SC / ST / PwD", source: cahet }
+    - { label: "WB JENPAS(UG) 2026", value: "₹500 for one paper · ₹400 SC / ST / OBC", source: jenpas }
+  cost_note: "College fees are set by each state or the college, so we do not print one national figure."
+  challenges:
+    - text: "There is no single national route: each state runs BPT admissions its own way — a merit list on Class 12 marks in Uttar Pradesh, Karnataka and Gujarat, an entrance test (JENPAS) in West Bengal."
+      source: [cahet, kcet-ib, gj-nur, jenpas]
+    - text: "The course length is changing: BPT used to be 4½ years including internship; NCAHP's 2025 curriculum sets 4 years plus a 1-year internship."
+      source: ncahp-bpt
+    - text: "Attendance rules are strict — 75% in theory and 85% in skills training, with no relaxation."
+      source: ncahp-bpt
+  not_for:
+    - "You want to prescribe medicines or do surgery — physiotherapists treat with movement, exercise and hands-on therapy."
+    - "You do not enjoy being on your feet and physically helping patients all day."
+    - "You lack patience — recovery often takes many weeks of repeated sessions."
+journey:
+  - stages: [c8, c9]
+    title: "Biology, fitness and helping people"
+    do:
+      - text: "BPT needs Physics, Chemistry and Biology later, with 50% marks. Learn the human body chapters well."
+        source: ncahp-bpt
+      - text: "Play a sport or watch a physiotherapist at a hospital or sports academy to see the work up close."
+    doubts:
+      - q: "Is a physiotherapist a doctor?"
+        a: "No. A physiotherapist is a healthcare professional under the NCAHP Act, 2021, with a Bachelor of Physiotherapy. Physiotherapists treat with exercise and hands-on therapy rather than medicines or surgery."
+        next: "Read the Routes list above to see where physiotherapists work."
+        source: ncahp-bpt
+      - q: "Do I need NEET for BPT?"
+        a: "It depends on your state. NCAHP's 2025 curriculum says candidates must have appeared in NEET and that merit is based on Class 12 marks. In 2026, Uttar Pradesh filled seats on Class 12 PCB marks, Karnataka on PU marks and West Bengal through its own JENPAS test."
+        next: "Sit NEET to stay safe, and follow your state's own bulletin."
+        source: [ncahp-bpt, cahet, kcet-ib, jenpas]
+  - stages: [c10]
+    title: "Choose Science with Biology"
+    do:
+      - text: "Take <strong>Physics, Chemistry and Biology</strong>, with English, in Class 11–12."
+        source: [ncahp-bpt, jenpas]
+    stream: "PCB with English."
+    mistakes:
+      - "Taking PCM without Biology — BPT needs Biology."
+    doubts:
+      - q: "Can I do BPT with PCM?"
+        a: "No. BPT needs Physics, Chemistry and Biology. In Uttar Pradesh, PCM students can join only Optometry and Audiology among the allied courses."
+        next: "Choose PCB for Class 11."
+        source: [ncahp-bpt, cahet]
+      - q: "Can I study physiotherapy after Class 10?"
+        a: "Not the BPT degree — it needs Class 12 with Physics, Chemistry and Biology."
+        next: "Pick PCB in Class 11."
+        source: ncahp-bpt
+  - stages: [c11, c12]
+    title: "Class 12 marks decide most BPT seats"
+    do:
+      - text: "Score at least <strong>50% in Physics, Chemistry and Biology</strong> (40% for SC / ST / OBC in UP and West Bengal) and pass English."
+        source: [ncahp-bpt, cahet, jenpas]
+      - text: "You must be <strong>17</strong> by the date your state sets (31 December 2026 in Uttar Pradesh)."
+        source: [ncahp-bpt, cahet]
+      - text: "Watch your state's allied-health admission notice in your Class 12 year — UP's 2026 registration closed on 5 June."
+        source: cahet
+    exams:
+      - { name: "UP Common Allied &amp; Healthcare Admission (CAHET)", when: "Online registration 2 May – 5 June 2026 · merit on Class 12 PCB marks", source: cahet }
+      - { name: "WB JENPAS(UG)", when: "Exam 7 June 2026", source: jenpas }
+    money: [csss, pms-sc]
+    mistakes:
+      - "Ignoring Class 12 marks because 'there is no entrance test' — in merit-list states your PCB marks decide the seat."
+      - "Missing the state's allied-health registration window while waiting for results."
+    late: "Missed this year's merit list? Most states run it every year, so you can apply again next year with the same marks."
+    doubts:
+      - q: "How many marks do I need for BPT?"
+        a: "NCAHP's curriculum asks for 50% in Physics, Chemistry and Biology. Uttar Pradesh and West Bengal accept 40% for SC, ST and OBC."
+        next: "Keep your PCB total above the cut-off — it often decides your rank too."
+        source: [ncahp-bpt, cahet, jenpas]
+      - q: "Is there an entrance exam for BPT?"
+        a: "Some states have one, some do not. West Bengal uses JENPAS(UG); Uttar Pradesh, Karnataka and Gujarat admit on Class 12 marks."
+        next: "Find your state in the State rules section of this page."
+        source: [jenpas, cahet, kcet-ib, gj-nur]
+      - q: "Can NIOS students join BPT?"
+        a: "Yes in some states. Uttar Pradesh's 2026 bulletin accepts NIOS and state open schools with science subjects and English, and NCAHP's curriculum also names the National Open School."
+        next: "Check your own state's bulletin."
+        source: [cahet, ncahp-bpt]
+      - q: "Is there an upper age limit for BPT?"
+        a: "West Bengal's JENPAS(UG) 2026 sets no upper age limit for BPT. Uttar Pradesh sets only a minimum age of 17."
+        next: "Check your state's bulletin if you are older."
+        source: [jenpas, cahet]
+      - q: "Do I need a domicile for government BPT colleges?"
+        a: "Often yes. Uttar Pradesh government colleges need a UP domicile certificate, or Class 10 and 12 both passed from UP."
+        next: "Get your domicile certificate ready before counselling."
+        source: cahet
+  - stages: [ug]
+    title: "In BPT: four years, then the internship"
+    do:
+      - text: "Under NCAHP's 2025 curriculum: <strong>4 years of study</strong> (annual pattern) and a <strong>1-year full-time rotatory internship</strong>, taught in English."
+        source: ncahp-bpt
+      - text: "Keep <strong>75% attendance in theory and 85% in skills training</strong> — otherwise you cannot sit the final exam."
+        source: ncahp-bpt
+    doubts:
+      - q: "How long is BPT?"
+        a: "Under NCAHP's 2025 curriculum, 4 years of study plus a 1-year internship. Before this it was 4½ years including internship, so older colleges may still list that."
+        next: "Ask your college which pattern your batch follows."
+        source: ncahp-bpt
+      - q: "Is BPT taught in Hindi or my state language?"
+        a: "NCAHP's curriculum makes English the medium of instruction and examination for all BPT subjects."
+        next: "Work on your English reading in Class 11–12 if it is weak."
+        source: ncahp-bpt
+      - q: "Can I take a break during BPT?"
+        a: "Be careful: NCAHP's curriculum does not re-admit students whose break is five years or more, or who have more than two spells of break."
+        next: "Finish the course in one go if you can."
+        source: ncahp-bpt
+  - stages: [grad]
+    title: "Register, then specialise"
+    do:
+      - text: "The NCAHP Act provides for a Central and State Register of allied and healthcare professionals; register before you practise."
+        source: ncahp-bpt
+      - text: "For teaching posts, NCAHP's curriculum asks for at least 55% in MPT."
+        source: ncahp-bpt
+    doubts:
+      - q: "Do physiotherapists need registration?"
+        a: "Yes. The NCAHP Act provides for a Central and State Register of allied and healthcare professionals, and NCAHP's curriculum speaks of physiotherapists registered to practise."
+        next: "Watch your State Allied and Healthcare Council for registration notices."
+        source: ncahp-bpt
+      - q: "What marks do I need in MPT to teach?"
+        a: "At least 55% in the MPT examinations is required for academic posts under NCAHP's curriculum."
+        next: "Aim for 55% or more if you want to teach."
+        source: ncahp-bpt
+  - stages: [work]
+    title: "Switching to physiotherapy later"
+    do:
+      - text: "Where your state sets no upper age (West Bengal does not for BPT), you can start later with Class 12 PCB marks."
+        source: jenpas
+    doubts:
+      - q: "I am a fitness trainer. Can I become a physiotherapist?"
+        a: "Only through the BPT degree, which needs Class 12 with Physics, Chemistry and Biology (50%). Some states, like West Bengal, set no upper age for BPT."
+        next: "Check your Class 12 subjects and marks against your state's rule."
+        source: [ncahp-bpt, jenpas]
+board_note: "BPT needs Class 12 with Physics, Chemistry and Biology (50% together) and English. NCAHP's curriculum accepts any recognised Indian board or the National Open School; each state still sets its own route."
+board_source: ncahp-bpt
+exam:
+  name: "State BPT admissions (merit list or entrance test)"
+  body: "State allied-health admission bodies under the NCAHP Act"
+  href: "bpt.html"
+  facts:
+    - { label: "Class 12", value: "50% in PCB · English passed", source: ncahp-bpt }
+    - { label: "Course", value: "4 years + 1-year internship", source: ncahp-bpt }
+    - { label: "UP 2026", value: "Merit on Class 12 PCB marks (CAHET)", source: cahet }
+    - { label: "West Bengal 2026", value: "JENPAS(UG) test, 7 June", source: jenpas }
+  stages:
+    head: ["Step", "What it is", "Rule"]
+    rows:
+      - ["Class 12", "Physics, Chemistry, Biology + English", "50% PCB (40% SC / ST / OBC in some states)"]
+      - ["State admission", "Merit list (UP, Karnataka, Gujarat) or test (West Bengal)", "Register on the state portal"]
+      - ["BPT", "4 years of study", "75% theory / 85% skills attendance"]
+      - ["Internship", "1-year full-time rotatory", "Then registration"]
+    source: [ncahp-bpt, cahet, jenpas]
+  notes:
+    - text: "NCAHP's curriculum says candidates must have appeared in NEET; state bulletins for 2026 still used their own merit rules. Follow your state's notice."
+      source: [ncahp-bpt, cahet]
+state_uses: [board, med, scholarship, psc]
+state_rules:
+  - state: uttar-pradesh
+    text: "ABVMU's <strong>Common Allied &amp; Healthcare Admission</strong> fills BPT seats on <strong>Class 12 PCB marks</strong>, with no direct admission. 50% in PCB (40% SC / ST / OBC / PwD), English passed, age 17 by 31 Dec 2026; NIOS accepted. Government colleges need UP domicile. Fee ₹750 (₹500 SC / ST / PwD)."
+    source: cahet
+  - state: west-bengal
+    text: "BPT goes through <strong>JENPAS(UG)</strong> (7 June 2026): pass Physics, Chemistry, Biology and English, with 50% aggregate in PCB (40% SC / ST / OBC). No upper age limit for BPT."
+    source: jenpas
+  - state: karnataka
+    text: "BPT has <strong>no entrance test</strong>: seats go on II PUC marks after you register with KEA."
+    source: kcet-ib
+    href: "state/karnataka/kcet.html"
+  - state: gujarat
+    text: "One Gujarat merit list covers BPT along with nursing and other allied courses; your merit report shows the courses you are eligible for."
+    source: gj-nur
+  - text: "NCAHP's 2025 curriculum sets the national course rules (50% PCB, 4 years + 1-year internship); admissions and seat quotas are run by each state."
+    source: ncahp-bpt
+multiverse:
+  - { title: "BPT guide", text: "Subjects, colleges and jobs in physiotherapy.", href: "bpt.html" }
+  - { title: "Occupational therapy", text: "A close rehabilitation career.", href: "occupational-therapy.html" }
+  - { title: "Nursing", text: "Clinical care, on the same merit lists in many states.", href: "nursing.html" }
+  - { title: "Audiology &amp; speech therapy", text: "Another allied-health degree.", href: "audiology-speech-therapy.html" }
+money: [nmmss, csss, pms-sc, mysy, wbscc]
+
+sources:
+  - { id: ncahp-bpt, name: "NCAHP — Competency Based Curriculum for Physiotherapy (2025), as adopted by MGM Institute of Health Sciences for the 2026-27 batch", url: "https://mgmuhs.com/Curriculum%20for%20Bachelor%20of%20Physiotherapy_NCAHP_w.e.f%202026-27%20batch%20onwards.pdf", covers: "physiotherapists under the NCAHP Act 2021, Central and State Register, BPT eligibility (50% PCB, Indian board or National Open School, appeared in NEET, merit on 10+2 marks, age 17), 4 years + 1-year rotatory internship (earlier 4½ years), English medium, 75% / 85% attendance, break-of-study rule, 55% MPT for academic posts", checked: 2026-10-25 }
+  - { id: cahet, name: "ABVMU Uttar Pradesh — Information Bulletin, Common Allied &amp; Healthcare Admission 2026 (Bachelor courses)", url: "https://cet26.blr1.cdn.digitaloceanspaces.com/docs/English%20CAHET%20Bachelor%20Information%20Bulletin.pdf", covers: "BPT and seven other courses, merit on Class 12 PCB marks, no direct admission, registration 2 May – 5 June 2026, fee ₹750 / ₹500, 50% / 40% PCB + English, age 17 by 31 Dec 2026, NIOS accepted, PCM only for Optometry / ASLP, UP domicile for government colleges", checked: 2026-10-25 }

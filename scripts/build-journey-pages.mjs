@@ -1,4 +1,4 @@
-// Gives every career in _data/in/journey_matrix.yml its own blueprint page, journey-<id>.html (2026-10-26).
+// Gives every career in _data/in/journey/<id>.yml (order: journey_common.yml `careers`) its own blueprint page, journey-<id>.html (2026-10-26).
 // journey-blueprint.html only picks a career + class and redirects to journey-<id>.html?class=10; the page itself is
 // _includes/journey-doubts.html rendered at build time, so it is plain HTML that works without JS and is indexable.
 // A stub is written only when it is missing — hand-edited front matter (title, description, footer links) is kept.
@@ -9,11 +9,13 @@ import path from 'node:path';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { fitTitle, fitDesc } from './lib/seo-fit.mjs';
+import { loadJourney } from './lib/journey-data.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const yaml = createRequire(path.join(process.env.VERIFY_DEPS || root, 'x.js'))('js-yaml');
 const check = process.argv.includes('--check');
-const D = yaml.load(fs.readFileSync(path.join(root, '_data', 'in', 'journey_matrix.yml'), 'utf8'));
+const { D, problems: loadProblems } = loadJourney(root, yaml);
+if (loadProblems.length) { console.error('journey data: ' + loadProblems.join('\n  ')); process.exit(1); }
 
 // "Loco Pilot (Indian Railways)" -> "Loco Pilot"; "Doctor / Physician (NEET-UG → MBBS)" -> "Doctor / Physician".
 const short = (n) => n.replace(/\s*\(.*\)\s*$/, '').trim();
@@ -62,7 +64,7 @@ for (const c of D.careers) {
 }
 for (const f of fs.readdirSync(root)) {
   const m = f.match(/^journey-(.+)\.html$/);
-  if (m && m[1] !== 'blueprint' && !ids.has(m[1])) problems.push(`${f} has no career "${m[1]}" in journey_matrix.yml`);
+  if (m && m[1] !== 'blueprint' && !ids.has(m[1])) problems.push(`${f} has no career "${m[1]}" in _data/in/journey/`);
 }
 if (problems.length) { console.error(`journey pages: ${problems.length} problem(s)`); for (const p of problems) console.error('  - ' + p); process.exit(1); }
 console.log(check ? `journey pages OK: ${ids.size} careers, ${ids.size} pages` : `journey pages: ${made} written, ${ids.size - made} kept`);

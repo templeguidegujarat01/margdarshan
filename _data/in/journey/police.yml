@@ -1,0 +1,237 @@
+# Journey Blueprint — Police Constable / Sub-Inspector (State Police). Printed on journey-police.html (_includes/journey-doubts.html).
+# Rules, classes and the money items / sources several careers share: _data/in/journey_common.yml.
+# `money_defs` / `sources` below are used only by this career. Check: node scripts/check-journey-matrix.mjs
+id: police
+v: 2
+name: "Police Constable / Sub-Inspector (State Police)"
+search: ["police constable", "police head constable", "police sub-inspector", "assistant police sub-inspector", "police inspector"]
+search_not: ["superintendent", "inspector general", "director general", "commissioner", "service officer", "railway protection force"]
+page: "state-pathways.html"
+doubts_page: "journey-police.html"
+gate: "Constable: Class 12 in most states (Class 10 in Madhya Pradesh) → state police recruitment board's written test → physical measurement and running test → documents and medical. Sub-Inspector: a bachelor's degree → the state board's or State PSC's SI exam (SSC for Delhi Police). Every state runs its own recruitment."
+gate_source: [up-pc, up-si, mp-pc, dl-si]
+core:
+  what:
+    text: "Police constables and Sub-Inspectors keep law and order: patrol, register complaints (FIRs), investigate crimes, manage traffic and crowds, and guard people and property. Each state recruits its own police; in Delhi the Staff Selection Commission runs the written exams and Delhi Police holds the physical tests."
+    source: dl-pc
+  day:
+    - "Shift duty at a police station, beat patrol, traffic point or VIP duty — nights and holidays included."
+    - "Sub-Inspectors register FIRs, lead investigations, collect evidence and appear in court."
+    - "Training, drills and physical fitness never stop after joining."
+  pay:
+    - { level: "Delhi Police Constable", value: "Pay Level 3", source: dl-si }
+    - { level: "Delhi Police / CAPF Sub-Inspector", value: "Pay Level 6", source: dl-si }
+    - { level: "Karnataka Civil Police Constable (2026)", value: "₹37,500 – ₹76,100 pay scale", source: ka-pc }
+    - { level: "Maharashtra PSI (MPSC 011/2026)", value: "S-14: ₹38,600 – ₹1,22,800", source: mh-psi }
+  pay_note: "Every state has its own pay rules; Gujarat's PSI gets a fixed ₹49,600 during the contract period."
+  routes:
+    - { title: "Constable (state police)", text: "Class 12 (Class 10 in MP) → state recruitment board's written test and physical tests.", source: [up-pc, mp-pc] }
+    - { title: "Sub-Inspector", text: "Any degree → the state board's SI exam, or the State PSC in some states (Rajasthan, Chhattisgarh, Maharashtra).", source: [up-si, rj-si, cg-si, mh-psi] }
+    - { title: "Delhi Police and CAPF", text: "SSC runs the Delhi Police Constable exam and the 'SI in Delhi Police and CAPFs' exam for the whole country.", source: [dl-pc, dl-si] }
+    - { title: "DSP and IPS", text: "Deputy Superintendent posts come through State PSC exams such as GPSC Class 1–2; IPS comes through the UPSC Civil Services exam.", source: [gj-gpsc, rj-pc] }
+  cost_time:
+    - { label: "UP Constable fee 2025", value: "₹500 · SC / ST ₹400", source: up-pc }
+    - { label: "Assam / Kerala constable fee", value: "No application fee", source: [as-pc, kl-pc] }
+    - { label: "West Bengal Constable fee 2024", value: "₹170 · WB SC / ST ₹20", source: wb-pc-info }
+  cost_note: "There is no course fee — training is given after selection. Coaching is optional."
+  challenges:
+    - text: "Competition is huge: Telangana's 2026 drive got <strong>5,77,064 applications</strong> from about 4.29 lakh people for 7,437 posts."
+      source: tg-pn
+    - text: "Physical standards are strict and differ by state — for example 168 cm for a Rajasthan General constable and for Chhattisgarh's male SI candidates."
+      source: [rj-pc, cg-si]
+    - text: "Age windows are narrow: UP took male constables only from 18 to 22 in the 2025 drive."
+      source: up-pc
+  not_for:
+    - "You cannot work nights, holidays and long shifts."
+    - "You are not ready to keep fit and pass running and physical tests."
+    - "You dislike rules, uniforms and a strict chain of command."
+journey:
+  - stages: [c8, c9]
+    title: "Fitness and a clean record start now"
+    do:
+      - text: "Start running and sports now — every state has a running test. Gujarat's: men 5 km in 25 minutes, women 1.6 km in 9 minutes 30 seconds."
+        source: gj-gprb
+      - text: "Stay away from fights and cases — police verification checks your character before appointment."
+    doubts:
+      - q: "Can girls join the police?"
+        a: "Yes. States recruit women constables and Sub-Inspectors — West Bengal's 2024 drive had 3,537 posts for women, and UP took women constables up to age 25."
+        next: "Start your fitness training early — women have their own running standard."
+        source: [wb-pc-vac, up-pc]
+      - q: "Is police a state job or a central job?"
+        a: "Mostly state. Each state recruits its own police through its own board. Delhi Police and the central armed police forces recruit through the Staff Selection Commission."
+        next: "Find your state's police recruitment board in the State rules section of this page."
+        source: [dl-pc, dl-si]
+  - stages: [c10]
+    title: "Any stream — pass Class 12"
+    do:
+      - text: "Most states need <strong>Class 12</strong> for constables — UP, Gujarat, Karnataka, Maharashtra, Telangana, Delhi. Madhya Pradesh asks only Class 10 (Class 8 for ST)."
+        source: [gj-gprb, ka-pc, mh-pc, tg-pc, dl-pc, mp-pc]
+    stream: "Any stream. Keep your Class 10 certificate — your date of birth is checked from it."
+    doubts:
+      - q: "Can I become a police constable after Class 10?"
+        a: "In Madhya Pradesh, yes — its 2026 constable test asks for Class 10 (Class 8 for ST candidates). Most other states, such as UP, Gujarat and Karnataka, need Class 12."
+        next: "Plan to finish Class 12 to keep every state open."
+        source: [mp-pc, gj-gprb, ka-pc]
+      - q: "Which stream is best for police?"
+        a: "Any stream. The constable rules ask for a Class 12 pass, and the SI rules ask for a bachelor's degree in any subject."
+        next: "Choose the stream you can score well in."
+        source: [ka-pc, dl-si]
+  - stages: [c11, c12]
+    title: "Class 12, height and the constable age window"
+    do:
+      - text: "Watch the age windows: UP constable 2025 — men 18–22, women 18–25; Karnataka 18–33; Assam 18–26 (unreserved, this cycle)."
+        source: [up-pc, ka-pc, as-pc-corr]
+      - text: "Check the height rule of your state early — Rajasthan's General male constable needs 168 cm."
+        source: rj-pc
+      - text: "In Tamil Nadu you must clear a <strong>Tamil language test</strong> (40%) before your written paper is even marked."
+        source: tn-pc
+    exams:
+      - { name: "Telangana PC prelims", when: "20 Dec 2026 (tentative)", source: tg-pn }
+      - { name: "MP Constable (GD) test", when: "From 19 Nov 2026", source: mp-pc }
+    money: [csss, pms-sc]
+    mistakes:
+      - "Ignoring the physical test until the written result — there is no time to build stamina then."
+      - "Missing the narrow age window by waiting for 'the next drive'."
+    late: "Crossed the constable age? Sub-Inspector exams take older candidates — UP's SI 2025 went up to 28 (+3 one-time)."
+    doubts:
+      - q: "What is the age limit for police constable?"
+        a: "It depends on the state and the drive. UP 2025: men 18–22, women 18–25. Karnataka 2026: 18–33. Kerala PSC: 18–26. Reserved categories get extra years."
+        next: "Read your state's latest notice in the State rules section of this page."
+        source: [up-pc, ka-pc, kl-pc]
+      - q: "Is there a physical test in police recruitment?"
+        a: "Yes, in every state: body measurement and a running test. Gujarat's: men run 5 km in 25 minutes and women 1.6 km in 9 minutes 30 seconds."
+        next: "Train for your state's running standard months before the exam."
+        source: [gj-gprb, up-pc]
+      - q: "Do I need to know the state language?"
+        a: "Some states test it. Tamil Nadu's constable recruitment has a qualifying Tamil test (40%), and only those who pass it get their main paper marked."
+        next: "Check your state's notice for a language test."
+        source: tn-pc
+      - q: "How much is the police exam fee?"
+        a: "It varies: UP constable 2025 was ₹500 (₹400 SC / ST); West Bengal ₹170 (₹20 for WB SC / ST); Assam and Kerala PSC charged no fee."
+        next: "Keep a little money aside for each state form you fill."
+        source: [up-pc, wb-pc-info, as-pc, kl-pc]
+      - q: "How tough is the competition for police jobs?"
+        a: "Very tough. Telangana's 2026 police drive received 5,77,064 applications from about 4.29 lakh people for 7,437 posts."
+        next: "Prepare for the written test and the running test together, and apply in more than one drive."
+        source: tg-pn
+  - stages: [ug]
+    title: "In college: aim for Sub-Inspector"
+    do:
+      - text: "Sub-Inspector exams ask for <strong>a bachelor's degree</strong> — Delhi Police / CAPF SI, Telangana and Gujarat PSI all do."
+        source: [dl-si, tg-pc, gj-gprb]
+      - text: "Keep training: SI selection also has physical tests."
+    doubts:
+      - q: "What qualification do I need for Sub-Inspector?"
+        a: "A bachelor's degree in any subject. Delhi Police and CAPF SI 2026 took graduates aged 20 to 25; UP's SI 2025 took 21 to 28 (+3 years one time)."
+        next: "Apply in your final year if the notice allows appearing graduates."
+        source: [dl-si, up-si]
+      - q: "Who conducts the SI exam in my state?"
+        a: "Usually the state police recruitment board. In some states the State PSC runs it — RPSC in Rajasthan, CGPSC in Chhattisgarh and MPSC (through its Group-B combined exam) in Maharashtra."
+        next: "Check the State rules section of this page for your state."
+        source: [rj-si, cg-si, mh-psi]
+  - stages: [grad]
+    title: "Graduated: SI, CAPF SI or a State PSC officer post"
+    do:
+      - text: "<strong>SSC 'SI in Delhi Police and CAPFs' 2026</strong>: any degree, age 20–25 on 1 Aug 2026, Pay Level 6. CBT on 20–28 Nov 2026."
+        source: dl-si
+      - text: "Officer entry: Deputy Superintendent of Police through State PSC (e.g. GPSC Class 1–2), IPS through UPSC."
+        source: [gj-gpsc, rj-pc]
+    exams:
+      - { name: "SSC SI in Delhi Police &amp; CAPFs 2026", when: "CBT 20–28 Nov 2026", source: dl-si }
+      - { name: "Telangana SI prelims", when: "29 Nov 2026 (tentative)", source: tg-pn }
+    doubts:
+      - q: "How do I join Delhi Police as a Sub-Inspector?"
+        a: "Through the SSC exam 'Sub-Inspector in Delhi Police and CAPFs'. The 2026 notice asked for any degree and age 20–25 on 1 August 2026; the pay is Level 6."
+        next: "Watch ssc.gov.in for the next notice."
+        source: dl-si
+      - q: "Can I become a DSP directly?"
+        a: "Yes, through your State PSC's civil services exam where DSP is one of the posts — Gujarat's GPSC Class 1–2 exam includes it. IPS comes through UPSC."
+        next: "See the Civil Services blueprint for UPSC."
+        source: [gj-gpsc, rj-pc]
+      - q: "What is the pay of a Sub-Inspector?"
+        a: "It depends on the state: Delhi Police / CAPF SI is Pay Level 6, Maharashtra PSI is S-14 (₹38,600–₹1,22,800), Rajasthan SI is Level 11, and Gujarat's PSI gets ₹49,600 fixed during the contract period."
+        next: "Read your state's SI notice for the exact pay."
+        source: [dl-si, mh-psi, rj-si, gj-gprb]
+  - stages: [work]
+    title: "Joining police later"
+    do:
+      - text: "Upper age limits are the main barrier — SI windows are higher than constable ones, and reserved categories get extra years."
+        source: [up-si, gj-gprb]
+    doubts:
+      - q: "I am 27. Is it too late for police?"
+        a: "For constable in many states, yes — but not everywhere: Karnataka 2026 took constables up to 33 and Gujarat's Lokrakshak up to 33; Gujarat's PSI went up to 35."
+        next: "Check states with higher limits and your category relaxation."
+        source: [ka-pc, gj-gprb]
+board_note: "Any board's Class 10 and Class 12 count. Your date of birth on the Class 10 certificate is what recruitment boards check."
+board_source: mp-pc
+exam:
+  name: "State police recruitment: written test → physical tests → documents and medical"
+  body: "State police recruitment boards · State PSCs · SSC (Delhi Police and CAPF)"
+  href: "state-pathways.html"
+  facts:
+    - { label: "Constable", value: "Class 12 in most states (MP: Class 10)", source: [ka-pc, mp-pc] }
+    - { label: "Sub-Inspector", value: "Any bachelor's degree", source: dl-si }
+    - { label: "UP Constable 2025", value: "32,679 posts · Level 3", source: up-pc }
+    - { label: "SSC SI 2026 CBT", value: "20–28 Nov 2026", source: dl-si }
+  stages:
+    head: ["Stage", "What it is", "Example rule"]
+    rows:
+      - ["Written test", "Objective written paper (subjects differ by state)", "Tamil Nadu: a 40% Tamil test must be passed first"]
+      - ["Physical measurement", "Height, chest and other body standards", "Rajasthan General male constable: 168 cm"]
+      - ["Running / efficiency test", "Timed run (qualifying)", "Gujarat: men 5 km in 25 min, women 1.6 km in 9:30"]
+      - ["Documents and medical", "Certificate check and medical exam", "UP: documents checked with body measurement"]
+    source: [tn-pc, rj-pc, gj-gprb, up-pc]
+  notes:
+    - text: "UP's process for constables and SIs: one written test, document checks with body measurement, and a qualifying run."
+      source: [up-pc, up-si]
+state_uses: [board, police, psc]
+state_rules:
+  - { state: uttar-pradesh, text: "UPPRPB Constable 2025: <strong>32,679 posts</strong>, Level 3; age men 18–22, women 18–25; fee ₹500 (SC / ST ₹400). SI 2025: age 21–28 (+3 one-time).", source: [up-pc, up-si], href: "state/uttar-pradesh/police.html" }
+  - { state: bihar, text: "Constables through <strong>CSBC</strong> (Advt 01/2025: 19,838 posts, Level 3, age 18–25, more for BC / EBC / SC / ST); Sub-Inspectors through <strong>BPSSC</strong> (Advt 05/2025: 1,799 posts, Level 6).", source: [br-pc, br-si], href: "state/bihar/police.html" }
+  - { state: gujarat, text: "<strong>GPRB</strong> recruits PSI (degree, max age 35) and Lokrakshak constables (Class 12, age 18–33) together. Run: men 5 km in 25 min, women 1.6 km in 9:30. PSI gets ₹49,600 fixed during the contract.", source: gj-gprb, href: "state/gujarat/police.html" }
+  - { state: maharashtra, text: "Constables (Class 12) are recruited by each commissionerate / district under the 2011 Rules; <strong>PSI through MPSC</strong>'s Group-B combined exam (011/2026: 310 posts, age 19–31 open, S-14 pay).", source: [mh-pc, mh-psi], href: "state/maharashtra/police.html" }
+  - { state: karnataka, text: "Civil Police Constable 2026: PUC (Class 12), age 18–33 (35 for reserved), pay ₹37,500–₹76,100. KEA runs the application and written test.", source: ka-pc, href: "state/karnataka/police.html" }
+  - { state: madhya-pradesh, text: "Constable (GD) 2026 through <strong>MPESB</strong>: 7,500 posts, <strong>Class 10</strong> (ST Class 8), age 18–33 (38 for MP women and reserved), pay ₹19,500–62,000; test from 19 Nov 2026.", source: mp-pc, href: "state/madhya-pradesh/police.html" }
+  - { state: rajasthan, text: "Constables are recruited district by district (Class 12, 168 cm, age 18–23 for General); <strong>SI through RPSC</strong> (2025: 1,076 posts, age 20–25, Level 11).", source: [rj-pc, rj-si], href: "state/rajasthan/police.html" }
+  - { state: telangana, text: "TSLPRB 2026: 7,437 posts — constable needs Intermediate, SI a degree. Prelims: SI 29 Nov, PC 20 Dec 2026 (tentative).", source: [tg-pc, tg-pn], href: "state/telangana/police.html" }
+  - { state: andhra-pradesh, text: "SLPRB AP notified 1,156 constable-level and 378 SI-level posts on 16 Sep 2026; constable age 18–24 on 1 Jul 2026 (+5 reserved). Application dates awaited.", source: [ap-pc, ap-si], href: "state/andhra-pradesh/police.html" }
+  - { state: tamil-nadu, text: "<strong>TNUSRB</strong> Common Recruitment 2025: Grade II Police Constable, age 18–26 (OC), a qualifying <strong>Tamil test (40%)</strong>, merit out of 100 (written 70); 20% priority for Tamil-medium students.", source: tn-pc, href: "state/tamil-nadu/tnusrb.html" }
+  - { state: west-bengal, text: "WBPRB Constable 2024: 11,749 posts (8,212 men, 3,537 women); fee ₹170 (WB SC / ST ₹20).", source: [wb-pc-vac, wb-pc-info], href: "state/west-bengal/police.html" }
+  - { state: assam, text: "SLPRB Assam Constable (UB &amp; AB): 1,052 + 663 posts in the 2025-26 drive, age 18–26 (unreserved, this cycle), <strong>no application fee</strong>.", source: [as-pc, as-pc-corr], href: "state/assam/police.html" }
+  - { state: chhattisgarh, text: "SI-cadre posts are filled by <strong>CGPSC</strong> (Advt 02/2024: 341 posts); height 168 cm men, 153 cm women.", source: cg-si, href: "state/chhattisgarh/police.html" }
+  - { state: kerala, text: "Kerala PSC recruits Police Constables (Armed Police Battalion) — Plus Two, men only in that notification, age 18–26 (OBC 29, SC / ST 31), no fee.", source: kl-pc, href: "state/kerala/kerala-psc.html" }
+  - { state: delhi, text: "Delhi Police does not hold its own written exam: <strong>SSC</strong> runs the Constable (Class 12, age 18–25) and SI (degree, age 20–25) exams, and Delhi Police holds the physical tests. Pay Level 3 and Level 6.", source: [dl-pc, dl-si], href: "state/delhi/delhi-police.html" }
+  - { text: "Every state writes its own police recruitment rules — qualification, age, height, running standard and fee all change by state and by drive.", source: [up-pc, gj-gprb, mp-pc] }
+multiverse:
+  - { title: "Civil Services (IPS)", text: "IPS through the UPSC Civil Services exam.", href: "journey-blueprint.html?career=civil-services" }
+  - { title: "NDA (defence officer)", text: "Officer entry to the armed forces after Class 12.", href: "nda.html" }
+  - { title: "State-level pathways", text: "State exams, CETs and quota rules, state by state.", href: "state-pathways.html" }
+  - { title: "Forensic science", text: "Crime labs and investigation support.", href: "forensic-science.html" }
+money: [csss, pms-sc, mysy, wbscc]
+
+sources:
+  - { id: ap-pc, name: "SLPRB AP — Notification Rc.No.91/SLPRB/Rect.2/2026: SCT PC (Civil, AR), Firemen, Warders (16 Sep 2026)", url: "https://slprb.ap.gov.in/2026_PDFS/SLPRB_AP_PC_Notification_2026.pdf", covers: "vacancies, eligibility, age, physical and medical standards, fee, scheme, PET, local status, reservation, documents, stipend and pay", checked: 2026-10-18 }
+  - { id: ap-si, name: "SLPRB AP — Notification Rc.No.81/SLPRB/Rect.1/2026: SCT SI (Civil), RSI (AR), SI (SPF) (16 Sep 2026)", url: "https://slprb.ap.gov.in/2026_PDFS/SLPRB_AP_SI_Notification_2026.pdf", covers: "SI vacancies, qualification, age, fee, preliminary and final exam scheme, pay", checked: 2026-10-18 }
+  - { id: as-pc, name: "SLPRB Assam — Advertisement No. SLPRB/REC/CONST (AB &amp; UB)/727/2025/94, Constable (UB) &amp; Constable (AB) in Assam Police (5 Dec 2025)", url: "https://slprbassam.in/pdf/Notice2025/05122025/Advertisement-Constable-(AB-UB).pdf", covers: "posts, pay, dates, no fee, reservation and special quotas, residence and language rules, age and relaxations, qualification, physical and medical standards, documents, PET marks, written test, viva, academic weightage, final merit", checked: 2026-10-19 }
+  - { id: as-pc-corr, name: "SLPRB Assam — Notice / corrigendum raising the upper age limit to 26 for this cycle (19 Jan 2026)", url: "https://slprbassam.in/pdf/Notice2026/19012026/Notice_and_Corrigendum.pdf", covers: "unreserved age 26, birth window, reserved limits raised correspondingly", checked: 2026-10-19 }
+  - { id: br-pc, name: "CSBC — Advertisement 01/2025, Constable in Bihar Police and BSAP (Hindi)", url: "https://csbc.bihar.gov.in/Advt/Advt-01-2025-Constables.pdf", covers: "19,838 posts by category, pay, qualification, age, physical standards, written test, PET, reservation, fee, documents, appointment", checked: 2026-10-18 }
+  - { id: br-si, name: "BPSSC — Advertisement 05/2025, Police Sub-Inspector, Home (Police) Dept. (Hindi)", url: "https://bpssc.bihar.gov.in/Notices/Advt.%2005-2025.pdf", covers: "1,799 posts by category, pay level, qualification, age, physical standards, prelim, mains, negative marking, PET, merit minimums, reservation, fee", checked: 2026-10-18 }
+  - { id: cg-si, name: "CGPSC — Advertisement No. 02/2024/Pariksha, Subedar / Sub-Inspector cadre / Platoon Commander (Home — Police — Dept) (21 Oct 2024) with Corrigendum 01/2024 (10 Dec 2024)", url: "https://psc.cg.gov.in/PDFs/advertisement/SUBEDAR%2C_SUB_INSPECTOR_CADRE_%26_PLATOON_COMMANDER_RECRUITMENT-2024_ADVERTISEMENT%20(21-10-2024).pdf", covers: "posts, pay level, residence rule, qualification, age, physical standards, scheme, PET, interview, bonus, fee, reservation, documents, probation", checked: 2026-10-18 }
+  - { id: dl-pc, name: "SSC — Notice, Constable (Executive) Male and Female in Delhi Police Examination 2025 (F. No. HQ-C-3020/2/2025-C-3, uploaded 22 Sep 2025), copy on delhipolice.gov.in", url: "https://delhipolice.gov.in/RecruitmentFile/63193_NoticeConstable2025.pdf", covers: "original vacancies, pay, age and relaxations, qualification, fee, CBT pattern, PE&MT standards, NCC and RRU bonus, documents", checked: 2026-10-14 }
+  - { id: dl-si, name: "SSC — Notice, Sub-Inspector in Delhi Police and Central Armed Police Forces Examination 2026 (E/37/2026-C-2, 10 Sep 2026)", url: "https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_adv_capf_2026.pdf", covers: "SI vacancies, age, qualification, licence, OBC (GNCTD) rule, fee, Paper-I / II pattern, height and PET standards, pay", checked: 2026-10-14 }
+  - { id: gj-gprb, name: "Gujarat Police Recruitment Board — Advertisement GPRB/202526/1 (on OJAS)", url: "https://ojas.gujarat.gov.in/AdvtDetailFiles/GPRB_202526_1.pdf", covers: "posts, qualification, age, physical standards and test, exam scheme, fee, certificates, pay", checked: 2026-10-14 }
+  - { id: gj-gpsc, name: "GPSC — Detailed Advertisement 5/2026-27 (Gujarati)", url: "https://gpsc.gujarat.gov.in/Documents/AdvertismentDocument/DA-5-202627.pdf", covers: "posts, eligibility, age relaxation, physical standards, fee, exam stages, pay levels, probation, documents", checked: 2026-10-14 }
+  - { id: ka-pc, name: "Karnataka State Police — Notification No. 02/Recruitment-4/2026-27, Police Constable (Civil) 3,395 posts (5 Jun 2026, Kannada)", url: "https://ksp.karnataka.gov.in/storage/pdf-files/Police%20Constable%20(Civil)%20Recruitment%202026%E2%80%9327-3395%20Posts.pdf", covers: "posts, dates, qualification, Kannada test, age, fee, pay, written test, PST, ET, medical, reservation, documents", checked: 2026-10-14 }
+  - { id: mh-pc, name: "Maharashtra Police Constables (Recruitment) Rules, 2011 (Marathi gazette, 16 Jun 2011)", url: "https://policerecruitment2025.mahait.org/PDF/16-6-2011_PC_RECT_RULE.pdf", covers: "age, HSC qualification, height and chest, Naxal-area relaxations", checked: 2026-10-14 }
+  - { id: mh-psi, name: "MPSC — Advertisement 011/2026, Maharashtra Group-B (Non-Gazetted) Services Combined Preliminary Exam 2026 (Marathi, 9 Apr 2026)", url: "https://mpsc.gov.in/adv_notification/8", covers: "PSI posts and reservation, age, physical standards, stages and marks, fee, pay levels, documents", checked: 2026-10-14 }
+  - { id: mp-pc, name: "MPESB — Rule book, Police Constable (G.D.) Selection Test 2026 (PHQ letter of 30 Jul 2026; uploaded 9 Sep 2026, Hindi)", url: "https://esb.mp.gov.in/Rulebooks/RB_2026/PCRT_GD_2026_RuleBook_09092026.pdf", covers: "posts, dates, fee, qualification, age, pay and stipend, exam scheme, PET marks, physical standards, medical, reservation, posting", checked: 2026-10-18 }
+  - { id: rj-pc, name: "Rajasthan Police — Join the force (entry levels, qualifications, physical standards)", url: "https://police.rajasthan.gov.in/portal/JoinTheForce", covers: "constable and SI qualification, height, chest, age, process", checked: 2026-10-18 }
+  - { id: rj-si, name: "RPSC — Advertisement 05/Exam/SI-PC/RPSC/EP-I/2025-26, Sub-Inspector / Platoon Commander 2025 (17 Jul 2025)", url: "https://rpsc.rajasthan.gov.in/Static/RecruitmentAdvertisements/B87284F000614D55999928D873BD8B3E.pdf", covers: "posts, qualification, age, relaxations, pay level, dates, written exam, PET, interview, recommendation minimums", checked: 2026-10-18 }
+  - { id: tg-pc, name: "TSLPRB — Notification Rc No. 189/Rect./Rect.-2/2026, SCT PC (Civil) and equivalent posts (29 Jul 2026)", url: "https://doc.tgprb.in/PC+(Civil+et+al)+2026+Notification+dated+29-07-2026.pdf", covers: "PC vacancies, pay, fee rule, qualification, age, medical, PWT, negative marking, run, measurements, PET, FWE, local reservation, special quotas, documents, training", checked: 2026-10-18 }
+  - { id: tg-pn, name: "TSLPRB — Press note: preliminary written tests and application statistics (17 Sep 2026)", url: "https://www.tgprb.in/SI_PC_2026/Press%20Note%20dated%2017-09-2026.pdf", covers: "7,437 posts by department, application window, applications received, prelim dates, multi-post rebate", checked: 2026-10-18 }
+  - { id: tn-pc, name: "TNUSRB — Notification No. 02/2025, Common Recruitment 2025 for Grade II Police Constable, Grade II Jail Warder and Fireman (21 Aug 2025, Tamil)", url: "https://tnusrb.tn.gov.in/pdfs/Notification_CR_2025.pdf", covers: "dates, vacancies, special quotas, pay, qualification, age, communal reservation, women and transgender rules, post preference, exam stages and marks, Tamil test, PMT, endurance test, fee, certificate rules", checked: 2026-10-19 }
+  - { id: up-pc, name: "UPPRPB — Notice PRPB-B (Constable PAC and other cadres)-07/2025, Constable and equivalent posts Direct Recruitment-2025 (31 Dec 2025, Hindi)", url: "https://uppbpb.gov.in/FilesUploaded/Notice/CONSTABLE-VIGYAPTIc7be0cc8-3365-471e-9237-447c528d341a.pdf", covers: "posts, dates, fee, qualification, age table, written exam scheme, minimum marks, reservation and certificates, pay", checked: 2026-10-14 }
+  - { id: up-si, name: "UPPRPB — Notice PRPB-B (SI cadre)-03/2025, Sub-Inspector and equivalent posts Direct Recruitment-2025 (12 Aug 2025, Hindi)", url: "https://uppbpb.gov.in/FilesUploaded/Notice/SI_vigyapti_202567e84cf2-8d04-4072-bdbc-56f3c8e1ccbe.pdf", covers: "SI qualification, age and one-time relaxation, fee, written exam, physical standards, run times, pay band", checked: 2026-10-14 }
+  - { id: wb-pc-vac, name: "WBPRB — Notice 2026/06, revised vacancy position, Constables WBP 2024 (12 Aug 2026)", url: "https://prb.wb.gov.in/uploads/recruitment/178653139221861.pdf", covers: "11,749 posts by category after the new OBC list", checked: 2026-10-18 }
+  - { id: wb-pc-info, name: "WBPRB — Information to Applicants, Recruitment to the post of Constables in West Bengal Police - 2024 (Mar 2024)", url: "https://prb.wb.gov.in/uploads/recruitment/170973908876971.pdf", covers: "eligibility, Bengali rule, age, PMT, PET, written exam, negative marking, interview, fees, reservation, certificates, pay", checked: 2026-10-18 }
+  - { id: kl-pc, name: "Kerala PSC — Notification, Police Constable (Trainee) (Armed Police Battalion), Category No. 563/2025 (Extraordinary Gazette, 15 Dec 2025)", url: "https://www.keralapsc.gov.in/sites/default/files/2025-12/noti-563-25.pdf", covers: "pay, battalions, eligibility, age and relaxations, qualification, physical and vision standards, PET events, weightage, OTR application, no fee, confirmation, last date, community rule, medical certificate", checked: 2026-10-19 }

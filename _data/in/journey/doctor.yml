@@ -1,0 +1,125 @@
+# Journey Blueprint — Doctor / Physician (NEET-UG → MBBS). Printed on journey-doctor.html (_includes/journey-doubts.html).
+# Rules, classes and the money items / sources several careers share: _data/in/journey_common.yml.
+# `money_defs` / `sources` below are used only by this career. Check: node scripts/check-journey-matrix.mjs
+id: doctor
+name: "Doctor / Physician (NEET-UG → MBBS)"
+search: ["doctor", "physician", "general physician", "mbbs"]
+search_not: ["veterinary", "ayurvedic", "siddha", "unani", "homoeopathic", "naturopathy"]
+page: "mbbs.html"
+roadmap: "roadmaps/mbbs.html"
+gate: "Class 12 with Physics, Chemistry, Biology and English → NEET (UG) → MBBS seat through MCC (All India Quota) or your state's counselling → rotating internship of at least 12 months → registration with your State Medical Council and the National Medical Register."
+gate_source: [neet-ib, crmi, nmc-reg]
+foundation:
+  - stages: [c8, c9]
+    title: "Biology is half the NEET paper"
+    points:
+      - text: "NEET (UG) has <strong>Physics 45, Chemistry 45 and Biology 90 questions</strong> — 180 in all, 720 marks. Biology alone carries 360 marks."
+        source: neet-ib
+      - text: "Read your Science textbook properly now: Class 11–12 Biology and Chemistry build directly on Class 8–10 chapters."
+  - stages: [c10]
+    title: "Choose Science with Biology for Class 11"
+    points:
+      - text: "NMC allows NEET (UG) only after 10+2 with <strong>Physics, Chemistry, Biology / Biotechnology and English</strong>."
+        source: gmer
+      - text: "Took Mathematics instead of Biology? Since NMC's November 2023 notice, Biology passed later as an additional subject from a recognised board also counts."
+        source: neet-ib
+  - stages: [c11, c12]
+    title: "NEET year — and the qualifying percentile"
+    points:
+      - text: "Minimum age <strong>17 on or before 31 December</strong> of the exam year. There is <strong>no upper age limit</strong> and no cap on attempts."
+        source: neet-ib
+      - text: "To be eligible for admission you need the <strong>50th percentile</strong> (General / EWS), 40th (SC, ST, OBC) or 45th (PwBD General) in NEET."
+        source: neet-ib
+      - text: "You can sit NEET while your Class 12 result is awaited, but you must have passed by the first counselling round."
+        source: neet-ib
+  - stages: [ug, grad]
+    title: "After MBBS: internship, then registration"
+    points:
+      - text: "At most <strong>4 attempts</strong> at the first-year MBBS exam, and the course must be finished within <strong>9 years</strong> of admission."
+        source: gmer
+      - text: "You are not a graduate until you finish a rotating internship of <strong>at least 12 months</strong> after the final MBBS exam. Interns are paid a stipend set by the institution's authority."
+        source: crmi
+      - text: "Your State Medical Council registers you provisionally for the internship. The 2023 Registration Regulations then link National Medical Register entry to the National Exit Test (NExT); the licence is valid for <strong>5 years</strong> and is renewed through the State Medical Council."
+        source: nmc-reg
+board_notes:
+  gseb:
+    text: "ACPUGMEC's Gujarat state-quota process is for students who passed <strong>SSC and HSC (Science B / AB group) from Gujarat</strong> and are domiciled in or born in Gujarat. The merit list is built on your NEET-UG All India Rank."
+    source: [acpug-reg, acpug-ins]
+  cbse-gj:
+    text: "ACPUGMEC accepts Gujarat Board, CBSE, ICSE, Cambridge and NIOS students — as long as SSC and HSC were passed from Gujarat and you are domiciled in or born in Gujarat."
+    source: acpug-reg
+  upmsp:
+    text: "UP government medical and dental colleges need a <strong>UP domicile</strong>; if you passed both High School and Intermediate in UP, no domicile certificate is needed. Private colleges in UP are open to candidates from other states too."
+    source: up-neet
+  msbshse:
+    text: "The State CET Cell fills MBBS and BDS seats in Maharashtra's government, aided, municipal and private colleges on NEET (UG) merit. You must register with it separately even if you registered for All India Quota counselling."
+    source: mh-neet3
+  wb:
+    text: "West Bengal state-quota seats need a domicile certificate: 10 years' residence as on 31 Dec 2025 with Class 10 and 12 passed in West Bengal — or a parent who is a permanent resident living there for those 10 years."
+    source: wb-neet
+  cbse: "NEET (UG) is one national paper for every board; Class 12 must include Physics, Chemistry, Biology / Biotechnology and English."
+  other: "NEET (UG) is offered in 13 languages, including Assamese, Bengali, Gujarati, Hindi, Marathi, Odia, Tamil and Telugu. State-quota seats follow your own state's domicile rule."
+board_source: neet-ib
+exam:
+  name: "NEET (UG) 2026 → MCC / state counselling"
+  body: "National Testing Agency (NTA) · Medical Counselling Committee · state authorities"
+  href: "neet-ug.html"
+  facts:
+    - { label: "Paper", value: "180 questions · 720 marks · 3 hours, pen and paper", source: neet-ib }
+    - { label: "Marking", value: "+4 correct · −1 wrong · 0 unanswered", source: neet-ib }
+    - { label: "Fee (India centre)", value: "₹1,700 General · ₹1,600 EWS / OBC-NCL · ₹1,000 SC / ST / PwBD / third gender", source: neet-ib }
+    - { label: "2026 cycle", value: "Re-held 21 June 2026 · result 16 July 2026", source: [neet-re, neet-res] }
+  stages:
+    head: ["Stage", "What it is", "Marking", "Rule"]
+    rows:
+      - ["NEET (UG)", "Physics 45, Chemistry 45, Biology 90 questions — all compulsory MCQs", "+4 / −1", "Qualify at the 50th percentile (General / EWS), 40th (SC, ST, OBC), 45th (PwBD General)"]
+      - ["MCC counselling", "15% All India Quota in state government colleges, AIIMS, JIPMER, central universities, ESIC and deemed universities", "—", "Central reservation: SC 15%, ST 7.5%, OBC-NCL 27%, EWS 10%, PwBD 5%"]
+      - ["State counselling", "ACPUGMEC (Gujarat), DGME (UP), State CET Cell (Maharashtra), DME (West Bengal)", "—", "Each state's own domicile and reservation rules — see the State rules section of this career's blueprint"]
+      - ["MBBS + internship", "University exams, then a rotating internship of at least 12 months", "—", "Max 4 attempts at first-year MBBS; finish within 9 years of admission"]
+    source: [neet-ib, gmer, crmi]
+  notes:
+    - text: "The NEET fee does not change with gender, and no fee was charged for the 21 June 2026 re-examination."
+      source: [neet-ib, neet-re]
+    - text: "Government doctors through UPSC CMS 2026 start at Pay Matrix Level 10 (₹56,100 – ₹1,77,500) plus non-practising allowance."
+      source: cms
+    - text: "These are the 2026 rules. NTA publishes the NEET (UG) 2027 bulletin on neet.nta.nic.in — check dates, fees and pattern there the day it is out."
+state_rules:
+  - state: gujarat
+    text: "ACPUGMEC registration costs a <strong>₹1,000 PIN plus a ₹10,000 refundable security deposit</strong>. One application covers Government seats and the management seats of unaided medical and dental colleges."
+    source: [acpug-reg, acpug-ins]
+  - state: uttar-pradesh
+    text: "UP NEET UG 2026 counselling: ₹2,000 registration fee; security money <strong>₹30,000</strong> for government colleges and <strong>₹2,00,000</strong> for private medical colleges (₹2,00,000 covers both). Government MBBS / BDS students sign a <strong>2-year, ₹10 lakh service bond</strong>; leaving a government seat after the last round bars you from the next year's admission."
+    source: up-neet
+  - state: maharashtra
+    text: "In 2026, Round 1 of Maharashtra's MBBS / BDS CAP ran from registration on 6 August to college joining by 28 August, on NEET (UG) 2026 merit."
+    source: mh-neet3
+  - state: west-bengal
+    text: "Only a domicile certificate signed by an officer listed in the DME notice counts. Certificates from councillors, panchayat members, MLAs or MPs are not accepted."
+    source: wb-neet
+  - text: "MCC fills the 15% All India Quota, AIIMS, JIPMER, central-university, ESIC and deemed-university seats; state authorities fill the state-quota seats under their own rules."
+    source: [neet-ib, neet-res]
+multiverse:
+  - { title: "MBBS", text: "The degree route to becoming a doctor.", href: "mbbs.html" }
+  - { title: "BDS", text: "Dentistry through the same NEET rank.", href: "bds.html" }
+  - { title: "AYUSH (BAMS and more)", text: "Ayurveda and other AYUSH degrees, also on NEET.", href: "bams.html" }
+  - { title: "Government doctor", text: "UPSC CMS for central health service posts after MBBS.", href: "upsc-cms.html" }
+  - { title: "Nursing", text: "A clinical career with its own entrance tests.", href: "nursing.html" }
+  - { title: "Coaching", text: "NEET coaching centres near you.", href: "coaching-neet.html" }
+money: [nmmss, neet-fee, csss, pms-sc, mysy, wbscc, mbbs-intern]
+
+money_defs:
+  - id: mbbs-intern
+    kind: stipend
+    name: "MBBS internship stipend"
+    by: "Your medical college / state, under NMC's internship regulations"
+    who: "Every MBBS intern, for the 12-month internship. It is not paid during extensions, except approved medical, maternity or paternity leave. The rate is fixed by the authority that runs your college, so it differs between states and colleges."
+    apply: "Nothing to apply for — ask your college for the current rate."
+    stages: [ug, grad]
+    source: crmi
+
+sources:
+  - { id: cms, name: "UPSC — Combined Medical Services Examination 2026, Notice No. 9/2026-CMS", url: "https://www.upsc.gov.in/sites/default/files/Notification-CMSE-2026-English-110326.pdf", covers: "Level 10 pay for government doctors", checked: 2026-10-14 }
+  - { id: gmer, name: "National Medical Commission — Graduate Medical Education Regulations, 2023 (2 June 2023)", url: "https://nmc.org.in/storage/cms/rules-regulation-nmc/G83KmfBTvRKFfp99s6Vvjuuw3gJ7WM2ZP28Z3Zhk.pdf", covers: "NEET-UG subject rule, common counselling, 4 first-year attempts, 9-year limit, internship before graduation", checked: 2026-10-25 }
+  - { id: crmi, name: "National Medical Commission — Compulsory Rotating Medical Internship Regulations, 2021 (18 Nov 2021)", url: "https://nmc.org.in/storage/cms/rules-regulation-nmc/Lpv9Va5WsAzpQmISmwAMWmsefK2nOEroAdNZkVJC.pdf", covers: "internship of at least 12 months after final MBBS, stipend fixed by the appropriate authority for 52 weeks, NExT whenever in force", checked: 2026-10-25 }
+  - { id: nmc-reg, name: "National Medical Commission — Registration of Medical Practitioners and Licence to Practice Medicine Regulations, 2023 (10 May 2023)", url: "https://nmc.org.in/storage/cms/rules-regulation-nmc/yU2SAi2t2zlfbXoTSXbrFzYcG8eRMTBsriQyaGPA.pdf", covers: "provisional registration for internship by the State Medical Council, National Medical Register after NExT, 5-year licence and renewal", checked: 2026-10-25 }
+  - { id: acpug-ins, name: "ACPUGMEC Gujarat — Instructions for Online Application and Registration (UG 2026 folder)", url: "https://medadmgujarat.ncode.in/web/UG2026/REG/Instructions%20for%20Online%20Application%20and%20Registartion-%20%5B2025-26%5D.pdf", covers: "merit on NEET-UG All India Rank, Government and management seats on one application", checked: 2026-10-25 }

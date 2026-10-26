@@ -1,0 +1,126 @@
+# Journey Blueprint — Chartered Accountant (CA). Printed on journey-ca.html (_includes/journey-doubts.html).
+# Rules, classes and the money items / sources several careers share: _data/in/journey_common.yml.
+# `money_defs` / `sources` below are used only by this career. Check: node scripts/check-journey-matrix.mjs
+id: ca
+name: "Chartered Accountant (CA)"
+search: ["chartered accountant"]
+page: "ca.html"
+roadmap: "roadmaps/ca.html"
+gate: "Register with ICAI → Foundation (after Class 12) → Intermediate → articleship → Final. Direct Entry skips Foundation for eligible graduates."
+gate_source: icai
+foundation:
+  - stages: [c8, c9]
+    title: "Get comfortable with numbers and English"
+    points:
+      - text: "The four Foundation papers are Accounting, Business Laws, Quantitative Aptitude and Business Economics — school maths and clear English are the base for all four."
+        source: icai
+  - stages: [c10]
+    title: "You can register early"
+    points:
+      - text: "You can register for CA Foundation provisionally after Class 10, but you sit the exam only after Class 12."
+        source: icai
+  - stages: [c11, c12]
+    title: "Any stream is allowed — Commerce makes Foundation easier"
+    points:
+      - text: "Foundation is open to Commerce, Science and Arts students, with <strong>no minimum Class 12 percentage</strong>."
+        source: icai
+      - text: "Commerce with Accountancy gives you a head start on Paper 1; Maths helps in Quantitative Aptitude."
+  - stages: [ug, grad]
+    title: "Graduate? Use Direct Entry"
+    points:
+      - text: "Graduates can skip Foundation and register straight for Intermediate: Commerce graduates need 55%, others 60%."
+        source: icai
+board_notes:
+  gseb: "If you are in the HSC Commerce stream, your Accountancy and Economics books overlap with Foundation Papers 1 and 4."
+  cbse-gj: "CBSE Accountancy and Economics in Class XI–XII overlap with Foundation Papers 1 and 4."
+  upmsp: "Accountancy and Economics in Intermediate Commerce overlap with Foundation Papers 1 and 4."
+  msbshse: "If you are in the HSC Commerce stream, your Accountancy and Economics books overlap with Foundation Papers 1 and 4."
+  wb: "Accountancy and Economics in Higher Secondary Commerce overlap with Foundation Papers 1 and 4."
+  cbse: "CBSE Accountancy and Economics in Class XI–XII overlap with Foundation Papers 1 and 4."
+  other: "Accountancy and Economics in Class 11–12 overlap with Foundation Papers 1 and 4."
+exam:
+  name: "CA Foundation → Intermediate → Final"
+  body: "Institute of Chartered Accountants of India (ICAI)"
+  href: "ca.html"
+  facts:
+    - { label: "Levels", value: "Foundation · Intermediate · Final", source: icai }
+    - { label: "Foundation", value: "4 papers · 100 marks each", source: icai }
+    - { label: "Training", value: "Articleship under a practising CA", source: icai }
+    - { label: "Seats", value: "No cap — one national registration", source: icai }
+  stages:
+    head: ["Level", "Papers", "Marking", "Pass rule"]
+    rows:
+      - ["Foundation", "Accounting · Business Laws · Quantitative Aptitude · Business Economics", "Papers 3 and 4 are MCQ with −0.25 per wrong answer", "40% in each paper and 50% aggregate, in one sitting"]
+      - ["Intermediate", "Two groups of 3 papers", "Written papers", "40% each paper + 50% aggregate per group"]
+      - ["Articleship", "Practical training under a practising CA", "—", "About 2 years under the current scheme"]
+      - ["Final", "Two groups of 3 papers", "Written papers", "40% each paper + 50% aggregate per group"]
+    source: icai
+  notes:
+    - text: "Score 60% or more in a paper but miss the group pass, and ICAI usually exempts that paper next time."
+      source: icai
+    - text: "ICAI publishes a pass percentage after every attempt in its result press release on icai.org — read the latest one there; we do not copy old numbers."
+      source: icai
+state_rules:
+  - text: "There is <strong>no state quota</strong> in CA: one registration with ICAI, and the same exam for every state and board."
+    source: icai
+  - state: gujarat
+    text: "Gujarat comes under ICAI's <strong>Western India Regional Council</strong>, which runs branches, classes and student activities in the region."
+    source: icai
+multiverse:
+  - { title: "Audit and practice", text: "Statutory audit is reserved for practising CAs — your own firm, or partner in one.", href: "ca.html" }
+  - { title: "Corporate finance", text: "Accounts, tax and finance roles in companies, leading up to CFO." }
+  - { title: "Specialist licences", text: "Insolvency professional and registered valuer are open to CAs after their own exams.", href: "insolvency-professional.html" }
+  - { title: "Add a second badge", text: "CA + CFA for investment roles, or CA vs CMA vs CS if you are still choosing.", href: "ca-vs-cma-vs-cs.html" }
+money: [nmmss, icai-need-inter, icai-need-final, icai-merit-need, icai-merit, articleship, pms-sc, csss, mysy]
+
+money_defs:
+  - id: icai-need-inter
+    kind: scholarship
+    name: "ICAI need-based scholarship — Intermediate"
+    by: "ICAI Board of Studies"
+    amount: "₹1,500 a month for 9 months (+3 months for finishing the orientation and IT courses within 9 months, +3 more for passing one Intermediate group within 12 months)"
+    who: "Students registered for Intermediate (Foundation or Direct Entry route) whose parents earn up to ₹3,00,000 a year."
+    apply: "Any time on the ICAI Self Service Portal (eservices.icai.org); grants are processed every quarter."
+    stages: [c12, ug, grad]
+    source: icai-sch
+  - id: icai-need-final
+    kind: scholarship
+    name: "ICAI need-based scholarship — Final"
+    by: "ICAI Board of Studies"
+    amount: "₹1,500 a month for 30 months or the rest of your articleship, whichever is less"
+    who: "Students registered for CA Final whose parents earn up to ₹3,00,000 a year."
+    apply: "ICAI Self Service Portal, with an income certificate approved by your principal (or any CA if articleship has not started)."
+    stages: [ug, grad]
+    source: icai-sch
+  - id: icai-merit-need
+    kind: scholarship
+    name: "ICAI merit-cum-need scholarship"
+    by: "ICAI Board of Studies"
+    amount: "₹2,000 a month for 30 months or the rest of your articleship"
+    who: "Intermediate rank holders (outside the top-10 merit list) who have registered for Final, parents' income up to ₹3,00,000 a year."
+    apply: "ICAI Self Service Portal."
+    stages: [ug, grad]
+    source: icai-sch
+  - id: icai-merit
+    kind: scholarship
+    name: "ICAI merit scholarship"
+    by: "ICAI Board of Studies"
+    amount: "₹2,500 a month for 30 months or the rest of your articleship"
+    who: "Intermediate rank holders at ranks 1–10 (and everyone sharing rank 10) who have registered for Final. No income limit is printed."
+    apply: "ICAI Self Service Portal."
+    stages: [ug, grad]
+    source: icai-sch
+  - id: articleship
+    kind: stipend
+    name: "Articleship stipend (paid by your principal)"
+    by: "Fixed by ICAI regulations (Regulation 48)"
+    amount: "Minimum per month by city size — 20 lakh+ population: ₹4,000 (year 1), ₹5,000 (year 2); 5–20 lakh: ₹3,000 / ₹4,000; under 5 lakh: ₹2,000 / ₹3,000. These 2023 rates come from a press report; a June 2026 draft proposes ₹1,000 more in each slab. Confirm both on icai.org."
+    who: "Every CA student in articleship. Firms can pay more than the minimum."
+    apply: "Nothing to apply for — it is part of your articleship terms."
+    stages: [c12, ug, grad]
+    source: icai-stip
+
+sources:
+  - { id: icai, name: "Institute of Chartered Accountants of India (ICAI)", url: "https://www.icai.org/", covers: "Foundation / Intermediate / Final scheme, registration routes, passing rule, articleship, regional councils", checked: 2026-10-08 }
+  - { id: icai-sch, name: "ICAI Board of Studies — Scholarship Scheme for CA Students", url: "https://resource.cdn.icai.org/79872bos63950.pdf", covers: "four scholarship categories, ₹1,500–₹2,500 a month, ₹3 lakh income limit, periods, quarterly grants, SSP process", checked: 2026-10-24 }
+  - { id: icai-stip, name: "ICAI — Draft Chartered Accountants (Amendment) Regulations, 2026, Regulation 48 stipend (25 Jun 2026), as reproduced by TaxGuru", url: "https://taxguru.in/chartered-accountant/icai-proposes-higher-minimum-stipend-articled-assistants.html", covers: "proposed stipend table; the current 2023 table (₹4,000/₹5,000, ₹3,000/₹4,000, ₹2,000/₹3,000) was read from Taxscan's report of the 23 Jun 2023 notification — confirm both on icai.org", checked: 2026-10-24 }

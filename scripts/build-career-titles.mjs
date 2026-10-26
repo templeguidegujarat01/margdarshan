@@ -1,7 +1,7 @@
 // Builds assets/data/career-titles.json — the ~10,000 career / job titles the Journey Blueprint build queue picks
 // from — from the raw list pasted out of a chat (scripts/data/career-titles-source.txt).
 // Since 2026-10-26 the "I want to be a/an …" search on journey-blueprint.html no longer loads this file: it lists
-// only careers with a full blueprint (journey_matrix.yml, printed into the page). This list is the registry that
+// only careers with a full blueprint (_data/in/journey/<id>.yml, printed into the page). This list is the registry that
 // _data/in/journey_queue.yml titles must come from (scripts/check-journey-matrix.mjs checks that). The paste mixes numbered and unnumbered batches,
 // category headers and chat lines; this keeps titles + their category and drops the rest.
 //   node scripts/build-career-titles.mjs            build

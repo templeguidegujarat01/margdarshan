@@ -1,0 +1,99 @@
+# Journey Blueprint — Bank Probationary Officer (IBPS PO). Printed on journey-bank-po.html (_includes/journey-doubts.html).
+# Rules, classes and the money items / sources several careers share: _data/in/journey_common.yml.
+# `money_defs` / `sources` below are used only by this career. Check: node scripts/check-journey-matrix.mjs
+id: bank-po
+name: "Bank Probationary Officer (IBPS PO)"
+search: ["probationary officer", "bank po", "bank branch manager"]
+page: "ibps-po.html"
+gate: "Any graduate aged 20–30 → IBPS PO Preliminary → Main → Personality Test → Interview → provisional allotment to one of 11 public sector banks."
+gate_source: ibps16
+foundation:
+  - stages: [c8, c9, c10]
+    title: "Arithmetic speed, reasoning and English reading"
+    points:
+      - text: "The Preliminary exam is English Language, Quantitative Aptitude and Reasoning Ability — each with its own <strong>20-minute</strong> clock. Fast, accurate school arithmetic is the base."
+        source: ibps16
+      - text: "Read an English newspaper daily; the English test is only in English, whatever your school medium."
+        source: ibps16
+  - stages: [c11, c12]
+    title: "Any stream works — a degree is the gate"
+    points:
+      - text: "IBPS asks for a <strong>degree in any discipline</strong>. It sets no Class 10 or 12 percentage and no stream."
+        source: ibps16
+      - text: "Commerce, Economics or Mathematics help with the Banking Awareness and Data Analysis tests later, but are not required."
+  - stages: [ug, grad]
+    title: "Age, degree result and the yearly cycle"
+    points:
+      - text: "Age <strong>20–30</strong> on 1 July 2026, and your degree result must be declared by the cut-off date in the notice (21 July 2026 in this cycle)."
+        source: ibps16
+      - text: "You must write your graduation percentage (to two decimals) in the form; CGPA must be converted using your university's rule."
+        source: ibps16
+board_notes:
+  gseb: "The tests are in <strong>English and Hindi only</strong> — there is no Gujarati paper. The English test is in English alone."
+  cbse-gj: "The tests are in English and Hindi only; the English test is in English alone."
+  upmsp: "You can take Quantitative Aptitude, Reasoning and Data Analysis in <strong>Hindi</strong>; the English test is in English alone."
+  msbshse: "The tests are in <strong>English and Hindi only</strong> — there is no Marathi paper. The English test is in English alone."
+  wb: "The tests are in <strong>English and Hindi only</strong> — there is no Bengali paper. The English test is in English alone."
+  cbse: "The tests are in English and Hindi only; the English test is in English alone."
+  other: "The tests are in English and Hindi only; the English test is in English alone."
+board_source: ibps16
+exam:
+  name: "IBPS CRP PO/MT-XVI (vacancies of 2027-28)"
+  body: "Institute of Banking Personnel Selection (IBPS)"
+  href: "ibps-po.html"
+  facts:
+    - { label: "Vacancies (indicative)", value: "6,715 in 11 public sector banks", source: ibps16 }
+    - { label: "Age", value: "20–30 years (as on 1 Jul 2026)", source: ibps16 }
+    - { label: "Fee", value: "₹850 · ₹175 SC/ST/PwBD (incl. GST)", source: ibps16 }
+    - { label: "Negative marking", value: "−0.25 of the question's marks, Prelims and Main", source: ibps16 }
+  stages:
+    head: ["Stage", "Paper", "Marking", "Pass rule"]
+    rows:
+      - ["Preliminary", "100 questions · 100 marks · 60 min: English 30, Quant 35, Reasoning 35 (20 min each)", "−0.25 per wrong answer", "Minimum in each test, set by IBPS; screening only"]
+      - ["Main — objective", "170 questions · 200 marks · 160 min: Reasoning, General / Economy / Banking Awareness, English, Data Analysis", "−0.25 per wrong answer", "Minimum in each test and in total"]
+      - ["Main — descriptive", "Essay and comprehension · 2 questions · 25 marks · 30 min, in English", "May be scored by an automated system", "Part of the Main score"]
+      - ["Personality Test", "Self-report test placed before the interview panel", "Not qualifying", "Must be taken to reach the interview"]
+      - ["Interview", "100 marks, by the participating banks", "—", "40% minimum (35% SC/ST/OBC/PwBD); final merit = Main 80 : Interview 20"]
+    source: ibps16
+  notes:
+    - text: "Only Main exam marks (not Prelims) count for shortlisting and the final merit list. Scores across sessions are normalised by the equi-percentile method."
+      source: ibps16
+    - text: "This is an <strong>All India cadre</strong>: allotted officers may be posted anywhere in India or abroad, at the bank's discretion."
+      source: ibps16
+    - text: "State Bank of India runs its own PO exam separately; read its notice on the SBI careers site."
+state_rules:
+  - text: "The PO notice sets <strong>no state-language test</strong> and no domicile rule — you compete on one national merit list and can be posted anywhere."
+    source: ibps16
+  - text: "Interviews are run by the participating banks and coordinated by a <strong>Nodal Bank in each State / UT</strong>; the venue comes in your call letter and cannot be changed."
+    source: ibps16
+  - state: maharashtra
+    text: "Bank of Maharashtra is one of the 11 participating banks in CRP PO/MT-XVI."
+    source: ibps16
+multiverse:
+  - { title: "SBI PO", text: "India's largest bank recruits officers through its own exam.", href: "sbi-po.html" }
+  - { title: "Clerk first", text: "IBPS and SBI clerk posts, with internal promotion to officer.", href: "ibps-clerk.html" }
+  - { title: "RBI Grade B", text: "Regulator-side officer roles at the Reserve Bank.", href: "rbi-grade-b.html" }
+  - { title: "Coaching", text: "Banking coaching centres near you.", href: "coaching-banking.html" }
+money: [nmmss, csss, pms-sc, ibps-pet, ibps-fee, mysy]
+
+money_defs:
+  - id: ibps-pet
+    kind: training
+    name: "IBPS Pre-Examination Training (PET)"
+    by: "IBPS and the participating banks"
+    who: "A limited number of SC, ST, OBC and minority-community candidates who opt for it. Attending gives no right to selection."
+    apply: "Tick the PET column in the online application; it runs online before the Preliminary exam (August in the 2026 cycle)."
+    stages: [ug, grad]
+    source: ibps16
+  - id: ibps-fee
+    kind: fee
+    name: "Lower IBPS PO fee"
+    by: "IBPS"
+    amount: "₹175 instead of ₹850 (both include GST)"
+    who: "SC, ST and PwBD candidates."
+    apply: "Paid online in the application form; bank charges are extra."
+    stages: [ug, grad]
+    source: ibps16
+
+sources:
+  - { id: ibps16, name: "IBPS — Detailed Notification, CRP PO/MT-XVI (vacancies of 2027-28), 30 Jun 2026", url: "https://www.ibps.in/wp-content/uploads/Detailed-Notification_CRP-PO-XVI_Final_V1_30.06.2026.pdf", covers: "11 participating banks, 6,715 indicative vacancies, age, degree, fee, Prelims / Main pattern and media, −0.25, personality test, interview 40% / 35%, 80:20 weightage, PET, All India cadre, nodal banks", checked: 2026-10-25 }

@@ -1,0 +1,94 @@
+# Journey Blueprint — Financial / Investment Analyst (Equity Research / CFA). Printed on journey-financial-analyst.html (_includes/journey-doubts.html).
+# Rules, classes and the money items / sources several careers share: _data/in/journey_common.yml.
+# `money_defs` / `sources` below are used only by this career. Check: node scripts/check-journey-matrix.mjs
+id: financial-analyst
+name: "Financial / Investment Analyst (Equity Research / CFA)"
+search: ["financial analyst", "investment analyst", "equity research", "equity analyst", "cfa"]
+page: "research-analyst.html"
+roadmap: "roadmaps/research-analyst.html"
+gate: "Any bachelor's degree (Commerce, Economics, Maths or Engineering are common) → NISM Series XV for SEBI research roles → CFA Program Levels I, II and III + 4,000 hours of work experience → CFA charter."
+gate_source: [sebi, cfa-exam]
+foundation:
+  - stages: [c8, c9, c10]
+    title: "Maths, data and reading company news"
+    points:
+      - text: "Percentages, ratios, simple statistics and clear English are the daily tools of an analyst. Learn them well from your board's maths and English books."
+  - stages: [c11, c12]
+    title: "Choose a stream with Maths if you can"
+    points:
+      - text: "No exam in this path asks for a particular Class 12 stream. Commerce with Maths, or Science with Maths, makes a B.Com, BBA, Economics or Statistics degree easier."
+      - text: "CFA exams are <strong>only in English</strong>, and you need a valid international travel <strong>passport</strong> to register and sit — apply for one well before college."
+        source: cfa-pol
+  - stages: [ug, grad]
+    title: "Degree + NISM + CFA"
+    points:
+      - text: "To publish research as a SEBI-registered Research Analyst (or work for one), you need a graduate degree and the <strong>NISM Series XV</strong> Research Analyst certification."
+        source: sebi
+      - text: "CFA Level I is open while you are still studying: the exam window you pick must be <strong>23 months or less before your graduation month</strong>. For Level II you must be within 11 months of graduating; for Level III you need the degree (or 4,000 hours of work experience)."
+        source: cfa-pol
+      - text: "No degree? You can also enrol with <strong>4,000 hours of work experience and / or higher education</strong> built up over at least three sequential years by the time you register for Level I."
+        source: cfa-pol
+      - text: "The charter itself needs all three exams passed, <strong>4,000 hours of relevant work experience over at least 36 months</strong> (before, during or after the exams) and CFA Institute membership."
+        source: cfa-exam
+board_notes:
+  gseb: "HSC Commerce with Statistics or Maths, or HSC Science, both lead to the usual degrees for this career."
+  cbse-gj: "Applied or core Mathematics in Class XI–XII keeps every finance degree open."
+  upmsp: "Taking Mathematics in Intermediate keeps every finance degree open."
+  msbshse: "HSC Commerce with Mathematics, or HSC Science, both lead to the usual degrees for this career."
+  wb: "Taking Mathematics in Higher Secondary keeps every finance degree open."
+  cbse: "Applied or core Mathematics in Class XI–XII keeps every finance degree open."
+  other: "Taking Maths in Class 11–12 keeps every finance degree open."
+exam:
+  name: "NISM Series XV + CFA Program"
+  body: "NISM (for SEBI) · CFA Institute"
+  href: "cfa.html"
+  facts:
+    - { label: "SEBI research role", value: "Graduate + NISM Series XV", source: sebi }
+    - { label: "CFA Level I", value: "180 MCQs · two 135-min sessions", source: cfa-l1 }
+    - { label: "Negative marking", value: "None in CFA Level I", source: cfa-l1 }
+    - { label: "All three levels", value: "USD 3,520–4,570 in exam fees", source: cfa-fees }
+  stages:
+    head: ["Step", "What it is", "Marking", "Rule"]
+    rows:
+      - ["Bachelor's degree", "Any recognised degree", "—", "Needed for SEBI registration"]
+      - ["NISM Series XV", "Research Analyst certification by NISM", "—", "Required for SEBI research analysts"]
+      - ["CFA Level I", "180 three-option MCQs in two 135-minute sessions", "No penalty for wrong answers", "Window up to 23 months before graduation"]
+      - ["CFA Level II", "Vignettes (item sets) with multiple-choice questions", "Pass / fail with a score report", "Within 11 months of graduation"]
+      - ["CFA Level III", "Item sets plus constructed-response questions", "Pass / fail", "Degree or 4,000 hours of work experience; then the charter"]
+    source: [cfa-l1, cfa-exam, cfa-pol]
+  notes:
+    - text: "Fees are paid in US dollars and depend on whether you book in the Early or Standard registration period. A missed exam forfeits the fee; rescheduling within your window costs USD 250."
+      source: cfa-fees
+    - text: "At most two attempts in a calendar year, at least six months apart and never in back-to-back windows, and <strong>six attempts per level</strong> in total."
+      source: cfa-elig
+    - text: "Results come 5–9 weeks after your exam window closes."
+      source: cfa-exam
+state_rules:
+  - text: "There is no state quota or domicile rule: NISM and CFA are national and global certifications, the same for every board."
+    source: sebi
+multiverse:
+  - { title: "Equity research", text: "Brokerages and fund houses; SEBI rules apply to anyone giving buy/sell research.", href: "research-analyst.html" }
+  - { title: "Investment adviser", text: "Advising clients for a fee needs its own SEBI registration.", href: "investment-adviser.html" }
+  - { title: "Risk", text: "FRM for risk-management roles in banks.", href: "frm.html" }
+  - { title: "CFA charter", text: "Portfolio management and investment banking roles value it most.", href: "cfa.html" }
+money: [nmmss, csss, pms-sc, cfa-sch, mysy]
+
+money_defs:
+  - id: cfa-sch
+    kind: fee
+    name: "CFA Program Access and Student scholarships"
+    by: "CFA Institute"
+    amount: "Lower programme fees (amount set per award)"
+    who: "Access: candidates who cannot afford the fees and are not registered for an exam. Student: students of a CFA Institute affiliated university."
+    apply: "On cfainstitute.org before you register for an exam — you cannot apply while registered or waiting for results."
+    stages: [ug, grad]
+    source: cfa-sch
+
+sources:
+  - { id: sebi, name: "Securities and Exchange Board of India (SEBI)", url: "https://www.sebi.gov.in/", covers: "Research Analyst registration: graduate degree + NISM Series XV", checked: 2026-10-12 }
+  - { id: cfa-l1, name: "CFA Institute — CFA Program Level I exam", url: "https://www.cfainstitute.org/programs/cfa-program/candidate-resources/level-i-exam", covers: "180 MCQs, two 135-minute sessions, three options, no penalty for wrong answers", checked: 2026-10-24 }
+  - { id: cfa-sch, name: "CFA Institute — CFA Program scholarships", url: "https://www.cfainstitute.org/programs/cfa-program/scholarships", covers: "Access, Student and Professor scholarships; not open while registered for an exam", checked: 2026-10-24 }
+  - { id: cfa-pol, name: "CFA Institute — CFA Program policies (enrollment requirements)", url: "https://www.cfainstitute.org/programs/cfa-program/policies", covers: "bachelor's degree or 4,000 hours work / education route, undergraduate 23-month and 11-month rules, Level III rule, passport, English-only exams", checked: 2026-10-25 }
+  - { id: cfa-fees, name: "CFA Institute — CFA Program exam dates &amp; fees", url: "https://www.cfainstitute.org/programs/cfa-program/dates-fees", covers: "USD 3,520–4,570 for all three levels, Early / Standard registration, USD 250 rescheduling, fees non-refundable", checked: 2026-10-25 }
+  - { id: cfa-exam, name: "CFA Institute — CFA Program exam (levels and charter)", url: "https://www.cfainstitute.org/programs/cfa-program/exam", covers: "three levels, Level II / III formats, results in 5–9 weeks, charter = 3 exams + 4,000 hours over at least 3 years + membership", checked: 2026-10-25 }
+  - { id: cfa-elig, name: "CFA Institute — CFA exam eligibility policy", url: "https://www.cfainstitute.org/about/governance/policies/cfa-exam-eligibility-policy", covers: "at most two attempts a calendar year, not in consecutive windows, six attempts per level", checked: 2026-10-25 }

@@ -2,7 +2,7 @@
   One career's Student Journey Blueprint page (journey-<id>.html, 2026-10-26).
   Usage: {% include journey-doubts.html id="pharmacist" %}   (stubs are written by scripts/build-journey-pages.mjs)
   journey-blueprint.html only picks a career + class and redirects here with ?class=10 (8–12, college, graduate,
-  working; the old c10 / ug ids work too). Everything below is printed at build time from _data/in/journey_matrix.yml,
+  working; the old c10 / ug ids work too). Everything below is printed at build time from _data/in/journey/<id>.yml + journey_common.yml,
   so the page is complete without JS. Each step, scheme and note carries data-stages; the small script at the end
   hides what is behind the chosen class (a button brings it back) and marks the "You are here" step.
   Blocks: the job (three-layer careers), the road (journey with doubts, or the older foundation steps) + board note,
@@ -11,9 +11,9 @@
   Doubts go into FAQPage JSON-LD in the same words (scripts/verify-site.mjs checks that).
   Sources are numbered in order of first use on this page; [n] links (journey-ref.html) go to the list at the bottom.
 {%- endcomment -%}
-{%- assign JM = site.data.in.journey_matrix -%}
 {%- assign JS = site.data.in.journey_states -%}
-{%- assign C = JM.careers | where: "id", include.id | first -%}
+{%- assign C = site.data.in.journey[include.id] -%}
+{%- include journey-data.html -%}
 {%- assign ext = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>' -%}
 {%- assign v2 = false -%}{%- if C.v == 2 -%}{%- assign v2 = true -%}{%- endif -%}
 {%- assign other_note = C.board_notes.other -%}
@@ -41,7 +41,7 @@
 {%- for p in C.exam.notes %}{% assign x = p.source | join: "|" %}{% if x != "" %}{% assign ids = ids | append: "|" | append: x %}{% endif %}{% endfor -%}
 {%- for p in C.state_rules %}{% assign x = p.source | join: "|" %}{% if x != "" %}{% assign ids = ids | append: "|" | append: x %}{% endif %}{% endfor -%}
 {%- for b in JM.boards %}{% if b.state %}{% assign n = C.board_notes[b.id] %}{% if n.source %}{% assign x = n.source | join: "|" %}{% assign ids = ids | append: "|" | append: x %}{% endif %}{% endif %}{% endfor -%}
-{%- for mid in C.money %}{% assign m = JM.money | where: "id", mid | first %}{% assign x = m.source | join: "|" %}{% if x != "" %}{% assign ids = ids | append: "|" | append: x %}{% endif %}{% endfor -%}
+{%- for mid in C.money %}{% assign m = JMONEY | where: "id", mid | first %}{% assign x = m.source | join: "|" %}{% if x != "" %}{% assign ids = ids | append: "|" | append: x %}{% endif %}{% endfor -%}
 {%- assign ids = ids | split: "|" | uniq -%}
 {%- assign nq = 0 -%}{%- for j in C.journey %}{% assign nq = nq | plus: j.doubts.size %}{% endfor -%}
 {%- assign nnat = 0 -%}{%- for r in C.state_rules %}{% unless r.state %}{% assign nnat = nnat | plus: 1 %}{% endunless %}{% endfor -%}
@@ -162,7 +162,7 @@
           {%- endif %}
           {%- if j.money %}
           <p class="jb-sub">Money help at this stage</p>
-          <p class="jb-mchips">{% for mid in j.money %}{% assign m = JM.money | where: "id", mid | first %}{% if m %}<a class="jb-mchip" href="#money-{{ m.id }}">{{ m.name }}</a>{% endif %}{% endfor %}</p>
+          <p class="jb-mchips">{% for mid in j.money %}{% assign m = JMONEY | where: "id", mid | first %}{% if m %}<a class="jb-mchip" href="#money-{{ m.id }}">{{ m.name }}</a>{% endif %}{% endfor %}</p>
           {%- endif %}
           {%- if j.mistakes %}
           <p class="jb-sub">Common mistakes</p>
@@ -305,7 +305,7 @@
         <p>Government schemes, professional-body scholarships and paid training on this path. Pick your class above and schemes you have already passed are hidden.</p>
       </div>
       <div class="jb-money">
-        {%- for mid in C.money %}{% assign m = JM.money | where: "id", mid | first %}{% if m %}
+        {%- for mid in C.money %}{% assign m = JMONEY | where: "id", mid | first %}{% if m %}
         <article class="jb-mcard" id="money-{{ m.id }}" data-stages="{{ m.stages | join: ' ' }}">
           <div class="jb-mhead">
             <span class="jb-kind jb-k-{{ m.kind }}">{% case m.kind %}{% when "scholarship" %}Scholarship{% when "stipend" %}Stipend{% when "fee" %}Fee help{% when "state" %}State scheme{% when "training" %}Free training{% endcase %}</span>
@@ -333,7 +333,7 @@
         <p>Every number on this page comes from the official files below. Lines with no number are Margdarshan guidance. Rules change every year — open the current notice before you apply.</p>
       </div>
       <ol class="cite-list">
-        {%- for i in ids %}{% assign s = JM.sources | where: "id", i | first %}{% if s %}
+        {%- for i in ids %}{% assign s = JSOURCES | where: "id", i | first %}{% if s %}
         <li id="src-{{ s.id }}">
           <a class="source-link" href="{{ s.url }}" target="_blank" rel="noopener noreferrer">
             {{ ext }}

@@ -16,13 +16,13 @@ footer:
 ---
 {%- comment -%}
   Student Journey Blueprint — the picker (2026-10-26). Two controls: "I want to be a / an…" (only careers with a full
-  blueprint in _data/in/journey_matrix.yml) and the current class. When both are set the script sends the student to
+  blueprint: _data/in/journey/<id>.yml, listed in journey_common.yml) and the current class. When both are set the script sends the student to
   that career's own page, journey-<id>.html?class=10 (_includes/journey-doubts.html, one page per career, written by
   scripts/build-journey-pages.mjs). A search with no built career shows a "not built yet" card, with the career's
   place in _data/in/journey_queue.yml when it is queued. Old shared links (?career=&class=&state=&board=, ?want=)
   still land on the right page.
 {%- endcomment -%}
-{%- assign JM = site.data.in.journey_matrix -%}
+{%- assign JM = site.data.in.journey_common -%}
 {%- assign JQ = site.data.in.journey_queue -%}
 <script type="application/ld+json">
 {
@@ -75,7 +75,7 @@ footer:
         <p>Each page shows the job, the road from Class 8 with what to do at every stage, the exam, state notes we have verified and the money help — every fact cited to an official file.</p>
       </div>
       <div class="jb-cards jb-hub-cards">
-        {%- for c in JM.careers %}
+        {%- for cid in JM.careers %}{% assign c = site.data.in.journey[cid] %}
         {%- assign nq = 0 %}{% for j in c.journey %}{% assign nq = nq | plus: j.doubts.size %}{% endfor %}
         <a class="jb-card" href="journey-{{ c.id }}.html">
           <h3>{{ c.name }}</h3>
@@ -108,11 +108,11 @@ footer:
 </main>
 
 <script type="application/json" id="jbIndex">{
-  "careers": [{% for c in JM.careers %}{ "id": {{ c.id | jsonify }}, "name": {{ c.name | jsonify }}, "search": {{ c.search | jsonify }}, "not": {{ c.search_not | default: "" | jsonify }} }{% unless forloop.last %},{% endunless %}{% endfor %}],
+  "careers": [{% for cid in JM.careers %}{% assign c = site.data.in.journey[cid] %}{ "id": {{ c.id | jsonify }}, "name": {{ c.name | jsonify }}, "search": {{ c.search | jsonify }}, "not": {{ c.search_not | default: "" | jsonify }} }{% unless forloop.last %},{% endunless %}{% endfor %}],
   "queue": {{ todo | map: "title" | jsonify }}
 }</script>
 <script>
-/* Journey Blueprint picker. The list holds only careers with a full blueprint (journey_matrix.yml), searchable by name
+/* Journey Blueprint picker. The list holds only careers with a full blueprint (_data/in/journey/), searchable by name
    and by their `search` phrases ("=x" = whole title only; `search_not` words veto). Career + class chosen (either
    order) → go to journey-<id>.html?class=<slug>. The career's page is prefetched as soon as it is picked, so the
    jump is instant. Text that matches no built career → a "not built yet" card, with its place in the queue if queued. */

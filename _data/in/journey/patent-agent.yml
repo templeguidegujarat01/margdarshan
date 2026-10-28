@@ -1,0 +1,173 @@
+# Journey Blueprint — Patent Agent ("Patent Attorney" in the queue): science / engineering degree → Patent Agent Examination → register. Printed on journey-patent-agent.html.
+# Rules, classes and the money items / sources several careers share: _data/in/journey_common.yml.
+# `money_defs` / `sources` below are used only by this career. Check: node scripts/check-journey-matrix.mjs
+id: patent-agent
+v: 2
+name: "Patent Agent (Patent Attorney · Patent Agent Examination)"
+search: ["patent attorney", "patent agent", "patent agent exam", "ip attorney", "intellectual property attorney", "patent professional"]
+page: "patent-agent.html"
+roadmap: "roadmaps/patent-agent.html"
+doubts_page: "journey-patent-agent.html"
+gate: "Science in Class 11–12 → a degree in science, engineering or technology → Patent Agent Examination (Paper I MCQ + Paper II descriptive + viva-voce) conducted by the Controller General of Patents, Designs & Trade Marks → register as a patent agent (Indian citizen, 21 or older)."
+gate_source: [pa-s126, pae27]
+core:
+  what:
+    text: "A patent agent drafts and files patent applications and represents inventors before the Indian Patent Office. India's law calls this professional a patent agent (Patents Act, 1970, section 126); \"patent attorney\" is not a separate registration."
+    source: [pa-s126, pae27]
+  day:
+    - "Read an invention and write its patent specification and claims."
+    - "File applications and reply to Patent Office objections."
+    - "Search earlier patents to check whether an idea is new."
+  pay_note: "Patent agents work for firms, companies or on their own; no official pay scale is published, so no figure is printed."
+  routes:
+    - { title: "Degree → Patent Agent Examination", text: "Section 126 needs Indian citizenship, age 21, a degree in science, engineering or technology from a university in India (or an equivalent the Central Government notifies), and passing the qualifying examination.", source: pa-s126 }
+    - { title: "Ten years as a Patent Office examiner", text: "Section 126 also lets someone who has worked at least ten years as an examiner or Controller register without the exam, after leaving that post.", source: pa-s126 }
+    - { title: "Trade Marks Agent (separate exam)", text: "The same office holds a Trade Marks Agent Examination the day before; eligibility is under Rule 144 of the Trade Marks Rules, 2017.", source: pae27 }
+  cost_time:
+    - { label: "Exam fee", value: "₹1,600 (Rule 109(3), Patents Rules, 2003)", source: pae27 }
+    - { label: "Registration after passing", value: "₹3,200 registration + ₹800 continuation fee for one financial year (2026 qualifiers)", source: pa-reg26 }
+    - { label: "Exam day", value: "Paper I 2 h (MCQ, 100 marks) · Paper II 3 h (descriptive, 100 marks) · viva-voce 50 marks", source: pae27 }
+  cost_note: "The Patent Office recognises no coaching institute — previous papers are on ipindia.gov.in."
+  challenges:
+    - text: "You need 50% in each written paper just to reach the viva-voce."
+      source: pae27
+    - text: "One exam a year: registration for PAE 2027 closed on 30 September 2026 and will not be extended."
+      source: pae27
+    - text: "The syllabus is law: the Patents Act and Rules, the Designs Act and Rules, and IP jurisprudence."
+      source: pae27
+  not_for:
+    - "You have no science, engineering or technology degree — section 126 requires one."
+    - "You dislike reading long legal and technical documents."
+    - "You want a fixed government pay scale — patent agents work in private practice or companies."
+journey:
+  - stages: [c8, c9]
+    title: "Science and writing"
+    do:
+      - text: "A patent agent must hold a degree in science, engineering or technology — so stay with science."
+        source: pa-s126
+    doubts:
+      - q: "What does a patent agent do?"
+        a: "Drafts and files patent applications and represents applicants before the Indian Patent Office. Registration is under section 126 of the Patents Act, 1970."
+        next: "Read the Routes list above."
+        source: pa-s126
+      - q: "Is a patent attorney the same as a patent agent?"
+        a: "In India the registered professional is called a patent agent. The Patent Agent Examination and section 126 of the Patents Act set who may register."
+        next: "Use \"patent agent\" when you search official sites."
+        source: [pa-s126, pae27]
+  - stages: [c10]
+    title: "Choose Science"
+    do:
+      - text: "Pick a science stream in Class 11 that leads to a B.Sc, B.Tech, B.Pharm or similar degree."
+        source: pa-s126
+    stream: "Science (PCM or PCB) — the degree must be in science, engineering or technology."
+    doubts:
+      - q: "Can a Commerce or Arts student become a patent agent?"
+        a: "Not under section 126: the degree must be in science, engineering or technology. A law degree alone does not meet it."
+        next: "Choose Science if this career interests you."
+        source: pa-s126
+  - stages: [c11, c12]
+    title: "Plan a science degree"
+    do:
+      - text: "Choose a degree in science, engineering or technology from a university established by law in India."
+        source: pa-s126
+    doubts:
+      - q: "Which degree is best for patent work?"
+        a: "Section 126 accepts any degree in science, engineering or technology from a university established by law in India, or an equivalent the Central Government specifies."
+        next: "Pick the science field you enjoy most."
+        source: pa-s126
+      - q: "Do I need a law degree?"
+        a: "No. Section 126 asks for a science, engineering or technology degree and the qualifying exam, not a law degree."
+        next: "Plan your science degree."
+        source: pa-s126
+  - stages: [ug]
+    title: "Study the Patents Act"
+    do:
+      - text: "Syllabus: the Patents Act, 1970 and Patents Rules, 2003; the Designs Act, 2000 and Designs Rules, 2001; matters related to IP jurisprudence."
+        source: pae27
+    doubts:
+      - q: "Can I write the exam in my final year?"
+        a: "Yes, but if you qualify you must submit a copy of your degree within six months of the final result to complete registration."
+        next: "Plan the exam so your degree arrives in time."
+        source: pae27
+      - q: "Can I write the exam in Hindi?"
+        a: "Yes. You choose English or Hindi when you apply, and you cannot change it afterwards."
+        next: "Decide your language before you submit the form."
+        source: pae27
+      - q: "Is there an official coaching institute?"
+        a: "No. The Controller General's office recognises no training institute; read the Acts and Rules and use the previous years' question papers on ipindia.gov.in."
+        next: "Start with the bare Act."
+        source: pae27
+  - stages: [grad]
+    title: "Patent Agent Examination"
+    do:
+      - text: "Paper I: 2 hours, MCQs (one or more correct options), 100 marks. Paper II: 3 hours, descriptive, 100 marks. 50% in each paper → viva-voce (50 marks)."
+        source: pae27
+    exams:
+      - { name: "Patent Agent Examination 2027", when: "10 Jan 2027 · written result 2nd week Feb · viva last week Feb · final result 3rd week Mar 2027", source: pae27 }
+    doubts:
+      - q: "When is the next Patent Agent Examination?"
+        a: "10 January 2027 (Sunday), at 15 locations. Admit cards from 15 December 2026."
+        next: "Registration closed on 30 Sep 2026 — watch ipindia.gov.in for the 2028 notice."
+        source: pae27
+      - q: "How much is the exam fee?"
+        a: "₹1,600, paid online. It is not refunded if you cannot take the exam."
+        next: "Pay before the last date."
+        source: pae27
+      - q: "What marks do I need for the viva?"
+        a: "At least 50% in each written paper. The final \"Qualified\" result follows rule 110 of the Patents Rules, 2003."
+        next: "Prepare for both papers equally."
+        source: pae27
+      - q: "Can I write both the Patent Agent and Trade Marks Agent exams?"
+        a: "Yes. They are held on different days (Trade Marks on 9 Jan, Patents on 10 Jan 2027); check your eligibility for each before applying."
+        next: "Apply for both in the same window if you qualify."
+        source: pae27
+      - q: "What is the age rule?"
+        a: "You must have completed 21 years to be registered as a patent agent."
+        next: "Check your date of birth against the registration date."
+        source: pa-s126
+      - q: "What happens after I qualify?"
+        a: "You apply in Form-22 with the registration fee (₹3,200) and a continuation fee (₹800 for one financial year), uploading proof of age, degree certificate (not provisional), citizenship and a gazetted officer's character certificate."
+        next: "Keep your documents ready before the final result."
+        source: pa-reg26
+  - stages: [work]
+    title: "Scientists and engineers switching to IP"
+    do:
+      - text: "Working scientists and engineers can sit the exam — there is no upper age limit in section 126."
+        source: pa-s126
+    doubts:
+      - q: "I work in R&D. Can I become a patent agent?"
+        a: "Yes, if you are an Indian citizen with a science, engineering or technology degree and pass the Patent Agent Examination."
+        next: "Apply in the next registration window."
+        source: [pa-s126, pae27]
+board_note: "Any board. What matters is a later degree in science, engineering or technology."
+board_source: pa-s126
+exam:
+  name: "Patent Agent Examination"
+  body: "Office of the Controller General of Patents, Designs & Trade Marks"
+  href: "patent-agent.html"
+  facts:
+    - { label: "Paper I", value: "MCQ · 100 marks · 2 h", source: pae27 }
+    - { label: "Paper II", value: "Descriptive · 100 marks · 3 h", source: pae27 }
+    - { label: "Viva-voce", value: "50 marks · needs 50% in each paper", source: pae27 }
+    - { label: "Next exam", value: "10 Jan 2027", source: pae27 }
+  stages:
+    head: ["Stage", "What it is", "Rule"]
+    rows:
+      - ["Degree", "Science / engineering / technology", "Section 126(1)(c)"]
+      - ["Written", "Paper I + Paper II", "50% each for viva"]
+      - ["Viva-voce", "50 marks, in person", "Rule 110 for final result"]
+      - ["Register", "Form-22 + fees", "Citizen, 21+"]
+    source: [pa-s126, pae27, pa-reg26]
+state_rules:
+  - { text: "National route: the Patent Agent Examination and registration are run by one central office for all of India.", source: pae27 }
+multiverse:
+  - { title: "Patent agent guide", text: "Work, firms and the exam.", href: "patent-agent.html" }
+  - { title: "Lawyer", text: "CLAT and law practice.", href: "journey-lawyer.html" }
+  - { title: "Biotech scientist", text: "Science degree that suits patent work.", href: "journey-biotech-scientist.html" }
+  - { title: "Pharmacist", text: "Another science-degree road.", href: "journey-pharmacist.html" }
+money: [nmmss, csss]
+
+sources:
+  - { id: pae27, name: "Office of the CGPDTM — Public Notice: Trade Marks Agent Examination 2027 and Patent Agent Examination 2027 (23 Jun 2026)", url: "https://ipindia.gov.in/storage/uploads/others/QfDfIWdlzwBwlF8u1Sd3okSu1KHgyjpTWMXeUVT0.pdf", covers: "PAE 10 Jan 2027 at 15 locations, section 126 eligibility, rule 110 qualifying, Paper I MCQ 2 h / Paper II descriptive 3 h, 100 marks each, 50% each for 50-mark viva, syllabus, English / Hindi choice, registration 1 Jul – 30 Sep 2026 (no extension), timeline, ₹1,600 fee, final-year degree within 6 months, no recognised coaching", checked: 2026-10-28 }
+  - { id: pa-reg26, name: "Office of the CGPDTM — Public Notice: instructions to qualified candidates of Patent Agent Examination 2026 (29 Mar 2026)", url: "https://ipindia.gov.in/storage/announcements/aede2b02-efa9-4453-b119-4ff364d53979.pdf", covers: "Form-22, ₹3,200 registration + ₹800 continuation fee, documents (age, degree, citizenship, character certificate)", checked: 2026-10-28 }
+  - { id: pa-s126, name: "IP India — The Patents Act, 1970, Section 126: Qualifications for registration as patent agents", url: "https://ipindia.gov.in/acts/patent-act-1970/section-126", covers: "Indian citizen, completed 21 years, degree in science / engineering / technology, qualifying exam or 10 years as examiner / Controller, prescribed fee", checked: 2026-10-28 }

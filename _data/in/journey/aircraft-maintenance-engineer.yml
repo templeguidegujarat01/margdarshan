@@ -1,0 +1,172 @@
+# Journey Blueprint — Aircraft Maintenance Engineer (DGCA CAR-66 licence). Printed on journey-aircraft-maintenance-engineer.html.
+# Rules, classes and the money items / sources several careers share: _data/in/journey_common.yml.
+# `money_defs` / `sources` below are used only by this career. Check: node scripts/check-journey-matrix.mjs
+id: aircraft-maintenance-engineer
+v: 2
+name: "Aircraft Maintenance Engineer (DGCA CAR-66 licence)"
+search: ["aircraft maintenance engineer", "ame", "aircraft maintenance engineering", "aircraft engineer", "dgca ame licence", "b1 licence", "b2 licence"]
+page: "aircraft-maintenance-engineer.html"
+roadmap: "roadmaps/aircraft-maintenance-engineer.html"
+doubts_page: "journey-aircraft-maintenance-engineer.html"
+gate: "Class 12 with Physics, Chemistry and Mathematics (or an engineering diploma with PCM) → basic aircraft maintenance training at a DGCA-approved organisation, or an engineering degree → pass DGCA's module exams (75% each) → practical experience on operating aircraft → DGCA Aircraft Maintenance Engineer's Licence (Category A, B1, B2…) at 18 or older."
+gate_source: car66
+core:
+  what:
+    text: "An Aircraft Maintenance Engineer (AME) inspects, repairs and certifies aircraft as safe to fly. In India the licence is issued by the Directorate General of Civil Aviation (DGCA) under CAR-66; only a licensed AME can sign the certificate of release to service."
+    source: car66
+  day:
+    - "Inspect aircraft before and after flights and fix defects."
+    - "Carry out scheduled maintenance on engines, structures, avionics and electrical systems."
+    - "Sign release-to-service certificates within the privileges of your licence category."
+  pay_note: "AME salaries are set by airlines and maintenance organisations and are not officially published. One related central post is printed in the Routes list."
+  routes:
+    - { title: "Approved basic training + experience", text: "Basic aircraft maintenance training at a DGCA-approved training organisation cuts the experience you need: 1 year for Category A / B1.2 / B1.4 / B3, 2 years for B1.1, B1.3 and B2.", source: car66 }
+    - { title: "Engineering degree + experience", text: "A degree in aircraft maintenance or engineering: 2 years' experience for Category A / B1.2 / B1.4 / B3, 3 years for B1.1, B1.3 and B2.", source: car66 }
+    - { title: "Experience only", text: "Without approved training or a degree: 3 years for Category A / B1.2 / B1.4 / B3, 5 years for B1.1, B1.3 and B2.", source: car66 }
+    - { title: "DGCA Air Safety Officer (UPSC)", text: "UPSC Advt 06/2026 had 15 Air Safety Officer posts in DGCA, Pay Level 10, needing a degree in Aeronautical Engineering; age 35 (UR / EWS), 38 (OBC), 40 (SC).", source: upsc-adv06 }
+  cost_time:
+    - { label: "Module exams", value: "Pass mark 75% in each module", source: car66 }
+    - { label: "Time limit", value: "All modules within 10 years before the licence application", source: car66 }
+    - { label: "Experience", value: "1–5 years on operating aircraft, by category and route", source: car66 }
+  cost_note: "Training fees are set by each approved organisation, and DGCA exam fees are not printed in CAR-66, so no rupee figure is printed here."
+  challenges:
+    - text: "Every CAR-66 module needs 75% — far above a typical college pass mark."
+      source: car66
+    - text: "Module passes expire: they must fall within 10 years of your licence application."
+      source: car66
+    - text: "You must also show practical experience on operating aircraft — up to 5 years without approved training or a degree."
+      source: car66
+  not_for:
+    - "You dislike Physics and Mathematics — the eligibility rule and the modules are built on them."
+    - "You want a desk job — AMEs work on the ramp and in hangars, in shifts."
+    - "You cannot accept strict rules and paperwork — every signature carries legal responsibility."
+journey:
+  - stages: [c8, c9]
+    title: "Physics, Chemistry, Mathematics"
+    do:
+      - text: "The AME licence needs Class 12 in Physics, Chemistry and Mathematics (or an engineering diploma with these subjects)."
+        source: car66
+    doubts:
+      - q: "What does an Aircraft Maintenance Engineer do?"
+        a: "Inspects, repairs and certifies aircraft as fit to fly. Only an AME licensed by DGCA under CAR-66 may sign the release-to-service certificate."
+        next: "Read the Routes list above."
+        source: car66
+      - q: "Who gives the AME licence in India?"
+        a: "The Directorate General of Civil Aviation (DGCA), under its Civil Aviation Requirement CAR-66. DGCA also conducts the basic knowledge (module) exams."
+        next: "Learn the licence categories below."
+        source: car66
+  - stages: [c10]
+    title: "Pick PCM"
+    do:
+      - text: "Choose Physics, Chemistry and Mathematics for Class 11–12."
+        source: car66
+    stream: "Science with Physics, Chemistry and Mathematics (PCM)."
+    doubts:
+      - q: "Can I become an AME after a diploma instead of Class 12?"
+        a: "Yes. DGCA accepts an engineering diploma from a state technical education board where Physics, Chemistry and Mathematics were studied, as equal to Class 12 PCM."
+        next: "Check that your diploma includes PCM."
+        source: car66
+      - q: "Can a PCB student become an AME?"
+        a: "No — CAR-66 asks for Class 12 in Physics, Chemistry and Mathematics, or an equivalent diploma with those subjects."
+        next: "Take Mathematics in Class 11."
+        source: car66
+  - stages: [c11, c12]
+    title: "Class 12 PCM, then pick a training route"
+    do:
+      - text: "Pass Class 12 with Physics, Chemistry and Mathematics. Then choose: DGCA-approved basic training, an engineering degree, or direct work experience."
+        source: car66
+    doubts:
+      - q: "What is the minimum age for an AME licence?"
+        a: "18 years."
+        next: "Plan your training so you reach 18 by the time you apply."
+        source: car66
+      - q: "What are the licence categories?"
+        a: "Category A (A1–A4), B1 (B1.1 aeroplanes turbine, B1.2 aeroplanes piston, B1.3 helicopters turbine, B1.4 helicopters piston), B2 (avionics, all aircraft), B2L, B3, C and L."
+        next: "Decide whether you want mechanical (B1) or avionics (B2) work."
+        source: car66
+  - stages: [ug]
+    title: "Training and module exams"
+    do:
+      - text: "Pass DGCA's basic knowledge modules — <strong>75% in each module</strong>."
+        source: car66
+      - text: "Modules count only if passed within 10 years before you apply for the licence."
+        source: car66
+    doubts:
+      - q: "What is the pass mark in DGCA's AME exams?"
+        a: "75% in each CAR-66 module and sub-module multiple-choice exam."
+        next: "Study each module to that standard."
+        source: car66
+      - q: "Do I lose a module pass after some years?"
+        a: "Yes. Each module exam must have been passed within 10 years before the licence application; otherwise you must apply to DGCA for credit."
+        next: "Finish your modules and experience in one plan."
+        source: car66
+      - q: "Does an approved AME course shorten experience?"
+        a: "Yes. With basic training at a DGCA-approved organisation you need 1 year of experience for Category A, B1.2, B1.4 or B3, and 2 years for B1.1, B1.3 or B2."
+        next: "Check that your institute is DGCA-approved."
+        source: car66
+  - stages: [grad]
+    title: "Experience, then the licence"
+    do:
+      - text: "B1.1, B1.3 and B2 need 5 years' experience on operating aircraft — 3 with an engineering degree, 2 with approved basic training."
+        source: car66
+    doubts:
+      - q: "I have a B.Tech in Mechanical. How much experience do I need?"
+        a: "With a degree in engineering: 2 years for Category A, B1.2, B1.4 or B3, and 3 years for B1.1, B1.3 or B2, plus the module exams."
+        next: "Find a maintenance organisation that will give you aircraft experience."
+        source: car66
+      - q: "Is there a government job for aeronautical engineers in DGCA?"
+        a: "Yes. UPSC Advt 06/2026 had 15 Air Safety Officer posts in DGCA (Pay Level 10) for a degree in Aeronautical Engineering, with age limits of 35 (UR / EWS), 38 (OBC) and 40 (SC)."
+        next: "Watch UPSC's recruitment adverts."
+        source: upsc-adv06
+      - q: "What do Air Safety Officers do?"
+        a: "Investigate aircraft accidents and incidents, carry out safety audits of airlines, ramp inspections and aerodrome inspections."
+        next: "Read the full duties in the UPSC advert."
+        source: upsc-adv06
+  - stages: [work]
+    title: "Adding a category later"
+    do:
+      - text: "To add a new category or subcategory you pass the extra modules DGCA lists for it."
+        source: car66
+    doubts:
+      - q: "Can I move from B2L to B2?"
+        a: "Yes. You show by examination the knowledge difference between B2L and B2 and meet the experience rule; DGCA then replaces your B2L licence with B2."
+        next: "Plan the extra modules."
+        source: car66
+      - q: "Do I keep my signing rights if I take a break?"
+        a: "Only if, in the previous two years, you had six months of maintenance experience under your licence privileges (or met the rules for issue of those privileges). You must also read, write and communicate in the language of the technical documents."
+        next: "Keep your experience log up to date."
+        source: car66
+      - q: "What is Category C?"
+        a: "Category C is for engineers who already have years of B1 or B2 experience in an approved maintenance organisation — for example 3 years exercising B1.1, B1.3 or B2 privileges on complex motor-powered aircraft, including 12 months in base maintenance."
+        next: "Build B1 / B2 experience first."
+        source: car66
+board_note: "Any board. DGCA needs Class 12 in Physics, Chemistry and Mathematics, or a state-board engineering diploma with these subjects."
+board_source: car66
+exam:
+  name: "DGCA CAR-66 module exams → AME licence"
+  body: "Directorate General of Civil Aviation"
+  href: "aircraft-maintenance-engineer.html"
+  facts:
+    - { label: "Eligibility", value: "Class 12 PCM (or PCM diploma) · age 18+", source: car66 }
+    - { label: "Pass mark", value: "75% per module", source: car66 }
+    - { label: "Module validity", value: "10 years", source: car66 }
+    - { label: "B1.1 / B2 experience", value: "5 / 3 / 2 years (none / degree / approved training)", source: car66 }
+  stages:
+    head: ["Stage", "What it is", "Rule"]
+    rows:
+      - ["Eligibility", "Class 12 PCM or diploma", "Age 18+"]
+      - ["Knowledge", "DGCA module exams", "75% each, within 10 years"]
+      - ["Experience", "Operating aircraft", "1–5 years by route"]
+      - ["Licence", "Category A / B1 / B2 / B2L / B3 / C / L", "Issued by DGCA"]
+    source: car66
+state_rules:
+  - { text: "National route: DGCA issues one all-India licence under CAR-66; no state rules apply.", source: car66 }
+multiverse:
+  - { title: "Commercial pilot", text: "Fly instead of fix.", href: "journey-commercial-pilot.html" }
+  - { title: "Air traffic controller", text: "AAI's ATC posts.", href: "journey-air-traffic-controller.html" }
+  - { title: "Mechanical engineer", text: "Degree route and PSU jobs.", href: "journey-mechanical-engineer.html" }
+  - { title: "AME guide", text: "Courses and institutes.", href: "aircraft-maintenance-engineer.html" }
+money: [nmmss, csss]
+
+sources:
+  - { id: car66, name: "DGCA — CAR-66: Aircraft Maintenance Engineer Licensing, Issue III, Rev 2 (29 Sep 2025)", url: "https://www.dgca.gov.in/digigov-portal/Upload?flag=iframeAttachView&attachId=ptEbfafqfhXzZ4QqcSqdgA%3D%3D", covers: "licence categories and subcategories; 66.A.15 eligibility (10+2 PCM or PCM diploma, age 18); 66.A.25 modules within 10 years, credits; 66.A.30 experience by category and route; 75% module pass mark; B2L to B2; Category C experience", checked: 2026-10-28 }

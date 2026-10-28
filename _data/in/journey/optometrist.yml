@@ -1,0 +1,173 @@
+# Journey Blueprint — Optometrist (B.Optom, NCAHP curriculum: 4 years + 1-year internship). Printed on journey-optometrist.html.
+# Rules, classes and the money items / sources several careers share: _data/in/journey_common.yml.
+# `money_defs` / `sources` below are used only by this career. Check: node scripts/check-journey-matrix.mjs
+id: optometrist
+v: 2
+name: "Optometrist (Bachelor of Optometry, NCAHP)"
+search: ["optometrist", "optometry", "b.optom", "bachelor of optometry", "eye specialist optometry", "vision scientist"]
+page: "optometry.html"
+roadmap: "roadmaps/optometry.html"
+doubts_page: "journey-optometrist.html"
+gate: "Class 12 with Physics, Chemistry and Biology or Mathematics (50%) and English → NEET or an equivalent government entrance + counselling → Bachelor of Optometry, 5 years (4 + 1-year internship) → exit / licensure exam → register as an allied and healthcare professional."
+gate_source: ncahp-opt
+core:
+  what:
+    text: "An optometrist tests eyesight, prescribes and fits glasses and contact lenses, and screens for eye disease. Optometry is one of the professions regulated under the National Commission for Allied and Healthcare Professions (NCAHP) Act, 2021; NCAHP's 2025 competency-based curriculum sets the B.Optom course."
+    source: ncahp-opt
+  day:
+    - "Test vision and prescribe spectacles or contact lenses."
+    - "Check for glaucoma, cataract and other eye problems and refer to ophthalmologists."
+    - "Run low-vision, binocular-vision and community eye-screening clinics."
+  pay_note: "No official pay scale for optometrists is published in the files we read, so no figure is printed."
+  routes:
+    - { title: "Class 12 → B.Optom", text: "10+2 with 50% in Physics, Chemistry, Biology / Mathematics; admission through NEET or an equivalent exam conducted by the Government of India, followed by counselling. Age 17 by 31 December of the admission year.", source: ncahp-opt }
+    - { title: "Diploma in Optometry → B.Optom (2nd year)", text: "A diploma in optometry after 10+2 science can lead to the 2nd year of B.Optom if its hours match the bachelor's first year (2-year diploma + 3 years).", source: ncahp-opt }
+    - { title: "Master's and PhD", text: "A master's in optometry needs a regular full-time B.Optom with at least 60%.", source: ncahp-opt }
+  cost_time:
+    - { label: "Course length", value: "5 years (4 + 1 internship) · 10 semesters", source: ncahp-opt }
+    - { label: "Pass mark", value: "50% in university exam and 50% in internal + university exam together", source: ncahp-opt }
+  cost_note: "Fees vary by college and state, so none is printed."
+  challenges:
+    - text: "A third-party exit / licensure exam at the end of the internship decides your right to practise; a degree certificate alone is not enough."
+      source: ncahp-opt
+    - text: "Admission rules are tightening: B.Optom admission is to be based on NEET or an equivalent government exam, not just Class 12 marks."
+      source: ncahp-opt
+    - text: "The diploma-holder lateral entry is a transition rule — available for 5 years from the curriculum's approval."
+      source: ncahp-opt
+  not_for:
+    - "You dislike close, patient-facing work for hours."
+    - "You are weak in Physics — optics is a core subject."
+    - "You want to perform eye surgery — that is the ophthalmologist's road (MBBS + MS)."
+journey:
+  - stages: [c8, c9]
+    title: "Science and optics"
+    do:
+      - text: "B.Optom needs 50% in Physics, Chemistry and Biology or Mathematics in Class 12 — build these now."
+        source: ncahp-opt
+    doubts:
+      - q: "What does an optometrist do?"
+        a: "Tests vision, prescribes and fits glasses and contact lenses, and screens for eye disease. Optometry is regulated under the NCAHP Act, 2021."
+        next: "Read the Routes list above."
+        source: ncahp-opt
+      - q: "Is an optometrist an eye doctor?"
+        a: "No. An optometrist holds a B.Optom (allied and healthcare professional). Eye surgeons are ophthalmologists who do MBBS and then MS Ophthalmology."
+        next: "Pick the road that fits you."
+        source: [ncahp-opt, pgmer23]
+  - stages: [c10]
+    title: "PCB or PCM — both work"
+    do:
+      - text: "Choose Physics and Chemistry with Biology or Mathematics, plus English."
+        source: ncahp-opt
+    stream: "Science: Physics, Chemistry and Biology or Mathematics, with English."
+    doubts:
+      - q: "Can a PCM student study optometry?"
+        a: "Yes. NCAHP's curriculum accepts 50% in Physics, Chemistry and Biology or Mathematics."
+        next: "Either science group works — keep 50%."
+        source: ncahp-opt
+      - q: "Can I study through NIOS?"
+        a: "Yes, if your NIOS Senior Secondary has five subjects including English, Physics, Chemistry and Biology / Mathematics (or Botany and Zoology), with 50% in the science subjects."
+        next: "Check your subject combination."
+        source: ncahp-opt
+  - stages: [c11, c12]
+    title: "50% PCB / PCM and the entrance"
+    do:
+      - text: "Score at least 50% in Physics, Chemistry and Biology / Mathematics; admission is through NEET or an equivalent government entrance, then counselling."
+        source: ncahp-opt
+      - text: "You must be 17 by 31 December of the admission year."
+        source: ncahp-opt
+    exams:
+      - { name: "NEET (UG) 2026", when: "3 May 2026 (re-exam 21 June 2026)", source: [neet-ib, neet-re] }
+    money: [neet-fee]
+    doubts:
+      - q: "Do I need NEET for optometry?"
+        a: "NCAHP's curriculum says B.Optom admission is based on NEET or an equivalent exam conducted by the Government of India, followed by counselling. Check your state's and college's admission notice too."
+        next: "Register for NEET (UG)."
+        source: ncahp-opt
+      - q: "What is the minimum age?"
+        a: "17 years as on 31 December of the year of admission."
+        next: "Check your date of birth."
+        source: ncahp-opt
+      - q: "I studied abroad. Am I eligible?"
+        a: "Yes, if the Association of Indian Universities treats your qualification as equivalent and you passed Physics, Chemistry, Biology / Mathematics and English with 50% in the science subjects."
+        next: "Get an AIU equivalence certificate."
+        source: ncahp-opt
+  - stages: [ug]
+    title: "B.Optom: 4 years + internship"
+    do:
+      - text: "The course is 5 years — 8 semesters of study plus a 1-year internship. Pass with 50% in the university exam and 50% in internal + university marks together."
+        source: ncahp-opt
+    doubts:
+      - q: "What do I study in the first semester?"
+        a: "General Anatomy, General Physiology, General Biochemistry, Physical Optics, Mathematics & Geometrical Optics, an introduction to optometry, nutrition, communication and Clinical Optometry I."
+        next: "Brush up your Class 12 Physics optics."
+        source: ncahp-opt
+      - q: "Is the internship paid?"
+        a: "NCAHP's curriculum says an appropriate nominal stipend should be paid to interns; the amount is left to the institution."
+        next: "Ask the college about its intern stipend before admission."
+        source: ncahp-opt
+      - q: "I have a Diploma in Optometry. Do I start from year 1?"
+        a: "No — if your diploma's hours match the bachelor's first year, you can join the 2nd year (2-year diploma + 3 years). This upgrade route is open for 5 years from the curriculum's approval."
+        next: "Apply soon if you hold a diploma."
+        source: ncahp-opt
+      - q: "What is the pass mark?"
+        a: "50% in the university exam and 50% in internal assessment plus university exam combined."
+        next: "Do not ignore internal assessment."
+        source: ncahp-opt
+  - stages: [grad]
+    title: "Exit exam and registration"
+    do:
+      - text: "A third-party exit / licensure exam after the internship decides your clinical practice eligibility in India."
+        source: ncahp-opt
+    doubts:
+      - q: "Can I practise as soon as I get my degree?"
+        a: "No. NCAHP's curriculum sets a third-party exit / licensure exam after the 5th-year internship; clinical practice depends on clearing it."
+        next: "Prepare for the exit exam during internship."
+        source: ncahp-opt
+      - q: "Who keeps the register of optometrists?"
+        a: "Under the NCAHP Act, 2021 the National Commission and State Councils maintain a Central Register and State Registers of allied and healthcare professionals, including optometrists."
+        next: "Register with your State Council after the exit exam."
+        source: ncahp-opt
+      - q: "What do I need for a master's in optometry?"
+        a: "A regular full-time, on-campus B.Optom with at least 60% from a recognised university."
+        next: "Keep 60% in your degree."
+        source: ncahp-opt
+  - stages: [work]
+    title: "Opticians and diploma holders"
+    do:
+      - text: "Diploma-holding optometrists can upgrade through 2nd-year lateral entry while the transition window is open."
+        source: ncahp-opt
+    doubts:
+      - q: "I work in an optical shop with a diploma. Can I upgrade?"
+        a: "Yes, through lateral entry into the 2nd year of B.Optom if your diploma meets the hours rule — within 5 years from the curriculum's approval."
+        next: "Ask NCAHP-following colleges about lateral seats."
+        source: ncahp-opt
+board_note: "Any board. You need 50% in Physics, Chemistry and Biology / Mathematics and must have studied English."
+board_source: ncahp-opt
+exam:
+  name: "NEET / equivalent → B.Optom → exit exam"
+  body: "National Commission for Allied and Healthcare Professions (curriculum) · NTA (NEET-UG)"
+  href: "optometry.html"
+  facts:
+    - { label: "Class 12", value: "50% in PCB / PCM", source: ncahp-opt }
+    - { label: "Age", value: "17 by 31 Dec of admission year", source: ncahp-opt }
+    - { label: "Course", value: "5 years (4 + 1 internship)", source: ncahp-opt }
+    - { label: "After internship", value: "Exit / licensure exam", source: ncahp-opt }
+  stages:
+    head: ["Stage", "What it is", "Rule"]
+    rows:
+      - ["Class 12", "Physics, Chemistry, Biology / Maths, English", "50% in science subjects"]
+      - ["Entrance", "NEET or equivalent + counselling", "Age 17 by 31 Dec"]
+      - ["B.Optom", "8 semesters + 1-year internship", "50% pass marks"]
+      - ["Exit exam", "Third-party licensure exam", "Needed to practise"]
+    source: ncahp-opt
+state_rules:
+  - { text: "National route: NCAHP's curriculum and the NCAHP Act apply across India; states run counselling and their own allied health councils.", source: ncahp-opt }
+multiverse:
+  - { title: "Optometry guide", text: "Colleges and work.", href: "optometry.html" }
+  - { title: "Doctor (MBBS)", text: "Then MS Ophthalmology for eye surgery.", href: "journey-doctor.html" }
+  - { title: "Occupational therapist", text: "Another NCAHP profession.", href: "journey-occupational-therapist.html" }
+  - { title: "Physiotherapist", text: "NCAHP rehab profession.", href: "journey-physiotherapist.html" }
+money: [nmmss, csss, neet-fee]
+
+sources:
+  - { id: ncahp-opt, name: "NCAHP — Curriculum of Optometry (competency based, approved 2025), as adopted by VNSGU, Surat for 2026-27 (15 Dec 2025)", url: "https://vnsgu.ac.in/uploads/syllabus/Syllabus%20(2026-2027)/Medicine/UG/Optometry%20UG-PG-Ph.D%20Curriculum-Rules%20Regulations-Syllabus%20As%20per%20NCAHP-2026-27(Dt.15-12-2025).pdf", covers: "B.Optom eligibility (50% PCB / PCM, NEET or equivalent + counselling, NIOS, abroad, age 17 by 31 Dec), 5 (4 + 1) years, pass marks, nominal intern stipend, diploma lateral entry (5-year window), master's 60%, exit / licensure exam", checked: 2026-10-28 }

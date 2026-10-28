@@ -1,0 +1,167 @@
+# Journey Blueprint — Marine Engineer (IMU CET → Marine Engineering, or PGDME after B.E. Mechanical → sea time → DG Shipping certificates). Printed on journey-marine-engineer.html.
+# Rules, classes and the money items / sources several careers share: _data/in/journey_common.yml.
+# This career reuses the IMU / DG Shipping ids of merchant-navy.yml. Check: node scripts/check-journey-matrix.mjs
+id: marine-engineer
+v: 2
+name: "Marine Engineer (IMU CET → Marine Engineering → DG Shipping)"
+search: ["marine engineer", "marine engineering", "ship engineer", "b.tech marine engineering", "gme course", "pgdme", "engine officer merchant navy"]
+page: "marine-engineer.html"
+doubts_page: "journey-marine-engineer.html"
+gate: "Class 12 with a 60% PCM average and 50% in English → IMU CET rank → Marine Engineering programme at IMU or an affiliated institute (or PGDME after a B.E. / B.Tech Mechanical with 50%) → DG Shipping medical fitness → sea time in the engine room → DG Shipping Certificates of Competency."
+gate_source: [imu-cc, dgs]
+core:
+  what:
+    text: "A marine engineer runs and repairs a ship's engines, boilers, pumps, electrical plant and machinery. The Indian Maritime University (IMU), a central university, runs Marine Engineering programmes; the Directorate General of Shipping approves institutes, sea time and Certificates of Competency."
+    source: [imu-cc, dgs]
+  day:
+    - "Keep watch in the engine room and monitor main and auxiliary engines."
+    - "Carry out planned maintenance and repair breakdowns at sea."
+    - "Keep fuel, lubrication, safety and pollution-control records."
+  pay_note: "Shipping companies set sea salaries; no official pay scale is published, so none is printed."
+  routes:
+    - { title: "Class 12 → IMU CET → Marine Engineering", text: "10+2 with a PCM average of at least 60% and 50% in English (Class 10 or 12), unmarried, with a valid IMU CET rank. Maximum age (male): General 25, OBC-NCL 28, SC / ST 30; (female): 27, 30, 32.", source: imu-cc }
+    - { title: "Diploma → lateral entry (2nd year)", text: "A 3-year engineering diploma in Marine, Mechanical, Electrical or Electrical & Electronics with 55% in the final year, or a 4-year Shipbuilding diploma with 55%, can join Marine Engineering in the 2nd year.", source: imu-cc }
+    - { title: "B.E. Mechanical → PGDME", text: "IMU's Post Graduate Diploma in Marine Engineering takes a B.E. / B.Tech in Mechanical Engineering or Naval Architecture with 50% in the final year and 50% English. Maximum age (male): General 28, OBC-NCL 31, SC / ST 33; (female): 30, 33, 35.", source: imu-cc }
+    - { title: "Coast Guard Technical officer", text: "The Indian Coast Guard's Technical (Engineering) branch accepts an engineering degree in Marine Engineering, among other branches.", source: icg-ac27 }
+  cost_time:
+    - { label: "IMU CET 2026", value: "24 May 2026, online, two shifts", source: imu-norm }
+    - { label: "UG cut-off percentile 2026", value: "General 60 · EWS / OBC-NCL 54 · SC / ST 45", source: imu-cut }
+  cost_note: "Programme fees differ between IMU campuses and affiliated institutes and are not printed here."
+  challenges:
+    - text: "Medical fitness is strict: eyesight, hearing and colour vision under the Merchant Shipping (Medical Examination) Rules, certified by a DG Shipping-approved doctor at admission."
+      source: imu-cc
+    - text: "Only unmarried candidates are admitted to IMU's marine programmes."
+      source: imu-cc
+    - text: "Age caps apply from the start of the academic session — 25 for General male candidates on the Class 12 route."
+      source: imu-cc
+  not_for:
+    - "You get seasick or cannot be away from home for months."
+    - "You dislike heat, noise and hands-on machinery work."
+    - "You have a colour-vision defect — it is tested with the Ishihara chart."
+journey:
+  - stages: [c8, c9]
+    title: "Maths, Physics, Chemistry — and fitness"
+    do:
+      - text: "IMU averages your Class 12 Physics, Chemistry and Mathematics marks — you need 60%."
+        source: imu-cc
+    doubts:
+      - q: "What does a marine engineer do?"
+        a: "Runs and maintains a ship's engines and machinery. IMU trains marine engineers, and DG Shipping approves institutes, sea time and Certificates of Competency."
+        next: "Read the Routes list above."
+        source: [imu-cc, dgs]
+      - q: "Is a marine engineer the same as a Merchant Navy deck officer?"
+        a: "No. Deck officers come from Nautical Science and navigate the ship; marine engineers come from Marine Engineering and run the engine room."
+        next: "Compare both roads in the cards below."
+        source: imu-cc
+  - stages: [c10]
+    title: "Pick PCM"
+    do:
+      - text: "Choose Physics, Chemistry and Mathematics for Class 11–12; keep English strong (50% in Class 10 or 12)."
+        source: imu-cc
+    stream: "Science with Physics, Chemistry and Mathematics (PCM)."
+    doubts:
+      - q: "Can I take the diploma route after Class 10?"
+        a: "Yes. A 3-year diploma in Marine, Mechanical, Electrical or Electrical & Electronics Engineering with 55% in the final year allows lateral entry into the 2nd year of Marine Engineering."
+        next: "Keep 55% in your diploma's final year."
+        source: imu-cc
+      - q: "Do I need glasses-free eyesight?"
+        a: "For the Marine Engineering programme: distance vision unaided 6/12 in each eye, or 6/9 in the better eye and 6/18 in the other, plus normal colour vision (Ishihara test)."
+        next: "Get an eye test before Class 12."
+        source: imu-cc
+  - stages: [c11, c12]
+    title: "60% PCM and IMU CET"
+    do:
+      - text: "Class 12 with a <strong>PCM average of at least 60%</strong> and 50% in English; SC / ST get 5% relaxation in PCM, not in English."
+        source: imu-cc
+    exams:
+      - { name: "IMU CET 2026", when: "24 May 2026 · result 14 June 2026", source: [imu-norm, imu-res] }
+    doubts:
+      - q: "What IMU CET percentile did I need in 2026?"
+        a: "UG cut-off percentiles in 2026: General 60, EWS / OBC-NCL 54, SC / ST 45. Seats then go by rank."
+        next: "Aim well above the cut-off."
+        source: imu-cut
+      - q: "What is the age limit?"
+        a: "Male: General 25, OBC-NCL 28, SC / ST 30. Female: 27, 30, 32 — counted on the date the academic session begins."
+        next: "Plan to join soon after Class 12."
+        source: imu-cc
+      - q: "Can married candidates join?"
+        a: "No. IMU's marine programmes admit only unmarried candidates."
+        next: "Note this rule before applying."
+        source: imu-cc
+  - stages: [ug]
+    title: "Marine Engineering at IMU or an affiliated institute"
+    do:
+      - text: "At admission you must show a medical fitness certificate from a DG Shipping-approved doctor."
+        source: imu-cc
+    doubts:
+      - q: "Should I get a passport?"
+        a: "IMU strongly recommends a passport for marine programme candidates, with the same name as on your Class 10 certificate."
+        next: "Apply for a passport early."
+        source: imu-cc
+      - q: "Is there any other way into the 2nd year?"
+        a: "Yes: first-year training under DG Shipping's Alternate Training Scheme also counts for 2nd-year lateral entry — except at MERI."
+        next: "Ask your institute whether it accepts lateral entrants."
+        source: imu-cc
+      - q: "How is the IMU CET score worked out?"
+        a: "IMU CET 2026 ran in two shifts on 24 May 2026, and raw scores were turned into shift-wise percentiles before ranking."
+        next: "Do not compare raw marks across shifts."
+        source: imu-norm
+  - stages: [grad]
+    title: "Engineering graduates: PGDME"
+    do:
+      - text: "IMU's PGDME takes B.E. / B.Tech Mechanical or Naval Architecture graduates (50% in the final year, 50% English); non-DGS-approved Marine Engineering degrees with 50% also qualify."
+        source: imu-cc
+    doubts:
+      - q: "I have a B.Tech Mechanical. Can I still become a marine engineer?"
+        a: "Yes, through IMU's Post Graduate Diploma in Marine Engineering — 50% in the final year and 50% in English. Maximum age (male) General 28, OBC-NCL 31, SC / ST 33."
+        next: "Watch IMU's admission notifications."
+        source: imu-cc
+      - q: "Are combined branches like Mechanical & Automation accepted?"
+        a: "Yes, if \"Mechanical\" comes first in the branch name (showing Mechanical is the core), with 50% in the final year."
+        next: "Check your degree's exact branch name."
+        source: imu-cc
+      - q: "Who issues the engineer's certificates after sea time?"
+        a: "The Directorate General of Shipping, which also approves maritime institutes and sea-time records."
+        next: "Keep your sea-time records carefully."
+        source: dgs
+  - stages: [work]
+    title: "Other doors for marine engineers"
+    do:
+      - text: "IMU's 2-year M.Tech (Marine Technology) takes B.E. / B.Tech in Marine Engineering, Mechanical Engineering or Naval Architecture with 55%, or an MEO Class I Certificate of Competency; there is no age restriction."
+        source: imu-cc
+    doubts:
+      - q: "Can a marine engineer join the Coast Guard?"
+        a: "Yes, as Assistant Commandant (Technical) — the 2027-batch advertisement lists Marine among accepted engineering degrees, with an age window of 21–25."
+        next: "See the Coast Guard road."
+        source: icg-ac27
+      - q: "Do I need IMU CET for M.Tech (Marine Technology)?"
+        a: "Candidates with a GATE score in Marine Engineering, Mechanical Engineering or Naval Architecture are exempt from IMU CET, but candidates with IMU CET ranks get preference."
+        next: "Write IMU CET even if you have GATE."
+        source: imu-cc
+board_note: "Any board. IMU averages your Class 12 Physics, Chemistry and Mathematics marks; English can come from Class 10 or 12."
+board_source: imu-cc
+exam:
+  name: "IMU CET → Marine Engineering / PGDME"
+  body: "Indian Maritime University (a central university)"
+  href: "marine-engineer.html"
+  facts:
+    - { label: "Class 12", value: "PCM average 60% · English 50%", source: imu-cc }
+    - { label: "Exam date (2026)", value: "24 May 2026, online, two shifts", source: imu-norm }
+    - { label: "UG cut-off percentile", value: "General 60 · EWS / OBC-NCL 54 · SC / ST 45", source: imu-cut }
+    - { label: "Eyesight (unaided)", value: "6/12 each eye, or 6/9 + 6/18", source: imu-cc }
+  stages:
+    head: ["Stage", "What it is", "Rule"]
+    rows:
+      - ["Class 12", "PCM average + English", "60% PCM · 50% English"]
+      - ["IMU CET", "Online test, shift-wise percentiles", "Category cut-off, then rank"]
+      - ["Admission", "Marine Engineering / PGDME", "Unmarried · age cap · DGS medical"]
+      - ["Sea career", "Engine-room sea time", "DG Shipping certificates"]
+    source: [imu-cc, imu-norm, imu-cut, dgs]
+state_rules:
+  - { text: "National route: IMU CET, IMU's rules and DG Shipping's certificates apply across India.", source: [imu-cc, dgs] }
+multiverse:
+  - { title: "Merchant Navy deck officer", text: "Nautical Science instead of engines.", href: "journey-merchant-navy.html" }
+  - { title: "Coast Guard officer", text: "Technical branch takes Marine Engineering.", href: "journey-coast-guard-officer.html" }
+  - { title: "Mechanical engineer", text: "Then PGDME for sea careers.", href: "journey-mechanical-engineer.html" }
+  - { title: "Navy officer", text: "B.Tech Cadet Entry and SSC.", href: "journey-navy-officer.html" }
+money: [nmmss, csss]

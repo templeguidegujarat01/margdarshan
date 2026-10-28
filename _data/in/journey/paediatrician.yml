@@ -1,0 +1,179 @@
+# Journey Blueprint — Paediatrician (NEET-UG → MBBS → NEET-PG → MD Paediatrics). Printed on journey-paediatrician.html.
+# Rules, classes and the money items / sources several careers share: _data/in/journey_common.yml.
+# This career reuses the NEET / NMC ids of the doctor and gynaecologist files. Check: node scripts/check-journey-matrix.mjs
+id: paediatrician
+v: 2
+name: "Paediatrician (MBBS → NEET-PG → MD Paediatrics)"
+search: ["paediatrician", "pediatrician", "child specialist", "md paediatrics", "md pediatrics", "neonatologist", "child doctor"]
+page: "neet-pg.html"
+doubts_page: "journey-paediatrician.html"
+gate: "Class 12 with Physics, Chemistry, Biology and English → NEET (UG) → MBBS with a 12-month internship → NEET-PG (or INI-CET) → 3-year MD Paediatrics or DNB → optional 3-year super-speciality such as D.M. Neonatology."
+gate_source: [neet-ib, crmi, npg26, pgmer23]
+core:
+  what:
+    text: "A paediatrician is a doctor for babies, children and teenagers. The specialist degree is MD (Paediatrics) or DNB after MBBS; NMC's PGMER 2023 also lists the 2-year Diploma in Child Health (D.C.H.)."
+    source: [npg26, pgmer23]
+  day:
+    - "Examine and treat sick children in OPD, wards and emergency."
+    - "Look after newborns, including premature babies in neonatal units."
+    - "Track growth, development and vaccination, and counsel parents."
+  pay:
+    - { level: "Government doctor via UPSC CMS 2026", value: "Pay Matrix Level 10 (₹56,100 – ₹1,77,500) + non-practising allowance", source: cms }
+  pay_note: "Specialist and private paediatric salaries are not officially published; PG residents get a stipend at par with government colleges in the state."
+  routes:
+    - { title: "MBBS → NEET-PG → MD Paediatrics", text: "NEET-PG is the single entrance for MD, MS and PG Diploma seats in government, private and deemed colleges. A broad-speciality MD takes 3 years.", source: [npg26, pgmer23] }
+    - { title: "DNB Paediatrics", text: "NBEMS's post-MBBS DNB seats are also filled through the NEET-PG rank.", source: npg26 }
+    - { title: "INI-CET for AIIMS, JIPMER, PGIMER, NIMHANS", text: "These institutes do not admit through NEET-PG — they hold INI-CET.", source: npg26 }
+    - { title: "Super-speciality", text: "D.M. Neonatology, Paediatric Cardiology, Paediatric Critical Care, Paediatric Gastroenterology, Paediatric Nephrology, Paediatric Neurology and Paediatric Oncology take MD / DNB Paediatrics as the feeder degree.", source: pgmer23 }
+  cost_time:
+    - { label: "Time after Class 12", value: "MBBS with 12-month internship, then a 3-year MD", source: [crmi, pgmer23] }
+    - { label: "NEET-PG 2026 fee", value: "₹3,500 General / OBC / EWS · ₹2,500 SC / ST / PwBD", source: npg26 }
+    - { label: "NEET (UG) fee (India centre)", value: "₹1,700 General · ₹1,600 EWS / OBC-NCL · ₹1,000 SC / ST / PwBD / third gender", source: neet-ib }
+  cost_note: "MBBS and PG tuition fees differ by state and college, so they are not printed here."
+  challenges:
+    - text: "NEET-PG needs the 50th percentile (General / EWS) just to qualify, and qualifying does not by itself give a seat."
+      source: npg26
+    - text: "You cannot sit NEET-PG until your 12-month internship ends by the bulletin's cut-off date (30 September 2026 for NEET-PG 2026)."
+      source: npg26
+    - text: "Paediatric Surgery is a different road: M.Ch. Paediatric Surgery takes MS / DNB General Surgery, not MD Paediatrics."
+      source: pgmer23
+  not_for:
+    - "You lose patience with crying children or anxious parents."
+    - "You cannot handle night duty in newborn and emergency units."
+    - "You want to start earning early — the road is MBBS plus at least 3 more years."
+journey:
+  - stages: [c8, c9]
+    title: "Biology, Chemistry and patience"
+    do:
+      - text: "NEET (UG) has Physics 45, Chemistry 45 and Biology 90 questions — 180 in all, 720 marks."
+        source: neet-ib
+    doubts:
+      - q: "What does a paediatrician do?"
+        a: "Treats babies, children and teenagers. The specialist qualification is MD (Paediatrics) or DNB after MBBS; PGMER 2023 also lists a Diploma in Child Health (D.C.H.)."
+        next: "Read the Routes list above."
+        source: [npg26, pgmer23]
+      - q: "How many years does it take to become a paediatrician?"
+        a: "MBBS with a compulsory rotating internship of at least 12 months, then a 3-year MD Paediatrics after NEET-PG."
+        next: "Plan for a long road and pace yourself."
+        source: [crmi, pgmer23]
+  - stages: [c10]
+    title: "Choose PCB with English"
+    do:
+      - text: "NMC allows NEET (UG) only after 10+2 with Physics, Chemistry, Biology / Biotechnology and English."
+        source: neet-ib
+    stream: "Science with Biology (PCB) and English."
+    doubts:
+      - q: "Which subjects do I need in Class 11 and 12?"
+        a: "Physics, Chemistry, Biology or Biotechnology, and English — the subjects NMC requires for NEET (UG)."
+        next: "Take PCB with English in Class 11."
+        source: neet-ib
+  - stages: [c11, c12]
+    title: "NEET (UG) for MBBS"
+    do:
+      - text: "NEET (UG) is 180 questions for 720 marks in 3 hours, with +4 for a correct answer and −1 for a wrong one."
+        source: neet-ib
+      - text: "Minimum age is 17 on or before 31 December of the exam year; there is no upper age limit."
+        source: neet-ib
+    exams:
+      - { name: "NEET (UG) 2026", when: "3 May 2026 (re-exam 21 June 2026)", source: [neet-ib, neet-re] }
+    money: [neet-fee]
+    doubts:
+      - q: "What percentile do I need in NEET (UG)?"
+        a: "The 50th percentile for General / EWS, the 40th for SC, ST and OBC and the 45th for PwBD (General) to be eligible for admission."
+        next: "Aim far above the cut-off — seats go by rank."
+        source: neet-ib
+      - q: "Is there an age limit for NEET (UG)?"
+        a: "You must be 17 on or before 31 December of the exam year. There is no upper age limit."
+        next: "Prepare without worrying about an age cap."
+        source: neet-ib
+  - stages: [ug]
+    title: "MBBS and internship"
+    do:
+      - text: "After the final MBBS exam you do a rotating internship of at least 12 months; interns get a stipend fixed by the authority that runs the college."
+        source: crmi
+    money: [mbbs-intern]
+    doubts:
+      - q: "Are MBBS interns paid?"
+        a: "Yes. Interns get a stipend fixed by the authority that runs the college during the rotating internship of at least 12 months."
+        next: "Ask your college for its current rate."
+        source: crmi
+      - q: "When can I write NEET-PG?"
+        a: "Only after MBBS with your 12-month internship completed by the bulletin's cut-off — 30 September 2026 for NEET-PG 2026. Applications from candidates finishing later are rejected."
+        next: "Track your internship end date against the bulletin."
+        source: npg26
+      - q: "Is NEET-PG the only way into MD Paediatrics?"
+        a: "For almost all seats, yes — All India Quota, state quota, private and deemed colleges and DNB. AIIMS, JIPMER, PGIMER and NIMHANS admit through INI-CET instead."
+        next: "Prepare for both NEET-PG and INI-CET."
+        source: npg26
+  - stages: [grad]
+    title: "NEET-PG and MD Paediatrics"
+    do:
+      - text: "NEET-PG: 180 MCQs in 3 hours 30 minutes, computer-based; +4 correct, −1 wrong, in five timed sections you cannot revisit."
+        source: npg26
+      - text: "Every MD / MS student does a compulsory 3-month District Residency Programme in district hospitals."
+        source: pgmer23
+    exams:
+      - { name: "NEET-PG 2026", when: "30 Aug 2026 · result by 30 Sep 2026", source: npg26 }
+    money: [npg-fee, pg-stipend]
+    doubts:
+      - q: "What is the NEET-PG cut-off percentile?"
+        a: "50th percentile for General / EWS, 45th for UR PwBD and 40th for SC, ST and OBC (including their PwBD) in NEET-PG 2026."
+        next: "Remember seats go by rank, not just by qualifying."
+        source: npg26
+      - q: "Who fills the All India Quota PG seats?"
+        a: "The Medical Counselling Committee (MCC, DGHS) fills the 50% All India Quota, deemed and central university seats and all-India open DNB seats. State quota seats go through each state's counselling."
+        next: "Register for both MCC and your state's counselling."
+        source: npg26
+      - q: "MD Paediatrics or Diploma in Child Health?"
+        a: "MD is 3 years; a PG diploma is 2 years. PGMER 2023 lists Paediatrics (D.C.H.) among recognised diplomas, but the D.M. super-specialities list MD / DNB Paediatrics as their feeder."
+        next: "Prefer MD / DNB if you may super-specialise."
+        source: pgmer23
+      - q: "Are PG residents paid?"
+        a: "Yes. PGMER 2023 says PG students in all institutions get a stipend at par with PG students of state or central government medical colleges in that state."
+        next: "Ask your college for the current stipend."
+        source: pgmer23
+  - stages: [work]
+    title: "Super-speciality and government jobs"
+    do:
+      - text: "D.M. courses (3 years) such as Neonatology and Paediatric Cardiology take MD / DNB Paediatrics as the feeder qualification."
+        source: pgmer23
+    doubts:
+      - q: "How do I become a neonatologist?"
+        a: "After MD / DNB Paediatrics, take the 3-year D.M. Neonatology — PGMER 2023 lists MD / DNB Paediatrics as its feeder qualification."
+        next: "Prepare for the super-speciality entrance after MD."
+        source: pgmer23
+      - q: "Can a paediatrician become a paediatric surgeon?"
+        a: "Not directly. M.Ch. Paediatric Surgery takes MS / DNB General Surgery as the feeder, so surgeons and paediatricians follow different roads after MBBS."
+        next: "Choose Surgery at NEET-PG if you want to operate on children."
+        source: pgmer23
+      - q: "What do government doctors earn?"
+        a: "Doctors recruited through UPSC CMS 2026 start at Pay Matrix Level 10 (₹56,100 – ₹1,77,500) plus non-practising allowance."
+        next: "See the UPSC CMS guide."
+        source: cms
+board_note: "Any board, as long as Class 12 has Physics, Chemistry, Biology / Biotechnology and English."
+board_source: neet-ib
+exam:
+  name: "NEET (UG) → MBBS → NEET-PG → MD Paediatrics"
+  body: "NTA (NEET-UG) · NBEMS (NEET-PG) · National Medical Commission"
+  href: "neet-pg.html"
+  facts:
+    - { label: "NEET-PG paper", value: "180 MCQs · 3 h 30 min · computer-based", source: npg26 }
+    - { label: "Marking", value: "+4 correct · −1 wrong", source: npg26 }
+    - { label: "MD duration", value: "3 years (2 after a PG diploma in the same subject)", source: pgmer23 }
+    - { label: "District Residency", value: "3 months, compulsory", source: pgmer23 }
+  stages:
+    head: ["Stage", "What it is", "Rule"]
+    rows:
+      - ["NEET (UG)", "180 MCQs, 720 marks", "50th percentile (General)"]
+      - ["MBBS", "Course + 12-month internship", "Internship done by NEET-PG cut-off"]
+      - ["NEET-PG / INI-CET", "180 MCQs, +4 / −1", "50th percentile (General / EWS)"]
+      - ["MD / DNB Paediatrics", "3 years + District Residency", "Feeder for D.M. Neonatology etc."]
+    source: [neet-ib, crmi, npg26, pgmer23]
+state_rules:
+  - { text: "National route: NEET (UG), NEET-PG, INI-CET and NMC's PGMER 2023 apply across India. State quota seats are filled by each state's counselling authority.", source: [neet-ib, npg26, pgmer23] }
+multiverse:
+  - { title: "Doctor (MBBS)", text: "The first half of this road.", href: "journey-doctor.html" }
+  - { title: "Gynaecologist", text: "Another NEET-PG specialty.", href: "journey-gynaecologist.html" }
+  - { title: "Nursing officer", text: "Hospital care through AIIMS NORCET.", href: "journey-nursing-officer.html" }
+  - { title: "UPSC CMS", text: "Government doctor posts after MBBS.", href: "upsc-cms.html" }
+money: [neet-fee, mbbs-intern, npg-fee, pg-stipend]

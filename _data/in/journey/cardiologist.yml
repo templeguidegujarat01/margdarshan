@@ -1,0 +1,185 @@
+# Journey Blueprint — Cardiologist (MBBS → NEET-PG → MD Medicine / Paediatrics → NEET-SS → DM Cardiology). Printed on journey-cardiologist.html.
+# Rules, classes and the money items / sources several careers share: _data/in/journey_common.yml.
+# The MBBS and NEET-PG parts cite the doctor / gynaecologist blueprints' sources. Check: node scripts/check-journey-matrix.mjs
+id: cardiologist
+v: 2
+name: "Cardiologist (MBBS → MD → NEET-SS → D.M. Cardiology)"
+search: ["cardiologist", "heart specialist", "heart doctor", "cardiology", "dm cardiology", "interventional cardiologist", "neet ss", "super specialist doctor"]
+page: "neet-pg.html"
+doubts_page: "journey-cardiologist.html"
+gate: "Class 12 with Physics, Chemistry, Biology and English → NEET (UG) → MBBS with a 12-month internship → NEET-PG → 3-year M.D. / DNB in General Medicine, Paediatrics or Respiratory Medicine → NEET-SS → 3-year D.M. / DrNB Cardiology."
+gate_source: [neet-ib, crmi, npg26, ss25, pgmer23]
+core:
+  what:
+    text: "A cardiologist is a super-specialist doctor for heart and blood-vessel diseases. In India the qualification is the D.M. (Cardiology) or DrNB Cardiology, entered through NEET-SS after an M.D. / DNB in General Medicine, Paediatrics or Respiratory Medicine."
+    source: [ss25, pgmer23]
+  day:
+    - "See heart patients in clinics, wards and emergencies."
+    - "Read ECGs, echocardiograms and stress tests."
+    - "Do catheter procedures such as angiography in the cath lab (interventional cardiology)."
+  pay:
+    - { level: "Specialist Grade III Assistant Professor (Cardiology), UPSC Advt 07/2026", value: "Pay Level 11 plus non-practising allowance", source: upsc-adv07 }
+    - { level: "Specialist Grade II (Junior Scale) Cardiology, NDMC (UPSC Advt 12/2026)", value: "Pay Level 11 plus non-practising allowance", source: upsc-adv12 }
+    - { level: "Government doctor after MBBS (UPSC CMS 2026)", value: "Pay Level 10 · ₹56,100 – ₹1,77,500 plus NPA", source: cms }
+  pay_note: "The UPSC adverts print the pay level, not a rupee figure. PG and DM residents get stipends set by their college; private-practice income is not officially published."
+  routes:
+    - { title: "MBBS → MD → NEET-SS → D.M. Cardiology", text: "NEET-SS is the single entrance for every DM / MCh / DrNB seat, including private and deemed colleges; no state or college may hold its own super-speciality entrance.", source: [ss25, neetss] }
+    - { title: "Feeder M.D. / DNB", text: "D.M. / DrNB Cardiology takes an M.D. / DNB in General Medicine, Paediatrics or Respiratory Medicine as the prior degree.", source: [ss25, pgmer23] }
+    - { title: "Paediatric cardiology", text: "D.M. Paediatric Cardiology takes an M.D. / DNB in Paediatrics.", source: pgmer23 }
+    - { title: "AIIMS, PGIMER, JIPMER, NIMHANS, SCTIMST", text: "These institutes are outside NEET-SS counselling for DM / MCh seats.", source: ss25 }
+  cost_time:
+    - { label: "Time after Class 12", value: "MBBS with 12-month internship, a 3-year M.D. and a 3-year D.M.", source: [crmi, pgmer23] }
+    - { label: "NEET-SS fee", value: "₹3,500 per question-paper group (NEET-SS 2025)", source: ss25 }
+    - { label: "NEET-PG 2026 fee", value: "₹3,500 General / OBC / EWS · ₹2,500 SC / ST / PwBD", source: npg26 }
+  cost_note: "MBBS, MD and DM tuition fees differ by state and college, so they are not printed here."
+  challenges:
+    - text: "The road is long: MBBS with internship, then a 3-year M.D., then a 3-year D.M."
+      source: [crmi, pgmer23]
+    - text: "NEET-SS has 25% negative marking (−1 for a wrong answer worth +4) and needs the 50th percentile in your paper group just to qualify."
+      source: ss25
+    - text: "Central teaching posts ask for 3 years' teaching experience after the first PG degree (a 3-year D.M. counts)."
+      source: upsc-adv07
+  not_for:
+    - "You want to stop studying at 25 — a cardiologist trains for 11 years or more after Class 12."
+    - "You cannot handle emergencies — heart attacks come at any hour."
+    - "You want a short road to a stable income — residents earn stipends for years first."
+journey:
+  - stages: [c8, c9]
+    title: "Biology, Chemistry and stamina"
+    do:
+      - text: "NEET (UG) has Physics 45, Chemistry 45 and Biology 90 questions — 180 in all, 720 marks."
+        source: neet-ib
+    doubts:
+      - q: "What does a cardiologist do?"
+        a: "A cardiologist diagnoses and treats heart and blood-vessel diseases. The qualification is the D.M. (Cardiology) or DrNB Cardiology, after MBBS and an M.D. / DNB in General Medicine, Paediatrics or Respiratory Medicine."
+        next: "Read the Routes list above."
+        source: [ss25, pgmer23]
+      - q: "How many years does it take to become a cardiologist?"
+        a: "MBBS with a 12-month internship, then a 3-year M.D. / DNB, then a 3-year D.M. Cardiology after NEET-SS."
+        next: "Plan for a long road and pace yourself."
+        source: [crmi, pgmer23]
+  - stages: [c10]
+    title: "Choose PCB with English"
+    do:
+      - text: "NMC allows NEET (UG) only after 10+2 with Physics, Chemistry, Biology / Biotechnology and English."
+        source: neet-ib
+    stream: "Science with Biology (PCB) and English."
+    doubts:
+      - q: "Which subjects do I need in Class 11 and 12 to become a cardiologist?"
+        a: "Physics, Chemistry, Biology or Biotechnology, and English — the subjects NMC requires for NEET (UG)."
+        next: "Take PCB with English in Class 11."
+        source: neet-ib
+  - stages: [c11, c12]
+    title: "NEET (UG) for MBBS"
+    do:
+      - text: "NEET (UG) is 180 questions for 720 marks in 3 hours, with +4 for a correct answer and −1 for a wrong one."
+        source: neet-ib
+      - text: "Minimum age is 17 on or before 31 December of the exam year; there is no upper age limit."
+        source: neet-ib
+    exams:
+      - { name: "NEET (UG) 2026", when: "3 May 2026 (re-exam 21 June 2026)", source: [neet-ib, neet-re] }
+    money: [neet-fee]
+    doubts:
+      - q: "Is there an age limit for NEET (UG)?"
+        a: "You must be 17 on or before 31 December of the exam year. There is no upper age limit."
+        next: "Prepare without worrying about an age cap."
+        source: neet-ib
+      - q: "What percentile do I need in NEET (UG)?"
+        a: "The 50th percentile for General / EWS, the 40th for SC, ST and OBC and the 45th for PwBD (General) to be eligible for admission."
+        next: "Aim far above the cut-off — seats go by rank."
+        source: neet-ib
+      - q: "Is there negative marking in NEET (UG)?"
+        a: "Yes. A correct answer gets +4, a wrong one −1 and an unanswered question 0, across 180 questions for 720 marks."
+        next: "Skip questions you cannot narrow down."
+        source: neet-ib
+  - stages: [ug]
+    title: "MBBS and internship"
+    do:
+      - text: "After the final MBBS exam you do a rotating internship of at least 12 months; interns get a stipend fixed by the authority that runs the college."
+        source: crmi
+    money: [mbbs-intern]
+    doubts:
+      - q: "When can I write NEET-PG?"
+        a: "Only after MBBS with your 12-month internship completed by the bulletin's cut-off — 30 September 2026 for NEET-PG 2026."
+        next: "Track your internship end date against the bulletin."
+        source: npg26
+      - q: "Which M.D. should I choose if I want cardiology?"
+        a: "General Medicine, Paediatrics or Respiratory Medicine (M.D. or DNB) — all three are feeder degrees for D.M. / DrNB Cardiology. Paediatrics also leads to D.M. Paediatric Cardiology."
+        next: "Rank these subjects high in NEET-PG counselling."
+        source: [ss25, pgmer23]
+  - stages: [grad]
+    title: "M.D. first, then NEET-SS"
+    do:
+      - text: "NEET-PG: 180 MCQs in 3 hours 30 minutes, +4 correct, −1 wrong; 50th percentile to qualify (General / EWS)."
+        source: npg26
+      - text: "General Medicine, Paediatrics and Respiratory Medicine candidates all sit NEET-SS's Medical group paper for Cardiology seats."
+        source: ss25
+    exams:
+      - { name: "NEET-PG 2026", when: "30 Aug 2026 · result by 30 Sep 2026", source: npg26 }
+      - { name: "NEET-SS 2025 (latest bulletin)", when: "26–27 Dec 2025 · M.D. / DNB needed by 31 Jan 2026", source: ss25 }
+    money: [npg-fee, pg-stipend]
+    doubts:
+      - q: "Can I apply for NEET-SS in the final year of M.D.?"
+        a: "Yes, if you will hold the M.D. / DNB by the bulletin's cut-off date — 31 January 2026 for NEET-SS 2025. Later results are rejected."
+        next: "Match your M.D. exam date to the NEET-SS cut-off."
+        source: ss25
+      - q: "What is the NEET-SS exam pattern?"
+        a: "A computer-based paper of 150 MCQs in 150 minutes, split into three timed sections of 50 questions and 50 minutes each. A correct answer gets 4 marks and a wrong one loses 1."
+        next: "Practise in timed blocks — you cannot go back to a closed section."
+        source: ss25
+      - q: "What score do I need to qualify NEET-SS?"
+        a: "The 50th percentile or above in your question-paper group's merit list."
+        next: "Seats still go by rank in MCC counselling."
+        source: ss25
+      - q: "Who runs counselling for D.M. Cardiology seats?"
+        a: "The Medical Counselling Committee (MCC) of DGHS runs one national counselling for all DM, MCh and DrNB super-speciality seats filled through NEET-SS."
+        next: "Watch mcc.nic.in after the result."
+        source: ss25
+      - q: "Do I need medical council registration for NEET-SS?"
+        a: "Yes. Registration with NMC or a State Medical Council is mandatory and its proof is checked at the test centre."
+        next: "Keep your registration certificate valid."
+        source: ss25
+  - stages: [work]
+    title: "D.M. Cardiology and jobs"
+    do:
+      - text: "D.M. is a 3-year super-speciality course."
+        source: pgmer23
+    doubts:
+      - q: "Are there government jobs for cardiologists?"
+        a: "Yes. UPSC Advt 07/2026 had 9 posts of Specialist Grade III Assistant Professor (Cardiology) at Pay Level 11 plus NPA, and Advt 12/2026 had a Specialist Grade II Cardiology post in NDMC needing D.M. Cardiology and 3 years' experience."
+        next: "Watch UPSC's recruitment adverts."
+        source: [upsc-adv07, upsc-adv12]
+      - q: "What is the age limit for the UPSC cardiology teaching post?"
+        a: "40 for UR / EWS, 43 for OBC and 45 for SC / ST in Advt 07/2026, with up to 10 more years for PwBD."
+        next: "Check the age rule in each new advert."
+        source: upsc-adv07
+board_note: "Any board. NMC needs Physics, Chemistry, Biology / Biotechnology and English in Class 12 for NEET (UG)."
+board_source: neet-ib
+exam:
+  name: "NEET (UG) → MBBS → NEET-PG → M.D. → NEET-SS → D.M. Cardiology"
+  body: "NTA (NEET-UG) · NBEMS (NEET-PG, NEET-SS) · NMC"
+  href: "neet-pg.html"
+  facts:
+    - { label: "NEET-SS", value: "150 MCQs · 150 min · +4 / −1", source: ss25 }
+    - { label: "Qualify", value: "50th percentile in your group", source: ss25 }
+    - { label: "Feeder", value: "M.D. / DNB Medicine, Paediatrics, Respiratory Medicine", source: ss25 }
+    - { label: "D.M. length", value: "3 years", source: pgmer23 }
+  stages:
+    head: ["Stage", "What it is", "Rule"]
+    rows:
+      - ["NEET (UG)", "180 MCQs, 720 marks", "PCB + English; age 17+"]
+      - ["MBBS", "Course + 12-month internship", "Medical council registration"]
+      - ["NEET-PG → M.D.", "3-year M.D. / DNB", "Medicine, Paediatrics or Respiratory Medicine"]
+      - ["NEET-SS → D.M.", "Medical group paper, 3-year D.M.", "50th percentile; MCC counselling"]
+    source: [neet-ib, crmi, npg26, ss25, pgmer23]
+state_rules:
+  - { text: "National route: NEET-SS seats in every state go through one MCC counselling. NEET (UG) and NEET-PG state-quota seats follow each state's counselling rules.", source: [ss25, npg26] }
+multiverse:
+  - { title: "NEET-PG guide", text: "The M.D. step of this road.", href: "neet-pg.html" }
+  - { title: "Neurologist", text: "Another D.M. after M.D. Medicine.", href: "journey-neurologist.html" }
+  - { title: "Doctor (MBBS)", text: "The first part of this road.", href: "journey-doctor.html" }
+  - { title: "Nursing officer", text: "Cardiac care as a nurse.", href: "journey-nursing-officer.html" }
+money: [neet-fee, mbbs-intern, npg-fee, pg-stipend]
+
+sources:
+  - { id: upsc-adv12, name: "UPSC — Advertisement No. 12/2026 (25 Sep 2026)", url: "https://www.upsc.gov.in/sites/default/files/AdvtNo-12-2026-Engl-250926_0.pdf", covers: "Specialist Grade II (Junior Scale) Cardiology, New Delhi Municipal Council: 1 post (OBC), Level 11 + NPA, age 48 for OBC, MBBS + D.M. (Cardiology), 3 years' experience after the PG degree, private practice prohibited; closing date 16 Oct 2026", checked: 2026-10-28 }

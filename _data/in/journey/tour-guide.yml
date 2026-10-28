@@ -1,0 +1,185 @@
+# Journey Blueprint — Tour Guide (Ministry of Tourism: Incredible India Tourist Facilitator → Incredible India Tourist Guide). Printed on journey-tour-guide.html.
+# Rules, classes and the money items / sources several careers share: _data/in/journey_common.yml.
+# `money_defs` / `sources` below are used only by this career. Check: node scripts/check-journey-matrix.mjs
+id: tour-guide
+v: 2
+name: "Tour Guide (Incredible India Tourist Facilitator → Tourist Guide, Ministry of Tourism)"
+search: ["tour guide", "tourist guide", "travel guide", "heritage guide", "adventure guide", "iitf", "incredible india tourist facilitator", "incredible india tourist guide", "iitg", "tourist facilitator"]
+page: "travel-tourism.html"
+roadmap: "roadmaps/travel-tourism.html"
+doubts_page: "journey-tour-guide.html"
+gate: "Age 18 and Class 12 (Class 10 if you are 40 or older) → online Incredible India Tourist Facilitator (IITF Basic) course on the Ministry of Tourism portal → exam → 7-day IITTM training + 7-day internship → IITF certificate and badge. A graduate with IITF Basic can then train as an Incredible India Tourist Guide (Heritage / Adventure)."
+gate_source: iitf21
+core:
+  what:
+    text: "A tour guide explains a place — its history, culture, customs and stories — to visitors and helps them enjoy it safely. The Ministry of Tourism certifies Incredible India Tourist Facilitators and Incredible India Tourist Guides through an online programme run by IITTM."
+    source: iitf21
+  day:
+    - "Lead tourists through monuments, cities, trails or parks."
+    - "Explain history, culture, customs and local stories."
+    - "Help visitors with planning, safety and local etiquette."
+  pay_note: "Guide earnings depend on tours and tourist season; no official pay scale is published, so none is printed."
+  routes:
+    - { title: "IITF (Basic)", text: "Age 18+; Class 12 if under 40, Class 10 if 40 or older. Online modules, at least one State module, then the exam, 7 days' IITTM training and 7 working days' internship with a Ministry-approved tour operator.", source: iitf21 }
+    - { title: "IITG (Heritage / Adventure)", text: "For graduates who already hold the IITF Basic certificate — heritage guiding at monuments or adventure guiding for trekking, rafting and similar activities.", source: iitf21 }
+    - { title: "Spoken-language specialisation", text: "IITF / IITG holders fluent in a foreign language other than English can add a language specialisation; the spoken test needs 50%.", source: iitf21 }
+  cost_time:
+    - { label: "IITF (Basic) registration", value: "₹2,000 (50% off for women)", source: iitf21 }
+    - { label: "IITG Advance-Heritage registration", value: "₹5,000", source: iitf21 }
+    - { label: "Exam fee", value: "₹500", source: iitf21 }
+  cost_note: "Fees are as printed in the Ministry's January 2021 guidelines and may be revised from time to time."
+  challenges:
+    - text: "Certification needs police verification of character and antecedents."
+      source: iitf21
+    - text: "Certificates must be renewed every 5 years through a 2-week online refresher course."
+      source: iitf21
+    - text: "Exams are held only twice a year — June and December."
+      source: iitf21
+  not_for:
+    - "You dislike talking to strangers all day."
+    - "You want a fixed monthly salary from day one."
+    - "You cannot walk or stand for long hours."
+journey:
+  - stages: [c8, c9]
+    title: "Know your history and your city"
+    do:
+      - text: "Tourist facilitators interpret heritage, culture, social customs, myths and local stories for visitors."
+        source: iitf21
+    doubts:
+      - q: "What does a tour guide do?"
+        a: "Explains places — their history, culture, customs, myths and local stories — to visitors and makes their stay pleasant. The Ministry of Tourism certifies Incredible India Tourist Facilitators and Tourist Guides."
+        next: "Read the Routes list above."
+        source: iitf21
+      - q: "How can I prepare for guiding while in school?"
+        a: "Learn your state's history, monuments and festivals and practise speaking to groups. The IITF course ends with modules on the destinations and experiences of Indian states — you must complete at least one State module."
+        next: "Start with the monuments in your own district."
+        source: iitf21
+  - stages: [c10]
+    title: "Any stream — and languages help"
+    do:
+      - text: "A foreign language can be added later as a spoken-language specialisation after the IITF / IITG certificate."
+        source: iitf21
+    stream: "Any stream; History and a foreign language help."
+    doubts:
+      - q: "Which stream is best to become a tour guide?"
+        a: "Any. IITF (Basic) needs Class 12 or equivalent (if you are under 40); no stream is fixed. History and languages help with the course and the work."
+        next: "Pick the stream you like and keep reading history."
+        source: iitf21
+      - q: "Does learning a foreign language help a tour guide?"
+        a: "Yes. After IITF / IITG you can add a spoken-language specialisation in any foreign language other than English (even more than one); you must score 50% in the spoken test."
+        next: "Start a foreign language in school or college."
+        source: iitf21
+  - stages: [c11, c12]
+    title: "Register after you turn 18"
+    do:
+      - text: "IITF (Basic) needs age 18 on the date of registration and Class 12 (or equivalent) if you are under 40."
+        source: iitf21
+    exams:
+      - { name: "IITF / IITG end-of-programme exam", when: "Usually June and December · enrolment closes 30 Apr and 31 Oct", source: iitf21 }
+    doubts:
+      - q: "What is the minimum age to become a certified tourist facilitator?"
+        a: "18 years on the date you register for the course on the IITF portal."
+        next: "Register after your 18th birthday."
+        source: iitf21
+      - q: "Can I register for IITF in Class 12?"
+        a: "You need Class 12 (or equivalent) completed and must be 18. Candidates aged 40 or more need only Class 10."
+        next: "Keep your Class 12 certificate ready to upload."
+        source: iitf21
+      - q: "Is the tour guide course online?"
+        a: "The course modules and assignments are online on the IITF portal. The exam is held at a centre you choose, and the 7-day training and internship happen in and around that centre."
+        next: "Choose a centre near where you want to guide."
+        source: iitf21
+  - stages: [ug]
+    title: "IITF (Basic) course and exam"
+    do:
+      - text: "Register on the IITF portal with Aadhaar or Voter ID and an OTP, upload age proof and qualification, and pay the registration fee."
+        source: iitf21
+      - text: "Finish every online module to get an Online Course Completion Certificate (valid 3 years) at least one month before you register for the exam."
+        source: iitf21
+    money: [iitf-fee]
+    doubts:
+      - q: "How much does the IITF course cost?"
+        a: "₹2,000 registration (non-refundable) and ₹500 for the exam, as printed in the January 2021 guidelines. Women get 50% off the Basic enrolment fee; SC, ST, Ladakh, Jammu & Kashmir, Aspirational District candidates and IITTM students pay no registration fee."
+        next: "Upload your category or domicile certificate when you register."
+        source: iitf21
+      - q: "What happens after I pass the IITF exam?"
+        a: "A 7-day training by IITTM at your exam centre, then a mandatory 7-working-day internship with a Ministry-approved tour operator, document and police verification — and then the IITF certificate and Incredible India badge."
+        next: "Pick an exam centre where you can also do the training and internship."
+        source: iitf21
+      - q: "What if I fail the IITF exam?"
+        a: "You can sit the exam again, any number of times, while your Online Course Completion Certificate is valid, paying the exam fee each time if it applies."
+        next: "Revise the modules before your next attempt."
+        source: iitf21
+      - q: "Is police verification needed for a tour guide certificate?"
+        a: "Yes. Registration is subject to police verification of character and antecedents; a negative report ends the candidature without notice. False certificates also cancel the certification."
+        next: "Keep your record clean and documents genuine."
+        source: iitf21
+  - stages: [grad]
+    title: "Become an Incredible India Tourist Guide"
+    do:
+      - text: "IITG (Heritage / Adventure) needs a graduate degree and an IITF (Basic) certificate."
+        source: iitf21
+    doubts:
+      - q: "What is the difference between IITF and IITG?"
+        a: "IITF (Basic) is the entry certificate for tourist facilitators (Class 12). IITG is the next step for graduates who already hold IITF — Heritage for history and culture, Adventure for activities like trekking and rafting."
+        next: "Finish IITF first, then choose Heritage or Adventure."
+        source: iitf21
+      - q: "How much is the IITG Heritage fee?"
+        a: "₹5,000 registration for the IITG Advance-Heritage programme in the January 2021 guidelines; SC, ST, Ladakh, Jammu & Kashmir, Aspirational District candidates and IITTM students get 50% off."
+        next: "Check the current fee on the IITF portal."
+        source: iitf21
+  - stages: [work]
+    title: "Renew and grow"
+    do:
+      - text: "Before your 5-year validity ends, take the free 2-week online refresher by IITTM; the certificate and badge are then renewed for 5 more years."
+        source: iitf21
+    doubts:
+      - q: "Does the tour guide certificate expire?"
+        a: "It is valid for 5 years. Register for the free 2-week online refresher course well before expiry — at least four months ahead — and the Ministry renews your certificate and badge for another 5 years."
+        next: "Note your expiry date the day you get certified."
+        source: iitf21
+      - q: "Where are certified guides listed?"
+        a: "All certified badge holders are listed on the Incredible India website, where the Ministry of Tourism keeps a database that tour operators and others can use."
+        next: "Keep your profile and languages up to date."
+        source: iitf21
+board_note: "Any board and stream. You need Class 12 (or Class 10 if 40+) and must be 18 to register."
+board_source: iitf21
+exam:
+  name: "Incredible India Tourist Facilitator / Guide certification"
+  body: "Ministry of Tourism · IITTM"
+  href: "travel-tourism.html"
+  facts:
+    - { label: "IITF entry", value: "Age 18 · Class 12 (Class 10 if 40+)", source: iitf21 }
+    - { label: "IITG entry", value: "Graduate + IITF Basic", source: iitf21 }
+    - { label: "Exams", value: "June and December", source: iitf21 }
+    - { label: "Validity", value: "5 years · free refresher to renew", source: iitf21 }
+  stages:
+    head: ["Stage", "What it is", "Rule"]
+    rows:
+      - ["Register", "IITF portal, Aadhaar / Voter ID", "₹2,000 Basic · police verification"]
+      - ["Online course", "Modules + at least one State module", "Completion certificate valid 3 years"]
+      - ["Exam", "Online, at a chosen centre", "₹500 · June / December"]
+      - ["Training + internship", "7 days IITTM + 7 working days", "Then certificate and badge"]
+    source: iitf21
+state_rules:
+  - { text: "National route: the Ministry of Tourism's IITF / IITG certification is the same across India. States issue their own local guide licences under their own rules.", source: iitf21 }
+multiverse:
+  - { title: "Travel & tourism guide", text: "Courses and jobs in tourism.", href: "travel-tourism.html" }
+  - { title: "Hotel manager", text: "Hospitality through NCHM JEE.", href: "journey-hotel-manager.html" }
+  - { title: "Archaeologist", text: "Study the monuments you show.", href: "journey-archaeologist.html" }
+  - { title: "Translator", text: "Language skills as a career.", href: "journey-translator.html" }
+money: [nmmss, csss, iitf-fee]
+
+money_defs:
+  - id: iitf-fee
+    kind: fee
+    name: "IITF / IITG fee waivers"
+    by: "Ministry of Tourism (programme run by IITTM)"
+    amount: "No IITF registration fee or exam fee; 50% off the IITG Heritage fee; women get 50% off the IITF Basic enrolment fee"
+    who: "SC and ST candidates, residents of Ladakh and Jammu & Kashmir, residents of NITI Aayog's Aspirational Districts and IITTM students (no registration fee; exam fee waived for all but IITTM students). Women: 50% off the Basic fee."
+    apply: "Upload your caste certificate or domicile proof while registering on the IITF portal."
+    stages: [ug, grad]
+    source: iitf21
+
+sources:
+  - { id: iitf21, name: "Ministry of Tourism — Guidelines for the Incredible India Tourist Facilitator / Guide Certification Programme (No. TT-501/1/2020-TT, 11 Jan 2021), IITF booklet", url: "https://iitf.gov.in/IITF-Booklet.pdf", covers: "role of facilitators; IITF Basic and IITG Heritage / Adventure; spoken-language specialisation (50%); eligibility (18+, Class 12 / Class 10 if 40+, graduate for IITG); registration via Aadhaar / Voter ID; fees ₹2,000 / ₹5,000 / exam ₹500 and waivers, 50% for women (from 8 Apr 2022); police verification; registration valid 3 years; modules and State module; OCC valid 3 years; exams June / December (enrolment closes 30 Apr / 31 Oct); 7-day IITTM training + 7-day internship; 5-year validity and free refresher; RLG holders' route; listing on Incredible India website", checked: 2026-10-28 }

@@ -1,0 +1,191 @@
+# Journey Blueprint — Special Education Teacher (RCI D.Ed / B.Ed Special Education + CRR + CTET → KVS / NVS Special Educator). Printed on journey-special-education-teacher.html.
+# Rules, classes and the money items / sources several careers share: _data/in/journey_common.yml.
+# `money_defs` / `sources` below are used only by this career. Check: node scripts/check-journey-matrix.mjs
+id: special-education-teacher
+v: 2
+name: "Special Education Teacher (RCI course + CRR + CTET → Special Educator)"
+search: ["special education teacher", "special educator", "special teacher", "d.ed special education", "b.ed special education", "inclusive education teacher", "teacher for children with disabilities", "rci"]
+page: "journey-special-education-teacher.html"
+doubts_page: "journey-special-education-teacher.html"
+gate: "Class 12 with 50% → 2-year D.Ed Special Education (RCI, merit-based NBER admission) → CTET Paper I → KVS Special Educator (PRT). Or graduation with 50% → B.Ed Special Education → CTET Paper II → Special Educator (TGT). Every route needs registration with the Rehabilitation Council of India (CRR number)."
+gate_source: [nber26, kvs-nvs25, rci-act]
+core:
+  what:
+    text: "A special education teacher teaches children with disabilities — in special schools and in regular classrooms. Training courses are approved by the Rehabilitation Council of India (RCI), and only professionals on RCI's Central Rehabilitation Register may hold such posts."
+    source: [rci-act, nber26]
+  day:
+    - "Assess each child's needs and write an individual learning plan."
+    - "Adapt lessons, materials and tests for children with different disabilities."
+    - "Work with parents, class teachers and therapists."
+  pay:
+    - { level: "Special Educator (TGT), KVS / NVS 2025", value: "Pay Level 7 · ₹44,900 – ₹1,42,400", source: kvs-nvs25 }
+    - { level: "Special Educator (PRT), KVS 2025", value: "Pay Level 6 · ₹35,400 – ₹1,12,400", source: kvs-nvs25 }
+  pay_note: "These are central school pay levels; state and private school pay is not printed here."
+  routes:
+    - { title: "Class 12 → D.Ed Special Education", text: "RCI's diploma courses take Class 12 (any stream) with 50%; admission for 2026-27 is on merit only through NBER's online portal — no entrance test.", source: nber26 }
+    - { title: "Graduation → B.Ed Special Education", text: "KVS / NVS Special Educator (TGT) needs graduation with 50% and B.Ed Special Education with 50% (or B.Ed General with a special-education diploma, or other RCI-approved qualifications).", source: kvs-nvs25 }
+    - { title: "CTET + RCI registration", text: "Special Educator (PRT) needs CTET Paper I; Special Educator (TGT) needs CTET Paper II; both need RCI registration with a valid CRR number.", source: kvs-nvs25 }
+    - { title: "KVS / NVS posts", text: "The 2025 notice had 494 Special Educator (PRT) and 493 Special Educator (TGT) posts in KVS, and 495 Special Educator posts in NVS.", source: kvs-nvs25 }
+  cost_time:
+    - { label: "NBER registration fee 2026", value: "₹500 General / UR · ₹350 OBC, EWS, SC, ST, PwD", source: nber26 }
+    - { label: "KVS / NVS exam fee (2025)", value: "₹1,200 + ₹500 processing (TGT / PRT)", source: kvs-nvs25 }
+  cost_note: "D.Ed and B.Ed course fees differ by institute, so they are not printed."
+  challenges:
+    - text: "Working without RCI registration is an offence under the RCI Act."
+      source: rci-act
+    - text: "You need both an RCI-recognised qualification and CTET for KVS / NVS posts."
+      source: kvs-nvs25
+    - text: "Age limits in the 2025 notice: 30 for Special Educator (PRT), 35 for Special Educator (TGT)."
+      source: kvs-nvs25
+  not_for:
+    - "You lose patience when progress is slow."
+    - "You do not want to work closely with parents and therapists."
+    - "You want to teach one fixed syllabus the same way every year."
+journey:
+  - stages: [c8, c9]
+    title: "Notice, include, help"
+    do:
+      - text: "RCI's draft TET syllabus for special educators covers disabilities under the RPwD Act 2016, inclusive classrooms and assistive technology — useful ideas to start reading early."
+        source: rci-tet26
+    doubts:
+      - q: "What does a special education teacher do?"
+        a: "Teaches children with disabilities, in special schools or regular classes, using individual plans, adapted lessons and assistive technology. Training courses are approved by the Rehabilitation Council of India."
+        next: "Read the Routes list above."
+        source: [rci-act, rci-tet26]
+      - q: "Is RCI registration compulsory for special educators?"
+        a: "Yes. Under the RCI Act only professionals enrolled on the Central Rehabilitation Register may hold such posts, practise or certify; breaking this can mean up to one year in jail and / or a ₹1,000 fine."
+        next: "Plan for an RCI-recognised course."
+        source: rci-act
+  - stages: [c10]
+    title: "Any stream, but keep 50%"
+    do:
+      - text: "D.Ed Special Education accepts Class 12 from any stream with 50% marks."
+        source: nber26
+    stream: "Any stream — score at least 50% in Class 12."
+    doubts:
+      - q: "Which stream do I need for special education?"
+        a: "Any stream. RCI's D.Ed Special Education needs 10+2 with 50% in any stream. Some rehabilitation diplomas (such as hearing, speech or prosthetics courses) need PCM / PCB instead."
+        next: "Choose your stream for the course you want."
+        source: nber26
+  - stages: [c11, c12]
+    title: "Apply for D.Ed Special Education"
+    do:
+      - text: "NBER (RCI's exam board) admits students to diploma courses on merit through one online portal; students waiting for Class 12 results may apply."
+        source: nber26
+    exams:
+      - { name: "NBER Online Admission 2026 (merit-based)", when: "Circular July 2026 · two merit rounds · no entrance test", source: nber26 }
+    money: [nber-fee]
+    doubts:
+      - q: "Is there an entrance exam for D.Ed Special Education?"
+        a: "No. For 2026-27 all admissions to RCI-approved certificate and diploma courses are on merit only through NBER's online portal, in two merit rounds."
+        next: "Score well in Class 12 — merit decides."
+        source: nber26
+      - q: "Can I apply before my Class 12 result?"
+        a: "Yes. Candidates appearing in Class 12 may apply, provided they meet the course eligibility; otherwise the candidature is rejected."
+        next: "Keep your result and marksheet ready for the reporting date."
+        source: nber26
+      - q: "Do siblings of children with disabilities get any preference?"
+        a: "Yes. Parents and siblings of persons with disabilities (50% or more) get extra merit — 5 marks for 50% disability up to 10 marks for 100% (first blood relation only)."
+        next: "Upload the disability certificate of your family member."
+        source: nber26
+  - stages: [ug]
+    title: "Diploma or B.Ed Special Education"
+    do:
+      - text: "Graduates take B.Ed Special Education with 50% (or B.Ed General with a 1- or 2-year special-education diploma) for TGT-level posts."
+        source: kvs-nvs25
+      - text: "Register with RCI on its e-registration portal to get your CRR number."
+        source: [rci-act, kvs-nvs25]
+    doubts:
+      - q: "Is B.Ed General enough to become a special educator?"
+        a: "Not alone. KVS / NVS accept B.Ed General with 50% only together with a 1-year or 2-year Diploma in Special Education, a PG Professional Diploma, or another RCI-approved qualification."
+        next: "Add an RCI special-education diploma to a B.Ed."
+        source: kvs-nvs25
+      - q: "Which CTET paper does a special educator need?"
+        a: "Paper I for Special Educator (PRT) and Paper II for Special Educator (TGT), with up to 5% relaxation in qualifying marks for SC, ST, OBC and PwBD candidates."
+        next: "Plan CTET in your final year."
+        source: kvs-nvs25
+      - q: "When do I need my RCI registration number?"
+        a: "KVS / NVS list registration with the Rehabilitation Council of India with a valid CRR number as an essential qualification for both Special Educator (PRT) and (TGT) posts."
+        next: "Register on RCI's e-registration portal as soon as you finish your course."
+        source: kvs-nvs25
+  - stages: [grad]
+    title: "CTET and KVS / NVS posts"
+    do:
+      - text: "CTET has 150 MCQs per paper with no negative marking; 60% is the pass mark."
+        source: ctet-ib
+    exams:
+      - { name: "KVS & NVS Recruitment 01/2025", when: "Notification 13 Nov 2025 · two tiers + interview", source: kvs-nvs25 }
+    money: [kvs-fee]
+    doubts:
+      - q: "How many special educator posts did KVS and NVS advertise?"
+        a: "Notification 01/2025 had 494 Special Educator (PRT) and 493 Special Educator (TGT) posts in KVS, and 495 Special Educator posts in NVS."
+        next: "Watch cbse.gov.in for the next KVS–NVS notice."
+        source: kvs-nvs25
+      - q: "What is the pay of a KVS special educator?"
+        a: "Special Educator (TGT) is Pay Level 7 (₹44,900 – ₹1,42,400) and Special Educator (PRT) is Pay Level 6 (₹35,400 – ₹1,12,400)."
+        next: "Pick the level that matches your qualification."
+        source: kvs-nvs25
+      - q: "What is the age limit for KVS special educators?"
+        a: "Up to 30 for Special Educator (PRT) and up to 35 for Special Educator (TGT) in the 2025 notice."
+        next: "Apply within your age window."
+        source: kvs-nvs25
+      - q: "Is there a fee waiver for the KVS / NVS exam?"
+        a: "SC, ST, PwBD and ex-servicemen pay only the ₹500 processing fee, not the ₹1,200 exam fee (2025 notice)."
+        next: "Pick the right category in the online form."
+        source: kvs-nvs25
+  - stages: [work]
+    title: "A separate TET is being planned"
+    do:
+      - text: "In October 2026 RCI published a draft syllabus for a TET for special education teachers and invited comments."
+        source: rci-tet26
+    doubts:
+      - q: "Will special educators get their own TET?"
+        a: "RCI published a draft syllabus for a TET for special education teachers on 6 October 2026 and invited comments for 10 days. It is a draft — no exam date has been notified."
+        next: "Check rehabcouncil.nic.in for the final notice."
+        source: rci-tet26
+      - q: "What does the draft special-educator TET cover?"
+        a: "Paper I keeps the general CTET parts (child development, maths, EVS, two languages) and adds 30 questions on disabilities, inclusive and special education, plus 30 on assistive technology and support skills."
+        next: "Read the RPwD Act 2016 basics."
+        source: rci-tet26
+board_note: "Any board and stream. D.Ed Special Education needs 50% in Class 12."
+board_source: nber26
+exam:
+  name: "RCI course → CRR registration → CTET → KVS / NVS"
+  body: "RCI / NBER (courses) · CBSE (CTET, KVS & NVS recruitment)"
+  href: "journey-school-teacher.html"
+  facts:
+    - { label: "D.Ed Spl. Ed.", value: "Class 12 any stream, 50% · merit only", source: nber26 }
+    - { label: "Registration", value: "RCI CRR number required", source: [rci-act, kvs-nvs25] }
+    - { label: "CTET", value: "Paper I (PRT) · Paper II (TGT)", source: kvs-nvs25 }
+    - { label: "Posts 2025", value: "494 + 493 KVS · 495 NVS", source: kvs-nvs25 }
+  stages:
+    head: ["Stage", "What it is", "Rule"]
+    rows:
+      - ["Class 12", "Any stream", "50% for D.Ed Special Education"]
+      - ["RCI course", "D.Ed or B.Ed Special Education", "NBER merit admission / university"]
+      - ["CRR + CTET", "RCI register, CTET Paper I or II", "Both needed for KVS / NVS"]
+      - ["KVS / NVS", "Special Educator PRT / TGT", "Two tiers + interview"]
+    source: [nber26, rci-act, kvs-nvs25]
+state_rules:
+  - { text: "National route: RCI course approval, CRR registration and NBER admissions apply across India. State government schools hire special educators through their own rules.", source: [rci-act, nber26] }
+multiverse:
+  - { title: "School teacher", text: "General teaching with CTET.", href: "journey-school-teacher.html" }
+  - { title: "Speech-language pathologist", text: "Another RCI profession.", href: "journey-speech-language-pathologist.html" }
+  - { title: "Clinical psychologist", text: "RCI-registered mental health care.", href: "journey-clinical-psychologist.html" }
+  - { title: "Preschool teacher", text: "Teaching children aged 3 to 6.", href: "journey-preschool-teacher.html" }
+money: [nmmss, csss, pms-sc, nber-fee, kvs-fee]
+
+money_defs:
+  - id: nber-fee
+    kind: fee
+    name: "Lower NBER admission registration fee"
+    by: "National Board of Examination in Rehabilitation (RCI)"
+    amount: "₹350 instead of ₹500"
+    who: "OBC, EWS, SC, ST and PwD candidates applying for RCI certificate and diploma courses (2026)."
+    apply: "Choose your category while registering on nber-rehabcouncil.gov.in."
+    stages: [c12]
+    source: nber26
+
+sources:
+  - { id: nber26, name: "RCI / NBER — Circular: NBER Online Admission 2026, merit-based admissions to certificate and diploma courses (July 2026)", url: "https://cdnbbsr.s3waas.gov.in/s34f4eeef3a8c90dfceaddd5c6d64e4ebb/uploads/2026/07/202607221642037416.pdf", covers: "D.Ed Special Education: 10+2 any stream 50%; rehabilitation diplomas: 10+2 PCM / PCB 50%; DTISL and D.C.E.&A.T.(VI) rules; appearing candidates may apply; parents / siblings of PwDs get 5–10 extra marks; merit only, no entrance test; two merit rounds; registration fee ₹500 / ₹350; SOP for institutes and candidates", checked: 2026-10-28 }
+  - { id: rci-tet26, name: "Rehabilitation Council of India — Public notice: comments on the draft syllabus for the TET for Special Education Teachers / Special Educators (6 Oct 2026)", url: "https://cdnbbsr.s3waas.gov.in/s34f4eeef3a8c90dfceaddd5c6d64e4ebb/uploads/2026/10/202610071416776210.pdf", covers: "draft TET syllabus by an RCI expert committee; comments within 10 days; Paper I structure — child development, maths / EVS, two languages, cross-disability special and inclusive education (30 questions), assistive technology and supportive skills (30 questions); RPwD Act 2016 topics", checked: 2026-10-28 }

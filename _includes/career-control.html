@@ -20,46 +20,7 @@
     {% include career-control.html coaching_href="coaching-jee.html" colleges_href="colleges-btech.html" %}
 {%- endcomment -%}
 {%- if include.hub -%}{%- assign X = include.hub -%}{%- else -%}{%- assign X = include -%}{%- endif -%}
-{%- assign pc_courses = "" -%}
-{%- assign pc_hrefs = X.colleges_href | append: "|" | append: X.colleges2_href | split: "|" -%}
-{%- for h in pc_hrefs -%}
-  {%- if h -%}
-    {%- assign pc_key = "" -%}
-    {%- if h contains "course=" -%}
-      {%- assign pc_key = h | split: "course=" | last | split: "#" | first | split: "&" | first -%}
-    {%- else -%}
-      {%- assign pc_page = h | split: "#" | first | remove: ".html" -%}
-      {%- for e in site.data.colleges.courses -%}{%- if e[1].page == pc_page -%}{%- assign pc_key = e[0] -%}{%- endif -%}{%- endfor -%}
-    {%- endif -%}
-    {%- if pc_key != "" and site.data.colleges.courses[pc_key] -%}{%- assign pc_courses = pc_courses | append: pc_key | append: "," -%}{%- endif -%}
-  {%- endif -%}
-{%- endfor -%}
-{%- assign pc_courses = pc_courses | split: "," -%}
-{%- assign pc_exam = "" -%}
-{%- if X.coaching_href -%}
-  {%- if X.coaching_href contains "exam=" -%}
-    {%- assign pc_exam = X.coaching_href | split: "exam=" | last | split: "#" | first | split: "&" | first -%}
-  {%- else -%}
-    {%- assign pc_page = X.coaching_href | split: "#" | first | remove: ".html" -%}
-    {%- for e in site.data.coaching.exams -%}{%- if e[1].page == pc_page -%}{%- assign pc_exam = e[0] -%}{%- endif -%}{%- endfor -%}
-  {%- endif -%}
-{%- endif -%}
-{%- comment -%} Listings for each dropdown; a key with zero listings is dropped. {%- endcomment -%}
-{%- assign pc_col_total = 0 -%}
-{%- for k in pc_courses -%}
-  {%- assign pc_rows = site.data.colleges.colleges | where_exp: "c", "c.courses contains k" -%}
-  {%- assign pc_col_total = pc_col_total | plus: pc_rows.size -%}
-{%- endfor -%}
-{%- assign pc_centres = "" | split: "" -%}
-{%- if pc_exam != "" and site.data.coaching.exams[pc_exam] -%}
-  {%- assign pc_centres = site.data.coaching.centres | where_exp: "c", "c.exams contains pc_exam" -%}
-{%- endif -%}
-{%- assign pc_has_prep = false -%}
-{%- if pc_centres.size > 0 or X.exam_href or X.exam2_href -%}{%- assign pc_has_prep = true -%}{%- endif -%}
-{%- comment -%} Finder hand-off: the page's stream preselects the hub (same mapping as hub-ctas.html). {%- endcomment -%}
-{%- assign pc_stream = page.stream | default: "" -%}
-{%- if pc_stream == "diploma" or pc_stream == "iti" -%}{%- assign pc_stream = "diploma-iti" -%}{%- elsif pc_stream == "govt-exams" -%}{%- assign pc_stream = "govt" -%}{%- endif -%}
-{%- capture pc_sp -%}{%- if pc_stream != "" -%}stream={{ pc_stream }}&amp;{%- endif -%}{%- endcapture -%}
+{%- include finder-keys.html hub=X -%}
 {%- capture pc_chev -%}<svg class="pc-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>{%- endcapture -%}
 {%- capture pc_ext -%}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg><span class="sr-only"> (opens in a new tab)</span>{%- endcapture -%}
 {%- comment -%} exam_in_facts=true: the caller (in-career.html) already shows the exam row in its fact console. {%- endcomment -%}

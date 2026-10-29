@@ -1,0 +1,227 @@
+{%- comment -%}
+  Pre-footer context deck (2026-10-29): one light-bordered block above the site footer with up to 6
+  related-page chips and, where verified listings exist, finder buttons. The layout includes it between
+  the page content and footer.html; it renders nothing on region-neutral pages (About, Terms…), the
+  global gateway, and every page that is not one of the kinds below.
+
+    India  career sheet (page.career)   chips: the page's footer.col3_links, then the other careers in the
+                                        same top-menu column (_data/nav_mega.yml, its stream group)
+                                        buttons: college / coaching finder for the sheet's hero.hub keys,
+                                        only when those keys have listings (finder-keys.html, finder link policy)
+           hub (a nav_mega head page,   chips: footer.col3_links, then the first career of each menu column
+           or og_type website)
+           state portal (state/…,       chips: footer.col3_links
+           state-pathways/…)
+    USA    career / pathway / trade     chips: other careers in its Career Cluster (_data/us/clusters.yml),
+                                        same sub-cluster first; buttons: cluster hub + colleges
+           cluster hub                  chips: the clusters Advance CTE calls closely connected (live ones)
+           state page                   chips: that state's license rules, other national hubs; button: colleges in the state
+    UK     career                       chips: other UK careers, same sector (eyebrow) first;
+                                        buttons: all UK careers + the same career in the India / USA edition
+
+  Reads the layout's region_id, region_neutral and gateway. Links are root-relative like the rest of the shell.
+{%- endcomment -%}
+{%- assign cd_kind = "" -%}
+{%- assign cd_self = page.url | remove_first: "/" -%}
+{%- assign cd_n = 0 -%}
+{%- assign cd_max = 6 -%}
+{%- assign cd_seen = "|" | append: cd_self | append: "|" -%}
+{%- assign cd_eyebrow = "" -%}{%- assign cd_title = "" -%}
+{%- assign cd_chips = "" -%}{%- assign cd_ctas = "" -%}
+{%- unless region_neutral or gateway -%}
+
+{%- if region_id == "in" -%}
+  {%- assign cd_mkey = "" -%}
+  {%- for m in site.data.nav_mega -%}{%- if cd_mkey == "" and m[1].head.href == cd_self -%}{%- assign cd_mkey = m[0] -%}{%- endif -%}{%- endfor -%}
+  {%- assign cd_state = false -%}
+  {%- assign cd_top = cd_self | split: "/" | first -%}
+  {%- if cd_self contains "/" and cd_top == "state" or cd_self contains "/" and cd_top == "state-pathways" -%}{%- assign cd_state = true -%}{%- endif -%}
+  {%- if page.career -%}{%- assign cd_kind = "in-career" -%}
+  {%- elsif cd_state -%}{%- assign cd_kind = "in-state" -%}
+  {%- elsif cd_mkey != "" or page.og_type == "website" -%}{%- assign cd_kind = "in-hub" -%}
+  {%- endif -%}
+
+  {%- if cd_kind != "" -%}
+  {%- capture cd_chips -%}
+    {%- for l in page.footer.col3_links -%}
+      {%- assign cd_k = "|" | append: l.href | append: "|" -%}
+      {%- if cd_n < cd_max -%}{%- unless cd_seen contains cd_k -%}
+      <li><a class="cd-chip" href="{{ l.href }}">{{ l.label }}</a></li>
+      {%- assign cd_seen = cd_seen | append: l.href | append: "|" -%}{%- assign cd_n = cd_n | plus: 1 -%}
+      {%- endunless -%}{%- endif -%}
+    {%- endfor -%}
+    {%- if cd_kind == "in-career" -%}
+      {%- comment -%} The sheet's group = the top-menu column that lists it; its own stream's menu is searched first. {%- endcomment -%}
+      {%- assign cd_skey = page.stream | default: "" -%}{%- if cd_skey == "govt-exams" -%}{%- assign cd_skey = "govt-careers" -%}{%- endif -%}
+      {%- assign cd_group = nil -%}
+      {%- for c in site.data.nav_mega[cd_skey].cols -%}{%- unless cd_group -%}{%- assign cd_hit = c.links | where: "href", cd_self -%}{%- if cd_hit.size > 0 -%}{%- assign cd_group = c -%}{%- endif -%}{%- endunless -%}{%- endfor -%}
+      {%- unless cd_group -%}
+      {%- for m in site.data.nav_mega -%}{%- for c in m[1].cols -%}{%- unless cd_group -%}{%- assign cd_hit = c.links | where: "href", cd_self -%}{%- if cd_hit.size > 0 -%}{%- assign cd_group = c -%}{%- endif -%}{%- endunless -%}{%- endfor -%}{%- endfor -%}
+      {%- endunless -%}
+      {%- if cd_group -%}{%- assign cd_eyebrow = cd_group.label -%}
+      {%- for l in cd_group.links -%}
+        {%- assign cd_k = "|" | append: l.href | append: "|" -%}
+        {%- if cd_n < cd_max -%}{%- unless cd_seen contains cd_k -%}
+        <li><a class="cd-chip" href="{{ l.href }}">{{ l.label }}</a></li>
+        {%- assign cd_seen = cd_seen | append: l.href | append: "|" -%}{%- assign cd_n = cd_n | plus: 1 -%}
+        {%- endunless -%}{%- endif -%}
+      {%- endfor -%}
+      {%- endif -%}
+    {%- elsif cd_kind == "in-hub" and cd_mkey != "" -%}
+      {%- for c in site.data.nav_mega[cd_mkey].cols -%}
+        {%- assign l = c.links | first -%}
+        {%- assign cd_k = "|" | append: l.href | append: "|" -%}
+        {%- if l and cd_n < cd_max -%}{%- unless cd_seen contains cd_k -%}
+        <li><a class="cd-chip" href="{{ l.href }}">{{ l.label }}</a></li>
+        {%- assign cd_seen = cd_seen | append: l.href | append: "|" -%}{%- assign cd_n = cd_n | plus: 1 -%}
+        {%- endunless -%}{%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+  {%- endcapture -%}
+  {%- if cd_kind == "in-career" -%}
+    {%- assign cd_title = "Alternatives worth a look" -%}{%- if cd_eyebrow == "" -%}{%- assign cd_eyebrow = page.footer.col3_heading | default: "Related careers" -%}{%- endif -%}
+    {%- assign cd_C = site.data.in.careers[page.career] -%}
+    {%- if cd_C.hero.hub -%}
+    {%- include finder-keys.html hub=cd_C.hero.hub -%}
+    {%- capture cd_ctas -%}
+      {%- assign cd_ck = "" -%}
+      {%- for k in pc_courses -%}{%- if cd_ck == "" -%}{%- assign cd_rows = site.data.colleges.colleges | where_exp: "c", "c.courses contains k" -%}{%- if cd_rows.size > 0 -%}{%- assign cd_ck = k -%}{%- endif -%}{%- endif -%}{%- endfor -%}
+      {%- if cd_ck != "" -%}
+      <a class="btn btn-primary btn-compact" href="colleges.html?{{ pc_sp }}course={{ cd_ck }}">Find {{ site.data.colleges.courses[cd_ck].label }} colleges</a>
+      {%- endif -%}
+      {%- if pc_centres.size > 0 -%}
+      <a class="btn btn-outline btn-compact" href="coaching.html?{{ pc_sp }}exam={{ pc_exam }}">Find {{ site.data.coaching.exams[pc_exam].tag }} coaching</a>
+      {%- endif -%}
+    {%- endcapture -%}
+    {%- endif -%}
+  {%- elsif cd_kind != "" -%}
+    {%- assign cd_eyebrow = "Keep exploring" -%}{%- assign cd_title = page.footer.col3_heading | default: "Related pages" -%}
+  {%- endif -%}
+  {%- endif -%}
+
+{%- elsif region_id == "us" -%}
+  {%- assign cd_US = site.data.us -%}
+  {%- comment -%} Career, pathway or trade page: find its entry in a cluster's careers list. {%- endcomment -%}
+  {%- assign cd_cl_url = "us/clusters/" | append: page.cluster | append: "/" -%}
+  {%- assign cd_st_url = "us/states/" | append: page.state | append: "/" -%}
+  {%- assign cd_cl = nil -%}{%- assign cd_me = "" -%}
+  {%- if page.pathway or page.career or page.trade -%}
+    {%- if page.pathway -%}{%- assign cd_me = "p:" | append: page.pathway -%}{%- assign cd_home = "us/careers/" | append: page.pathway | append: "/" -%}
+    {%- elsif page.trade -%}{%- assign cd_me = "t:" | append: page.trade -%}{%- assign cd_home = "us/cte/" | append: page.trade | append: ".html" -%}
+    {%- else -%}{%- assign cd_me = "c:" | append: page.career -%}{%- assign cd_home = "us/careers/" | append: page.career | append: "/" -%}{%- endif -%}
+    {%- if cd_self == cd_home -%}
+    {%- for CL in cd_US.clusters.clusters -%}{%- unless cd_cl -%}{%- for E in CL.careers -%}
+      {%- capture cd_ek -%}{% if E.pathway %}p:{{ E.pathway }}{% elsif E.trade %}t:{{ E.trade }}{% else %}c:{{ E.career }}{% endif %}{%- endcapture -%}
+      {%- if cd_ek == cd_me -%}{%- assign cd_cl = CL -%}{%- assign cd_sub = E.sub -%}{%- endif -%}
+    {%- endfor -%}{%- endunless -%}{%- endfor -%}
+    {%- endif -%}
+  {%- endif -%}
+  {%- if cd_cl -%}
+    {%- assign cd_kind = "us-career" -%}{%- assign cd_eyebrow = cd_cl.name -%}{%- assign cd_title = "More careers in this cluster" -%}
+    {%- capture cd_chips -%}
+      {%- for pass in (1..2) -%}{%- for E in cd_cl.careers -%}
+        {%- capture cd_ek -%}{% if E.pathway %}p:{{ E.pathway }}{% elsif E.trade %}t:{{ E.trade }}{% else %}c:{{ E.career }}{% endif %}{%- endcapture -%}
+        {%- assign cd_take = false -%}
+        {%- if pass == 1 and E.sub == cd_sub -%}{%- assign cd_take = true -%}{%- elsif pass == 2 and E.sub != cd_sub -%}{%- assign cd_take = true -%}{%- endif -%}
+        {%- if cd_take and cd_ek != cd_me and cd_n < cd_max -%}
+        {% include us-cluster-career.html e=E mode="chip" cluster=cd_cl.slug %}
+        {%- assign cd_n = cd_n | plus: 1 -%}
+        {%- endif -%}
+      {%- endfor -%}{%- endfor -%}
+    {%- endcapture -%}
+    {%- assign cd_P = nil -%}{%- if page.pathway -%}{%- assign cd_P = cd_US.pathways.list | where: "slug", page.pathway | first -%}{%- endif -%}
+    {%- capture cd_ctas -%}
+      <a class="btn btn-primary btn-compact" href="us/clusters/{{ cd_cl.slug }}/">All {{ cd_cl.name }} careers</a>
+      {%- if cd_P.colleges -%}
+      <a class="btn btn-outline btn-compact" href="us/careers/{{ cd_P.slug }}/colleges/">Colleges that offer this degree</a>
+      {%- else -%}
+      <a class="btn btn-outline btn-compact" href="us/colleges/">Find U.S. colleges</a>
+      {%- endif -%}
+    {%- endcapture -%}
+  {%- elsif page.cluster and cd_self == cd_cl_url -%}
+    {%- assign cd_C = cd_US.clusters.clusters | where: "slug", page.cluster | first -%}
+    {%- if cd_C -%}
+    {%- assign cd_kind = "us-cluster" -%}{%- assign cd_eyebrow = cd_C.name -%}{%- assign cd_title = "Closely connected clusters" -%}
+    {%- capture cd_chips -%}
+      {%- for s in cd_C.connected -%}
+        {%- assign cd_o = cd_US.clusters.clusters | where: "slug", s | first -%}
+        {%- if cd_o.live and cd_n < cd_max -%}
+        <li><a class="cd-chip" href="us/clusters/{{ cd_o.slug }}/">{{ cd_o.name }}</a></li>
+        {%- assign cd_n = cd_n | plus: 1 -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endcapture -%}
+    {%- capture cd_ctas -%}
+      <a class="btn btn-primary btn-compact" href="us/clusters/">All 14 career clusters</a>
+      <a class="btn btn-outline btn-compact" href="us/colleges/">Find U.S. colleges</a>
+    {%- endcapture -%}
+    {%- endif -%}
+  {%- elsif page.state and cd_self == cd_st_url -%}
+    {%- assign cd_si = cd_US.state_index.list | where: "slug", page.state | first -%}
+    {%- assign cd_S = cd_US.states[page.state] -%}
+    {%- assign cd_N = cd_si.name | default: page.breadcrumb.current -%}
+    {%- assign cd_kind = "us-state" -%}{%- assign cd_eyebrow = cd_N -%}{%- assign cd_title = "Next stops for " | append: cd_N | append: " students" -%}
+    {%- capture cd_chips -%}
+      {%- if cd_S.licenses -%}<li><a class="cd-chip" href="us/states/{{ page.state }}/licenses.html">{{ cd_N }} license rules</a></li>{%- assign cd_n = cd_n | plus: 1 -%}{%- endif -%}
+      <li><a class="cd-chip" href="us/states/">All 50 states + DC</a></li>
+      <li><a class="cd-chip" href="us/clusters/">Career clusters</a></li>
+      <li><a class="cd-chip" href="us/professional-licenses/">Professional licenses</a></li>
+      <li><a class="cd-chip" href="us/exams/">U.S. exams</a></li>
+      <li><a class="cd-chip" href="us/college/">Paying for college</a></li>
+      {%- assign cd_n = cd_n | plus: 5 -%}
+    {%- endcapture -%}
+    {%- capture cd_ctas -%}
+      <a class="btn btn-primary btn-compact" href="us/colleges/{{ page.state }}/">Find colleges in {{ cd_N }}</a>
+    {%- endcapture -%}
+  {%- endif -%}
+
+{%- elsif region_id == "uk" -%}
+  {%- assign cd_C = site.data.uk.careers[page.career] -%}
+  {%- assign cd_uk_url = "uk/careers/" | append: cd_C.slug | append: "/" -%}
+  {%- if page.career and cd_C and cd_self == cd_uk_url -%}
+    {%- assign cd_sector = cd_C.eyebrow | split: " · " -%}{%- assign cd_sector = cd_sector[1] -%}
+    {%- assign cd_kind = "uk-career" -%}{%- assign cd_eyebrow = "UK · " | append: cd_sector -%}{%- assign cd_title = "Other UK career routes" -%}
+    {%- capture cd_chips -%}
+      {%- for pass in (1..2) -%}{%- for cc in site.data.uk.careers -%}
+        {%- assign CC = cc[1] -%}
+        {%- assign cd_cs = CC.eyebrow | split: " · " -%}
+        {%- assign cd_take = false -%}
+        {%- if pass == 1 and cd_cs[1] == cd_sector -%}{%- assign cd_take = true -%}{%- elsif pass == 2 and cd_cs[1] != cd_sector -%}{%- assign cd_take = true -%}{%- endif -%}
+        {%- if cd_take and CC.slug != cd_C.slug and cd_n < cd_max -%}
+        <li><a class="cd-chip" href="uk/careers/{{ CC.slug }}/">{{ CC.title | split: ":" | first }}</a></li>
+        {%- assign cd_n = cd_n | plus: 1 -%}
+        {%- endif -%}
+      {%- endfor -%}{%- endfor -%}
+    {%- endcapture -%}
+    {%- capture cd_ctas -%}
+      <a class="btn btn-primary btn-compact" href="uk/careers/">All UK careers</a>
+      {%- if cd_C.in_page -%}<a class="btn btn-outline btn-compact" href="{{ cd_C.in_page }}" data-region-set="in">Same career in India</a>{%- endif -%}
+      {%- if cd_C.us_pathway -%}<a class="btn btn-outline btn-compact" href="us/careers/{{ cd_C.us_pathway }}/" data-region-set="us">Same career in the USA</a>{%- endif -%}
+    {%- endcapture -%}
+  {%- endif -%}
+{%- endif -%}
+
+{%- assign cd_chips = cd_chips | strip -%}{%- assign cd_ctas = cd_ctas | strip -%}
+{%- if cd_chips != "" or cd_ctas != "" %}
+<nav class="context-deck" aria-labelledby="cd-title" data-no-points>
+  <div class="container">
+    <div class="cd-box">
+      <div class="cd-head">
+        {%- if cd_eyebrow != "" %}<span class="eyebrow">{{ cd_eyebrow }}</span>{% endif %}
+        <h2 id="cd-title">{{ cd_title }}</h2>
+      </div>
+      {%- if cd_chips != "" %}
+      <ul class="cd-chips">
+        {{ cd_chips }}
+      </ul>
+      {%- endif %}
+      {%- if cd_ctas != "" %}
+      <div class="cd-ctas">
+        {{ cd_ctas }}
+      </div>
+      {%- endif %}
+    </div>
+  </div>
+</nav>
+{%- endif %}
+{%- endunless -%}

@@ -1,5 +1,5 @@
 {%- comment -%}
-  One career of a cluster hub (_includes/us-cluster-hub.html), as a matrix row (mode="row", ending in its career-page button) or a link (mode="link").
+  One career of a cluster hub (_includes/us-cluster-hub.html), as a matrix row (mode="row", ending in its career-page button), a link (mode="link") or a pre-footer chip (mode="chip", context-deck.html).
   Param e = one `careers` entry of _data/us/clusters.yml; the facts come from the career's own data, never from here:
     pathway: <slug>  _data/us/pathways.yml + its lead occupation in occupations.yml (BLS OOH); description =
                      pathway_pages.yml answer; license wording = the same rule as the pathway page (us-career-v2.html)
@@ -71,4 +71,6 @@
             </tr>
 {%- elsif include.mode == "link" %}
           <li><a href="{{ c_href }}">{{ c_name }}</a> <span class="us-by">{{ e.sub }}</span></li>
+{%- elsif include.mode == "chip" %}
+      <li><a class="cd-chip" href="{{ c_href }}">{{ c_name }}</a></li>
 {%- endif -%}

@@ -1,0 +1,51 @@
+{%- comment -%}
+  Finder keys for one India page, shared by career-control.html (hero dropdowns) and context-deck.html
+  (pre-footer buttons). Param hub = a sheet's hero.hub (or flat keys from an exam page). Sets, for the caller:
+    pc_courses     list of _data/colleges.yml course keys named by hub.colleges_href / colleges2_href
+    pc_col_total   colleges listed under those keys (0 = no college finder link: finder link policy)
+    pc_exam        _data/coaching.yml exam key named by hub.coaching_href ("" if none)
+    pc_centres     coaching centres listed for pc_exam
+    pc_has_prep    true when there are centres or an exam page to show
+    pc_stream, pc_sp   finder hub hand-off (stream=…&amp;) from the page's stream
+{%- endcomment -%}
+{%- assign X = include.hub -%}
+{%- assign pc_courses = "" -%}
+{%- assign pc_hrefs = X.colleges_href | append: "|" | append: X.colleges2_href | split: "|" -%}
+{%- for h in pc_hrefs -%}
+  {%- if h -%}
+    {%- assign pc_key = "" -%}
+    {%- if h contains "course=" -%}
+      {%- assign pc_key = h | split: "course=" | last | split: "#" | first | split: "&" | first -%}
+    {%- else -%}
+      {%- assign pc_page = h | split: "#" | first | remove: ".html" -%}
+      {%- for e in site.data.colleges.courses -%}{%- if e[1].page == pc_page -%}{%- assign pc_key = e[0] -%}{%- endif -%}{%- endfor -%}
+    {%- endif -%}
+    {%- if pc_key != "" and site.data.colleges.courses[pc_key] -%}{%- assign pc_courses = pc_courses | append: pc_key | append: "," -%}{%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- assign pc_courses = pc_courses | split: "," -%}
+{%- assign pc_exam = "" -%}
+{%- if X.coaching_href -%}
+  {%- if X.coaching_href contains "exam=" -%}
+    {%- assign pc_exam = X.coaching_href | split: "exam=" | last | split: "#" | first | split: "&" | first -%}
+  {%- else -%}
+    {%- assign pc_page = X.coaching_href | split: "#" | first | remove: ".html" -%}
+    {%- for e in site.data.coaching.exams -%}{%- if e[1].page == pc_page -%}{%- assign pc_exam = e[0] -%}{%- endif -%}{%- endfor -%}
+  {%- endif -%}
+{%- endif -%}
+{%- comment -%} Listings for each dropdown; a key with zero listings is dropped. {%- endcomment -%}
+{%- assign pc_col_total = 0 -%}
+{%- for k in pc_courses -%}
+  {%- assign pc_rows = site.data.colleges.colleges | where_exp: "c", "c.courses contains k" -%}
+  {%- assign pc_col_total = pc_col_total | plus: pc_rows.size -%}
+{%- endfor -%}
+{%- assign pc_centres = "" | split: "" -%}
+{%- if pc_exam != "" and site.data.coaching.exams[pc_exam] -%}
+  {%- assign pc_centres = site.data.coaching.centres | where_exp: "c", "c.exams contains pc_exam" -%}
+{%- endif -%}
+{%- assign pc_has_prep = false -%}
+{%- if pc_centres.size > 0 or X.exam_href or X.exam2_href -%}{%- assign pc_has_prep = true -%}{%- endif -%}
+{%- comment -%} Finder hand-off: the page's stream preselects the hub (same mapping as hub-ctas.html). {%- endcomment -%}
+{%- assign pc_stream = page.stream | default: "" -%}
+{%- if pc_stream == "diploma" or pc_stream == "iti" -%}{%- assign pc_stream = "diploma-iti" -%}{%- elsif pc_stream == "govt-exams" -%}{%- assign pc_stream = "govt" -%}{%- endif -%}
+{%- capture pc_sp -%}{%- if pc_stream != "" -%}stream={{ pc_stream }}&amp;{%- endif -%}{%- endcapture -%}

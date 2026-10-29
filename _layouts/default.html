@@ -20,6 +20,9 @@
       col3_heading              heading of the optional third column
       col3_links                list of { href, label } for that column
       careers_href, careers_label, faq_href   "Guidance" column links
+    (context deck)              _includes/context-deck.html sits between the content and the footer on India career
+                                sheets, hubs and state portals (chips from footer.col3_links + the sheet's menu group),
+                                USA careers / cluster hubs / state pages and UK careers; never on region-neutral pages.
     progress_full: true         render the scroll progress bar pre-filled (404)
     back_to_top: false          omit the back-to-top button
     (India edition)             every page with region "in" that is not region-neutral gets body.shell-in:
@@ -147,6 +150,8 @@
 {%- endif %}
 
 {{ content }}
+
+{% include context-deck.html %}
 
 {% capture col3_content %}{% for link in page.footer.col3_links %}
 <li><a href="{{ link.href }}">{{ link.label }}</a></li>{% endfor %}

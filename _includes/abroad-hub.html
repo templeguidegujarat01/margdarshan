@@ -96,13 +96,28 @@
       <div class="section-head">
         <span class="eyebrow"><span class="sc-step">03</span> Tests</span>
         <h2 id="exams-heading">Exams for study abroad</h2>
-        <p>Fees in India, versions, scores, and which countries ask for each test.</p>
+        <p>Which test each country asks for, built from the country guides. Open a test for fees in India, versions and score rules; open a country for the exact level it wants.</p>
       </div>
-      <ul class="sl-links sc-more">
-        {%- for x in AC.exams %}<li><a href="study-abroad/exams/{{ x[0] }}.html">{{ x[1].short }} <span>{{ x[1].by }}</span></a></li>{% endfor %}
-        <li><a href="neet-ug.html">NEET-UG <span>Needed for MBBS abroad</span></a></li>
-        <li><a href="fmge.html">FMGE <span>After MBBS abroad</span></a></li>
-      </ul>
+      <div class="table-wrap sc-table ab-exam-map"><table class="table-simple">
+        <caption class="sr-only">Study-abroad tests and the countries that ask for them</caption>
+        <thead><tr><th scope="col">Test</th><th scope="col">Countries that ask for it</th><th scope="col">Guide</th></tr></thead>
+        <tbody>
+          {%- for x in AC.exams %}
+          <tr>
+            <th scope="row">{{ x[1].short }}<span class="ab-per">{{ x[1].by }}</span></th>
+            <td><span class="ab-chips">{%- for c in site.data.in.abroad %}{% for t in c[1].tests %}{% if t.exam == x[0] %}<a href="study-abroad/{{ c[0] }}.html">{{ c[1].short }}</a>{% endif %}{% endfor %}{% endfor %}</span></td>
+            <td><a class="btn btn-ghost btn-compact btn-page-link" href="study-abroad/exams/{{ x[0] }}.html">{{ x[1].short }}</a></td>
+          </tr>
+          {%- endfor %}
+          {%- for pg in AC.india_exams %}
+          <tr>
+            <th scope="row">{{ pg.label }}<span class="ab-per">{{ pg.by }}</span></th>
+            <td><span class="ab-chips">{%- for c in site.data.in.abroad %}{% for t in c[1].tests %}{% if t.page == pg.page %}<a href="study-abroad/{{ c[0] }}.html">{{ c[1].short }}</a>{% endif %}{% endfor %}{% endfor %}<a href="study-abroad/mbbs-abroad.html">Any MBBS abroad</a></span></td>
+            <td><a class="btn btn-ghost btn-compact btn-page-link" href="{{ pg.page }}">{{ pg.label }}</a></td>
+          </tr>
+          {%- endfor %}
+        </tbody>
+      </table></div>
     </div>
   </section>
 

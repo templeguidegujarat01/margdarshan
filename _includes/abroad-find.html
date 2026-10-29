@@ -1,0 +1,18 @@
+{%- comment -%}
+  "Find a course" cards: official course searches and the government lists of institutions that may admit
+  international students. Usage: {% include abroad-find.html c=C %}
+  Data: `find` in _data/in/abroad/<id>.yml — [{label, by, url, what}], https only (checked by check-abroad-data).
+{%- endcomment -%}
+{%- if include.c.find.size > 0 %}
+<h3 class="block-subhead ab-find-head">Find a course: official search tools</h3>
+<div class="ab-tests ab-find">
+  {%- for f in include.c.find %}
+  <article class="ab-test">
+    <span class="ab-card-region">{{ f.by }}</span>
+    <h3>{{ f.label }}</h3>
+    <p>{{ f.what }}</p>
+    <p class="ab-test-cta"><a class="btn btn-ghost btn-compact btn-page-link" href="{{ f.url }}" target="_blank" rel="noopener noreferrer">Open {{ f.label }}<span class="sr-only"> (opens in a new tab)</span></a></p>
+  </article>
+  {%- endfor %}
+</div>
+{%- endif %}

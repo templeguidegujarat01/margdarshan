@@ -1832,7 +1832,7 @@ a.feature-card:hover,a.feature-card:focus-visible{border-color:var(--gold);box-s
 .hub-card h3 a{color:inherit;text-decoration:none;}
 .hub-card h3 a:hover,.hub-card h3 a:focus-visible{color:var(--link);text-decoration:underline;text-underline-offset:3px;}
 
-/* Country sub-portals (_includes/country-page.html) */
+/* Country sub-portals (old _includes/country-page.html, now in _archive/legacy-abroad/; .qf-6 kept for reuse) */
 @media (min-width:768px){.quickfacts.qf-6{grid-template-columns:repeat(3,1fr);}}
 @media (min-width:1100px){.quickfacts.qf-6{grid-template-columns:repeat(6,1fr);}}
 .quickfacts.qf-6 .qf-card strong{font-size:.9rem;line-height:1.35;}
@@ -3880,4 +3880,27 @@ a.jb-card:is(:hover,:focus-visible){border-color:var(--gold);transform:translate
   .ab-money tr > *{display:block;padding:0;border:0;}
   .ab-money tr > th{grid-column:1 / -1;font-weight:650;}
   .ab-money .ab-inr{align-self:start;text-align:right;}
+}
+/* Exam cards and "find a course" cards (_includes/abroad-tests.html, abroad-find.html), hub test map, row links */
+.ab-find-head{margin:0 0 .7rem;}
+.ab-tests{display:grid;gap:.8rem;grid-template-columns:repeat(auto-fill,minmax(min(100%,16rem),1fr));margin:0 0 1.3rem;}
+.ab-test{display:flex;flex-direction:column;gap:.4rem;min-width:0;padding:.95rem 1.05rem;border:1px solid var(--line);border-top:3px solid var(--stream-accent,var(--gold));border-radius:var(--radius-md);background:var(--surface);}
+.ab-test h3{margin:0;font-size:1.05rem;line-height:1.3;}
+.ab-test p{margin:0;font-size:.9rem;line-height:1.55;}
+.ab-test-cta{margin-top:auto!important;padding-top:.45rem;display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .9rem;}
+.ab-ext{font-size:.84rem;font-weight:650;color:var(--link);overflow-wrap:anywhere;}
+.ab-find .ab-test{border-top-color:var(--gold);}
+.ab-chips{display:flex;flex-wrap:wrap;gap:.35rem;}
+.ab-chips a{display:inline-block;padding:.15rem .55rem;border:1px solid var(--line);border-radius:999px;background:var(--paper);font-size:.82rem;font-weight:600;color:var(--text);text-decoration:none;}
+.ab-chips a:hover,.ab-chips a:focus-visible{border-color:var(--gold);color:var(--link);}
+.ab-exam-map td,.ab-exam-map th{vertical-align:middle;}
+.ab-row-links{white-space:nowrap;}
+.ab-row-links a{margin-right:.7rem;font-weight:650;}
+.ab-next-ctas{display:flex;flex-wrap:wrap;gap:.5rem;margin:0 0 1rem;}
+@media (max-width:599px){
+  .ab-exam-map .table-simple{min-width:0!important;width:100%;}
+  .ab-exam-map thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);}
+  .ab-exam-map tr{display:grid;gap:.45rem;padding:.75rem .8rem;border-bottom:1px solid var(--line);}
+  .ab-exam-map tr > *{display:block;padding:0;border:0;}
+  .ab-row-links{white-space:normal;}
 }

@@ -65,6 +65,7 @@
       <nav class="quicknav" aria-label="On this page">
         <span class="sc-otp" aria-hidden="true">On this page</span>
         {%- for S in V.sections %}<a href="#{{ S.id }}">{{ S.nav }}</a>{% endfor %}
+        {%- if C.tests.size > 0 %}<a href="#tests">Tests</a>{% endif %}
         <a href="#after">Work</a>
         <a href="#sources">Sources</a>
       </nav>
@@ -84,6 +85,19 @@
   {%- endfor %}
 
   {%- assign nS = V.sections.size | plus: 1 -%}
+  {%- if C.tests.size > 0 %}
+  <section class="block mb sc-block" id="tests" aria-labelledby="tests-heading">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow"><span class="sc-step">{{ nS | prepend: "0" | slice: -2, 2 }}</span> Book these early</span>
+        <h2 id="tests-heading">Tests for the {{ V.name }} file</h2>
+        <p>The admission letter behind your visa usually depends on these scores. Open a guide for fees in India, versions and score rules.</p>
+      </div>
+      {% include abroad-tests.html c=C %}
+    </div>
+  </section>
+  {%- assign nS = nS | plus: 1 -%}
+  {%- endif %}
   <section class="block mb sc-block" id="after" aria-labelledby="after-heading">
     <div class="container">
       <div class="section-head">
@@ -100,6 +114,7 @@
   <section class="block sc-block ab-next" aria-labelledby="next-heading">
     <div class="container">
       <h2 class="block-subhead" id="next-heading">Other student visa guides</h2>
+      <p class="ab-next-ctas"><a href="study-abroad/{{ C.id }}.html" class="btn btn-ghost btn-compact btn-page-link">Study in {{ C.short }}: costs, scholarships, work</a><a href="study-abroad/documents.html" class="btn btn-ghost btn-compact btn-page-link">India-side documents</a><a href="study-abroad/money.html" class="btn btn-ghost btn-compact btn-page-link">Money, TCS and loans</a></p>
       <ul class="sl-links sc-more">
         {%- for x in site.data.in.abroad %}{% if x[0] == C.id %}{% continue %}{% endif %}<li><a href="study-abroad/visas/{{ x[1].visa.slug }}.html">{{ x[1].visa.name }} <span>{{ x[1].name }}</span></a></li>{% endfor %}
       </ul>

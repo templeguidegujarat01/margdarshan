@@ -81,10 +81,10 @@
       </div>
       <div class="table-wrap sc-table"><table class="table-simple">
         <caption class="sr-only">{{ E.short }} requirements by country</caption>
-        <thead><tr><th scope="col">Country</th><th scope="col">What it asks for</th></tr></thead>
+        <thead><tr><th scope="col">Country</th><th scope="col">What it asks for</th><th scope="col">Next step</th></tr></thead>
         <tbody>
           {%- for x in site.data.in.abroad %}{% for t in x[1].tests %}{% if t.exam == include.exam %}
-          <tr><th scope="row"><a href="study-abroad/{{ x[0] }}.html#language-and-eligibility">{{ x[1].name }}</a></th><td>{{ t.need }}</td></tr>
+          <tr><th scope="row"><a href="study-abroad/{{ x[0] }}.html#language-and-eligibility">{{ x[1].name }}</a></th><td>{{ t.need }}</td><td class="ab-row-links"><a href="study-abroad/{{ x[0] }}.html">Country guide</a> <a href="study-abroad/visas/{{ x[1].visa.slug }}.html">{{ x[1].visa.short }}</a></td></tr>
           {%- endif %}{% endfor %}{% endfor %}
         </tbody>
       </table></div>
@@ -113,8 +113,7 @@
       <h2 class="block-subhead" id="next-heading">Other study-abroad exams</h2>
       <ul class="sl-links sc-more">
         {%- for x in AC.exams %}{% if x[0] == include.exam %}{% continue %}{% endif %}<li><a href="study-abroad/exams/{{ x[0] }}.html">{{ x[1].short }} <span>{{ x[1].by }}</span></a></li>{% endfor %}
-        <li><a href="neet-ug.html">NEET-UG <span>Needed for MBBS abroad</span></a></li>
-        <li><a href="fmge.html">FMGE <span>After MBBS abroad</span></a></li>
+        {%- for pg in AC.india_exams %}<li><a href="{{ pg.page }}">{{ pg.label }} <span>{{ pg.note }}</span></a></li>{% endfor %}
       </ul>
     </div>
   </section>

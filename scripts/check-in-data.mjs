@@ -54,7 +54,8 @@ for (const f of fs.readdirSync(dir).filter((x) => x.endsWith('.yml'))) {
     if (ids.has(s.id)) err(`duplicate source id ${s.id}`);
     ids.add(s.id);
     if (!/^https:\/\//.test(s.url || '')) err(`source ${s.id}: url must start with https://`);
-    if (s.checked && !(s.checked instanceof Date)) err(`source ${s.id}: checked must be a date (YYYY-MM-DD)`);
+    // js-yaml 4 (and Jekyll) load `checked: 2026-10-23` as a Date, js-yaml 5 as a string: accept both shapes.
+    if (s.checked && !(s.checked instanceof Date) && !/^d{4}-d{2}-d{2}$/.test(String(s.checked))) err(`source ${s.id}: checked must be a date (YYYY-MM-DD)`);
   }
   const cited = new Set();
   const walk = (v) => {
@@ -594,6 +595,8 @@ if (fs.existsSync(navFile)) {
   if (megaRun.status !== 0) errors.push('nav_mega: ' + ((megaRun.stderr || megaRun.stdout || '').trim().split('\n').join(' / ') || 'build-nav-mega --check failed'));
   // Study abroad engine (_data/in/abroad*): sheets, sources, review_by and study-abroad/** stubs.
   const abroadRun = spawnSync(process.execPath, [path.join(root, 'scripts', 'check-abroad-data.mjs')], { encoding: 'utf8', env: process.env });
+  // Stale review_by dates come back as warnings on stderr with exit 0: show them without failing the run.
+  if (abroadRun.status === 0 && /WARNING/.test(abroadRun.stderr || '')) console.warn((abroadRun.stderr || '').trim());
   if (abroadRun.status !== 0) errors.push('abroad: ' + ((abroadRun.stderr || abroadRun.stdout || '').trim().split('\n').join(' / ') || 'check-abroad-data failed'));
   const chk = (where, h) => { navLinks++; if (!h || !linkOk(String(h).replace(/&amp;/g, '&'))) errors.push(`nav.yml topnav ${where}: missing page ${h}`); };
   for (const it of N.topnav || []) {

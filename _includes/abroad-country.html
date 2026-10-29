@@ -62,7 +62,7 @@
       {%- endif %}
       <div class="page-hero-ctas">
         <a href="study-abroad/visas/{{ C.visa.slug }}.html" class="btn btn-primary btn-page-link">{{ C.visa.name }} guide</a>
-        <a href="study-abroad/" class="btn btn-ghost btn-page-link">All 15 countries</a>
+        <a href="study-abroad/" class="btn btn-ghost btn-page-link">All {{ site.data.in.abroad.size }} countries</a>
       </div>
       <dl class="quickfacts qf-micro">
         {%- for q in C.facts %}
@@ -93,18 +93,11 @@
         <h2 id="{{ bid }}-heading">{{ B.heading }}</h2>
       </div>
       {%- if P.id == "language_and_eligibility" and C.tests.size > 0 %}
-      <div class="table-wrap sc-table"><table class="table-simple">
-        <caption class="sr-only">Tests {{ C.name }} asks for</caption>
-        <thead><tr><th scope="col">Test</th><th scope="col">What {{ C.short }} asks for</th></tr></thead>
-        <tbody>
-          {%- for t in C.tests %}
-          {%- assign X = AC.exams[t.exam] -%}
-          <tr><th scope="row">{% if X %}<a href="study-abroad/exams/{{ t.exam }}.html">{{ X.short }}</a>{% else %}{{ t.label }}{% endif %}</th><td>{{ t.need }}{% if t.source %} {% include state-src-ref.html id=t.source %}{% endif %}</td></tr>
-          {%- endfor %}
-        </tbody>
-      </table></div>
+      <h3 class="block-subhead ab-find-head">Exams {{ C.short }} asks for</h3>
+      {% include abroad-tests.html c=C %}
       {%- endif %}
       {% include abroad-parts.html parts=B.parts %}
+      {%- if P.id == "intakes_and_streams" %}{% include abroad-find.html c=C %}{% endif %}
       {%- if P.id == "visa_chokepoints" %}
       <p class="ab-more"><a class="btn btn-ghost btn-page-link" href="study-abroad/visas/{{ C.visa.slug }}.html">Full {{ C.visa.name }} guide: steps, money, documents and problems</a></p>
       {%- endif %}

@@ -25,6 +25,7 @@ const req = createRequire(path.join(process.env.VERIFY_DEPS || root, 'x.js'));
 const { Liquid } = req('liquidjs');
 const yaml = req('js-yaml');
 const all = process.argv.includes('--all');
+// VERIFY_DUMP=<dir>: also write each rendered page to <dir>/<path> (for screenshots / eyeballing).
 // --only=<prefix>: check just the top-level pages whose path starts with <prefix> (e.g. --only=journey); no --all checks.
 const only = (process.argv.find((a) => a.startsWith('--only=')) || '').slice(7);
 
@@ -132,6 +133,7 @@ for (const f of targets) {
   n++;
   let html;
   try { html = await render(f); } catch (e) { err(f, 'render error: ' + e.message.split('\n')[0]); continue; }
+  if (process.env.VERIFY_DUMP) { const out = path.join(process.env.VERIFY_DUMP, f); fs.mkdirSync(path.dirname(out), { recursive: true }); fs.writeFileSync(out, html); }
   if (/\{\{|\{%/.test(html)) err(f, 'unresolved liquid tags');
   if (/coming soon/i.test(html)) err(f, '"coming soon" text');
   // .btn-page-link draws its own "→" (main.css ::after), so a typed arrow in its text shows "→ →".

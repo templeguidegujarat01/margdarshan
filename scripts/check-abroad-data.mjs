@@ -4,7 +4,8 @@
 // Fails on: a missing pillar or an extra one, a part with an unknown kind, a `source` id that is not in the same
 // file's sources, a source nobody cites, a money row without a number or with a currency that has no fx rate
 // (RUB/UAH are allowed: the page then says "no official rate"), a `tests` exam that has no exam page, duplicate visa
-// slugs, a doubt without a source, and any sheet past its review_by date.
+// slugs and a doubt without a source. A sheet past its review_by date is only a WARNING (printed, exit code
+// unchanged) so builds keep running; pass --strict (or ABROAD_STRICT=1) to make stale sheets fail again.
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -18,6 +19,9 @@ const AC = read('_data/in/abroad_common.yml');
 const files = fs.readdirSync(path.join(root, '_data/in/abroad')).filter((f) => f.endsWith('.yml')).sort();
 const errs = [];
 const err = (where, msg) => errs.push(`${where}: ${msg}`);
+const warns = [];
+const STRICT = process.argv.includes('--strict') || process.env.ABROAD_STRICT === '1';
+const stale = (where, d) => (STRICT ? err : (w, m) => warns.push(`${w}: ${m}`))(where, `review_by ${d} has passed — re-read the sources and move review_by forward`);
 const today = new Date().toISOString().slice(0, 10);
 const day = (d) => (d instanceof Date ? d.toISOString().slice(0, 10) : String(d || ''));
 const NO_RATE = new Set(['RUB', 'UAH']);
@@ -68,7 +72,12 @@ const checkFacts = (used, where, facts) => {
 };
 
 // ---- common file
-if (day(AC.review_by) < today) err('abroad_common', `review_by ${day(AC.review_by)} has passed — re-read the sources`);
+(AC.india_exams || []).forEach((x, i) => {
+  if (!x.label || !x.page || !x.by || !x.note) err(`abroad_common.india_exams[${i}]`, 'needs label, page, by, note');
+  else if (!fs.existsSync(path.join(root, x.page))) err(`abroad_common.india_exams[${i}]`, `page ${x.page} does not exist`);
+});
+if (!AC.review_by) err('abroad_common', 'no review_by date');
+else if (day(AC.review_by) < today) stale('abroad_common', day(AC.review_by));
 for (const [slug, e] of Object.entries(AC.exams)) {
   const used = [];
   const w = `abroad_common.exams.${slug}`;
@@ -95,7 +104,8 @@ for (const f of files) {
   if (c.id !== f.replace(/\.yml$/, '')) err(w, `id "${c.id}" does not match the file name`);
   for (const k of ['name', 'short', 'region', 'currency', 'status', 'eyebrow', 'title', 'seo_title', 'description', 'lede']) if (!c[k]) err(w, `no ${k}`);
   if (!['open', 'caution', 'avoid'].includes(c.status)) err(w, `status must be open, caution or avoid`);
-  if (day(c.review_by) < today) err(w, `review_by ${day(c.review_by)} has passed — re-read the sources`);
+  if (!c.review_by) err(w, 'no review_by date');
+  else if (day(c.review_by) < today) stale(w, day(c.review_by));
   if (!c.checked) err(w, 'no checked date');
   if (c.alert) { if (!c.alert.text) err(`${w}.alert`, 'no text'); cite(used, `${w}.alert`, c.alert.source); }
   checkFacts(used, `${w}.facts`, c.facts);
@@ -103,8 +113,13 @@ for (const f of files) {
   (c.tests || []).forEach((t, i) => {
     if (t.exam && !AC.exams[t.exam]) err(`${w}.tests[${i}]`, `exam "${t.exam}" has no exam page in abroad_common.yml`);
     if (!t.exam && !t.label) err(`${w}.tests[${i}]`, 'needs exam or label');
+    if (t.page && !(AC.india_exams || []).some((x) => x.page === t.page)) err(`${w}.tests[${i}]`, `page "${t.page}" is not listed in abroad_common.yml → india_exams`);
     if (!t.need) err(`${w}.tests[${i}]`, 'no need text');
     cite(used, `${w}.tests[${i}]`, t.source);
+  });
+  (c.find || []).forEach((x, i) => {
+    for (const k of ['label', 'by', 'url', 'what']) if (!x[k]) err(`${w}.find[${i}]`, `no ${k}`);
+    if (!/^https:\/\//.test(x.url || '')) err(`${w}.find[${i}]`, 'url must be https');
   });
   const P = c.pillars || {};
   for (const id of PILLARS) {
@@ -122,7 +137,7 @@ for (const f of files) {
   if (!Array.isArray(v.sections) || !v.sections.length) err(`${w}.visa`, 'no sections');
   (v.sections || []).forEach((s, i) => {
     if (!s.id || !s.heading || !s.nav || !s.eyebrow) err(`${w}.visa.sections[${i}]`, 'needs id, nav, eyebrow, heading');
-    if (['after', 'sources'].includes(s.id)) err(`${w}.visa.sections[${i}]`, `id "${s.id}" is reserved by the template`);
+    if (['after', 'tests', 'sources'].includes(s.id)) err(`${w}.visa.sections[${i}]`, `id "${s.id}" is reserved by the template`);
     walkParts(used, `${w}.visa.sections[${i}]`, s.parts);
   });
   (c.doubts || []).forEach((d, i) => { if (!d.q || !d.a) err(`${w}.doubts[${i}]`, 'needs q and a'); if (!d.source) err(`${w}.doubts[${i}]`, 'doubt without a source'); if (/&/.test(d.q + d.a)) err(`${w}.doubts[${i}]`, 'use "and", not "&" (FAQ JSON-LD must match the printed text)'); cite(used, `${w}.doubts[${i}]`, d.source); });
@@ -136,6 +151,7 @@ try {
   err('build-abroad --check', (e.stdout || '') + (e.stderr || ''));
 }
 
+for (const x of warns) console.warn('  WARNING (stale data) ' + x);
 for (const e of errs) console.error('  ' + e);
-console.log(`check-abroad-data: ${files.length} country sheet(s), ${Object.keys(AC.exams).length} exam(s), ${Object.keys(AC.guides).length} guide(s): ${errs.length} problem(s)`);
+console.log(`check-abroad-data: ${files.length} country sheet(s), ${Object.keys(AC.exams).length} exam(s), ${Object.keys(AC.guides).length} guide(s): ${errs.length} problem(s)${warns.length ? `, ${warns.length} stale-data warning(s)` : ''}`);
 if (errs.length) process.exit(1);

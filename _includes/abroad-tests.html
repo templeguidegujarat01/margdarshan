@@ -1,0 +1,27 @@
+{%- comment -%}
+  Exam cards for one country: each test the country asks for, what it asks for, and buttons to the
+  exam's guide on this site and its official booking site. Used on the country page (English & eligibility
+  block) and on the visa page ("Tests for the visa file").
+  Usage: {% include abroad-tests.html c=C %}   (needs AC and SRC assigned by the page template)
+  Data: `tests` in _data/in/abroad/<id>.yml — `exam` (a key of abroad_common.yml → exams) or
+  `label` + optional `page` (an India-side page on this site, e.g. neet-ug.html), plus `need` and `source`.
+{%- endcomment -%}
+<div class="ab-tests">
+  {%- for t in include.c.tests %}
+  {%- assign X = AC.exams[t.exam] -%}
+  <article class="ab-test">
+    <span class="ab-card-region">{% if X %}{{ X.by }}{% else %}India side{% endif %}</span>
+    <h3>{% if X %}{{ X.short }}{% else %}{{ t.label }}{% endif %}</h3>
+    <p>{{ t.need }}{% if t.source %} {% include state-src-ref.html id=t.source %}{% endif %}</p>
+    <p class="ab-test-cta">
+      {%- if X %}
+      <a class="btn btn-ghost btn-compact btn-page-link" href="study-abroad/exams/{{ t.exam }}.html">{{ X.short }} guide</a>
+      {%- assign o = X.official | first -%}
+      {%- if o %}<a class="ab-ext" href="{{ o.url }}" target="_blank" rel="noopener noreferrer">{{ o.label }}<span class="sr-only"> (opens in a new tab)</span></a>{% endif %}
+      {%- elsif t.page %}
+      <a class="btn btn-ghost btn-compact btn-page-link" href="{{ t.page }}">{{ t.label }} guide</a>
+      {%- endif %}
+    </p>
+  </article>
+  {%- endfor %}
+</div>

@@ -1,0 +1,163 @@
+# United States — study abroad sheet (shape: _data/in/abroad_common.yml header). Read 2026-10-29; the deeper US rules
+# (OPT, STEM OPT, CPT, H-1B, duration of status) are kept current in _data/us/immigration.yml for the USA edition.
+id: usa
+name: "United States"
+short: USA
+region: "North America"
+currency: USD
+checked: 2026-10-29
+review_by: 2027-01-29
+status: caution
+eyebrow: "Study abroad · North America"
+title: "Study in the USA from India"
+seo_title: "Study in the USA from India: F-1, I-20, SEVIS and OPT"
+description: "F-1 student visa from India: I-20, US$350 SEVIS fee, DS-160, interview in your own country, public social-media settings, 20 on-campus hours, OPT and 24-month STEM OPT."
+lede: "US universities admit students one by one, each with its own tests and deadlines. The visa side is the same for everyone: an I-20 from a SEVP-certified school, the SEVIS fee, the DS-160 and an interview at a US embassy or consulate in India."
+alert:
+  text: "Immigration rules are moving fast in 2026: a rule to end 'duration of status' for F-1 students is blocked in court, and CPT is being policed more tightly. Read the USA edition's work-authorization page before you commit."
+  source: ds_rule
+facts:
+  - { label: "SEVIS I-901 fee", value: "US$350 (F-1)", source: sevis_fee }
+  - { label: "Visa application (MRV) fee", value: "US$185", source: mrv }
+  - { label: "Work on campus", value: "Up to 20 hours a week in session", source: ice_employment }
+  - { label: "After the degree", value: "OPT 12 months (+24 for STEM)", source: uscis_opt }
+card:
+  line: "Largest choice of universities; I-20 + SEVIS + interview"
+  psw: "OPT 12 mo + 24 mo STEM"
+  work: "20 h/week on campus"
+  funds: "First-year costs on the I-20"
+tests:
+  - { exam: toefl-ibt, need: "Set by each university for admission", source: educationusa }
+  - { exam: ielts, need: "Set by each university for admission", source: educationusa }
+  - { exam: duolingo, need: "Accepted by many universities for admission; check each one", source: educationusa }
+  - { exam: sat, need: "Undergraduate: many colleges are test-optional, some require the SAT or ACT", source: educationusa }
+  - { exam: gre, need: "Many master's and PhD programmes; others have made it optional", source: educationusa }
+  - { exam: gmat, need: "MBA and business master's programmes", source: educationusa }
+pillars:
+  language_and_eligibility:
+    heading: "Tests are set by each university"
+    parts:
+      - points:
+          - { t: "There is no national admission test or cut-off: each US college decides which English test, SAT/ACT, GRE or GMAT it wants and what score. EducationUSA (US State Department) advising centres in India explain the process free.", source: educationusa }
+          - { t: "Your I-20 shows the costs the school estimated for you; the visa officer checks you can pay at least the first year.", source: mrv }
+  intakes_and_streams:
+    heading: "Intakes and the STEM question"
+    parts:
+      - points:
+          - { t: "If you want the 24-month STEM OPT extension later, your degree must be on the DHS STEM Designated Degree Program List and from an accredited, SEVP-certified school.", source: uscis_stem_opt }
+          - { t: "Curricular Practical Training (CPT) is only for training that is a required part of your programme; SEVP told schools in August 2026 to authorize it only when integral to the curriculum.", source: sits_cpt }
+      - note: "Most universities start in August or September (fall); many also admit for January (spring). Each university publishes its own deadlines."
+  tuition_and_living_costs:
+    heading: "What the visa process costs"
+    parts:
+      - money:
+          - { item: "SEVIS I-901 fee (F-1)", cur: USD, amount: 350, per: "student", source: sevis_fee }
+          - { item: "Visa application (MRV) fee", cur: USD, amount: 185, per: "application", source: mrv }
+          - { item: "SAT (outside the US)", cur: USD, amount: 111, per: "registration", source: sat_intl }
+          - { item: "GRE General Test", cur: USD, amount: 249, per: "test (from 1 Aug 2026)", source: gre_fees }
+      - points:
+          - { t: "Tuition and living costs differ for every college; the school's estimate is printed on your I-20 and is what you must show you can fund.", source: mrv }
+          - { t: "The USA edition of this site lists college costs and programmes state by state.", source: educationusa }
+      - links:
+          - { label: "US colleges by state (USA edition)", url: "us/colleges/" }
+  global_scholarships:
+    heading: "Funding for Indian students"
+    parts:
+      - awards:
+          - { name: "Fulbright-Nehru Master's Fellowships", by: "USIEF (US and Indian governments)", who: "Indian graduates with 55%+ and 3 years' full-time work experience; not Government of India or state government employees", gives: "Master's study in selected fields in the US", url: "https://www.usief.org.in/fulbright-fellowships/fellowships-for-indian-citizen/fulbright-nehru-masters-fellowships/", source: fulbright }
+      - points:
+          - { t: "USIEF's call for applications usually opens in February each year; the 2026-27 master's deadline was 14 May 2025.", source: fulbright }
+      - note: "Most other aid (merit scholarships, teaching or research assistantships) comes from the university; ask the department."
+  application_funnel:
+    heading: "From admission to the interview"
+    parts:
+      - steps:
+          - { title: "Admission and I-20", text: "A SEVP-certified school issues your Form I-20 after admission and proof of funds." }
+          - { title: "Pay the SEVIS I-901 fee", text: "US$350 for F-1 students, before the visa interview.", source: sevis_fee }
+          - { title: "DS-160 and visa fee", text: "Fill the DS-160 and pay the US$185 application fee.", source: mrv }
+          - { title: "Set social media to public", text: "The State Department vets the online presence of all F, M and J applicants and asks them to set profiles to public.", source: vetting }
+          - { title: "Interview in India", text: "Book at a US embassy or consulate in your country of nationality or residence.", source: country_residence }
+  visa_chokepoints:
+    heading: "The F-1 visa in short"
+    parts:
+      - points:
+          - { t: "Applicants must interview in their country of nationality or residence; fees paid for applying elsewhere are not refunded or transferred.", source: country_residence }
+          - { t: "Online-presence vetting covers every F, M and J applicant; profiles should be set to public.", source: vetting }
+          - { t: "A 2026 DHS rule to replace 'duration of status' with a fixed admission period was blocked nationwide by a federal court on 14 September 2026; the government has appealed.", source: ds_rule }
+  post_study_work:
+    heading: "Work during and after your degree"
+    parts:
+      - points:
+          - { t: "On-campus jobs: no more than 20 hours a week while school is in session; full time during breaks.", source: ice_employment }
+          - { t: "OPT: up to 12 months per degree level. File Form I-765 up to 90 days before and no later than 60 days after completion, and within 30 days of the DSO recommendation.", source: uscis_opt }
+          - { t: "STEM OPT: a 24-month extension with an E-Verify employer; total unemployment allowed is 150 days.", source: uscis_stem_opt }
+          - { t: "H-1B work visas: cap of 65,000 plus 20,000 for US master's holders; a September 2025 proclamation added a US$100,000 payment for certain new petitions, which is under court challenge.", source: h1b_proc }
+      - links:
+          - { label: "USA edition: work authorization timeline", url: "us/international-students/work-authorization/" }
+visa:
+  slug: usa-f1-student-visa
+  name: "US F-1 student visa"
+  short: "F-1 visa"
+  seo_title: "US F-1 Visa from India: I-20, SEVIS, DS-160, Interview"
+  description: "F-1 visa from India step by step: I-20, US$350 SEVIS fee, DS-160 and US$185 fee, interview in your own country, public social media, and the 2026 rule changes."
+  lede: "The F-1 visa is granted at a US embassy or consulate after an interview. Your I-20, the SEVIS fee receipt, your DS-160 and your proof of funds are the core of the file."
+  facts:
+    - { label: "SEVIS fee", value: "US$350", source: sevis_fee }
+    - { label: "Visa fee", value: "US$185", source: mrv }
+    - { label: "Where to interview", value: "Country of nationality or residence", source: country_residence }
+    - { label: "Social media", value: "Set to public for vetting", source: vetting }
+  official:
+    - { label: "US Embassy and Consulates in India — Visas", url: "https://in.usembassy.gov/visas/" }
+    - { label: "ICE — SEVIS I-901 fee", url: "https://www.ice.gov/sevis/i901/faq" }
+  sections:
+    - id: steps
+      nav: Steps
+      eyebrow: "Order of work"
+      heading: "Step by step"
+      parts:
+        - steps:
+            - { title: "Form I-20", text: "From a SEVP-certified school after admission." }
+            - { title: "SEVIS I-901 fee", text: "US$350, paid before the interview.", source: sevis_fee }
+            - { title: "DS-160 + US$185", text: "Online form and the application fee.", source: mrv }
+            - { title: "Public profiles", text: "Set social-media profiles to public before the interview.", source: vetting }
+            - { title: "Interview", text: "At a US post in India (your country of nationality or residence).", source: country_residence }
+    - id: fees
+      nav: Fees
+      eyebrow: "What you pay"
+      heading: "Visa-stage fees"
+      parts:
+        - money:
+            - { item: "SEVIS I-901 fee", cur: USD, amount: 350, per: "student", source: sevis_fee }
+            - { item: "Visa application (MRV) fee", cur: USD, amount: 185, per: "application", source: mrv }
+        - note: "A US$250 'visa integrity fee' was created by a July 2025 US law; check the State Department fee page for whether it is being collected when you apply."
+          source: mrv
+    - id: chokepoints
+      nav: "Common problems"
+      eyebrow: "Where files go wrong"
+      heading: "Choke points to check twice"
+      parts:
+        - points:
+            - { t: "Booking the interview in another country to get an earlier slot: fees are not refunded and waits may be longer.", source: country_residence }
+            - { t: "Private social-media profiles when the State Department asks for public settings.", source: vetting }
+            - { t: "Planning to rely on CPT for off-campus work: it must be required by the curriculum.", source: sits_cpt }
+doubts:
+  - { q: "What is the SEVIS fee for an F-1 visa?", a: "The I-901 SEVIS fee is US$350 for most F-1 students, paid before the visa interview.", source: sevis_fee }
+  - { q: "Can I give my US visa interview in another country?", a: "Applicants are told to interview in their country of nationality or residence. Fees paid for applying elsewhere are not refunded or transferred.", source: country_residence }
+  - { q: "Do I need to make my Instagram public for a US student visa?", a: "The State Department vets the online presence of all F, M and J applicants and asks them to set their social-media profiles to public.", source: vetting }
+  - { q: "How many hours can an F-1 student work in the USA?", a: "Up to 20 hours a week on campus while school is in session, and full time during breaks.", source: ice_employment }
+  - { q: "How long is OPT after a US master's?", a: "Up to 12 months per degree level, plus a 24-month STEM extension if the degree is on the DHS STEM list and the employer uses E-Verify.", source: uscis_stem_opt }
+sources:
+  - { id: sevis_fee, name: "ICE — I-901 SEVIS fee FAQ", url: "https://www.ice.gov/sevis/i901/faq", covers: "US$350 for F-1", checked: 2026-10-29 }
+  - { id: mrv, name: "US Department of State — Fees for visa services", url: "https://travel.state.gov/content/travel/en/us-visas/visa-information-resources/fees/fees-visa-services.html", covers: "US$185 application fee" }
+  - { id: country_residence, name: "US Department of State — Adjudicating NIV applicants in their country of residence", url: "https://travel.state.gov/content/travel/en/News/visas-news/adjudicating-niv-applicants-in-their-country-of-residence.html", covers: "Interview in country of nationality/residence" }
+  - { id: vetting, name: "US Department of State — Expanded screening and vetting for visa applicants", url: "https://travel.state.gov/content/travel/en/News/visas-news/announcement-of-expanded-screening-and-vetting-for-visa-applicants.html", covers: "Online presence, public profiles" }
+  - { id: ice_employment, name: "ICE — SEVIS: F-1 employment", url: "https://www.ice.gov/sevis/employment", covers: "20 hours on campus" }
+  - { id: uscis_opt, name: "USCIS — Optional Practical Training for F-1 students", url: "https://www.uscis.gov/working-in-the-united-states/students-and-exchange-visitors/optional-practical-training-opt-for-f-1-students", covers: "12 months, filing window" }
+  - { id: uscis_stem_opt, name: "USCIS — STEM OPT extension", url: "https://www.uscis.gov/working-in-the-united-states/students-and-exchange-visitors/optional-practical-training-extension-for-stem-students-stem-opt", covers: "24 months, E-Verify, 150 days" }
+  - { id: sits_cpt, name: "Study in the States — F-1 Curricular Practical Training", url: "https://studyinthestates.dhs.gov/sevis-help-hub/student-records/fm-student-employment/f-1-curricular-practical-training-cpt", covers: "CPT rules, 2026 guidance" }
+  - { id: ds_rule, name: "Study in the States — Fixed time period of admission final rule", url: "https://studyinthestates.dhs.gov/final-rule-establishing-a-fixed-time-period-of-admission-and-an-extension-of-stay-procedure-quick", covers: "Duration of status rule (blocked 14 Sep 2026)" }
+  - { id: h1b_proc, name: "USCIS — Presidential proclamation on certain nonimmigrant workers (H-1B)", url: "https://www.uscis.gov/newsroom/alerts/presidential-proclamation-on-restriction-on-entry-of-certain-nonimmigrant-workers", covers: "US$100,000 payment, court status" }
+  - { id: fulbright, name: "USIEF — Fulbright-Nehru Master's Fellowships", url: "https://www.usief.org.in/fulbright-fellowships/fellowships-for-indian-citizen/fulbright-nehru-masters-fellowships/", covers: "55%, 3 years' work, deadline pattern" }
+  - { id: educationusa, name: "EducationUSA — Your 5 steps to US study", url: "https://educationusa.state.gov/your-5-steps-us-study", covers: "Admission set by each college, advising", checked: 2026-10-29 }
+  - { id: sat_intl, name: "College Board — SAT international fees", url: "https://satsuite.collegeboard.org/sat/registration/international-testing/fees", covers: "US$68 + US$43", checked: 2026-10-29 }
+  - { id: gre_fees, name: "ETS — GRE fees", url: "https://www.ets.org/gre/test-takers/general-test/register/fees.html", covers: "US$249 from 1 Aug 2026", checked: 2026-10-29 }

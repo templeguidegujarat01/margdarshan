@@ -1,0 +1,88 @@
+{%- comment -%}
+  India-side study-abroad guide (study-abroad/<slug>.html: money, documents, mbbs-abroad).
+  Usage: {% include abroad-guide.html guide="money" %}   Data: _data/in/abroad_common.yml → guides[slug].
+{%- endcomment -%}
+{%- assign AC = site.data.in.abroad_common -%}
+{%- assign G = AC.guides[include.guide] -%}
+{%- assign SRC = G.sources -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site.url }}{{ site.baseurl }}/" },
+    { "@type": "ListItem", "position": 2, "name": "Study Abroad", "item": "{{ site.url }}{{ site.baseurl }}/study-abroad/" },
+    { "@type": "ListItem", "position": 3, "name": {{ G.short | jsonify }}, "item": "{{ page.url | absolute_url }}" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": {{ G.title | jsonify }},
+  "url": "{{ page.url | absolute_url }}",
+  "isPartOf": { "@type": "WebSite", "name": {{ site.title | jsonify }}, "url": "{{ site.url }}{{ site.baseurl }}/" },
+  "description": {{ page.description | jsonify }},
+  "dateModified": "{{ AC.checked | date: '%Y-%m-%d' }}"
+}
+</script>
+
+<main id="main" class="sc-page nx-page ab-page">
+  <section class="page-hero career-hero sc-hero" aria-labelledby="hero-heading">
+    <svg class="page-hero-bg" viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M-50 340 C 220 300, 320 380, 500 300 S 780 200, 980 260 1150 160 1300 200" stroke="#E8A33D" stroke-width="1.4" fill="none" opacity=".3"/>
+    </svg>
+    <div class="container page-hero-inner">
+      <span class="eyebrow">{{ G.eyebrow }}</span>
+      <h1 id="hero-heading">{{ G.title }}</h1>
+      <div class="meta-row">
+        <span>Government of India and official sources</span><span>·</span><span>Last checked {{ AC.checked | date: "%-d %b %Y" }}</span>
+      </div>
+      <p>{{ G.lede }}</p>
+      <div class="page-hero-ctas">
+        <a href="study-abroad/" class="btn btn-primary btn-page-link">Choose a country</a>
+      </div>
+      <dl class="quickfacts qf-micro">
+        {%- for q in G.facts %}
+        <div class="qf-card"><dt>{{ q.label }}</dt><dd>{{ q.value }}{% if q.source %} {% include state-src-ref.html id=q.source %}{% endif %}</dd></div>
+        {%- endfor %}
+      </dl>
+    </div>
+  </section>
+
+  <div class="quicknav-bar sc-quicknav">
+    <div class="container">
+      <nav class="quicknav" aria-label="On this page">
+        <span class="sc-otp" aria-hidden="true">On this page</span>
+        {%- for S in G.sections %}<a href="#{{ S.id }}">{{ S.nav }}</a>{% endfor %}
+        <a href="#sources">Sources</a>
+      </nav>
+    </div>
+  </div>
+
+  {%- for S in G.sections %}
+  <section class="block mb sc-block" id="{{ S.id }}" aria-labelledby="{{ S.id }}-heading">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow"><span class="sc-step">{{ forloop.index | prepend: "0" | slice: -2, 2 }}</span> {{ S.eyebrow }}</span>
+        <h2 id="{{ S.id }}-heading">{{ S.heading }}</h2>
+      </div>
+      {% include abroad-parts.html parts=S.parts %}
+    </div>
+  </section>
+  {%- endfor %}
+
+  {%- assign ab_step = G.sections.size | plus: 1 -%}
+  {% include abroad-sources.html step=ab_step checked=AC.checked subject=G.short %}
+
+  <section class="block sc-block ab-next" aria-labelledby="next-heading">
+    <div class="container">
+      <h2 class="block-subhead" id="next-heading">More study-abroad guides</h2>
+      <ul class="sl-links sc-more">
+        {%- for g in AC.guides %}{% if g[0] == include.guide %}{% continue %}{% endif %}<li><a href="study-abroad/{{ g[0] }}.html">{{ g[1].short }} <span>India side</span></a></li>{% endfor %}
+        {%- for x in site.data.in.abroad %}<li><a href="study-abroad/{{ x[0] }}.html">{{ x[1].name }} <span>{{ x[1].region }}</span></a></li>{% endfor %}
+      </ul>
+    </div>
+  </section>
+</main>

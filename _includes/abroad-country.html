@@ -1,0 +1,143 @@
+{%- comment -%}
+  Study-abroad country page (study-abroad/<id>.html, stubs written by scripts/build-abroad.mjs).
+  Usage: {% include abroad-country.html id="canada" %}
+  Data: _data/in/abroad/<id>.yml (hero facts, `tests`, the seven `pillars` in the order of abroad_common.yml → pillars,
+  `visa` summary link, `doubts`, numbered `sources`) + _data/in/abroad_common.yml (pillar labels, exams, guides, fx).
+  Doubts go into FAQPage JSON-LD in the same words (scripts/verify-site.mjs checks that).
+{%- endcomment -%}
+{%- assign AC = site.data.in.abroad_common -%}
+{%- assign C = site.data.in.abroad[include.id] -%}
+{%- assign SRC = C.sources -%}
+{%- assign nP = AC.pillars.size -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site.url }}{{ site.baseurl }}/" },
+    { "@type": "ListItem", "position": 2, "name": "Study Abroad", "item": "{{ site.url }}{{ site.baseurl }}/study-abroad/" },
+    { "@type": "ListItem", "position": 3, "name": {{ C.name | jsonify }}, "item": "{{ page.url | absolute_url }}" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": {{ C.title | jsonify }},
+  "url": "{{ page.url | absolute_url }}",
+  "isPartOf": { "@type": "WebSite", "name": {{ site.title | jsonify }}, "url": "{{ site.url }}{{ site.baseurl }}/" },
+  "description": {{ page.description | jsonify }},
+  "dateModified": "{{ C.checked | date: '%Y-%m-%d' }}"
+}
+</script>
+{%- if C.doubts.size > 0 %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {%- for f in C.doubts %}
+    {"@type":"Question","name":{{ f.q | jsonify }},"acceptedAnswer":{"@type":"Answer","text":{{ f.a | jsonify }}}}{% unless forloop.last %},{% endunless %}
+    {%- endfor %}
+  ]
+}
+</script>
+{%- endif %}
+
+<main id="main" class="sc-page nx-page ab-page">
+  <section class="page-hero career-hero sc-hero" aria-labelledby="hero-heading">
+    <svg class="page-hero-bg" viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M-50 340 C 220 300, 320 380, 500 300 S 780 200, 980 260 1150 160 1300 200" stroke="#E8A33D" stroke-width="1.4" fill="none" opacity=".3"/>
+    </svg>
+    <div class="container page-hero-inner">
+      <span class="eyebrow">{{ C.eyebrow }}</span>
+      <h1 id="hero-heading">{{ C.title }}</h1>
+      <div class="meta-row">
+        <span>Official sources only</span><span>·</span><span>Rupee guide at ECB rates</span><span>·</span><span>Last checked {{ C.checked | date: "%-d %b %Y" }}</span>
+      </div>
+      <p>{{ C.lede }}</p>
+      {%- if C.alert %}
+      <div class="sc-warn ab-alert{% if C.status == 'avoid' %} is-avoid{% endif %}" role="note"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/></svg><p>{{ C.alert.text }}{% if C.alert.source %} {% include state-src-ref.html id=C.alert.source %}{% endif %}</p></div>
+      {%- endif %}
+      <div class="page-hero-ctas">
+        <a href="study-abroad/visas/{{ C.visa.slug }}.html" class="btn btn-primary btn-page-link">{{ C.visa.name }} guide</a>
+        <a href="study-abroad/" class="btn btn-ghost btn-page-link">All 15 countries</a>
+      </div>
+      <dl class="quickfacts qf-micro">
+        {%- for q in C.facts %}
+        <div class="qf-card"><dt>{{ q.label }}</dt><dd>{{ q.value }}{% if q.source %} {% include state-src-ref.html id=q.source %}{% endif %}</dd></div>
+        {%- endfor %}
+      </dl>
+    </div>
+  </section>
+
+  <div class="quicknav-bar sc-quicknav">
+    <div class="container">
+      <nav class="quicknav" aria-label="On this page">
+        <span class="sc-otp" aria-hidden="true">On this page</span>
+        {%- for P in AC.pillars %}<a href="#{{ P.id | replace: '_', '-' }}">{{ P.nav }}</a>{% endfor %}
+        {%- if C.doubts.size > 0 %}<a href="#doubts">Doubts</a>{% endif %}
+        <a href="#sources">Sources</a>
+      </nav>
+    </div>
+  </div>
+
+  {%- for P in AC.pillars %}
+  {%- assign B = C.pillars[P.id] -%}
+  {%- assign bid = P.id | replace: '_', '-' -%}
+  <section class="block mb sc-block" id="{{ bid }}" aria-labelledby="{{ bid }}-heading">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow"><span class="sc-step">{{ forloop.index | prepend: "0" | slice: -2, 2 }}</span> {{ P.eyebrow }}</span>
+        <h2 id="{{ bid }}-heading">{{ B.heading }}</h2>
+      </div>
+      {%- if P.id == "language_and_eligibility" and C.tests.size > 0 %}
+      <div class="table-wrap sc-table"><table class="table-simple">
+        <caption class="sr-only">Tests {{ C.name }} asks for</caption>
+        <thead><tr><th scope="col">Test</th><th scope="col">What {{ C.short }} asks for</th></tr></thead>
+        <tbody>
+          {%- for t in C.tests %}
+          {%- assign X = AC.exams[t.exam] -%}
+          <tr><th scope="row">{% if X %}<a href="study-abroad/exams/{{ t.exam }}.html">{{ X.short }}</a>{% else %}{{ t.label }}{% endif %}</th><td>{{ t.need }}{% if t.source %} {% include state-src-ref.html id=t.source %}{% endif %}</td></tr>
+          {%- endfor %}
+        </tbody>
+      </table></div>
+      {%- endif %}
+      {% include abroad-parts.html parts=B.parts %}
+      {%- if P.id == "visa_chokepoints" %}
+      <p class="ab-more"><a class="btn btn-ghost btn-page-link" href="study-abroad/visas/{{ C.visa.slug }}.html">Full {{ C.visa.name }} guide: steps, money, documents and problems</a></p>
+      {%- endif %}
+    </div>
+  </section>
+  {%- endfor %}
+
+  {%- if C.doubts.size > 0 %}
+  <section class="block mb sc-block" id="doubts" aria-labelledby="doubts-heading">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow"><span class="sc-step">{{ nP | plus: 1 | prepend: "0" | slice: -2, 2 }}</span> Questions students search</span>
+        <h2 id="doubts-heading">Doubts about studying in {{ C.short }}</h2>
+      </div>
+      <div class="ab-qa">
+        {%- for f in C.doubts %}
+        <div class="ab-qa-item"><h3>{{ f.q }}</h3><p>{{ f.a }}{% if f.source %} {% include state-src-ref.html id=f.source %}{% endif %}</p></div>
+        {%- endfor %}
+      </div>
+    </div>
+  </section>
+  {%- endif %}
+
+  {%- assign ab_step = nP | plus: 2 -%}{%- if C.doubts.size == 0 %}{% assign ab_step = nP | plus: 1 %}{% endif %}
+  {% include abroad-sources.html step=ab_step checked=C.checked subject=C.name %}
+
+  <section class="block sc-block ab-next" aria-labelledby="next-heading">
+    <div class="container">
+      <h2 class="block-subhead" id="next-heading">Before you go: India-side guides and other countries</h2>
+      <ul class="sl-links sc-more">
+        {%- for g in AC.guides %}<li><a href="study-abroad/{{ g[0] }}.html">{{ g[1].short }} <span>India side</span></a></li>{% endfor %}
+        {%- for x in site.data.in.abroad %}{% if x[0] == C.id %}{% continue %}{% endif %}<li><a href="study-abroad/{{ x[0] }}.html">{{ x[1].name }} <span>{{ x[1].region }}</span></a></li>{% endfor %}
+      </ul>
+    </div>
+  </section>
+</main>

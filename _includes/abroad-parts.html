@@ -1,0 +1,89 @@
+{%- comment -%}
+  Body of one block on a study-abroad page (country pillar, visa section, exam section, India-side guide section).
+  Usage: {% include abroad-parts.html parts=S.parts %}   — needs SRC (the page's source list) set by the calling template.
+  Part kinds (one key each, plus an optional `source` id):
+    p: text                      points: [{t, source}]       list: [text] (source on the last item)
+    table: {caption, head, rows} money: [{item, cur, amount, shown?, per, source}] → adds a rupee column (abroad-inr.html)
+    steps: [{title, text, source}]                            awards: [{name, by, who, gives, url, source}]
+    note: text   warn: text      links: [{label, url}] (url with :// opens in a new tab)
+  Same markup and classes as the exam cockpit (.sc-*), so these pages read as part of one system.
+{%- endcomment -%}
+{%- for p in include.parts %}
+{%- if p.p %}
+<p class="sc-p">{{ p.p }}{% if p.source %} {% include state-src-ref.html id=p.source %}{% endif %}</p>
+{%- elsif p.points %}
+<ul class="sc-list ab-points">
+  {%- for i in p.points %}
+  <li>{{ i.t }}{% if i.source %} {% include state-src-ref.html id=i.source %}{% endif %}</li>
+  {%- endfor %}
+</ul>
+{%- elsif p.list %}
+<ul class="sc-list">
+  {%- for i in p.list %}
+  <li>{{ i }}{% if forloop.last and p.source %} {% include state-src-ref.html id=p.source %}{% endif %}</li>
+  {%- endfor %}
+</ul>
+{%- elsif p.table %}
+{%- if p.table.caption %}
+<h3 class="block-subhead sc-cap">{{ p.table.caption }}{% if p.source %} {% include state-src-ref.html id=p.source %}{% endif %}</h3>
+{%- endif %}
+<div class="table-wrap sc-table"><table class="table-simple">
+  {%- if p.table.caption %}<caption class="sr-only">{{ p.table.caption }}</caption>{% endif %}
+  <thead><tr>{% for h in p.table.head %}<th scope="col">{{ h }}</th>{% endfor %}</tr></thead>
+  <tbody>
+    {%- for r in p.table.rows %}
+    <tr>{% for c in r %}{% if forloop.first %}<th scope="row">{{ c }}</th>{% else %}<td>{{ c }}</td>{% endif %}{% endfor %}</tr>
+    {%- endfor %}
+  </tbody>
+</table></div>
+{%- if p.table.caption == nil and p.source %}
+<p class="sc-cite">Source {% include state-src-ref.html id=p.source %}</p>
+{%- endif %}
+{%- elsif p.money %}
+<div class="table-wrap sc-table ab-money"><table class="table-simple">
+  <caption class="sr-only">Amounts in local currency with a rupee guide</caption>
+  <thead><tr><th scope="col">What</th><th scope="col">Amount</th><th scope="col">≈ In rupees</th></tr></thead>
+  <tbody>
+    {%- for m in p.money %}
+    <tr>
+      <th scope="row">{{ m.item }}{% if m.source %} {% include state-src-ref.html id=m.source %}{% endif %}</th>
+      <td class="ab-amt">{% include abroad-amt.html amount=m.amount cur=m.cur shown=m.shown %}{% if m.per %} <span class="ab-per">per {{ m.per }}</span>{% endif %}</td>
+      <td class="ab-inr">{% capture ab_inr %}{% include abroad-inr.html amount=m.amount cur=m.cur %}{% endcapture %}{% if ab_inr != "" %}{{ ab_inr }}{% else %}<span class="ab-per">no official rate</span>{% endif %}</td>
+    </tr>
+    {%- endfor %}
+  </tbody>
+</table></div>
+<p class="table-note sc-note" data-no-points>{{ site.data.in.abroad_common.fx.note }} <a href="{{ site.data.in.abroad_common.fx.url }}" target="_blank" rel="noopener noreferrer">{{ site.data.in.abroad_common.fx.label }}<span class="sr-only"> (opens in a new tab)</span></a></p>
+{%- elsif p.steps %}
+<ol class="ab-steps">
+  {%- for s in p.steps %}
+  <li class="ab-step"><span class="ab-step-n" aria-hidden="true">{{ forloop.index }}</span><div><h3>{{ s.title }}</h3><p>{{ s.text }}{% if s.source %} {% include state-src-ref.html id=s.source %}{% endif %}</p></div></li>
+  {%- endfor %}
+</ol>
+{%- elsif p.awards %}
+<div class="card-grid cols-3 ab-awards">
+  {%- for a in p.awards %}
+  <article class="feature-card">
+    <span class="feature-card-kicker">{{ a.by }}</span>
+    <h3>{% if a.url %}<a href="{{ a.url }}" target="_blank" rel="noopener noreferrer">{{ a.name }}<span class="sr-only"> (opens in a new tab)</span></a>{% else %}{{ a.name }}{% endif %}</h3>
+    <p><strong>Who:</strong> {{ a.who }}</p>
+    <p><strong>What you get:</strong> {{ a.gives }}{% if a.source %} {% include state-src-ref.html id=a.source %}{% endif %}</p>
+  </article>
+  {%- endfor %}
+</div>
+{%- elsif p.note %}
+<p class="table-note sc-note">{{ p.note }}{% if p.source %} {% include state-src-ref.html id=p.source %}{% endif %}</p>
+{%- elsif p.warn %}
+<div class="sc-warn" role="note"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/></svg><p>{{ p.warn }}{% if p.source %} {% include state-src-ref.html id=p.source %}{% endif %}</p></div>
+{%- elsif p.links %}
+<div class="chip-links sc-links">
+  {%- for l in p.links %}
+  {%- if l.url contains "://" %}
+  <a href="{{ l.url }}" target="_blank" rel="noopener noreferrer">{{ l.label }}<span class="sr-only"> (opens in a new tab)</span></a>
+  {%- else %}
+  <a href="{{ l.url }}">{{ l.label }}</a>
+  {%- endif %}
+  {%- endfor %}
+</div>
+{%- endif %}
+{%- endfor %}

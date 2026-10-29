@@ -1,0 +1,141 @@
+{%- comment -%}
+  Study-abroad master portal (study-abroad/index.html). Usage: {% include abroad-hub.html %}
+  Cards and the comparison table read each country sheet's `card` block (_data/in/abroad/<id>.yml); the same facts are
+  cited on that country's page. Exams, visa guides and India-side guides come from abroad_common.yml.
+{%- endcomment -%}
+{%- assign AC = site.data.in.abroad_common -%}
+{%- assign H = AC.hub -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site.url }}{{ site.baseurl }}/" },
+    { "@type": "ListItem", "position": 2, "name": "Study Abroad", "item": "{{ page.url | absolute_url }}" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Study abroad country guides for Indian students",
+  "itemListElement": [
+    {%- for x in site.data.in.abroad %}
+    {"@type":"ListItem","position":{{ forloop.index }},"name":{{ x[1].title | jsonify }},"url":"{{ site.url }}{{ site.baseurl }}/study-abroad/{{ x[0] }}.html"}{% unless forloop.last %},{% endunless %}
+    {%- endfor %}
+  ]
+}
+</script>
+
+<main id="main" class="sc-page nx-page ab-page ab-hub">
+  <section class="page-hero career-hero sc-hero" aria-labelledby="hero-heading">
+    <svg class="page-hero-bg" viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M-50 340 C 220 300, 320 380, 500 300 S 780 200, 980 260 1150 160 1300 200" stroke="#E8A33D" stroke-width="1.4" fill="none" opacity=".3"/>
+    </svg>
+    <div class="container page-hero-inner">
+      <span class="eyebrow">Study abroad · For Indian students</span>
+      <h1 id="hero-heading">{{ H.title }}</h1>
+      <div class="meta-row">
+        <span>{{ site.data.in.abroad.size }} countries</span><span>·</span><span>{{ AC.exams.size }} exam guides</span><span>·</span><span>Official sources only</span><span>·</span><span>Last checked {{ AC.checked | date: "%-d %b %Y" }}</span>
+      </div>
+      <p>{{ H.lede }}</p>
+      <div class="page-hero-ctas">
+        <a href="#countries" class="btn btn-primary">Pick a country</a>
+        <a href="study-abroad/money.html" class="btn btn-ghost btn-page-link">Money, TCS and loans</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="block mb sc-block" id="countries" aria-labelledby="countries-heading">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow"><span class="sc-step">01</span> Country guides</span>
+        <h2 id="countries-heading">Choose a destination</h2>
+        <p>Each guide has the same seven blocks: English and eligibility, intakes, costs in rupees, scholarships, how to apply, the visa and work rules.</p>
+      </div>
+      <div class="ab-grid">
+        {%- for x in site.data.in.abroad %}{% assign K = x[1] %}
+        <article class="ab-card{% if K.status == 'avoid' %} is-avoid{% elsif K.status == 'caution' %} is-caution{% endif %}">
+          <div class="ab-card-top"><span class="ab-card-region">{{ K.region }}</span>{% if K.status == 'avoid' %}<span class="ab-badge">Travel advisory</span>{% elsif K.status == 'caution' %}<span class="ab-badge">Check rules</span>{% endif %}</div>
+          <h3><a href="study-abroad/{{ x[0] }}.html">{{ K.name }}</a></h3>
+          <p class="ab-card-line">{{ K.card.line }}</p>
+          <dl class="ab-card-facts">
+            <div><dt>After the course</dt><dd>{{ K.card.psw }}</dd></div>
+            <div><dt>Work while studying</dt><dd>{{ K.card.work }}</dd></div>
+            <div><dt>Money to show</dt><dd>{{ K.card.funds }}</dd></div>
+          </dl>
+          <p class="ab-card-links"><a href="study-abroad/{{ x[0] }}.html">Country guide</a><a href="study-abroad/visas/{{ K.visa.slug }}.html">{{ K.visa.short }}</a></p>
+        </article>
+        {%- endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="block mb sc-block" id="compare" aria-labelledby="compare-heading">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow"><span class="sc-step">02</span> Side by side</span>
+        <h2 id="compare-heading">Work rights and money, compared</h2>
+        <p>Short versions of rules cited in full on each country page. Open the country page for the conditions and the official link.</p>
+      </div>
+      <div class="table-wrap sc-table"><table class="table-simple">
+        <caption class="sr-only">Post-study work, part-time work and money to show by country</caption>
+        <thead><tr><th scope="col">Country</th><th scope="col">After the course</th><th scope="col">Work while studying</th><th scope="col">Money to show</th></tr></thead>
+        <tbody>
+          {%- for x in site.data.in.abroad %}
+          <tr><th scope="row"><a href="study-abroad/{{ x[0] }}.html">{{ x[1].name }}</a></th><td>{{ x[1].card.psw }}</td><td>{{ x[1].card.work }}</td><td>{{ x[1].card.funds }}</td></tr>
+          {%- endfor %}
+        </tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <section class="block mb sc-block" id="exams" aria-labelledby="exams-heading">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow"><span class="sc-step">03</span> Tests</span>
+        <h2 id="exams-heading">Exams for study abroad</h2>
+        <p>Fees in India, versions, scores, and which countries ask for each test.</p>
+      </div>
+      <ul class="sl-links sc-more">
+        {%- for x in AC.exams %}<li><a href="study-abroad/exams/{{ x[0] }}.html">{{ x[1].short }} <span>{{ x[1].by }}</span></a></li>{% endfor %}
+        <li><a href="neet-ug.html">NEET-UG <span>Needed for MBBS abroad</span></a></li>
+        <li><a href="fmge.html">FMGE <span>After MBBS abroad</span></a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="block mb sc-block" id="visas" aria-labelledby="visas-heading">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow"><span class="sc-step">04</span> Visas</span>
+        <h2 id="visas-heading">Student visa guides</h2>
+        <p>Steps, money, documents and the points where applications go wrong, one page per visa.</p>
+      </div>
+      <ul class="sl-links sc-more">
+        {%- for x in site.data.in.abroad %}<li><a href="study-abroad/visas/{{ x[1].visa.slug }}.html">{{ x[1].visa.name }} <span>{{ x[1].name }}</span></a></li>{% endfor %}
+      </ul>
+    </div>
+  </section>
+
+  <section class="block mb sc-block" id="india-side" aria-labelledby="india-side-heading">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow"><span class="sc-step">05</span> India side</span>
+        <h2 id="india-side-heading">Sort these out in India first</h2>
+        <p>Rules from the Government of India that apply whichever country you choose.</p>
+      </div>
+      <div class="card-grid cols-3">
+        {%- for g in AC.guides %}
+        <article class="feature-card">
+          <span class="feature-card-kicker">{{ g[1].eyebrow }}</span>
+          <h3><a href="study-abroad/{{ g[0] }}.html">{{ g[1].title }}</a></h3>
+          <p>{{ g[1].description }}</p>
+        </article>
+        {%- endfor %}
+      </div>
+      <p class="table-note sc-note">{{ AC.fx.note }}</p>
+    </div>
+  </section>
+</main>

@@ -1750,7 +1750,7 @@ try {
       next: { href: 'coaching.html', label: 'Entrance exams and coaching' } },
     grad: { name: 'In college', focus: ['higher', 'jobs', 'salary'],
       hide: ['who', 'subjects'],
-      next: { href: 'study-abroad.html', label: 'Master’s and study-abroad routes' } },
+      next: { href: 'study-abroad/', label: 'Master’s and study-abroad routes' } },
     pro: { name: 'Graduate / working', focus: ['higher', 'jobs', 'salary', 'future'],
       hide: ['who', 'subjects', 'admission', 'fees'],
       next: { href: 'govt-exams.html', label: 'Government exams open to graduates' } }

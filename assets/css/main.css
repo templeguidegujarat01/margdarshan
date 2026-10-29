@@ -3827,3 +3827,57 @@ a.jb-card:is(:hover,:focus-visible){border-color:var(--gold);transform:translate
 .jb-missing-t{margin:.5rem 0 .35rem;font-size:1.1rem;line-height:1.35;color:var(--on-ink-strong);}
 .jb-linkbtn{padding:0;border:0;background:none;font:inherit;font-weight:600;cursor:pointer;}
 .jb-hero .jb-gate :is(a.jb-more,.jb-linkbtn,.jb-inline){color:var(--on-ink-strong);text-decoration:underline;text-underline-offset:3px;}
+
+/* ============================================================================
+   STUDY ABROAD ENGINE (study-abroad/**, _includes/abroad-*.html, 2026-10-29)
+   Built on the exam-cockpit classes (.sc-*); these add the country cards, numbered
+   steps, scholarship cards, the money table's rupee column and the Q&A list.
+   ============================================================================ */
+.ab-page .ab-alert{max-width:760px;margin:1rem auto 0;text-align:left;}
+.ab-page .ab-alert.is-avoid{border-left-color:#C0392B;}
+.ab-page .ab-alert p{color:var(--text);}
+.ab-steps{list-style:none;margin:0 0 1.2rem;padding:0;display:grid;gap:.7rem;max-width:80ch;counter-reset:none;}
+.ab-step{display:flex;gap:.85rem;align-items:flex-start;padding:.85rem 1rem;border:1px solid var(--line);border-radius:var(--radius-md);background:var(--surface);}
+.ab-step-n{flex:none;display:inline-grid;place-items:center;width:1.9rem;height:1.9rem;border-radius:999px;background:var(--stream-soft);border:1px solid var(--stream-border);font-family:var(--font-mono);font-size:.8rem;font-weight:700;color:var(--accent-on-surface);}
+.ab-step h3{margin:.1rem 0 .3rem;font-size:1rem;line-height:1.35;}
+.ab-step p{margin:0;line-height:1.6;}
+.ab-step > div{min-width:0;}
+.ab-awards{margin:0 0 1.1rem;}
+.ab-awards .feature-card h3 a{color:inherit;text-decoration:underline;text-decoration-color:var(--gold);text-underline-offset:3px;}
+.ab-awards .feature-card p strong{color:var(--text);}
+.ab-money td,.ab-money th{vertical-align:top;}
+.ab-money .ab-amt{font-weight:650;font-variant-numeric:tabular-nums;white-space:nowrap;}
+.ab-money .ab-inr{font-family:var(--font-mono);font-size:.86rem;font-weight:600;color:var(--accent-on-surface);white-space:nowrap;}
+.ab-per{display:block;font-family:var(--font-body);font-size:.76rem;font-weight:500;color:var(--text-muted);white-space:normal;}
+.ab-more{margin:.4rem 0 0;}
+.ab-qa{display:grid;gap:.8rem;max-width:80ch;}
+.ab-qa-item{padding:.9rem 1.05rem;border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:var(--radius-sm);background:var(--surface);}
+.ab-qa-item h3{margin:0 0 .35rem;font-size:1rem;line-height:1.4;}
+.ab-qa-item p{margin:0;line-height:1.6;}
+.ab-grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(min(100%,17rem),1fr));}
+.ab-card{display:flex;flex-direction:column;gap:.55rem;min-width:0;padding:1.05rem 1.15rem 1rem;border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:var(--radius-md);background:var(--surface);}
+.ab-card.is-caution{border-top-color:#D68910;}
+.ab-card.is-avoid{border-top-color:#C0392B;}
+.ab-card-top{display:flex;justify-content:space-between;align-items:center;gap:.5rem;}
+.ab-card-region{font-family:var(--font-mono);font-size:.68rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--accent-on-surface);}
+.ab-badge{font-size:.7rem;font-weight:700;padding:.15rem .5rem;border-radius:999px;border:1px solid var(--line);color:var(--text);background:var(--paper);}
+.ab-card.is-avoid .ab-badge{border-color:#C0392B;}
+.ab-card h3{margin:0;font-size:1.12rem;line-height:1.3;}
+.ab-card h3 a{color:inherit;text-decoration:none;}
+.ab-card h3 a:hover,.ab-card h3 a:focus-visible{text-decoration:underline;text-decoration-color:var(--gold);}
+.ab-card-line{margin:0;font-size:.88rem;line-height:1.5;color:var(--text-muted);}
+.ab-card-facts{margin:.1rem 0 0;display:grid;gap:.35rem;}
+.ab-card-facts > div{display:grid;gap:.05rem;}
+.ab-card-facts dt{font-family:var(--font-mono);font-size:.64rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);}
+.ab-card-facts dd{margin:0;font-size:.9rem;font-weight:600;line-height:1.4;}
+.ab-card-links{margin:auto 0 0;padding-top:.5rem;display:flex;flex-wrap:wrap;gap:.4rem 1rem;border-top:1px solid var(--line);font-size:.86rem;font-weight:650;}
+.ab-card-links a{color:var(--link);}
+.ab-next{padding-top:0;}
+@media (max-width:599px){
+  .ab-money .table-simple{min-width:0!important;width:100%;}
+  .ab-money thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);}
+  .ab-money tr{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.15rem .8rem;padding:.65rem .8rem;border-bottom:1px solid var(--line);}
+  .ab-money tr > *{display:block;padding:0;border:0;}
+  .ab-money tr > th{grid-column:1 / -1;font-weight:650;}
+  .ab-money .ab-inr{align-self:start;text-align:right;}
+}

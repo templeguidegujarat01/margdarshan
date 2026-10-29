@@ -3,7 +3,7 @@ title: "Global & State Edition 2026 — Study Abroad & State Exams"
 description: "The Education Margdarshan Global & State Edition: switch between study destinations (USA, UK, Germany, Canada, Australia, Ireland, Singapore)…"
 og_type: "website"
 og_title: "Global & State Edition — Study Abroad & State Exams"
-og_description: "Instant switchers for 7 study-abroad countries, 10 Indian states with rural schemes, and niche careers in sports, aviation, maritime and creative arts."
+og_description: "Instant switchers for 15 study-abroad countries, 10 Indian states with rural schemes, and niche careers in sports, aviation, maritime and creative arts."
 twitter_title: "Global & State Edition — Study Abroad & State Exams"
 twitter_description: "One gateway for international study, state-level admissions, rural schemes and niche career paths."
 header:
@@ -17,7 +17,7 @@ footer:
   col3_heading: "Edition Hubs"
   faq_href: "#faq"
   col3_links:
-    - { href: "study-abroad.html", label: "Study Abroad" }
+    - { href: "study-abroad/", label: "Study Abroad" }
     - { href: "state-pathways.html", label: "State-Level Pathways" }
     - { href: "niche-careers.html", label: "Niche & Sports Careers" }
     - { href: "india.html", label: "National India Edition" }
@@ -65,7 +65,7 @@ footer:
       <span class="edition-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></svg>Global &amp; State Edition</span>
       <h1 id="hero-heading">International &amp; Regional Career Guidance</h1>
       <div class="meta-row">
-        <span>{{ site.data.study_abroad.countries | size }} countries</span>
+        <span>{{ site.data.in.abroad.size }} countries</span>
         <span>·</span><span>{{ site.data.state_exams.states | size }} Indian states</span>
         <span>·</span><span>{{ site.data.niche_careers.items | size }} niche career paths</span>
       </div>
@@ -74,7 +74,7 @@ footer:
         <a href="#countries" class="btn btn-primary btn-inpage-jump btn-hub-jump">Start with a country</a>
       </div>
       <div class="quickfacts">
-        <div class="qf-card"><span>Study destinations</span><strong>{{ site.data.study_abroad.countries | size }}</strong></div>
+        <div class="qf-card"><span>Study destinations</span><strong>{{ site.data.in.abroad.size }}</strong></div>
         <div class="qf-card"><span>Indian states</span><strong>{{ site.data.state_exams.states | size }}</strong></div>
         <div class="qf-card"><span>Tests covered</span><strong>IELTS, TOEFL, SAT, GRE, GMAT</strong></div>
         <div class="qf-card"><span>Niche sectors</span><strong>Sports, Aviation, Navy, Media</strong></div>
@@ -84,33 +84,32 @@ footer:
 
   <section class="block" id="countries" aria-labelledby="countries-heading"><div class="container">
     <div class="section-head reveal"><span class="eyebrow">Study abroad</span><h2 id="countries-heading">Country switcher</h2>
-      <p>Tap a country for tuition, work-after-study, English cut-offs, visa route and scholarships.</p></div>
+      <p>Tap a country for work after study, part-time work, money to show and the official facts behind them.</p></div>
     <div class="hub-switcher">
       <div class="hub-filter" data-switch="countries" role="group" aria-label="Choose a country">
         <span class="hub-filter-label">Country</span>
-        {%- for c in site.data.study_abroad.countries %}
-        <button type="button" class="tab-btn" data-target="c-{{ c.id }}" aria-pressed="false">{{ c.name }}{% if c.id == "germany" %} (Tuition-Free){% endif %}</button>
+        {%- for x in site.data.in.abroad %}
+        <button type="button" class="tab-btn" data-target="c-{{ x[0] }}" aria-pressed="false">{{ x[1].name }}</button>
         {%- endfor %}
       </div>
-      {%- for c in site.data.study_abroad.countries %}
-      <div class="hub-panel" id="c-{{ c.id }}" data-switch-panel="countries">
-        <h3>{{ c.name }}{% if c.id == "germany" %} <span class="hub-card-tag">Tuition-free public universities</span>{% endif %}</h3>
-        <p>{{ c.summary }}</p>
+      {%- for x in site.data.in.abroad %}{% assign c = x[1] %}
+      <div class="hub-panel" id="c-{{ x[0] }}" data-switch-panel="countries">
+        <h3>{{ c.name }}</h3>
+        <p>{{ c.card.line }}</p>
         <div class="stat-badges">
-          <span class="stat-badge"><span>Tuition</span><strong>{{ c.badges.tuition }}</strong></span>
-          <span class="stat-badge"><span>Work after study</span><strong>{{ c.badges.psw }}</strong></span>
-          <span class="stat-badge"><span>IELTS</span><strong>{{ c.badges.ielts }}</strong></span>
+          <span class="stat-badge"><span>After the course</span><strong>{{ c.card.psw }}</strong></span>
+          <span class="stat-badge"><span>Work while studying</span><strong>{{ c.card.work }}</strong></span>
+          <span class="stat-badge"><span>Money to show</span><strong>{{ c.card.funds }}</strong></span>
         </div>
         <div class="hub-panel-cols">
-          <div><h4>Visa: {{ c.visa.name }}</h4><ul>{% for st in c.visa.steps %}<li>{{ st }}</li>{% endfor %}</ul></div>
-          <div><h4>Top scholarships</h4><ul>{% for sch in c.top_scholarships %}<li>{{ sch }}</li>{% endfor %}</ul>
-            <h4>English tests</h4><ul><li><strong>TOEFL:</strong> {{ c.english.toefl }}</li><li><strong>Duolingo:</strong> {{ c.english.duolingo }}</li></ul></div>
+          <div><h4>{{ c.visa.name }}</h4><ul>{% for q in c.visa.facts %}<li><strong>{{ q.label }}:</strong> {{ q.value }}</li>{% endfor %}</ul></div>
+          <div><h4>Key facts</h4><ul>{% for q in c.facts %}<li><strong>{{ q.label }}:</strong> {{ q.value }}</li>{% endfor %}</ul></div>
         </div>
-        <div class="chip-links"><a href="study-abroad/{{ c.id }}.html">Full {{ c.name }} guide</a><a href="study-abroad.html#exams">Exam roadmaps</a><a href="study-abroad.html#scholarships">All scholarships</a></div>
+        <div class="chip-links"><a href="study-abroad/{{ x[0] }}.html">Full {{ c.short }} guide with sources</a><a href="study-abroad/visas/{{ c.visa.slug }}.html">{{ c.visa.short }} guide</a><a href="study-abroad/#exams">Exams</a></div>
       </div>
       {%- endfor %}
     </div>
-    <p class="table-note">{{ site.data.study_abroad.english_note }}</p>
+    <p class="table-note">Short versions only: every fact is cited to its official page on the country guide.</p>
   </div></section>
 
   <section class="block block-alt" id="states" aria-labelledby="states-heading"><div class="container">
@@ -206,7 +205,7 @@ footer:
   <section class="block block-alt" id="pages" aria-labelledby="pages-heading"><div class="container">
     <div class="section-head reveal"><span class="eyebrow">Quick links</span><h2 id="pages-heading">Jump straight to a dedicated guide</h2></div>
     <h3 class="block-subhead">Countries</h3>
-    <div class="chip-links reveal">{%- for c in site.data.study_abroad.countries %}<a href="study-abroad/{{ c.id }}.html">{{ c.name }}</a>{%- endfor %}</div>
+    <div class="chip-links reveal">{%- for c in site.data.in.abroad %}<a href="study-abroad/{{ c[0] }}.html">{{ c[1].name }}</a>{%- endfor %}</div>
     <h3 class="block-subhead mt-lg">States</h3>
     <div class="chip-links reveal">{%- for s in site.data.state_exams.states %}{% assign hp = site.data.state_pages.states[s.id] %}{% if hp %}<a href="state-pathways/{{ s.id }}.html">{{ s.name }}</a>{% endif %}{%- endfor %}</div>
     <h3 class="block-subhead mt-lg">Niche sectors</h3>
@@ -216,7 +215,7 @@ footer:
   <section class="block" id="hubs" aria-labelledby="hubs-heading"><div class="container">
     <div class="section-head reveal"><span class="eyebrow">Go deeper</span><h2 id="hubs-heading">The full edition hubs</h2></div>
     <div class="card-grid cols-3 reveal">
-      <a class="feature-card" href="study-abroad.html"><span class="feature-card-kicker"><span class="feature-card-num">1</span>Global</span><h3>Study Abroad</h3><p>Seven destinations with visa, tuition, English cut-offs, exam roadmaps and scholarships such as Fulbright, Chevening and DAAD.</p></a>
+      <a class="feature-card" href="study-abroad/"><span class="feature-card-kicker"><span class="feature-card-num">1</span>Global</span><h3>Study Abroad</h3><p>Fifteen destinations with visa money, English scores, work rules, rupee costs and scholarships such as Fulbright, Chevening and DAAD, all from official sources.</p></a>
       <a class="feature-card" href="state-pathways.html"><span class="feature-card-kicker"><span class="feature-card-num">2</span>Regional</span><h3>State-Level Pathways</h3><p>CETs, reservation and domicile rules, counselling authorities, polytechnic boards and rural schemes for ten states.</p></a>
       <a class="feature-card" href="niche-careers.html"><span class="feature-card-kicker"><span class="feature-card-num">3</span>Niche</span><h3>Niche &amp; Sports Careers</h3><p>Sports, pilot and Merchant Navy routes, design and film paths, with institutes and step-by-step pathways.</p></a>
     </div>

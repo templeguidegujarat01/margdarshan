@@ -1,0 +1,14 @@
+{%- comment -%}
+  Rupee guide for a local amount on study-abroad pages: {% include abroad-inr.html amount=29710 cur="AUD" %} → ≈ ₹19.9 lakh
+  Rate = site.data.in.abroad_common.fx.rates[cur] (INR for 1 unit, ECB reference rates; see that file). Under ₹1 lakh the
+  figure is rounded to the nearest ₹100; from ₹1 lakh it is shown in lakh (1 decimal), from ₹1 crore in crore (2 decimals).
+  Prints nothing when the currency has no rate (for example RUB or UAH), so a missing rate never shows a wrong number.
+{%- endcomment -%}
+{%- assign ai_rate = site.data.in.abroad_common.fx.rates[include.cur] -%}
+{%- if ai_rate -%}
+{%- assign ai_inr = include.amount | times: ai_rate -%}
+{%- if ai_inr >= 10000000 -%}≈ ₹{{ ai_inr | divided_by: 10000000.0 | round: 2 }} crore
+{%- elsif ai_inr >= 100000 -%}≈ ₹{{ ai_inr | divided_by: 100000.0 | round: 1 }} lakh
+{%- else -%}{%- assign ai_r = ai_inr | divided_by: 100.0 | round | times: 100 -%}≈ ₹{% include fmt-num.html n=ai_r %}
+{%- endif -%}
+{%- endif -%}

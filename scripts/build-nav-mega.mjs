@@ -155,10 +155,18 @@ mega['state-admissions'] = {
 };
 
 // ---- global: study abroad + niche sectors + other editions
-const abroad = JSON.parse(read('_data/study_abroad.json'));
+// Study abroad engine (2026-10-29): countries, visa guides, exams and India-side guides from _data/in/abroad*.
+const AC = yaml.load(read('_data/in/abroad_common.yml'));
+const abroadC = fs.readdirSync(path.join(root, '_data/in/abroad')).filter((f) => f.endsWith('.yml')).sort()
+  .map((f) => yaml.load(read(`_data/in/abroad/${f}`)));
 mega.abroad = {
-  head: { label: 'Study abroad hub', href: 'study-abroad.html' },
-  cols: [{ label: 'Country guides', links: abroad.countries.filter((c) => exists(`study-abroad/${c.id}.html`)).map((c) => ({ label: c.name, href: `study-abroad/${c.id}.html` })) }],
+  head: { label: 'Study abroad: all 15 countries', href: 'study-abroad/' },
+  cols: [
+    { label: 'Country guides', links: abroadC.map((c) => ({ label: c.name, href: `study-abroad/${c.id}.html`, desc: c.card.psw })) },
+    { label: 'Student visas', links: abroadC.map((c) => ({ label: c.visa.name, href: `study-abroad/visas/${c.visa.slug}.html`, desc: c.name })) },
+    { label: 'Exams', links: Object.entries(AC.exams).map(([k, e]) => ({ label: e.short, href: `study-abroad/exams/${k}.html`, desc: e.by })) },
+    { label: 'India side', links: Object.entries(AC.guides).map(([k, g]) => ({ label: g.short, href: `study-abroad/${k}.html`, desc: g.eyebrow })) },
+  ],
 };
 const niche = JSON.parse(read('_data/niche_pages.json'));
 mega.niche = {

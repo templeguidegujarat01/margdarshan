@@ -1,0 +1,13 @@
+{%- comment -%}
+  Local-currency amount on study-abroad pages: {% include abroad-amt.html amount=1529 cur="GBP" %} → £1,529
+  `shown` (optional) replaces the automatic text, e.g. for amounts with paise/cents ("€1,130.77").
+{%- endcomment -%}
+{%- if include.shown -%}{{ include.shown }}{%- else -%}
+{%- case include.cur -%}
+{%- when "GBP" -%}{% include fmt-num.html n=include.amount prefix="£" %}
+{%- when "EUR" -%}{% include fmt-num.html n=include.amount prefix="€" %}
+{%- when "USD" -%}{% include fmt-num.html n=include.amount prefix="US$" %}
+{%- when "JPY" -%}{% include fmt-num.html n=include.amount prefix="¥" %}
+{%- else -%}{{ include.cur }} {% include fmt-num.html n=include.amount %}
+{%- endcase -%}
+{%- endif -%}

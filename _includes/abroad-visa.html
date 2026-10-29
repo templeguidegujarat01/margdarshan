@@ -1,0 +1,108 @@
+{%- comment -%}
+  Visa deep-dive page (study-abroad/visas/<slug>.html). Usage: {% include abroad-visa.html id="canada" %}
+  Data: the `visa` block of _data/in/abroad/<id>.yml (facts, official links, sections) — sources are the country sheet's,
+  so a fact cited on the country page and here points at the same official page.
+{%- endcomment -%}
+{%- assign AC = site.data.in.abroad_common -%}
+{%- assign C = site.data.in.abroad[include.id] -%}
+{%- assign V = C.visa -%}
+{%- assign SRC = C.sources -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site.url }}{{ site.baseurl }}/" },
+    { "@type": "ListItem", "position": 2, "name": "Study Abroad", "item": "{{ site.url }}{{ site.baseurl }}/study-abroad/" },
+    { "@type": "ListItem", "position": 3, "name": {{ C.name | jsonify }}, "item": "{{ site.url }}{{ site.baseurl }}/study-abroad/{{ C.id }}.html" },
+    { "@type": "ListItem", "position": 4, "name": {{ V.name | jsonify }}, "item": "{{ page.url | absolute_url }}" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": {{ V.name | append: " for Indian students" | jsonify }},
+  "url": "{{ page.url | absolute_url }}",
+  "isPartOf": { "@type": "WebSite", "name": {{ site.title | jsonify }}, "url": "{{ site.url }}{{ site.baseurl }}/" },
+  "description": {{ page.description | jsonify }},
+  "dateModified": "{{ C.checked | date: '%Y-%m-%d' }}"
+}
+</script>
+
+<main id="main" class="sc-page nx-page ab-page">
+  <section class="page-hero career-hero sc-hero" aria-labelledby="hero-heading">
+    <svg class="page-hero-bg" viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M-50 340 C 220 300, 320 380, 500 300 S 780 200, 980 260 1150 160 1300 200" stroke="#2A9D8F" stroke-width="1.4" fill="none" opacity=".3"/>
+    </svg>
+    <div class="container page-hero-inner">
+      <span class="eyebrow">Visa guide · {{ C.name }}</span>
+      <h1 id="hero-heading">{{ V.name }} for Indian students</h1>
+      <div class="meta-row">
+        <span>Official sources only</span><span>·</span><span>Last checked {{ C.checked | date: "%-d %b %Y" }}</span>
+      </div>
+      <p>{{ V.lede }}</p>
+      {%- if C.alert %}
+      <div class="sc-warn ab-alert{% if C.status == 'avoid' %} is-avoid{% endif %}" role="note"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/></svg><p>{{ C.alert.text }}{% if C.alert.source %} {% include state-src-ref.html id=C.alert.source %}{% endif %}</p></div>
+      {%- endif %}
+      <div class="page-hero-ctas">
+        {%- for o in V.official %}
+        <a href="{{ o.url }}" class="btn {% if forloop.first %}btn-primary{% else %}btn-ghost{% endif %} btn-page-link" target="_blank" rel="noopener noreferrer">{{ o.label }}<span class="sr-only"> (opens in a new tab)</span></a>
+        {%- endfor %}
+        <a href="study-abroad/{{ C.id }}.html" class="btn btn-ghost btn-page-link">Study in {{ C.short }}: full guide</a>
+      </div>
+      <dl class="quickfacts qf-micro">
+        {%- for q in V.facts %}
+        <div class="qf-card"><dt>{{ q.label }}</dt><dd>{{ q.value }}{% if q.source %} {% include state-src-ref.html id=q.source %}{% endif %}</dd></div>
+        {%- endfor %}
+      </dl>
+    </div>
+  </section>
+
+  <div class="quicknav-bar sc-quicknav">
+    <div class="container">
+      <nav class="quicknav" aria-label="On this page">
+        <span class="sc-otp" aria-hidden="true">On this page</span>
+        {%- for S in V.sections %}<a href="#{{ S.id }}">{{ S.nav }}</a>{% endfor %}
+        <a href="#after">Work</a>
+        <a href="#sources">Sources</a>
+      </nav>
+    </div>
+  </div>
+
+  {%- for S in V.sections %}
+  <section class="block mb sc-block" id="{{ S.id }}" aria-labelledby="{{ S.id }}-heading">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow"><span class="sc-step">{{ forloop.index | prepend: "0" | slice: -2, 2 }}</span> {{ S.eyebrow }}</span>
+        <h2 id="{{ S.id }}-heading">{{ S.heading }}</h2>
+      </div>
+      {% include abroad-parts.html parts=S.parts %}
+    </div>
+  </section>
+  {%- endfor %}
+
+  {%- assign nS = V.sections.size | plus: 1 -%}
+  <section class="block mb sc-block" id="after" aria-labelledby="after-heading">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow"><span class="sc-step">{{ nS | prepend: "0" | slice: -2, 2 }}</span> On this visa</span>
+        <h2 id="after-heading">{{ C.pillars.post_study_work.heading }}</h2>
+      </div>
+      {% include abroad-parts.html parts=C.pillars.post_study_work.parts %}
+    </div>
+  </section>
+
+  {%- assign ab_step = nS | plus: 1 -%}
+  {% include abroad-sources.html step=ab_step checked=C.checked subject=V.name %}
+
+  <section class="block sc-block ab-next" aria-labelledby="next-heading">
+    <div class="container">
+      <h2 class="block-subhead" id="next-heading">Other student visa guides</h2>
+      <ul class="sl-links sc-more">
+        {%- for x in site.data.in.abroad %}{% if x[0] == C.id %}{% continue %}{% endif %}<li><a href="study-abroad/visas/{{ x[1].visa.slug }}.html">{{ x[1].visa.name }} <span>{{ x[1].name }}</span></a></li>{% endfor %}
+      </ul>
+    </div>
+  </section>
+</main>

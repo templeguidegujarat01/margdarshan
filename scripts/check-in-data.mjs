@@ -592,6 +592,9 @@ if (fs.existsSync(navFile)) {
   // The generated flyout lists must match the hub pages and data they are built from.
   const megaRun = spawnSync(process.execPath, [path.join(root, 'scripts', 'build-nav-mega.mjs'), '--check'], { encoding: 'utf8', env: process.env });
   if (megaRun.status !== 0) errors.push('nav_mega: ' + ((megaRun.stderr || megaRun.stdout || '').trim().split('\n').join(' / ') || 'build-nav-mega --check failed'));
+  // Study abroad engine (_data/in/abroad*): sheets, sources, review_by and study-abroad/** stubs.
+  const abroadRun = spawnSync(process.execPath, [path.join(root, 'scripts', 'check-abroad-data.mjs')], { encoding: 'utf8', env: process.env });
+  if (abroadRun.status !== 0) errors.push('abroad: ' + ((abroadRun.stderr || abroadRun.stdout || '').trim().split('\n').join(' / ') || 'check-abroad-data failed'));
   const chk = (where, h) => { navLinks++; if (!h || !linkOk(String(h).replace(/&amp;/g, '&'))) errors.push(`nav.yml topnav ${where}: missing page ${h}`); };
   for (const it of N.topnav || []) {
     if (it.href) chk(it.label, it.href);

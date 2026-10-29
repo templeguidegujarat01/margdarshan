@@ -1,0 +1,28 @@
+{%- comment -%}
+  "Where these facts come from" block for study-abroad pages. Needs SRC (list of {id, name, url, covers, checked}).
+  Usage: {% include abroad-sources.html step=8 checked=C.checked subject="Canada" %}
+  Folded to 3 sources by the sitewide Sources fold (src-more.html).
+{%- endcomment -%}
+{%- assign ab_ext = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>' -%}
+<section class="block mb sc-block" id="sources" aria-labelledby="sources-heading">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow"><span class="sc-step">{{ include.step | prepend: "0" | slice: -2, 2 }}</span> Official sources &amp; verification</span>
+      <h2 id="sources-heading">Where these facts come from</h2>
+      <p>Every fact above is read from the official pages below (government, embassy, regulator, test owner or university), last checked on {{ include.checked | date: "%-d %B %Y" }}. Visa money, fees and work rules change several times a year — open the official page before you pay or apply.</p>
+    </div>
+    <ol class="cite-list">
+      {%- for s in SRC %}
+      <li id="src-{{ s.id }}">
+        <a class="source-link" href="{{ s.url }}" target="_blank" rel="noopener noreferrer">
+          {{ ab_ext }}
+          {{ s.name }}<span class="sr-only"> (opens in a new tab)</span>
+        </a>
+        <span class="cite-covers">{{ s.covers }}{% if s.checked %} · Last checked {{ s.checked | date: "%-d %b %Y" }}{% endif %}</span>
+      </li>
+      {%- endfor %}
+    </ol>
+    {% include src-more.html %}
+    <p class="cite-report">Spotted something out of date? Email <a href="mailto:{{ site.feedback_email }}?subject={{ include.subject | append: ' — correction' | uri_escape }}">{{ site.feedback_email }}</a> with the official link and we will update it.</p>
+  </div>
+</section>

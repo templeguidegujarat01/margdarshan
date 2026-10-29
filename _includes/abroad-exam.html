@@ -1,0 +1,121 @@
+{%- comment -%}
+  Exam deep-dive page for study abroad (study-abroad/exams/<slug>.html). Usage: {% include abroad-exam.html exam="ielts" %}
+  Data: _data/in/abroad_common.yml → exams[slug] (facts, official links, sections, sources). The "Which countries ask
+  for it" table is built from every country sheet's `tests` list (rows whose exam = slug), so each requirement is typed
+  once, on its country sheet, and cited there; this table links to that country's English section.
+{%- endcomment -%}
+{%- assign AC = site.data.in.abroad_common -%}
+{%- assign E = AC.exams[include.exam] -%}
+{%- assign SRC = E.sources -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site.url }}{{ site.baseurl }}/" },
+    { "@type": "ListItem", "position": 2, "name": "Study Abroad", "item": "{{ site.url }}{{ site.baseurl }}/study-abroad/" },
+    { "@type": "ListItem", "position": 3, "name": {{ E.short | jsonify }}, "item": "{{ page.url | absolute_url }}" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": {{ E.name | append: " for study abroad" | jsonify }},
+  "url": "{{ page.url | absolute_url }}",
+  "isPartOf": { "@type": "WebSite", "name": {{ site.title | jsonify }}, "url": "{{ site.url }}{{ site.baseurl }}/" },
+  "description": {{ page.description | jsonify }},
+  "dateModified": "{{ AC.checked | date: '%Y-%m-%d' }}"
+}
+</script>
+
+<main id="main" class="sc-page nx-page ab-page">
+  <section class="page-hero career-hero sc-hero" aria-labelledby="hero-heading">
+    <svg class="page-hero-bg" viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M-50 340 C 220 300, 320 380, 500 300 S 780 200, 980 260 1150 160 1300 200" stroke="#2A9D8F" stroke-width="1.4" fill="none" opacity=".3"/>
+    </svg>
+    <div class="container page-hero-inner">
+      <span class="eyebrow">Study-abroad exam · {{ E.by }}</span>
+      <h1 id="hero-heading">{{ E.name }} for study abroad</h1>
+      <div class="meta-row">
+        <span>Run by {{ E.by }}</span><span>·</span><span>Official sources only</span><span>·</span><span>Last checked {{ AC.checked | date: "%-d %b %Y" }}</span>
+      </div>
+      <p>{{ E.lede }}</p>
+      <div class="page-hero-ctas">
+        {%- for o in E.official %}
+        <a href="{{ o.url }}" class="btn {% if forloop.first %}btn-primary{% else %}btn-ghost{% endif %} btn-page-link" target="_blank" rel="noopener noreferrer">{{ o.label }}<span class="sr-only"> (opens in a new tab)</span></a>
+        {%- endfor %}
+      </div>
+      <dl class="quickfacts qf-micro">
+        {%- for q in E.facts %}
+        <div class="qf-card"><dt>{{ q.label }}</dt><dd>{{ q.value }}{% if q.source %} {% include state-src-ref.html id=q.source %}{% endif %}</dd></div>
+        {%- endfor %}
+      </dl>
+    </div>
+  </section>
+
+  {%- assign ab_rows = 0 -%}
+  {%- for x in site.data.in.abroad %}{% for t in x[1].tests %}{% if t.exam == include.exam %}{% assign ab_rows = ab_rows | plus: 1 %}{% endif %}{% endfor %}{% endfor -%}
+
+  <div class="quicknav-bar sc-quicknav">
+    <div class="container">
+      <nav class="quicknav" aria-label="On this page">
+        <span class="sc-otp" aria-hidden="true">On this page</span>
+        {%- if ab_rows > 0 %}<a href="#countries">Countries</a>{% endif %}
+        {%- for S in E.sections %}<a href="#{{ S.id }}">{{ S.nav }}</a>{% endfor %}
+        <a href="#sources">Sources</a>
+      </nav>
+    </div>
+  </div>
+
+  {%- assign ab_n = 0 -%}
+  {%- if ab_rows > 0 %}
+  {%- assign ab_n = 1 -%}
+  <section class="block mb sc-block" id="countries" aria-labelledby="countries-heading">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow"><span class="sc-step">01</span> Where it counts</span>
+        <h2 id="countries-heading">Which countries ask for {{ E.short }}, and at what level</h2>
+        <p>Each line comes from that country's own guide on this site, where the official source is cited.</p>
+      </div>
+      <div class="table-wrap sc-table"><table class="table-simple">
+        <caption class="sr-only">{{ E.short }} requirements by country</caption>
+        <thead><tr><th scope="col">Country</th><th scope="col">What it asks for</th></tr></thead>
+        <tbody>
+          {%- for x in site.data.in.abroad %}{% for t in x[1].tests %}{% if t.exam == include.exam %}
+          <tr><th scope="row"><a href="study-abroad/{{ x[0] }}.html#language-and-eligibility">{{ x[1].name }}</a></th><td>{{ t.need }}</td></tr>
+          {%- endif %}{% endfor %}{% endfor %}
+        </tbody>
+      </table></div>
+    </div>
+  </section>
+  {%- endif %}
+
+  {%- for S in E.sections %}
+  {%- assign ab_i = forloop.index | plus: ab_n -%}
+  <section class="block mb sc-block" id="{{ S.id }}" aria-labelledby="{{ S.id }}-heading">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow"><span class="sc-step">{{ ab_i | prepend: "0" | slice: -2, 2 }}</span> {{ S.eyebrow }}</span>
+        <h2 id="{{ S.id }}-heading">{{ S.heading }}</h2>
+      </div>
+      {% include abroad-parts.html parts=S.parts %}
+    </div>
+  </section>
+  {%- endfor %}
+
+  {%- assign ab_step = E.sections.size | plus: ab_n | plus: 1 -%}
+  {% include abroad-sources.html step=ab_step checked=AC.checked subject=E.short %}
+
+  <section class="block sc-block ab-next" aria-labelledby="next-heading">
+    <div class="container">
+      <h2 class="block-subhead" id="next-heading">Other study-abroad exams</h2>
+      <ul class="sl-links sc-more">
+        {%- for x in AC.exams %}{% if x[0] == include.exam %}{% continue %}{% endif %}<li><a href="study-abroad/exams/{{ x[0] }}.html">{{ x[1].short }} <span>{{ x[1].by }}</span></a></li>{% endfor %}
+        <li><a href="neet-ug.html">NEET-UG <span>Needed for MBBS abroad</span></a></li>
+        <li><a href="fmge.html">FMGE <span>After MBBS abroad</span></a></li>
+      </ul>
+    </div>
+  </section>
+</main>

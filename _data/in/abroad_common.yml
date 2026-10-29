@@ -1,0 +1,560 @@
+# Study Abroad engine (India edition, 2026-10-29) — shared data for study-abroad/**.
+# Country sheets live in _data/in/abroad/<id>.yml (one file per destination, same 7-pillar shape).
+# Pages are stubs written by scripts/build-abroad.mjs; templates are _includes/abroad-*.html.
+# Rules (scripts/check-abroad-data.mjs enforces them):
+#   - every fact carries a `source` id that exists in the same file's `sources` list;
+#   - no number without an official page behind it (government, embassy, regulator, test owner, university);
+#   - `review_by` passes -> the checker fails, because visa money, fees and work rules change several times a year.
+# Rupee figures are never typed in by hand: abroad-inr.html converts a local amount with the `fx` table below.
+
+checked: 2026-10-29
+review_by: 2027-01-29
+
+# INR for 1 unit of each currency. ECB euro reference rates of 28 Oct 2026 (INR 106.0095 per EUR) crossed
+# through the euro; AED from the dollar rate and the dirham's fixed peg (3.6725 per USD). FBIL's own daily
+# fixings are subscription-only, so they are not used. Banks and forex cards charge a margin on top.
+fx:
+  as_of: 2026-10-28
+  label: "ECB euro reference rates, 28 Oct 2026"
+  url: "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html"
+  note: "Rupee amounts are a guide only, at the ECB reference rate of 28 Oct 2026. Your bank or forex card adds a margin, and rates move every day."
+  rates:
+    USD: 95.2210
+    GBP: 126.526
+    EUR: 106.0095
+    CAD: 67.7897
+    AUD: 66.9675
+    NZD: 53.4511
+    SGD: 74.2675
+    JPY: 0.602806
+    IDR: 0.00523871
+    AED: 25.9281
+
+# The seven blocks every country sheet must have, in page order (checker: all present, none extra).
+pillars:
+  - { id: language_and_eligibility, nav: "English & eligibility", eyebrow: "Tests and entry rules" }
+  - { id: intakes_and_streams, nav: "Intakes & courses", eyebrow: "When to start, what to study" }
+  - { id: tuition_and_living_costs, nav: "Costs", eyebrow: "Tuition and living money" }
+  - { id: global_scholarships, nav: "Scholarships", eyebrow: "Funding you can apply for" }
+  - { id: application_funnel, nav: "How to apply", eyebrow: "The application funnel" }
+  - { id: visa_chokepoints, nav: "Visa", eyebrow: "Visa rules and choke points" }
+  - { id: post_study_work, nav: "Work", eyebrow: "Work while studying and after" }
+
+hub:
+  title: "Study Abroad from India: 15 Country Guides"
+  seo_title: "Study Abroad from India: 15 Countries, Visas & Costs"
+  description: "Visa money, English scores, work hours and post-study work for 15 countries, read from each government's own pages, with rupee costs."
+  lede: "Pick a country to see what its government actually asks for: the English score, the money you must show, the visa fee, how many hours you may work and how long you can stay after the course. Every number links to the official page it came from."
+
+# ---------------------------------------------------------------------------------------------
+# Exam deep-dive pages (study-abroad/exams/<slug>.html). "Which countries ask for it" is built on the
+# page from each country sheet's `tests` list, so a country's requirement is typed only once.
+exams:
+  ielts:
+    short: IELTS
+    name: "IELTS Academic (and IELTS for UKVI)"
+    by: "British Council and IDP"
+    seo_title: "IELTS for Study Abroad from India: Fees, Versions & Bands"
+    description: "IELTS Academic vs IELTS for UKVI, the INR fee at an IDP centre, band rules and the score each of 15 countries asks Indian students for."
+    lede: "IELTS is the English test most study-abroad routes accept. The version matters: UK visa routes that need a Secure English Language Test (SELT) want IELTS for UKVI, while most universities take IELTS Academic."
+    facts:
+      - { label: "Fee in India (computer)", value: "INR 19,000 (Academic); INR 19,250 (UKVI)", source: ielts_jaipur }
+      - { label: "Sections", value: "Listening, Reading, Writing, Speaking", source: ielts_academic }
+      - { label: "Score scale", value: "Bands 0–9; overall = average of four", source: ielts_scoring }
+      - { label: "How long it counts", value: "IELTS suggests 2 years; each body sets its own rule", source: ielts_scoring }
+    official:
+      - { label: "IELTS (official site)", url: "https://ielts.org/" }
+      - { label: "Find an Indian test centre", url: "https://ielts.org/test-centres" }
+    sections:
+      - id: versions
+        nav: Versions
+        eyebrow: "Pick the right version"
+        heading: "Academic, General Training or UKVI?"
+        parts:
+          - points:
+              - { t: "Choose IELTS Academic for undergraduate or graduate study and for professional registration (for example doctors and nurses).", source: ielts_academic }
+              - { t: "Listening and Speaking are the same in Academic and General Training; Reading and Writing differ.", source: ielts_academic }
+              - { t: "For a UK Student visa below degree level you need a Secure English Language Test (SELT) at CEFR B1; at degree level a licensed university may assess your English itself, but it must still be equivalent to B2.", source: ukvi_english }
+              - { t: "Australia does not accept English tests taken fully online (\"at-home\" tests such as IELTS Online) for visas.", source: au_500 }
+      - id: scores
+        nav: Scores
+        eyebrow: "How the band is worked out"
+        heading: "Band scores and validity"
+        parts:
+          - points:
+              - { t: "Each section gets a band from 0 to 9. The overall band is the average of the four, rounded to the nearest half band (.25 rounds up to the half band, .75 to the next whole band).", source: ielts_scoring }
+              - { t: "IELTS recommends treating results as valid for two years; a university or visa office can set its own window.", source: ielts_scoring }
+              - { t: "Australia accepts IELTS results with a One Skill Retake for the Temporary Graduate (485) visa, if the retake is done before you lodge.", source: au_485 }
+      - id: fees
+        nav: Fees
+        eyebrow: "What it costs in India"
+        heading: "IELTS fee at Indian centres"
+        parts:
+          - p: "An IDP centre in Jaipur lists computer-delivered IELTS Academic and General Training at INR 19,000 and the UKVI versions at INR 19,250. Prices can differ by centre and change during the year, so check your own centre when you book."
+            source: ielts_jaipur
+      - id: prep
+        nav: Practice
+        eyebrow: "Official practice only"
+        heading: "Where to practise"
+        parts:
+          - p: "Start with the free sample test questions on the IELTS website, which come from the test owners. Material that promises a guaranteed band is not from IELTS."
+            source: ielts_samples
+    sources:
+      - { id: ielts_academic, name: "IELTS — IELTS Academic test", url: "https://ielts.org/take-a-test/test-types/ielts-academic-test", covers: "Who should take Academic; sections" }
+      - { id: ielts_scoring, name: "IELTS — How IELTS is scored", url: "https://ielts.org/take-a-test/your-results/ielts-scoring-in-detail", covers: "Bands, rounding, validity" }
+      - { id: ielts_samples, name: "IELTS — Sample test questions", url: "https://ielts.org/take-a-test/preparation-resources/sample-test-questions", covers: "Free official practice" }
+      - { id: ielts_jaipur, name: "IELTS — IDP Education India, Jaipur centre", url: "https://ielts.org/test-centres/idp-education-india-jaipur", covers: "INR fees, computer-delivered", checked: 2026-10-29 }
+      - { id: ukvi_english, name: "GOV.UK — Student visa: knowledge of English", url: "https://www.gov.uk/student-visa/knowledge-of-english", covers: "SELT, B1/B2 levels", checked: 2026-10-29 }
+      - { id: au_500, name: "Home Affairs (Australia) — Student visa (subclass 500)", url: "https://immi.homeaffairs.gov.au/visas/getting-a-visa/visa-listing/student-500", covers: "At-home tests not accepted", checked: 2026-10-29 }
+      - { id: au_485, name: "Home Affairs (Australia) — Temporary Graduate visa, Post-Higher Education Work stream", url: "https://immi.homeaffairs.gov.au/visas/getting-a-visa/visa-listing/temporary-graduate-485/post-higher-education-work", covers: "One Skill Retake accepted", checked: 2026-10-29 }
+
+  toefl-ibt:
+    short: TOEFL iBT
+    name: "TOEFL iBT"
+    by: "ETS"
+    seo_title: "TOEFL iBT from India: ₹15,729 Fee & Country Cut-offs"
+    description: "TOEFL iBT for Indian students: the INR fee from ETS India, late and reschedule fees, the Australia rule, and what 15 countries ask for."
+    lede: "TOEFL iBT is accepted by most universities that ask for English. In India ETS charges in rupees through its India site, and the fee includes GST."
+    facts:
+      - { label: "Fee in India", value: "₹15,729 (registration)", source: toefl_in_fees }
+      - { label: "Late registration", value: "₹3,305.08", source: toefl_in_fees }
+      - { label: "Australia visas", value: "Pick 'Taking TOEFL for Australia' when you register (from 21 Jan 2026)", source: au_500 }
+      - { label: "Home Edition", value: "Not accepted for Australian visas", source: au_500 }
+    official:
+      - { label: "ETS India — TOEFL iBT fees", url: "https://www.in.ets.org/toefl/test-takers/ibt/register/fees.html" }
+      - { label: "TOEFL (ETS)", url: "https://www.ets.org/toefl.html" }
+    sections:
+      - id: fees
+        nav: Fees
+        eyebrow: "What it costs in India"
+        heading: "TOEFL iBT fees in India"
+        parts:
+          - table:
+              caption: "ETS India fee list"
+              head: ["Item", "Fee"]
+              rows:
+                - ["TOEFL iBT registration", "₹15,729"]
+                - ["Late registration", "₹3,305.08"]
+            source: toefl_in_fees
+          - note: "The India bulletin says test fees include GST or similar taxes."
+            source: toefl_in_bulletin
+      - id: visa-use
+        nav: "Visa use"
+        eyebrow: "Using TOEFL for a visa"
+        heading: "Visa offices treat TOEFL differently"
+        parts:
+          - points:
+              - { t: "Australia: from 21 January 2026 you must select 'Taking TOEFL for Australia' at registration for the score to count for a visa. TOEFL iBT Home Edition is not accepted, and tests taken between 26 July 2023 and 4 May 2024 are not accepted.", source: au_500 }
+              - { t: "UK: a Student visa below degree level needs a Secure English Language Test (SELT); a university can assess English itself at degree level.", source: ukvi_english }
+    sources:
+      - { id: toefl_in_fees, name: "ETS India — TOEFL iBT test registration fee", url: "https://www.in.ets.org/toefl/test-takers/ibt/register/fees.html", covers: "INR fees", checked: 2026-10-29 }
+      - { id: toefl_in_bulletin, name: "ETS — TOEFL iBT Information Bulletin for testing in India 2026-27", url: "https://www.ets.org/content/dam/ets-india/pdfs/toefl/toefl-ibt-bulletin.pdf", covers: "Fees include GST" }
+      - { id: au_500, name: "Home Affairs (Australia) — Student visa (subclass 500)", url: "https://immi.homeaffairs.gov.au/visas/getting-a-visa/visa-listing/student-500", covers: "TOEFL rules for visas", checked: 2026-10-29 }
+      - { id: ukvi_english, name: "GOV.UK — Student visa: knowledge of English", url: "https://www.gov.uk/student-visa/knowledge-of-english", covers: "SELT rule", checked: 2026-10-29 }
+
+  pte-academic:
+    short: PTE Academic
+    name: "PTE Academic"
+    by: "Pearson"
+    seo_title: "PTE Academic from India: ₹18,900 Fee, UKVI & Visa Use"
+    description: "PTE Academic in India: ₹18,900 at 57 centres, PTE Academic UKVI for UK visas, PTE Core for Canada, and the score each country asks for."
+    lede: "Pearson runs PTE at 57 centres in India. There are separate versions for different visa systems, so book the one your route names."
+    facts:
+      - { label: "Fee in India", value: "₹18,900 (Academic, Academic UKVI, Core)", source: pte_in }
+      - { label: "Centres in India", value: "57, incl. Ahmedabad, Bangalore, Chandigarh, Mumbai, New Delhi", source: pte_in }
+      - { label: "UK visas", value: "PTE Academic UKVI is a SELT", source: pte_in }
+      - { label: "Canada", value: "PTE Core is the IRCC version (economic visas)", source: pte_in }
+    official:
+      - { label: "PTE — test centres and fees (India)", url: "https://www.pearsonpte.com/pte-academic/test-centers-and-fees" }
+    sections:
+      - id: versions
+        nav: Versions
+        eyebrow: "Which PTE"
+        heading: "PTE Academic, PTE Academic UKVI and PTE Core"
+        parts:
+          - table:
+              caption: "PTE versions and fees in India"
+              head: ["Version", "Used for", "Fee"]
+              rows:
+                - ["PTE Academic", "Study and migration (universities, Australia, NZ)", "₹18,900"]
+                - ["PTE Academic UKVI", "UK visas that need a SELT", "₹18,900"]
+                - ["PTE Core", "Canadian economic visas (IRCC)", "₹18,900"]
+            source: pte_in
+          - note: "For a Canadian study permit, check what your college or university accepts for admission; PTE Core is for IRCC economic programmes."
+            source: pte_in
+    sources:
+      - { id: pte_in, name: "Pearson PTE — Test centers and fees (India)", url: "https://www.pearsonpte.com/pte-academic/test-centers-and-fees", covers: "INR fees, versions, 57 centres", checked: 2026-10-29 }
+
+  duolingo:
+    short: Duolingo
+    name: "Duolingo English Test (DET)"
+    by: "Duolingo"
+    seo_title: "Duolingo English Test for Study Abroad: Cost and Use"
+    description: "Duolingo English Test from home for US$70: free score sending, the 21-day window, and which of 15 countries' universities and visas take it."
+    lede: "The Duolingo English Test is taken online from home in about an hour. Many universities accept it for admission, but several visa systems do not, so check both before you rely on it."
+    facts:
+      - { label: "Price", value: "US$70", source: det_blog }
+      - { label: "Sending scores", value: "Free", source: det_send }
+      - { label: "Window after buying", value: "21 days to take the test", source: det_pay }
+      - { label: "Australia visas", value: "Not on the list of accepted tests", source: au_500 }
+    official:
+      - { label: "Duolingo English Test", url: "https://englishtest.duolingo.com/" }
+    sections:
+      - id: rules
+        nav: Rules
+        eyebrow: "Before you pay"
+        heading: "Admission is not the same as a visa"
+        parts:
+          - points:
+              - { t: "The test costs US$70 and is taken from home.", source: det_blog }
+              - { t: "You pay in your test account; after buying you have 21 days to complete it.", source: det_pay }
+              - { t: "Sending results to institutions is free.", source: det_send }
+              - { t: "Australia lists the English tests it accepts for visas, and fully online tests are excluded; Duolingo is not among them.", source: au_500 }
+              - { t: "A UK university can accept it for admission at degree level (it assesses English itself), but below degree level the UK visa needs a SELT.", source: ukvi_english }
+    sources:
+      - { id: det_blog, name: "Duolingo English Test — readiness guide (blog, updated Feb 2026)", url: "https://blog.englishtest.duolingo.com/duolingo-english-test-readiness/", covers: "US$70 price" }
+      - { id: det_pay, name: "Duolingo English Test help — How can I pay?", url: "https://testcenter.zendesk.com/hc/en-us/articles/360012239652-How-can-I-pay-for-the-Duolingo-English-Test", covers: "Payment, 21-day window" }
+      - { id: det_send, name: "Duolingo English Test help — cost to send results", url: "https://testcenter.zendesk.com/hc/en-us/articles/360011101411-How-much-does-it-cost-to-send-my-Duolingo-English-Test-results-to-institutions", covers: "Free score sending" }
+      - { id: au_500, name: "Home Affairs (Australia) — Student visa (subclass 500)", url: "https://immi.homeaffairs.gov.au/visas/getting-a-visa/visa-listing/student-500", covers: "Accepted visa tests", checked: 2026-10-29 }
+      - { id: ukvi_english, name: "GOV.UK — Student visa: knowledge of English", url: "https://www.gov.uk/student-visa/knowledge-of-english", covers: "SELT rule", checked: 2026-10-29 }
+
+  gre:
+    short: GRE
+    name: "GRE General Test"
+    by: "ETS"
+    seo_title: "GRE General Test from India: Fee, Fee Reduction & Use"
+    description: "GRE General Test for master's and PhD abroad: the US$249 fee from 1 Aug 2026, India pays through ETS India, rescheduling, score reports and the fee reduction voucher."
+    lede: "Many master's and PhD programmes, mostly in the USA, ask for the GRE; many others have made it optional. Check each programme page before you book."
+    facts:
+      - { label: "Test fee", value: "US$249 for most of the world, from 1 Aug 2026", source: gre_fees }
+      - { label: "Testing in India", value: "Pay through the ETS India website", source: gre_fees }
+      - { label: "Reschedule / change centre", value: "US$55 each", source: gre_fees }
+      - { label: "Extra score report", value: "US$40 per recipient", source: gre_fees }
+    official:
+      - { label: "GRE fees (ETS)", url: "https://www.ets.org/gre/test-takers/general-test/register/fees.html" }
+      - { label: "ETS India — GRE", url: "https://www.in.ets.org/gre/test-takers/general-test/register/fees.html" }
+    sections:
+      - id: fees
+        nav: Fees
+        eyebrow: "What it costs"
+        heading: "GRE fees and the fee reduction voucher"
+        parts:
+          - points:
+              - { t: "The GRE General Test costs US$249 in all areas except China, effective 1 August 2026. ETS tells test takers in India to use the ETS India website for payment.", source: gre_fees }
+              - { t: "Rescheduling and changing the test centre cost US$55 each; an additional score report costs US$40 per recipient; score reinstatement costs US$50.", source: gre_fees }
+              - { t: "With a GRE Fee Reduction Voucher you pay US$100 for the General Test and also get US$100 worth of official prep material.", source: gre_fees }
+    sources:
+      - { id: gre_fees, name: "ETS — Fees for GRE tests and related services", url: "https://www.ets.org/gre/test-takers/general-test/register/fees.html", covers: "US$ fees from 1 Aug 2026, fee reduction", checked: 2026-10-29 }
+
+  gmat:
+    short: GMAT
+    name: "GMAT exam"
+    by: "GMAC"
+    seo_title: "GMAT for an MBA Abroad: Fees, Test Centre or Online"
+    description: "GMAT for business master's and MBA abroad: US$275 at a test centre, US$300 online in the US, location-based pricing for India and fee waivers."
+    lede: "Business schools use the GMAT for MBA and management master's admission. GMAC prices it by location, so the India price shows when you register."
+    facts:
+      - { label: "US price", value: "US$275 test centre; US$300 online", source: gmat_fee }
+      - { label: "India price", value: "Location-based — shown at registration", source: gmat_pay }
+      - { label: "Reschedule", value: "From US$55 (more than 60 days ahead)", source: gmat_fee }
+      - { label: "Fee waivers", value: "Through participating schools", source: gmat_fee }
+    official:
+      - { label: "GMAT exam payment (mba.com)", url: "https://www.mba.com/exams/gmat-exam/register/exam-payment" }
+    sections:
+      - id: fees
+        nav: Fees
+        eyebrow: "What it costs"
+        heading: "GMAT pricing"
+        parts:
+          - points:
+              - { t: "GMAC lists US$275 for the test centre exam and US$300 online in the US; other locations have their own price, taxes and rules, set by where you sit the test.", source: gmat_pay }
+              - { t: "Rescheduling starts at US$55 if done more than 60 days before the test. Fee waivers are handed out through participating schools.", source: gmat_fee }
+    sources:
+      - { id: gmat_pay, name: "mba.com — GMAT exam payment", url: "https://www.mba.com/exams/gmat-exam/register/exam-payment", covers: "Location-based pricing" }
+      - { id: gmat_fee, name: "GMAC support — GMAT fees, vouchers and fee waivers", url: "https://support.mba.com/hc/en-us/articles/6284241279771-GMAT-How-Much-Does-The-Exam-Cost", covers: "US prices, reschedule, waivers" }
+
+  sat:
+    short: SAT
+    name: "SAT"
+    by: "College Board"
+    seo_title: "SAT from India: US$111 Fee and When You Need It"
+    description: "SAT for US undergraduate admission from India: US$68 plus a US$43 international fee (through June 2027), and how test-optional policies work."
+    lede: "The SAT is used mainly for US undergraduate admission. Many US colleges are test-optional, but some require scores, so check each college's own page."
+    facts:
+      - { label: "Fee outside the US", value: "US$68 + US$43 international fee = US$111", source: sat_intl }
+      - { label: "Fee table valid", value: "Through June 2027", source: sat_intl }
+      - { label: "Format", value: "Digital, on the Bluebook app", source: sat_intl }
+      - { label: "Practice", value: "Free official practice in Bluebook", source: sat_intl }
+    official:
+      - { label: "SAT international fees", url: "https://satsuite.collegeboard.org/sat/registration/international-testing/fees" }
+    sections:
+      - id: fees
+        nav: Fees
+        eyebrow: "What it costs"
+        heading: "SAT fee for Indian test takers"
+        parts:
+          - p: "College Board charges a US$68 registration fee plus a US$43 international fee for tests outside the United States, so US$111 in total. Its table of extra fees is labelled 'Fees Through June 2027'."
+            source: sat_intl
+    sources:
+      - { id: sat_intl, name: "College Board — SAT international testing fees", url: "https://satsuite.collegeboard.org/sat/registration/international-testing/fees", covers: "US$68 + US$43", checked: 2026-10-29 }
+
+  testdaf:
+    short: TestDaF
+    name: "TestDaF (German for university admission)"
+    by: "TestDaF-Institut / g.a.s.t."
+    seo_title: "TestDaF for German-Taught Degrees: Levels and TDN 4"
+    description: "TestDaF for German-taught degrees: four parts, TDN 3–5 (B2–C1), TDN 4 in all four parts for almost all courses, and where to sit it in India."
+    lede: "If your degree in Germany is taught in German, the university asks for proof of German. TestDaF is one of the standard proofs; English-taught master's courses usually do not need it."
+    facts:
+      - { label: "Parts", value: "Reading, Listening, Writing, Speaking", source: testdaf_levels }
+      - { label: "Levels", value: "TDN 3, 4, 5 = CEFR B2 to C1", source: goethe_testdaf }
+      - { label: "Usual target", value: "TDN 4 in all four parts", source: testdaf_levels }
+      - { label: "Validity", value: "No expiry", source: testdaf_faq }
+    official:
+      - { label: "TestDaF — Goethe-Institut India", url: "https://www.goethe.de/ins/in/en/spr/prf/testdaf.html" }
+    sections:
+      - id: levels
+        nav: Levels
+        eyebrow: "Scores"
+        heading: "What TDN 4 means"
+        parts:
+          - points:
+              - { t: "Each of the four parts is scored on its own as TDN 3, TDN 4 or TDN 5.", source: testdaf_levels }
+              - { t: "TDN 4 in all four parts admits you to almost all study programmes; below that, each university decides.", source: testdaf_levels }
+              - { t: "TDN 3 to 5 correspond to CEFR B2 to C1.", source: goethe_testdaf }
+              - { t: "The certificate does not expire. The fee differs by country group; in Germany it is €210 digital and €215 on paper.", source: testdaf_faq }
+    sources:
+      - { id: testdaf_levels, name: "TestDaF — TestDaF levels (TDN)", url: "https://www.testdaf.de/de/teilnehmende/warum-testdaf/testdaf-niveaus-tdn/", covers: "TDN 3–5, TDN 4 rule" }
+      - { id: testdaf_faq, name: "TestDaF — FAQ", url: "https://www.testdaf.de/de/teilnehmende/mein-testdaf/faq/faq-allgemein/", covers: "Validity, fee groups" }
+      - { id: goethe_testdaf, name: "Goethe-Institut Max Mueller Bhavan — TestDaF", url: "https://www.goethe.de/ins/in/en/spr/prf/testdaf.html", covers: "Levels = B2–C1, India centres" }
+
+  jlpt:
+    short: JLPT
+    name: "Japanese-Language Proficiency Test (JLPT)"
+    by: "Japan Foundation and JEES"
+    seo_title: "JLPT in India: N1–N5 Levels, Dates and Test Cities"
+    description: "JLPT for study in Japan: five levels N5 to N1, tests in July and December 2026, Indian test cities and why Japanese-taught degrees ask for it."
+    lede: "Japanese-taught degrees and many Japanese-language schools ask for Japanese ability; the JLPT is the most common proof. English-taught degree programmes may not need it."
+    facts:
+      - { label: "Levels", value: "N5 (easiest) to N1 (hardest)", source: jlpt_levels }
+      - { label: "2026 tests", value: "5 July and 6 December", source: jlpt_home }
+      - { label: "India cities", value: "New Delhi, Pune, Kolkata, Chennai, Bengaluru, Mumbai, Karur and more", source: jlpt_sites }
+      - { label: "How to register", value: "Through the local host institution in your city", source: jlpt_sites }
+    official:
+      - { label: "JLPT (official)", url: "https://www.jlpt.jp/e/" }
+    sections:
+      - id: levels
+        nav: Levels
+        eyebrow: "What each level means"
+        heading: "N5 to N1"
+        parts:
+          - points:
+              - { t: "There are five levels, N1 to N5. N4 and N5 test basic classroom Japanese; N1 and N2 test Japanese used across everyday and wider settings; N3 bridges them.", source: jlpt_levels }
+              - { t: "The 2026 tests are on Sunday 5 July and Sunday 6 December.", source: jlpt_home }
+              - { t: "In India the July and December tests run in cities including New Delhi, Pune, Kolkata, Chennai, Bengaluru, Mumbai and Karur; each city's host institution handles registration.", source: jlpt_sites }
+    sources:
+      - { id: jlpt_levels, name: "JLPT — N1–N5 summary of linguistic competence", url: "https://www.jlpt.jp/e/about/levelsummary.html", covers: "Levels" }
+      - { id: jlpt_home, name: "JLPT — official site", url: "https://www.jlpt.jp/e/", covers: "2026 test dates" }
+      - { id: jlpt_sites, name: "JLPT — overseas test site cities and host institutions", url: "https://www.jlpt.jp/e/application/overseas_list.html", covers: "Indian cities, host institutions" }
+
+  dmat:
+    short: APS and dMAT
+    name: "APS certificate and the dMAT (Germany)"
+    by: "APS India and g.a.s.t."
+    seo_title: "APS and dMAT for Germany: Who Needs It From 2027"
+    description: "APS India checks Indian marksheets for a German student visa. From summer semester 2027, B.Tech, B.Com, BBA and economics graduates also need the €150 dMAT for a master's."
+    lede: "Germany asks Indian applicants for an APS certificate, which verifies your Indian documents before the visa. A new aptitude test, the dMAT, is now part of APS for many master's applicants."
+    facts:
+      - { label: "Who needs APS", value: "Indian-degree applicants for German study (visa document)", source: aps_home }
+      - { label: "dMAT needed by", value: "B.Tech/B.Eng, Commerce, Economics, BBA/management graduates (master's)", source: aps_dmat }
+      - { label: "dMAT fee", value: "€150, paid to g.a.s.t.", source: aps_dmat }
+      - { label: "dMAT dates", value: "16 Jan 2027 and 13 Mar 2027", source: aps_dmat }
+    official:
+      - { label: "APS India", url: "https://aps-india.de/" }
+      - { label: "dMAT requirements", url: "https://aps-india.de/dmat/" }
+    sections:
+      - id: aps
+        nav: APS
+        eyebrow: "Step zero for Germany"
+        heading: "What APS India does"
+        parts:
+          - points:
+              - { t: "APS India verifies academic documents from Indian institutions; the certificate is part of the German student-visa file.", source: aps_home }
+              - { t: "The steps: check your procedure on the APS site, read the checklist, gather documents and translations, register online, pay the fee online, then courier the documents and track the status.", source: aps_home }
+              - { t: "The fee is non-refundable whatever the result, and APS gives no fixed processing time — it depends on volume and on how fast your board or university replies.", source: aps_faq }
+              - { t: "A three-year diploma after Class X alone is generally not enough, because 12 years of school are normally required.", source: aps_faq }
+              - { t: "Exempt cases include degrees not issued in India, PhD/postdoc moves where the German institution does not ask for APS, and some scholarship holders funded by German or EU public money.", source: aps_faq }
+      - id: dmat
+        nav: dMAT
+        eyebrow: "New from 2027"
+        heading: "The dMAT for master's applicants"
+        parts:
+          - points:
+              - { t: "The dMAT is a standardised academic aptitude test for master's applicants, run by g.a.s.t. as an extra part of the APS file.", source: aps_dmat }
+              - { t: "It is needed by all B.Tech and B.Eng graduates, and by undergraduates in Commerce, Accounting, Finance, Economics, Business Administration or Management (including B.Sc/B.A/B.Com variants whose core is in these fields).", source: aps_dmat }
+              - { t: "It applies to APS applications for intakes from summer semester 2027 onwards; people who completed APS online registration before 29 June 2026 are exempt.", source: aps_dmat }
+              - { t: "The fee is €150. The 2027 test dates are 16 January and 13 March. You may send APS documents early; the final certificate comes after the dMAT score is verified.", source: aps_dmat }
+    sources:
+      - { id: aps_home, name: "APS India — home and process", url: "https://aps-india.de/", covers: "What APS does, steps", checked: 2026-10-29 }
+      - { id: aps_dmat, name: "APS India — dMAT", url: "https://aps-india.de/dmat/", covers: "Fields, fee, dates, exemption", checked: 2026-10-29 }
+      - { id: aps_faq, name: "APS India — FAQs", url: "https://aps-india.de/faqs/", covers: "Fees non-refundable, exemptions", checked: 2026-10-29 }
+
+# ---------------------------------------------------------------------------------------------
+# India-side guides (study-abroad/<slug>.html): what every student sorts out in India, whatever the country.
+guides:
+  money:
+    short: "Money and loans"
+    title: "Paying for Study Abroad from India: TCS, Loans and Tax"
+    seo_title: "Study Abroad Money from India: TCS, Loans and 80E"
+    description: "TCS on fees sent abroad (nil on a bank loan, 2% above ₹10 lakh from savings), education-loan interest deduction, PM-Vidyalaxmi limits and the National Overseas Scholarship."
+    eyebrow: "India side · Money"
+    lede: "Before any visa, the money has to leave India legally and in a way the visa office will accept. These are the Indian rules that apply whichever country you choose."
+    facts:
+      - { label: "TCS, loan-funded fees", value: "Nil, on remittances from an education loan", source: bs_tcs }
+      - { label: "TCS, own money", value: "2% above ₹10 lakh a year (Budget 2026-27)", source: budget_speech }
+      - { label: "Loan interest deduction", value: "Up to 8 years (Section 80E)", source: it_80e }
+      - { label: "PM-Vidyalaxmi", value: "India institutions only, not foreign study", source: pib_vidyalaxmi }
+    sections:
+      - id: tcs
+        nav: TCS
+        eyebrow: "Tax collected at source"
+        heading: "TCS when you send fees abroad"
+        parts:
+          - points:
+              - { t: "Budget 2026-27 cut TCS on Liberalised Remittance Scheme (LRS) payments for education and medical treatment from 5% to 2%. It applies to the amount above ₹10 lakh in a year.", source: budget_speech }
+              - { t: "From Budget 2025-26, money sent for education out of a loan from a specified financial institution has no TCS.", source: bs_tcs }
+              - { t: "TCS is not an extra tax: it is credited against your (or your parent's) income tax and can be claimed back in the return.", source: it_tcs }
+          - note: "Your bank's forex desk applies these rules when it sends the money. Keep the remittance advice: visa offices often want proof that fees were paid."
+            source: budget_speech
+      - id: loans
+        nav: Loans
+        eyebrow: "Education loans"
+        heading: "Loans and the interest deduction"
+        parts:
+          - points:
+              - { t: "Section 80E lets the person who repays an education loan deduct the interest for the first year of repayment and up to seven years after, or until the interest is paid, whichever is earlier.", source: it_80e }
+              - { t: "The PM-Vidyalaxmi interest-subvention scheme covers loans for admission to designated Quality Higher Educational Institutions in India. Foreign institutions, Indian campuses of foreign universities and foreign campuses of Indian institutions are not covered.", source: pib_vidyalaxmi }
+              - { t: "Most visa offices want the loan disbursed or sanctioned in writing. Australia, for example, says the best evidence for a loan is proof of disbursement.", source: au_500 }
+      - id: govt
+        nav: "Govt scholarship"
+        eyebrow: "Government of India"
+        heading: "National Overseas Scholarship (SC and others)"
+        parts:
+          - points:
+              - { t: "The Ministry of Social Justice scheme gives up to 125 new awards a year for master's and PhD study abroad, with a cap of 10% per state.", source: nos_2026 }
+              - { t: "Family income must not exceed ₹8 lakh a year; the applicant must be 35 or younger on 1 April of the selection year and have at least 60% in the qualifying exam.", source: nos_2026 }
+              - { t: "Support runs for up to 3 years for a master's and up to 4 years for a PhD.", source: nos_2026 }
+              - { t: "The Ministry of Tribal Affairs runs a separate National Overseas Scholarship for ST students (20 awards a year).", source: nos_st }
+    sources:
+      - { id: budget_speech, name: "Union Budget 2026-27 — Budget speech", url: "https://www.indiabudget.gov.in/doc/budget_speech.pdf", covers: "TCS on education 5% → 2%", checked: 2026-10-29 }
+      - { id: bs_tcs, name: "Business Standard — Budget 2025: no TCS on education loan remittances", url: "https://www.business-standard.com/budget/news/tcs-on-foreign-remittances-up-to-rs-10-lakh-none-on-foreign-education-loan-125020100857_1.html", covers: "Nil TCS on loan-funded fees, ₹10 lakh threshold" }
+      - { id: it_tcs, name: "Income Tax Department — Deductions and TCS credit", url: "https://www.incometaxindia.gov.in/w/deductions-allowable-to-tax-payer", covers: "TCS credited against tax" }
+      - { id: it_80e, name: "Income Tax Department — Section 80E", url: "https://www.incometaxindia.gov.in/w/section-80e-18", covers: "8-year interest deduction" }
+      - { id: pib_vidyalaxmi, name: "PIB — PM Vidyalaxmi Scheme (29 Jul 2026)", url: "https://static.pib.gov.in/WriteReadData/specificdocs/documents/2026/jul/doc2026729937501.pdf", covers: "Foreign institutions not covered" }
+      - { id: nos_2026, name: "Ministry of Social Justice — National Overseas Scholarship for SC etc. candidates", url: "https://socialjustice.gov.in/writereaddata/UploadFile/68641776927848.pdf", covers: "125 awards, ₹8 lakh, age 35, 60%" }
+      - { id: nos_st, name: "Ministry of Tribal Affairs — Scholarships", url: "https://tribal.nic.in/Scholarship.aspx", covers: "NOS for ST students" }
+      - { id: au_500, name: "Home Affairs (Australia) — Student visa (subclass 500)", url: "https://immi.homeaffairs.gov.au/visas/getting-a-visa/visa-listing/student-500", covers: "Loan disbursement evidence", checked: 2026-10-29 }
+
+  documents:
+    short: "Documents and safety"
+    title: "Documents, Apostille and Safety for Indian Students Abroad"
+    seo_title: "Study Abroad Documents: Apostille, Attestation and Safety"
+    description: "MEA apostille (₹50 a sticker) for marksheets and degrees, attestation for non-Hague countries, embassy warnings about agents and fees, and keeping your passport safe."
+    eyebrow: "India side · Papers"
+    lede: "Visa offices and foreign universities trust Indian papers only after they are verified. Here is how the Ministry of External Affairs (MEA) does that, and what Indian missions warn students about."
+    facts:
+      - { label: "MEA apostille fee", value: "₹50 per apostille sticker", source: mea_apostille }
+      - { label: "Normal attestation", value: "Free at MEA", source: mea_apostille }
+      - { label: "Education papers", value: "Board certificates and degrees must be apostilled in India", source: mea_apostille }
+      - { label: "Germany", value: "APS certificate checks Indian papers first", source: aps_home }
+    sections:
+      - id: apostille
+        nav: Apostille
+        eyebrow: "Making papers valid abroad"
+        heading: "Apostille and attestation"
+        parts:
+          - points:
+              - { t: "MEA charges ₹50 per apostille sticker; normal attestation is free. Outsourced collection agencies charge their own service fee.", source: mea_apostille }
+              - { t: "Documents must first be authenticated by the state or university that issued them. Some states are integrated with e-Sanad for online pre-authentication.", source: mea_apostille }
+              - { t: "An apostille is accepted in all member countries of the Hague Apostille Convention without further attestation by their missions.", source: mea_apostille }
+          - note: "An apostille works only in countries that are members of the Convention (MEA points to the HCCH status table). For a country that is not a member, papers go through attestation instead: MEA first, then that country's own mission. Ask the university which one it wants."
+            source: mea_apostille
+      - id: agents
+        nav: Agents
+        eyebrow: "What Indian missions warn about"
+        heading: "Agents, contractors and fees"
+        parts:
+          - points:
+              - { t: "The MEA advisory for Russia warns that many universities recruit through 'contractors' with sub-agents in India who earn commissions and may give false information, for example about English-medium teaching. Ask the university directly.", source: mea_russia }
+              - { t: "The same advisory tells students to pay fees directly to the university after the first semester and to insist on a proper receipt; there were complaints of contractors collecting money and not depositing it.", source: mea_russia }
+              - { t: "Do not hand your passport or original certificates to contractors or anyone else for 'safe custody'.", source: mea_russia }
+              - { t: "The Embassy of Japan says it will never ask for payment by phone or e-mail to verify documents or speed up a visa; you pay only the visa fee and the listed service charge.", source: jp_visa }
+              - { t: "Japan's MEXT scholarship has no application fee; anyone charging a fee or deposit for it has no link with the Japanese government.", source: jp_mext }
+              - { t: "In July 2026 the French Embassy in India reported that a private school, Collège de Paris International, was put into liquidation by a court order of 2 June 2026, and opened a form for affected students. Check a private institution's standing before paying.", source: fr_college }
+      - id: safety
+        nav: Safety
+        eyebrow: "Once you land"
+        heading: "Register with the Indian embassy"
+        parts:
+          - points:
+              - { t: "The Embassy of India in Kyiv runs a student registration module and an online registration for Indian nationals; most missions offer the same.", source: ua_embassy }
+              - { t: "The India Centre for Migration's Student Handbook for Studying Abroad (MEA) covers choosing an institution, paperwork, housing, travel and safety.", source: icm_handbook }
+    sources:
+      - { id: mea_apostille, name: "MEA — Attestation / Apostille", url: "https://www.mea.gov.in/apostille-menu", covers: "₹50 sticker, process, e-Sanad", checked: 2026-10-29 }
+      - { id: mea_russia, name: "MEA — Advisory for Indian students going abroad: Russian Federation", url: "https://www.mea.gov.in/images/pdf/advisory-russian.pdf", covers: "Contractors, fees, passports" }
+      - { id: jp_visa, name: "Embassy of Japan in India — Visa", url: "https://www.in.emb-japan.go.jp/itpr_en/Visa.html", covers: "No payments by phone or e-mail", checked: 2026-10-29 }
+      - { id: jp_mext, name: "Embassy of Japan in India — MEXT scholarships", url: "https://www.in.emb-japan.go.jp/Education/japanese_government_scholarships.html", covers: "No application fee", checked: 2026-10-29 }
+      - { id: fr_college, name: "Campus France India — Important notice: Collège de Paris", url: "https://www.inde.campusfrance.org/important-notice-college-de-paris", covers: "Liquidation 2 June 2026", checked: 2026-10-29 }
+      - { id: ua_embassy, name: "Embassy of India, Kyiv", url: "https://www.eoiukraine.gov.in/", covers: "Student registration module", checked: 2026-10-29 }
+      - { id: icm_handbook, name: "India Centre for Migration (MEA) — Student Handbook for Studying Abroad", url: "https://www.eoiukraine.gov.in/pdf/Student%20Handbook.pdf", covers: "Planning, paperwork, safety" }
+      - { id: aps_home, name: "APS India", url: "https://aps-india.de/", covers: "Document verification for Germany", checked: 2026-10-29 }
+
+  mbbs-abroad:
+    short: "MBBS abroad rules"
+    title: "MBBS Abroad: NMC Rules Before You Choose a Country"
+    seo_title: "MBBS Abroad Rules: NMC FMGL 2021, FMGE and Internship"
+    description: "NMC rules for an Indian licence after MBBS abroad: 54 months, 12-month internship in the same university, English medium, a licence in that country, FMGE and a year's internship in India."
+    eyebrow: "India side · Medicine"
+    lede: "A foreign medical degree is useful in India only if it meets the National Medical Commission's Foreign Medical Graduate Licentiate (FMGL) Regulations, 2021. Check these before you pick Russia, Ukraine or any other country."
+    facts:
+      - { label: "Course length", value: "At least 54 months", source: nmc_fmgl }
+      - { label: "Internship abroad", value: "At least 12 months, same institution", source: nmc_fmgl }
+      - { label: "Medium", value: "English", source: nmc_fmgl }
+      - { label: "Back in India", value: "Pass FMGE, then 12 months' internship", source: nmc_fmgl }
+    sections:
+      - id: fmgl
+        nav: "NMC rules"
+        eyebrow: "FMGL Regulations 2021"
+        heading: "The conditions your degree must meet"
+        parts:
+          - points:
+              - { t: "The course must last at least 54 months, followed by an internship of at least 12 months in the same foreign medical institution.", source: nmc_fmgl }
+              - { t: "The whole course and internship must be at the same institution: no part of the training in India or in a third country.", source: nmc_fmgl }
+              - { t: "The medium of instruction must be English.", source: nmc_fmgl }
+              - { t: "You must be registered in the country that awarded the degree, with a licence equal to what that country gives its own citizens.", source: nmc_fmgl }
+              - { t: "The course must be completed within ten years of joining.", source: nmc_fmgl }
+              - { t: "After passing the licentiate exam (FMGE today), you do a supervised internship in India for at least 12 months.", source: nmc_fmgl }
+              - { t: "These rules cover students whose foreign course began on or after 18 November 2021; earlier students follow the older rules.", source: nmc_fmgl }
+          - links:
+              - { label: "FMGE: the screening test", url: "fmge.html" }
+              - { label: "NEET-UG (needed before you go)", url: "neet-ug.html" }
+      - id: internship
+        nav: Internship
+        eyebrow: "Back in India"
+        heading: "Internship seats for foreign medical graduates"
+        parts:
+          - points:
+              - { t: "In a circular of 10 March 2026 the NMC told State Medical Councils to give foreign medical graduates 7.5% of the intern intake of established medical colleges, 100% of internship seats in new medical colleges, and 100% of seats added between 2022-23 and 2025-26 in existing colleges.", source: nmc_crmi }
+              - { t: "The NMC said this followed a rise in court cases by foreign medical graduates over denial of internship.", source: nmc_crmi }
+      - id: ukraine
+        nav: Ukraine
+        eyebrow: "Students who had to leave"
+        heading: "Ukraine's academic mobility route"
+        parts:
+          - points:
+              - { t: "In September 2022 the NMC accepted Ukraine's academic mobility programme: students could finish remaining semesters at universities in other countries, with the degree awarded by the parent Ukrainian university.", source: nmc_amp_news }
+              - { t: "The Government told the Supreme Court that the notice was not a back door into Indian medical colleges.", source: nmc_amp_news }
+    sources:
+      - { id: nmc_fmgl, name: "NMC — Rules and regulations (FMGL Regulations 2021 and FAQs)", url: "https://nmc.org.in/page/rules-regulations-rules-regulations-nmc", covers: "54 months, internship, English, licence, 10 years" }
+      - { id: nmc_crmi, name: "NMC — Circular on CRMI slots for FMGs (10 Mar 2026)", url: "https://nmc.org.in/whats-new/download/955", covers: "7.5% / 100% internship seats", checked: 2026-10-29 }
+      - { id: nmc_amp_news, name: "Careers360 — NMC allows Ukraine-returned students to finish abroad", url: "https://news.careers360.com/nmc-allows-indian-students-from-ukrainian-universities-complete-medical-education-in-other-countries", covers: "Academic mobility notice of 6 Sep 2022" }

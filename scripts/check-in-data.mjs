@@ -119,7 +119,7 @@ for (const f of fs.readdirSync(dir).filter((x) => x.endsWith('.yml'))) {
   }
 }
 
-// ---- State Exam & Career Cockpit sheets (_data/in/states/<state>.yml -> state/<state>/*.html) ----
+// ---- State Exam & Career Hub sheets (_data/in/states/<state>.yml -> state/<state>/*.html) ----
 // Fails on: page missing or not including its template, a section list that is not the 8 fixed blocks,
 // unknown part kinds (these sheets also allow `formula`, see _includes/exam-formula-card.html), a fact
 // part (p / list / table / formula) or hero fact without `source:`, a cited id that is
@@ -289,7 +289,7 @@ if (fs.existsSync(nxFile)) {
   }
 }
 
-// ---- Sports & Performing Arts Cockpit (_data/in/sports.yml -> sports-hub.html + <slug>.html) ----
+// ---- Sports & Performing Arts Hub (_data/in/sports.yml -> sports-hub.html + <slug>.html) ----
 // Same part rules as the exam consoles; the eight fixed blocks are SP_BLOCKS. A `source:` may name several ids
 // joined by commas. The hub's facts, ladder and quota rules cite hub.sources; each domain must name existing
 // sports slugs, and each sport must sit in a known domain and be listed by it.

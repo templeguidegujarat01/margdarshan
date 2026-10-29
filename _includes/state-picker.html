@@ -1,8 +1,8 @@
 {%- comment -%}
   Universal state selector (state-pathways.html). A no-JavaScript dropdown (<details>) listing every state in
-  _data/state_exams.json. A state with an exam cockpit sheet (_data/in/states/<id>.yml) opens its cockpit at
+  _data/state_exams.json. A state with an exam cockpit sheet (_data/in/states/<id>.yml) opens its hub at
   state/<id>/index.html; the others open their admissions guide (state-pathways/<id>.html) or their card below.
-  Cockpit sheets for states not in state_exams.json (Rajasthan, Odisha, …) are listed live from the sheet itself.
+  Hub sheets for states not in state_exams.json (Rajasthan, Odisha, …) are listed live from the sheet itself.
   The panel opens and closes by clicking the summary; it sits in the page flow (not absolute), so the
   hero's overflow never clips it.
 {%- endcomment -%}
@@ -11,22 +11,22 @@
 <section class="sc-picker-bar" aria-labelledby="sc-picker-heading">
   <div class="container sc-picker-inner">
     <div class="sc-picker-copy">
-      <span class="eyebrow">State Exam &amp; Career Cockpit</span>
+      <span class="eyebrow">State Exam &amp; Career Hub</span>
       <h2 id="sc-picker-heading">Select your target state</h2>
-      <p>Open a full cockpit of government recruitment exams and admission routes, built from official notifications. {{ live_n }} state cockpit{% if live_n != 1 %}s are{% else %} is{% endif %} live; the other states open their admissions guide.</p>
+      <p>Open a full cockpit of government recruitment exams and admission routes, built from official notifications. {{ live_n }} state hub{% if live_n != 1 %}s are{% else %} is{% endif %} live; the other states open their admissions guide.</p>
     </div>
     <details class="sc-picker">
       <summary class="sc-picker-btn"><span class="sc-picker-label">Target state</span><span class="sc-picker-value">Choose a state</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
       <ul class="sc-picker-list" role="list">
         {%- for s in site.data.state_exams.states %}
         {%- if site.data.in.states[s.id] %}
-        <li><a class="sc-opt is-live" href="state/{{ s.id }}/index.html"><span>{{ s.name }}</span><span class="sc-opt-tag">Exam cockpit · live</span></a></li>
+        <li><a class="sc-opt is-live" href="state/{{ s.id }}/index.html"><span>{{ s.name }}</span><span class="sc-opt-tag">Exam hub · live</span></a></li>
         {%- endif %}
         {%- endfor %}
         {%- for pair in site.data.in.states %}
         {%- assign known = site.data.state_exams.states | where: "id", pair[0] | size %}
         {%- if known == 0 %}
-        <li><a class="sc-opt is-live" href="state/{{ pair[0] }}/index.html"><span>{{ pair[1].state.name }}</span><span class="sc-opt-tag">Exam cockpit · live</span></a></li>
+        <li><a class="sc-opt is-live" href="state/{{ pair[0] }}/index.html"><span>{{ pair[1].state.name }}</span><span class="sc-opt-tag">Exam hub · live</span></a></li>
         {%- endif %}
         {%- endfor %}
         {%- for s in site.data.state_exams.states %}

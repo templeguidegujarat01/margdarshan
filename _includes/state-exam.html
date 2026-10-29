@@ -1,5 +1,5 @@
 {%- comment -%}
-  State exam page (State-Level Exam & Career Cockpit). The page file keeps only its SEO front matter and
+  State exam page (State-Level Exam & Career Hub). The page file keeps only its SEO front matter and
 
       {% include state-exam.html state="gujarat" exam="gpsc" %}
 
@@ -29,7 +29,7 @@
   "itemListElement": [
     { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site.url }}{{ site.baseurl }}/" },
     { "@type": "ListItem", "position": 2, "name": "State-Level Pathways", "item": "{{ site.url }}{{ site.baseurl }}/state-pathways.html" },
-    { "@type": "ListItem", "position": 3, "name": {{ SD.state.name | append: " Exam Cockpit" | jsonify }}, "item": "{{ site.url }}{{ site.baseurl }}/state/{{ SD.state.id }}/" },
+    { "@type": "ListItem", "position": 3, "name": {{ SD.state.name | append: " Exam Hub" | jsonify }}, "item": "{{ site.url }}{{ site.baseurl }}/state/{{ SD.state.id }}/" },
     { "@type": "ListItem", "position": 4, "name": {{ E.short | replace: "&amp;", "&" | jsonify }}, "item": "{{ page.url | absolute_url }}" }
   ]
 }
@@ -164,7 +164,7 @@
         {%- for x in SD.exams %}{% if x.slug == E.slug %}{% continue %}{% endif %}
         <li><a href="state/{{ SD.state.id }}/{{ x.slug }}.html">{{ x.short }} <span>{% if x.group == "civil" %}Recruitment{% else %}Admission{% endif %}</span></a></li>
         {%- endfor %}
-        <li><a href="{{ cockpit_href }}">{{ SD.state.name }} cockpit <span>All</span></a></li>
+        <li><a href="{{ cockpit_href }}">{{ SD.state.name }} hub <span>All</span></a></li>
       </ul>
     </div>
   </section>

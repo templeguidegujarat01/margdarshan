@@ -130,7 +130,7 @@
       <dl class="jb-facts">{% for q in K.cost_time %}<div class="jb-fact"><dt>{{ q.label }}</dt><dd>{{ q.value }}{% include journey-ref.html s=q.source %}</dd></div>{% endfor %}</dl>
       {%- endif %}
       {%- if K.cost_note %}<p class="sc-p jb-note">{{ K.cost_note }}</p>{% endif %}
-      <h3 class="jb-h">Hidden challenges</h3>
+      <h3 class="jb-h">The hard parts</h3>
       <ul class="jb-list">{% for p in K.challenges %}<li>{{ p.text }}{% include journey-ref.html s=p.source %}</li>{% endfor %}</ul>
       <h3 class="jb-h">Who should not choose it</h3>
       <ul class="jb-list jb-not">{% for p in K.not_for %}<li>{{ p }}</li>{% endfor %}</ul>
@@ -249,7 +249,7 @@
           {%- for r in own %}<li>{{ r.text }}{% include journey-ref.html s=r.source %}{% if r.href %} <a class="jb-more" href="{{ r.href }}">Full page</a>{% endif %}</li>{% endfor %}
           {%- for b in bnotes %}{% assign n = C.board_notes[b.id] %}{% if n %}<li><strong>{{ b.label }}:</strong> {% if n.text %}{{ n.text }}{% if n.source %}{% include journey-ref.html s=n.source %}{% else %}{% include journey-ref.html s=C.board_source %}{% endif %}{% else %}{{ n }}{% include journey-ref.html s=C.board_source %}{% endif %}</li>{% endif %}{% endfor %}
         </ul>
-        {%- if s.cockpit %}<a class="jb-more" href="{{ s.cockpit }}">{{ s.name }} exam &amp; career cockpit</a>{% endif %}
+        {%- if s.hub %}<a class="jb-more" href="{{ s.cockpit }}">{{ s.name }} exam &amp; career hub</a>{% endif %}
       </details>
       {%- endif %}
       {%- endfor %}

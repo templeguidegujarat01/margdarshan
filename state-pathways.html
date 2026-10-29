@@ -75,7 +75,7 @@ footer:
       <div class="page-hero-ctas">
         <a href="#state-picker" class="btn btn-primary btn-inpage-jump btn-hub-jump">Select your state</a>
         {%- for s in site.data.state_exams.states %}{% if site.data.in.states[s.id] %}
-        <a href="state/{{ s.id }}/index.html" class="btn btn-ghost btn-page-link">{{ s.name }} exam cockpit</a>
+        <a href="state/{{ s.id }}/index.html" class="btn btn-ghost btn-page-link">{{ s.name }} exam hub</a>
         {%- endif %}{% endfor %}
       </div>
       <div class="quickfacts">
@@ -164,7 +164,7 @@ footer:
         </ul>
 
         {%- assign has_page = site.data.state_pages.states[s.id] %}
-        {%- if site.data.in.states[s.id] %}<div class="chip-links sc-card-cockpit"><a href="state/{{ s.id }}/index.html">Open the {{ s.name }} exam &amp; career cockpit</a></div>{% endif %}
+        {%- if site.data.in.states[s.id] %}<div class="chip-links sc-card-cockpit"><a href="state/{{ s.id }}/index.html">Open the {{ s.name }} exam &amp; career hub</a></div>{% endif %}
         {%- if has_page %}<div class="chip-links"><a href="state-pathways/{{ s.id }}.html">Full {{ s.name }} guide: exams, quotas, counselling, scholarships</a></div>{% endif %}
         {%- if s.official.size > 0 %}
         <div class="chip-links" aria-label="Official links for {{ s.name }}">

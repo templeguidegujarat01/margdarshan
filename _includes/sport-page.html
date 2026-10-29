@@ -28,7 +28,7 @@
   "@type": "BreadcrumbList",
   "itemListElement": [
     { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site.url }}{{ site.baseurl }}/" },
-    { "@type": "ListItem", "position": 2, "name": "Sports & Performing Arts Cockpit", "item": "{{ site.url }}{{ site.baseurl }}/sports-hub.html" },
+    { "@type": "ListItem", "position": 2, "name": "Sports & Performing Arts Hub", "item": "{{ site.url }}{{ site.baseurl }}/sports-hub.html" },
     { "@type": "ListItem", "position": 3, "name": {{ E.short | jsonify }}, "item": "{{ page.url | absolute_url }}" }
   ]
 }
@@ -146,13 +146,13 @@
       </ol>
       {% include src-more.html %}
       <p class="cite-report">Spotted something out of date? Email <a href="mailto:{{ site.feedback_email }}?subject={{ E.short | append: ' sports guide — correction' | uri_escape }}">{{ site.feedback_email }}</a> with the official link and Education Margdarshan will update it.</p>
-      <h3 class="block-subhead">More in the Margdarshan sports cockpit</h3>
+      <h3 class="block-subhead">More in the Margdarshan sports hub</h3>
       <ul class="sl-links sc-more">
         {%- for x in SP.sports %}{% if x.slug == E.slug %}{% continue %}{% endif %}
         {%- assign xd = SP.domains | where: "id", x.domain | first %}
         <li><a href="{{ x.slug }}.html">{{ x.short }} <span>{{ xd.label }}</span></a></li>
         {%- endfor %}
-        <li><a href="sports-hub.html">All sports &amp; performing arts <span>Cockpit</span></a></li>
+        <li><a href="sports-hub.html">All sports &amp; performing arts <span>Hub</span></a></li>
         <li><a href="niche-careers/sports.html">SAI, NIS &amp; sports-quota guide <span>Careers</span></a></li>
       </ul>
     </div>

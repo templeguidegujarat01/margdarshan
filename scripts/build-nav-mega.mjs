@@ -99,7 +99,7 @@ mega['sport-olympic'] = { head: { label: 'Every sport A–Z with its events', hr
 mega['sport-asian'] = { head: { label: 'Every sport A–Z with its events', href: 'all-sports.html' }, note: 'Sports on the Asian Games (Aichi-Nagoya 2026) programme', cols: sportCols(has('AG')) };
 mega['sport-khelo'] = { head: { label: 'Every sport A–Z with its events', href: 'all-sports.html' }, note: 'Sports played at the Khelo India Youth Games', cols: sportCols(has('KI')) };
 mega['sport-quota'] = { head: { label: 'Sports-quota jobs guide', href: 'niche-careers/sports.html' }, note: 'Sports on the DoPT list for central government sports-quota jobs', cols: sportCols(has('Q')) };
-mega['sport-all'] = { head: { label: 'Sports & Performing Arts Cockpit', href: 'sports-hub.html' }, note: 'Every sport guide, by family — each covers its world federation, world championships and India pathway', cols: sportCols(() => true) };
+mega['sport-all'] = { head: { label: 'Sports & Performing Arts Hub', href: 'sports-hub.html' }, note: 'Every sport guide, by family — each covers its world federation, world championships and India pathway', cols: sportCols(() => true) };
 // Paralympic: no separate para guide yet, so this lists the guides of sports that also have a Paralympic
 // version at LA28 (the para family rows in the atlas), and says so.
 const paraOf = {
@@ -138,7 +138,7 @@ const stateCols = [];
 for (const f of fs.readdirSync(path.join(root, '_data/in/states')).filter((f) => f.endsWith('.yml')).sort()) {
   const s = yaml.load(read(`_data/in/states/${f}`));
   const id = s.state.id;
-  const links = [{ label: `${decode(s.state.name)} cockpit`, href: `state/${id}/index.html` }];
+  const links = [{ label: `${decode(s.state.name)} hub`, href: `state/${id}/index.html` }];
   for (const e of s.exams) {
     const href = `state/${id}/${e.slug}.html`;
     if (!exists(href)) { problems.push(`${f}: exam page ${href} missing`); continue; }

@@ -14,7 +14,7 @@
     header:                     passed to _includes/sidebar.html
       careers_href, careers_label, faq_href, faq_label   "This page" links
       active_stream             highlights the sidebar item whose `key` matches
-    breadcrumb:                 shown below the top bar, above the page content (omit on the homepage -> "Home")
+    breadcrumb:                 shown below the top bar (below the top menu on India/USA pages), above the page content (omit on the homepage -> "Home")
       parent_href, parent_label, current; optional grand_href, grand_label (a level above parent)
     footer:                     passed to _includes/footer.html
       col3_heading              heading of the optional third column
@@ -26,7 +26,8 @@
     progress_full: true         render the scroll progress bar pre-filled (404)
     back_to_top: false          omit the back-to-top button
     (India edition)             every page with region "in" that is not region-neutral gets body.shell-in:
-                                NO sidebar, full-width content, and the top menu row under the breadcrumb
+                                NO sidebar, full-width content, and the top menu row ABOVE the breadcrumb (2026-10-29): the menu is
+                                sticky under the fixed top bar, the breadcrumb scrolls away with the page
                                 (_includes/in-header-hubs.html). The old `header_hubs` key is no longer read.
     (USA edition)               same for region "us" (2026-10-23): body.shell-in shell-us, no sidebar, and the
                                 same top menu drawn from _data/nav_us.yml topnav (include edition="us").
@@ -144,9 +145,9 @@
 
 <div class="app-main">
 {% include header.html %}
+{%- if india_shell %}{% include in-header-hubs.html %}{% elsif us_shell %}{% include in-header-hubs.html edition="us" %}{% endif %}
 
 <div class="crumb-bar"><div class="container">{% include breadcrumb.html grand_href=page.breadcrumb.grand_href grand_label=page.breadcrumb.grand_label parent_href=page.breadcrumb.parent_href parent_label=page.breadcrumb.parent_label current=page.breadcrumb.current %}</div></div>
-{%- if india_shell %}{% include in-header-hubs.html %}{% elsif us_shell %}{% include in-header-hubs.html edition="us" %}{% endif %}
 {%- endif %}
 
 {{ content }}

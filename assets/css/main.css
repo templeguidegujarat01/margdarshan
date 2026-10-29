@@ -57,12 +57,16 @@
   --container:1180px;
   --header-h:64px;
   --crumb-h:2.75rem;
+  /* Height of the band that stays stuck under the fixed top bar: the breadcrumb bar by default; on India
+     and USA pages (body.shell-in) the top menu row instead, and the breadcrumb scrolls away (--hh-h). */
+  --hh-h:calc(42px + 1.1rem + 1px);
+  --stick-h:var(--crumb-h);
   /* Height of the sticky .quicknav-bar (set exactly by scripts.html on
      load/resize; this is the fallback). Only counted while it's visible. */
   --quicknav-h:4.25rem;
   /* Distance every in-page anchor target stops below the top of the
      viewport, so headings never hide behind the sticky header. */
-  --scroll-offset:calc(var(--header-h) + var(--crumb-h) + 1.25rem);
+  --scroll-offset:calc(var(--header-h) + var(--stick-h) + 1.25rem);
 
   /* ---------- Stream theme system — DISABLED ----------
      Previously, pages opted into a per-stream accent colour via
@@ -127,9 +131,9 @@ button{font-family:inherit;}
    it (.has-sidebar-nav). */
 /* Offset lives ONLY here (scroll-padding on html would stack with it and land every jump too low). */
 main [id],section[id],h1[id],h2[id],h3[id],h4[id]{scroll-margin-top:var(--scroll-offset);}
-:root:has(.quicknav-bar:not(.has-sidebar-nav)){--scroll-offset:calc(var(--header-h) + var(--crumb-h) + var(--quicknav-h) + 1.25rem);}
+:root:has(.quicknav-bar:not(.has-sidebar-nav)){--scroll-offset:calc(var(--header-h) + var(--stick-h) + var(--quicknav-h) + 1.25rem);}
 @media (max-width:899.98px){
-  :root:has(.quicknav-bar){--scroll-offset:calc(var(--header-h) + var(--crumb-h) + var(--quicknav-h) + 1.25rem);}
+  :root:has(.quicknav-bar){--scroll-offset:calc(var(--header-h) + var(--stick-h) + var(--quicknav-h) + 1.25rem);}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto;}
@@ -304,12 +308,24 @@ html.nav-locked{overflow:hidden;}
   .breadcrumb li:nth-child(2):nth-last-child(2)::before{display:none;}
 }
 
-/* India edition top menu (_includes/in-header-hubs.html, items from _data/nav.yml topnav), under the
-   breadcrumb bar. One row at every width: when it does not fit, it scrolls sideways (swipe on touch).
+/* India edition top menu (_includes/in-header-hubs.html, items from _data/nav.yml topnav), straight under the
+   fixed top bar and ABOVE the breadcrumb bar (2026-10-29). It is sticky at top:var(--header-h), so it is always
+   in reach while the breadcrumb scrolls away with the page; --stick-h = its height (--hh-h) feeds the anchor
+   offset, the quicknav / chip rail and the "On this page" rail. One row at every width: when it does not fit, it scrolls sideways (swipe on touch).
    The strip, its items and the <details> stay unpositioned, so an open panel is placed against
    .in-header-hubs and the strip's overflow never clips it. site.js sets --hh-x (the open button's
    left edge) so the panel sits under its button; without JS it sits at the left gutter. */
 .in-header-hubs{position:relative;z-index:85;background:var(--bg-header);border-bottom:1px solid var(--line);}
+:root:has(body.shell-in){--stick-h:var(--hh-h);}
+/* Under the top bar (950) and its search popover, over everything in the page. */
+.shell-in .in-header-hubs{position:sticky;top:var(--header-h);z-index:945;}
+.shell-in .crumb-bar{position:relative;top:auto;z-index:auto;}
+/* A soft shadow fades in over the first 120px of scroll, so the stuck bar reads as lifted off the page.
+   CSS scroll-driven animation; browsers without it keep the flat border. */
+@supports (animation-timeline:scroll()){
+  .shell-in .in-header-hubs{animation:hh-lift linear both;animation-timeline:scroll(root);animation-range:0 120px;}
+  @keyframes hh-lift{from{box-shadow:0 0 0 rgba(15,42,61,0);}to{box-shadow:0 8px 20px -12px rgba(15,42,61,.38);}}
+}
 .hh-row{display:flex;flex-wrap:nowrap;align-items:center;gap:.3rem;min-width:0;margin:0 -1.25rem;padding:.55rem 1.25rem;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;scrollbar-width:none;scroll-padding:0 1.25rem;}
 .hh-row::-webkit-scrollbar{display:none;}
 /* Right-edge fade while items are hidden off to the right: an overlay, not a mask (a mask would clip the open panel too). */
@@ -348,14 +364,25 @@ html.nav-locked{overflow:hidden;}
   .hh-row{gap:.25rem;}
   .hh-btn{padding:.5rem .5rem;font-size:.85rem;}
 }
-/* Phones: the open panel spans the gutters instead of following its button. */
+/* Desktop 1280px and up (1366 laptops included): the menu row gets 12rem more than the page container and
+   slightly tighter buttons, so every menu fits on one line with no sideways scroll or cut-off last item. */
+@media (min-width:1280px){
+  .in-header-hubs > .container{max-width:calc(var(--container) + 12rem);}
+  .hh-row{gap:.25rem;}
+  .hh-btn{padding:.5rem .55rem;}
+}
+/* Phones: a shorter row (40px buttons, still a full touch row) so the stuck header band stays small, and
+   the open panel spans the gutters instead of following its button. */
 @media (max-width:599.98px){
-  .hh-btn,.hh-tile{font-size:.9rem;padding:.45rem .75rem;}
+  :root{--hh-h:calc(40px + .8rem + 1px);}
+  .hh-row{padding-top:.4rem;padding-bottom:.4rem;}
+  .hh-home{width:40px;height:40px;}
+  .hh-btn,.hh-tile{min-height:40px;font-size:.9rem;padding:.45rem .75rem;}
   .hh-panel{left:1.25rem;right:1.25rem;width:auto;min-width:0;max-width:none;}
 }
 
 /* ===== Mega menus (nav.yml topnav menus with `nodes`: After Class 10th, Career Hubs, Entrance & Competitive
-   Exams, Sports & Performing Arts, Global & Regional) =====
+   Exams, Sports & Performing Arts, States & Abroad) =====
    Two panes. Left: the rail — node names only, plus the menu's `children` links under a rule. Right: the
    active node's columns (.hh-grid), every guide in that category by name only, flowed into as many columns as
    the width allows (.hh-cols uses CSS columns), so the whole list is on screen without scrolling.
@@ -423,7 +450,7 @@ html.nav-locked{overflow:hidden;}
 }
 /* Touch / narrow: accordion inside a panel that scrolls itself (never the page sideways). */
 @media not all and (min-width:1024px) and (hover:hover){
-  .hh-panel.hh-mega{grid-template-columns:minmax(0,1fr);width:min(560px,calc(100% - 2.5rem));max-width:none;max-height:min(75vh,640px);overflow-y:auto;overscroll-behavior-y:contain;}
+  .hh-panel.hh-mega{grid-template-columns:minmax(0,1fr);width:min(560px,calc(100% - 2.5rem));max-width:none;max-height:min(calc(100vh - var(--header-h) - var(--hh-h) - 1rem),640px);max-height:min(calc(100dvh - var(--header-h) - var(--hh-h) - 1rem),640px);overflow-y:auto;overscroll-behavior-y:contain;}
   .hh-node + .hh-node{border-top:1px solid var(--line);}
   .hh-node.is-on > .hh-sub-btn .hh-sub-arrow{transform:rotate(90deg);}
   .hh-node.is-on > .hh-grid{padding:.25rem .25rem .5rem;}
@@ -475,8 +502,9 @@ html.nav-locked{overflow:hidden;}
 @keyframes hh-cell-in{from{opacity:0;transform:translateY(3px);}to{opacity:1;transform:none;}}
 @media (prefers-reduced-motion:reduce){.hh-tabbed .hh-col.is-on li{animation:none;}.hh-cell,.hh-cell::before,.hh-cell::after{transition:none !important;}.hh-cell:hover::after,.hh-cell:focus-visible::after{transform:none;}}
 @media (min-width:1024px) and (hover:hover){
-  /* The panel never grows past the viewport: past 80vh it scrolls inside itself, so the page under it never shifts. */
-  .hh-panel.hh-mega{max-height:80vh;overflow-y:auto;overscroll-behavior-y:contain;}
+  /* The panel never grows past the viewport (the menu row always sits right under the top bar): past that it
+     scrolls inside itself, so the page under it never shifts. */
+  .hh-panel.hh-mega{max-height:min(80vh,calc(100vh - var(--header-h) - var(--hh-h) - 1.5rem));overflow-y:auto;overscroll-behavior-y:contain;}
   .hh-mega .hh-node > .hh-tabbed{display:grid;grid-template-columns:15rem minmax(0,1fr);grid-template-rows:auto 1fr;column-gap:0;align-content:start;}
   .hh-tabbed > .hh-fly-head{grid-column:1 / -1;}
   .hh-tabbed > .hh-tabs{grid-column:1;flex-direction:column;flex-wrap:nowrap;gap:1px;margin:0;padding:0 .5rem 0 0;border-bottom:0;border-right:1px solid var(--line);}
@@ -879,7 +907,7 @@ table{border-collapse:collapse;width:100%;}
 .page-hero{position:relative;background:var(--bg-hero);color:var(--on-ink);overflow:hidden;padding:3rem 0 2.6rem;}
 .page-hero-inner{position:relative;max-width:800px;}
 .page-hero p{margin-top:1rem;color:var(--on-ink-muted);font-size:1.06rem;max-width:60ch;line-height:1.65;}
-.quicknav-bar{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:calc(var(--header-h) + var(--crumb-h));z-index:80;}
+.quicknav-bar{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:calc(var(--header-h) + var(--stick-h));z-index:80;}
 .prose{max-width:780px;color:var(--text-muted);font-size:1.02rem;line-height:1.75;display:grid;gap:1.05rem;}
 .note{display:flex;gap:.75rem;background:rgba(31,111,92,.07);border:1px solid rgba(31,111,92,.25);border-radius:var(--radius-md);padding:1.1rem 1.3rem;font-size:.92rem;color:var(--text-muted);max-width:780px;}
 .note svg{flex-shrink:0;color:var(--teal);margin-top:.15rem;}
@@ -2694,7 +2722,7 @@ h3 .mob-badge{margin-left:.35rem;}
    destination menu (_includes/header-gateway.html). Layout stability: the bar has a fixed height on
    every screen (two fixed rows on phones), the map is a fixed aspect-ratio box, and the search results
    and destination menu are absolutely positioned, so nothing in the page moves when they open. */
-.shell-gw{--crumb-h:0px;--scroll-offset:calc(var(--header-h) + 1.25rem);}
+.shell-gw{--crumb-h:0px;--stick-h:0px;--scroll-offset:calc(var(--header-h) + 1.25rem);}
 .shell-gw .app-main{margin-left:0;border-left:0;border-right:0;}
 .gw-bar{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:1rem;padding:0 1rem;border-bottom:1px solid var(--line);}
 .gw-brand .logo{font-size:1.25rem;}

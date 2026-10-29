@@ -294,7 +294,10 @@ const walk = (d) => {
   }
 };
 walk('colleges'); walk('coaching');
-const stale = existing.filter((f) => !files.has(f));
+// A page that no longer qualifies can be turned into a hand-written redirect stub (front matter redirect_to)
+// pointing at the state list, so its URL keeps working; stubs are not stale.
+const isStub = (f) => /^redirect_to:/m.test(fs.readFileSync(path.join(root, f), 'utf8').split(/\r?\n---/)[0]);
+const stale = existing.filter((f) => !files.has(f) && !isStub(f));
 const changed = [...files].filter(([f, c]) => {
   const p = path.join(root, f);
   // Compare without \r: git on Windows may check these files out with CRLF line endings.

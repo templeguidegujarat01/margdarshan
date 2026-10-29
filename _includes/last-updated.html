@@ -1,0 +1,7 @@
+{%- comment -%}
+  Small "Last updated" stamp at the right of the breadcrumb bar (placed by _layouts/default.html).
+  Date = _data/last_updated.yml[page.path], written by scripts/build-last-updated.mjs from git history
+  (page file + the data it is built from). Pages missing from that file show nothing.
+{%- endcomment -%}
+{%- assign lu = site.data.last_updated[page.path] -%}
+{%- if lu %}<p class="last-updated"><span class="lu-dot" aria-hidden="true"></span>Last updated <time datetime="{{ lu }}">{{ lu | date: "%-d %b %Y" }}</time></p>{% endif -%}

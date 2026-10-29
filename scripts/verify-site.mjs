@@ -94,7 +94,7 @@ function pageOf(f, fm) {
     if (p === '' || f === p || f.startsWith(p.replace(/\/$/, '') + '/')) Object.assign(defaults, d.values);
   }
   const url = f.endsWith('/index.html') ? '/' + f.slice(0, -'index.html'.length) : '/' + f;
-  return { ...defaults, ...fm, url };
+  return { ...defaults, ...fm, url, path: f };
 }
 
 async function render(f) {

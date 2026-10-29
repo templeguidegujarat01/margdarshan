@@ -26,7 +26,7 @@
   {%- assign fx_org = "CollegeOrUniversity" -%}
 {%- endif -%}
 {%- assign fx_feat = fx_all | where: "featured", true -%}
-{%- assign fx_rest = fx_all | where_exp: "c", "c.featured != true" -%}
+{%- assign fx_rest = fx_all | where_exp: "c", "c.featured != true" | sort: "name" -%}
 {%- assign fx_sorted = fx_feat | concat: fx_rest -%}
 {%- assign fx_default = include.state | default: include.default -%}
 {%- assign fx_default_n = fx_sorted | where: "state", fx_default | size -%}

@@ -58,7 +58,7 @@ const hubs = {
   arts: ['arts.html', 'Arts stream guide'],
   diploma: ['diploma.html', 'Diploma guide'],
   iti: ['iti.html', 'ITI trade directory'],
-  'high-paying': ['high-paying-careers.html', 'High-paying careers ranked'],
+  'high-paying': ['high-paying-careers.html', 'High-paying careers, sorted by pay'],
   'fast-track': ['fast-track-jobs.html', 'All fast-track jobs'],
   professional: ['professional-courses.html', 'All professional courses'],
   specialised: ['specialised-careers.html', 'All specialised careers'],

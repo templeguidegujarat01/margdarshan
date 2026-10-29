@@ -91,6 +91,39 @@ exams:
               - { t: "Each section gets a band from 0 to 9. The overall band is the average of the four, rounded to the nearest half band (.25 rounds up to the half band, .75 to the next whole band).", source: ielts_scoring }
               - { t: "IELTS recommends treating results as valid for two years; a university or visa office can set its own window.", source: ielts_scoring }
               - { t: "Australia accepts IELTS results with a One Skill Retake for the Temporary Graduate (485) visa, if the retake is done before you lodge.", source: au_485 }
+      - id: section-minimums
+        nav: "Band per part"
+        eyebrow: "Where a single weak part fails you"
+        heading: "Overall band vs. a minimum in every part"
+        parts:
+          - p: "A visa rule either asks only for an overall band, or also sets a floor for each of Listening, Reading, Writing and Speaking. With a floor, one low part fails you even when the overall band is high enough."
+          - table:
+              caption: "Australia (tests taken on or after 7 Aug 2025)"
+              head: ["Visa", "Overall", "Each part"]
+              rows:
+                - ["Student (500)", "6.0", "No part minimum"]
+                - ["Graduate (485)", "6.5", "5.5 in each part"]
+            source: au_485
+          - note: "Student visa: 5.5 overall is enough with at least 10 weeks of ELICOS English study, 5.0 with at least 20 weeks. The subclass 500 page lists 'minimum overall band scores' only; the 485 row is from the Temporary Graduate page."
+            source: au_500
+          - table:
+              caption: "UK — IELTS for UKVI as a Secure English Language Test (SELT)"
+              head: ["CEFR level", "When the UK asks for it", "Each part"]
+              rows:
+                - ["B1", "Student visa below degree level", "4.0 in Listening, Reading, Writing and Speaking"]
+                - ["B2", "The level a university must be satisfied of at degree level", "5.5 in each part"]
+            source: uk_selt_list
+          - table:
+              caption: "Canada — Post-Graduation Work Permit language test (IELTS General Training only)"
+              head: ["Programme you graduate from", "Level", "Each skill (IELTS General Training)"]
+              rows:
+                - ["University bachelor's, master's or doctoral degree", "CLB 7", "6.0 in Reading, Writing, Listening and Speaking"]
+                - ["Other college programmes", "CLB 5", "Reading 4.0 · Writing 5.0 · Listening 5.0 · Speaking 5.0"]
+            source: ca_clb
+          - warn: "IRCC takes IELTS <strong>General Training</strong> for the work permit, not IELTS Academic. If you sat Academic for admission, you need a separate test later for the PGWP."
+            source: ca_clb
+          - note: "Patterns such as '6.5 overall with no part below 6.0' are university admission rules, set course by course. They are not visa rules, so check the course page for them."
+            source: ukvi_english
       - id: fees
         nav: Fees
         eyebrow: "What it costs in India"
@@ -112,7 +145,9 @@ exams:
       - { id: ielts_jaipur, name: "IELTS — IDP Education India, Jaipur centre", url: "https://ielts.org/test-centres/idp-education-india-jaipur", covers: "INR fees, computer-delivered", checked: 2026-10-29 }
       - { id: ukvi_english, name: "GOV.UK — Student visa: knowledge of English", url: "https://www.gov.uk/student-visa/knowledge-of-english", covers: "SELT, B1/B2 levels", checked: 2026-10-29 }
       - { id: au_500, name: "Home Affairs (Australia) — Student visa (subclass 500)", url: "https://immi.homeaffairs.gov.au/visas/getting-a-visa/visa-listing/student-500", covers: "At-home tests not accepted", checked: 2026-10-29 }
-      - { id: au_485, name: "Home Affairs (Australia) — Temporary Graduate visa, Post-Higher Education Work stream", url: "https://immi.homeaffairs.gov.au/visas/getting-a-visa/visa-listing/temporary-graduate-485/post-higher-education-work", covers: "One Skill Retake accepted", checked: 2026-10-29 }
+      - { id: au_485, name: "Home Affairs (Australia) — Temporary Graduate visa, Post-Higher Education Work stream", url: "https://immi.homeaffairs.gov.au/visas/getting-a-visa/visa-listing/temporary-graduate-485/post-higher-education-work", covers: "One Skill Retake accepted; 6.5 overall, 5.5 per part", checked: 2026-10-29 }
+      - { id: uk_selt_list, name: "GOV.UK — List of approved SELTs taken outside the UK (ODS)", url: "https://assets.publishing.service.gov.uk/media/68da41cd750fcf90fa6ffb33/List_of_approved_Secure_English_Language_Tests_taken_outside_the_UK+_1_.ods", covers: "Per-part minimums by CEFR level", checked: 2026-10-29 }
+      - { id: ca_clb, name: "IRCC — PGWP: find your language level", url: "https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/work/after-graduation/eligibility/language-results.html", covers: "CLB tables for CELPIP, IELTS General Training, PTE Core", checked: 2026-10-29 }
 
   toefl-ibt:
     short: TOEFL iBT
@@ -152,11 +187,51 @@ exams:
           - points:
               - { t: "Australia: from 21 January 2026 you must select 'Taking TOEFL for Australia' at registration for the score to count for a visa. TOEFL iBT Home Edition is not accepted, and tests taken between 26 July 2023 and 4 May 2024 are not accepted.", source: au_500 }
               - { t: "UK: a Student visa below degree level needs a Secure English Language Test (SELT); a university can assess English itself at degree level.", source: ukvi_english }
+              - { t: "TOEFL iBT is not on the UK's list of approved SELTs, so it cannot meet a UK visa rule that asks for a SELT.", source: uk_selt_list }
+              - { t: "Canada: TOEFL is not one of the tests IRCC lists for the Post-Graduation Work Permit (CELPIP General, IELTS General Training, PTE Core, TEF Canada, TCF Canada).", source: ca_clb }
+      - id: section-minimums
+        nav: "Score per section"
+        eyebrow: "Where a single weak section fails you"
+        heading: "Australia's per-section floors"
+        parts:
+          - table:
+              caption: "Australia (tests taken on or after 7 Aug 2025)"
+              head: ["Visa", "Total", "Each section (0–30 scale)"]
+              rows:
+                - ["Student (500)", "67", "No section floor"]
+                - ["Graduate (485)", "81", "Listening 12 · Reading 12 · Writing 14 · Speaking 17"]
+            source: au_485
+          - note: "Student visa: 51 is enough with at least 10 weeks of ELICOS English study (37 with 20 weeks). Home Affairs sets no section floor for it."
+            source: au_500
+          - warn: "Home Affairs still writes TOEFL scores on the old scale (0–120 total, 0–30 per section). Since January 2026 ETS reports each section on a 1–6 scale, with a comparable 0–120 total only for a two-year transition. Ask ETS or Home Affairs how your report maps before you lodge a 485."
+            source: toefl_format
+      - id: format
+        nav: Format
+        eyebrow: "Paper anatomy"
+        heading: "The TOEFL iBT format from January 2026"
+        parts:
+          - table:
+              caption: "Sections, task types and base time"
+              head: ["Section", "Task types", "Items", "Base time (min)"]
+              rows:
+                - ["Reading", "Complete the Words; Read in Daily Life; Read an Academic Passage", "50", "30"]
+                - ["Listening", "Listen and Choose a Response; Conversation; Announcement; Academic Talk", "47", "29"]
+                - ["Writing", "Build a Sentence; Write an Email; Write for an Academic Discussion", "12", "23"]
+                - ["Speaking", "Listen and Repeat; Take an Interview", "11", "8"]
+            source: toefl_format
+          - points:
+              - { t: "The test adapts as you go, so the time and number of items can vary; ETS says to allow about two hours, directions included.", source: toefl_format }
+              - { t: "Each section is scored 1–6; the overall score is the average of the four, rounded to the nearest half band.", source: toefl_format }
+              - { t: "Skip a whole section and none of the test is scored: you must answer at least one Reading and one Listening question and one Speaking and one Writing task.", source: toefl_format }
     sources:
       - { id: toefl_in_fees, name: "ETS India — TOEFL iBT test registration fee", url: "https://www.in.ets.org/toefl/test-takers/ibt/register/fees.html", covers: "INR fees", checked: 2026-10-29 }
       - { id: toefl_in_bulletin, name: "ETS — TOEFL iBT Information Bulletin for testing in India 2026-27", url: "https://www.ets.org/content/dam/ets-india/pdfs/toefl/toefl-ibt-bulletin.pdf", covers: "Fees include GST" }
       - { id: au_500, name: "Home Affairs (Australia) — Student visa (subclass 500)", url: "https://immi.homeaffairs.gov.au/visas/getting-a-visa/visa-listing/student-500", covers: "TOEFL rules for visas", checked: 2026-10-29 }
       - { id: ukvi_english, name: "GOV.UK — Student visa: knowledge of English", url: "https://www.gov.uk/student-visa/knowledge-of-english", covers: "SELT rule", checked: 2026-10-29 }
+      - { id: au_485, name: "Home Affairs (Australia) — Temporary Graduate visa, Post-Higher Education Work stream", url: "https://immi.homeaffairs.gov.au/visas/getting-a-visa/visa-listing/temporary-graduate-485/post-higher-education-work", covers: "TOEFL 81 total and section floors", checked: 2026-10-29 }
+      - { id: uk_selt_list, name: "GOV.UK — List of approved SELTs taken outside the UK (ODS)", url: "https://assets.publishing.service.gov.uk/media/68da41cd750fcf90fa6ffb33/List_of_approved_Secure_English_Language_Tests_taken_outside_the_UK+_1_.ods", covers: "TOEFL not an approved SELT", checked: 2026-10-29 }
+      - { id: ca_clb, name: "IRCC — PGWP: find your language level", url: "https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/work/after-graduation/eligibility/language-results.html", covers: "Tests accepted for the PGWP", checked: 2026-10-29 }
+      - { id: toefl_format, name: "ETS — TOEFL iBT test content and structure", url: "https://www.ets.org/toefl/test-takers/ibt/about/content.html", covers: "Sections, items, time, 1–6 scale", checked: 2026-10-29 }
 
   pte-academic:
     short: PTE Academic
@@ -188,7 +263,41 @@ exams:
             source: pte_in
           - note: "For a Canadian study permit, check what your college or university accepts for admission; PTE Core is for IRCC economic programmes."
             source: pte_in
+      - id: section-minimums
+        nav: "Score per skill"
+        eyebrow: "Where a single weak skill fails you"
+        heading: "Overall score vs. a floor in every skill"
+        parts:
+          - table:
+              caption: "Australia — PTE Academic (tests taken on or after 7 Aug 2025)"
+              head: ["Visa", "Overall", "Each skill"]
+              rows:
+                - ["Student (500)", "47", "No skill floor"]
+                - ["Graduate (485)", "55", "Listening 40 · Reading 42 · Writing 41 · Speaking 39"]
+            source: au_485
+          - note: "Student visa: 39 is enough with at least 10 weeks of ELICOS English study, 31 with at least 20 weeks. Home Affairs sets no skill floor for it."
+            source: au_500
+          - table:
+              caption: "UK — PTE Academic UKVI as a SELT"
+              head: ["CEFR level", "When the UK asks for it", "Each skill"]
+              rows:
+                - ["B1", "Student visa below degree level", "43 in Listening, Reading, Writing and Speaking"]
+                - ["B2", "The level a university must be satisfied of at degree level", "59 in each skill"]
+            source: uk_selt_list
+          - table:
+              caption: "Canada — Post-Graduation Work Permit (PTE Core only)"
+              head: ["Programme you graduate from", "Level", "PTE Core score range per skill"]
+              rows:
+                - ["University bachelor's, master's or doctoral degree", "CLB 7", "Reading 60–68 · Writing 69–78 · Listening 60–70 · Speaking 68–75"]
+                - ["Other college programmes", "CLB 5", "Reading 42–50 · Writing 51–59 · Listening 39–49 · Speaking 51–58"]
+            source: ca_clb
+          - note: "Each Canada cell is the score range IRCC maps to that CLB level, so a score anywhere in the range (or above it) meets the level. IRCC accepts PTE Core here, not PTE Academic."
+            source: ca_clb
     sources:
+      - { id: au_500, name: "Home Affairs (Australia) — Student visa (subclass 500)", url: "https://immi.homeaffairs.gov.au/visas/getting-a-visa/visa-listing/student-500", covers: "PTE overall minimums, no skill floor", checked: 2026-10-29 }
+      - { id: au_485, name: "Home Affairs (Australia) — Temporary Graduate visa, Post-Higher Education Work stream", url: "https://immi.homeaffairs.gov.au/visas/getting-a-visa/visa-listing/temporary-graduate-485/post-higher-education-work", covers: "PTE 55 overall and skill floors", checked: 2026-10-29 }
+      - { id: uk_selt_list, name: "GOV.UK — List of approved SELTs taken outside the UK (ODS)", url: "https://assets.publishing.service.gov.uk/media/68da41cd750fcf90fa6ffb33/List_of_approved_Secure_English_Language_Tests_taken_outside_the_UK+_1_.ods", covers: "PTE Academic UKVI B1/B2 minimums", checked: 2026-10-29 }
+      - { id: ca_clb, name: "IRCC — PGWP: find your language level", url: "https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/work/after-graduation/eligibility/language-results.html", covers: "PTE Core CLB table", checked: 2026-10-29 }
       - { id: pte_in, name: "Pearson PTE — Test centers and fees (India)", url: "https://www.pearsonpte.com/pte-academic/test-centers-and-fees", covers: "INR fees, versions, 57 centres", checked: 2026-10-29 }
 
   duolingo:
@@ -249,7 +358,31 @@ exams:
               - { t: "The GRE General Test costs US$249 in all areas except China, effective 1 August 2026. ETS tells test takers in India to use the ETS India website for payment.", source: gre_fees }
               - { t: "Rescheduling and changing the test centre cost US$55 each; an additional score report costs US$40 per recipient; score reinstatement costs US$50.", source: gre_fees }
               - { t: "With a GRE Fee Reduction Voucher you pay US$100 for the General Test and also get US$100 worth of official prep material.", source: gre_fees }
+      - id: format
+        nav: Format
+        eyebrow: "Paper anatomy"
+        heading: "Five sections in about 1 hour 58 minutes"
+        parts:
+          - table:
+              caption: "GRE General Test sections (format since 22 Sep 2023)"
+              head: ["Section", "Questions", "Time"]
+              rows:
+                - ["Analytical Writing", "1 'Analyze an Issue' task", "30 min"]
+                - ["Verbal Reasoning — section 1", "12", "18 min"]
+                - ["Verbal Reasoning — section 2", "15", "23 min"]
+                - ["Quantitative Reasoning — section 1", "12", "21 min"]
+                - ["Quantitative Reasoning — section 2", "15", "26 min"]
+                - ["Total", "54 questions + 1 essay", "About 1 h 58 min"]
+            source: gre_structure
+          - points:
+              - { t: "Analytical Writing always comes first; the Verbal and Quantitative sections follow in any order.", source: gre_structure }
+              - { t: "Section-level adaptive: the first Verbal and the first Quant section are of average difficulty, and your score on each decides how hard the second section of that measure is.", source: gre_structure }
+              - { t: "Inside a section you can skip, mark and come back to questions and change answers.", source: gre_structure }
+              - { t: "An on-screen calculator is given for the Quantitative Reasoning sections only.", source: gre_structure }
+              - { t: "Quant question types: Quantitative Comparison, multiple choice with one answer, multiple choice with one or more answers, and Numeric Entry; some come in Data Interpretation sets built on one table or graph.", source: gre_quant }
     sources:
+      - { id: gre_structure, name: "ETS — GRE General Test structure", url: "https://www.ets.org/gre/test-takers/general-test/prepare/test-structure.html", covers: "Sections, questions, timing, adaptation, calculator", checked: 2026-10-29 }
+      - { id: gre_quant, name: "ETS — GRE Quantitative Reasoning", url: "https://www.ets.org/gre/test-takers/general-test/prepare/content/quantitative-reasoning.html", covers: "Question types", checked: 2026-10-29 }
       - { id: gre_fees, name: "ETS — Fees for GRE tests and related services", url: "https://www.ets.org/gre/test-takers/general-test/register/fees.html", covers: "US$ fees from 1 Aug 2026, fee reduction", checked: 2026-10-29 }
 
   gmat:
@@ -275,7 +408,27 @@ exams:
           - points:
               - { t: "GMAC lists US$275 for the test centre exam and US$300 online in the US; other locations have their own price, taxes and rules, set by where you sit the test.", source: gmat_pay }
               - { t: "Rescheduling starts at US$55 if done more than 60 days before the test. Fee waivers are handed out through participating schools.", source: gmat_fee }
+      - id: format
+        nav: Format
+        eyebrow: "Paper anatomy"
+        heading: "Three sections, 64 questions, 2 hours 15 minutes"
+        parts:
+          - table:
+              caption: "GMAT exam sections"
+              head: ["Section", "Questions", "Time", "Calculator"]
+              rows:
+                - ["Quantitative Reasoning", "21 Problem Solving", "45 min", "Not allowed"]
+                - ["Verbal Reasoning", "23 Reading Comprehension and Critical Reasoning", "45 min", "—"]
+                - ["Data Insights", "20", "45 min", "On-screen calculator"]
+                - ["Total", "64", "2 h 15 min + one optional 10-min break", ""]
+            source: gmat_content
+          - points:
+              - { t: "You pick the order of the three sections, and take the optional 10-minute break after the first or the second.", source: gmat_structure }
+              - { t: "At the end of each section a Question Review & Edit screen lets you revisit bookmarked questions and change up to three answers — only if time is left in that section.", source: gmat_structure }
+              - { t: "You choose which schools get your free score reports after you have seen your score.", source: gmat_structure }
     sources:
+      - { id: gmat_structure, name: "mba.com — GMAT exam structure", url: "https://www.mba.com/exams/gmat-exam/about/exam-structure", covers: "64 questions, 2 h 15 min, section order, review & edit", checked: 2026-10-29 }
+      - { id: gmat_content, name: "mba.com — GMAT exam content", url: "https://www.mba.com/exams/gmat-exam/about/exam-content", covers: "Question types, calculator rule per section", checked: 2026-10-29 }
       - { id: gmat_pay, name: "mba.com — GMAT exam payment", url: "https://www.mba.com/exams/gmat-exam/register/exam-payment", covers: "Location-based pricing" }
       - { id: gmat_fee, name: "GMAC support — GMAT fees, vouchers and fee waivers", url: "https://support.mba.com/hc/en-us/articles/6284241279771-GMAT-How-Much-Does-The-Exam-Cost", covers: "US prices, reschedule, waivers" }
 
@@ -301,7 +454,27 @@ exams:
         parts:
           - p: "College Board charges a US$68 registration fee plus a US$43 international fee for tests outside the United States, so US$111 in total. Its table of extra fees is labelled 'Fees Through June 2027'."
             source: sat_intl
+      - id: format
+        nav: Format
+        eyebrow: "Paper anatomy"
+        heading: "Two sections, four adaptive modules"
+        parts:
+          - table:
+              caption: "Digital SAT sections"
+              head: ["Section", "Modules", "Questions", "Time"]
+              rows:
+                - ["Reading and Writing", "2 × 32 min", "54", "64 min"]
+                - ["Math", "2 × 35 min", "44", "70 min"]
+                - ["Total", "4 modules + 10-min break between sections", "98", "134 min (2 h 14 min)"]
+            source: sat_structure
+          - points:
+              - { t: "Module 1 of each section mixes easy, medium and hard questions; how you do on it decides whether module 2 is harder or easier.", source: sat_structure }
+              - { t: "Most questions are multiple choice; some Math questions ask you to type in the answer.", source: sat_structure }
+              - { t: "A calculator is allowed throughout the Math section: the Desmos calculator built into Bluebook (scientific or graphing) or your own approved handheld one.", source: sat_calc }
+              - { t: "Calculators with a computer algebra system (CAS) are not allowed.", source: sat_calc }
     sources:
+      - { id: sat_structure, name: "College Board — How the SAT is structured", url: "https://satsuite.collegeboard.org/sat/whats-on-the-test/structure", covers: "Sections, modules, questions, timing, adaptivity", checked: 2026-10-29 }
+      - { id: sat_calc, name: "College Board — SAT Suite calculator policy", url: "https://satsuite.collegeboard.org/in-school-assessments/calculator-policy", covers: "Desmos or approved handheld; no CAS", checked: 2026-10-29 }
       - { id: sat_intl, name: "College Board — SAT international testing fees", url: "https://satsuite.collegeboard.org/sat/registration/international-testing/fees", covers: "US$68 + US$43", checked: 2026-10-29 }
 
   testdaf:
@@ -546,6 +719,19 @@ guides:
               - { label: "NEET-UG (needed before you go)", url: "neet-ug.html" }
               - { label: "Study in Russia: NMC checks", url: "study-abroad/russia.html" }
               - { label: "Ukraine: advisory and mobility", url: "study-abroad/ukraine.html" }
+              - { label: "MBBS in India: the full career guide", url: "mbbs.html" }
+      - id: licence-test
+        nav: "FMGE or NExT"
+        eyebrow: "The licence test back home"
+        heading: "FMGE today, the National Exit Test once it starts"
+        parts:
+          - points:
+              - { t: "The FMGL Regulations ask you to clear 'the National Exit Test or such other mandated test or tests conducted by the Commission'. NMC's FAQs list passing the screening test or NExT among the conditions for an internship in India.", source: nmc_faq }
+              - { t: "Section 15 of the NMC Act, 2019 says anyone with a foreign medical qualification must qualify NExT for a licence and a place on the State or National Register. NExT starts on a date the Central Government notifies.", source: nmc_act }
+              - { t: "Until then the test is the FMGE, which NBEMS runs under the Screening Test Regulations, 2002. NBEMS held FMGE sessions in June 2026 and on 31 October 2026.", source: fmge_page }
+              - { t: "After passing, get provisional registration from your State Medical Council and apply for the 12-month supervised internship with the State Medical Council through the NMC.", source: nmc_faq }
+          - links:
+              - { label: "FMGE: pattern, pass mark, fee", url: "fmge.html" }
       - id: internship
         nav: Internship
         eyebrow: "Back in India"
@@ -564,5 +750,8 @@ guides:
               - { t: "The Government told the Supreme Court that the notice was not a back door into Indian medical colleges.", source: nmc_amp_news }
     sources:
       - { id: nmc_fmgl, name: "NMC — Rules and regulations (FMGL Regulations 2021 and FAQs)", url: "https://nmc.org.in/page/rules-regulations-rules-regulations-nmc", covers: "54 months, internship, English, licence, 10 years" }
+      - { id: nmc_faq, name: "NMC — FAQs on the FMGL Regulations, 2021", url: "https://nmc.org.in/rules-regulation-nmc/39/file", covers: "Screening test or NExT, provisional registration, internship application", checked: 2026-10-29 }
+      - { id: nmc_act, name: "National Medical Commission Act, 2019 (section 15)", url: "https://nmc.org.in/210357_NMC_Act-1-1.pdf", covers: "NExT for foreign medical graduates, start date by notification", checked: 2026-10-29 }
+      - { id: fmge_page, name: "NBEMS — FMGE examination page", url: "https://natboard.edu.in/viewnbeexam?exam=fmge", covers: "Screening Test Regulations 2002, June and October 2026 sessions", checked: 2026-10-29 }
       - { id: nmc_crmi, name: "NMC — Circular on CRMI slots for FMGs (10 Mar 2026)", url: "https://nmc.org.in/whats-new/download/955", covers: "7.5% / 100% internship seats", checked: 2026-10-29 }
       - { id: nmc_amp_news, name: "Careers360 — NMC allows Ukraine-returned students to finish abroad", url: "https://news.careers360.com/nmc-allows-indian-students-from-ukrainian-universities-complete-medical-education-in-other-countries", covers: "Academic mobility notice of 6 Sep 2022" }

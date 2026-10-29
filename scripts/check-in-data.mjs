@@ -55,14 +55,23 @@ for (const f of fs.readdirSync(dir).filter((x) => x.endsWith('.yml'))) {
     ids.add(s.id);
     if (!/^https:\/\//.test(s.url || '')) err(`source ${s.id}: url must start with https://`);
     // js-yaml 4 (and Jekyll) load `checked: 2026-10-23` as a Date, js-yaml 5 as a string: accept both shapes.
-    if (s.checked && !(s.checked instanceof Date) && !/^d{4}-d{2}-d{2}$/.test(String(s.checked))) err(`source ${s.id}: checked must be a date (YYYY-MM-DD)`);
+    if (s.checked && !(s.checked instanceof Date) && !/^\d{4}-\d{2}-\d{2}$/.test(String(s.checked))) err(`source ${s.id}: checked must be a date (YYYY-MM-DD)`);
   }
   const cited = new Set();
   const walk = (v) => {
     if (Array.isArray(v)) v.forEach(walk);
     else if (v && typeof v === 'object') for (const [k, x] of Object.entries(v)) { if (k === 'source' && typeof x === 'string') cited.add(x); else walk(x); }
   };
-  walk({ hero: C.hero, path: C.path, journey: C.journey, sections: C.sections });
+  walk({ hero: C.hero, path: C.path, journey: C.journey, sections: C.sections, foreign_return_route: C.foreign_return_route });
+
+  // foreign_return_route (degree abroad → licence in India): every step sourced, at least one link
+  const R = C.foreign_return_route;
+  if (R) {
+    if (!R.heading || !R.eyebrow) err('foreign_return_route needs eyebrow and heading');
+    if (!Array.isArray(R.steps) || !R.steps.length) err('foreign_return_route needs steps');
+    for (const [i, s] of (R.steps || []).entries()) if (!s.title || !s.text || !s.source) err(`foreign_return_route step ${i + 1} needs title, text and source`);
+    if (!Array.isArray(R.links) || !R.links.length) err('foreign_return_route needs links');
+  }
   for (const id of cited) if (!ids.has(id)) err(`source: "${id}" is cited but not listed under sources`);
   for (const id of ids) if (!cited.has(id)) err(`source "${id}" is listed but never cited (add source: ${id} to a fact)`);
 
@@ -78,7 +87,7 @@ for (const f of fs.readdirSync(dir).filter((x) => x.endsWith('.yml'))) {
   if (C.path && C.path.length > 7) err(`path has ${C.path.length} steps (max 7)`);
 
   // sections and parts
-  const anchors = new Set(['main', 'journey', 'sources']);
+  const anchors = new Set(['main', 'journey', 'sources', ...(C.foreign_return_route ? ['abroad-return'] : [])]);
   for (const [i, S] of (C.sections || []).entries()) {
     if (!S.hid || !S.heading) err(`section ${i + 1} needs hid and heading`);
     if (S.id) anchors.add(S.id);

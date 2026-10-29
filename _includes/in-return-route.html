@@ -1,0 +1,39 @@
+{%- comment -%}
+  "Coming back after a degree abroad" block on an India career page, from the sheet's `foreign_return_route`
+  (today only mbbs.yml: the NMC FMGL route). Reads C from in-career.html, so [n] markers point at C.sources.
+    foreign_return_route:
+      eyebrow, heading, intro      section head
+      steps: [{title, text, source}]  numbered route, same .ab-steps markup as the study-abroad pages
+      note: {text, source}         optional fine print under the steps
+      links: [{label, href}]       buttons (study-abroad guide, exam page ...)
+  Renders nothing when the sheet has no foreign_return_route. check-in-data.mjs validates it.
+{%- endcomment -%}
+{%- assign R = C.foreign_return_route -%}
+{%- if R %}
+<section class="block mb" id="abroad-return" aria-labelledby="abroad-return-heading">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">{{ R.eyebrow }}</span>
+      <h2 id="abroad-return-heading">{{ R.heading }}</h2>
+      {%- if R.intro %}
+      <p>{{ R.intro }}</p>
+      {%- endif %}
+    </div>
+    <ol class="ab-steps">
+      {%- for s in R.steps %}
+      <li class="ab-step"><span class="ab-step-n" aria-hidden="true">{{ forloop.index }}</span><div><h3>{{ s.title }}</h3><p>{{ s.text }}{% if s.source %} {% include in-src-ref.html id=s.source %}{% endif %}</p></div></li>
+      {%- endfor %}
+    </ol>
+    {%- if R.note %}
+    <p class="table-note">{{ R.note.text }}{% if R.note.source %} {% include in-src-ref.html id=R.note.source %}{% endif %}</p>
+    {%- endif %}
+    {%- if R.links %}
+    <div class="chip-links sc-links">
+      {%- for l in R.links %}
+      <a class="btn btn-ghost btn-page-link" href="{{ l.href }}">{{ l.label }}</a>
+      {%- endfor %}
+    </div>
+    {%- endif %}
+  </div>
+</section>
+{%- endif %}

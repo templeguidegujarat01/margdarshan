@@ -438,6 +438,9 @@
   </section>
   {%- endfor %}
 
+  {%- comment -%} Degree abroad → licence in India (sheet's foreign_return_route; renders nothing without it) {%- endcomment %}
+  {% include in-return-route.html %}
+
   {%- comment -%} Moving between countries (_data/mobility.yml; renders nothing without routes) {%- endcomment %}
   {% include mobility-strip.html ed="in" key=include.career sec="block" %}
 

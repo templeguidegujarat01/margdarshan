@@ -175,6 +175,129 @@ mega.niche = {
   cols: [{ label: 'Sector guides', links: Object.entries(niche.sectors).filter(([k]) => exists(`niche-careers/${k}.html`)).map(([k, v]) => ({ label: v.eyebrow, href: `niche-careers/${k}.html` })) }],
 };
 
+// ---- domain menus (2026-10-31): Engineering, Medical, Commerce, Law & Arts, Design, Govt Jobs, Diploma & ITI.
+// Every domain menu keeps one rail order — Exams | Careers & Courses | Colleges | Coaching | Admissions | Roadmaps —
+// so a student who learns one menu can read them all. Exams and Admissions are short hand lists in nav.yml; the
+// columns below are picked from the hub-page groups above (by group label, so a renamed group fails --check),
+// the finder keys in _data/seo_landings.yml (only keys with verified lists) and the journey / roadmap pages.
+const seo = yaml.load(read('_data/seo_landings.yml'));
+const pickCol = (key, label, rename, drop = []) => {
+  const c = (mega[key] && mega[key].cols || []).find((x) => x.label === label);
+  if (!c) { problems.push(`domain menus: no group "${label}" in ${key}`); return null; }
+  return { label: rename || c.label, links: c.links.filter((l) => !drop.includes(l.href)) };
+};
+const pickLinks = (label, hrefs) => {
+  const all = Object.values(mega).flatMap((m) => m.cols.flatMap((c) => c.links));
+  const links = hrefs.map((h) => all.find((l) => l.href === h) || (problems.push(`domain menus: ${h} is in no hub group`), null)).filter(Boolean);
+  return { label, links };
+};
+// A finder key → its finder link; a key with no verified lists is skipped (and flagged), never shown empty.
+const finderCol = (kind, label, keys) => ({
+  label,
+  links: keys.map((k) => {
+    const L = seo[kind].labels[k];
+    if (!L) { problems.push(`domain menus: ${kind} key ${k} has no verified lists`); return null; }
+    return { label: decode(L.short), href: L.finder };
+  }).filter(Boolean),
+});
+// The state landing pages (colleges/<state>/<key>.html) that exist for one key, biggest list first.
+const byStateCol = (kind, key, label) => ({
+  label,
+  links: Object.entries(seo[kind].states)
+    .filter(([id, s]) => (s.lists || {})[key] && exists(`${kind}/${id}/${key}.html`))
+    .sort((a, b) => b[1].lists[key] - a[1].lists[key] || a[1].name.localeCompare(b[1].name))
+    .map(([id, s]) => ({ label: decode(s.name), href: `${kind}/${id}/${key}.html`, desc: `${s.lists[key]} verified` })),
+});
+const journeys = fs.readdirSync(path.join(root, '_data/in/journey')).filter((f) => f.endsWith('.yml')).sort()
+  .map((f) => yaml.load(read(`_data/in/journey/${f}`)))
+  .filter((j) => exists(`journey-${j.id}.html`));
+// Class-by-class journeys, then step-by-step roadmaps grouped like the domain's career groups (short tabs, so
+// the panel stays one screen tall).
+function roadCols(careerCols) {
+  const seen = new Set();
+  const hrefs = new Set(careerCols.flatMap((c) => c.links).map((l) => l.href));
+  return [
+    { label: 'Class 8 to first job', links: journeys.filter((j) => hrefs.has(j.page)).map((j) => ({ label: decode(j.name).replace(/\s*\(.*\)$/, ''), href: `journey-${j.id}.html` })) },
+    // More than 6 career groups (Law & Arts) would mean a row of one-link tabs: one list instead.
+    ...(careerCols.length > 6 ? [{ label: 'Step-by-step roadmaps', links: careerCols.flatMap((c) => c.links) }] : careerCols).map((c) => ({
+      label: c.label,
+      links: c.links.filter((l) => !seen.has(l.href) && exists(`roadmaps/${l.href}`) && seen.add(l.href)).map((l) => ({ label: l.label, href: `roadmaps/${l.href}` })),
+    })),
+  ].filter((c) => c.links.length);
+}
+const allCols = (key, drop = []) => (mega[key].cols || []).filter((c) => !drop.includes(c.label));
+const domains = {
+  eng: {
+    name: 'Engineering', hub: 'science.html',
+    careers: [pickCol('science', 'Engineering & Technology (PCM)', 'Engineering branches', ['architect.html']), pickCol('science', 'Computer & Digital Careers', 'Computer & digital'),
+      pickCol('science', 'Aviation, Maritime & Railways', 'Aviation, marine & rail'), pickCol('science', 'Science-Based Government Services', 'Science in government')],
+    colleges: [finderCol('colleges', 'Degree courses', ['btech', 'bca']), finderCol('colleges', 'Pure science & maths', ['statistics', 'geology']), byStateCol('colleges', 'btech', 'B.Tech colleges by state')],
+    coaching: [finderCol('coaching', 'Entrance coaching', ['jee']), byStateCol('coaching', 'jee', 'JEE coaching by state')],
+  },
+  med: {
+    name: 'Medical', hub: 'science.html',
+    careers: [pickCol('science', 'Medical & Healthcare (PCB)', 'Medical & healthcare'), pickCol('science', 'Emerging & Life Sciences', 'Life sciences & agriculture', ['actuarial-science.html'])],
+    colleges: [finderCol('colleges', 'Medicine & dentistry', ['mbbs', 'bds', 'bams', 'bhms']),
+      finderCol('colleges', 'Nursing, pharmacy & allied health', ['nursing', 'bpharm', 'bpt', 'ot', 'optometry', 'mlt', 'radiology', 'aslp', 'nutrition', 'perfusion']),
+      finderCol('colleges', 'Life sciences & agriculture', ['biotech', 'genetics', 'microbiology', 'envsci', 'agri', 'vet', 'fisheries', 'foodtech']),
+      byStateCol('colleges', 'mbbs', 'MBBS colleges by state')],
+    coaching: [finderCol('coaching', 'Entrance coaching', ['neet']), byStateCol('coaching', 'neet', 'NEET coaching by state')],
+  },
+  com: {
+    name: 'Commerce', hub: 'commerce.html',
+    careers: allCols('commerce'),
+    colleges: [finderCol('colleges', 'Degree courses', ['bcom', 'bba', 'economics', 'actuarial']), byStateCol('colleges', 'bcom', 'B.Com colleges by state'), byStateCol('colleges', 'bba', 'BBA / BMS colleges by state')],
+    coaching: [finderCol('coaching', 'Professional courses', ['ca', 'cs', 'cma', 'acca', 'cfa', 'frm', 'cpa', 'actuarial']), finderCol('coaching', 'Entrance coaching', ['ipmat', 'cuet']), byStateCol('coaching', 'ca', 'CA coaching by state')],
+  },
+  law: {
+    name: 'Law & Arts', hub: 'arts.html',
+    careers: allCols('arts', ['Design & Creative Careers', 'Fine & Performing Arts', 'Government, Civil Services & Defence']),
+    colleges: [finderCol('colleges', 'Law', ['law']), finderCol('colleges', 'Humanities, media & teaching', ['ba', 'bjmc', 'bsw', 'libsci', 'bed']), finderCol('colleges', 'Hospitality & travel', ['hotel', 'tourism']),
+      byStateCol('colleges', 'law', 'Law colleges by state'), byStateCol('colleges', 'ba', 'BA colleges by state')],
+    coaching: [finderCol('coaching', 'Law', ['clat', 'judiciary']), finderCol('coaching', 'Central universities', ['cuet']), byStateCol('coaching', 'clat', 'CLAT coaching by state')],
+  },
+  des: {
+    name: 'Design', hub: 'arts.html',
+    careers: [pickCol('arts', 'Design & Creative Careers', 'Design & creative'), pickCol('arts', 'Fine & Performing Arts', 'Fine & performing arts'), pickLinks('Architecture & digital design', ['architect.html', 'ui-ux-designer.html'])],
+    colleges: [finderCol('colleges', 'Design & architecture', ['bdes', 'barch']), finderCol('colleges', 'Fine arts, media & performance', ['bfa', 'performing', 'animation', 'photography']), byStateCol('colleges', 'bdes', 'B.Des colleges by state')],
+    coaching: [finderCol('coaching', 'Entrance coaching', ['design', 'nata']), byStateCol('coaching', 'design', 'Design coaching by state')],
+  },
+  gov: {
+    name: 'Govt Jobs', hub: 'govt-exams.html',
+    careers: allCols('govt-careers'),
+    coaching: [finderCol('coaching', 'Govt exam coaching', ['upsc', 'ssc', 'banking', 'defence', 'judiciary']), byStateCol('coaching', 'upsc', 'UPSC coaching by state')],
+  },
+  dip: {
+    name: 'Diploma & ITI', hub: 'diploma.html',
+    careers: [...allCols('diploma'), ...allCols('iti')],
+    // 18 small trade groups would make 18 one-link tabs: roadmaps are grouped as diploma vs ITI instead.
+    roads: [{ label: 'Diploma roadmaps', links: allCols('diploma').flatMap((c) => c.links) }, { label: 'ITI trade roadmaps', links: allCols('iti').flatMap((c) => c.links) }],
+    colleges: [finderCol('colleges', 'Engineering diplomas', ['diploma', 'diploma_mech', 'diploma_civil', 'diploma_cse', 'diploma_ee']),
+      finderCol('colleges', 'Health, design & other diplomas', ['dpharm', 'gnm', 'dmlt', 'dradio', 'dhotel', 'dagri', 'dfashion', 'dinterior', 'dbm', 'dfood']),
+      finderCol('colleges', 'ITI', ['iti', 'iti_electrician']), byStateCol('colleges', 'diploma', 'Polytechnics by state'), byStateCol('colleges', 'iti', 'ITIs by state')],
+  },
+};
+for (const [d, D] of Object.entries(domains)) {
+  const careers = D.careers.filter(Boolean);
+  // Diploma & ITI shows its careers as two rail nodes (mega: diploma / iti), Govt Jobs as mega: govt-careers.
+  if (!['gov', 'dip'].includes(d)) mega[`${d}-careers`] = { title: `${D.name} careers & courses`, head: { label: `${D.name} stream guide`, href: D.hub }, cols: careers };
+  if (D.colleges) mega[`${d}-colleges`] = { title: `${D.name} colleges`, head: { label: 'Open the college finder', href: 'colleges.html' }, note: 'Only colleges checked on their official site', cols: D.colleges.filter((c) => c.links.length) };
+  if (D.coaching) mega[`${d}-coaching`] = { title: `${D.name} coaching`, head: { label: 'Open the coaching finder', href: 'coaching.html' }, note: 'Only centres checked on their official branch page', cols: D.coaching.filter((c) => c.links.length) };
+  mega[`${d}-roadmaps`] = { title: `${D.name} roadmaps`, head: { label: 'Build your own Journey Blueprint', href: 'journey-blueprint.html' }, cols: roadCols(D.roads || careers) };
+}
+// Govt Jobs: state government recruitment (the `civil` exams of every state cockpit), one column per state.
+mega['govt-state'] = {
+  title: 'State government jobs',
+  head: { label: 'All state pathways', href: 'state-pathways.html' },
+  note: 'State PSC, staff selection, police and clerk exams',
+  cols: stateCols.map((c) => {
+    const id = c.links[0].href.split('/')[1];
+    const s = yaml.load(read(`_data/in/states/${id}.yml`));
+    const civil = new Set(s.exams.filter((e) => e.group === 'civil').map((e) => `state/${id}/${e.slug}.html`));
+    return { label: c.label, links: c.links.filter((l) => civil.has(l.href)) };
+  }).filter((c) => c.links.length),
+};
+
 // Every mega key named in nav.yml must exist here, and every column must have links.
 for (const it of nav.topnav) for (const n of it.nodes || []) if (n.mega && !mega[n.mega]) problems.push(`nav.yml node "${n.label}" names unknown mega key ${n.mega}`);
 for (const [k, v] of Object.entries(mega)) if (!v.cols.length) problems.push(`${k}: no links`);

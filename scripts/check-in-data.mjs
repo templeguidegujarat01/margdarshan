@@ -619,6 +619,7 @@ if (fs.existsSync(navFile)) {
       const M = n.mega ? (mega[n.mega] || {}) : null;
       if (n.mega && !M.cols) errors.push(`nav.yml topnav ${it.label} > ${n.label}: mega key '${n.mega}' is not in _data/nav_mega.yml`);
       if (M && M.head) chk(`${n.label} > flyout head`, M.head.href);
+      if (n.head) chk(`${n.label} > pane head`, n.head.href);
       const cols = M ? (M.cols || []) : (n.cols || []);
       if (!cols.length) errors.push(`nav.yml topnav ${it.label} > ${n.label}: node has no cols`);
       for (const col of cols) {

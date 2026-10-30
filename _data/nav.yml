@@ -177,147 +177,308 @@ topnav:
     label: India Home
     href: india.html
     icon: '<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>'
-  - type: menu
-    label: Career Tools
-    children:
-      - { label: Find My Fit, href: career-fit.html, desc: "A short quiz that suggests directions" }
-      - { label: Career Comparison, href: career-comparison.html, desc: "Compare 2 to 4 careers side by side" }
-      - { label: Journey Blueprint, href: journey-blueprint.html, desc: "Career + class: your road, doubts, exams and scholarships" }
   # Menus with `nodes` open as a mega panel: a rail of node names on the left, and the hovered node's
   # columns on the right. `mega: <key>` takes the columns from _data/nav_mega.yml, which
   # scripts/build-nav-mega.mjs builds from the hub pages and data (rerun it after adding a career).
-  # `badge: stem | health | finance` adds a small category tag after a node's name in the rail.
+  # Optional node keys: `title` (pane heading), `head: {label, href}` (pane's top-right link),
+  # `badge: stem | health | finance` (a small category tag after the node's name in the rail).
+  #
+  # Domain menus (2026-10-31): Engineering, Medical, Commerce, Law & Arts, Design, Govt Jobs, Diploma & ITI.
+  # Every domain keeps ONE rail order so a student who learns one menu can read them all:
+  #   Exams & Admissions (hand list here) → Careers & Courses → Colleges → Coaching → Roadmaps (mega keys
+  #   <d>-careers / <d>-colleges / <d>-coaching / <d>-roadmaps, built by scripts/build-nav-mega.mjs).
+  # "Start Here" comes first for students who do not know their domain yet. Only pages that exist and finder
+  # keys with verified listings are linked — no sponsored or "apply now" links, no dated leftovers.
   - type: menu
-    label: After Class 10th
-    children:
-      - { label: Compare all 5 pathways, href: after-10th.html }
+    label: Start Here
     nodes:
-      - { label: Science, href: science.html, mega: science, badge: stem }
-      - { label: Commerce, href: commerce.html, mega: commerce, badge: finance }
-      - { label: Arts, href: arts.html, mega: arts }
-      - { label: Diploma, href: diploma.html, mega: diploma }
-      - { label: ITI, href: iti.html, mega: iti }
-  - type: menu
-    label: Career Hubs
-    nodes:
+      - label: Choose a Stream
+        href: after-10th.html
+        title: Pick your stream after Class 10
+        head: { label: Compare all 5 pathways, href: after-10th.html }
+        cols:
+          - label: After Class 10th
+            links:
+              - { label: Science, href: science.html, desc: "PCM for engineering · PCB for medical" }
+              - { label: Commerce, href: commerce.html, desc: "CA, CS, BBA, B.Com, finance" }
+              - { label: Arts & Humanities, href: arts.html, desc: "Law, design, media, civil services" }
+              - { label: Polytechnic Diploma, href: diploma.html, desc: "Diploma after Class 10, lateral entry to B.Tech" }
+              - { label: ITI Trades, href: iti.html, desc: "1–2 year trades, apprenticeship, jobs" }
+              - { label: Compare all 5 pathways, href: after-10th.html, desc: "Side by side: time, cost, what comes next" }
+      - label: Career Tools
+        href: career-fit.html
+        title: Free career tools — no login
+        cols:
+          - label: Plan your road
+            links:
+              - { label: Find My Fit, href: career-fit.html, desc: "A short quiz that suggests directions" }
+              - { label: Journey Blueprint, href: journey-blueprint.html, desc: "Career + class: your road, doubts, exams and scholarships" }
+              - { label: Career Comparison, href: career-comparison.html, desc: "Compare 2 to 4 careers side by side" }
+              - { label: "CA vs CMA vs CS", href: "career-comparison.html?c=ca,cma,cs", desc: "The three commerce qualifications compared" }
       - { label: High-Paying Careers, href: high-paying-careers.html, mega: high-paying }
       - { label: Fast-Track Jobs, href: fast-track-jobs.html, mega: fast-track }
       - { label: Professional Courses, href: professional-courses.html, mega: professional }
       - { label: Specialised Careers, href: specialised-careers.html, mega: specialised }
-      - { label: Government Jobs, href: govt-exams.html, mega: govt-careers }
-  - type: menu
-    label: Entrance & Competitive Exams
-    # Three tiers: menu button -> 5 stream nodes -> flyout columns (cols). Desktop with a mouse opens a
-    # node's columns to the RIGHT of the panel; touch and below 1024px swipe them sideways inside the panel.
-    nodes:
-      - label: Science Exams
-        href: science.html
-        badge: stem
-        desc: "Engineering, medical, pure science & state CETs"
+      - label: Colleges & Coaching
+        href: colleges.html
+        title: Verified college & coaching finders
         cols:
-          - label: National Engineering
-            icon: '<path d="M14.7 6.3a4 4 0 00-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 005.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/>'
+          - label: Colleges
+            links:
+              - { label: College finder, href: colleges.html, desc: "Pick a course and a state" }
+              - { label: "College lists by state & city", href: colleges/index.html, desc: "Every list checked on official sites" }
+          - label: Coaching
+            links:
+              - { label: Coaching finder, href: coaching.html, desc: "Pick an exam and a state" }
+              - { label: "Coaching lists by state & city", href: coaching/index.html, desc: "Every centre links to its official page" }
+  - type: menu
+    label: Engineering
+    nodes:
+      - label: Exams & Admissions
+        href: jee-main.html
+        title: Engineering exams & admissions
+        head: { label: Science stream guide, href: science.html }
+        cols:
+          - label: National entrances
             links:
               - { label: JEE Main (Paper 1), href: jee-main.html, desc: "NTA · NITs, IIITs, GFTIs" }
-              - { label: JEE Main Paper 2A / 2B, href: jee-main-paper2.html, desc: "NTA · B.Arch & B.Planning" }
-              - { label: JEE Advanced, href: jee-advanced.html, desc: "IIT Roorkee 2026 · the 23 IITs" }
+              - { label: JEE Advanced, href: jee-advanced.html, desc: "The 23 IITs" }
               - { label: BITSAT, href: bitsat.html, desc: "BITS Pilani · Goa · Hyderabad" }
-              - { label: VITEEE, href: viteee.html, desc: "VIT · 4 campuses · one attempt" }
-          - label: Medical & Pure Science
-            icon: '<path d="M4.8 2.3A.3.3 0 105 2H4a2 2 0 00-2 2v5a6 6 0 006 6 6 6 0 006-6V4a2 2 0 00-2-2h-1a.2.2 0 10.3.3"/><path d="M8 15v1a6 6 0 006 6 6 6 0 006-6v-4"/><circle cx="20" cy="10" r="2"/>'
+              - { label: VITEEE, href: viteee.html, desc: "VIT · 4 campuses" }
+              - { label: COMEDK UGET, href: comedk.html, desc: "Karnataka private colleges · all-India" }
+          - label: State entrance tests
             links:
-              - { label: NEET UG, href: neet-ug.html, desc: "NTA · MBBS, BDS, AYUSH" }
+              - { label: GUJCET (Gujarat), href: gujcet.html, desc: "GSEB · part of ACPC merit" }
+              - { label: MHT-CET (Maharashtra), href: state/maharashtra/mhtcet.html, desc: "State CET Cell · PCM / PCB" }
+              - { label: KCET (Karnataka), href: state/karnataka/kcet.html, desc: "KEA · UGCET" }
+              - { label: WBJEE (West Bengal), href: wbjee.html, desc: "WBJEEB · OMR test" }
+              - { label: AP EAPCET (Andhra Pradesh), href: state/andhra-pradesh/eapcet.html, desc: "Engineering, agriculture & pharmacy" }
+              - { label: TG EAPCET (Telangana), href: state/telangana/eapcet.html, desc: "Engineering, agriculture & pharmacy" }
+              - { label: KEAM (Kerala), href: state/kerala/keam.html, desc: "Nativity rules · +4/−1 marking" }
+              - { label: OJEE (Odisha), href: state/odisha/ojee.html, desc: "Odisha Joint Entrance" }
+              - { label: Assam CEE, href: state/assam/cee.html, desc: "+4/−1 marking" }
+          - label: State B.Tech counselling
+            links:
+              - { label: ACPC (Gujarat), href: state/gujarat/acpc.html, desc: "B.E. / B.Tech admission" }
+              - { label: JAC Delhi, href: state/delhi/jac-delhi.html, desc: "DTU, NSUT, IGDTUW, IIIT-Delhi" }
+              - { label: UPTAC (Uttar Pradesh), href: state/uttar-pradesh/aktu-uptac.html, desc: "AKTU · JEE Main / CUET merit" }
+              - { label: DTE MP (Madhya Pradesh), href: state/madhya-pradesh/dte-mp.html, desc: "B.E. / B.Tech on JEE Main" }
+              - { label: Punjab B.Tech, href: state/punjab/btech.html, desc: "Class 12 merit" }
+              - { label: JCECEB (Jharkhand), href: state/jharkhand/jceceb.html, desc: "B.Tech counselling" }
+              - { label: TNEA (Tamil Nadu), href: state/tamil-nadu/tnea.html, desc: "Class 12 cut-off formula" }
+          - label: "Science & maths (BS, BS-MS)"
+            links:
               - { label: NEST, href: nest.html, desc: "NISER & CEBS · Integrated M.Sc" }
               - { label: IISER Aptitude Test (IAT), href: iiser-iat.html, desc: "7 IISERs · BS-MS, BS, B.Tech" }
-              - { label: ISI B.Stat / B.Math, href: isi.html, desc: "Indian Statistical Institute · stipend" }
-              - { label: CMI B.S. (Hons), href: cmi.html, desc: "Chennai Mathematical Institute · 2027 date out" }
-              - { label: NEET PG, href: neet-pg.html, desc: "NBEMS · MD / MS / DNB after MBBS" }
-              - { label: INI-CET, href: ini-cet.html, desc: "AIIMS · JIPMER · PGIMER · NIMHANS PG seats" }
-              - { label: FMGE, href: fmge.html, desc: "NBEMS · screening test for foreign MBBS" }
-              - { label: AIIMS NORCET (Nursing), href: aiims-norcet.html, desc: "Nursing Officer · AIIMS & central hospitals" }
-              - { label: GPAT, href: gpat.html, desc: "NBEMS for PCI · M.Pharm admission & scholarship" }
-              - { label: NIPER JEE, href: niper-jee.html, desc: "7 NIPERs · M.S.(Pharm), M.Pharm, MBA, Ph.D." }
-          - label: State Engineering Pools
-            icon: '<path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/>'
+              - { label: ISI B.Stat / B.Math, href: isi.html, desc: "Indian Statistical Institute" }
+              - { label: CMI B.Sc. (Hons), href: cmi.html, desc: "Chennai Mathematical Institute" }
+          - label: After B.Tech
             links:
-              - { label: GUJCET (Gujarat), href: gujcet.html, desc: "GSEB · 50% of ACPC merit" }
-              - { label: MHT-CET (Maharashtra), href: state/maharashtra/mhtcet.html, desc: "State CET Cell · PCM / PCB" }
-              - { label: KCET (Karnataka), href: state/karnataka/kcet.html, desc: "KEA · no negative marking" }
-              - { label: WBJEE (West Bengal), href: wbjee.html, desc: "WBJEEB · OMR test, domicile rules" }
-              - { label: COMEDK UGET (Karnataka), href: comedk.html, desc: "~150 private colleges · all-India" }
-      - label: Commerce Exams
-        href: commerce.html
-        badge: finance
-        desc: "IPMAT, JIPMAT, CUET, CA, CMA & CS"
+              - { label: UPSC ESE, href: upsc-ese.html, desc: "Engineering Services" }
+              - { label: Karnataka PGCET, href: state/karnataka/pgcet.html, desc: "M.Tech, MBA, MCA in Karnataka" }
+      - { label: Careers & Courses, href: science.html, mega: eng-careers }
+      - { label: Colleges, href: "colleges.html?course=btech", mega: eng-colleges }
+      - { label: Coaching, href: "coaching.html?exam=jee", mega: eng-coaching }
+      - { label: Roadmaps, href: journey-blueprint.html, mega: eng-roadmaps }
+  - type: menu
+    label: Medical
+    nodes:
+      - label: Exams & Admissions
+        href: neet-ug.html
+        title: Medical exams & admissions
+        head: { label: Science stream guide, href: science.html }
         cols:
-          - label: Management Aptitude
-            icon: '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2M3 13h18"/>'
+          - label: After Class 12
             links:
-              - { label: IPMAT Indore, href: ipmat.html, desc: "IIM Indore · 5-year IPM · test + interview" }
+              - { label: NEET UG, href: neet-ug.html, desc: "NTA · MBBS, BDS, AYUSH" }
+              - { label: DCECE (Bihar), href: state/bihar/bceceb.html, desc: "BCECEB · para-medical & polytechnic" }
+          - label: "Nursing & pharmacy"
+            links:
+              - { label: AIIMS NORCET, href: aiims-norcet.html, desc: "Nursing Officer · AIIMS & central hospitals" }
+              - { label: GPAT, href: gpat.html, desc: "M.Pharm admission & scholarship" }
+              - { label: NIPER JEE, href: niper-jee.html, desc: "7 NIPERs · M.S.(Pharm), M.Pharm, MBA" }
+          - label: After MBBS
+            links:
+              - { label: NEET PG, href: neet-pg.html, desc: "NBEMS · MD / MS / DNB" }
+              - { label: INI-CET, href: ini-cet.html, desc: "AIIMS · JIPMER · PGIMER · NIMHANS" }
+              - { label: UPSC CMS, href: upsc-cms.html, desc: "Government doctors" }
+          - label: MBBS abroad
+            links:
+              - { label: Study MBBS abroad, href: study-abroad/mbbs-abroad.html, desc: "Check the NMC rules before you pick a country" }
+              - { label: FMGE, href: fmge.html, desc: "Screening test for a foreign MBBS" }
+      - { label: Careers & Courses, href: science.html, mega: med-careers }
+      - { label: Colleges, href: "colleges.html?course=mbbs", mega: med-colleges }
+      - { label: Coaching, href: "coaching.html?exam=neet", mega: med-coaching }
+      - { label: Roadmaps, href: journey-blueprint.html, mega: med-roadmaps }
+  - type: menu
+    label: Commerce
+    children:
+      - { label: "Compare CA vs CMA vs CS", href: "career-comparison.html?c=ca,cma,cs" }
+    nodes:
+      - label: Exams & Admissions
+        href: ca.html
+        title: Commerce & management exams
+        head: { label: Commerce stream guide, href: commerce.html }
+        cols:
+          - label: Management after Class 12
+            links:
+              - { label: IPMAT Indore, href: ipmat.html, desc: "IIM Indore · 5-year IPM" }
               - { label: JIPMAT, href: jipmat.html, desc: "NTA · IIM Bodh Gaya & IIM Jammu IPM" }
-              - { label: CUET UG, href: cuet-ug.html, desc: "Central university BBA / B.Com admissions" }
-          - label: Accounting Qualifications
-            icon: '<rect x="5" y="2" width="14" height="20" rx="2"/><path d="M8 6h8M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h4"/>'
+              - { label: CUET UG, href: cuet-ug.html, desc: "Central university BBA / B.Com" }
+          - label: Professional courses
             links:
-              - { label: CA Foundation, href: ca.html, desc: "ICAI chartered accountancy route" }
+              - { label: CA Foundation, href: ca.html, desc: "ICAI chartered accountancy" }
               - { label: CMA Foundation, href: cma.html, desc: "ICMAI cost & management accounting" }
-              - { label: CSEET (Company Secretary), href: cs.html, desc: "ICSI company secretary route" }
-      - label: Arts & Design Exams
-        href: arts.html
-        desc: "CLAT, AILET, CUET, NATA, UCEED, NID & NCHM"
-        cols:
-          - label: Design & Architecture
-            icon: '<path d="M12 19l7-7 3 3-7 7z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18z"/><path d="M2 2l7.6 7.6"/><circle cx="11" cy="11" r="2"/>'
+              - { label: CSEET (Company Secretary), href: cs.html, desc: "ICSI company secretary" }
+          - label: State admissions
             links:
-              - { label: NATA, href: nata.html, desc: "Council of Architecture · B.Arch aptitude test" }
-              - { label: NIFT, href: nift.html, desc: "B.Des & B.F.Tech · 20 NIFT campuses" }
-              - { label: UCEED, href: uceed.html, desc: "IIT Bombay · B.Des at 6 IITs & IIITDM Jabalpur" }
-              - { label: CEED, href: ceed.html, desc: "IIT Bombay · M.Des at IISc, IITs & IIITDMs" }
-              - { label: NID DAT, href: nid-dat.html, desc: "National Institutes of Design · Prelims + Mains" }
-              - { label: NCHM JEE, href: nchmct-jee.html, desc: "NTA · B.Sc. Hotel Administration at IHMs" }
-          - label: Law & Humanities
-            icon: '<path d="M12 3v18M5 21h14M3 7h18M6 7l-3 7a3 3 0 006 0zM18 7l-3 7a3 3 0 006 0z"/>'
+              - { label: IPU CET (Delhi), href: state/delhi/ipu-cet.html, desc: "GGSIPU · BBA & B.Com" }
+              - { label: "BBA, BMS & BCA CET (Maharashtra)", href: state/maharashtra/bba-cap.html, desc: "State CET Cell" }
+              - { label: GCAS (Gujarat), href: state/gujarat/gcas.html, desc: "One form for UG arts, commerce, science" }
+          - label: After graduation
+            links:
+              - { label: MAH-MBA / MMS CET, href: state/maharashtra/mba-cet.html, desc: "Maharashtra MBA admission" }
+              - { label: Karnataka PGCET, href: state/karnataka/pgcet.html, desc: "MBA, MCA, M.Tech in Karnataka" }
+      - { label: Careers & Courses, href: commerce.html, mega: com-careers }
+      - { label: Colleges, href: "colleges.html?course=bcom", mega: com-colleges }
+      - { label: Coaching, href: "coaching.html?exam=ca", mega: com-coaching }
+      - { label: Roadmaps, href: journey-blueprint.html, mega: com-roadmaps }
+  - type: menu
+    label: Law & Arts
+    nodes:
+      - label: Exams & Admissions
+        href: clat.html
+        title: Law, humanities & hospitality exams
+        head: { label: Arts stream guide, href: arts.html }
+        cols:
+          - label: Law
             links:
               - { label: CLAT UG, href: clat.html, desc: "Consortium of NLUs · 5-year LLB" }
-              - { label: CLAT PG, href: clat-pg.html, desc: "Consortium of NLUs · one-year LL.M." }
-              - { label: AILET, href: ailet.html, desc: "NLU Delhi · BA LLB & LL.M. · own test" }
+              - { label: AILET, href: ailet.html, desc: "NLU Delhi · own test" }
+              - { label: CLAT PG, href: clat-pg.html, desc: "One-year LL.M." }
+          - label: "Central universities & UG"
+            links:
               - { label: CUET UG, href: cuet-ug.html, desc: "NTA · DU, BHU, AMU & 45+ central universities" }
-              - { label: Law (LLB) career guide, href: llb.html, desc: "Becoming a lawyer in India" }
-      - label: Polytechnic Diploma Entrances
-        href: diploma.html
-        desc: "State diploma admissions"
-        cols:
-          - label: Northern & Western
-            icon: '<path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/>'
+              - { label: GCAS (Gujarat), href: state/gujarat/gcas.html, desc: "One form for UG arts, commerce, science" }
+          - label: Hospitality
             links:
-              - { label: JEECUP (Uttar Pradesh), href: jeecup.html, desc: "UP polytechnic entrance · 100 MCQs online" }
-              - { label: ACPDC (Gujarat), href: state/gujarat/acpdc.html, desc: "Gujarat diploma admissions" }
-          # West Bengal held no JEXPO written test for 2026-27; jexpo.html explains the merit-based admission.
-          - label: Southern & Eastern
-            icon: '<path d="M3 21h18M5 21V10l7-5 7 5v11"/><path d="M9 21v-6h6v6"/>'
+              - { label: NCHM JEE, href: nchmct-jee.html, desc: "NTA · B.Sc. Hotel Administration at IHMs" }
+          - label: "Teaching jobs & eligibility"
             links:
-              - { label: JEXPO (West Bengal), href: jexpo.html, desc: "WB polytechnic admission · Class 10 merit" }
-      - label: Government Competitive Exams
-        href: govt-exams.html
-        desc: "UPSC, SSC, defence, banking"
-        cols:
-          - label: Technical Gazetted
-            icon: '<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1L7 17M17 7l2.1-2.1"/>'
-            links:
-              - { label: UPSC ESE, href: upsc-ese.html, desc: "Engineering Services · 2027 notice out" }
-              - { label: UPSC CMS, href: upsc-cms.html, desc: "Government doctors · MBBS" }
-          - label: Civil & Defence
-            icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>'
-            links:
-              - { label: UPSC Civil Services, href: upsc-civil-services.html, desc: "IAS, IPS, IFS" }
-              - { label: SSC CGL, href: ssc-cgl.html, desc: "Graduate-level central posts" }
-              - { label: NDA, href: nda.html, desc: "Defence officer after Class 12" }
-              - { label: CDS, href: cds.html, desc: "Defence officer after graduation" }
-              - { label: UPSC CAPF (AC), href: upsc-capf-ac.html, desc: "Assistant Commandant, armed police" }
-              - { label: "Banking & Insurance (IBPS / SBI)", href: ibps-po.html }
-              - { label: State PSC & Govt Jobs, href: state-psc.html }
+              - { label: REET (Rajasthan), href: state/rajasthan/reet.html, desc: "Teacher eligibility test" }
+              - { label: "DSSSB TGT, PGT & PRT (Delhi)", href: state/delhi/dsssb.html, desc: "Delhi government teachers" }
+              - { label: WBSSC SLST (West Bengal), href: state/west-bengal/wbssc.html, desc: "School teachers" }
+              - { label: CG Vyapam Assistant Teacher, href: state/chhattisgarh/vyapam.html, desc: "Chhattisgarh teachers" }
+      - { label: Careers & Courses, href: arts.html, mega: law-careers }
+      - { label: Colleges, href: "colleges.html?course=law", mega: law-colleges }
+      - { label: Coaching, href: "coaching.html?exam=clat", mega: law-coaching }
+      - { label: Roadmaps, href: journey-blueprint.html, mega: law-roadmaps }
   - type: menu
-    label: Sports & Performing Arts
+    label: Design
+    children:
+      - { label: "Design & creative arts sector guide", href: niche-careers/creative-arts.html }
+    nodes:
+      - label: Exams & Admissions
+        href: nift.html
+        title: Design & architecture exams
+        head: { label: Arts stream guide, href: arts.html }
+        cols:
+          - label: Design
+            links:
+              - { label: NIFT, href: nift.html, desc: "B.Des & B.F.Tech · NIFT campuses" }
+              - { label: UCEED, href: uceed.html, desc: "IIT Bombay · B.Des at IITs & IIITDM Jabalpur" }
+              - { label: NID DAT, href: nid-dat.html, desc: "National Institutes of Design · Prelims + Mains" }
+              - { label: CEED, href: ceed.html, desc: "IIT Bombay · M.Des" }
+          - label: Architecture
+            links:
+              - { label: NATA, href: nata.html, desc: "Council of Architecture · B.Arch aptitude test" }
+              - { label: JEE Main Paper 2A / 2B, href: jee-main-paper2.html, desc: "NTA · B.Arch & B.Planning" }
+      - { label: Careers & Courses, href: arts.html, mega: des-careers }
+      - { label: Colleges, href: "colleges.html?course=bdes", mega: des-colleges }
+      - { label: Coaching, href: "coaching.html?exam=design", mega: des-coaching }
+      - { label: Roadmaps, href: journey-blueprint.html, mega: des-roadmaps }
+  - type: menu
+    label: Govt Jobs
+    children:
+      - { label: "Government exams & jobs hub", href: govt-exams.html }
+      - { label: Sports-quota govt jobs, href: niche-careers/sports.html }
+    nodes:
+      - { label: Central Govt Exams, href: govt-exams.html, mega: govt-careers, title: "Central government exams by sector" }
+      - { label: State Govt Jobs, href: state-psc.html, mega: govt-state }
+      - label: Jobs by Your Degree
+        href: govt-exams.html
+        title: Government jobs that need your degree
+        cols:
+          - label: After engineering
+            links:
+              - { label: UPSC ESE, href: upsc-ese.html, desc: "Engineering Services" }
+              - { label: Indian Forest Service, href: forest-officer.html, desc: "Science or engineering degree" }
+              - { label: Geologist, href: geologist.html }
+          - label: "After MBBS, nursing & science"
+            links:
+              - { label: UPSC CMS, href: upsc-cms.html, desc: "Government doctors · MBBS" }
+              - { label: AIIMS NORCET, href: aiims-norcet.html, desc: "Nursing Officer" }
+              - { label: Food Safety Officer, href: food-safety-officer.html, desc: "Science degree" }
+              - { label: Statistician, href: statistician.html }
+          - label: "After law, arts & commerce"
+            links:
+              - { label: Judicial Services, href: judicial-services.html, desc: "Civil Judge · law degree" }
+              - { label: Economist, href: economist.html }
+              - { label: UPSC Civil Services, href: upsc-civil-services.html, desc: "Any degree · IAS, IPS, IFS" }
+          - label: Defence officer
+            links:
+              - { label: NDA, href: nda.html, desc: "After Class 12" }
+              - { label: CDS, href: cds.html, desc: "After graduation" }
+              - { label: AFCAT, href: afcat.html, desc: "Air Force officer" }
+              - { label: UPSC CAPF (AC), href: upsc-capf-ac.html, desc: "Assistant Commandant" }
+      - { label: Coaching, href: "coaching.html?exam=upsc", mega: gov-coaching }
+      - { label: Roadmaps, href: journey-blueprint.html, mega: gov-roadmaps }
+  - type: menu
+    label: "Diploma & ITI"
+    children:
+      - { label: All fast-track jobs, href: fast-track-jobs.html }
+    nodes:
+      - label: Exams & Admissions
+        href: diploma.html
+        title: Polytechnic entrances & admissions
+        head: { label: Diploma guide, href: diploma.html }
+        cols:
+          - label: "North & central"
+            links:
+              - { label: JEECUP (Uttar Pradesh), href: jeecup.html, desc: "UP polytechnic entrance" }
+              - { label: Haryana polytechnic, href: state/haryana/diploma.html, desc: "Diploma admission" }
+              - { label: MP polytechnic, href: state/madhya-pradesh/mp-ppt.html, desc: "Diploma admission" }
+              - { label: CG PPT (Chhattisgarh), href: state/chhattisgarh/ppt.html, desc: "Pre Polytechnic Test" }
+              - { label: DCECE (Bihar), href: state/bihar/bceceb.html, desc: "Polytechnic & para-medical" }
+              - { label: JCECEB (Jharkhand), href: state/jharkhand/jceceb.html, desc: "Polytechnic entrance" }
+          - label: "West, south & east"
+            links:
+              - { label: ACPDC (Gujarat), href: state/gujarat/acpdc.html, desc: "Diploma admission" }
+              - { label: TG POLYCET (Telangana), href: state/telangana/polycet.html, desc: "Polytechnic entrance" }
+              - { label: JEXPO (West Bengal), href: jexpo.html, desc: "Polytechnic admission" }
+              - { label: SAMS (Odisha), href: state/odisha/sams.html, desc: "Diploma admission" }
+      - { label: Diploma Courses, href: diploma.html, mega: diploma }
+      - { label: ITI Trades, href: iti.html, mega: iti }
+      - { label: "Colleges & ITIs", href: "colleges.html?course=diploma", mega: dip-colleges }
+      - label: Govt Jobs After 10th
+        href: fast-track-jobs.html
+        title: Government jobs straight after Class 10, ITI or 12
+        cols:
+          - label: Class 10 or ITI
+            links:
+              - { label: India Post GDS, href: india-post-gds.html, desc: "Class 10 merit" }
+              - { label: SSC MTS, href: ssc-mts.html, desc: "Class 10" }
+              - { label: SSC GD Constable, href: ssc-gd-constable.html, desc: "Class 10" }
+              - { label: RRB Group D, href: rrb-group-d.html, desc: "Railways" }
+              - { label: Railway Apprentice, href: railway-apprentice.html, desc: "Class 10 + ITI" }
+              - { label: RRB ALP, href: rrb-alp.html, desc: "Assistant Loco Pilot · ITI / diploma" }
+          - label: Class 12
+            links:
+              - { label: Agniveer, href: agniveer.html, desc: "Army, Navy & Air Force" }
+              - { label: SSC CHSL, href: ssc-chsl.html, desc: "Class 12" }
+      - { label: Roadmaps, href: journey-blueprint.html, mega: dip-roadmaps }
+  - type: menu
+    label: Sports
     # Layer 1 = the games / bodies a sport is played under; layer 2 = every sport guide on that programme
     # (from _data/in/sports_atlas.yml `at` codes, one column per family). One page per sport covers all of them.
     children:
@@ -351,11 +512,6 @@ topnav:
       - { label: Khelo India Games, href: "all-sports.html#games", mega: sport-khelo }
       - { label: Sports-Quota Govt Jobs, href: niche-careers/sports.html, mega: sport-quota }
       - { label: Classical Performing Arts, href: "sports-hub.html#arts", mega: sport-arts }
-  - type: menu
-    label: Colleges & Coaching
-    children:
-      - { label: Colleges & Universities, href: colleges.html, desc: "College finder by state and course" }
-      - { label: Find Verified Coaching Centers, href: "coaching.html", desc: "Coaching finder by exam and state" }
   - type: menu
     label: States & Abroad
     nodes:

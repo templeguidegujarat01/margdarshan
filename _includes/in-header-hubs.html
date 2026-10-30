@@ -35,6 +35,10 @@
   assets/menu-in.html (this include with mode="fragment") and site.js (block "India edition top menu") swaps them
   in on the first hover / focus / touch of the menu or when the browser is idle. The fragment is cached between
   pages (?v= = _data/asset_version.yml). USA pages (edition="us") still render the full panels inline.
+  Domain menus (India, 2026-10-31): Engineering, Medical, Commerce, Law & Arts, Design, Govt Jobs and Diploma & ITI
+  share one rail order (Exams & Admissions, Careers & Courses, Colleges, Coaching, Roadmaps). A node may set
+  `title` (the pane heading, default its label) and `head` {label, href} (the pane's top-right link); a mega key's
+  own title / head are used when the node sets none.
 {%- endcomment -%}
 {%- assign hh_badge_txt = "stem:STEM,health:Health,finance:Finance" | split: "," -%}
 {%- assign hh_cur = page.url | remove_first: "/" -%}
@@ -83,8 +87,9 @@
               <a class="hh-sub-btn" href="{{ n_href }}" aria-haspopup="true"{% if hh_cur == n_href %} aria-current="page"{% endif %}><span class="hh-node-txt">{{ n_label }}</span>{% if n_badge_txt %}<span class="hh-nav-badge hh-nav-badge-{{ n_badge }}" aria-hidden="true">{{ n_badge_txt }}</span>{% endif %}<svg class="hh-sub-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
               <div class="hh-fly hh-grid{% if n_tab %} hh-tabbed{% if n_cols.size > 10 %} hh-tabbed-2{% endif %}{% endif %}" role="group" aria-label="{{ n_label }}">
                 <div class="hh-fly-head">
-                  <p class="hh-fly-title">{{ n_label }}{% if M.note %}<span>{{ M.note | replace: "&", "&amp;" }}</span>{% endif %}</p>
-                  <a class="hh-link hh-fly-all" href="{% if M.head %}{{ M.head.href }}{% else %}{{ n_href }}{% endif %}">{% if M.head %}{{ M.head.label | replace: "&", "&amp;" }}{% else %}Open {{ n_label }}{% endif %} <span aria-hidden="true">→</span></a>
+                  {%- assign n_title = n.title | default: M.title | default: n_raw %}{% assign n_head = n.head | default: M.head %}
+                  <p class="hh-fly-title">{{ n_title | replace: "&", "&amp;" }}{% if M.note %}<span>{{ M.note | replace: "&", "&amp;" }}</span>{% endif %}</p>
+                  <a class="hh-link hh-fly-all" href="{% if n_head %}{{ n_head.href }}{% else %}{{ n_href }}{% endif %}">{% if n_head %}{{ n_head.label | replace: "&", "&amp;" }}{% else %}Open {{ n_label }}{% endif %} <span aria-hidden="true">→</span></a>
                 </div>
                 {%- if n_tab %}
                 <div class="hh-tabs" role="tablist" aria-label="{{ n_label }}: pick a group">

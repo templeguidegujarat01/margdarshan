@@ -1,10 +1,12 @@
 {%- comment -%}
-  Site footer, the same on every edition (2026-10-29): brand + contact, quick links to each edition
-  and Study Abroad, legal links, then one centred copyright line. Edition links come from
-  _data/regions.yml (data-region-set saves the visitor's pick), the address from site.feedback_email.
-  The old per-edition `footer` blocks in _data/nav_*.yml, the page front matter `footer:` columns and
-  the open-data band (footer-open.html) are no longer read here.
+  Site footer, every edition (2026-10-30). Columns: brand + promises + contact | "Related to this page" (India only:
+  _includes/context-deck.html place="footer" — the related careers / exams / sports of the page you are on, plus
+  college and coaching finder buttons when verified listings exist) | Explore (India pages: _data/company.yml
+  explore.in; USA / UK pages: each edition's home + Study Abroad) | Company | Legal (both from _data/company.yml).
+  Bottom bar: editions (data-region-set saves the pick) and the copyright line.
+  The old per-edition `footer` blocks in _data/nav_*.yml and the open-data band (footer-open.html) are not read.
 {%- endcomment -%}
+{%- assign CO = site.data.company -%}
 <footer class="site-footer">
   <div class="container footer-top">
     <div class="footer-brand">
@@ -13,8 +15,25 @@
         <span class="brand-name"><span class="brand-kicker">Education</span> <span class="brand-word">Margdarshan</span></span>
       </a>
       <p>Choose your path with clarity, not confusion.</p>
+      <ul class="footer-promises">
+        <li>Free for every student</li>
+        <li>No paid listings or rankings</li>
+        <li>Facts from official sources</li>
+      </ul>
       <p class="footer-mail"><a href="mailto:{{ site.feedback_email }}">{{ site.feedback_email }}</a></p>
     </div>
+    {%- if region_id == "in" or region_neutral %}
+    {% include context-deck.html place="footer" %}
+    <nav class="footer-col" aria-label="Explore India">
+      <h2>Explore India</h2>
+      <ul>
+        {%- for l in CO.explore.in %}
+        <li><a href="{{ l.href }}">{{ l.label }}</a></li>
+        {%- endfor %}
+        <li><a href="site-map.html">Site map</a></li>
+      </ul>
+    </nav>
+    {%- else %}
     <nav class="footer-col" aria-label="Quick links">
       <h2>Quick Links</h2>
       <ul>
@@ -24,17 +43,31 @@
         <li><a href="study-abroad/">Study Abroad Portal</a></li>
       </ul>
     </nav>
+    {%- endif %}
+    <nav class="footer-col" aria-label="Company">
+      <h2>Company</h2>
+      <ul>
+        {%- for l in CO.company_links %}
+        <li><a href="{{ l.href }}">{{ l.label }}</a></li>
+        {%- endfor %}
+      </ul>
+    </nav>
     <nav class="footer-col" aria-label="Legal">
       <h2>Legal</h2>
       <ul>
-        <li><a href="about.html">About Us</a></li>
-        <li><a href="privacy-policy.html">Privacy Policy</a></li>
-        <li><a href="terms-and-conditions.html">Terms &amp; Conditions</a></li>
-        <li><a href="disclaimer.html">Disclaimer</a></li>
+        {%- for l in CO.legal_links %}
+        <li><a href="{{ l.href }}">{{ l.label }}</a></li>
+        {%- endfor %}
       </ul>
     </nav>
   </div>
   <div class="container footer-bottom">
-    <span>© 2026 Education Margdarshan. Built for students, not profit.</span>
+    <nav class="footer-editions" aria-label="Editions">
+      {%- for rid in site.data.regions.list %}
+      <a href="{{ site.data.regions[rid].home }}" data-region-set="{{ rid }}">{{ site.data.regions[rid].name }}</a>
+      {%- endfor %}
+      <a href="study-abroad/">Study Abroad</a>
+    </nav>
+    <span>© {{ site.time | date: "%Y" | default: "2026" }} {{ CO.name }}. Built for students, not profit.</span>
   </div>
 </footer>

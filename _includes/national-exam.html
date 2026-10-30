@@ -36,6 +36,7 @@
   "name": {{ E.title | replace: "&amp;", "&" | jsonify }},
   "url": "{{ page.url | absolute_url }}",
   "isPartOf": { "@type": "WebSite", "name": {{ site.title | jsonify }}, "url": "{{ site.url }}{{ site.baseurl }}/" },
+{% include ld-author.html nodate="1" %}
   "description": {{ page.description | jsonify }},
   "dateModified": "{{ CK | date: '%Y-%m-%d' }}"
 }

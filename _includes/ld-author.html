@@ -1,0 +1,12 @@
+{%- comment -%}
+  JSON-LD author / publisher / dateModified lines for India guide pages (2026-10-30). Include it inside a WebPage
+  object, after a property line that ends with a comma; it ends with a comma too. The author is the
+  Margdarshan Editorial Desk (team.html#desk, _data/company.yml); the date is the page's "Last updated" date
+  (nodate="1" when the template already writes its own dateModified, from the sheet's checked date).
+{%- endcomment -%}
+{%- assign la_lu = site.data.last_updated[page.path] -%}
+  "author": { "@type": "Organization", "@id": "{{ site.url }}{{ site.baseurl }}/team.html#desk", "name": {{ site.data.company.desk | jsonify }}, "url": "{{ site.url }}{{ site.baseurl }}/team.html" },
+  "publisher": { "@type": "Organization", "@id": "{{ site.url }}{{ site.baseurl }}/#org", "name": {{ site.title | jsonify }}, "url": "{{ site.url }}{{ site.baseurl }}/", "logo": { "@type": "ImageObject", "url": "{{ site.url }}{{ site.baseurl }}/assets/img/favicon-512.png" } },
+{%- if la_lu and include.nodate == nil %}
+  "dateModified": "{{ la_lu }}",
+{%- endif %}

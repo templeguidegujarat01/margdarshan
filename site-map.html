@@ -1,0 +1,79 @@
+---
+title: "Site Map — Education Margdarshan India"
+description: "Every India guide on Education Margdarshan in one place: streams, careers, entrance and government exams, sports, states, colleges and coaching."
+og_type: "website"
+breadcrumb:
+  parent_href: "india.html"
+  parent_label: "India"
+  current: "Site map"
+---
+{%- comment -%}
+  HTML site map of the India edition (2026-10-30). Built only from the India top menu (_data/nav.yml topnav) and
+  its flyout columns (_data/nav_mega.yml, written by scripts/build-nav-mega.mjs), so it lists exactly what the
+  menu lists and never needs hand edits. Every India guide in the menu is two clicks from india.html through it.
+{%- endcomment -%}
+{%- assign TN = site.data.nav.topnav -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site.url }}{{ site.baseurl }}/" },
+    { "@type": "ListItem", "position": 2, "name": "India", "item": "{{ site.url }}{{ site.baseurl }}/india.html" },
+    { "@type": "ListItem", "position": 3, "name": "Site map", "item": "{{ site.url }}{{ site.baseurl }}/site-map.html" }
+  ]
+}
+</script>
+
+<main id="main">
+
+  <section class="page-hero" aria-labelledby="hero-heading">
+    <div class="container page-hero-inner">
+      <span class="eyebrow">India edition</span>
+      <h1 id="hero-heading">Site map</h1>
+      <p>Every India guide in the top menu, on one page. Use your browser's find (Ctrl + F) to jump to a name.</p>
+    </div>
+  </section>
+
+  {%- assign sm_i = 0 -%}
+  {%- for M in TN -%}
+  {%- if M.type != "menu" -%}{%- continue -%}{%- endif -%}
+  {%- assign sm_i = sm_i | plus: 1 -%}
+  <section class="block{% if sm_i == 2 or sm_i == 4 or sm_i == 6 or sm_i == 8 %} block-alt{% endif %}" id="sm-{{ M.label | slugify }}" aria-labelledby="sm-{{ M.label | slugify }}-h" data-no-points>
+    <div class="container">
+      <h2 id="sm-{{ M.label | slugify }}-h" class="sm-title">{{ M.label }}</h2>
+      {%- if M.children %}
+      <ul class="sm-lead">
+        {%- for c in M.children %}<li><a href="{{ c.href }}">{{ c.label }}</a></li>{% endfor %}
+      </ul>
+      {%- endif %}
+      <div class="sm-grid">
+        {%- for N in M.nodes -%}
+        {%- assign N_cols = N.cols -%}
+        {%- assign N_head = nil -%}
+        {%- if N.mega -%}{%- assign N_cols = site.data.nav_mega[N.mega].cols -%}{%- assign N_head = site.data.nav_mega[N.mega].head -%}{%- endif -%}
+        {%- for C in N_cols %}
+        <div class="sm-col">
+          <h3>{% if forloop.first %}<a href="{{ N_head.href | default: N.href }}">{{ N.label }}</a> · {% endif %}{{ C.label }}</h3>
+          <ul>
+            {%- for L in C.links %}<li><a href="{{ L.href }}">{{ L.label }}</a></li>{% endfor %}
+          </ul>
+        </div>
+        {%- endfor -%}
+        {%- endfor %}
+      </div>
+    </div>
+  </section>
+  {%- endfor %}
+
+  <section class="block" id="sm-company" aria-labelledby="sm-company-h" data-no-points>
+    <div class="container">
+      <h2 id="sm-company-h" class="sm-title">About Education Margdarshan</h2>
+      <ul class="sm-lead">
+        {%- for l in site.data.company.company_links %}<li><a href="{{ l.href }}">{{ l.label }}</a></li>{% endfor %}
+        {%- for l in site.data.company.legal_links %}<li><a href="{{ l.href }}">{{ l.label }}</a></li>{% endfor %}
+      </ul>
+    </div>
+  </section>
+
+</main>

@@ -1,0 +1,133 @@
+---
+title: "Who Writes Our Guides — Education Margdarshan"
+description: "Meet the Margdarshan Editorial Desk: who researches, writes, checks and updates the free career, exam and college guides on Education Margdarshan."
+og_type: "website"
+breadcrumb:
+  parent_href: "about.html"
+  parent_label: "About"
+  current: "Who writes our guides"
+---
+{%- comment -%}
+  Author / team page (2026-10-30). The byline on India guides ("By Margdarshan Editorial Desk") links here, and the
+  author JSON-LD on those guides points at #desk. Facts come from _data/company.yml. A named founder card appears
+  only when company.founder.name, role and bio are all filled in there — no person is ever invented.
+{%- endcomment -%}
+{%- assign CO = site.data.company -%}
+{%- assign F = CO.founder -%}
+{%- assign show_f = false -%}{%- if F.name != "" and F.role != "" and F.bio != "" -%}{%- assign show_f = true -%}{%- endif -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site.url }}{{ site.baseurl }}/" },
+    { "@type": "ListItem", "position": 2, "name": "About", "item": "{{ site.url }}{{ site.baseurl }}/about.html" },
+    { "@type": "ListItem", "position": 3, "name": "Who writes our guides", "item": "{{ site.url }}{{ site.baseurl }}/team.html" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "name": "Who writes our guides",
+  "url": "{{ site.url }}{{ site.baseurl }}/team.html",
+  "mainEntity": {
+    "@type": "Organization",
+    "@id": "{{ site.url }}{{ site.baseurl }}/team.html#desk",
+    "name": {{ CO.desk | jsonify }},
+    "url": "{{ site.url }}{{ site.baseurl }}/team.html",
+    "email": {{ site.feedback_email | jsonify }},
+    "parentOrganization": { "@id": "{{ site.url }}{{ site.baseurl }}/#org" }{% if show_f %},
+    "member": { "@type": "Person", "name": {{ F.name | jsonify }}, "jobTitle": {{ F.role | jsonify }} }{% endif %}
+  }
+}
+</script>
+
+<main id="main">
+
+  <section class="page-hero" aria-labelledby="hero-heading">
+    <div class="container page-hero-inner">
+      <span class="eyebrow">Our team</span>
+      <h1 id="hero-heading">Who writes our guides</h1>
+      <p>Every guide on {{ CO.name }} is published by the <strong>{{ CO.desk }}</strong>. This page tells you who that is, what the desk does and how to reach it.</p>
+    </div>
+  </section>
+
+  <section class="block" id="desk" aria-labelledby="desk-heading">
+    <div class="container legal-section">
+      <h2 id="desk-heading" class="reveal">The {{ CO.desk }}</h2>
+      <div class="prose reveal">
+        <p>The desk is the small independent team that runs {{ CO.name }}. It started in {{ CO.started | append: "-01" | date: "%B %Y" }}. When a guide says <strong>By {{ CO.desk }}</strong>, it means the desk researched it, wrote it, checked it against official sources and is responsible for keeping it correct.</p>
+        <p>We sign guides as a desk, not as one person, because each page passes through several checks before it goes live.</p>
+      </div>
+    </div>
+  </section>
+
+  {%- if show_f %}
+  <section class="block block-alt" id="founder" aria-labelledby="founder-heading">
+    <div class="container legal-section">
+      <h2 id="founder-heading" class="reveal">{{ F.name }}</h2>
+      <div class="prose reveal">
+        <p><strong>{{ F.role }}</strong></p>
+        <p>{{ F.bio }}</p>
+      </div>
+    </div>
+  </section>
+  {%- endif %}
+
+  <section class="block{% unless show_f %} block-alt{% endunless %}" id="work" aria-labelledby="work-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">What the desk does</span>
+        <h2 id="work-heading">Four jobs behind every page</h2>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card reveal">
+          <h3>Research</h3>
+          <p>Reads the official exam notice, regulator rule or government order before anything is written.</p>
+        </div>
+        <div class="feature-card reveal">
+          <h3>Data</h3>
+          <p>Builds the college and coaching lists from official websites and government registers, one listing at a time.</p>
+        </div>
+        <div class="feature-card reveal">
+          <h3>Writing</h3>
+          <p>Turns the rules into plain English, in short points, with every short form spelled out.</p>
+        </div>
+        <div class="feature-card reveal">
+          <h3>Review</h3>
+          <p>Checks each page against its sources, fixes reported errors and re-checks pages when new notices come out.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block{% if show_f %} block-alt{% endif %}" id="not" aria-labelledby="not-heading">
+    <div class="container legal-section">
+      <h2 id="not-heading" class="reveal">What we are not</h2>
+      <div class="prose reveal">
+        <ul>
+          <li>We are not a coaching centre, a college or an admission agent.</li>
+          <li>We are not part of any government body, board or exam authority.</li>
+          <li>We do not give one-to-one counselling. Our guides help you ask better questions to your teachers, counsellor and family.</li>
+        </ul>
+        <p>Read the full <a href="editorial-policy.html">Editorial policy</a> to see how pages are researched, checked and corrected.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block block-alt">
+    <div class="container">
+      <div class="cta-card reveal">
+        <div>
+          <span class="eyebrow">Write to the desk</span>
+          <h2>Found a mistake or want a guide?</h2>
+          <p>Send the page link and what is wrong, or the name of the career or exam you want us to cover.</p>
+        </div>
+        <a href="contact.html" class="btn btn-primary btn-page-link">Contact the desk</a>
+      </div>
+    </div>
+  </section>
+
+</main>

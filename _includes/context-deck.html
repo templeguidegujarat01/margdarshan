@@ -1,5 +1,8 @@
 {%- comment -%}
-  Pre-footer context deck (2026-10-29): one light-bordered block above the site footer with up to 6
+  Context deck (2026-10-29; India moved into the footer 2026-10-30). India: _includes/footer.html includes this with
+  place="footer" and it draws a "Related to this page" footer column (next to Explore / Company), so the related
+  careers, exams and finders change with the page you are on. USA / UK: the layout includes it with place="deck" and
+  it stays one light-bordered block above the site footer. Up to 6
   related-page chips and, where verified listings exist, finder buttons. The layout includes it between
   the page content and footer.html; it renders nothing on region-neutral pages (About, Terms…), the
   global gateway, and every page that is not one of the kinds below.
@@ -10,6 +13,8 @@
                                         only when those keys have listings (finder-keys.html, finder link policy)
            hub (a nav_mega head page,   chips: footer.col3_links, then the first career of each menu column
            or og_type website)
+           exam / sport / roadmap       chips: the other guides in its top-menu column (nav_mega.yml or the
+           (kind in-node)               nav.yml exam columns); a roadmap starts with its full guide
            state portal (state/…,       chips: footer.col3_links
            state-pathways/…)
     USA    career / pathway / trade     chips: other careers in its Career Cluster (_data/us/clusters.yml),
@@ -28,7 +33,13 @@
 {%- assign cd_seen = "|" | append: cd_self | append: "|" -%}
 {%- assign cd_eyebrow = "" -%}{%- assign cd_title = "" -%}
 {%- assign cd_chips = "" -%}{%- assign cd_ctas = "" -%}
-{%- unless region_neutral or gateway -%}
+{%- assign cd_place = include.place | default: "deck" -%}
+{%- assign cd_on = true -%}
+{%- if region_neutral or gateway -%}{%- assign cd_on = false -%}{%- endif -%}
+{%- comment -%} India: a column inside the footer (place="footer"); USA / UK: the block above the footer (place="deck"). {%- endcomment -%}
+{%- if region_id == "in" and cd_place != "footer" -%}{%- assign cd_on = false -%}{%- endif -%}
+{%- if region_id != "in" and cd_place == "footer" -%}{%- assign cd_on = false -%}{%- endif -%}
+{%- if cd_on -%}
 
 {%- if region_id == "in" -%}
   {%- assign cd_mkey = "" -%}
@@ -36,13 +47,44 @@
   {%- assign cd_state = false -%}
   {%- assign cd_top = cd_self | split: "/" | first -%}
   {%- if cd_self contains "/" and cd_top == "state" or cd_self contains "/" and cd_top == "state-pathways" -%}{%- assign cd_state = true -%}{%- endif -%}
+  {%- comment -%} cd_find = the guide this page belongs to (a roadmap belongs to its full guide, roadmaps/x.html -> x.html). {%- endcomment -%}
+  {%- assign cd_find = cd_self -%}{%- assign cd_rm = false -%}
+  {%- if cd_top == "roadmaps" and cd_self contains "/" -%}{%- assign cd_find = cd_self | remove_first: "roadmaps/" -%}{%- assign cd_rm = true -%}{%- endif -%}
   {%- if page.career -%}{%- assign cd_kind = "in-career" -%}
   {%- elsif cd_state -%}{%- assign cd_kind = "in-state" -%}
   {%- elsif cd_mkey != "" or page.og_type == "website" -%}{%- assign cd_kind = "in-hub" -%}
   {%- endif -%}
 
+  {%- comment -%}
+    The page's group = the top-menu column that lists it: a nav_mega column (careers, sports, states) or an
+    "Entrance & Competitive Exams" column in nav.yml topnav (exam consoles). Career sheets search their own
+    stream's menu first. Exam, sport and roadmap pages with a group become kind "in-node" (2026-10-30).
+  {%- endcomment -%}
+  {%- assign cd_group = nil -%}
+  {%- if cd_kind == "in-career" or cd_kind == "" -%}
+    {%- assign cd_skey = page.stream | default: "" -%}{%- if cd_skey == "govt-exams" -%}{%- assign cd_skey = "govt-careers" -%}{%- endif -%}
+    {%- for c in site.data.nav_mega[cd_skey].cols -%}{%- unless cd_group -%}{%- assign cd_hit = c.links | where: "href", cd_find -%}{%- if cd_hit.size > 0 -%}{%- assign cd_group = c -%}{%- endif -%}{%- endunless -%}{%- endfor -%}
+    {%- unless cd_group -%}
+    {%- for m in site.data.nav_mega -%}{%- for c in m[1].cols -%}{%- unless cd_group -%}{%- assign cd_hit = c.links | where: "href", cd_find -%}{%- if cd_hit.size > 0 -%}{%- assign cd_group = c -%}{%- endif -%}{%- endunless -%}{%- endfor -%}{%- endfor -%}
+    {%- endunless -%}
+    {%- unless cd_group -%}
+    {%- for it in site.data.nav.topnav -%}{%- for nd in it.nodes -%}{%- for c in nd.cols -%}{%- unless cd_group -%}{%- assign cd_hit = c.links | where: "href", cd_find -%}{%- if cd_hit.size > 0 -%}{%- assign cd_group = c -%}{%- endif -%}{%- endunless -%}{%- endfor -%}{%- endfor -%}{%- endfor -%}
+    {%- endunless -%}
+    {%- if cd_kind == "" and cd_group -%}{%- assign cd_kind = "in-node" -%}{%- endif -%}
+  {%- endif -%}
+  {%- comment -%} One list per job: careers already shown in the sheet's own "related" cards are not repeated here. {%- endcomment -%}
+  {%- if cd_kind == "in-career" -%}
+    {%- assign cd_C0 = site.data.in.careers[page.career] -%}
+    {%- for s in cd_C0.sections -%}{%- for p in s.parts -%}{%- for r in p.related -%}{%- assign cd_seen = cd_seen | append: r.href | append: "|" -%}{%- endfor -%}{%- endfor -%}{%- endfor -%}
+  {%- endif -%}
+
   {%- if cd_kind != "" -%}
   {%- capture cd_chips -%}
+    {%- if cd_rm -%}
+      {%- assign cd_me = cd_group.links | where: "href", cd_find | first -%}
+      <li><a class="cd-chip" href="{{ cd_find }}">Full {{ cd_me.label }} guide</a></li>
+      {%- assign cd_seen = cd_seen | append: cd_find | append: "|" -%}{%- assign cd_n = cd_n | plus: 1 -%}
+    {%- endif -%}
     {%- for l in page.footer.col3_links -%}
       {%- assign cd_k = "|" | append: l.href | append: "|" -%}
       {%- if cd_n < cd_max -%}{%- unless cd_seen contains cd_k -%}
@@ -50,15 +92,7 @@
       {%- assign cd_seen = cd_seen | append: l.href | append: "|" -%}{%- assign cd_n = cd_n | plus: 1 -%}
       {%- endunless -%}{%- endif -%}
     {%- endfor -%}
-    {%- if cd_kind == "in-career" -%}
-      {%- comment -%} The sheet's group = the top-menu column that lists it; its own stream's menu is searched first. {%- endcomment -%}
-      {%- assign cd_skey = page.stream | default: "" -%}{%- if cd_skey == "govt-exams" -%}{%- assign cd_skey = "govt-careers" -%}{%- endif -%}
-      {%- assign cd_group = nil -%}
-      {%- for c in site.data.nav_mega[cd_skey].cols -%}{%- unless cd_group -%}{%- assign cd_hit = c.links | where: "href", cd_self -%}{%- if cd_hit.size > 0 -%}{%- assign cd_group = c -%}{%- endif -%}{%- endunless -%}{%- endfor -%}
-      {%- unless cd_group -%}
-      {%- for m in site.data.nav_mega -%}{%- for c in m[1].cols -%}{%- unless cd_group -%}{%- assign cd_hit = c.links | where: "href", cd_self -%}{%- if cd_hit.size > 0 -%}{%- assign cd_group = c -%}{%- endif -%}{%- endunless -%}{%- endfor -%}{%- endfor -%}
-      {%- endunless -%}
-      {%- if cd_group -%}{%- assign cd_eyebrow = cd_group.label -%}
+    {%- if cd_group -%}{%- assign cd_eyebrow = cd_group.label -%}
       {%- for l in cd_group.links -%}
         {%- assign cd_k = "|" | append: l.href | append: "|" -%}
         {%- if cd_n < cd_max -%}{%- unless cd_seen contains cd_k -%}
@@ -66,7 +100,6 @@
         {%- assign cd_seen = cd_seen | append: l.href | append: "|" -%}{%- assign cd_n = cd_n | plus: 1 -%}
         {%- endunless -%}{%- endif -%}
       {%- endfor -%}
-      {%- endif -%}
     {%- elsif cd_kind == "in-hub" and cd_mkey != "" -%}
       {%- for c in site.data.nav_mega[cd_mkey].cols -%}
         {%- assign l = c.links | first -%}
@@ -94,6 +127,8 @@
       {%- endif -%}
     {%- endcapture -%}
     {%- endif -%}
+  {%- elsif cd_kind == "in-node" -%}
+    {%- assign cd_title = "More in this group" -%}
   {%- elsif cd_kind != "" -%}
     {%- assign cd_eyebrow = "Keep exploring" -%}{%- assign cd_title = page.footer.col3_heading | default: "Related pages" -%}
   {%- endif -%}
@@ -203,6 +238,24 @@
 
 {%- assign cd_chips = cd_chips | strip -%}{%- assign cd_ctas = cd_ctas | strip -%}
 {%- if cd_chips != "" or cd_ctas != "" %}
+{%- if cd_place == "footer" %}
+<nav class="footer-col footer-related" aria-labelledby="cd-title">
+  <h2 id="cd-title">Related to this page</h2>
+  {%- if cd_eyebrow != "" %}
+  <p class="fr-sub">{{ cd_eyebrow }}</p>
+  {%- endif %}
+  {%- if cd_chips != "" %}
+  <ul>
+    {{ cd_chips }}
+  </ul>
+  {%- endif %}
+  {%- if cd_ctas != "" %}
+  <div class="fr-ctas">
+    {{ cd_ctas }}
+  </div>
+  {%- endif %}
+</nav>
+{%- else %}
 <nav class="context-deck" aria-labelledby="cd-title" data-no-points>
   <div class="container">
     <div class="cd-box">
@@ -224,4 +277,5 @@
   </div>
 </nav>
 {%- endif %}
-{%- endunless -%}
+{%- endif %}
+{%- endif -%}

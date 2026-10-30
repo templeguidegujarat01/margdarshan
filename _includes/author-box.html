@@ -1,0 +1,24 @@
+{%- comment -%}
+  Byline box at the end of every India guide (2026-10-30): who wrote the page, when it last changed and how
+  to report a mistake. The layout includes it after the page content on India-edition pages (body.shell-in,
+  not region "us") except india.html; a page can opt out with `author_box: false`. Names and links come from
+  _data/company.yml; the date is the same one as the "Last updated" stamp (_data/last_updated.yml).
+  The matching JSON-LD author/publisher lives in _includes/ld-author.html.
+{%- endcomment -%}
+{%- assign ab_lu = site.data.last_updated[page.path] -%}
+{%- assign ab_url = page.url | absolute_url -%}
+<aside class="author-box" aria-label="About this guide" data-no-points>
+  <div class="container">
+    <div class="ab-inner">
+      {% include logo-mark.html size=40 uid="ab" %}
+      <p class="ab-text">
+        <span class="ab-by">By <a href="team.html">{{ site.data.company.desk }}</a></span>
+        <span class="ab-meta">Checked against official sources{% if ab_lu %} · Updated <time datetime="{{ ab_lu }}">{{ ab_lu | date: "%-d %b %Y" }}</time>{% endif %}</span>
+      </p>
+      <p class="ab-links">
+        <a href="editorial-policy.html">How we check facts</a>
+        <a href="mailto:{{ site.feedback_email }}?subject={{ 'Correction: ' | append: page.url | url_encode }}&amp;body={{ 'Page: ' | append: ab_url | url_encode }}">Report a mistake</a>
+      </p>
+    </div>
+  </div>
+</aside>

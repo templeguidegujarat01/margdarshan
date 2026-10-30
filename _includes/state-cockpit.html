@@ -26,6 +26,7 @@
   "name": {{ K.title | replace: "&amp;", "&" | jsonify }},
   "url": "{{ page.url | absolute_url }}",
   "isPartOf": { "@type": "WebSite", "name": {{ site.title | jsonify }}, "url": "{{ site.url }}{{ site.baseurl }}/" },
+{% include ld-author.html %}
   "description": {{ page.description | jsonify }},
   "hasPart": [
     {%- for x in SD.exams %}

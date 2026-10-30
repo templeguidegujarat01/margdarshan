@@ -37,6 +37,7 @@ flow_steps:
   "description": "Education Margdarshan is a free, independent career guidance platform helping Indian students choose the right stream and career after Class 10 and Class 12.",
   "mainEntity": {
     "@type": "Organization",
+    "@id": "{{ site.url }}{{ site.baseurl }}/#org",
     "name": "Education Margdarshan",
     "url": "{{ site.url }}{{ site.baseurl }}/",
     "email": "margdarshan07support10@gmail.com",
@@ -63,8 +64,8 @@ flow_steps:
       <div class="stats-strip">
         <div class="stat-card"><span>Cost to use</span><strong>Free, always</strong></div>
         <div class="stat-card">{%- assign ab_n = 0 -%}{%- for c in site.data.in.careers -%}{%- assign ab_n = ab_n | plus: 1 -%}{%- endfor -%}<span>India career guides</span><strong>{{ ab_n }}</strong></div>
-        <div class="stat-card"><span>Sign-up required</span><strong>None</strong></div>
-        <div class="stat-card"><span>Built for</span><strong>Class 10 & 12 students, and what comes after</strong></div>
+        <div class="stat-card"><span>Colleges in the finder</span><strong>{{ site.data.colleges.colleges.size }}</strong></div>
+        <div class="stat-card"><span>Coaching centres listed</span><strong>{{ site.data.coaching.centres.size }}</strong></div>
       </div>
     </div>
   </section>
@@ -136,7 +137,30 @@ flow_steps:
     </div>
   </section>
 
-  <section class="block block-alt">
+  <section class="block block-alt" id="who" aria-labelledby="who-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Who is behind it</span>
+        <h2 id="who-heading">The people and the rules behind every page</h2>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card reveal">
+          <h3><a href="team.html">Who writes our guides</a></h3>
+          <p>Every guide is published by the {{ site.data.company.desk }}. Meet the desk and what it does.</p>
+        </div>
+        <div class="feature-card reveal">
+          <h3><a href="editorial-policy.html">Editorial policy</a></h3>
+          <p>Where our facts come from, how listings are verified, and how we fix mistakes.</p>
+        </div>
+        <div class="feature-card reveal">
+          <h3><a href="help.html">Help centre</a></h3>
+          <p>Quick answers on where to start, reading a guide and using the finders.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
     <div class="container">
       <div class="cta-card reveal">
         <div>

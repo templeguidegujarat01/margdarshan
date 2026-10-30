@@ -1,0 +1,76 @@
+---
+title: "Help Centre — Education Margdarshan"
+description: "Answers to common questions about using Education Margdarshan: where to start, reading a guide, the college and coaching finders, and corrections."
+og_type: "website"
+breadcrumb:
+  current: "Help centre"
+---
+{%- comment -%}
+  Help centre (2026-10-30). Questions and answers live in _data/company.yml `help:`; the same text feeds the
+  visible list and the FAQPage JSON-LD, so they always match (verify-site checks this).
+{%- endcomment -%}
+{%- assign CO = site.data.company -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site.url }}{{ site.baseurl }}/" },
+    { "@type": "ListItem", "position": 2, "name": "Help centre", "item": "{{ site.url }}{{ site.baseurl }}/help.html" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {%- for g in CO.help %}{%- for f in g.items %}
+    { "@type": "Question", "name": {{ f.q | jsonify }}, "acceptedAnswer": { "@type": "Answer", "text": {{ f.a | jsonify }} } }{% unless forloop.last %},{% endunless %}
+    {%- endfor %}{% unless forloop.last %},{% endunless %}{%- endfor %}
+  ]
+}
+</script>
+
+<main id="main">
+
+  <section class="page-hero" aria-labelledby="hero-heading">
+    <div class="container page-hero-inner">
+      <span class="eyebrow">Help centre</span>
+      <h1 id="hero-heading">How can we help?</h1>
+      <p>Quick answers about using {{ CO.name }}. If your question is not here, <a href="contact.html">write to us</a>.</p>
+    </div>
+  </section>
+
+  {%- for g in CO.help %}
+  <section class="block{% cycle '', ' block-alt' %}" id="{{ g.id }}" aria-labelledby="{{ g.id }}-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2 id="{{ g.id }}-heading">{{ g.title }}</h2>
+      </div>
+      <div class="faq-list reveal">
+        {%- for f in g.items %}
+        <div class="faq-item" data-open="false">
+          <button type="button" class="faq-q" aria-expanded="false">{{ f.q }}<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="faq-a">{{ f.a }}</div>
+        </div>
+        {%- endfor %}
+      </div>
+    </div>
+  </section>
+  {%- endfor %}
+
+  <section class="block">
+    <div class="container">
+      <div class="cta-card reveal">
+        <div>
+          <span class="eyebrow">Still stuck?</span>
+          <h2>Write to us</h2>
+          <p>Email is the most reliable way to reach the desk. Include the page link if your question is about a page.</p>
+        </div>
+        <a href="contact.html" class="btn btn-primary btn-page-link">Contact us</a>
+      </div>
+    </div>
+  </section>
+
+</main>

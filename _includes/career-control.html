@@ -21,6 +21,9 @@
 {%- endcomment -%}
 {%- if include.hub -%}{%- assign X = include.hub -%}{%- else -%}{%- assign X = include -%}{%- endif -%}
 {%- include finder-keys.html hub=X -%}
+{%- comment -%} Each state lists its first pc_cap places; a bigger state links to its verified landing page (colleges/<state>/<key>.html,
+   coaching/<state>/<exam>.html) for the rest. Listing all of them made mbbs.html 928 KB (2026-10-30). {%- endcomment -%}
+{%- assign pc_cap = 6 -%}
 {%- capture pc_chev -%}<svg class="pc-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>{%- endcapture -%}
 {%- capture pc_ext -%}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg><span class="sr-only"> (opens in a new tab)</span>{%- endcapture -%}
 {%- comment -%} exam_in_facts=true: the caller (in-career.html) already shows the exam row in its fact console. {%- endcomment -%}
@@ -51,9 +54,13 @@
         <details class="pc-state">
           <summary><span>{{ st.name }}</span><span class="pc-count">{{ pc_st.size }}</span></summary>
           <ul class="pc-list">
-            {%- for c in pc_st %}
+            {%- assign pc_land = site.data.seo_landings.colleges.states[st.id].lists[k] -%}{%- assign pc_lim = pc_st.size -%}{%- if pc_land -%}{%- assign pc_lim = pc_cap -%}{%- endif %}
+            {%- for c in pc_st limit: pc_lim %}
             <li><a href="{{ c.url }}" target="_blank" rel="noopener noreferrer">{% if c.prog[k] %}{{ c.prog[k] }} — {% endif %}{{ c.name }} {{ pc_ext }}</a><span class="pc-meta">{{ c.city }} · {{ c.ownership }}{% if c.type_detail %} · {{ c.type_detail }}{% endif %}</span></li>
             {%- endfor %}
+            {%- if pc_st.size > pc_lim %}
+            <li class="pc-more"><a href="colleges/{{ st.id }}/{{ k }}.html">All {{ pc_st.size }} {{ pc_course.label }} listings in {{ st.name }} <span aria-hidden="true">→</span></a></li>
+            {%- endif %}
           </ul>
         </details>
         {%- endif %}
@@ -96,9 +103,13 @@
         <details class="pc-state">
           <summary><span>{{ st.name }}</span><span class="pc-count">{{ pc_st.size }}</span></summary>
           <ul class="pc-list">
-            {%- for c in pc_st %}
+            {%- assign pc_land = site.data.seo_landings.coaching.states[st.id].lists[pc_exam] -%}{%- assign pc_lim = pc_st.size -%}{%- if pc_land -%}{%- assign pc_lim = pc_cap -%}{%- endif %}
+            {%- for c in pc_st limit: pc_lim %}
             <li><a href="{{ c.url }}" target="_blank" rel="noopener noreferrer">{{ c.name }} {{ pc_ext }}</a><span class="pc-meta">{{ c.city }} · {{ c.url_label | default: "Official website" }}</span></li>
             {%- endfor %}
+            {%- if pc_st.size > pc_lim %}
+            <li class="pc-more"><a href="coaching/{{ st.id }}/{{ pc_exam }}.html">All {{ pc_st.size }} {{ pc_ex.tag }} centres in {{ st.name }} <span aria-hidden="true">→</span></a></li>
+            {%- endif %}
           </ul>
         </details>
         {%- endif %}

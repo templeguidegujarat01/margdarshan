@@ -130,6 +130,9 @@ try {
     }
     return true;
   }
+  // All style reads first, all class writes after: a write between two getComputedStyle calls would force a
+  // fresh style recalc for every list on the page (layout thrash on long pages).
+  var toMark = [];
   main.querySelectorAll('ul:not(.auto-points),ol').forEach(function(list){
     if(list.closest('header,nav,footer,form,table,[role="tablist"],[role="menu"],[role="listbox"],[data-no-points]')) return;
     var cs = getComputedStyle(list);
@@ -144,8 +147,11 @@ try {
       var first = li.firstElementChild;
       if(first && /^(svg|img)$/i.test(first.tagName) && !(li.firstChild.nodeType === 3 && li.firstChild.nodeValue.trim())) return; // icon bullets
     }
-    list.classList.add('auto-marked');
-    for(var j = 0; j < items.length; j++) items[j].classList.add('sc-pointer-line');
+    toMark.push([list, items]);
+  });
+  toMark.forEach(function(m){
+    m[0].classList.add('auto-marked');
+    for(var j = 0; j < m[1].length; j++) m[1][j].classList.add('sc-pointer-line');
   });
 })();
 } catch (e) { if (window.console) console.error(e); }
@@ -825,7 +831,14 @@ try {
   /* ---------- Scroll progress + back to top ---------- */
   var progressBar = document.getElementById('progressBar');
   var backToTop = document.getElementById('backToTop');
+  var scrollQueued = false;
   function onScroll(){
+    if(scrollQueued) return;
+    scrollQueued = true;
+    (window.requestAnimationFrame || setTimeout)(paintScroll);
+  }
+  function paintScroll(){
+    scrollQueued = false;
     var scrollTop = window.scrollY;
     var docHeight = document.documentElement.scrollHeight - window.innerHeight;
     var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
@@ -833,7 +846,7 @@ try {
     if(backToTop) backToTop.classList.toggle('is-visible', scrollTop > 500);
   }
   window.addEventListener('scroll', onScroll, {passive:true});
-  onScroll();
+  paintScroll();
   if(backToTop){
     backToTop.addEventListener('click', function(){
       window.scrollTo({top:0, behavior: reduceMotion ? 'auto' : 'smooth'});
@@ -868,7 +881,7 @@ try {
   function initReadMore(){
     var LINES_VISIBLE = 3;      // collapsed preview height
     var LINE_THRESHOLD = 5;     // only collapse if longer than this
-    var blocks = document.querySelectorAll('.prose');
+    var blocks = document.querySelectorAll('.prose'), measured = [];
     blocks.forEach(function(block){
       // Only target plain paragraph content: skip anything with lists,
       // tables, or other structured/nested content.
@@ -884,7 +897,11 @@ try {
       var fullHeight = block.scrollHeight;
       var thresholdHeight = lineHeight * LINE_THRESHOLD;
       if(fullHeight <= thresholdHeight) return; // short block, leave untouched
-
+      measured.push([block, lineHeight, fullHeight]);
+    });
+    // Measure every block first, then collapse them: writing between reads would force a layout per block.
+    measured.forEach(function(m){
+      var block = m[0], lineHeight = m[1], fullHeight = m[2];
       var collapsedHeight = lineHeight * LINES_VISIBLE;
       block.classList.add('js-readmore');
       block.style.maxHeight = collapsedHeight + 'px';
@@ -1917,7 +1934,7 @@ try {
   // entry only, so a diagonal move from a name to its list does not flick through the names in between).
   // Touch / narrow: tapping a name opens or closes its list under it (the hub link sits inside the list).
   var wide = window.matchMedia('(min-width:1024px) and (hover:hover)');
-  nav.querySelectorAll('.hh-mega').forEach(function(panel){
+  function bindMega(panel){
     var nodes = panel.querySelectorAll('.hh-node'), timer = 0;
     function on(n){ nodes.forEach(function(o){ o.classList.toggle('is-on', o === n); }); }
     nodes.forEach(function(n){
@@ -1971,16 +1988,52 @@ try {
     // Each time the menu opens: desktop starts on the first node (or the one holding this page);
     // narrow starts with every list closed except the one holding this page.
     var dd = panel.closest('.hh-dd');
-    dd.addEventListener('toggle', function(){
-      if(!dd.open) return;
+    panel.mdOpen = function(){
       nodes.forEach(tabReset);
       var cur = null;
       nodes.forEach(function(n){ if(!cur && n.querySelector('[aria-current="page"]')) cur = n; });
       if(wide.matches) on(cur || nodes[0]);
       else if(cur) on(cur); else nodes.forEach(function(o){ o.classList.remove('is-on'); });
       place(dd);
-    });
-  });
+    };
+    dd.addEventListener('toggle', function(){ if(dd.open) panel.mdOpen(); });
+  }
+  nav.querySelectorAll('.hh-mega:not(.hh-lazy)').forEach(bindMega);
+  // Lazy flyouts (India, 2026-10-30): the page has stub panels (.hh-lazy: node names only, plain links); the full
+  // panels come from one cached fragment (nav[data-hh-src] = assets/menu-in.html) on the first hover / focus / touch
+  // of the menu, or when the browser is idle after load. Links in the fragment are resolved against its own URL.
+  var stubs = nav.querySelectorAll('.hh-mega.hh-lazy'), src = nav.getAttribute('data-hh-src');
+  if(stubs.length && src && window.fetch && window.DOMParser){
+    var started = false;
+    var load = function(){
+      if(started) return;
+      started = true;
+      var url = new URL(SCRIPT_ROOT + src, window.location.href).href;
+      var here = window.location.href.split('#')[0].split('?')[0];
+      fetch(url, { credentials: 'same-origin' }).then(function(r){ if(!r.ok) throw new Error(r.status); return r.text(); }).then(function(html){
+        var doc = new DOMParser().parseFromString(html, 'text/html');
+        stubs.forEach(function(stub){
+          var full = doc.querySelector('ul.hh-mega[data-hh-panel="' + stub.getAttribute('data-hh-panel') + '"]');
+          if(!full) return;
+          full.querySelectorAll('a[href]').forEach(function(a){
+            var h = a.getAttribute('href');
+            if(/^(#|mailto:|tel:)/.test(h)) return;
+            var abs = new URL(h, url).href;
+            a.setAttribute('href', abs);
+            if(abs.split('#')[0].split('?')[0] === here) a.setAttribute('aria-current', 'page');
+          });
+          full = document.importNode(full, true);
+          stub.parentNode.replaceChild(full, stub);
+          bindMega(full);
+          var dd = full.closest('.hh-dd');
+          if(dd && dd.open) full.mdOpen();
+        });
+      }).catch(function(){ started = false; });
+    };
+    ['pointerover', 'focusin', 'touchstart'].forEach(function(ev){ nav.addEventListener(ev, load, { passive: true }); });
+    var idle = function(){ (window.requestIdleCallback || function(cb){ return setTimeout(cb, 1500); })(load, { timeout: 4000 }); };
+    if(document.readyState === 'complete') idle(); else window.addEventListener('load', idle);
+  }
   window.addEventListener('resize', function(){ more(); drops.forEach(function(d){ if(d.open) place(d); }); });
   more();
   // Web fonts change the item widths after first paint, so measure again once they are in.

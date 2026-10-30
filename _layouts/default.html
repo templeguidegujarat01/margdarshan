@@ -101,7 +101,9 @@
 {%- endunless %}
 
 <!-- System font stack only (main.css tokens): no web font requests, text paints once in its final font. -->
-<link rel="stylesheet" href="{{ root }}assets/css/main.css?v={{ site.time | date: '%s' }}">
+{%- comment -%} ?v= = content hash of the CSS/JS and the data written into them (_data/asset_version.yml, scripts/build-asset-version.mjs), so a deploy that does not change them keeps the browser's cached copy. {%- endcomment -%}
+{%- assign asset_v = site.data.asset_version.v -%}{%- unless asset_v -%}{%- assign asset_v = site.time | date: '%s' -%}{%- endunless %}
+<link rel="stylesheet" href="{{ root }}assets/css/main.css?v={{ asset_v }}">
 <script>
 /* Apply saved theme and sidebar state before first paint (no flash, no layout shift). */
 (function(){

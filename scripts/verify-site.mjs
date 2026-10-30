@@ -65,7 +65,10 @@ const walk = (d, rel = '') => {
 walk(root);
 const permalinkIndex = new Set(['index.html']);
 
-const targets = [...urlSet].filter((f) => f.endsWith('.html') && !f.startsWith('_') && !f.startsWith('redirects/') && (only ? f.startsWith(only) : all ? true : f.startsWith('roadmaps/')));
+// Folders in _config.yml `exclude` (scripts/, docs/ …) are never built by Jekyll, so their .html files (e.g. downloaded
+// source pages under scripts/learn-src/) are not site pages and are not checked.
+const excluded = (f) => (config.exclude || []).some((x) => f === x || f.startsWith(x + '/'));
+const targets = [...urlSet].filter((f) => f.endsWith('.html') && !f.startsWith('_') && !f.startsWith('redirects/') && !excluded(f) && (only ? f.startsWith(only) : all ? true : f.startsWith('roadmaps/')));
 const errors = [];
 const err = (f, m) => errors.push(f + ': ' + m);
 
@@ -109,8 +112,9 @@ async function render(f) {
   const body = m ? raw.slice(m[0].length) : raw;
   const page = pageOf(f, fm);
   const content = await engine.parseAndRender(body, { site, page });
+  // layout: null (or none) = no layout, as in Jekyll (assets/menu-in.html, the lazy top-menu fragment).
+  if ('layout' in fm && (fm.layout === null || fm.layout === 'none')) return content;
   const layout = fm.layout || 'default';
-  if (layout === 'none') return content;
   return engine.parseAndRender(fs.readFileSync(path.join(root, '_layouts', layout + '.html'), 'utf8'), { site, page, content, layout: {} });
 }
 async function idsOf(f) {

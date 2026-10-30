@@ -29,6 +29,12 @@
   Category badges (2026-10-24): a rail node with `badge: stem | health | finance` (for clusters, the menu's
   `badges` map by slug) gets a small mono tag after its name (.hh-nav-badge). The name already says it, so
   the tag is aria-hidden.
+  Lazy flyouts (India, 2026-10-30): the full mega panels were 280 KB of HTML (794 links) repeated on every India
+  page. Now each page carries only the menu row and every mega menu's node names (ul.hh-lazy, li.hh-stub — plain
+  links to the hub pages, so the menu still works without JS); the full panels are rendered once into
+  assets/menu-in.html (this include with mode="fragment") and site.js (block "India edition top menu") swaps them
+  in on the first hover / focus / touch of the menu or when the browser is idle. The fragment is cached between
+  pages (?v= = _data/asset_version.yml). USA pages (edition="us") still render the full panels inline.
 {%- endcomment -%}
 {%- assign hh_badge_txt = "stem:STEM,health:Health,finance:Finance" | split: "," -%}
 {%- assign hh_cur = page.url | remove_first: "/" -%}
@@ -37,7 +43,8 @@
 {%- else -%}
   {%- assign hh_items = site.data.nav.topnav -%}{%- assign hh_mega = site.data.nav_mega -%}{%- assign hh_aria = "India menu" -%}
 {%- endif -%}
-<nav class="in-header-hubs" aria-label="{{ hh_aria }}" data-no-points>
+{%- assign hh_lazy = false -%}{%- if include.edition != "us" and include.mode != "fragment" -%}{%- assign hh_lazy = true -%}{%- endif %}
+<nav class="in-header-hubs" aria-label="{{ hh_aria }}" data-no-points{% if hh_lazy %} data-hh-src="assets/menu-in.html?v={{ asset_v }}"{% endif %}>
   <div class="container">
     <ul class="hh-row">
       {%- for it in hh_items %}
@@ -53,7 +60,7 @@
       <li>
         <details class="hh-dd">
           <summary class="hh-btn">{{ it_label }}<svg class="hh-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-          <ul class="hh-panel hh-mega{% if it_nodes.size > 10 %} hh-mega-dense{% endif %}" style="--hh-rows:{{ hh_rows }}">
+          <ul class="hh-panel hh-mega{% if it_nodes.size > 10 %} hh-mega-dense{% endif %}{% if hh_lazy %} hh-lazy{% endif %}" style="--hh-rows:{{ hh_rows }}" data-hh-panel="{{ forloop.index0 }}">
             {%- for n in it_nodes %}
             {%- if it.clusters %}
             {%- assign n_raw = n.name %}{% capture n_href %}us/clusters/{{ n.slug }}/{% endcapture %}{% capture n_mega %}cluster-{{ n.slug }}{% endcapture %}{% assign n_badge = it.badges[n.slug] %}
@@ -62,6 +69,10 @@
             {%- endif %}
             {%- assign n_badge_txt = nil %}{% for b in hh_badge_txt %}{% assign bp = b | split: ":" %}{% if bp[0] == n_badge %}{% assign n_badge_txt = bp[1] %}{% endif %}{% endfor %}
             {%- assign n_label = n_raw | replace: "&", "&amp;" %}
+            {%- if hh_lazy %}
+            <li class="hh-sub hh-node hh-stub{% if forloop.first %} is-on{% endif %}"><a class="hh-sub-btn" href="{{ n_href }}"{% if hh_cur == n_href %} aria-current="page"{% endif %}><span class="hh-node-txt">{{ n_label }}</span>{% if n_badge_txt %}<span class="hh-nav-badge hh-nav-badge-{{ n_badge }}" aria-hidden="true">{{ n_badge_txt }}</span>{% endif %}</a></li>
+            {%- continue %}
+            {%- endif %}
             {%- assign M = hh_mega[n_mega] %}
             {%- assign n_cols = n.cols %}
             {%- if M %}{% assign n_cols = M.cols %}{% endif %}

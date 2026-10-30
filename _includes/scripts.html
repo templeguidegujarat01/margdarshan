@@ -1,8 +1,8 @@
 {%- comment -%}
   Site-wide JavaScript lives in assets/js/site.js (one cached file instead of ~59 KB inlined into every
   page). data-root passes this page's folder prefix ("" or "../" per level), which the script used to get
-  from Liquid. ?v= changes on every site build so visitors never run a stale copy after a deploy.
+  from Liquid. ?v= is the content hash from _data/asset_version.yml (set as asset_v in _layouts/default.html): it changes only when the script or the data in it changes.
   defer: runs after the document is parsed and before DOMContentLoaded — the same point at which the
   old inline scripts at the end of <body> ran.
 {%- endcomment -%}
-<script src="{{ root }}assets/js/site.js?v={{ site.time | date: '%s' }}" data-root="{{ root }}" defer></script>
+<script src="{{ root }}assets/js/site.js?v={{ asset_v }}" data-root="{{ root }}" defer></script>

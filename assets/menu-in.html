@@ -1,0 +1,14 @@
+---
+layout: null
+sitemap: false
+---
+{%- comment -%}
+  India top menu flyouts, rendered once per build and fetched by site.js (block "India edition top menu") the first
+  time a visitor hovers, focuses or touches the menu, or when the browser is idle (2026-10-30). Each page carries
+  only stub panels (ul.hh-lazy[data-hh-panel=N]); the script swaps in ul[data-hh-panel=N] from here.
+  The file sits one folder down (assets/), so every relative link gets "../" here and the script resolves links
+  against this file's own URL. Not a page: no layout, not in the sitemap.
+{%- endcomment -%}
+<meta name="robots" content="noindex">
+{%- capture mi_nav -%}{% include in-header-hubs.html mode="fragment" %}{%- endcapture -%}
+{{ mi_nav | replace: 'href="', 'href="../' | replace: 'href="../#', 'href="#' | replace: 'href="../http', 'href="http' | replace: 'href="../mailto:', 'href="mailto:' | replace: 'href="..//', 'href="/' }}

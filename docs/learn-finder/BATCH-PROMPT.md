@@ -1,59 +1,51 @@
-# "Where to learn" finder — batch prompt
+# Learn finder runbook (read this, nothing else, at the start of a run)
 
-Paste the block below each time. Change only the first line (how many subjects, or which ones).
+Goal: one "where to learn" finder per subject group — EVERY verified place in India that teaches it
+(colleges, coaching centres, academies, gurukuls, ITIs…), in a big-listing UI, with state/city SEO pages.
 
-```
-LEARN FINDER BATCH — next 10 subjects   (or: "subjects: kathak, cricket, mbbs")
+## 0. Setup (each fresh session)
+- `npm install js-yaml@4 liquidjs` into `<this session's scratchpad>/deps`. Use `VERIFY_DEPS=<that dir>` everywhere.
+- `node scripts/learn-next.mjs` tells you what to do. It prints UNFINISHED work first, otherwise the NEXT FINDER.
 
-Read docs/learn-finder/BATCH-PROMPT.md and _data/in/learn_map.yml first.
+## 1. Token rules
+- Do NOT read `_data/in/learn_map.yml`, `_data/colleges.yml`, `_data/coaching.yml`, `_data/search.yml` or other big
+  files. Use `learn-next.mjs`, grep, or small node one-liners that print counts.
+- Do NOT read memory files beyond MEMORY.md unless a step fails. Fetch tricks live in `docs/learn-finder/LOG.md` (grep it).
+- Never hand-type listings. Fetch the register (API / JSON / CSV / HTML / PDF) and turn it into YAML with a script
+  kept in `scripts/learn-src/<finder>.mjs`, so it can be rerun later.
+- Don't re-read files after editing. Don't run `verify-site --all` (>10 min); run the targeted checks in step 5.
 
-1. PICK
-   - Take the next subjects with status: todo (or the ones I named). Most-searched first
-     (doctor, engineer, CA, cricket, kathak before niche ones).
-   - Subjects that would list the same places share ONE finder (doctor + mbbs + neet-ug -> finder "mbbs";
-     jee-main + cse -> "btech"). Set `finder:` on each, and if that finder is already live just link it.
+## 2. Size of a run
+- One finder per run. If it ends below ~300 listings and the context is still light, take the next one (3 at most).
+- If the context gets heavy partway: save the data, keep status `building`, commit, and stop. The next run resumes.
 
-2. COLLECT — every real place in India where this is taught, not a "top 10"
-   - Go for ALL of them: the aim is the full list (up to 1,000+ when that many exist).
-     Start from the official register and take every entry it lists:
-     NMC / DCI / INC / PCI / NCISM / NCH (health) · AICTE (engineering, polytechnic, MBA, MCA) · COA (architecture)
-     BCI (law) · NCTE (B.Ed / D.El.Ed) · NCVT MIS (ITI) · DGCA (flying schools, AME) · DG Shipping (maritime)
-     NCHMCT / IHMs (hotel) · ICAR / VCI (agri, vet) · UGC / university departments (arts, science, music, dance)
-     SAI (STCs, NCOEs, Khelo India centres, accredited academies) · national federations' affiliated academies
-     Sangeet Natak Akademi / university performing-arts departments / state academies (dance, music)
-     Coaching: each brand's own centre locator (one entry per real centre).
-   - Each listing needs: name, type, ownership, state, city, address or area, official url, source id, checked date.
-     Add fees, seats, intake, approval number, affiliation, timings only when the source shows them.
-   - Never invent, guess or pad. No listing without a source. If a register is blocked, use Wayback / Edge tricks
-     from memory, and say so; if still blocked, list what is verified and record the gap.
-   - Write the honest count: "We found 412 verified kathak schools", not "1000".
-   - No paid-style claims ("best", "No.1", "top"). Order by official rank where one exists (NIRF, NCOE status),
-     otherwise by state then city. "Top N" headings only when an official ranking backs them.
+## 3. Collect (honest, complete)
+- Start from the official register printed by `learn-next.mjs`, then add brand centre locators and federation or
+  academy lists. Take EVERY entry; the aim is the full list (1,000+ when that many exist).
+- Each listing: name, type, ownership, state, city, area/address, url (official), source id, checked date.
+  Add fees, seats, approval no., affiliation, mode or timings only when the source shows them.
+- No invented or guessed entries. No "best / No.1 / top" unless an official ranking (NIRF, NCOE) backs it.
+  Print the true count ("412 verified kathak schools").
+- Blocked source: try the Wayback / Edge tricks in LOG.md. Still blocked = record the gap, don't fill it.
 
-3. DATA
-   - One file per finder: _data/in/learn/<finder>.yml (meta, sources, filters, listings).
-   - Big lists also go to assets/data/learn/<finder>.json so the page loads fast and filters in the browser.
+## 4. Build
+- Data: `_data/in/learn/<finder>.yml` (meta, sources, filters, the subjects it serves) +
+  `assets/data/learn/<finder>.json` (listings, loaded by the page and filtered in the browser).
+- If `scripts/build-learn-finders.mjs` doesn't exist yet, write it in the first run. It generates:
+  - `learn/<finder>.html`: hero (what, how many places, which registers), sticky filter bar (state, city, type,
+    ownership, fees, mode), search box, listing cards (name, city, badges, key facts, Official site button),
+    load-more, sources fold. Site design system, India top menu, no sidebar, mobile-first, light and dark.
+  - `learn/<finder>/<state>.html` (3+ listings) and `learn/<finder>/<state>/<city>.html` (10+ listings).
+    Titles in the words people search: "Kathak classes in Ahmedabad", "Cricket academy in Pune",
+    "MBBS colleges in Gujarat". Title <= 60 and desc <= 160 via `scripts/lib/seo-fit.mjs`.
+  - `learn/index.html`: hub of live finders grouped by family.
+  - It updates the sitemap and the search entries for these pages.
+- Connect: each subject page served gets a "Where to learn" button to its finder (career control bar / context deck /
+  sport and exam page). Never add one before verified listings exist. Link the old colleges-*/coaching-* pages both ways.
 
-4. PAGES (same design system as the site, India top menu, no sidebar, sources fold, system fonts)
-   - learn/<finder>.html: hero (what you learn, how many places, which official registers), filter bar
-     (state, city, type, ownership, fees band, mode), big listing cards (name, city, type badges, key facts,
-     "Official site" button), map-free, mobile-first, pagination / "load more", search box.
-   - learn/<finder>/<state>.html for each state with 3+ listings (SEO pages: "kathak classes in Gujarat").
-     City pages learn/<finder>/<state>/<city>.html when a city has 10+.
-   - Titles and descriptions in the words people search: "Kathak classes in Ahmedabad", "cricket academy in Pune",
-     "MBBS colleges in Gujarat", "CA coaching in Delhi". Use fit-seo rules (title <= 60, desc <= 160).
-   - learn/index.html: the hub, grouped by the 22 families in learn_map.yml, only live finders shown.
-
-5. CONNECT
-   - Every subject page in the batch gets a "Where to learn" button to its finder (control bar / context deck).
-     Follow finder-link policy: no button until the finder has verified listings.
-   - Add the finder pages to _data/search.yml, sitemap, and the menu (build-nav-mega.mjs).
-   - Old colleges-*.html / coaching-*.html pages stay; link them both ways with the new finder.
-
-6. CHECK, COMMIT, PUSH
-   - Set status: live on the batch subjects, rerun scripts/build-learn-map.mjs, build-seo-landings.mjs,
-     build-nav-mega.mjs, then verify-site (VERIFY_DEPS = js-yaml 4 + liquidjs deps in this session's scratchpad).
-   - Spot-check 10 random listings against their source. Check pages at 375px and 1280px, light and dark.
-   - Commit + push this batch. Save a memory note (sources that worked, blocked ones, counts).
-   - End with: table of subject -> finder -> verified listings, gaps, and the Gemini handoff summary.
-```
+## 5. Finish
+- `node scripts/learn-next.mjs --set <id,id> live <finder>`, then `build-learn-map.mjs`, `build-learn-finders.mjs`,
+  `build-nav-mega.mjs`. Check with `build-learn-map.mjs --check` and `verify-site.mjs` on the changed pages.
+- Spot-check 5 random listings against their source. Look at one finder page at 375px and 1280px.
+- Add one line to `docs/learn-finder/LOG.md`: date · finder · subjects · count · sources · blocked · tricks.
+- Commit + push. Reply in short Hinglish: finder, subjects, verified count, gaps, next finder, and the Gemini summary.

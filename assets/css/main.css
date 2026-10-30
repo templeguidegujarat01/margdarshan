@@ -676,8 +676,11 @@ html.nav-locked{overflow:hidden;}
 .footer-promises{display:grid;gap:.35rem;margin:.9rem 0 0;padding:0;list-style:none;font-size:.85rem;}
 .footer-promises li::before{content:"\2713";margin-right:.5rem;font-weight:700;color:var(--accent-on-surface);}
 .fr-sub{margin:-.55rem 0 .8rem;font-size:.82rem;font-weight:600;color:var(--on-ink-strong);}
-.footer-related .cd-chip{display:inline;min-height:0;padding:0;border:0;border-radius:0;background:none;font-size:.92rem;font-weight:400;color:var(--on-ink-muted);}
-.footer-related .cd-chip:hover,.footer-related .cd-chip:focus-visible{color:var(--accent-on-surface);text-decoration:underline;text-underline-offset:3px;}
+/* Every footer link has the one plain footer-link look (2026-10-31): related-page chips and any stray .btn / .cta
+   (the old finder buttons came out as solid amber blocks with no padding) are reset to .footer-col a. */
+.site-footer .footer-col .cd-chip,.site-footer .footer-col .btn,.site-footer .footer-col .cta{display:inline-block;min-height:0;padding:.2rem 0;border:0;border-radius:0;background:none;box-shadow:none;font-size:.92rem;font-weight:400;line-height:1.5;color:var(--on-ink-muted);overflow-wrap:anywhere;transform:none;}
+.site-footer .footer-col .cd-chip:visited,.site-footer .footer-col .btn:visited,.site-footer .footer-col .cta:visited{color:var(--on-ink-muted);}
+.site-footer .footer-col .cd-chip:hover,.site-footer .footer-col .cd-chip:focus-visible,.site-footer .footer-col .btn:hover,.site-footer .footer-col .btn:focus-visible,.site-footer .footer-col .cta:hover,.site-footer .footer-col .cta:focus-visible{background:none;box-shadow:none;color:var(--accent-on-surface);text-decoration:underline;text-underline-offset:3px;}
 .footer-editions{display:flex;flex-wrap:wrap;justify-content:center;gap:.35rem 1.2rem;}
 .footer-editions a{color:var(--on-ink-muted);font-weight:600;}
 .footer-editions a:hover,.footer-editions a:focus-visible{color:var(--accent-on-surface);text-decoration:underline;text-underline-offset:3px;}
@@ -705,7 +708,7 @@ html.nav-locked{overflow:hidden;}
 .footer-brand .logo{margin-bottom:.9rem;}
 .footer-brand p{max-width:34ch;font-size:.9rem;line-height:1.7;}
 .footer-brand .footer-mail{margin-top:.6rem;}
-.footer-mail a{color:var(--on-ink-muted);font-size:.9rem;overflow-wrap:anywhere;text-decoration:underline;text-underline-offset:3px;}
+.footer-mail a{color:var(--on-ink-muted);font-size:.9rem;overflow-wrap:break-word;text-decoration:underline;text-underline-offset:3px;}
 .footer-mail a:hover,.footer-mail a:focus-visible{color:var(--accent-on-surface);}
 .footer-col h2,.footer-col h4{color:var(--on-ink-strong);font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;font-family:var(--font-body);margin-bottom:1rem;}
 .footer-col ul{display:grid;gap:.3rem;}
@@ -3598,6 +3601,8 @@ html.js #sources:not(.is-open) :is(.cite-md,.cite-report){display:none;}
 @media (max-width:767.98px){
   /* Footer on phones: link lists in two columns (all editions), less padding */
   .footer-col ul{grid-template-columns:1fr 1fr;column-gap:1rem;}
+  /* Related-page labels are long ("Find JEE Main & Advanced coaching"): one per line, not squeezed into two columns */
+  .footer-related ul{grid-template-columns:1fr;}
   .footer-top{gap:1.6rem;}
   .site-footer{padding-top:2.5rem;}
   /* Copyright line centred in the normal gutter; the 64px bottom room already clears the back-to-top button */

@@ -20,7 +20,8 @@
         <li>No paid listings or rankings</li>
         <li>Facts from official sources</li>
       </ul>
-      <p class="footer-mail"><a href="mailto:{{ site.feedback_email }}">{{ site.feedback_email }}</a></p>
+      {%- comment -%} <wbr> before the @: a narrow column wraps the address there, never inside "gmail.com" {%- endcomment %}
+      <p class="footer-mail"><a href="mailto:{{ site.feedback_email }}">{{ site.feedback_email | replace: "@", "<wbr>@" }}</a></p>
     </div>
     {%- if region_id == "in" or region_neutral %}
     {% include context-deck.html place="footer" %}

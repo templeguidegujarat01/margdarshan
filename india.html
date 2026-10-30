@@ -83,7 +83,7 @@ footer:
     {%- for c in site.data.in.careers -%}{%- assign n_in = n_in | plus: 1 -%}{%- assign n_in_src = n_in_src | plus: c[1].sources.size -%}{%- endfor -%}
     {%- assign n_src = n_in_src -%}
     {%- assign n_col = site.data.colleges.colleges.size -%}
-    {%- assign n_guides = site.data.search.items.size %}
+    {%- assign n_guides = 0 -%}{%- for i in site.data.search.items -%}{%- unless i.c == "usa" or i.c == "uk" -%}{%- assign n_guides = n_guides | plus: 1 -%}{%- endunless -%}{%- endfor %}
     <div class="container hero-inner hub-inner">
       <div class="hub-head">
         <span class="eyebrow">India Edition · Free career guidance</span>
@@ -99,7 +99,7 @@ footer:
       <dl class="cap-bar" aria-label="What is on Education Margdarshan">
         <div><dt>India career guides</dt><dd>{{ n_in }}</dd></div>
         <div><dt>Indian colleges in our curated finder</dt><dd>{{ n_col }}</dd></div>
-        <div><dt>Searchable guides and hubs</dt><dd>{{ n_guides }}</dd></div>
+        <div><dt>Searchable India guides and hubs</dt><dd>{{ n_guides }}</dd></div>
         <div><dt>Official sources cited</dt><dd>{{ n_src }}</dd></div>
       </dl>
     </div>
@@ -181,7 +181,7 @@ footer:
         <li><a class="trend-card reveal" href="nda.html"><span class="trend-badge t-govt">Defence</span><h3>Defence (NDA)</h3><dl class="trend-meta"><div><dt>Starting salary</dt><dd>₹56,100/month stipend</dd></div><div><dt>Duration</dt><dd>~4 yrs training</dd></div></dl><span class="trend-go">View guide →</span></a></li>
       </ul>
       <div class="trend-more">
-        <button type="button" class="btn btn-ghost" data-search-open>Search all 150+ careers</button>
+        <button type="button" class="btn btn-ghost" data-search-open>Search all {{ n_in }} careers</button>
         <a href="high-paying-careers.html" class="btn btn-ghost btn-page-link">High-paying careers</a>
       </div>
     </div>

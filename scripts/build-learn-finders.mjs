@@ -34,6 +34,7 @@ const q = (s) => JSON.stringify(String(s));
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const fmt = (n) => Number(n).toLocaleString('en-IN');
 const plural = (n, one, many) => `${fmt(n)} ${n === 1 ? one : many}`;
+const andList = (a) => (a.length > 1 ? `${a.slice(0, -1).join(', ')} and ${a[a.length - 1]}` : a.join(''));
 const SEARCH_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>';
 const EXT = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>';
 
@@ -86,10 +87,13 @@ function page(F, rows, sid, city, entry) {
   const t = counts(rows);
   const gov = rows.filter((r) => r.ownership === 'Government').length;
   // "Medical college" → "medical colleges"; acronyms stay ("JEE coaching centres").
-  const typeLine = F.types.filter((k) => t[k]).map((k) => `${fmt(t[k])} ${k.replace(/^[A-Z][a-z]/, (c) => c.toLowerCase())}${t[k] === 1 ? '' : k.endsWith('coaching') ? ' centres' : 's'}`);
+  const typeLine = F.types.filter((k) => t[k]).map((k) => {
+    const w = k.replace(/^[A-Z][a-z]/, (c) => c.toLowerCase());
+    return `${fmt(t[k])} ${t[k] === 1 ? w : k.endsWith('coaching') ? `${w} centres` : k.endsWith('y') ? `${w.slice(0, -1)}ies` : `${w}s`}`;
+  });
   const bases = [`${F.phrase} in ${where}`, `${F.phrase_short} in ${where}`];
   const title = fitTitle(...bases.map((b) => `${b} | ${SHORT}`), ...bases, `${F.short} in ${where}`);
-  const desc = fitDesc(`${fmt(rows.length)} verified places to learn in ${place}: ${typeLine.join(' and ')}${gov ? ` (${fmt(gov)} government)` : ''}. Filter by city, type and ownership; every listing links to its official site.`);
+  const desc = fitDesc(`${fmt(rows.length)} verified places to learn in ${place}: ${andList(typeLine)}${gov ? ` (${fmt(gov)} government)` : ''}. Filter by city, type and ownership; every listing links to its official site.`);
 
   const crumb = city
     ? { parent_href: `learn/${F.id}/${sid}.html`, parent_label: `${F.short} in ${sName}`, current: city }
@@ -134,7 +138,7 @@ function page(F, rows, sid, city, entry) {
     '    <div class="container page-hero-inner">',
     `      <span class="eyebrow">Where to learn · ${esc(where)}</span>`,
     `      <h1 id="lf-heading">${esc(F.phrase)} in ${esc(place)}</h1>`,
-    `      <p>${sid ? `${plural(rows.length, 'verified place', 'verified places')} in ${esc(place)}: ${esc(typeLine.join(' and '))}.` : esc(F.lead)} Every listing comes from an official register or the institute's own site, checked ${esc(F.checked)}. The order is not a ranking.</p>`,
+    `      <p>${sid ? `${plural(rows.length, 'verified place', 'verified places')} in ${esc(place)}: ${esc(andList(typeLine))}.` : esc(F.lead)} Every listing comes from an official register or the institute's own site, checked ${esc(F.checked)}. The order is not a ranking.</p>`,
     '      <dl class="sl-console">',
     `        <div><dt>Verified places</dt><dd>${fmt(rows.length)}</dd></div>`,
     ...F.types.map((k) => `        <div><dt>${esc(k)}</dt><dd>${fmt(t[k] || 0)}</dd></div>`),

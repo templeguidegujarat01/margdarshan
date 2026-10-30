@@ -278,11 +278,11 @@ C('bcom-hons', 'B.Com (Hons)', 'B.Com Honours',
   'The deeper commerce route: admission, honours coursework and options for research and professional courses.',
   [['Duration', '3 years (4 optional)'], ['Entry', 'CUET-UG or merit'], ['Focus', 'Deeper accounting and finance'], ['Extras', 'Dissertation / research option']],
   [
-    P('Class 12 prerequisites', 'Class 11–12', 'Commerce with Maths is preferred by several top colleges.', [
+    P('Class 12 prerequisites', 'Class 11–12', 'Commerce with Maths is preferred by several the most selective colleges.', [
       'Honours courses often prefer Commerce with Accountancy and Maths in Class 12.',
       'Some colleges accept students from other streams with an additional subject requirement.',
       'Check the college’s subject-combination rules in its admission bulletin.',
-      'Build your Class 12 marks, because honours seats at top colleges close at high cut-offs.'],
+      'Build your Class 12 marks, because honours seats at the most selective colleges close at high cut-offs.'],
       [['Preferred', 'Commerce with Maths'], ['Check', 'College’s subject rules']]),
     P('Admission cycle', 'After Class 12', 'CUET-UG is the main route for central universities; private colleges set their own rules.', [
       'Register for CUET-UG and pick the right domain subjects for B.Com (Hons).',
@@ -496,9 +496,9 @@ C('integrated-mba', 'Integrated MBA', 'Integrated MBA (5-Year IPM)',
   [
     P('Class 12 eligibility', 'Class 11–12', 'Any stream, with minimum marks (usually 60%) in Class 12.', [
       'Integrated programmes admit students after Class 12 from any stream.',
-      'Top institutes like IIM Indore and IIM Rohtak require good Class 10 and 12 marks.',
+      'Well-known institutes like IIM Indore and IIM Rohtak require good Class 10 and 12 marks.',
       'Maths, verbal ability and logical reasoning matter a lot for the entrance.',
-      'Start preparing in Class 11 if you aim for the top institutes.'],
+      'Start preparing in Class 11 if you aim for the most selective institutes.'],
       [['Streams', 'Any'], ['Marks', 'Usually 60% or as institute specifies']]),
     P('Entrance exams and calendar', 'After Class 12', 'IPMAT, JIPMAT, NPAT, SET and others.', [
       'IPMAT Indore and IPMAT Rohtak are separate exams conducted by the respective IIMs.',
@@ -567,7 +567,7 @@ C('ba-economics', 'BA Economics', 'B.A. Economics',
   [['Duration', '3 years (4 optional)'], ['Entry', 'CUET-UG or merit'], ['Maths', 'Class 12 Maths preferred'], ['Next', 'MA Economics, jobs']],
   [
     P('Class 11–12 subject choices', 'Class 11–12', 'Maths and Economics in Class 12 give the strongest start.', [
-      'Take Economics and, if possible, Maths in Class 11–12; many top colleges ask for Maths.',
+      'Take Economics and, if possible, Maths in Class 11–12; many the most selective colleges ask for Maths.',
       'Students from any stream can apply if the university accepts it.',
       'Build statistics and data interpretation basics.',
       'Read newspapers such as the Economic Times or follow Budget coverage.'],

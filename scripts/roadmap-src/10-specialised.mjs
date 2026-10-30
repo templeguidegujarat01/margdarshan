@@ -332,7 +332,7 @@ export default [
     { title: 'Class 12 (Maths helps)', when: 'School years', summary: 'Any stream; Maths keeps top economics programmes open.',
       points: [
         'Science, Commerce and Arts students are all eligible.',
-        'Maths at Class 12 helps a lot for economics degrees at top colleges.',
+        'Maths at Class 12 helps a lot for economics degrees at the most selective colleges.',
         'Most strong programmes and IES papers use maths and statistics.'] },
     { title: 'BA / B.Sc Economics', when: 'Undergraduate', summary: 'Build micro, macro and statistics basics.',
       points: [

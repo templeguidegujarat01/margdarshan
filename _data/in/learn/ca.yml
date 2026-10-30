@@ -1,0 +1,51 @@
+# "Where to learn" finder: Chartered Accountancy (learn/ca.html and its state/city pages).
+# Listings live in assets/data/learn/ca.json, written by scripts/learn-src/ca.mjs from the ICAI branch fetcher
+# scripts/learn-src/ca/icai.mjs and coaching.yml; pages by scripts/build-learn-finders.mjs.
+# Hand-edit this file (meta, sources, subjects); never the JSON.
+id: ca
+family: commerce-finance
+stream: commerce
+search_cat: coaching
+name: "CA coaching & ICAI branches"
+short: "CA coaching"
+# Words people search, used in titles: "<phrase> in Gujarat", "<phrase_short> in Pune".
+phrase: "CA Coaching & ICAI Branches"
+phrase_short: "CA Coaching"
+lead: "Every ICAI branch and regional office in India, read from the five regional councils' own branch lists, and the CA coaching centres we could check on official branch pages. ICAI runs the CA course itself, so its branch is the first stop for registration help, ICITSS and orientation batches and study circles."
+checked: "2026-10-30"
+# Subject pages that link here ("Where to learn" button) and that this finder links back to.
+subjects:
+  - { id: ca, label: "Chartered Accountant (CA) guide", href: "ca.html" }
+# Old finder keys: coaching/<state>/ca.html links both ways. B.Com colleges are left to the B.Com finder.
+keys: { coaching: [ca] }
+types: ["ICAI office", "CA coaching"]
+sources:
+  - id: icai-nirc
+    name: "ICAI Northern India Regional Council — Branches of NIRC"
+    url: "https://nirc.icai.org/branches-of-nirc/"
+    note: "25 branches (Haryana, Punjab, Chandigarh, Himachal Pradesh, J&K), address from each branch page, read 2026-10-30."
+  - id: icai-wirc
+    name: "ICAI Western India Regional Council — WIRC branches"
+    url: "https://wirc-icai.org/wirc-branches"
+    note: "39 branches in Maharashtra, Gujarat and Goa with addresses, read 2026-10-30."
+  - id: icai-sirc
+    name: "ICAI Southern India Regional Council — statewise branches of SIRC"
+    url: "https://sirc-icai.org/statewise-branches-of-sirc-of-icai.php"
+    note: "46 branches with address and branch website, read 2026-10-30."
+  - id: icai-eirc
+    name: "ICAI Eastern India Regional Council — Branches of EIRC"
+    url: "https://www.eirc-icai.org/overview/branches-of-eirc"
+    note: "13 branches in West Bengal, Odisha and Assam, read 2026-10-30."
+  - id: icai-circ
+    name: "ICAI Central India Regional Council — Branch contact details"
+    url: "https://circ.icai.org/branch-contact-details-2/"
+    note: "56 branches; the site refuses scripted reads, so the list was read from the Internet Archive copy of 20 July 2025. Each branch's contact sheet is linked there."
+  - id: brands
+    name: "Coaching brands' official centre locators and branch pages"
+    url: "coaching.html?exam=ca"
+    note: "Each CA centre links to its own branch page or the brand's official list of centres, including ICAI branches' own coaching-class pages."
+gaps:
+  - "CIRC branches (UP, Rajasthan, MP, Bihar, Jharkhand, Chhattisgarh, Uttarakhand) come from a July 2025 archive copy and have no address yet: open the CIRC list for each branch's contact sheet."
+  - "SIRC lists Khammam and Nizamabad (Telangana) as \"Soon\", with no office details, so they are not shown."
+  - "CA coaching covers the brands whose centre lists we could read; many local CA teachers and institutes are not listed yet."
+  - "Fees are not listed: ICAI's own course fees are on the ICAI Board of Studies site, and coaching fees change every batch."

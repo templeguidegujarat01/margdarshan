@@ -237,6 +237,8 @@
 {%- endif -%}
 
 {%- assign cd_chips = cd_chips | strip -%}{%- assign cd_ctas = cd_ctas | strip -%}
+{%- comment -%} 2026-10-31: the India footer column shows links only, no finder buttons (owner order). {%- endcomment -%}
+{%- if cd_place == "footer" -%}{%- assign cd_ctas = "" -%}{%- endif -%}
 {%- if cd_chips != "" or cd_ctas != "" %}
 {%- if cd_place == "footer" %}
 <nav class="footer-col footer-related" aria-labelledby="cd-title">
@@ -248,11 +250,6 @@
   <ul>
     {{ cd_chips }}
   </ul>
-  {%- endif %}
-  {%- if cd_ctas != "" %}
-  <div class="fr-ctas">
-    {{ cd_ctas }}
-  </div>
   {%- endif %}
 </nav>
 {%- else %}

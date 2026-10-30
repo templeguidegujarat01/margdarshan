@@ -31,8 +31,8 @@ apne aap site dobara banata hai (2-5 minute).
 **Har page ka shell** (top bar, menu, breadcrumb, footer) ek hi file se aata hai: `_layouts/default.html`.
 
 ### Footer (30 Oct 2026 se)
-- Brand + 3 promises | **Related to this page** (sirf India: jo page khula hai uske hisaab se — CA kholo to CMA, CS, CA
-  coaching finder…) | Explore India | Company | Legal | editions bar.
+- Brand + 3 promises | **Related to this page** (sirf India: jo page khula hai uske hisaab se — CA kholo to CMA, CS…;
+  sirf links, koi button nahi — 31 Oct 2026) | Explore India | Company | Legal | editions bar.
 - Company/Legal/Explore ke links: `_data/company.yml` mein. Naya company link jodna ho to wahi file badlo.
 - "Related to this page" ka logic: `_includes/context-deck.html` (top menu ke columns se banta hai).
 

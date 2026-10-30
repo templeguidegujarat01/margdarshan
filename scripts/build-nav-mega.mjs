@@ -4,7 +4,7 @@
 // A topnav node in _data/nav.yml with `mega: <key>` takes its columns from this file instead of
 // hand-written `cols`, so the menu always lists every guide the hub page lists — add a career to a
 // hub page and rerun this, and it shows up in the menu. Sources:
-//   stream / career hub pages   each <h3 class="career-group-heading"> becomes a column, holding the
+//   stream / career hub pages   each <h3|h2 class="career-group-heading"> becomes a column, holding the
 //                               career links (<a href="x.html"><strong>Label</strong>…) under it
 //   _data/in/sports_atlas.yml   Olympic / Asian Games / Khelo India / job-quota nodes: sports with a deep
 //                               page, filtered by their `at` codes, one column per sport family
@@ -30,10 +30,11 @@ const problems = [];
 // ---- hub pages: career-group-heading columns
 function hubCols(file) {
   const html = read(file);
-  const parts = html.split(/<h3 class="career-group-heading"[^>]*>/).slice(1);
+  // h3 under a section h2 on most hubs; h2 where the groups are the page's top-level sections (specialised-careers.html).
+  const parts = html.split(/<h[23] class="career-group-heading"[^>]*>/).slice(1);
   if (!parts.length) problems.push(`${file}: no career-group-heading groups`);
   return parts.map((p) => {
-    const label = decode(p.slice(0, p.indexOf('</h3>')));
+    const label = decode(p.slice(0, p.search(/<\/h[23]>/)));
     // The group ends where the next section or block starts.
     const body = p.split(/<\/section>|<h2[\s>]/)[0];
     const links = [];

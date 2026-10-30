@@ -2,6 +2,6 @@
 layout: null
 sitemap: false
 ---
-{%- comment -%} Site search index, built from _data/search.yml plus the verified-list state pages and directories (_data/seo_landings.yml, written by scripts/build-seo-landings.mjs) and the USA college pages (_data/us/college_search.json, scripts/build-us-colleges.mjs). Fetched lazily by the header search (_includes/career-search.html). {%- endcomment -%}
-{%- assign search_items = site.data.search.items | concat: site.data.seo_landings.search | concat: site.data.us.college_search -%}
+{%- comment -%} Site search index, built from _data/search.yml plus the verified-list state pages and directories (_data/seo_landings.yml, written by scripts/build-seo-landings.mjs), the where-to-learn finders (_data/learn_index.yml, scripts/build-learn-finders.mjs) and the USA college pages (_data/us/college_search.json, scripts/build-us-colleges.mjs). Fetched lazily by the header search (_includes/career-search.html). {%- endcomment -%}
+{%- assign search_items = site.data.search.items | concat: site.data.seo_landings.search | concat: site.data.learn_index.search | concat: site.data.us.college_search -%}
 {{ search_items | jsonify }}

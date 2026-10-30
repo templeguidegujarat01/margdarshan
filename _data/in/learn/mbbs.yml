@@ -1,0 +1,41 @@
+# "Where to learn" finder: MBBS + NEET-UG (learn/mbbs.html and its state/city pages).
+# Listings live in assets/data/learn/mbbs.json, written by scripts/learn-src/mbbs.mjs; pages by
+# scripts/build-learn-finders.mjs. Hand-edit this file (meta, sources, subjects); never the JSON.
+id: mbbs
+family: medical-health
+stream: science
+search_cat: medical
+name: "MBBS colleges & NEET coaching"
+short: "MBBS & NEET"
+# Words people search, used in titles: "<phrase> in Gujarat", "<phrase_short> in Kota".
+phrase: "MBBS Colleges & NEET Coaching"
+phrase_short: "MBBS & NEET Coaching"
+lead: "Every medical college in India that teaches MBBS, and the NEET-UG coaching centres we could check on official branch pages, in one list you can filter by state, city, type and ownership."
+checked: "2026-10-30"
+# Subject pages that link here ("Where to learn" button) and that this finder links back to.
+subjects:
+  - { id: mbbs, label: "MBBS career guide", href: "mbbs.html" }
+  - { id: neet-ug, label: "NEET UG exam guide", href: "neet-ug.html" }
+# Old finder keys: colleges/<state>/mbbs.html and coaching/<state>/neet.html link both ways.
+keys: { colleges: [mbbs], coaching: [neet] }
+types: ["Medical college", "NEET coaching"]
+sources:
+  - id: nmc
+    name: "National Medical Commission — list of colleges teaching MBBS"
+    url: "https://www.nmc.org.in/information-desk/college-and-course-search/"
+    note: "834 colleges with 2026-27 approved MBBS seats, read 2026-10-30."
+  - id: official
+    name: "Institute websites (AIIMS, JIPMER and other Institutes of National Importance)"
+    url: "https://www.aiimsexams.ac.in/"
+    note: "Not on the NMC list; each checked on its own website."
+  - id: mcc
+    name: "Medical Counselling Committee (MCC) — All India Quota counselling"
+    url: "https://mcc.nic.in/"
+    note: "How the 15% All India Quota, deemed and central seats are filled."
+  - id: brands
+    name: "Coaching brands' official centre locators and branch pages"
+    url: "coaching.html?exam=neet"
+    note: "Each NEET centre links to its own branch page or the brand's official list of centres."
+gaps:
+  - "Fees are not listed: they change every year and are published by each state's counselling authority."
+  - "NEET coaching covers the brands whose centre lists we could read; many local institutes are not listed yet."

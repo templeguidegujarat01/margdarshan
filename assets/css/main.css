@@ -3908,3 +3908,31 @@ a.jb-card:is(:hover,:focus-visible){border-color:var(--gold);transform:translate
   .ab-exam-map tr > *{display:block;padding:0;border:0;}
   .ab-row-links{white-space:normal;}
 }
+
+/* ---------- Where-to-learn finders (learn/*.html, scripts/build-learn-finders.mjs, assets/js/learn-finder.js) ---------- */
+.lf-bar{position:sticky;top:calc(var(--header-h) + var(--stick-h) + .5rem);z-index:5;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem;margin:0 0 1rem;padding:.75rem;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);box-shadow:var(--shadow-sm);}
+.lf-field{display:flex;flex-direction:column;gap:.25rem;min-width:0;position:relative;}
+.lf-field>span{font-family:var(--font-mono);font-size:.64rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);}
+.lf-field select,.lf-field input{width:100%;min-width:0;min-height:2.5rem;padding:.45rem .6rem;font:inherit;font-size:.9rem;color:var(--text);background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-sm);}
+.lf-field select:focus-visible,.lf-field input:focus-visible{outline:2px solid var(--gold);outline-offset:1px;}
+.lf-q{grid-column:1 / -1;}
+.lf-q input{padding-left:2.1rem;}
+.lf-q svg{position:absolute;left:.65rem;bottom:.75rem;color:var(--text-muted);}
+.lf-reset{align-self:end;min-height:2.5rem;padding:.45rem .9rem;font:inherit;font-size:.85rem;font-weight:600;color:var(--link);background:none;border:1px solid var(--line);border-radius:var(--radius-sm);cursor:pointer;}
+.lf-reset:hover{border-color:var(--accent-on-surface);}
+.lf-count{margin:0 0 1rem;font-size:.88rem;color:var(--text-muted);}
+.lf-more{display:block;margin:1.4rem auto 0;}
+.lf-more[hidden]{display:none;}
+.cite-note{display:block;margin-top:.2rem;font-size:.84rem;color:var(--text-muted);}
+.lf-link-row{margin:.9rem 0 0;}
+.lf-link{display:inline-flex;align-items:center;gap:.5rem;white-space:normal;}
+.lf-link span{font-family:var(--font-mono);font-size:.72rem;color:var(--text-muted);}
+@media (min-width:720px){
+  .lf-bar{display:flex;flex-wrap:wrap;align-items:flex-end;}
+  .lf-field{flex:1 1 8.5rem;}
+  .lf-q{flex:2 1 14rem;}
+  .lf-reset{flex:0 0 auto;}
+}
+@media (max-width:719px){
+  .lf-bar{position:static;}
+}

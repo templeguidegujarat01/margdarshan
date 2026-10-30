@@ -1,0 +1,22 @@
+{%- comment -%}
+  "Where to learn" button to a live finder (_data/learn_index.yml, scripts/build-learn-finders.mjs).
+  Renders only when a finder with verified listings serves this page, so it never points at an empty list.
+    {% include learn-link.html %}                          subject page: finder whose `subjects` list this page
+    {% include learn-link.html type="colleges" key="mbbs" state="gujarat" %}
+                                                           old verified list: finder with that key, its state page if any
+{%- endcomment -%}
+{%- assign ll_f = nil -%}
+{%- for pair in site.data.learn_index.finders -%}
+  {%- if include.key -%}
+    {%- if pair[1].keys[include.type] contains include.key %}{% assign ll_f = pair[1] %}{% assign ll_id = pair[0] %}{% break %}{% endif -%}
+  {%- elsif pair[1].subjects contains page.path -%}
+    {%- assign ll_f = pair[1] %}{% assign ll_id = pair[0] %}{% break -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- if ll_f -%}
+  {%- assign ll_href = ll_f.href -%}{%- assign ll_n = ll_f.listings -%}
+  {%- if include.state and ll_f.states[include.state] -%}
+    {%- assign ll_href = "learn/" | append: ll_id | append: "/" | append: include.state | append: ".html" -%}{%- assign ll_n = ll_f.states[include.state].n -%}
+  {%- endif %}
+<a class="btn-exam-secondary lf-link" href="{{ ll_href }}">Where to learn: {{ ll_f.short }} <span>{{ ll_n }} places</span></a>
+{%- endif -%}

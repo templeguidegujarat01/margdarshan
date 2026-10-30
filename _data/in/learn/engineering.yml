@@ -1,0 +1,70 @@
+# "Where to learn" finder: B.E./B.Tech engineering + JEE (learn/engineering.html and its state/city pages).
+# Listings live in assets/data/learn/engineering.json, written by scripts/learn-src/engineering.mjs from the state
+# register fetchers in scripts/learn-src/engineering/; pages by scripts/build-learn-finders.mjs.
+# Hand-edit this file (meta, sources, subjects); never the JSON.
+id: engineering
+family: engineering
+stream: science
+search_cat: colleges
+name: "Engineering colleges (B.E./B.Tech) & JEE coaching"
+short: "Engineering & JEE"
+# Words people search, used in titles: "<phrase> in Gujarat", "<phrase_short> in Pune".
+phrase: "Engineering Colleges & JEE Coaching"
+phrase_short: "Engineering Colleges"
+lead: "Every B.E./B.Tech college on seven state counselling registers (Maharashtra, Karnataka, Tamil Nadu, Telangana, Uttar Pradesh, Gujarat, Kerala), the IITs, NITs and IIITs, and the JEE coaching centres we could check on official branch pages. Filter by state, city, branch, type and ownership."
+checked: "2026-10-30"
+# Subject pages that link here ("Where to learn" button) and that this finder links back to.
+subjects:
+  - { id: cse, label: "Computer Science (CSE) guide", href: "cse.html" }
+  - { id: mechanical, label: "Mechanical", href: "mechanical.html" }
+  - { id: civil, label: "Civil", href: "civil.html" }
+  - { id: electrical, label: "Electrical", href: "electrical.html" }
+  - { id: electronics, label: "Electronics (ECE)", href: "electronics.html" }
+  - { id: aerospace, label: "Aerospace", href: "aerospace.html" }
+  - { id: robotics, label: "Robotics", href: "robotics.html" }
+  - { id: jee-main, label: "JEE Main", href: "jee-main.html" }
+  - { id: jee-advanced, label: "JEE Advanced", href: "jee-advanced.html" }
+# Old finder keys: colleges/<state>/btech.html and coaching/<state>/jee.html link both ways.
+keys: { colleges: [btech], coaching: [jee] }
+types: ["Engineering college", "JEE coaching"]
+sources:
+  - id: mhcet
+    name: "State CET Cell, Maharashtra — FE (B.E./B.Tech) CAP 2026 institute list"
+    url: "https://fe2026.mahacet.org/StaticPages/frmInstituteList.aspx?did=1884"
+    note: "380 institutes with address, district, status, branches and 2026-27 intake (each institute's summary page), read 2026-10-30."
+  - id: kea
+    name: "Karnataka Examinations Authority — UGCET 2026 engineering cut-off lists"
+    url: "https://cetonline.karnataka.gov.in/kea/ugcet2026"
+    note: "Round-2 lists (rest of Karnataka, Hyderabad-Karnataka, special): every college KEA allotted engineering seats in, with address and branches."
+  - id: annauniv
+    name: "Anna University — district-wise list of affiliated colleges"
+    url: "https://www.annauniv.edu/cai/Options.php"
+    note: "Colleges with a TNEA counselling code (they fill B.E./B.Tech seats through TNEA); architecture and management-only schools left out."
+  - id: tgeapcet
+    name: "TGEAPCET (DTE Telangana) — institute-wise courses offered"
+    url: "https://tgeapcet.nic.in/"
+    note: "Code, institute, place, district and type of every college in TG EAPCET counselling."
+  - id: uptac
+    name: "UPTAC 2026 (AKTU) — institute list and cut-off matrix"
+    url: "https://uptac.samarth.edu.in/"
+    note: "Institutes kept only when their cut-off matrix has B.Tech seats; branches come from that matrix."
+  - id: acpc
+    name: "ACPC Gujarat — Provisional GUJCET seat matrix for B.E. 2026-27"
+    url: "https://acpc.gujarat.gov.in/be-b-tech"
+    note: "Name, address, website, branches and management (Government / grant-in-aid / other) of every institute, dated 21.06.2026."
+  - id: keam
+    name: "CEE Kerala — KEAM 2026 prospectus, Annexure II (1)(a)"
+    url: "https://cee.kerala.gov.in/keam2026/pdf/Prospectus.pdf"
+    note: "Colleges under engineering courses with code, university, branches and management; architecture colleges left out."
+  - id: official
+    name: "Institute websites (IITs, NITs, IIITs and other institutes outside these registers)"
+    url: "https://josaa.nic.in/"
+    note: "Each checked on its own website; JoSAA fills IIT, NIT, IIIT and GFTI seats."
+  - id: brands
+    name: "Coaching brands' official centre locators and branch pages"
+    url: "coaching.html?exam=jee"
+    note: "Each JEE centre links to its own branch page or the brand's official list of centres."
+gaps:
+  - "AICTE's approved-institutes dashboard refused every connection on 30 Oct 2026, so states without a readable counselling register (Andhra Pradesh, West Bengal, Madhya Pradesh, Rajasthan, Haryana, Punjab, Odisha and others) show only the IITs, NITs and other institutes checked on their own websites."
+  - "Ownership is shown only where the register states it; many Karnataka, Tamil Nadu and Uttar Pradesh rows have none."
+  - "Fees are not listed: each state's counselling authority publishes them every year (use the Counselling button)."

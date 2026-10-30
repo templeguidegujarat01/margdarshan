@@ -85,7 +85,8 @@ function page(F, rows, sid, city, entry) {
   const where = city || sName || 'India';
   const t = counts(rows);
   const gov = rows.filter((r) => r.ownership === 'Government').length;
-  const typeLine = F.types.filter((k) => t[k]).map((k) => `${fmt(t[k])} ${k.toLowerCase()}${t[k] === 1 ? '' : k.endsWith('coaching') ? ' centres' : 's'}`);
+  // "Medical college" → "medical colleges"; acronyms stay ("JEE coaching centres").
+  const typeLine = F.types.filter((k) => t[k]).map((k) => `${fmt(t[k])} ${k.replace(/^[A-Z][a-z]/, (c) => c.toLowerCase())}${t[k] === 1 ? '' : k.endsWith('coaching') ? ' centres' : 's'}`);
   const bases = [`${F.phrase} in ${where}`, `${F.phrase_short} in ${where}`];
   const title = fitTitle(...bases.map((b) => `${b} | ${SHORT}`), ...bases, `${F.short} in ${where}`);
   const desc = fitDesc(`${fmt(rows.length)} verified places to learn in ${place}: ${typeLine.join(' and ')}${gov ? ` (${fmt(gov)} government)` : ''}. Filter by city, type and ownership; every listing links to its official site.`);
@@ -99,7 +100,7 @@ function page(F, rows, sid, city, entry) {
   const stateList = Object.entries(entry.states).filter(([s]) => s !== sid);
   const ld = {
     '@context': 'https://schema.org', '@type': 'ItemList', name: `${F.phrase} in ${place}`, numberOfItems: rows.length,
-    itemListElement: pre.slice(0, 100).map((r, i) => ({ '@type': 'ListItem', position: i + 1, item: { '@type': r.type === 'Medical college' ? 'CollegeOrUniversity' : 'EducationalOrganization', name: r.name, url: r.url, address: { '@type': 'PostalAddress', addressLocality: r.city, addressRegion: r.region || stateName[r.state], addressCountry: 'IN' } } })),
+    itemListElement: pre.slice(0, 100).map((r, i) => ({ '@type': 'ListItem', position: i + 1, item: { '@type': /college/i.test(r.type) ? 'CollegeOrUniversity' : 'EducationalOrganization', name: r.name, url: r.url, address: { '@type': 'PostalAddress', addressLocality: r.city, addressRegion: r.region || stateName[r.state], addressCountry: 'IN' } } })),
   };
   // Old verified-list pages for the same keys (colleges/<state>/<key>.html, coaching/…) link both ways.
   const old = [];
@@ -111,6 +112,7 @@ function page(F, rows, sid, city, entry) {
     else if (st.lists[k]) old.push([`${type}/${sid}/${k}.html`, `${seo[type].labels[k].short} ${type === 'colleges' ? 'colleges' : 'coaching'} in ${sName}`]);
   }
   const hasMode = rows.some((r) => r.mode);
+  const hasBranch = rows.some((r) => r.branches);
   const sel = (name, label) => `<label class="lf-field"><span>${label}</span><select name="${name}"><option value="">All</option></select></label>`;
   const statesJson = esc(JSON.stringify(Object.fromEntries(states.map((s) => [s.id, s.name]))));
   const lines = [
@@ -153,6 +155,7 @@ function page(F, rows, sid, city, entry) {
     ...(sid ? [] : [sel('state', 'State')]),
     ...(city ? [] : [sel('city', 'City')]),
     sel('type', 'Type'), sel('own', 'Ownership'),
+    ...(hasBranch ? [sel('branch', 'Branch')] : []),
     ...(hasMode ? [sel('mode', 'Mode')] : []),
     '        <button type="reset" class="lf-reset">Clear</button>',
     '      </form>',

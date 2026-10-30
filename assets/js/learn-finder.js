@@ -1,8 +1,8 @@
 /* "Where to learn" finders (learn/<finder>.html and its state / city pages, scripts/build-learn-finders.mjs).
    The page ships its first cards already rendered (same card() as below, run by the builder in Node), then
    this script loads the finder's JSON (<link data-lf-json>), keeps the page's scope (data-lf-state /
-   data-lf-city on .lf) and redraws the list from the filter bar: state, city, type, ownership, mode, search.
-   Filters live in the URL (?state=&city=&type=&own=&mode=&q=) so a filtered list can be shared.
+   data-lf-city on .lf) and redraws the list from the filter bar: state, city, type, ownership, branch, mode, search.
+   Filters live in the URL (?state=&city=&type=&own=&branch=&mode=&q=) so a filtered list can be shared.
    No JS = the pre-rendered cards stay, with a link to the full list. */
 (function (root) {
   'use strict';
@@ -24,8 +24,9 @@
     if (r.seats) fact('Seats', esc(r.seats) + (r.as_of ? ' (' + esc(r.as_of) + ')' : ''));
     if (r.admission) fact('Admission', esc(r.admission));
     if (r.batches) fact('Batches', '<ul class="fx-chips">' + r.batches.map(function (b) { return '<li>' + esc(b) + '</li>'; }).join('') + '</ul>');
+    if (r.branches) fact('Branches', '<ul class="fx-chips">' + r.branches.map(function (b) { return '<li>' + esc(b) + '</li>'; }).join('') + '</ul>');
     if (r.mode) fact('Offers', '<ul class="fx-chips">' + r.mode.map(function (b) { return '<li>' + esc(b) + '</li>'; }).join('') + '</ul>');
-    fact('Checked', esc(r.checked) + (r.source === 'nmc' ? ' · NMC list' : ' · official site'));
+    fact('Checked', esc(r.checked) + ' · ' + esc(r.src_label || (r.source === 'nmc' ? 'NMC list' : 'official site')));
     var own = r.ownership ? '<span class="cx-tag fx-own fx-own-' + slug(r.ownership) + '">' + esc(r.ownership) + '</span>' : '';
     return '<article class="cx-college-card fx-card lf-card">' +
       '<div class="fx-card-top">' + own + '<span class="fx-subtag">' + esc(r.type) + '</span>' +
@@ -88,6 +89,11 @@
       fill(el('type'), types.filter(function (k) { return t[k]; }).map(function (k) { return [slug(k), k, t[k]]; }), 'All types');
       var o = tally(base, function (r) { return r.ownership; });
       fill(el('own'), OWN.filter(function (k) { return o[k]; }).map(function (k) { return [slug(k), k, o[k]]; }), 'Any ownership');
+      if (el('branch')) {
+        var b = tally(base, function (r) { return r.branches; });
+        fill(el('branch'), Object.keys(b).sort(function (x, y) { return (x === 'Other branches') - (y === 'Other branches') || x.localeCompare(y); })
+          .map(function (k) { return [slug(k), k, b[k]]; }), 'Any branch');
+      }
       if (el('mode')) {
         var m = tally(base, function (r) { return r.mode; });
         fill(el('mode'), Object.keys(m).sort().map(function (k) { return [slug(k), k, m[k]]; }), 'Any mode');
@@ -100,12 +106,13 @@
       list = all.filter(function (r) {
         return (!st || r.state === st) && (!ct || slug(r.city) === ct) && (!v('type') || slug(r.type) === v('type')) &&
           (!v('own') || slug(r.ownership || '') === v('own')) && (!v('mode') || (r.mode || []).map(slug).indexOf(v('mode')) >= 0) &&
+          (!v('branch') || (r.branches || []).map(slug).indexOf(v('branch')) >= 0) &&
           (!q || (r.name + ' ' + r.city + ' ' + (r.about || '')).toLowerCase().indexOf(q) >= 0);
       });
       shown = 0; grid.innerHTML = ''; draw();
       if (push) {
         var p = new URLSearchParams();
-        ['state', 'city', 'type', 'own', 'mode', 'q'].forEach(function (n) { if (el(n) && el(n).value.trim()) p.set(n, el(n).value.trim()); });
+        ['state', 'city', 'type', 'own', 'branch', 'mode', 'q'].forEach(function (n) { if (el(n) && el(n).value.trim()) p.set(n, el(n).value.trim()); });
         history.replaceState(null, '', location.pathname + (p.toString() ? '?' + p : '') + location.hash);
       }
     }
@@ -119,7 +126,7 @@
       all = sort(rows.filter(function (r) { return (!fixState || r.state === fixState) && (!fixCity || r.city === fixCity); }), types);
       var p = new URLSearchParams(location.search);
       options();
-      ['state', 'city', 'type', 'own', 'mode', 'q'].forEach(function (n) { if (el(n) && p.get(n)) { el(n).value = p.get(n); if (n === 'state') options(); } });
+      ['state', 'city', 'type', 'own', 'branch', 'mode', 'q'].forEach(function (n) { if (el(n) && p.get(n)) { el(n).value = p.get(n); if (n === 'state') options(); } });
       form.hidden = false; box.classList.add('is-live');
       apply(false);
       form.addEventListener('change', function (e) { if (e.target.name === 'state') { if (el('city')) el('city').value = ''; options(); } apply(true); });

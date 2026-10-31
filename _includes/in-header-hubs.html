@@ -7,7 +7,9 @@
   closes it on outside click and Escape.
   The row is one line at every width and scrolls sideways when it does not fit; panels hang off the nav itself
   (not the scrolling strip), so the strip's overflow never clips them.
-  Plain menus (children only) are a short list of links with a one-line description.
+  Plain menus (children only) are a short list of links.
+  Names only (2026-10-31, owner's order): every menu link shows its name and nothing else. No desc line, no desc
+  tooltip, no pane note, no group counts, no category badges. A `desc:` / `badge:` left in the data is not drawn.
   Mega menus (a menu with `nodes`): the panel is a two-pane matrix. Left: a rail with the node names only
   (plus any `children` links under a rule). Right: the active node's columns — every guide in that
   category, names only, flowed into as many columns as fit, so nothing needs scrolling. A node's columns
@@ -20,8 +22,8 @@
   links only. A group is picked by click / tap / arrow keys, never by hover; site.js moves .is-on between
   .hh-tab and the .hh-col its aria-controls names. More than 10 groups (states) sit in two
   short columns in column 2 (.hh-tabbed-2). Narrow: the groups are a sideways pill line above the list.
-  Column 3 cells (.hh-cell, cascade nodes only): each link is a ruled cell in a grid — mono index, name, its
-  one-line desc shown (instead of a title tooltip), mono arrow — so a long group reads as a scannable board.
+  Column 3 cells (.hh-cell, cascade nodes only): each link is a ruled cell in a grid — mono index, name,
+  mono arrow — so a long group reads as a scannable board.
   USA edition (2026-10-23): the layout includes this with edition="us" on every us/** page (body.shell-us, no
   sidebar). Items then come from _data/nav_us.yml `topnav` and `mega` keys from _data/us/nav_mega.yml (built by
   scripts/build-us-nav-mega.mjs). A menu with `clusters: true` draws one rail node per live cluster of
@@ -80,7 +82,7 @@
             {%- assign n_badge_txt = nil %}{% for b in hh_badge_txt %}{% assign bp = b | split: ":" %}{% if bp[0] == n_badge %}{% assign n_badge_txt = bp[1] %}{% endif %}{% endfor %}
             {%- assign n_label = n_raw | replace: "&", "&amp;" %}
             {%- if hh_lazy %}
-            <li class="hh-sub hh-node hh-stub{% if forloop.first %} is-on{% endif %}"><a class="hh-sub-btn" href="{{ n_href }}"{% if hh_cur == n_href %} aria-current="page"{% endif %}><span class="hh-node-txt">{{ n_label }}</span>{% if n_badge_txt %}<span class="hh-nav-badge hh-nav-badge-{{ n_badge }}" aria-hidden="true">{{ n_badge_txt }}</span>{% endif %}</a></li>
+            <li class="hh-sub hh-node hh-stub{% if forloop.first %} is-on{% endif %}"><a class="hh-sub-btn" href="{{ n_href }}"{% if hh_cur == n_href %} aria-current="page"{% endif %}><span class="hh-node-txt">{{ n_label }}</span></a></li>
             {%- continue %}
             {%- endif %}
             {%- assign M = hh_mega[n_mega] %}
@@ -90,17 +92,17 @@
             {%- if n_cols.size > 1 and n_links > 8 %}{% assign n_tab = true %}{% else %}{% assign n_tab = false %}{% endif %}
             {%- capture n_id %}hh-{{ it.label | slugify }}-{{ n_raw | slugify }}{% endcapture %}
             <li class="hh-sub hh-node{% if forloop.first %} is-on{% endif %}">
-              <a class="hh-sub-btn" href="{{ n_href }}" aria-haspopup="true"{% if hh_cur == n_href %} aria-current="page"{% endif %}><span class="hh-node-txt">{{ n_label }}</span>{% if n_badge_txt %}<span class="hh-nav-badge hh-nav-badge-{{ n_badge }}" aria-hidden="true">{{ n_badge_txt }}</span>{% endif %}<svg class="hh-sub-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+              <a class="hh-sub-btn" href="{{ n_href }}" aria-haspopup="true"{% if hh_cur == n_href %} aria-current="page"{% endif %}><span class="hh-node-txt">{{ n_label }}</span><svg class="hh-sub-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
               <div class="hh-fly hh-grid{% if n_tab %} hh-tabbed{% if n_cols.size > 10 %} hh-tabbed-2{% endif %}{% endif %}" role="group" aria-label="{{ n_label }}">
                 <div class="hh-fly-head">
                   {%- assign n_title = n.title | default: M.title | default: n_raw %}{% assign n_head = n.head | default: M.head %}
-                  <p class="hh-fly-title">{{ n_title | replace: "&", "&amp;" }}{% if M.note %}<span>{{ M.note | replace: "&", "&amp;" }}</span>{% endif %}</p>
+                  <p class="hh-fly-title">{{ n_title | replace: "&", "&amp;" }}</p>
                   <a class="hh-link hh-fly-all" href="{% if n_head %}{{ n_head.href }}{% else %}{{ n_href }}{% endif %}">{% if n_head %}{{ n_head.label | replace: "&", "&amp;" }}{% else %}Open {{ n_label }}{% endif %} <span aria-hidden="true">→</span></a>
                 </div>
                 {%- if n_tab %}
                 <div class="hh-tabs" role="tablist" aria-label="{{ n_label }}: pick a group">
                   {%- for col in n_cols %}
-                  <button type="button" class="hh-tab{% if forloop.first %} is-on{% endif %}" role="tab" id="{{ n_id }}-t{{ forloop.index }}" aria-controls="{{ n_id }}-p{{ forloop.index }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"{% unless forloop.first %} tabindex="-1"{% endunless %}>{{ col.label | replace: "&", "&amp;" }}<span class="hh-tab-n">{{ col.links.size }}</span></button>
+                  <button type="button" class="hh-tab{% if forloop.first %} is-on{% endif %}" role="tab" id="{{ n_id }}-t{{ forloop.index }}" aria-controls="{{ n_id }}-p{{ forloop.index }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"{% unless forloop.first %} tabindex="-1"{% endunless %}>{{ col.label | replace: "&", "&amp;" }}</button>
                   {%- endfor %}
                 </div>
                 {%- endif %}
@@ -111,9 +113,9 @@
                     <ul>
                       {%- for c in col.links %}
                       {%- if n_tab %}
-                      <li><a class="hh-link hh-cell" href="{{ c.href }}"{% if hh_cur == c.href %} aria-current="page"{% endif %}><span class="hh-cell-txt"><span class="hh-cell-name">{{ c.label | replace: "&", "&amp;" }}</span>{% if c.desc %}<small class="hh-cell-desc">{{ c.desc | replace: "&", "&amp;" }}</small>{% endif %}</span></a></li>
+                      <li><a class="hh-link hh-cell" href="{{ c.href }}"{% if hh_cur == c.href %} aria-current="page"{% endif %}><span class="hh-cell-txt"><span class="hh-cell-name">{{ c.label | replace: "&", "&amp;" }}</span></span></a></li>
                       {%- else %}
-                      <li><a class="hh-link" href="{{ c.href }}"{% if c.desc %} title="{{ c.desc | replace: '&', '&amp;' | replace: '"', '&quot;' }}"{% endif %}{% if hh_cur == c.href %} aria-current="page"{% endif %}><span>{{ c.label | replace: "&", "&amp;" }}</span></a></li>
+                      <li><a class="hh-link" href="{{ c.href }}"{% if hh_cur == c.href %} aria-current="page"{% endif %}><span>{{ c.label | replace: "&", "&amp;" }}</span></a></li>
                       {%- endif %}
                       {%- endfor %}
                     </ul>
@@ -135,7 +137,7 @@
           <summary class="hh-btn">{{ it_label }}<svg class="hh-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
           <ul class="hh-panel">
             {%- for c in it.children %}
-            <li><a class="hh-link" href="{{ c.href }}"{% if hh_cur == c.href %} aria-current="page"{% endif %}><strong>{{ c.label | replace: "&", "&amp;" }}</strong>{% if c.desc %}<span>{{ c.desc | replace: "&", "&amp;" }}</span>{% endif %}</a></li>
+            <li><a class="hh-link" href="{{ c.href }}"{% if hh_cur == c.href %} aria-current="page"{% endif %}><strong>{{ c.label | replace: "&", "&amp;" }}</strong></a></li>
             {%- endfor %}
           </ul>
         </details>

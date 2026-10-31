@@ -11,6 +11,8 @@
   An href names its key either as a finder page (colleges-mbbs.html -> courses.mbbs.page) or as a
   query (colleges.html?course=bcom). A dropdown renders only when it has verified listings
   (finder link policy: no empty finders), so pages without keys simply show no bar.
+  Names only (2026-10-31): buttons, group titles and list rows show the name and nothing else (no counts,
+  no city/ownership line, no sub-captions).
   site.js (block "Page control") closes the other dropdown, and closes on Escape / outside click.
 
     {% include career-control.html hub=C.hero.hub %}
@@ -38,7 +40,7 @@
   <details class="pc-drop">
     <summary class="pc-trigger">
       <span class="pc-ico" aria-hidden="true">🎓</span>
-      <span class="pc-label"><strong>Mapped Institutions &amp; Degrees</strong><small>{{ pc_col_total }} verified {% if pc_col_total == 1 %}institution{% else %}institutions{% endif %} · by state &amp; city</small></span>
+      <span class="pc-label"><strong>Mapped Institutions &amp; Degrees</strong></span>
       {{ pc_chev }}
     </summary>
     <div class="pc-panel">
@@ -47,16 +49,16 @@
       {%- assign pc_rows = site.data.colleges.colleges | where_exp: "c", "c.courses contains k" %}
       {%- if pc_rows.size > 0 %}
       <div class="pc-group">
-        <p class="pc-group-title">{{ pc_course.label }}<span>{{ pc_course.entrance }}</span></p>
+        <p class="pc-group-title">{{ pc_course.label }}</p>
         {%- for st in site.data.finder_states %}
         {%- assign pc_st = pc_rows | where: "state", st.id %}
         {%- if pc_st.size > 0 %}
         <details class="pc-state">
-          <summary><span>{{ st.name }}</span><span class="pc-count">{{ pc_st.size }}</span></summary>
+          <summary><span>{{ st.name }}</span></summary>
           <ul class="pc-list">
             {%- assign pc_land = site.data.seo_landings.colleges.states[st.id].lists[k] -%}{%- assign pc_lim = pc_st.size -%}{%- if pc_land -%}{%- assign pc_lim = pc_cap -%}{%- endif %}
             {%- for c in pc_st limit: pc_lim %}
-            <li><a href="{{ c.url }}" target="_blank" rel="noopener noreferrer">{% if c.prog[k] %}{{ c.prog[k] }} — {% endif %}{{ c.name }} {{ pc_ext }}</a><span class="pc-meta">{{ c.city }} · {{ c.ownership }}{% if c.type_detail %} · {{ c.type_detail }}{% endif %}</span></li>
+            <li><a href="{{ c.url }}" target="_blank" rel="noopener noreferrer">{% if c.prog[k] %}{{ c.prog[k] }} — {% endif %}{{ c.name }} {{ pc_ext }}</a></li>
             {%- endfor %}
             {%- if pc_st.size > pc_lim %}
             <li class="pc-more"><a href="colleges/{{ st.id }}/{{ k }}.html">All {{ pc_st.size }} {{ pc_course.label }} listings in {{ st.name }} <span aria-hidden="true">→</span></a></li>
@@ -76,19 +78,19 @@
   <details class="pc-drop">
     <summary class="pc-trigger">
       <span class="pc-ico" aria-hidden="true">🏛️</span>
-      <span class="pc-label"><strong>Mapped Preparation &amp; Coaching</strong><small>{% if pc_centres.size > 0 %}{{ pc_centres.size }} verified {% if pc_centres.size == 1 %}centre{% else %}centres{% endif %}{% if X.exam_href %} · exam guide{% endif %}{% else %}Exam guide · pattern &amp; syllabus{% endif %}</small></span>
+      <span class="pc-label"><strong>Mapped Preparation &amp; Coaching</strong></span>
       {{ pc_chev }}
     </summary>
     <div class="pc-panel">
       {%- if X.exam_href or X.exam2_href %}
       <div class="pc-group">
-        <p class="pc-group-title">Exam modules<span>Eligibility, pattern, syllabus &amp; dates</span></p>
+        <p class="pc-group-title">Exam modules</p>
         <ul class="pc-list pc-exams">
           {%- if X.exam_href %}
-          <li><a href="{{ X.exam_href }}">{{ X.exam_label | default: X.exam }} details</a><span class="pc-meta">{{ X.exam_sub | default: "Eligibility, pattern, syllabus &amp; dates" }}</span></li>
+          <li><a href="{{ X.exam_href }}">{{ X.exam_label | default: X.exam }}</a></li>
           {%- endif %}
           {%- if X.exam2_href %}
-          <li><a href="{{ X.exam2_href }}">{{ X.exam2_label | default: X.exam2 }} details</a><span class="pc-meta">{{ X.exam_sub | default: "Eligibility, pattern, syllabus &amp; dates" }}</span></li>
+          <li><a href="{{ X.exam2_href }}">{{ X.exam2_label | default: X.exam2 }}</a></li>
           {%- endif %}
         </ul>
       </div>
@@ -96,16 +98,16 @@
       {%- if pc_centres.size > 0 %}
       {%- assign pc_ex = site.data.coaching.exams[pc_exam] %}
       <div class="pc-group">
-        <p class="pc-group-title">{{ pc_ex.label }} coaching<span>Official centre pages, checked to load</span></p>
+        <p class="pc-group-title">{{ pc_ex.label }} coaching</p>
         {%- for st in site.data.finder_states %}
         {%- assign pc_st = pc_centres | where: "state", st.id %}
         {%- if pc_st.size > 0 %}
         <details class="pc-state">
-          <summary><span>{{ st.name }}</span><span class="pc-count">{{ pc_st.size }}</span></summary>
+          <summary><span>{{ st.name }}</span></summary>
           <ul class="pc-list">
             {%- assign pc_land = site.data.seo_landings.coaching.states[st.id].lists[pc_exam] -%}{%- assign pc_lim = pc_st.size -%}{%- if pc_land -%}{%- assign pc_lim = pc_cap -%}{%- endif %}
             {%- for c in pc_st limit: pc_lim %}
-            <li><a href="{{ c.url }}" target="_blank" rel="noopener noreferrer">{{ c.name }} {{ pc_ext }}</a><span class="pc-meta">{{ c.city }} · {{ c.url_label | default: "Official website" }}</span></li>
+            <li><a href="{{ c.url }}" target="_blank" rel="noopener noreferrer">{{ c.name }} {{ pc_ext }}</a></li>
             {%- endfor %}
             {%- if pc_st.size > pc_lim %}
             <li class="pc-more"><a href="coaching/{{ st.id }}/{{ pc_exam }}.html">All {{ pc_st.size }} {{ pc_ex.tag }} centres in {{ st.name }} <span aria-hidden="true">→</span></a></li>

@@ -837,9 +837,24 @@ try {
     scrollQueued = true;
     (window.requestAnimationFrame || setTimeout)(paintScroll);
   }
+  /* Header hides while scrolling down and returns on any scroll up (html.hdr-up, CSS in main.css).
+     Stays shown near the top, while a menu or the drawer is open, or while focus is inside it (search). */
+  var hdrRoot = document.documentElement;
+  var hdrLastY = window.scrollY;
+  function paintHeader(y){
+    var d = y - hdrLastY;
+    if(Math.abs(d) < 6 && y > 120) return;
+    var ae = document.activeElement;
+    var busy = hdrRoot.classList.contains('nav-locked') ||
+      document.querySelector('.in-header-hubs details[open]') ||
+      (ae && ae.matches && ae.matches('input, textarea') && ae.closest('.topbar, .in-header-hubs'));
+    hdrRoot.classList.toggle('hdr-up', d > 0 && y > 120 && !busy);
+    hdrLastY = y;
+  }
   function paintScroll(){
     scrollQueued = false;
     var scrollTop = window.scrollY;
+    paintHeader(scrollTop);
     var docHeight = document.documentElement.scrollHeight - window.innerHeight;
     var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
     if(progressBar) progressBar.style.width = pct + '%';

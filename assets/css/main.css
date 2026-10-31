@@ -324,6 +324,15 @@ html.nav-locked{overflow:hidden;}
 /* Under the top bar (950) and its search popover, over everything in the page. */
 .shell-in .in-header-hubs{position:sticky;top:var(--header-h);z-index:945;}
 .shell-in .crumb-bar{position:relative;top:auto;z-index:auto;}
+/* Hide on scroll down, show on scroll up (site.js toggles html.hdr-up): the top bar and the sticky menu row
+   (or breadcrumb bar) slide up out of view while reading down and come back on the first scroll up.
+   --hdr-on drops to 0 so the stickies under them (quicknav / chip rail, finder bar) move up to the top. */
+.topbar,.crumb-bar,.shell-in .in-header-hubs{transition:transform .25s var(--ease);}
+html.hdr-up{--hdr-on:0;}
+html.hdr-up .topbar{transform:translateY(-100%);}
+html.hdr-up .crumb-bar,html.hdr-up .shell-in .in-header-hubs{transform:translateY(calc(-1 * (var(--header-h) + var(--stick-h) + 12px)));}
+html.hdr-up .shell-in .crumb-bar{transform:none;}
+@media (prefers-reduced-motion:reduce){.topbar,.crumb-bar,.shell-in .in-header-hubs,.quicknav-bar,.lf-bar{transition:none;}}
 /* A soft shadow fades in over the first 120px of scroll, so the stuck bar reads as lifted off the page.
    CSS scroll-driven animation; browsers without it keep the flat border. */
 @supports (animation-timeline:scroll()){
@@ -948,7 +957,7 @@ table{border-collapse:collapse;width:100%;}
 .page-hero{position:relative;background:var(--bg-hero);color:var(--on-ink);overflow:hidden;padding:3rem 0 2.6rem;}
 .page-hero-inner{position:relative;max-width:800px;}
 .page-hero p{margin-top:1rem;color:var(--on-ink-muted);font-size:1.06rem;max-width:60ch;line-height:1.65;}
-.quicknav-bar{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:calc(var(--header-h) + var(--stick-h));z-index:80;}
+.quicknav-bar{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:calc((var(--header-h) + var(--stick-h)) * var(--hdr-on,1));z-index:80;transition:top .25s var(--ease);}
 .prose{max-width:780px;color:var(--text-muted);font-size:1.02rem;line-height:1.75;display:grid;gap:1.05rem;}
 .note{display:flex;gap:.75rem;background:rgba(31,111,92,.07);border:1px solid rgba(31,111,92,.25);border-radius:var(--radius-md);padding:1.1rem 1.3rem;font-size:.92rem;color:var(--text-muted);max-width:780px;}
 .note svg{flex-shrink:0;color:var(--teal);margin-top:.15rem;}
@@ -3960,7 +3969,7 @@ a.jb-card:is(:hover,:focus-visible){border-color:var(--gold);transform:translate
 }
 
 /* ---------- Where-to-learn finders (learn/*.html, scripts/build-learn-finders.mjs, assets/js/learn-finder.js) ---------- */
-.lf-bar{position:sticky;top:calc(var(--header-h) + var(--stick-h) + .5rem);z-index:5;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem;margin:0 0 1rem;padding:.75rem;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);box-shadow:var(--shadow-sm);}
+.lf-bar{position:sticky;top:calc((var(--header-h) + var(--stick-h)) * var(--hdr-on,1) + .5rem);transition:top .25s var(--ease);z-index:5;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem;margin:0 0 1rem;padding:.75rem;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);box-shadow:var(--shadow-sm);}
 .lf-field{display:flex;flex-direction:column;gap:.25rem;min-width:0;position:relative;}
 .lf-field>span{font-family:var(--font-mono);font-size:.64rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);}
 .lf-field select,.lf-field input{width:100%;min-width:0;min-height:2.5rem;padding:.45rem .6rem;font:inherit;font-size:.9rem;color:var(--text);background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-sm);}

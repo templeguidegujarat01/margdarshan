@@ -2,7 +2,7 @@
 # clat.html, cuet-ug.html, nata.html, nift.html, jeecup.html, jexpo.html, jee-main-paper2.html, bitsat.html, viteee.html,
 # wbjee.html, gujcet.html, comedk.html, nest.html, iiser-iat.html, cmi.html, isi.html, neet-pg.html, ini-cet.html,
 # fmge.html, aiims-norcet.html, gpat.html, niper-jee.html, ipmat.html, jipmat.html, clat-pg.html, ailet.html,
-# uceed.html, ceed.html, nid-dat.html, nchmct-jee.html
+# uceed.html, ceed.html, nid-dat.html, nchmct-jee.html, gate.html
 # Rendered by _includes/national-exam.html; validated by scripts/check-in-data.mjs.
 # Same part kinds as the state cockpit sheets (p, list, table, note, warn, links). Every p / list / table
 # and every hero fact must carry `source:` naming an id from that exam's sources[].
@@ -13,7 +13,8 @@
 # INI-CET is the January 2027 session, FMGE the October 2026 session, NORCET the NORCET-11 (2026) round.
 # Phase 8 (read 15 Oct 2026): CLAT PG and AILET are the 2027 cycle; IPMAT Indore and JIPMAT are the 2026 cycle
 # (no 2027 notice from IIM Indore or NTA yet). Phase 9 (read 15 Oct 2026): UCEED and CEED are the 2027 cycle, NID DAT
-# the 2027-28 admissions; NCHM JEE is the 2026 cycle (no 2027 bulletin from NTA yet).
+# the 2027-28 admissions; NCHM JEE is the 2026 cycle (no 2027 bulletin from NTA yet). GATE (read 31 Oct 2026) is the
+# 2027 cycle from the IIT Madras brochure and website.
 # stream: engineering | medical | govt | law | university | architecture | design | polytechnic | science | nursing | pharmacy | management | hospitality (labels the "More national exams" list).
 # checked (optional, per exam): the day that exam's files were read; the page shows it instead of the sheet-wide `checked`.
 checked: 2026-10-14
@@ -5202,3 +5203,158 @@ exams:
       - { id: nc-ib, name: "NTA — NCHM JEE 2026 Information Bulletin", url: "https://cdnbbsr.s3waas.gov.in/s388a839f2f6f1427879fc33ee4acf4f66/uploads/2025/12/20260102470139941.pdf", covers: "NCHMCT and NTA roles, institute counts and list, dates, fees, scheme, marking, eligibility, age, fitness, reservation, PwD practicals, Kashmiri seat, application steps", checked: 2026-10-15 }
       - { id: nc-nta, name: "NTA — NCHM JEE 2026 portal (notice list)", url: "https://exams.nta.nic.in/nchm-jee/", covers: "Registration extension (30 Mar 2026), admit card, final answer key and result notices", checked: 2026-10-15 }
       - { id: nc-bsc, name: "NCHMCT — B.Sc. in Hospitality and Hotel Administration (course page)", url: "https://nchm.gov.in/admission/bsc-hospitality-and-hotel-administration-generic", covers: "JNU degree, optional fourth year, curriculum, fee heads, tuition range, career options, centralised counselling", checked: 2026-10-15 }
+
+  # ---------------------------------------------------------------- GATE (2027 cycle, read 31 Oct 2026)
+  - slug: gate
+    short: "GATE"
+    stream: engineering
+    checked: 2026-10-31
+    body: "IISc Bengaluru and the IITs (2027: IIT Madras)"
+    eyebrow: "Entrance Exam · After B.Tech · 2027 cycle"
+    title: "GATE 2027 — eligibility, 30 papers, marking &amp; fees"
+    lede: "The Graduate Aptitude Test in Engineering: one score used for M.Tech, M.E. and direct Ph.D. admission with scholarship, and by many public sector companies for hiring. IIT Madras runs GATE 2027; this page follows its official website and Information Brochure."
+    colleges_href: "colleges-btech.html"
+    facts:
+      - { label: "Organising institute", value: "IIT Madras (GATE 2027)", source: gate-ib }
+      - { label: "Exam dates", value: "6, 7, 13, 14, 20 &amp; 21 Feb 2027", source: gate-dates }
+      - { label: "Papers", value: "30 · one or two per candidate", source: gate-ib }
+      - { label: "Score validity", value: "3 years from the result", source: gate-ib }
+    official:
+      - { label: "gate2027.iitm.ac.in", url: "https://gate2027.iitm.ac.in/" }
+      - { label: "GATE 2027 Information Brochure (PDF)", url: "https://gate2027ib.iitm.ac.in/GATE2027-IB.pdf" }
+      - { label: "GOAPS login", url: "https://goaps.iitm.ac.in/login" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; governing body"
+        heading: "One computer test, 30 papers, a score valid for three years"
+        parts:
+          - p: "<strong>GATE</strong> is conducted jointly by the Indian Institute of Science and the IITs; each year one of them is the Organising Institute. For <strong>GATE 2027 it is IIT Madras</strong>. The test is a computer-based test in English, held at centres in 300+ cities in India only (no centres abroad)."
+            source: gate-ib
+          - table:
+              caption: "GATE 2027 timeline (dates as revised on the official site)"
+              head: ["Event", "Date"]
+              rows:
+                - ["Online application (GOAPS) opened", "2 Sep 2026"]
+                - ["Regular registration closed", "5 Oct 2026"]
+                - ["Extended registration (late fee) closed", "12 Oct 2026"]
+                - ["Special window (late fee)", "15 Oct 2026, 10:30 AM – 16 Oct 2026, 10:29 AM"]
+                - ["Application rectification (scrutiny defects)", "14 – 31 Oct 2026"]
+                - ["Exam city notification", "4 Jan 2027"]
+                - ["Exams (forenoon 9:30–12:30, afternoon 2:30–5:30)", "6–7, 13–14 and 20–21 Feb 2027"]
+                - ["Result", "19 Mar 2027"]
+            source: gate-dates
+          - list:
+              - "The syllabus of every GATE 2027 paper has been revised."
+              - "A new paper, <strong>Robotics &amp; Automation (RA)</strong>, starts in 2027. Textile Engineering &amp; Fibre Science is no longer a separate paper; it is now section XE9 of Engineering Sciences (XE)."
+              - "The section codes of the XE, XH and XL papers have changed from 2026."
+            source: gate-ib
+          - warn: "New registration for GATE 2027 is closed. Dates can change; always check gate2027.iitm.ac.in."
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Who can sit"
+        heading: "3rd-year students and graduates, no age limit"
+        parts:
+          - list:
+              - "Students in the <strong>3rd or higher year</strong> of any undergraduate degree, or graduates of any UGC / AICTE approved degree in Engineering, Technology, Architecture, Science, Commerce, Arts or Humanities."
+              - "Students in the 5th semester or higher, or graduates, of M.B.B.S., B.D.S., B.V.Sc. and B.Sc. (Agriculture, Horticulture, Forestry) can also apply."
+              - "Holders of a higher degree than those listed may also apply."
+              - "<strong>No age limit</strong> and <strong>no limit on attempts</strong>."
+              - "Degrees from abroad: in the 3rd or higher year, or a completed bachelor's degree of at least three years in a listed field."
+            source: gate-ib
+          - list:
+              - "Registration is online through GOAPS with live facial capture. A verified DigiLocker account is recommended; with an unverified one GATE may ask for more documents, and the originals must be shown at the exam centre."
+            source: gate-ib
+      - id: scheme
+        nav: "Exam scheme"
+        eyebrow: "Exam scheme &amp; marking matrix"
+        heading: "65 questions, 100 marks, 3 hours"
+        parts:
+          - table:
+              caption: "GATE 2027 paper structure"
+              head: ["Part", "Questions", "Marks"]
+              rows:
+                - ["General Aptitude (every paper)", "10", "15"]
+                - ["Subject (incl. Engineering Mathematics where it applies)", "55", "85"]
+                - ["Total", "65", "100"]
+            source: gate-pattern
+          - table:
+              caption: "Question types and negative marks"
+              head: ["Type", "What you answer", "Wrong answer"]
+              rows:
+                - ["MCQ", "One correct option out of four", "−1/3 (1-mark) or −2/3 (2-mark)"]
+                - ["MSQ", "One or more correct options", "No negative marks, no partial marks"]
+                - ["NAT", "A number typed on a virtual keypad", "No negative marks"]
+            source: gate-pattern
+          - p: "In the engineering papers (AE, AG, BM, BT, CE, CH, CS, EC, EE, ES, IN, ME, MN, MT, NM, PE, PI) Engineering Mathematics carries 13 marks and the core subject 72."
+            source: gate-pattern
+          - list:
+              - "Only the on-screen virtual calculator may be used."
+              - "You may take one paper or two, but two papers must be one of the allowed combinations."
+              - "Eligible PwD candidates get compensatory time of 20 minutes per hour (60 minutes for the 3-hour paper)."
+            source: gate-ib
+          - table:
+              caption: "The 30 GATE 2027 papers"
+              head: ["Code", "Paper"]
+              rows:
+                - ["AE · AG · AR", "Aerospace · Agricultural · Architecture &amp; Planning"]
+                - ["BM · BT · CE", "Biomedical · Biotechnology · Civil"]
+                - ["CH · CS · CY", "Chemical · Computer Science &amp; IT · Chemistry"]
+                - ["DA · EC · EE", "Data Science &amp; AI · Electronics &amp; Communication · Electrical"]
+                - ["ES · EY · GE", "Environmental Science &amp; Engg · Ecology &amp; Evolution · Geomatics"]
+                - ["GG · IN · MA", "Geology &amp; Geophysics · Instrumentation · Mathematics"]
+                - ["ME · MN · MT", "Mechanical · Mining · Metallurgical"]
+                - ["NM · PE · PH", "Naval Architecture &amp; Marine · Petroleum · Physics"]
+                - ["PI · RA · ST", "Production &amp; Industrial · Robotics &amp; Automation (new) · Statistics"]
+                - ["XE · XH · XL", "Engineering Sciences · Humanities &amp; Social Sciences · Life Sciences"]
+            source: gate-papers
+      - id: reservation
+        nav: "Qualifying marks"
+        eyebrow: "Qualifying marks by category"
+        heading: "Lower qualifying marks, not reserved seats"
+        parts:
+          - p: "GATE itself reserves no seats. It sets a <strong>qualifying mark</strong> for each paper; only candidates who reach it for their category get a score card. Seat reservation in M.Tech or Ph.D. admission follows the admitting institute and Government of India rules."
+            source: gate-ib
+          - table:
+              caption: "GATE 2027 qualifying marks"
+              head: ["Category", "Qualifying mark"]
+              rows:
+                - ["General", "max(25, min(40, mean + standard deviation)) of that paper"]
+                - ["OBC-NCL / EWS", "9/10 of the General mark"]
+                - ["SC / ST / PwD", "2/3 of the General mark"]
+            source: gate-ib
+      - id: fees
+        nav: "Application &amp; fees"
+        eyebrow: "Application fees"
+        heading: "₹1,000 or ₹2,000 per paper in the regular period"
+        parts:
+          - table:
+              caption: "GATE 2027 application fee (₹)"
+              head: ["Candidate", "Regular · 1 paper", "Regular · 2 papers", "Extended · 1 paper", "Extended · 2 papers"]
+              rows:
+                - ["Female / SC / ST / PwD", "1,000", "2,000", "1,500", "2,500"]
+                - ["All others, incl. foreign nationals", "2,000", "4,000", "2,500", "4,500"]
+            source: gate-fees
+      - id: horizons
+        nav: "What GATE opens"
+        eyebrow: "Career horizons"
+        heading: "M.Tech with stipend, direct Ph.D., PSU jobs"
+        parts:
+          - list:
+              - "<strong>M.Tech / M.E. / direct Ph.D.</strong> in Engineering, Technology, Architecture, Science and Humanities at institutes funded by the Ministry of Education and other agencies; MoE norms give GATE at least 70% weight where an institute adds a test or interview."
+              - "<strong>Scholarship:</strong> ₹12,400 a month for M.Tech, generally for 22 months; ₹37,000 a month (years 1–2) and ₹42,000 (years 3–5) for direct Ph.D."
+              - "<strong>PSU recruitment:</strong> many public sector companies, such as BHEL, NTPC, ONGC, SAIL and POWERGRID, use GATE scores."
+              - "Qualifying GATE does not by itself guarantee admission, scholarship or a job."
+            source: gate-opps
+          - links:
+              - { label: "UPSC ESE", url: "upsc-ese.html" }
+              - { label: "Karnataka PGCET", url: "state/karnataka/pgcet.html" }
+              - { label: "JEE Main", url: "jee-main.html" }
+              - { label: "B.Tech college finder", url: "colleges-btech.html" }
+    sources:
+      - { id: gate-ib, name: "IIT Madras — GATE 2027 Information Brochure (143 pages)", url: "https://gate2027ib.iitm.ac.in/GATE2027-IB.pdf", covers: "organising institute, 30 papers, RA and XE9 changes, revised syllabus, eligibility, no age limit, DigiLocker, 300+ cities, validity, PwD time, qualifying marks formula, MoE 70% weight", checked: 2026-10-31 }
+      - { id: gate-dates, name: "IIT Madras — GATE 2027 Important Dates page", url: "https://gate2027.iitm.ac.in/important_dates", covers: "revised registration, rectification, city notification, exam and result dates", checked: 2026-10-31 }
+      - { id: gate-pattern, name: "IIT Madras — GATE 2027 Question Paper Pattern page", url: "https://gate2027.iitm.ac.in/question_paper_pattern", covers: "65 questions, marks split, MCQ/MSQ/NAT, negative marking", checked: 2026-10-31 }
+      - { id: gate-papers, name: "IIT Madras — GATE 2027 Test Papers &amp; Syllabus page", url: "https://gate2027.iitm.ac.in/exam_papers_and_syllabus", covers: "30 paper codes and names, XE/XH/XL sections", checked: 2026-10-31 }
+      - { id: gate-fees, name: "IIT Madras — GATE 2027 Application Fees page", url: "https://gate2027.iitm.ac.in/application_fees", covers: "fee by category, period and number of papers", checked: 2026-10-31 }
+      - { id: gate-opps, name: "IIT Madras — GATE 2027 Opportunities page", url: "https://gate2027.iitm.ac.in/opportunities", covers: "M.Tech/Ph.D. admission, scholarship amounts, PSU recruitment", checked: 2026-10-31 }

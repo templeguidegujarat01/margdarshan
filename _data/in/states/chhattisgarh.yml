@@ -10,7 +10,8 @@
 #     recruitment 2024 of the Home (Police) Department with its 2026 result and postponement notices; the
 #     detailed advertisement and exam instructions for the Assistant Teacher exam (LSAT26) of the
 #     Chhattisgarh Karmachari Chayan Mandal (formerly CG Vyapam) and its 2026 notices; and the Pre Polytechnic
-#     Test 2026 instructions with the 2023 polytechnic admission rules. Most are Hindi PDFs read page by page.
+#     Test 2026 instructions with the 2023 polytechnic admission rules; and (read 2026-10-31) the PET-2026
+#     instructions, model answer key and syllabus with the 2023 B.Tech admission rules and their 2024 amendment. Most are Hindi PDFs read page by page.
 #     Nothing comes from coaching or news sites.
 #   - No Patwari recruitment was listed among the Mandal's 2026 exams, so the Mandal page follows its largest
 #     2026 recruitment (Assistant Teacher).
@@ -25,11 +26,11 @@ cockpit:
   eyebrow: "State Exam &amp; Career Hub · Chhattisgarh"
   title: "Chhattisgarh Exam &amp; Career Hub"
   intro:
-    - "Every major Chhattisgarh recruitment and admission route on one screen: the State Service Examination of the Chhattisgarh Public Service Commission (CGPSC), police Sub-Inspector, Subedar and Platoon Commander recruitment (also run by CGPSC), Class III recruitment through the Chhattisgarh Karmachari Chayan Mandal (formerly CG Vyapam), and the Pre Polytechnic Test for diplomas after Class 10. Each page is built only from the official advertisement or notice, and every fact links back to that file."
+    - "Every major Chhattisgarh recruitment and admission route on one screen: the State Service Examination of the Chhattisgarh Public Service Commission (CGPSC), police Sub-Inspector, Subedar and Platoon Commander recruitment (also run by CGPSC), Class III recruitment through the Chhattisgarh Karmachari Chayan Mandal (formerly CG Vyapam), the Pre Engineering Test (PET) for B.E. / B.Tech, and the Pre Polytechnic Test for diplomas after Class 10. Each page is built only from the official advertisement or notice, and every fact links back to that file."
     - "Chhattisgarh ties most benefits to being a local resident (mool niwasi): reservation and age relaxation are for the state's own SC, ST and OBC; women's 30% reservation is for local women; and local candidates who sit an exam get their fee back. The prelim of the State Service Exam even tests Chhattisgarhi language, without translation."
   facts:
     - { label: "Recruitment nodes", value: "CGPSC SSE · Police SI · CGSSB (Vyapam)" }
-    - { label: "Admission nodes", value: "Pre Polytechnic Test" }
+    - { label: "Admission nodes", value: "PET (B.Tech) · PPT (diploma)" }
     - { label: "Next exam", value: "Asst Teacher (LSAT26) 6 Dec 2026" }
     - { label: "Last checked", value: "18 Oct 2026" }
   groups:
@@ -40,9 +41,9 @@ cockpit:
       exams: [cgpsc, police, vyapam]
     - id: academic
       eyebrow: "Academic admissions"
-      heading: "Admission routes after Class 10"
-      intro: "Polytechnic diplomas through the Pre Polytechnic Test (PPT) conducted by the Mandal, with seats allotted under the Technical Education Department's admission rules."
-      exams: [ppt]
+      heading: "Admission routes after Class 10 and 12"
+      intro: "B.E. / B.Tech through the Pre Engineering Test (PET) and polytechnic diplomas through the Pre Polytechnic Test (PPT), both conducted by the Mandal, with seats allotted under the Technical Education Department's admission rules."
+      exams: [pet, ppt]
   compare_note: "Fees, age limits and dates are from the latest advertisement of each body. They change every cycle, so always open the current notice before applying."
   portals_note: "CGPSC advertisements, results and notices are on psc.cg.gov.in (applications at online.ecgpsconline.in); the Chhattisgarh Karmachari Chayan Mandal (formerly Vyapam) is on vyapamcg.cgstate.gov.in; police information on cgpolice.gov.in. Only use these official addresses."
   portals:
@@ -51,6 +52,138 @@ cockpit:
     - { label: "Chhattisgarh Police", url: "https://cgpolice.gov.in/" }
 
 exams:
+  # ------------------------------------------------------------------ CG PET — B.E. / B.TECH (read 31 Oct 2026)
+  - slug: pet
+    group: academic
+    short: "CG PET — Pre Engineering Test &amp; B.Tech Admission"
+    body: "Chhattisgarh Vyavsayik Pariksha Mandal (test) and the Technical Education Department (admission rules)"
+    card: "The Pre Engineering Test (PET) ranks students for B.E. / B.Tech in Chhattisgarh. PET-2026 was held on 14 May 2026: 150 questions, no negative marking. Seats go first to Chhattisgarh natives on PET merit, then on JEE Main merit."
+    card_facts: ["PET 14 May 2026 · 150 Qs", "No negative marking", "Fee ₹200 / ₹150 / ₹100"]
+    eyebrow: "CG PET · B.Tech admission"
+    title: "CG PET 2026 — Pre Engineering Test, Eligibility, Fees, Merit Lists & B.Tech Seat Order"
+    lede: "Chhattisgarh fills B.E. / B.Tech seats using the Pre Engineering Test (PET) run by Vyapam and the Technical Education Department's B.Tech admission rules of 2023 (amended 2024). This page follows the PET-2026 exam instructions (2 March 2026), the PET-2026 model answer key and the gazetted rules."
+    facts:
+      - { label: "2026 exam", value: "14 May 2026, 10:00 – 1:15", source: pet-nir }
+      - { label: "Paper", value: "150 MCQs · no negative marking", source: pet-key }
+      - { label: "Eligibility", value: "Class 12 PCM · 45% (40% reserved)", source: pet-rules }
+      - { label: "Fee", value: "₹200 · ₹150 OBC · ₹100 SC/ST/PwD", source: pet-nir }
+    official:
+      - { label: "Mandal website (vyapamcg)", url: "https://vyapamcg.cgstate.gov.in/" }
+      - { label: "PET26 page", url: "https://vyapamcg.cgstate.gov.in/#/Post?PostID=PET26ONLINE" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "One state test for B.E. / B.Tech merit"
+        parts:
+          - table:
+              caption: "PET-2026 calendar"
+              head: ["Event", "Date"]
+              rows:
+                - ["Online application", "2 Mar – 27 Mar 2026 (5 pm)"]
+                - ["Correction window", "28 – 30 Mar 2026"]
+                - ["Admit card", "4 May 2026"]
+                - ["Exam", "14 May 2026, 10:00 am – 1:15 pm"]
+                - ["Centres", "33 district headquarters"]
+            source: pet-nir
+          - p: "PET-2026 covered B.E. / B.Tech, B.Tech (Agriculture Engineering), B.Tech (Food Technology), B.Tech (Dairy Technology) and the Diploma in Dairy Technology. The rules define PET as the state-level common entrance test held by Vyapam to fix merit for B.Tech admission."
+            source: pet-rules
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Academic eligibility"
+        heading: "Class 12 with Physics, Chemistry and Maths"
+        parts:
+          - table:
+              head: ["Course", "Qualification"]
+              rows:
+                - ["B.Tech (first year)", "Class 12 (10+2) with the three AICTE core subjects: 45% together (40% for Chhattisgarh SC, ST, OBC and persons with disabilities), passing each of the three separately in theory and practical; or a vocational diploma in the same or a related field"]
+                - ["B.Tech lateral entry (second year)", "3-year or 2-year (lateral) engineering diploma with 45% (40% reserved); or B.Sc with 45% (40% reserved) and Maths in Class 12; or B.Voc / 3-year D.Voc in the same or a related sector"]
+            source: pet-rules
+          - note: "Filling the form or sitting the test does not make you eligible; only the department's admission rules do."
+            source: pet-nir
+      - id: scheme
+        nav: "Exam Scheme &amp; Merit"
+        eyebrow: "Exam scheme &amp; merit lists"
+        heading: "No negative marking; four merit lists"
+        parts:
+          - list:
+              - "PET-2026 had <strong>150 questions</strong> (OMR sheet, four sets A–D), from 10:00 am to 1:15 pm."
+            source: pet-key
+          - list:
+              - "Each question has four options; 1 mark for the correct (or most suitable) answer, zero for a wrong, multiple or blank answer — <strong>no negative marking</strong>."
+              - "Wrong questions are scrapped and their marks given to all as bonus; questions with more than one correct option accept all of them."
+              - "Objections to the model answer cost ₹50 per question, online only. OMR sheets are machine-marked, so there is no re-totalling."
+            source: pet-nir
+          - list:
+              - "Merit lists: PET (percentage of marks), JEE Main (percentage of marks), diploma final-year percentage and B.Sc final-year percentage (the last two for lateral entry)."
+              - "Equal marks are ranked by age — the older candidate first."
+            source: pet-rules
+          - table:
+              caption: "PET scheme of examination (syllabus 2026-27)"
+              head: ["Subject", "Questions", "Marks"]
+              rows:
+                - ["Physics", "50", "50"]
+                - ["Chemistry", "50", "50"]
+                - ["Mathematics", "50", "50"]
+                - ["Total", "150", "150"]
+            source: pet-syl
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fee structure"
+        heading: "₹100 to ₹200, refunded to locals"
+        parts:
+          - table:
+              head: ["Category", "Exam fee"]
+              rows:
+                - ["General", "₹200"]
+                - ["Other Backward Classes", "₹150"]
+                - ["SC / ST / persons with disabilities", "₹100"]
+            source: pet-nir
+          - note: "Chhattisgarh local candidates who appear get the exam fee refunded to the bank account used, after the result. Counselling has its own non-refundable fee fixed by the government."
+            source: pet-nir
+      - id: reservation
+        nav: "Reservation &amp; Seat Order"
+        eyebrow: "Reservation &amp; seat allotment"
+        heading: "Chhattisgarh natives first, PET before JEE Main"
+        parts:
+          - list:
+              - "Reservation follows Chhattisgarh's reservation law in force at the time of admission."
+              - "Private institutions have a 15% management quota; minority institutions keep 50% of seats for minority candidates."
+              - "<strong>B.Tech seat order:</strong> natives of Chhattisgarh on the PET list first, then natives on the JEE Main list; seats still left go to candidates from outside the state on the PET list, then on the JEE Main list."
+              - "<strong>Lateral entry:</strong> natives on the diploma list, then the B.Sc list; then outside candidates in the same order."
+            source: pet-rules
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Verified at counselling"
+        parts:
+          - list:
+              - "No certificates are uploaded with the form; caste, date of birth, residence, education, disability and ex-servicemen certificates are checked during counselling."
+              - "Bring the admit card and an original photo ID (voter ID, driving licence, PAN or Aadhaar) to the exam. Keep the admit card — it is asked for at counselling."
+            source: pet-nir
+      - id: pay
+        nav: "Costs"
+        eyebrow: "Costs"
+        heading: "Test fee and college fee"
+        parts:
+          - p: "The instructions set only the test fee (₹100 – ₹200, refunded to locals who appear). After allotment you must pay the institution's fee by the set date, or the admission is cancelled."
+            source: pet-rules
+      - id: posting
+        nav: "After PET"
+        eyebrow: "After the test"
+        heading: "Online counselling, then document check at the college"
+        parts:
+          - p: "Seats are allotted through online counselling by a committee formed by the state government. The allotment is provisional: you report to the allotted institution, which checks your original documents before admission. The AICTE last date is the last date of admission."
+            source: pet-rules
+          - links:
+              - { label: "JEE Main", url: "jee-main.html" }
+              - { label: "B.Tech college finder", url: "colleges-btech.html" }
+              - { label: "CG PPT (diploma)", url: "state/chhattisgarh/ppt.html" }
+    sources:
+      - { id: pet-nir, name: "Chhattisgarh Vyavsayik Pariksha Mandal — Exam instructions No. 867, PET Entrance Exam 2026 (2 Mar 2026)", url: "https://vyapamcg.cgstate.gov.in/uploads/pdfs/a723e664-ee65-4837-93b0-60270ba5a01a.pdf", covers: "courses, dates, 33 centres, fee, refund rule, marking, no negative marking, bonus rule, objection fee, admit card, exam-day rules", checked: 2026-10-31 }
+      - { id: pet-key, name: "Chhattisgarh Vyavsayik Pariksha Mandal — PET26 model answer (exam of 14 May 2026)", url: "https://vyapamcg.cgstate.gov.in/uploads/pdfs/76aaa07b-c955-4b35-8921-f79200e15430_PET26%20(Model%20Answer).pdf", covers: "150 questions, four sets, exam time", checked: 2026-10-31 }
+      - { id: pet-rules, name: "Technical Education Department, Chhattisgarh — B.Tech admission rules, 2023 (Gazette, 11 May 2023) with the amendment of 3 Apr 2024 (Gazette, 22 Apr 2024)", url: "https://vyapamcg.cgstate.gov.in/uploads/pdfs/26f6530c-067b-4d90-aaa0-6ad97fed3d11.pdf", covers: "PET and JEE Main definitions, eligibility, lateral entry, quotas, merit lists, tie rule, seat order, counselling, fee deadline", checked: 2026-10-31 }
+      - { id: pet-syl, name: "Directorate of Technical Education, Chhattisgarh — PET 2026-27 syllabus", url: "https://vyapamcg.cgstate.gov.in/uploads/pdfs/7d31de1c-ace8-4e49-ba1e-a20cc230039e.pdf", covers: "Physics, Chemistry, Mathematics units and the 50-50-50 scheme of examination", checked: 2026-10-31 }
   # ------------------------------------------------------------------ CGPSC — STATE SERVICE EXAMINATION
   - slug: cgpsc
     group: civil

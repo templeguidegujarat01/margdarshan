@@ -33,6 +33,9 @@
                                 (_includes/in-header-hubs.html). The old `header_hubs` key is no longer read.
     (USA edition)               same for region "us" (2026-10-23): body.shell-in shell-us, no sidebar, and the
                                 same top menu drawn from _data/nav_us.yml topnav (include edition="us").
+    (UK edition, neutral pages) 2026-10-31: UK pages get body.shell-in shell-uk + the menu from _data/nav_uk.yml topnav;
+                                region-neutral pages (about, help, legal, 404) get body.shell-in shell-nt + one menu per
+                                edition, and main.css shows the visitor's saved edition. No page has the sidebar now.
     shell: gateway              global home only (index.html): no sidebar and no breadcrumb bar; the top
                                 bar is _includes/header-gateway.html (inline search + study-destination
                                 menu). Every other page keeps the full app shell.
@@ -134,7 +137,8 @@
 {%- assign gateway = false -%}{%- if page.shell == "gateway" %}{%- assign gateway = true -%}{%- endif %}
 {%- assign india_shell = false -%}{%- if region_id == "in" and region_neutral == false and gateway == false %}{%- assign india_shell = true -%}{%- endif %}
 {%- assign us_shell = false -%}{%- if region_id == "us" and region_neutral == false and gateway == false %}{%- assign us_shell = true -%}{%- endif %}
-<body{% if page.stream %} data-stream="{{ page.stream }}"{% endif %}{% if gateway %} class="shell-gw"{% elsif india_shell %} class="shell-in"{% elsif us_shell %} class="shell-in shell-us"{% endif %}>
+{%- assign uk_shell = false -%}{%- if region_id == "uk" and region_neutral == false and gateway == false %}{%- assign uk_shell = true -%}{%- endif %}
+<body{% if page.stream %} data-stream="{{ page.stream }}"{% endif %}{% if gateway %} class="shell-gw"{% elsif india_shell %} class="shell-in"{% elsif us_shell %} class="shell-in shell-us"{% elsif uk_shell %} class="shell-in shell-uk"{% else %} class="shell-in shell-nt"{% endif %}>
 <a href="#main" class="skip-link">Skip to main content</a>
 <div class="progress-bar" id="progressBar"{% if page.progress_full %} style="width:100%;"{% endif %}></div>
 
@@ -143,13 +147,11 @@
 <div class="app-main">
 {% include header-gateway.html %}
 {%- else %}
-{%- unless india_shell or us_shell %}
-{% include sidebar.html careers_href=page.header.careers_href careers_label=page.header.careers_label faq_href=page.header.faq_href faq_label=page.header.faq_label active_stream=page.header.active_stream %}
-{%- endunless %}
+{%- comment -%} No page draws the sidebar (_includes/sidebar.html) any more (2026-10-31): every page has the top menu. {%- endcomment %}
 
 <div class="app-main">
 {% include header.html %}
-{%- if india_shell %}{% include in-header-hubs.html %}{% elsif us_shell %}{% include in-header-hubs.html edition="us" %}{% endif %}
+{%- if india_shell %}{% include in-header-hubs.html %}{% elsif us_shell %}{% include in-header-hubs.html edition="us" %}{% elsif uk_shell %}{% include in-header-hubs.html edition="uk" %}{% else %}{% for nav_rid in site.data.regions.list %}{% include in-header-hubs.html edition=nav_rid rnav=nav_rid %}{% endfor %}{% endif %}
 
 <div class="crumb-bar"><div class="container">{% include breadcrumb.html grand_href=page.breadcrumb.grand_href grand_label=page.breadcrumb.grand_label parent_href=page.breadcrumb.parent_href parent_label=page.breadcrumb.parent_label current=page.breadcrumb.current %}{% include last-updated.html %}</div></div>
 {%- endif %}

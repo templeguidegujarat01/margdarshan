@@ -37,3 +37,67 @@ sidebar:
           - { label: "Secondary teacher", href: "uk/careers/teaching/" }
           - { label: "Investment banking", href: "uk/careers/investment-banking/" }
           - { label: "Social worker", href: "uk/careers/social-work/" }
+
+# UK top menu (2026-10-31): UK pages have NO sidebar any more. Every uk/** page draws this row
+# (_includes/in-header-hubs.html with edition "uk", same shape as _data/nav.yml topnav). `sidebar` above is kept
+# for scripts/check-uk-data.mjs only; no page renders it now. Only link to pages that exist.
+topnav:
+  - type: home
+    label: UK Home
+    href: uk/
+    icon: '<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>'
+  - type: menu
+    label: Plan Your Path
+    children:
+      - { label: "GCSEs to career", href: "uk/#ladder", desc: "The school ladder from GCSEs to a job" }
+      - { label: "UCAS points", href: "uk/#ucas", desc: "How A Level grades turn into points" }
+      - { label: "All UK careers", href: "uk/#careers", desc: "Every UK career guide on one page" }
+  - type: menu
+    label: Careers
+    nodes:
+      - label: Health
+        href: uk/careers/
+        head: { label: "All UK careers", href: "uk/careers/" }
+        cols:
+          - label: Health careers
+            links:
+              - { label: "Doctor (hospital or GP)", href: "uk/careers/medicine/" }
+              - { label: "Nurse", href: "uk/careers/nursing/" }
+              - { label: "Pharmacist", href: "uk/careers/pharmacy/" }
+              - { label: "Physiotherapist", href: "uk/careers/physiotherapy/" }
+              - { label: "Paramedic", href: "uk/careers/paramedic/" }
+              - { label: "Vet", href: "uk/careers/veterinary/" }
+      - label: Law & Money
+        href: uk/careers/
+        head: { label: "All UK careers", href: "uk/careers/" }
+        cols:
+          - label: Law and finance careers
+            links:
+              - { label: "Law: solicitor or barrister", href: "uk/careers/law/" }
+              - { label: "Chartered accountant", href: "uk/careers/accountancy/" }
+              - { label: "Investment banking", href: "uk/careers/investment-banking/" }
+      - label: Engineering & Building
+        href: uk/careers/
+        head: { label: "All UK careers", href: "uk/careers/" }
+        cols:
+          - label: Engineering and design careers
+            links:
+              - { label: "Software engineer", href: "uk/careers/software-engineering/" }
+              - { label: "Civil engineer", href: "uk/careers/civil-engineering/" }
+              - { label: "Mechanical engineer", href: "uk/careers/mechanical-engineering/" }
+              - { label: "Architect", href: "uk/careers/architecture/" }
+      - label: Public Service
+        href: uk/careers/
+        head: { label: "All UK careers", href: "uk/careers/" }
+        cols:
+          - label: Public service careers
+            links:
+              - { label: "Secondary teacher", href: "uk/careers/teaching/" }
+              - { label: "Social worker", href: "uk/careers/social-work/" }
+    children:
+      - { label: "All UK careers", href: "uk/careers/" }
+  - type: menu
+    label: From India to the UK
+    children:
+      - { label: "Indian CA to ICAEW or ACCA", href: "uk/roadmaps/icai-to-uk-accountant.html", desc: "Which UK exams an ICAI member still sits" }
+      - { label: "Indian lawyer to UK solicitor", href: "uk/roadmaps/sqe-overseas-lawyer.html", desc: "The SQE route, which you can start from India" }

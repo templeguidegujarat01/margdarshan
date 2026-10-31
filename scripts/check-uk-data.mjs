@@ -130,6 +130,16 @@ for (const g of nav.sidebar) for (const it of g.items) for (const h of [it.href,
   const f = h.split('#')[0];
   if (f && !exists(f.endsWith('/') ? f + 'index.html' : f)) err('nav_uk', `link ${h} has no page`);
 }
+// UK top menu (topnav, every uk/** page): every menu link and node link must exist
+for (const it of nav.topnav || []) {
+  const hs = [it.href, ...(it.children || []).map((c) => c.href)];
+  for (const n of it.nodes || []) { hs.push(n.href); for (const col of n.cols || []) for (const c of col.links || []) hs.push(c.href); }
+  for (const h of hs.filter(Boolean)) {
+    const f = h.split('#')[0];
+    if (f && !exists(f.endsWith('/') ? f + 'index.html' : f)) err('nav_uk topnav', `link ${h} has no page`);
+  }
+}
+if (!(nav.topnav || []).length) err('nav_uk', 'topnav missing (UK pages have no sidebar)');
 if (!regions.list.includes('uk') || !regions.uk) err('regions.yml', 'uk edition missing');
 
 console.log(`checked ${src.size} UK sources, ${Object.keys(careers).length} UK careers, ${cbSeen.size} cross-border tracks, ${Object.keys(ashe.occupations).length} ASHE occupations, ${Object.keys(M.routes || {}).length} mobility routes`);

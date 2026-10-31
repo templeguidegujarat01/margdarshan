@@ -542,7 +542,7 @@ html.nav-locked{overflow:hidden;}
 }
 @media (prefers-reduced-motion:reduce){.hh-tab,.hh-tab::before{transition:none !important;}}
 
-/* India and USA edition pages (body.shell-in; USA pages also .shell-us, _layouts/default.html): no sidebar, so the content takes the full width
+/* Every page but the gateway (body.shell-in; USA .shell-us, UK .shell-uk, region-neutral .shell-nt, _layouts/default.html): no sidebar, so the content takes the full width
    and the top bar has no menu button. On phones the logo mark stands where the menu button was (it lived in the
    drawer before). The top menu row above is the navigation on every screen size. */
 .shell-in .app-main{margin-left:0;border-left:0;border-right:0;}
@@ -2011,8 +2011,8 @@ a.feature-card:hover,a.feature-card:focus-visible{border-color:var(--gold);box-s
 .btn-page-link.btn-primary:hover,.btn-page-link.btn-primary:focus-visible,.btn-page-link.btn-ghost:hover,.btn-page-link.btn-ghost:focus-visible,[data-stream] .btn-page-link.btn-primary:hover{background:var(--stream-primary);color:#fff;box-shadow:var(--shadow-md);}
 /* India edition (2026-10-30): one solid primary per row; a ghost page link is the secondary tier (outline + arrow),
    as the CTA hierarchy below says. USA / UK keep the solid ghost. */
-body.shell-in:not(.shell-us) .btn-page-link.btn-ghost{background:transparent;color:var(--on-ink-strong);border:1.5px solid var(--accent-on-surface);box-shadow:none;}
-body.shell-in:not(.shell-us) .btn-page-link.btn-ghost:hover,body.shell-in:not(.shell-us) .btn-page-link.btn-ghost:focus-visible{background:var(--stream-soft);color:var(--on-ink-strong);box-shadow:none;}
+body.shell-in:not(.shell-us):not(.shell-uk) .btn-page-link.btn-ghost{background:transparent;color:var(--on-ink-strong);border:1.5px solid var(--accent-on-surface);box-shadow:none;}
+body.shell-in:not(.shell-us):not(.shell-uk) .btn-page-link.btn-ghost:hover,body.shell-in:not(.shell-us):not(.shell-uk) .btn-page-link.btn-ghost:focus-visible{background:var(--stream-soft);color:var(--on-ink-strong);box-shadow:none;}
 .btn-inpage-jump.btn-primary,.btn-inpage-jump.btn-ghost{background:transparent;color:var(--on-ink);border:1.5px solid rgba(var(--hl-rgb),.55);box-shadow:none;}
 .btn-inpage-jump.btn-primary:hover,.btn-inpage-jump.btn-primary:focus-visible,.btn-inpage-jump.btn-ghost:hover,.btn-inpage-jump.btn-ghost:focus-visible{background:rgba(var(--hl-rgb),.12);color:var(--on-ink-strong);border-color:var(--accent-on-surface);box-shadow:none;}
 
@@ -2164,6 +2164,10 @@ html[data-region="uk"] .region-cur:not([data-region-cur="uk"]){display:none;}
 html[data-region="in"] .sb-group[data-region-nav]:not([data-region-nav="in"]),
 html[data-region="us"] .sb-group[data-region-nav]:not([data-region-nav="us"]),
 html[data-region="uk"] .sb-group[data-region-nav]:not([data-region-nav="uk"]){display:none;}
+/* Region-neutral pages (body.shell-nt) carry one top menu per edition; same rule. */
+html[data-region="in"] .in-header-hubs[data-region-nav]:not([data-region-nav="in"]),
+html[data-region="us"] .in-header-hubs[data-region-nav]:not([data-region-nav="us"]),
+html[data-region="uk"] .in-header-hubs[data-region-nav]:not([data-region-nav="uk"]){display:none;}
 @media (min-width:1024px){
   /* Collapsed rail: the button shrinks to the current flag; the menu flies out to the right. */
   html[data-sidebar="collapsed"] .region-switch{padding:.5rem 6px;}

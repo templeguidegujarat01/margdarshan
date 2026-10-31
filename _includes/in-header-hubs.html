@@ -39,16 +39,22 @@
   share one rail order (Exams & Admissions, Careers & Courses, Colleges, Coaching, Roadmaps). A node may set
   `title` (the pane heading, default its label) and `head` {label, href} (the pane's top-right link); a mega key's
   own title / head are used when the node sets none.
+  UK edition + region-neutral pages (2026-10-31): no page has a sidebar any more. uk/** pages include this with
+  edition="uk" (items from _data/nav_uk.yml `topnav`, own cols only, no lazy fragment). Region-neutral pages
+  (about, help, contact, legal, 404) include it once per edition with rnav=<id>; the nav gets data-region-nav
+  and main.css shows only the one matching html[data-region] (the visitor's saved edition).
 {%- endcomment -%}
 {%- assign hh_badge_txt = "stem:STEM,health:Health,finance:Finance" | split: "," -%}
 {%- assign hh_cur = page.url | remove_first: "/" -%}
 {%- if include.edition == "us" -%}
   {%- assign hh_items = site.data.nav_us.topnav -%}{%- assign hh_mega = site.data.us.nav_mega -%}{%- assign hh_aria = "USA menu" -%}
+{%- elsif include.edition == "uk" -%}
+  {%- assign hh_items = site.data.nav_uk.topnav -%}{%- assign hh_mega = nil -%}{%- assign hh_aria = "UK menu" -%}
 {%- else -%}
   {%- assign hh_items = site.data.nav.topnav -%}{%- assign hh_mega = site.data.nav_mega -%}{%- assign hh_aria = "India menu" -%}
 {%- endif -%}
-{%- assign hh_lazy = false -%}{%- if include.edition != "us" and include.mode != "fragment" -%}{%- assign hh_lazy = true -%}{%- endif %}
-<nav class="in-header-hubs" aria-label="{{ hh_aria }}" data-no-points{% if hh_lazy %} data-hh-src="assets/menu-in.html?v={{ asset_v }}"{% endif %}>
+{%- assign hh_lazy = false -%}{%- if include.edition != "us" and include.edition != "uk" and include.mode != "fragment" -%}{%- assign hh_lazy = true -%}{%- endif %}
+<nav class="in-header-hubs" aria-label="{{ hh_aria }}" data-no-points{% if include.rnav %} data-region-nav="{{ include.rnav }}"{% endif %}{% if hh_lazy %} data-hh-src="assets/menu-in.html?v={{ asset_v }}"{% endif %}>
   <div class="container">
     <ul class="hh-row">
       {%- for it in hh_items %}

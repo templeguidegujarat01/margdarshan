@@ -1895,8 +1895,9 @@ try {
 try {
 (function(){
   "use strict";
-  var nav = document.querySelector('.in-header-hubs');
-  if(!nav) return;
+  // Region-neutral pages (about, help, legal…) carry one menu per edition and CSS shows the visitor's one,
+  // so every menu on the page is wired up on its own.
+  document.querySelectorAll('.in-header-hubs').forEach(function(nav){
   var row = nav.querySelector('.hh-row');
   var drops = nav.querySelectorAll('.hh-dd');
   function place(d){
@@ -2031,7 +2032,8 @@ try {
       }).catch(function(){ started = false; });
     };
     ['pointerover', 'focusin', 'touchstart'].forEach(function(ev){ nav.addEventListener(ev, load, { passive: true }); });
-    var idle = function(){ (window.requestIdleCallback || function(cb){ return setTimeout(cb, 1500); })(load, { timeout: 4000 }); };
+    // A menu hidden by CSS (another edition's, on a region-neutral page) loads only when used.
+    var idle = function(){ if(!nav.getClientRects().length) return; (window.requestIdleCallback || function(cb){ return setTimeout(cb, 1500); })(load, { timeout: 4000 }); };
     if(document.readyState === 'complete') idle(); else window.addEventListener('load', idle);
   }
   window.addEventListener('resize', function(){ more(); drops.forEach(function(d){ if(d.open) place(d); }); });
@@ -2039,6 +2041,7 @@ try {
   // Web fonts change the item widths after first paint, so measure again once they are in.
   window.addEventListener('load', more);
   if(document.fonts && document.fonts.ready) document.fonts.ready.then(more);
+  });
 })();
 } catch (e) { if (window.console) console.error(e); }
 

@@ -4,6 +4,7 @@
 #
 # Rules for this sheet (same as the other state sheets):
 #   - Every fact part carries `source: <id>`; the id must be listed under that exam's `sources`.
+#   - TG PGECET (read 2026-10-31): the PGECET-2026 general information, instructions, dates, schedule and paper list.
 #   - Sources are the official files themselves (read 2026-10-18): TGPSC Group-I Notification 02/2024 and Group-II
 #     Notification 28/2022 with their provisional selection notifications of September 2025; the TSLPRB police
 #     notifications of 29 Jul 2026, the supplementary notifications of 15 Aug and 10 Sep 2026 and the press note of
@@ -22,11 +23,11 @@ cockpit:
   eyebrow: "State Exam &amp; Career Hub · Telangana"
   title: "Telangana Exam &amp; Career Hub"
   intro:
-    - "Every major Telangana government recruitment and admission route on one screen: TGPSC Group-I and Group-II services, police constables and Sub-Inspectors through the Telangana State Level Police Recruitment Board (TSLPRB), TG EAPCET for engineering, agriculture and pharmacy, and TG POLYCET for diplomas after Class 10. Each page is built only from the official notification or instruction booklet, and every fact links back to that file."
+    - "Every major Telangana government recruitment and admission route on one screen: TGPSC Group-I and Group-II services, police constables and Sub-Inspectors through the Telangana State Level Police Recruitment Board (TSLPRB), TG EAPCET for engineering, agriculture and pharmacy, TG PGECET for M.E. / M.Tech, and TG POLYCET for diplomas after Class 10. Each page is built only from the official notification or instruction booklet, and every fact links back to that file."
     - "Telangana fills 95% of its zonal and multi-zonal posts with local candidates under the Presidential Order 2018 (G.O.Ms.No.124), where 'local' depends on where you studied from Class I to VII. In admissions, 85% of seats are for local candidates of the Osmania University area. SC candidates now need certificates under the 2025 sub-classification (SC Group I, II and III), and ST reservation in jobs is 10%."
   facts:
     - { label: "Recruitment nodes", value: "TGPSC Group-I &amp; II · TG Police" }
-    - { label: "Admission nodes", value: "TG EAPCET · TG POLYCET" }
+    - { label: "Admission nodes", value: "TG EAPCET · PGECET · POLYCET" }
     - { label: "Next exam", value: "Police SI prelim 29 Nov · PC 20 Dec 2026" }
     - { label: "Last checked", value: "18 Oct 2026" }
   groups:
@@ -37,15 +38,16 @@ cockpit:
       exams: [tspsc, police]
     - id: academic
       eyebrow: "Academic admissions"
-      heading: "Admission routes after Class 10 and 12"
-      intro: "B.Tech, B.Pharmacy, agriculture and allied degrees through TG EAPCET (JNTU Hyderabad for the Telangana Council of Higher Education), and polytechnic, agriculture and veterinary diplomas through TG POLYCET (State Board of Technical Education and Training)."
-      exams: [eapcet, polycet]
+      heading: "Admission routes after Class 10, 12 and B.Tech"
+      intro: "B.Tech, B.Pharmacy, agriculture and allied degrees through TG EAPCET and M.E. / M.Tech, M.Pharm and M.Arch through TG PGECET (both run by JNTU Hyderabad for the Telangana Council of Higher Education), and polytechnic, agriculture and veterinary diplomas through TG POLYCET (State Board of Technical Education and Training)."
+      exams: [eapcet, pgecet, polycet]
   compare_note: "Fees, age limits and dates are from the latest notification of each body. They change every cycle, so always open the current notification before applying."
-  portals_note: "TGPSC notifications are on websitenew.tgpsc.gov.in (One Time Registration at otr.tgpsc.gov.in); police recruitment on tgprb.in; TG EAPCET on eapcet.tgche.ac.in; TG POLYCET on polycet.sbtet.telangana.gov.in. Only use these official addresses."
+  portals_note: "TGPSC notifications are on websitenew.tgpsc.gov.in (One Time Registration at otr.tgpsc.gov.in); police recruitment on tgprb.in; TG EAPCET on eapcet.tgche.ac.in; TG PGECET on pgecet.tgche.ac.in; TG POLYCET on polycet.sbtet.telangana.gov.in. Only use these official addresses."
   portals:
     - { label: "Telangana Public Service Commission (TGPSC)", url: "https://websitenew.tgpsc.gov.in/" }
     - { label: "Telangana State Level Police Recruitment Board (TSLPRB)", url: "https://www.tgprb.in/" }
     - { label: "TG EAPCET (JNTU Hyderabad)", url: "https://eapcet.tgche.ac.in/" }
+    - { label: "TG PGECET (JNTU Hyderabad)", url: "https://pgecet.tgche.ac.in/" }
     - { label: "TG POLYCET (SBTET Telangana)", url: "https://polycet.sbtet.telangana.gov.in/" }
 
 exams:
@@ -488,6 +490,120 @@ exams:
       - { id: tg-eap-dn, name: "JNTU Hyderabad / TGCHE — TG EAPCET-2026 Detailed Notification", url: "https://eapcet.tgche.ac.in/TGEAPCET/Doc2026/Detailed%20Notification-2026.pdf", covers: "courses, eligibility, age, normalisation, ranking rule, streams, exam dates, fees, late fees, B.Arch note", checked: 2026-10-18 }
       - { id: tg-eap-ib, name: "JNTU Hyderabad / TGCHE — TG EAPCET-2026 Instruction Booklet, Engineering (E) stream", url: "https://eapcet.tgche.ac.in/TGEAPCET/Doc2026/05%20I%20Booklet%20-%20E%20-%202026.pdf", covers: "pattern, medium, no negative marking, qualifying marks, 85% local reservation, documents, counselling", checked: 2026-10-18 }
 
+  # ------------------------------------------------------------------ TG PGECET — M.E. / M.TECH (read 31 Oct 2026)
+  - slug: pgecet
+    group: academic
+    short: "TG PGECET — M.E. / M.Tech, M.Pharm &amp; M.Arch"
+    body: "Jawaharlal Nehru Technological University Hyderabad, for the Telangana Council of Higher Education"
+    card: "Telangana's entrance test for full-time M.E., M.Tech, M.Pharm, M.Arch and Pharm.D (Post Baccalaureate). GATE / GPAT holders are admitted first; PGECET ranks fill the rest. PGECET-2026 was held from 29 May to 1 June 2026."
+    card_facts: ["120 Qs · 2 hours · no negative", "Qualify: 25% (none for SC/ST)", "Fee ₹1,100 · ₹600 SC/ST/PwD"]
+    eyebrow: "TG PGECET · After B.Tech"
+    title: "TG PGECET 2026 — M.E. / M.Tech Entrance, Pattern, Qualifying Marks, Eligibility & Fees"
+    lede: "The Telangana Post Graduate Engineering Common Entrance Test (TG PGECET) is conducted by JNTU Hyderabad for the Telangana Council of Higher Education. This page follows the TG PGECET-2026 notification documents: important dates, test schedule, pattern, instructions, test papers and general information."
+    facts:
+      - { label: "2026 exam", value: "29 May – 1 Jun 2026 (CBT)", source: pg-sched }
+      - { label: "Paper", value: "120 MCQs · 2 hours · no negative", source: pg-ins }
+      - { label: "Qualifying", value: "25% (30 marks) · none for SC/ST", source: pg-ins }
+      - { label: "Fee per test", value: "₹1,100 · ₹600 SC/ST/PwD", source: pg-ins }
+    official:
+      - { label: "TG PGECET website", url: "https://pgecet.tgche.ac.in/" }
+      - { label: "TG PGECET admissions", url: "https://pgecetadm.tgche.ac.in/" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "GATE first, then PGECET rank"
+        parts:
+          - list:
+              - "TG PGECET-2026 is for admission to <strong>full-time</strong> M.E., M.Tech, M.Pharm, M.Arch and Graduate-level Pharm.D (Post Baccalaureate) in Telangana's universities and affiliated engineering, pharmacy and architecture colleges for 2026-27. Part-time and sponsored PG courses are outside it."
+              - "<strong>GATE-qualified candidates get preference.</strong> Seats left after them are filled from TG PGECET ranks in merit order. GATE / GPAT holders register under a separate notification."
+              - "The test is held at two regional centres: Hyderabad and Warangal."
+            source: pg-gi
+          - table:
+              caption: "TG PGECET-2026 calendar"
+              head: ["Event", "Date"]
+              rows:
+                - ["Notification", "23 Feb 2026"]
+                - ["Online applications from", "27 Feb 2026"]
+                - ["Last date without late fee", "6 May 2026"]
+                - ["Exams (10 am – 12 noon and 2 – 4 pm)", "29 May – 1 Jun 2026"]
+            source: pg-dates
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Academic eligibility"
+        heading: "50% in the qualifying degree (45% reserved)"
+        parts:
+          - list:
+              - "Indian nationality, and the local / non-local status rules of G.O.Ms.No.153 (22 Aug 2007)."
+              - "At least 50% marks in the qualifying examination (45% for reserved categories), as in the AICTE norms; a degree earned by distance mode must have AICTE / DEC approval."
+              - "Pick the test paper that matches the course you want; the course-wise eligibility of each university is published with the notification."
+            source: pg-gi
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme &amp; qualifying marks"
+        heading: "120 questions, no negative marks, 25% to qualify"
+        parts:
+          - list:
+              - "Computer-based test of 2 hours with 120 multiple-choice questions, 1 mark each, in English only."
+              - "<strong>No negative marking.</strong>"
+              - "Qualifying mark: 25% of the maximum (30 marks); no minimum for SC / ST candidates. Ranks are given on the final key."
+            source: pg-ins
+          - p: "19 test papers in 2026: Aerospace, Architecture &amp; Planning, Biomedical, Biotechnology, Chemical, Civil, Computer Science &amp; IT, Electrical, Electronics &amp; Communication, Environmental Management, Food Technology, Geo-Engineering &amp; Geo-Informatics, Instrumentation, Mechanical, Metallurgical, Mining, Nano Technology, Pharmacy and Textile Technology."
+            source: pg-papers
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Application fee"
+        heading: "₹1,100 per test paper"
+        parts:
+          - table:
+              head: ["Candidate", "Fee per test"]
+              rows:
+                - ["All other candidates", "₹1,100"]
+                - ["SC / ST / PwD", "₹600"]
+            source: pg-ins
+          - note: "A separate fee is paid for each extra test. Late applications cost ₹250 to ₹10,000 extra depending on the date."
+            source: pg-dates
+      - id: reservation
+        nav: "Local Status"
+        eyebrow: "Local / non-local status"
+        heading: "Telangana's local-area rules apply"
+        parts:
+          - p: "Admission follows the local / non-local status rules of G.O.Ms.No.153 and the admission policy for PG professional courses, which the Telangana Council of Higher Education notifies separately."
+            source: pg-gi
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Before the test"
+        heading: "Hall ticket from the website"
+        parts:
+          - list:
+              - "Apply online only; printed applications are not accepted."
+              - "Download the hall ticket from pgecet.tgche.ac.in — you are not allowed in without it."
+              - "Appearing in the test does not guarantee admission; you must meet every requirement at admission."
+            source: pg-ins
+      - id: pay
+        nav: "Costs"
+        eyebrow: "Costs"
+        heading: "Test fee only"
+        parts:
+          - p: "The PGECET documents set only the application fee (₹1,100, or ₹600 for SC / ST / PwD, per test). College fees are announced at admission."
+            source: pg-ins
+      - id: posting
+        nav: "After PGECET"
+        eyebrow: "After the test"
+        heading: "Online counselling"
+        parts:
+          - p: "Admissions are made through online counselling run from the PGRRCDE Online Counselling Centre, Osmania University, under a separate admission notification of the Council."
+            source: pg-home
+          - links:
+              - { label: "GATE", url: "gate.html" }
+              - { label: "TG EAPCET", url: "state/telangana/eapcet.html" }
+    sources:
+      - { id: pg-gi, name: "JNTU Hyderabad — TG PGECET-2026 General Information", url: "https://pgecet.tgche.ac.in/Docs2026/TG%20PGECET%20-%202026%20General%20Information.pdf", covers: "courses, GATE preference, AICTE 50/45% rule, eligibility, local status G.O.153, regional centres", checked: 2026-10-31 }
+      - { id: pg-ins, name: "JNTU Hyderabad — TG PGECET-2026 Instructions to Candidates", url: "https://pgecet.tgche.ac.in/Docs2026/TG%20PGECET%20-%202026%20Instructions%20to%20Candidates.pdf", covers: "fee, CBT pattern, no negative marking, qualifying marks, hall ticket, GATE/GPAT notification", checked: 2026-10-31 }
+      - { id: pg-dates, name: "JNTU Hyderabad — TG PGECET-2026 Important Dates", url: "https://pgecet.tgche.ac.in/Docs2026/TG%20PGECET-2026%20-%20Important%20Dates.pdf", covers: "notification, application window, late-fee slabs", checked: 2026-10-31 }
+      - { id: pg-sched, name: "JNTU Hyderabad — TG PGECET-2026 revised test schedule", url: "https://pgecet.tgche.ac.in/Docs2026/Test%20Schedule-2026%20-%20Revised.pdf", covers: "exam dates 29 May – 1 Jun 2026 and sessions by paper", checked: 2026-10-31 }
+      - { id: pg-papers, name: "JNTU Hyderabad — TG PGECET-2026 list of test papers", url: "https://pgecet.tgche.ac.in/Docs2026/TG%20PGECET%20-%202026%20List%20of%20Test%20Papers.pdf", covers: "19 papers and codes", checked: 2026-10-31 }
+      - { id: pg-home, name: "TG PGECET-2026 website (home page)", url: "https://pgecet.tgche.ac.in/", covers: "conducting body, courses, admissions link, online counselling centre", checked: 2026-10-31 }
   # ------------------------------------------------------------------ TG POLYCET
   - slug: polycet
     group: academic

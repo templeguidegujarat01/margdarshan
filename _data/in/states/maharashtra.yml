@@ -26,7 +26,7 @@ cockpit:
     - "Every major Maharashtra government recruitment and state admission route on one screen: who conducts it, who can apply, how the exam works, what it costs and where it leads. Each page is built only from the official advertisement, gazette rule or information brochure of the conducting body (most of them Marathi scans, read page by page), and every fact links back to that file."
   facts:
     - { label: "Recruitment nodes", value: "MPSC · Group-C (Talathi) · Police" }
-    - { label: "Admission nodes", value: "MHT-CET · MBA CET · BBA/BMS CAP · Board" }
+    - { label: "Admission nodes", value: "MHT-CET · NEET UG CAP · MBA CET · BBA/BMS CAP · Board" }
     - { label: "Applications", value: "mpsconline.gov.in · mahacet.org" }
     - { label: "Last checked", value: "14 Oct 2026" }
   groups:
@@ -38,8 +38,8 @@ cockpit:
     - id: academic
       eyebrow: "Academic &amp; professional admissions"
       heading: "State admission routes after Class 10, 12 and graduation"
-      intro: "Engineering and pharmacy through MHT-CET, MBA/MMS through MAH-MBA/MMS CET, the newly CET-based BBA/BMS/BBM and BCA admissions through the State CET Cell's CAP, and the MSBSHSE board exams that every route starts from."
-      exams: [mhtcet, mba-cet, bba-cap, msbshse]
+      intro: "Engineering and pharmacy through MHT-CET, MBBS and BDS on NEET UG merit through the State CET Cell's CAP, MBA/MMS through MAH-MBA/MMS CET, the newly CET-based BBA/BMS/BBM and BCA admissions through the State CET Cell's CAP, and the MSBSHSE board exams that every route starts from."
+      exams: [mhtcet, mba-cet, bba-cap, msbshse, neet-ug]
   compare_note: "Fees, age limits and dates are from the latest notification of each body. They change every cycle, so always open the current notification before applying."
   portals_note: "MPSC applications are filled only on mpsconline.gov.in; police constable forms run on the Home Department's recruitment portal; every CET and CAP form runs on mahacet.org. Only use these official addresses."
   portals:
@@ -51,6 +51,143 @@ cockpit:
     - { label: "MSBSHSE (state board)", url: "https://www.mahahsscboard.in/" }
 
 exams:
+  # ------------------------------------------------------------------ STATE CET CELL — MBBS / BDS CAP (read 31 Oct 2026)
+  - slug: neet-ug
+    group: academic
+    short: "NEET UG CAP — MBBS &amp; BDS Admission (State CET Cell)"
+    body: "State Common Entrance Test Cell, Maharashtra (competent authority), with the Directorate of Medical Education and Research"
+    card: "The State CET Cell fills MBBS and BDS (Group A) seats in Maharashtra's government, aided, municipal, private and minority colleges on NEET UG merit through a Centralized Admission Process: three CAP rounds and online stray vacancy rounds. Government college MBBS tuition for 2026-27 is ₹1,67,300 a year."
+    card_facts: ["NEET UG merit", "3 CAP rounds + stray rounds", "Govt MBBS fee ₹1,67,300 / yr"]
+    eyebrow: "State CET Cell · MBBS &amp; BDS (Group A)"
+    title: "Maharashtra NEET UG Counselling 2026 — MBBS &amp; BDS CAP Rounds, Fees, Bond &amp; Rules"
+    lede: "The State Common Entrance Test Cell is the competent authority for undergraduate health science admissions in Maharashtra. MBBS and BDS are Group A; BAMS, BHMS and BUMS are Group B; physiotherapy and allied courses are Group C. This page follows the Cell's public NEET-UG-2026 notices; the Information Brochure itself is on the candidate portal."
+    facts:
+      - { label: "Merit", value: "NEET (UG) 2026 only", source: mh-n03 }
+      - { label: "Rounds", value: "CAP 1–3, then online stray rounds", source: mh-n23 }
+      - { label: "Govt college MBBS fee", value: "₹1,67,300 a year (2026-27)", source: mh-n06 }
+      - { label: "Skip-out penalty", value: "Barred 2 years if the last-round seat lapses", source: mh-n24 }
+    official:
+      - { label: "NEET-UG-2026 candidate portal", url: "https://medical2026.mahacet.org/NEET-UG-2026/" }
+      - { label: "State CET Cell", url: "https://cetcell.mahacet.org/" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "One CAP for government and private MBBS and BDS seats"
+        parts:
+          - p: "The State CET Cell invites online applications from candidates who qualified in NEET (UG)-2026. Admission to Government, Government Aided, Municipal Corporation, Private Unaided and other notified medical and dental colleges is made <strong>strictly on NEET (UG)-2026 merit</strong>. Separate registration with the state is compulsory for state quota seats, even if you registered for All India Quota counselling with MCC."
+            source: mh-n03
+          - table:
+              caption: "CAP Round 1 for MBBS / BDS, 2026 (as revised)"
+              head: ["Step", "Date"]
+              rows:
+                - ["Registration and fee payment", "6 – 15 Aug 2026 (extended in step with MCC)"]
+                - ["Provisional merit list", "18 Aug 2026"]
+                - ["Final merit list and seat matrix", "21 Aug 2026"]
+            source: mh-n08
+          - p: "The CAP schedule follows the MCC All India Quota timetable and is revised whenever MCC extends its rounds."
+            source: mh-n10
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Who can apply"
+        heading: "NEET (UG)-2026 qualified, with the documents for your category"
+        parts:
+          - list:
+              - "Qualified in NEET (UG)-2026. Mere registration gives no right to admission; it depends on eligibility and document verification."
+              - "Colour scans of all original documents must be uploaded; candidates who fail to upload them are not considered in the category they claimed."
+              - "NRI candidates register first on the separate Foreign Candidate Registration Portal."
+            source: mh-n03
+          - list:
+              - "Reserved-category candidates (other than OBC and SEBC) without a Caste Validity Certificate at registration were treated as Open. In 2026, SC, VJ, DT, NT, OBC and SBC candidates who had applied for the certificate got three more months to submit it and were moved back to their category before CAP Round 2."
+            source: mh-n14
+          - note: "Out-of-state candidates who registered with false documents in 2025 were re-verified and dropped from the process."
+            source: mh-n20
+      - id: scheme
+        nav: "CAP Rounds"
+        eyebrow: "CAP rounds &amp; stray vacancy rounds"
+        heading: "Three CAP rounds, then several online stray rounds"
+        parts:
+          - list:
+              - "After three CAP rounds for MBBS / BDS, the Cell ran <strong>online stray vacancy rounds</strong> from mid-October 2026 for vacant seats in Government, Corporation, Aided, Private Unaided and Minority colleges."
+              - "Choices must be filled afresh for every stray round; choices from the earlier round become void."
+              - "Join the allotted college in person with original documents and fees by DD (NEFT / RTGS allowed in stray rounds). Each round has a last date to resign without penalty."
+            source: mh-n23
+          - list:
+              - "From 2026 the institute-level round in private colleges is cancelled; every seat is filled by the Cell through online stray rounds."
+              - "Joining a seat allotted in a stray round is compulsory. Under Clause 20 of the brochure, a candidate who does not join a last-round seat, letting it lapse, cannot be admitted for the next two years in that group."
+              - "No betterment exists after the stray round."
+            source: mh-n24
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Tuition fees"
+        heading: "₹1,67,300 a year in government colleges"
+        parts:
+          - table:
+              caption: "Government, aided and corporation colleges, 2026-27 (brochure rule 28 as amended)"
+              head: ["Course", "Annual tuition fee"]
+              rows:
+                - ["MBBS", "₹1,67,300"]
+            source: mh-n06
+          - list:
+              - "Fees in private colleges are fixed by the Fees Regulating Authority (FRA); each college publishes its quota-wise fee and bank details. Check them before you fill choices."
+            source: mh-n24
+          - note: "Colleges under the new private universities charge the fee fixed by that university's Fee Fixation Committee, and their students get no government scholarship or fee reimbursement."
+            source: mh-n11
+      - id: reservation
+        nav: "Quotas"
+        eyebrow: "Quotas &amp; private-university seats"
+        heading: "State quota, All India quota and the 40% domicile rule"
+        parts:
+          - list:
+              - "In 2026, three colleges joined new private universities (Dr. Balasaheb Vikhe Patil University, Ahilyanagar and Lata Mangeshkar University, Nagpur): Dr. Vithalrao Vikhe Patil Foundation's Medical College, N.K.P. Salve Institute of Medical Sciences and Ranjit Deshmukh Dental College."
+              - "In these colleges <strong>40%</strong> of intake is for Maharashtra domicile candidates and <strong>60%</strong> is filled on an all-India basis, of which up to 15% is for NRIs; unfilled NRI seats go all-India from CAP Round 3."
+            source: mh-n15
+          - list:
+              - "They joined from CAP Round 2, not Round 1."
+            source: mh-n11
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Upload originals, carry them to the college"
+        parts:
+          - list:
+              - "Upload colour scans of every original document during registration; verification is online."
+              - "At joining, report to the allotted college with all original documents and the fee demand draft."
+            source: mh-n03
+          - list:
+              - "Caste Validity Certificate for reserved categories (or proof of having applied, within the extended period)."
+            source: mh-n14
+      - id: pay
+        nav: "Bond &amp; Service"
+        eyebrow: "Social responsibility service"
+        heading: "BDS bond yes, MBBS bond no (2026)"
+        parts:
+          - list:
+              - "BDS students on Government / Municipal Corporation seats (GOI nominee, All India or State quota, from NEET UG 2022) must serve the Government of Maharashtra, a local body or the Defence services for <strong>one year</strong> after internship, and undertake not to leave India for five years after the degree, or pay a non-refundable ₹10,00,000 penalty."
+              - "Under a Government Resolution of 23 July 2026, <strong>MBBS</strong> graduates of government, municipal, private unaided and minority colleges in Maharashtra have <strong>no</strong> one-year social responsibility service."
+            source: mh-n06
+      - id: posting
+        nav: "After Allotment"
+        eyebrow: "After allotment"
+        heading: "Join in person, pay by DD"
+        parts:
+          - p: "After each round, allotted candidates join the college in person within the joining window with all originals and the fee. On bank holidays a cheque is accepted, but it must be replaced by a DD the next working day or the admission may be cancelled."
+            source: mh-n03
+          - links:
+              - { label: "NEET UG", url: "neet-ug.html" }
+              - { label: "MHT-CET", url: "state/maharashtra/mhtcet.html" }
+              - { label: "MBBS college finder", url: "colleges-mbbs.html" }
+    sources:
+      - { id: mh-n03, name: "State CET Cell, Maharashtra — Notice No. 03, NEET-UG-2026 registration schedule for MBBS / BDS CAP (5 Aug 2026)", url: "https://medical2026.mahacet.org/NEET-UG-2026/instructions-downloadFile/Notice%20No.03.pdf", covers: "competent authority, NEET merit, separate state registration, document upload, CAP 1 steps, joining with DD", checked: 2026-10-31 }
+      - { id: mh-n08, name: "State CET Cell — Notice No. 08, extension and revised CAP-1 schedule (14 Aug 2026)", url: "https://medical2026.mahacet.org/NEET-UG-2026/instructions-downloadFile/Notice%20No.08%20English.pdf", covers: "registration extended to 15 Aug, merit list and seat matrix dates, NRI portal", checked: 2026-10-31 }
+      - { id: mh-n10, name: "State CET Cell — Notice No. 10, revised schedule 2 for CAP-1 (19 Aug 2026)", url: "https://medical2026.mahacet.org/NEET-UG-2026/instructions-downloadFile/Notice%20No.10.pdf", covers: "schedule revised in step with MCC", checked: 2026-10-31 }
+      - { id: mh-n06, name: "State CET Cell — Notice No. 06, amendment of brochure rules 24 and 28 (10 Aug 2026)", url: "https://medical2026.mahacet.org/NEET-UG-2026/instructions-downloadFile/Notice%20No.06.pdf", covers: "BDS social service bond and ₹10 lakh penalty, no MBBS bond (GR 23 Jul 2026), government MBBS fee ₹1,67,300", checked: 2026-10-31 }
+      - { id: mh-n11, name: "State CET Cell — Notice No. 11, MBBS / BDS colleges joining private universities (25 Aug 2026)", url: "https://medical2026.mahacet.org/NEET-UG-2026/instructions-downloadFile/Notice%20No.11.pdf", covers: "three colleges out of Round 1, university fee committee, no scholarship", checked: 2026-10-31 }
+      - { id: mh-n14, name: "State CET Cell — Notice No. 14, eligibility for CAP Round 2 and Caste Validity Certificates (9 Sep 2026)", url: "https://medical2026.mahacet.org/NEET-UG-2026/instructions-downloadFile/Notice%20No.14.pdf", covers: "CVC rule, three-month extension, revised merit list", checked: 2026-10-31 }
+      - { id: mh-n15, name: "State CET Cell — Notice No. 15, private university colleges in CAP Round 2 (10 Sep 2026)", url: "https://medical2026.mahacet.org/NEET-UG-2026/instructions-downloadFile/Notice%20No.15.pdf", covers: "40% domicile / 60% all-India / 15% NRI split", checked: 2026-10-31 }
+      - { id: mh-n20, name: "State CET Cell — Notice No. 20 (2025-26), complaints about out-of-state candidates (14 Oct 2025)", url: "https://medical2026.mahacet.org/NEET-UG-2026/instructions-downloadFile/Notice%20No.20.pdf", covers: "re-verification of out-of-state registrations", checked: 2026-10-31 }
+      - { id: mh-n23, name: "State CET Cell — Notice No. 23, schedule for online stray vacancy rounds (12 Oct 2026)", url: "https://medical2026.mahacet.org/NEET-UG-2026/instructions-downloadFile/Notice%20No.23.pdf", covers: "three CAP rounds done, stray rounds, fresh choices, joining and resign-without-penalty dates", checked: 2026-10-31 }
+      - { id: mh-n24, name: "State CET Cell — Notice No. 24, instructions for stray vacancy rounds (12 Oct 2026)", url: "https://medical2026.mahacet.org/NEET-UG-2026/instructions-downloadFile/Notice%20No.24_Important%20Instruction%20regarding%20Stray%20Vacancy%20Round.pdf", covers: "institute-level round cancelled, compulsory joining, two-year bar (brochure clause 20), FRA fees, NEFT", checked: 2026-10-31 }
   # ------------------------------------------------------------------ MPSC RAJYASEVA
   - slug: mpsc
     group: civil

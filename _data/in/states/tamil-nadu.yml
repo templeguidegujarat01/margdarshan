@@ -29,7 +29,7 @@ cockpit:
     - "Tamil is the gate in both: Group IV opens with a 150-mark Tamil eligibility-cum-scoring part that you must clear before the rest of your paper is even marked, and TNUSRB has a qualifying Tamil test. 20% of posts go to Persons Studied in Tamil Medium (PSTM), and only Tamil Nadu's own communities count as SC / ST / BC / MBC. For engineering, TNEA has no entrance test at all: the rank comes from a Class 12 cut-off out of 200, and 7.5% of seats are kept for government-school students."
   facts:
     - { label: "Recruitment nodes", value: "TNPSC Group IV · TNUSRB CR" }
-    - { label: "Admission node", value: "TNEA (cut-off out of 200)" }
+    - { label: "Admission nodes", value: "TNEA (cut-off out of 200) · MBBS/BDS on NEET" }
     - { label: "Watch", value: "Group IV exam 10 Jan 2027 · Tamil test + 20% PSTM" }
     - { label: "Last checked", value: "19 Oct 2026" }
   groups:
@@ -41,8 +41,8 @@ cockpit:
     - id: academic
       eyebrow: "Academic admissions"
       heading: "Admission routes after Class 12"
-      intro: "TNEA 2026: the Directorate of Technical Education's single-window B.E. / B.Tech admission, ranked on Class 12 Maths, Physics and Chemistry."
-      exams: [tnea]
+      intro: "TNEA 2026: the Directorate of Technical Education's single-window B.E. / B.Tech admission, ranked on Class 12 Maths, Physics and Chemistry; and MBBS / BDS through the Selection Committee of the Directorate of Medical Education &amp; Research, on NEET UG score."
+      exams: [tnea, neet-ug]
   compare_note: "Fees, age limits and dates are from the latest notice of each body. They change every cycle, so always open the current notice before applying."
   portals_note: "TNPSC notifications are on tnpsc.gov.in (applications at tnpscexams.in); TNUSRB on tnusrb.tn.gov.in; TNEA on tneaonline.org and dte.tn.gov.in. Only use these official addresses."
   portals:
@@ -82,6 +82,148 @@ counselling:
     - { id: tn-r1, name: "DoTE Tamil Nadu — TNEA 2026 Round 1 General Academic Provisional Allotment List", url: "https://static.tneaonline.org/docs/TNEA-2026-ROUND-1-GENERAL-ACADEMIC-PROVISIONAL-ALLOTMENT-LIST.pdf", covers: "rank, cut-off mark, community, college code, branch and allotted category of every round-1 allotment", checked: 2026-10-23 }
 
 exams:
+  # ------------------------------------------------------------------ SELECTION COMMITTEE — MBBS / BDS (read 31 Oct 2026)
+  - slug: neet-ug
+    group: academic
+    short: "MBBS &amp; BDS Admission — Selection Committee (NEET UG)"
+    body: "Selection Committee, Directorate of Medical Education &amp; Research, Chennai"
+    card: "The Selection Committee fills 85% of government MBBS / BDS seats, government quota seats in self-financing colleges and management quota seats on NEET UG score, with Tamil Nadu's 69% reservation and a 7.5% preferential quota for government-school students. Government college MBBS costs ₹18,073 a year."
+    card_facts: ["Tamil Nadu natives", "7.5% govt-school quota", "Govt MBBS ₹18,073 / yr"]
+    eyebrow: "Selection Committee · MBBS &amp; BDS"
+    title: "Tamil Nadu NEET UG Counselling 2026 — MBBS &amp; BDS Selection, 7.5% Quota, Reservation &amp; Fees"
+    lede: "Tamil Nadu admits students to MBBS and BDS in government colleges, ESIC Medical College (K.K. Nagar), government quota seats in self-financing colleges and state private university colleges through the Selection Committee of the Directorate of Medical Education &amp; Research. This page follows the 2026-27 government quota prospectus (G.O.(D) No. 667, 5 June 2026) and the stray round notice."
+    facts:
+      - { label: "Merit", value: "NEET UG 2026 score (state rank list)", source: tn-pros }
+      - { label: "Reservation", value: "OC 31 · BC 30 · MBC 20 · SC 18 · ST 1", source: tn-pros }
+      - { label: "Govt college fee", value: "MBBS ₹18,073 · BDS ₹16,073 a year", source: tn-pros }
+      - { label: "Discontinuation fee", value: "₹10,00,000 after Round 2", source: tn-pros }
+    official:
+      - { label: "Tamil Nadu Medical Selection Committee", url: "https://tnmedicalselection.net/" }
+      - { label: "MBBS / BDS prospectus 2026-27 (government quota, PDF)", url: "https://tnmedicalselection.net/news/30062026003157.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "Single-window MBBS and BDS counselling on NEET score"
+        parts:
+          - p: "Qualified candidates register online on the Selection Committee website; the Committee does not allot any general seat manually. Selection is made on the <strong>NEET-UG 2026 score</strong> by single-window counselling, following Tamil Nadu's rule of reservation. A separate prospectus covers management quota, minority and NRI seats in self-financing colleges."
+            source: tn-pros
+          - table:
+              caption: "Seat categories"
+              head: ["Category", "Seats"]
+              rows:
+                - ["A", "85% of seats in government medical colleges"]
+                - ["A1", "ESIC Medical College, K.K. Nagar, Chennai"]
+                - ["B", "Government quota seats in self-financing medical colleges"]
+                - ["C", "85% of seats in government dental colleges"]
+                - ["D", "Government quota seats in self-financing dental colleges"]
+            source: tn-pros
+          - p: "The other 15% of seats in government medical and dental colleges and ESIC K.K. Nagar is surrendered to the All India quota."
+            source: tn-pros
+      - id: eligibility
+        nav: "Eligibility &amp; Nativity"
+        eyebrow: "Who can apply"
+        heading: "Native of Tamil Nadu, 17 years old, NEET percentile"
+        parts:
+          - list:
+              - "Indian citizen (OCI / PIO registered under Section 7A may apply, but only as open category), at least <strong>17 years</strong> old by 31 December 2026."
+              - "<strong>Native of Tamil Nadu</strong>, with a Nativity Certificate from the Tamil Nadu government. People from other states living in Tamil Nadu cannot claim nativity; a candidate who sat NEET as a native of another state cannot apply as a Tamil Nadu native; a permanent residence certificate is not accepted."
+              - "NEET-UG 2026 at the <strong>50th percentile</strong> (40th for SC, ST, OBC; 45th for unreserved PwBD), unless the Government of India lowers it."
+              - "Passed Physics, Chemistry, Biology / Biotechnology and English in Class 12."
+            source: tn-pros
+      - id: scheme
+        nav: "Counselling Rounds"
+        eyebrow: "Counselling rounds"
+        heading: "Round 1, 2, 3 and a stray round, all online"
+        parts:
+          - list:
+              - "Four rounds: Round 1, Round 2, Round 3 and the Stray Round. Register and lock choices within each round's schedule; locked choices cannot be changed."
+              - "Special categories (PwBD, eminent sports persons, children of ex-servicemen) are counselled separately; the mode and venue are announced on the website."
+              - "In Round 3 and the stray round, paying the fee and downloading the allotment order counts as joining."
+            source: tn-pros
+          - table:
+              caption: "2026 stray vacancy round"
+              head: ["Item", "Detail"]
+              rows:
+                - ["Registration &amp; choice locking", "18 – 21 Oct 2026"]
+                - ["Result", "22 Oct 2026"]
+                - ["Last date of reporting", "26 Oct 2026, 5 pm"]
+                - ["Ranks called (government quota)", "General rank 1 – 35,926 (NEET 705 – 177)"]
+                - ["Ranks called (management quota)", "General rank 1 – 26,956"]
+            source: tn-stray
+          - note: "Only candidates not holding any MBBS / BDS seat in All India or state quota could take part in the stray round."
+            source: tn-stray
+      - id: fees
+        nav: "Fees &amp; Deposit"
+        eyebrow: "Application fee, deposit &amp; tuition"
+        heading: "₹500 to apply, ₹18,073 a year in a government college"
+        parts:
+          - table:
+              caption: "Government medical and dental colleges (per year)"
+              head: ["Course", "Total", "of which tuition"]
+              rows:
+                - ["MBBS", "₹18,073", "₹6,000"]
+                - ["BDS", "₹16,073", "₹4,000"]
+            source: tn-pros
+          - list:
+              - "Application fee ₹500 (SC / SCA / ST exempt); counselling registration fee ₹500; ₹100 extra per special category claimed."
+              - "Security deposit: nil for government colleges; <strong>₹30,000</strong> for government quota seats in self-financing colleges (SC / SCA / ST with family income below ₹2.5 lakh exempt). It is forfeited if you do not join a Round 3 or later seat."
+              - "Government quota seats in self-financing dental colleges: ₹2,50,000 a year; self-financing medical college fees are fixed by the Fee Committee. ESIC K.K. Nagar: ₹1 lakh (₹24,000 for wards of insured persons)."
+            source: tn-pros
+      - id: reservation
+        nav: "Reservation"
+        eyebrow: "Rule of reservation"
+        heading: "69% communal reservation plus 7.5% for government-school students"
+        parts:
+          - table:
+              head: ["Group", "Share"]
+              rows:
+                - ["Open Competition", "31%"]
+                - ["Backward Class (incl. 3.5% for Muslims, BCM)", "30%"]
+                - ["Most Backward Class / Denotified Communities", "20%"]
+                - ["Scheduled Caste (16% of it for Arunthathiyars, SCA)", "18%"]
+                - ["Scheduled Tribe", "1%"]
+            source: tn-pros
+          - list:
+              - "<strong>7.5% special preferential quota:</strong> 7.5% of government seats in government and self-financing colleges go to students who studied Classes 6 to 12 in Tamil Nadu government schools and qualified NEET-UG 2026; unfilled seats go to private-school students."
+              - "Children of ex-servicemen (MBBS 10, BDS 1) and eminent sports persons (MBBS 13, BDS 2) have reserved seats in government colleges."
+              - "Reserved-category candidates also compete in Open Competition on rank. Unfilled SCA seats go to other SC and vice versa; unfilled ST seats go to SC."
+            source: tn-pros
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Nativity and community certificates"
+        parts:
+          - list:
+              - "Nativity Certificate (uploaded with the application only) and a Community Certificate of either parent from the Tamil Nadu revenue authority to claim reservation."
+              - "Government-school quota: bonafide certificates from the schools for Classes 6 to 12."
+              - "Special categories upload a separate form; sports candidates are verified in person."
+              - "All originals go to the Dean / Principal at admission, or the selection is cancelled."
+            source: tn-pros
+      - id: pay
+        nav: "Exit Rules"
+        eyebrow: "Discontinuation"
+        heading: "₹10 lakh if you leave late"
+        parts:
+          - list:
+              - "Discontinuing after the permitted resignation date in Round 2, or later, costs a <strong>₹10,00,000</strong> discontinuation fee by demand draft to the Secretary, Selection Committee."
+              - "Not joining a Round 3 or stray round seat also costs ₹10,00,000 plus forfeiture of the security deposit and tuition fee."
+              - "MBBS lasts 5½ years and BDS 5 years, each including a one-year internship."
+            source: tn-pros
+      - id: posting
+        nav: "After Allotment"
+        eyebrow: "After allotment"
+        heading: "Pay online, download the order, join"
+        parts:
+          - p: "An allotment gives no right to the seat until the tuition fee is paid online and the provisional allotment order is downloaded within the time limit; then the candidate joins the college with original documents and signs the discipline declaration."
+            source: tn-pros
+          - links:
+              - { label: "NEET UG", url: "neet-ug.html" }
+              - { label: "TNEA", url: "state/tamil-nadu/tnea.html" }
+              - { label: "MBBS college finder", url: "colleges-mbbs.html" }
+    sources:
+      - { id: tn-pros, name: "Selection Committee, DME&amp;R Chennai — Prospectus for MBBS / BDS in government colleges, government quota in self-financing colleges, ESIC K.K. Nagar and state private universities, 2026-27 (G.O.(D) No. 667, 5 Jun 2026)", url: "https://tnmedicalselection.net/news/30062026003157.pdf", covers: "online-only allotment, seat categories, AIQ 15%, age, nativity, percentile, rounds, joining rule, fees, deposits, reservation shares, 7.5% quota, special categories, documents, discontinuation fee, course length", checked: 2026-10-31 }
+      - { id: tn-stray, name: "Selection Committee — Tentative stray vacancy round schedule for MBBS &amp; BDS, 2026-27 (92.5%)", url: "https://tnmedicalselection.net/news/17102026232125.pdf", covers: "stray round dates, rank ranges called, who is eligible", checked: 2026-10-31 }
   # ------------------------------------------------------------------ TNPSC GROUP IV
   - slug: tnpsc-group4
     group: civil

@@ -28,7 +28,7 @@ cockpit:
     - "Three Karnataka rules decide more results than any other. Rural reservation (study from Class 1 to 10 in a rural area) and Kannada-medium reservation (Class 1 to 10 in Kannada medium) need their own certificates; candidates who have not passed Kannada as a first or second language in SSLC must clear a compulsory Kannada test for state jobs; and Kalyana-Karnataka (Article 371(J)) seats and posts need a separate eligibility certificate from the Assistant Commissioner."
   facts:
     - { label: "Recruitment nodes", value: "KPSC Gazetted Probationers · KEA VAO · Police Constable" }
-    - { label: "Admission nodes", value: "KCET (UGCET) · PGCET · KSEAB SSLC &amp; II PUC" }
+    - { label: "Admission nodes", value: "KCET (UGCET) · UGNEET · PGCET · KSEAB SSLC &amp; II PUC" }
     - { label: "Coming up", value: "KPSC GP prelims 15 Nov 2026 (tentative)" }
     - { label: "Last checked", value: "14 Oct 2026" }
   groups:
@@ -40,8 +40,8 @@ cockpit:
     - id: academic
       eyebrow: "Academic &amp; professional admissions"
       heading: "Admission routes, and the board behind them"
-      intro: "Government-quota seats in engineering, farm science, veterinary, nursing and pharmacy through KCET, MBA, MCA and M.E. / M.Tech seats through PGCET (both run by KEA), and the SSLC and II PUC exams of the Karnataka School Examination and Assessment Board (KSEAB) that most Karnataka students take."
-      exams: [kcet, pgcet, kseab]
+      intro: "Government-quota seats in engineering, farm science, veterinary, nursing and pharmacy through KCET, MBBS, BDS and AYUSH seats on NEET UG rank through UGNEET counselling, MBA, MCA and M.E. / M.Tech seats through PGCET (all run by KEA), and the SSLC and II PUC exams of the Karnataka School Examination and Assessment Board (KSEAB) that most Karnataka students take."
+      exams: [kcet, pgcet, kseab, neet-ug]
   compare_note: "Fees, age limits and dates are from the latest notice of each body. They change every cycle, so always open the current notice before applying."
   portals_note: "KPSC applications run only on kpsconline.karnataka.gov.in (one-time registration first); KEA recruitment and CET applications run on cetonline.karnataka.gov.in/kea; police notifications are posted on ksp.karnataka.gov.in and ksp-recruitment.in; board circulars are on kseab.karnataka.gov.in. Only use these official addresses."
   portals:
@@ -53,6 +53,157 @@ cockpit:
     - { label: "KSEAB (SSLC and II PUC)", url: "https://kseab.karnataka.gov.in/" }
 
 exams:
+  # ------------------------------------------------------------------ KEA UGNEET — MBBS / BDS (read 31 Oct 2026)
+  - slug: neet-ug
+    group: academic
+    short: "UGNEET — MBBS, BDS &amp; AYUSH Counselling (KEA)"
+    body: "Karnataka Examinations Authority (KEA), Bengaluru"
+    card: "KEA counsels every government, private, NRI and 'others' MBBS and BDS seat in Karnataka on NEET UG rank, plus 85% of government AYUSH seats. Government seats need 7 years of study in Karnataka; cancelling late costs up to ₹1 lakh."
+    card_facts: ["NEET UG rank", "Fee ₹750 / ₹2,500 / ₹5,000", "1-year rural service"]
+    eyebrow: "KEA · UGNEET 2026"
+    title: "Karnataka NEET UG Counselling 2026 — KEA UGNEET Seat Types, Eligibility, Fees &amp; Penalties"
+    lede: "The Karnataka Examinations Authority (KEA) runs the online counselling for all Medical and Dental seats in the state, and for UG AYUSH seats, on NEET UG merit under the CET-2006 admission rules. This page follows KEA's UGNEET-2026 Information Bulletin (24 July 2026)."
+    facts:
+      - { label: "Merit", value: "NEET UG 2026 rank", source: ka-ib }
+      - { label: "Seat types", value: "G · P · N (NRI) · Q (others)", source: ka-ib }
+      - { label: "Registration fee", value: "₹750 Karnataka · ₹2,500 others · ₹5,000 NRI", source: ka-ib }
+      - { label: "Bond", value: "1-year compulsory rural service (MBBS)", source: ka-ib }
+    official:
+      - { label: "KEA UGNEET-2026 page", url: "https://cetonline.karnataka.gov.in/kea/ugneet2026.aspx" }
+      - { label: "UGNEET-2026 Information Bulletin (PDF)", url: "https://cetonline.karnataka.gov.in/keawebentry456/ugneet2026/NEET_INFORMATION_2026kannada.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "One KEA counselling for every Medical and Dental seat"
+        parts:
+          - p: "On the state government's direction KEA runs a common counselling for UG Medical and Dental seats in Government colleges, the government share in private and minority colleges, and <strong>all seats in private colleges</strong> (KPCF, KRLMPCA, AMPCK). Following NMC's letter of 24 July 2023, every round including the stray vacancy round is held only by KEA, online."
+            source: ka-ib
+          - p: "KEA also allots 85% of the seats in government and aided AYUSH colleges (the other 15% is All India quota) and all seats in private Ayurveda, Unani and Homoeopathy colleges."
+            source: ka-ib
+          - table:
+              caption: "When you can register (2026)"
+              head: ["Stage", "New registration?"]
+              rows:
+                - ["Main registration", "17 – 24 Jul 2026"]
+                - ["Second round", "No"]
+                - ["Third (mop-up) round", "No"]
+                - ["Stray vacancy round", "Yes, on a separate schedule"]
+            source: ka-ib
+          - note: "Candidates who registered for UGCET (KCET) 2026 only add their NEET roll number to that application; no fresh registration is needed."
+            source: ka-ib
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Who can apply"
+        heading: "50% in PCB with English, NEET qualified"
+        parts:
+          - list:
+              - "Passed 2nd PUC / Class 12 with English, and at least <strong>50%</strong> in Physics, Chemistry and Biology together (<strong>40%</strong> for SC, ST, Category-1, 2A, 2B, 3A and 3B), and qualified in UGNEET-2026."
+              - "Candidates who did not pass every subject in the qualifying exam are not called for verification."
+              - "Anyone holding a medical / dental / AYUSH seat from an earlier year that was not surrendered in time, or already studying such a course, cannot get a seat in 2026."
+            source: ka-ib
+          - list:
+              - "<strong>Government seats (Clause a):</strong> studied in Karnataka for at least <strong>seven academic years</strong> between Class 1 and 2nd PUC / Class 12, and passed SSLC / Class 10 or 2nd PUC / Class 12 from Karnataka. Other clauses cover children of parents who studied 7 years in Karnataka, state and central employees, defence personnel and more."
+              - "Category reservation, rural, Kannada-medium and special categories (NCC, sports) apply only to Karnataka candidates eligible for government seats."
+            source: ka-ib
+      - id: scheme
+        nav: "Rounds &amp; Choices"
+        eyebrow: "Counselling rounds"
+        heading: "Option entry once, then Choice 1 to 4 after each round"
+        parts:
+          - list:
+              - "Register and get documents verified to receive a <strong>verification slip</strong>; only then can you enter options."
+              - "<strong>One-time option entry:</strong> options entered before Round 1 carry over to Round 2; you may delete or reorder them, and add only colleges newly added to the seat matrix."
+              - "A mock allotment comes before the real first round. Seats are allotted by option priority, merit and the roster."
+            source: ka-ib
+          - table:
+              caption: "After a Round 1 allotment"
+              head: ["Choice", "Meaning"]
+              rows:
+                - ["Choice 1", "Happy with the seat: pay the fee, take admission, leave further rounds"]
+                - ["Choice 2", "Keep the seat but try for a better one in Round 2"]
+                - ["Choice 3", "Reject the seat but stay in Round 2"]
+                - ["Choice 4", "Taken admission elsewhere: exit KEA counselling"]
+            source: ka-ib
+          - list:
+              - "Rounds: first, second, third (mop-up) and a stray vacancy round, subject to seats."
+              - "A seat taken elsewhere (another board) must be surrendered to KEA in writing before the Round 2 option deadline; not reporting does not count as surrender."
+            source: ka-ib
+      - id: fees
+        nav: "Fees &amp; Penalties"
+        eyebrow: "Registration fee &amp; surrender penalties"
+        heading: "₹750 to register, up to ₹1 lakh to quit late"
+        parts:
+          - table:
+              caption: "Registration fee"
+              head: ["Candidate", "Fee"]
+              rows:
+                - ["Karnataka (SC / ST / Cat-1 / PwD / GM / 2A / 2B / 3A / 3B)", "₹750"]
+                - ["Non-Karnataka", "₹2,500"]
+                - ["NRI Ward / NRI / OCI / PIO / foreign national", "₹5,000"]
+            source: ka-ib
+          - table:
+              caption: "Surrendering a seat"
+              head: ["When", "Deduction"]
+              rows:
+                - ["Round 1 seat, before Round 2 option deadline", "₹5,000"]
+                - ["After Round 2, before Round 3 option deadline", "₹5,000 + ₹5,000"]
+                - ["After Round 3 option deadline, before stray round", "₹1,00,000 (Medical) · ₹50,000 (Dental) · ₹25,000 (AYUSH), incl. the ₹10,000"]
+                - ["After the stray round option deadline", "One year's fee forfeited plus the same penalty"]
+            source: ka-ib
+          - note: "No surrender is accepted after the third (mop-up) round, and no one is exempt from the penalty."
+            source: ka-ib
+      - id: reservation
+        nav: "Seat Types &amp; Quotas"
+        eyebrow: "Seat classification"
+        heading: "G, P, N and Q seats"
+        parts:
+          - table:
+              caption: "Who fills what (UGNEET-2026)"
+              head: ["Seat type", "Where"]
+              rows:
+                - ["G — Government", "100% of seats in government colleges; 40% (Medical) / 35% (Dental) in private non-minority (KPCF) colleges; 25% in private minority colleges"]
+                - ["P — Private", "KPCF: 40% Medical / 45% Dental; KRLMPCA &amp; AMPCK: 55%. Half of KPCF private seats are GMP (Karnataka only), half OPN (all-India merit, Indian citizens)"]
+                - ["N — NRI", "15% of seats in KPCF, KRLMPCA and AMPCK colleges"]
+                - ["Q — Others", "5% of seats in KPCF, KRLMPCA and AMPCK colleges; open to all NEET-qualified Indians"]
+            source: ka-ib
+          - list:
+              - "In minority colleges, 66% of the private share goes to the religious / linguistic minority; of the rest, half is GMP and half OPN."
+              - "Scheduled Castes now have internal reservation (SCA, SCB, SCC); enter the RD number of a caste certificate showing it."
+              - "Kalyana-Karnataka (Hyderabad-Karnataka, Article 371 J) candidates need the Assistant Commissioner's eligibility certificate."
+            source: ka-ib
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Originals at verification"
+        parts:
+          - list:
+              - "Nothing is posted to KEA. After online registration, the categories that must attend document verification are notified, and originals are checked there."
+              - "Clause (a) needs the study certificate for the seven years in Karnataka, signed by the Block Education Officer / DDPU."
+              - "Income certificate from the Tahsildar to claim tuition fee exemption (SC / ST / Category-1); NRI Ward certificate (Annexure-6) if claimed."
+            source: ka-ib
+      - id: pay
+        nav: "Tuition &amp; Bond"
+        eyebrow: "College fees &amp; rural service"
+        heading: "Separate fee for each seat type, then a year of rural service"
+        parts:
+          - list:
+              - "Each seat type (G, P, N, Q) has its own fee, and G seats in government colleges and in private colleges are charged differently. The government order on fees is published before option entry."
+              - "Every MBBS student admitted through KEA must give an affidavit (₹100 e-stamp) and do <strong>one year of compulsory rural service</strong> in a government hospital after the course; until then only temporary registration is given."
+            source: ka-ib
+      - id: posting
+        nav: "After Allotment"
+        eyebrow: "After allotment"
+        heading: "Pay, download the order, report"
+        parts:
+          - p: "A Choice 1 candidate must pay the fee and download the admission order by the deadline; otherwise the seat is cancelled and any fee paid is forfeited. Appeals against the Executive Director's decisions go within 15 days to the Additional Chief Secretary; disputes fall under the Karnataka High Court."
+            source: ka-ib
+          - links:
+              - { label: "NEET UG", url: "neet-ug.html" }
+              - { label: "KCET", url: "state/karnataka/kcet.html" }
+              - { label: "MBBS college finder", url: "colleges-mbbs.html" }
+    sources:
+      - { id: ka-ib, name: "Karnataka Examinations Authority — UGNEET-2026 Information Bulletin for Medical, Dental and AYUSH counselling (24 Jul 2026)", url: "https://cetonline.karnataka.gov.in/keawebentry456/ugneet2026/NEET_INFORMATION_2026kannada.pdf", covers: "scope, AYUSH share, registration window and fee, academic eligibility, Clause a, seat classification and percentages, internal SC reservation, options, choices, rounds, surrender penalties, rural service, fees by seat type, appeals", checked: 2026-10-31 }
   # ------------------------------------------------------------------ KPSC GAZETTED PROBATIONERS
   - slug: kpsc
     group: civil

@@ -35,7 +35,8 @@
       '<dl class="fx-facts">' + facts + '</dl>' +
       '<div class="fx-actions"><a class="btn-exam-primary" href="' + esc(r.url) + '" target="_blank" rel="noopener noreferrer">' +
       esc(r.url_label || 'Official website') + ' ' + EXT + '<span class="sr-only"> (opens in a new tab)</span></a>' +
-      (r.body_url ? '<a class="btn-exam-secondary" href="' + esc(r.body_url) + '" target="_blank" rel="noopener noreferrer">Counselling &amp; fees ' + EXT + '<span class="sr-only"> (' + esc(r.body) + ', opens in a new tab)</span></a>' : '') +
+      (r.src_url ? '<a class="btn-exam-secondary" href="' + esc(r.src_url) + '" target="_blank" rel="noopener noreferrer">Source ' + EXT + '<span class="sr-only"> (' + esc(r.src_label) + ', opens in a new tab)</span></a>' : '') +
+      (r.body_url ?'<a class="btn-exam-secondary" href="' + esc(r.body_url) + '" target="_blank" rel="noopener noreferrer">Counselling &amp; fees ' + EXT + '<span class="sr-only"> (' + esc(r.body) + ', opens in a new tab)</span></a>' : '') +
       '</div></article>';
   }
   // Order shown everywhere: the finder's type order, then Government → Private, then A–Z. Not a ranking.

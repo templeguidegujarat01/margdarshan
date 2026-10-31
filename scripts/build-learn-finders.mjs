@@ -178,7 +178,7 @@ function page(F, rows, sid, city, entry) {
     ...(!sid ? [`      <h3 class="sl-h3">${esc(F.short)} by state</h3>`, '      <ul class="sl-links">', ...stateList.map(([s, e]) => `        <li><a href="learn/${F.id}/${s}.html">${esc(e.name)} <span>${fmt(e.n)}</span></a></li>`), '      </ul>'] : []),
     ...(old.length ? ['      <h3 class="sl-h3">Same lists, one type at a time</h3>', '      <ul class="sl-links">', ...old.map(([h, l]) => `        <li><a href="${h}">${esc(l)}</a></li>`), '      </ul>'] : []),
     ...(sid ? [`      <h3 class="sl-h3">${esc(F.short)} in other states</h3>`, '      <ul class="sl-links">', ...stateList.map(([s, e]) => `        <li><a href="learn/${F.id}/${s}.html">${esc(e.name)} <span>${fmt(e.n)}</span></a></li>`), '      </ul>'] : []),
-    `      <p class="sl-note">How this list is built: every place comes from an official register or the institute's own website; nothing is typed in by hand or ranked. State pages exist with ${STATE_MIN}+ places and city pages with ${CITY_MIN}+. Spotted a mistake? <a href="contact.html">Tell us</a>.</p>`,
+    `      <p class="sl-note">How this list is built: every place comes from an official register or the institute's own website, and local places carry a Source link to the public page we checked; nothing is ranked. State pages exist with ${STATE_MIN}+ places and city pages with ${CITY_MIN}+. Spotted a mistake? <a href="contact.html">Tell us</a>.</p>`,
     '    </div>',
     '  </section>',
     '  <section class="block mb sc-block" id="sources" aria-labelledby="sources-heading">',

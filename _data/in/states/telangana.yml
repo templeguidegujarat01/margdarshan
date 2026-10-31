@@ -4,6 +4,7 @@
 #
 # Rules for this sheet (same as the other state sheets):
 #   - Every fact part carries `source: <id>`; the id must be listed under that exam's `sources`.
+#   - TG ECET (read 2026-10-31): the ECET-2026 notification, instruction booklet and pattern of examination.
 #   - TG PGECET (read 2026-10-31): the PGECET-2026 general information, instructions, dates, schedule and paper list.
 #   - Sources are the official files themselves (read 2026-10-18): TGPSC Group-I Notification 02/2024 and Group-II
 #     Notification 28/2022 with their provisional selection notifications of September 2025; the TSLPRB police
@@ -23,11 +24,11 @@ cockpit:
   eyebrow: "State Exam &amp; Career Hub · Telangana"
   title: "Telangana Exam &amp; Career Hub"
   intro:
-    - "Every major Telangana government recruitment and admission route on one screen: TGPSC Group-I and Group-II services, police constables and Sub-Inspectors through the Telangana State Level Police Recruitment Board (TSLPRB), TG EAPCET for engineering, agriculture and pharmacy, TG PGECET for M.E. / M.Tech, and TG POLYCET for diplomas after Class 10. Each page is built only from the official notification or instruction booklet, and every fact links back to that file."
+    - "Every major Telangana government recruitment and admission route on one screen: TGPSC Group-I and Group-II services, police constables and Sub-Inspectors through the Telangana State Level Police Recruitment Board (TSLPRB), TG EAPCET for engineering, agriculture and pharmacy, TG ECET for lateral entry, TG PGECET for M.E. / M.Tech, and TG POLYCET for diplomas after Class 10. Each page is built only from the official notification or instruction booklet, and every fact links back to that file."
     - "Telangana fills 95% of its zonal and multi-zonal posts with local candidates under the Presidential Order 2018 (G.O.Ms.No.124), where 'local' depends on where you studied from Class I to VII. In admissions, 85% of seats are for local candidates of the Osmania University area. SC candidates now need certificates under the 2025 sub-classification (SC Group I, II and III), and ST reservation in jobs is 10%."
   facts:
     - { label: "Recruitment nodes", value: "TGPSC Group-I &amp; II · TG Police" }
-    - { label: "Admission nodes", value: "TG EAPCET · PGECET · POLYCET" }
+    - { label: "Admission nodes", value: "TG EAPCET · ECET · PGECET · POLYCET" }
     - { label: "Next exam", value: "Police SI prelim 29 Nov · PC 20 Dec 2026" }
     - { label: "Last checked", value: "18 Oct 2026" }
   groups:
@@ -39,8 +40,8 @@ cockpit:
     - id: academic
       eyebrow: "Academic admissions"
       heading: "Admission routes after Class 10, 12 and B.Tech"
-      intro: "B.Tech, B.Pharmacy, agriculture and allied degrees through TG EAPCET and M.E. / M.Tech, M.Pharm and M.Arch through TG PGECET (both run by JNTU Hyderabad for the Telangana Council of Higher Education), and polytechnic, agriculture and veterinary diplomas through TG POLYCET (State Board of Technical Education and Training)."
-      exams: [eapcet, pgecet, polycet]
+      intro: "B.Tech, B.Pharmacy, agriculture and allied degrees through TG EAPCET and M.E. / M.Tech, M.Pharm and M.Arch through TG PGECET (both run by JNTU Hyderabad), lateral entry to 2nd-year B.Tech for diploma holders through TG ECET (Osmania University) — all for the Telangana Council of Higher Education — and polytechnic, agriculture and veterinary diplomas through TG POLYCET (State Board of Technical Education and Training)."
+      exams: [eapcet, ecet, pgecet, polycet]
   compare_note: "Fees, age limits and dates are from the latest notification of each body. They change every cycle, so always open the current notification before applying."
   portals_note: "TGPSC notifications are on websitenew.tgpsc.gov.in (One Time Registration at otr.tgpsc.gov.in); police recruitment on tgprb.in; TG EAPCET on eapcet.tgche.ac.in; TG PGECET on pgecet.tgche.ac.in; TG POLYCET on polycet.sbtet.telangana.gov.in. Only use these official addresses."
   portals:
@@ -490,6 +491,122 @@ exams:
       - { id: tg-eap-dn, name: "JNTU Hyderabad / TGCHE — TG EAPCET-2026 Detailed Notification", url: "https://eapcet.tgche.ac.in/TGEAPCET/Doc2026/Detailed%20Notification-2026.pdf", covers: "courses, eligibility, age, normalisation, ranking rule, streams, exam dates, fees, late fees, B.Arch note", checked: 2026-10-18 }
       - { id: tg-eap-ib, name: "JNTU Hyderabad / TGCHE — TG EAPCET-2026 Instruction Booklet, Engineering (E) stream", url: "https://eapcet.tgche.ac.in/TGEAPCET/Doc2026/05%20I%20Booklet%20-%20E%20-%202026.pdf", covers: "pattern, medium, no negative marking, qualifying marks, 85% local reservation, documents, counselling", checked: 2026-10-18 }
 
+  # ------------------------------------------------------------------ TG ECET — LATERAL ENTRY B.TECH (read 31 Oct 2026)
+  - slug: ecet
+    group: academic
+    short: "TG ECET — Lateral Entry B.Tech &amp; B.Pharm"
+    body: "Osmania University, Hyderabad, for the Telangana Council of Higher Education"
+    card: "Diploma holders and B.Sc (Maths) graduates join the 2nd year of B.E. / B.Tech (and diploma holders the 2nd year of B.Pharm) in Telangana through TG ECET. ECET-2026 was held on 15 May 2026: 200 one-mark questions in 3 hours."
+    card_facts: ["200 Qs · 3 hours", "Qualify: 25% (none for SC/ST)", "Fee ₹900 · ₹500 SC/ST/PH"]
+    eyebrow: "TG ECET · Lateral entry"
+    title: "TG ECET 2026 — Lateral Entry to B.Tech, Pattern, Eligibility, Qualifying Marks & Local Seats"
+    lede: "The Telangana Engineering Common Entrance Test for Diploma and B.Sc (Mathematics) candidates (TG ECET) is held by Osmania University for the Telangana Council of Higher Education. This page follows the TG ECET-2026 notification, instruction booklet and pattern of examination."
+    facts:
+      - { label: "2026 exam", value: "15 May 2026, 9 am – 12 noon", source: ec-ib }
+      - { label: "Paper", value: "200 one-mark MCQs · 3 hours", source: ec-ib }
+      - { label: "Qualifying", value: "25% (50 of 200) · none for SC/ST", source: ec-ib }
+      - { label: "Fee", value: "₹900 · ₹500 SC/ST/PH", source: ec-not }
+    official:
+      - { label: "TG ECET website", url: "https://ecet.tgche.ac.in/" }
+      - { label: "Instruction booklet (PDF)", url: "https://ecet.tgche.ac.in/UI/Documents/Instruction%20Booklet.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "Straight into the 2nd year of B.Tech"
+        parts:
+          - list:
+              - "TG ECET-2026 is for lateral entry into the <strong>2nd year of regular B.E. / B.Tech</strong> in university and affiliated (minority and non-minority) engineering colleges of Telangana, and into the 2nd year of B.Pharm."
+              - "B.Sc (Mathematics) graduates can use it for B.E. / B.Tech but not for B.Pharm."
+              - "The test was on 15 May 2026, 9:00 am – 12 noon, in computer-based mode."
+            source: ec-ib
+          - p: "Online applications ran from 9 February to 18 April 2026 without late fee."
+            source: ec-not
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Academic eligibility"
+        heading: "Diploma or B.Sc (Maths) with 45%"
+        parts:
+          - list:
+              - "Indian nationality, and the local / unreserved status rules (G.O.Ms.No.15, Higher Education, 27 Feb 2025)."
+              - "A diploma in engineering / technology / pharmacy from SBTET Telangana or an equivalent recognised diploma, or a 3-year B.Sc with Mathematics, with at least 45% marks (40% for reserved categories)."
+              - "Final-year students of 2025-26 may apply and show the marks at admission; sandwich-diploma students must finish their practical training before counselling ends."
+              - "Your diploma branch decides which B.Tech branches you can enter (table in the booklet)."
+            source: ec-ib
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme &amp; qualifying marks"
+        heading: "200 marks in 3 hours"
+        parts:
+          - table:
+              caption: "TG ECET-2026 paper for diploma holders (engineering)"
+              head: ["Subject", "Marks"]
+              rows:
+                - ["Mathematics (common)", "50"]
+                - ["Physics (common)", "25"]
+                - ["Chemistry (common)", "25"]
+                - ["Engineering paper of your diploma branch", "100"]
+                - ["Total", "200"]
+            source: ec-pat
+          - list:
+              - "B.Sc (Mathematics) paper: Mathematics 100, Analytical Ability 50, Communicative English 50."
+              - "Pharmacy paper: Pharmaceutics, Pharmacology, Pharmacognosy and Pharmaceutical Chemistry, 50 each."
+              - "Duration 180 minutes for every paper."
+            source: ec-pat
+          - list:
+              - "All questions are multiple choice, one mark each."
+              - "Qualifying mark: 25% of the aggregate (50 of 200); no minimum for SC / ST. A rank won through this relaxation is cancelled if the caste claim fails."
+              - "Ranks are given separately for each engineering branch. Ties are broken by marks in the engineering subject, then Mathematics, then Physics; equal marks in all four are bracketed and the older candidate is preferred at admission."
+              - "B.Tech IT seats go first to IT-diploma holders and B.Tech CSE seats first to CSE-diploma holders; leftovers go to any engineering diploma on the integrated merit rank."
+            source: ec-ib
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Registration fee"
+        heading: "₹900, or ₹500 for SC / ST / PH"
+        parts:
+          - table:
+              head: ["Candidate", "Registration fee"]
+              rows:
+                - ["SC / ST / PH", "₹500"]
+                - ["All others", "₹900"]
+            source: ec-not
+      - id: reservation
+        nav: "Local Seats"
+        eyebrow: "Local / unreserved seats"
+        heading: "85% for local candidates of the OU area"
+        parts:
+          - p: "85% of the seats in each course are for local candidates of the Osmania University area; the other 15% are unreserved, open to local candidates, those who (or whose parents) lived in the state for ten years, and children or spouses of state / central government, PSU, local body and university employees working in the state."
+            source: ec-ib
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Before admission"
+        heading: "Meet the G.O. rules at admission"
+        parts:
+          - list:
+              - "Sitting the test does not give a seat by itself; you must meet the eligibility rules in force at admission."
+              - "Rank cards are downloaded from ecet.tgche.ac.in."
+            source: ec-ib
+      - id: pay
+        nav: "Costs"
+        eyebrow: "Costs"
+        heading: "Test fee only"
+        parts:
+          - p: "The notification sets only the registration fee (₹900, or ₹500 for SC / ST / PH). College fees are set at admission."
+            source: ec-not
+      - id: posting
+        nav: "After ECET"
+        eyebrow: "After the test"
+        heading: "Admission counselling"
+        parts:
+          - p: "Admission to the 2nd year follows the Telangana government's admission rules and counselling for 2026-27, using the ECET rank."
+            source: ec-ib
+          - links:
+              - { label: "TG POLYCET (diploma)", url: "state/telangana/polycet.html" }
+              - { label: "TG EAPCET", url: "state/telangana/eapcet.html" }
+    sources:
+      - { id: ec-ib, name: "Osmania University — TG ECET [FDH &amp; B.Sc. (Mathematics)]-2026 Instruction Booklet", url: "https://ecet.tgche.ac.in/UI/Documents/Instruction%20Booklet.pdf", covers: "purpose, test date and time, 200 one-mark questions, eligibility, branch mapping, qualifying marks, tie rules, 85/15 local seats", checked: 2026-10-31 }
+      - { id: ec-pat, name: "Osmania University — TG ECET-2026 Pattern of Examination", url: "https://ecet.tgche.ac.in/UI/Documents/Pattern%20of%20Examination.pdf", covers: "subject marks for diploma, B.Sc (Maths) and pharmacy papers; 180 minutes", checked: 2026-10-31 }
+      - { id: ec-not, name: "Osmania University — TG ECET-2026 Notification (5 Feb 2026)", url: "https://ecet.tgche.ac.in/UI/Documents/TG%20ECET%202026%20Notification.pdf", covers: "application window, test date, registration fee", checked: 2026-10-31 }
   # ------------------------------------------------------------------ TG PGECET — M.E. / M.TECH (read 31 Oct 2026)
   - slug: pgecet
     group: academic

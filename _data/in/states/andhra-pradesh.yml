@@ -4,6 +4,7 @@
 #
 # Rules for this sheet (same as the other state sheets):
 #   - Every fact part carries `source: <id>`; the id must be listed under that exam's `sources`.
+#   - AP ECET (read 2026-10-31): the APECET-2026 instruction booklet (V6), important-dates page and fee notice.
 #   - AP PGECET (read 2026-10-31): the APPGECET-2026 instruction booklet (V2) and examination schedule.
 #   - Sources are the official files themselves (read 2026-10-18): APPSC Notification 07/2026 (Group-I, detailed)
 #     and Brief Notification 37/2026 (Group-II); the AP State Level Police Recruitment Board's constable and
@@ -26,7 +27,7 @@ cockpit:
     - "Andhra Pradesh recruits under a new local-cadre system. The Andhra Pradesh Public Employment (Organisation of Local Cadres and Regulation of Direct Recruitment) Order, 2025 (G.O.Ms.No.45, 20 April 2026) reserves 95% of zonal and multi-zonal posts for local candidates — decided by where you studied in Classes I to VII — and the 2026 notifications divide the state's 26 districts into six zones and two multi-zones. BC, SC, ST and EWS candidates from other states get no reservation, and SC candidates now need certificates under the 2025 SC sub-classification (Groups I, II and III)."
   facts:
     - { label: "Recruitment nodes", value: "APPSC Group-I &amp; II · AP Police" }
-    - { label: "Admission node", value: "AP EAPCET · AP PGECET" }
+    - { label: "Admission node", value: "AP EAPCET · ECET · PGECET" }
     - { label: "Open now", value: "Group-I till 27 Oct · Group-II from 10 Nov 2026" }
     - { label: "Last checked", value: "18 Oct 2026" }
   groups:
@@ -38,8 +39,8 @@ cockpit:
     - id: academic
       eyebrow: "Academic admissions"
       heading: "Admission routes after Class 12 and B.Tech"
-      intro: "B.Tech, B.Pharmacy, agriculture and allied degrees through the Engineering, Agriculture and Pharmacy Common Entrance Test (AP EAPCET), held by JNTU Kakinada, and M.Tech, M.Pharm and Pharm.D (PB) through AP PGECET, held by Andhra University — both for the AP State Council of Higher Education. AP POLYCET (diploma after Class 10) is not covered: its official site was closed for 2026 when we checked."
-      exams: [eapcet, pgecet]
+      intro: "B.Tech, B.Pharmacy, agriculture and allied degrees through the Engineering, Agriculture and Pharmacy Common Entrance Test (AP EAPCET), held by JNTU Kakinada, lateral entry to 2nd-year B.Tech for diploma holders through AP ECET, held by JNTU Anantapur, and M.Tech, M.Pharm and Pharm.D (PB) through AP PGECET, held by Andhra University — both for the AP State Council of Higher Education. AP POLYCET (diploma after Class 10) is not covered: its official site was closed for 2026 when we checked."
+      exams: [eapcet, ecet, pgecet]
   compare_note: "Fees, age limits and dates are from the latest notification of each body. They change every cycle, so always open the current notification before applying."
   portals_note: "APPSC notifications and applications are on psc.ap.gov.in (portal-psc.ap.gov.in, with One Time Profile Registration at otpr-psc.ap.gov.in); police recruitment on slprb.ap.gov.in; AP EAPCET on cets.apsche.ap.gov.in. The AP POLYCET site, polycetap.ap.gov.in, was closed for 2026. Only use these official addresses."
   portals:
@@ -526,6 +527,128 @@ exams:
       - { id: eap-ib, name: "JNTU Kakinada / APSCHE — AP EAPCET-2026 Instruction Booklet, Engineering (V4)", url: "https://cets.apsche.ap.gov.in/EAPCET/PDF/APEAPCET2026_Instruction_Booklet_Engineering_V4.pdf", covers: "dates, courses, eligibility, age, pattern, medium, no negative marking, qualifying marks, 75:25 ranking, fees, documents", checked: 2026-10-18 }
       - { id: eap-local, name: "Government of AP, Higher Education Dept — G.O.Ms.No.20 (12 May 2025), local and non-local reservation (posted on the APSCHE CETs site for 2026)", url: "https://cets.apsche.ap.gov.in/apsche/PDF/2026_LocalNonlocalReservation.pdf", covers: "85% local / 15% unreserved, AU and SVU areas, local-candidate definition", checked: 2026-10-18 }
 
+  # ------------------------------------------------------------------ AP ECET — LATERAL ENTRY B.TECH (read 31 Oct 2026)
+  - slug: ecet
+    group: academic
+    short: "AP ECET — Lateral Entry B.Tech &amp; B.Pharm"
+    body: "JNTU Anantapur, for the Andhra Pradesh State Council of Higher Education (APSCHE)"
+    card: "Diploma holders and B.Sc (Maths) graduates join the 2nd year of B.E. / B.Tech in Andhra Pradesh through AP ECET, on seats 10% over the sanctioned intake. APECET-2026 was held on 23 April 2026 and results came on 7 May 2026."
+    card_facts: ["200 Qs · 200 marks", "Qualify: 25% (none for SC/ST)", "Fee ₹800 OC · ₹750 BC · ₹700 SC/ST"]
+    eyebrow: "AP ECET · Lateral entry"
+    title: "AP ECET 2026 — Lateral Entry to B.Tech, Pattern, Eligibility, Qualifying Marks & Fees"
+    lede: "The Andhra Pradesh Engineering Common Entrance Test for diploma holders and B.Sc (Mathematics) graduates (APECET) is held by JNTU Anantapur for APSCHE. This page follows the APECET-2026 instruction booklet (version 6), the important-dates page and the fee notice."
+    facts:
+      - { label: "2026 exam", value: "23 Apr 2026 · result 7 May", source: ap-ec-dates }
+      - { label: "Paper", value: "200 objective questions · 200 marks", source: ap-ec-ib }
+      - { label: "Qualifying", value: "25% (50 of 200) · none for SC/ST", source: ap-ec-ib }
+      - { label: "Fee", value: "₹800 OC · ₹750 BC · ₹700 SC/ST", source: ap-ec-fee }
+    official:
+      - { label: "APECET website", url: "https://cets.apsche.ap.gov.in/ECET/ECET/ECET_HomePage.aspx" }
+      - { label: "Instruction booklet 2026 (PDF)", url: "https://cets.apsche.ap.gov.in/ECET/PDF/APECET2026_InstructionBooklet_V6.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "2nd-year B.Tech on 10% extra seats"
+        parts:
+          - list:
+              - "APECET-2026 is for lateral admission into the <strong>2nd year of regular B.E. / B.Tech</strong> in university engineering colleges and AICTE-approved private unaided colleges of Andhra Pradesh, and into the 2nd year of B.Pharm for diploma holders."
+              - "Lateral-entry seats are <strong>10% over and above</strong> the sanctioned intake of each course."
+              - "B.Sc (Maths) graduates are considered only after all qualified diploma holders, and cannot join B.Pharm."
+            source: ap-ec-ib
+          - table:
+              caption: "APECET-2026 calendar"
+              head: ["Event", "Date"]
+              rows:
+                - ["Notification and applications open", "4 Feb 2026"]
+                - ["Last date without late fee", "12 Mar 2026"]
+                - ["Late fee slabs (₹1,000 → ₹10,000)", "16 – 28 Mar 2026"]
+                - ["Hall tickets", "9 Apr 2026"]
+                - ["Exam", "23 Apr 2026"]
+                - ["Preliminary key · objections till", "27 Apr · 29 Apr 2026 (5 pm)"]
+                - ["Result", "7 May 2026"]
+            source: ap-ec-dates
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Academic eligibility"
+        heading: "Diploma or B.Sc (Maths) with 45%"
+        parts:
+          - list:
+              - "Indian nationality, belong to Andhra Pradesh, and meet the state's local / non-local rules for 2026-27."
+              - "A diploma in engineering &amp; technology / pharmacy from SBTET Andhra Pradesh or an equivalent AICTE-approved diploma, or a 3-year B.Sc with Mathematics, with at least 45% marks (40% for BC / SC / ST)."
+              - "Final-year diploma students can sit the test if they pass all subjects before admission."
+            source: ap-ec-ib
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme &amp; qualifying marks"
+        heading: "200 marks, ranked branch by branch"
+        parts:
+          - table:
+              caption: "APECET-2026 engineering stream"
+              head: ["Subject", "Marks"]
+              rows:
+                - ["Mathematics (common)", "50"]
+                - ["Physics (common)", "25"]
+                - ["Chemistry (common)", "25"]
+                - ["Engineering paper of your diploma branch", "100"]
+                - ["Total", "200"]
+            source: ap-ec-ib
+          - list:
+              - "B.Sc (Maths) stream: Mathematics 100, Analytical Ability 50, Communicative English 50. Pharmacy stream: four sections of 50 marks."
+              - "Qualifying mark: 25% (50 of 200); no minimum for SC / ST."
+              - "Ranks are given separately for each engineering branch; any diploma holder who qualifies can enter B.Tech IT and CSE on the integrated merit rank."
+              - "Ties: engineering subject marks, then Mathematics, then Physics; equal marks in all four are bracketed and the older candidate is preferred."
+              - "Objections to the preliminary key cost ₹300 per question, refunded only for valid objections."
+            source: ap-ec-ib
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Registration fee"
+        heading: "₹700 to ₹800"
+        parts:
+          - table:
+              head: ["Category", "Registration fee"]
+              rows:
+                - ["OC", "₹800"]
+                - ["BC", "₹750"]
+                - ["SC / ST", "₹700"]
+            source: ap-ec-fee
+      - id: reservation
+        nav: "Local Status"
+        eyebrow: "Local / non-local status"
+        heading: "Andhra Pradesh's local rules apply"
+        parts:
+          - p: "Local and non-local status follows the Government of Andhra Pradesh's guidance for 2026-27; candidates must belong to the state."
+            source: ap-ec-ib
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Application details"
+        heading: "Aadhaar and Mee Seva numbers"
+        parts:
+          - list:
+              - "Aadhaar number is mandatory."
+              - "Enter the diploma / degree and Class 10 hall ticket numbers, places of study from Class 6, and Mee Seva numbers of the caste and income certificates; upload a photo (50 KB) and signature (30 KB)."
+            source: ap-ec-ib
+      - id: pay
+        nav: "Costs"
+        eyebrow: "Costs"
+        heading: "Test fee only"
+        parts:
+          - p: "The booklet covers only the registration, late and objection fees. College fees are set at admission."
+            source: ap-ec-ib
+      - id: posting
+        nav: "After ECET"
+        eyebrow: "After the test"
+        heading: "Admission under APSCHE rules"
+        parts:
+          - p: "Qualifying alone does not give a seat; admission follows the eligibility and admission rules of APSCHE and the Government of Andhra Pradesh."
+            source: ap-ec-ib
+          - links:
+              - { label: "AP EAPCET", url: "state/andhra-pradesh/eapcet.html" }
+              - { label: "AP PGECET", url: "state/andhra-pradesh/pgecet.html" }
+    sources:
+      - { id: ap-ec-ib, name: "JNTU Anantapur — APECET-2026 Instruction Booklet (V6)", url: "https://cets.apsche.ap.gov.in/ECET/PDF/APECET2026_InstructionBooklet_V6.pdf", covers: "purpose, 10% supernumerary seats, eligibility, B.Sc after diploma rule, pattern, qualifying marks, ranking, ties, objection fee, application details, fee", checked: 2026-10-31 }
+      - { id: ap-ec-dates, name: "APSCHE — APECET-2026 Important Dates page", url: "https://cets.apsche.ap.gov.in/ECET/UI/ImportantDates.aspx", covers: "application, late fee, hall ticket, exam, key and result dates", checked: 2026-10-31 }
+      - { id: ap-ec-fee, name: "APSCHE — APECET-2026 Registration Fee Details", url: "https://cets.apsche.ap.gov.in/ECET/PDF/APECET2026_Registration_Fee_Details.pdf", covers: "fee by category", checked: 2026-10-31 }
   # ------------------------------------------------------------------ AP PGECET — M.TECH (read 31 Oct 2026)
   - slug: pgecet
     group: academic

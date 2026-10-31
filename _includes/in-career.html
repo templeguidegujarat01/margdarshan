@@ -156,25 +156,6 @@
   </div>
   {%- endif %}
 
-  {%- comment -%} "Where are you now?" stage filter. Hidden until site.js (block "Stage filter") wires it up,
-      so without JavaScript the page simply shows every section. Which sections each stage hides or
-      promotes is set in site.js (STAGES), by section id, the same ids on all India pathway pages. {%- endcomment %}
-  <div class="stage-bar" data-stage-bar hidden>
-    <div class="container">
-      <div class="stage-inner">
-        <label class="stage-label" for="stage-select">Where are you now?</label>
-        <select class="fx-select stage-select" id="stage-select" data-stage-select>
-          <option value="">Show everything</option>
-          <option value="school">Class 10 or below</option>
-          <option value="hs">Class 11–12</option>
-          <option value="grad">In college</option>
-          <option value="pro">Graduate / working</option>
-        </select>
-      </div>
-      <div class="stage-out" aria-live="polite"></div>
-    </div>
-  </div>
-
   {%- comment -%} The "Journey at a glance" table (id journey) is no longer drawn on any career page (2026-10-13);
       its `journey:` rows stay in the YAML and check-in-data.mjs still validates them. {%- endcomment %}
 

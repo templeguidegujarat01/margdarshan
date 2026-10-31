@@ -27,7 +27,7 @@ cockpit:
     - "Three West Bengal rules decide more results than any other. You must be able to read, write and speak Bengali (people whose mother tongue is Nepali, or permanent residents of the Darjeeling and Kalimpong hill sub-divisions, follow separate rules). SC, ST and OBC reservation and fee concessions are only for certificates of West Bengal — candidates from other states compete as Unreserved. And the state's OBC list changed in 2026: on 18 May 2026 the Backward Classes Welfare Department withdrew the 2025 lists and notified 66 classes with 7% reservation, so every recruiting body opened edit windows for OBC candidates."
   facts:
     - { label: "Recruitment nodes", value: "WBCS · WB Police · WBSSC teachers &amp; NTS" }
-    - { label: "Admission node", value: "Polytechnic (JEXPO / VOCLET route)" }
+    - { label: "Admission nodes", value: "Polytechnic (JEXPO / VOCLET route) · MBBS/BDS (WBMCC)" }
     - { label: "Watch", value: "OBC list revised 2026 — 66 classes, 7%" }
     - { label: "Last checked", value: "18 Oct 2026" }
   groups:
@@ -39,8 +39,8 @@ cockpit:
     - id: academic
       eyebrow: "Academic &amp; diploma admissions"
       heading: "Admission routes after Class 10 and 12"
-      intro: "Diplomas in engineering and technology in West Bengal's polytechnics, admitted by the West Bengal State Council of Technical and Vocational Education and Skill Development (WBSCTVESD) — the body behind the JEXPO (first year) and VOCLET (lateral entry) tests."
-      exams: [jexpo]
+      intro: "MBBS and BDS on NEET UG rank through the West Bengal Medical Counselling Committee (WBMCC), and diplomas in engineering and technology in West Bengal's polytechnics, admitted by the West Bengal State Council of Technical and Vocational Education and Skill Development (WBSCTVESD) — the body behind the JEXPO (first year) and VOCLET (lateral entry) tests."
+      exams: [jexpo, neet-ug]
   compare_note: "Fees, age limits and dates are from the latest notice of each body that we could open. They change every cycle, so always open the current notice before applying."
   portals_note: "WBPSC notices and applications are on psc.wb.gov.in (the application portal is wbpsc.ucanapply.com); police recruitment on prb.wb.gov.in; School Service Commission tests on westbengalssc.com (notices also on old.westbengalssc.com); polytechnic admission on the Common Admission Portal admission-tetsd.wb.gov.in. Only use these official addresses."
   portals:
@@ -79,6 +79,115 @@ counselling:
     - { id: wb-orcr, name: "WBJEEB — ORCR WBJEEB 2026 Counselling (opening and closing ranks)", url: "https://admissions.nic.in/wbjeeb/Applicant/report/orcrreport.aspx?enc=yVQCIiq12npg+pcvNJRdc0HDRnuJ9gFOaCInZL4j9NW30CHtS0gho2BQTEcrr6Wa", covers: "round-wise opening / closing ranks by institute, programme, quota and category", checked: 2026-10-23 }
 
 exams:
+  # ------------------------------------------------------------------ WBMCC — MBBS / BDS (read 31 Oct 2026)
+  - slug: neet-ug
+    group: academic
+    short: "WBMCC — MBBS &amp; BDS Counselling (NEET UG)"
+    body: "West Bengal Medical Counselling Committee (WBMCC) for the Directorate of Medical Education, Kolkata"
+    card: "WBMCC fills West Bengal state quota, private college management quota and NRI quota MBBS / BDS seats on NEET UG 2026 merit. State quota needs 10 years' residence (yours or a parent's); management quota is open to all on combined rank. Private seats need a ₹2 lakh or ₹5 lakh deposit."
+    card_facts: ["10-year domicile for state quota", "Fee ₹2,000 / ₹1,500", "Deposit ₹2 L / ₹5 L (private)"]
+    eyebrow: "WBMCC · MBBS &amp; BDS"
+    title: "West Bengal NEET UG Counselling 2026 — WBMCC State Quota, Management &amp; NRI Seats, Domicile &amp; Deposits"
+    lede: "The Directorate of Medical Education, West Bengal, counsels undergraduate medical and dental state quota seats, private college management quota seats and NRI quota seats online through WBMCC. This page follows the notice-cum-information bulletin of 11 August 2026 (Memo HFW-23099/320/2026/M/2054) and the WBMCC counselling page."
+    facts:
+      - { label: "Merit", value: "NEET UG 2026 rank", source: wb-ib }
+      - { label: "State quota domicile", value: "10 years in West Bengal (you or a parent)", source: wb-ib }
+      - { label: "Counselling fee", value: "₹2,000 · ₹1,500 SC/ST/OBC/PwD/EWS", source: wb-ib }
+      - { label: "Private seat deposit", value: "₹2 lakh state quota · ₹5 lakh management", source: wb-ib }
+    official:
+      - { label: "WBMCC UG medical &amp; dental counselling", url: "https://wbmcc.nic.in/ug-medical-dental-counselling/" }
+      - { label: "Information bulletin 2026 (PDF)", url: "https://cdnbbsr.s3waas.gov.in/s3aae8d1e00b15a30e5901227e97ffbef7/uploads/2026/08/202608111455134720.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "State quota, management quota and NRI seats in one online counselling"
+        parts:
+          - p: "Candidates who qualified NEET UG 2026 at their category cut-off percentile take part in online counselling for West Bengal's UG medical and dental <strong>state quota</strong> seats, <strong>private college management quota</strong> seats and <strong>NRI quota</strong> seats. Documents are checked physically at a college before choice filling and again at admission."
+            source: wb-ib
+          - list:
+              - "The 2026 counselling ran Round 1, Round 2, Round 3 and an online stray round, with a seat matrix and allotment result published for each."
+            source: wb-page
+      - id: eligibility
+        nav: "Eligibility &amp; Domicile"
+        eyebrow: "Who can apply"
+        heading: "10 years' residence for state quota; anyone NEET-qualified for management seats"
+        parts:
+          - list:
+              - "<strong>State quota:</strong> you or your parent(s) must be domiciled in West Bengal, shown by one of the WBMCC proformas: <em>a1</em> — lived in West Bengal for at least 10 years as on 31 Dec 2025 and passed Class 10 and 12 from West Bengal; <em>a2</em> — 10 years' residence and passing 10+2 in 2026 from West Bengal; <em>b</em> — you studied outside but your parent(s) are permanent residents living in West Bengal for 10 years. An e-district domicile certificate is also accepted."
+              - "Only listed officers (District Magistrate, SDO, BDO, SP, Commissioner of Police, judicial magistrates, Deputy Director and above, etc.) may sign proforma a1 / b; certificates from councillors, panchayat members, MLAs or MPs are not accepted."
+              - "<strong>Management quota</strong> in private colleges is open to candidates not domiciled in West Bengal too, on combined NEET rank, with no caste or PwD reservation."
+              - "Class 12 with Physics, Chemistry, Biology and English passed individually, and <strong>50%</strong> in PCB for UR / EWS (40% for SC / ST / OBC). Age at least <strong>17</strong> by 31 Dec 2026."
+            source: wb-ib
+      - id: scheme
+        nav: "Rounds &amp; Exit"
+        eyebrow: "Counselling process"
+        heading: "Register, verify documents, then fill choices"
+        parts:
+          - list:
+              - "Register online and pay; the candidate profile letter gives the date, time and college for physical document verification. Choice filling is allowed only after verification."
+              - "<strong>Round 1 has a free exit</strong>: a candidate who does not report in Round 1 gets the deposit back. From Round 2 onwards, not reporting forfeits the deposit."
+              - "NRI candidates are not verified before choice filling; they are allotted directly and verified at admission, which is held at a designated government medical college in Kolkata."
+            source: wb-ib
+      - id: fees
+        nav: "Fees &amp; Deposit"
+        eyebrow: "Counselling fee &amp; security deposit"
+        heading: "₹2,000 fee; ₹2 lakh or ₹5 lakh deposit for private seats"
+        parts:
+          - table:
+              head: ["Item", "Amount"]
+              rows:
+                - ["Online counselling fee (non-refundable), unreserved", "₹2,000"]
+                - ["Online counselling fee, SC / ST / OBC / PwD / EWS", "₹1,500"]
+                - ["Security deposit to choose private college state quota seats", "₹2,00,000"]
+                - ["Security deposit to choose private college management quota seats", "₹5,00,000"]
+            source: wb-ib
+          - list:
+              - "The deposit is adjusted against the course fee if you are allotted such a seat, and returned after counselling ends if you get no seat, surrender in Round 1 or 2, or do not report in Round 1."
+              - "It is forfeited if you do not report from Round 2 on, or if any document is fake (a police FIR is also lodged)."
+            source: wb-ib
+      - id: reservation
+        nav: "Category Rules"
+        eyebrow: "Caste, EWS and PwD rules"
+        heading: "Only West Bengal certificates count for state quota"
+        parts:
+          - list:
+              - "An SC / ST / OBC / EWS certificate from another state makes you <strong>unreserved</strong> for state quota (eligible if you have the UR 50th percentile and a West Bengal domicile)."
+              - "OBC candidates need a West Bengal certificate and a non-creamy-layer certificate issued on or after 1 April 2026; otherwise they are treated as unreserved. EWS certificates too must be issued on or after 1 April 2026."
+              - "Caste certificates are checked by officers of the state's Backward Classes Welfare Department at both verifications."
+              - "PwD status must be certified through MCC's online link at the designated centres; for West Bengal the Primary Medical Assessment Board is at NRS Medical College, Kolkata."
+              - "NRI quota candidates cannot also opt for state or management quota."
+            source: wb-ib
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Originals plus self-attested copies"
+        parts:
+          - list:
+              - "State quota: profile letter and payment receipt, domicile certificate (a1 / a2 / b or e-district), two parent ID proofs with a West Bengal address if using proforma b, West Bengal caste certificate, NEET UG 2026 admit card and rank card, PwD certificate, age proof, Class 12 marksheet, medical fitness certificate from a registered practitioner."
+              - "Management quota: the same minus domicile (caste / PwD papers only for cut-off eligibility)."
+            source: wb-ib
+      - id: pay
+        nav: "College Fees"
+        eyebrow: "College fees"
+        heading: "Deposit adjusted against the fee"
+        parts:
+          - p: "The bulletin does not list tuition fees. For private college seats the ₹2 lakh / ₹5 lakh deposit is adjusted against the course fee once a seat is allotted; check the participating-institutes list and seat matrix on the WBMCC page."
+            source: wb-ib
+      - id: posting
+        nav: "After Allotment"
+        eyebrow: "After allotment"
+        heading: "Report with originals"
+        parts:
+          - p: "Insufficient or invalid documents at the college stage cancel the candidature for the whole counselling. Registration fees are never refunded."
+            source: wb-ib
+          - links:
+              - { label: "NEET UG", url: "neet-ug.html" }
+              - { label: "JEXPO", url: "state/west-bengal/jexpo.html" }
+              - { label: "MBBS college finder", url: "colleges-mbbs.html" }
+    sources:
+      - { id: wb-ib, name: "Directorate of Medical Education, West Bengal — Notice cum information bulletin for NEET UG 2026 counselling (Memo HFW-23099/320/2026/M/2054, 11 Aug 2026)", url: "https://cdnbbsr.s3waas.gov.in/s3aae8d1e00b15a30e5901227e97ffbef7/uploads/2026/08/202608111455134720.pdf", covers: "quotas, domicile proformas and signatories, management and NRI rules, deposits and refunds, caste / OBC / EWS / PwD rules, PCB marks, age, fees, documents", checked: 2026-10-31 }
+      - { id: wb-page, name: "WBMCC — UG Medical &amp; Dental Counselling page (2026 schedules, seat matrices and results)", url: "https://wbmcc.nic.in/ug-medical-dental-counselling/", covers: "Round 1–3 and online stray round documents", checked: 2026-10-31 }
   # ------------------------------------------------------------------ WBCS (EXE.) ETC.
   - slug: wbcs
     group: civil

@@ -4,6 +4,7 @@
 #
 # Rules for this sheet (same as the other state sheets):
 #   - Every fact part carries `source: <id>`; the id must be listed under that exam's `sources`.
+#   - AP PGECET (read 2026-10-31): the APPGECET-2026 instruction booklet (V2) and examination schedule.
 #   - Sources are the official files themselves (read 2026-10-18): APPSC Notification 07/2026 (Group-I, detailed)
 #     and Brief Notification 37/2026 (Group-II); the AP State Level Police Recruitment Board's constable and
 #     Sub-Inspector notifications of 16 Sep 2026; and the AP EAPCET-2026 instruction booklet and the local-status
@@ -25,7 +26,7 @@ cockpit:
     - "Andhra Pradesh recruits under a new local-cadre system. The Andhra Pradesh Public Employment (Organisation of Local Cadres and Regulation of Direct Recruitment) Order, 2025 (G.O.Ms.No.45, 20 April 2026) reserves 95% of zonal and multi-zonal posts for local candidates — decided by where you studied in Classes I to VII — and the 2026 notifications divide the state's 26 districts into six zones and two multi-zones. BC, SC, ST and EWS candidates from other states get no reservation, and SC candidates now need certificates under the 2025 SC sub-classification (Groups I, II and III)."
   facts:
     - { label: "Recruitment nodes", value: "APPSC Group-I &amp; II · AP Police" }
-    - { label: "Admission node", value: "AP EAPCET (engineering, agri, pharmacy)" }
+    - { label: "Admission node", value: "AP EAPCET · AP PGECET" }
     - { label: "Open now", value: "Group-I till 27 Oct · Group-II from 10 Nov 2026" }
     - { label: "Last checked", value: "18 Oct 2026" }
   groups:
@@ -36,9 +37,9 @@ cockpit:
       exams: [appsc, police]
     - id: academic
       eyebrow: "Academic admissions"
-      heading: "Admission routes after Class 12"
-      intro: "B.Tech, B.Pharmacy, agriculture and allied degrees through the Engineering, Agriculture and Pharmacy Common Entrance Test (AP EAPCET), held by JNTU Kakinada for the AP State Council of Higher Education. AP POLYCET (diploma after Class 10) is not covered: its official site was closed for 2026 when we checked."
-      exams: [eapcet]
+      heading: "Admission routes after Class 12 and B.Tech"
+      intro: "B.Tech, B.Pharmacy, agriculture and allied degrees through the Engineering, Agriculture and Pharmacy Common Entrance Test (AP EAPCET), held by JNTU Kakinada, and M.Tech, M.Pharm and Pharm.D (PB) through AP PGECET, held by Andhra University — both for the AP State Council of Higher Education. AP POLYCET (diploma after Class 10) is not covered: its official site was closed for 2026 when we checked."
+      exams: [eapcet, pgecet]
   compare_note: "Fees, age limits and dates are from the latest notification of each body. They change every cycle, so always open the current notification before applying."
   portals_note: "APPSC notifications and applications are on psc.ap.gov.in (portal-psc.ap.gov.in, with One Time Profile Registration at otpr-psc.ap.gov.in); police recruitment on slprb.ap.gov.in; AP EAPCET on cets.apsche.ap.gov.in. The AP POLYCET site, polycetap.ap.gov.in, was closed for 2026. Only use these official addresses."
   portals:
@@ -524,3 +525,111 @@ exams:
     sources:
       - { id: eap-ib, name: "JNTU Kakinada / APSCHE — AP EAPCET-2026 Instruction Booklet, Engineering (V4)", url: "https://cets.apsche.ap.gov.in/EAPCET/PDF/APEAPCET2026_Instruction_Booklet_Engineering_V4.pdf", covers: "dates, courses, eligibility, age, pattern, medium, no negative marking, qualifying marks, 75:25 ranking, fees, documents", checked: 2026-10-18 }
       - { id: eap-local, name: "Government of AP, Higher Education Dept — G.O.Ms.No.20 (12 May 2025), local and non-local reservation (posted on the APSCHE CETs site for 2026)", url: "https://cets.apsche.ap.gov.in/apsche/PDF/2026_LocalNonlocalReservation.pdf", covers: "85% local / 15% unreserved, AU and SVU areas, local-candidate definition", checked: 2026-10-18 }
+
+  # ------------------------------------------------------------------ AP PGECET — M.TECH (read 31 Oct 2026)
+  - slug: pgecet
+    group: academic
+    short: "AP PGECET — M.Tech, M.Pharm &amp; Pharm.D (PB)"
+    body: "Andhra University, Visakhapatnam, for the Andhra Pradesh State Council of Higher Education (APSCHE)"
+    card: "Andhra Pradesh's entrance test for M.Tech, M.Pharm and Pharm.D (Post Baccalaureate). GATE / GPAT holders are admitted first; PGECET ranks fill the rest. APPGECET-2026 was held on 28–30 April 2026 and results came on 14 May 2026."
+    card_facts: ["120 Qs · no negative marking", "Qualify: 25% (none for SC/ST)", "85% local · 15% unreserved"]
+    eyebrow: "AP PGECET · After B.Tech"
+    title: "AP PGECET 2026 — M.Tech Entrance, Pattern, Qualifying Marks, Eligibility & Local Quota"
+    lede: "The Andhra Pradesh Post Graduate Engineering Common Entrance Test (APPGECET) is conducted by Andhra University for APSCHE. This page follows the APPGECET-2026 instruction booklet (version 2) and the official examination schedule."
+    facts:
+      - { label: "2026 exam", value: "28 – 30 Apr 2026 (CBT)", source: ap-sched }
+      - { label: "Paper", value: "120 MCQs · 120 marks · no negative", source: ap-ib }
+      - { label: "Qualifying", value: "25% (30 marks) · none for SC/ST", source: ap-ib }
+      - { label: "Seats", value: "85% local · 15% unreserved", source: ap-ib }
+    official:
+      - { label: "APPGECET website", url: "https://cets.apsche.ap.gov.in/PGECET/PGECET/PGECET_HomePage.aspx" }
+      - { label: "Instruction booklet 2026 (PDF)", url: "https://cets.apsche.ap.gov.in/PGECET/PDF/APPGECET2026_InstructionBooklet_V2.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "GATE / GPAT first, then PGECET rank"
+        parts:
+          - p: "APPGECET-2026 admits students to M.Tech, M.Pharm and Pharm.D (PB) in university engineering and pharmacy colleges of Andhra Pradesh and their AICTE-approved affiliated colleges for 2026-27. <strong>GATE / GPAT-qualified candidates are given first preference</strong> on their scores; remaining seats go to APPGECET-2026 ranks."
+            source: ap-ib
+          - table:
+              caption: "APPGECET-2026 calendar"
+              head: ["Event", "Date"]
+              rows:
+                - ["Notification", "4 Feb 2026"]
+                - ["Online applications", "6 Feb – 20 Mar 2026 (late fee up to 1 Apr)"]
+                - ["Hall tickets", "15 Apr 2026"]
+                - ["Exam", "28, 29 &amp; 30 Apr 2026"]
+                - ["Preliminary key · objections till", "6 May · 8 May 2026"]
+                - ["Result", "14 May 2026"]
+            source: ap-ib
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Academic eligibility"
+        heading: "Relevant degree with 50% (45% reserved)"
+        parts:
+          - list:
+              - "Indian nationality, and the local / non-local status rules of the Government of Andhra Pradesh for 2026-27."
+              - "A relevant bachelor's degree with at least 50% marks (45% for reserved categories) from an AICTE / UGC-approved institution."
+              - "Final-year B.Tech / B.Pharm students may sit the test if they pass all subjects before counselling."
+              - "You can only be admitted to courses linked to the test paper you qualified in; the course-wise table is in the booklet."
+            source: ap-ib
+      - id: scheme
+        nav: "Exam Scheme"
+        eyebrow: "Exam scheme &amp; qualifying marks"
+        heading: "120 questions, no negative marks, 25% to qualify"
+        parts:
+          - list:
+              - "Computer-based test in English: 120 multiple-choice questions for 120 marks, <strong>no negative marking</strong>."
+              - "Qualifying mark: 25% (30 of 120); no minimum for SC / ST. A rank won through this relaxation is cancelled if the caste claim fails at admission."
+              - "Objections to the preliminary key cost ₹300 per question, refunded only for valid objections."
+              - "Test centres are held in 17 cities in Andhra Pradesh, from Srikakulam to Anantapur."
+            source: ap-ib
+          - p: "13 test papers in 2026: Biotechnology, Chemical, Civil, Computer Science &amp; IT, Electrical, Electronics &amp; Communication, Food Technology, Geo-Engineering &amp; Geo-Informatics, Instrumentation, Mechanical, Metallurgical, Nano Technology and Pharmacy."
+            source: ap-ib
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Application fee"
+        heading: "Pay online; late fees up to ₹10,000"
+        parts:
+          - list:
+              - "The registration fee is paid online (AP Online or payment gateway). To sit more than one paper, register for all of them in the same application and pay the amount shown."
+              - "Late fees: ₹1,000 (till 23 Mar), ₹2,000 (26 Mar), ₹4,000 (28 Mar), ₹10,000 (1 Apr 2026)."
+            source: ap-ib
+      - id: reservation
+        nav: "Local Quota"
+        eyebrow: "Local / non-local seats"
+        heading: "85% of seats for local candidates"
+        parts:
+          - p: "In each course 85% of seats are reserved for local candidates and 15% are unreserved, under the orders of the Government of Andhra Pradesh for 2026-27."
+            source: ap-ib
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Application details"
+        heading: "Aadhaar and Mee Seva numbers"
+        parts:
+          - list:
+              - "Aadhaar number is mandatory."
+              - "Enter the qualifying-degree and Class 10 hall ticket numbers, places of study from Class 9, and Mee Seva numbers of the caste and income certificates; upload a photo (50 KB) and signature (30 KB)."
+              - "A chosen test paper cannot be changed later."
+            source: ap-ib
+      - id: pay
+        nav: "Costs"
+        eyebrow: "Costs"
+        heading: "Test fee only"
+        parts:
+          - p: "The booklet covers only the application, late and objection fees. College fees are set at admission."
+            source: ap-ib
+      - id: posting
+        nav: "After PGECET"
+        eyebrow: "After the test"
+        heading: "Admission under APSCHE rules"
+        parts:
+          - p: "Appearing in the test does not by itself give a seat; admission follows the eligibility and rules of APSCHE and the Government of Andhra Pradesh, with GATE / GPAT holders placed first."
+            source: ap-ib
+          - links:
+              - { label: "GATE", url: "gate.html" }
+              - { label: "AP EAPCET", url: "state/andhra-pradesh/eapcet.html" }
+    sources:
+      - { id: ap-ib, name: "Andhra University — APPGECET-2026 Instruction Booklet (V2)", url: "https://cets.apsche.ap.gov.in/PGECET/PDF/APPGECET2026_InstructionBooklet_V2.pdf", covers: "dates, late fees, objection fee, eligibility, GATE/GPAT preference, 85/15 local rule, pattern, qualifying marks, papers, application details, test centres", checked: 2026-10-31 }
+      - { id: ap-sched, name: "Andhra University — APPGECET-2026 day-wise examination schedule", url: "https://cets.apsche.ap.gov.in/PGECET/PDF/APPGECET2026_ExaminationSchedule.pdf", covers: "exam dates and shifts by paper, 28–30 Apr 2026", checked: 2026-10-31 }

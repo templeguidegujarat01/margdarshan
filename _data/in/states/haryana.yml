@@ -4,6 +4,7 @@
 #
 # Rules for this sheet (same as the other state sheets):
 #   - Every fact part carries `source: <id>`; the id must be listed under that exam's `sources`.
+#   - B.E. / B.Tech (read 2026-10-31): the HSTES admission brochure for B.E./B.Tech/B.Arch 2026-27 and the portal notices.
 #   - Sources are the official files themselves (read 2026-10-19): the HPSC advertisement for the HCS (Executive
 #     Branch) & Other Allied Services Examination-2025 (Advt. 22/2026), its corrigendum and the final result of
 #     17 October 2026; the HSSC advertisement for CET Phase-II Group-C posts (Advt. 06/2026), which carries the
@@ -21,11 +22,11 @@ cockpit:
   eyebrow: "State Exam &amp; Career Hub · Haryana"
   title: "Haryana Exam &amp; Career Hub"
   intro:
-    - "Every major Haryana recruitment and admission route we could verify on one screen: the HCS (Executive Branch) &amp; Allied Services exam of the Haryana Public Service Commission (HPSC), the two-stage Common Eligibility Test (CET) route of the Haryana Staff Selection Commission (HSSC) for Group-C posts, and polytechnic diploma admission through the Haryana State Technical Education Society (HSTES). Each page is built only from the official advertisement or prospectus, and every fact links back to that file."
+    - "Every major Haryana recruitment and admission route we could verify on one screen: the HCS (Executive Branch) &amp; Allied Services exam of the Haryana Public Service Commission (HPSC), the two-stage Common Eligibility Test (CET) route of the Haryana Staff Selection Commission (HSSC) for Group-C posts, and B.Tech and polytechnic diploma admission through the Haryana State Technical Education Society (HSTES). Each page is built only from the official advertisement or prospectus, and every fact links back to that file."
     - "Haryana splits its Scheduled Castes into Deprived SC (DSC) and Other SC (OSC), and its Backward Classes into BC-A and BC-B — each with its own certificate format and date window. A central OBC or EWS certificate is not accepted, and women must take the caste certificate from the father's side. Most Group-C and D jobs also need Hindi or Sanskrit in Matric."
   facts:
     - { label: "Recruitment nodes", value: "HPSC HCS · HSSC CET Group-C" }
-    - { label: "Admission node", value: "HSTES polytechnic diploma" }
+    - { label: "Admission node", value: "HSTES B.Tech · polytechnic diploma" }
     - { label: "Watch", value: "HCS 2025 final result out (17 Oct 2026)" }
     - { label: "Last checked", value: "19 Oct 2026" }
   groups:
@@ -36,9 +37,9 @@ cockpit:
       exams: [hpsc, hssc]
     - id: academic
       eyebrow: "Academic admissions"
-      heading: "Admission routes after Class 10"
-      intro: "Three-year engineering diplomas in Haryana's government, aided and private polytechnics through HSTES online counselling — on Class 10 marks, with no entrance test."
-      exams: [diploma]
+      heading: "Admission routes after Class 10 and 12"
+      intro: "B.E. / B.Tech on JEE (Main) rank, and three-year engineering diplomas in Haryana's government, aided and private polytechnics on Class 10 marks — both through HSTES online counselling, with no state entrance test."
+      exams: [btech, diploma]
   compare_note: "Fees, age limits and dates are from the latest notice of each body. They change every cycle, so always open the current notice before applying."
   portals_note: "HPSC notices are on hpsc.gov.in; HSSC on hssc.gov.in; polytechnic admissions on hstes.org.in and techadmissionshry.gov.in. Only use these official addresses."
   portals:
@@ -47,6 +48,133 @@ cockpit:
     - { label: "Haryana State Technical Education Society (HSTES)", url: "https://hstes.org.in/" }
 
 exams:
+  # ------------------------------------------------------------------ HSTES — B.E. / B.TECH (read 31 Oct 2026)
+  - slug: btech
+    group: academic
+    short: "HSTES B.E. / B.Tech Admission 2026-27"
+    body: "Haryana State Technical Education Society (Department of Technical Education)"
+    card: "Haryana fills B.E. / B.Tech seats on JEE (Main) Paper-I rank through two online counselling rounds by HSTES; there is no state entrance test. 15% of seats are for candidates from outside Haryana, 85% are the state quota."
+    card_facts: ["JEE (Main) rank · no state test", "85% state · 15% rest of India", "Fee ₹1,000 · ₹700 reserved"]
+    eyebrow: "HSTES · B.Tech admission"
+    title: "Haryana B.E. / B.Tech Admission 2026-27 — JEE Main Merit, Eligibility, Quotas & Fees"
+    lede: "The Haryana State Technical Education Society (HSTES) runs online counselling for B.E. / B.Tech in Haryana's university departments, government colleges and private institutes. This page follows the HSTES admission brochure for B.E. / B.Tech / B.Arch, session 2026-27."
+    facts:
+      - { label: "Merit", value: "JEE (Main)-2026 Paper-I rank", source: bt-pros }
+      - { label: "Eligibility", value: "Class 12 · 45% (40% reserved)", source: bt-pros }
+      - { label: "Seat split", value: "85% Haryana · 15% rest of India", source: bt-pros }
+      - { label: "Registration fee", value: "₹1,000 · ₹700 reserved &amp; girls", source: bt-pros }
+    official:
+      - { label: "HSTES website", url: "https://hstes.org.in/" }
+      - { label: "Online admission portal", url: "https://techadmissionshry.gov.in/" }
+      - { label: "B.E./B.Tech/B.Arch brochure 2026 (PDF)", url: "https://hstes.org.in/Documents/2026/Prospectus/BE-BTech-BArch-Prospectus-2026.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "JEE (Main) rank, two online rounds"
+        parts:
+          - list:
+              - "Admission to B.E. / B.Tech — including the Tuition Fee Waiver (TFW), EWS, Kashmiri Migrant (KM) and Haryana Govt. School Topper (HGST) seats — is on the <strong>JEE (Main)-2026 Paper-I</strong> merit, through <strong>two online off-campus counselling rounds</strong> on techadmissionshry.gov.in."
+              - "The two rounds cover all seats of government university departments and engineering colleges and 75% of the seats of self-financing institutes. Private unaided institutes fill the other 25% (including up to 15% for NRI wards) at their own level."
+              - "After the 2nd round there is no more online counselling; leftover seats are filled at institute level, first on entrance-exam merit and then on qualifying-exam marks."
+              - "There is no printed application form; everything is online."
+            source: bt-pros
+          - note: "The 2026-27 rounds are over: B.E. / B.Tech registration started on 15 May 2026 and choice filling for the 1st round began on 19 June 2026 as per the revised key dates. Use this page for the 2027-28 cycle only after checking the new brochure."
+            source: bt-portal
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Academic eligibility"
+        heading: "Class 12 with 45% in the relevant subjects"
+        parts:
+          - list:
+              - "Pass 10+2 with 45% (40% for reserved categories) in the three relevant subjects taken together, as set branch by branch in the AICTE table printed in the brochure."
+              - "Most core branches (Civil, Mechanical, Chemical, Mining, Metallurgy and others) need Physics, Chemistry and Maths. Computer Science, Electrical and Electronics need Physics and Maths plus one more listed subject (such as Chemistry, Computer Science, IT, Biology or a technical vocational subject)."
+              - "Also eligible: D.Voc in the same or an allied sector, or a 3-year diploma with 45% (40% reserved) — the diploma route only against first-year vacancies once lateral-entry seats are used up."
+              - "Equal JEE (Main) ranks after NTA's tie-break go to the older candidate, then by name."
+            source: bt-pros
+      - id: scheme
+        nav: "Merit &amp; Rounds"
+        eyebrow: "How seats are allotted"
+        heading: "No state test: JEE (Main) rank is the merit"
+        parts:
+          - table:
+              caption: "Online counselling rounds"
+              head: ["Round", "Categories"]
+              rows:
+                - ["1st", "RoHC, HOGC, HGST, SC, SC-D, BC-A, BC-B, PH, ESM (all priorities) and FF, with 25% horizontal reservation for women"]
+                - ["2nd", "The same, with SC and SC-D merged into SC, BC-A and BC-B into BC, and ESM priorities merged"]
+                - ["Parallel", "Supernumerary TFW, KM and EWS seats, also on JEE (Main) rank"]
+            source: bt-pros
+          - list:
+              - "Haryana candidates register with their Parivar Pehchan Patra (PPP) ID; name, date of birth, category and income are fetched from PPP and cannot be edited, so fix them on the PPP portal first."
+              - "Candidates from other states register with Aadhaar; anyone whose Aadhaar is already in the PPP database cannot register as an other-state candidate."
+            source: bt-pros
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Registration fee"
+        heading: "₹1,000, or ₹700 for reserved categories and girls"
+        parts:
+          - table:
+              head: ["Candidate", "Online registration fee (non-refundable)"]
+              rows:
+                - ["General", "₹1,000"]
+                - ["SC / SCD / BC / PH / FF / ESM / KM / girls / EWS", "₹700"]
+            source: bt-pros
+          - note: "Only candidates who paid the registration fee can fill choices. Tuition fees of self-financing institutes are fixed by the Admission and Fee Regulatory Committee and listed on afrchry.techeduhry.gov.in; hostel rent is capped at ₹2,000 a month (₹2,500 for an AC room)."
+            source: bt-pros
+      - id: reservation
+        nav: "Reservation &amp; Quotas"
+        eyebrow: "Reservation &amp; quotas"
+        heading: "85% state quota, 15% Rest of Haryana"
+        parts:
+          - table:
+              caption: "Seat distribution in government and self-financing institutes"
+              head: ["Category", "Share"]
+              rows:
+                - ["Rest of Haryana (RoHC) — candidates from outside Haryana", "15% of intake (merged into General after the 2nd round)"]
+                - ["State quota", "85% of intake"]
+                - ["Haryana Open General (HOGC)", "50% of the state quota"]
+                - ["Scheduled Castes (half for Deprived SC in government institutions)", "20% of the state quota"]
+                - ["Backward Classes A / B", "16% / 11% of the state quota"]
+                - ["Physically handicapped", "3% of the state quota"]
+            source: bt-pros
+          - list:
+              - "3% horizontal reservation for ex-servicemen and freedom fighters' dependents (1% each out of General, SC and BC) and 25% horizontal reservation for women."
+              - "<strong>Kashmiri Migrants:</strong> 5% supernumerary seats per course, with up to 10% relaxation in the cut-off percentage."
+              - "<strong>HGST:</strong> seats for the topper (minimum 50%) of each Haryana government senior secondary school with at least 5 science students, passed in 2026."
+              - "<strong>TFW:</strong> supernumerary tuition-fee-waiver seats under the AICTE scheme, counselled alongside the general rounds."
+            source: bt-pros
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "PPP data online, originals at the institute"
+        parts:
+          - list:
+              - "Haryana candidates need not upload category, income or date-of-birth proof — it comes from PPP. Sub-category and special-category proof (ESM, FF, EWS and others) must be uploaded as PDFs."
+              - "At physical reporting the allotted institute checks the originals, including the JEE (Main)-2026 rank card and admit card."
+              - "Haryana-resident proof for children of employees uses the employer's certificate (Annexure-II)."
+            source: bt-pros
+      - id: pay
+        nav: "Costs"
+        eyebrow: "Costs &amp; support"
+        heading: "Fee caps and waivers"
+        parts:
+          - p: "Tuition-free TFW seats are counselled in parallel with the general rounds. Prospectus charges are capped at ₹1,000 once, placement brochure at ₹750 once, and uniform at ₹6,000 where an institute prescribes one."
+            source: bt-pros
+      - id: posting
+        nav: "After Allotment"
+        eyebrow: "After allotment"
+        heading: "Report to the allotted institute"
+        parts:
+          - p: "Allotted candidates report physically to the institute with original documents and pay the fee. Seats left after the 2nd round are filled by institutes with sub-categories merged into their main category, before the AICTE final cut-off date."
+            source: bt-pros
+          - links:
+              - { label: "JEE Main", url: "jee-main.html" }
+              - { label: "B.Tech college finder", url: "colleges-btech.html" }
+              - { label: "Haryana polytechnic diploma", url: "state/haryana/diploma.html" }
+    sources:
+      - { id: bt-pros, name: "HSTES — Admission Brochure for B.E. / B.Tech / B.Arch, session 2026-27", url: "https://hstes.org.in/Documents/2026/Prospectus/BE-BTech-BArch-Prospectus-2026.pdf", covers: "JEE (Main) basis, two rounds, 75/25 split, eligibility table, tie rule, PPP rules, registration fee, seat distribution, KM, HGST, TFW, horizontal reservation, fee caps, documents, key dates", checked: 2026-10-31 }
+      - { id: bt-portal, name: "HSTES — Online admission portal notice board", url: "https://techadmissionshry.gov.in/", covers: "B.E./B.Tech registration from 15 May 2026 and choice filling from 19 June 2026", checked: 2026-10-31 }
   # ------------------------------------------------------------------ HPSC — HCS & ALLIED
   - slug: hpsc
     group: civil

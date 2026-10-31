@@ -4,6 +4,7 @@
 #
 # Rules for this sheet (same as the other state sheets):
 #   - Every fact part carries `source: <id>`; the id must be listed under that exam's `sources`.
+#   - REAP (read 2026-10-31): the REAP-2026 information booklet and portal of the Centre for Electronic Governance, Jaipur.
 #   - Sources are the official files themselves (read 2026-10-18): the RPSC RAS/RTS 2026 detailed advertisement
 #     and prelim scheme, RPSC press notes, the RPSC Sub-Inspector 2025 advertisement and corrigendum, the RSSB
 #     CET (Graduation Level) 2026 and LDC 2026 detailed advertisements, the Rajasthan Police "Join the Force"
@@ -21,11 +22,11 @@ cockpit:
   eyebrow: "State Exam &amp; Career Hub · Rajasthan"
   title: "Rajasthan Exam &amp; Career Hub"
   intro:
-    - "Every major Rajasthan government recruitment route and the teacher-eligibility and board exams on one screen: the RPSC State and Subordinate Services Combined Competitive Exam (RAS/RTS), the RSSB Common Eligibility Test and the jobs it opens (Patwari, LDC / Junior Assistant and more), Rajasthan Police constable and RPSC Sub-Inspector recruitment, and BSER's REET and Secondary board exams. Each page is built only from the official advertisement or notice, and every fact links back to that file."
+    - "Every major Rajasthan government recruitment route and the teacher-eligibility and board exams on one screen: the RPSC State and Subordinate Services Combined Competitive Exam (RAS/RTS), the RSSB Common Eligibility Test and the jobs it opens (Patwari, LDC / Junior Assistant and more), Rajasthan Police constable and RPSC Sub-Inspector recruitment, BSER's REET and Secondary board exams, and REAP for B.E. / B.Tech admission. Each page is built only from the official advertisement or notice, and every fact links back to that file."
     - "Three Rajasthan rules decide more results than any other. One-Time Registration (OTR) on the SSO portal is compulsory and its fee is paid once (₹600, or ₹400 for Rajasthan's reserved categories and persons with disabilities) — but missing two exams in a financial year blocks the OTR until a ₹750 penalty is paid. SC, ST, OBC, MBC and EWS benefits go only to Rajasthan's original residents; others apply as General. And women get a 30% horizontal reservation, with 8% of it for widows and 2% for divorced women."
   facts:
     - { label: "Recruitment nodes", value: "RPSC RAS · RSSB CET &amp; LDC · Police &amp; SI" }
-    - { label: "Teacher &amp; board node", value: "REET · BSER Secondary" }
+    - { label: "Admission, teacher &amp; board", value: "REAP B.Tech · REET · BSER" }
     - { label: "Coming up", value: "RAS prelim 6 Dec 2026 · CET Graduate 1–3 Dec 2026" }
     - { label: "Last checked", value: "18 Oct 2026" }
   groups:
@@ -35,10 +36,10 @@ cockpit:
       intro: "State and subordinate service officers and Police Sub-Inspectors through the Rajasthan Public Service Commission (RPSC, Ajmer), Group-C posts through the Rajasthan Staff Selection Board (RSSB, Jaipur), and district-wise constable recruitment by Rajasthan Police."
       exams: [rpsc-ras, rsmssb, police]
     - id: academic
-      eyebrow: "Teacher eligibility &amp; board"
-      heading: "REET and the board behind it"
-      intro: "The Rajasthan Eligibility Examination for Teachers (REET) and the Secondary and Senior Secondary exams, both conducted by the Board of Secondary Education, Rajasthan (BSER, Ajmer)."
-      exams: [reet]
+      eyebrow: "Admissions, teacher eligibility &amp; board"
+      heading: "REAP, REET and the board"
+      intro: "B.E. / B.Tech admission through the Rajasthan Engineering Admission Process (REAP), and the Rajasthan Eligibility Examination for Teachers (REET) with the Secondary and Senior Secondary exams, both conducted by the Board of Secondary Education, Rajasthan (BSER, Ajmer)."
+      exams: [reap, reet]
   compare_note: "Fees, age limits and dates are from the latest notice of each body. They change every cycle, so always open the current notice before applying."
   portals_note: "RPSC and RSSB applications run only through the Recruitment Portal inside the SSO Rajasthan portal (sso.rajasthan.gov.in) after One-Time Registration; notices are on rpsc.rajasthan.gov.in and rssb.rajasthan.gov.in. Police recruitment notices are on police.rajasthan.gov.in, and BSER / REET notices on rajeduboard.rajasthan.gov.in. Only use these official addresses."
   portals:
@@ -49,6 +50,140 @@ cockpit:
     - { label: "Board of Secondary Education, Rajasthan", url: "https://rajeduboard.rajasthan.gov.in/" }
 
 exams:
+  # ------------------------------------------------------------------ REAP — B.E. / B.TECH (read 31 Oct 2026)
+  - slug: reap
+    group: academic
+    short: "REAP 2026 — Rajasthan B.E. / B.Tech Admission"
+    body: "Centre for Electronic Governance, Jaipur (for the Technical Education Department)"
+    card: "The Rajasthan Engineering Admission Process (REAP) fills B.E. / B.Tech, B.Arch and B.Plan seats through one online counselling. There is no state test: JEE (Main) rank comes first (20 percentile or more), then Class 12 percentile, then D.Voc."
+    card_facts: ["JEE (Main) first, then Class 12", "Fee ₹885 (₹750 + GST)", "15% out-of-state seats"]
+    eyebrow: "REAP · B.Tech admission"
+    title: "REAP 2026 — Rajasthan B.E. / B.Tech Admission, Merit Priority, Eligibility, Quotas & Fees"
+    lede: "The Rajasthan Engineering Admission Process (REAP) is the centralised online counselling for B.E. / B.Tech, B.Arch and B.Plan in Rajasthan's government, university and private colleges. This page follows the official REAP-2026 information booklet."
+    facts:
+      - { label: "Merit order", value: "JEE (Main) → Class 12 percentile → D.Voc", source: reap-bk }
+      - { label: "Eligibility", value: "Class 12 · 45% (40% reserved)", source: reap-bk }
+      - { label: "Registration fee", value: "₹885 (₹750 + 18% GST)", source: reap-bk }
+      - { label: "Seat acceptance", value: "₹10,000, adjusted in college fee", source: reap-bk }
+    official:
+      - { label: "REAP-2026 portal", url: "https://reaprajasthan.co.in/" }
+      - { label: "REAP-2026 information booklet (PDF)", url: "https://reaprajasthan.co.in/documents/REAP-2026_Booklet.pdf" }
+    sections:
+      - id: overview
+        nav: "Overview"
+        eyebrow: "Overview &amp; official source"
+        heading: "One online counselling, no state test"
+        parts:
+          - p: "REAP-2026 is run by the Centre for Electronic Governance, Jaipur, under powers given by the Technical Education Department, Government of Rajasthan (letter of 12 February 2026). It covers the first year of B.E. / B.Tech, B.Plan and B.Arch in autonomous state colleges, government universities and private institutes."
+            source: reap-bk
+          - table:
+              caption: "REAP-2026 rounds for B.E. / B.Tech and B.Plan"
+              head: ["Stage", "What happens"]
+              rows:
+                - ["Mock round", "Trial allotment for all candidates"]
+                - ["Rounds 1–3", "Tuition Fee Waiver (TFWS) counselling and two upward movements"]
+                - ["Round 4", "KM, PwD and Rajasthan ex-servicemen dependants, and the main round for out-of-Rajasthan candidates"]
+                - ["Round 5", "Upward movement for round 4"]
+                - ["Rounds 6–8", "Main counselling for Rajasthan candidates and two upward movements"]
+                - ["Institute level", "Internal sliding, direct admission on vacant seats, management quota"]
+            source: reap-bk
+          - note: "The 2026 cycle is over (admission withdrawal closed on 12 August 2026). Check the portal for REAP-2027."
+            source: reap-portal
+      - id: eligibility
+        nav: "Eligibility"
+        eyebrow: "Academic eligibility"
+        heading: "Class 12 with 45% in the relevant subjects"
+        parts:
+          - list:
+              - "Pass 10+2 with the subjects the AICTE table (Annexure 1.1 of the booklet) sets for the branch, with at least 45% (40% for reserved categories) in those subjects taken together; an agriculture stream qualifies for Agriculture Engineering."
+              - "Or pass a D.Voc stream (NCrF level 4) in the same or an allied sector."
+              - "Establish your eligibility before applying; REAP is not responsible for wrong information."
+            source: reap-bk
+      - id: scheme
+        nav: "Merit Priority"
+        eyebrow: "How the rank list is made"
+        heading: "JEE (Main) rank first, then Class 12 percentile"
+        parts:
+          - table:
+              caption: "B.E. / B.Tech and B.Plan rank priority"
+              head: ["Priority", "Basis"]
+              rows:
+                - ["1st", "Category-A sportspersons under the sports quota policy (with priority 2, 3 or 4)"]
+                - ["2nd", "Rank in JEE (Main) 2026 — only for a JEE (Main) score of 20 percentile or more"]
+                - ["3rd", "Percentile in Class 12 (candidates not covered by priority 2)"]
+                - ["4th", "Percentage in a state-approved D.Voc in engineering &amp; technology"]
+            source: reap-bk
+          - list:
+              - "The Class 12 percentile is worked out among REAP-2026 applicants from the same board; boards other than RBSE and CBSE are treated as CBSE."
+              - "Ties go to the older candidate, then to the one who applied earlier."
+              - "B.Arch merit: 50% Class 12 percentile (or diploma percentage) + 50% of the higher aptitude score (NATA or JEE Main Paper 2A)."
+            source: reap-bk
+      - id: fees
+        nav: "Fees"
+        eyebrow: "Fees"
+        heading: "₹885 to register, ₹10,000 to accept a seat"
+        parts:
+          - table:
+              head: ["Fee", "Amount"]
+              rows:
+                - ["Application-cum-registration (each counselling mode)", "₹885 (₹750 + 18% GST), non-refundable"]
+                - ["Seat acceptance fee (on first main allotment)", "₹10,000, adjusted against the college fee"]
+            source: reap-bk
+          - note: "At physical reporting you pay an instalment of the college fee fixed by the State Level Fees Committee."
+            source: reap-bk
+      - id: reservation
+        nav: "Reservation &amp; Quotas"
+        eyebrow: "Reservation &amp; quotas"
+        heading: "Rajasthan's state quotas, plus 15% for outside candidates"
+        parts:
+          - table:
+              caption: "Vertical reservation on state seats"
+              head: ["Category", "Share"]
+              rows:
+                - ["Scheduled Castes", "16%"]
+                - ["Scheduled Tribes (45% of it for TSP-area candidates)", "12%"]
+                - ["OBC (non-creamy layer)", "21%"]
+                - ["MBC (non-creamy layer)", "5%"]
+                - ["EWS", "10%"]
+            source: reap-bk
+          - list:
+              - "Horizontal: 30% for women in each category, 5% for persons with disabilities, 3% for dependants of ex-servicemen (half of it for girls)."
+              - "<strong>Out of Rajasthan:</strong> 15% of the intake in private colleges, self-finance courses of state autonomous colleges and government universities is for candidates without Rajasthan domicile; seats left over merge into the open category for Rajasthan candidates."
+              - "<strong>Management quota:</strong> 15% of the intake in private colleges."
+              - "<strong>Supernumerary:</strong> 5% for Kashmiri Pandits / Kashmiri migrants; Tuition Fee Waiver seats for families earning up to ₹8 lakh a year (not for B.Arch)."
+              - "Sports quota for Rajasthan-domicile candidates under the state's Technical Education sports policy."
+            source: reap-bk
+      - id: documents
+        nav: "Documents"
+        eyebrow: "Document checklist"
+        heading: "Originals at the final college"
+        parts:
+          - list:
+              - "Provisional final seat allotment letter, Class 10 and 12 (or diploma) marksheets, Aadhaar."
+              - "Category certificate (OBC within one year of registration, two-year grace with undertaking; EWS of 2024-25, 2025-26 or 2026-27), domicile certificate if applicable, income certificate (2025-26) in the state format, medical fitness certificate."
+              - "PwD candidates must have their disability verified in person at NCSC-DA, Jaipur; they are admitted only to branches it deems suitable."
+              - "All originals are deposited at the final college and returned after university enrolment."
+            source: reap-bk
+      - id: pay
+        nav: "Costs"
+        eyebrow: "Costs &amp; support"
+        heading: "Tuition Fee Waiver"
+        parts:
+          - p: "TFWS seats waive only the tuition fee set by the State Level Fee Committee, for families with income up to ₹8 lakh a year from all sources; other fees are paid by the student."
+            source: reap-bk
+      - id: posting
+        nav: "After Allotment"
+        eyebrow: "After allotment"
+        heading: "Accept online, then report in person"
+        parts:
+          - p: "After an allotment you pay the ₹10,000 seat acceptance fee online, upload the receipt and documents, and later report physically to the finally allotted college with originals. Candidates who accept a seat move up automatically in later rounds if a better choice opens."
+            source: reap-bk
+          - links:
+              - { label: "JEE Main", url: "jee-main.html" }
+              - { label: "B.Tech college finder", url: "colleges-btech.html" }
+    sources:
+      - { id: reap-bk, name: "Centre for Electronic Governance, Jaipur — REAP-2026 Information Booklet (B.E./B.Tech, B.Plan, B.Arch, session 2026-27)", url: "https://reaprajasthan.co.in/documents/REAP-2026_Booklet.pdf", covers: "conducting body, eligibility, rounds, rank priority, JEE 20-percentile rule, tie rule, B.Arch weightage, vertical and horizontal reservation, out-of-state, management, KM, TFWS, sports quota, fees, seat acceptance, documents", checked: 2026-10-31 }
+      - { id: reap-portal, name: "REAP-2026 portal — news and candidate panel", url: "https://reaprajasthan.co.in/", covers: "admission withdrawal window 8–12 Aug 2026, revised physical reporting and direct admission schedule", checked: 2026-10-31 }
   # ------------------------------------------------------------------ RPSC RAS/RTS 2026
   - slug: rpsc-ras
     group: civil

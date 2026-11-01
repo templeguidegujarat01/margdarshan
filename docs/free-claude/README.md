@@ -66,7 +66,9 @@ waise bhi robot hata deta hai.
 3. **Undo button.** Koi upload galat lage (galat jagah, fake naam): repo → **Actions** → left me **Inbox undo** →
    **Run workflow** → box me upload ka naam likho (jaise `ca-coaching--kerala`, naam `inbox/done/` me dikhta hai)
    → **Run workflow**. 2–5 minute me us upload ki saari rows site se hat jaati hain. Baaki data ko kuch nahi hota.
-4. **GitHub Pages khud bhi safe hai**: agar kabhi site build hi fail ho, to purani chalti site hi live rehti hai.
+4. **Block list**: `docs/free-claude/BLOCKED.txt` me jo naam hain (abhi ALLEN, Aakash) wo kabhi site par nahi aate,
+   chahe Claude de de. Naya naam block karna ho to us file me ek line jodo (GitHub par edit → Commit).
+5. **GitHub Pages khud bhi safe hai**: agar kabhi site build hi fail ho, to purani chalti site hi live rehti hai.
 
 ## 2 mahine ka plan (Pro ke bina)
 

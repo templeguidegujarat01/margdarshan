@@ -141,7 +141,10 @@ const GENERIC = new Set(['the', 'of', 'and', 'for', 'in', 'classes', 'class', 'i
   'campus', 'office', 'official', 'ca', 'cs', 'cma', 'by', 'sir']);
 const tokens = (name, city) => new Set(String(name).toLowerCase().replace(/\([^)]*\)/g, ' ').split(/[^a-z0-9]+/)
   .filter((w) => w && !GENERIC.has(w) && w !== cityKey(city) && cityKey(w) !== cityKey(city)));
-const looksSame = (a, b) => { if (!a.size || !b.size) return false; let n = 0; for (const w of a) if (b.has(w)) n++; return n / Math.min(a.size, b.size) >= 0.8; };
+// Brands the owner removed from the site (docs/free-claude/BLOCKED.txt, one name per line) never come back.
+const BLOCKED = fs.existsSync(path.join(root, 'docs/free-claude/BLOCKED.txt'))
+  ? rd('docs/free-claude/BLOCKED.txt').split(/\r?\n/).map((l) => l.trim()).filter((l) => l && !l.startsWith('#')) : [];
+const looksSame =(a, b) => { if (!a.size || !b.size) return false; let n = 0; for (const w of a) if (b.has(w)) n++; return n / Math.min(a.size, b.size) >= 0.8; };
 const report = [`# Inbox report — ${today}`, '', 'Written by scripts/inbox-ingest.mjs (GitHub Action "Inbox build"). Newest run only; every run is also one line per file in docs/learn-finder/LOG.md.', ''];
 const log = [];
 const move = (f, sub) => {
@@ -221,6 +224,8 @@ for (const f of files) {
     const miss = [!name && 'name', !city && 'city', !url && 'url', note.length < 12 && 'note'].filter(Boolean);
     if (miss.length) { drop.push(`${name || '(no name)'} — missing ${miss.join(', ')}`); continue; }
     const type = T.types.includes(r.type) && types.includes(r.type) ? r.type : defType;
+    const blocked = BLOCKED.find((b) => new RegExp(`\\b${b.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i').test(name));
+    if (blocked) { drop.push(`${name} (${city}) — "${blocked}" is on the owner's block list (docs/free-claude/BLOCKED.txt)`); continue; }
     if (have.has(key(name, city))) { drop.push(`${name} (${city}) — already listed`); continue; }
     if (OFFICE.test(type) && offices.has(`${type}|${cityKey(city)}`)) { drop.push(`${name} (${city}) — this city's ${type} is already listed`); continue; }
     const tk = tokens(name, city), twin = near.find((x) => x.city === cityKey(city) && looksSame(tk, x.t));

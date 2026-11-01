@@ -24,7 +24,9 @@ example `cs-coaching / delhi`.
    link, phone, result, rank or fee. Not sure → skip it. 40 real places beat 100 doubtful ones.
 3. Aim for as many real places as you can find, up to 100. Include government and free options too (state-run
    free coaching, government colleges, SAI / state sports centres) with `ownership: Government`.
-4. A brand with branches in several cities: one row per city, name like `"Brand Name — City"`.
+4. NEVER list ALLEN (Allen Career Institute) or Aakash (Aakash Institute / Aakash BYJU'S) — the site has removed
+   them on purpose. Smaller local and regional institutes are what we want most.
+   A brand with branches in several cities: one row per city, name like `"Brand Name — City"`.
 5. `note` = ONE plain sentence that the `note_src` page actually says (what it teaches, which batches, for whom).
    Never use ranking words: best, top, leading, No. 1, premier, famous, renowned.
 6. `url` = the place's own website, else its official social page, else its Google Maps / Justdial page.

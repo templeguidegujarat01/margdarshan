@@ -4,6 +4,9 @@ Ek line me: **kisi bhi Claude account (free bhi) ko `PROMPT.md` + ek line `cs-co
 file dega → woh file GitHub ke `inbox/` folder me upload karo → 2–5 minute me site par page, menu, search,
 career-page button sab apne aap.** Koi code, koi Node, koi Claude Code nahi chahiye.
 
+> Doosra kaam — **Journey Blueprint me naye careers** (Class 8 se job tak ka page): guide `JOURNEY-README.md`,
+> daily list `https://emargdarshan.com/journey-next.html`.
+
 ## Ek subject + ek state ka ek hi page (yeh system kaise kaam karta hai)
 
 | Kahan se aaye | Kahan pahunche |

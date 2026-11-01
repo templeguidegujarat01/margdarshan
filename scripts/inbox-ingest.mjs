@@ -100,6 +100,7 @@ async function alive(u) {
 // Uploads are looked for in inbox/ AND anywhere else in the repo (the owner drags an extracted ZIP onto
 // github.com: the file may land at the root or inside the ZIP's own folder). Outside inbox/ only names like
 // <topic-id>--<state-id>[--n].yml with a known topic count, and the site's own folders are never searched.
+// journey--*.yml / journey-alias--*.yml are Journey Blueprint uploads: scripts/journey-ingest.mjs reads those.
 const SKIP = new Set(['.git', '.github', 'node_modules', '_data', '_includes', '_layouts', '_archive', 'assets', 'scripts', 'docs', 'learn', 'coaching', 'colleges', 'roadmaps', 'us', 'uk', 'state', 'state-pathways', 'study-abroad', 'niche-careers', 'tables', 'redirects', 'design-system']);
 const NAME = /^([a-z0-9-]+?)--([a-z-]+)(--[^/]*)?\.(ya?ml|txt)$/i;
 const src = new Map(); // file name → absolute path
@@ -109,7 +110,7 @@ const src = new Map(); // file name → absolute path
     if (e.isDirectory()) {
       if ((depth === 0 && SKIP.has(e.name)) || p === path.join(INBOX, 'done') || p === path.join(INBOX, 'rejected') || p === path.join(INBOX, 'held') || p === path.join(INBOX, 'undone') || depth > 3) continue;
       walk(p, depth + 1);
-    } else if (/\.(ya?ml|txt)$/i.test(e.name) && (dir === INBOX || (NAME.test(e.name) && findTopic(e.name.match(NAME)[1])))) {
+    } else if (/\.(ya?ml|txt)$/i.test(e.name) && !/^journey(-alias)?--/i.test(e.name) && (dir === INBOX || (NAME.test(e.name) && findTopic(e.name.match(NAME)[1])))) {
       if (!src.has(e.name)) src.set(e.name, p);
     }
   }

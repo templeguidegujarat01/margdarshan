@@ -1,0 +1,199 @@
+JOURNEY BLUEPRINT — ONE CAREER (Education Margdarshan, emargdarshan.com)
+
+You are writing the data for ONE career page on an Indian student career website. The page is a "Journey Blueprint":
+the NATIONAL road to one career, stage by stage — Class 8, 9, 10, 11, 12, in college, graduated, working / switching
+career — with the real student doubts at each stage. A robot publishes your file automatically: it checks the
+structure and opens every link, but it cannot check facts. Students will plan their lives on this page, so every fact
+must come from an official document you actually opened. The REQUEST at the very bottom names the career.
+
+Do not ask me questions. Do the whole job, then give the file.
+
+════════ STEP 0 — Is this career already built? ════════
+The REQUEST lists "already built" blueprint ids. Decide:
+  • SAME ROAD as a built one (same entry qualification + same exam / licence / regulator, only a different job name,
+    e.g. "Railway Station Master" when "railway-ntpc" exists) → do NOT write a page. Output FORMAT B (alias) only.
+  • A specialisation with its own degree, exam, licence or recruiting body → it is a NEW road → FORMAT A.
+  • If unsure, it is a new road → FORMAT A.
+
+════════ STEP 1 — Research (turn web search ON) ════════
+Facts may come ONLY from official sources:
+  ministries and departments (.gov.in, .nic.in), recruitment and exam bodies (UPSC, SSC, RRB, IBPS, NTA, NBEMS, state-
+  neutral central bodies), statutory councils and regulators (NMC, DCI, INC, PCI, BCI, COA, ICAI, ICSI, ICMAI, DGCA,
+  DG Shipping, RCI, NCAHP, NCTE, UGC, AICTE, SEBI, IRDAI, IBBI …), skill bodies (NCVET, Skill India, sector skill
+  councils, DGT), central universities / IITs / NITs / AIIMS / national institutes (.ac.in, .edu.in, .res.in), PSUs'
+  own sites, the Gazette, India Code, PIB.
+  Wikipedia, coaching sites, news sites, Shiksha, Careers360, Collegedunia, Jagran Josh, blogs = only to FIND the
+  official file. Never cite them.
+Rules:
+  1. Use the newest notice / brochure / regulation (2026, 2025-26, or the latest one that is still in force). Open it.
+  2. NEVER type a number, date, fee, age limit, percentage, seat count, pay level or salary that you did not read on
+     the page you cite. Not found → leave it out (for pay write `pay_note` saying no official pay scale is published).
+  3. Every `url` is the exact page or PDF you read, https only. Never build or guess a URL.
+  4. NATIONAL / CENTRAL road only. No state-by-state rules, no state quotas, no state scholarship. If only states hire
+     for this job, describe the national qualification road and write ONE line in `state_rules` saying each state
+     recruits through its own commission / board.
+  5. Simple English a Class 8 student understands. Short sentences. No "best", "top", "leading", "No. 1",
+     "guaranteed", and no placeholder lines ("TBA", "will be updated", "launching later"). No coaching or college brand names. No HTML, no markdown inside text.
+  6. If the career has NO official road at all (no degree, exam, licence or certificate named by any official body),
+     still write FORMAT A using the closest official skill route (NCVET / NSQF qualification, Skill India, the
+     relevant degree's regulator) — and say plainly in `core.routes` that no licence is required.
+
+════════ STEP 2 — FORMAT A (new career) ════════
+Write ONE YAML file in exactly this shape. Keep the keys and their order. Replace every <…>.
+Counts: day 3–5 · routes 2–4 · challenges 2–4 · not_for 3 · journey 6–8 steps · doubts 15–24 in total
+(2–4 per step) · exam.facts 3–6 · multiverse 3–5 · sources 3–12.
+
+id: <lowercase-words-with-hyphens, 2–4 words, e.g. agricultural-drone-pilot>
+v: 2
+title: "<the career exactly as written after 'career:' in the REQUEST>"
+name: "<Career name (the main official route in brackets)>"
+category: <ONE of: engineering-science | medical | technology | commerce | arts | govt | diploma | iti | guides>
+search:
+  - "<5–12 short phrases a student would type that mean THIS career only>"
+keywords:
+  - "<10–30 extra search words: other job names, Hindi / Hinglish names (e.g. krishi drone pilot), course names,
+     exam names, 'how to become …', 'after 12th', 'salary', regulator name>"
+also_titles:
+  - "<titles copied EXACTLY from 'same-field titles' in the REQUEST that follow this SAME road; leave the list
+     empty ([]) if none>"
+gate: "<one line: the whole road from school to the job>"
+gate_source: <source id>
+core:
+  what:
+    text: "<2 sentences: what the job is and who regulates / hires>"
+    source: <source id>
+  day:
+    - "<a normal working day, one line each>"
+  pay:
+    - level: "<e.g. Entry (Level 6, 7th CPC)>"
+      value: "<exactly as printed, e.g. ₹35,400 – ₹1,12,400 a month>"
+      source: <source id>
+  pay_note: "<only if `pay` is empty: why no pay is printed; otherwise delete this line>"
+  routes:
+    - title: "<route name>"
+      text: "<who can take it and how>"
+      source: <source id>
+  cost_time:
+    - label: "<e.g. Course length / Exam fee>"
+      value: "<as printed>"
+      source: <source id>
+  cost_note: "<one line, e.g. fees can change — check the current notice>"
+  challenges:
+    - text: "<a real hard part, from an official rule (age limit, attempts, bond, medical standard, renewal …)>"
+      source: <source id>
+  not_for:
+    - "<who should not choose this, one line each>"
+journey:
+  - stages: [c8, c9]
+    title: "<what this stage is about>"
+    do:
+      - text: "<what to do now>"
+        source: <source id>
+    doubts:
+      - q: "<a real student question, plain text, ends with ?>"
+        a: "<1–3 sentence answer from the source>"
+        next: "<one action the student takes next>"
+        source: <source id>
+  - stages: [c10]
+    title: "<choose the stream>"
+    stream: "<which stream / subjects keep this road open>"
+    do: […]
+    doubts: […]
+  - stages: [c11, c12]
+    title: "<…>"
+    do: […]
+    exams:
+      - name: "<exam name>"
+        when: "<window as printed, e.g. Notice in Feb · exam in May>"
+        source: <source id>
+    money: [<money ids, optional>]
+    mistakes:
+      - "<a common mistake, optional>"
+    late: "<what to do if the student is late for this step, optional>"
+    doubts: […]
+  - stages: [ug]
+    …
+  - stages: [grad]
+    …
+  - stages: [work]
+    title: "<working / switching career: promotions, renewals, how someone from another job can enter>"
+    …
+board_note: "<which boards / streams are accepted — any recognised board? marks rule?>"
+board_source: <source id>
+exam:
+  name: "<the main entrance / recruitment / licence exam>"
+  body: "<who conducts it>"
+  facts:
+    - label: "<e.g. Age / Qualification / Attempts / Mode>"
+      value: "<as printed>"
+      source: <source id>
+  stages:
+    head: ["Stage", "What it is", "Rule"]
+    rows:
+      - ["<stage>", "<what>", "<rule>"]
+    source: <source id>
+state_rules:
+  - text: "<one all-India line, e.g. National route: the same rules apply in every state.>"
+    source: <source id>
+multiverse:
+  - title: "<a related career>"
+    text: "<one line why>"
+    href: "journey-<built id>.html"   # ONLY for ids in the REQUEST's "already built" list; otherwise delete this line
+money: [<every money id this career uses>]
+money_defs:
+  - id: <short-id>
+    kind: <scholarship | stipend | fee | training>
+    name: "<scheme / fee waiver / stipend name>"
+    by: "<who pays>"
+    amount: "<as printed>"
+    who: "<who gets it>"
+    apply: "<how to apply>"
+    stages: [<class ids>]
+    source: <source id>
+sources:
+  - id: <short-id, e.g. dgca-rpc>
+    name: "<Publisher — document title (number, date)>"
+    url: "<https://… exact page or PDF you read>"
+    covers: "<the facts this file gives, separated by ; >"
+    checked: <today's date, YYYY-MM-DD>
+
+Rules for the fields:
+  • Class ids: c8 c9 c10 c11 c12 ug (in college) grad (graduated) work (working / switching). Every one of
+    c8, c9, c10, c11, c12, ug, grad MUST appear in some journey step; add a `work` step too.
+  • Every `source:` is an id from your `sources` list; every source in the list is used at least once.
+  • Ready-made national money ids you may use without defining them: nmmss (NMMSS, Class 8 test, ₹1,000/month
+    Class 9–12), csss (Central Sector Scholarship after Class 12), pms-sc (Post-Matric Scholarship for SC students).
+    Put them in `money` (top level) if they fit. Other money help needs a `money_defs` entry from an official source;
+    if there is none, use only these three.
+  • `money` lists every money id used anywhere in the file (journey steps included).
+  • Doubts: different questions, never repeated, written the way a student or parent would ask
+    ("Can I become … after Commerce?", "What if I fail …?", "Is there an age limit?", "How much does it cost?",
+    "Can I do it after a diploma?", "Can a working person switch to this?").
+  • A `search` phrase must not be a single common word that fits many careers ("engineer", "officer", "manager",
+    "teacher", "doctor", "analyst"). Use 2–4 word phrases.
+
+════════ STEP 3 — Self-check before you answer ════════
+  □ id is lowercase-with-hyphens and NOT in the "already built" list.
+  □ title is copied exactly from the REQUEST.
+  □ c8 c9 c10 c11 c12 ug grad all covered; a work step exists; 15+ doubts; each doubt has q, a, next, source.
+  □ Every number in the file is on the cited page. Every url opened and real. No coaching/college brand names.
+  □ No state-by-state rules. No HTML. No "best / top / guaranteed", no placeholder lines.
+  □ multiverse href only for "already built" ids. money ids defined or one of nmmss / csss / pms-sc.
+  □ The YAML is valid: text with a colon ( : ) or # is inside "double quotes"; lists use "- ".
+
+════════ FORMAT B (same road as a built career) ════════
+alias_of: <built id from the REQUEST>
+titles:
+  - "<the requested title, exactly>"
+  - "<more titles copied exactly from 'same-field titles' that follow the same road, optional>"
+reason: "<one line: why it is the same road>"
+
+════════ STEP 4 — Give the file ════════
+  • FORMAT A → file name journey--<id>.yml        (example: journey--agricultural-drone-pilot.yml)
+  • FORMAT B → file name journey-alias--<built id>.yml
+  Create the file, put it in a ZIP with the same name (.zip), and give me the ZIP to download. Also show the full YAML
+  in one code block (so I can copy it if the ZIP does not download). Then write ONE line: the sources you could
+  not open, or "All sources opened."
+  If the answer is getting too long, shorten the doubt answers — never cut the file in the middle.
+
+════════ REQUEST ════════

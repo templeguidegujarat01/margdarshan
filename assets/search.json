@@ -2,9 +2,9 @@
 layout: null
 sitemap: false
 ---
-{%- comment -%} Site search index, built from _data/search.yml plus the verified-list state pages and directories (_data/seo_landings.yml, written by scripts/build-seo-landings.mjs), the where-to-learn finders (_data/learn_index.yml, scripts/build-learn-finders.mjs) and the USA college pages (_data/us/college_search.json, scripts/build-us-colleges.mjs). Fetched lazily by the header search (_includes/career-search.html).
+{%- comment -%} Site search index, built from _data/search.yml plus the verified-list state pages and directories (_data/seo_landings.yml, written by scripts/build-seo-landings.mjs), the where-to-learn finders (_data/learn_index.yml, scripts/build-learn-finders.mjs), the Journey Blueprint pages not listed by hand (_data/in/journey_search.yml, scripts/build-journey-pages.mjs) and the USA college pages (_data/us/college_search.json, scripts/build-us-colleges.mjs). Fetched lazily by the header search (_includes/career-search.html).
 One subject = one list (2026-11-01): an entry that opens the old coaching / college finder for a key a where-to-learn finder now owns (_data/learn_index.yml routes, e.g. "CA Coaching" → coaching.html?stream=commerce&exam=ca) is pointed straight at that finder's State box (learn/ca.html?pick=state), with or without the ?stream= part. {%- endcomment -%}
-{%- assign search_items = site.data.search.items | concat: site.data.seo_landings.search | concat: site.data.learn_index.search | concat: site.data.us.college_search -%}
+{%- assign search_items = site.data.search.items | concat: site.data.seo_landings.search | concat: site.data.learn_index.search | concat: site.data.in.journey_search.items | concat: site.data.us.college_search -%}
 {%- capture search_json -%}{{ search_items | jsonify }}{%- endcapture -%}
 {%- for kind in site.data.learn_index.routes -%}
   {%- if kind[0] == "colleges" -%}{%- assign sj_page = "colleges.html" -%}{%- assign sj_param = "course" -%}{%- else -%}{%- assign sj_page = "coaching.html" -%}{%- assign sj_param = "exam" -%}{%- endif -%}

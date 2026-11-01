@@ -79,7 +79,7 @@
       <div class="meta-row">
         <span>Class 8 to working life</span>
         {%- if nq > 0 %}<span>·</span><span>{{ nq }} student doubts answered</span>{% endif %}
-        <span>·</span><span>Last checked {{ JM.checked | date: "%-d %b %Y" }}</span>
+        <span>·</span><span>Last checked {{ C.checked | default: JM.checked | date: "%-d %b %Y" }}</span>
       </div>
       <p><strong>The one-line route:</strong> {{ C.gate }}{% include journey-ref.html s=C.gate_source %}</p>
       <form class="jb-controls jc-controls" aria-label="Show the road from your class" onsubmit="return false">
@@ -95,7 +95,10 @@
         <p class="jc-status" id="jcStatus" aria-live="polite">Pick your class and the road below starts where you stand.</p>
       </form>
       <div class="page-hero-ctas">
+        {%- assign own_page = "journey-" | append: C.id | append: ".html" %}
+        {%- if C.page != own_page %}
         <a href="{{ C.page }}" class="btn btn-ghost btn-page-link">Full career guide</a>
+        {%- endif %}
         {%- if C.roadmap %}
         <a href="{{ C.roadmap }}" class="btn btn-ghost btn-page-link">Step-by-step roadmap</a>
         {%- endif %}

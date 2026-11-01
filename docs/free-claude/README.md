@@ -41,6 +41,9 @@ verified pages dikhate hain; jaise hi aap us topic ki **pehli** file upload karo
    `https://emargdarshan.com/learn/<finder>/<state>.html`.
    Red ✘ aaye to Actions me us run ko kholo, error copy karke kisi bhi Claude chat ko do (ya Pro aane par Claude Code ko).
 
+Claude jawab ke neeche likhta hai kaunse shehar/district abhi baaki hain. Agli chat me request line ke neeche
+likho `start with: Darbhanga, Purnia, Saharsa` — wo wahin se shuru karega.
+
 Ek hi topic+state dobara karna ho (aur jagah add karne)? Site ka us state ka page kholo, naam copy karo, aur
 prompt ke end me likho: `ALREADY LISTED (skip these): <naam>` — phir request line. Duplicate (same naam + city)
 waise bhi robot hata deta hai.

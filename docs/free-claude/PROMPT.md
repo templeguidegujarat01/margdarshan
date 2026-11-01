@@ -16,25 +16,66 @@ example `cs-coaching / delhi`.
 
 ## What to do
 
-1. Use web search a lot. Look in the state's capital and its 6–10 biggest cities first, then district towns.
-   Good sources: the place's own website, its Instagram / Facebook / YouTube page, Google Maps, Justdial, Sulekha,
-   Collegedunia, Shiksha, newspapers, Reddit / Quora threads, and official lists (government, regulator, university,
-   state sports department, SAI, ICAI / ICSI / ICMAI branch pages).
-2. List a place ONLY if a page you actually opened shows it exists in that city. Never invent a name, address,
-   link, phone, result, rank or fee. Not sure → skip it. 40 real places beat 100 doubtful ones.
-3. Aim for as many real places as you can find, up to 100. Include government and free options too (state-run
-   free coaching, government colleges, SAI / state sports centres) with `ownership: Government`.
-4. NEVER list ALLEN (Allen Career Institute) or Aakash (Aakash Institute / Aakash BYJU'S) — the site has removed
-   them on purpose. Smaller local and regional institutes are what we want most.
-   A brand with branches in several cities: one row per city, name like `"Brand Name — City"`.
-5. `note` = ONE plain sentence that the `note_src` page actually says (what it teaches, which batches, for whom).
-   Never use ranking words: best, top, leading, No. 1, premier, famous, renowned.
-6. `url` = the place's own website, else its official social page, else its Google Maps / Justdial page.
-   Full links starting with https:// that you saw — no shortened or guessed links. Our robot opens every link and
-   throws away rows whose link does not exist.
-7. `type` must be one of the types listed for the topic below (copy it exactly). `ownership` is one of:
-   Government, Grant-in-Aid, Statutory body, Deemed, Private.
-8. City names: the common English spelling (Ahmedabad, Vadodara, Bengaluru, Thiruvananthapuram).
+Our site already has the big national chains. **What students cannot find anywhere is the LOCAL place**: the
+single-city institute, the teacher who runs batches from one building, the district-town academy, the state-run free
+centre, the club behind the stadium. Finding those is the whole job. Work hard and dig deep.
+
+### Rule 1 — local first (the most important rule)
+
+- At least **70% of your rows must be local**: one-city or one-district institutes, private classes, small
+  academies, government / free centres. Count them before you answer.
+- National or multi-state chains (Physics Wallah / PW Vidyapeeth, Vedantu, Unacademy, FIITJEE, Resonance, Motion,
+  Narayana, Sri Chaitanya, Byju's, IMS, T.I.M.E., Career Launcher, JK Shah, Made Easy, Vision IAS and similar):
+  **at most 10 rows in total**, only if a branch page proves that city. We mostly have them already.
+- NEVER list ALLEN (Allen Career Institute) or Aakash (Aakash Institute / Aakash BYJU'S) — removed on purpose.
+- A brand with branches in several cities: one row per city, name like `"Brand Name — City"`.
+
+### Rule 2 — search in rounds, city by city, area by area
+
+Do not stop after the first page of results. Go round by round and keep going until you reach 100 places or new
+searches stop showing new names:
+
+1. **Round 1 — big cities.** The state capital and its 6–10 biggest cities / education hubs.
+2. **Round 2 — localities.** In each big city, search 3–5 student areas by name (e.g. Patna: Boring Road,
+   Kankarbagh, Ashok Rajpath; Ahmedabad: Navrangpura, Maninagar, Satellite). Local classes cluster there.
+3. **Round 3 — district towns.** Every district headquarters of the state you can reach, one by one.
+
+For EACH city or area, run several different searches, for example (replace the words):
+- `<subject> coaching in <city>` · `<subject> classes <area> <city>` · `<subject> tuition <city>`
+- `best <subject> classes <city> justdial` / `sulekha` / `urbanpro` (open the listing pages, read every name)
+- `<subject> academy <city> instagram` · `<subject> classes <city> youtube` · `<subject> sir <city>`
+- the same in the state's language and in Hindi, e.g. `<city> me <subject> coaching`, `<subject> classes
+  <city> ગુજરાતી` / `मराठी` / `বাংলা` / `தமிழ்` …
+- local news: `<city> <subject> toppers institute`, `<city> <subject> result felicitation` (local papers print
+  the names of local institutes)
+- free / government: `free <subject> coaching <state> government`, `<state> scheme free coaching centre list`,
+  `<city> district <subject> free classes`
+
+Where the local places are listed (open these and read every name, then confirm each place):
+- Justdial, Sulekha, UrbanPro, Google Maps search results, Collegedunia / Shiksha city lists
+- Instagram, Facebook and YouTube pages of local teachers and classes (bio usually shows the address)
+- local newspaper sites (results, admissions, advertisements), city subreddits, Quora answers by local students
+- official lists: state government / district websites, universities' affiliated-college lists, state technical
+  education lists, state sports department and district sports offices, SAI centres, ICAI / ICSI / ICMAI branches
+  and chapters, state / district sports associations and their affiliated clubs
+
+### Rule 3 — only real places
+
+- List a place ONLY if a page you actually opened shows it exists in that city. Never invent a name, address,
+  link, phone, result, rank or fee. Not sure → skip it.
+- `note` = ONE plain sentence that the `note_src` page actually says (what it teaches, which batches, for whom).
+  Never use ranking words: best, top, leading, No. 1, premier, famous, renowned.
+- `url` = the place's own website, else its official Instagram / Facebook / YouTube page, else its Google Maps /
+  Justdial / Sulekha / UrbanPro page. Full links starting with https:// that you saw — no shortened or guessed
+  links. Our robot opens every link and throws away rows whose link does not exist.
+- `type` must be one of the types listed for the topic below (copy it exactly). `ownership` is one of:
+  Government, Grant-in-Aid, Statutory body, Deemed, Private. Government / free centres: `Government`.
+- City names: the common English spelling (Ahmedabad, Vadodara, Bengaluru, Thiruvananthapuram).
+
+### Rule 4 — check yourself before you answer
+
+Count: total rows, local rows, chain rows, cities covered. If local is under 70%, or you covered fewer than 8 cities
+/ towns, go back and search more (Round 2 and Round 3) before giving the file.
 
 ## Output — exactly this
 
@@ -43,8 +84,10 @@ example `cs-coaching / delhi`.
   no other folder around it, no other files. Name the ZIP `<topic>--<state>.zip` and give me the download.
 - ALSO show the same content as ONE YAML code block (file name on the line above it), in case the ZIP fails.
 - If you run out of room: stop after a complete row and write `PART 1 done — say "continue"`. When I say
-  continue, give a NEW file `<topic>--<state>--2.yml` (then `--3`, …) with the same header and ONLY new rows.
-- Then, below the code block, one short line: how many places per city, and which big cities you could not cover.
+  continue, give a NEW file `<topic>--<state>--2.yml` (then `--3`, …) with the same header and ONLY new rows —
+  continue the rounds where you stopped (next localities, next district towns), never repeat a place.
+- Then, below the code block, one short line: total, how many local vs chain, how many per city, and which cities
+  or districts you could not cover yet (so the next chat can start there).
 
 ```yaml
 topic: cs-coaching            # topic id from the list below, exactly
@@ -232,5 +275,11 @@ rows:
 `andaman-nicobar` (Andaman & Nicobar Islands) · `andhra-pradesh` (Andhra Pradesh) · `arunachal-pradesh` (Arunachal Pradesh) · `assam` (Assam) · `bihar` (Bihar) · `chandigarh` (Chandigarh) · `chhattisgarh` (Chhattisgarh) · `dnh-dd` (Dadra & Nagar Haveli and Daman & Diu) · `delhi` (Delhi NCR) · `goa` (Goa) · `gujarat` (Gujarat) · `haryana` (Haryana) · `himachal-pradesh` (Himachal Pradesh) · `jammu-kashmir` (Jammu & Kashmir) · `jharkhand` (Jharkhand) · `karnataka` (Karnataka) · `kerala` (Kerala) · `ladakh` (Ladakh) · `lakshadweep` (Lakshadweep) · `madhya-pradesh` (Madhya Pradesh) · `maharashtra` (Maharashtra) · `manipur` (Manipur) · `meghalaya` (Meghalaya) · `mizoram` (Mizoram) · `nagaland` (Nagaland) · `odisha` (Odisha) · `puducherry` (Puducherry) · `punjab` (Punjab) · `rajasthan` (Rajasthan) · `sikkim` (Sikkim) · `tamil-nadu` (Tamil Nadu) · `telangana` (Telangana) · `tripura` (Tripura) · `uttar-pradesh` (Uttar Pradesh) · `uttarakhand` (Uttarakhand) · `west-bengal` (West Bengal)
 <!-- states:end -->
 
-## My request (topic id / state id):
+## My request
+
+First line: topic id / state id. Optional extra lines I may add:
+- `start with: <cities or districts>` → do those first (they were not covered last time).
+- `ALREADY LISTED (skip these): <names>` → do not repeat these places.
+
+My request:
 

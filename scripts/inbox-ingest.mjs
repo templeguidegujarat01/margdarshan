@@ -64,7 +64,17 @@ const https = (u) => {
   const v = /^https?:\/\//i.test(s) ? s.replace(/^http:\/\//i, 'https://') : `https://${s.replace(/^\/+/, '')}`;
   try { return new URL(v).href; } catch { return ''; }
 };
-const key = (name, city) => `${name}|${city}`.toLowerCase().replace(/[^a-z0-9|]+/g, '');
+// Duplicate check: names compared without bracket parts ("ICAI Calicut Branch (SIRC)" = "ICAI Calicut Branch"),
+// cities by their current name (Ernakulam / Cochin = Kochi, Calicut = Kozhikode …). An office-type row (ICAI
+// office, …) is one per city: a second one in the same city is the same office under another name.
+const CITY_SAME = { ernakulam: 'kochi', cochin: 'kochi', calicut: 'kozhikode', trivandrum: 'thiruvananthapuram', alleppey: 'alappuzha',
+  quilon: 'kollam', trichur: 'thrissur', palghat: 'palakkad', cannanore: 'kannur', bombay: 'mumbai', madras: 'chennai', calcutta: 'kolkata',
+  bangalore: 'bengaluru', baroda: 'vadodara', poona: 'pune', mysore: 'mysuru', mangalore: 'mangaluru', gurgaon: 'gurugram', banaras: 'varanasi',
+  benares: 'varanasi', allahabad: 'prayagraj', trichy: 'tiruchirappalli', tiruchirapalli: 'tiruchirappalli', vizag: 'visakhapatnam',
+  pondicherry: 'puducherry', belgaum: 'belagavi', hubli: 'hubballi', gulbarga: 'kalaburagi', shimoga: 'shivamogga' };
+const cityKey = (c) => { const n = String(c || '').toLowerCase().replace(/[^a-z]+/g, ''); return CITY_SAME[n] || n; };
+const key = (name, city) => `${String(name).toLowerCase().replace(/\([^)]*\)/g, '').replace(/[^a-z0-9]+/g, '')}|${cityKey(city)}`;
+const OFFICE = /office/i;
 const titleCity = (c) => String(c).trim().replace(/\s+/g, ' ').replace(/\b[a-z]/g, (x) => x.toUpperCase());
 
 // Link check: false = the page does not exist (row dropped), true = loaded, null = could not confirm (kept).
@@ -165,8 +175,10 @@ for (const f of files) {
   const localDir = path.join(root, 'scripts/learn-src/local', fid);
   const localNow = fs.existsSync(localDir) ? fs.readdirSync(localDir).filter((x) => x.endsWith('.yml'))
     .flatMap((x) => (yaml.load(fs.readFileSync(path.join(localDir, x), 'utf8')).rows || []).map((r) => ({ ...r, state: x.replace(/\.yml$/, '') }))) : [];
+  const offices = new Set();
   for (const r of [...old, ...localNow]) {
     have.add(key(r.name, r.city));
+    if (OFFICE.test(r.type || '') && r.state === sid) offices.add(`${r.type}|${cityKey(r.city)}`);
     if (r.state === sid && r.city) cityName[norm(r.city)] = r.city;
   }
 
@@ -181,9 +193,11 @@ for (const f of files) {
     if (note) note = note[0].toUpperCase() + note.slice(1);
     const miss = [!name && 'name', !city && 'city', !url && 'url', note.length < 12 && 'note'].filter(Boolean);
     if (miss.length) { drop.push(`${name || '(no name)'} — missing ${miss.join(', ')}`); continue; }
-    if (have.has(key(name, city))) { drop.push(`${name} (${city}) — already listed`); continue; }
-    have.add(key(name, city));
     const type = T.types.includes(r.type) && types.includes(r.type) ? r.type : defType;
+    if (have.has(key(name, city))) { drop.push(`${name} (${city}) — already listed`); continue; }
+    if (OFFICE.test(type) && offices.has(`${type}|${cityKey(city)}`)) { drop.push(`${name} (${city}) — this city's ${type} is already listed`); continue; }
+    have.add(key(name, city));
+    if (OFFICE.test(type)) offices.add(`${type}|${cityKey(city)}`);
     const host = new URL(url).hostname.replace(/^www\./, '');
     out.push({
       name, city, area: String(r.area || '').trim().replace(/\s+/g, ' ') || city, type, ownership: ownership(r.ownership),

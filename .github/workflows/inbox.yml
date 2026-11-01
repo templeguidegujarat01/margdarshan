@@ -58,7 +58,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
           if git diff --cached --quiet; then echo "nothing to commit"; exit 0; fi
-          added=$(grep -h "^- 20" docs/learn-finder/LOG.md | tail -n 5 | grep -o "[a-z0-9-]*/[a-z-]* · +[0-9]*" | tr '\n' ';' || true)
+          added=$(git diff --cached -U0 docs/learn-finder/LOG.md | grep "^+- " | grep -o "[a-z0-9-]*/[a-z-]* · +[0-9]*" | tr '\n' ';' || true)
           git commit -m "Inbox build: ${added:-rebuild learn finders}"
           git pull --rebase origin main
           git push origin HEAD:main

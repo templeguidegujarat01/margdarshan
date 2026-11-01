@@ -52,6 +52,32 @@ jobs:
         env:
           VERIFY_DEPS: ${{ runner.temp }}/deps
         run: node scripts/rebuild-learn.mjs
+      # Safety net: the site is published only if every check passes. If anything above or here fails, the next
+      # step throws all changes away and only parks the uploads in inbox/rejected/ (with the reason in REPORT.md).
+      - name: Safety checks (nothing is published if one fails)
+        env:
+          VERIFY_DEPS: ${{ runner.temp }}/deps
+        run: |
+          node scripts/build-learn-finders.mjs --check
+          node scripts/build-seo-landings.mjs --check
+          node scripts/build-nav-mega.mjs --check
+          node scripts/check-in-data.mjs
+          node scripts/verify-site.mjs --only=learn/
+      - name: Failed — publish nothing, park the uploads in inbox/rejected
+        if: failure()
+        env:
+          VERIFY_DEPS: ${{ runner.temp }}/deps
+        run: |
+          git reset -q --hard HEAD
+          git clean -qfd
+          node scripts/inbox-ingest.mjs --reject-all="the build or a site check failed (run ${{ github.run_id }} on the Actions tab)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Inbox build FAILED: uploads moved to inbox/rejected, site unchanged"
+          git pull --rebase origin main
+          git push origin HEAD:main
       - name: Commit
         run: |
           git config user.name "github-actions[bot]"
@@ -65,7 +91,4 @@ jobs:
       - name: Ask GitHub Pages to rebuild
         continue-on-error: true
         run: |
-          curl -fsS -X POST \
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Accept: application/vnd.github+json" \
-            "https://api.github.com/repos/${{ github.repository }}/pages/builds"
+          curl -fsS -X POST -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/${{ github.repository }}/pages/builds"

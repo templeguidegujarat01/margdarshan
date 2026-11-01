@@ -107,7 +107,7 @@ const src = new Map(); // file name → absolute path
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
     const p = path.join(dir, e.name);
     if (e.isDirectory()) {
-      if ((depth === 0 && SKIP.has(e.name)) || p === path.join(INBOX, 'done') || p === path.join(INBOX, 'rejected') || depth > 3) continue;
+      if ((depth === 0 && SKIP.has(e.name)) || p === path.join(INBOX, 'done') || p === path.join(INBOX, 'rejected') || p === path.join(INBOX, 'held') || p === path.join(INBOX, 'undone') || depth > 3) continue;
       walk(p, depth + 1);
     } else if (/\.(ya?ml|txt)$/i.test(e.name) && (dir === INBOX || (NAME.test(e.name) && findTopic(e.name.match(NAME)[1])))) {
       if (!src.has(e.name)) src.set(e.name, p);
@@ -116,6 +116,32 @@ const src = new Map(); // file name → absolute path
 })(root, 0);
 const files = [...src.keys()].sort();
 if (!files.length) { console.log('inbox-ingest: inbox is empty'); process.exit(0); }
+
+// --reject-all="<reason>": the workflow's safety net. When the rebuild or the site checks fail after an ingest, the
+// Action throws every change away (git reset) and runs this: each upload goes to inbox/rejected/ untouched, the
+// reason goes in REPORT.md, and only that is committed, so the live site never changes on a failed run.
+const REJECT = (process.argv.find((a) => a.startsWith('--reject-all=')) || '').slice(13);
+if (REJECT) {
+  const lines = [`# Inbox report — ${today}`, '', `**Nothing was published.** The automatic checks failed after reading these files, so the site was left exactly as it was: ${REJECT}`, '',
+    'The files are in inbox/rejected/. Open the failed run on the Actions tab, copy the red error, and give it plus the file to any Claude chat (or Claude Code) to fix; then upload the fixed file again.', ''];
+  for (const f of files) {
+    fs.mkdirSync(path.join(INBOX, 'rejected'), { recursive: true });
+    fs.renameSync(src.get(f), path.join(INBOX, 'rejected', `${today}--${f}`));
+    lines.push(`- ${f}`);
+  }
+  fs.writeFileSync(path.join(INBOX, 'REPORT.md'), lines.join('\n') + '\n');
+  console.log(`inbox-ingest: rejected ${files.length} file(s): ${REJECT}`);
+  process.exit(0);
+}
+
+// Near-duplicates (a name that looks like a place already listed in the same city, e.g. "JK Shah" vs
+// "JK Shah Classes — Kochi") are not published: they go to inbox/held/ with the name they look like.
+const GENERIC = new Set(['the', 'of', 'and', 'for', 'in', 'classes', 'class', 'institute', 'institution', 'academy', 'coaching', 'centre', 'center',
+  'school', 'college', 'branch', 'pvt', 'ltd', 'private', 'limited', 'india', 'education', 'educational', 'tutorials', 'tutorial', 'study', 'studies',
+  'campus', 'office', 'official', 'ca', 'cs', 'cma', 'by', 'sir']);
+const tokens = (name, city) => new Set(String(name).toLowerCase().replace(/\([^)]*\)/g, ' ').split(/[^a-z0-9]+/)
+  .filter((w) => w && !GENERIC.has(w) && w !== cityKey(city) && cityKey(w) !== cityKey(city)));
+const looksSame = (a, b) => { if (!a.size || !b.size) return false; let n = 0; for (const w of a) if (b.has(w)) n++; return n / Math.min(a.size, b.size) >= 0.8; };
 const report = [`# Inbox report — ${today}`, '', 'Written by scripts/inbox-ingest.mjs (GitHub Action "Inbox build"). Newest run only; every run is also one line per file in docs/learn-finder/LOG.md.', ''];
 const log = [];
 const move = (f, sub) => {
@@ -175,14 +201,15 @@ for (const f of files) {
   const localDir = path.join(root, 'scripts/learn-src/local', fid);
   const localNow = fs.existsSync(localDir) ? fs.readdirSync(localDir).filter((x) => x.endsWith('.yml'))
     .flatMap((x) => (yaml.load(fs.readFileSync(path.join(localDir, x), 'utf8')).rows || []).map((r) => ({ ...r, state: x.replace(/\.yml$/, '') }))) : [];
-  const offices = new Set();
+  const offices = new Set(), near = [];
   for (const r of [...old, ...localNow]) {
     have.add(key(r.name, r.city));
+    if (r.state === sid) near.push({ name: r.name, city: cityKey(r.city), t: tokens(r.name, r.city) });
     if (OFFICE.test(r.type || '') && r.state === sid) offices.add(`${r.type}|${cityKey(r.city)}`);
     if (r.state === sid && r.city) cityName[norm(r.city)] = r.city;
   }
 
-  const out = [], drop = [], soft = [];
+  const out = [], drop = [], soft = [], held = [];
   const rows = Array.isArray(d.rows) ? d.rows : Array.isArray(d) ? d : [];
   for (const r0 of rows) {
     const r = r0 || {};
@@ -196,7 +223,10 @@ for (const f of files) {
     const type = T.types.includes(r.type) && types.includes(r.type) ? r.type : defType;
     if (have.has(key(name, city))) { drop.push(`${name} (${city}) — already listed`); continue; }
     if (OFFICE.test(type) && offices.has(`${type}|${cityKey(city)}`)) { drop.push(`${name} (${city}) — this city's ${type} is already listed`); continue; }
+    const tk = tokens(name, city), twin = near.find((x) => x.city === cityKey(city) && looksSame(tk, x.t));
+    if (twin) { held.push({ ...r0, reason: `looks like "${twin.name}", already listed in ${city}` }); continue; }
     have.add(key(name, city));
+    near.push({ name, city: cityKey(city), t: tk });
     if (OFFICE.test(type)) offices.add(`${type}|${cityKey(city)}`);
     const host = new URL(url).hostname.replace(/^www\./, '');
     out.push({
@@ -229,13 +259,20 @@ for (const f of files) {
     const prev = fs.existsSync(lf) ? fs.readFileSync(lf, 'utf8') : '';
     fs.writeFileSync(lf, head + prev + (prev && !prev.endsWith('\n') ? '\n' : '') + `  # ── free-Claude inbox ${today} (${f})\n` + body);
   }
+  if (held.length) {
+    fs.mkdirSync(path.join(INBOX, 'held'), { recursive: true });
+    fs.writeFileSync(path.join(INBOX, 'held', `${today}--${f}`), `# Held back from ${f}: each looks like a place already on the site. Not published.\n`
+      + '# If one really is a different place, fix its name (or city) here and upload this file again.\n'
+      + yaml.dump({ topic: T.id, state: sid, checked: String(d.checked || today), rows: held }, { lineWidth: 200, noRefs: true, quotingType: '"' }));
+  }
   const byCity = {}; for (const r of ok) byCity[r.city] = (byCity[r.city] || 0) + 1;
   report.push(`- Topic **${T.id}** → finder \`${fid}\`${created ? ' (NEW finder created)' : ''}, state **${sid}**`,
     `- Added **${ok.length}** of ${rows.length} rows${ok.length ? `: ${Object.entries(byCity).sort((a, b) => b[1] - a[1]).map(([c, n]) => `${c} ${n}`).join(', ')}` : ''}`,
     `- Page after the build: https://emargdarshan.com/learn/${fid}/${sid}.html (a state page needs 3+ places, a city page 10+)`,
     ...(drop.length ? ['', `Dropped (${drop.length}):`, ...drop.map((x) => `  - ${x}`)] : []),
+    ...(held.length ? ['', `Held back, NOT on the site (${held.length}) — inbox/held/${today}--${f}:`, ...held.map((x) => `  - ${x.name} — ${x.reason}`)] : []),
     ...(soft.length ? ['', `Notes (${soft.length}):`, ...soft.map((x) => `  - ${x}`)] : []), '');
-  log.push(`${today} · ${fid}/${sid} · +${ok.length}${ok.length ? ` (${Object.entries(byCity).map(([c, n]) => `${c} ${n}`).join(', ')})` : ''} · free-Claude inbox ${f} · dropped ${drop.length}`);
+  log.push(`${today} · ${fid}/${sid} · +${ok.length}${ok.length ? ` (${Object.entries(byCity).map(([c, n]) => `${c} ${n}`).join(', ')})` : ''} · free-Claude inbox ${f} · dropped ${drop.length}${held.length ? ` · held ${held.length}` : ""}`);
   move(f, ok.length ? 'done' : 'rejected');
   console.log(`inbox-ingest: ${f} → ${fid}/${sid}: +${ok.length}, dropped ${drop.length}${created ? ' (new finder)' : ''}`);
 }

@@ -55,6 +55,19 @@ waise bhi robot hata deta hai.
 - Yeh check **link asli hai ya nahi** pakadta hai, **jagah sach me wahan hai ya nahi** nahi. Isliye kabhi-kabhi
   2–3 random cards khol ke dekh lena (Source button).
 
+## Galti ho jaaye to (safety net — aapko code nahi chahiye)
+
+1. **Shak wali rows site par nahi jaati.** Jo naam pehle wali jagah jaisa lage (jaise "JK Shah Classes" jab
+   "JK Shah Classes — Kochi" pehle se hai), wo `inbox/held/` me rukti hai, REPORT.md me "Held back" likha aata hai.
+   Kuch karna zaroori nahi. Agar wo sach me alag jagah hai, us held file me naam theek karke dobara upload karo.
+2. **Robot khud test karta hai.** Pages banane ke baad check chalte hain. Ek bhi fail hua to **kuch bhi publish
+   nahi hota**, site jaisi thi waisi rehti hai, upload `inbox/rejected/` me chala jaata hai aur Actions me ❌ dikhta
+   hai (GitHub aapko email bhi bhejta hai). Error copy karke kisi bhi Claude chat ko do, theek file dobara upload karo.
+3. **Undo button.** Koi upload galat lage (galat jagah, fake naam): repo → **Actions** → left me **Inbox undo** →
+   **Run workflow** → box me upload ka naam likho (jaise `ca-coaching--kerala`, naam `inbox/done/` me dikhta hai)
+   → **Run workflow**. 2–5 minute me us upload ki saari rows site se hat jaati hain. Baaki data ko kuch nahi hota.
+4. **GitHub Pages khud bhi safe hai**: agar kabhi site build hi fail ho, to purani chalti site hi live rehti hai.
+
 ## 2 mahine ka plan (Pro ke bina)
 
 **Claude free kitna kar payega (andaza, guarantee nahi):** free plan me har ~5 ghante me limited messages milte

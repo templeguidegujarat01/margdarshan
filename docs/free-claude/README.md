@@ -30,11 +30,12 @@ verified pages dikhate hain; jaise hi aap us topic ki **pehli** file upload karo
 4. Claude search karega aur ek YAML code block dega (file name upar likha hoga, jaise `cs-coaching--delhi.yml`).
    Agar wo "PART 1 done — say continue" bole to `continue` likho → `cs-coaching--delhi--2.yml` milega. Har part
    alag file hai, sab upload karo.
-5. **GitHub par upload** (2 tareeke, jo aasaan lage):
-   - **Copy-paste (sabse aasaan, phone se bhi)**: repo kholo → `inbox` folder → **Add file → Create new file** →
-     naam me `cs-coaching--delhi.yml` → code block ka andar ka text paste → **Commit changes**.
-   - **File / ZIP**: agar Claude ne file ya ZIP diya: ZIP ko pehle computer par **extract** karo (GitHub ZIP
-     nahi kholta) → repo me `inbox` folder → **Add file → Upload files** → `.yml` file drag karo → Commit.
+5. **GitHub par upload (ZIP wala tareeka)**: ZIP download karo → computer par **Extract** karo → github.com par
+   apna `margdarshan` repo kholo (main page, kisi folder ke andar nahi) → upar **Add file → Upload files** → extract
+   hua **poora folder / saari files** drag karo → neeche **Commit changes**. File `inbox` me jaaye ya bahar,
+   robot `<topic>--<state>.yml` naam wali file kahin se bhi utha leta hai.
+   ZIP na mile to: `inbox` folder → **Add file → Create new file** → naam `cs-coaching--delhi.yml` → code block
+   ka text paste → Commit.
 6. **Check**: repo ka **Actions** tab → "Inbox build" green ✔ (1–3 min). Phir `inbox/REPORT.md` kholo: kitni rows
    aayi, kaunsi hati (fake link / duplicate). 2–5 min baad page live:
    `https://emargdarshan.com/learn/<finder>/<state>.html`.

@@ -36,10 +36,10 @@ example `cs-coaching / delhi`.
 
 ## Output — exactly this
 
-- ONE YAML code block, nothing else inside it. Its file name is `<topic>--<state>.yml` (two hyphens), e.g.
-  `cs-coaching--delhi.yml`. Write the file name on the line just above the code block.
-- If you can create files: ALSO create that file inside a folder named `inbox` and give me a ZIP of it
-  (`inbox/cs-coaching--delhi.yml`).
+- MAIN WAY — a ZIP file I can download: create the file `inbox/<topic>--<state>.yml` (two hyphens, e.g.
+  `inbox/cs-coaching--delhi.yml`) and zip it so the ZIP contains the folder `inbox` with that one file inside —
+  no other folder around it, no other files. Name the ZIP `<topic>--<state>.zip` and give me the download.
+- ALSO show the same content as ONE YAML code block (file name on the line above it), in case the ZIP fails.
 - If you run out of room: stop after a complete row and write `PART 1 done — say "continue"`. When I say
   continue, give a NEW file `<topic>--<state>--2.yml` (then `--3`, …) with the same header and ONLY new rows.
 - Then, below the code block, one short line: how many places per city, and which big cities you could not cover.

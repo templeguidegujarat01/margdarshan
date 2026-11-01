@@ -87,13 +87,32 @@ async function alive(u) {
   return p;
 }
 
-const files = fs.existsSync(INBOX) ? fs.readdirSync(INBOX).filter((f) => /\.(ya?ml|txt)$/i.test(f)).sort() : [];
+// Uploads are looked for in inbox/ AND anywhere else in the repo (the owner drags an extracted ZIP onto
+// github.com: the file may land at the root or inside the ZIP's own folder). Outside inbox/ only names like
+// <topic-id>--<state-id>[--n].yml with a known topic count, and the site's own folders are never searched.
+const SKIP = new Set(['.git', '.github', 'node_modules', '_data', '_includes', '_layouts', '_archive', 'assets', 'scripts', 'docs', 'learn', 'coaching', 'colleges', 'roadmaps', 'us', 'uk', 'state', 'state-pathways', 'study-abroad', 'niche-careers', 'tables', 'redirects', 'design-system']);
+const NAME = /^([a-z0-9-]+?)--([a-z-]+)(--[^/]*)?\.(ya?ml|txt)$/i;
+const src = new Map(); // file name → absolute path
+(function walk(dir, depth) {
+  for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+    const p = path.join(dir, e.name);
+    if (e.isDirectory()) {
+      if ((depth === 0 && SKIP.has(e.name)) || p === path.join(INBOX, 'done') || p === path.join(INBOX, 'rejected') || depth > 3) continue;
+      walk(p, depth + 1);
+    } else if (/\.(ya?ml|txt)$/i.test(e.name) && (dir === INBOX || (NAME.test(e.name) && findTopic(e.name.match(NAME)[1])))) {
+      if (!src.has(e.name)) src.set(e.name, p);
+    }
+  }
+})(root, 0);
+const files = [...src.keys()].sort();
 if (!files.length) { console.log('inbox-ingest: inbox is empty'); process.exit(0); }
 const report = [`# Inbox report — ${today}`, '', 'Written by scripts/inbox-ingest.mjs (GitHub Action "Inbox build"). Newest run only; every run is also one line per file in docs/learn-finder/LOG.md.', ''];
 const log = [];
 const move = (f, sub) => {
   fs.mkdirSync(path.join(INBOX, sub), { recursive: true });
-  fs.renameSync(path.join(INBOX, f), path.join(INBOX, sub, `${today}--${f}`));
+  fs.renameSync(src.get(f), path.join(INBOX, sub, `${today}--${f}`));
+  // an extracted ZIP folder left empty by the move goes too (git drops empty folders anyway)
+  for (let d = path.dirname(src.get(f)); d !== root && d !== INBOX && d.startsWith(root) && !fs.readdirSync(d).length; d = path.dirname(d)) fs.rmdirSync(d);
 };
 
 for (const f of files) {
@@ -101,7 +120,7 @@ for (const f of files) {
   let d;
   try {
     // Chats sometimes wrap the YAML in a ``` fence; take what is inside it.
-    const raw = fs.readFileSync(path.join(INBOX, f), 'utf8').replace(/^﻿/, '');
+    const raw = fs.readFileSync(src.get(f), 'utf8').replace(/^﻿/, '');
     const fenced = raw.match(/```(?:ya?ml)?\s*\n([\s\S]*?)```/);
     d = yaml.load(fenced ? fenced[1] : raw) || {};
   } catch (e) {

@@ -11,6 +11,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { localRows } from './local.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const A = JSON.parse(fs.readFileSync(path.join(root, 'scripts/learn-src/cricket/data/assoc.json'), 'utf8'));
@@ -65,6 +66,7 @@ for (const r of A.rows) {
   });
 }
 for (const r of rows) if (r.ownership === 'Cricket association' && r.type === 'Cricket club') r.ownership = 'Club';
+rows.push(...localRows('cricket', rows));
 const bad = rows.filter((r) => !r.state || !r.city || !r.url);
 if (bad.length) throw new Error('rows missing state/city/url: ' + bad.map((r) => r.name).join(', '));
 const dup = rows.filter((r, i) => rows.findIndex((x) => x.name === r.name && x.city === r.city) !== i);

@@ -3,6 +3,7 @@
    this script loads the finder's JSON (<link data-lf-json>), keeps the page's scope (data-lf-state /
    data-lf-city on .lf) and redraws the list from the filter bar: state, city, type, ownership, branch, mode, search.
    Filters live in the URL (?state=&city=&type=&own=&branch=&mode=&q=) so a filtered list can be shared.
+   ?pick=state (the career page's "… in India" button, the menu) lands on the State box: scrolled to, focused, marked.
    No JS = the pre-rendered cards stay, with a link to the full list. */
 (function (root) {
   'use strict';
@@ -13,7 +14,7 @@
   };
   var PIN = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>';
   var EXT = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>';
-  var OWN = ['Government', 'Grant-in-Aid', 'Deemed', 'Private'];
+  var OWN = ['Government', 'Statutory body', 'Grant-in-Aid', 'Deemed', 'Private'];
   var slug = function (s) { return String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''); };
   var fmt = function (n) { return Number(n).toLocaleString('en-IN'); };
 
@@ -118,8 +119,10 @@
       }
     }
     function draw() {
-      grid.insertAdjacentHTML('beforeend', list.slice(shown, shown + api.PAGE).map(function (r) { return card(r, states); }).join(''));
-      shown = Math.min(list.length, shown + api.PAGE);
+      // A picked state shows its whole list at once (owner, 2026-11-01); all of India pages by PAGE.
+      var step = (el('state') && el('state').value) || fixState ? list.length : api.PAGE;
+      grid.insertAdjacentHTML('beforeend', list.slice(shown, shown + step).map(function (r) { return card(r, states); }).join(''));
+      shown = Math.min(list.length, shown + step);
       if (count) count.textContent = list.length ? 'Showing ' + fmt(shown) + ' of ' + fmt(list.length) + ' verified ' + (list.length === 1 ? 'place' : 'places') : 'No verified place matches these filters yet. Clear a filter to see more.';
       if (more) more.hidden = shown >= list.length;
     }
@@ -130,6 +133,13 @@
       ['state', 'city', 'type', 'own', 'branch', 'mode', 'q'].forEach(function (n) { if (el(n) && p.get(n)) { el(n).value = p.get(n); if (n === 'state') options(); } });
       form.hidden = false; box.classList.add('is-live');
       apply(false);
+      if (p.get('pick') === 'state' && el('state')) {
+        var pick = el('state').closest('.lf-field');
+        pick.classList.add('lf-pick');
+        form.scrollIntoView({ block: 'center' });
+        el('state').focus({ preventScroll: true });
+        el('state').addEventListener('change', function () { pick.classList.remove('lf-pick'); }, { once: true });
+      }
       form.addEventListener('change', function (e) { if (e.target.name === 'state') { if (el('city')) el('city').value = ''; options(); } apply(true); });
       var tmr;
       form.addEventListener('input', function (e) { if (e.target.name === 'q') { clearTimeout(tmr); tmr = setTimeout(function () { apply(true); }, 180); } });

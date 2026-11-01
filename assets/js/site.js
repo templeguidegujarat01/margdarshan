@@ -498,7 +498,7 @@ try {
         if(!stateIdx[slug]){ states.push({ slug: slug, name: slug.replace(/-/g, ' '), us: us }); stateIdx[slug] = states.length; }
         return stateIdx[slug];
       };
-      var rx = /^(?:state\/|colleges\/|coaching\/|us\/states\/|us\/colleges\/(?!fields\/))([a-z-]+)\//;
+      var rx = /^(?:learn\/[a-z0-9-]+\/|state\/|colleges\/|coaching\/|us\/states\/|us\/colleges\/(?!fields\/))([a-z-]+)\//;
       data.forEach(function(d){ var m = rx.exec(d.u || ''); if(m) addState(m[1], (d.u || '').indexOf('us/') === 0); });
       states.sort(function(a, b){ return b.name.length - a.name.length; });   // "andhra pradesh" before "pradesh"-like overlaps
       var entries = data.map(function(d, i){
@@ -1881,6 +1881,24 @@ try {
           e.preventDefault();
           var to = tabs[(j + tabs.length) % tabs.length];
           tabOn(tabs, to); to.focus();
+        });
+      });
+    });
+    // State column (2026-11-01): in a group whose subjects have state pages (.hh-col4), clicking a subject (CA,
+    // NEET, B.Tech …) shows its "<subject> in <state>" links beside the list instead of leaving the menu; the
+    // links themselves are the way out. Narrow screens show the column under the list and scroll it into view.
+    panel.querySelectorAll('.hh-col4').forEach(function(col){
+      var cells = col.querySelectorAll('[data-hh-4]');
+      cells.forEach(function(c){
+        c.addEventListener('click', function(e){
+          e.preventDefault();
+          var box = null;
+          cells.forEach(function(o){
+            var hit = o === c, p = document.getElementById(o.getAttribute('aria-controls'));
+            o.classList.toggle('is-on', hit); o.setAttribute('aria-expanded', hit ? 'true' : 'false');
+            if(p){ p.classList.toggle('is-on', hit); if(hit) box = p; }
+          });
+          if(box && !wide.matches) box.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
         });
       });
     });

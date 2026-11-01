@@ -181,6 +181,35 @@ mega.niche = {
 // columns below are picked from the hub-page groups above (by group label, so a renamed group fails --check),
 // the finder keys in _data/seo_landings.yml (only keys with verified lists) and the journey / roadmap pages.
 const seo = yaml.load(read('_data/seo_landings.yml'));
+// One subject = one list per state (2026-11-01, owner's order). Every finder-key link carries `sub`: its state
+// pages, which the menu shows as a 4th column when the subject is clicked (Commerce → Coaching → Professional
+// courses → CA → "CA coaching in Gujarat" …), and `sub_all`: the all-India finder opened on its State box.
+// A key a "where to learn" finder owns (_data/learn_index.yml routes, build-learn-finders.mjs) lists that finder's
+// state pages (only states with 3+ rows of the key's type); any other key lists its old verified-list pages
+// (colleges/<state>/<key>.html, coaching/…). Only pages that exist are listed, so a new state page shows up on
+// the next run by itself. The old "<key> by state" groups are gone (the 4th column replaces them).
+const learn = yaml.load(read('_data/learn_index.yml'));
+const nounOf = (kind, short) => (kind === 'coaching' ? ' coaching' : /ITI|Diploma|Training|Institut|School|Polytechnic/i.test(short) ? '' : ' colleges');
+const byName = (a, b) => a[1].name.localeCompare(b[1].name);
+function statePages(kind, k, short) {
+  const r = (learn.routes[kind] || {})[k];
+  const noun = nounOf(kind, short);
+  if (r) {
+    const F = learn.finders[r.finder];
+    return {
+      href: `learn/${r.finder}.html?${[r.q, 'pick=state'].filter(Boolean).join('&')}`,
+      sub_all: { label: `${short}${noun} in India`, href: `learn/${r.finder}.html?${[r.q, 'pick=state'].filter(Boolean).join('&')}` },
+      sub: Object.entries(F.states).filter(([, st]) => (r.type ? st.types[r.type] || 0 : st.n) >= 3).sort(byName)
+        .map(([id, st]) => ({ label: `${short}${noun} in ${decode(st.name)}`, href: `learn/${r.finder}/${id}.html${r.q ? '?' + r.q : ''}` })),
+    };
+  }
+  return {
+    href: seo[kind].labels[k].finder,
+    sub_all: { label: `${short}${noun} in India`, href: seo[kind].labels[k].finder },
+    sub: Object.entries(seo[kind].states).filter(([id, st]) => (st.lists || {})[k] && exists(`${kind}/${id}/${k}.html`)).sort(byName)
+      .map(([id, st]) => ({ label: `${short}${noun} in ${decode(st.name)}`, href: `${kind}/${id}/${k}.html` })),
+  };
+}
 const pickCol = (key, label, rename, drop = []) => {
   const c = (mega[key] && mega[key].cols || []).find((x) => x.label === label);
   if (!c) { problems.push(`domain menus: no group "${label}" in ${key}`); return null; }
@@ -191,22 +220,17 @@ const pickLinks = (label, hrefs) => {
   const links = hrefs.map((h) => all.find((l) => l.href === h) || (problems.push(`domain menus: ${h} is in no hub group`), null)).filter(Boolean);
   return { label, links };
 };
-// A finder key → its finder link; a key with no verified lists is skipped (and flagged), never shown empty.
+// A finder key → its finder link + its state pages; a key with no verified lists is skipped (and flagged), never
+// shown empty.
 const finderCol = (kind, label, keys) => ({
   label,
   links: keys.map((k) => {
     const L = seo[kind].labels[k];
     if (!L) { problems.push(`domain menus: ${kind} key ${k} has no verified lists`); return null; }
-    return { label: decode(L.short), href: L.finder };
+    const short = decode(L.short);
+    const P = statePages(kind, k, short);
+    return { label: short, href: P.href, ...(P.sub.length ? { sub_all: P.sub_all, sub: P.sub } : {}) };
   }).filter(Boolean),
-});
-// The state landing pages (colleges/<state>/<key>.html) that exist for one key, biggest list first.
-const byStateCol = (kind, key, label) => ({
-  label,
-  links: Object.entries(seo[kind].states)
-    .filter(([id, s]) => (s.lists || {})[key] && exists(`${kind}/${id}/${key}.html`))
-    .sort((a, b) => b[1].lists[key] - a[1].lists[key] || a[1].name.localeCompare(b[1].name))
-    .map(([id, s]) => ({ label: decode(s.name), href: `${kind}/${id}/${key}.html`, desc: `${s.lists[key]} verified` })),
 });
 const journeys = fs.readdirSync(path.join(root, '_data/in/journey')).filter((f) => f.endsWith('.yml')).sort()
   .map((f) => yaml.load(read(`_data/in/journey/${f}`)))
@@ -231,41 +255,39 @@ const domains = {
     name: 'Engineering', hub: 'science.html',
     careers: [pickCol('science', 'Engineering & Technology (PCM)', 'Engineering branches', ['architect.html']), pickCol('science', 'Computer & Digital Careers', 'Computer & digital'),
       pickCol('science', 'Aviation, Maritime & Railways', 'Aviation, marine & rail'), pickCol('science', 'Science-Based Government Services', 'Science in government')],
-    colleges: [finderCol('colleges', 'Degree courses', ['btech', 'bca']), finderCol('colleges', 'Pure science & maths', ['statistics', 'geology']), byStateCol('colleges', 'btech', 'B.Tech colleges by state')],
-    coaching: [finderCol('coaching', 'Entrance coaching', ['jee']), byStateCol('coaching', 'jee', 'JEE coaching by state')],
+    colleges: [finderCol('colleges', 'Degree courses', ['btech', 'bca']), finderCol('colleges', 'Pure science & maths', ['statistics', 'geology'])],
+    coaching: [finderCol('coaching', 'Entrance coaching', ['jee'])],
   },
   med: {
     name: 'Medical', hub: 'science.html',
     careers: [pickCol('science', 'Medical & Healthcare (PCB)', 'Medical & healthcare'), pickCol('science', 'Emerging & Life Sciences', 'Life sciences & agriculture', ['actuarial-science.html'])],
     colleges: [finderCol('colleges', 'Medicine & dentistry', ['mbbs', 'bds', 'bams', 'bhms']),
       finderCol('colleges', 'Nursing, pharmacy & allied health', ['nursing', 'bpharm', 'bpt', 'ot', 'optometry', 'mlt', 'radiology', 'aslp', 'nutrition', 'perfusion']),
-      finderCol('colleges', 'Life sciences & agriculture', ['biotech', 'genetics', 'microbiology', 'envsci', 'agri', 'vet', 'fisheries', 'foodtech']),
-      byStateCol('colleges', 'mbbs', 'MBBS colleges by state')],
-    coaching: [finderCol('coaching', 'Entrance coaching', ['neet']), byStateCol('coaching', 'neet', 'NEET coaching by state')],
+      finderCol('colleges', 'Life sciences & agriculture', ['biotech', 'genetics', 'microbiology', 'envsci', 'agri', 'vet', 'fisheries', 'foodtech'])],
+    coaching: [finderCol('coaching', 'Entrance coaching', ['neet'])],
   },
   com: {
     name: 'Commerce', hub: 'commerce.html',
     careers: allCols('commerce'),
-    colleges: [finderCol('colleges', 'Degree courses', ['bcom', 'bba', 'economics', 'actuarial']), byStateCol('colleges', 'bcom', 'B.Com colleges by state'), byStateCol('colleges', 'bba', 'BBA / BMS colleges by state')],
-    coaching: [finderCol('coaching', 'Professional courses', ['ca', 'cs', 'cma', 'acca', 'cfa', 'frm', 'cpa', 'actuarial']), finderCol('coaching', 'Entrance coaching', ['ipmat', 'cuet']), byStateCol('coaching', 'ca', 'CA coaching by state')],
+    colleges: [finderCol('colleges', 'Degree courses', ['bcom', 'bba', 'economics', 'actuarial'])],
+    coaching: [finderCol('coaching', 'Professional courses', ['ca', 'cs', 'cma', 'acca', 'cfa', 'frm', 'cpa', 'actuarial']), finderCol('coaching', 'Entrance exams', ['ipmat', 'cuet'])],
   },
   law: {
     name: 'Law & Arts', hub: 'arts.html',
     careers: allCols('arts', ['Design & Creative Careers', 'Fine & Performing Arts', 'Government, Civil Services & Defence']),
-    colleges: [finderCol('colleges', 'Law', ['law']), finderCol('colleges', 'Humanities, media & teaching', ['ba', 'bjmc', 'bsw', 'libsci', 'bed']), finderCol('colleges', 'Hospitality & travel', ['hotel', 'tourism']),
-      byStateCol('colleges', 'law', 'Law colleges by state'), byStateCol('colleges', 'ba', 'BA colleges by state')],
-    coaching: [finderCol('coaching', 'Law', ['clat', 'judiciary']), finderCol('coaching', 'Central universities', ['cuet']), byStateCol('coaching', 'clat', 'CLAT coaching by state')],
+    colleges: [finderCol('colleges', 'Law', ['law']), finderCol('colleges', 'Humanities, media & teaching', ['ba', 'bjmc', 'bsw', 'libsci', 'bed']), finderCol('colleges', 'Hospitality & travel', ['hotel', 'tourism'])],
+    coaching: [finderCol('coaching', 'Law', ['clat', 'judiciary']), finderCol('coaching', 'Central universities', ['cuet'])],
   },
   des: {
     name: 'Design', hub: 'arts.html',
     careers: [pickCol('arts', 'Design & Creative Careers', 'Design & creative'), pickCol('arts', 'Fine & Performing Arts', 'Fine & performing arts'), pickLinks('Architecture & digital design', ['architect.html', 'ui-ux-designer.html'])],
-    colleges: [finderCol('colleges', 'Design & architecture', ['bdes', 'barch']), finderCol('colleges', 'Fine arts, media & performance', ['bfa', 'performing', 'animation', 'photography']), byStateCol('colleges', 'bdes', 'B.Des colleges by state')],
-    coaching: [finderCol('coaching', 'Entrance coaching', ['design', 'nata']), byStateCol('coaching', 'design', 'Design coaching by state')],
+    colleges: [finderCol('colleges', 'Design & architecture', ['bdes', 'barch']), finderCol('colleges', 'Fine arts, media & performance', ['bfa', 'performing', 'animation', 'photography'])],
+    coaching: [finderCol('coaching', 'Entrance coaching', ['design', 'nata'])],
   },
   gov: {
     name: 'Govt Jobs', hub: 'govt-exams.html',
     careers: allCols('govt-careers'),
-    coaching: [finderCol('coaching', 'Govt exam coaching', ['upsc', 'ssc', 'banking', 'defence', 'judiciary']), byStateCol('coaching', 'upsc', 'UPSC coaching by state')],
+    coaching: [finderCol('coaching', 'Govt exam coaching', ['upsc', 'ssc', 'banking', 'defence', 'judiciary'])],
   },
   dip: {
     name: 'Diploma & ITI', hub: 'diploma.html',
@@ -274,7 +296,7 @@ const domains = {
     roads: [{ label: 'Diploma roadmaps', links: allCols('diploma').flatMap((c) => c.links) }, { label: 'ITI trade roadmaps', links: allCols('iti').flatMap((c) => c.links) }],
     colleges: [finderCol('colleges', 'Engineering diplomas', ['diploma', 'diploma_mech', 'diploma_civil', 'diploma_cse', 'diploma_ee']),
       finderCol('colleges', 'Health, design & other diplomas', ['dpharm', 'gnm', 'dmlt', 'dradio', 'dhotel', 'dagri', 'dfashion', 'dinterior', 'dbm', 'dfood']),
-      finderCol('colleges', 'ITI', ['iti', 'iti_electrician']), byStateCol('colleges', 'diploma', 'Polytechnics by state'), byStateCol('colleges', 'iti', 'ITIs by state')],
+      finderCol('colleges', 'ITI', ['iti', 'iti_electrician'])],
   },
 };
 for (const [d, D] of Object.entries(domains)) {
@@ -297,6 +319,18 @@ mega['govt-state'] = {
     return { label: c.label, links: c.links.filter((l) => civil.has(l.href)) };
   }).filter((c) => c.links.length),
 };
+
+// Sports and arts with their own "where to learn" finder (no old key, e.g. cricket): the sport's cell in every
+// Sports menu gets that finder's state pages too ("Cricket clubs in Gujarat").
+for (const [id, F] of Object.entries(learn.finders)) {
+  if (Object.values(F.keys || {}).some((v) => (v || []).length)) continue;
+  const sub = Object.entries(F.states).sort(byName).map(([sid, st]) => ({ label: `${F.short} in ${decode(st.name)}`, href: `learn/${id}/${sid}.html` }));
+  if (!sub.length) continue;
+  for (const [key, m] of Object.entries(mega)) {
+    if (!key.startsWith('sport-')) continue;
+    for (const c of m.cols) for (const l of c.links) if (F.subjects.includes(l.href)) Object.assign(l, { sub_all: { label: `${F.short} in India`, href: `learn/${id}.html?pick=state` }, sub });
+  }
+}
 
 // Every mega key named in nav.yml must exist here, and every column must have links.
 for (const it of nav.topnav) for (const n of it.nodes || []) if (n.mega && !mega[n.mega]) problems.push(`nav.yml node "${n.label}" names unknown mega key ${n.mega}`);

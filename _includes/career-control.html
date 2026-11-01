@@ -1,126 +1,72 @@
 {%- comment -%}
-  In-page command bar for an India career page (.md-page-control), placed in the hero under the
-  quick facts. It replaced the hub-ctas.html cards on career pages. Two <details> dropdowns:
+  In-page command bar for an India career / exam page (.md-page-control), placed in the hero under the quick facts.
+  One subject = one list (2026-11-01, owner's order): the old two dropdowns (colleges by state, coaching by state)
+  are gone. The bar is now ONE button straight into the finder, which opens on its State box (?pick=state); the
+  visitor picks a state and gets that state's whole list, then a city if they want:
 
-    🎓 Mapped Institutions & Degrees   colleges from _data/colleges.yml, by state, for the course
-                                       key(s) named by hub.colleges_href / hub.colleges2_href
-    🏛️ Mapped Preparation & Coaching   exam pages (hub.exam_href / exam2_href) + centres from
-                                       _data/coaching.yml, by state, for the exam key named by
-                                       hub.coaching_href
-
-  An href names its key either as a finder page (colleges-mbbs.html -> courses.mbbs.page) or as a
-  query (colleges.html?course=bcom). A dropdown renders only when it has verified listings
-  (finder link policy: no empty finders), so pages without keys simply show no bar.
-  Names only (2026-10-31): buttons, group titles and list rows show the name and nothing else (no counts,
-  no city/ownership line, no sub-captions).
-  site.js (block "Page control") closes the other dropdown, and closes on Escape / outside click.
+    1. the page belongs to a "where to learn" finder (_data/learn_index.yml finders[*].subjects) →
+       "<finder short> in India" → learn/<id>.html?pick=state            e.g. ca.html → "CA coaching in India"
+    2. otherwise one button per finder key named by the hub hrefs: the coaching key and the first college key,
+       coaching first for a professional / govt exam (CA, CS, UPSC, SSC …), colleges first for a degree whose
+       coaching is only its entrance test (B.Com → CUET);
+       a key that a finder owns (learn_index routes) goes to that finder with its type filter, any other key to
+       the old interactive finder (coaching.html?exam= / colleges.html?course=). When a finder is later made for
+       the subject (inbox pipeline), rule 1 takes over by itself.
+  A button renders only with verified listings (finder link policy: no empty finders). Names only: no counts or
+  sub-captions on the button (2026-10-31 rule).
+  Exam pages named by hub.exam_href / exam2_href stay reachable as a small line under the button.
 
     {% include career-control.html hub=C.hero.hub %}
-
-  Exam pages (jee-main.html, ssc-cgl.html …) have no data sheet, so they pass the same keys flat:
-
-    {% include career-control.html coaching_href="coaching-jee.html" colleges_href="colleges-btech.html" %}
+    {% include career-control.html coaching_href="coaching-jee.html" colleges_href="colleges-btech.html" %}  (exam pages)
 {%- endcomment -%}
 {%- if include.hub -%}{%- assign X = include.hub -%}{%- else -%}{%- assign X = include -%}{%- endif -%}
 {%- include finder-keys.html hub=X -%}
-{%- comment -%} Each state lists its first pc_cap places; a bigger state links to its verified landing page (colleges/<state>/<key>.html,
-   coaching/<state>/<exam>.html) for the rest. Listing all of them made mbbs.html 928 KB (2026-10-30). {%- endcomment -%}
-{%- assign pc_cap = 6 -%}
-{%- capture pc_chev -%}<svg class="pc-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>{%- endcapture -%}
-{%- capture pc_ext -%}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg><span class="sr-only"> (opens in a new tab)</span>{%- endcapture -%}
+{%- capture pc_arrow -%}<svg class="pc-go-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>{%- endcapture -%}
+{%- assign pc_url = page.url | remove_first: "/" -%}
+{%- assign pc_learn = nil -%}
+{%- for pair in site.data.learn_index.finders -%}{%- if pair[1].subjects contains pc_url -%}{%- assign pc_learn = pair -%}{%- break -%}{%- endif -%}{%- endfor -%}
 {%- comment -%} exam_in_facts=true: the caller (in-career.html) already shows the exam row in its fact console. {%- endcomment -%}
 {%- assign pc_show_exam = false -%}
 {%- if X.exam or X.route -%}{%- unless include.exam_in_facts -%}{%- assign pc_show_exam = true -%}{%- endunless -%}{%- endif -%}
 {%- if pc_show_exam %}
 <p class="hub-ctas-exam pc-exam-line">{% if X.exam %}<span>Entrance exam</span> <strong>{{ X.exam }}</strong>{% if X.exam2 %} <span aria-hidden="true">·</span> <strong>{{ X.exam2 }}</strong>{% endif %}{% if X.exam_note %} <em>{{ X.exam_note }}</em>{% endif %}{% else %}<span>Admission</span> <strong>{{ X.route }}</strong>{% endif %}</p>
 {%- endif %}
-{%- if pc_col_total > 0 or pc_has_prep %}
+{%- assign pc_entrance = "jee,neet,cuet,clat,ipmat,design,nata,hotel" | split: "," -%}
+{%- capture pc_buttons -%}
+{%- if pc_learn -%}
+  {%- assign F = pc_learn[1] -%}
+  <a class="pc-go" href="learn/{{ pc_learn[0] }}.html?pick=state"><span class="pc-ico" aria-hidden="true">📍</span><span class="pc-label"><strong>{{ F.short }} in India</strong></span>{{ pc_arrow }}</a>
+{%- else -%}
+  {%- capture pc_coach -%}
+  {%- if pc_centres.size > 0 -%}
+    {%- assign pc_ex = site.data.coaching.exams[pc_exam] -%}
+    {%- assign pc_r = site.data.learn_index.routes.coaching[pc_exam] -%}
+    {%- if pc_r -%}{%- capture pc_href -%}learn/{{ pc_r.finder }}.html?{% if pc_r.q != "" %}{{ pc_r.q }}&amp;{% endif %}pick=state{%- endcapture -%}
+    {%- else -%}{%- capture pc_href -%}coaching.html?{{ pc_sp }}exam={{ pc_exam }}{%- endcapture -%}{%- endif -%}
+  <a class="pc-go" href="{{ pc_href }}"><span class="pc-ico" aria-hidden="true">🏛️</span><span class="pc-label"><strong>{{ pc_ex.tag }} coaching in India</strong></span>{{ pc_arrow }}</a>
+  {%- endif -%}
+  {%- endcapture -%}
+  {%- capture pc_coll -%}
+  {%- for k in pc_courses -%}
+    {%- assign pc_rows = site.data.colleges.colleges | where_exp: "c", "c.courses contains k" -%}
+    {%- if pc_rows.size == 0 -%}{%- continue -%}{%- endif -%}
+    {%- assign pc_course = site.data.colleges.courses[k] -%}
+    {%- assign pc_r = site.data.learn_index.routes.colleges[k] -%}
+    {%- if pc_r -%}{%- capture pc_href -%}learn/{{ pc_r.finder }}.html?{% if pc_r.q != "" %}{{ pc_r.q }}&amp;{% endif %}pick=state{%- endcapture -%}
+    {%- else -%}{%- capture pc_href -%}colleges.html?{{ pc_sp }}course={{ k }}{%- endcapture -%}{%- endif -%}
+  <a class="pc-go" href="{{ pc_href }}"><span class="pc-ico" aria-hidden="true">🎓</span><span class="pc-label"><strong>{{ pc_course.label }} colleges in India</strong></span>{{ pc_arrow }}</a>
+    {%- break -%}
+  {%- endfor -%}
+  {%- endcapture -%}
+  {%- if pc_entrance contains pc_exam and pc_coll != "" -%}{{ pc_coll }}{{ pc_coach }}{%- else -%}{{ pc_coach }}{{ pc_coll }}{%- endif -%}
+{%- endif -%}
+{%- endcapture -%}
+{%- assign pc_buttons = pc_buttons | strip -%}
+{%- if pc_buttons != "" %}
 <div class="md-page-control" data-page-control>
-  {%- if pc_col_total > 0 %}
-  <details class="pc-drop">
-    <summary class="pc-trigger">
-      <span class="pc-ico" aria-hidden="true">🎓</span>
-      <span class="pc-label"><strong>Mapped Institutions &amp; Degrees</strong></span>
-      {{ pc_chev }}
-    </summary>
-    <div class="pc-panel">
-      {%- for k in pc_courses %}
-      {%- assign pc_course = site.data.colleges.courses[k] %}
-      {%- assign pc_rows = site.data.colleges.colleges | where_exp: "c", "c.courses contains k" %}
-      {%- if pc_rows.size > 0 %}
-      <div class="pc-group">
-        <p class="pc-group-title">{{ pc_course.label }}</p>
-        {%- for st in site.data.finder_states %}
-        {%- assign pc_st = pc_rows | where: "state", st.id %}
-        {%- if pc_st.size > 0 %}
-        <details class="pc-state">
-          <summary><span>{{ st.name }}</span></summary>
-          <ul class="pc-list">
-            {%- assign pc_land = site.data.seo_landings.colleges.states[st.id].lists[k] -%}{%- assign pc_lim = pc_st.size -%}{%- if pc_land -%}{%- assign pc_lim = pc_cap -%}{%- endif %}
-            {%- for c in pc_st limit: pc_lim %}
-            <li><a href="{{ c.url }}" target="_blank" rel="noopener noreferrer">{% if c.prog[k] %}{{ c.prog[k] }} — {% endif %}{{ c.name }} {{ pc_ext }}</a></li>
-            {%- endfor %}
-            {%- if pc_st.size > pc_lim %}
-            <li class="pc-more"><a href="colleges/{{ st.id }}/{{ k }}.html">All {{ pc_st.size }} {{ pc_course.label }} listings in {{ st.name }} <span aria-hidden="true">→</span></a></li>
-            {%- endif %}
-          </ul>
-        </details>
-        {%- endif %}
-        {%- endfor %}
-        <a class="pc-foot" href="colleges.html?{{ pc_sp }}course={{ k }}">Compare all {{ pc_course.label }} colleges in the finder <span aria-hidden="true">→</span></a>
-      </div>
-      {%- endif %}
-      {%- endfor %}
-    </div>
-  </details>
-  {%- endif %}
-  {%- if pc_has_prep %}
-  <details class="pc-drop">
-    <summary class="pc-trigger">
-      <span class="pc-ico" aria-hidden="true">🏛️</span>
-      <span class="pc-label"><strong>Mapped Preparation &amp; Coaching</strong></span>
-      {{ pc_chev }}
-    </summary>
-    <div class="pc-panel">
-      {%- if X.exam_href or X.exam2_href %}
-      <div class="pc-group">
-        <p class="pc-group-title">Exam modules</p>
-        <ul class="pc-list pc-exams">
-          {%- if X.exam_href %}
-          <li><a href="{{ X.exam_href }}">{{ X.exam_label | default: X.exam }}</a></li>
-          {%- endif %}
-          {%- if X.exam2_href %}
-          <li><a href="{{ X.exam2_href }}">{{ X.exam2_label | default: X.exam2 }}</a></li>
-          {%- endif %}
-        </ul>
-      </div>
-      {%- endif %}
-      {%- if pc_centres.size > 0 %}
-      {%- assign pc_ex = site.data.coaching.exams[pc_exam] %}
-      <div class="pc-group">
-        <p class="pc-group-title">{{ pc_ex.label }} coaching</p>
-        {%- for st in site.data.finder_states %}
-        {%- assign pc_st = pc_centres | where: "state", st.id %}
-        {%- if pc_st.size > 0 %}
-        <details class="pc-state">
-          <summary><span>{{ st.name }}</span></summary>
-          <ul class="pc-list">
-            {%- assign pc_land = site.data.seo_landings.coaching.states[st.id].lists[pc_exam] -%}{%- assign pc_lim = pc_st.size -%}{%- if pc_land -%}{%- assign pc_lim = pc_cap -%}{%- endif %}
-            {%- for c in pc_st limit: pc_lim %}
-            <li><a href="{{ c.url }}" target="_blank" rel="noopener noreferrer">{{ c.name }} {{ pc_ext }}</a></li>
-            {%- endfor %}
-            {%- if pc_st.size > pc_lim %}
-            <li class="pc-more"><a href="coaching/{{ st.id }}/{{ pc_exam }}.html">All {{ pc_st.size }} {{ pc_ex.tag }} centres in {{ st.name }} <span aria-hidden="true">→</span></a></li>
-            {%- endif %}
-          </ul>
-        </details>
-        {%- endif %}
-        {%- endfor %}
-        <a class="pc-foot" href="coaching.html?{{ pc_sp }}exam={{ pc_exam }}">Compare all {{ pc_ex.tag }} centres in the finder <span aria-hidden="true">→</span></a>
-      </div>
-      {%- endif %}
-    </div>
-  </details>
+  {{ pc_buttons }}
+  {%- if X.exam_href contains ".html" or X.exam2_href contains ".html" %}
+  <p class="pc-exam-links"><span>Exam pages</span>{% if X.exam_href contains ".html" %} <a href="{{ X.exam_href }}">{{ X.exam_label | default: X.exam | split: " (" | first }}</a>{% endif %}{% if X.exam2_href contains ".html" %} <span aria-hidden="true">·</span> <a href="{{ X.exam2_href }}">{{ X.exam2_label | default: X.exam2 | split: " (" | first }}</a>{% endif %}</p>
   {%- endif %}
 </div>
 {%- endif %}

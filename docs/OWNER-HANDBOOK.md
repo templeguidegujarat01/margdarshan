@@ -42,6 +42,14 @@ apne aap site dobara banata hai (2-5 minute).
 - **Apna naam dikhana ho** to `_data/company.yml` mein `founder: name / role / bio` teeno bharo. Team page pe founder
   card apne aap aa jayega. (Koi naam khud se nahi likha gaya hai.)
 
+### Ek subject + ek state = ek page (1 Nov 2026 se)
+- Jis subject ka "learn finder" hai (abhi CA, MBBS+NEET, Engineering+JEE, Cricket), uski har state ki ek hi list:
+  `learn/<finder>/<state>.html`. Menu (Commerce → Coaching → Professional courses → CA → "CA coaching in Gujarat"),
+  career page ka ek button ("CA coaching in India" → State box), Coaching/College Finder aur search sab wahin jaate
+  hain; purane `coaching/<state>/<key>.html` pages redirect hain. Baaki subjects purane verified pages dikhate hain,
+  jab tak unki pehli state-fill file nahi aati.
+- Naye subject/state bharne ka tareeka (free Claude + GitHub upload): **`docs/free-claude/README.md`**.
+
 ### Top menu (speed ke liye)
 - Menu ke bade flyout panels ab har page mein nahi hote; ek file `assets/menu-in.html` se pehli baar hover/touch pe
   aate hain aur cache ho jaate hain. Menu ka data: `_data/nav.yml` (`topnav`) + `_data/nav_mega.yml` (generated).
@@ -58,6 +66,8 @@ apne aap site dobara banata hai (2-5 minute).
 | Top menu columns | `_data/nav_mega.yml` | `scripts/build-nav-mega.mjs` (hub pages se) |
 | SEO list pages index | `_data/seo_landings.yml` | `scripts/build-seo-landings.mjs` |
 | Learn finders | `_data/learn_index.yml`, `assets/data/learn/*.json` | `scripts/build-learn-finders.mjs` |
+| State fills (local places) | `scripts/learn-src/local/<finder>/<state>.yml` | `inbox/` upload → Action, ya Claude Code STATE FILL |
+| Topic list (free-Claude prompt) | `docs/free-claude/topics.yml`, `PROMPT.md` | `scripts/build-learn-catalog.mjs` |
 | Search box | `_data/search.yml` → `assets/search.json` | hand + generators |
 | "Last updated" dates | `_data/last_updated.yml` | `scripts/build-last-updated.mjs` (git history se) |
 | CSS/JS version | `_data/asset_version.yml` | `scripts/build-asset-version.mjs` |
@@ -82,6 +92,8 @@ Sab scripts ke liye pehle deps chahiye (liquidjs + js-yaml):
 | `node scripts/build-nav-mega.mjs [--check]` | top menu columns | hub page badalne ke baad |
 | `node scripts/build-seo-landings.mjs [--check]` | colleges/ coaching/ list pages | colleges/coaching data ke baad |
 | `node scripts/build-learn-finders.mjs [--check]` | learn/ pages | learn data ke baad |
+| `node scripts/rebuild-learn.mjs` | finder JSON → learn pages → redirects → topic list → menu → ?v= (sab ek saath) | koi bhi learn / coaching / colleges data badle |
+| `node scripts/inbox-ingest.mjs` | `inbox/` ki files check karke local files me daalta hai | GitHub Action khud chalata hai |
 | `node scripts/build-asset-version.mjs [--check]` | CSS/JS ka ?v= | main.css / site.js / menu badalne ke baad |
 | `node scripts/build-last-updated.mjs` | "Last updated" dates | **har commit se theek pehle** |
 | `node scripts/gsc-revalidate.mjs --out urls.txt` | sitemap ki saari URLs list | Search Console ke liye |

@@ -13,6 +13,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
+import { localRows } from './local.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const yaml = createRequire(path.join(process.env.VERIFY_DEPS || root, 'x.js'))('js-yaml');
@@ -47,6 +48,7 @@ for (const c of coaching.centres) {
     ...(c.region ? { region: c.region } : {}),
   });
 }
+rows.push(...localRows('mbbs', rows));
 const out = path.join(root, 'assets/data/learn/mbbs.json');
 fs.mkdirSync(path.dirname(out), { recursive: true });
 fs.writeFileSync(out, JSON.stringify(rows) + '\n');

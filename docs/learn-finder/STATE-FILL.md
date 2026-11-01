@@ -1,5 +1,9 @@
 # State fill runbook — one finder × one state per run (read this, nothing else)
 
+Owner without Claude Code: the same files come from any Claude chat via docs/free-claude/ (PROMPT.md → inbox/ →
+GitHub Action). Topic ids and finder ids: docs/free-claude/topics.yml. A new finder (e.g. cs-coaching) needs no
+learn-src script: learn-src/generic.mjs builds it from its yml (scripts/inbox-ingest.mjs creates that yml).
+
 The prompt names a finder and a state, e.g. `STATE FILL: ca / gujarat`. Goal: add the local places the official
 registers miss (standalone academies, private classes, regional colleges) to that finder, up to ~100 real ones,
 so `learn/<finder>.html` (State + City dropdowns) and `learn/<finder>/<state>[/<city>].html` fill up.
@@ -8,10 +12,10 @@ so `learn/<finder>.html` (State + City dropdowns) and `learn/<finder>/<state>[/<
 - `npm install js-yaml@4 liquidjs` into `<scratchpad>/deps`; use `VERIFY_DEPS=<that dir>` everywhere.
 - `node scripts/learn-state.mjs <finder> <state>` — the ONLY way to see what exists (counts per city, every
   existing name, allowed types). Don't open `assets/data/learn/*.json`, `_data/coaching.yml`, `_data/colleges.yml`.
-- No finder yet ("NO FINDER")? Make it from the closest live one: copy `_data/in/learn/<near>.yml` meta (id, name,
-  phrase, types, subjects, sources), write `scripts/learn-src/<finder>.mjs` that only does
-  `rows = localRows('<finder>', [])` + the write/dup checks of `ca.mjs`. Don't add a "Where to learn" button
-  anywhere until the finder has listings (finder-link-policy).
+- No finder yet ("NO FINDER")? Find the topic in docs/free-claude/topics.yml (e.g. cs-coaching) and write your rows
+  as inbox/<topic>--<state>.yml in the PROMPT.md format, then `node scripts/inbox-ingest.mjs`: it creates
+  _data/in/learn/<finder>.yml from the topic meta and files the rows (learn-src/generic.mjs builds it). The menu,
+  career-page button and redirects follow on rebuild-learn.mjs — no hand links (finder-link-policy).
 - Grep `docs/learn-finder/LOG.md` for the state/finder for fetch tricks. Don't read memory files.
 
 ## 1. Collect (5–8 biggest cities of the state; the state's student hubs first)
@@ -43,8 +47,8 @@ Existing name + city is skipped automatically; append to the file on a repeat ru
 
 ## 3. Build + check
 ```
-VERIFY_DEPS=<deps> node scripts/learn-src/<finder>.mjs     # validates every local row, rewrites the JSON
-VERIFY_DEPS=<deps> node scripts/build-learn-finders.mjs
+VERIFY_DEPS=<deps> node scripts/rebuild-learn.mjs           # every finder's JSON (validates local rows), learn
+                                                            # pages, old-page redirects, topic list, menu, ?v=
 VERIFY_DEPS=<deps> node scripts/verify-site.mjs learn/<finder>.html learn/<finder>/<state>.html
 node scripts/learn-state.mjs <finder> <state>               # new count per city
 ```

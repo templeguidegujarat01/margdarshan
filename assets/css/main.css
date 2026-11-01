@@ -550,6 +550,32 @@ html.hdr-up .shell-in .crumb-bar{transform:none;}
   .hh-panel .hh-col a.hh-cell{column-gap:.45rem;padding:.4rem .5rem;font-size:.85rem;}
 }
 @media (prefers-reduced-motion:reduce){.hh-tab,.hh-tab::before{transition:none !important;}}
+/* State column (2026-11-01): the 4th tier. In a group whose subjects have state pages (.hh-col4) a subject cell
+   (.hh-c4) picks, on click, which .hh-4 list shows: "<subject> in India" on top, then "<subject> in <state>" in
+   small type flowed into columns. Desktop: list | state column side by side, every .hh-4 in one grid cell so the
+   pane keeps one height; narrow: the state column sits under the list. */
+.hh-tabbed .hh-col4 .hh-4 ul{display:block;columns:12.5rem;column-gap:.75rem;margin:0;padding:0;}
+.hh-tabbed .hh-col4 .hh-4 li{display:block;break-inside:avoid;counter-increment:none;animation:none;}
+.hh-panel .hh-4 a.hh-4-link{display:block;padding:.26rem .45rem;border-radius:6px;font-size:.8rem;font-weight:500;line-height:1.3;color:var(--text);overflow-wrap:anywhere;transition:background-color .15s var(--ease),color .15s var(--ease);}
+.hh-panel .hh-4 a.hh-4-link:hover,.hh-panel .hh-4 a.hh-4-link:focus-visible{background:var(--stream-soft);color:var(--link);}
+.hh-panel .hh-4 a.hh-4-link[aria-current="page"]{background:var(--stream-soft);box-shadow:inset 3px 0 0 var(--gold);}
+.hh-panel .hh-4 a.hh-4-all{display:inline-flex;align-items:center;gap:.35rem;margin:0 0 .45rem;padding:.3rem .55rem;border:1px solid var(--stream-border);border-radius:999px;background:var(--stream-soft);font-size:.8rem;font-weight:700;color:var(--link);}
+.hh-panel .hh-4 a.hh-4-all span{color:inherit;font-size:inherit;}
+.hh-panel .hh-col a.hh-cell.hh-c4.is-on{border-color:var(--stream-border);background:var(--stream-soft);color:var(--link);box-shadow:inset 3px 0 0 var(--gold);}
+.hh-panel .hh-col a.hh-cell.hh-c4.is-on::after{color:var(--gold);opacity:1;transform:translateX(3px);}
+.hh-4{display:none;min-width:0;}
+.hh-4.is-on{display:block;}
+@media (min-width:1024px) and (hover:hover){
+  .hh-tabbed .hh-col.hh-col4{display:grid;grid-template-columns:minmax(9.5rem,12.5rem) minmax(0,1fr);column-gap:.9rem;align-items:start;}
+  .hh-tabbed .hh-col4 > ul{grid-template-columns:minmax(0,1fr);}
+  .hh-col4 > .hh-4wrap{display:grid;min-width:0;padding-left:.9rem;border-left:1px solid var(--line);}
+  .hh-col4 .hh-4{display:block;grid-area:1 / 1;visibility:hidden;}
+  .hh-col4 .hh-4.is-on{visibility:inherit;}
+}
+@media not all and (min-width:1024px) and (hover:hover){
+  .hh-col4 > .hh-4wrap{margin-top:.6rem;padding-top:.6rem;border-top:1px solid var(--line);scroll-margin:.5rem;}
+  .hh-tabbed .hh-col4 .hh-4 ul{columns:10rem;}
+}
 
 /* Every page but the gateway (body.shell-in; USA .shell-us, UK .shell-uk, region-neutral .shell-nt, _layouts/default.html): no sidebar, so the content takes the full width
    and the top bar has no menu button. On phones the logo mark stands where the menu button was (it lived in the
@@ -3088,12 +3114,23 @@ p,li,dd,figcaption{text-wrap:pretty;}
 .pc-meta{font-size:.78rem;color:var(--text-muted);overflow-wrap:anywhere;}
 .pc-foot{display:inline-flex;align-items:center;gap:.35rem;min-height:44px;margin-top:.5rem;color:var(--link);font-weight:700;font-size:.88rem;text-decoration:none;}
 .pc-foot:hover{text-decoration:underline;}
+/* One subject = one list (2026-11-01): the bar is a button (or two) straight into the finder's State box. */
+.pc-go{display:flex;align-items:center;gap:.8rem;min-width:0;min-height:56px;padding:.8rem 1rem;background:var(--surface);color:var(--text);border:1px solid var(--line);border-left:4px solid var(--stream-accent);border-radius:var(--radius-md);box-shadow:var(--shadow-sm);text-decoration:none;transition:box-shadow .18s var(--ease),border-color .18s var(--ease);}
+.pc-go:hover{box-shadow:var(--shadow-md);border-color:var(--accent-on-surface);color:var(--text);}
+.pc-go:focus-visible{outline:3px solid var(--accent-on-surface);outline-offset:2px;}
+.pc-go-arrow{flex-shrink:0;color:var(--stream-primary);transition:transform .18s var(--ease);}
+.pc-go:hover .pc-go-arrow,.pc-go:focus-visible .pc-go-arrow{transform:translateX(3px);}
+.pc-exam-links{grid-column:1 / -1;display:flex;flex-wrap:wrap;align-items:baseline;gap:.25rem .45rem;margin:0;padding:0 .25rem;font-size:.85rem;color:var(--text-muted);}
+.pc-exam-links > span:first-child{font-family:var(--font-mono);font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;}
+.pc-exam-links a{color:var(--link);font-weight:600;}
 @media (min-width:768px){
   .md-page-control{grid-template-columns:repeat(2,minmax(0,1fr));}
   .page-hero:has(.pc-drop[open]){overflow:visible;z-index:85;}
   .pc-panel{position:absolute;left:0;right:0;top:100%;z-index:90;max-height:min(32rem,calc(100vh - 14rem));overflow:auto;overscroll-behavior:contain;}
   .md-page-control > .pc-drop:only-child{max-width:calc(50% - .375rem);}
+  .md-page-control:has(> .pc-go:only-of-type){grid-template-columns:minmax(0,1fr);}
 }
+@media (prefers-reduced-motion:reduce){.pc-go-arrow{transition:none;}}
 @media (prefers-reduced-motion:reduce){
   .pc-panel,.pc-state[open] .pc-list{animation:none;}
   .pc-chev,.pc-state > summary::after{transition:none;}
@@ -3142,7 +3179,7 @@ p,li,dd,figcaption{text-wrap:pretty;}
 .career-hero .pc-exam-line{margin:1.1rem auto .5rem;text-align:center;}
 .career-hero .md-page-control{width:100%;max-width:760px;margin:.75rem auto 0;padding:.5rem;gap:.5rem;text-align:left;background:rgba(var(--hl-rgb),.05);border:1px solid var(--border-surface);border-radius:var(--radius-md);}
 .career-hero .pc-exam-line + .md-page-control{margin-top:0;}
-.career-hero .pc-trigger{min-height:44px;padding:.5rem 1rem;gap:.6rem;font-size:.9rem;box-shadow:none;border-left-width:3px;}
+.career-hero .pc-trigger,.career-hero .pc-go{min-height:44px;padding:.5rem 1rem;gap:.6rem;font-size:.9rem;box-shadow:none;border-left-width:3px;}
 .career-hero .pc-ico{width:30px;height:30px;border-radius:9px;font-size:1rem;}
 .career-hero .pc-label strong{font-size:.9rem;}
 .career-hero .pc-label small{font-size:.74rem;}
@@ -3947,6 +3984,9 @@ a.jb-card:is(:hover,:focus-visible){border-color:var(--gold);transform:translate
 .lf-field>span{font-family:var(--font-mono);font-size:.64rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);}
 .lf-field select,.lf-field input{width:100%;min-width:0;min-height:2.5rem;padding:.45rem .6rem;font:inherit;font-size:.9rem;color:var(--text);background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-sm);}
 .lf-field select:focus-visible,.lf-field input:focus-visible{outline:2px solid var(--gold);outline-offset:1px;}
+/* ?pick=state: the State box the visitor was sent to pick (career page "… in India" button, menu). */
+.lf-pick>span{color:var(--link);}
+.lf-pick select{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,127,30,.22);box-shadow:0 0 0 3px color-mix(in srgb,var(--gold) 28%,transparent);}
 .lf-q{grid-column:1 / -1;}
 .lf-q input{padding-left:2.1rem;}
 .lf-q svg{position:absolute;left:.65rem;bottom:.75rem;color:var(--text-muted);}

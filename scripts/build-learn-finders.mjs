@@ -9,7 +9,13 @@
 //                                     listing in its state (it would repeat the state page)
 //   learn/index.html                  hub of live finders, grouped by learn_map family
 //   _data/learn_index.yml             finders, their pages and counts + search entries (assets/search.json,
-//                                     _includes/learn-link.html, seo-listing-renderer.html read it)
+//                                     career-control.html, explorer.html, build-nav-mega / build-seo-landings read
+//                                     it), and `routes`: which finder now owns each old colleges / coaching key.
+//                                     A routed key is ONE page per state everywhere (2026-11-01): the menu, the
+//                                     career page button, the coaching / college finder and the old
+//                                     coaching/<state>/<key>.html pages (now redirects) all send people here.
+// A finder with no scripts/learn-src/<id>.mjs is built by learn-src/generic.mjs (scripts/rebuild-learn.mjs runs
+// the right one); the inbox pipeline (scripts/inbox-ingest.mjs) creates such finders from docs/free-claude.
 // Cards come from assets/js/learn-finder.js card() — the same function the browser uses to redraw them.
 // Titles and descriptions carry live counts, so rerun after every data change; --check exits 1 when stale.
 import fs from 'node:fs';
@@ -40,9 +46,16 @@ const EXT = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke=
 
 const dir = path.join(root, '_data/in/learn');
 const finders = fs.existsSync(dir) ? fs.readdirSync(dir).filter((f) => f.endsWith('.yml')).sort().map((f) => yaml.load(rd(`_data/in/learn/${f}`))) : [];
-const seo = yaml.load(rd('_data/seo_landings.yml'));
 const files = new Map();
-const index = { finders: {}, search: [] };
+const index = { finders: {}, routes: { colleges: {}, coaching: {} }, search: [] };
+// The type a key's visitors want on a mixed finder (MBBS colleges + NEET coaching): `key_types` in the finder yml,
+// else the coaching key takes the first "… coaching" type and the colleges key the first other type. A one-kind
+// finder shows every type ('' = no type filter), so CA keeps its ICAI offices beside the coaching centres.
+function keyType(F, kind, k) {
+  if (F.key_types && F.key_types[kind] && F.key_types[kind][k]) return F.key_types[kind][k];
+  if (Object.values(F.keys || {}).filter((v) => (v || []).length).length < 2) return '';
+  return F.types.find((t) => (kind === 'coaching') === /coaching/i.test(t)) || '';
+}
 
 for (const F of finders) {
   const rows = LF.sort(JSON.parse(rd(`assets/data/learn/${F.id}.json`)), F.types);
@@ -60,19 +73,26 @@ for (const F of finders) {
       if (list.length < CITY_MIN || list.length === st.rows.length) continue;
       cities[LF.slug(city)] = { name: city, n: list.length };
     }
-    entry.states[s.id] = { name: s.name, n: st.rows.length, cities };
+    entry.states[s.id] = { name: s.name, n: st.rows.length, types: counts(st.rows), cities };
+  }
+  for (const [kind, keys] of Object.entries(F.keys || {})) for (const k of keys || []) {
+    if (!index.routes[kind]) continue;
+    if (index.routes[kind][k]) throw new Error(`${kind} key ${k} is claimed by two finders: ${index.routes[kind][k].finder} and ${F.id}`);
+    const type = keyType(F, kind, k);
+    index.routes[kind][k] = { finder: F.id, type, q: type ? `type=${LF.slug(type)}` : '' };
   }
   files.set(`learn/${F.id}.html`, page(F, rows, null, null, entry));
   for (const [sid, se] of Object.entries(entry.states)) {
     files.set(`learn/${F.id}/${sid}.html`, page(F, byState[sid].rows, sid, null, entry));
     for (const [cs, ce] of Object.entries(se.cities)) files.set(`learn/${F.id}/${sid}/${cs}.html`, page(F, byState[sid].cities[ce.name], sid, ce.name, entry));
-    index.search.push({ t: `${F.phrase} in ${se.name}`, s: `${fmt(se.n)} verified places, with official links`, u: `learn/${F.id}/${sid}.html`, c: F.search_cat || 'colleges', k: `${F.short} ${se.name} where to learn colleges coaching list`.toLowerCase() });
+    index.search.push({ t: `${F.phrase} in ${se.name}`, s: `${fmt(se.n)} verified places, with official links`, u: `learn/${F.id}/${sid}.html`, c: F.search_cat || 'colleges', k: `${F.short} ${F.search_words || ''} ${se.name} where to learn colleges coaching classes institutes list`.replace(/\s+/g, ' ').toLowerCase() });
   }
-  index.search.push({ t: `Where to learn: ${F.name}`, s: `${fmt(rows.length)} verified places in India, filter by state and city`, u: `learn/${F.id}.html`, c: F.search_cat || 'colleges', k: `${F.short} where to learn colleges coaching institutes india list finder`.toLowerCase() });
+  index.search.push({ t: `${F.phrase} in India`, s: `${fmt(rows.length)} verified places, pick your state and city`, u: `learn/${F.id}.html`, c: F.search_cat || 'colleges', k: `${F.short} ${F.search_words || ''} where to learn colleges coaching classes institutes india list finder`.replace(/\s+/g, ' ').toLowerCase() });
 }
 files.set('learn/index.html', hub());
-files.set('_data/learn_index.yml', ['# Generated by scripts/build-learn-finders.mjs — live "where to learn" finders, their state/city pages and counts.',
-  '# Read by assets/search.json, _includes/learn-link.html and _includes/seo-listing-renderer.html. Do not edit by hand.',
+files.set('_data/learn_index.yml', ['# Generated by scripts/build-learn-finders.mjs — live "where to learn" finders, their state/city pages and counts,',
+  '# and `routes` (old colleges / coaching key → the finder that owns it). Read by assets/search.json, career-control.html,',
+  '# explorer.html, build-nav-mega.mjs and build-seo-landings.mjs. Do not edit by hand.',
   yaml.dump(index, { lineWidth: -1, noRefs: true, quotingType: '"' })].join('\n'));
 
 function counts(rows) {
@@ -106,15 +126,6 @@ function page(F, rows, sid, city, entry) {
     '@context': 'https://schema.org', '@type': 'ItemList', name: `${F.phrase} in ${place}`, numberOfItems: rows.length,
     itemListElement: pre.slice(0, 100).map((r, i) => ({ '@type': 'ListItem', position: i + 1, item: { '@type': /college/i.test(r.type) ? 'CollegeOrUniversity' : 'EducationalOrganization', name: r.name, url: r.url, address: { '@type': 'PostalAddress', addressLocality: r.city, addressRegion: r.region || stateName[r.state], addressCountry: 'IN' } } })),
   };
-  // Old verified-list pages for the same keys (colleges/<state>/<key>.html, coaching/…) link both ways.
-  const old = [];
-  if (sid) for (const [type, keys] of Object.entries(F.keys || {})) for (const k of keys) {
-    const st = seo[type] && seo[type].states[sid];
-    if (!st) continue;
-    const cs = city && LF.slug(city);
-    if (cs && st.cities[cs] && st.cities[cs].lists[k]) old.push([`${type}/${sid}/${cs}/${k}.html`, `${seo[type].labels[k].short} ${type === 'colleges' ? 'colleges' : 'coaching'} in ${city}`]);
-    else if (st.lists[k]) old.push([`${type}/${sid}/${k}.html`, `${seo[type].labels[k].short} ${type === 'colleges' ? 'colleges' : 'coaching'} in ${sName}`]);
-  }
   const hasMode = rows.some((r) => r.mode);
   const hasBranch = rows.some((r) => r.branches);
   const sel = (name, label) => `<label class="lf-field"><span>${label}</span><select name="${name}"><option value="">All</option></select></label>`;
@@ -176,7 +187,6 @@ function page(F, rows, sid, city, entry) {
     '      <h2 id="lf-more-heading" class="sl-h2">Keep exploring</h2>',
     ...(cityList.length ? [`      <h3 class="sl-h3">${esc(F.short)} by city in ${esc(sName)}</h3>`, '      <ul class="sl-links">', ...cityList.map(([cs, c]) => `        <li><a href="learn/${F.id}/${sid}/${cs}.html">${esc(c.name)} <span>${fmt(c.n)}</span></a></li>`), '      </ul>'] : []),
     ...(!sid ? [`      <h3 class="sl-h3">${esc(F.short)} by state</h3>`, '      <ul class="sl-links">', ...stateList.map(([s, e]) => `        <li><a href="learn/${F.id}/${s}.html">${esc(e.name)} <span>${fmt(e.n)}</span></a></li>`), '      </ul>'] : []),
-    ...(old.length ? ['      <h3 class="sl-h3">Same lists, one type at a time</h3>', '      <ul class="sl-links">', ...old.map(([h, l]) => `        <li><a href="${h}">${esc(l)}</a></li>`), '      </ul>'] : []),
     ...(sid ? [`      <h3 class="sl-h3">${esc(F.short)} in other states</h3>`, '      <ul class="sl-links">', ...stateList.map(([s, e]) => `        <li><a href="learn/${F.id}/${s}.html">${esc(e.name)} <span>${fmt(e.n)}</span></a></li>`), '      </ul>'] : []),
     `      <p class="sl-note">How this list is built: every place comes from an official register or the institute's own website, and local places carry a Source link to the public page we checked; nothing is ranked. State pages exist with ${STATE_MIN}+ places and city pages with ${CITY_MIN}+. Spotted a mistake? <a href="contact.html">Tell us</a>.</p>`,
     '    </div>',

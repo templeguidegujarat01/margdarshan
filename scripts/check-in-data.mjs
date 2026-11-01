@@ -627,7 +627,10 @@ if (fs.existsSync(navFile)) {
         for (const c of col.links || []) {
           chk(`${n.label} > ${col.label} > ${c.label}`, c.href);
           // An unquoted label with a comma splits a YAML flow mapping into stray keys — catch it.
-          const extra = Object.keys(c).filter((k) => !["label", "href", "desc"].includes(k));
+          const extra = Object.keys(c).filter((k) => !["label", "href", "desc", "sub", "sub_all"].includes(k));
+          // State column (build-nav-mega.mjs): every state page a subject lists must exist.
+          if (c.sub_all) chk(`${n.label} > ${c.label} > in India`, c.sub_all.href);
+          for (const x of c.sub || []) chk(`${n.label} > ${c.label} > ${x.label}`, x.href);
           if (extra.length || typeof c.label !== "string") errors.push(`nav.yml topnav ${n.label} > ${col.label}: bad link keys ${JSON.stringify(extra)} (quote labels that contain commas)`);
         }
       }

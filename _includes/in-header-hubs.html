@@ -37,6 +37,11 @@
   assets/menu-in.html (this include with mode="fragment") and site.js (block "India edition top menu") swaps them
   in on the first hover / focus / touch of the menu or when the browser is idle. The fragment is cached between
   pages (?v= = _data/asset_version.yml). USA pages (edition="us") still render the full panels inline.
+  State column (India, 2026-11-01, owner's order): a link with `sub` (a finder key such as CA, NEET, B.Tech, or a
+  sport with its own finder; _data/nav_mega.yml from build-nav-mega.mjs) is a 4th tier. Clicking it does not leave
+  the menu: its state pages ("CA coaching in Gujarat" …, plus "CA coaching in India" for the all-India finder)
+  open in a column beside the list (.hh-col4 / .hh-4, site.js "state column"); narrow screens show them under the
+  list. A node holding such links always uses the cascade layout. No JS: the link opens the all-India finder.
   Domain menus (India, 2026-10-31): Engineering, Medical, Commerce, Law & Arts, Design, Govt Jobs and Diploma & ITI
   share one rail order (Exams & Admissions, Careers & Courses, Colleges, Coaching, Roadmaps). A node may set
   `title` (the pane heading, default its label) and `head` {label, href} (the pane's top-right link); a mega key's
@@ -90,6 +95,7 @@
             {%- if M %}{% assign n_cols = M.cols %}{% endif %}
             {%- assign n_links = 0 %}{% for col in n_cols %}{% assign n_links = n_links | plus: col.links.size %}{% endfor %}
             {%- if n_cols.size > 1 and n_links > 8 %}{% assign n_tab = true %}{% else %}{% assign n_tab = false %}{% endif %}
+            {%- for col in n_cols %}{% for c in col.links %}{% if c.sub %}{% assign n_tab = true %}{% break %}{% endif %}{% endfor %}{% endfor %}
             {%- capture n_id %}hh-{{ it.label | slugify }}-{{ n_raw | slugify }}{% endcapture %}
             <li class="hh-sub hh-node{% if forloop.first %} is-on{% endif %}">
               <a class="hh-sub-btn" href="{{ n_href }}" aria-haspopup="true"{% if hh_cur == n_href %} aria-current="page"{% endif %}><span class="hh-node-txt">{{ n_label }}</span><svg class="hh-sub-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
@@ -108,17 +114,39 @@
                 {%- endif %}
                 <div class="hh-cols">
                   {%- for col in n_cols %}
-                  <div class="hh-col{% if col.links.size < 9 %} hh-col-keep{% endif %}{% if n_tab and forloop.first %} is-on{% endif %}"{% if n_tab %} role="tabpanel" id="{{ n_id }}-p{{ forloop.index }}" aria-labelledby="{{ n_id }}-t{{ forloop.index }}"{% endif %}>
+                  {%- assign ci = forloop.index %}
+                  {%- assign col4 = false %}{% for c in col.links %}{% if c.sub %}{% assign col4 = true %}{% break %}{% endif %}{% endfor %}
+                  <div class="hh-col{% if col.links.size < 9 %} hh-col-keep{% endif %}{% if col4 %} hh-col4{% endif %}{% if n_tab and forloop.first %} is-on{% endif %}"{% if n_tab %} role="tabpanel" id="{{ n_id }}-p{{ forloop.index }}" aria-labelledby="{{ n_id }}-t{{ forloop.index }}"{% endif %}>
                     <p class="hh-col-head">{% if col.icon %}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{{ col.icon }}</svg>{% endif %}{{ col.label | replace: "&", "&amp;" }}</p>
                     <ul>
+                      {%- assign h4_first = true %}
                       {%- for c in col.links %}
-                      {%- if n_tab %}
+                      {%- if c.sub %}
+                      <li><a class="hh-link hh-cell hh-c4{% if h4_first %} is-on{% endif %}" href="{{ c.sub_all.href }}" data-hh-4 aria-controls="{{ n_id }}-p{{ ci }}-s{{ forloop.index }}" aria-expanded="{% if h4_first %}true{% else %}false{% endif %}"><span class="hh-cell-txt"><span class="hh-cell-name">{{ c.label | replace: "&", "&amp;" }}</span></span></a></li>
+                      {%- assign h4_first = false %}
+                      {%- elsif n_tab %}
                       <li><a class="hh-link hh-cell" href="{{ c.href }}"{% if hh_cur == c.href %} aria-current="page"{% endif %}><span class="hh-cell-txt"><span class="hh-cell-name">{{ c.label | replace: "&", "&amp;" }}</span></span></a></li>
                       {%- else %}
                       <li><a class="hh-link" href="{{ c.href }}"{% if hh_cur == c.href %} aria-current="page"{% endif %}><span>{{ c.label | replace: "&", "&amp;" }}</span></a></li>
                       {%- endif %}
                       {%- endfor %}
                     </ul>
+                    {%- if col4 %}
+                    <div class="hh-4wrap">
+                      {%- assign h4_first = true %}
+                      {%- for c in col.links %}{% if c.sub %}
+                      <div class="hh-4{% if h4_first %} is-on{% endif %}" id="{{ n_id }}-p{{ ci }}-s{{ forloop.index }}" role="group" aria-label="{{ c.sub_all.label | replace: "&", "&amp;" }}: by state">
+                        <a class="hh-link hh-4-all" href="{{ c.sub_all.href }}">{{ c.sub_all.label | replace: "&", "&amp;" }} <span aria-hidden="true">→</span></a>
+                        <ul>
+                          {%- for x in c.sub %}
+                          <li><a class="hh-link hh-4-link" href="{{ x.href }}"{% if hh_cur == x.href %} aria-current="page"{% endif %}>{{ x.label | replace: "&", "&amp;" }}</a></li>
+                          {%- endfor %}
+                        </ul>
+                      </div>
+                      {%- assign h4_first = false %}
+                      {%- endif %}{% endfor %}
+                    </div>
+                    {%- endif %}
                   </div>
                   {%- endfor %}
                 </div>

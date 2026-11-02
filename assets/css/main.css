@@ -1791,7 +1791,7 @@ main :is(.prose, .page-hero-inner > p, .note, .table-note, .career-compare-note,
 /* ---------- Interactive finder hub (_includes/explorer.html) ----------
    Reuses the .fx-* controls and cards of the per-course finders. */
 .ex-controls{display:grid;gap:1.1rem;grid-template-columns:1fr;padding:1.2rem 1.3rem;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);margin-bottom:1rem;}
-@media (min-width:768px){.ex-controls{grid-template-columns:repeat(2,minmax(0,1fr));}.ex-step:first-child,.ex-step[data-ex-city-step],.ex-step-state:nth-child(4){grid-column:1/-1;}}
+@media (min-width:768px){.ex-controls{grid-template-columns:repeat(2,minmax(0,1fr));}}
 .ex-step[hidden]{display:none;}
 .fx-select:disabled,.fx-pill:disabled{opacity:.55;cursor:not-allowed;}
 /* Console look: inside a Master Block card the controls drop their own box (no card-in-card) and sit on the card grid. */
@@ -1840,7 +1840,8 @@ main :is(.prose, .page-hero-inner > p, .note, .table-note, .career-compare-note,
   background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);box-shadow:var(--shadow-sm);
 }
 .ex .ex-step{min-width:0;}
-.ex .ex-step:first-child,.ex .ex-step:nth-child(2),.ex .ex-panel-head{grid-column:1/-1;}
+/* phone: Stream and Course full width; State, City, College type two per row */
+.ex .ex-step:nth-child(2),.ex .ex-step:nth-child(3),.ex .ex-panel-head{grid-column:1/-1;}
 .ex-panel-head{display:flex;align-items:center;justify-content:space-between;gap:.5rem;padding-bottom:.55rem;border-bottom:1px solid var(--line);}
 .ex-panel-title{margin:0;font-weight:700;font-size:.95rem;color:var(--text);}
 .ex-reset{padding:.25rem .1rem;border:0;background:none;color:var(--link);font:inherit;font-size:.85rem;font-weight:600;cursor:pointer;text-decoration:underline;text-underline-offset:2px;}
@@ -4027,6 +4028,7 @@ a.jb-card:is(:hover,:focus-visible){border-color:var(--gold);transform:translate
 /* ---------- Where-to-learn finders (learn/*.html, scripts/build-learn-finders.mjs, assets/js/learn-finder.js) ---------- */
 .lf-bar{position:sticky;top:calc((var(--header-h) + var(--stick-h)) * var(--hdr-on,1) + .5rem);transition:top .25s var(--ease);z-index:5;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem;margin:0 0 1rem;padding:.75rem;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);box-shadow:var(--shadow-sm);}
 .lf-field{display:flex;flex-direction:column;gap:.25rem;min-width:0;position:relative;}
+.lf-field[hidden]{display:none;}
 .lf-field>span{font-family:var(--font-mono);font-size:.64rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);}
 .lf-field select,.lf-field input{width:100%;min-width:0;min-height:2.5rem;padding:.45rem .6rem;font:inherit;font-size:.9rem;color:var(--text);background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-sm);}
 .lf-field select:focus-visible,.lf-field input:focus-visible{outline:2px solid var(--gold);outline-offset:1px;}

@@ -1,8 +1,11 @@
 /* "Where to learn" finders (learn/<finder>.html and its state / city pages, scripts/build-learn-finders.mjs).
    The page ships its first cards already rendered (same card() as below, run by the builder in Node), then
    this script loads the finder's JSON (<link data-lf-json>), keeps the page's scope (data-lf-state /
-   data-lf-city on .lf) and redraws the list from the filter bar: state, city, type, ownership, branch, mode, search.
-   Filters live in the URL (?state=&city=&type=&own=&branch=&mode=&q=) so a filtered list can be shared.
+   data-lf-city on .lf) and redraws the list from the filter bar: search, state, city, type, ownership, branch.
+   A box with fewer than two choices hides itself, and Ownership hides when it only repeats Type (CA: every
+   ICAI office is a statutory body; cricket: clubs are clubs), so the bar only shows filters that can narrow.
+   Ownership and Branch count within the picked type (a JEE coaching pick has no branches to choose).
+   Filters live in the URL (?state=&city=&type=&own=&branch=&q=) so a filtered list can be shared.
    ?pick=state (the career page's "… in India" button, the menu) lands on the State box: scrolled to, focused, marked.
    No JS = the pre-rendered cards stay, with a link to the full list. */
 (function (root) {
@@ -75,6 +78,12 @@
       rows.forEach(function (r) { [].concat(key(r) || []).forEach(function (k) { if (k) m[k] = (m[k] || 0) + 1; }); });
       return m;
     };
+    // Show a box only when it can narrow the list; a hidden box is cleared so it never filters unseen.
+    var show = function (n, ok) {
+      var f = el(n); if (!f) return;
+      if (!ok) f.value = '';
+      f.closest('.lf-field').hidden = !ok;
+    };
     function options() {
       var st = el('state') ? el('state').value : fixState;
       var base = all.filter(function (r) { return !st || r.state === st; });
@@ -86,19 +95,24 @@
       if (el('city')) {
         var c = tally(base, function (r) { return r.city; });
         fill(el('city'), Object.keys(c).sort().map(function (k) { return [slug(k), k, c[k]]; }), 'All cities');
+        show('city', Object.keys(c).length > 1);
       }
       var t = tally(base, function (r) { return r.type; });
-      fill(el('type'), types.filter(function (k) { return t[k]; }).map(function (k) { return [slug(k), k, t[k]]; }), 'All types');
-      var o = tally(base, function (r) { return r.ownership; });
-      fill(el('own'), OWN.filter(function (k) { return o[k]; }).map(function (k) { return [slug(k), k, o[k]]; }), 'Any ownership');
+      fill(el('type'), types.filter(function (k) { return t[k]; }).map(function (k) { return [slug(k), k, t[k]]; }), 'All');
+      show('type', Object.keys(t).length > 1);
+      var tv = el('type') ? el('type').value : '';
+      var picked = base.filter(function (r) { return !tv || slug(r.type) === tv; });
+      var o = tally(picked, function (r) { return r.ownership; });
+      var owns = OWN.filter(function (k) { return o[k]; }).concat(Object.keys(o).filter(function (k) { return OWN.indexOf(k) < 0; }));
+      fill(el('own'), owns.map(function (k) { return [slug(k), k, o[k]]; }), 'All');
+      // Ownership that only repeats Type: no single type has two different owners
+      var split = types.some(function (k) { return Object.keys(tally(picked.filter(function (r) { return r.type === k; }), function (r) { return r.ownership; })).length > 1; });
+      show('own', owns.length > 1 && split);
       if (el('branch')) {
-        var b = tally(base, function (r) { return r.branches; });
-        fill(el('branch'), Object.keys(b).sort(function (x, y) { return (x === 'Other branches') - (y === 'Other branches') || x.localeCompare(y); })
-          .map(function (k) { return [slug(k), k, b[k]]; }), 'Any branch');
-      }
-      if (el('mode')) {
-        var m = tally(base, function (r) { return r.mode; });
-        fill(el('mode'), Object.keys(m).sort().map(function (k) { return [slug(k), k, m[k]]; }), 'Any mode');
+        var br = tally(picked, function (r) { return r.branches; });
+        fill(el('branch'), Object.keys(br).sort(function (x, y) { return (x === 'Other branches') - (y === 'Other branches') || x.localeCompare(y); })
+          .map(function (k) { return [slug(k), k, br[k]]; }), 'All branches');
+        show('branch', Object.keys(br).length > 1);
       }
     }
     function apply(push) {
@@ -107,14 +121,14 @@
       var q = v('q').trim().toLowerCase();
       list = all.filter(function (r) {
         return (!st || r.state === st) && (!ct || slug(r.city) === ct) && (!v('type') || slug(r.type) === v('type')) &&
-          (!v('own') || slug(r.ownership || '') === v('own')) && (!v('mode') || (r.mode || []).map(slug).indexOf(v('mode')) >= 0) &&
+          (!v('own') || slug(r.ownership || '') === v('own')) &&
           (!v('branch') || (r.branches || []).map(slug).indexOf(v('branch')) >= 0) &&
           (!q || (r.name + ' ' + r.city + ' ' + (r.about || '')).toLowerCase().indexOf(q) >= 0);
       });
       shown = 0; grid.innerHTML = ''; draw();
       if (push) {
         var p = new URLSearchParams();
-        ['state', 'city', 'type', 'own', 'branch', 'mode', 'q'].forEach(function (n) { if (el(n) && el(n).value.trim()) p.set(n, el(n).value.trim()); });
+        ['state', 'city', 'type', 'own', 'branch', 'q'].forEach(function (n) { if (el(n) && el(n).value.trim()) p.set(n, el(n).value.trim()); });
         history.replaceState(null, '', location.pathname + (p.toString() ? '?' + p : '') + location.hash);
       }
     }
@@ -130,7 +144,7 @@
       all = sort(rows.filter(function (r) { return (!fixState || r.state === fixState) && (!fixCity || r.city === fixCity); }), types);
       var p = new URLSearchParams(location.search);
       options();
-      ['state', 'city', 'type', 'own', 'branch', 'mode', 'q'].forEach(function (n) { if (el(n) && p.get(n)) { el(n).value = p.get(n); if (n === 'state') options(); } });
+      ['state', 'city', 'type', 'own', 'branch', 'q'].forEach(function (n) { if (el(n) && p.get(n)) { el(n).value = p.get(n); if (n === 'state' || n === 'type') options(); } });
       form.hidden = false; box.classList.add('is-live');
       apply(false);
       if (p.get('pick') === 'state' && el('state')) {
@@ -140,7 +154,11 @@
         el('state').focus({ preventScroll: true });
         el('state').addEventListener('change', function () { pick.classList.remove('lf-pick'); }, { once: true });
       }
-      form.addEventListener('change', function (e) { if (e.target.name === 'state') { if (el('city')) el('city').value = ''; options(); } apply(true); });
+      form.addEventListener('change', function (e) {
+        if (e.target.name === 'state' && el('city')) el('city').value = '';
+        if (e.target.name === 'state' || e.target.name === 'type') options();
+        apply(true);
+      });
       var tmr;
       form.addEventListener('input', function (e) { if (e.target.name === 'q') { clearTimeout(tmr); tmr = setTimeout(function () { apply(true); }, 180); } });
       form.addEventListener('submit', function (e) { e.preventDefault(); apply(true); });

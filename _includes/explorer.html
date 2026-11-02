@@ -13,8 +13,11 @@
                then narrows it); ?state= / ?city= in the URL are ignored.
                A deep link with a course / exam lands on the State box (focused and scrolled to).
                Trail params ?from=&via=&exam= are read by _includes/scripts.html (breadcrumb) and preserved here.
-  Management type (colleges only): a filter on `ownership` in _data/colleges.yml —
-               Government -> govt, Private + Deemed -> private, Grant-in-Aid -> aided.
+  College type (colleges only, last box): a filter on `ownership` — Government -> govt, Private + Deemed -> private,
+               Grant-in-Aid -> aided. It shows once a state is picked, counts within that state and city, and lists
+               only the types found there; with fewer than two it stays hidden. City likewise needs two or more cities.
+  Plain filters (2026-11-02 owner review): Stream, Course / Exam, State, City, College type. No step numbers and
+               no greyed-out states — the State box lists only states that have places.
   The page URL is kept in sync (history.replaceState) so a filtered view can be shared.
   Per-course pages (colleges-<course>.html, coaching-<exam>.html) stay as the crawlable, server-rendered finders.
   One list per subject (2026-11-02): a course / exam that a "where to learn" finder owns (_data/learn_index.yml
@@ -31,33 +34,31 @@
       <button type="button" class="ex-reset" data-ex-reset hidden>Clear all</button>
     </div>
     <div class="ex-step">
-      <p class="fx-label" id="ex-stream-label"><span class="fx-num" aria-hidden="true">1</span>Select your stream</p>
+      <p class="fx-label" id="ex-stream-label">Stream</p>
       <div class="ex-tiles" role="group" aria-labelledby="ex-stream-label" data-ex-streams></div>
     </div>
     <div class="ex-step">
-      <label class="fx-label" for="ex-career"><span class="fx-num" aria-hidden="true">2</span>{% if ex_type == "colleges" %}Select a course{% else %}Select an exam{% endif %}</label>
+      <label class="fx-label" for="ex-career">{% if ex_type == "colleges" %}Course{% else %}Exam{% endif %}</label>
       <select class="fx-select" id="ex-career" data-ex-career disabled>
-        <option value="">{% if ex_type == "colleges" %}Choose a course{% else %}Choose an entrance exam{% endif %}</option>
+        <option value="">{% if ex_type == "colleges" %}Choose a course{% else %}Choose an exam{% endif %}</option>
       </select>
     </div>
-    {%- if ex_type == "colleges" %}
-    <div class="ex-step">
-      <label class="fx-label" for="ex-own"><span class="fx-num" aria-hidden="true">3</span>Management type</label>
-      <select class="fx-select" id="ex-own" data-ex-own disabled>
-        <option value="">All Types</option>
-      </select>
-    </div>
-    {%- endif %}
     <div class="ex-step ex-step-state">
-      <label class="fx-label" for="ex-state"><span class="fx-num" aria-hidden="true">{% if ex_type == "colleges" %}4{% else %}3{% endif %}</span>Select a state</label>
+      <label class="fx-label" for="ex-state">State</label>
       <select class="fx-select" id="ex-state" data-ex-state disabled>
         <option value="">Choose a state</option>
       </select>
     </div>
     <div class="ex-step" data-ex-city-step hidden>
-      <label class="fx-label" for="ex-city"><span class="fx-num" aria-hidden="true">{% if ex_type == "colleges" %}5{% else %}4{% endif %}</span>City (optional)</label>
+      <label class="fx-label" for="ex-city">City</label>
       <select class="fx-select" id="ex-city" data-ex-cities></select>
     </div>
+    {%- if ex_type == "colleges" %}
+    <div class="ex-step" data-ex-own-step hidden>
+      <label class="fx-label" for="ex-own">College type</label>
+      <select class="fx-select" id="ex-own" data-ex-own></select>
+    </div>
+    {%- endif %}
   </aside>
 
   <div class="ex-main">
@@ -98,6 +99,7 @@
   var careerSel = root.querySelector('[data-ex-career]');
   var stateSel = root.querySelector('[data-ex-state]');
   var ownSel = root.querySelector('[data-ex-own]');
+  var ownStep = root.querySelector('[data-ex-own-step]');
   var cityStep = root.querySelector('[data-ex-city-step]');
   var citiesEl = root.querySelector('[data-ex-cities]');
   var countEl = root.querySelector('[data-ex-count]');
@@ -108,7 +110,7 @@
   var data = null;
   var sel = { stream: '', career: '', own: '', state: '', city: '' };
   /* management-type filter: ownership value -> filter key */
-  var OWN = [['govt', 'Government (State/Central)'], ['private', 'Private / Deemed Universities'], ['aided', 'Grant-in-Aid']];
+  var OWN = [['govt', 'Government'], ['private', 'Private / Deemed'], ['aided', 'Grant-in-Aid']];
   var OWN_SHORT = { govt: 'government', private: 'private / deemed', aided: 'grant-in-aid' };
   function ownKey(c){ var o = String(c.ownership || '').toLowerCase(); return o === 'government' ? 'govt' : o === 'grant-in-aid' ? 'aided' : (o === 'private' || o === 'deemed') ? 'private' : ''; }
   var PIN = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>';
@@ -155,7 +157,7 @@
   }
   function drawCareers(){
     var st = streamById(sel.stream);
-    var ph = type === 'colleges' ? 'Choose a course' : 'Choose an entrance exam';
+    var ph = type === 'colleges' ? 'Choose a course' : 'Choose an exam';
     var html = '<option value="">' + ph + '</option>';
     if(st){
       html += st[type].map(function(k){
@@ -168,31 +170,31 @@
   }
   function drawOwn(){
     if(!ownSel) return;
-    var items = sel.career ? itemsFor(sel.career, true) : [];
-    ownSel.innerHTML = '<option value="">All Types' + (sel.career ? ' (' + items.length + ')' : '') + '</option>' + OWN.map(function(o){
-      var n = items.filter(function(c){ return ownKey(c) === o[0]; }).length;
-      return '<option value="' + o[0] + '"' + (o[0] === sel.own ? ' selected' : '') + (sel.career && !n ? ' disabled' : '') + '>' + esc(o[1]) + (sel.career ? ' (' + n + ')' : '') + '</option>';
+    /* counted inside the picked state + city; only the types found there; hidden when fewer than two */
+    var items = sel.career && sel.state ? itemsFor(sel.career, true).filter(function(c){ return c.state === sel.state && (!sel.city || slug(c.city) === sel.city); }) : [];
+    var opts = OWN.map(function(o){ return [o[0], o[1], items.filter(function(c){ return ownKey(c) === o[0]; }).length]; }).filter(function(o){ return o[2] > 0; });
+    ownStep.hidden = opts.length < 2;
+    ownSel.innerHTML = '<option value="">All (' + items.length + ')</option>' + opts.map(function(o){
+      return '<option value="' + o[0] + '"' + (o[0] === sel.own ? ' selected' : '') + '>' + esc(o[1]) + ' (' + o[2] + ')</option>';
     }).join('');
-    ownSel.disabled = !sel.career;
   }
+  /* State and City count the whole list: the College type box comes after them */
   function drawStates(){
-    var items = sel.career ? itemsFor(sel.career) : [];
-    var html = '<option value="">Choose a state</option>', soon = '';
+    var items = sel.career ? itemsFor(sel.career, true) : [];
+    var html = '<option value="">Choose a state</option>';
     data.states.forEach(function(s){
       var n = items.filter(function(c){ return c.state === s.id; }).length;
       if(n > 0) html += '<option value="' + esc(s.id) + '"' + (s.id === sel.state ? ' selected' : '') + '>' + esc(s.name) + ' (' + n + ')</option>';
-      else if(sel.career) soon += '<option disabled>' + esc(s.name) + '</option>';
     });
-    if(soon) html += '<optgroup label="No verified listings yet">' + soon + '</optgroup>';
     stateSel.innerHTML = html;
     stateSel.disabled = !sel.career;
   }
   function drawCities(){
-    var items = sel.career && sel.state ? itemsFor(sel.career).filter(function(c){ return c.state === sel.state; }) : [];
-    cityStep.hidden = items.length === 0;
-    if(!items.length){ citiesEl.innerHTML = ''; return; }
+    var items = sel.career && sel.state ? itemsFor(sel.career, true).filter(function(c){ return c.state === sel.state; }) : [];
     var seen = [], counts = {};
     items.forEach(function(c){ if(!counts[c.city]){ counts[c.city] = 0; seen.push(c.city); } counts[c.city]++; });
+    cityStep.hidden = seen.length < 2;
+    if(seen.length < 2){ citiesEl.innerHTML = ''; return; }
     seen.sort(function(a, b){ return a.localeCompare(b); });
     citiesEl.innerHTML = '<option value="">All cities (' + items.length + ')</option>' + seen.map(function(city){
       return '<option value="' + esc(slug(city)) + '"' + (sel.city === slug(city) ? ' selected' : '') + '>' + esc(city) + ' (' + counts[city] + ')</option>';
@@ -287,10 +289,9 @@
     }
     if(!sel.state){
       resultsEl.innerHTML = '';
-      var any = itemsFor(sel.career).length;
-      var kind = sel.own ? OWN_SHORT[sel.own] + ' ' : '';
-      countEl.textContent = any ? 'Now choose a state — ' + any + ' ' + kind + (any === 1 ? one : many) + ' listed for ' + careerLabel(sel.career) + '.'
-        : 'No verified ' + kind + many + ' listed yet for ' + careerLabel(sel.career) + '.';
+      var any = itemsFor(sel.career, true).length;
+      countEl.textContent = any ? 'Now choose a state — ' + any + ' ' + (any === 1 ? one : many) + ' listed for ' + careerLabel(sel.career) + '.'
+        : 'No verified ' + many + ' listed yet for ' + careerLabel(sel.career) + '.';
       return;
     }
     var items = itemsFor(sel.career).filter(function(c){
@@ -298,7 +299,8 @@
     });
     var place = (sel.city && items[0] ? items[0].city + ', ' : '') + stateName(sel.state);
     resultsEl.innerHTML = items.map(cardFor).join('');
-    countEl.textContent = 'Showing ' + items.length + ' ' + (items.length === 1 ? one : many) + ' for ' + careerLabel(sel.career) + ' in ' + place + (sel.city ? '' : '. Choose a city to narrow the list.');
+    var kind = sel.own ? OWN_SHORT[sel.own] + ' ' : '';
+    countEl.textContent = 'Showing ' + items.length + ' ' + kind + (items.length === 1 ? one : many) + ' for ' + careerLabel(sel.career) + ' in ' + place + '.';
   }
 
   function syncUrl(){
@@ -313,11 +315,11 @@
     var qs = p.toString();
     history.replaceState(null, '', window.location.pathname + (qs ? '?' + qs : '') + window.location.hash);
   }
-  /* a management type with no listings for this course falls back to All; a state / city it empties is cleared */
+  /* a state / city with no listings is cleared; a college type the picked place doesn't have falls back to All */
   function settle(){
-    if(sel.own && (!sel.career || !itemsFor(sel.career).length)) sel.own = '';
-    if(sel.state && !(sel.career && itemsFor(sel.career).some(function(c){ return c.state === sel.state; }))){ sel.state = ''; sel.city = ''; }
-    if(sel.city && !itemsFor(sel.career).some(function(c){ return c.state === sel.state && slug(c.city) === sel.city; })) sel.city = '';
+    if(sel.state && !(sel.career && itemsFor(sel.career, true).some(function(c){ return c.state === sel.state; }))){ sel.state = ''; sel.city = ''; }
+    if(sel.city && !itemsFor(sel.career, true).some(function(c){ return c.state === sel.state && slug(c.city) === sel.city; })) sel.city = '';
+    if(sel.own && (!sel.career || (sel.state && !itemsFor(sel.career).some(function(c){ return c.state === sel.state && (!sel.city || slug(c.city) === sel.city); })))) sel.own = '';
   }
   function redraw(){
     if(needsLoad(sel.career)){ var k = sel.career; drawStreams(); drawCareers(); stateSel.disabled = true; loadLearn(k, function(){ if(sel.career === k) redraw(); }); return; }
@@ -334,7 +336,7 @@
   });
   if(ownSel) ownSel.addEventListener('change', function(){ sel.own = ownSel.value; redraw(); });
   stateSel.addEventListener('change', function(){ sel.state = stateSel.value; sel.city = ''; redraw(); });
-  citiesEl.addEventListener('change', function(){ sel.city = citiesEl.value; drawResults(); syncUrl(); });
+  citiesEl.addEventListener('change', function(){ sel.city = citiesEl.value; redraw(); });
   if(resetBtn) resetBtn.addEventListener('click', function(){
     if(!data) return;
     sel = { stream: '', career: '', own: '', state: '', city: '' };

@@ -126,7 +126,6 @@ function page(F, rows, sid, city, entry) {
     '@context': 'https://schema.org', '@type': 'ItemList', name: `${F.phrase} in ${place}`, numberOfItems: rows.length,
     itemListElement: pre.slice(0, 100).map((r, i) => ({ '@type': 'ListItem', position: i + 1, item: { '@type': /college/i.test(r.type) ? 'CollegeOrUniversity' : 'EducationalOrganization', name: r.name, url: r.url, address: { '@type': 'PostalAddress', addressLocality: r.city, addressRegion: r.region || stateName[r.state], addressCountry: 'IN' } } })),
   };
-  const hasMode = rows.some((r) => r.mode);
   const hasBranch = rows.some((r) => r.branches);
   const sel = (name, label) => `<label class="lf-field"><span>${label}</span><select name="${name}"><option value="">All</option></select></label>`;
   const statesJson = esc(JSON.stringify(Object.fromEntries(states.map((s) => [s.id, s.name]))));
@@ -169,9 +168,9 @@ function page(F, rows, sid, city, entry) {
     `        <label class="lf-field lf-q"><span>Search</span><input type="search" name="q" placeholder="Name, city or area" autocomplete="off">${SEARCH_SVG}</label>`,
     ...(sid ? [] : [sel('state', 'State')]),
     ...(city ? [] : [sel('city', 'City')]),
-    sel('type', 'Type'), sel('own', 'Ownership'),
+    // learn-finder.js hides any box that can't narrow the list (one choice, or Ownership that only repeats Type)
+    sel('type', 'Show'), sel('own', 'Run by'),
     ...(hasBranch ? [sel('branch', 'Branch')] : []),
-    ...(hasMode ? [sel('mode', 'Mode')] : []),
     '        <button type="reset" class="lf-reset">Clear</button>',
     '      </form>',
     `      <p class="lf-count" data-lf-count aria-live="polite">${sid ? `Showing all ${fmt(rows.length)}` : `Showing ${fmt(pre.length)} of ${fmt(rows.length)}`} verified places</p>`,

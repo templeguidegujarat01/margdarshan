@@ -202,6 +202,7 @@ for (const f of targets) {
     if (pathPart) {
       const clean = pathPart.split('?')[0];
       target = clean.startsWith('/') ? clean.slice(1) : path.posix.normalize(path.posix.join(dir, clean));
+      if (target === '.' || target.startsWith('./')) target = target.slice(2);
       if (target === '' || target.endsWith('/')) target += 'index.html';
       if (!urlSet.has(target) && !urlSet.has(target + '.html')) { err(f, 'broken link: ' + h); continue; }
       const tf = urlSet.has(target) ? target : target + '.html';

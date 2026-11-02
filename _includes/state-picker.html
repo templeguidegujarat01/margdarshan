@@ -20,13 +20,13 @@
       <ul class="sc-picker-list" role="list">
         {%- for s in site.data.state_exams.states %}
         {%- if site.data.in.states[s.id] %}
-        <li><a class="sc-opt is-live" href="state/{{ s.id }}/index.html"><span>{{ s.name }}</span></a></li>
+        <li><a class="sc-opt is-live" href="state/{{ s.id }}/"><span>{{ s.name }}</span></a></li>
         {%- endif %}
         {%- endfor %}
         {%- for pair in site.data.in.states %}
         {%- assign known = site.data.state_exams.states | where: "id", pair[0] | size %}
         {%- if known == 0 %}
-        <li><a class="sc-opt is-live" href="state/{{ pair[0] }}/index.html"><span>{{ pair[1].state.name }}</span></a></li>
+        <li><a class="sc-opt is-live" href="state/{{ pair[0] }}/"><span>{{ pair[1].state.name }}</span></a></li>
         {%- endif %}
         {%- endfor %}
         {%- for s in site.data.state_exams.states %}

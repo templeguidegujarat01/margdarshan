@@ -173,6 +173,8 @@ for (const f of targets) {
       noindex: /noindex/i.test(robots),
     });
   }
+  // the layout's root prefix inside a JS-built link ('<a href="' + url) turns external URLs into site 404s
+  for (const m of html.matchAll(/(?:href|src)="(?:\.\.\/)+'/g)) err(f, `root prefix inside a JS string: ${m[0]} (write href=\\" in the script)`);
   html = html.replace(/<script[\s\S]*?<\/script>/g, '');
   // Every marked-up question and answer must be printed on the page in the same words.
   if (faqItems.length) {

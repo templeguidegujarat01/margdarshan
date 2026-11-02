@@ -177,7 +177,8 @@ document.addEventListener('DOMContentLoaded', function(){
     list.innerHTML = rows.slice(0, shown).map(function(r){
       var lvls = Object.keys(LV).filter(function(k){ return r[7][k]; }).map(function(k){ return '<span>' + LV[k] + ' ' + r[7][k].toLocaleString('en-US') + '</span>'; }).join('');
       var progs = multi ? '<small>' + Object.keys(r[8]).map(function(c){ return esc(data.labels[c] || c) + ' ' + r[8][c]; }).join(' · ') + '</small>' : '';
-      var web = r[6] ? '<a href="' + esc(/^https?:/.test(r[6]) ? r[6] : 'https://' + r[6]) + '" rel="noopener">Website</a>' : '';
+      // href=\" (escaped) so the layout's root prefix (../) does not turn this external URL into a site path
+      var web = r[6] ? '<a href=\"' + esc(/^https?:/.test(r[6]) ? r[6] : 'https://' + r[6]) + '" rel="noopener">Website</a>' : '';
       return '<li><div><strong>' + esc(r[1]) + '</strong><small>' + esc(r[2]) + ', ' + esc(r[3]) + ' · ' + esc(LVL[r[4]] || '') + ' · ' + esc(CTL[r[5]] || '') + '</small>' + progs + '<div class="md-chips">' + lvls + '</div></div><div class="md-college-links"><a href="https://nces.ed.gov/collegenavigator/?id=' + r[0] + '">College Navigator</a>' + web + '</div></li>';
     }).join('');
     more.hidden = rows.length <= shown;

@@ -112,6 +112,9 @@
   /* management-type filter: ownership value -> filter key */
   var OWN = [['govt', 'Government'], ['private', 'Private / Deemed'], ['aided', 'Grant-in-Aid']];
   var OWN_SHORT = { govt: 'government', private: 'private / deemed', aided: 'grant-in-aid' };
+  /* the state / city the visitor picked, kept for this tab so a reload, Back or a tab the phone reloads doesn't
+     ask for them again (2026-11-02); restored only for the same course / exam */
+  var KEEP = 'ex-pick-' + type;
   function ownKey(c){ var o = String(c.ownership || '').toLowerCase(); return o === 'government' ? 'govt' : o === 'grant-in-aid' ? 'aided' : (o === 'private' || o === 'deemed') ? 'private' : ''; }
   var PIN = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>';
   var EXT = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>';
@@ -314,6 +317,7 @@
     if(sel.own) p.set('type', sel.own);
     var qs = p.toString();
     history.replaceState(null, '', window.location.pathname + (qs ? '?' + qs : '') + window.location.hash);
+    try { sessionStorage.setItem(KEEP, JSON.stringify({ career: sel.career, state: sel.state, city: sel.city })); } catch(e){}
   }
   /* a state / city with no listings is cleared; a college type the picked place doesn't have falls back to All */
   function settle(){
@@ -351,9 +355,10 @@
       sel.career = career;
       sel.stream = streamForCareer(career, q.get('stream'));
       if(ownSel && OWN.some(function(o){ return o[0] === q.get('type'); })) sel.own = q.get('type');
+      try { var kept = JSON.parse(sessionStorage.getItem(KEEP) || 'null'); if(kept && kept.career === career){ sel.state = kept.state || ''; sel.city = kept.city || ''; } } catch(e){}
       /* arrived for one course / exam: the next thing to do is pick the state */
-      setTimeout(function(){ if(!stateSel.disabled){ stateSel.closest('.ex-step').scrollIntoView({ block: 'center' }); stateSel.focus({ preventScroll: true }); } }, 0);
-      /* state and city are never taken from the URL: the visitor always picks them, so no cards show before that */
+      if(!sel.state) setTimeout(function(){ if(!stateSel.disabled){ stateSel.closest('.ex-step').scrollIntoView({ block: 'center' }); stateSel.focus({ preventScroll: true }); } }, 0);
+      /* state and city are never taken from the URL: the visitor picks them (or picked them earlier in this tab) */
     } else if(streamById(q.get('stream'))){
       sel.stream = q.get('stream');
     }

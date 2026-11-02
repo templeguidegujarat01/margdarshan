@@ -137,7 +137,12 @@
       var step = (el('state') && el('state').value) || fixState ? list.length : api.PAGE;
       grid.insertAdjacentHTML('beforeend', list.slice(shown, shown + step).map(function (r) { return card(r, states); }).join(''));
       shown = Math.min(list.length, shown + step);
-      if (count) count.textContent = list.length ? 'Showing ' + fmt(shown) + ' of ' + fmt(list.length) + ' verified ' + (list.length === 1 ? 'place' : 'places') : 'No verified place matches these filters yet. Clear a filter to see more.';
+      // "Showing 43 of 43" after a search hid the real total: say how many of the page's places match
+      var noun = ' verified ' + (list.length === 1 ? 'place' : 'places'), part = list.length < all.length;
+      if (count) count.textContent = !list.length ? 'No verified place matches these filters yet. Clear a filter to see more.'
+        : shown < list.length ? 'Showing ' + fmt(shown) + ' of ' + fmt(list.length) + (part ? ' matching' : '') + noun
+        : part ? fmt(list.length) + ' of ' + fmt(all.length) + ' verified places match'
+        : 'Showing all ' + fmt(list.length) + noun;
       if (more) more.hidden = shown >= list.length;
     }
     fetch(link.href).then(function (r) { return r.json(); }).then(function (rows) {

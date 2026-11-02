@@ -137,10 +137,17 @@ inhe URL Inspection se "Request indexing" kar sakte ho. Poori list: `docs/gsc-re
 **Learn finders:** football aur baaki subjects (`docs/learn-finder/BATCH-PROMPT.md`, `LOG.md`). Abhi sirf MBBS,
 Engineering, CA, Cricket live.
 
+**Final audit (3 Nov 2026):** 3,584 pages render clean (`verify-site --all`), saare data checkers OK. Browser mein
+desktop + phone, light + dark: koi JS error, broken file ya sideways scroll nahi; text contrast WCAG AA pass; menu,
+search, finders, quiz, comparison, journey picker keyboard aur touch se chalte hain. Is run mein fix hua: phone pe
+finder ka State box aadha tha, India home pe "Comm erce" toot raha tha, Quick take label halka tha, learn page count
+"43 of 43" dikhata tha, learn pages ka source wala vaada sach ke hisaab se likha, mobile browser bar ka rang theme se
+milta hai, chhote tap targets bade kiye, README.
+
 **Gaps / P2-P3 (30 Oct audit):**
-- ~400 internal links ab bhi purane redirect stubs (`colleges-btech.html`, `coaching-jee.html` …) pe jaate hain. Kaam
-  karte hain (redirect), par seedha `colleges.html?course=…` pe bhejna better hai. Dhyan: career sheets ke `hero.hub`
-  mein ye naam "finder keys" hain — unhe mat badalna, sirf visible links.
+- 3 Nov 2026: `_data` ke 67 `url: "colleges-…html"` links seedhe `colleges.html?stream=…&course=…` pe kar diye. Baaki
+  ~60 links `coaching_href` / `colleges_href` / `hub:` / journey `page:` se aate hain — ye "finder keys" hain, unhe mat
+  badalna (redirect se kaam karte hain).
 - `learn/engineering/<state>.html` pages 0.6-1.2 MB ke hain (har college ka card). Pagination ya city-split.
 - 73 learn city pages india.html se 4 click door hain.
 - `main.css` mein ~120 hard-coded colours; dheere dheere tokens pe laana.

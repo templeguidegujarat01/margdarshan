@@ -19,6 +19,7 @@ const OUT = path.join(root, '_data', 'asset_version.yml');
 export const INPUTS = [
   'assets/css/main.css',
   'assets/js/site.js',
+  'assets/js/learn-finder.js',
   'assets/menu-in.html',
   '_includes/in-header-hubs.html',
   '_data/nav.yml',

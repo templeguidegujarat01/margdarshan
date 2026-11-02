@@ -148,7 +148,7 @@ function page(F, rows, sid, city, entry) {
     '    <div class="container page-hero-inner">',
     `      <span class="eyebrow">Where to learn · ${esc(where)}</span>`,
     `      <h1 id="lf-heading">${esc(F.phrase)} in ${esc(place)}</h1>`,
-    `      <p>${sid ? `${plural(rows.length, 'verified place', 'verified places')} in ${esc(place)}: ${esc(andList(typeLine))}.` : esc(F.lead)} Every listing comes from an official register or the institute's own site, checked ${esc(F.checked)}. The order is not a ranking.</p>`,
+    `      <p>${sid ? `${plural(rows.length, 'verified place', 'verified places')} in ${esc(place)}: ${esc(andList(typeLine))}.` : esc(F.lead)} Every listing links to where we checked it (an official register, the institute's own site or, for local places, a public listing page). Registers read ${esc(F.checked)}. The order is not a ranking.</p>`,
     '      <dl class="sl-console">',
     `        <div><dt>Verified places</dt><dd>${fmt(rows.length)}</dd></div>`,
     ...F.types.map((k) => `        <div><dt>${esc(k)}</dt><dd>${fmt(t[k] || 0)}</dd></div>`),
@@ -187,7 +187,7 @@ function page(F, rows, sid, city, entry) {
     ...(cityList.length ? [`      <h3 class="sl-h3">${esc(F.short)} by city in ${esc(sName)}</h3>`, '      <ul class="sl-links">', ...cityList.map(([cs, c]) => `        <li><a href="learn/${F.id}/${sid}/${cs}.html">${esc(c.name)} <span>${fmt(c.n)}</span></a></li>`), '      </ul>'] : []),
     ...(!sid ? [`      <h3 class="sl-h3">${esc(F.short)} by state</h3>`, '      <ul class="sl-links">', ...stateList.map(([s, e]) => `        <li><a href="learn/${F.id}/${s}.html">${esc(e.name)} <span>${fmt(e.n)}</span></a></li>`), '      </ul>'] : []),
     ...(sid ? [`      <h3 class="sl-h3">${esc(F.short)} in other states</h3>`, '      <ul class="sl-links">', ...stateList.map(([s, e]) => `        <li><a href="learn/${F.id}/${s}.html">${esc(e.name)} <span>${fmt(e.n)}</span></a></li>`), '      </ul>'] : []),
-    `      <p class="sl-note">How this list is built: every place comes from an official register or the institute's own website, and local places carry a Source link to the public page we checked; nothing is ranked. State pages exist with ${STATE_MIN}+ places and city pages with ${CITY_MIN}+. Spotted a mistake? <a href="contact.html">Tell us</a>.</p>`,
+    `      <p class="sl-note">How this list is built: places come from official registers and institutes' own websites; local places found on public listing pages carry a Source link to the page we checked. Nothing is ranked. State pages exist with ${STATE_MIN}+ places and city pages with ${CITY_MIN}+. Spotted a mistake? <a href="contact.html">Tell us</a>.</p>`,
     '    </div>',
     '  </section>',
     '  <section class="block mb sc-block" id="sources" aria-labelledby="sources-heading">',
@@ -204,7 +204,7 @@ function page(F, rows, sid, city, entry) {
     '    </div>',
     '  </section>',
     '</main>',
-    '<script src="assets/js/learn-finder.js" defer></script>',
+    '<script src="assets/js/learn-finder.js?v={{ site.data.asset_version.v }}" defer></script>',
     '',
   ];
   return lines.join('\n');

@@ -83,7 +83,7 @@
 <meta name="description" content="{{ page.description }}">
 <link rel="canonical" href="{{ page_url }}">
 <meta name="robots" content="{{ page.robots | default: "index, follow" }}">
-<meta name="theme-color" content="#0F2A3D">
+<meta name="theme-color" content="#FFFFFF" data-theme-color>
 {% include favicon.html %}
 
 <meta property="og:type" content="{{ page.og_type | default: "article" }}">
@@ -117,7 +117,7 @@
   d.classList.add('fold'); /* sent with the site.js build that adds Show/Hide buttons: lets main.css fold sections (Phase 15) */
   try {
     var t = localStorage.getItem('md-theme');
-    if(t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) d.setAttribute('data-theme','dark');
+    if(t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)){ d.setAttribute('data-theme','dark'); var m = document.querySelector('meta[data-theme-color]'); if(m) m.content = '#0F2A3D'; }
     if(localStorage.getItem('md-sidebar') === 'collapsed' && window.matchMedia('(min-width:1024px)').matches) d.setAttribute('data-sidebar','collapsed');
   } catch(e){}
 })();

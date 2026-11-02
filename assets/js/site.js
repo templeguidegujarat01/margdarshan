@@ -167,6 +167,8 @@ try {
   /* ---------- Theme ---------- */
   var themeToggle = document.getElementById('themeToggle');
   function applyTheme(theme){
+    /* phone browser bar matches the header: white in light mode, navy in dark */
+    var tc = document.querySelector('meta[data-theme-color]'); if(tc) tc.content = theme === 'dark' ? '#0F2A3D' : '#FFFFFF';
     if(!themeToggle) return;
     if(theme === 'dark'){ root.setAttribute('data-theme','dark'); themeToggle.setAttribute('aria-pressed','true'); }
     else { root.removeAttribute('data-theme'); themeToggle.setAttribute('aria-pressed','false'); }

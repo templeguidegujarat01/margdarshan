@@ -1,5 +1,5 @@
-// Regenerates every raster brand asset from the E+M gradient mark (same drawing as
-// _includes/logo-mark.html and assets/img/favicon.svg):
+// Regenerates every raster brand asset from the EM path-to-success mark in assets/img/favicon.svg (same
+// drawing as _includes/logo-mark.html):
 //   assets/img/favicon-48.png, favicon-192.png, favicon-512.png, apple-touch-icon.png,
 //   favicon.ico (16 + 32 + 48, PNG-in-ICO), assets/img/og-global.png, og-in.png, og-us.png (1200x630).
 // Renders with a local Edge/Chrome through playwright-core (no image libraries needed):
@@ -16,18 +16,16 @@ const req = createRequire(path.join(process.env.BRAND_DEPS || root, 'x.js'));
 const { chromium } = req('playwright-core');
 const img = (f) => path.join(root, 'assets/img', f);
 
-const INK = '#0F2A3D';
-const GRAD = 'linear-gradient(135deg,#00A3FF 0%,#00E5A3 100%)';
-// E+M monogram: gradient strokes on an ink tile. One mark per render, so a fixed gradient id is fine.
-const GLYPH = '<g stroke="url(#g)" stroke-width="2.6" stroke-miterlimit="2"><path d="M11.5 24H5.5V8H15L20.75 17L26.5 8"/><path d="M15 8V24M26.5 6.7V24M5.5 16H10.5"/></g>';
-const DEFS = '<defs><linearGradient id="g" x1="4" y1="6" x2="28" y2="26" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#00A3FF"/><stop offset="1" stop-color="#00E5A3"/></linearGradient></defs>';
-// rounded = transparent corners + faint gradient ring (browser tab icons, OG cards);
-// square = full-bleed ink (apple-touch-icon; iOS applies its own mask)
-const tile = (rounded) => rounded
-  ? `<rect x=".5" y=".5" width="31" height="31" rx="7.5" fill="${INK}" stroke="url(#g)" stroke-opacity=".55"/>`
-  : `<rect width="32" height="32" fill="${INK}"/>`;
-const mark = (px, rounded = true) =>
-  `<svg width="${px}" height="${px}" viewBox="0 0 32 32" fill="none" style="display:block">${DEFS}${tile(rounded)}${GLYPH}</svg>`;
+const INK = '#0A1631';
+const GRAD = 'linear-gradient(135deg,#1E88FF 0%,#2EF0A8 100%)';
+// The mark is assets/img/favicon.svg (same drawing as _includes/logo-mark.html). One mark per render, so its
+// fixed gradient ids are fine. rounded = its own rounded navy tile with transparent corners (browser tab
+// icons, OG cards); square = full-bleed navy (apple-touch-icon; iOS applies its own mask).
+const SVG = fs.readFileSync(img('favicon.svg'), 'utf8').trim();
+const mark = (px, rounded = true) => {
+  const svg = SVG.replace('<svg ', `<svg width="${px}" height="${px}" style="display:block" `);
+  return rounded ? svg : svg.replace('rx="28"', 'rx="0"');
+};
 
 const EDITIONS = [
   { file: 'og-global.png', badge: 'India · USA · UK', title: 'Choose your path with clarity, not confusion.', sub: 'Mapped globally, centered locally. Free career guidance in three country editions.', domain: 'emargdarshan.com' },
@@ -44,13 +42,14 @@ svg.wave{position:absolute;left:0;top:0}
 .wrap{position:absolute;left:84px;top:72px;right:84px}
 .brand{display:flex;align-items:center;gap:22px}
 .name{font-family:Fraunces,serif;font-weight:700;font-size:50px;color:#fff;letter-spacing:-.5px;line-height:1}
+.acc{background:${GRAD};-webkit-background-clip:text;background-clip:text;color:transparent}
 .pill{margin-left:12px;padding:10px 20px 7px;border-radius:999px;border:2px solid rgba(0,229,163,.75);color:#00E5A3;font-weight:600;font-size:22px;line-height:1}
 h1{margin-top:66px;font-family:Fraunces,serif;font-weight:700;font-size:64px;line-height:1.08;color:#fff;max-width:960px}
 p{margin-top:26px;font-size:28px;color:#A9C4CF}
 .domain{position:absolute;left:84px;bottom:82px;font-weight:600;font-size:26px;background:${GRAD};-webkit-background-clip:text;background-clip:text;color:transparent}
 </style></head><body><div class="glow"></div>
 <svg class="wave" width="1200" height="630"><defs><linearGradient id="w" x1="0" x2="1"><stop offset="0" stop-color="#00A3FF" stop-opacity=".15"/><stop offset="1" stop-color="#00E5A3" stop-opacity=".7"/></linearGradient></defs><path d="M0 522C220 505 380 530 560 470S900 405 1080 460 1180 430 1200 410" fill="none" stroke="url(#w)" stroke-width="3"/></svg>
-<div class="wrap"><div class="brand">${mark(76)}<span class="name">Education Margdarshan</span><span class="pill">${e.badge}</span></div>
+<div class="wrap"><div class="brand">${mark(76)}<span class="name">Education Margdar<span class="acc">shan</span></span><span class="pill">${e.badge}</span></div>
 <h1>${e.title}</h1><p>${e.sub}</p></div><div class="domain">${e.domain}</div></body></html>`;
 
 const ico = (pngs) => {

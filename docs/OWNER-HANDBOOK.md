@@ -153,4 +153,4 @@ milta hai, chhote tap targets bade kiye, README.
 - `main.css` mein ~120 hard-coded colours; dheere dheere tokens pe laana.
 - 22 thin state index pages (`colleges/<state>/`, `coaching/<state>/`) — lists hain, 404 se bachne ke liye rakhe.
 - Menu descriptions mein "2027 notice out / date out" jaisi lines — next cycle pe update.
-- Company pages (team/editorial/help) USA/UK footer mein bhi hain, par USA/UK pages pe byline box abhi nahi.
+- 3 Nov 2026: USA/UK pages pe bhi byline box ("By Margdarshan Editorial Desk") aa gaya (edition home pages chhod ke).

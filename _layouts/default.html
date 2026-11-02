@@ -24,7 +24,7 @@
                                 footer (careers, hubs, states, exams, sports, roadmaps); on USA careers / cluster hubs /
                                 state pages and UK careers a block between the content and the footer; never on
                                 region-neutral pages.
-    author_box: false           India pages: omit the byline box (_includes/author-box.html) after the content
+    author_box: false           India/USA/UK pages: omit the byline box (_includes/author-box.html) after the content
     progress_full: true         render the scroll progress bar pre-filled (404)
     back_to_top: false          omit the back-to-top button
     (India edition)             every page with region "in" that is not region-neutral gets body.shell-in:
@@ -158,7 +158,8 @@
 
 {{ content }}
 
-{%- if india_shell and page.author_box != false and page.url != "/india.html" %}{% include author-box.html %}{% endif %}
+{%- assign ab_home = false -%}{%- if page.url == "/india.html" or page.url == "/us/" or page.url == "/us/index.html" or page.url == "/uk/" or page.url == "/uk/index.html" %}{%- assign ab_home = true -%}{%- endif %}
+{%- if india_shell or us_shell or uk_shell %}{% if page.author_box != false and ab_home == false %}{% include author-box.html %}{% endif %}{% endif %}
 
 {% include context-deck.html place="deck" %}
 

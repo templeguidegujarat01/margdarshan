@@ -1828,6 +1828,25 @@ main :is(.prose, .page-hero-inner > p, .note, .table-note, .career-compare-note,
 .ex .fx-num{border-radius:0;}
 .fx-count a{color:var(--link);text-decoration:underline;}
 
+/* Compact finder (2026-11-02): short hero, slim stream pills and one row of selects, so the controls fit in
+   about half a screen and the list starts right below them. */
+.page-hero.ex-hero{padding:1.5rem 0 1.6rem;}
+.page-hero.ex-hero h1{font-size:clamp(1.5rem,3.4vw,2.1rem);margin-top:.4rem;}
+.page-hero.ex-hero p{margin-top:.4rem;font-size:.95rem;}
+:is(main,.page-nav-content) > section.mb.ex-block{padding-top:1rem;}
+:is(main,.page-nav-content) > section.mb .ex .ex-controls,.ex .ex-controls{gap:.8rem 1rem;margin-bottom:1rem;}
+@media (min-width:768px){
+  .ex .ex-controls{display:flex;flex-wrap:wrap;}
+  .ex .ex-step{flex:1 1 190px;min-width:0;}
+  .ex .ex-step:first-child{flex-basis:100%;}
+}
+.ex .ex-tiles{display:flex;flex-wrap:wrap;gap:.5rem;}
+.ex .ex-tile,:is(main,.page-nav-content) > section.mb .ex .ex-tile{min-height:40px;padding:.45rem .9rem;font-size:.9rem;}
+.ex .ex-tile[aria-pressed="true"],:is(main,.page-nav-content) > section.mb .ex .ex-tile[aria-pressed="true"]{padding:calc(.45rem - 1px) calc(1rem - 1px);box-shadow:0 0 0 3px rgba(0,163,255,.16);}
+.ex .fx-select{min-height:44px;padding:.5rem 2.6rem .5rem .9rem;background-position:right .9rem center;font-size:.95rem;}
+.ex .fx-label{margin-bottom:.35rem;font-size:.72rem;}
+.ex .fx-count{margin-bottom:.8rem;}
+
 /* ---------- Career comparison tool (career-comparison.html) ---------- */
 .cmp-title{font-size:clamp(1.6rem,3.6vw,2.2rem);margin:0 0 1.2rem;}
 .cmp-picker{display:grid;gap:.8rem;padding:1.1rem 1.2rem;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);}

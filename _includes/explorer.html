@@ -9,22 +9,22 @@
   Data:    assets/explorer-colleges.json | assets/explorer-coaching.json  (built from _data/*.yml, fetched on load)
   Deep links:  ?career=<key or alias> (or ?exam= on coaching, ?course= on colleges)[&stream=][&type=govt|private|aided]
                e.g. colleges.html?career=computer-science, coaching.html?stream=science&exam=jee-main.
-               Cards stay hidden until a state is chosen (2026-11-01: a state shows its whole list, a city pill
-               then narrows it, and a second tap on the pill clears it); ?state= / ?city= in the URL are ignored.
+               Cards stay hidden until a state is chosen (2026-11-01: a state shows its whole list, the City box
+               then narrows it); ?state= / ?city= in the URL are ignored.
                A deep link with a course / exam lands on the State box (focused and scrolled to).
                Trail params ?from=&via=&exam= are read by _includes/scripts.html (breadcrumb) and preserved here.
   Management type (colleges only): a filter on `ownership` in _data/colleges.yml —
                Government -> govt, Private + Deemed -> private, Grant-in-Aid -> aided.
   The page URL is kept in sync (history.replaceState) so a filtered view can be shared.
   Per-course pages (colleges-<course>.html, coaching-<exam>.html) stay as the crawlable, server-rendered finders.
-  One list per subject (2026-11-01): a course / exam that a "where to learn" finder owns (_data/learn_index.yml
-  `routes`: CA, NEET, JEE, MBBS, B.Tech …) is not drawn here. Picking it (or arriving with ?exam= / ?course= for it)
-  opens learn/<finder>.html?pick=state, which has every row the old list had plus the state fills, with the
-  State box ready (data-ex-moved).
+  One list per subject (2026-11-02): a course / exam that a "where to learn" finder owns (_data/learn_index.yml
+  `routes`: CA, NEET, JEE, MBBS, B.Tech …) is drawn here from that finder's own feed
+  (assets/data/learn/<finder>.json, fetched when the key is picked), so this finder shows the same rows as the
+  state pages. Picking anything here never leaves the page (data-ex-learn = { key: { src, type, n } }).
 {%- endcomment -%}
 {%- assign ex_type = include.type -%}
-{%- capture ex_moved -%}{ {%- for pair in site.data.learn_index.routes[ex_type] -%}{%- assign r = pair[1] -%}"{{ pair[0] }}":"learn/{{ r.finder }}.html?{% if r.q != "" %}{{ r.q }}&{% endif %}pick=state"{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%} }{%- endcapture -%}
-<div class="ex" id="explorer" data-ex data-ex-type="{{ ex_type }}" data-ex-src="assets/explorer-{{ ex_type }}.json" data-ex-moved="{{ ex_moved | escape }}">
+{%- capture ex_learn -%}{ {%- for pair in site.data.learn_index.routes[ex_type] -%}{%- assign r = pair[1] -%}{%- assign n = 0 -%}{%- for st in site.data.learn_index.finders[r.finder].states -%}{%- if r.type == "" -%}{%- assign v = st[1]["n"] -%}{%- else -%}{%- assign v = st[1].types[r.type] | default: 0 -%}{%- endif -%}{%- assign n = n | plus: v -%}{%- endfor -%}"{{ pair[0] }}":{"src":"assets/data/learn/{{ r.finder }}.json","type":"{{ r.type }}","n":{{ n }}}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%} }{%- endcapture -%}
+<div class="ex" id="explorer" data-ex data-ex-type="{{ ex_type }}" data-ex-src="assets/explorer-{{ ex_type }}.json" data-ex-learn="{{ ex_learn | escape }}">
   <div class="ex-controls">
     <div class="ex-step">
       <p class="fx-label" id="ex-stream-label"><span class="fx-num" aria-hidden="true">1</span>Select your stream</p>
@@ -38,7 +38,7 @@
     </div>
     {%- if ex_type == "colleges" %}
     <div class="ex-step">
-      <label class="fx-label" for="ex-own"><span class="fx-num" aria-hidden="true">3</span><span aria-hidden="true">🏛️</span> Institutional management type</label>
+      <label class="fx-label" for="ex-own"><span class="fx-num" aria-hidden="true">3</span>Management type</label>
       <select class="fx-select" id="ex-own" data-ex-own disabled>
         <option value="">All Types</option>
       </select>
@@ -51,8 +51,8 @@
       </select>
     </div>
     <div class="ex-step" data-ex-city-step hidden>
-      <p class="fx-label" id="ex-city-label"><span class="fx-num" aria-hidden="true">{% if ex_type == "colleges" %}5{% else %}4{% endif %}</span>Pick a city</p>
-      <div class="fx-pills" role="group" aria-labelledby="ex-city-label" data-ex-cities></div>
+      <label class="fx-label" for="ex-city"><span class="fx-num" aria-hidden="true">{% if ex_type == "colleges" %}5{% else %}4{% endif %}</span>City (optional)</label>
+      <select class="fx-select" id="ex-city" data-ex-cities></select>
     </div>
   </div>
 
@@ -70,14 +70,22 @@
   var root = document.querySelector('[data-ex]');
   if(!root) return;
   var type = root.getAttribute('data-ex-type');
-  var moved = {};
-  try { moved = JSON.parse(root.getAttribute('data-ex-moved') || '{}'); } catch(e){}
-  /* A course / exam with its own where-to-learn finder: go there (replace = arrived by link, so Back skips this hop). */
-  function goMoved(key, replace){
-    if(!key || !moved[key]) return false;
-    countEl.textContent = 'Opening the full ' + careerLabel(key) + ' list…';
-    if(replace) window.location.replace(moved[key]); else window.location.href = moved[key];
-    return true;
+  /* Courses / exams whose rows live in a where-to-learn feed: { key: { src, type, n } }; learnRows[key] once loaded. */
+  var learn = {}, learnRows = {};
+  try { learn = JSON.parse(root.getAttribute('data-ex-learn') || '{}'); } catch(e){}
+  function needsLoad(key){ return !!(key && learn[key] && !learnRows[key]); }
+  function loadLearn(key, then){
+    countEl.textContent = 'Loading the ' + careerLabel(key) + ' list…';
+    fetch(learn[key].src, { credentials: 'same-origin' })
+      .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function(rows){
+        var t = learn[key].type;
+        learnRows[key] = rows.filter(function(r){ return !t || r.type === t; })
+          .sort(function(a, b){ return a.name.localeCompare(b.name); })
+          .map(function(r){ var o = {}; for(var k in r) o[k] = r[k]; o._lf = true; return o; });
+        then();
+      })
+      .catch(function(){ countEl.textContent = 'Could not load the ' + careerLabel(key) + ' list. Please refresh.'; });
   }
   var cfg = JSON.parse(document.getElementById('ex-config').textContent);
   var streamsEl = root.querySelector('[data-ex-streams]');
@@ -108,7 +116,8 @@
 
   function itemsFor(career, anyOwn){
     var field = type === 'colleges' ? 'courses' : 'exams';
-    var all = data.items.filter(function(c){ return c[field] && c[field].indexOf(career) > -1 && (anyOwn || !sel.own || ownKey(c) === sel.own); });
+    var src = learn[career] ? (learnRows[career] || []) : data.items;
+    var all = src.filter(function(c){ return (c._lf || (c[field] && c[field].indexOf(career) > -1)) && (anyOwn || !sel.own || ownKey(c) === sel.own); });
     var feat = all.filter(function(c){ return c.featured === true; });
     var rest = all.filter(function(c){ return c.featured !== true; });
     return feat.concat(rest);
@@ -143,7 +152,7 @@
     var html = '<option value="">' + ph + '</option>';
     if(st){
       html += st[type].map(function(k){
-        var n = itemsFor(k, true).length;
+        var n = needsLoad(k) ? learn[k].n : itemsFor(k, true).length;
         return '<option value="' + esc(k) + '"' + (k === sel.career ? ' selected' : '') + '>' + esc(careerLabel(k)) + ' (' + n + ')</option>';
       }).join('');
     }
@@ -177,11 +186,10 @@
     if(!items.length){ citiesEl.innerHTML = ''; return; }
     var seen = [], counts = {};
     items.forEach(function(c){ if(!counts[c.city]){ counts[c.city] = 0; seen.push(c.city); } counts[c.city]++; });
-    var html = '';
-    seen.forEach(function(city){
-      html += '<button type="button" class="fx-pill" data-city="' + esc(slug(city)) + '" aria-pressed="' + (sel.city === slug(city)) + '">' + esc(city) + ' <span class="fx-pill-count">' + counts[city] + '</span></button>';
-    });
-    citiesEl.innerHTML = html;
+    seen.sort(function(a, b){ return a.localeCompare(b); });
+    citiesEl.innerHTML = '<option value="">All cities (' + items.length + ')</option>' + seen.map(function(city){
+      return '<option value="' + esc(slug(city)) + '"' + (sel.city === slug(city) ? ' selected' : '') + '>' + esc(city) + ' (' + counts[city] + ')</option>';
+    }).join('');
   }
 
   function facts(rows){
@@ -237,10 +245,31 @@
       + '<div class="fx-actions">' + extLink('btn-exam-primary', c.url, 'Visit ' + String(c.url_label || 'official website').toLowerCase(), c.name) + more + '</div></article>';
   }
 
+  /* A row from a where-to-learn feed: same facts as learn/<finder>.html (assets/js/learn-finder.js card()). */
+  function learnCard(r){
+    function chipList(l){ return l && l.length ? chips(l) : ''; }
+    var tag = (r.ownership ? '<span class="cx-tag fx-own fx-own-' + esc(slug(r.ownership)) + '">' + esc(r.ownership) + '</span>' : '') + '<span class="fx-subtag">' + esc(r.type) + '</span>';
+    var actions = extLink('btn-exam-primary', r.url, r.url_label || 'Official website', r.name);
+    if(r.src_url) actions += extLink('btn-exam-secondary', r.src_url, 'Source', r.src_label || 'source');
+    if(r.body_url) actions += extLink('btn-exam-secondary', r.body_url, 'Counselling & fees', r.body || 'counselling body');
+    return '<article class="cx-college-card fx-card lf-card">' + cardTop(r, tag)
+      + '<h3>' + esc(r.name) + '</h3>' + (r.about ? '<p>' + esc(r.about) + '</p>' : '')
+      + facts([
+          ['Seats', r.seats ? esc(r.seats) + (r.as_of ? ' (' + esc(r.as_of) + ')' : '') : ''],
+          ['Admission', esc(r.admission)],
+          ['Batches', chipList(r.batches)],
+          ['Branches', chipList(r.branches)],
+          ['Offers', chipList(r.mode)],
+          ['Checked', esc(r.checked) + ' · ' + esc(r.src_label || (r.source === 'nmc' ? 'NMC list' : 'official site'))]
+        ])
+      + '<div class="fx-actions">' + actions + '</div></article>';
+  }
+  function cardFor(c){ return c._lf ? learnCard(c) : type === 'colleges' ? collegeCard(c) : coachingCard(c); }
+
   function drawResults(){
     if(!sel.career){
       resultsEl.innerHTML = '';
-      countEl.textContent = !sel.stream ? (type === 'colleges' ? 'Pick a stream, a course, then your state and city.' : 'Pick a stream, an exam, then your state and city.') : (type === 'colleges' ? 'Now choose a course.' : 'Now choose an entrance exam.');
+      countEl.textContent = !sel.stream ? (type === 'colleges' ? 'Pick a stream, a course, then your state.' : 'Pick a stream, an exam, then your state.') : (type === 'colleges' ? 'Now choose a course.' : 'Now choose an entrance exam.');
       return;
     }
     if(!sel.state){
@@ -255,8 +284,8 @@
       return c.state === sel.state && (!sel.city || slug(c.city) === sel.city);
     });
     var place = (sel.city && items[0] ? items[0].city + ', ' : '') + stateName(sel.state);
-    resultsEl.innerHTML = items.map(type === 'colleges' ? collegeCard : coachingCard).join('');
-    countEl.textContent = 'Showing ' + items.length + ' ' + (items.length === 1 ? one : many) + ' for ' + careerLabel(sel.career) + ' in ' + place + (sel.city ? '' : '. Pick a city to narrow the list.');
+    resultsEl.innerHTML = items.map(cardFor).join('');
+    countEl.textContent = 'Showing ' + items.length + ' ' + (items.length === 1 ? one : many) + ' for ' + careerLabel(sel.career) + ' in ' + place + (sel.city ? '' : '. Choose a city to narrow the list.');
   }
 
   function syncUrl(){
@@ -277,7 +306,9 @@
     if(sel.state && !(sel.career && itemsFor(sel.career).some(function(c){ return c.state === sel.state; }))){ sel.state = ''; sel.city = ''; }
     if(sel.city && !itemsFor(sel.career).some(function(c){ return c.state === sel.state && slug(c.city) === sel.city; })) sel.city = '';
   }
-  function redraw(){ settle(); drawStreams(); drawCareers(); drawOwn(); drawStates(); drawCities(); drawResults(); syncUrl(); }
+  function redraw(){
+    if(needsLoad(sel.career)){ var k = sel.career; drawStreams(); drawCareers(); stateSel.disabled = true; loadLearn(k, function(){ if(sel.career === k) redraw(); }); return; }
+    settle(); drawStreams(); drawCareers(); drawOwn(); drawStates(); drawCities(); drawResults(); syncUrl(); }
 
   streamsEl.addEventListener('click', function(e){
     var b = e.target.closest('[data-stream]'); if(!b || !data) return;
@@ -285,22 +316,17 @@
     redraw();
   });
   careerSel.addEventListener('change', function(){
-    if(goMoved(careerSel.value, false)) return;
     sel.career = careerSel.value; sel.state = ''; sel.city = '';
     redraw();
   });
   if(ownSel) ownSel.addEventListener('change', function(){ sel.own = ownSel.value; redraw(); });
   stateSel.addEventListener('change', function(){ sel.state = stateSel.value; sel.city = ''; redraw(); });
-  citiesEl.addEventListener('click', function(e){
-    var b = e.target.closest('[data-city]'); if(!b) return;
-    sel.city = sel.city === b.getAttribute('data-city') ? '' : b.getAttribute('data-city'); drawCities(); drawResults(); syncUrl();
-  });
+  citiesEl.addEventListener('change', function(){ sel.city = citiesEl.value; drawResults(); syncUrl(); });
 
   function start(){
     var q = new URLSearchParams(window.location.search);
     /* ?career= is the generic key; ?exam= (coaching) and ?course= (colleges) are the same thing under friendlier names */
     var career = resolveCareer(q.get('career')) || resolveCareer(q.get('exam')) || resolveCareer(q.get('course'));
-    if(goMoved(career, true)) return;
     if(career){
       sel.career = career;
       sel.stream = streamForCareer(career, q.get('stream'));

@@ -5,6 +5,8 @@
 # <loc> uses the same expression as the canonical tag in _layouts/default.html
 # (page.url | absolute_url), so sitemap and canonical URLs can never disagree
 # (e.g. the homepage is https://emargdarshan.com/, not /index.html).
+# <lastmod> = the page's "Last updated" date (_data/last_updated.yml, from git history of the page and
+# the data it is built from), so Google sees which pages really changed; pages without a date get none.
 layout: null
 sitemap: false
 ---
@@ -15,6 +17,7 @@ sitemap: false
 {%- if p.robots and p.robots contains "noindex" %}{% continue %}{% endif %}
 {%- assign p_name = p.url | split: "/" | last %}
 {%- if p_name and p_name contains "google" and p_name contains ".html" %}{% continue %}{% endif %}
-<url><loc>{{ p.url | absolute_url }}</loc></url>
+{%- assign p_lu = site.data.last_updated[p.path] %}
+<url><loc>{{ p.url | absolute_url }}</loc>{% if p_lu %}<lastmod>{{ p_lu }}</lastmod>{% endif %}</url>
 {%- endfor %}
 </urlset>

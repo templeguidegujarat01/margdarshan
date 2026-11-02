@@ -233,7 +233,9 @@ if (all) {
   const sm = await engine.parseAndRender(smSrc.slice(smSrc.match(fmRe)[0].length), { site: { ...site, html_pages: htmlPages }, page: {} });
   if (!sm.startsWith('<?xml version="1.0" encoding="UTF-8"?>')) err('sitemap.xml', 'does not start with the XML declaration');
   if (/&(?!amp;|lt;|gt;|quot;|apos;)/.test(sm)) err('sitemap.xml', 'unescaped & in a URL');
-  const locs = [...sm.matchAll(/<url><loc>([^<]*)<\/loc><\/url>/g)].map((x) => x[1]);
+  const locs = [...sm.matchAll(/<url><loc>([^<]*)<\/loc>(?:<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod>)?<\/url>/g)].map((x) => x[1]);
+  const lastmods = (sm.match(/<lastmod>/g) || []).length;
+  if (lastmods < locs.length * 0.9) err('sitemap.xml', `only ${lastmods} of ${locs.length} URLs have a <lastmod> (run node scripts/build-last-updated.mjs)`);
   if ((sm.match(/<url>/g) || []).length !== locs.length) err('sitemap.xml', 'malformed <url> entries');
   if (locs.length > 50000) err('sitemap.xml', `${locs.length} URLs (limit 50,000 per sitemap file)`);
   const byCanonical = new Map([...seo].map(([f, s]) => [s.canonical, f]));

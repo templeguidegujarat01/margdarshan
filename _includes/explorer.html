@@ -25,7 +25,11 @@
 {%- assign ex_type = include.type -%}
 {%- capture ex_learn -%}{ {%- for pair in site.data.learn_index.routes[ex_type] -%}{%- assign r = pair[1] -%}{%- assign n = 0 -%}{%- for st in site.data.learn_index.finders[r.finder].states -%}{%- if r.type == "" -%}{%- assign v = st[1]["n"] -%}{%- else -%}{%- assign v = st[1].types[r.type] | default: 0 -%}{%- endif -%}{%- assign n = n | plus: v -%}{%- endfor -%}"{{ pair[0] }}":{"src":"assets/data/learn/{{ r.finder }}.json","type":"{{ r.type }}","n":{{ n }}}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%} }{%- endcapture -%}
 <div class="ex" id="explorer" data-ex data-ex-type="{{ ex_type }}" data-ex-src="assets/explorer-{{ ex_type }}.json" data-ex-learn="{{ ex_learn | escape }}">
-  <div class="ex-controls">
+  <aside class="ex-controls" aria-label="Filters">
+    <div class="ex-panel-head">
+      <p class="ex-panel-title">Filters</p>
+      <button type="button" class="ex-reset" data-ex-reset hidden>Clear all</button>
+    </div>
     <div class="ex-step">
       <p class="fx-label" id="ex-stream-label"><span class="fx-num" aria-hidden="true">1</span>Select your stream</p>
       <div class="ex-tiles" role="group" aria-labelledby="ex-stream-label" data-ex-streams></div>
@@ -54,11 +58,13 @@
       <label class="fx-label" for="ex-city"><span class="fx-num" aria-hidden="true">{% if ex_type == "colleges" %}5{% else %}4{% endif %}</span>City (optional)</label>
       <select class="fx-select" id="ex-city" data-ex-cities></select>
     </div>
-  </div>
+  </aside>
 
-  <p class="fx-count" id="finder" data-ex-count aria-live="polite">Start by selecting your stream.</p>
-  <div class="cx-grid fx-results" data-ex-results></div>
-  <noscript><p class="fx-count">This finder needs JavaScript. You can still open any course or exam page from the sidebar.</p></noscript>
+  <div class="ex-main">
+    <p class="fx-count" id="finder" data-ex-count aria-live="polite">Start by selecting your stream.</p>
+    <div class="cx-grid fx-results" data-ex-results></div>
+    <noscript><p class="fx-count">This finder needs JavaScript. You can still open any course or exam page from the sidebar.</p></noscript>
+  </div>
 </div>
 
 <script type="application/json" id="ex-config">{ "streams": {{ site.data.explorer.streams | jsonify }}, "aliases": {{ site.data.explorer.aliases[ex_type] | jsonify }} }</script>
@@ -96,6 +102,7 @@
   var citiesEl = root.querySelector('[data-ex-cities]');
   var countEl = root.querySelector('[data-ex-count]');
   var resultsEl = root.querySelector('[data-ex-results]');
+  var resetBtn = root.querySelector('[data-ex-reset]');
   var one = type === 'colleges' ? 'college' : 'coaching centre';
   var many = type === 'colleges' ? 'colleges' : 'coaching centres';
   var data = null;
@@ -266,7 +273,13 @@
   }
   function cardFor(c){ return c._lf ? learnCard(c) : type === 'colleges' ? collegeCard(c) : coachingCard(c); }
 
+  /* is-empty: no cards yet, the results pane shows a guide box; Clear all appears once anything is picked */
   function drawResults(){
+    drawResultsInner();
+    root.classList.toggle('is-empty', !resultsEl.children.length);
+    if(resetBtn) resetBtn.hidden = !sel.stream;
+  }
+  function drawResultsInner(){
     if(!sel.career){
       resultsEl.innerHTML = '';
       countEl.textContent = !sel.stream ? (type === 'colleges' ? 'Pick a stream, a course, then your state.' : 'Pick a stream, an exam, then your state.') : (type === 'colleges' ? 'Now choose a course.' : 'Now choose an entrance exam.');
@@ -322,6 +335,11 @@
   if(ownSel) ownSel.addEventListener('change', function(){ sel.own = ownSel.value; redraw(); });
   stateSel.addEventListener('change', function(){ sel.state = stateSel.value; sel.city = ''; redraw(); });
   citiesEl.addEventListener('change', function(){ sel.city = citiesEl.value; drawResults(); syncUrl(); });
+  if(resetBtn) resetBtn.addEventListener('click', function(){
+    if(!data) return;
+    sel = { stream: '', career: '', own: '', state: '', city: '' };
+    redraw();
+  });
 
   function start(){
     var q = new URLSearchParams(window.location.search);

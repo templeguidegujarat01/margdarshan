@@ -1,10 +1,10 @@
-# Journey inbox report — 2026-11-05
+# Journey inbox report — 2026-11-06
 
 Written by scripts/journey-ingest.mjs (GitHub Action "Journey inbox"). Newest run only; every run is also one line per upload in docs/free-claude/JOURNEY-LOG.md.
 
-## journey--graphic-designer.zip
+## journey--civil-judge.zip
 
-**Rejected — nothing from this file was published.** these source links do not exist (domain not found or page 404) — ask the chat for the real official links:
-  - mesc-q0601: https://mescindia.org/pdfnos/nos/approved-nos/MES_Q0601_v3.0_Eng.pdf
-
-The file is in inbox/rejected/2026-11-05--journey--graphic-designer.zip. Give this reason and the file to a Claude chat, ask it to fix only that, and upload the fixed file.
+**Published:** journey-civil-judge.html — "Civil Judge", 6 stages, 22 doubts, 6 sources.
+Links that blocked our robot (kept, open them once yourself):
+  - advocates-act: https://indiacode.nic.in/bitstream/123456789/1631/4/A1961-25.pdf
+  - ncrwc-ajs: https://legalaffairs.gov.in/sites/default/files/(XIII)All%20India%20Judicial%20Service.pdf

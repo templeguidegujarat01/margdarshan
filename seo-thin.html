@@ -1,0 +1,20 @@
+{%- comment -%}
+  Sets seo_thin = true when the URL given as `u` matches a rule in _data/seo_thin.yml.
+  Used by _layouts/default.html (robots meta) and sitemap.xml, so they can never disagree.
+  Usage: {% include seo-thin.html u=page.url %}   then read {{ seo_thin }}
+{%- endcomment -%}
+{%- assign seo_thin = false -%}
+{%- assign seo_parts = include.u | split: "/" | size | minus: 1 -%}
+{%- for r in site.data.seo_thin.rules -%}
+  {%- assign seo_plen = r.prefix | size -%}
+  {%- assign seo_head = include.u | slice: 0, seo_plen -%}
+  {%- if seo_head == r.prefix and seo_parts >= r.min_segments -%}
+    {%- assign seo_skip = false -%}
+    {%- if r.except -%}
+      {%- assign seo_elen = r.except | size -%}
+      {%- assign seo_ehead = include.u | slice: 0, seo_elen -%}
+      {%- if seo_ehead == r.except -%}{%- assign seo_skip = true -%}{%- endif -%}
+    {%- endif -%}
+    {%- unless seo_skip -%}{%- assign seo_thin = true -%}{%- endunless -%}
+  {%- endif -%}
+{%- endfor -%}

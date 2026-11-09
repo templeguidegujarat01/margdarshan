@@ -1,0 +1,25 @@
+# Thin / templated pages that Google keeps leaving out of its index
+# ("Crawled - currently not indexed" and "Discovered - currently not indexed").
+#
+# Every page matched here gets  <meta name="robots" content="noindex, follow">
+# (see _layouts/default.html) and is left out of sitemap.xml (see sitemap.xml).
+# The pages stay live for visitors and keep passing links; Google just stops
+# spending crawl budget on them while the domain is new.
+#
+# To bring a group back later: delete its rule (or raise min_segments) and commit.
+# A page can still force itself with `robots: "index, follow"` in its own front matter.
+#
+# prefix        URL must start with this
+# min_segments  number of path parts (folders + file) the URL must have at least
+#               /us/colleges/california/vallejo/  = 4      /colleges/gujarat/ahmedabad/mba.html = 4
+# except        optional: URLs starting with this are NOT matched
+rules:
+  # US city + field pages (us/colleges/<state>/<city>/, us/colleges/fields/<field>/) - biggest group, off-topic for an India-first site
+  - prefix: "/us/colleges/"
+    min_segments: 4
+  # College lists per city x course (colleges/<state>/<city>/<course>.html)
+  - prefix: "/colleges/"
+    min_segments: 4
+  # Coaching lists per city x course (coaching/<state>/<city>/<course>.html)
+  - prefix: "/coaching/"
+    min_segments: 4

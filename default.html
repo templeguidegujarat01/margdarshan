@@ -1,0 +1,198 @@
+{%- comment -%}
+  Site-wide page shell. Every page gets this layout via `defaults` in _config.yml.
+  A page provides only front matter + its own content (optional JSON-LD, then <main>…</main>).
+
+  Front matter keys (all optional unless marked):
+    title, description          required — <title> and meta description
+    og_title, og_description    social preview text; default to title / description
+    twitter_title, twitter_description   default to the og_* values
+    no_twitter: true            omit the twitter:* tags
+    og_type                     default "article" (hub pages use "website")
+    og_image, og_image_alt      optional 1200x630 social image; default per edition (regions.yml)
+    robots                      default "index, follow"
+    stream                      body data-stream palette: science | commerce | arts | diploma | iti | govt-exams
+    header:                     passed to _includes/sidebar.html
+      careers_href, careers_label, faq_href, faq_label   "This page" links
+      active_stream             highlights the sidebar item whose `key` matches
+    breadcrumb:                 shown below the top bar (below the top menu on India/USA pages), above the page content (omit on the homepage -> "Home")
+      parent_href, parent_label, current; optional grand_href, grand_label (a level above parent)
+    footer:                     passed to _includes/footer.html
+      col3_heading              heading of the optional third column
+      col3_links                list of { href, label } for that column
+      careers_href, careers_label, faq_href   "Guidance" column links
+    (context deck)              _includes/context-deck.html: on India pages a "Related to this page" column inside the
+                                footer (careers, hubs, states, exams, sports, roadmaps); on USA careers / cluster hubs /
+                                state pages and UK careers a block between the content and the footer; never on
+                                region-neutral pages.
+    author_box: false           India/USA/UK pages: omit the byline box (_includes/author-box.html) after the content
+    progress_full: true         render the scroll progress bar pre-filled (404)
+    back_to_top: false          omit the back-to-top button
+    (India edition)             every page with region "in" that is not region-neutral gets body.shell-in:
+                                NO sidebar, full-width content, and the top menu row ABOVE the breadcrumb (2026-10-29): the menu is
+                                sticky under the fixed top bar, the breadcrumb scrolls away with the page
+                                (_includes/in-header-hubs.html). The old `header_hubs` key is no longer read.
+    (USA edition)               same for region "us" (2026-10-23): body.shell-in shell-us, no sidebar, and the
+                                same top menu drawn from _data/nav_us.yml topnav (include edition="us").
+    (UK edition, neutral pages) 2026-10-31: UK pages get body.shell-in shell-uk + the menu from _data/nav_uk.yml topnav;
+                                region-neutral pages (about, help, legal, 404) get body.shell-in shell-nt + one menu per
+                                edition, and main.css shows the visitor's saved edition. No page has the sidebar now.
+    shell: gateway              global home only (index.html): no sidebar and no breadcrumb bar; the top
+                                bar is _includes/header-gateway.html (inline search + study-destination
+                                menu). Every other page keeps the full app shell.
+  App shell: a full-width fixed .topbar (toggle, logo + name, inline search nav-search.html, theme)
+  + .sidebar (fixed left rail / mobile drawer, starts below the bar) + .app-main with
+  the page content and the footer.
+{%- endcomment -%}
+{%- assign og_title = page.og_title | default: page.title -%}
+{%- assign og_description = page.og_description | default: page.description -%}
+{%- assign page_url = page.url | absolute_url -%}
+{%- comment -%}
+  Folder depth = number of "/" in the URL minus one, so it works for any nesting:
+    /index.html -> 0 (root "")   /study-abroad/usa.html -> 1 ("../")
+    /us/ -> 1 ("../")            /us/careers/data-science/ -> 3 ("../../../")
+  Pages below the top level get root = "../" per level so the shell's relative links, CSS and
+  scripts resolve. Top-level pages keep root = "" and are untouched. (The "x" stops Liquid's
+  split from dropping a trailing empty segment on pretty URLs that end in "/".)
+{%- endcomment -%}
+{%- assign root = "" -%}
+{%- assign depth = page.url | append: "x" | split: "/" | size | minus: 2 -%}
+{%- for i in (1..depth) %}{%- assign root = root | append: "../" -%}{%- endfor -%}
+{%- comment -%}
+  404.html is served by GitHub Pages at whatever missing URL was requested (e.g. /us/careers/typo/),
+  so relative links would resolve against that folder. Give it site-absolute links instead.
+{%- endcomment -%}
+{%- if page.url == "/404.html" %}{%- assign root = site.baseurl | append: "/" -%}{%- endif -%}
+{%- comment -%}
+  Country edition (see _data/regions.yml). region_id comes from front matter (pages under us/ get
+  region: us via _config.yml defaults), else the default edition. R = that edition's settings.
+  Region-neutral pages (legal, contact, 404) render every edition's nav and let the saved
+  edition pick one before first paint. Includes read region_id / R / region_neutral directly.
+{%- endcomment -%}
+{%- assign region_id = page.region | default: site.data.regions.default -%}
+{%- assign R = site.data.regions[region_id] -%}
+{%- assign region_neutral = false -%}
+{%- assign page_path = page.url | remove_first: "/" -%}
+{%- if site.data.regions.neutral_pages contains page_path %}{%- assign region_neutral = true -%}{%- endif -%}
+<!DOCTYPE html>
+<html lang="{{ R.lang | default: site.lang }}" data-region="{{ region_id }}"{% if region_neutral %} data-region-neutral{% endif %}>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{% include analytics.html %}
+<title>{{ page.title }}</title>
+<meta name="description" content="{{ page.description }}">
+<link rel="canonical" href="{{ page_url }}">
+{%- include seo-thin.html u=page.url -%}
+{%- assign robots_value = page.robots -%}
+{%- if robots_value == nil or robots_value == "" -%}{%- if seo_thin -%}{%- assign robots_value = "noindex, follow" -%}{%- else -%}{%- assign robots_value = "index, follow" -%}{%- endif -%}{%- endif %}
+<meta name="robots" content="{{ robots_value }}">
+<meta name="theme-color" content="#FFFFFF" data-theme-color>
+{% include favicon.html %}
+
+<meta property="og:type" content="{{ page.og_type | default: "article" }}">
+<meta property="og:site_name" content="{{ site.title }}">
+<meta property="og:title" content="{{ og_title }}">
+<meta property="og:description" content="{{ og_description }}">
+<meta property="og:url" content="{{ page_url }}">
+<meta property="og:locale" content="{{ R.locale | default: site.locale }}">
+{%- assign og_image = page.og_image | default: R.og_image -%}
+{%- if og_image %}
+<meta property="og:image" content="{{ og_image | absolute_url }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{{ page.og_image_alt | default: R.og_image_alt }}">
+{%- endif %}
+{%- unless page.no_twitter %}
+<meta name="twitter:card" content="{% if og_image %}summary_large_image{% else %}summary{% endif %}">
+<meta name="twitter:title" content="{{ page.twitter_title | default: og_title }}">
+<meta name="twitter:description" content="{{ page.twitter_description | default: og_description }}">
+{%- endunless %}
+
+<!-- System font stack only (main.css tokens): no web font requests, text paints once in its final font. -->
+{%- comment -%} ?v= = content hash of the CSS/JS and the data written into them (_data/asset_version.yml, scripts/build-asset-version.mjs), so a deploy that does not change them keeps the browser's cached copy. {%- endcomment -%}
+{%- assign asset_v = site.data.asset_version.v -%}{%- unless asset_v -%}{%- assign asset_v = site.time | date: '%s' -%}{%- endunless %}
+<link rel="stylesheet" href="{{ root }}assets/css/main.css?v={{ asset_v }}">
+<script>
+/* Apply saved theme and sidebar state before first paint (no flash, no layout shift). */
+(function(){
+  var d = document.documentElement;
+  d.classList.add('js'); /* scroll-reveal hides content only when JS is running (see .js .reveal in main.css) */
+  d.classList.add('fold'); /* sent with the site.js build that adds Show/Hide buttons: lets main.css fold sections (Phase 15) */
+  try {
+    var t = localStorage.getItem('md-theme');
+    if(t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)){ d.setAttribute('data-theme','dark'); var m = document.querySelector('meta[data-theme-color]'); if(m) m.content = '#0F2A3D'; }
+    if(localStorage.getItem('md-sidebar') === 'collapsed' && window.matchMedia('(min-width:1024px)').matches) d.setAttribute('data-sidebar','collapsed');
+  } catch(e){}
+})();
+</script>
+{%- if region_neutral %}
+<script>
+/* Region-neutral page: show the visitor's saved edition (nav, switcher) before first paint. */
+(function(){
+  try {
+    var r = localStorage.getItem('{{ site.data.regions.storage_key }}');
+    if({{ site.data.regions.list | jsonify }}.indexOf(r) !== -1) document.documentElement.setAttribute('data-region', r);
+  } catch(e){}
+})();
+</script>
+{%- endif %}
+</head>
+{%- assign gateway = false -%}{%- if page.shell == "gateway" %}{%- assign gateway = true -%}{%- endif %}
+{%- assign india_shell = false -%}{%- if region_id == "in" and region_neutral == false and gateway == false %}{%- assign india_shell = true -%}{%- endif %}
+{%- assign us_shell = false -%}{%- if region_id == "us" and region_neutral == false and gateway == false %}{%- assign us_shell = true -%}{%- endif %}
+{%- assign uk_shell = false -%}{%- if region_id == "uk" and region_neutral == false and gateway == false %}{%- assign uk_shell = true -%}{%- endif %}
+<body{% if page.stream %} data-stream="{{ page.stream }}"{% endif %}{% if gateway %} class="shell-gw"{% elsif india_shell %} class="shell-in"{% elsif us_shell %} class="shell-in shell-us"{% elsif uk_shell %} class="shell-in shell-uk"{% else %} class="shell-in shell-nt"{% endif %}>
+<a href="#main" class="skip-link">Skip to main content</a>
+<div class="progress-bar" id="progressBar"{% if page.progress_full %} style="width:100%;"{% endif %}></div>
+
+{%- capture shell -%}
+{%- if gateway %}
+<div class="app-main">
+{% include header-gateway.html %}
+{%- else %}
+{%- comment -%} No page draws the sidebar (_includes/sidebar.html) any more (2026-10-31): every page has the top menu. {%- endcomment %}
+
+<div class="app-main">
+{% include header.html %}
+{%- if india_shell %}{% include in-header-hubs.html %}{% elsif us_shell %}{% include in-header-hubs.html edition="us" %}{% elsif uk_shell %}{% include in-header-hubs.html edition="uk" %}{% else %}{% for nav_rid in site.data.regions.list %}{% include in-header-hubs.html edition=nav_rid rnav=nav_rid %}{% endfor %}{% endif %}
+
+<div class="crumb-bar"><div class="container">{% include breadcrumb.html grand_href=page.breadcrumb.grand_href grand_label=page.breadcrumb.grand_label parent_href=page.breadcrumb.parent_href parent_label=page.breadcrumb.parent_label current=page.breadcrumb.current %}{% include last-updated.html %}</div></div>
+{%- endif %}
+
+{{ content }}
+
+{%- assign ab_home = false -%}{%- if page.url == "/india.html" or page.url == "/us/" or page.url == "/us/index.html" or page.url == "/uk/" or page.url == "/uk/index.html" %}{%- assign ab_home = true -%}{%- endif %}
+{%- if india_shell or us_shell or uk_shell %}{% if page.author_box != false and ab_home == false %}{% include author-box.html %}{% endif %}{% endif %}
+
+{% include context-deck.html place="deck" %}
+
+{% capture col3_content %}{% for link in page.footer.col3_links %}
+<li><a href="{{ link.href }}">{{ link.label }}</a></li>{% endfor %}
+{% endcapture -%}
+{% include footer.html col3_heading=page.footer.col3_heading col3_content=col3_content guidance_careers_href=page.footer.careers_href guidance_careers_label=page.footer.careers_label guidance_faq_href=page.footer.faq_href %}
+</div>
+
+{%- endcapture -%}
+{%- if root != "" -%}
+  {%- comment -%} Prefix every relative href/src with root, then undo it for #anchors, absolute and mailto/tel links. {%- endcomment -%}
+  {%- assign hr = 'href="' | append: root -%}
+  {%- assign sr = 'src="' | append: root -%}
+  {%- assign shell = shell | replace: 'href="', hr | replace: 'src="', sr -%}
+  {%- assign keeps = "#,http,mailto:,tel:,/" | split: "," -%}
+  {%- for keep in keeps -%}
+    {%- assign bad_h = hr | append: keep -%}{%- assign good_h = 'href="' | append: keep -%}
+    {%- assign bad_s = sr | append: keep -%}{%- assign good_s = 'src="' | append: keep -%}
+    {%- assign shell = shell | replace: bad_h, good_h | replace: bad_s, good_s -%}
+  {%- endfor -%}
+{%- endif -%}
+{{ shell }}
+
+{% unless page.back_to_top == false -%}
+<button type="button" class="back-to-top" id="backToTop" aria-label="Back to top">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+{%- endunless %}
+
+{% include scripts.html %}
+</body>
+</html>

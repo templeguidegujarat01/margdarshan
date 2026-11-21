@@ -82,7 +82,10 @@
 <title>{{ page.title }}</title>
 <meta name="description" content="{{ page.description }}">
 <link rel="canonical" href="{{ page_url }}">
-<meta name="robots" content="{{ page.robots | default: "index, follow" }}">
+{%- include seo-thin.html u=page.url -%}
+{%- assign robots_value = page.robots -%}
+{%- if robots_value == nil or robots_value == "" -%}{%- if seo_thin -%}{%- assign robots_value = "noindex, follow" -%}{%- else -%}{%- assign robots_value = "index, follow" -%}{%- endif -%}{%- endif %}
+<meta name="robots" content="{{ robots_value }}">
 <meta name="theme-color" content="#FFFFFF" data-theme-color>
 {% include favicon.html %}
 
